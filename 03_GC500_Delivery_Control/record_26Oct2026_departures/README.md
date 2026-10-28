@@ -400,3 +400,7 @@ Spec `left_site_spec_38_wc60_cleaning.json`. Andrew: "can we make our ticks matc
 ## Run 39 - GN25 and two T0001 VMS boards left site, 28 Oct 2026 08:30 (APPLIED)
 
 Andrew, 28 Oct 2026: "1244536 1211383 1211370 these 3 left site at 9:30AM", then "sorry left at 8:30AM". GN25 (1244536, 20 kVA) left in full; T0001 boards 1211370 and 1211383 left, six boards still on site. Spec `left_site_spec_39_gn25_t0001.json`; dry run passed, applied and VERIFIED: record 11641 -> 11643, 2 documents (delivery/GN25, delivery/T0001), other documents unchanged. Charge unchanged $1,025,473.88. Report `report_20261027T225745Z.json`.
+
+## Run 40 - 14 Event Portables toilets left 10:00 and GN23 (150 kVA) left 09:45, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "0116 0692 0123 0426 0699 0622 0679 0293 0280 0070 0279 0592 0432 / Leaving 10am", "0714 is another same time", "150kva left 945am". WC69 7 (2 still to leave), WC71 4 (left in full), WC67 0714 (1 still to leave), WC68 0426 and WC72 0699 (each left in full) at 10:00; GN23 1297157 left in full at 09:45. 0426, 0699 and 0714 sit on the newer unit records (unit925). Spec `left_site_spec_40_wc69_wc71.json`; dry run passed after the page showed WC71 and GN23 leave in full; applied and VERIFIED: record 11643 -> 11649, 6 documents, others unchanged. Charge unchanged $1,025,473.88. Report `report_20261028T000452Z.json`.
