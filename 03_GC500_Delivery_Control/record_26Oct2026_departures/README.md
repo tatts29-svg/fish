@@ -408,3 +408,7 @@ Andrew, 28 Oct 2026: "0116 0692 0123 0426 0699 0622 0679 0293 0280 0070 0279 059
 ## Run 41 - WC69 last two (0958, 0152) left 10:00, 28 Oct 2026 (APPLIED)
 
 Andrew, 28 Oct 2026: "And 0958 and 0152" - with the 10:00 load; WC69 left in full. Spec `left_site_spec_41_wc69_last.json`; dry run passed, applied and VERIFIED. Report `report_20261028T001206Z.json`.
+
+## Run 42 - SVP01 0939, WC73 0192, T0176 0576, PG03 0100 left 09:45, 28 Oct 2026 (APPLIED)
+
+Andrew, 28 Oct 2026: "0939 0192 0576 0100 left 945am". Each location left in full. Spec `left_site_spec_42_four_fwf.json`; dry run passed, applied and VERIFIED. Report `report_20261028T005920Z.json`.
