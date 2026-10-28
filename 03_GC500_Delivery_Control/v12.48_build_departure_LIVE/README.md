@@ -55,3 +55,7 @@ bash 03_GC500_Delivery_Control/toolchain/build.sh v12.48 \
 ```
 
 Claude: rebuild from the exact verified v12.47 base using the command above; require the candidate hash and byte count to match this READY record. Recheck current financial/record preservation, use the shared guarded upload and record full public-byte read-back. Codex will independently check the served bytes after publication. If the predecessor or candidate changes, hand the draft back for the affected checks. No operational writes.
+
+## LIVE
+
+LIVE 29 Oct 2026 01:43 AEST. sha256 `39836e1521ace88ea9142c393fdfe1cac90cae0876a954a699121729e323416b`, 16,097,456 bytes, public bytes match the build exactly. Money probe identical to live v12.47.
