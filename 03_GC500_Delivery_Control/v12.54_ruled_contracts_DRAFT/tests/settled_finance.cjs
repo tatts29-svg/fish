@@ -1,0 +1,26 @@
+/* Author: Andrew Fisher. Customer zero must never rewrite supplier evidence. */
+'use strict';
+const assert=require('node:assert/strict');
+const api=require('../settled_finance1254.js');
+const key='service|Sewer Connect Units Clean & Restock';
+const freeze=value=>{if(value&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};
+let checks=0;const check=(name,fn)=>{fn();checks++;console.log('PASS '+name);};
+const target={key,card_line:'Sewer Connect Units Clean & Restock',qty:3,rate:11.25,amount:33.75,per_night1040:11.25,their_amount:18,their_rate:6,supplier_qty1068:3,units1040:1,description:'Old customer amount'};
+const other={key:'service|other',qty:2,rate:7,amount:14,their_amount:9};
+const supplier={known:27,parts:[{qty:3,amount:18},{qty:2,amount:9}]};
+const model=freeze({lines:[other,target],card_lines:[other,target],total:47.75,card_total:47.75,their_total:27,supplier1068:supplier,at_cost:[],per1040:[{ref:'synthetic'}]});
+const actual=api.project(model);
+check('customer totals remove only approved line',()=>assert.deepEqual([actual.total,actual.card_total],[14,14]));
+check('sewer customer amount and rate are zero',()=>assert.deepEqual([actual.lines[1].amount,actual.lines[1].rate,actual.lines[1].per_night1040],[0,0,0]));
+check('physical and supplier fields survive',()=>{for(const field of ['qty','their_amount','their_rate','supplier_qty1068','units1040'])assert.deepEqual(actual.lines[1][field],target[field]);});
+check('supplier model and other line untouched',()=>{assert.equal(actual.supplier1068,supplier);assert.equal(actual.lines[0],other);assert.equal(actual.their_total,27);});
+check('both customer lists agree',()=>assert.deepEqual(actual.lines[1],actual.card_lines[1]));
+check('original price and amount retained as source evidence',()=>assert.deepEqual([actual.lines[1].source_rate1254,actual.lines[1].source_amount1254],[11.25,33.75]));
+check('old charged description is replaced',()=>assert.match(actual.lines[1].description,/no customer charge/));
+check('frozen original unchanged',()=>assert.equal(model.lines[1].amount,33.75));
+check('repeat projection retains original evidence',()=>assert.deepEqual(api.project(actual),actual));
+check('unrelated or missing models pass through',()=>{assert.equal(api.project(null),null);const x={lines:[other]};assert.equal(api.project(x),x);});
+const row={rental_contract:'9968955',line:143,branch_code:'KINP',quantity:3,price:11.25};
+check('exact approved source line gets explicit decision',()=>assert.equal(api.treatment(freeze(row)).kind,'approved_zero'));
+check('other identities and supplier rows remain unmodified',()=>{for(const r of [null,{...row,line:142},{...row,rental_contract:'different'},{...row,branch_code:'NVAC'},{...row,subhired:true}])assert.equal(api.treatment(r),null);});
+console.log(checks+' customer zero preservation checks PASS');

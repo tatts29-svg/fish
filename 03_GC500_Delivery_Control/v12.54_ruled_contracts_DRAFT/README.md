@@ -1,31 +1,48 @@
-# Ruled-contract calculation reconciliation — v12.54
+# Bounded ruled-contract corrections — v12.54
 
 Author: Andrew Fisher
 
-Status: DRAFT, source adapter tested; no application patch or import yet. Not READY or live.
+DRAFT CHECKED. Source and native financial gates pass; phone and full navigation checks are running. Not READY or live. The final READY entry on STATUS.md must name the frozen source commit and exact candidate.
 
-Scope follows PR1 handovers6481063732 and6481171078 on exact verified live50.1 predecessor `69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2`. The five currently ruled contracts are the bounded source scope. Recognise their approved Price-only charges and reconcile existing per-piece and aggregate coverage before applying ledger/branch differences. Preserve every unruled contract, all operational records, current styling and unrelated calculations.
+This smaller release follows the scoped movements in PR1 handovers6481196253 and6481372848. It applies seven named existing source cells, four unmatched source-only additions, the approved sewer-cleaning customer zero, and the release footer. The source cleaning Price/Quantity stay intact; the customer decision is explicit. Zero-rated laser/stillage source lines stop appearing unpriced. PG29 is already charged and is not added again.
 
-## Completed preparation
+The new source rows do not allocate physical units or infer bookings, arrivals, departures or completion. Existing unruled source rows, records, styling, physical quantities, supplier costs and branch cost allocation are preserved. Installation, Cleaning and per-piece fire projections remain exactly as the predecessor carries them. Installation/per-piece coverage, event labour and fire removal are the separate55 draft; later contract rulings are queued there or a later bounded release. This is not a complete Baseplan9 import.
 
-`source_adapter.py` reads a private export only with its complete expected SHA256, an explicit approved-contract map and the checked source schema. It preserves explicit zero, blank values, fractional quantities and numeric item types. A scoped refresh preserves all unruled rows and site matches; additions require reviewed unmatched templates. Removals and effective rate overrides reject for separate review. The old full importer must not be run on a contract subset.
+## Exact build
 
-The adapter deliberately stops at rental source rows. It does not change contract summaries, plant copies, financial readers or the live page. Those consumers need explicit reconciliation before integration. No source price is inferred from a missing rate.
+- Predecessor50.1 SHA256: `69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2`,16,099,841 bytes.
+- Candidate54 SHA256: `378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c`,16,105,875 bytes.
+- Shared live-base build reproduces the tested candidate exactly. The patch rejects a different predecessor or duplicate application.
 
-Fifteen synthetic tests pass for schema/fingerprint/scope, duplicates, numeric precision, source immutability, overrides, explicit additions and preservation. The parser also reads the previously supplied original export successfully; this checks the reader against an existing real schema and does not establish a review of the missing new export.
-
-Run the source tests from the repository root:
+From the repository root:
 
 ```bash
-python -m unittest discover -s 03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/tests -v
+GC500_V1254_BASE_SHA256=69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2 \
+bash 03_GC500_Delivery_Control/toolchain/build.sh v12.54 \
+  03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/patch_v1254.py
 ```
 
-Read-only native route capture on exact live50.1 completed without runtime/console errors or record writes. Its detailed evidence stays private. Standalone unknown flags must be reconciled with existing aggregate/per-piece routes before any whole-source charge is added; a numerical match alone does not establish charge coverage.
+`source_movements.py` is the bounded production source patch. `finance_patch.py` and `settled_finance1254.js` apply one customer-zero projection to contract and servicing readers. The earlier `source_adapter.py` is preparatory only and is not called by this release.
 
-## Remaining dependency and release gates
+## Validation
 
-The private Baseplan9 original and its complete fingerprint are still unavailable here. The shared comparison lacks fields required for a full import. Its authorised private location has been requested through PR1; no private original or source rows should be posted publicly.
+- 26 Python source, adapter and exact-boundary tests pass, including private exact-predecessor tests. The full-source adapter accounts for15 of these and is not release-import acceptance.
+- 12 customer-zero preservation checks pass.
+- 217 inline scripts parse; no new keys or edit key; original style blocks are exact.
+- 1,055 native checks pass on identical pinned state11847 and time: independent expected ledger/branch movements, complete source boundaries, Finance/monthly ties, original supplier/Direct costs, record documents and physical projections.
+- Shared live-base rebuild equals the tested candidate. Fresh22:03UTC record is byte-identical to the pinned snapshot.
+- Phone and both standard full navigation sweeps remain pending in this checkpoint.
 
-Next: review that original, reconcile the scoped source changes with all existing effective overrides and charge coverage, implement one shared financial path, and prove net ledger/branch movements and unrelated-output preservation. Run the applicable native, phone and full release checks on the final candidate before READY. No exact net movement, completed import, or release is claimed by this draft.
+```bash
+SOURCE_PAGE=/private/exact50.1.html BASE=/private/exact50.1.html \
+python -m unittest discover -s 03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/tests -p 'test_*.py' -v
+node 03_GC500_Delivery_Control/v12.54_ruled_contracts_DRAFT/tests/settled_finance.cjs
+```
 
-Codex implements, tests and independently verifies. Claude publishes only a READY candidate through the guarded release process and retains operational record work. Previews51/52/53 keep their separate visual/access gates.
+`tests/native_contracts.cjs` requires explicit `BASE`, `CANDIDATE`, `CANDIDATE_SHA`, private `STATE`, private `EXPECTED`, and private `OUT`. EXPECTED must be independently reviewed, pin both page hashes and the record hash, and list source edits/additions, line results and ledger/branch deltas. `CAPTURE_ONLY=1` records diagnostics without acceptance. Keep originals, snapshots, expected monetary manifests, native outputs and screenshots private. Run browser tests serially under `/tmp/gc500-browser.lock`.
+
+## Publication handover
+
+Codex implements/tests and independently verifies; Claude publishes the frozen READY source through the shared guarded uploader and owns operational writes. Rebuild exact bytes, check the current record against the tested one, rerun affected native checks if documents changed, and confirm the same-record financial movements without duplicating existing charges. Upload only after STATUS.md says READY TO UPLOAD. The uploader must refuse a changed live predecessor and read the complete public candidate back byte for byte. A later independent public read-back is required before reporting independent verification.
+
+Previews51/52/53 retain their separate visual/access gates. This release does not certify every contract or resolve the separate record-provenance review.
