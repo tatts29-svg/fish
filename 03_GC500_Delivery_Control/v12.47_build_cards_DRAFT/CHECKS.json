@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT_CHECKED_AWAITING_VERIFIED_LIVE_PREDECESSOR",
+  "status": "READY_TO_UPLOAD",
   "base_version": "12.46",
   "base_sha256": "4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1",
   "candidate_sha256": "1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff",
@@ -41,9 +41,23 @@
     }
   },
   "remaining": [
-    "Independent exact live46 verification",
-    "Shared live-base rebuild matches candidate",
-    "Claude guarded upload and exact public read-back"
+    "Claude exact rebuild and unchanged-money probe",
+    "Claude guarded upload and exact public read-back",
+    "Independent live verification after publication"
   ],
-  "private_evidence": "Kept outside the repository; no operational fixtures or financial figures included"
+  "private_evidence": "Kept outside the repository; no operational fixtures or financial figures included",
+  "implementation_tests_source": "c4cb487626b5283e878803a348c44e3ff4c7ccb5",
+  "live_predecessor": {
+    "independently_verified": true,
+    "verified_at_utc": "2026-10-28T13:21:09Z",
+    "sha256": "4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1",
+    "bytes": 16070111,
+    "record_matches_tested_snapshot": true
+  },
+  "shared_build": {
+    "at_utc": "2026-10-28T13:22:15Z",
+    "exact_tested_candidate": true,
+    "inline_scripts": 215,
+    "checks_passed": true
+  }
 }
