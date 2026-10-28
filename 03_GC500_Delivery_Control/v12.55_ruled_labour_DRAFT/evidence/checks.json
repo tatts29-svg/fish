@@ -1,36 +1,31 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT CHECKED; not READY or live; scope clarification remains open",
-  "implementationTestsSource": "146c65cc50467a44e2c566221bbaf18088b272a1",
+  "status": "DRAFT CHECKED; final navigation rerun in progress; scope confirmation pending",
   "baseSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
-  "candidateSha256": "d5a6a13ba1b1e3c16964995227e1a90036a106aeddc850366f46494e07f71b1c",
-  "bytes": 16132021,
+  "candidateSha256": "5c3d92999b92852c23992fbd48b156717d5b00da7422a589690421e9366d8fe1",
+  "bytes": 16133042,
   "pythonTests": 21,
   "financialHelperTests": "PASS",
   "inlineScripts": 217,
-  "nativeAcceptanceChecks": 4715,
+  "nativeAcceptanceChecks": 6343,
   "independentPreservation": "PASS",
-  "actualPhoneReadback": "PASS; screenshots inspected",
+  "actualPhoneReadback": "PASS; full treatment text/geometry and screenshots inspected",
   "desktopSweep": {
-    "routes": 27,
-    "deepLinks": 7,
-    "back": "PASS",
-    "existingAliasesPreserved": true
+    "status": "running"
   },
   "phoneSweep": {
-    "routes": 27,
-    "deepLinks": 7,
-    "back": "PASS",
-    "existingAliasesPreserved": true
+    "status": "pending"
   },
   "runtimeErrors": 0,
   "consoleErrors": 0,
   "operationalWrites": 0,
   "remaining": [
-    "Resolve existing scope clarification before freeze",
-    "Verify actual live predecessor and reproduce exact shared build",
+    "Complete revised-candidate navigation sweeps",
+    "Resolve existing proposed-scope confirmation before freeze",
     "Final READY handover and guarded publication",
     "Independent public-byte read-back"
   ],
-  "privateEvidence": "Detailed records, monetary outputs and screenshots retained privately"
+  "privateEvidence": "Detailed records, monetary outputs and screenshots retained privately",
+  "sharedBuildExact": true,
+  "baseIndependentlyVerified": true
 }

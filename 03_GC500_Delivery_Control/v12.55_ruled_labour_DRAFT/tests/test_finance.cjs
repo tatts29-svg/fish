@@ -34,6 +34,29 @@ assert.equal(F.coverageText([],'WC09','Pee Panel',assignments),'');
 assert.equal(F.itemSummary('$1.00','WC09','Pee Panel',assignments),'$1.00 item subtotal · Installation charged on contract');
 assert.equal(F.itemSummary('$1.00','AA','Building 6m',assignments),'$1.00','uncovered item summary stays exact');
 assert.equal(F.workLabel(covered.lines[0]),'Included in contract Installation');assert.equal(F.workLabel(info.lines[1]),null);
+const ownAssignments={...assignments,OWN:{rental_contract:'9968929'}};
+const ownInfo={...info,lines:[...info.lines,{key:'steps',rate:12,money:'rate',ticked:false},{key:'levelling',rate:8,money:'rate',ticked:true},{key:'demob',rate:100,money:'rate',ticked:false},{key:'other',rate:7,money:'rate',ticked:true}]};
+const ownOriginal=structuredClone(ownInfo),ownProjected=F.projectLabour(ownInfo,'OWN','Building 4.8m',ownAssignments);
+assert.equal(F.ownUse('OWN',ownAssignments),'9968929');assert.equal(F.ownUse('AA',ownAssignments),null);
+assert.equal(F.coverage('OWN','Building 4.8m',ownAssignments),null,'own use is not an Installation source bundle');
+for(let i=0;i<5;i++){
+ const before=ownInfo.lines[i],after=ownProjected.lines[i];assert.equal(after.rate,0);assert.equal(after.sourceRate1255,before.rate);
+ assert.equal(after.ticked,before.ticked);assert.equal(after.covered1255,undefined,'own use must not invent contract Installation coverage');
+ assert.deepEqual(after.ownUse1255,{contract:'9968929',category:'Coates own use',outcome:'no customer charge'});
+ assert.equal(F.workLabel(after),'Coates own use; no customer charge');
+}
+assert.equal(ownProjected.lines[5],ownInfo.lines[5],'unrelated line is untouched');
+assert.deepEqual(ownInfo,ownOriginal,'own-use projection cannot mutate physical records');
+assert.deepEqual(F.projectLabour(ownProjected,'OWN','Building 4.8m',ownAssignments),ownProjected,'own-use projection is idempotent');
+assert.deepEqual(F.coveredChargeDisplay({...displayLine,key:'cleaning'},'OWN','Building 4.8m',ownAssignments),{rate:'Coates own use',charge:'No customer charge'});
+assert.match(F.coverageText([displayLine],'OWN','Building 4.8m',ownAssignments),/^Coates own use on contract 9968929; no customer charge\./);
+assert.doesNotMatch(F.coverageText([displayLine],'OWN','Building 4.8m',ownAssignments),/included|Installation/);
+assert.equal(F.itemSummary('$0.00','OWN','Building 4.8m',ownAssignments),'$0.00 · Coates own use; no customer charge');
+assert.equal(F.coveredChargeDisplay({...displayLine,value:null},'OWN','Building 4.8m',ownAssignments),null,'unknown values are not concealed by presentation');
+const ownSlot=F.allocationSlot({ref:'OWN',item:'Building 4.8m',key:'install',qty:2,rate:0,value:0,state:'charged'},ownProjected.lines[0]);
+assert.equal(F.allocationValue(ownSlot),200);assert.deepEqual(ownSlot.ownUse1255,ownProjected.lines[0].ownUse1255);assert.equal(ownSlot.value,0);
+const ownNativeSlot=F.onsiteAllocationSlot({state:'charged',value:0},{...ownProjected.lines[0],qty:2,forecastQty:3});
+assert.equal(F.allocationValue(ownNativeSlot),200);assert.deepEqual(ownNativeSlot.ownUse1255,ownProjected.lines[0].ownUse1255);
 const fire={n:2,rate:50,amount:100,host:{item:'Building'},last:{by:'operator',at:'time'}};const fp=F.projectFire(fire);
 assert.equal(fp.n,2);assert.equal(fp.host,fire.host);assert.equal(fp.last,fire.last);assert.equal(fp.amount,0);assert.equal(fire.amount,100);
 const scope={key:'pm',hours:30.44,rate:150.11,amount:4569.34,amount_exact:4569.34,days:[{hours:4,amount:600.44}]};const sp=F.projectScopeLine(scope);
@@ -88,4 +111,4 @@ const slots=[['charged',1],['expected',2],['expected',1]].map(([state,qty],i)=>F
 F.shareAllocation(slots);assert.deepEqual(slots.map(s=>F.allocationValue(s)),[1,2.01,1.01]);
 assert.equal(slots.reduce((s,x)=>s+Math.round(F.allocationValue(x)*100),0),402);assert.deepEqual(slots.map(s=>s.value),[0,0,0]);
 assert.equal(F.allocationValue({value:12.34}),12.34);
-console.log('PASS: source/category guards, explicit Hire outcomes, once-only coverage, association holds, Cleaning/physical preservation, supplier basis and original cost allocation cents');
+console.log('PASS: source/category guards, explicit Hire outcomes, once-only coverage, bounded own-use treatment, association holds, other Cleaning/physical preservation, supplier basis and original cost allocation cents');

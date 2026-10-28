@@ -15,7 +15,11 @@ assert.deepEqual(A.supplier,B.supplier,'supplier inputs and charges unchanged');
 assert.deepEqual(A.source949,B.source949,'linked supplier model, per-line basis and monthly costs unchanged');
 assert.deepEqual(A.service,B.service,'customer servicing belongs to separate v12.54');
 for(const name of ['hours','at','times','edits'])assert.deepEqual(A.scope[name],B.scope[name],'scope physical/billing envelope preserved: '+name);
-assert.deepEqual(A.ticks.cleaning,B.ticks.cleaning,'Cleaning retained without inferred bundle inclusion');
+const ownUseRefs=new Set(A.rows.filter(x=>x.row.rental_contract==='9968929').map(x=>x.row.match?.key||x.row.match?.task_id).filter(Boolean));
+const ownUseKeys=new Set(['install','steps','levelling','demob','cleaning']);
+const ownUseCleaning=A.allLabourSlots.filter(x=>ownUseRefs.has(x.ref)&&x.key==='cleaning').reduce((sum,row)=>sum+Math.round((row.value||0)*100),0);
+assert.deepEqual({...B.ticks.cleaning,amount:A.ticks.cleaning.amount},A.ticks.cleaning,'physical Cleaning count and other metadata retained');
+assert.equal(Math.round(B.ticks.cleaning.amount*100),Math.round(A.ticks.cleaning.amount*100)-ownUseCleaning,'only ruled own-use Cleaning removed; no inferred bundle inclusion');
 assert.equal(B.ticks.fire_ext.amount,0);assert.equal(A.ticks.fire_ext.ticks,B.ticks.fire_ext.ticks);
 assert.equal(A.allLabourSlots.length,B.allLabourSlots.length);
 const omit=(value,names)=>Object.fromEntries(Object.entries(value).filter(([key])=>!names.includes(key)));
@@ -52,10 +56,13 @@ if(A.pee&&B.pee){
 }
 for(let i=0;i<A.allLabourSlots.length;i++){
  const old=A.allLabourSlots[i],row=B.allLabourSlots[i];
- assert.deepEqual(omit(row,['rate','value','sourceRate1255','sourceValue1255','covered1255']),omit(old,['rate','value']),'physical slot unchanged');
+ assert.deepEqual(omit(row,['rate','value','sourceRate1255','sourceValue1255','covered1255','ownUse1255']),omit(old,['rate','value']),'physical slot unchanged');
  if(['install','steps','levelling','demob'].includes(old.key))assert.equal(Object.hasOwn(row,'sourceValue1255')?row.sourceValue1255:row.value,old.value,'original allocation value retained');
- if(row.covered1255)assert.equal(row.value,0,'covered physical card does not charge a second time');
+ const ownUseExpected=ownUseRefs.has(old.ref)&&ownUseKeys.has(old.key);
+ assert.equal(!!row.ownUse1255,ownUseExpected,'only the existing ruled own-use source scope is suppressed');
+ if(ownUseExpected){assert.equal(row.value,0);assert.equal(row.rate,0);assert.equal(row.sourceValue1255,old.value);assert.deepEqual(row.ownUse1255,{contract:'9968929',category:'Coates own use',outcome:'no customer charge'});assert.equal(row.covered1255,undefined,'own use cannot be labelled contract Installation');}
+ else if(row.covered1255)assert.equal(row.value,0,'covered physical card does not charge a second time');
  else if(old.key!=='fire_ext')assert.equal(row.value,old.value,'outside-scope card charge retained');
 }
 assert(Object.values(B.branch.checks).every(Boolean),'all native branch reconciliations pass');
-console.log('PASS: exact record, physical scope, approved contract outcomes, untouched charges, Cleaning, servicing, supplier/monthly model and current/job branch cost preservation');
+console.log('PASS: exact record, physical scope, approved contract outcomes, untouched charges, bounded own-use Cleaning, servicing, supplier/monthly model and current/job branch cost preservation');

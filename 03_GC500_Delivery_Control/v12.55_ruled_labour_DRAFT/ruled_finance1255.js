@@ -15,6 +15,8 @@ const installation=Object.freeze({
 const installationBranch=key=>key==='9961976|56'?'NVAC':key==='9961265|44'?'STPS':'KINP';
 const policy=Object.freeze({cleaning:'retained',installationCoverage:'install,steps,levelling,demob',source:'Approved named contract rows only; no full source import'});
 const installationKeys=new Set(['install','steps','levelling','demob']);
+const ownUseKeys=new Set([...installationKeys,'cleaning']);
+function ownUse(ref,assignments){return String((assignments||{})[ref]?.rental_contract||'')==='9968929'?'9968929':null;}
 const toiletBlocks=new Set(['WC05','WC15','WC16','WC17','WC20','WC27','WC60']);
 const accessible=new Set(['WC01','WC31','WC51','WC86']);
 function isInstallation(r){return !!r&&Object.hasOwn(installation,id(r))&&r.item==='LABOUR'&&r.item_type_code===2&&r.branch_code===installationBranch(id(r))&&r.sales_analysis_code===installationBranch(id(r))+'-INS'&&!r.subhired&&!r.subhired_machine;}
@@ -46,22 +48,26 @@ function coverage(ref,item,assignments){
  return null;
 }
 function projectLabour(info,ref,item,assignments){
- const source=coverage(ref,item,assignments);if(!source||!info||!Array.isArray(info.lines))return info;
- const lines=info.lines.map(L=>!installationKeys.has(L.key)||L.covered1255?L:{...L,sourceRate1255:L.rate,sourceMoney1255:L.money,rate:0,money:'rate',covered1255:{source,category:'Installation'},money_note:'Included in contract Installation; physical completion tracked separately'});
- return {...info,lines,coverage1255:{source,category:'Installation',cleaning:'retained'}};
+ const own=ownUse(ref,assignments),source=coverage(ref,item,assignments);if((!own&&!source)||!info||!Array.isArray(info.lines))return info;
+ const ownTreatment=own?{contract:own,category:'Coates own use',outcome:'no customer charge'}:null;
+ const lines=info.lines.map(L=>!(own?ownUseKeys:installationKeys).has(L.key)||L.covered1255||L.ownUse1255?L:{...L,sourceRate1255:L.rate,sourceMoney1255:L.money,rate:0,money:'rate',...(own?{ownUse1255:ownTreatment,money_note:'Coates own use; no customer charge; physical completion tracked separately'}:{covered1255:{source,category:'Installation'},money_note:'Included in contract Installation; physical completion tracked separately'})});
+ return {...info,lines,...(own?{ownUse1255:ownTreatment}:{coverage1255:{source,category:'Installation',cleaning:'retained'}})};
 }
 // Display uses the same covered source as the money projection; never infer inclusion from zero alone.
 function coveredChargeDisplay(line,ref,item,assignments){
- if(!line||!installationKeys.has(line.key)||!coverage(ref,item,assignments)||line.rate!==0||line.value!==0)return null;
+ if(!line||line.rate!==0||line.value!==0)return null;
+ if(ownUse(ref,assignments)&&ownUseKeys.has(line.key))return {rate:'Coates own use',charge:'No customer charge'};
+ if(!installationKeys.has(line.key)||!coverage(ref,item,assignments))return null;
  return {rate:'Included',charge:'Included'};
 }
 function coverageText(charges,ref,item,assignments){
  if(!(charges||[]).some(line=>coveredChargeDisplay(line,ref,item,assignments)))return '';
+ const own=ownUse(ref,assignments);if(own)return 'Coates own use on contract '+own+'; no customer charge. Physical completion is recorded separately.';
  const source=coverage(ref,item,assignments).split(' + ').map(key=>key.replace('|',' line ')).join(' and ');
  return 'Installation included in contract '+source+'. Physical completion is recorded separately.';
 }
-function itemSummary(text,ref,item,assignments){return coverage(ref,item,assignments)?text+' item subtotal · Installation charged on contract':text;}
-function workLabel(line){return line?.covered1255?.category==='Installation'?'Included in contract Installation':null;}
+function itemSummary(text,ref,item,assignments){return ownUse(ref,assignments)?text+' · Coates own use; no customer charge':coverage(ref,item,assignments)?text+' item subtotal · Installation charged on contract':text;}
+function workLabel(line){return line?.ownUse1255?'Coates own use; no customer charge':line?.covered1255?.category==='Installation'?'Included in contract Installation':null;}
 function projectFire(value){
  if(!value||value.covered1255)return value;
  return {...value,sourceRate1255:value.rate,sourceAmount1255:value.amount,rate:0,amount:0,covered1255:{source:'9968862|137',category:'Fire extinguishers',outcome:'no customer per-piece charge'}};
@@ -75,7 +81,7 @@ function projectScopeLine(row){
 }
 function allocationSlot(slot,L){
  if(!L||!Object.hasOwn(L,'sourceRate1255'))return slot;
- return {...slot,sourceRate1255:L.sourceRate1255,sourceValue1255:typeof L.sourceRate1255==='number'&&slot.qty!=null?L.sourceRate1255*slot.qty:null,covered1255:L.covered1255};
+ return {...slot,sourceRate1255:L.sourceRate1255,sourceValue1255:typeof L.sourceRate1255==='number'&&slot.qty!=null?L.sourceRate1255*slot.qty:null,covered1255:L.covered1255,...(L.ownUse1255?{ownUse1255:L.ownUse1255}:{})};
 }
 function shareAllocation(slots){
  const groups=new Map();slots.filter(s=>Object.hasOwn(s,'sourceValue1255')&&s.sourceValue1255!=null).forEach(s=>{const key=[s.ref,s.disc,s.item,s.key].join('|');if(!groups.has(key))groups.set(key,[]);groups.get(key).push(s);});
@@ -89,7 +95,7 @@ function onsiteAllocationSlot(slot,row){
  const current=row.qty==null||!Number.isFinite(rate)?null:round(rate*row.qty);
  const forecast=row.forecastQty==null||!Number.isFinite(rate)?null:round(rate*row.forecastQty);
  const value=slot.state==='charged'?current:forecast==null||current==null?null:round(forecast-current);
- return {...slot,sourceRate1255:rate,sourceValue1255:value,covered1255:row.covered1255};
+ return {...slot,sourceRate1255:rate,sourceValue1255:value,covered1255:row.covered1255,...(row.ownUse1255?{ownUse1255:row.ownUse1255}:{})};
 }
 function allocationValue(slot){return Object.hasOwn(slot,'sourceValue1255')?slot.sourceValue1255:slot.value;}
 // Customer outcomes explicitly ruled in PR #1; no pre-bill fields are inputs.
@@ -451,7 +457,7 @@ function associationCharge(row,out){
  if(row.quantity!==1||row.rate_1!==310.95||row.branch_code!=='MEAD')throw Error('Financial association approved source changed');
  return {...out,amount:1554.75,days:5,how:'per day',daily:true,ruled1255:{source:id(row),route:'existing-financial-association',commercialDays:5,physicalDatesUnchanged:true},basis:'Approved Baseplan billing: $310.95 × 5 days; existing source association and site record retained'};
 }
-const api=Object.freeze({installation,installationBranch,policy,hireOutcomes,isInstallation,contractCharge,approvedHire,supplierCharge,peeOwner,selectPee,associationCharge,coverage,projectLabour,coveredChargeDisplay,coverageText,itemSummary,workLabel,projectFire,projectScopeLine,allocationSlot,shareAllocation,onsiteAllocationSlot,allocationValue});
+const api=Object.freeze({installation,installationBranch,policy,hireOutcomes,isInstallation,contractCharge,approvedHire,supplierCharge,peeOwner,selectPee,associationCharge,coverage,ownUse,projectLabour,coveredChargeDisplay,coverageText,itemSummary,workLabel,projectFire,projectScopeLine,allocationSlot,shareAllocation,onsiteAllocationSlot,allocationValue});
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 if(root)root.RuledFinance1255=api;
 })(typeof window==='undefined'?globalThis:window);
