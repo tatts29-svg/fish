@@ -69,3 +69,7 @@ python patch_v1247.py /private/path/copied46.html
 `tests/preview_browser.cjs` uses the shared read-only harness. Set private `PAGE`, `BASE`, `STATE`, `OUT`, expected page/base SHA and state/base version variables, `PRODUCTION=1` and `INITIAL_HASH=#timeline`; coordinate the browser lease. It captures complete desktop/phone cards and checks exact native preservation plus real scroll/tab eviction and reentry.
 
 The historical visual builder `build_preview.py` remains pinned to the original reviewed 43 source for reproducibility. Its preview label and source files are retained; production uses only the guarded 47 patch above.
+
+## LIVE
+
+LIVE 28 Oct 2026 23:28 AEST on Andrew's word in conversation ("V12.47 lets do it"). sha256 `1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff`, 16,086,631 bytes, public bytes match the build exactly. Money probe identical to live v12.46.
