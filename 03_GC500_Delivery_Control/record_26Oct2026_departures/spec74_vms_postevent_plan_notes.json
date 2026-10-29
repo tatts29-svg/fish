@@ -1,0 +1,8 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 14:20 AEST: \"these are the new numbers and new Asset numbers to the vms\" - the post-event VMS plan: seven Coates boards remain in place with their notices and come out after 15:00 Fri 13 Nov 2026 (VMS #1 1211354 EX0017; #2 1191957 EN3803; #3 1211348 ER9217; #4 1191877 EM6306; #6 1211359 ER9247; #7 1211364 ER9410; #8 1211376 ES3211). The regos already match the VMS register; the page has no post-event plan phase yet (page release asked of Codex), so the plan goes on the two references the boards sit on as dated notes",
+  "ops": [
+    {"op": "note_append", "ref": "T0001", "text": "Post-event VMS plan, Andrew Fisher 29 Oct 2026: 1211354 (EX0017) is VMS #1 GC Highway north of Sundale bridge; 1191877 (EM6306) is VMS #4 GC Highway / Admiralty Drive intersection; 1211359 (ER9247) is VMS #6 GC Highway northbound median strip at the Marriott. All three remain in place showing 'GC500 Works - Expect Delays' and come out after 15:00 Fri 13 Nov 2026."},
+    {"op": "note_append", "ref": "T0158", "text": "Post-event VMS plan, Andrew Fisher 29 Oct 2026: 1191957 (EN3803) is VMS #2 Waterways Drive / Club 500 - a VMS board in place after all; 1211348 (ER9217) is VMS #3 GC Highway Tedder Ave / Gate 1 external, north of Tedder intersection, showing 'Construction Works - 50km/hr'; 1211364 (ER9410) is VMS #7 Main Beach Parade southbound at the caravan park pedestrian crossing; 1211376 (ES3211) is VMS #8 Esplanade south of Staghorn Ave. #2, #7 and #8 show 'GC500 Works - Expect Delays'. All four remain in place and come out after 15:00 Fri 13 Nov 2026."}
+  ]
+}
