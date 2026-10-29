@@ -520,3 +520,8 @@ Andrew, 29 Oct 2026: "Receipt ID 4929277 for 4647515, Receipt ID 4936461 for 464
 ## Run 66 — three Premiair VMS boards left site 12:00 (29 Oct 2026 12:31 AEST, record 11964 → 11967)
 
 Andrew, 29 Oct 2026 12:28 AEST, photo of the three plates: "Picked up 12pm". Spec `spec66_vms_boards_left_1200.json`, report `report_20261029T023144Z.json`: through the page's own Record departure form at 2026-10-29 12:00 AEST — VMS-01 (97T, T16922, VMS21) and VMS-02 (445T, TE99CL, VMS22) left in full, lights in transit; T0158 part: 453T (TF54CQ, VMS23) left, the rest of T0158 (475T VMS20, 487T VMS19, 472T VMS18, 1201864 VMS14, 1191957) still on site. Three delivery documents written, verified, every other document unchanged in value; P&L unchanged.
+
+
+## Runs 67 and 68 — VMS19 (487T) left 12:40 and VMS14 (1201864) left 12:00 (29 Oct 2026 12:41–12:42 AEST, record 11967 → 11968 → 11969)
+
+Andrew, 29 Oct 2026: "Picked up 487T at 1240pm"; "1201864 picked up 12pm". Specs `spec67_vms19_left_1240.json` and `spec68_vms14_left_1200.json`, reports `report_20261029T024112Z.json` and `report_20261029T024217Z.json`: through the page's own Record departure form on T0158 — 487T (TE02H0, VMS19, Premiair) at 12:40, 1201864 (TD98VJ, VMS14, Coates) at 12:00; T0158 stays part, with 475T (VMS20), 472T (VMS18) and 1191957 still on it. One delivery document written per run, verified, every other document unchanged in value; P&L unchanged.

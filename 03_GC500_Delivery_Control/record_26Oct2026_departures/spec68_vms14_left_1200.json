@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 12:41 AEST: \"1201864 picked up 12pm\" - Coates VMS board 1201864 (TD98VJ, VMS14) left site at 12:00",
+  "ops": [
+    {"op": "depart", "ref": "T0158", "at": "2026-10-29T12:00:00+10:00", "nos": ["1201864"], "complete": false}
+  ]
+}
