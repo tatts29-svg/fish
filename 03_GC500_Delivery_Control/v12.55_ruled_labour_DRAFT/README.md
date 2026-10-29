@@ -35,3 +35,6 @@ node 03_GC500_Delivery_Control/v12.55_ruled_labour_DRAFT/tests/test_finance.cjs
 ```
 
 Native acceptance requires exact `BASE`, `BASE_SHA`, `CANDIDATE`, `CANDIDATE_SHA`, private `STATE`, independently reviewed private `EXPECTED` and private `OUT` paths. Run `tests/native_contracts.cjs` under `/tmp/gc500-browser.lock`; diagnostic `CAPTURE_ONLY=1` is not acceptance. Run `tests/native_preservation.cjs` on its base/candidate route captures. All browser tests use the shared read-only harness and are serial.
+
+
+**Superseded, 29 Oct 2026 19:20 AEST:** this draft was built on the ruling that the per-piece cleaning is not customer revenue, which was wrong (the cleaning is inside Baseplan's Install & Demob rates). The release is `v12.55_to_the_cent_DRAFT/`, built on live v12.59. Nothing from this folder is to be uploaded.
