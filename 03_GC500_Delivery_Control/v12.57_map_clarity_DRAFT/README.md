@@ -19,10 +19,25 @@ It uses the drawing registration already embedded in that predecessor. It refuse
 a different base or repeat application. The original page can be restored exactly
 by reversing the bounded replacements.
 
-Implementation is being checked. This remains a preview, not READY TO UPLOAD or
-live. The current handover requires desktop and phone before-and-after visual
-review before publication. If another release goes live first, rebuild and check
-this patch on that exact successor; do not bypass the base guard.
+The exact preview is SHA256
+`01d87c5dbe3b02c0e09c42070ad53a514e106e3118e4058a49342d5cbed4af0c`,
+16,116,515 bytes. The shared toolchain reproduces those bytes from the predecessor
+above. Completed engineering check results are recorded in `evidence/checks.json`.
+
+This remains a preview, not READY TO UPLOAD or live. The current handover in
+[PR #1](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6485684681) requires
+desktop and phone before-and-after visual review before publication. Publication
+also requires a fresh record check and the unchanged-live-base guard. If another
+release goes live first, rebuild and check this patch on that exact successor;
+do not bypass the guard. If this preview is published before v12.55, that draft
+must be rebuilt and checked against the verified successor.
+
+The off-drawing review list uses real recorded pins and the existing master-plan
+precedence. It is separate from drawing-label geometry used by the renderer.
+Some far-away recorded pins were already excluded by the predecessor's native
+projection bounds; this change does not claim to remove icons that were not
+drawn. It makes those recorded locations reviewable without guessing a new
+location or describing them as depot positions.
 
 Detailed native records, financial comparisons and actual screenshots remain in
 private evidence storage. Shared evidence records only release identity and check
@@ -51,3 +66,11 @@ exact candidate hashes and private output directories. Every browser run must ho
 financial/source comparison, and the original shared navigation sweeps before the
 final handover. These checks establish preservation against the predecessor; they
 do not certify unrelated business figures or unresolved financial scope.
+
+The native control suite exercises the visible Questions row before opening the
+explorer, the real Satellite/plan/3D/fencing controls, outside-sheet drawing and hit
+tests, all servicing-area choices, the ring toggle/key, and record preservation.
+It takes `PAGE`, `STATE`, `EXPECTED_OFFSHEET` and a private `OUT`; use `MOB=1` for
+the phone run. The independent geometry oracle belongs in private evidence, not
+in a committed test fixture. The native financial comparison takes `BASE`,
+`CANDIDATE`, `CANDIDATE_SHA`, `STATE`, `FIXED_TIME` and a private `OUT`.
