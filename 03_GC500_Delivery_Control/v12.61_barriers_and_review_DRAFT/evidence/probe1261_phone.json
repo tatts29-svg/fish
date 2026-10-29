@@ -1,0 +1,532 @@
+{
+ "footer": "v12.61",
+ "charge": 998997,
+ "wb": {
+  "WB01": {
+   "name": "Gold Coast Highway (Northbound) - PB3 Footing/Stairs",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.983022,
+    "lon": 153.425227,
+    "sms": "where water barrier drawing K229 puts it (zone 9: Gold Coast Highway (Northbound) - PB3 Footing/Stairs)"
+   },
+   "locate": {
+    "lat": -27.983022,
+    "lon": 153.425227,
+    "how": "position: where water barrier drawing K229 puts it (zone 9: Gold Coast Highway (Northbound) - PB3 Footing/Stairs)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.17105002388899807,
+     0.5933406400773215
+    ],
+    "how": "water barrier drawing K229 (zone 9: Gold Coast Highway (Northbound) - PB3 Footing/Stairs)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 9,
+    "k": [
+     0.15683,
+     0.666656
+    ]
+   }
+  },
+  "WB02": {
+   "name": "S08 - Pedestrian Pathway along Main Beach Parade",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.985267,
+    "lon": 153.429812,
+    "sms": "where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "locate": {
+    "lat": -27.985267,
+    "lon": 153.429812,
+    "how": "position: where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.3194732596802016,
+     0.21439693209872035
+    ],
+    "how": "water barrier drawing K231 (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 28,
+    "k": [
+     0.311745,
+     0.222514
+    ]
+   }
+  },
+  "WB03": {
+   "name": "Gold Coast Highway (Turn 2) - Concrete small blocks",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.990228,
+    "lon": 153.428617,
+    "sms": "where water barrier drawing K230 puts it (zone 10: Gold Coast Highway (Turn 2) - Concrete small blocks)"
+   },
+   "locate": {
+    "lat": -27.990228,
+    "lon": 153.428617,
+    "how": "position: where water barrier drawing K230 puts it (zone 10: Gold Coast Highway (Turn 2) - Concrete small blocks)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.6459820759976781,
+     0.3146268188248637
+    ],
+    "how": "water barrier drawing K230 (zone 10: Gold Coast Highway (Turn 2) - Concrete small blocks)"
+   },
+   "shape": {
+    "comps": 2,
+    "pieces": 25,
+    "k": [
+     0.652445,
+     0.339956
+    ]
+   }
+  },
+  "WB04": {
+   "name": "Helen Park - HVM",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.981466,
+    "lon": 153.424671,
+    "sms": "where water barrier drawing K228 puts it (zone 9: Helen Park - HVM)"
+   },
+   "locate": {
+    "lat": -27.981466,
+    "lon": 153.424671,
+    "how": "position: where water barrier drawing K228 puts it (zone 9: Helen Park - HVM)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.06852467073241526,
+     0.6389541972875716
+    ],
+    "how": "water barrier drawing K228 (zone 9: Helen Park - HVM)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 10,
+    "k": [
+     0.049855,
+     0.720086
+    ]
+   }
+  },
+  "WB05": {
+   "name": "Main Beach Light Rail - Bus Stop",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.982592,
+    "lon": 153.424789,
+    "sms": "where water barrier drawing K220 puts it (zone 13: Main Beach Light Rail - Bus Stop)"
+   },
+   "locate": {
+    "lat": -27.982592,
+    "lon": 153.424789,
+    "how": "position: where water barrier drawing K220 puts it (zone 13: Main Beach Light Rail - Bus Stop)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.14267968726263688,
+     0.6294837904145637
+    ],
+    "how": "water barrier drawing K220 (zone 13: Main Beach Light Rail - Bus Stop)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 9,
+    "k": [
+     0.127245,
+     0.709027
+    ]
+   }
+  },
+  "WB06": {
+   "name": "Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.986271,
+    "lon": 153.427507,
+    "sms": "where water barrier drawing K221 puts it (zone 1: Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers))"
+   },
+   "locate": {
+    "lat": -27.986271,
+    "lon": 153.427507,
+    "how": "position: where water barrier drawing K221 puts it (zone 1: Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers))"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.38527944928892416,
+     0.4054651483660483
+    ],
+    "how": "water barrier drawing K221 (zone 1: Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers))"
+   },
+   "shape": {
+    "comps": 2,
+    "pieces": 146,
+    "k": [
+     0.38038,
+     0.446413
+    ]
+   }
+  },
+  "WB13": {
+   "name": "Fence bracing behind S15 + Ped Crossing",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.990293,
+    "lon": 153.428575,
+    "sms": "where water barrier drawing K230 puts it (zone 10: Fence bracing behind S15 + Ped Crossing)"
+   },
+   "locate": {
+    "lat": -27.990293,
+    "lon": 153.428575,
+    "how": "position: where water barrier drawing K230 puts it (zone 10: Fence bracing behind S15 + Ped Crossing)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.6502566987220384,
+     0.3181206586044649
+    ],
+    "how": "water barrier drawing K230 (zone 10: Fence bracing behind S15 + Ped Crossing)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 17,
+    "k": [
+     0.656922,
+     0.344012
+    ]
+   }
+  },
+  "WB14": {
+   "name": "MP4.0 Turn 4 Drivers Right",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.991813,
+    "lon": 153.429424,
+    "sms": "where water barrier drawing K220 puts it (zone 2: MP4.0 Turn 4 Drivers Right)"
+   },
+   "locate": {
+    "lat": -27.991813,
+    "lon": 153.429424,
+    "how": "position: where water barrier drawing K220 puts it (zone 2: MP4.0 Turn 4 Drivers Right)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.750458349971581,
+     0.24824370364183077
+    ],
+    "how": "water barrier drawing K220 (zone 2: MP4.0 Turn 4 Drivers Right)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 1,
+    "k": [
+     0.761425,
+     0.26213
+    ]
+   }
+  },
+  "WB15": {
+   "name": "Turn 11 Runoff (Main Beach Parade North) - HVM",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.981198,
+    "lon": 153.429226,
+    "sms": "where water barrier drawing K226 puts it (zone 6: Turn 11 Runoff (Main Beach Parade North) - HVM)"
+   },
+   "locate": {
+    "lat": -27.981198,
+    "lon": 153.429226,
+    "how": "position: where water barrier drawing K226 puts it (zone 6: Turn 11 Runoff (Main Beach Parade North) - HVM)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.051477051409554796,
+     0.26183011396049904
+    ],
+    "how": "water barrier drawing K226 (zone 6: Turn 11 Runoff (Main Beach Parade North) - HVM)"
+   },
+   "shape": {
+    "comps": 2,
+    "pieces": 2,
+    "k": [
+     0.032035,
+     0.278048
+    ]
+   }
+  },
+  "WB16": {
+   "name": "Gate 2 - HVM",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.983946,
+    "lon": 153.425564,
+    "sms": "where water barrier drawing K229 puts it (zone 9: Gate 2 - HVM)"
+   },
+   "locate": {
+    "lat": -27.983946,
+    "lon": 153.425564,
+    "how": "position: where water barrier drawing K229 puts it (zone 9: Gate 2 - HVM)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.23193428531820287,
+     0.5656885282885865
+    ],
+    "how": "water barrier drawing K229 (zone 9: Gate 2 - HVM)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 9,
+    "k": [
+     0.220395,
+     0.63424
+    ]
+   }
+  },
+  "WB17": {
+   "name": "Racing kerbs (T6/7/8/9)",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.985701,
+    "lon": 153.42993,
+    "sms": "where the water barrier programme puts it (Racing kerbs (T6/7/8/9))"
+   },
+   "locate": {
+    "lat": -27.985701,
+    "lon": 153.42993,
+    "how": "where the water barrier programme puts it (Racing kerbs (T6/7/8/9)) (approximate - check on site)"
+   },
+   "master": {
+    "prec": "area",
+    "pt": [
+     0.34815,
+     0.20487
+    ],
+    "how": "Turns 6–9 markers on the master (T6–T9 span ~250 m)"
+   },
+   "shape": {
+    "comps": 2,
+    "pieces": 12,
+    "k": [
+     0.3348459,
+     0.2086951
+    ]
+   }
+  },
+  "WB18": {
+   "name": "Racing kerbs (T2)",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.990144,
+    "lon": 153.428562,
+    "sms": "where the water barrier programme puts it (Racing kerbs (T2))"
+   },
+   "locate": {
+    "lat": -27.990144,
+    "lon": 153.428562,
+    "how": "where the water barrier programme puts it (Racing kerbs (T2)) (approximate - check on site)"
+   },
+   "master": {
+    "prec": "area",
+    "pt": [
+     0.64052,
+     0.31888
+    ],
+    "how": "Turn 2 marker on the master"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 7,
+    "k": [
+     0.6389771,
+     0.31988
+    ]
+   }
+  },
+  "WB19": {
+   "name": "S08 - Pedestrian Pathway along Main Beach Parade",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.985267,
+    "lon": 153.429812,
+    "sms": "where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "locate": {
+    "lat": -27.985267,
+    "lon": 153.429812,
+    "how": "position: where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.3194732596802016,
+     0.21439693209872035
+    ],
+    "how": "water barrier drawing K231 (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+   },
+   "shape": {
+    "comps": 1,
+    "pieces": 28,
+    "k": [
+     0.311745,
+     0.222514
+    ]
+   }
+  },
+  "WB20": {
+   "name": "Gold Coast Highway (Turn 2)",
+   "dest": {
+    "kind": "drawn",
+    "lat": -27.990228,
+    "lon": 153.428617,
+    "sms": "where water barrier drawing K230 puts it (zone 10: Gold Coast Highway (Turn 2))"
+   },
+   "locate": {
+    "lat": -27.990228,
+    "lon": 153.428617,
+    "how": "position: where water barrier drawing K230 puts it (zone 10: Gold Coast Highway (Turn 2))"
+   },
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.6459820759976781,
+     0.3146268188248637
+    ],
+    "how": "water barrier drawing K230 (zone 10: Gold Coast Highway (Turn 2))"
+   },
+   "shape": {
+    "comps": 2,
+    "pieces": 25,
+    "k": [
+     0.652445,
+     0.339956
+    ]
+   }
+  },
+  "WB22": {
+   "name": null,
+   "dest": null,
+   "locate": "not on the register",
+   "master": {
+    "prec": "unit",
+    "pt": [
+     0.6722031341779571,
+     0.3062885965157833
+    ],
+    "how": "water barrier drawing K230 (zone 10: Marriot pedestrian crossing closure)"
+   },
+   "shape": null
+  },
+  "_placed": 13,
+  "_same": true
+ },
+ "programme": {
+  "wb19": [
+   "2026-11-03",
+   4,
+   136,
+   {
+    "first": "2026-11-03",
+    "last": "2026-11-06",
+    "days": 4
+   }
+  ],
+  "wb01": "Traffic control required - Coates to remove with their forkl",
+  "updates": "TP02-26003-03 GC500 WFB PROGRAM 2, \"UPDATES 29/10/26\" (Andrew, 30 Oct 2026): WB19 reinstated 3-6 Nov (4 days, 136 barrier-days); WB01 removal note; WB07 and WB22 moved into the turning lane Monday night"
+ },
+ "cards": [
+  {
+   "iso": "2026-10-21",
+   "pct": "WHOLE BUILDAT DAY’S CLOSE93.43%",
+   "stamp": true,
+   "aria": "Wed 21 Oct 2026. Closed day record. 93.43 percent whole-build progress at day close. DAY’S DELIVERIES: 3 / 3. Available staff: 4. Aaron Zelvis, Andrew Fisher, D"
+  },
+  {
+   "iso": "2026-10-22",
+   "pct": "WHOLE BUILDTO THE RACE WEEKEND100%",
+   "stamp": true,
+   "aria": "Thu 22 Oct 2026. Closed day record. 100 percent whole-build progress to the race-weekend cut-off, Friday 23 October 2026: the last build day carries the finishe"
+  }
+ ],
+ "moreInfo": "More info · Thu 22 Oct 2026 Whole build Reconstructed from dated work records against the current seven-category build scope. Scope remains provisional. This is separate from that day’s load completion. The last build day carries the whole build to the race-weekend cut-off, Friday 23 October 2026: the last 28 m of event crowd-control barrier went in on the Friday morning, and the demarcation barrier and pedestrian gates the programme listed but were never built came out of the scope at the cut-off. DAY’S DELIVERIES",
+ "lastday": "ok",
+ "strips": [
+  {
+   "key": "VMS-01",
+   "state": "waiting",
+   "how": "no drop-off set yet - this is the pit lane, where the driver reports",
+   "img": false,
+   "w": 340
+  },
+  {
+   "key": "VMS-02",
+   "state": "waiting",
+   "how": "no drop-off set yet - this is the pit lane, where the driver reports",
+   "img": false,
+   "w": 340
+  },
+  {
+   "key": "VMS-03",
+   "state": "ready",
+   "how": "no drop-off set yet - this is the pit lane, where the driver reports",
+   "img": true,
+   "w": 340
+  },
+  {
+   "key": "WB17",
+   "state": "ready",
+   "how": "where the water barrier programme puts it (Racing kerbs (T6/7/8/9)) (approximate - check on site)",
+   "img": true,
+   "w": 340
+  },
+  {
+   "key": "WB18",
+   "state": "ready",
+   "how": "where the water barrier programme puts it (Racing kerbs (T2)) (approximate - check on site)",
+   "img": true,
+   "w": 340
+  }
+ ],
+ "strip_wb17": "fail elementHandle.scrollIntoViewIfNeeded: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - attempting scroll ",
+ "explorer": {
+  "key": "Left site: the symbol says what it is, the green pulse that it has gone, the badge how many (n/total = part gone); dashed = part gone; red = needs review",
+  "keyHidden": false,
+  "showLeft": true,
+  "rings": "n/a",
+  "sample": "n/a"
+ },
+ "barSwitch": {
+  "hidden": true
+ },
+ "explorer_departed": "viewport ok",
+ "departedStatus": {
+  "code": "BJR01",
+  "state": "moved",
+  "shape": "circle",
+  "glyph": "",
+  "glyphCode": "e100",
+  "colour": "#7fffc1",
+  "fill": "#0f1b21"
+ },
+ "pageErrors": 0,
+ "errorsSample": []
+}

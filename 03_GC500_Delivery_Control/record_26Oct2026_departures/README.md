@@ -557,3 +557,25 @@ Andrew, 29 Oct 2026 14:20 AEST: "these are the new numbers and new Asset numbers
 ## Run 75 — VMS09 (1211404) Ready for pick-up; VMS10 and VMS12 already Ready (29 Oct 2026 14:31 AEST, record 11982 → 11983)
 
 Andrew, 29 Oct 2026 14:29 AEST: "these are ready for pick up", with the three-board table (VMS09 1211404 and VMS10 120T on T0103; VMS12 1211646 on T0128). Spec `spec75_vms09_vms10_vms12_ready.json`, report `report_20261029T043105Z.json`: each unit's own Ready tick through the Demob cards' writer — 1211404 ticked Ready; 120T (ticked by Andrew at 08:20) and 1211646 were already Ready and were left as they were. One document written (delivery/T0103), verified, every other document unchanged in value; P&L unchanged. The three VMS pick-ups outstanding are all Ready; each departure goes on when it leaves.
+
+## Run 76 — eight Coates water barrier runs left site at the programme's dates (30 Oct 2026 04:27 AEST, record 11984 → 11992)
+
+Andrew, 30 Oct 2026 03:0x AEST and again 04:2x AEST: "All barriers should now be off hired apart from s08 is that correct looking at this. But you should be showing correct areas on maps where these are." Before the run the record held departures for WB01, WB05, WB06 and WB17 only (run 54, 27 Oct 19:30); the other Coates runs still read Still to leave. Spec `spec76_wb_off_hire.json`, report `report_20261029T182707Z.json`: each reference leaves in full through the page's own Record departure form, in Andrew's name, at the removal date and time on the water barrier programme (TP02-26003-03, 29/10/26 updates).
+
+| Reference | What left | Left site (AEST) | Programme row |
+|---|---|---|---|
+| WB14 MP4.0 Turn 4 Drivers Right | 2 × TL2 (ARMORZONMASHTL2 + 1) | Sun 25 Oct 2026 19:00 | removal 25 Oct 19:00 |
+| WB13 Fence bracing behind S15 | 10 × TL2 (unnumbered) | Mon 26 Oct 2026 10:00 | removal 26 Oct 10:00 |
+| WB15 Turn 11 runoff HVM | 4 × TL2 (ARMORZONMASHTL2 + 3) | Tue 27 Oct 2026 07:00 | removal 27 Oct 07:00 |
+| WB04 Helen Park HVM | 14 × TL2 (ARMORZONMASHTL2 + 13) | Tue 27 Oct 2026 09:00 | removal 27 Oct 09:00 |
+| WB07 Admiralty Drive intersection | 17 × TL2 (unnumbered) | Tue 27 Oct 2026 09:00 | removal 27 Oct 09:00 (moved into the turning lane) |
+| WB16 Gate 2 HVM | 13 × TL2 (ARMORZONMASHTL2 + 12) | Tue 27 Oct 2026 17:00 | removal 27 Oct 17:00 |
+| WB18 Racing kerbs T2 | 2 × TL2 (ARMORZONMASHTL2 + 1) | Tue 27 Oct 2026 17:00 | removal 27 Oct 17:00 |
+| WB03 Gold Coast Highway Turn 2 | 30 × TL2 (ARMORZONMASHTL2 + 29) | Thu 29 Oct 2026 19:00 | stored behind the T2 circuit barriers from 19 Oct 22:00, put back out as WB20 26 Oct, removed 29 Oct 19:00 |
+
+- WB03 carries the real departure of its 30 (the same barriers as WB20); WB20 was never recorded as delivered (not on site on the record) so there was nothing to depart there and it is left as it is.
+- S08 left alone, as Andrew said: WB02 (34) still on site with no collection recorded; WB19 (34) not on site, programme 3–6 Nov. Which 34 is on Main Beach Parade today is Andrew's to say.
+- WB13 and WB07 carry no asset number on the record, so their count went in unnumbered; the other six tick the one TL2 code plus the rest unnumbered, as run 54.
+- Dry run first on the live v12.56 page (`cb27d7c5…`): 8 documents planned, nothing sent. Apply: whole-record backup kept private (scratchpad `record_26Oct2026_departures/backup_state_20261029T182707Z.json`), page guard held, 8 documents (`delivery/` WB03, WB04, WB07, WB13, WB14, WB15, WB16, WB18) acknowledged 200, every op verified on the service, every other document unchanged in value. P&L unchanged (charge 998,997.00, cost 447,970.07; KINP 284,587.62 · STPS 79,773.44 · NVAC 44,272.04 · MEAD 25,660.25). Today unchanged (Barriers 311/311).
+- Read back (`check_after.cjs`, fresh load of the live page): the eight in transit, Left site, 0 still to leave, recorded by Andrew Fisher at the times above; WB02 on site 34 still to leave; WB19 and WB20 not on site; errors 0, writes 0.
+- Twelve of the fifteen Coates water barrier references on the register now read Left site (runs 54 and 76); WB02, WB19 and WB20 do not.
