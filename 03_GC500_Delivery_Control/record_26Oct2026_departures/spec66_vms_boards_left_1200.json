@@ -1,0 +1,9 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 12:28 AEST, photo of the three plates: \"Picked up 12pm\" - Premiair VMS boards 453T (TF54CQ, VMS23), 445T (TE99CL, VMS22) and 97T (T16922, VMS21) left site at 12:00",
+  "ops": [
+    {"op": "depart", "ref": "VMS-01", "at": "2026-10-29T12:00:00+10:00", "nos": ["97T"], "complete": true},
+    {"op": "depart", "ref": "VMS-02", "at": "2026-10-29T12:00:00+10:00", "nos": ["445T"], "complete": true},
+    {"op": "depart", "ref": "T0158", "at": "2026-10-29T12:00:00+10:00", "nos": ["453T"], "complete": false}
+  ]
+}
