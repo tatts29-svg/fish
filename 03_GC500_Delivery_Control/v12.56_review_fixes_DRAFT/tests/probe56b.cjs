@@ -2,7 +2,7 @@
 const {open} = require('/home/user/fish/03_GC500_Delivery_Control/toolchain/harness/open_page');
 const fs = require('fs');
 const PAGE = process.env.PAGE || '/home/user/fish/03_GC500_Delivery_Control/build/GC500_v12.56/GC500_Delivery_Control_hosted.html';
-const OUTDIR = process.env.OUTDIR || '/tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/shots56';
+const OUTDIR = process.env.OUTDIR || '/tmp/gc500-scratch/shots56';
 fs.mkdirSync(OUTDIR, {recursive: true});
 (async () => {
   const R = {};

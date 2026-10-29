@@ -57,7 +57,7 @@ const fs = require('fs');
     return out;
   });
   R.pageErrors = h.errors.length;
-  fs.writeFileSync('/tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/perpiece_cand55.json', JSON.stringify(R, null, 1));
+  fs.writeFileSync('/tmp/gc500-scratch/perpiece_cand55.json', JSON.stringify(R, null, 1));
   console.log('slots', (R.slots || []).length, 'keys', JSON.stringify(R.slotKeys), 'errors', R.pageErrors, R.lpErr || '', R.assetErr || '', R.onhireErr || '');
   console.log('byLine', JSON.stringify(R.byLine).slice(0, 1500));
   console.log('rowKeys', JSON.stringify(R.rowKeys));

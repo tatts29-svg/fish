@@ -17,7 +17,7 @@ const fs = require('fs');
     return R;
   });
   R.pageErrors = h.errors.length;
-  fs.writeFileSync('/tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/pl_lines_cand55.json', JSON.stringify(R, null, 1));
+  fs.writeFileSync('/tmp/gc500-scratch/pl_lines_cand55.json', JSON.stringify(R, null, 1));
   console.log('rows', R.rows.length, 'supplied', R.supplied_on, 'charge', JSON.stringify(R.charge), 'errors', R.pageErrors);
   await h.browser.close();
 })();
