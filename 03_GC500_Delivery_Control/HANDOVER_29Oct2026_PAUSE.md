@@ -1,0 +1,35 @@
+# GC500 continuation handover — 29 October 2026
+
+Author: Andrew Fisher
+
+Andrew directly instructed in the Codex conversation on 29 October: finish current work within one hour, hand everything to Claude, and pause until Andrew explicitly confirms credits are available. He also explicitly asked to tell Claude. This handover completes that instruction before the 17:28 AEST deadline. Codex stops after recording the handover; recurring coordination must not restart its work during this pause.
+
+Claude is the continuation owner for the remaining implementation, testing, draft rebases, publication and public read-back. This supersedes earlier assignments of future read-back and rebases to Codex. Receipt must be recorded separately in PR #1; posting this file does not establish acceptance. Existing scope, preview and publication gates remain. Read current AGENTS.md, STATUS.md and newer PR #1 comments before acting.
+
+## Ready release
+
+v12.59 completion achievement is READY, with source/tests frozen at `3fd2c24a5a2e8c2aaf1c1efc4f27994f2b826ac6` and READY board `59536a1103941d6ab72cc04b8bdb1c886fed97d0`. Folder: `v12.59_completion_achievement_DRAFT/`. Branch: `ccr-061f77e8-ivjhrv`.
+
+- Exact tested candidate: `1e35528f32ff0b9cd3e0fb646b52cd92bc0c58733d3d9efaf9d02485e7c3a89b`, 16,114,393 bytes.
+- Required predecessor: v12.54.1, `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`, 16,106,179 bytes. Last complete independent public read-back: 29 October 06:20 UTC / 16:20 AEST; still this predecessor. This is an observation time, not a guarantee that live cannot subsequently change.
+- Checks passed: 8 boundaries, 35 history/scope/alias fixtures, 54 VMS fixtures, 63 native acceptance checks, 59 financial/source comparisons, 217 parsed scripts; desktop and phone 27-route/seven-link/Back sweeps; actual phone screenshots and no overflow. No operational writes or runtime/console errors. Existing design and weather preserved.
+- Claude explicitly took this source in PR #1 comment 6489398098. In 6489583740 he reports a byte-identical rebuild, 80 unchanged financial probes and previews sent to Andrew. His stated preview outcome remains the publication gate. These are attributed reports, not a Codex live assertion.
+
+Next: follow the folder's reproduction instructions and shared guarded uploader, check the current record and exact predecessor, then report the full public SHA256 and live time. A changed predecessor requires a reviewed rebuild and affected tests. No Codex independent read-back will run during the pause; describe the publisher's verification accurately. Completion checks preserve uncertainty and explicit corrections; they do not certify every ancillary item as complete or all financial source inputs as final.
+
+## Remaining work transferred
+
+| Work | Source and current state | Next action and gate |
+|---|---|---|
+| v12.55 contract/labour correction | `v12.55_ruled_labour_DRAFT/`; source `dd2d3c563afc0eb5abc50c89f8acc6565ed45a0d`; checked candidate `5c3d92999b92852c23992fbd48b156717d5b00da7422a589690421e9366d8fe1` on v12.54.1. Not READY. | Resolve the existing Cleaning-inclusion boundary, reconcile newer source rulings, rebase on actual live successor and repeat affected native/financial/phone/release checks. The README records 6,343 native checks and the private-oracle requirements; old results are not evidence for a new candidate. |
+| v12.57 map clarity | `v12.57_map_clarity_DRAFT/`; restored source `b270294c2d0294b5c86a66d3ba06080156b4eb33`; checked map-only candidate `01d87c5dbe3b02c0e09c42070ad53a514e106e3118e4058a49342d5cbed4af0c`. Not READY. | Preserve recorded identities/pins. Obtain the stated desktop/phone visual outcome, rebase after v12.59, check a fresh record and repeat affected gates. Withdrawn identity-removal candidate `604a96719725228ac7fcadde1726b0fd20b450fd91b18fdd0005421d2a403c53` must not be revived or uploaded. |
+| v12.58 post-event phase | `review_29Oct2026_vms_postevent/README.md`; source `0fb00e33fb294f353aaab40965ff67071e7a262a`. Brief read; implementation queued. | Keep this separate from the restored map-only draft. Reconcile original source and current record; location wording does not authorise invented precise coordinates. Existing preview gate remains. |
+| v12.60 P&L cleanup | `review_29Oct2026_pl_cleanup/README.md`; corrected acceptance `1d44f55f166b5028d1f476742d8a6bb72f20d760`; supporting `WORKFORCE_AND_TRANSPORT.md` at `0e1206545f367e820ba89e4cedb3e14058328ed7`. No implementation. | Whole-job totals invariant, authorised branch movements reconciled exactly. Latest acceptance overrides earlier proposed revenue treatment: keep existing revenue allocation until Andrew settles the inference. Missing inputs remain explicit; no invented rates or full cent-accuracy certification. Desktop/phone preview before publication. Open v12.56 work is superseded. |
+| Schedule 15 source load | `review_29Oct2026_schedule15_wfb_program/README.md` at `b082189b285f1dd45df1d5420b2164708bb67bfc`. Source review is not application. | Obtain/read the authorised original, reconcile current source and duplicate coverage, and implement only established cost-side changes with exact checks. Separate this from v12.60's whole-job-preservation scope. |
+| Older presentation previews | `v12.51_pl_presentation_DRAFT/`, `v12.52_servicing_presentation_DRAFT/`, `v12.53_build_stamp_DRAFT/`. All preview-only on older exact v12.50. | v12.51 is reference material for v12.60, with performance still open. v12.52 retains the native access boundary; public-view parity is unresolved, so never bypass authentication or embed private tracker data. v12.53 still needs its size/design outcome. Reconcile scope and actual live base before any production use; preserve current cards/weather/details. |
+
+Baseplan 10 review in `review_29Oct2026_baseplan10/` is not an import or authority to alter site records. Resolve its outstanding source rulings against onsite truth before applying any correction. An optional Advanced invoice field is not an approved new feature. Do not revive superseded proposals or historic holds when newer explicit instructions exist.
+
+All implementation and reproducible test sources above are in the shared repository. Private originals, detailed native/financial evidence and screenshots stay in their authorised private locations; another session's local path is not proof of access. Recreate any missing private test oracle from authorised source evidence, or state the exact missing input. Preserve price categories, branch attribution, zero/included distinctions and uncertain completion. No pre-bill amounts or invented operational facts.
+
+Tests remain read-only, browser checks serial under `/tmp/gc500-browser.lock`, and every release uses the shared build/check/upload process with full public-byte read-back. Existing standing approval for confirmed scoped fixes remains, while newer specific preview/hold instructions still govern. Use PR #1 for coordination; no additional destination is authorised by this handover.
