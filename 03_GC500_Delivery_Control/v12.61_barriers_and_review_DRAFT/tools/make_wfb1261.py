@@ -45,6 +45,9 @@ def r6(v): return round(float(v), 6)
 out = {}
 for ref, g in sorted(GEOM.items()):
     zone, where, qty, by = PROGRAMME[ref]
+    if by != 'Coates':
+        print('skipped', ref, by, '- not ours (Andrew, 30 Oct 2026: "Only the coates ones")')
+        continue
     runs = []
     for r in g.get('runs', []):
         fr = [[r6(p[0]), r6(p[1])] for p in r['frame']]

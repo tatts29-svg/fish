@@ -31,7 +31,7 @@ No money moves: charge 998,997.00 before and after; nothing on the record change
 | WB17, WB18 | n/a | Racing kerbs T6/7/8/9 · T2 | 6 · 2 | not on the K sheets (Track Services' request): at the turns, marked approximate |
 | WB22 | 10 · K230 | Marriot pedestrian crossing closure | 4 | the pieces at the tram crossing island (the sheet shows 3 + 3 + 2; the programme has 4) — not on the register, so no card yet |
 | WB07, WB21 | 1 · 13 | Coates quantity 0 (the 17 at Admiralty Drive are Downer's WB08) | 0 | programme rows only |
-| WB08–WB12 | Downer | — | 253 | Downer's, not ours: programme rows only, no marks |
+| WB08–WB12 | Downer | — | 253 | Downer's, not ours: programme rows only, nothing on any map (not in `wfb1261.json`) |
 
 The reading: `tools/zone_runs.py` (yellow pieces off each zone sheet, registration by shared labels, two-point fits for K230 and
 K231 on T2/T3 and T9/T10), `tools/overlay.py` (the check pictures), `tools/make_wfb1261.py` (the per-reference file
@@ -41,7 +41,8 @@ copy, 18,125,184 bytes, `fbfc4ff9…`).
 ## Proof
 
 - Every WB key on the register: the one destination reads `drawn` with the drawing's words; Find it on the map returns
-  the same point with "position: where water barrier drawing K2xx puts it (zone N: …)"; 15 master-plan points placed;
+  the same point with "position: where water barrier drawing K2xx puts it (zone N: …)"; 13 master-plan points placed
+  (the Coates references with a sheet; Downer's rows are not in the data at all, Andrew 30 Oct: "Only the coates ones");
   12 barrier shapes rebuilt; the Demob plan piece for WB16, WB06, WB03 and WB13 sits exactly on the run.
 - Thu 22 Oct card: "WHOLE BUILD · TO THE RACE WEEKEND · 100%", Day completed stamp, More info paragraph; Wed 21 unchanged
   at 93.43% (`evidence/desktop-lastday.png`).
