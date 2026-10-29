@@ -90,3 +90,23 @@ panel). The per-piece labour is reconciled contract by contract in `PER_PIECE_VS
 (57,611.28) and the page's per-piece sets agree to the cent on 9968862, the three 9994954 buildings, every toilet block,
 the 16-pans and the accessible toilets, and differ only on the FWF (two units), the deleted pee-panel line, T0021/T0022
 and the track mats.
+
+## The bridge, to the cent (18:35 AEST): page 1,007,518.57 against Baseplan (10) 929,716.95
+
+Baseplan (10) as exported adds to 936,016.32, but two rows repeat in the export (9961265 lines 43 and 44, 375.27 and
+5,924.10); counted once the export is 929,716.95. Page over Baseplan: **77,801.62**, every cent of it here:
+
+| | Page − Baseplan | Whose |
+|---|---|---|
+| Fencing 9990776: dockets at the card 365,341.63 + race crew 19,184.97 = 384,526.60 against 335,180.04 (which has the 19,412.82 labour line inside it) | +49,346.56 | branch, awaiting its information |
+| 34 hire and transport lines that differ (VMS +4,909.80 · access +932.85 · barriers +909.78 · forklifts −741.60 · 9997710 −17.28) | +5,993.55 | page: four 28 Oct boards +3,323.82, pins to (8) and the day count; branch: WB02 +1,083.24 |
+| Per-piece labour 73,174.28 against the ten lump lines 57,611.28: double count on generators, VMS, light towers 5,631.86 · pee panels 3,310.38 · track mats 5,309.10 · T0021/T0022 1,311.66 | +15,563.00 | page 5,631.86 · branch 8,619.48 · Andrew 1,311.66 |
+| Transport legs charged with no contract delivery line | +7,293.30 | branch |
+| Page lines gone from (10): VMS11 536.10 · VMS12 589.71 · 9968862/136 site shift 500.00 | +1,625.81 | branch |
+| On (10), not on the page: 9994248 (fence, CCB, chairs, delivery, pickup) 1,795.30 · 9997710/3 225.30 | −2,020.60 | page |
+| Pump-outs 66,145.14 · accommodation 27,700.00 · consumables and the seventeen 7-digit lines 26,469.74 · pee panel hire 4,033.02 · 316 contract lines | 0.00 | match |
+| | **+77,801.62** | |
+
+Page: 425,856.74 contract lines + 365,341.63 fencing + 73,174.28 per piece + 65,674.46 event scope + 66,145.14 servicing
++ 7,293.30 arrived transport + 4,033.02 pee panel hire = 1,007,518.57. Baseplan: 391,767.64 common priced + 26,469.74
+seven-digit contracts + 170,245.91 no-rate lines + 341,233.66 on (10) only = 929,716.95.
