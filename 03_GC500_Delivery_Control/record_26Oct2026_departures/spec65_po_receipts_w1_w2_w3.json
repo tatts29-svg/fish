@@ -1,0 +1,9 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 09:56 AEST: \"Receipt ID 4929277 for 4647515, Receipt ID 4936461 for 4647519, Receipt ID 4934877 P/O 4647520\" - Coates' receipts on the three construction-week fencing orders whose invoices (GC071026, GC141026, GC121026) match them to the cent; receipted in full at the order amount",
+  "ops": [
+    {"op": "po", "number": "4647515", "supplier_name": "Advanced Temporary Fencing", "stream": "fencing", "what": "Construction week 3", "period": "Construction week 3", "branch": "STPS", "revenue_branch": null, "confirmed": true, "invoice_no": "4929277", "receipted": "full"},
+    {"op": "po", "number": "4647519", "supplier_name": "Advanced Temporary Fencing", "stream": "fencing", "what": "Construction week 2", "period": "Construction week 2", "branch": "STPS", "revenue_branch": null, "confirmed": true, "invoice_no": "4936461", "receipted": "full"},
+    {"op": "po", "number": "4647520", "supplier_name": "Advanced Temporary Fencing", "stream": "fencing", "what": "Fencing supplier work", "period": "Construction week 1", "branch": "STPS", "revenue_branch": null, "confirmed": true, "invoice_no": "4934877", "receipted": "full"}
+  ]
+}
