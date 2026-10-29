@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 12:50 AEST: \"453t left friday 12pm friday gone\" - VMS23 (453T, TF54CQ) left site Fri 23 Oct 2026 12:00, not 29 Oct 12:00 as run 66 recorded from the plate photo",
+  "ops": [
+    {"op": "collection_redate", "ref": "T0158", "no": "453T", "at": "2026-10-23T12:00:00+10:00", "why": "Andrew Fisher, 29 Oct 2026: 453T left Friday 23 Oct at 12:00, not 29 Oct"}
+  ]
+}
