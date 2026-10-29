@@ -1,7 +1,9 @@
 # v12.61 — the water barriers where the K sheets put them, and three of the night's asks
 
 Author: Andrew Fisher · built 30 Oct 2026 on the live v12.56 (`cb27d7c56a41c0d5b2fcd19294800b5095fe690da0fe3c91937e8ed9babbdc5c`) ·
-**PREVIEW, not uploaded** — Andrew to look first; upload only on his word.
+**LIVE 30 Oct 2026 04:52 AEST** on Andrew's word ("Can we upload the latest build"): sha256
+`ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90`, 16,143,727 bytes, record 11992 at upload; the
+public read-back straight after is byte for byte the candidate.
 
 No money moves: charge 998,997.00 before and after; nothing on the record changes.
 
@@ -60,8 +62,8 @@ copy, 18,125,184 bytes, `fbfc4ff9…`).
 
 ```
 cd 03_GC500_Delivery_Control
-bash toolchain/build.sh v12.61 v12.61_barriers_and_review_DRAFT/patch_v1261.py
-python3 toolchain/upload_page.py build/GC500_v12.61/GC500_Delivery_Control_hosted.html   # on Andrew's word only
+bash toolchain/build.sh v12.61 v12.61_barriers_and_review_LIVE/patch_v1261.py
+python3 toolchain/upload_page.py build/GC500_v12.61/GC500_Delivery_Control_hosted.html   # done 30 Oct 2026 04:52 AEST on Andrew's word
 ```
 
 `patch_v1261.py` requires the v12.56 footer and modules and refuses to apply twice. Files: `patch_v1261.py`, `wfb1261.js`,
