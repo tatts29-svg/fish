@@ -540,3 +540,8 @@ Andrew, 29 Oct 2026 13:12 AEST: "Picked up 467T at 1230pm". Spec `spec70_vms11_l
 ## Run 71 — 1191957 on T0158: not a VMS board, Ready tick off (29 Oct 2026 13:30 AEST, record 11971 → 11972)
 
 Andrew, 29 Oct 2026 13:35 AEST: "Remove this its not part of a vms". 1191957 was entered on T0158 on 16 Oct as VMS13 (rego EN3803) and its unit record was set aside by Andrew on 19 Oct; the leftover was its Ready tick on T0158. Spec `spec71_t0158_1191957_off.json`, report `report_20261029T032950Z.json`: new runner op `unit_ready_off` — the tick comes off through the Demob cards' own writer (Singles1238.setUnitReady, off, with the reason), read against the raw delivery document because the page's deliveryOf view leaves out a tick whose unit record is set aside. One delivery document written, verified, every other document unchanged in value; P&L unchanged. Still on the page, for Codex: the VMS plan's default identity for position 13 names 1191957 (page data, not the record).
+
+
+## Run 72 — VMS18 (472T) and VMS20 (475T) left site Monday 26 Oct (29 Oct 2026 13:32 AEST, record 11972 → 11973)
+
+Andrew, 29 Oct 2026 13:42 AEST: "472 and 475 log as picked up. Put down monday please." Spec `spec72_vms18_vms20_left_mon.json`, report `report_20261029T033154Z.json`: through the page's own Record departure form on T0158 — 472T (TE58GZ, VMS18) and 475T (TE88HN, VMS20), Premiair, at 2026-10-26 12:00 AEST; no time was given, so 12:00 is a nominal time and the spec says so. T0158 stays part: the Coates race-day boards VMS15 (1211348), VMS16 (1211376) and VMS17 (1211364) are still on it. One delivery document written, verified, every other document unchanged in value; P&L unchanged.
