@@ -1,0 +1,227 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261029T043105Z",
+ "finished": "2026-10-29T04:31:36.474Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 14:40 AEST: \"these are ready for pick up\" - the three VMS boards still to come out: VMS09 1211404 (TF15JR, Coates) and VMS10 120T (Premiair, already Ready since 08:20) on T0103, VMS12 1211646 (TF59LR, Coates) on T0128; each unit's own Ready tick on the Demob cards",
+  "ops": [
+   {
+    "op": "unit_ready",
+    "ref": "T0103",
+    "units": [
+     "coates|1211404",
+     "prem-air-hire|120T"
+    ]
+   },
+   {
+    "op": "unit_ready",
+    "ref": "T0128",
+    "units": [
+     "coates|1211646"
+    ]
+   }
+  ]
+ },
+ "pageSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
+ "version": {
+  "before": 11982,
+  "after": 11983
+ },
+ "updated": {
+  "before": "2026-10-29T04:26:16.643Z",
+  "after": "2026-10-29T04:31:35.655Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "unit_ready",
+   "ref": "T0103",
+   "units": [
+    "coates|1211404",
+    "prem-air-hire|120T"
+   ],
+   "result": "1 unit(s) ticked Ready by Andrew Fisher; 1 already ready: coates|1211404, prem-air-hire|120T"
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0128",
+   "units": [
+    "coates|1211646"
+   ],
+   "result": "0 unit(s) ticked Ready by Andrew Fisher; 1 already ready: coates|1211646"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0103",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0103": {
+    "state": "on site",
+    "set_at": "2026-10-08T05:27:09.801Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|120T": {
+      "on": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-08T05:27:09.801Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.616Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|120T",
+      "ready": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:35:09.305Z"
+    },
+    "_k": "T0103"
+   }
+  },
+  "after": {
+   "delivery/T0103": {
+    "state": "on site",
+    "set_at": "2026-10-08T05:27:09.801Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|120T": {
+      "on": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211404": {
+      "on": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-08T05:27:09.801Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.616Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|120T",
+      "ready": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211404",
+      "ready": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:35:09.305Z"
+    },
+    "_k": "T0103"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
