@@ -1,0 +1,930 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261029T034420Z",
+ "finished": "2026-10-29T03:44:50.168Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 14:47 AEST: \"450. 472.475 off hire as of today please\" - Premiair VMS boards 450T (TE94CL, VMS24), 472T (TE58GZ, VMS18) and 475T (TE88HN, VMS20) are off hire from 29 Oct 2026. 450T leaves the record today (no time given, 12:00 used as a nominal time); 472T and 475T already left site Mon 26 Oct (run 72), so their off-hire day goes on the reference as a note",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "VMS-03",
+    "at": "2026-10-29T12:00:00+10:00",
+    "nos": [
+     "450T"
+    ],
+    "complete": true
+   },
+   {
+    "op": "note_append",
+    "ref": "VMS-03",
+    "text": "Off hire Thu 29 Oct 2026 - Premiair board 450T (VMS24), on Andrew Fisher's word 29 Oct 2026. Left site recorded the same day, 12:00 nominal."
+   },
+   {
+    "op": "note_append",
+    "ref": "T0158",
+    "text": "Off hire Thu 29 Oct 2026 - Premiair boards 472T (VMS18) and 475T (VMS20), on Andrew Fisher's word 29 Oct 2026. Both left site Mon 26 Oct 2026 (12:00 nominal)."
+   }
+  ]
+ },
+ "pageSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
+ "version": {
+  "before": 11973,
+  "after": 11978
+ },
+ "updated": {
+  "before": "2026-10-29T03:32:21.322Z",
+  "after": "2026-10-29T03:44:49.299Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "VMS-03",
+   "at": "2026-10-29T12:00:00+10:00",
+   "nos": [
+    "450T"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-29T12:00:00+10:00, recorded by Andrew Fisher: 1 x VMS 450T - VMS-03 has left in full, light in transit"
+  },
+  {
+   "op": "note_append",
+   "ref": "VMS-03",
+   "result": "note added to"
+  },
+  {
+   "op": "note_append",
+   "ref": "T0158",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0158",
+   "status": 200
+  },
+  {
+   "key": "delivery/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~VMS-03",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|475T": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/343bb233-6578-4804-ac24-09a0197691ac"
+     },
+     "prem-air-hire|487T": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a7a63063-09f9-48a9-8477-4c7dd40a38b1"
+     },
+     "coates|1201864": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/fc7442a4-a151-4484-8ced-8446809b87c3"
+     },
+     "coates|1191957": {
+      "on": false,
+      "at": "2026-10-29T03:30:05.022Z",
+      "by": "Andrew Fisher",
+      "why": "Not a VMS board - Andrew Fisher, 29 Oct 2026; unit set aside 19 Oct"
+     },
+     "prem-air-hire|453T": {
+      "on": true,
+      "at": "2026-10-28T22:20:09.250Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/f89f7962-e4b6-4d57-99bc-a40e71dc6e32"
+     },
+     "prem-air-hire|472T": {
+      "on": true,
+      "at": "2026-10-28T22:20:17.592Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/8cb8f992-f46c-42dc-b892-837501ccc830"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:29:22.688Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct. VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25). VMS18 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 472T, rego TE58GZ (contract 9961265 line 24). VMS20 arrived and completed 19 Oct 2026: Premiair Hire sub-hire, fleet 475T, rego TE88HN (contract 9961265 line 26). VMS23 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 453T, rego TF54CQ (contract 9961265 line 30). VMS13 confirmed by Andrew 19 Oct 2026: 1191957, a Coates machine, as contract line 32 says (not 1191657).",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:32:01.061Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d03a2d07-65a8-4dab-9d8d-ec1f534e45b2",
+       "date": "2026-10-23",
+       "departedAt1211": "2026-10-23T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS23\"]"
+         ],
+         "numbers": [
+          "453T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS23\"]",
+           "number": "453T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false,
+       "redated1211": [
+        {
+         "was": "2026-10-29T12:00:00+10:00",
+         "to": "2026-10-23T12:00:00+10:00",
+         "why": "Andrew Fisher, 29 Oct 2026: 453T left Friday 23 Oct at 12:00, not 29 Oct",
+         "at": "2026-10-29T03:04:02.182Z"
+        }
+       ]
+      },
+      "note": "Andrew Fisher, 29 Oct 2026: 453T left Friday 23 Oct at 12:00, not 29 Oct (entered 2026-10-29T12:00:00+10:00)"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:41:27.183Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "a3aaa529-e3ca-459b-aaad-50c42f6d85de",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:40:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS19\"]"
+         ],
+         "numbers": [
+          "487T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS19\"]",
+           "number": "487T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:42:32.222Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f93ae4cc-769f-413c-bba3-df904ca825be",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"coates\",\"native\",\"vms:VMS14\"]"
+         ],
+         "numbers": [
+          "1201864"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"coates\",\"native\",\"vms:VMS14\"]",
+           "number": "1201864",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T03:32:09.666Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "75ca5883-5af1-4cc1-b28e-deb6faa44300",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 2,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS18\"]",
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS20\"]"
+         ],
+         "numbers": [
+          "472T",
+          "475T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS18\"]",
+           "number": "472T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS20\"]",
+           "number": "475T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T01:56:23.752Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T02:33:08.774Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:22.688Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1191957",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1201864",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|475T",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|487T",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|453T",
+      "ready": true,
+      "at": "2026-10-28T22:20:09.250Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|472T",
+      "ready": true,
+      "at": "2026-10-28T22:20:17.592Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1191957",
+      "ready": false,
+      "at": "2026-10-29T03:30:05.022Z",
+      "by": "Andrew Fisher",
+      "why": "Not a VMS board - Andrew Fisher, 29 Oct 2026; unit set aside 19 Oct"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "delivery/VMS-03": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|450T": {
+      "on": true,
+      "at": "2026-10-28T22:20:07.057Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/27844b21-e215-436f-b871-10ec8b02fe49"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:25.384Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:25.384Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|450T",
+      "ready": true,
+      "at": "2026-10-28T22:20:07.057Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "VMS-03"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-19T05:25:00.568Z"
+   },
+   "stamps/dnote~2f~VMS-03": null,
+   "by/dnote~2f~VMS-03": null
+  },
+  "after": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|475T": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/343bb233-6578-4804-ac24-09a0197691ac"
+     },
+     "prem-air-hire|487T": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a7a63063-09f9-48a9-8477-4c7dd40a38b1"
+     },
+     "coates|1201864": {
+      "on": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/fc7442a4-a151-4484-8ced-8446809b87c3"
+     },
+     "coates|1191957": {
+      "on": false,
+      "at": "2026-10-29T03:30:05.022Z",
+      "by": "Andrew Fisher",
+      "why": "Not a VMS board - Andrew Fisher, 29 Oct 2026; unit set aside 19 Oct"
+     },
+     "prem-air-hire|453T": {
+      "on": true,
+      "at": "2026-10-28T22:20:09.250Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/f89f7962-e4b6-4d57-99bc-a40e71dc6e32"
+     },
+     "prem-air-hire|472T": {
+      "on": true,
+      "at": "2026-10-28T22:20:17.592Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/8cb8f992-f46c-42dc-b892-837501ccc830"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:29:22.688Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct. VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25). VMS18 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 472T, rego TE58GZ (contract 9961265 line 24). VMS20 arrived and completed 19 Oct 2026: Premiair Hire sub-hire, fleet 475T, rego TE88HN (contract 9961265 line 26). VMS23 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 453T, rego TF54CQ (contract 9961265 line 30). VMS13 confirmed by Andrew 19 Oct 2026: 1191957, a Coates machine, as contract line 32 says (not 1191657). Off hire Thu 29 Oct 2026 - Premiair boards 472T (VMS18) and 475T (VMS20), on Andrew Fisher's word 29 Oct 2026. Both left site Mon 26 Oct 2026 (12:00 nominal).",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:32:01.061Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d03a2d07-65a8-4dab-9d8d-ec1f534e45b2",
+       "date": "2026-10-23",
+       "departedAt1211": "2026-10-23T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS23\"]"
+         ],
+         "numbers": [
+          "453T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS23\"]",
+           "number": "453T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false,
+       "redated1211": [
+        {
+         "was": "2026-10-29T12:00:00+10:00",
+         "to": "2026-10-23T12:00:00+10:00",
+         "why": "Andrew Fisher, 29 Oct 2026: 453T left Friday 23 Oct at 12:00, not 29 Oct",
+         "at": "2026-10-29T03:04:02.182Z"
+        }
+       ]
+      },
+      "note": "Andrew Fisher, 29 Oct 2026: 453T left Friday 23 Oct at 12:00, not 29 Oct (entered 2026-10-29T12:00:00+10:00)"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:41:27.183Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "a3aaa529-e3ca-459b-aaad-50c42f6d85de",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:40:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS19\"]"
+         ],
+         "numbers": [
+          "487T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS19\"]",
+           "number": "487T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T02:42:32.222Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f93ae4cc-769f-413c-bba3-df904ca825be",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0158\",\"coates\",\"native\",\"vms:VMS14\"]"
+         ],
+         "numbers": [
+          "1201864"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"coates\",\"native\",\"vms:VMS14\"]",
+           "number": "1201864",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T03:32:09.666Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "75ca5883-5af1-4cc1-b28e-deb6faa44300",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T12:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T02:09:00.000Z",
+       "requiredKey": "[[\"vms\",9]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 2,
+         "unitIds": [
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS18\"]",
+          "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS20\"]"
+         ],
+         "numbers": [
+          "472T",
+          "475T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS18\"]",
+           "number": "472T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0158\",\"prem-air-hire\",\"native\",\"vms:VMS20\"]",
+           "number": "475T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T01:56:23.752Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T02:33:08.774Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:22.688Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1191957",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1201864",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|475T",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|487T",
+      "ready": true,
+      "at": "2026-10-26T20:16:31.860Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|453T",
+      "ready": true,
+      "at": "2026-10-28T22:20:09.250Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|472T",
+      "ready": true,
+      "at": "2026-10-28T22:20:17.592Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1191957",
+      "ready": false,
+      "at": "2026-10-29T03:30:05.022Z",
+      "by": "Andrew Fisher",
+      "why": "Not a VMS board - Andrew Fisher, 29 Oct 2026; unit set aside 19 Oct"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "delivery/VMS-03": {
+    "state": "in transit",
+    "set_at": "2026-10-29T03:44:35.324Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|450T": {
+      "on": true,
+      "at": "2026-10-28T22:20:07.057Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/27844b21-e215-436f-b871-10ec8b02fe49"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T03:44:35.324Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T03:44:35.324Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "2fee314d-951a-4b9d-8a32-81808fb7b043",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:00:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T14:00:00.000Z",
+       "requiredKey": "[[\"vms\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"VMS-03\",\"prem-air-hire\",\"native\",\"slot:27844b21-e215-436f-b871-10ec8b02fe49\"]"
+         ],
+         "numbers": [
+          "450T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"VMS-03\",\"prem-air-hire\",\"native\",\"slot:27844b21-e215-436f-b871-10ec8b02fe49\"]",
+           "number": "450T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:25.384Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T03:44:35.324Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|450T",
+      "ready": true,
+      "at": "2026-10-28T22:20:07.057Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "note": "Off hire Thu 29 Oct 2026 - Premiair board 450T (VMS24), on Andrew Fisher's word 29 Oct 2026. Left site recorded the same day, 12:00 nominal.",
+    "_k": "VMS-03"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-29T03:44:36.775Z"
+   },
+   "stamps/dnote~2f~VMS-03": {
+    "_k": "dnote/VMS-03",
+    "v": "2026-10-29T03:44:36.061Z"
+   },
+   "by/dnote~2f~VMS-03": {
+    "_k": "dnote/VMS-03",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
