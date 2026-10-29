@@ -2,6 +2,11 @@
 
 Author: Andrew Fisher
 
+The later handover in PR #1 comment 6487952175 supersedes the earlier default
+identity removal request. That follow-up candidate (`604a9671…`) is withdrawn.
+This folder again builds the original checked map-only preview below, preserving
+the register identity. The proposed post-event phase is separate work.
+
 The map opens with collection rings off. The existing Map tools bar gains a
 **Show what has left** choice, with a visible key on the map while enabled.
 **Servicing areas** is an independent choice: Off, All areas, or Area 1 to Area 13.
