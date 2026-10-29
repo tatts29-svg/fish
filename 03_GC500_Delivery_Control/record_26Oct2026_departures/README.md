@@ -535,3 +535,8 @@ Andrew, 29 Oct 2026 12:50 AEST: "453t left friday 12pm friday gone". Run 66 had 
 ## Run 70 — VMS11 (467T) left site 12:30 (29 Oct 2026 13:14 AEST, record 11970 → 11971)
 
 Andrew, 29 Oct 2026 13:12 AEST: "Picked up 467T at 1230pm". Spec `spec70_vms11_left_1230.json`, report `report_20261029T031351Z.json`: through the page's own Record departure form on T0128 — 467T (TE97G, VMS11, Premiair) at 12:30; T0128 stays part, with 1211646 (VMS12, Coates) still on it. One delivery document written, verified, every other document unchanged in value; P&L unchanged.
+
+
+## Run 71 — 1191957 on T0158: not a VMS board, Ready tick off (29 Oct 2026 13:30 AEST, record 11971 → 11972)
+
+Andrew, 29 Oct 2026 13:35 AEST: "Remove this its not part of a vms". 1191957 was entered on T0158 on 16 Oct as VMS13 (rego EN3803) and its unit record was set aside by Andrew on 19 Oct; the leftover was its Ready tick on T0158. Spec `spec71_t0158_1191957_off.json`, report `report_20261029T032950Z.json`: new runner op `unit_ready_off` — the tick comes off through the Demob cards' own writer (Singles1238.setUnitReady, off, with the reason), read against the raw delivery document because the page's deliveryOf view leaves out a tick whose unit record is set aside. One delivery document written, verified, every other document unchanged in value; P&L unchanged. Still on the page, for Codex: the VMS plan's default identity for position 13 names 1191957 (page data, not the record).
