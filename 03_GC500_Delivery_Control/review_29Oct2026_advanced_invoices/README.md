@@ -33,11 +33,13 @@ Six orders $214,029.50 on the record against $214,030.00 invoiced; the whole dif
 Nothing invoiced yet for the event week (4647522: 62 dockets so far, about $71,160 at Advanced's sheet rates) or the
 demob weeks (4647523); 4658850 ($195, receipt 4922343) sits outside the programme weeks.
 
-## Worth a word with Advanced
+## Notes on the paperwork
 
-- GC121026 (week 1) is dated 22 Oct 2026 but says "payment due 03-10-2026", a date before the invoice; the number reads as
-  12 Oct. Accounts will query it; the 14-day due date would be 5 Nov.
-- GC220926 (week 5) carries no date of works.
+- GC121026 (week 1) says "payment due 03-10-2026" under a 22 Oct date. Andrew, 29 Oct 2026: "its ok" — not raised with
+  Advanced.
+- GC220926 (week 5) carries no date of works. The works were 14–18 Sep 2026: the record holds 29 signed Advanced dockets
+  for construction week 5, 36505–36535, dated Mon 14 to Fri 18 Sep (7, 4, 6, 8 and 4 a day). Note only; the amount
+  matches the order to the cent.
 
 ## What the page could carry, on Andrew's word
 
