@@ -1,92 +1,28 @@
 {
   "author": "Andrew Fisher",
-  "status": "DRAFT CHECKED \u2014 visual outcome and publication gates pending",
-  "checkedAt": "2026-10-29T03:06:26.814394+00:00",
-  "implementationAndTestsSource": "eaedf816f7bcdd81e2e871c8a8fe22b3fd9577b3",
-  "branch": "ccr-061f77e8-ivjhrv",
+  "status": "DRAFT \u2014 identity follow-up checks in progress",
+  "candidate": {
+    "version": "v12.57",
+    "sha256": "604a96719725228ac7fcadde1726b0fd20b450fd91b18fdd0005421d2a403c53",
+    "bytes": 16116573,
+    "sharedBuildMatches": true
+  },
   "base": {
     "version": "v12.54.1",
     "sha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5"
   },
-  "candidate": {
-    "version": "v12.57",
-    "sha256": "01d87c5dbe3b02c0e09c42070ad53a514e106e3118e4058a49342d5cbed4af0c",
-    "bytes": 16116515,
-    "sharedBuildMatches": true
-  },
-  "checks": {
+  "passed": {
     "boundaryAndExactReversal": 8,
     "questionsGeometryAndReadOnly": 25,
     "inlineScriptsParsed": 218,
-    "nativeFinancialAndSourcePreservation": 56,
-    "nativeControls": {
-      "desktop": {
-        "checks": 69,
-        "status": "PASS",
-        "runtimeErrors": 0,
-        "consoleErrors": 0,
-        "operationalWrites": 0
-      },
-      "phone": {
-        "checks": 70,
-        "status": "PASS",
-        "runtimeErrors": 0,
-        "consoleErrors": 0,
-        "operationalWrites": 0
-      }
-    },
-    "sharedNavigation": {
-      "desktop": {
-        "tabs": 27,
-        "deepLinks": 7,
-        "back": "PASS",
-        "preservedAliasRoutes": [
-          "register",
-          "journal",
-          "breakdowns",
-          "variances",
-          "edit",
-          "change",
-          "add",
-          "nights"
-        ],
-        "errors": 0,
-        "consoleErrors": 0,
-        "writes": 0
-      },
-      "phone": {
-        "tabs": 27,
-        "deepLinks": 7,
-        "back": "PASS",
-        "preservedAliasRoutes": [
-          "register",
-          "journal",
-          "breakdowns",
-          "variances",
-          "edit",
-          "change",
-          "add",
-          "nights"
-        ],
-        "errors": 0,
-        "consoleErrors": 0,
-        "writes": 0
-      }
-    },
-    "independentSourceAndTestReview": "PASS",
-    "phoneScreenshotInspection": "PASS"
+    "exactDeltaFromCheckedMapPreview": "one bounded register-default expression"
   },
-  "testsSourceSha256": "63278c534bcdf42619a5c800ad584e846931c913ebae431c4116be857c3b965c",
-  "remaining": [
-    "Andrew visual outcome on desktop and phone previews, per the current handover",
-    "Fresh current-record acceptance before publication",
-    "Exact shared rebuild, unchanged-live-base guard and public-byte verification by the publication owner"
+  "pending": [
+    "Focused identity-source and native consumer checks",
+    "Fresh-record financial/source preservation",
+    "Affected desktop/phone checks and navigation sweeps",
+    "Existing visual outcome and guarded publication gates"
   ],
-  "limits": [
-    "Tests used a pinned private record; the live record has advanced since it was captured",
-    "Financial checks establish preservation for this map change, not complete business accuracy or approval of unresolved v12.55 scope",
-    "No publication or operational record changes performed",
-    "No publishing-owner acknowledgement or review implied"
-  ],
-  "privateEvidence": "Detailed records, financial comparisons, geometry oracle and actual screenshots are retained outside the repository."
+  "priorCheckedPreview": "map-preview-01d87c5d.json",
+  "publication": "Not READY or live. No operational write."
 }
