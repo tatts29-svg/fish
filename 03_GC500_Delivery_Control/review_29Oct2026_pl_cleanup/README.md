@@ -165,8 +165,14 @@ whole event labour revenue (65,674.46); STPS, NVAC and MEAD lose the weighted sh
 ## Acceptance
 
 - The Costs tab face carries at most 200 words; every figure on it is in a table.
-- The money probe on the candidate reads identical to live v12.54.1 for every total (charge, cost, difference,
-  branches); this release moves placement, not money. Where a line is found wrong in the build, Codex says so in
-  the LIVE note with the cents before and after.
+- The money probe on the candidate reads identical to live v12.54.1 for every whole-job figure (charge
+  1,007,518.57, cost 447,970.07, difference, every P&L line, job end); this release moves placement, not money.
+  The branch columns are the exception, and only by Andrew's ruling: every workforce cost moves to KINP from the
+  weighted spread, and carrier transport cost goes on the branch of the reference moved. The LIVE note states
+  each branch's cost and revenue before and after, and the movements sum to nought across the four branches.
+  Where a line is found wrong in the build, Codex says so in the LIVE note with the cents before and after.
+- Explicit versus inferred: the cost rule (Andrew's people on KINP, fencing on STPS) is Andrew's word. The event
+  labour scope revenue following the people onto KINP is an inference from it, put to Andrew for one word; until
+  he gives it, the revenue allocation stays as today's and the build keeps the two treatments switchable.
 - Totals foot and cross-foot: the branch columns sum to the On-the-record column on every row.
 - Preview screenshots (desktop and phone) to Andrew before anything is uploaded; I publish on his word.
