@@ -55,3 +55,8 @@ __pycache__/
 03_GC500_Delivery_Control/build/
 03_GC500_Delivery_Control/toolchain/node_modules/
 03_GC500_Delivery_Control/node_modules
+
+# Enlargements cut from the paper photographs for the second read (record_*/crops/).
+# Working files, remade from the originals at will - the originals and previews are
+# what is kept; the crops are never in git.
+03_GC500_Delivery_Control/record_*/crops/
