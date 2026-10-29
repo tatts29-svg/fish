@@ -1,0 +1,263 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261029T031351Z",
+ "finished": "2026-10-29T03:14:19.328Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 13:12 AEST: \"Picked up 467T at 1230pm\" - Premiair VMS board 467T (TE97G, VMS11) left site at 12:30",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0128",
+    "at": "2026-10-29T12:30:00+10:00",
+    "nos": [
+     "467T"
+    ],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
+ "version": {
+  "before": 11970,
+  "after": 11971
+ },
+ "updated": {
+  "before": "2026-10-29T03:04:14.102Z",
+  "after": "2026-10-29T03:14:18.460Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1007518.57,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 559548.5,
+   "branches": {
+    "KINP": 284480.4,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0128",
+   "at": "2026-10-29T12:30:00+10:00",
+   "nos": [
+    "467T"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-29T12:30:00+10:00, recorded by Andrew Fisher: 1 x VMS 467T - still to leave: 1 x VMS"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0128",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0128": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:39:39.378Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|467T": {
+      "on": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ed70fc17-0462-4e54-8973-28b5da9739f8"
+     },
+     "coates|1211646": {
+      "on": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/92c722b3-8dfe-4234-9cc5-16743a4cd08b"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T02:14:13.736Z",
+    "note": "Delivered 16 Oct 2026: VMS11 Premiair fleet 467T, rego TE97G (sub-hire line SUB-17093); VMS12 Junior 1211646, rego TF59LR. Contract 9961265 lines 15 and 16. Regos as Andrew read them off the boards, 16 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.767Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:39:39.378Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T02:14:13.736Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1211646",
+      "ready": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|467T",
+      "ready": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0128"
+   }
+  },
+  "after": {
+   "delivery/T0128": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:39:39.378Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|467T": {
+      "on": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ed70fc17-0462-4e54-8973-28b5da9739f8"
+     },
+     "coates|1211646": {
+      "on": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/92c722b3-8dfe-4234-9cc5-16743a4cd08b"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T02:14:13.736Z",
+    "note": "Delivered 16 Oct 2026: VMS11 Premiair fleet 467T, rego TE97G (sub-hire line SUB-17093); VMS12 Junior 1211646, rego TF59LR. Contract 9961265 lines 15 and 16. Regos as Andrew read them off the boards, 16 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.767Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:39:39.378Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-29T03:14:07.232Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "5bc93b3f-51e6-4b9f-82a4-1b17e421e790",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T12:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:39:39.378Z",
+       "requiredKey": "[[\"vms\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0128\",\"prem-air-hire\",\"native\",\"vms:VMS11\"]"
+         ],
+         "numbers": [
+          "467T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0128\",\"prem-air-hire\",\"native\",\"vms:VMS11\"]",
+           "number": "467T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T02:14:13.736Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1211646",
+      "ready": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "prem-air-hire|467T",
+      "ready": true,
+      "at": "2026-10-26T20:16:29.961Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0128"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

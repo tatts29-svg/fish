@@ -530,3 +530,8 @@ Andrew, 29 Oct 2026: "Picked up 487T at 1240pm"; "1201864 picked up 12pm". Specs
 ## Run 69 — VMS23 (453T) re-dated: left Friday 23 Oct 12:00, not 29 Oct (29 Oct 2026 13:04 AEST, record 11969 → 11970)
 
 Andrew, 29 Oct 2026 12:50 AEST: "453t left friday 12pm friday gone". Run 66 had recorded 453T off T0158 at 29 Oct 12:00 from the plate photo. Spec `spec69_vms23_left_fri_23oct.json`, report `report_20261029T030345Z.json`: new runner op `collection_redate` — the one recorded collection on T0158 carrying 453T keeps its id and units and gets `departedAt1211` 2026-10-23T12:00:00+10:00 and `date` 2026-10-23, with the reason and the old time noted on the entry, as `light_redate` re-dates an arrival. One delivery document written, verified; every other document unchanged in value; P&L unchanged.
+
+
+## Run 70 — VMS11 (467T) left site 12:30 (29 Oct 2026 13:14 AEST, record 11970 → 11971)
+
+Andrew, 29 Oct 2026 13:12 AEST: "Picked up 467T at 1230pm". Spec `spec70_vms11_left_1230.json`, report `report_20261029T031351Z.json`: through the page's own Record departure form on T0128 — 467T (TE97G, VMS11, Premiair) at 12:30; T0128 stays part, with 1211646 (VMS12, Coates) still on it. One delivery document written, verified, every other document unchanged in value; P&L unchanged.
