@@ -138,13 +138,28 @@ sit on branches from the data.
    branch; the Workforce tab keeps the roster, the hours and the purchase orders. Labour hire shows hours now and
    dollars when the invoices land on the orders.
 
-## The branch rule for the no-branch costs (proposed; Andrew to confirm with one word)
+## The branch rule for the no-branch costs (Andrew's ruling, 29 Oct 2026 15:40 AEST)
 
-Wages, labour hire, accommodation, meals and travel go on the branches by the hours each person ticked on each
-branch's references (the per-piece labour ticks already on the record, 497 of them); hours on no reference stay
-on the Job column. The event labour scope revenue ($65,674.46) is allocated the same way, so revenue and cost for
-the same people sit on the same branch. Transport carrier costs go on the branch of the reference each leg moved.
-Nothing is weighted to KINP by rule.
+Andrew: "you should know where they sit and what branch relates to for P&L. fencing belongs to STPS. and any of
+my guys belong to STPS."
+
+- **Fencing is STPS**: Advanced's gear on the dockets (Rehire), Advanced's crew (Installation, external
+  contractors), the fencing programme to come, and the fencing revenue at the 2026 card. Already the case on the
+  record; it stays so and nothing of it is weighted elsewhere.
+- **Every one of Andrew's people is STPS**: wages (31,267.96 to date), labour hire through Job Connect (the 8
+  purchase orders, dollars when invoiced), accommodation (22,023.96), meals (5,523.62), misc (140.70) and the
+  allowance and hours to come — all on STPS, whatever a person's home branch on the roster (BFIS, KINP, NOIS,
+  NSNA, NTSP, STPS). No weighting to KINP, no split by hours.
+- **The event labour scope revenue follows the people**: the $65,674.46 charged to the V8s for the crew's event
+  work, accommodation and travel sits on STPS with the cost of the same people, not spread KINP/STPS/NVAC as the
+  Branch split does today. (Follows from the ruling; Andrew to say if the revenue should sit elsewhere.)
+- **Per-piece labour revenue stays on the contract line's branch** (KINP 51,813 · STPS 5,398 · NVAC 3,264 ·
+  MEAD 1,770): it is what each branch's contract charges the V8s for install, as the rate card prices it.
+- **Transport carrier costs** go on the branch of the reference each leg moved (buildings and toilets KINP,
+  generators NVAC, barriers and VMS STPS, mechanical MEAD); Andrew has not ruled otherwise.
+
+Effect on the Branch split, on today's figures: STPS carries the full workforce cost (58,956.24 to date) and the
+event labour revenue (65,674.46); KINP, NVAC and MEAD lose the weighted shares they show today.
 
 ## Acceptance
 
