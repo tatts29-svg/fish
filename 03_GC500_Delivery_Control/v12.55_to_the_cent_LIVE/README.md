@@ -1,10 +1,13 @@
 # v12.55 — the P&L to the cent against Baseplan (10), Andrew's bits only
 
 Author: Andrew Fisher · built 29 Oct 2026 on the exact live v12.59
-(`1e35528f32ff0b9cd3e0fb646b52cd92bc0c58733d3d9efaf9d02485e7c3a89b`) · **READY TO UPLOAD on Andrew's word**, for the
-review tomorrow arvo (30 Oct).
+(`1e35528f32ff0b9cd3e0fb646b52cd92bc0c58733d3d9efaf9d02485e7c3a89b`).
 
-Candidate: `a1ef216a8f75add81a7d27126ade0a80e62d9bf259f864dbd53976354f06ab3d`, 16,124,069 bytes.
+**LIVE 29 Oct 2026 21:37 AEST, inside v12.56** on Andrew's word ("Go live", 21:35 AEST): the public page is the
+chained candidate `cb27d7c56a41c0d5b2fcd19294800b5095fe690da0fe3c91937e8ed9babbdc5c`, 16,127,515 bytes = live
+v12.59 + this patch + `v12.56_review_fixes_LIVE/patch_v1256.py`, read back byte for byte. Record 11984 at upload.
+The stand-alone v12.55 candidate (`a1ef216a8f75add81a7d27126ade0a80e62d9bf259f864dbd53976354f06ab3d`, 16,124,069
+bytes) was built and tested but not uploaded on its own.
 
 Andrew, 29 Oct 2026 18:40 AEST: "Fix your bits and get v12.55 ready to upload. I can look at all the contracts in the
 morning and we can review tomorrow arvo again." His bits, from the bridge in
@@ -63,7 +66,7 @@ Codex's earlier `v12.55_ruled_labour_DRAFT/` (built on a wrong cleaning ruling) 
 
 ```
 cd 03_GC500_Delivery_Control
-bash toolchain/build.sh v12.55 v12.55_to_the_cent_DRAFT/patch_v1255.py     # from the live page, guarded to 1e35528f…
+bash toolchain/build.sh v12.55 v12.55_to_the_cent_LIVE/patch_v1255.py     # from the live page, guarded to 1e35528f… (now history: live is v12.56)
 python3 toolchain/upload_page.py build/GC500_v12.55/GC500_Delivery_Control_hosted.html   # on Andrew's word only
 ```
 

@@ -1,11 +1,14 @@
 # v12.56 — the evening's four fixes, on top of v12.55
 
 Author: Andrew Fisher · built 29 Oct 2026 as a chained candidate: live v12.59
-(`1e35528f32ff0b9cd3e0fb646b52cd92bc0c58733d3d9efaf9d02485e7c3a89b`) + `patch_v1255.py` + `patch_v1256.py` ·
-**READY TO UPLOAD on Andrew's word**, for the review tomorrow arvo (30 Oct). One candidate carries the money release
-(v12.55) and these four, so one upload does the lot; v12.55 alone remains built as its own candidate (`a1ef216a…`).
+(`1e35528f32ff0b9cd3e0fb646b52cd92bc0c58733d3d9efaf9d02485e7c3a89b`) + `patch_v1255.py` + `patch_v1256.py`.
 
-Candidate: `cb27d7c56a41c0d5b2fcd19294800b5095fe690da0fe3c91937e8ed9babbdc5c`, 16,127,515 bytes.
+**LIVE 29 Oct 2026 21:37 AEST** on Andrew's word ("Go live", 21:35 AEST). Public bytes
+`cb27d7c56a41c0d5b2fcd19294800b5095fe690da0fe3c91937e8ed9babbdc5c`, 16,127,515 bytes, rebuilt at 21:36 from the
+live v12.59 to the same hash as the 19:48 candidate; the upload guard held (live unchanged since the build started,
+record 11984); a cache-busted public read-back straight after was identical to the candidate byte for byte. One
+upload carried the money release (v12.55) and these four. The stand-alone v12.55 candidate (`a1ef216a…`) stays
+built as history.
 
 No money moves here: charge 998,997.00 before and after, every P&L line as v12.55 leaves it.
 
@@ -44,8 +47,8 @@ maps, one on the master plan drawing, is queued as the next release (preview fir
 
 ```
 cd 03_GC500_Delivery_Control
-bash toolchain/build.sh v12.56 v12.55_to_the_cent_DRAFT/patch_v1255.py v12.56_review_fixes_DRAFT/patch_v1256.py
-python3 toolchain/upload_page.py build/GC500_v12.56/GC500_Delivery_Control_hosted.html   # on Andrew's word only
+bash toolchain/build.sh v12.56 v12.55_to_the_cent_LIVE/patch_v1255.py v12.56_review_fixes_LIVE/patch_v1256.py
+python3 toolchain/upload_page.py build/GC500_v12.56/GC500_Delivery_Control_hosted.html   # done 21:37 AEST 29 Oct on Andrew's word
 ```
 
 `patch_v1255.py` is guarded to the exact live v12.59; `patch_v1256.py` requires the v12.55 footer and module and
