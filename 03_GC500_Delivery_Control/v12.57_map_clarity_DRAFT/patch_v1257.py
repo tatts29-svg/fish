@@ -29,7 +29,6 @@ def replacements(text):
     css = (HERE / 'map_clarity1257.css').read_text().rstrip()
     questions = (HERE / 'questions1257.js').read_text().rstrip().replace('__PLAN1257__', json.dumps(plan_config(text), separators=(',', ':')))
     return [
-        ("coates: own, asset: own ? String(r.asset_no) : null,", "coates: own, asset: own && !(vms === 'VMS13' && String(r.asset_no) === '1191957') ? String(r.asset_no) : null,", 'exclude the rejected default board identity; preserve contract evidence'),
         ("let ready=false,filter='auto',paints=0,shown=[],lastAreas=[];", "let ready=false,filter='off',paints=0,shown=[],lastAreas=[];", 'areas default off'),
         ("if(filter==='off'||(filter==='auto'&&!toiletsOn())||window.GC500FencingMap?.active||document.body.classList.contains('in3d'))return;", "if(filter==='off'||window.GC500FencingMap?.active||document.body.classList.contains('in3d'))return;", 'areas independent of toilet filter'),
         ("const one=filter&&filter!=='auto';", "const one=!!filter;", 'explicit area filter'),

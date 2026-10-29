@@ -2,6 +2,11 @@
 
 Author: Andrew Fisher
 
+The later handover in PR #1 comment 6487952175 supersedes the earlier default
+identity removal request. That follow-up candidate (`604a9671…`) is withdrawn.
+This folder again builds the original checked map-only preview below, preserving
+the register identity. The proposed post-event phase is separate work.
+
 The map opens with collection rings off. The existing Map tools bar gains a
 **Show what has left** choice, with a visible key on the map while enabled.
 **Servicing areas** is an independent choice: Off, All areas, or Area 1 to Area 13.
@@ -13,13 +18,6 @@ the original reference data, search entries and Satellite/3D behaviour are retai
 The remaining explorer controls, equipment symbols, fencing layer, pickup packs,
 existing page styling and financial readers are preserved.
 
-The follow-up in PR #1 comment 6487114117 also removes one rejected default board
-identity from the shared register reader. The actual fallback comes from the
-contract-derived board list, rather than a literal asset on the plan position.
-Only that invalid default pair is excluded: recorded identity overrides and the
-recorded registration still take precedence. The underlying contract evidence,
-company/branch attribution and other board identities are retained.
-
 The patch is bound to the independently verified v12.54.1 predecessor:
 `20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5`.
 It uses the drawing registration already embedded in that predecessor. It refuses
@@ -27,12 +25,9 @@ a different base or repeat application. The original page can be restored exactl
 by reversing the bounded replacements.
 
 The exact preview is SHA256
-`604a96719725228ac7fcadde1726b0fd20b450fd91b18fdd0005421d2a403c53`,
-16,116,573 bytes. The shared toolchain reproduces those bytes from the predecessor
-above. The identity follow-up is being checked against a fresh record. The prior
-map-only preview's completed checks are retained in
-`evidence/map-preview-01d87c5d.json`; they do not certify the new identity change.
-Current check status is recorded in `evidence/checks.json`.
+`01d87c5dbe3b02c0e09c42070ad53a514e106e3118e4058a49342d5cbed4af0c`,
+16,116,515 bytes. The shared toolchain reproduces those bytes from the predecessor
+above. Completed engineering check results are recorded in `evidence/checks.json`.
 
 This remains a preview, not READY TO UPLOAD or live. The current handover in
 [PR #1](https://github.com/tatts29-svg/fish/pull/1#issuecomment-6485684681) requires
