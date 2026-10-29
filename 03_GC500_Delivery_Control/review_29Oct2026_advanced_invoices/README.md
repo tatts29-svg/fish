@@ -23,13 +23,14 @@ as per contract.
 | Purchase order | Order on the record | Invoice ex GST | Page's state | Verdict |
 |---|---|---|---|---|
 | 4647508 week 6 | $8,992.00 · receipt 4918492, full | $8,992.00 | receipted, the order stands (six dockets, no sheet) | to the cent |
-| 4647509 week 5 | $33,670.00 · receipt 4922398, full | $33,670.50 | sheet $33,670.50, 50 cents over the receipted order | **invoice is 50 cents over our receipt** |
+| 4647509 week 5 | $33,670.00 · receipt 4922398, full | $33,670.50 | sheet $33,670.50, 50 cents over the receipted order | was 50 cents over our receipt; order set to $33,670.50 on Andrew's word (run 64) |
 | 4647517 week 4 | $26,695.00 · receipt 4926209, full | $26,695.00 | invoice matched to the cent | to the cent |
-| 4647515 week 3 | $50,154.00 · no receipt ID | $50,154.00 | sheet matched to the cent | to the cent; receipt ID still to come |
-| 4647519 week 2 | $28,246.50 · no receipt ID | $28,246.50 | sheet matched to the cent | to the cent; receipt ID still to come |
-| 4647520 week 1 | $66,272.00 · no receipt ID | $66,272.00 | sheet matched to the cent | to the cent; receipt ID still to come |
+| 4647515 week 3 | $50,154.00 · receipt 4929277, full (run 65) | $50,154.00 | invoice matched to the cent | to the cent |
+| 4647519 week 2 | $28,246.50 · receipt 4936461, full (run 65) | $28,246.50 | invoice matched to the cent | to the cent |
+| 4647520 week 1 | $66,272.00 · receipt 4934877, full (run 65) | $66,272.00 | invoice matched to the cent | to the cent |
 
-Six orders $214,029.50 on the record against $214,030.00 invoiced; the whole difference is the 50 cents on 4647509.
+Six orders were $214,029.50 on the record against $214,030.00 invoiced; after run 64 (29 Oct, 09:55 AEST) they equal the
+invoices, $214,030.00, and after run 65 (09:58 AEST) every one carries its Coates receipt.
 Nothing invoiced yet for the event week (4647522: 62 dockets so far, about $71,160 at Advanced's sheet rates) or the
 demob weeks (4647523); 4658850 ($195, receipt 4922343) sits outside the programme weeks.
 
@@ -41,8 +42,8 @@ demob weeks (4647523); 4658850 ($195, receipt 4922343) sits outside the programm
   for construction week 5, 36505–36535, dated Mon 14 to Fri 18 Sep (7, 4, 6, 8 and 4 a day). Note only; the amount
   matches the order to the cent.
 
-## What the page could carry, on Andrew's word
+## Invoice numbers on the record
 
 The record's orders have no field for the supplier's invoice number and date (the page's "receipt ID" box is Coates'
-receipt). They can go in each order's note through the runner's `po` op, or Codex can add an invoice field to the card;
-and the receipt IDs for 4647515, 4647519 and 4647520 are Andrew's to give once Coates receipts them.
+receipt). GC220926 is noted on 4647509 (run 64); the others are in this review. Codex can add an invoice field to the card
+if Andrew wants them on the page.
