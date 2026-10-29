@@ -83,3 +83,10 @@ record. This was open item 6 in the (9) review and is still open.
 
 Note for the queued v12.55: its rulings were struck against Baseplan (9). Causes 2 and 3 above are (10)
 changes since; the candidate needs re-pinning to (10) before it is released.
+
+**Correction, 18:28 AEST:** "the cleaning ruling (8,484.15, line 1025, nothing on Baseplan)" above is wrong. Baseplan carries the
+cleaning inside its Install & Demob rates (655.83 and 499.68 a building, 707.88 a toilet block, 551.73 a 16-pan or pee
+panel). The per-piece labour is reconciled contract by contract in `PER_PIECE_VS_BASEPLAN10.md`; the ten lump lines
+(57,611.28) and the page's per-piece sets agree to the cent on 9968862, the three 9994954 buildings, every toilet block,
+the 16-pans and the accessible toilets, and differ only on the FWF (two units), the deleted pee-panel line, T0021/T0022
+and the track mats.

@@ -176,3 +176,13 @@ whole event labour revenue (65,674.46); STPS, NVAC and MEAD lose the weighted sh
   he gives it, the revenue allocation stays as today's and the build keeps the two treatments switchable.
 - Totals foot and cross-foot: the branch columns sum to the On-the-record column on every row.
 - Preview screenshots (desktop and phone) to Andrew before anything is uploaded; I publish on his word.
+
+## Correction, 29 Oct 2026 18:28 AEST: cleaning is inside Baseplan's Install & Demob lines
+
+The P&L's Cleaning line (1025, 8,484.15) is the cleaning share of the per-piece sets that Baseplan bills as Install &
+Demob (655.83 / 499.68 a building, 707.88 a toilet block, 551.73 a 16-pan or pee panel). It is customer revenue and
+stays charged; in the v12.60 layout it sits inside Installation where Baseplan has it, with the card's split underneath.
+The v12.55 draft's "cleaning is not customer revenue" ruling is withdrawn. The contract-by-contract reconciliation of
+the per-piece labour, the gaps for the branch (pee panels 3,310.38, track mats 5,309.10, VMS 20 against 24 boards,
+sewer-connect cleaning billing 0.00, T0021/T0022) and the 5,631.86 double count in 1047 Installation are in
+`PER_PIECE_VS_BASEPLAN10.md`.
