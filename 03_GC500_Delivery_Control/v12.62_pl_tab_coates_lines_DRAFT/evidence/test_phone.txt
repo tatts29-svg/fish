@@ -1,0 +1,37 @@
+v12.62 phone: 21/21 checks passed
+table 1: Revenue
+  1005 | Hire Revenue | $220,042.74 | $220,042.74
+  1010 | Rehire Revenuehired-in gear at our rates | $408,660.55 | $424,476.48
+  1030 · 1031 | Transport Revenue | $159,213.48 | $159,213.48
+  1032 | Toilet Pump-outs | $66,145.14 | $66,145.14
+  1047 | Installationcleaning inside, as Baseplan bills it | $121,355.87 | $121,355.87
+  1020 | Consumables | $8,073.68 | $8,073.68
+  — | Event labour scope: accommodation and travelledger line for Finance to confirm | $27,700.00 | $27,700.00
+  — | Contract services, miscellaneous | $500.00 | $500.00
+   | Revenue | $1,011,691.46 | $1,027,507.39
+  Cost of sales
+  2126 | Rehire costEvent Portables, Advanced’s gear, sub-hired plant | $286,543.70 | $295,439.24
+  3325 | Toilet Pump-out costEvent Portables servicing | $51,372.00 | $51,372.00
+  2120 · 2140 | Transport cost, carriers | $33,150.09 | $56,810.65
+  2142 | Installation, external contractorsAdvanced’s crew | $52,391.00 | $52,391.00
+  2144 | Consumables costwater deliveries and the tank | $4,850.00 | $4,850.00
+   | Cost of sales | $428,306.79 | $460,862.89
+   | Gross margin | $583,384.67 57.7% | $566,644.50 55.1%
+  Operating costs
+   | Labour hireJob Connect’s people on the running sheet, priced by the run rules | $32,507.71 | $35,531.56
+   | Salary allowancejob end | — | $14,700.00
+   | Travel and accommodation112 nights | $22,023.96 | $24,581.57
+   | Meals and expenses | $5,664.32 | $5,664.32
+   | Coates wageshours only, no hourly rate (the project manager, 23 Oct 2026) | 1,126.5 h | 1,467.5 h
+   | Operating costs | $60,195.99 | $80,477.45
+   | Contribution | $523,188.68 51.7% | $486,167.05 47.3%
+table 2: Revenue · on the record | $478,640.54 | $461,348.93 | $44,272.04 | $27,429.95 | $1,011,691.46
+  Revenue · job end | $478,640.54 | $477,164.86 | $44,272.04 | $27,429.95 | $1,027,507.39
+  Fencing: Advanced’s orders, gear and crew | — | $297,134.70 | — | — | $297,134.70
+  Event Portables: toilet hire, servicing, water | $101,747.00 | — | — | — | $101,747.00
+  Sub-hired plant | $3,806.31 | $1,364.23 | — | — | $5,170.54
+  Transport, carriers | $42,073.62 | $4,186.02 | $9,313.78 | $1,237.23 | $56,810.65
+  Labour hire and allowance | $50,231.56 | — | — | — | $50,231.56
+  Travel, accommodation and meals | $30,245.89 | — | — | — | $30,245.89
+  Costs · job end | $228,104.38 | $302,684.95 | $9,313.78 | $1,237.23 | $541,340.34
+  Contribution · job end | $250,536.16 | $174,479.91 | $34,958.26 | $26,192.72 | $486,167.05
