@@ -39,3 +39,7 @@ documents (52 documents, each acknowledged 200), read back: record version 12172
 - The S08 run's demob is this coming Tuesday, 3 Nov 2026: 4 h on days, recorded then with the departure.
 - The same sweep across every other contract that carries labour we charge, by branch, and a home for it on the page
   (a labour-by-contract register with the recovery per branch), mock-up first.
+
+## 31 Oct 2026, ~04:1x AEST: Thursday 29 Oct superseded
+
+The 29 Oct barrier work was the night, 8 h, shown as the Friday 30 Oct row (an 8 h day) on Andrew's word; the 4 h "days" note on 29 Oct came off. See `record_31Oct2026_aaron_thu_fri/`.
