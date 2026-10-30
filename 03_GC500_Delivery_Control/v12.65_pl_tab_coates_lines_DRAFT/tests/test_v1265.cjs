@@ -1,8 +1,8 @@
-// Author: Andrew Fisher. v12.62 on the real Costs & P&L tab, reading the live record, writing nothing: the face is the P&L in
+// Author: Andrew Fisher. v12.65 on the real Costs & P&L tab, reading the live record, writing nothing: the face is the P&L in
 // Coates lines (whole job, then by branch), "Not in it yet", and two closed folds (Fencing, everything included; Workings);
 // every figure the page's own models' to the cent; the branches foot to the job; every old card still on the page, inside the
 // folds, with its buttons; no page errors, no writes.
-//   PAGE=build/GC500_v12.62/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_v1262.cjs
+//   PAGE=build/GC500_v12.65/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_v1265.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {
@@ -65,7 +65,7 @@ const {open} = require('../../toolchain/harness/open_page');
     check(r.scrollW <= r.docWidth + 1, 'no sideways page scroll (' + r.scrollW + ' vs ' + r.docWidth + ')');
     check(s.errors.length === 0 && cons.length === 0, 'no page errors or console errors: ' + JSON.stringify(s.errors.slice(0, 2)) + JSON.stringify(cons.slice(0, 2)));
     check(s.counts.blocked === 0, 'no write attempted: ' + s.counts.blocked);
-    lines.push(`v12.62 ${tag}: ${checks}/${checks} checks passed`, 'table 1: ' + r.t1.map(x => x.join(' | ')).join('\n  '), 'table 2: ' + r.t2.map(x => x.join(' | ')).join('\n  '));
+    lines.push(`v12.65 ${tag}: ${checks}/${checks} checks passed`, 'table 1: ' + r.t1.map(x => x.join(' | ')).join('\n  '), 'table 2: ' + r.t2.map(x => x.join(' | ')).join('\n  '));
     if (dir) {
       fs.mkdirSync(dir, {recursive: true});
       await p.screenshot({path: path.join(dir, `pl_${tag}.png`)});
@@ -76,6 +76,6 @@ const {open} = require('../../toolchain/harness/open_page');
     }
     console.log(lines[0]);
   } catch (e) {
-    console.error(`v12.62 ${tag}: FAILED after ${checks} checks: ${e.message}`); process.exitCode = 1;
+    console.error(`v12.65 ${tag}: FAILED after ${checks} checks: ${e.message}`); process.exitCode = 1;
   } finally { await s.browser.close(); }
 })();
