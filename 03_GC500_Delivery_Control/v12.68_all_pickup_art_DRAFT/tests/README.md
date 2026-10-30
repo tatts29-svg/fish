@@ -31,4 +31,12 @@ flock -x /tmp/gc500-browser.lock bash -c '
 '
 ```
 
+`consumer_census.cjs` separately traverses every `allAssets()` reference, including references absent from the current Singles card model. It checks every existing completed legacy, Build, drawer, supplier-unit and supplier-quantity stamp against explicit equipment types. Any unresolved completed stamp fails the census and is recorded in its private `gaps` list. Run it under the same lock with the same `CANDIDATE`, `STATE`, `OUT` and `EXPECTED_PAGE_SHA` values:
+
+```bash
+flock -x /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v12.68_all_pickup_art_DRAFT/tests/consumer_census.cjs
+```
+
+For recovery after a browser screenshot timeout, `BASE_CAPTURE` and `BASE_CAPTURE_META` may point to an already completed private baseline capture and its recorded provenance. The script verifies capture/page/state hashes, fixed clock, viewport, complete capture schema and its zero-error/write result before reuse. Acceptance records that recovery explicitly. The unchanged current-card viewport screenshot allows at most two 60-second attempts; retries remain recorded and the screenshot gate is retained.
+
 An acceptance JSON is written only after all checks pass. Raw JSON captures include operational evidence and remain private. The reference helper/native-left timing probe is recorded privately for performance review; it is not a claim about every device. The page checker, both shared navigation sweeps, guarded upload and full public-byte read-back are separate release gates. Candidate acceptance does not prove a live release.

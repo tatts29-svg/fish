@@ -14,7 +14,14 @@ const kindOf=c=>api.resolve({item:c.item,tankNo:c.tankNo,tank:c.hasTank});
 const matches=c=>Boolean(kindOf(c));
 const mobile=process.env.MOB==='1',tag=mobile?'phone':'desktop';
 const out=path.resolve(process.env.OUT||'');
-const checks=[];
+const checks=[],screenshotRetries=[];
+const testContext={mobile,width:mobile?390:1440,height:mobile?844:1000,dpr:mobile?2:1,fixedTime:process.env.FIXED_TIME||'2026-10-30T22:45:00Z'};
+async function screenshot(target,file,retry=false){
+ for(let attempt=0;attempt<(retry?2:1);attempt++){
+  try{return await target.screenshot({path:file,animations:'disabled',timeout:60000});}
+  catch(error){if(!retry||attempt||!String(error).includes('Timeout'))throw error;screenshotRetries.push({file:path.basename(file),attempt:attempt+1,error:String(error).slice(0,500)});}
+ }
+}
 function check(name,condition){checks.push({name,pass:!!condition});assert(condition,name);}
 function equal(a,b,name){assert.deepEqual(canonical(a),canonical(b),name);checks.push({name,pass:true});}
 const persisted=()=>({docs:JSON.parse(JSON.stringify(Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])))),queued:Object.values(SYNC.queue||{}).reduce((n,q)=>n+Object.keys(q).length,0),inflight:Object.keys(SYNC.inflight||{}).length});
@@ -180,7 +187,7 @@ async function capture(label,file,fixtures){
    check(label+': '+fixture.case+' native card is visible',geometry.visible);
    if(label==='candidate'&&fixture.st.s==='gone')check(fixture.case+': matching artwork retains its exact kind',geometry.art?.kind===kindOf(fixture));
    if(fixture.case==='fallback'||fixture.case==='current-card')check(label+': '+fixture.case+' keeps original clear treatment',geometry.art===null);
-   await p.screenshot({path:path.join(out,tag+'-'+label+'-'+fixture.case+'.png'),animations:'disabled'});
+   await screenshot(p,path.join(out,tag+'-'+label+'-'+fixture.case+'.png'),fixture.case==='current-card');
    if(fixture.st.s==='gone')await card.locator('.stp1238').screenshot({path:path.join(out,tag+'-'+label+'-'+fixture.case+'-stamp.png'),animations:'disabled'});
    views.push({id:fixture.key+'#'+fixture.uid,case:fixture.case,geometry});
   }
@@ -191,7 +198,7 @@ async function capture(label,file,fixtures){
   equal(populated(last.docs),populated(snapshot.docs),label+': every persisted document unchanged');
   check(label+': no write queue or inflight operation',last.queued===0&&last.inflight===0);
   check(label+': zero runtime errors',h.errors.length===0);check(label+': zero console errors',h.consoleErrors.length===0);check(label+': zero operational write attempts',h.counts.blocked===0);
-  return {pageSha256:hash(file),baseline:h.baseline,model,dom,fixtures,views,artInventory,daily,consumers,errors:h.errors,consoleErrors:h.consoleErrors,counts:h.counts};
+  return {testContext,pageSha256:hash(file),baseline:h.baseline,model,dom,fixtures,views,artInventory,daily,consumers,errors:h.errors,consoleErrors:h.consoleErrors,counts:h.counts};
  }finally{await h.browser.close();}
 }
 (async()=>{
@@ -201,7 +208,22 @@ async function capture(label,file,fixtures){
  assert.equal(hash(process.env.BASE),process.env.EXPECTED_BASE_SHA,'Reviewed predecessor required');
  assert.equal(hash(process.env.CANDIDATE),process.env.EXPECTED_PAGE_SHA,'Candidate identity must match handover');
  fs.mkdirSync(out,{recursive:true});
- const base=await capture('base',process.env.BASE);
+ let base,resumedBase=null;
+ if(process.env.BASE_CAPTURE){
+  assert(process.env.BASE_CAPTURE_META,'BASE_CAPTURE_META is required for recovery');
+  const meta=JSON.parse(fs.readFileSync(process.env.BASE_CAPTURE_META));
+  assert.equal(meta.captureSha256,hash(process.env.BASE_CAPTURE),'Saved baseline capture must match its recovery metadata');
+  equal(meta.testContext,testContext,'Recovered baseline clock and viewport match');
+  base=JSON.parse(fs.readFileSync(process.env.BASE_CAPTURE));
+  assert.equal(base.pageSha256,process.env.EXPECTED_BASE_SHA);assert.equal(base.baseline.pageSha256,process.env.EXPECTED_BASE_SHA);
+  assert.equal(base.baseline.stateSha256,hash(process.env.STATE));
+  assert(base.baseline.docsMatch&&!base.baseline.inflight&&!base.baseline.queuedDocuments);
+  assert(!base.errors.length&&!base.consoleErrors.length&&!base.counts.blocked);
+  assert(Array.isArray(base.model.cards)&&Array.isArray(base.dom)&&Array.isArray(base.views)&&base.fixtures.length===base.views.length&&base.consumers.refs.length&&base.daily.length);
+  assert.equal(base.model.cards.length,base.dom.length);
+  assert(base.views.some(v=>v.case==='current-card'));
+  resumedBase={captureSha256:meta.captureSha256,metaSha256:hash(process.env.BASE_CAPTURE_META),testContext:meta.testContext};
+ }else base=await capture('base',process.env.BASE);
  fs.writeFileSync(path.join(out,tag+'-base.json'),JSON.stringify(base,null,2)+'\n');
  const candidate=await capture('candidate',process.env.CANDIDATE,base.fixtures);
  fs.writeFileSync(path.join(out,tag+'-candidate.json'),JSON.stringify(candidate,null,2)+'\n');
@@ -219,6 +241,6 @@ async function capture(label,file,fixtures){
   check('card and existing content dimensions unchanged '+a.case,aa.every((r,j)=>Object.keys(r).every(k=>Math.abs(r[k]-bb[j][k])<=.51)));
   check('no new card horizontal overflow '+a.case,b.geometry.scrollWidth-b.geometry.clientWidth<=Math.max(1,a.geometry.scrollWidth-a.geometry.clientWidth));
  }
- fs.writeFileSync(path.join(out,tag+'-acceptance.json'),JSON.stringify({author:'Andrew Fisher',status:'PASS',tag,baseSha256:base.pageSha256,candidateSha256:candidate.pageSha256,stateSha256:base.baseline.stateSha256,stateVersion:base.baseline.version,checks,cardCount:base.dom.length,artCount:candidate.artInventory.length,fixtureCount:base.views.length,operationalWrites:0},null,2)+'\n');
+ fs.writeFileSync(path.join(out,tag+'-acceptance.json'),JSON.stringify({author:'Andrew Fisher',status:'PASS',tag,baseSha256:base.pageSha256,candidateSha256:candidate.pageSha256,stateSha256:base.baseline.stateSha256,stateVersion:base.baseline.version,testContext,resumedBase,screenshotRetries,checks,cardCount:base.dom.length,artCount:candidate.artInventory.length,fixtureCount:base.views.length,operationalWrites:0},null,2)+'\n');
  console.log(JSON.stringify({status:'PASS',tag,checks:checks.length,cards:base.dom.length,art:candidate.artInventory.length,writes:0}));
 })().catch(e=>{if(process.env.OUT){fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,tag+'-failure.json'),JSON.stringify({error:e.stack,checks},null,2)+'\n');}console.error(e.stack);process.exitCode=1;});
