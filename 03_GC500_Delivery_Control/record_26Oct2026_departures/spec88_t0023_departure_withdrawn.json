@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:3x AEST: \"Aircon container left 1130am\"; run 85 read that as T0023, the EAGS event container, and recorded it left at 11:30. Andrew, 11:4x: \"Recrigertor building it should be u should have a record do you not\" - the container that left was T0266, the 6.0m Refrigerator Container (run 87). T0023 did not leave: its departure of 11:32 (collection 461895df...) is withdrawn, the light back on site since 15 Sep, Complete and Levelled back on as they were. Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "collection_withdraw", "ref": "T0023", "id": "461895df-2536-43f8-8abb-ba223fa69fe9", "why": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn"}
+  ]
+}
