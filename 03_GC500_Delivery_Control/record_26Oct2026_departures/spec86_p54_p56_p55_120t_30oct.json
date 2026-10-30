@@ -1,0 +1,10 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:4x AEST: \"P54 left 11 p56 left 1115 p55 left 1130 / 120t left at 10am\". P54 (Accred Centre BOH, Building 6m 1327219), P56 (Gate 1 Ticket BOH, Building 3.6m 1268865) and P55 (Gate 1 Ticket Box, Ticket Box 6m 172114), all Helen Park, each its reference's only unit, each leaves in full. 120T is Premiair's VMS10 on T0103 (pit lane entry); VMS09 1211404 stays on T0103. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "depart", "ref": "P54", "at": "2026-10-30T11:00:00+10:00", "nos": ["1327219"], "unnumbered": [], "complete": true},
+    {"op": "depart", "ref": "P56", "at": "2026-10-30T11:15:00+10:00", "nos": ["1268865"], "unnumbered": [], "complete": true},
+    {"op": "depart", "ref": "P55", "at": "2026-10-30T11:30:00+10:00", "nos": ["172114"], "unnumbered": [], "complete": true},
+    {"op": "depart", "ref": "T0103", "at": "2026-10-30T10:00:00+10:00", "nos": ["120T"], "unnumbered": [], "complete": false}
+  ]
+}
