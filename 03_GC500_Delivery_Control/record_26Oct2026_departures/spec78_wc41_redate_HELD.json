@@ -1,0 +1,13 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "HELD - not applied without Andrew's answer. Andrew Fisher, 30 Oct 2026 09:4x AEST: \"Picked up 940am\" listing WC41's ten toilets (0065, 0651, 0517, 0518, 0643, 0191, 0682, 0521, 0669, 0996), which the record has leaving Tue 28 Oct 12:15 (entered through the page 28 Oct 12:20). Dry run 30 Oct 09:52 AEST: the redate alone turns the Event Portables supplier estimate incomplete (rehire 101,747.00 -> 81,272.00 known; P&L known cost 455,995.07 -> 435,520.07).",
+ "ops": [
+  {
+   "op": "collection_redate",
+   "ref": "WC41",
+   "no": "0521",
+   "at": "2026-10-30T09:40:00+10:00",
+   "why": "Andrew Fisher, 30 Oct 2026: the ten toilets were picked up Thu 30 Oct at 09:40, not 28 Oct 12:15"
+  }
+ ]
+}
