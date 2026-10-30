@@ -47,7 +47,17 @@ every style byte-identical, and moves the footer v12.63 → v12.64. No script, c
 
 ## Checks (candidate `afbbc0d1…`)
 
-(filled in from `tests/test_v1264.cjs`, desktop and phone, and the sweeps — see `evidence/`.)
+- `tests/test_v1264.cjs` on the live record, writing nothing: **desktop 8/8, phone 6/6** (`evidence/test_*.txt`,
+  `evidence/lines_*.json`). Every contract line the page carries on 9961265 and 9972648, priced by the page's own
+  `contractCharge`, against Baseplan (11)'s prebill: the nineteen re-pinned lines to the cent, each with the "Baseplan (11)
+  … 30 Oct 2026" basis; **WB02 the one priced line left different** (page 1,364.08, Baseplan 280.84, by design); 9961265/44
+  (Event Labour Charge, 5,924.10, no rate on Baseplan) is the lump line the P&L carries elsewhere, as in the (10) review;
+  page-only lines 9961265/15 VMS11 536.10 and /16 VMS12 589.71 (deleted from the contract while on site; flagged for the
+  branch since 29 Oct). The charge to the V8s moves by the pins alone against the v12.63 candidate on the same record:
+  **1,011,691.46 → 1,012,101.16 (+409.70)**. Footer v12.64; 0 page errors, 0 console errors, 0 writes.
+- Sweeps desktop and phone: 27 tabs, 17 shown, the deep links and Back, 0 errors, 0 console messages, 0 writes
+  (`evidence/sweep_*.json`).
+- `check_page`: PASS (220 scripts, no key, author credit present); existing styles byte-identical.
 
 ## To upload (on Andrew's word)
 
