@@ -39,10 +39,12 @@ async function probe(pageFile, mobile) {
     for (const [k, [was, now]] of Object.entries(CHANGES)) { const r = byKey[k]; if (!r || r.amount == null || Math.abs(r.amount - now) > 0.005 || !/Baseplan \(11\)/.test(r.basis || '')) bad.push(k + ': page ' + (r ? r.amount + ' / ' + (r.basis || '').slice(0, 40) : 'missing') + ', Baseplan (11) ' + now); }
     check(bad.length === 0, 'the nineteen lines are Baseplan (11) to the cent: ' + bad.join(' · '));
     /* 2. every priced line on the two contracts against (11): the only difference left is WB02 */
-    const diffs = [];
+    const diffs = [], noRate = [];
     for (const [k, l] of Object.entries(bpLines)) { const bpv = Number(l['Prebill Amount']) || 0, r = byKey[k]; if (!r) { if (bpv) diffs.push(k + ' not on the page (' + bpv + ')'); continue; }
-      if (r.amount == null) { if (bpv) diffs.push(k + ' unpriced on the page (' + bpv + ')'); continue; }
+      /* a line with no rate on Baseplan (a lump line whose scope the P&L carries elsewhere, as the (10) review found for 9961265/44) is not priced per line on the page */
+      if (r.amount == null) { if (bpv) (Number(l['Rate 1']) ? diffs : noRate).push(k + ' ' + (r.description || '').slice(0, 40) + ' (' + bpv + ')'); continue; }
       if (Math.abs(r.amount - bpv) > 0.005) diffs.push(k + ' page ' + r.amount + ' vs (11) ' + bpv); }
+    lines.push('no-rate lines carried elsewhere on the page: ' + (noRate.join(' · ') || 'none'));
     const pageOnly = cand.rows.filter(r => (r.contract === '9961265' || r.contract === '9972648') && !(r.contract + '|' + r.line in bpLines) && r.amount).map(r => r.contract + '|' + r.line + ' ' + r.amount);
     lines.push('lines different from Baseplan (11) on 9961265 and 9972648: ' + (diffs.join(' · ') || 'none'), 'page-only lines on those contracts: ' + (pageOnly.join(' · ') || 'none'));
     const wb02 = byKey['9972648|3'];
