@@ -1,0 +1,379 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T172816Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 (this chat, ~01:xx AEST): who did the Armorzone TL2 water barriers on contract 9972648 (STPS, Brisbane Traffic) and their hours, day by day, install and demob, so the hours sit against the people who did them and the contract they are charged on. Each note goes on the person's labour row for the day through the page's own setOurCost (a row the tracker or the record already holds) or addOurCost (a person with no row that day). Hours on an existing row are not changed; a new row carries the hours Andrew gave. Start and finish times are not known for the nights and are not invented. The S08 run's demob is this coming Tuesday and is recorded then.",
+  "ops": [
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-21",
+    "text": "Water barriers 9972648 STPS · 4 h · WB02 S08 pathway (34) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Wayne Crimmin",
+    "date": "2026-09-23",
+    "hours": 4,
+    "text": "Water barriers 9972648 STPS · 4 h · WB03 Turn 2 (30) · install · nights, times not known · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Jayden Paul",
+    "date": "2026-09-23",
+    "hours": 4,
+    "text": "Water barriers 9972648 STPS · 4 h · WB03 Turn 2 (30) · install · nights, times not known · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Jayden Paul",
+    "date": "2026-10-15",
+    "hours": 8,
+    "text": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Wayne Crimmin",
+    "date": "2026-10-15",
+    "hours": 8,
+    "text": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-15",
+    "text": "Water barriers 9972648 STPS · 8 h · WB06 (154) · install · days · Job Connect · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-15",
+    "text": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-16",
+    "text": "Water barriers 9972648 STPS · 4 h · WB04 (14), WB05 (13) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-19",
+    "text": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-21",
+    "text": "Water barriers 9972648 STPS · 4 h · WB07 (17), WB14 (2), WB15 (4), WB16 (13) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-22",
+    "text": "Water barriers 9972648 STPS · 4 h · WB17 (6), WB18 (2) · install · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-25",
+    "text": "Water barriers 9972648 STPS · 4 h · WB14 (2) · demob · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-26",
+    "text": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-27",
+    "text": "Water barriers 9972648 STPS · 8 h · nine runs, 235 barriers · demob · nights · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Jayden Paul",
+    "date": "2026-10-27",
+    "hours": 8,
+    "text": "Water barriers 9972648 STPS · 8 h · nine runs, 235 barriers · demob · nights · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_add",
+    "person": "Wayne Crimmin",
+    "date": "2026-10-27",
+    "hours": 8,
+    "text": "Water barriers 9972648 STPS · 8 h · nine runs, 235 barriers · demob · nights · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-29",
+    "text": "Water barriers 9972648 STPS · 4 h · WB03 (30) · demob · days · Andrew Fisher, 31 Oct 2026"
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260921",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-21",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260921 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-wayne-crimmin-20260923",
+   "person": "Wayne Crimmin",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 4,
+   "start": null,
+   "finish": null,
+   "result": "new row, 4 h - W-L-wayne-crimmin-20260923 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-jayden-paul-20260923",
+   "person": "Jayden Paul",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 4,
+   "start": null,
+   "finish": null,
+   "result": "new row, 4 h - W-L-jayden-paul-20260923 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-jayden-paul-20261015",
+   "person": "Jayden Paul",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 8,
+   "start": null,
+   "finish": null,
+   "result": "new row, 8 h, the earlier set-aside undone - W-L-jayden-paul-20261015 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-wayne-crimmin-20261015",
+   "person": "Wayne Crimmin",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 8,
+   "start": null,
+   "finish": null,
+   "result": "new row, 8 h - W-L-wayne-crimmin-20261015 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261015",
+   "person": "Kyle Gover",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261015",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 14,
+   "start": "03:00",
+   "finish": "17:00",
+   "result": "note on the record row (14 h 03:00-17:00) - W-L-aaron-zelvis-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261016",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261019",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-19",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261019 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261021",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-21",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261021 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261022",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261025",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-25",
+   "usable": true,
+   "problems": [],
+   "hours": 12,
+   "start": "06:00",
+   "finish": "18:00",
+   "result": "note on the record row (12 h 06:00-18:00) - W-L-aaron-zelvis-20261025 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261026",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261027",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-jayden-paul-20261027",
+   "person": "Jayden Paul",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 8,
+   "start": null,
+   "finish": null,
+   "result": "new row, 8 h, the earlier set-aside undone - W-L-jayden-paul-20261027 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_add",
+   "id": "W-L-wayne-crimmin-20261027",
+   "person": "Wayne Crimmin",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 8,
+   "start": null,
+   "finish": null,
+   "result": "new row, 8 h - W-L-wayne-crimmin-20261027 recorded by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261029",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-29",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261029 changed by Andrew Fisher."
+  }
+ ],
+ "plan": [
+  "stamps/ourcost~2f~W-L-kyle-gover-20261015",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261025",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261015",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20260921",
+  "stamps/ourcost~2f~W-L-wayne-crimmin-20260923",
+  "stamps/ourcost~2f~W-L-jayden-paul-20260923",
+  "stamps/ourcost~2f~W-L-jayden-paul-20261015",
+  "stamps/ourcost~2f~W-L-wayne-crimmin-20261015",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261016",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261019",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261021",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261022",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261026",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261027",
+  "stamps/ourcost~2f~W-L-jayden-paul-20261027",
+  "stamps/ourcost~2f~W-L-wayne-crimmin-20261027",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261029",
+  "deleted/back~2f~W-L-jayden-paul-20261015",
+  "deleted/back~2f~W-L-jayden-paul-20261027",
+  "by/ourcost~2f~W-L-aaron-zelvis-20260921",
+  "by/ourcost~2f~W-L-wayne-crimmin-20260923",
+  "by/ourcost~2f~W-L-jayden-paul-20260923",
+  "by/deleted~2f~back~2f~W-L-jayden-paul-20261015",
+  "by/ourcost~2f~W-L-jayden-paul-20261015",
+  "by/ourcost~2f~W-L-wayne-crimmin-20261015",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261016",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261019",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261021",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261022",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261026",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261027",
+  "by/deleted~2f~back~2f~W-L-jayden-paul-20261027",
+  "by/ourcost~2f~W-L-jayden-paul-20261027",
+  "by/ourcost~2f~W-L-wayne-crimmin-20261027",
+  "by/ourcost~2f~W-L-aaron-zelvis-20261029",
+  "costs/W-L-kyle-gover-20261015",
+  "costs/W-L-aaron-zelvis-20261025",
+  "costs/W-L-aaron-zelvis-20261015",
+  "costs/W-L-aaron-zelvis-20260921",
+  "costs/W-L-wayne-crimmin-20260923",
+  "costs/W-L-jayden-paul-20260923",
+  "costs/W-L-jayden-paul-20261015",
+  "costs/W-L-wayne-crimmin-20261015",
+  "costs/W-L-aaron-zelvis-20261016",
+  "costs/W-L-aaron-zelvis-20261019",
+  "costs/W-L-aaron-zelvis-20261021",
+  "costs/W-L-aaron-zelvis-20261022",
+  "costs/W-L-aaron-zelvis-20261026",
+  "costs/W-L-aaron-zelvis-20261027",
+  "costs/W-L-jayden-paul-20261027",
+  "costs/W-L-wayne-crimmin-20261027",
+  "costs/W-L-aaron-zelvis-20261029"
+ ]
+}
