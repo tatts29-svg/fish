@@ -384,7 +384,12 @@ function applyOps(spec) {
         if (hits.length !== 1) throw new Error(op.ref + ': ' + hits.length + ' recorded collections carry ' + op.no + ' - expected exactly one');
         const c = hits[0].collection996, was = c.departedAt1211;
         if (was === op.at) r.result = 'already dated ' + op.at;
-        else { c.departedAt1211 = op.at; c.date = op.at.slice(0, 10); c.redated1211 = (c.redated1211 || []).concat([{was, to: op.at, why: op.why, at: new Date().toISOString()}]); hits[0].note = (hits[0].note ? hits[0].note + ' ' : '') + op.why + ' (entered ' + was + ')'; r.result = op.no + ' left ' + op.at + ' (was ' + was + ')'; }
+        else { /* 30 Oct 2026: the page reads a departure only once it is no earlier than the entry that recorded it (a departure cannot be
+             recorded before it happened), so a redate to a LATER time re-records the entry at the time of the correction; the entry's
+             own earlier time is kept in redated1211 (entryWas). Without this the page dropped WC41's ten toilets from its departures,
+             counted them as still on site, and the Event Portables estimate fell incomplete (-20,475.00 known cost): a reading
+             artefact, not a price. A redate to an EARLIER time (453T, 29 Oct) needs nothing and gets nothing. */
+          const nowIso = new Date().toISOString(); c.departedAt1211 = op.at; c.date = op.at.slice(0, 10); c.redated1211 = (c.redated1211 || []).concat([{was, to: op.at, why: op.why, at: nowIso, entryWas: hits[0].at}]); if (Date.parse(op.at) > Date.parse(hits[0].at)) hits[0].at = nowIso; hits[0].note = (hits[0].note ? hits[0].note + ' ' : '') + op.why + ' (entered ' + was + ')'; r.result = op.no + ' left ' + op.at + ' (was ' + was + ')'; }
       } else if (op.op === 'acc_add') {
         if (accOf(op.ref, op.no)) { r.result = 'already on'; }
         else {

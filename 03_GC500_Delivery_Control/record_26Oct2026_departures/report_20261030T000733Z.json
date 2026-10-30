@@ -1,0 +1,281 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T000733Z",
+ "finished": "2026-10-30T00:08:08.507Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 10:1x AEST: \"Here is another that can go 0285\", in the same breath as the 09:40 pick-up (\"Picked up 940am\" + twelve numbers, \"Another is 0435\"). 0285 is PG01's only toilet (Toilet, Pit Garage: 1 FWF, Event Portables 0285, Ready since 26 Oct, emptied 26 Oct), so PG01 leaves in full. Recorded at the same pick-up time, 09:40, as the runner's basis; Andrew to say if it went at another time. Applied only if the dry run shows the P&L unchanged (Andrew: \"It should not change any pricing\").",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "PG01",
+    "at": "2026-10-30T09:40:00+10:00",
+    "nos": [
+     "0285"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12119,
+  "after": 12120
+ },
+ "updated": {
+  "before": "2026-10-29T23:56:16.726Z",
+  "after": "2026-10-30T00:08:07.425Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "PG01",
+   "at": "2026-10-30T09:40:00+10:00",
+   "nos": [
+    "0285"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T09:40:00+10:00, recorded by Andrew Fisher: 1 x FWF 0285 - PG01 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/PG01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/PG01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:49.855Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:49.450Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:02.456Z",
+    "ready1238_units": {
+     "event-portables|0285": {
+      "on": true,
+      "at": "2026-10-26T18:18:44.150Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/b7b4e3e0-3daa-438f-81a8-6871a14be58b"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:49.855Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.538Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:02.456Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0285",
+      "ready": true,
+      "at": "2026-10-26T10:26:18.637Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0285",
+      "ready": true,
+      "at": "2026-10-26T18:18:44.150Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG01"
+   }
+  },
+  "after": {
+   "delivery/PG01": {
+    "state": "in transit",
+    "set_at": "2026-10-30T00:07:51.889Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:49.450Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:02.456Z",
+    "ready1238_units": {
+     "event-portables|0285": {
+      "on": true,
+      "at": "2026-10-26T18:18:44.150Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/b7b4e3e0-3daa-438f-81a8-6871a14be58b"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T00:07:51.889Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.538Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T00:07:51.889Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "7b635898-b6bf-4b96-bb73-a77fc5854269",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T09:40:00+10:00",
+       "programmeDate": "2026-10-23",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:27:49.855Z",
+       "requiredKey": "[[\"fwf\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"PG01\",\"event-portables\",\"native\",\"slot:b7b4e3e0-3daa-438f-81a8-6871a14be58b\"]"
+         ],
+         "numbers": [
+          "0285"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"PG01\",\"event-portables\",\"native\",\"slot:b7b4e3e0-3daa-438f-81a8-6871a14be58b\"]",
+           "number": "0285",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T00:07:51.889Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:02.456Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0285",
+      "ready": true,
+      "at": "2026-10-26T10:26:18.637Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0285",
+      "ready": true,
+      "at": "2026-10-26T18:18:44.150Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
