@@ -169,6 +169,8 @@ spec.ops.forEach((o, i) => {
     if (o.unnumbered != null && !(Array.isArray(o.unnumbered) && o.unnumbered.every(u => u && typeof u.type === 'string' && u.type.trim() && Number.isInteger(u.n) && u.n > 0))) fail(at + 'unnumbered must be a list of {type, n}');
     if (!o.nos.length && !(o.unnumbered || []).length) fail(at + 'needs at least one unit that left'); if (o.complete != null && typeof o.complete !== 'boolean') fail(at + 'complete must be true or false'); if (o.readback != null && o.readback !== 'history') fail(at + 'readback can only be history'); }
   else if (o.op === 'emptied') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (o.on !== true) fail(at + 'emptied only ticks on (on: true), on Andrew\'s word that the units were pumped out'); }
+  else if (o.op === 'hist_tomb') { /* v12.63 (30 Oct 2026): the tombstone for a history entry already taken off (T0023's withdrawn departure), so no copy of the page can merge it back */
+    if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$/.test(o.at || '')) fail(at + 'needs the entry\'s recorded time (ISO, Z)'); if (o.state != null && typeof o.state !== 'string') fail(at + 'state must be text'); if (!o.why) fail(at + 'needs why'); }
   else if (o.op === 'unit_ready') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!Array.isArray(o.units) || !o.units.length || o.units.some(u => !/^[a-z-]+\|[0-9A-Za-z]{2,12}$/.test(u))) fail(at + 'needs the units, each owner|asset number'); }
   else if (o.op === 'vms_arrival') { if (!/^\d{2}[a-z]?$/.test(o.pos || '')) fail(at + 'needs a VMS plan position'); if (!/^VMS\d{2}$/.test(o.board || '')) fail(at + 'needs the board name (VMSnn) that position carries');
     if (!realDay(o.was) || !realDay(o.day)) fail(at + 'needs the arrival day on the plan now (was) and the day it came (day), each a real day'); if (!(o.day > o.was)) fail(at + 'the day it came must be after the day recorded (only a later arrival is corrected this way)'); if (o.day > today) fail(at + 'the day it came is after today (AEST)');
@@ -404,6 +406,9 @@ function applyOps(spec) {
         if (cols.length !== 1 || cols[0].collection996.id !== op.id) throw new Error(op.ref + ' does not have exactly one recorded collection, with id ' + op.id);
         const entry = cols[0], t = entry.at;
         dd.history = dd.history.filter(h => h !== entry);
+        /* v12.63 (30 Oct 2026): the entry's tombstone, through the page's own tomb(), so a copy of the page that still holds the
+           entry cannot merge it back (pages from v12.63 read it; older pages ignore it) */
+        if (typeof tomb === 'function') { r.tombstone1263 = 'hist/' + op.ref + '/' + entry.state + '|' + t; tomb(r.tombstone1263, who); }
         const onSite = dd.history.filter(h => h && h.state === 'on site' && !h.collection996).slice(-1)[0];
         if (!onSite) throw new Error(op.ref + ' has no on-site entry to return to');
         dd.state = 'on site'; dd.set_at = onSite.at;
@@ -424,6 +429,9 @@ function applyOps(spec) {
         if (!gone || !kept || gone === kept) throw new Error(op.ref + ': the pair is not at ' + op.at + ' and ' + op.keep_at);
         if (kept.collection996.departedAt1211 !== op.keep_departed) throw new Error(op.ref + ': the kept entry departs ' + kept.collection996.departedAt1211 + ', not ' + op.keep_departed);
         dd.history = dd.history.filter(h => h !== gone);
+        /* v12.63 (30 Oct 2026): the removed entry's tombstone, through the page's own tomb(): deleted['hist/<ref>/<state>|<at>'] beats the
+           entry on every copy of the page from v12.63, so the stale copy that merged it back at 10:34, 12:42 and 14:05 cannot again */
+        if (typeof tomb === 'function') { r.tombstone1263 = 'hist/' + op.ref + '/' + gone.state + '|' + gone.at; tomb(r.tombstone1263, who); }
         kept.collection996.duplicateRemoved1211 = (kept.collection996.duplicateRemoved1211 || []).concat([{entryAt: gone.at, departedAt: gone.collection996.departedAt1211, why: op.why, at: new Date().toISOString()}]);
         kept.note = (kept.note ? kept.note + ' ' : '') + op.why;
         r.result = 'removed the duplicate entry at ' + op.at + ' (departed ' + gone.collection996.departedAt1211 + '); the ' + op.keep_departed + ' entry stays';
@@ -694,6 +702,16 @@ function applyOps(spec) {
           if (op.complete === false && after.complete) throw new Error(op.ref + ' left in full - expected units to stay');
           r.result = 'left site ' + op.at + ', recorded by ' + ev.by + ': ' + ev.items.map(i => i.n + ' x ' + i.type + (i.numbers.length ? ' ' + i.numbers.join(', ') : '')).join(', ') + (op.readback === 'history' ? ' - read from the history; light ' + deliveryOf(op.ref).state + '; departure reading: ' + (after.issues.join('; ') || (after.complete ? 'left in full' : 'not complete')) : after.complete ? ' - ' + op.ref + ' has left in full, light ' + deliveryOf(op.ref).state : ' - still to leave: ' + after.remaining.filter(u => u.n > 0).map(u => u.n + ' x ' + u.type).join(', '));
         }
+      } else if (op.op === 'hist_tomb') {
+        /* v12.63 (30 Oct 2026): the tombstone for a history entry that is already off the document (T0023's withdrawn departure of
+           run 88). Through the page's own tomb(): deleted['hist/<ref>/<state>|<at>'], which pages from v12.63 honour in the merge. The
+           entry itself must already be gone - a departure still on the document comes off with collection_remove or collection_withdraw. */
+        const dd = S.delivery[op.ref]; if (!dd) throw new Error(op.ref + ' has no delivery document');
+        const state = op.state || 'in transit', key = 'hist/' + op.ref + '/' + state + '|' + op.at;
+        if ((dd.history || []).some(h => h && h.state === state && h.at === op.at)) throw new Error(op.ref + ' still holds the entry ' + key + ' - take it off first');
+        if (typeof tomb !== 'function' || typeof tombed !== 'function') throw new Error('the page has no tombstones');
+        if (tombed(S, key)) r.result = 'already tombstoned: ' + key;
+        else { tomb(key, who); if (!tombed(S, key)) throw new Error('tomb() did not set ' + key); r.tombstone1263 = key; r.result = 'tombstone on ' + key + ' by ' + who; }
       } else if (op.op === 'emptied') {
         /* 26 Oct 2026: the Emptied (pumped out) tick through the page's own setEmptied816, as a person ticking it in the
            reference's drawer; the page's emptied gate then lets its departure form open. Only on Andrew's word. */
@@ -918,6 +936,9 @@ function applyOps(spec) {
         if (op.op === 'light_redate') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1]; if (dd.state !== 'on site' || dd.set_at !== op.at || !h || h.at !== op.at || !String(h.note || '').includes(op.why)) problems.push(op.ref + ' arrival is not dated ' + op.at + ' with its reason ' + where); }
         if (op.op === 'unit_ready_off') { const u = (((docs.delivery || {})[op.ref] || {}).ready1238_units || {})[op.unit]; if (!u || u.on !== false || !String(u.why || '').includes(op.why.slice(0, 140))) problems.push(op.ref + ' ' + op.unit + ' ready tick is not off with its reason ' + where); }
         if (op.op === 'collection_withdraw') { const dd = (docs.delivery || {})[op.ref] || {}; if (dd.state !== 'on site' || (dd.history || []).some(h => h && h.collection996 && h.collection996.id === op.id) || dd.done !== true || !String(dd.note || '').includes(op.why)) problems.push(op.ref + ': the departure ' + op.id + ' is not withdrawn with the reference back on site and complete ' + where); }
+        if (op.op === 'collection_withdraw' || op.op === 'collection_remove' || op.op === 'hist_tomb') { /* v12.63: the removed entry's tombstone is on the service */
+          const key = ((results.find(x => x.op === op.op && x.ref === op.ref && x.tombstone1263)) || {}).tombstone1263;
+          if (key && !Object.values(docs.deleted || {}).some(x => x && x._k === key && x.v)) problems.push(op.ref + ': the tombstone ' + key + ' is not on the service ' + where); }
         if (op.op === 'collection_remove') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.collection996 && h.collection996.id === op.id); if (hs.length !== 1 || hs[0].at !== op.keep_at || hs[0].collection996.departedAt1211 !== op.keep_departed || (dd.history || []).some(h => h && h.collection996 && h.at === op.at) || !String(hs[0].note || '').includes(op.why)) problems.push(op.ref + ': collection ' + op.id + ' is not down to its ' + op.keep_departed + ' entry ' + where); }
         if (op.op === 'collection_redate') { const dd = (docs.delivery || {})[op.ref] || {}; const hits = (dd.history || []).filter(h => h && h.collection996 && h.collection996.kind === 'collection' && (h.collection996.items || []).some(i => (i.numbers || []).includes(op.no))); if (hits.length !== 1 || hits[0].collection996.departedAt1211 !== op.at || hits[0].collection996.date !== op.at.slice(0, 10) || !String(hits[0].note || '').includes(op.why)) problems.push(op.ref + ': ' + op.no + ' is not dated ' + op.at + ' with its reason ' + where); }
         if (op.op === 'acc_add' && !((((docs.accessories || {})[op.ref] || {}).v) || []).some(x => String(x.asset_no || '') === op.no && x.type === op.type)) problems.push(op.ref + ' has no ' + op.type + ' ' + op.no + ' ' + where);
