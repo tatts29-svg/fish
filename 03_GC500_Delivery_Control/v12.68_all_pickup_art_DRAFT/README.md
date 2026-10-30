@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-DRAFT — built candidate `fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547`, 16,520,784 bytes, from implementation source `d421430b52c884fd984e936a95274c606d43c9d5`. The shared checker passes 222 scripts and source review passes all 13 guarded edit boundaries; final native/navigation checks are in progress. Nothing published from this folder yet.
+READY TO UPLOAD — 31 Oct 2026 09:21 AEST. Exact candidate `fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547`, 16,520,784 bytes; implementation `d421430b52c884fd984e936a95274c606d43c9d5`, final test source `3aff05cd77aedd7b3733df531afb80fde7bd3017`. All required candidate checks pass. Guarded publication and public read-back remain; this is not yet a live claim.
 
 Andrew directly asked for all cards, then said: “Make them thats what you were meant to be dojng”. This completes the same approved decorative stamp job beyond the first light-tower release. Existing dark cards, green status stamps, wording, metadata, weather, dimensions and controls remain the basis of the page.
 
@@ -18,4 +18,8 @@ Build from `03_GC500_Delivery_Control`:
 bash toolchain/build.sh v12.68 v12.68_all_pickup_art_DRAFT/patch_v1268.py
 ```
 
-Before READY: final shared page check, mapping and consumer guards, every current picked-up card's coverage, actual phone/desktop card and foreground preservation, all supported artwork decoding/positions, filter/refresh and detail paths, unchanged record/financial readers, zero writes/errors, both navigation sweeps and actual previews. Detailed record, financial and screenshot captures stay private; only safe summaries are committed. Guarded upload and full public byte read-back are required before LIVE. Wider work and hourly automation remain paused after this bounded directly authorised job.
+Validation: shared page checker (222 scripts); 63 mapping, 11 reference-context and 28 caller-contract checks; independent source review proving all 13 guarded edits reverse to the exact predecessor; full native phone (147 checks) and desktop (190 checks); all-reference stamp coverage with no unresolved or mismatched existing completed stamps; both navigation sweeps (27 routes, seven deep links and Back, including ten existing aliases). All pass with zero runtime/console errors and operational writes. Actual phone and desktop previews were inspected. Original card models, financial outputs, text, controls, geometry and every persisted document are preserved. This verifies unchanged financial outputs, not an audit of all business inputs.
+
+The phone comparison reused a fully completed baseline after verifying its capture/page/state hashes, fixed clock, viewport and error/write results; desktop used a fresh complete baseline/candidate pair. Final successful screenshots needed no retry. The test-only non-square atlas ratio check uses intrinsic CSS dimensions rather than the tilted stamp's transformed bounding box. Neither recovery changed the candidate.
+
+Public-safe evidence is in `evidence/`; detailed records, financial outputs and screenshots stay private. The next publisher uses the existing guarded uploader and exact public-byte read-back. If this release goes first, the separately owned v12.67 candidate must be rebased by its owner on these live bytes and take the next free release number. Wider work and hourly automation remain paused after this bounded directly authorised job.

@@ -1,0 +1,70 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS",
+  "checked_at_utc": "2026-10-30T23:21:42.860187+00:00",
+  "implementation_commit": "d421430b52c884fd984e936a95274c606d43c9d5",
+  "tests_commit": "3aff05cd77aedd7b3733df531afb80fde7bd3017",
+  "candidate_sha256": "fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547",
+  "candidate_bytes": 16520784,
+  "base_sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+  "page_checker": {
+    "inline_scripts": 222,
+    "status": "PASS"
+  },
+  "source_tests": {
+    "mapping": 63,
+    "reference_context": 11,
+    "consumer_contracts": 28,
+    "status": "PASS"
+  },
+  "native": {
+    "phone": {
+      "status": "PASS",
+      "checks": 147,
+      "clock_and_viewport": {
+        "mobile": true,
+        "width": 390,
+        "height": 844,
+        "dpr": 2,
+        "fixedTime": "2026-10-30T22:45:00Z"
+      },
+      "validated_saved_baseline_used": true,
+      "screenshot_retries": 0,
+      "operational_write_attempts": 0,
+      "all_card_models_and_financial_outputs_unchanged": true,
+      "persisted_documents_unchanged": true,
+      "native_text_controls_fonts_colours_and_geometry_preserved": true,
+      "all_current_picked_up_types_resolve": true,
+      "all_thirty_declared_artwork_cells_decode_and_match": true,
+      "filter_daily_refresh_and_other_native_stamp_consumers_pass": true,
+      "print_reduced_motion_and_missing_image_fallback_pass": true
+    },
+    "desktop": {
+      "status": "PASS",
+      "checks": 190,
+      "clock_and_viewport": {
+        "mobile": false,
+        "width": 1440,
+        "height": 1000,
+        "dpr": 1,
+        "fixedTime": "2026-10-30T22:45:00Z"
+      },
+      "validated_saved_baseline_used": false,
+      "screenshot_retries": 0,
+      "operational_write_attempts": 0,
+      "all_card_models_and_financial_outputs_unchanged": true,
+      "persisted_documents_unchanged": true,
+      "native_text_controls_fonts_colours_and_geometry_preserved": true,
+      "all_current_picked_up_types_resolve": true,
+      "all_thirty_declared_artwork_cells_decode_and_match": true,
+      "filter_daily_refresh_and_other_native_stamp_consumers_pass": true,
+      "print_reduced_motion_and_missing_image_fallback_pass": true
+    }
+  },
+  "limitations": [
+    "Visual decoration only; unchanged financial outputs do not establish correctness of every business input.",
+    "Illustrations describe equipment families, not photographed numbered assets.",
+    "Phone comparison reused a completed baseline only after its hashes, clock, viewport and zero-error/write provenance were verified; desktop used a fresh full pair.",
+    "Publication and independent external review are recorded separately."
+  ]
+}
