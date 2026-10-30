@@ -1,8 +1,11 @@
-# v12.67 — the P&L tab in one cut of the costs, and one difference so far
+# v12.69 (built and tested as v12.67) — the P&L tab in one cut of the costs, and one difference so far
 
-Author: Andrew Fisher. Built 31 Oct 2026 07:4x AEST on the live v12.66 (`7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c`,
-16,192,520 bytes). Candidate `fb36c30ecaa210d9fee9898a4a56125a1fb1c109da99d9ee95a874eec3c56cb7`, 16,212,351 bytes. **Not uploaded**:
-previews first, the upload on Andrew's word.
+Author: Andrew Fisher. Built and tested as v12.67 on 31 Oct 2026 07:4x AEST on the live v12.66 (candidate `fb36c30e…`, 16,212,351
+bytes); rebuilt unchanged as **v12.69** at 09:3x AEST on the live v12.68 (`fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547`,
+16,520,784 bytes, the picked-up artwork on every Demob card) after it went live at 09:1x. The script and style are byte for byte the
+v12.67 candidate's and keep their ids (pl1267); `patch_v1269.py` pins the v12.68 base and turns the footer v12.68 → v12.69.
+Candidate `038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb`, 16,540,615 bytes. **Not uploaded**: previews first,
+the upload on Andrew's word.
 
 Andrew, 30 Oct 2026 20:2x AEST: "I also want the p&l reviewed again. I want it clean and clear. Easy to understand. And u
 understand where costs are." The review and the mock-up are in `review_30Oct2026_pl_again/`. Andrew, 31 Oct 06:5x AEST: "Yes
@@ -72,22 +75,23 @@ Friday, so job-end revenue is 1,018,879.23, not 1,027,917.09, and the difference
 
 ## Files
 
-- `patch_v1267.py` — in place on the live v12.66 (BASE pinned): the v12.65 face (pl1262) out, the model and wording changes
-  (every anchor asserted once), the v12.67 style and script in before `</body>`, footer v12.66 → v12.67.
+- `patch_v1269.py` — in place on the live v12.68 (BASE pinned): the v12.65 face (pl1262) out, the model and wording changes
+  (every anchor asserted once), the pl1267 style and script in before `</body>`, footer v12.68 → v12.69.
 - `pl1267_src.js`, `pl1267.css` — the face: `PL1267.ledger()` is the v12.65 model unchanged (Finance's lines), `PL1267.model()`
   the face, `faceHtml`, `ledgerHtml`, the folds and the renderCosts hook.
-- `tests/test_v1267.cjs` — on the real Costs & P&L tab, reading the live record, writing nothing: 41 checks, desktop and phone
+- `tests/test_v1269.cjs` — on the real Costs & P&L tab, reading the live record, writing nothing: 41 checks, desktop and phone
   (`evidence/test_*.txt`): the face ties to the models to the cent, the labour hire is Costs to job end's and the handover's
   figure, the tiles and tables foot, the branches add to the job, At a glance, the Forecast P&L by branch and "Are we making
   money?" show the one difference (rendered by their own functions where this layout does not draw them), the old figure appears
   nowhere, "Everything reconciles" ties, the folds hold every old card with its buttons, no sentence on the face, no sideways
   scroll, 0 errors, 0 writes.
-- `tests/shoot_v1267.cjs` — the whole face in one picture, desktop and phone (`evidence/face_*.png`).
+- `tests/shoot_v1269.cjs` — the whole face in one picture, desktop and phone (`evidence/face_*.png`).
 - `evidence/` — tests, pictures, both sweeps (27 tabs and the deep links, 0 errors, 0 console messages, 0 writes; the ten
   routes that draw no pane of their own are the same ten as every earlier sweep).
 
 ## Checks
 
-- `toolchain/build.sh v12.67 v12.67_pl_one_cut_DRAFT/patch_v1267.py`: 221 inline scripts, check_page PASS.
-- `tests/test_v1267.cjs`: desktop 41/41, phone 41/41 (31 Oct 2026 07:4x AEST, record 12600).
+- `toolchain/build.sh v12.69 v12.69_pl_one_cut_DRAFT/patch_v1269.py`: 222 inline scripts, check_page PASS.
+- `tests/test_v1269.cjs`: desktop 41/41, phone 41/41 on the v12.69 candidate (31 Oct 2026 09:3x AEST, record 12600); the same
+  41/41 on the v12.67 candidate at 07:4x.
 - `toolchain/harness/sweep.js`: desktop and phone, 27 tabs, 0 errors, 0 console, 0 writes.

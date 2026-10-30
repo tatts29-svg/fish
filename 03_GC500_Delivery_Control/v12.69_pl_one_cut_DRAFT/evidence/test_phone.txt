@@ -1,4 +1,4 @@
-v12.67 phone: 41/41 checks passed
+v12.69 phone: 41/41 checks passed
 model: {"revNow":1012101.16,"revJob":1018879.23,"total":1012101.16,"known":455995.07,"difference":524203.15,"before":556106.09,"d0":524203,"d0before":556106,"diffJob":481118.66,"diffNow":524203.15,"handToDate":487898.01,"plJob":537760.57,"wagesToDate":31902.94,"hireStream":31902.94,"gaps":5,"lhKnown":31902.94,"lhJob":34926.79,"lhCost":{"known":31902.94,"toCome":3023.85,"job":34926.79,"unpricedHours":0,"shifts":53},"revB":[["KINP",447476.68],["MEAD",27429.95],["NVAC",49683.51],["STPS",494289.09]]}
 tiles: [{"l":"Charged to the V8s","v":"$1,012,101.16","s":"so far on the record · $1,018,879.23 at job end"},{"l":"What it costs us","v":"$487,898.01","s":"so far · $537,760.57 at job end"},{"l":"Difference so far","v":"$524,203.1551.8%","s":"$481,118.66 · 47.2% at job end · not a margin until the costs are complete"}]
 revenue: Our gear on hire1005the contracts at their rate, the card where a line has none | $221,095.76 | $221,095.76

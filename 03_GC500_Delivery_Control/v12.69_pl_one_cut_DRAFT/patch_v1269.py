@@ -1,9 +1,13 @@
-"""Author: Andrew Fisher. v12.67 - the P&L tab in one cut of the costs, and one difference so far.
+"""Author: Andrew Fisher. v12.69 - the P&L tab in one cut of the costs, and one difference so far.
+
+The release built and tested as v12.67 on 31 Oct 2026 07:4x AEST (on the live v12.66), rebuilt unchanged on the live v12.68 (the
+picked-up artwork on every Demob card) after it went live at 09:1x AEST; the script and style are byte for byte the v12.67
+candidate's and keep their ids (pl1267). Only the base, the footer and this note differ.
 
 Andrew, 30 Oct 2026 (this chat, 20:2x AEST): "I also want the p&l reviewed again. I want it clean and clear. Easy to understand.
 And u understand where costs are." Review and mock-up: review_30Oct2026_pl_again/. Andrew, 31 Oct 2026 06:5x AEST: "Yes proceed".
 
-What this release changes, on the live v12.66 page (BASE is its verified SHA-256):
+What this release changes, on the live v12.68 page (BASE is its verified SHA-256):
 
 1. The model: the Forecast P&L's "difference so far" (moneySummary().difference, and difference0 as printed to the dollar) takes
    the labour hire worked so far off, the way its job-end figure always took the wages priced off. labourHireSoFar1267(day) reads
@@ -18,14 +22,14 @@ What this release changes, on the live v12.66 page (BASE is its verified SHA-256
 3. The face: pl1262 (v12.65) is removed and pl1267 put in its place - three tiles, revenue in plain words, one cost table under the
    eight categories management expect naming who we pay, by-branch cards, Not in it yet, then three closed folds (Finance's lines,
    the v12.65 ledger tables unchanged; Fencing, everything included; Workings). Nothing removed, every button still bound.
-4. Footer v12.66 -> v12.67.
+4. Footer v12.68 -> v12.69.
 
-    python3 patch_v1267.py page.html      (in place, on the live v12.66 page)
+    python3 patch_v1269.py page.html      (in place, on the live v12.68 page)
 """
 import hashlib, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-BASE = '7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c'  # live v12.66, public GET 31 Oct 2026 07:06 AEST
+BASE = 'fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547'  # live v12.68, public GET 31 Oct 2026 09:22 AEST
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 
 HELPER = r'''/* v12.67 - the labour hire worked so far: the running sheet's hired-in people (not Coates wages and salary, which stay in hours;
@@ -50,9 +54,9 @@ def sub1(text, old, new, what):
 
 
 def patch(text):
-    if 'pl1267-script' in text: raise ValueError('v12.67 is already applied')
-    if hashlib.sha256(text.encode('utf-8')).hexdigest() != BASE: raise ValueError('Live base is not the verified v12.66; rebuild and retest')
-    for need in ('pl1262-script', 'pickedup1266-art', 'gone1263', 'Baseplan (11) charges this line'):
+    if 'pl1267-script' in text: raise ValueError('the P&L face release is already applied')
+    if hashlib.sha256(text.encode('utf-8')).hexdigest() != BASE: raise ValueError('Live base is not the verified v12.68; rebuild and retest')
+    for need in ('pl1262-script', 'gone1263', 'Baseplan (11) charges this line'):
         if need not in text: raise ValueError('the base is missing ' + need)
 
     # 3a. the v12.65 face out (style and script), wherever the page holds it
@@ -110,11 +114,11 @@ def patch(text):
 
     # 4. footer
     found = FOOTER.findall(text)
-    if found != ['v12.66']: raise ValueError('release footer: expected one v12.66 footer, found ' + repr(found))
-    return FOOTER.sub(lambda m: m.group(0).replace(m.group(1), 'v12.67'), text, count=1)
+    if found != ['v12.68']: raise ValueError('release footer: expected one v12.68 footer, found ' + repr(found))
+    return FOOTER.sub(lambda m: m.group(0).replace(m.group(1), 'v12.69'), text, count=1)
 
 
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print('patch_v1267 applied: one cut of the costs on the P&L face, one difference so far (after labour hire) everywhere; footer v12.66 -> v12.67')
+    print('patch_v1269 applied: one cut of the costs on the P&L face, one difference so far (after labour hire) everywhere; footer v12.68 -> v12.69')

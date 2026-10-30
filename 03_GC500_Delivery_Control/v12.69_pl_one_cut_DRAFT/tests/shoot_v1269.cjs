@@ -1,7 +1,7 @@
-// Author: Andrew Fisher. The whole v12.67 face in one picture, desktop and phone, for Andrew's look before any upload: a tall
+// Author: Andrew Fisher. The whole v12.69 face in one picture, desktop and phone, for Andrew's look before any upload: a tall
 // viewport so the page's own scroller shows the tiles, the revenue, where the costs are, the branches and Not in it yet together;
 // then each section on its own. Read-only: every write the page tries is aborted by the harness.
-//   PAGE=build/GC500_v12.67/GC500_Delivery_Control_hosted.html [MOB=1] OUT=evidence node tests/shoot_v1267.cjs
+//   PAGE=build/GC500_v12.69/GC500_Delivery_Control_hosted.html [MOB=1] OUT=evidence node tests/shoot_v1269.cjs
 const fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {

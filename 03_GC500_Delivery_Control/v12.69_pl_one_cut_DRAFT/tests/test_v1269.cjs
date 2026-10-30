@@ -1,8 +1,8 @@
-// Author: Andrew Fisher. v12.67 on the real Costs & P&L tab, reading the live record, writing nothing: the face is three tiles,
+// Author: Andrew Fisher. v12.69 on the real Costs & P&L tab, reading the live record, writing nothing: the face is three tiles,
 // revenue in plain words, one cost table under the eight categories, by-branch cards, Not in it yet, then three closed folds; every
 // figure the page's own models' to the cent; one difference so far on the face, At a glance, the Forecast P&L, the Forecast P&L by
 // branch and "Are we making money?"; the reconciliation card still ties; every old card still on the page with its buttons.
-//   PAGE=build/GC500_v12.67/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_v1267.cjs
+//   PAGE=build/GC500_v12.69/GC500_Delivery_Control_hosted.html [MOB=1] [EVIDENCE=dir] node tests/test_v1269.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path');
 const {open} = require('../../toolchain/harness/open_page');
 (async () => {
@@ -119,7 +119,7 @@ const {open} = require('../../toolchain/harness/open_page');
     check(r.tableOverflow.length === 2 && r.tableOverflow.every(x => x <= 1) && r.colsSeen.length === 6 && r.colsSeen.every(Boolean), 'the revenue and cost tables fit the screen, So far and Job end in view: ' + JSON.stringify(r.tableOverflow) + ' ' + JSON.stringify(r.colsSeen));
     check(s.errors.length === 0 && cons.length === 0, 'no page errors or console errors: ' + JSON.stringify(s.errors.slice(0, 2)) + JSON.stringify(cons.slice(0, 2)));
     check(s.counts.blocked === 0, 'no write attempted: ' + s.counts.blocked);
-    lines.push(`v12.67 ${tag}: ${checks}/${checks} checks passed`, 'model: ' + JSON.stringify(m), 'tiles: ' + JSON.stringify(r.tiles), 'revenue: ' + r.rev.map(x => x.cells.join(' | ')).join('\n  '), 'costs: ' + r.cost.map(x => x.cells.join(' | ')).join('\n  '), 'branches: ' + JSON.stringify(r.branches), 'legacy: ' + JSON.stringify(r.legacy), 'recon: ' + JSON.stringify(r.recon));
+    lines.push(`v12.69 ${tag}: ${checks}/${checks} checks passed`, 'model: ' + JSON.stringify(m), 'tiles: ' + JSON.stringify(r.tiles), 'revenue: ' + r.rev.map(x => x.cells.join(' | ')).join('\n  '), 'costs: ' + r.cost.map(x => x.cells.join(' | ')).join('\n  '), 'branches: ' + JSON.stringify(r.branches), 'legacy: ' + JSON.stringify(r.legacy), 'recon: ' + JSON.stringify(r.recon));
     if (dir) {
       fs.mkdirSync(dir, {recursive: true});
       await p.screenshot({path: path.join(dir, `pl_${tag}.png`), fullPage: !mobile});
@@ -133,7 +133,7 @@ const {open} = require('../../toolchain/harness/open_page');
     }
     console.log(lines[0]);
   } catch (e) {
-    console.error(`v12.67 ${tag}: FAILED after ${checks} checks: ${e.message}`); process.exitCode = 1;
+    console.error(`v12.69 ${tag}: FAILED after ${checks} checks: ${e.message}`); process.exitCode = 1;
     if (dir) { try { fs.mkdirSync(dir, {recursive: true}); await p.screenshot({path: path.join(dir, `pl_${tag}_FAILED.png`)}); } catch (_) {} }
   } finally { await s.browser.close(); }
 })();
