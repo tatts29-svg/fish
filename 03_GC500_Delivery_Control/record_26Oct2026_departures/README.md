@@ -666,3 +666,16 @@ Andrew, 30 Oct 2026 13:1x AEST: "Leaving at 130pm / 0677 / 0048 / 0119"; 0048 ma
 ## Run 94 — GN01, the 60 kVA generator at the median strip meet-up, left site 30 Oct 14:30 (30 Oct 2026 14:32 AEST, record 12156 → 12157)
 
 Andrew, 30 Oct 2026 14:1x AEST: "Gn01 leaving at 230pm". GN01 (Generator 60 kVA, Coates 1276507, median strip meet-up by FOAM, on site since 28 Sep), its reference's only unit, left in full at 14:30, light in transit. The runner refuses a departure still in the future, so the spec was parked in scratch at 14:11 with a check-in armed for 14:31; dry run 14:31:31 (P&L identical: charge 1,011,691.46, known cost 455,995.07), applied 14:32. Spec `spec94_gn01_30oct_1430.json`, report `report_20261030T043238Z.json`, backup `backup_state_20261030T043238Z.json`. Through the page's own Record departure form in Andrew's name; 1 document written, acknowledged 200, verified on the service, every other document unchanged in value. Baseplan (11), received 14:2x, terms GN01's line (9961976/16) at 30 Oct 16:00, Off Rent, return docket 26163652 — the same day as the departure recorded here.
+
+## Run 95 — WC41's duplicate out with its tombstone; T0023's withdrawn entry tombstoned (30 Oct 2026 16:47 AEST, record 12167 → 12172)
+
+With v12.63 and v12.64 live at 16:45 (Andrew, 16:44: "Go live"), the parked spec ran. `collection_remove` on WC41 took the superseded
+28 Oct 12:15 entry out a third time (same collection id as the corrected 30 Oct 09:40 entry, which stays and carries all three removals)
+and, through the page's own `tomb()` in Andrew's name, wrote the tombstone `deleted['hist/WC41/in transit|2026-10-28T02:20:44.187Z']`
+that the v12.63 merge honours; `hist_tomb` wrote `deleted['hist/T0023/in transit|2026-10-30T01:32:03.637Z']` for the departure
+withdrawn in run 88, so no copy of the page can merge that one back either. Spec `spec95_wc41_duplicate_tombstoned_t0023_tombstoned.json`,
+report `report_20261030T064726Z.json`, backup `backup_state_20261030T064726Z.json`. Dry runs at 15:0x (on v12.61, 5 documents planned)
+and 16:46 (on v12.64), P&L identical both times (charge 1,012,101.16 after v12.64); applied 16:47 with the page guard `afbbc0d1…`,
+5 documents written (delivery/WC41, the two tombstones in `deleted`, their names in `by`), acknowledged 200, verified on the service
+including both tombstones, every other document unchanged in value. From here a copy of the page that still holds WC41's 28 Oct entry
+drops it the first time it loads v12.64 and saves the cleaned document; the P&L was never affected by the duplicate.

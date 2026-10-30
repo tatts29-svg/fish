@@ -1,7 +1,10 @@
 # v12.63 — a history entry taken off stays off
 
-Author: Andrew Fisher. 30 Oct 2026. **READY TO UPLOAD** on Andrew's word. Built on the live v12.61 (`ddd1bd7a…`, 16,143,727 bytes);
-candidate `c778a9055edd7b08f9bdb7181f48fe4cccf2fe29c076e371f0a61b09a055adaf`, 16,144,217 bytes. `patch_v1263.py` refuses any other base.
+Author: Andrew Fisher. 30 Oct 2026. **LIVE 30 Oct 2026 16:45 AEST, inside v12.64**, on Andrew's word ("Go live", 16:44 AEST): the public page
+is the chained candidate `afbbc0d1448f3ecf83db854a2ec44634d3704884a9b0e95e24c4ee6407c966c0`, 16,144,243 bytes = live v12.61 + this patch +
+`v12.64_baseplan11_pins_LIVE/patch_v1264.py`, rebuilt at 16:45 to the same hash and read back byte for byte (record 12167 at upload). The
+stand-alone v12.63 candidate `c778a9055edd7b08f9bdb7181f48fe4cccf2fe29c076e371f0a61b09a055adaf`, 16,144,217 bytes, was built and tested
+but not uploaded on its own. Built on the live v12.61 (`ddd1bd7a…`, 16,143,727 bytes); `patch_v1263.py` refuses any other base.
 
 ## Why
 

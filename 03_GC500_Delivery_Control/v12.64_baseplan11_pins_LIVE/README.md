@@ -1,8 +1,9 @@
 # v12.64 — the page matched to Baseplan (11) on the lines it moved
 
-Author: Andrew Fisher. 30 Oct 2026. **READY TO UPLOAD** on Andrew's word, chained on v12.63: built on the live v12.61 (`ddd1bd7a…`,
-16,143,727 bytes) as `patch_v1263.py` then `patch_v1264.py`; candidate `afbbc0d1448f3ecf83db854a2ec44634d3704884a9b0e95e24c4ee6407c966c0`,
-16,144,243 bytes. One upload carries both releases.
+Author: Andrew Fisher. 30 Oct 2026. **LIVE 30 Oct 2026 16:45 AEST** on Andrew's word ("Go live", 16:44 AEST), chained on v12.63: built on the
+live v12.61 (`ddd1bd7a…`, 16,143,727 bytes) as `patch_v1263.py` then `patch_v1264.py`; public page `afbbc0d1448f3ecf83db854a2ec44634d3704884a9b0e95e24c4ee6407c966c0`,
+16,144,243 bytes, rebuilt at 16:45 to the tested hash, upload guard held (live unchanged since the build started, record 12167 at upload),
+cache-busted public read-back identical, footer v12.64. One upload carried both releases.
 
 Andrew, 30 Oct 2026 15:1x AEST, on the Baseplan (11) review (`review_30Oct2026_baseplan11/README.md`): "Can we match baseplan data on
 those". His rule of 29 Oct stands: Baseplan is what invoices on the 31st, so the page follows Baseplan's line figures where they
