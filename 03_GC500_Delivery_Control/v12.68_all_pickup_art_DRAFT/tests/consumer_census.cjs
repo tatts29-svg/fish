@@ -33,7 +33,7 @@ const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex
   assert.deepEqual(canonical(populated(retained.docs)),canonical(populated(JSON.parse(fs.readFileSync(process.env.STATE)).docs)),'All persisted documents preserved');
   assert.equal(retained.queued+retained.inflight,0,'No queued or inflight operational writes');
   fs.mkdirSync(out,{recursive:true});
-  const report={author:'Andrew Fisher',status:gaps.length?'FAIL':'PASS',pageSha256:hash(process.env.CANDIDATE),stateSha256:hash(process.env.STATE),baseline:h.baseline,references:rows.length,complete:rows.filter(r=>r.complete).length,completeOutsideSingles:rows.filter(r=>r.complete&&!r.inSingles).length,totalStamps,byCaller,gaps,rows,errors:h.errors,consoleErrors:h.consoleErrors,counts:h.counts};
+  const report={author:'Andrew Fisher',status:(gaps.length||h.errors.length||h.consoleErrors.length||h.counts.blocked)?'FAIL':'PASS',pageSha256:hash(process.env.CANDIDATE),stateSha256:hash(process.env.STATE),baseline:h.baseline,references:rows.length,complete:rows.filter(r=>r.complete).length,completeOutsideSingles:rows.filter(r=>r.complete&&!r.inSingles).length,totalStamps,byCaller,gaps,rows,errors:h.errors,consoleErrors:h.consoleErrors,counts:h.counts};
   fs.writeFileSync(path.join(out,'all-reference-consumer-census.json'),JSON.stringify(report,null,2)+'\n');
   assert.equal(gaps.length,0,'Every existing completed stamp must resolve to its exact typed artwork; see private census gaps');
   assert.equal(h.errors.length+h.consoleErrors.length+h.counts.blocked,0,'Zero runtime/console errors or operational write attempts');

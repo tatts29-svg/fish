@@ -37,6 +37,12 @@ flock -x /tmp/gc500-browser.lock bash -c '
 flock -x /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v12.68_all_pickup_art_DRAFT/tests/consumer_census.cjs
 ```
 
+`atlas_gallery.cjs` creates a separate clearly labelled synthetic visual contact sheet using the exact candidate stamp/artwork CSS and all 30 mappings. All network access is denied. This avoids clipping by the native scrolling pane; it supplements the actual native-card screenshots and does not replace their layout checks. Run it under the same lock with `CANDIDATE`, `OUT` and `EXPECTED_PAGE_SHA` set:
+
+```bash
+flock -x /tmp/gc500-browser.lock node 03_GC500_Delivery_Control/v12.68_all_pickup_art_DRAFT/tests/atlas_gallery.cjs
+```
+
 For recovery after a browser screenshot timeout, `BASE_CAPTURE` and `BASE_CAPTURE_META` may point to an already completed private baseline capture and its recorded provenance. The script verifies capture/page/state hashes, fixed clock, viewport, complete capture schema and its zero-error/write result before reuse. Acceptance records that recovery explicitly. The unchanged current-card viewport screenshot allows at most two 60-second attempts; retries remain recorded and the screenshot gate is retained.
 
 An acceptance JSON is written only after all checks pass. Raw JSON captures include operational evidence and remain private. The reference helper/native-left timing probe is recorded privately for performance review; it is not a claim about every device. The page checker, both shared navigation sweeps, guarded upload and full public-byte read-back are separate release gates. Candidate acceptance does not prove a live release.
