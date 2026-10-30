@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 13:1x AEST: \"Leaving at 130pm / 0677 / 0048 / 0119\"; asked whether 0048 (on no reference on the record) was 0488, WC10's third: \"Yes its 0488\". WC10's three Event Portables FWF (Toilets; Ready and Emptied since 26 Oct) - 0677, 0488 and 0119 - leave at 13:30, so WC10 leaves in full. Through the page's own Record departure form in his name; the runner refuses a departure still in the future, so this runs after 13:30. Applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC10",
+   "at": "2026-10-30T13:30:00+10:00",
+   "nos": [
+    "0677",
+    "0488",
+    "0119"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
