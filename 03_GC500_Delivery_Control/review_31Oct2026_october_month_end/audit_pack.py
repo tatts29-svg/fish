@@ -285,16 +285,22 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.10', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.10', re.findall(r'<title>([^<]*)</title>', H))
+check('page title is pack v1.11', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.11', re.findall(r'<title>([^<]*)</title>', H))
 check('the page names record 12715 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12715)', '4674224', '4674225')))
 check('open items name the invoices still to come on 4674224 and 4674225', any('the invoices on 4674224 and 4674225' in str(r[0]) for r in rows('Open items') if r))
+# v1.11: Job Connect's supplier in Coates' system (code and registered name, from the private PO file) on every Job Connect line, its accrual and its open item
+JCS_ = json.load(open(NOW.parent / 'jc_pos.json')).get('supplier', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
+_nm = ' '.join(w if '/' in w else w.capitalize() for w in str(JCS_.get('name', '')).split())
+check('Job Connect supplier code and name are in the private PO file', bool(JCS_.get('code')) and bool(_nm) and JCS_.get('trading_as') == 'Job Connect', JCS_)
+check('every Job Connect line names the supplier (%s, %s)' % (JCS_.get('code'), _nm), all((JCS_.get('code', '?') in r[0]) and (_nm in r[0]) for r in cs if r[0].startswith('Job Connect')) and sum(1 for r in cs if r[0].startswith('Job Connect')) == 9)
+check('the Job Connect accrual and open item name the supplier', any(str(r[0]).startswith('Accrual · Job Connect (' + _nm) and JCS_.get('code', '?') in str(r[0]) for r in jn) and any(str(r[0]).startswith('Job Connect (' + _nm) for r in rows('Open items') if r))
 epj = [r for r in jn if str(r[0]).startswith('Accrual · Event Portables')]
 check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00', len(epj) == 2 and abs(sum(r[5] for r in epj) - 101747.00) < 0.005 and any('3325' in r[3] for r in epj) and any('2126' in r[3] for r in epj))
 # ------------------------------------------------------------------ v1.10: the final P&L as data (what the page's P&L tab carries) = the workbook, to the cent
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.10 on record 12715, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.10', 12715, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.11 on record 12715, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.11', 12715, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)

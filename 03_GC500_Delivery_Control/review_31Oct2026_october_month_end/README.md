@@ -376,3 +376,32 @@ it should.
 
 Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12715>/alfie_nights.json <12715>/dated_costs.json`. The 12715
 folder also holds `transport_loads.json`, `labour_register.json`, `suppliers.xlsx` and `jc_pos.json`.
+
+## Pack v1.11: Job Connect named as its supplier in Coates' system (1 Nov)
+
+Andrew gave Job Connect's supplier code and registered name in Coates' system (1 Nov 2026, this chat). They sit in the
+private `jc_pos.json` beside the 12715 captures, and the builder reads them from there, so neither is written in this
+public repository.
+
+**What changed.** Names only; no figure moves. The supplier's code and registered name now appear on:
+- every Job Connect line (9);
+- the Job Connect accrual journal;
+- the match-up row;
+- the KINP branch line;
+- the Job Connect open item.
+
+This lets Finance post against the right supplier.
+
+Figures are unchanged from v1.10:
+- costs 547,831.85;
+- to accrue 195,970.70;
+- difference 454,070.29;
+- branch costs unchanged.
+
+**`audit_pack.py`** now also checks that the supplier's code and name are in the private file and on every Job Connect line,
+the accrual and the open item. Result: 250 checks, 250 pass.
+
+**Printed:** the page is 10 pages and the workbook 17, with all 13 Open items in full.
+
+**The live P&L tab** stays on pack v1.10 (v12.72). Its figures are identical; it takes the supplier names with the next tab
+rebuild.
