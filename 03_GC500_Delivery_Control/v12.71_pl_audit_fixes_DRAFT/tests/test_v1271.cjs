@@ -125,30 +125,30 @@ const {open} = require('../../toolchain/harness/open_page');
     check(cols.length === 4 && r.bridgeCols.length === cols.length + 1 && cols.every((c, i) => r.bridgeCols[i] === c) && r.bridgeCols[cols.length] === 'The job', 'the bridge has a column per branch and the job: ' + JSON.stringify(r.bridgeCols));
     const brow = name => r.bridge.find(x => x.cells.length === cols.length + 2 && x.cells[0].startsWith(name));
     const mgRows = r.bridge.filter(x => x.cells.length === cols.length + 2 && x.cells[0].startsWith('Management view'));
-    const finRevRow = brow('Finance’s invoicing view'), mvRevRow = brow('Event labour revenue moved to KINP'), finCostRow = brow('Finance’s handover'), mvCostRow = brow('Travel, accommodation and meals moved to KINP'), finDiffRow = brow('Finance’s view');
-    check(finRevRow && mvRevRow && finCostRow && mvCostRow && finDiffRow && mgRows.length === 3, 'the bridge has its eight rows: ' + r.bridge.map(x => x.cells[0].slice(0, 30)).join(' | '));
-    const [mgRevRow, mgCostRow, mgDiffRow] = mgRows;
+    /* Andrew, 31 Oct 2026: "Things stay in the branch" - revenue is the same in both views, so it shows once; the one move left is
+       the people's travel, accommodation and meals to KINP (his ruling of 29 Oct 2026) */
+    const revRow = brow('Both views'), finCostRow = brow('Finance’s handover'), mvCostRow = brow('Travel, accommodation and meals moved to KINP'), finDiffRow = brow('Finance’s view');
+    check(revRow && finCostRow && mvCostRow && finDiffRow && mgRows.length === 2 && !brow('Event labour revenue moved'), 'the bridge has its six rows and no revenue move: ' + r.bridge.map(x => x.cells[0].slice(0, 30)).join(' | '));
+    const [mgCostRow, mgDiffRow] = mgRows;
     const cell = (row, i) => money2(row.cells[i + 1]);   /* as displayed; the dash reads 0 */
     const invBy = Object.fromEntries(r.fin.inv);
     cols.forEach((c, i) => {
       check(Math.abs(cell(finCostRow, i) - r.fin.costBy[c]) < 0.005, `Finance’s costs on ${c} are the handover’s to the cent: ${finCostRow.cells[i + 1]} vs ${r.fin.costBy[c]}`);
-      check(Math.abs(cell(finRevRow, i) - (invBy[c] || 0)) < 0.005, `Finance’s revenue on ${c} is the handover’s invoicing row to the cent: ${finRevRow.cells[i + 1]} vs ${invBy[c]}`);
+      check(Math.abs(cell(revRow, i) - (invBy[c] || 0)) < 0.005, `revenue on ${c} is the handover’s invoicing row to the cent: ${revRow.cells[i + 1]} vs ${invBy[c]}`);
       const card = r.branches.find(b => b.h.startsWith(c));
-      check(card && Math.abs(cell(mgRevRow, i) - money2(card.r[0])) < 0.005 && Math.abs(cell(mgCostRow, i) - money2(card.r[1])) < 0.005 && Math.abs(cell(mgDiffRow, i) - money2(card.r[2])) < 0.005, `the management rows on ${c} are the card’s figures to the cent`);
-      check(Math.abs(r2(cell(finRevRow, i) + cell(mvRevRow, i)) - cell(mgRevRow, i)) < 0.005 && Math.abs(r2(cell(finCostRow, i) + cell(mvCostRow, i)) - cell(mgCostRow, i)) < 0.005, `the bridge foots on ${c} as displayed, to the cent: ${finRevRow.cells[i + 1]} ${mvRevRow.cells[i + 1]} ${mgRevRow.cells[i + 1]} · ${finCostRow.cells[i + 1]} ${mvCostRow.cells[i + 1]} ${mgCostRow.cells[i + 1]}`);
-      check(Math.abs(r2(cell(finRevRow, i) - cell(finCostRow, i)) - cell(finDiffRow, i)) < 0.005, `Finance’s difference on ${c} is its revenue less its costs`);
+      check(card && Math.abs(cell(revRow, i) - money2(card.r[0])) < 0.005 && Math.abs(cell(mgCostRow, i) - money2(card.r[1])) < 0.005 && Math.abs(cell(mgDiffRow, i) - money2(card.r[2])) < 0.005, `the card on ${c} charges what the branch invoices, and its costs and difference are the management rows, to the cent`);
+      check(Math.abs(r2(cell(finCostRow, i) + cell(mvCostRow, i)) - cell(mgCostRow, i)) < 0.005, `the cost bridge foots on ${c} as displayed, to the cent: ${finCostRow.cells[i + 1]} ${mvCostRow.cells[i + 1]} ${mgCostRow.cells[i + 1]}`);
+      check(Math.abs(r2(cell(revRow, i) - cell(finCostRow, i)) - cell(finDiffRow, i)) < 0.005 && Math.abs(r2(cell(revRow, i) - cell(mgCostRow, i)) - cell(mgDiffRow, i)) < 0.005, `both differences on ${c} are the revenue less that view’s costs`);
     });
     const k = cols.indexOf('KINP'), jobCol = cols.length;
-    const staffMove = r.staffing.filter(([b]) => b !== 'KINP' && cols.includes(b)).reduce((t, [, v]) => t + v, 0);
-    check(staffMove > 0 && Math.abs(cell(mvRevRow, k) - staffMove) < 0.005 && Math.abs(staffMove - r.L.moved) < 0.005, 'the revenue move to KINP is the other branches’ staffing revenue, to the cent: ' + staffMove);
+    check(r.L.moved === 0 && Object.values(r.L.mvRev).every(v => Math.abs(v) < 0.005) && cols.every(c => Math.abs(r.L.revJobB[c] - r.L.finRev[c]) < 0.005), 'no revenue moves between branches: the management view’s revenue is Finance’s on every branch');
     const expMove = r.fin.movedBy.reduce((t, by) => t + Object.entries(by).filter(([b]) => b !== 'KINP').reduce((u, [, v]) => u + v, 0), 0);
     check(expMove > 0 && Math.abs(cell(mvCostRow, k) - expMove) < 0.005, 'the cost move to KINP is the other branches’ share of travel, accommodation and meals in the handover, to the cent: ' + expMove);
-    check(Math.abs(cell(mvRevRow, jobCol)) < 0.005 && Math.abs(cell(mvCostRow, jobCol)) < 0.005 && same(finRevRow.cells[jobCol + 1], m.revJob) && same(finCostRow.cells[jobCol + 1], m.plJob) && same(finDiffRow.cells[jobCol + 1], m.diffJob), 'both views come to the same job; the moves sum to nothing');
+    check(Math.abs(cell(mvCostRow, jobCol)) < 0.005 && same(revRow.cells[jobCol + 1], m.revJob) && same(finCostRow.cells[jobCol + 1], m.plJob) && same(finDiffRow.cells[jobCol + 1], m.diffJob) && same(mgDiffRow.cells[jobCol + 1], m.diffJob), 'both views come to the same job; the move sums to nothing');
     check(r.L.checks.finance === true && r.L.checks.bridge === true, 'the model’s own bridge checks pass: ' + JSON.stringify(r.L.checks));
-    /* Codex's review (6537377974): the revenue move is the existing management allocation; the cost move is the 29 Oct ruling */
-    check(/existing management allocation/.test(mvRevRow.cells[0]) && !/ruling/i.test(mvRevRow.cells[0]), 'the revenue move is named the existing management allocation, not a ruling: ' + mvRevRow.cells[0]);
-    check(/project manager’s ruling of 29 Oct 2026/.test(mvCostRow.cells[0]), 'the cost move carries the project manager’s ruling: ' + mvCostRow.cells[0]);
-    check(/travel, accommodation and meals sit on KINP by the project manager’s ruling of 29 Oct 2026/.test(r.rule) && /event labour revenue .*sits on KINP by the existing management allocation/.test(r.rule) && !/revenue[^;]*\(the project manager/.test(r.rule), 'the line under the bridge says which move is a ruling and which an allocation: ' + r.rule);
+    check(/revenue stays in the branch \(the project manager, 31 Oct 2026\)/.test(revRow.cells[0]), 'the revenue row carries the project manager’s word of 31 Oct 2026: ' + revRow.cells[0]);
+    check(/project manager’s ruling of 29 Oct 2026/.test(mvCostRow.cells[0]), 'the cost move carries the project manager’s ruling of 29 Oct 2026: ' + mvCostRow.cells[0]);
+    check(/revenue stays on the branch that invoices it \(the project manager, 31 Oct 2026\)/.test(r.rule) && /labour hire, travel, accommodation and meals sit on KINP by his ruling of 29 Oct 2026/.test(r.rule) && !/existing management allocation/.test(r.rule), 'the line under the bridge gives both of the project manager’s words, and no allocation of our own: ' + r.rule);
     check(/BY BRANCH · JOB END · THE MANAGEMENT VIEW/i.test(r.ledgerH3 || ''), 'the folded branch table is named the management view: ' + r.ledgerH3);
     const trParts = [...((r.transport && r.transport.note) || '').matchAll(/\b([A-Z]{4}) (\$[\d,]+\.\d\d)/g)].map(x => money2(x[2]));
     check(r.transport && /^job end by branch: /.test(r.transport.note) && trParts.length >= 2 && Math.abs(r2(trParts.reduce((t, v) => t + v, 0)) - money2(r.transport.job)) < 0.005, 'the transport split says job end, and its parts add to the job-end figure to the cent: ' + JSON.stringify(r.transport));

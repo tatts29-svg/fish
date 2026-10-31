@@ -7,8 +7,8 @@
    The face of the Costs & P&L pane becomes: three tiles (Charged to the V8s · What it costs us · Difference so far, job end under
    each); What we charge the V8s, by stream in plain words with the ledger code in small print; Where the costs are, one table under
    the eight categories management expect, each line naming who we pay and what for, so far and job end; By branch, job end, as
-   cards (the management view: the people's travel, accommodation and meals on KINP by the project manager's ruling of 29 Oct 2026,
-   their event labour revenue on KINP by the existing management allocation); Not in it yet; then three closed folds: Finance's lines (the ledger table of v12.65 as it was, gross margin and
+   cards (the management view: revenue on the branch that invoices it, the project manager's word of 31 Oct 2026; the people's
+   labour hire, travel, accommodation and meals on KINP by his ruling of 29 Oct 2026); Not in it yet; then three closed folds: Finance's lines (the ledger table of v12.65 as it was, gross margin and
    contribution), Fencing, everything included, and Workings (every other card, moved, not removed, every button still bound).
    Every figure is the page's own models' (pl770Model, moneySummary, fh866Model, cj764Model) and the face says whether it ties:
    What it costs us is the Finance handover's total to the cent; Difference so far is the Forecast P&L's difference, which from
@@ -84,8 +84,9 @@ function ledger() {
   var zero = function () { var o = {}; cols.forEach(function (c) { o[c] = 0; }); return o; };
   var revRec = zero(), revJobB = zero();
   (F.inv || []).forEach(function (r) { if (r.branch in revRec) { revRec[r.branch] = r2(revRec[r.branch] + (r.onRecord || 0)); revJobB[r.branch] = r2(revJobB[r.branch] + (r.job || 0)); } });
+  /* v12.71 - revenue stays on the branch that invoices it (the project manager, 31 Oct 2026: "Things stay in the branch"); the
+     people's event labour revenue is no longer moved to KINP, so the management view's revenue is Finance's, branch by branch */
   var moved = 0;
-  try { (scopeBranchAllocation978() || []).forEach(function (s) { if (/staffing/i.test(s.source || '') && s.branch !== 'KINP' && s.branch in revRec) { revRec[s.branch] = r2(revRec[s.branch] - (s.recorded || 0)); revJobB[s.branch] = r2(revJobB[s.branch] - (s.job || 0)); revRec.KINP = r2(revRec.KINP + (s.recorded || 0)); revJobB.KINP = r2(revJobB.KINP + (s.job || 0)); moved = r2(moved + (s.job || 0)); } }); } catch (e) {}
   var streams = [
     {name: 'Fencing: Advanced’s orders, gear and crew', test: function (s) { return s.kind === 'fencing'; }},
     {name: 'Event Portables: toilet hire, servicing, water', test: function (s) { return s.kind === 'toilets'; }},
@@ -109,14 +110,14 @@ function ledger() {
   /* v12.71 - Finance's invoicing view beside the management view, and the bridge between them (the independent audit of 31 Oct
      2026, finding 3). Finance's view is the handover's own figures, untouched: revenue by the branch on the hire contracts
      (fh866Model().inv), costs by its own split (costTotal.by: travel, accommodation and meals by the labour on each branch). The
-     management view (the figures above, the cards) puts the people's travel, accommodation and meals on KINP (the project manager's
-     ruling, 29 Oct 2026) and their event labour revenue with them (the existing management allocation: an inference from that
-     ruling, put to him for a word on 29 Oct 2026 and not yet given). The moves are worked from their sources and shown as moves;
-     no branch attribution is written back anywhere. */
+     management view (the figures above, the cards) keeps revenue on the branch that invoices it (the project manager, 31 Oct 2026:
+     "Things stay in the branch") and puts the people's labour hire, travel, accommodation and meals on KINP (his ruling of 29 Oct
+     2026), until each shift's labour is put to the branch of the work it was on. The moves are worked from their sources and shown
+     as moves; no branch attribution is written back anywhere. */
   var finRev = zero(), finCost = zero(), finDiff = zero(), mvRev = zero(), mvCost = zero();
   (F.inv || []).forEach(function (r) { if (r.branch in finRev) finRev[r.branch] = r2(finRev[r.branch] + (num(r.job) ? r.job : 0)); });
   cols.forEach(function (c) { var v = F.costTotal && F.costTotal.by ? F.costTotal.by[c] : null; finCost[c] = num(v) ? r2(v) : 0; finDiff[c] = r2(finRev[c] - finCost[c]); });
-  try { (scopeBranchAllocation978() || []).forEach(function (s) { if (/staffing/i.test(s.source || '') && s.branch !== 'KINP' && s.branch in mvRev) { var v = num(s.job) ? s.job : 0; mvRev[s.branch] = r2(mvRev[s.branch] - v); mvRev.KINP = r2(mvRev.KINP + v); } }); } catch (e) {}
+  /* no revenue move (31 Oct 2026): mvRev stays nought on every branch, and the checks below hold that */
   (F.costs || []).forEach(function (s) { if (s.kind !== 'labour' && s.kind !== 'expenses') return; Object.keys(s.by || {}).forEach(function (b) { if (b === 'KINP') return; var v = num(s.by[b]) ? s.by[b] : 0; if (b in mvCost) mvCost[b] = r2(mvCost[b] - v); mvCost.KINP = r2(mvCost.KINP + v); }); });
   var finRevT = sumBy(cols, function (c) { return finRev[c]; }), finCostT = sumBy(cols, function (c) { return finCost[c]; }), finDiffT = sumBy(cols, function (c) { return finDiff[c]; });
   var mvRevT = sumBy(cols, function (c) { return mvRev[c]; }) || 0, mvCostT = sumBy(cols, function (c) { return mvCost[c]; }) || 0;
@@ -281,9 +282,7 @@ function faceHtml(Mo) {
     + '<h3 class="pl1267-h3">Finance’s invoicing view, and the bridge to the management view</h3>'
     + '<div class="tblwrap"><table class="pl1267-tbl pl1267-ltbl pl1267-branchtbl pl1267-bridge"><thead>' + bh + '</thead><tbody>'
     + sub('Charged to the V8s')
-    + brow('Finance’s invoicing view', 'the branch on the hire contracts, as the Finance handover invoices it', L.finRev, L.finRevT)
-    + brow('Event labour revenue moved to KINP', 'the existing management allocation: the people’s staffing revenue follows them', L.mvRev, 0, 'pl1267-move', sgn)
-    + brow('Management view', 'the cards above', L.revJobB, L.revJobT, 'pl1267-tot')
+    + brow('Both views', 'the branch on the hire contracts, as the Finance handover invoices it: revenue stays in the branch (the project manager, 31 Oct 2026)', L.finRev, L.finRevT, 'pl1267-tot')
     + sub('What it costs us')
     + brow('Finance’s handover', 'travel, accommodation and meals by the labour on each branch, as its CSV has them', L.finCost, L.finCostT)
     + brow('Travel, accommodation and meals moved to KINP', 'with the people whose costs they are, the project manager’s ruling of 29 Oct 2026', L.mvCost, 0, 'pl1267-move', sgn)
@@ -292,7 +291,7 @@ function faceHtml(Mo) {
     + brow('Finance’s view', '', L.finDiff, L.finDiffT)
     + brow('Management view', '', L.contribB, L.contribT, 'pl1267-grand pl1267-final')
     + '</tbody></table></div>'
-    + '<p class="pl1267-foot">' + tick(L.checks.branchesRevenue && L.checks.branchesCost && L.checks.branchesContribution, 'the branches foot to the job') + ' ' + tick(L.checks.finance && L.checks.bridge, 'Finance’s view is the handover’s figures to the cent, and the moves bridge it to the cards') + ' <span class="pl1267-rule">Management view: the people’s travel, accommodation and meals sit on KINP by the project manager’s ruling of 29 Oct 2026; their event labour revenue' + (Mo.moved ? ' (' + esc(money(Mo.moved)) + ' moved from the other branches)' : '') + ' sits on KINP by the existing management allocation; gear and moves sit on the branch of the gear. Finance’s handover and its CSV keep the contract branches; nothing is written back.</span></p></section>';
+    + '<p class="pl1267-foot">' + tick(L.checks.branchesRevenue && L.checks.branchesCost && L.checks.branchesContribution, 'the branches foot to the job') + ' ' + tick(L.checks.finance && L.checks.bridge, 'Finance’s view is the handover’s figures to the cent, and the moves bridge it to the cards') + ' <span class="pl1267-rule">Management view: revenue stays on the branch that invoices it (the project manager, 31 Oct 2026); the people’s labour hire, travel, accommodation and meals sit on KINP by his ruling of 29 Oct 2026, until each shift is put to the branch of the work it was on; gear and moves sit on the branch of the gear. Finance’s handover and its CSV keep the contract branches; nothing is written back.</span></p></section>';
   var t5 = '<section id="pl1267-gaps" class="card pl1267-gaps nosfold">' + eyebrow('NOT IN IT YET · NAMED, NEVER ADDED')
     + (Mo.gaps.length ? '<ul>' + Mo.gaps.map(function (x) { return '<li>' + esc(x.what) + (x.owner ? '<small>' + esc(x.owner) + '</small>' : '') + '</li>'; }).join('') + '</ul>' : '<p>Nothing named.</p>') + '</section>';
   return t1 + t2 + t3 + t4 + t5;

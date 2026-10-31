@@ -15,19 +15,21 @@ a cue to add. Handed to this module's author to implement (PR #1, 6536684611). W
    switched off.
 2. The face's small print (the transport split by branch, the sub-hire suppliers' estimates) said each part to the dollar, so
    parts need not add to their line; they now say cents (money, not money0).
-3. The by-branch cards are named the management view (the project manager's ruling of 29 Oct 2026: the people's event labour
-   revenue, their travel, accommodation and meals on KINP). Under them, Finance's invoicing view - the handover's own figures,
-   revenue by the branch on the hire contracts and costs by its own split - and the two moves that bridge it to the cards, branch
-   by branch, with a tick that the bridge foots to the cent. No branch attribution changes anywhere: the handover and its CSV keep
+3. The by-branch cards are named the management view. Under them, Finance's invoicing view - the handover's own figures,
+   revenue by the branch on the hire contracts and costs by its own split - and the move that bridges it to the cards, branch by
+   branch, with a tick that the bridge foots to the cent. No branch attribution changes anywhere: the handover and its CSV keep
    the contract branches.
 4. One line under the cost table: what inside "so far" is carried at quotes or estimates (in the lines' own words), and what job
    end adds as forecast.
-5. From Codex's independent review of the first candidate (PR #1, 6537377974): the revenue move is named the existing management
-   allocation (the cost move is the project manager's ruling of 29 Oct 2026; the revenue following the people is an inference
-   still open to his word, board note of 29 Oct 2026 16:25); the Finance handover card keeps its cents (money, not money0, in
-   fh866Html); the folded branch table is named the management view; the transport split reads "job end by branch"; and, from
-   its optional polish, the page's print note says "printed" where it said "asset map printed" on every print.
-6. Footer v12.69 -> v12.71.
+5. From Codex's independent review of the first candidate (PR #1, 6537377974): the Finance handover card keeps its cents (money,
+   not money0, in fh866Html); the folded branch table is named the management view; the transport split reads "job end by
+   branch"; and, from its optional polish, the page's print note says "printed" where it said "asset map printed" on every print.
+6. Revenue stays on the branch that invoices it. Andrew, 31 Oct 2026, answering whether the people's event labour revenue should
+   follow them onto KINP (an inference from his 29 Oct ruling, never his word): "Things stay in the branch. But we can align labour
+   to correct branch costs if that makes sense". The management view no longer moves that revenue, so its revenue is Finance's on
+   every branch and the bridge carries one move only, the people's travel, accommodation and meals to KINP (his 29 Oct ruling on
+   costs). Aligning labour costs to the branch of the work is a separate step on his word, shift by shift.
+7. Footer v12.69 -> v12.71.
 
 Nothing is typed; nothing is written to the record. The pl1267 style and script keep their ids; the block is replaced whole.
 
