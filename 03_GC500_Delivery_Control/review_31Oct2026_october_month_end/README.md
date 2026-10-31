@@ -66,3 +66,17 @@ L98, L141, L142 and the toilet transport lines L147–L149, L162, L167; 25123999
 Andrew: "We charge the v8s for transport for toilets"; the transport covers our own toilets too, whose carrier cost is in transport); Advanced charged 370,888.55 on 25122628
 against 214,225.00 invoiced plus an estimated 79,184.70 (POs 4647522, 4647523); Premiair 2,787.72 against an estimated 3,806.31;
 Royal Wolf 2,428.00 (L2 and its delivery and pickup share) against an estimated 1,364.23.
+
+## The final P&L pack v1 (31 Oct, on Andrew's "Lets go over the P&L again ... accurate to the cent")
+
+`build_monthend.py` now writes the pack: `GC500_PL_final.xlsx` (Summary, Revenue by invoice, Costs by supplier, Costs by branch,
+Accruals vs charges, Journals, Labour by person, Open items) and `GC500_PL_final.html` (private). It supersedes the separate final
+P&L sheet (`build_final_pl.py`). Every sheet cross-foots to the cent: revenue 1,003,876.19 (19 invoices 1,003,037.12 + November
+forecast 839.07); costs 543,382.98 (Sep 135,170.76 · Oct 382,488.71 · Nov 25,723.51; KINP 229,400.58 · STPS 302,809.37 · NVAC 9,935.80 ·
+MEAD 1,237.23); difference 460,493.21; accruals at 31 Oct 212,472.50 = the journals.
+
+Defaults applied and told to Andrew (his call to reverse): Job Connect w/e 20 Sep and 4 Oct at their invoices (−0.15, −178.00 against
+the running sheet); Premiair line 15 (536.10) out of the estimate (not on 9961265 in Baseplan (12)); Frank Devilles and Ludwig Chee on
+KINP until he confirms their event roles; revenue kept in October as invoiced. The concert sync PO 4670270 sits on NVAC by its GL code
+(201.NVAC.2144.0); Kyle Gover's 8 h of labour hire on the water barriers (460.78) is journaled to STPS. Codex asked to audit
+independently, PR1 6541369248.
