@@ -180,9 +180,9 @@ ACC = [
  ('Event Portables (toilets) — no invoice yet; estimated cost from their four quotes at what was supplied', [
    ('Toilet hire: their 195 FWF at 90.07, 6 pee panels, 2 × 16-pan blocks', '25122322 FWF lines + L98 · 25123999 L19', 27300.93, 'Q6845 hire', 28675.00),
    ('Pump-outs and servicing (their 702 FWF services include our FWF they cleaned)', '25122322 L141 (702 FWF) · L142 (24 tanks)', 66145.14, 'Q6844: 702 FWF, 18 tanks, 51 block cleans', 41772.00),
-   ('Delivery and pickup of their units', 'inside our toilet transport lines, 25122322 L147–L149, L162, L167 (45,215.00, ours and theirs)', None, 'Q6845 delivery and pickup', 13500.00),
+   ('Toilet transport (all toilets, ours and theirs; our carriers’ cost for our own toilets sits in the transport line, not here)', '25122322 L147, L148, L149, L162, L167 (45,215.00) · 25123999 L18 (2,000.00)', 47215.00, 'Q6845: their delivery and pickup', 13500.00),
    ('Water truck and pre-fill', 'not charged', 0.00, 'Q6844', 9600.00),
-   ('Build-period water deliveries and tank', 'not matched to a line', None, 'Q6846', 4850.00),
+   ('Build-period water deliveries and tank', 'not matched to a line', 0.00, 'Q6846', 4850.00),
    ('Pit lane party Porta Lisa', 'not charged', 0.00, 'Q6847', 3350.00)]),
  ('Advanced Temporary Fencing — part invoiced; the event week and demob week 1 part is an estimate, invoices still to come', [
    ('Fencing, all of it (one block to 13 Nov)', '25122628 fencing lines 335,097.44 + waiver 35,791.11', 370888.55, 'invoiced and receipted, weeks 1–6 and a collection', 214225.00),

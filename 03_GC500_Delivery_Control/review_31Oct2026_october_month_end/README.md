@@ -61,8 +61,8 @@ billed to the V8s at 1,428.00 plus 1,000.00 delivery and 1,000.00 pickup.
 ## Accruals beside what we charged the V8s (added 31 Oct, on Andrew's ask)
 
 Andrew: "we need to understand what we charged v8s for to do with this and state we are still waiting for invoice and this is the
-esitimate cost. And we do same with fencing". Section 1b of the sheet: Event Portables charged 93,446.07 on the like-for-like lines
-(25122322 FWF hire for their 195 units at 90.07, L98, L141, L142; 25123999 L19) against an estimated 101,747.00 (no invoice; their
-delivery and pickup sit inside our toilet transport lines, 45,215.00 for ours and theirs); Advanced charged 370,888.55 on 25122628
+esitimate cost. And we do same with fencing". Section 1b of the sheet: Event Portables charged 140,661.07 (25122322 FWF hire for their 195 units at 90.07,
+L98, L141, L142 and the toilet transport lines L147–L149, L162, L167; 25123999 L18, L19) against an estimated 101,747.00 (no invoice;
+Andrew: "We charge the v8s for transport for toilets"; the transport covers our own toilets too, whose carrier cost is in transport); Advanced charged 370,888.55 on 25122628
 against 214,225.00 invoiced plus an estimated 79,184.70 (POs 4647522, 4647523); Premiair 2,787.72 against an estimated 3,806.31;
 Royal Wolf 2,428.00 (L2 and its delivery and pickup share) against an estimated 1,364.23.
