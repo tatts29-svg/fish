@@ -173,9 +173,36 @@ with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8
             hs = [PH.get((who, k, b), 0) for k in MO]
             if any(hs): w.writerow([who, typ, home, ('stays' if b == home else home + ' -> ' + b) + {'STPS': ' (9972648)', 'NVAC': ' (9961976)'}.get(b, ''), b] + ['%.1f' % v for v in hs] + ['%.2f' % sum(PC.get((who, k, b), 0) for k in MO)])
 
+
+# ---------------- accruals beside what we charged the V8s for the same work (Andrew, 31 Oct: "we need to understand what we charged v8s
+#                  for to do with this and state we are still waiting for invoice and this is the esitimate cost. And we do same with fencing")
+ACC = [
+ ('Event Portables (toilets) — no invoice yet; estimated cost from their four quotes at what was supplied', [
+   ('Toilet hire: their 195 FWF at 90.07, 6 pee panels, 2 × 16-pan blocks', '25122322 FWF lines + L98 · 25123999 L19', 27300.93, 'Q6845 hire', 28675.00),
+   ('Pump-outs and servicing (their 702 FWF services include our FWF they cleaned)', '25122322 L141 (702 FWF) · L142 (24 tanks)', 66145.14, 'Q6844: 702 FWF, 18 tanks, 51 block cleans', 41772.00),
+   ('Delivery and pickup of their units', 'inside our toilet transport lines, 25122322 L147–L149, L162, L167 (45,215.00, ours and theirs)', None, 'Q6845 delivery and pickup', 13500.00),
+   ('Water truck and pre-fill', 'not charged', 0.00, 'Q6844', 9600.00),
+   ('Build-period water deliveries and tank', 'not matched to a line', None, 'Q6846', 4850.00),
+   ('Pit lane party Porta Lisa', 'not charged', 0.00, 'Q6847', 3350.00)]),
+ ('Advanced Temporary Fencing — part invoiced; the event week and demob week 1 part is an estimate, invoices still to come', [
+   ('Fencing, all of it (one block to 13 Nov)', '25122628 fencing lines 335,097.44 + waiver 35,791.11', 370888.55, 'invoiced and receipted, weeks 1–6 and a collection', 214225.00),
+   ('', '', None, 'ESTIMATE, invoice still to come: event week (PO 4647522) 71,159.70 + demob week 1 (PO 4647523) 8,025.00', 79184.70)]),
+ ('Premiair Services — no invoice yet; estimated cost from the cost rate keyed on 9961265', [
+   ('Sub-hired VMS boards, eight lines', '25125589 (9961265) lines 13, 24–26, 28–31', 2787.72, 'cost rate 53.61 a day × hire days (still costs line 15, no longer on the contract)', 3806.31)]),
+ ('Royal Wolf (United Rentals) — no invoice yet; estimated cost from the cost rate keyed on 9974042', [
+   ('Refrigerated container, with its share of delivery and pickup', '25124058 L2 1,428.00 + L3/L4 1,000.00', 2428.00, 'cost rate, once', 1364.23)]),
+]
+arow = ''
+for head, lines in ACC:
+    ch = r2(sum(l[2] or 0 for l in lines)); co = r2(sum(l[4] or 0 for l in lines))
+    arow += "<tr class='sec2'><td colspan='5'><b>%s</b></td></tr>" % e(head)
+    for what, where, c, basis, cost in lines:
+        arow += "<tr><td>%s</td><td><span class='w'>%s</span></td><td class='n'>%s</td><td><span class='w'>%s</span></td><td class='n'>%s</td></tr>" % (e(what), e(where), m(c) if c is not None else '<em>see note</em>' if where else '', e(basis), m(cost))
+    arow += "<tr class='sub'><td>Total</td><td></td><td class='n'>%s</td><td>Charged less estimated cost: %s</td><td class='n'>%s</td></tr>" % (m(ch), m(r2(ch - co)), m(co))
 # ---------------- HTML
 def tbl(head, body, cls=''):
     return "<div class='wrap'><table class='%s'><thead><tr>%s</tr></thead><tbody>%s</tbody></table></div>" % (cls, ''.join('<th%s>%s</th>' % (" class='n'" if h.startswith('#') else '', e(h.lstrip('#'))) for h in head), body)
+ACC_HTML = tbl(['What', 'Where we charged the V8s (invoice · line)', '#Charged to the V8s', 'Cost basis', '#Cost (estimate where no invoice)'], arow)
 crow = ''.join("<tr class='%s'><td><b>%s</b><br><span class='w'>%s</span></td><td>%s</td><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'><b>%s</b></td><td><span class='w'>%s</span></td></tr>" % (
     'acc' if r[9] else ('nd' if 'NOT DATED' in r[11] else ''), e(r[0]), e(r[3]), e(r[4]), e(r[5]), m(r[6]), m(r[7]), m(r[8]), m(r[9]) if r[9] else '', e(r[11] + ' · ' + r[10])) for r in C)
 crow += "<tr class='sub'><td>Total costs</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td></td></tr>" % (m(tot[0]), m(tot[1]), m(tot[2]), m(acc_total))
@@ -222,13 +249,15 @@ css = """:root{--ink:#1d2730;--mute:#6b7681;--line:#e3e7eb;--bg:#f7f8f6;--card:#
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}main{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
 h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:26px 0 8px;color:var(--accent)}.s{color:var(--mute);margin:0 0 12px}.w{color:var(--mute);font-size:12px}
 .wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:760px;background:var(--card);border:1px solid var(--line)}th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}tr.sub td{font-weight:700;background:var(--sub)}tr.acc td{background:var(--acc)}tr.nd td{background:var(--nd)}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}tr.sub td{font-weight:700;background:var(--sub)}tr.sec2 td{background:var(--sub);font-size:13px}tr.acc td{background:var(--acc)}tr.nd td{background:var(--nd)}
 ul{margin:6px 0 0 18px}li{margin:3px 0}.k{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0}.k div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}.k b{display:block;font-size:20px}"""
 body = f"""<main><h1>GC500 October month-end</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12640), the 19 invoices and the purchase orders · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 19 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire days: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with what to accrue</h2><p class='s'>Orange rows: accrue at 31 Oct (they reverse on 1 Nov and the invoice lands against them). Red rows: the record carries no date; where they sit is said on the row.</p>
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', '#Sep', '#Oct', '#Nov', '#Accrue 31 Oct', 'Status · how dated'], crow)}
+<h2>1b · Accruals beside what we charged the V8s</h2><p class='s'>Each accrued supplier next to what we charged the V8s for the same work. Where no supplier invoice has been seen, the cost is an estimate and says so; it is replaced when the invoice comes. Charges are before the damage waiver except the fencing, which shows its invoice in full.</p>
+""" + ACC_HTML + """
 <h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet on your rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out). Coates wages and salary are hours only.</p>
 {tbl(['Type', 'Branch', '#September h', '#October h', '#November h (to 13 Nov)', '#Total h'], lrow)}
 <h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
