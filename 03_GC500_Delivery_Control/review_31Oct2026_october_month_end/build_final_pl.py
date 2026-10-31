@@ -37,7 +37,7 @@ C['KINP']['Oct'] = {'Toilets, rehire (Event Portables)': 101747.00, 'Other rehir
                     'Meals, expenses and equipment R&M': 5664.32,
                     'Consumables (POs: cranes 2,896.00, soap 180.00, concert sync 579.68)': 3655.68}
 C['STPS']['Oct'] = {'Fencing, Advanced invoiced and receipted (weeks 1–6 and one collection)': 214225.00,
-                    'Fencing, Advanced not invoiced yet: accrue (event week 71,159.70 · demob week 1 8,025.00; no PO yet)': 79184.70, 'Other rehire': 1364.23, 'Transport (cartage)': 4186.02,
+                    'Fencing, Advanced not invoiced yet: accrue (event week 71,159.70 on PO 4647522 · demob week 1 8,025.00 on PO 4647523, both open)': 79184.70, 'Other rehire': 1364.23, 'Transport (cartage)': 4186.02,
                     'Consumables (POs: cable ties 2,538.64, star pickets 100.00)': 2638.64}
 C['STPS']['Nov'] = {'Fencing, demob week 2 (forecast)': 750.00}
 C['NVAC']['Oct'] = {'Transport (cartage)': 9313.78, 'Consumables (PO: siphon hose 42.34)': 42.34}
@@ -89,7 +89,7 @@ with (out / 'GC500_final_PL_by_branch_and_month.csv').open('w', newline='', enco
     w.writerow([])
     w.writerow(['Fencing accrual to journal, October (STPS)'])
     w.writerow(['PO', 'Week', 'What', 'Account', 'Amount'])
-    for a, b_, c, g, v in [('none yet', 'Event week, 19–25 Oct', '48 dockets', 'Rehire 2126', 34568.70), ('none yet', 'Event week, 19–25 Oct', '11 labour notes, 67 h at 100.00', 'Installation 2142', 6700.00), ('none yet', 'Event week, 23–25 Oct', 'Crew notes 24493–24495, 210.5 h at 142.00', 'Installation 2142', 29891.00), ('none yet', 'Demob week 1, 26–29 Oct', '8 dockets', 'Rehire 2126', 6625.00), ('none yet', 'Demob week 1, 26–28 Oct', '7 labour notes, 14 h at 100.00', 'Installation 2142', 1400.00)]: w.writerow([a, b_, c, g, '%.2f' % v])
+    for a, b_, c, g, v in [('4647522', 'Event week, 19–25 Oct', '48 dockets', 'Rehire 2126', 34568.70), ('4647522', 'Event week, 19–25 Oct', '11 labour notes, 67 h at 100.00', 'Installation 2142', 6700.00), ('4647522', 'Event week, 23–25 Oct', 'Crew notes 24493–24495, 210.5 h at 142.00', 'Installation 2142', 29891.00), ('4647523', 'Demob week 1, 26–29 Oct', '8 dockets', 'Rehire 2126', 6625.00), ('4647523', 'Demob week 1, 26–28 Oct', '7 labour notes, 14 h at 100.00', 'Installation 2142', 1400.00)]: w.writerow([a, b_, c, g, '%.2f' % v])
     w.writerow(['', '', 'Total to accrue', '', '79184.70'])
 
 # ---- HTML
@@ -102,11 +102,11 @@ F_BILLED = [('4647520 · receipt 4934877', 'Week 1, 12–16 Oct', 66272.00), ('4
             ('4647515 · receipt 4929277', 'Week 3, 28 Sep–2 Oct', 50154.00), ('4647517 · receipt 4926209', 'Week 4, 21–25 Sep', 26695.00),
             ('4647509 · receipt 4922398', 'Week 5, 14–18 Sep', 33670.50), ('4647508 · receipt 4918492', 'Week 6, 9–12 Sep (no sheet)', 8992.00),
             ('4658850 · receipt 4922343', 'Partial collection, Advanced invoice 93920', 195.00)]
-F_ACCRUE = [('none yet', 'Event week, 19–25 Oct', '48 dockets', 'Rehire 2126', 34568.70),
-            ('none yet', 'Event week, 19–25 Oct', '11 labour notes, 67 h at 100.00', 'Installation 2142', 6700.00),
-            ('none yet', 'Event week, 23–25 Oct', 'Crew notes 24493–24495, 210.5 h at 142.00 (quote 27172)', 'Installation 2142', 29891.00),
-            ('none yet', 'Demob week 1, 26–29 Oct', '8 dockets', 'Rehire 2126', 6625.00),
-            ('none yet', 'Demob week 1, 26–28 Oct', '7 labour notes, 14 h at 100.00', 'Installation 2142', 1400.00)]
+F_ACCRUE = [('4647522', 'Event week, 19–25 Oct', '48 dockets', 'Rehire 2126', 34568.70),
+            ('4647522', 'Event week, 19–25 Oct', '11 labour notes, 67 h at 100.00', 'Installation 2142', 6700.00),
+            ('4647522', 'Event week, 23–25 Oct', 'Crew notes 24493–24495, 210.5 h at 142.00 (quote 27172)', 'Installation 2142', 29891.00),
+            ('4647523', 'Demob week 1, 26–29 Oct', '8 dockets', 'Rehire 2126', 6625.00),
+            ('4647523', 'Demob week 1, 26–28 Oct', '7 labour notes, 14 h at 100.00', 'Installation 2142', 1400.00)]
 F_NOMATCH = [('Fence relocation, 1,520 m at 8.65', 13148.00, 'our dockets show 137.5 m (36510, 36525, 36528); Advanced billed 8.5 h of relocation labour, 850.00'),
              ('Security fence with hoarding, 110 m at 23.59', 2594.90, 'no docket or Advanced sheet names hoarding'),
              ('Ped gates: 32 invoiced, 22 on the dockets', 361.80, 'the 10 extra at 36.18'),
@@ -119,7 +119,7 @@ F_POSS = [('Docket 36524, 17 Sep, Race admin, 137.5 m: not on their week 5 sheet
           ('Demob weeks 2 and 3 (November work; no papers yet; the page forecasts 750.00 for week 2)', None)]
 fr, fb, fa = r2(sum(v for _, v in F_REV)), r2(sum(v for *_, v in F_BILLED)), r2(sum(v for *_, v in F_ACCRUE))
 assert abs(fr - 370981.47) < 0.005 and abs(fb - 214225.00) < 0.005 and abs(fa - 79184.70) < 0.005
-assert abs(fb + fa - C['STPS']['Oct']['Fencing, Advanced invoiced and receipted (weeks 1–6 and one collection)'] - C['STPS']['Oct']['Fencing, Advanced not invoiced yet: accrue (event week 71,159.70 · demob week 1 8,025.00; no PO yet)']) < 0.005
+assert abs(fb + fa - C['STPS']['Oct']['Fencing, Advanced invoiced and receipted (weeks 1–6 and one collection)'] - C['STPS']['Oct']['Fencing, Advanced not invoiced yet: accrue (event week 71,159.70 on PO 4647522 · demob week 1 8,025.00 on PO 4647523, both open)']) < 0.005
 acc = {}
 for *_, gl, v in F_ACCRUE: acc[gl] = r2(acc.get(gl, 0) + v)
 row = lambda cells, cls='': "<tr%s>%s</tr>" % (" class='%s'" % cls if cls else '', ''.join(cells))
@@ -135,7 +135,7 @@ FENCE_HTML = ("<h2>Fencing: for the journal <span>STPS · October · AUD ex GST<
  "<h3>Accrual to journal: October work Advanced hasn't invoiced yet</h3><div class='wrap'><table><thead><tr><th>PO</th><th>Week</th><th>What</th><th>Account</th><th class='n'>Amount</th></tr></thead><tbody>"
  + ''.join(row([td(e(a)), td(e(b)), td(e(c)), td(e(g)), td(m(v), 1)]) for a, b, c, g, v in F_ACCRUE)
  + row([td('Total to accrue'), td(''), td(''), td(''), td(m(fa), 1)], 'sub') + "</tbody></table></div>"
- "<p class='note'>The journal: debit Rehire 2126 " + m(acc['Rehire 2126']) + " and Installation, external contractors 2142 " + m(acc['Installation 2142']) + " on STPS; credit accrued expenses " + m(fa) + "; it reverses on 1 Nov and Advanced's invoice lands against it. A manual journal: there is no purchase order for this work yet (4647522 and 4647523 on the record are last year's numbers, you said, 31 Oct), so new orders are needed before Advanced invoices. The account numbers are the ones the page carries for these categories; the full code is yours to confirm with finance.</p>"
+ "<p class='note'>The journal: debit Rehire 2126 " + m(acc['Rehire 2126']) + " and Installation, external contractors 2142 " + m(acc['Installation 2142']) + " on STPS; credit accrued expenses " + m(fa) + "; it reverses on 1 Nov and Advanced's invoice lands against it. It sits against this year's open purchase orders 4647522 (event week) and 4647523 (demob), with nothing invoiced on either yet: a manual journal, or the orders receipted in October as weeks 1–6 were, whichever finance uses. The account numbers are the ones the page carries for these categories; the full code is yours to confirm with finance.</p>"
  "<h3>Already invoiced by Advanced and receipted</h3><div class='wrap'><table><thead><tr><th>Order · receipt</th><th>Week</th><th class='n'>Amount</th></tr></thead><tbody>"
  + ''.join(row([td(e(a)), td(e(b)), td(m(v), 1)]) for a, b, v in F_BILLED) + row([td('Total'), td(''), td(m(fb), 1)], 'sub') + "</tbody></table></div>"
  "<h3>On our V8s invoice, with nothing to match it against</h3><div class='wrap'><table><thead><tr><th>Line</th><th class='n'>Amount</th><th>What we hold</th></tr></thead><tbody>"

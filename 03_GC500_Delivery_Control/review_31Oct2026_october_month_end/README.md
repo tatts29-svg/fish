@@ -18,8 +18,8 @@ the salary allowance (no dates) by the salaried hours (198 · 256 · 110 h).
 
 ## To accrue at 31 Oct: 213,008.60 (work done, not invoiced)
 
-Advanced 79,184.70 (event week 71,159.70, demob week 1 8,025.00; manual journal: Andrew, 31 Oct: 4647522 and 4647523 are last year's
-numbers, "we have nothing from advanced for those two P;O"; new orders needed) · Event Portables 101,747.00 (no PO or invoice on the record;
+Advanced 79,184.70 (event week 71,159.70 on PO 4647522, demob week 1 8,025.00 on PO 4647523; both this year's orders, open, nothing
+invoiced on either yet: Andrew, 31 Oct, "4647522 and 4647523 are this years P/O these are still open") · Event Portables 101,747.00 (no PO or invoice on the record;
 September's 1,963.10 as a catch-up) · Job Connect 24,348.75 (w/e 11 Oct 2,539.92 PO 4665091; w/e 18 Oct 6,198.75 POs 4667755/4668970;
 w/e 25 Oct 11,774.71 POs 4670882/4671825; w/e 1 Nov 3,835.37 no PO) · Premiair 3,806.31 · Royal Wolf 1,364.23 · Alfie Harris's 12 nights
 2,557.61. Accruals reverse on 1 Nov; the invoices land against them. Job Connect w/e 4 Oct: the running sheet is 178.00 over invoice

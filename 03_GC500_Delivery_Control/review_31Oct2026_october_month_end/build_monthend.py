@@ -20,8 +20,8 @@ add('Advanced Temporary Fencing', 'STPS', '2126 · 2142', 'Fencing weeks 6–1 (
     '4647508 · 4647509 · 4647515 · 4647517 · 4647519 · 4647520 · 4658850', 'receipts 4918492 · 4922398 · 4929277 · 4926209 · 4936461 · 4934877 · 4922343 (Advanced inv GC220926, 93920)',
     99664.50, 114560.50, 0, 0, 'by the date on each docket, note and sheet line', 'invoiced and receipted')
 add('Advanced Temporary Fencing', 'STPS', '2126 41,193.70 · 2142 37,991.00', 'Event week 19–25 Oct (48 dockets, 11 notes, race crew 210.5 h) and demob week 1 26–29 Oct (8 dockets, 7 notes)',
-    'none yet (4647522 and 4647523 are last year’s numbers)', 'not invoiced', 0, 79184.70, 0, 79184.70, 'our dockets and notes at Advanced’s rates', 'ACCRUE')
-add('Advanced Temporary Fencing', 'STPS', '2126', 'Demob week 2 (forecast; no papers yet)', 'none yet', 'not invoiced', 0, 0, 750.00, 0, 'the page’s forecast', 'November forecast')
+    '4647522 (event week) · 4647523 (demob), both open', 'nothing invoiced on either yet', 0, 79184.70, 0, 79184.70, 'our dockets and notes at Advanced’s rates', 'ACCRUE')
+add('Advanced Temporary Fencing', 'STPS', '2126', 'Demob week 2 (forecast; no papers yet)', '4647523 (demob), open', 'not invoiced', 0, 0, 750.00, 0, 'the page’s forecast', 'November forecast')
 add('Event Portables', 'KINP', '2126 · 3325', 'Toilet hire Q6845, servicing Q6844 (event nights 23–25 Oct), pit lane Q6847 (22 Oct), build toilets Q6846 (14 Sep–25 Oct, quoted 4,850.00)',
     'none on the record', 'no invoice on the record', 1963.10, 99783.90, 0, 101747.00,
     'Q6846 by its days (17 of 42 in September); the rest is event hire and servicing in October', 'ACCRUE (September’s part as a catch-up)')
@@ -69,6 +69,22 @@ for r in rows[2:]:
         try: LH[mo] += float(r[5])
         except ValueError: pass
 assert abs(sum(LH.values()) - 34926.79) < 0.01
+HOME = {'Aaron Zelvis': ('KINP', 'Coates wages'), 'Alfie Harris': ('NTSP', 'Coates wages'), 'Andrew Fisher': ('NOIS', 'Salary'), 'Jayden Paul': ('KINP', 'Coates wages'),
+        'Wayne Crimmin': ('STPS', 'Coates wages'), 'Frank Devilles': ('BFIS', 'Coates wages (employment and pay basis unconfirmed on the record)'),
+        'Ludwig Chee': ('NSNA', 'Coates wages (employment and pay basis unconfirmed on the record)'), 'Daniel Gough': ('KINP', 'Labour hire, Job Connect, 55.70 an hour'),
+        'Kyle Gover': ('KINP', 'Labour hire, Job Connect, 53.05 an hour'), 'Eric Lucian': ('NOIS', 'Labour hire, 55.70 an hour; the record: home branch NOIS, charge branch KINP')}
+PH = collections.defaultdict(float); PC = collections.defaultdict(float)
+for r in rows[2:]:
+    if not (r and r[0][:4] == '2026'): continue
+    who, mo, h = r[2], mon.get(r[1]), float(r[4] or 0)
+    cost = float(r[5]) if r[3] == 'Labour hire' and r[5] not in ('', 'hours only') else 0.0
+    for seg in re.split(r', | · ', r[6]):
+        g = re.match(r'^(KINP|STPS|NVAC|MEAD) ([\d.]+) h$', seg.strip())
+        if g:
+            PH[(who, mo, g.group(1))] += float(g.group(2))
+            if cost and h: PC[(who, mo, g.group(1))] += cost * float(g.group(2)) / h
+assert set(p for p, _, _ in PH) <= set(HOME), set(p for p, _, _ in PH) - set(HOME)
+assert abs(sum(PC.values()) - 34926.79) < 0.01
 
 # ---------------- revenue: the 19 invoices, and the hire days on their dated lines by month
 inv = json.load(open(P / 'invoices.json'))
@@ -113,6 +129,12 @@ with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8
             vals = [L.get((typ, b, k), 0) for k in MO]
             if any(vals): w.writerow([typ, b] + ['%.1f' % v for v in vals])
     w.writerow(['Labour hire cost', ''] + ['%.2f' % LH.get(k, 0) for k in MO])
+    w.writerow([]); w.writerow(['Person', 'Type', 'Home branch (record)', 'Journal', 'Receiving branch', 'September h', 'October h', 'November h (to 13 Nov)', 'Labour hire $'])
+    for who in sorted(HOME):
+        home, typ = HOME[who]
+        for b in ('KINP', 'STPS', 'NVAC'):
+            hs = [PH.get((who, k, b), 0) for k in MO]
+            if any(hs): w.writerow([who, typ, home, 'stays' if b == home else home + ' -> ' + b, b] + ['%.1f' % v for v in hs] + ['%.2f' % sum(PC.get((who, k, b), 0) for k in MO)])
 
 # ---------------- HTML
 def tbl(head, body, cls=''):
@@ -129,6 +151,18 @@ lrow += "<tr class='sub'><td>Labour hire cost</td><td>KINP</td>%s<td class='n'>%
 rrow = ''.join("<tr><td>%s</td><td>%s</td><td>%s · %s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
     e(r['inv']), e(r['date'] or ''), e(r['contract'] or ''), e(r['branch'] or ''), m(r['ex']), m(r['hire']['Sep'] + r['wsplit']['Sep']), m(r['hire']['Oct'] + r['wsplit']['Oct']), m(r['hire']['Nov'] + r['wsplit']['Nov']), m(r['undated'] + r['env'])) for r in REV)
 rrow += "<tr class='sub'><td>19 invoices</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (m(sum(r['ex'] for r in REV)), m(RT['Sep']), m(RT['Oct']), m(RT['Nov']), m(UND))
+prow = ''
+for who in sorted(HOME, key=lambda w: (HOME[w][1].startswith('Labour hire'), w)):
+    home, typ = HOME[who]
+    for b in ('KINP', 'STPS', 'NVAC'):
+        hs = [PH.get((who, k, b), 0) for k in MO]
+        if not any(hs): continue
+        cs = [PC.get((who, k, b), 0) for k in MO]
+        move = 'stays on ' + b if b == home else 'journal ' + home + ' → ' + b
+        prow += "<tr%s><td><b>%s</b><br><span class='w'>%s</span></td><td>%s</td><td><b>%s</b></td>%s<td class='n'>%s</td><td class='n'>%s</td></tr>" % (
+            "" if b == home else " class='acc'", e(who), e(typ), home, e(move), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs),
+            '{:,.1f}'.format(sum(hs)), m(sum(cs)) if sum(cs) else '')
+PERSON_HTML = tbl(['Person · type', 'Home branch', 'Journal', '#Sep h', '#Oct h', '#Nov h (to 13 Nov)', '#Total h', '#Labour hire $'], prow)
 css = """:root{--ink:#1d2730;--mute:#6b7681;--line:#e3e7eb;--bg:#f7f8f6;--card:#fff;--accent:#9c470c;--sub:#f1f4f6;--acc:#fff4e5;--nd:#fdecea}
 @media (prefers-color-scheme:dark){:root{--ink:#e6eaee;--mute:#9aa5b0;--line:#2b343c;--bg:#14191e;--card:#1b2228;--accent:#f0a46a;--sub:#222b33;--acc:#33281a;--nd:#3a1f1c}}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}main{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
@@ -143,6 +177,8 @@ body = f"""<main><h1>GC500 October month-end</h1><p class='s'>As at 31 Oct 2026 
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', '#Sep', '#Oct', '#Nov', '#Accrue 31 Oct', 'Status · how dated'], crow)}
 <h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet on your rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out). Coates wages and salary are hours only.</p>
 {tbl(['Type', 'Branch', '#September h', '#October h', '#November h (to 13 Nov)', '#Total h'], lrow)}
+<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
+""" + PERSON_HTML + """
 <h2>3 · The 19 invoices, and the hire days on them by month</h2><p class='s'>All 19 are dated 27–30 Oct. For each invoice, its dated hire lines (and the waiver on them) by the days on hire in each month, from the invoice's own on/off-hire times. Services and sales carry no dates on the invoice; they're in the last column.</p>
 {tbl(['Invoice', 'Date', 'Contract · branch', '#Ex GST', '#Hire days in Sep', '#in Oct', '#in Nov', '#Services and sales (no dates)'], rrow)}
 <h2>4 · What the record can't date yet</h2><ul>
