@@ -8,12 +8,17 @@ of that contract requires an explicit capture adapter, never silently applying t
 management allocation twice. Source contract branches are neither edited nor replaced.
 """
 import argparse
+import copy
 import json
 import os
 import subprocess
 import sys
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
+
+LEGACY_REVENUE_BASIS = 'legacy-staffing-to-kinp'
+INVOICE_REVENUE_BASIS = 'invoice-branch'
+REVENUE_TRANSITION = 'legacy-to-invoice-branch'
 
 
 def decimal(value):
@@ -45,7 +50,82 @@ def private_output():
     return out
 
 
-def compare_baseline(data, baseline):
+def revenue_movements(data, codes, revenue_basis):
+    """Use the explicitly selected rule, never infer it from candidate figures."""
+    if revenue_basis not in (LEGACY_REVENUE_BASIS, INVOICE_REVENUE_BASIS):
+        raise ValueError('Unsupported revenue basis')
+    now, job = ({b: Decimal(0) for b in codes} for _ in range(2))
+    if revenue_basis == LEGACY_REVENUE_BASIS:
+        for scope in data['scopeBranchAllocation978']:
+            b = scope['branch']
+            if 'staffing' in scope.get('source', '').lower() and b != 'KINP' and b in codes:
+                now[b] -= decimal(scope.get('recorded'))
+                now['KINP'] += decimal(scope.get('recorded'))
+                job[b] -= decimal(scope.get('job'))
+                job['KINP'] += decimal(scope.get('job'))
+    return now, job
+
+
+def project_invoice_branch_baseline(baseline):
+    """Translate only the documented legacy revenue fields for source 994a50ca.
+
+    Prove every replaced old value against the baseline's Finance/source inputs
+    first. No candidate values enter the projection. Cost, contract/source
+    routing, monetary line items and whole-job totals are copied untouched and
+    remain subject to the ordinary strict baseline comparison.
+    """
+    projected, checks, changes = copy.deepcopy(baseline), [], []
+    main, ledger, finance = baseline['PL1267.model'], baseline['PL1267.ledger'], baseline['fh866Model']
+    codes = ledger['cols']
+    branch_codes = [row['code'] for row in main['branches']]
+    structure_ok = len(set(codes)) == len(codes) and set(codes) == set(branch_codes) and len(codes) == len(branch_codes) and main['L']['cols'] == codes and 'KINP' in codes
+    checks.append({'name': 'transition baseline branch structure is consistent', 'pass': structure_ok})
+    if not structure_ok:
+        return projected, checks, {'applied': False, 'reason': 'Baseline branch structure is incompatible'}
+    invoice_now, invoice_job = ({b: Decimal(0) for b in codes} for _ in range(2))
+    for row in finance['inv']:
+        if row['branch'] in invoice_now:
+            invoice_now[row['branch']] += decimal(row.get('onRecord'))
+            invoice_job[row['branch']] += decimal(row.get('job'))
+    movement_now, movement_job = revenue_movements(baseline, codes, LEGACY_REVENUE_BASIS)
+    replacements = []
+
+    def old_field(name, path, expected, replacement):
+        value = baseline
+        try:
+            for key in path:
+                value = value[key]
+            passed = not isinstance(value, bool) and isinstance(value, (int, float, Decimal)) and decimal(value) == cents(expected)
+        except (KeyError, IndexError, TypeError):
+            value, passed = None, False
+        checks.append({'name': name, 'actual': str(value), 'expected': str(cents(expected)), 'pass': passed})
+        replacements.append((path, cents(replacement)))
+
+    old_field('transition baseline face moved follows legacy source rule', ['PL1267.model', 'moved'], movement_job['KINP'], 0)
+    for i, branch in enumerate(main['branches'], 1):
+        b = branch['code']
+        old_field(f'transition baseline face branch {i} Revenue follows legacy rule', ['PL1267.model', 'branches', i-1, 'rev'], invoice_job[b]+movement_job[b], invoice_job[b])
+        old_field(f'transition baseline face branch {i} difference follows legacy rule', ['PL1267.model', 'branches', i-1, 'diff'], invoice_job[b]+movement_job[b]-decimal(branch['cost']), invoice_job[b]-decimal(branch['cost']))
+    for label, prefix, old_ledger in [('ledger', ['PL1267.ledger'], ledger), ('face ledger', ['PL1267.model', 'L'], main['L'])]:
+        old_field('transition baseline '+label+' moved follows legacy source rule', prefix+['moved'], movement_job['KINP'], 0)
+        for i, b in enumerate(codes, 1):
+            old_field(f'transition baseline {label} branch {i} current Revenue follows legacy rule', prefix+['revRec', b], invoice_now[b]+movement_now[b], invoice_now[b])
+            old_field(f'transition baseline {label} branch {i} job Revenue follows legacy rule', prefix+['revJobB', b], invoice_job[b]+movement_job[b], invoice_job[b])
+            old_field(f'transition baseline {label} branch {i} contribution follows legacy rule', prefix+['contribB', b], invoice_job[b]+movement_job[b]-decimal(old_ledger['costB'][b]), invoice_job[b]-decimal(old_ledger['costB'][b]))
+            if 'mvRev' in old_ledger:
+                old_field(f'transition baseline {label} branch {i} explanatory move follows legacy rule', prefix+['mvRev', b], movement_job[b], 0)
+    if not all(check['pass'] for check in checks):
+        return projected, checks, {'applied': False, 'reason': 'Baseline does not satisfy the declared old revenue rule; no projection applied'}
+    for path, value in replacements:
+        target = projected
+        for key in path[:-1]:
+            target = target[key]
+        target[path[-1]] = value
+        changes.append(path)
+    return projected, checks, {'applied': True, 'rule': REVENUE_TRANSITION, 'derivedFrom': 'baseline Finance invoice rows and scopeBranchAllocation978 only', 'projectedPaths': changes}
+
+
+def compare_baseline(data, baseline, revenue_basis=LEGACY_REVENUE_BASIS, baseline_revenue_transition=None):
     """Compare financial projections only after proving the same frozen basis.
 
     Existing numeric leaves, source classifications and collection lengths form
@@ -75,6 +155,13 @@ def compare_baseline(data, baseline):
     if not metadata['snapshotCompatible']:
         metadata['status'] = 'Snapshot mismatch: recapture both pages on the same frozen STATE and as-at basis; financial regression comparison was not run.'
         return checks, metadata
+
+    if baseline_revenue_transition:
+        if baseline_revenue_transition != REVENUE_TRANSITION or revenue_basis != INVOICE_REVENUE_BASIS:
+            raise ValueError('The legacy-to-invoice-branch transition requires the explicit invoice-branch basis')
+        baseline, transition_checks, transition_metadata = project_invoice_branch_baseline(baseline)
+        checks.extend(transition_checks)
+        metadata['revenueTransition'] = transition_metadata
 
     identities = {'id', 'key', 'code', 'branch', 'costedBranch', 'revenueBranch', 'type', 'kind', 'category', 'status', 'date'}
     missing = object()
@@ -142,7 +229,7 @@ def compare_baseline(data, baseline):
     return checks, metadata
 
 
-def verify(data):
+def verify(data, revenue_basis=LEGACY_REVENUE_BASIS):
     checks, source_exceptions, branch_bridge = [], [], []
 
     def check(name, actual, expected):
@@ -211,14 +298,7 @@ def verify(data):
     # independently, without changing or treating either source branch as incorrect.
     inv = {row['branch']: row for row in finance['inv']}
     codes = {row['code'] for row in main['branches']}
-    movement_now, movement_job = {b: Decimal(0) for b in codes}, {b: Decimal(0) for b in codes}
-    for scope in data['scopeBranchAllocation978']:
-        b = scope['branch']
-        if 'staffing' in scope.get('source', '').lower() and b != 'KINP' and b in codes:
-            movement_now[b] -= decimal(scope.get('recorded'))
-            movement_now['KINP'] += decimal(scope.get('recorded'))
-            movement_job[b] -= decimal(scope.get('job'))
-            movement_job['KINP'] += decimal(scope.get('job'))
+    movement_now, movement_job = revenue_movements(data, codes, revenue_basis)
     expense_move = {b: Decimal(0) for b in codes}
     for stream in finance['costs']:
         if stream['kind'] not in ('expenses', 'labour'):
@@ -230,6 +310,8 @@ def verify(data):
     check('management revenue bridge is zero-sum now', total(movement_now.values()), 0)
     check('management revenue bridge is zero-sum job', total(movement_job.values()), 0)
     check('management cost bridge is zero-sum job', total(expense_move.values()), 0)
+    check('face revenue moved follows explicit basis', main['moved'], movement_job['KINP'])
+    check('ledger revenue moved follows explicit basis', ledger['moved'], movement_job['KINP'])
     for i, branch in enumerate(main['branches'], 1):
         b = branch['code']
         if b not in inv:
@@ -242,10 +324,14 @@ def verify(data):
         check(f'branch basis {i} management Revenue from invoice bridge', branch['rev'], expected_revenue)
         check(f'branch basis {i} management cost from expense bridge', branch['cost'], expected_cost)
         check(f'branch basis {i} current Revenue from invoice bridge', ledger['revRec'][b], decimal(source['onRecord'])+movement_now[b])
+        check(f'branch basis {i} ledger job Revenue from invoice bridge', ledger['revJobB'][b], expected_revenue)
+        for label, projection in [('ledger', ledger), ('face ledger', main['L'])]:
+            if 'mvRev' in projection:
+                check(f'branch basis {i} {label} explanatory Revenue move', projection['mvRev'][b], movement_job[b])
         branch_bridge.append({'branch': b, 'contractRevenue': str(cents(source['job'])), 'managementRevenue': str(cents(branch['rev'])),
             'revenueReallocation': str(cents(movement_job[b])), 'financeCost': str(cents(raw_cost)), 'managementCost': str(cents(branch['cost'])),
             'expenseReallocation': str(cents(expense_move[b]))})
-    return {'author': 'Andrew Fisher', 'capture': data.get('capture'), 'record': data.get('record'), 'asAt': data['asAt'],
+    return {'author': 'Andrew Fisher', 'capture': data.get('capture'), 'record': data.get('record'), 'asAt': data['asAt'], 'revenue_basis': revenue_basis,
             'method': 'Independent Decimal row arithmetic and branch-basis bridge; exact cent equality',
             'checks': checks, 'pass_count': sum(c['pass'] for c in checks), 'failures': [c for c in checks if not c['pass']],
             'source_shift_count': len(rows), 'source_shift_exceptions': source_exceptions, 'branch_basis_bridge': branch_bridge,
@@ -257,15 +343,21 @@ def main():
     try:
         parser = argparse.ArgumentParser(description='Private read-only Decimal reconciliation and optional same-snapshot financial regression comparison.')
         parser.add_argument('--baseline', type=Path, help='Absolute path to private baseline models.json captured with the same STATE and as-at basis')
+        parser.add_argument('--revenue-basis', choices=[LEGACY_REVENUE_BASIS, INVOICE_REVENUE_BASIS], default=LEGACY_REVENUE_BASIS,
+                            help='Explicit branch-revenue rule; defaults to the legacy staffing transfer, never inferred from candidate values')
+        parser.add_argument('--baseline-revenue-transition', choices=[REVENUE_TRANSITION],
+                            help='Bounded source-994a50ca revenue/difference/moved projection only; requires invoice-branch and --baseline')
         args = parser.parse_args()
         out = private_output()
+        if args.baseline_revenue_transition and (args.revenue_basis != INVOICE_REVENUE_BASIS or not args.baseline):
+            raise ValueError('The baseline revenue transition requires --revenue-basis invoice-branch and --baseline')
         data = json.loads((out/'models.json').read_text(), parse_float=Decimal)
-        result = verify(data)
+        result = verify(data, args.revenue_basis)
         if args.baseline:
             if not args.baseline.is_absolute() or not args.baseline.is_file():
                 raise ValueError('--baseline must name an existing absolute private models.json')
             baseline = json.loads(args.baseline.read_text(), parse_float=Decimal)
-            baseline_checks, metadata = compare_baseline(data, baseline)
+            baseline_checks, metadata = compare_baseline(data, baseline, args.revenue_basis, args.baseline_revenue_transition)
             result['baseline_comparison'] = metadata
             result['checks'].extend(baseline_checks)
             result['pass_count'] = sum(c['pass'] for c in result['checks'])

@@ -38,6 +38,25 @@ OUT=/private/pl-candidate-check python3 verify_cents.py \
 
 The comparison refuses mismatched STATE hashes, record revisions or as-at bases. Recapture both pages on one frozen snapshot if any differs. Added explanatory fields are allowed; changed existing numerical projections and source classifications are flagged. A real numerical correction requires separately documented evidence and review of that expected difference, rather than suppressing it.
 
+### Explicit revenue basis for the third v12.71 draft
+
+Source `994a50ca5c7c53ccd7ac54e44754a6adbb45566e`, handed over in PR #1 comment 6538198864, keeps revenue on the invoicing branch. Select that expectation explicitly; the verifier never infers the intended rule from the candidate's values:
+
+```bash
+OUT=/private/pl-third-candidate-check python3 verify_cents.py \
+  --revenue-basis invoice-branch \
+  --baseline /private/pl-baseline-check/models.json \
+  --baseline-revenue-transition legacy-to-invoice-branch
+```
+
+The last option is only for comparing the legacy staffing-to-KINP allocation with this documented revenue transition. It first proves the old fields against the baseline's own Finance invoice rows and staffing-source inputs. It then derives replacement branch revenue, branch contribution and revenue-movement fields on a copy of that baseline. Candidate values never supply the expected result. Costs, source classifications, monetary line items, whole-job totals and every unrelated projection remain subject to the normal strict comparison. The original evidence file is never overwritten.
+
+`--revenue-basis` defaults to `legacy-staffing-to-kinp` for earlier releases; that default correctly rejects the third draft. Selecting the new basis without explicitly allowing the baseline transition still flags the intended branch changes. Comparing two already-invoice-basis captures requires `--revenue-basis invoice-branch` but no transition option.
+
+On the exact third candidate `b019bb96464fdea89f4d4a47824849e561a7ec54f5ea9027e72a243d15c84b9c`, the explicit basis/transition run passes **308/308** checks. The updated legacy default passes **264/264** on the legacy snapshot. Private negative checks reject a one-cent error, a same-total cost shift, an unexplained partial revenue transfer, a different snapshot and a baseline inconsistent with the claimed old rule. These counts include additional rule checks introduced with this option; earlier counts below document the earlier pack.
+
+This scoped draft check does not verify subsequent invoice, fencing, purchase-order or month-end report changes. Those require their own exact inputs, source and stated business basis; this option is not a general baseline reset.
+
 The facade currently exposes `PL1267.model()` and `PL1267.ledger()`. Capture supports `PL_AUDIT_FACE_API` if that facade is renamed, retaining stable output keys. Presentation selectors and expected headings currently target the established P&L face. Review an intentional API/DOM change and adapt the selectors explicitly; do not accept a skipped or unexercised check as a pass.
 
 ## Presentation and actual printing
