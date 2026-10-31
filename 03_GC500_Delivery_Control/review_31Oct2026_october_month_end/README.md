@@ -41,3 +41,12 @@ line (2 × 250.00) the line parser missed; the invoice total was right.
 
 Transport: 14,647.65 of the load figures to date and 12,990.03 of the loads to come; Alfie Harris's 12 nights; the salary allowance; the
 service lines on the invoices (405,700.77) until each is matched to the record.
+
+## Staff hours by contract (added 31 Oct, on Andrew's ask)
+
+Andrew: "can we mention Labour Hire their costs have been Coded to Installs . can we mention Contract Numbers where staff hours go to".
+Labour hire is shown as coded to Installs (his word). Hours go to a contract exactly where the running sheet's note names one with hours
+(generators 9961976 NVAC 36 h; water barriers 9972648 STPS 98 h; the concert pair 9994954 KINP 3 h). The rest of a KINP day is shared
+across the contracts whose units came in or went out that day, by the number of units on each (9968862 356.8 h; 9968955 403.5 h; 9994954
+34.5 h; 9968929 27.6 h). Days with no units in or out name no contract: 1,345.3 h stay KINP with no contract (Sep 301.0, Oct 666.8,
+Nov 377.5). By person in the sheet's section 2c and the CSV.
