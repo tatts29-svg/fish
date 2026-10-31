@@ -23,6 +23,8 @@ originals); everything on the cost side below comes from the live record and the
 | Consumables POs | `poAll()` (any probe) | `docs.purchaseOrders` | each PO at its amount, in the month of its PO date (in its note) |
 | Labour hours by person and branch | `inputs/labour_register.cjs` → `inputs/build_sheet.py` | as above | hours split by the note's branch segments (the rest of the day on KINP); contracts named only outside KINP (9972648, 9961976) |
 | Event labour scope by role | `inputs/scope_probe.cjs` and the page's scope data | `scopeBranchAllocation978()` | the C004 roles and their invoicing lines |
+| Ludwig Chee's event nights to NVAC (v1.3) | `inputs/ludwig_nights.cjs` | `ourCosts()` kind accommodation | his three priced nights, 23–25 Oct at 218.57, out of October's 11,851.89 on KINP |
+| Carriers by hire contract (v1.3 match-up) | `inputs/dated_all.cjs` (`tFig`) + Baseplan (12) "Delivery Dockets" (Andrew's original) | `transport888Core().tFig[].event.dd` | each load's docket number → the docket list's Hire Agreement; loads with no docket, or a docket not in Baseplan (12), are left untied |
 
 Checks the pack asserts: costs by month = costs by branch = 543,382.98 (job end); accruals = the journals; revenue = the 19
 invoices; every revenue row cross-foots (hire days by month + the undated remainder = the invoice's ex GST).

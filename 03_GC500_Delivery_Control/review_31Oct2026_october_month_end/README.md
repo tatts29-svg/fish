@@ -85,7 +85,7 @@ independently, PR1 6541369248.
 
 ## Basis and status, labelled once (31 Oct, after Codex's 6541370424)
 
-- Revenue: invoice month (October) for all 19 invoices; the November hire days are information only; Andrew's call open on moving them. The 839.07 generator pick-up charge is a November forecast, not invoiced.
+- Revenue: invoice month (October) for all 19 invoices, on Andrew's word (31 Oct: "Yes they should. But we can still mention novembwr but invoiced in october"). The November hire days on them (196,636.68) are named as invoiced in October, not moved. The 839.07 generator pick-up charge is a November forecast, not invoiced.
 - Advanced: 214,225.00 invoiced and receipted; 79,184.70 an ESTIMATE (our dockets and notes at their rates) until invoices on POs 4647522 and 4647523; 750.00 a forecast for demob week 2.
 - Event Portables 101,747.00, Premiair 3,270.21, Royal Wolf 1,364.23, Job Connect w/e 11 Oct to 8 Nov, Alfie Harris's 12 nights: ESTIMATES, no invoice seen.
 - Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; revenue in October.
@@ -103,3 +103,30 @@ event nights (655.71) stay in KINP's accommodation unless Andrew moves them with
 The page (`GC500_PL_final.html`) had printed sections 2, 3 and 4's tables and amounts as raw code since v1, because the segments
 after the inserted tables weren't evaluated. That's fixed, and the sections are numbered once each (4 the undated items, 5 the
 journals, 6 the open items). The workbook is built separately and was right throughout.
+
+## Pack v1.3: the hire contract and PO on every line; Ludwig Chee's nights on NVAC; November named (31 Oct)
+
+Andrew: "Yes they should. But we can still mention novembwr but invoiced in october. We need to make sire we mention hire contract
+nos.and p/o numbers so we know where things maych up." Asked where Ludwig Chee's three event nights should sit: "Move to NVAC".
+
+- **November:** revenue stays in October, the invoice month. The November hire days on those invoices (196,636.68) are named on
+  the revenue tile, in section 3 and on the revenue sheet as "invoiced in October". The open decision is closed.
+- **Ludwig Chee's nights:** his three event nights (23–25 Oct, 218.57 each, 655.71, checked on the live record with
+  `inputs/ludwig_nights.cjs`) move from KINP's accommodation to NVAC with his hours. KINP is now 228,744.87 and NVAC 10,591.51.
+  A branch-move journal sits beside Kyle Gover's (460.78 KINP → STPS).
+- **Contracts and POs:** every cost line carries the hire contract and V8s invoice it's charged on, beside its PO (CSV, workbook,
+  page section 1). The journals carry the contract too. Section 3 and the revenue sheet list the POs against each contract.
+- **Match-up:** new section 3b and workbook sheet "Match-up by contract". It lists every invoiced contract, what's on it (the
+  invoice's biggest lines), and the POs and costs against it. Costs that nothing ties to one contract are listed apart, with the
+  reason. Tied to a contract 420,322.07 + not tied 123,060.91 = 543,382.98 (asserted).
+- **Carriers:** tied to contracts by each load's delivery docket, through Baseplan (12)'s docket list. That covers 15,546.12 of
+  the 33,150.09 to date: 9968862 8,670.72, 9968955 4,350.00, 9972648 1,380.00, 9961976 870.00, 9974042 275.40. Another 17,033.97
+  has no docket on the record, and docket 26095295 (570.00) isn't in Baseplan (12).
+- **How each PO is linked:** all 23 POs on the record are in the pack, and none carries a contract field. A contract is named only
+  where the record ties it:
+  - the PO itself says so: 4663216 "for the GC500 fencing" → 9990776; 4670270's note → 9994954;
+  - the work is that contract: Advanced → 9990776;
+  - the V8s are charged for it on that contract's lines: Event Portables → 9968955 and 9994954; Premiair → 9961265; Royal Wolf
+    → 9974042.
+  POs 4655573, 4666720, 4669481 and 4670876 name no contract, and the pack says so.
+- **Totals unchanged:** revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50.
