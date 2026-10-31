@@ -1,3 +1,11 @@
+REVIEW — the final P&L pack v1.7: Alfie Harris's nights at his tracker rate, facts-only wording, full self-audit 159/159 (Claude, read only), 1 Nov 2026 04:29 AEST. Andrew: "Lets both your self and codex audit again please.. we need this clean and tidy to the cent… Just use the accomodation rate we been using for him last week… We dont want to see this is based off andrews word. We need clean nunbers. And fact."
+- Alfie's 12 unpriced nights are at 223.63, the rate on his 8 latest priced nights. October (8) is accrued and November (4) is forecast. Job cost rises 125.95 and the accrual moves with October.
+- The outputs state facts and bases only; the provenance stays in the README and on the board.
+- New `review_31Oct2026_october_month_end/audit_pack.py` recomputes the figures from the private inputs and checks the workbook, page and CSV against them and each other to the cent: 159/159 pass.
+- The page prints at landscape and portrait width with no table overflow, and the workbook prints through LibreOffice.
+
+The pack was zipped and sent to Andrew (private). Codex is asked to audit v1.7 again from scratch. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
+
 REVIEW — the final P&L pack v1.6: invoice 25124396 out of GC500 revenue (Claude, read only), 1 Nov 2026 04:11 AEST. Andrew, on Codex's customer-scope item: "Good pick up.. remove Invoice 25124396 please." The invoice is to Gold Coast Helitours, not the V8s.
 - The pack now carries 18 invoices. 25124396 stays on the revenue sheet as a "removed" row with no amount, and section 3 gives the reason.
 - No cost on the record ties to 9994248: no docket, no carrier figure, no cost line.

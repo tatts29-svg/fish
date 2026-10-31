@@ -52,11 +52,13 @@ for wk, po, inv, amt, mo, acc in JC:
         ('the invoice; split across the months by the running sheet’s days' if wk == 'w/e 4 Oct' else 'the invoice' if wk in ('w/e 20 Sep', 'w/e 27 Sep') else 'the running sheet’s paid hours at the record’s rates (estimate until invoiced)'),
         'ACCRUE (estimate)' if acc else ('invoiced' if mo != 'Nov' else 'November (estimate)'))
 add('Accommodation (tracker)', 'KINP', '3520 · 3501', '97 priced nights on the tracker (all but Ludwig Chee’s three event nights)', 'none', 'on the tracker', 6370.36, r2(11851.89 - 655.71), 3801.71, None, 'the night’s date', 'check how they were paid')
-add('Accommodation (tracker)', 'NVAC', '3520 · 3501', 'Ludwig Chee: 3 event nights, 23–25 Oct, at 218.57 (with his hours on NVAC; Andrew, 31 Oct)', 'none', 'on the tracker', 0, 655.71, 0, None, 'the night’s date', 'check how they were paid')
-ALF_MEAN = 5754.63 / 27; ALF_OCT = r2(8 * ALF_MEAN); ALF_NOV = r2(2557.61 - ALF_OCT)   # 27 priced nights; the balancing cent in November (Codex audit F04)
-assert abs(12 * ALF_MEAN - 2557.61) < 0.005 and (ALF_OCT, ALF_NOV) == (1705.08, 852.53), (ALF_OCT, ALF_NOV)
-add('Accommodation (tracker)', 'KINP', '3520 · 3501', 'Alfie Harris: 12 unpriced nights at their own mean (5,754.63 over 27 priced nights): 8 in October (5, 12–15, 23–25 Oct) and 4 in November (9–12 Nov)', 'none', 'invoice to come',
-    0, ALF_OCT, ALF_NOV, ALF_OCT, 'each night’s date; October from the unrounded mean, the balancing cent in November', 'ACCRUE the October nights · November forecast')
+add('Accommodation (tracker)', 'NVAC', '3520 · 3501', 'Ludwig Chee: 3 event nights, 23–25 Oct, at 218.57 (with his hours on NVAC)', 'none', 'on the tracker', 0, 655.71, 0, None, 'the night’s date', 'check how they were paid')
+ALF_RATE = 223.63   # Alfie Harris's nightly rate on the tracker for 26–29 Oct and 2–5 Nov (his latest priced nights)
+ALF_OCT = r2(8 * ALF_RATE); ALF_NOV = r2(4 * ALF_RATE); ALF_TOT = r2(ALF_OCT + ALF_NOV)   # 8 unpriced nights in October, 4 in November
+assert (ALF_OCT, ALF_NOV, ALF_TOT) == (1789.04, 894.52, 2683.56), (ALF_OCT, ALF_NOV)
+ACCOM = r2(22023.96 + ALF_TOT)   # 100 priced nights on the tracker + Alfie's 12 unpriced nights
+add('Accommodation (tracker)', 'KINP', '3520 · 3501', 'Alfie Harris: 12 unpriced nights at 223.63, his rate on the tracker for 26–29 Oct and 2–5 Nov: 8 in October (5, 12–15, 23–25 Oct) and 4 in November (9–12 Nov)', 'none', 'invoice to come',
+    0, ALF_OCT, ALF_NOV, ALF_OCT, 'each night’s date at 223.63', 'ACCRUE the October nights · November forecast')
 add('Meals and expenses (tracker)', 'KINP', '3520 · 3501', 'Meals, expenses and equipment R&M, to 31 Oct', 'none', 'on the tracker', 2621.53, 2642.79, 0, None, 'the date on each line', 'recorded on the tracker (paid not evidenced)')
 add('Meals and expenses (tracker)', 'KINP', '3520 · 3501', 'Alfie Harris’s meals away from home, 2–5 Nov (4 × 100.00), recorded ahead of the dates', 'none', 'on the tracker', 0, 0, 400.00, None, 'the date on each line', 'November forecast (recorded ahead)')
 SALH = collections.defaultdict(float)
@@ -72,8 +74,8 @@ for po, sup, br, gl, what, d, amt in [('4655573', 'Bunnings', 'STPS', '201.STPS.
                                      ('4670876', 'Bunnings', 'KINP', '201.KINP.2144.0', 'Hand soap', '24 Oct', 180.00), ('4669481', 'Bunnings', 'NVAC', '201.NVAC.2150.0', 'Siphon hose (completed order)', '26 Oct', 42.34)]:
     add(sup, br, gl, what, po, 'PO ' + d, amt if 'Sep' in d else 0, 0 if 'Sep' in d else amt, 0, None, 'the PO date', 'check invoice')
 tot = [r2(sum(r[i] for r in C)) for i in (6, 7, 8)]
-assert abs(sum(tot) - 543382.98) < 0.01, (tot, sum(tot))
-assert (tot[0], tot[1], tot[2]) == (147015.00, 379606.55, 16761.43), tot   # Codex's bridge after F03, F04 and the F05 window   # the P&L's job costs (with the 750.00 November fencing forecast), at Job Connect's invoices and without Premiair line 15
+assert abs(sum(tot) - 543508.93) < 0.01, (tot, sum(tot))
+assert (tot[0], tot[1], tot[2]) == (147015.00, 379690.51, 16803.42), tot   # Codex's bridge after F03, F04 and the F05 window   # the P&L's job costs (with the 750.00 November fencing forecast), at Job Connect's invoices and without Premiair line 15
 acc_total = r2(sum(r[9] for r in C if r[9]))
 
 # ---------------- labour by month and branch (the running sheet, to 13 Nov)
@@ -91,8 +93,8 @@ for r in rows[2:]:
         except ValueError: pass
 assert abs(sum(LH.values()) - 34926.79) < 0.01
 HOME = {'Aaron Zelvis': ('KINP', 'Coates wages'), 'Alfie Harris': ('NTSP', 'Coates wages'), 'Andrew Fisher': ('NOIS', 'Salary'), 'Jayden Paul': ('KINP', 'Coates wages'),
-        'Wayne Crimmin': ('STPS', 'Coates wages'), 'Frank Devilles': ('BFIS', 'Coates wages · event weekend mechanic / electrician, on NVAC (Andrew, 29 and 31 Oct); pay basis unconfirmed on the record'),
-        'Ludwig Chee': ('NSNA', 'Coates wages · event weekend mechanic / electrician, on NVAC (Andrew, 29 and 31 Oct); pay basis unconfirmed on the record'), 'Daniel Gough': ('KINP', 'Labour hire, Job Connect, 55.70 an hour'),
+        'Wayne Crimmin': ('STPS', 'Coates wages'), 'Frank Devilles': ('BFIS', 'Coates wages · event weekend mechanic / electrician, charged to NVAC 9961976; pay basis not on the record'),
+        'Ludwig Chee': ('NSNA', 'Coates wages · event weekend mechanic / electrician, charged to NVAC 9961976; pay basis not on the record'), 'Daniel Gough': ('KINP', 'Labour hire, Job Connect, 55.70 an hour'),
         'Kyle Gover': ('KINP', 'Labour hire, Job Connect, 53.05 an hour'), 'Eric Lucian': ('NOIS', 'Labour hire, 55.70 an hour; the record: home branch NOIS, charge branch KINP')}
 PH = collections.defaultdict(float); PC = collections.defaultdict(float)
 for r in rows[2:]:
@@ -111,8 +113,8 @@ for (who_, mo_, b_), v_ in PC.items():
     if HOME[who_][1].startswith('Labour hire'): LHB[(b_, mo_)] += v_
 assert abs(sum(LHB.values()) - sum(LH.values())) < 0.01
 CON = collections.defaultdict(float); CONP = collections.defaultdict(float)
-CLABEL = {'9961976': ('NVAC', 'generators; the event weekend’s mechanic and electrician', 'named on the note; the mechanic and electrician on Andrew’s word, 29 and 31 Oct'), '9972648': ('STPS', 'water barriers', 'named on the note'),
-          'KINP': ('KINP', 'everything else: buildings, toilets, the concert, site days', 'KINP; no contract number needed (your call, 31 Oct)')}
+CLABEL = {'9961976': ('NVAC', 'generators; the event weekend’s mechanic and electrician', 'named on the running sheet note; the event weekend’s mechanic and electrician'), '9972648': ('STPS', 'water barriers', 'named on the note'),
+          'KINP': ('KINP', 'everything else: buildings, toilets, the concert, site days', 'KINP (no contract number)')}
 KINP_CON = {'9968862', '9968955', '9994954', '9968929', 'none'}
 for r in rows[2:]:
     if not (r and r[0][:4] == '2026'): continue
@@ -246,7 +248,7 @@ def charged_on(r):
         if what.startswith('Loads to date'): return docs('all')
         return 'not tied: forecast loads have no figure or docket yet'
     if sup.startswith('Job Connect'):
-        return 'KINP work, no contract number (your call, 31 Oct)' + (' · Kyle Gover’s 8 h on 15 Oct: ' + on('9972648') + ', water barriers' if 'w/e 18 Oct' in what else '')
+        return 'KINP work (no contract number)' + (' · Kyle Gover’s 8 h on 15 Oct: ' + on('9972648') + ', water barriers' if 'w/e 18 Oct' in what else '')
     if sup.startswith('Accommodation'): return ('his hours sit on ' + on('9961976') + '; ' + ACCOM_ETC) if what.startswith('Ludwig') else ACCOM_ETC
     if sup.startswith('Meals'): return 'no line of its own on the invoices'
     if sup.startswith('Salary'): return 'not a line on the invoices; the PM’s labour is charged on ' + on('9968862', '9968955') + ', 15 h each'
@@ -271,11 +273,11 @@ NOTE = {'9968862': 'the V8s pay ACCOM / ETC here (L82, 13,850.00) and the PM’s
         '9961976': 'staff hours here: %s h (the generators %s h; Frank Devilles and Ludwig Chee %s h, wages are hours only)' % (hd(sum(CON.get(('9961976', k), 0) for k in MO)), hd(sum(CON.get(('9961976', k), 0) for k in MO) - 72), '72'),
         '9972648': 'staff hours here: %s h on the water barriers' % hd(sum(CON.get(('9972648', k), 0) for k in MO))}
 _nd = r2(sum(v for g_ in TDOC for k, v in TDOC[g_].items() if k.startswith('no docket'))); _nb = r2(sum(v for g_ in TDOC for k, v in TDOC[g_].items() if k.startswith('docket ')))
-NT = [('Job Connect labour hire: KINP work, no contract number (your call, 31 Oct)', '4657010 · 4660565 · 4661783 (invoiced) · 4665091 · 4667755 · 4668970 · 4670882 · 4671825 (accrued) · none yet for w/e 1 and 8 Nov', r2(34748.64 - 460.78), 'invoices where received; estimates accrued'),
+NT = [('Job Connect labour hire: KINP work (no contract number)', '4657010 · 4660565 · 4661783 (invoiced) · 4665091 · 4667755 · 4668970 · 4670882 · 4671825 (accrued) · none yet for w/e 1 and 8 Nov', r2(34748.64 - 460.78), 'invoices where received; estimates accrued'),
       ('Carriers: loads to date with no docket on the record', 'none on the record', _nd, 'figures from the schedule; the carrier invoices will tie them'),
       ('Carriers: docket 26095295, not in Baseplan (12)', 'none on the record', _nb, 'figures from the schedule'),
       ('Carriers: forecast loads (no figure recorded, and planned)', 'none on the record', r2(sum(v for k, v in TR.items() if k[0] != 'rec')), 'forecast; no figure or docket yet'),
-      ('Accommodation: 97 priced nights and Alfie Harris’s 12 nights', 'none', r2(24581.57 - 655.71), ACCOM_ETC),
+      ('Accommodation: 97 priced nights and Alfie Harris’s 12 nights', 'none', r2(ACCOM - 655.71), ACCOM_ETC),
       ('Meals, expenses and equipment R&M', 'none', 5664.32, 'no line of its own on the invoices'),
       ('Salary allowance', 'payroll', 14700.00, 'the PM’s labour is charged on 9968862 and 9968955'),
       ('Bunnings: star pickets', '4655573', 100.00, 'contract not named on the PO (STPS GL)'),
@@ -283,7 +285,7 @@ NT = [('Job Connect labour hire: KINP work, no contract number (your call, 31 Oc
       ('Bunnings: hand soap', '4670876', 180.00, 'contract not named on the PO (KINP GL)'),
       ('Bunnings: siphon hose', '4669481', 42.34, 'contract not named on the PO (NVAC GL)')]
 MU_TOT = r2(sum(x[2] or 0 for v in MU.values() for x in v)); NT_TOT = r2(sum(x[2] for x in NT))
-assert abs(MU_TOT + NT_TOT - 543382.98) < 0.005, (MU_TOT, NT_TOT, MU_TOT + NT_TOT)
+assert abs(MU_TOT + NT_TOT - 543508.93) < 0.005, (MU_TOT, NT_TOT, MU_TOT + NT_TOT)
 ORDER_C = sorted(INV_OF, key=lambda c: ({'KINP': 0, 'STPS': 1, 'NVAC': 2, 'MEAD': 3}.get(BR_OF[c], 9), c))
 def pos_of(c):
     ps = []
@@ -425,29 +427,29 @@ ul{margin:6px 0 0 18px}li{margin:3px 0}.k{display:grid;grid-template-columns:rep
 html,body{background:#fff!important;color:#000;font-size:8.5px}main{max-width:none;padding:0}h1{font-size:15px}h2{font-size:11.5px;margin:12px 0 4px;break-after:avoid;page-break-after:avoid}h3{font-size:10px;break-after:avoid}
 .s,.w{font-size:8px}.wrap{overflow:visible!important}table{min-width:0!important;width:100%!important;font-size:7.6px}th,td{padding:2px 4px;overflow-wrap:anywhere}th{font-size:7px}
 thead{display:table-header-group}tr{break-inside:avoid;page-break-inside:avoid}.k{grid-template-columns:repeat(4,1fr)}.k b{font-size:13px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}"""
-body = f"""<main><h1>GC500 P&amp;L, final · pack v1.6</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12640), the 18 invoices to the V8s and the purchase orders · Author: Andrew Fisher</p>
+body = f"""<main><h1>GC500 P&amp;L, final · pack v1.7</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12640), the 18 invoices to the V8s and the purchase orders · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 18 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire days: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with what to accrue</h2><p class='s'>Each line names its purchase order and the hire contract and V8s invoice it's charged on (section 3b groups them by contract). Orange rows: accrue at 31 Oct (they reverse on 1 Nov and the invoice lands against them). Red rows: the record carries no date; where they sit is said on the row.</p>
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', 'Charged on (hire contract · V8s invoice)', '#Sep', '#Oct', '#Nov', '#Accrue 31 Oct', 'Status · how dated'], crow)}
 <h2>1b · Accruals beside what we charged the V8s</h2><p class='s'>Each accrued supplier next to what we charged the V8s for the same work. Where no supplier invoice has been seen, the cost is an estimate and says so; it is replaced when the invoice comes. Charges are before the damage waiver except the fencing, which shows its invoice in full.</p>
 """ + ACC_HTML + f"""
-<h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet on your rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only. The labour hire cost rows are the running sheet’s ({m(34926.79)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received and the running sheet where not ({m(34748.64)}, section 1).</p>
+<h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet, allocated by the job’s rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only. The labour hire cost rows are the running sheet’s ({m(34926.79)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received and the running sheet where not ({m(34748.64)}, section 1).</p>
 {tbl(['Type', 'Branch', '#September h', '#October h', '#November h (to 13 Nov)', '#Total h'], lrow)}
-<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, your mechanic and electrician over the event weekend, on NVAC: your word, 29 and 31 Oct). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
+<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: the job’s allocation rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician, on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
 """ + PERSON_HTML + f"""
-<h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes; Frank Devilles and Ludwig Chee, your mechanic and electrician over the event weekend (23–25 Oct, 36 h each), on 9961976 on your word (29 and 31 Oct). NVAC bills one Event Gen Tech, the event labour scope's one a day: 31.55 h, {m(4735.97)} on 25121022 (the invoice prints 31), and 4.5 h, {m(675.50)} on KINP's 25123999 (the invoice prints 4). Worked hours and billed hours are different facts. Everything else is KINP, with no contract number (your call, 31 Oct). Labour hire costs are coded to Installs.</p>
+<h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician (23–25 Oct, 36 h each), on 9961976. NVAC bills one Event Gen Tech, the event labour scope's one a day: 31.55 h, {m(4735.97)} on 25121022 (the invoice prints 31), and 4.5 h, {m(675.50)} on KINP's 25123999 (the invoice prints 4). Worked hours and billed hours are different facts. Everything else is KINP (no contract number). Labour hire costs are coded to Installs.</p>
 """ + CON_HTML + f"""
 <h3>By person and contract</h3>
 """ + CONP_HTML + f"""
-<h2>3 · The 18 invoices, and their hire split across the months (AUD ex GST)</h2><p class='s'>Invoice 25124396 (9994248, {m(1974.05)}) is out: it is invoiced to Gold Coast Helitours, not the V8s, and comes off GC500 revenue on your word (1 Nov); no cost on the record ties to it. All 18 are dated 27–30 Oct, and the revenue is booked in October, the invoice month (your call, 31 Oct). The November column is the hire for days in November on these October invoices: shown so you can see it, not moved. Each month's hire $ is the invoice's dated hire lines and the damage waiver on them (AUD ex GST), split across the months by the days on hire, from the invoice's own on/off-hire times; the cents are reconciled once, so each row adds to its ex GST exactly. Services and sales carry no dates on the invoice; they're in the services column. The last column is the purchase orders against each contract; section 3b has the detail.</p>
+<h2>3 · The 18 invoices, and their hire split across the months (AUD ex GST)</h2><p class='s'>Invoice 25124396 (9994248, {m(1974.05)}) is not GC500 revenue: it is invoiced to Gold Coast Helitours, not V8 Supercars, and no cost on the record ties to it. All 18 are dated 27–30 Oct, and the revenue is booked in the invoice month, October. The November column is the hire for days in November on these October invoices: shown for information, not moved. Each month's hire $ is the invoice's dated hire lines and the damage waiver on them (AUD ex GST), split across the months by the days on hire, from the invoice's own on/off-hire times; the cents are reconciled once, so each row adds to its ex GST exactly. Services and sales carry no dates on the invoice; they're in the services column. The last column is the purchase orders against each contract; section 3b has the detail.</p>
 {tbl(['Invoice', 'Date', 'Contract · branch', '#Ex GST', '#Sep hire (AUD ex GST)', '#Oct hire (AUD ex GST)', '#Nov hire, invoiced in Oct (AUD ex GST)', '#Services, sales, other (AUD ex GST, no dates)', 'POs against this contract'], rrow)}
 {MATCH_HTML}
 <h2>4 · Dates and estimates: what the record gives, and what it can't</h2><ul>
 <li>Transport: every load is dated by the schedule (the work date). The figures are the schedule's (the carriers' minimums), not carrier invoices; the invoices will confirm the amounts and their own dates.</li>
-<li>Alfie Harris's 12 unpriced nights: 8 in October ({m(ALF_OCT)}, accrued) and 4 in November ({m(ALF_NOV)}, forecast), at their own mean rate until the invoice comes.</li>
+<li>Alfie Harris's 12 unpriced nights: 8 in October ({m(ALF_OCT)}, accrued) and 4 in November ({m(ALF_NOV)}, forecast), at 223.63 a night, his rate on the tracker for 26–29 Oct and 2–5 Nov, until the invoice comes.</li>
 <li>The salary allowance ({m(14700)}) covers the record's window, 14 Sep–13 Nov; it's split by the salaried hours inside it (the 55 h before 14 Sep are outside it).</li>
-<li>Event Portables: no invoice or PO on the record; the four quotes were approved on your word. Q6846 is at its quoted 4,850.00.</li>
+<li>Event Portables: no invoice or PO on the record; costed from their four approved quotes. Q6846 is at its quoted 4,850.00.</li>
 <li>Service lines on the invoices (transport, install and demob, pump-outs, labour, accommodation recharges, scrim, toilet paper): {m(UND)}, no dates on the invoice. Dating them to the work needs each one matched to the record; that's the next piece.</li></ul>
 </main>"""
 # ---------------- the final P&L pack: summary by branch, journals, open items, and an Excel workbook (appended to build_monthend.py)
@@ -462,7 +464,7 @@ COST_B = {   # management view, job end; people's costs on KINP (29 Oct ruling) 
           ('Transport, carriers (no POs or carrier invoices on the record; by load)', 42073.62),
           ('Labour hire, coded to Installs: Job Connect POs 4657010 · 4660565 · 4661783 · 4665091 · 4667755 · 4668970 · 4670882 · 4671825 (invoices where received, the running sheet where not)', r2(34748.64 - 460.78)),
           ('Salary allowance (payroll; the PM’s labour is charged on 9968862 and 9968955)', 14700.00),
-          ('Accommodation (the V8s pay ACCOM / ETC on 9968862 L82 and 9968955 L118)', r2(24581.57 - 655.71)),
+          ('Accommodation (the V8s pay ACCOM / ETC on 9968862 L82 and 9968955 L118)', r2(ACCOM - 655.71)),
           ('Meals, expenses and equipment R&M', 5664.32),
           ('Consumables: POs 4666720 BSF cranes 2,896.00 · 4670876 soap 180.00', 3076.00)],
  'STPS': [('Fencing, Advanced: invoiced and receipted, POs 4647508 · 4647509 · 4647515 · 4647517 · 4647519 · 4647520 · 4658850 (charged on 9990776)', 214225.00),
@@ -477,7 +479,7 @@ COST_B = {   # management view, job end; people's costs on KINP (29 Oct ruling) 
           ('Consumables: POs 4669481 siphon hose 42.34 · 4670270 concert generator sync 579.68 (charged on 9994954 L11)', 622.02)],
  'MEAD': [('Transport, carriers (no POs or carrier invoices on the record; by load)', 1237.23)]}
 CB = {b: r2(sum(v for _, v in LL)) for b, LL in COST_B.items()}
-assert abs(sum(CB.values()) - 543382.98) < 0.005, CB
+assert abs(sum(CB.values()) - 543508.93) < 0.005, CB
 assert abs(sum(REV_B.values()) - 1001063.07) < 0.005, REV_B
 JOB_REV, JOB_COST = r2(sum(REV_B.values()) + sum(NOV_REV.values())), r2(sum(CB.values()))
 srow = ''
@@ -500,11 +502,11 @@ JOURNALS = [
  ('Accrual · Job Connect, w/e 11 Oct to 1 Nov (estimate)', '4665091 · 4667755 · 4668970 · 4670882 · 4671825 · none for w/e 1 Nov', 'KINP work, no contract number (Kyle Gover’s 8 h on 15 Oct: 9972648)', 'Installs (as coded)', 'KINP', 24348.75),
  ('Accrual · Premiair (estimate)', 'none on the record', '9961265 (inv 25125589)', '2126', 'KINP (cost SA KINP-SUB)', 3270.21),
  ('Accrual · Royal Wolf (estimate)', 'none on the record', '9974042 (inv 25124058)', '2126', 'STPS (cost SA STPS-SUB)', 1364.23),
- ('Accrual · accommodation, Alfie Harris’s 8 October nights (estimate; the 4 November nights, 852.53, are November forecast)', 'none', 'job-wide (the V8s pay ACCOM / ETC on 9968862 L82 and 9968955 L118)', '3520 · 3501', 'KINP', ALF_OCT)]
+ ('Accrual · accommodation, Alfie Harris’s 8 October nights at 223.63 (estimate; the 4 November nights, 894.52, are November forecast)', 'none', 'job-wide (the V8s pay ACCOM / ETC on 9968862 L82 and 9968955 L118)', '3520 · 3501', 'KINP', ALF_OCT)]
 assert abs(sum(j[5] for j in JOURNALS) - acc_total) < 0.005, (sum(j[5] for j in JOURNALS), acc_total)
 MOVES = [   # zero-net interbranch schedule at 31 Oct (Codex audit F11): cost journals between branches, not accruals; labour hours moves are in section 2b
  ('Branch move · labour hire, Kyle Gover 8 h on the water barriers (15 Oct)', '4668970', '9972648 (inv 25125600)', 'Installs (as coded)', 'KINP −460.78 · STPS +460.78', 460.78),
- ('Branch move · accommodation, Ludwig Chee’s 3 event nights (23–25 Oct; Andrew, 31 Oct: “Move to NVAC”)', 'none', '9961976 (inv 25121022), with his hours', '3520 · 3501', 'KINP −655.71 · NVAC +655.71', 655.71)]
+ ('Branch move · accommodation, Ludwig Chee’s 3 event nights (23–25 Oct), with his hours', 'none', '9961976 (inv 25121022), with his hours', '3520 · 3501', 'KINP −655.71 · NVAC +655.71', 655.71)]
 jrow = ''.join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (e(a), e(b_), e(k_), e(c_), e(d_), m(v)) for a, b_, k_, c_, d_, v in JOURNALS)
 jrow += "<tr class='sub'><td>Accruals at 31 Oct (each reverses on 1 Nov; the invoice lands against it)</td><td></td><td></td><td></td><td></td><td class='n'>%s</td></tr>" % m(acc_total)
 mrow = ''.join("<tr class='acc'><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (e(a), e(b_), e(k_), e(c_), e(d_), m(v)) for a, b_, k_, c_, d_, v in MOVES)
@@ -517,9 +519,9 @@ OPEN = [        'Event Portables hire: the 195 units include 7 received at refer
         'Transport: the figures are the schedule’s (the carriers’ minimums), not carrier invoices; 23,660.56 is forecast (loads with no figure, and planned loads).',
         'Supplier side: estimates stay estimates until the invoices come; six POs carry no invoice status on the record; Coates wages are hours only (no pay rate applied).',
         'Carriers to a contract: 17,603.97 of the loads to date carry no docket that Baseplan (12) ties to a hire contract (17,033.97 with no docket; docket 26095295, 570.00, not in Baseplan (12)). The carrier invoices or the dockets will tie them.',
-        'On the page but on no invoice: the line-by-line list (KINP 5,268.23 · STPS 20,206.68 · NVAC 943.55 · MEAD 2,769.70) for you to chase or drop.',
+        'On the page but on no invoice: the line-by-line list (KINP 5,268.23 · STPS 20,206.68 · NVAC 943.55 · MEAD 2,769.70): to chase or drop.',
         'Possible extra revenue: WB02 to 3 Nov (about 1,500.00), WB03 (354.00), concert contract 9994954 still on site, generator hire after 28 Oct and fuel, 350 kVA transport (1,200.00); and a VMS credit if 10001927 and 9961265 carry the same boards (−1,072.20).']
-PACK_HTML = ("<h2>0 · The job by branch</h2><p class='s'>Revenue is the 18 invoices to the V8s (all October; 25124396, 1,974.05, invoiced to Gold Coast Helitours, is out on your word, 1 Nov) plus November's forecast; the two scrim invoices 25120652 and 25120689 are STPS on their headers and Baseplan (12)'s sales codes; costs are the management view at job end, by the branch that carries them. Labour hire on the water barriers is journaled to STPS, and Ludwig Chee's three event nights to NVAC with his hours; the rest of the people's costs sit on KINP. Revenue is booked in October, the invoice month; the November hire days on those invoices are shown in section 3.</p>"
+PACK_HTML = ("<h2>0 · The job by branch</h2><p class='s'>Revenue is the 18 invoices to V8 Supercars (all October; 25124396, 1,974.05, is invoiced to Gold Coast Helitours and is not GC500 revenue) plus November's forecast; the two scrim invoices 25120652 and 25120689 are STPS on their headers and Baseplan (12)'s sales codes; costs are the management view at job end, by the branch that carries them. Labour hire on the water barriers is journaled to STPS, and Ludwig Chee's three event nights to NVAC with his hours; the rest of the people's costs sit on KINP. Revenue is booked in October, the invoice month; the November hire days on those invoices are shown in section 3.</p>"
   + tbl(['Branch', '#Invoiced (Oct)', '#November forecast', '#Revenue', '#Costs', '#Difference', '#Kept'], srow)
   + "<h3>Costs by branch</h3>" + tbl(['Cost', '#Amount'], crowB)
   + "<h2>4 · Journals at 31 Oct</h2>" + tbl(['Journal', 'PO', 'Hire contract (where charged)', 'Account', 'Branch', '#Amount'], jrow)
@@ -555,19 +557,19 @@ def sheet(title, head, rows, money_cols=(), hour_cols=(), widths=None, first=Fal
     ws.sheet_properties.pageSetUpPr = PageSetupProperties(fitToPage=True); ws.page_setup.fitToWidth = 1; ws.page_setup.fitToHeight = 0
     ws.page_margins = PageMargins(left=0.4, right=0.4, top=0.7, bottom=0.6, header=0.3, footer=0.3)
     ws.print_title_rows = '1:1'; ws.print_area = 'A1:%s%d' % (get_column_letter(ws.max_column), ws.max_row)
-    ws.oddHeader.left.text = 'GC500 P&&L pack v1.6 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12640'
+    ws.oddHeader.left.text = 'GC500 P&&L pack v1.7 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12640'
     ws.oddFooter.left.text = 'Author: Andrew Fisher · private to the job team'; ws.oddFooter.right.text = 'Page &P of &N'
     return ws
 ws_sum = sheet('Summary', ['Branch', 'Invoiced (Oct)', 'November forecast', 'Revenue', 'Costs', 'Difference'],
       [[b, REV_B.get(b, 0), NOV_REV.get(b, 0), r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), CB[b], r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')]
       + [['The job', r2(sum(REV_B.values())), r2(sum(NOV_REV.values())), JOB_REV, JOB_COST, r2(JOB_REV - JOB_COST)], [],
-         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12640), the 18 invoices to the V8s (25124396, Gold Coast Helitours, removed on Andrew’s word, 1 Nov), the purchase orders and Baseplan (12) · pack v1.6'],
+         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12640), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders and Baseplan (12) · pack v1.7'],
          ['Revenue is booked in October, the invoice month; the November forecast is the 839.07 NVAC generator pick-up, not invoiced yet. Costs are the management view at job end.']],
       money_cols=range(2, 7), widths=[14, 16, 18, 16, 16, 16], first=True)
 for r_ in (ws_sum.max_row - 1, ws_sum.max_row):
     ws_sum.merge_cells(start_row=r_, start_column=1, end_row=r_, end_column=6); ws_sum.row_dimensions[r_].height = 30
 sheet('Revenue by invoice', ['Invoice', 'Date', 'Contract', 'Branch', 'Ex GST (booked in October)', 'Damage waiver', 'Sep hire incl. waiver, AUD ex GST (by days on hire)', 'Oct hire, AUD ex GST', 'Nov hire, invoiced in Oct, AUD ex GST', 'Services, sales, other, AUD ex GST (no dates)', 'POs against this contract'],
-      [[r['inv'], r['date'], r['contract'], r['branch'] + ('' if r['cust'] == 'V8 Supercars' else ' · to ' + r['cust']), r['ex'], r['waiver'], r['m']['Sep'], r['m']['Oct'], r['m']['Nov'], r['svc'], pos_of(r['contract'])] for r in REV] + [[]] + [[i_['invoice'], i_['date'], i_['contract'], 'removed', None, None, None, None, None, None, 'Invoiced to Gold Coast Helitours, not the V8s (ex GST 1,974.05): out of GC500 revenue on Andrew’s word, 1 Nov'] for i_ in REMOVED],
+      [[r['inv'], r['date'], r['contract'], r['branch'] + ('' if r['cust'] == 'V8 Supercars' else ' · to ' + r['cust']), r['ex'], r['waiver'], r['m']['Sep'], r['m']['Oct'], r['m']['Nov'], r['svc'], pos_of(r['contract'])] for r in REV] + [[]] + [[i_['invoice'], i_['date'], i_['contract'], 'removed', None, None, None, None, None, None, 'Invoiced to Gold Coast Helitours, not V8 Supercars (ex GST 1,974.05): not GC500 revenue'] for i_ in REMOVED],
       money_cols=range(5, 11), widths=[10, 10, 10, 7, 14, 12, 14, 12, 14, 15, 30])
 mu_rows = []
 for c_ in ORDER_C:

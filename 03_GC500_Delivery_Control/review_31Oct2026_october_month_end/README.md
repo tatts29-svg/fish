@@ -183,3 +183,26 @@ Coast Helitours (customer CASH-STPS), not the V8s. It comes off GC500 revenue, a
 a "removed" row on the revenue sheet with no amount, and section 3 says why. No cost on the record ties to it: no Baseplan (12)
 docket, no carrier figure and no cost line names 9994248. Costs, months and accruals are unchanged, and STPS revenue and the job's
 revenue each drop by that invoice. The builder asserts the 18-invoice totals.
+
+## Pack v1.7: Alfie Harris's nights at his tracker rate; facts only; a full audit (1 Nov)
+
+Andrew: "Just use the accomodation rate we been using for him last week", and "We dont want to see this is based off andrews word.
+We need clean nunbers. And fact."
+
+- **Alfie's 12 unpriced nights:** costed at 223.63, the rate on all 8 of his latest priced nights on the tracker (26–29 Oct and
+  2–5 Nov). The 8 October nights are accrued (1,789.04) and the 4 November nights are forecast (894.52). Job cost rises by 125.95
+  against the earlier mean-rate figure.
+- **Facts only in the outputs:** the page, workbook and CSV now state each basis as a fact (rate, date, contract, rule). The
+  "your call", "your word" and "Andrew, <date>" wording is gone. The decisions behind them stay in this README and on the board,
+  which are the audit trail.
+- **`audit_pack.py`:** a new independent audit that recomputes the figures from the private inputs, not from the builder, and
+  checks the workbook, page and CSV against them and each other to the cent. It covers:
+  - revenue by invoice and branch;
+  - carriers by date;
+  - accommodation, meals, salary window and Job Connect weeks;
+  - every PO amount and the Advanced and Event Portables totals;
+  - costs by supplier against costs by branch, the match-up, the journals and the CSV;
+  - labour hours and dollars;
+  - a facts-only text check.
+
+  Result on v1.7: 159 checks, 159 pass. Run it with `python3 -I audit_pack.py <pack_dir> <progress_dir> [alfie_nights.json]`.
