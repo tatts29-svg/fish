@@ -1,7 +1,8 @@
 """Author: Andrew Fisher. GC500 final P&L by branch and month, from the 19 invoices (31 Oct 2026). Read only.
 
-Revenue: the invoices as billed (all dated 27-30 Oct 2026, so October), the damage waiver as its own line (Andrew: "add the
-waiver"), and November's forecast billing (the generator pick-up charge). The fencing stays as invoiced on 25122628 (Andrew,
+Superseded by the final P&L pack (build_monthend.py, 31 Oct 2026). Revenue basis: the invoice month (all 19 dated 27-30 Oct 2026, so
+October); Andrew's call is still open on moving the hire days that fall in November (default: October as invoiced). The damage
+waiver is its own line (Andrew: "add the waiver"), and November's forecast billing (the generator pick-up charge). The fencing stays as invoiced on 25122628 (Andrew,
 31 Oct 2026: "v8s stay as is"), so nothing more is billed on it. Costs: the page's cost streams at job end in the management view (people's costs on KINP, 29 Oct ruling;
 revenue stays on the invoicing branch, 31 Oct ruling), plus the six purchase orders; all in October with the invoices that
 carry the work (Andrew: "all our labour from our staff september. october . november fall in to october invoices"), except
@@ -125,7 +126,7 @@ for *_, gl, v in F_ACCRUE: acc[gl] = r2(acc.get(gl, 0) + v)
 row = lambda cells, cls='': "<tr%s>%s</tr>" % (" class='%s'" % cls if cls else '', ''.join(cells))
 td = lambda v, n=False: "<td%s>%s</td>" % (" class='n'" if n else '', v)
 FENCE_HTML = ("<h2>Fencing: for the journal <span>STPS · October · AUD ex GST</span></h2>"
- "<p class='note'>The V8s stay as invoiced (your call, 31 Oct). Advanced's figures are from their approved sheets, the purchase orders and receipts, and our dockets and notes at their rates. Nothing estimated.</p>"
+ "<p class='note'>The V8s stay as invoiced (your call, 31 Oct). Advanced's 214,225.00 is invoiced and receipted against their approved sheets and the purchase orders; the 79,184.70 is an ESTIMATE, our dockets and notes at their rates, until their invoices for POs 4647522 and 4647523 come.</p>"
  "<div class='wrap'><table><thead><tr><th>Fencing, October</th><th class='n'>Amount</th></tr></thead><tbody>"
  + ''.join(row([td(e(k)), td(m(v), 1)]) for k, v in F_REV)
  + row([td('Revenue'), td(m(fr), 1)], 'sub')

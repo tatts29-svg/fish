@@ -34,7 +34,7 @@ STPS 8 (Oct); cost 6,284.23 · 25,618.71 · 3,023.85 = 34,926.79.
 
 All 19 invoices are dated 27–30 Oct (1,003,037.12). Their dated hire lines with the waiver on them, by the days on hire: September
 57,202.81 · October 343,496.87 · November 196,636.68; lines with no dates (services, sales, transport) 405,700.77 (the 1 cent is rounding).
-Andrew's call pending: keep revenue in October as invoiced, or move the November hire days. Invoice 25124396 carries a 500.00 transport
+Revenue basis: the invoice month (October). Andrew's call is still open on moving the November hire days; the pack defaults to October as invoiced and shows the hire days by month for information only. Invoice 25124396 carries a 500.00 transport
 line (2 × 250.00) the line parser missed; the invoice total was right.
 
 ## Not dated on the record
@@ -80,3 +80,11 @@ the running sheet); Premiair line 15 (536.10) out of the estimate (not on 996126
 KINP until he confirms their event roles; revenue kept in October as invoiced. The concert sync PO 4670270 sits on NVAC by its GL code
 (201.NVAC.2144.0); Kyle Gover's 8 h of labour hire on the water barriers (460.78) is journaled to STPS. Codex asked to audit
 independently, PR1 6541369248.
+
+## Basis and status, labelled once (31 Oct, after Codex's 6541370424)
+
+- Revenue: invoice month (October) for all 19 invoices; the November hire days are information only; Andrew's call open on moving them. The 839.07 generator pick-up charge is a November forecast, not invoiced.
+- Advanced: 214,225.00 invoiced and receipted; 79,184.70 an ESTIMATE (our dockets and notes at their rates) until invoices on POs 4647522 and 4647523; 750.00 a forecast for demob week 2.
+- Event Portables 101,747.00, Premiair 3,270.21, Royal Wolf 1,364.23, Job Connect w/e 11 Oct to 8 Nov, Alfie Harris's 12 nights: ESTIMATES, no invoice seen.
+- Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; Frank Devilles and Ludwig Chee on KINP; revenue in October.
+- `build_final_pl.py` is superseded by the pack in `build_monthend.py`; its fencing note no longer says "nothing estimated".
