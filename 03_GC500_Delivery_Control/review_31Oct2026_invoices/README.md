@@ -48,3 +48,27 @@ The generator invoice (9961976, 25121022, 27 Oct) came last: every line equals B
    each until it is off hire.
 8. **No fuel line** (Andrew, 29 Oct 2026: "get NVAC to add fuel").
 9. **Transport for 12 of the 13 generators** (24 legs), with a labour charge on all 13: the 350 kVA's transport or the spare.
+
+## Last year's fencing invoice against this year's (Andrew sent both 2025 papers, 31 Oct 2026; private, not committed)
+
+2025: invoice 24402634 of 28 Oct 2025 (hire schedule 9773297), 434,522.05 ex GST, no waiver, then credit 24405710 of the same
+day, −54,890.37 on the mesh panel line ("Incorrect from PO revised"): **379,631.68 net**. 2026 so far: 335,180.04 + waiver
+35,801.43 = 370,981.47.
+
+| Item | 2025 rate | 2026 rate | Change |
+|---|---|---|---|
+| Plain fence | 17.65 | 16.16 | −8% |
+| Fence with scrim (2026: fence + scrim lines) | 26.75 | 25.50 | −5% |
+| Fence with hoarding | 25.76 | 23.59 | −8% |
+| Ped gates | 39.52 | 36.18 | −8% |
+| Relocation | 8.40 | 8.65 | +3% |
+| Crowd control barrier | 10.46 | 7.51 | −28% |
+| CCB flat feet | 10.54 | 7.51 | −29% |
+| Demarcation CCB | 15.49 | 13.08 | −16% |
+
+At 2025's rates, 2026's invoiced quantities come to about 35,406 more; the new 12.5% waiver (35,801.43) all but offsets it.
+2025 billed no V gates, bases or materials separately, had 147 m of white picket fence (none on the 2026 dockets), billed
+relocation on planned metres (1,427 m; 2026: 1,520 m) and labour as a lump (16,591.88; 2026: 213 h, 19,412.82). The 2025
+credit came from the V8s' revised PO: the November fencing billing should fit this year's PO (P028610) or the PO be raised
+first. Of the 49,634.12 still to bill on the page, 13,312.60 (V gates 8,847.60, bases 906.00, materials 3,559.00) has no
+2025 precedent; the firmer part is 36,321.52 (event-week and demob metres, demob week 2).
