@@ -148,3 +148,30 @@ the handover and have **not reached Claude yet**. v1.4 applies the five public c
 Output hashes (SHA-256, private files not committed): HTML `cd349c63…`, XLSX `2c64624d…` (the XLSX carries build timestamps,
 so it changes on every build), CSV `9d59f0a3…`, page PDF `c3ebe852…`. Builder `fd421748…`. Totals unchanged: revenue
 1,003,876.19, costs 543,382.98, accruals 212,472.50.
+
+## Pack v1.5: Codex's private audit applied (1 Nov)
+
+Andrew passed Codex's private audit of v1.2 to Claude on 1 Nov. It stays private and is not in this repository. Each finding was
+checked against the source before it was applied:
+
+| Finding | v1.5 |
+|---|---|
+| F01 one cent model | Done in v1.4; unchanged. |
+| F02 two invoices are STPS | 25120652 and 25120689 move KINP → STPS. Their invoice headers say "Staplyton (S)" and Baseplan (12)'s Sales Analysis Codes are STPS-CON; only the sheet names say KINP. Job revenue is unchanged. |
+| F03 transport dates | Every transport row goes in by its own date on the schedule, each once: the recorded figures, the forecasts on loads with no figure, and the planned loads. No undated transport is left. |
+| F04 Alfie's nights | The 8 October nights are accrued and the 4 November nights are forecast. October is taken from the unrounded mean; the balancing cent sits in November (`inputs/alfie_nights.cjs`). |
+| F05 salary window | Split by the salaried hours inside the record's window (labourAllowance858, 14 Sep–13 Nov). |
+| F06 toilet transport | The comparison now includes 25123999 L24. |
+| F07 labour label | Done in v1.4. |
+| F08 billed hours | The gen tech hours are now shown exactly as Baseplan prices them. |
+| F09 hours precision | The labour CSV keeps the source's two decimals (`inputs/build_sheet.py`), and the pack shows hours at the source's precision. |
+| F10 future meals | November's meal lines are labelled "recorded ahead", not "actual". |
+| F11 interbranch | The branch moves are a zero-net schedule with both legs shown. |
+| F12 print | The page prints landscape by CSS. Also checked at portrait width: no table overflows. |
+| F13 units | The revenue columns name AUD ex GST, and the section headings drop "hire days". |
+| F14 workbook | Done in v1.4; re-checked through LibreOffice. |
+| Retained decisions | Codex's customer-scope and Event Portables reference items are now open items for Andrew. Comparison wording is "no identified matching charge". The fencing comparison says what it leaves out, Royal Wolf's transport is labelled an equal share, and supplier estimates stay estimates. |
+| Ludwig's nights | Codex's bundle predates Andrew's ruling (31 Oct: "Move to NVAC"). v1.3's move stands. |
+
+Job revenue, job cost and branch costs are unchanged. The months, the accruals and the KINP/STPS revenue move exactly as in Codex's
+bridges, and the builder asserts each figure.

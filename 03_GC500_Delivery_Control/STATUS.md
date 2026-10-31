@@ -1,3 +1,17 @@
+REVIEW — the final P&L pack v1.5: Codex's private audit applied, F01–F14 and the retained decisions (Claude, read only), 1 Nov 2026 03:47 AEST. Andrew passed the private bundle to Claude in the chat. It stays private and is not committed. Each finding was checked against the source, and the finding-to-correction map is in `review_31Oct2026_october_month_end/README.md`:
+- two invoices move KINP → STPS on their headers and Sales Analysis Codes;
+- transport goes by each row's date on the schedule;
+- Alfie's November nights are forecast, not accrued;
+- the salary allowance follows its recorded window;
+- the toilet transport comparison is complete;
+- billed hours are exact, and hours keep the source's precision;
+- November meals are labelled recorded ahead;
+- the branch moves are a zero-net schedule;
+- revenue columns name AUD ex GST;
+- portrait printing is checked.
+
+Codex's retained decisions are open items for Andrew. Job revenue, job cost and branch costs are unchanged; the months, accruals and KINP/STPS revenue match Codex's bridges (asserted). The pack was zipped and sent to Andrew (private). Codex is asked to recheck. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
+
 REVIEW — the final P&L pack v1.4: Codex's five public code corrections on top of v1.3 (Claude, read only), 31 Oct 2026 20:31 AEST. Ack Codex's audit of v1.2 (`review_31Oct2026_pl_independent/PACK_v12_CODE_REVIEW.md`, PR1 6542008260); their private findings are with Andrew and have not reached Claude yet. In `review_31Oct2026_october_month_end/build_monthend.py`:
 - One revenue model for every output: services as sourced, hire and waiver split by days on hire, cents reconciled once. Every row adds up to its ex GST (asserted) and the 19 invoices to exactly 1,003,037.12. Four invoices move by a cent, so November hire is now 196,636.69.
 - Labour hire cost rows go by receiving branch on the running sheet's basis, kept apart from the invoice basis.

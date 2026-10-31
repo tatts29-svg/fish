@@ -16,6 +16,7 @@ TYPE = {'External': 'Labour hire', 'Internal CNA': 'Coates wages', 'Salary': 'Sa
 r2 = lambda x: round(x + 1e-9, 2)
 money = lambda x: '{:,.2f}'.format(x)
 hrs = lambda x: ('{:,.1f}'.format(x) if abs(x - round(x)) > 1e-9 else '{:,.0f}'.format(x))
+hcsv = lambda x: ('%.2f' % x).rstrip('0').rstrip('.')   # the CSV keeps the source's precision (Codex audit F09: 11.38 h, not 11.4); the page still shows one decimal
 
 out_rows, cell = [], defaultdict(lambda: [0.0, 0.0])
 gens = defaultdict(dict)
@@ -65,8 +66,8 @@ with csv_path.open('w', newline='', encoding='utf-8-sig') as f:
     w.writerow(['Author: Andrew Fisher', "GC500 labour by month and branch, from the record, on the project manager's rules of 31 Oct 2026", 'as at ' + d['asAt'], 'record ' + str(d['record'])])
     w.writerow(['Date', 'Month', 'Person', 'Type', 'Hours', 'Labour hire cost (AUD ex GST)', 'Branch and hours', 'How', 'Note on the record'])
     for o in out_rows:
-        w.writerow([o['date'], o['month'], o['person'], o['type'], hrs(o['hours']), '%.2f' % o['cost'] if o['cost'] is not None else 'hours only',
-                    ', '.join('%s %s h' % (b, hrs(o['by'][b])) for b in BR + ['MEAD'] if o['by'].get(b)), o['how'], o['note']])
+        w.writerow([o['date'], o['month'], o['person'], o['type'], hcsv(o['hours']), '%.2f' % o['cost'] if o['cost'] is not None else 'hours only',
+                    ', '.join('%s %s h' % (b, hcsv(o['by'][b])) for b in BR + ['MEAD'] if o['by'].get(b)), o['how'], o['note']])
     w.writerow([])
     w.writerow(['Generators', 'Contract', 'Branch', 'In: day', 'In: person', 'In: hours', 'Out: day', 'Out: person', 'Out: hours', 'Hours'])
     for u in sorted(set(gens) | set(STILL), key=lambda x: (x == 'GN?', x)):
