@@ -1,0 +1,49 @@
+v12.71 phone: 72/72 checks passed
+model: {"revNow":1012101.16,"revJob":1018879.23,"total":1012101.16,"known":455995.07,"difference":524203.15,"before":556106.09,"d0":524203,"d0before":556106,"diffJob":481118.66,"diffNow":524203.15,"handToDate":487898.01,"plJob":537760.57,"wagesToDate":31902.94,"hireStream":31902.94,"gaps":5,"lhKnown":31902.94,"lhJob":34926.79,"lhCost":{"known":31902.94,"toCome":3023.85,"job":34926.79,"unpricedHours":0,"shifts":53},"revB":[["KINP",447476.68],["MEAD",27429.95],["NVAC",49683.51],["STPS",494289.09]]}
+tiles: [{"l":"Charged to the V8s","v":"$1,012,101.16","s":"so far on the record · $1,018,879.23 at job end"},{"l":"What it costs us","v":"$487,898.01","s":"so far · $537,760.57 at job end"},{"l":"Difference so far","v":"$524,203.1551.8%","s":"$481,118.66 · 47.2% at job end · not a margin until the costs are complete"}]
+revenue: Our gear on hire1005the contracts at their rate, the card where a line has none | $221,095.76 | $221,095.76
+  Hired-in gear at our rates1010Advanced’s fencing, Event Portables’ toilets, the sub-hired boards and plant · job end adds the fencing to come | $408,017.23 | $414,795.30
+  Delivery and pick-up1030 · 1031 | $159,213.48 | $159,213.48
+  Toilet pump-outs1032water included | $66,145.14 | $66,145.14
+  Install, levelling, steps, cleaning, demob and the people over the event1047 · 1025 | $121,355.87 | $121,355.87
+  Consumables1020toilet paper, hand towels, shade cloth | $8,073.68 | $8,073.68
+  Accommodation and travel in the event scopeledger line for Finance to confirm | $27,700.00 | $27,700.00
+  Contract services, miscellaneous | $500.00 | $500.00
+  Charged to the V8s | $1,012,101.16 | $1,018,879.23
+costs: Temporary fencing and crowd controlSTPS
+  Advanced’s gear on the dockets, at their sheet2126178 dockets · receipted orders at their amount · job end adds the programme to come | $241,018.70 | $241,768.70
+  External contractor costs
+  Advanced’s crew: the dockets and the green book2142STPS | $52,391.00 | $52,391.00
+  The hired-in people on the running sheet, by the run rules3210 · 2143KINP · labour hire at the rates on the record · job end adds the shifts still to work | $31,902.94 | $34,926.79
+  Rehire costsKINP
+  Event Portables: toilet hire, their labour, delivery and pick-up2126the quotes approved · the final total may change | $45,525.00 | $45,525.00
+  Event Portables: servicing on our site count3325 | $51,372.00 | $51,372.00
+  Event Portables: water deliveries and the tank2144 | $4,850.00 | $4,850.00
+  Sub-hired boards and plant, supplier estimates2126Premiair Services $3,806.31 (KINP) · United Rentals Australia (Royal Wolf) $1,364.23 (STPS) · no invoice yet | — | $5,170.54
+  Internal labour hours and overtimeKINP
+  Coates wages3210hours only, never priced here (the project manager, 23 Oct 2026) | 1,180 h | 1,526 h
+  Salary allowance, living away3210forecast, job end | — | $14,700.00
+  Any other event-related expenses
+  Transport paid to the carriers2120 · 2140KINP $42,073.62 · NVAC $9,313.78 · STPS $4,186.02 · MEAD $1,237.23 · 59 schedule figures written with a plus, so at least that | $33,150.09 | $56,810.65
+  Accommodation, 112 nights3520 · 3501KINP · 12 nights not priced yet, at the person’s own average | $22,023.96 | $24,581.57
+  Meals and expenses3520 · 3501KINP | $5,664.32 | $5,664.32
+  Nothing recorded under Equipment costs (including generators and associated assets), Any installation-related costs, Buy invoicing branch costs.
+  What it costs us | $487,898.01 | $537,760.57
+  Difference so far | $524,203.1551.8% | $481,118.6647.2%
+cue: $45,525.00 of the so-far costs is carried at quotes or estimates, not final figures: Event Portables $45,525.00 (the quotes approved · the final total may change). Job end adds $49,862.56 of forecast costs still to come.
+branches: [{"h":"KINP · Brisbane Portables","r":["$477,997.22","$227,499.61","$250,497.61"]},{"h":"STPS · Brisbane Traffic","r":["$469,180.02","$299,709.95","$169,470.07"]},{"h":"NVAC · North Power and HVAC","r":["$44,272.04","$9,313.78","$34,958.26"]},{"h":"MEAD · Brisbane Mechanical Specialist","r":["$27,429.95","$1,237.23","$26,192.72"]},{"h":"THE JOB","r":["$1,018,879.23","$537,760.57","$481,118.66"]}]
+bridge: Charged to the V8s
+  Finance’s invoicing viewthe branch on the hire contracts, as the Finance handover invoices it | $447,476.68 | $494,289.09 | $49,683.51 | $27,429.95 | $1,018,879.23
+  Event labour revenue moved to KINPthe people’s staffing revenue, the project manager’s ruling of 29 Oct 2026 | +$30,520.54 | -$25,109.07 | -$5,411.47 | — | —
+  Management viewthe cards above | $477,997.22 | $469,180.02 | $44,272.04 | $27,429.95 | $1,018,879.23
+  What it costs us
+  Finance’s handovertravel, accommodation and meals by the labour on each branch, as its CSV has them | $224,655.72 | $301,605.88 | $9,313.78 | $2,185.19 | $537,760.57
+  Travel, accommodation and meals moved to KINPwith the people whose costs they are | +$2,843.89 | -$1,895.93 | — | -$947.96 | —
+  Management viewthe cards above | $227,499.61 | $299,709.95 | $9,313.78 | $1,237.23 | $537,760.57
+  Difference
+  Finance’s view | $222,820.96 | $192,683.21 | $40,369.73 | $25,244.76 | $481,118.66
+  Management view | $250,497.61 | $169,470.07 | $34,958.26 | $26,192.72 | $481,118.66
+finance: {"costBy":{"KINP":224655.72,"STPS":301605.88,"NVAC":9313.78,"MEAD":2185.19},"inv":[["KINP",447476.68],["MEAD",27429.95],["NVAC",49683.51],["STPS",494289.09]],"movedBy":[{"KINP":22270.27,"STPS":1540.87,"MEAD":770.43},{"KINP":5131.73,"STPS":355.06,"MEAD":177.53},{"KINP":34926.79},{"KINP":14700}]}
+staffing: [["KINP",7453.92],["NVAC",5411.47],["STPS",25109.07]]
+legacy: {"glanceDiff":"Difference$524,203.15so far — revenue less direct costs known and labour hire$481,118.66to job end, after priced wagesnot a margin and not a profit — 5 items not priced yet, listed under Costs to job end","pl770Diff":null,"pl752Kpi":"Difference so far$524,203after labour hire · not a margin yet","moneyKpi":"$524,203Difference so far","moneyRows":["Total$1,012,101$455,995$556,106before labour hire","Labour hire — the running sheet, so farthe hired-in people at the rates on the record; Coates wages stay in hours—$31,903−$31,903taken off the difference","Difference so far, after labour hire$524,203not a margin yet — WB01 work scope / rate to confirm · WB02 work scope / rate to confirm · WB03 work scope / rate to confirm · WB04 work scope / rate to confirm · WB05 work scope / rate to confirm · WB06 work scope / rate to confirm · WB07 work scope / rate to confirm · WB13 work scope / rate to confirm · WB14 work scope / rate to confirm · WB15 work scope / rate to confirm · WB16 work scope / rate to confirm · WB17 work scope / rate to confirm · WB18 work scope / rate to confirm · WC100 work scope / rate to confirm · T0258 work scope / rate to confirm · labour actuals and forecasts reviewed separately · 12 nights unpriced · transport only partly in · supplier costs: recorded amounts and forecast coverage are separate · 28 contract lines unrated"],"allIn":["Difference · all in, not a margin yet$481,118.66$6,028.07"],"oldHits":[],"where":{"glance":"rendered","pl752":"rendered","money":"rendered"},"paneMode":"pane on costs-audit-preview"}
+recon: {"ok":true,"bad":0,"count":17,"badTies":[]}
