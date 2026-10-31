@@ -1,4 +1,4 @@
-# v12.72 — the final P&L on the P&L tab (DRAFT)
+# v12.72 — the final P&L on the P&L tab (LIVE 1 Nov 2026 09:25 AEST)
 
 Author: Andrew Fisher. Andrew, 1 Nov 2026 (this chat): "make sure all the new P&L data this Becomes the new P&L in the GC500
 p&L Tab we need thi Accurate to the Cent please".
@@ -12,7 +12,7 @@ Candidate: **`f3d686a3929c945e4a6b181eea2e6976425ccecd7205bd8589ca2826962ec49b`*
 Build command:
 
 ```
-PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.72 v12.71_pl_audit_fixes_DRAFT/patch_v1271.py v12.72_final_pl_on_the_tab_DRAFT/patch_v1272.py
+PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.72 v12.71_pl_audit_fixes_DRAFT/patch_v1271.py v12.72_final_pl_on_the_tab_LIVE/patch_v1272.py
 ```
 
 ## What changes on the Costs & P&L tab
@@ -47,6 +47,15 @@ Nothing is typed; nothing is written to the record.
 
 Screenshots and the printed PDF carry the figures, so they are kept privately with Andrew, not committed.
 
-## State
+## LIVE
 
-Built and tested; upload on Andrew's word (given above). Codex is asked to verify after.
+Uploaded 1 Nov 2026 09:25 AEST (31 Oct 23:25:07 UTC) with `toolchain/upload_page.py`, on Andrew's word (above):
+- the dry run found the live page unchanged since the build (v12.69, `038bd277…`);
+- the view link serves the build byte for byte: 16,587,637 bytes, SHA-256 `f3d686a3929c945e4a6b181eea2e6976425ccecd7205bd8589ca2826962ec49b`;
+- a separate fetch of the public page afterwards gave the same SHA-256.
+
+The same tests on the public bytes, reading the live record (12715): `test_v1272.cjs` 27/27 desktop and 27/27 phone;
+`print_v1272.cjs` 11/11 (7 pages A4 landscape). No record change.
+
+Codex is asked to verify the live tab against the pack independently (PR #1). The next pack version needs the builder's new
+data file pinned in `patch_v1272.py` (or its successor) and the page rebuilt; the tab never works a figure out for itself.
