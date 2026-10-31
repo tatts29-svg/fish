@@ -85,7 +85,7 @@ independently, PR1 6541369248.
 
 ## Basis and status, labelled once (31 Oct, after Codex's 6541370424)
 
-- Revenue: invoice month (October) for all 19 invoices, on Andrew's word (31 Oct: "Yes they should. But we can still mention novembwr but invoiced in october"). The November hire days on them (196,636.68) are named as invoiced in October, not moved. The 839.07 generator pick-up charge is a November forecast, not invoiced.
+- Revenue: invoice month (October) for all 19 invoices, on Andrew's word (31 Oct: "Yes they should. But we can still mention novembwr but invoiced in october"). The hire for days in November on them (196,636.69 from v1.4) is named as invoiced in October, not moved. The 839.07 generator pick-up charge is a November forecast, not invoiced.
 - Advanced: 214,225.00 invoiced and receipted; 79,184.70 an ESTIMATE (our dockets and notes at their rates) until invoices on POs 4647522 and 4647523; 750.00 a forecast for demob week 2.
 - Event Portables 101,747.00, Premiair 3,270.21, Royal Wolf 1,364.23, Job Connect w/e 11 Oct to 8 Nov, Alfie Harris's 12 nights: ESTIMATES, no invoice seen.
 - Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; revenue in October.
@@ -130,3 +130,21 @@ nos.and p/o numbers so we know where things maych up." Asked where Ludwig Chee's
     → 9974042.
   POs 4655573, 4666720, 4669481 and 4670876 name no contract, and the pack says so.
 - **Totals unchanged:** revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50.
+
+## Pack v1.4: Codex's code corrections (31 Oct)
+
+Codex reviewed v1.2 against Andrew's originals. The public source-only notes are in
+`../review_31Oct2026_pl_independent/PACK_v12_CODE_REVIEW.md` (PR1 6542008260); the detailed private findings went to Andrew for
+the handover and have **not reached Claude yet**. v1.4 applies the five public corrections on top of v1.3:
+
+| Codex's note (v1.2 lines) | What v1.4 does |
+|---|---|
+| Residual policies differ (151, 164, 227, 370) | One revenue model for every output. Each invoice's services stay as sourced (the undated lines plus any remainder the line parser missed). Its hire lines and their waiver are split across the months by days on hire, and the cents are reconciled once, by largest remainder. The page, CSV and workbook all read the same numbers. Every row adds up to its ex GST exactly (asserted), and the 19 invoices add up to exactly 1,003,037.12; v1.3 was 1 cent over. Four invoices move by one cent between a month and services, so November hire is now 196,636.69 (196,636.68 in v1.3). |
+| Labour hire cost hardcoded to KINP (225) | Labour hire cost rows now go by the branch that received the hours (KINP, plus STPS 460.78), labelled "running sheet basis" (34,926.79). They stay separate from the P&L's invoice basis (34,748.64, Job Connect's invoices where received). The page and CSV say which basis is which. |
+| Month headings say days but show money | The headings read "Sep / Oct / Nov hire $ (with waiver)" and "Services, sales, other $". The day weighting is explained in the text, and the revenue tile says "hire (with waiver) for days in November". |
+| No print rules for the page | Added an A4 landscape print layout: full width, no scroll clipping, repeated table headers, light colours. It was checked as a real PDF: 9 pages, no table overflowing in print, all 14 section headings, and every right-hand column present. That PDF is in the zip as `GC500_PL_final.pdf`. |
+| Workbook print setup | Narrative cells wrap. Every sheet is set to A4 landscape fitted to width, with the header row repeated, a set print area, and the date, currency and tax basis in the page header with page numbers in the footer. The Summary sheet states the basis, and the wide sheets were narrowed so they print legibly. Checked by printing the workbook to PDF with LibreOffice: 13 pages, median text 7.1 to 11 pt, all right-hand headers present. |
+
+Output hashes (SHA-256, private files not committed): HTML `cd349c63…`, XLSX `2c64624d…` (the XLSX carries build timestamps,
+so it changes on every build), CSV `9d59f0a3…`, page PDF `c3ebe852…`. Builder `fd421748…`. Totals unchanged: revenue
+1,003,876.19, costs 543,382.98, accruals 212,472.50.

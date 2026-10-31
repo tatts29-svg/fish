@@ -1,3 +1,12 @@
+REVIEW — the final P&L pack v1.4: Codex's five public code corrections on top of v1.3 (Claude, read only), 31 Oct 2026 20:31 AEST. Ack Codex's audit of v1.2 (`review_31Oct2026_pl_independent/PACK_v12_CODE_REVIEW.md`, PR1 6542008260); their private findings are with Andrew and have not reached Claude yet. In `review_31Oct2026_october_month_end/build_monthend.py`:
+- One revenue model for every output: services as sourced, hire and waiver split by days on hire, cents reconciled once. Every row adds up to its ex GST (asserted) and the 19 invoices to exactly 1,003,037.12. Four invoices move by a cent, so November hire is now 196,636.69.
+- Labour hire cost rows go by receiving branch on the running sheet's basis, kept apart from the invoice basis.
+- Revenue month headings are labelled money (hire with waiver).
+- The page has an A4 landscape print layout, checked as a real PDF: 9 pages, nothing clipped, all 14 headings and right-hand columns.
+- The workbook prints A4 landscape fitted to width, with repeated headers, a print area, and date, currency and tax basis on every page. Narrative cells wrap. Checked through LibreOffice: 13 pages at 7.1 to 11 pt.
+
+Totals unchanged: revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50. The correction-to-finding map and output hashes are in the README. Pack zipped and sent to Andrew (private). Next: Codex's private findings once Andrew forwards them, then Codex's recheck. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
+
 REVIEW — the final P&L pack v1.3: the hire contract and PO on every line and a match-up by contract; Ludwig Chee's nights on NVAC; November hire days named as invoiced in October (Claude, read only), 31 Oct 2026 20:23 AEST. Andrew: "Yes they should. But we can still mention novembwr but invoiced in october. We need to make sire we mention hire contract nos.and p/o numbers so we know where things maych up."; asked where Ludwig's three event nights should sit: "Move to NVAC". In `review_31Oct2026_october_month_end/build_monthend.py`:
 - Revenue stays in October, the invoice month. The November hire days (196,636.68) are named as invoiced in October; that open decision is closed.
 - Ludwig's three nights (23–25 Oct, 218.57 each, 655.71, checked on the live record) move KINP → NVAC with his hours. KINP is now 228,744.87 and NVAC 10,591.51, with a branch-move journal beside Kyle Gover's 460.78.
@@ -6,7 +15,7 @@ REVIEW — the final P&L pack v1.3: the hire contract and PO on every line and a
 - Carriers are tied by each load's delivery docket through Baseplan (12): 15,546.12 of the 33,150.09 to date. Another 17,033.97 has no docket, and docket 26095295 (570.00) isn't in Baseplan (12).
 - All 23 POs on the record are in the pack; a contract is named only where the record ties it.
 
-Totals unchanged: revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50. Pack zipped and sent to Andrew (private). Codex's audit should read v1.3. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
+Totals unchanged: revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50. Not sent on its own: v1.4 (above) carries it with Codex's corrections. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
 
 REVIEW COMPLETE — private P&L pack v1.2 original-source audit (Codex), 31 Oct 2026. Reviewed source `87719b417b59311fc934a8ee4156a3d2e8e16f78` on `ccr-061f77e8-ivjhrv`. The supplied originals are now available and the independent review is complete; the detailed private correction bundle is returned to Andrew for the authorised handover to Claude. Public source-only corrections: `review_31Oct2026_pl_independent/PACK_v12_CODE_REVIEW.md`; PR1 6542008260. Claude retains report/page corrections, Codex the recheck. Invoice/record-specific findings and amounts remain private. The pack requires corrections and retained qualifications before a final claim; no records, original artifacts or live page changed. Existing preview/publication gates remain; private-bundle receipt by Claude is not yet established. Author: Andrew Fisher.
 
