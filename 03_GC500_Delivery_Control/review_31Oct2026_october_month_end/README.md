@@ -44,9 +44,16 @@ service lines on the invoices (405,700.77) until each is matched to the record.
 
 ## Staff hours by contract (added 31 Oct, on Andrew's ask)
 
-Andrew: "can we mention Labour Hire their costs have been Coded to Installs . can we mention Contract Numbers where staff hours go to".
-Labour hire is shown as coded to Installs (his word). Hours go to a contract exactly where the running sheet's note names one with hours
-(generators 9961976 NVAC 36 h; water barriers 9972648 STPS 98 h; the concert pair 9994954 KINP 3 h). The rest of a KINP day is shared
-across the contracts whose units came in or went out that day, by the number of units on each (9968862 356.8 h; 9968955 403.5 h; 9994954
-34.5 h; 9968929 27.6 h). Days with no units in or out name no contract: 1,345.3 h stay KINP with no contract (Sep 301.0, Oct 666.8,
-Nov 377.5). By person in the sheet's section 2c and the CSV.
+Andrew: "can we mention Labour Hire their costs have been Coded to Installs . can we mention Contract Numbers where staff hours go to",
+then "anything outside of KINP we mention the Contract. rest is KINP we dont need to mention contracts Nos". Labour hire is shown as
+coded to Installs. Outside KINP the contract is named, from the hours on the running sheet's notes: water barriers 9972648 (STPS) 98 h
+(Sep 12, Oct 86); generators 9961976 (NVAC) 36 h (Sep 6, Oct 30). Everything else is KINP with no contract number: 2,170.8 h
+(Sep 699.5, Oct 1,093.8, Nov 377.5). By person in the sheet's sections 2b and 2c and the CSV.
+
+Event Portables, Premiair and Royal Wolf (Andrew: "i cant find any invoices for them either"): none has an invoice on the record.
+Event Portables 101,747.00 is the four unsigned quotes at the received and counted quantities (Q6845 42,175.00; Q6844 51,372.00;
+Q6846 4,850.00; Q6847 3,350.00); checks: 51 block cleans at their rate against 33 charged to the V8s; 702 FWF services against 195 FWF
+hired from them; Q6846's tank line printed 1 × 350.00 = 2,100.00. Premiair 3,806.31 is the contract's keyed cost rate (53.61 a day,
+the same as the V8s' rate) × the hire days; it still costs line 15, which Baseplan (12) no longer has (536.10); VMS19 and VMS20 are
+billed to the V8s at 0.00. Royal Wolf 1,364.23 is 9974042's keyed cost rate for the refrigerated container (line 2, 13–30 Oct),
+billed to the V8s at 1,428.00 plus 1,000.00 delivery and 1,000.00 pickup.

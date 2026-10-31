@@ -87,9 +87,8 @@ assert set(p for p, _, _ in PH) <= set(HOME), set(p for p, _, _ in PH) - set(HOM
 assert abs(sum(PC.values()) - 34926.79) < 0.01
 CON = collections.defaultdict(float); CONP = collections.defaultdict(float)
 CLABEL = {'9961976': ('NVAC', 'generators', 'named on the note'), '9972648': ('STPS', 'water barriers', 'named on the note'),
-          '9968862': ('KINP', 'buildings (P refs, CP1)', 'shared by units moved'), '9968955': ('KINP', 'toilets (WC and PG refs)', 'shared by units moved'),
-          '9994954': ('KINP', 'concert: buildings P38–P42, generators', 'named (3 h) and shared'), '9968929': ('KINP', 'T0022, a team’s own hire schedule', 'shared by units moved'),
-          'none': ('KINP', 'no contract named on the day (no units in or out)', 'KINP')}
+          'KINP': ('KINP', 'everything else: buildings, toilets, the concert, site days', 'KINP; no contract number needed (your call, 31 Oct)')}
+KINP_CON = {'9968862', '9968955', '9994954', '9968929', 'none'}
 for r in rows[2:]:
     if not (r and r[0][:4] == '2026'): continue
     who, mo = r[2], mon.get(r[1]); segs = [x.strip() for x in r[8].split(' · ')]
@@ -100,7 +99,8 @@ for r in rows[2:]:
         if g and i + 1 < len(segs):
             hh = re.match(r'^([\d.]+) h$', segs[i + 1])
             if hh:
-                CON[(g.group(2), mo)] += float(hh.group(1)); CONP[(who, g.group(2), mo)] += float(hh.group(1))
+                ck = 'KINP' if g.group(3) == 'KINP' else g.group(2)
+                CON[(ck, mo)] += float(hh.group(1)); CONP[(who, ck, mo)] += float(hh.group(1))
                 if g.group(3) == 'KINP': named_kinp += float(hh.group(1))
     rest = brh.get('KINP', 0) - named_kinp
     cs = collections.Counter()
@@ -110,8 +110,8 @@ for r in rows[2:]:
     if rest > 1e-9:
         if cs:
             t_ = sum(cs.values())
-            for c_, n_ in cs.items(): CON[(c_, mo)] += rest * n_ / t_; CONP[(who, c_, mo)] += rest * n_ / t_
-        else: CON[('none', mo)] += rest; CONP[(who, 'none', mo)] += rest
+            for c_, n_ in cs.items(): CON[('KINP', mo)] += rest * n_ / t_; CONP[(who, 'KINP', mo)] += rest * n_ / t_
+        else: CON[('KINP', mo)] += rest; CONP[(who, 'KINP', mo)] += rest
 assert abs(sum(CON.values()) - sum(PH.values())) < 0.01 and set(c for c, _ in CON) <= set(CLABEL), set(c for c, _ in CON) - set(CLABEL)
 
 # ---------------- revenue: the 19 invoices, and the hire days on their dated lines by month
@@ -158,20 +158,20 @@ with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8
             if any(vals): w.writerow([typ, b] + ['%.1f' % v for v in vals])
     w.writerow(['Labour hire cost', ''] + ['%.2f' % LH.get(k, 0) for k in MO])
     w.writerow([]); w.writerow(['Staff hours by contract', 'Branch', 'What', 'How', 'September h', 'October h', 'November h (to 13 Nov)'])
-    for c_ in ['9968862', '9968955', '9994954', '9968929', '9972648', '9961976', 'none']:
+    for c_ in ['KINP', '9972648', '9961976']:
         hs = [CON.get((c_, k), 0) for k in MO]
-        if any(hs): w.writerow([c_ if c_ != 'none' else 'no contract'] + list(CLABEL[c_]) + ['%.1f' % v for v in hs])
+        if any(hs): w.writerow([c_] + list(CLABEL[c_]) + ['%.1f' % v for v in hs])
     w.writerow([]); w.writerow(['Person', 'Home branch', 'Contract', 'September h', 'October h', 'November h (to 13 Nov)'])
     for who in sorted(HOME):
-        for c_ in ['9968862', '9968955', '9994954', '9968929', '9972648', '9961976', 'none']:
+        for c_ in ['KINP', '9972648', '9961976']:
             hs = [CONP.get((who, c_, k), 0) for k in MO]
-            if any(hs): w.writerow([who, HOME[who][0], c_ if c_ != 'none' else 'no contract (KINP)'] + ['%.1f' % v for v in hs])
+            if any(hs): w.writerow([who, HOME[who][0], c_ if c_ != 'KINP' else 'KINP'] + ['%.1f' % v for v in hs])
     w.writerow([]); w.writerow(['Person', 'Type', 'Home branch (record)', 'Journal', 'Receiving branch', 'September h', 'October h', 'November h (to 13 Nov)', 'Labour hire $'])
     for who in sorted(HOME):
         home, typ = HOME[who]
         for b in ('KINP', 'STPS', 'NVAC'):
             hs = [PH.get((who, k, b), 0) for k in MO]
-            if any(hs): w.writerow([who, typ, home, 'stays' if b == home else home + ' -> ' + b, b] + ['%.1f' % v for v in hs] + ['%.2f' % sum(PC.get((who, k, b), 0) for k in MO)])
+            if any(hs): w.writerow([who, typ, home, ('stays' if b == home else home + ' -> ' + b) + {'STPS': ' (9972648)', 'NVAC': ' (9961976)'}.get(b, ''), b] + ['%.1f' % v for v in hs] + ['%.2f' % sum(PC.get((who, k, b), 0) for k in MO)])
 
 # ---------------- HTML
 def tbl(head, body, cls=''):
@@ -195,18 +195,19 @@ for who in sorted(HOME, key=lambda w: (HOME[w][1].startswith('Labour hire'), w))
         hs = [PH.get((who, k, b), 0) for k in MO]
         if not any(hs): continue
         cs = [PC.get((who, k, b), 0) for k in MO]
-        move = 'stays on ' + b if b == home else 'journal ' + home + ' → ' + b
+        cn = {'STPS': ' (9972648, water barriers)', 'NVAC': ' (9961976, generators)'}.get(b, '')
+        move = ('stays on ' + b if b == home else 'journal ' + home + ' → ' + b) + cn
         prow += "<tr%s><td><b>%s</b><br><span class='w'>%s</span></td><td>%s</td><td><b>%s</b></td>%s<td class='n'>%s</td><td class='n'>%s</td></tr>" % (
             "" if b == home else " class='acc'", e(who), e(typ), home, e(move), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs),
             '{:,.1f}'.format(sum(hs)), m(sum(cs)) if sum(cs) else '')
 PERSON_HTML = tbl(['Person · type', 'Home branch', 'Journal', '#Sep h', '#Oct h', '#Nov h (to 13 Nov)', '#Total h', '#Labour hire $'], prow)
-order_c = ['9968862', '9968955', '9994954', '9968929', '9972648', '9961976', 'none']
+order_c = ['KINP', '9972648', '9961976']
 crow2 = ''
 for c_ in order_c:
     hs = [CON.get((c_, k), 0) for k in MO]
     if not any(hs): continue
     br_, what_, how_ = CLABEL[c_]
-    crow2 += "<tr><td><b>%s</b> · %s<br><span class='w'>%s · %s</span></td>%s<td class='n'><b>%s</b></td></tr>" % (e(c_ if c_ != 'none' else 'No contract'), br_, e(what_), e(how_), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs), '{:,.1f}'.format(sum(hs)))
+    crow2 += "<tr><td><b>%s</b> · %s<br><span class='w'>%s · %s</span></td>%s<td class='n'><b>%s</b></td></tr>" % (e(c_ if c_ != 'KINP' else 'KINP'), br_, e(what_), e(how_), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs), '{:,.1f}'.format(sum(hs)))
 crow2 += "<tr class='sub'><td>All staff hours</td>%s<td class='n'>%s</td></tr>" % (''.join("<td class='n'>%s</td>" % '{:,.1f}'.format(sum(CON.get((c_, k), 0) for c_ in order_c)) for k in MO), '{:,.1f}'.format(sum(CON.values())))
 CON_HTML = tbl(['Contract · branch', '#Sep h', '#Oct h', '#Nov h (to 13 Nov)', '#Total h'], crow2)
 prow2 = ''
@@ -214,7 +215,7 @@ for who in sorted(HOME, key=lambda w: (HOME[w][1].startswith('Labour hire'), w))
     for c_ in order_c:
         hs = [CONP.get((who, c_, k), 0) for k in MO]
         if not any(hs): continue
-        prow2 += "<tr><td>%s</td><td>%s</td><td>%s</td>%s<td class='n'>%s</td></tr>" % (e(who), HOME[who][0], e(c_ if c_ != 'none' else 'no contract (KINP)'), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs), '{:,.1f}'.format(sum(hs)))
+        prow2 += "<tr><td>%s</td><td>%s</td><td>%s</td>%s<td class='n'>%s</td></tr>" % (e(who), HOME[who][0], e(c_ if c_ != 'KINP' else 'KINP (no contract number)'), ''.join("<td class='n'>%s</td>" % ('{:,.1f}'.format(v) if v else '—') for v in hs), '{:,.1f}'.format(sum(hs)))
 CONP_HTML = tbl(['Person', 'Home branch', 'Contract', '#Sep h', '#Oct h', '#Nov h', '#Total h'], prow2)
 css = """:root{--ink:#1d2730;--mute:#6b7681;--line:#e3e7eb;--bg:#f7f8f6;--card:#fff;--accent:#9c470c;--sub:#f1f4f6;--acc:#fff4e5;--nd:#fdecea}
 @media (prefers-color-scheme:dark){:root{--ink:#e6eaee;--mute:#9aa5b0;--line:#2b343c;--bg:#14191e;--card:#1b2228;--accent:#f0a46a;--sub:#222b33;--acc:#33281a;--nd:#3a1f1c}}
@@ -232,7 +233,7 @@ body = f"""<main><h1>GC500 October month-end</h1><p class='s'>As at 31 Oct 2026 
 {tbl(['Type', 'Branch', '#September h', '#October h', '#November h (to 13 Nov)', '#Total h'], lrow)}
 <h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
 """ + PERSON_HTML + """
-<h2>2c · Staff hours by contract</h2><p class='s'>Where the running sheet's note names a contract and hours (generators, water barriers, the concert pair), those hours go to it exactly. The rest of a KINP day is shared across the contracts whose units came in or went out that day, by the number of units on each (the note lists them). Days with no units in or out name no contract, so those hours stay KINP with no contract. Labour hire costs are coded to Installs.</p>
+<h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes. Everything else is KINP, with no contract number (your call, 31 Oct). Labour hire costs are coded to Installs.</p>
 """ + CON_HTML + """
 <h3>By person and contract</h3>
 """ + CONP_HTML + """
