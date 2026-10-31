@@ -59,7 +59,8 @@ its own row, the folds and every old card. Nothing is typed; nothing is written 
 - `tests/test_v1271.cjs`: desktop 78/78, phone 78/78. `tests/print_v1271.cjs`: 28/28 (both PDFs four landscape pages, the rule on
   every page, no word of the refusal page, the basis and headings readable as words, the print note's new word).
 - Before: the same Print on the live v12.69 gives a one-page PDF of the refusal page and no figure (`evidence/before_live_v1269/`).
-- `toolchain/harness/sweep.js`: desktop and phone, see `evidence/sweep_*.json` and the board entry.
+- `toolchain/harness/sweep.js`: desktop and phone, 27 tabs, the same ten routes as v12.69 draw no pane of their own, 0 errors,
+  0 console, 0 writes (`evidence/sweep_*.json`).
 - Codex's independent pack (`review_31Oct2026_pl_independent/tests/`), run here on one frozen snapshot (record 12600, state SHA-256
   `dc92ee7b…`, kept private): capture PASS on the live v12.69 and on the candidate; `verify_cents.py` with the same-snapshot
   baseline **258/258** (no existing figure moved); `verify_presentation.cjs` **24/24 desktop, 24/24 phone**, the real `#printCosts`
