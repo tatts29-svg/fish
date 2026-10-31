@@ -18,6 +18,7 @@ money = lambda x: '{:,.2f}'.format(x)
 hrs = lambda x: ('{:,.1f}'.format(x) if abs(x - round(x)) > 1e-9 else '{:,.0f}'.format(x))
 hcsv = lambda x: ('%.2f' % x).rstrip('0').rstrip('.')   # the CSV keeps the source's precision (Codex audit F09: 11.38 h, not 11.4); the page still shows one decimal
 
+ROLE = {'Frank Devilles': 'NVAC by role: the event weekend’s mechanic, on 9961976 (31 Oct 2026)', 'Ludwig Chee': 'NVAC by role: the event weekend’s electrician, on 9961976 (31 Oct 2026)'}
 out_rows, cell = [], defaultdict(lambda: [0.0, 0.0])
 gens = defaultdict(dict)
 for r in sorted(rows, key=lambda x: (x['date'], x['person'])):
@@ -30,10 +31,12 @@ for r in sorted(rows, key=lambda x: (x['date'], x['person'])):
     if left > 1e-9: by['KINP'] = by.get('KINP', 0.0) + left
     priced = r['type'] == 'External' and r['cost'] is not None
     cost = float(r['cost'] or 0) if priced else 0.0
+    how = 'KINP rule' if not split else ('from the note' + (', rest KINP' if left > 1e-9 else ''))
+    if r['person'] in ROLE and not split:   # Andrew, 31 Oct: the event weekend's mechanic and electrician, both on NVAC (v1.9: the sheet carries it, not only the pack)
+        by = {'NVAC': h}; how = ROLE[r['person']]
     for b, bh in by.items():
         c = cell[(m, b)]; c[1] += bh
         if priced and h > 0: c[0] += cost * bh / h
-    how = 'KINP rule' if not split else ('from the note' + (', rest KINP' if left > 1e-9 else ''))
     note = r.get('note') or ''
     # the generator words on the note: "Generators <contract> <branch> · <n> h · GN04 mob, GN10 mob" (one 1.5 h per unit)
     segs = [s.strip() for s in note.split(' · ')]

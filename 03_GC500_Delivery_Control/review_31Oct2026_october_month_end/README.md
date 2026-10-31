@@ -238,3 +238,78 @@ Andrew: "Yes enter 223.63 for Alfie's nights on the record".
   is 12 pages, A4, through LibreOffice.
 
 Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> alfie_nights.json dated_costs_now.json`.
+
+## Pack v1.9: two independent audits, Codex's v1.8 recheck, and new facts from Andrew (1 Nov)
+
+Andrew: "Audit again talk to codex". Two independent audits ran; neither used the builder or `audit_pack.py`:
+- **Audit A:** revenue re-read from the 19 original invoice PDFs and Baseplan (12), and every figure cross-checked across
+  the page, workbook, CSV and printed PDF.
+- **Audit B:** costs, accruals and labour rebuilt from record 12676.
+
+Neither found an arithmetic difference. Each finding below was verified against the source before it went in. Codex's v1.8
+recheck (`../review_31Oct2026_pl_independent/PACK_v18_RECHECK.md`) asked for four source fixes; all four are in.
+
+**Record change (1 Nov, `../record_01Nov2026_alfie_nights_off/`).** Andrew: "alfie nevere worked 23-25". Alfie Harris's
+23–25 Oct nights were taken off through the page's own `removeOurCost`. Record 12676 → 12685; every other document unchanged.
+
+**New sources from Andrew (private, not committed):**
+- **Suppliers export:** the sub-hire cost lines in Coates' system for 9961265 and 9974042. These are the only two contracts
+  with sub-rental lines in Baseplan (12). 9968955 has none, so Event Portables' cost still waits on their invoice.
+- **Job Connect PO amounts:**
+
+  | PO | Week ending | Amount |
+  |---|---|---|
+  | 4665091 | 11 Oct | 2,636.56 |
+  | 4670882 | 25 Oct | 6,069.48 |
+  | 4671825 | 25 Oct | 5,244.91 |
+
+  These are in `jc_pos.json` beside the 12685 captures.
+
+**What changed.** Each item maps to a finding: A = audit A, B = audit B, C1–C4 = Codex.
+
+| Item | Change |
+|---|---|
+| Alfie Harris | 9 nights: 5 in October, accrued; 4 in November, forecast. Accommodation equals the record's 109 lines by month. |
+| Premiair (B3, A3) | The system's cost lines for the eight boards on 9961265 (36.25 a day; VMS24 26.00 on NVAC). VMS11 is billed on 10001927 L1 and has no cost line: estimated at 7 days × 36.25. Replaces the 53.61 customer rate. |
+| Premiair comparison (A3) | VMS19 and VMS20 are billed on 10001927 L7–L8, and VMS11 on L1. |
+| Royal Wolf | Its cost line confirms the figure: 32 days at 42.63. |
+| Job Connect | w/e 11 Oct and w/e 25 Oct are at their PO amounts. w/e 18 Oct stays at the running sheet until both its POs' amounts are in (4667755 and 4668970). Eric Lucian's week is 2,435.83 on Job Connect's charge; only his GC500 hours (10.5 h on 14 Oct) are journaled to KINP, as the pack already has them. |
+| Transport by branch (B1) | A load with no branch on the record goes by what it carries: the 11 fencing loads to STPS; forklifts to MEAD; VMS moves to STPS; the generator trailer to NVAC; buildings, the event container and a fridge to KINP. Captured by `inputs/transport_loads.cjs` on 12685. The job total is unchanged. |
+| Match-up (C1) | Forecast loads whose docket Baseplan (12) ties to a contract sit against that contract and stay forecast. The rest stay untied; nothing is counted twice. |
+| Line references (A1) | ACCOM / ETC is 9968862 L140 and 9968955 L163; sync labour is 9994954 L13. These are contract lines, not the invoices' own line numbers. |
+| PM labour (A5) | 15.22 h. |
+| Labour sheet (A4) | `inputs/build_sheet.py` puts Frank Devilles' and Ludwig Chee's event hours on NVAC by role, so the sheet matches the pack. |
+| Accounts (B5, B8) | Accommodation is 3520 only. The Event Portables journal is split 2126 hire and 3325 servicing. |
+| Labels (B6, B4, A7) | Q6846 is water deliveries and a drinking-water tank. The transport row labels are corrected. Other wording: the title, the revenue tile, 38 building shells and 4 booths or ticket offices, a site shift listed as equipment, "time on hire". |
+| Open items (B7, A2, A7) | Added: the page's unpriced movements, Advanced's hourly relocation and removal, 9974042's billing from 28 Sep, and the unbilled 9968955 L143. The 350 kVA transport is shown as already billed. The accruals not made here are named, for Finance. |
+| Outputs (A7) | Total rows on every money sheet. The CSV gets its revenue total, the forecast row and the removed invoice. |
+| Hours display (C3) | Hours show two decimals in the workbook. |
+| Open items printing (C2) | Row heights are set for wrapped text. Every note prints in full in the LibreOffice PDF, checked line-end to line-end. |
+| Section 1b (C4) | The introduction now agrees with the comparison's WB13 exclusion. |
+
+**Defaults, pending Andrew's ruling.**
+- **Fencing cartage:** on STPS.
+- **Accruals:** carrier loads and consumables POs are not accrued here; named for Finance.
+- **Premiair basis:** the system's cost lines, as above.
+
+**v1.9 figures:**
+- revenue 1,001,902.14 (unchanged);
+- costs 541,726.65 (Sep 147,015.00 · Oct 377,908.23 · Nov 16,803.42);
+- difference 460,175.49;
+- to accrue 209,921.65;
+- branch costs: KINP 215,732.83 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20.
+
+**`audit_pack.py`** now also checks:
+- Premiair and Royal Wolf against the suppliers export, line by line;
+- transport by branch, recomputed from the loads;
+- the forecast docket ties;
+- the Job Connect PO weeks;
+- references, labels, total rows and the hours format.
+
+Result on v1.9: 209 checks, 209 pass. Run on the 12676 reads instead, it fails, as it should.
+
+**Printed:** the page is 10 pages, A4 landscape, with no table overflowing. The workbook is 17 pages through LibreOffice,
+and all 13 Open items print in full.
+
+Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12685>/alfie_nights.json <12685>/dated_costs.json`. The 12685
+folder also holds `transport_loads.json`, `suppliers.xlsx` and `jc_pos.json`.
