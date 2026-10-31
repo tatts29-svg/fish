@@ -62,3 +62,10 @@ its own row, the folds and every old card. Nothing is typed; nothing is written 
   same-snapshot baseline **258/258** (no existing figure moved); `verify_presentation.cjs` **24/24 desktop, 24/24 phone**, the real
   `#printCosts` through to the PDF. It first ran 23/24: the PDF's text read the letter-spaced heading as "AU D E X G S T"; the
   eyebrows are now tight on paper and read "AUD EX GST · AS AT SAT 31 OCT 2026". Codex runs the pack independently as well.
+
+## Open
+
+- The transport row's split by branch adds to the row's job-end figure, not its so-far figure, and the note does not say so.
+  It will read "job end by branch" in the next rebuild, together with whatever Codex's independent run finds (PR #1, 6537380904).
+- Codex's independent run of his pack on this exact source, his look at the printed pages and the phone face, and his view on the
+  Finance semantics (finding 3). Then the previews to Andrew; upload only on his word.
