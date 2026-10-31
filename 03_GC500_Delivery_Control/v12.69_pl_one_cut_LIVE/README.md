@@ -4,8 +4,10 @@ Author: Andrew Fisher. Built and tested as v12.67 on 31 Oct 2026 07:4x AEST on t
 bytes); rebuilt unchanged as **v12.69** at 09:3x AEST on the live v12.68 (`fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547`,
 16,520,784 bytes, the picked-up artwork on every Demob card) after it went live at 09:1x. The script and style are byte for byte the
 v12.67 candidate's and keep their ids (pl1267); `patch_v1269.py` pins the v12.68 base and turns the footer v12.68 → v12.69.
-Candidate `038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb`, 16,540,615 bytes. **Not uploaded**: previews first,
-the upload on Andrew's word.
+Candidate `038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb`, 16,540,615 bytes. **LIVE 31 Oct 2026 10:25 AEST** on Andrew's word "Go live" (10:2x AEST): the guard held (live unchanged since the build), record 12600 at
+upload; two cache-busted public reads serve the candidate byte for byte (`evidence/live_reads.txt`); the tests on the public page pass
+desktop 41/41 and phone 41/41 (`evidence/live_test_desktop.txt`, `evidence/live_test_phone.txt`). Record runners now expect
+`GC500_EXPECTED_PAGE_SHA=038bd277…`.
 
 Andrew, 30 Oct 2026 20:2x AEST: "I also want the p&l reviewed again. I want it clean and clear. Easy to understand. And u
 understand where costs are." The review and the mock-up are in `review_30Oct2026_pl_again/`. Andrew, 31 Oct 06:5x AEST: "Yes
@@ -91,7 +93,7 @@ Friday, so job-end revenue is 1,018,879.23, not 1,027,917.09, and the difference
 
 ## Checks
 
-- `toolchain/build.sh v12.69 v12.69_pl_one_cut_DRAFT/patch_v1269.py`: 222 inline scripts, check_page PASS.
+- `toolchain/build.sh v12.69 v12.69_pl_one_cut_LIVE/patch_v1269.py`: 222 inline scripts, check_page PASS.
 - `tests/test_v1269.cjs`: desktop 41/41, phone 41/41 on the v12.69 candidate (31 Oct 2026 09:3x AEST, record 12600); the same
   41/41 on the v12.67 candidate at 07:4x.
 - `toolchain/harness/sweep.js`: desktop and phone, 27 tabs, 0 errors, 0 console, 0 writes.
