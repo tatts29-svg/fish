@@ -32,11 +32,11 @@ originals); everything on the cost side below comes from the live record and the
 | Transport by branch (v1.9) | `inputs/transport_loads.cjs` (on 12685, `OUT=`) | `transport888Core().rows` + `.planned` (`branch`, `src`, `item`, `discipline`, `actual`, `forecast.amount`) | each load once (recorded figure, else forecast) on the branch the record gives it; a load with no branch: the fencing loads to STPS, else by what it carries (forklifts MEAD, VMS STPS, the 100 kVA trailer NVAC, buildings / the event container / a fridge KINP) |
 | Forecast loads tied by docket (v1.9) | same | the loads' `dd` / `dockets` + Baseplan (12) "Delivery Dockets" | a forecast load whose docket Baseplan (12) names a hire contract sits against it in the match-up, still forecast; the rest untied |
 | Premiair and Royal Wolf (v1.9) | Andrew's suppliers export, 1 Nov 2026 (private, not committed; beside the 12685 captures) | Coates' sub-hire cost lines for 9961265 and 9974042 (the only contracts with sub-rental lines in Baseplan (12)) | days charged × daily cost rate: Premiair's eight boards at 36.25 a day (VMS24 26.00, NVAC); VMS11 (10001927 L1, no cost line) estimated at 7 days × 36.25; Royal Wolf 32 days at 42.63. Replaces the 53.61 customer rate |
-| Job Connect PO amounts (v1.9) | Andrew, 1 Nov 2026 (private `jc_pos.json` beside the 12685 captures) | the Job Connect POs | w/e 11 Oct at PO 4665091; w/e 25 Oct at POs 4670882 + 4671825; w/e 18 Oct stays at the running sheet until both its POs (4667755, 4668970) are in |
+| Job Connect invoice amounts (v1.9) | Andrew, 1 Nov 2026: the amounts on the invoices (private `jc_pos.json` beside the 12685 captures) | the Job Connect POs | w/e 11 Oct at its invoice (PO 4665091); w/e 25 Oct at its two invoices (POs 4670882, 4671825); invoiced weeks are not accrued; w/e 18 Oct stays at the running sheet until both its POs (4667755, 4668970) are in |
 
 Checks the pack asserts (v1.9):
 - costs by month = costs by branch = 541,726.65 (job end);
-- accruals = the journals (209,921.65);
+- accruals = the journals (195,970.70);
 - revenue = the 18 invoices to V8 Supercars (1,001,063.07) + the 839.07 November forecast. Invoice 25124396 is to Gold
   Coast Helitours and is not GC500 revenue;
 - every revenue row cross-foots: the hire by month + services = the invoice's ex GST.

@@ -255,9 +255,9 @@ recheck (`../review_31Oct2026_pl_independent/PACK_v18_RECHECK.md`) asked for fou
 **New sources from Andrew (private, not committed):**
 - **Suppliers export:** the sub-hire cost lines in Coates' system for 9961265 and 9974042. These are the only two contracts
   with sub-rental lines in Baseplan (12). 9968955 has none, so Event Portables' cost still waits on their invoice.
-- **Job Connect PO amounts:**
+- **Job Connect invoice amounts:**
 
-  | PO | Week ending | Amount |
+  | PO | Week ending | Invoice amount |
   |---|---|---|
   | 4665091 | 11 Oct | 2,636.56 |
   | 4670882 | 25 Oct | 6,069.48 |
@@ -273,7 +273,7 @@ recheck (`../review_31Oct2026_pl_independent/PACK_v18_RECHECK.md`) asked for fou
 | Premiair (B3, A3) | The system's cost lines for the eight boards on 9961265 (36.25 a day; VMS24 26.00 on NVAC). VMS11 is billed on 10001927 L1 and has no cost line: estimated at 7 days × 36.25. Replaces the 53.61 customer rate. |
 | Premiair comparison (A3) | VMS19 and VMS20 are billed on 10001927 L7–L8, and VMS11 on L1. |
 | Royal Wolf | Its cost line confirms the figure: 32 days at 42.63. |
-| Job Connect | w/e 11 Oct and w/e 25 Oct are at their PO amounts. w/e 18 Oct stays at the running sheet until both its POs' amounts are in (4667755 and 4668970). Eric Lucian's week is 2,435.83 on Job Connect's charge; only his GC500 hours (10.5 h on 14 Oct) are journaled to KINP, as the pack already has them. |
+| Job Connect | w/e 11 Oct and w/e 25 Oct are at their invoice amounts and, being invoiced, are not accrued. w/e 18 Oct stays at the running sheet until both its POs' amounts are in (4667755 and 4668970). Eric Lucian's week is 2,435.83 on Job Connect's charge; only his GC500 hours (10.5 h on 14 Oct) are journaled to KINP, as the pack already has them. |
 | Transport by branch (B1) | A load with no branch on the record goes by what it carries: the 11 fencing loads to STPS; forklifts to MEAD; VMS moves to STPS; the generator trailer to NVAC; buildings, the event container and a fridge to KINP. Captured by `inputs/transport_loads.cjs` on 12685. The job total is unchanged. |
 | Match-up (C1) | Forecast loads whose docket Baseplan (12) ties to a contract sit against that contract and stay forecast. The rest stay untied; nothing is counted twice. |
 | Line references (A1) | ACCOM / ETC is 9968862 L140 and 9968955 L163; sync labour is 9994954 L13. These are contract lines, not the invoices' own line numbers. |
@@ -296,7 +296,7 @@ recheck (`../review_31Oct2026_pl_independent/PACK_v18_RECHECK.md`) asked for fou
 - revenue 1,001,902.14 (unchanged);
 - costs 541,726.65 (Sep 147,015.00 · Oct 377,908.23 · Nov 16,803.42);
 - difference 460,175.49;
-- to accrue 209,921.65;
+- to accrue 195,970.70;
 - branch costs: KINP 215,732.83 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20.
 
 **`audit_pack.py`** now also checks:
