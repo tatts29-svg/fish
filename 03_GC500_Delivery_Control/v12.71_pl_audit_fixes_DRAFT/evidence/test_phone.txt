@@ -1,4 +1,4 @@
-v12.71 phone: 72/72 checks passed
+v12.71 phone: 78/78 checks passed
 model: {"revNow":1012101.16,"revJob":1018879.23,"total":1012101.16,"known":455995.07,"difference":524203.15,"before":556106.09,"d0":524203,"d0before":556106,"diffJob":481118.66,"diffNow":524203.15,"handToDate":487898.01,"plJob":537760.57,"wagesToDate":31902.94,"hireStream":31902.94,"gaps":5,"lhKnown":31902.94,"lhJob":34926.79,"lhCost":{"known":31902.94,"toCome":3023.85,"job":34926.79,"unpricedHours":0,"shifts":53},"revB":[["KINP",447476.68],["MEAD",27429.95],["NVAC",49683.51],["STPS",494289.09]]}
 tiles: [{"l":"Charged to the V8s","v":"$1,012,101.16","s":"so far on the record · $1,018,879.23 at job end"},{"l":"What it costs us","v":"$487,898.01","s":"so far · $537,760.57 at job end"},{"l":"Difference so far","v":"$524,203.1551.8%","s":"$481,118.66 · 47.2% at job end · not a margin until the costs are complete"}]
 revenue: Our gear on hire1005the contracts at their rate, the card where a line has none | $221,095.76 | $221,095.76
@@ -24,7 +24,7 @@ costs: Temporary fencing and crowd controlSTPS
   Coates wages3210hours only, never priced here (the project manager, 23 Oct 2026) | 1,180 h | 1,526 h
   Salary allowance, living away3210forecast, job end | — | $14,700.00
   Any other event-related expenses
-  Transport paid to the carriers2120 · 2140KINP $42,073.62 · NVAC $9,313.78 · STPS $4,186.02 · MEAD $1,237.23 · 59 schedule figures written with a plus, so at least that | $33,150.09 | $56,810.65
+  Transport paid to the carriers2120 · 2140job end by branch: KINP $42,073.62 · NVAC $9,313.78 · STPS $4,186.02 · MEAD $1,237.23 · 59 schedule figures written with a plus, so at least that | $33,150.09 | $56,810.65
   Accommodation, 112 nights3520 · 3501KINP · 12 nights not priced yet, at the person’s own average | $22,023.96 | $24,581.57
   Meals and expenses3520 · 3501KINP | $5,664.32 | $5,664.32
   Nothing recorded under Equipment costs (including generators and associated assets), Any installation-related costs, Buy invoicing branch costs.
@@ -34,11 +34,11 @@ cue: $45,525.00 of the so-far costs is carried at quotes or estimates, not final
 branches: [{"h":"KINP · Brisbane Portables","r":["$477,997.22","$227,499.61","$250,497.61"]},{"h":"STPS · Brisbane Traffic","r":["$469,180.02","$299,709.95","$169,470.07"]},{"h":"NVAC · North Power and HVAC","r":["$44,272.04","$9,313.78","$34,958.26"]},{"h":"MEAD · Brisbane Mechanical Specialist","r":["$27,429.95","$1,237.23","$26,192.72"]},{"h":"THE JOB","r":["$1,018,879.23","$537,760.57","$481,118.66"]}]
 bridge: Charged to the V8s
   Finance’s invoicing viewthe branch on the hire contracts, as the Finance handover invoices it | $447,476.68 | $494,289.09 | $49,683.51 | $27,429.95 | $1,018,879.23
-  Event labour revenue moved to KINPthe people’s staffing revenue, the project manager’s ruling of 29 Oct 2026 | +$30,520.54 | -$25,109.07 | -$5,411.47 | — | —
+  Event labour revenue moved to KINPthe existing management allocation: the people’s staffing revenue follows them | +$30,520.54 | -$25,109.07 | -$5,411.47 | — | —
   Management viewthe cards above | $477,997.22 | $469,180.02 | $44,272.04 | $27,429.95 | $1,018,879.23
   What it costs us
   Finance’s handovertravel, accommodation and meals by the labour on each branch, as its CSV has them | $224,655.72 | $301,605.88 | $9,313.78 | $2,185.19 | $537,760.57
-  Travel, accommodation and meals moved to KINPwith the people whose costs they are | +$2,843.89 | -$1,895.93 | — | -$947.96 | —
+  Travel, accommodation and meals moved to KINPwith the people whose costs they are, the project manager’s ruling of 29 Oct 2026 | +$2,843.89 | -$1,895.93 | — | -$947.96 | —
   Management viewthe cards above | $227,499.61 | $299,709.95 | $9,313.78 | $1,237.23 | $537,760.57
   Difference
   Finance’s view | $222,820.96 | $192,683.21 | $40,369.73 | $25,244.76 | $481,118.66

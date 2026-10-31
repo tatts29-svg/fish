@@ -7,8 +7,8 @@
    The face of the Costs & P&L pane becomes: three tiles (Charged to the V8s · What it costs us · Difference so far, job end under
    each); What we charge the V8s, by stream in plain words with the ledger code in small print; Where the costs are, one table under
    the eight categories management expect, each line naming who we pay and what for, so far and job end; By branch, job end, as
-   cards (the project manager's ruling of 29 Oct 2026: the people's event labour revenue, their travel, accommodation and meals sit
-   on KINP); Not in it yet; then three closed folds: Finance's lines (the ledger table of v12.65 as it was, gross margin and
+   cards (the management view: the people's travel, accommodation and meals on KINP by the project manager's ruling of 29 Oct 2026,
+   their event labour revenue on KINP by the existing management allocation); Not in it yet; then three closed folds: Finance's lines (the ledger table of v12.65 as it was, gross margin and
    contribution), Fencing, everything included, and Workings (every other card, moved, not removed, every button still bound).
    Every figure is the page's own models' (pl770Model, moneySummary, fh866Model, cj764Model) and the face says whether it ties:
    What it costs us is the Finance handover's total to the cent; Difference so far is the Forecast P&L's difference, which from
@@ -109,8 +109,9 @@ function ledger() {
   /* v12.71 - Finance's invoicing view beside the management view, and the bridge between them (the independent audit of 31 Oct
      2026, finding 3). Finance's view is the handover's own figures, untouched: revenue by the branch on the hire contracts
      (fh866Model().inv), costs by its own split (costTotal.by: travel, accommodation and meals by the labour on each branch). The
-     management view (the figures above, the cards) moves the people's event labour revenue to KINP (the project manager's ruling,
-     29 Oct 2026) and their travel, accommodation and meals with them. The moves are worked from their sources and shown as moves;
+     management view (the figures above, the cards) puts the people's travel, accommodation and meals on KINP (the project manager's
+     ruling, 29 Oct 2026) and their event labour revenue with them (the existing management allocation: an inference from that
+     ruling, put to him for a word on 29 Oct 2026 and not yet given). The moves are worked from their sources and shown as moves;
      no branch attribution is written back anywhere. */
   var finRev = zero(), finCost = zero(), finDiff = zero(), mvRev = zero(), mvCost = zero();
   (F.inv || []).forEach(function (r) { if (r.branch in finRev) finRev[r.branch] = r2(finRev[r.branch] + (num(r.job) ? r.job : 0)); });
@@ -205,7 +206,7 @@ function model() {
     {name: 'Salary allowance, living away', code: '3210', now: null, job: allow.job, note: 'forecast, job end'}
   ]);
   grp('Any other event-related expenses', '', [
-    {name: 'Transport paid to the carriers', code: '2120 · 2140', now: tr.now, job: tr.job, note: [byWords(trans.by), plus ? fmtNum(plus) + ' schedule figures written with a plus, so at least that' : ''].filter(Boolean).join(' · ')},
+    {name: 'Transport paid to the carriers', code: '2120 · 2140', now: tr.now, job: tr.job, note: [byWords(trans.by) ? 'job end by branch: ' + byWords(trans.by) : '', plus ? fmtNum(plus) + ' schedule figures written with a plus, so at least that' : ''].filter(Boolean).join(' · ')},
     {name: 'Accommodation' + (nights ? ', ' + fmtNum(nights) + ' nights' : ''), code: '3520 · 3501', now: accom.toDate, job: accom.job, note: ['KINP', unpriced ? fmtNum(unpriced) + ' nights not priced yet, at the person’s own average' : ''].filter(Boolean).join(' · ')},
     {name: 'Meals and expenses', code: '3520 · 3501', now: meals.toDate, job: meals.job, note: 'KINP'}
   ]);
@@ -281,17 +282,17 @@ function faceHtml(Mo) {
     + '<div class="tblwrap"><table class="pl1267-tbl pl1267-ltbl pl1267-branchtbl pl1267-bridge"><thead>' + bh + '</thead><tbody>'
     + sub('Charged to the V8s')
     + brow('Finance’s invoicing view', 'the branch on the hire contracts, as the Finance handover invoices it', L.finRev, L.finRevT)
-    + brow('Event labour revenue moved to KINP', 'the people’s staffing revenue, the project manager’s ruling of 29 Oct 2026', L.mvRev, 0, 'pl1267-move', sgn)
+    + brow('Event labour revenue moved to KINP', 'the existing management allocation: the people’s staffing revenue follows them', L.mvRev, 0, 'pl1267-move', sgn)
     + brow('Management view', 'the cards above', L.revJobB, L.revJobT, 'pl1267-tot')
     + sub('What it costs us')
     + brow('Finance’s handover', 'travel, accommodation and meals by the labour on each branch, as its CSV has them', L.finCost, L.finCostT)
-    + brow('Travel, accommodation and meals moved to KINP', 'with the people whose costs they are', L.mvCost, 0, 'pl1267-move', sgn)
+    + brow('Travel, accommodation and meals moved to KINP', 'with the people whose costs they are, the project manager’s ruling of 29 Oct 2026', L.mvCost, 0, 'pl1267-move', sgn)
     + brow('Management view', 'the cards above', L.costB, L.costJobB, 'pl1267-tot')
     + sub('Difference')
     + brow('Finance’s view', '', L.finDiff, L.finDiffT)
     + brow('Management view', '', L.contribB, L.contribT, 'pl1267-grand pl1267-final')
     + '</tbody></table></div>'
-    + '<p class="pl1267-foot">' + tick(L.checks.branchesRevenue && L.checks.branchesCost && L.checks.branchesContribution, 'the branches foot to the job') + ' ' + tick(L.checks.finance && L.checks.bridge, 'Finance’s view is the handover’s figures to the cent, and the moves bridge it to the cards') + ' <span class="pl1267-rule">Management view: the people’s event labour revenue' + (Mo.moved ? ' (' + esc(money(Mo.moved)) + ')' : '') + ', their travel, accommodation and meals sit on KINP (the project manager, 29 Oct 2026); gear and moves sit on the branch of the gear. Finance’s handover and its CSV keep the contract branches; nothing is written back.</span></p></section>';
+    + '<p class="pl1267-foot">' + tick(L.checks.branchesRevenue && L.checks.branchesCost && L.checks.branchesContribution, 'the branches foot to the job') + ' ' + tick(L.checks.finance && L.checks.bridge, 'Finance’s view is the handover’s figures to the cent, and the moves bridge it to the cards') + ' <span class="pl1267-rule">Management view: the people’s travel, accommodation and meals sit on KINP by the project manager’s ruling of 29 Oct 2026; their event labour revenue' + (Mo.moved ? ' (' + esc(money(Mo.moved)) + ' moved from the other branches)' : '') + ' sits on KINP by the existing management allocation; gear and moves sit on the branch of the gear. Finance’s handover and its CSV keep the contract branches; nothing is written back.</span></p></section>';
   var t5 = '<section id="pl1267-gaps" class="card pl1267-gaps nosfold">' + eyebrow('NOT IN IT YET · NAMED, NEVER ADDED')
     + (Mo.gaps.length ? '<ul>' + Mo.gaps.map(function (x) { return '<li>' + esc(x.what) + (x.owner ? '<small>' + esc(x.owner) + '</small>' : '') + '</li>'; }).join('') + '</ul>' : '<p>Nothing named.</p>') + '</section>';
   return t1 + t2 + t3 + t4 + t5;
@@ -315,7 +316,7 @@ function ledgerHtml(L) {
     + tot('Contribution', L.contrib.now, L.contrib.job, 'pl1267-grand pl1267-final', L.contribPc.now, L.contribPc.job)
     + '</tbody></table></div>'
     + '<p class="pl1267-foot">' + tick(L.checks.revenue && L.checks.direct, 'revenue and cost of sales tie to the Forecast P&L to the cent') + ' ' + tick(L.checks.contribution, 'contribution is the P&L’s difference to job end') + '</p>'
-    + '<h3 class="pl1267-h3">By branch · job end</h3>'
+    + '<h3 class="pl1267-h3">By branch · job end · the management view</h3>'
     + '<div class="tblwrap"><table class="pl1267-tbl pl1267-ltbl pl1267-branchtbl"><thead>' + bh + '</thead><tbody>'
     + brow('Revenue · on the record', L.revRec, L.revRecT)
     + brow('Revenue · job end', L.revJobB, L.revJobT, 'pl1267-grand')

@@ -20,9 +20,14 @@ a cue to add. Handed to this module's author to implement (PR #1, 6536684611). W
    revenue by the branch on the hire contracts and costs by its own split - and the two moves that bridge it to the cards, branch
    by branch, with a tick that the bridge foots to the cent. No branch attribution changes anywhere: the handover and its CSV keep
    the contract branches.
-4. One line under the cost table: what inside "so far" is a quote or a supplier estimate with no invoice yet (read from the lines'
-   own words), and what job end adds as forecast.
-5. Footer v12.69 -> v12.71.
+4. One line under the cost table: what inside "so far" is carried at quotes or estimates (in the lines' own words), and what job
+   end adds as forecast.
+5. From Codex's independent review of the first candidate (PR #1, 6537377974): the revenue move is named the existing management
+   allocation (the cost move is the project manager's ruling of 29 Oct 2026; the revenue following the people is an inference
+   still open to his word, board note of 29 Oct 2026 16:25); the Finance handover card keeps its cents (money, not money0, in
+   fh866Html); the folded branch table is named the management view; the transport split reads "job end by branch"; and, from
+   its optional polish, the page's print note says "printed" where it said "asset map printed" on every print.
+6. Footer v12.69 -> v12.71.
 
 Nothing is typed; nothing is written to the record. The pl1267 style and script keep their ids; the block is replaced whole.
 
@@ -62,6 +67,19 @@ def patch(text):
                " D.head.appendChild(st);\n flag(); /* v12.71 */\n W.ts1053 = {armed, arm, disarm, ask, flag, stats: G, SHORT, SMS, CHECK_ID};", 'the module end')
     if mod.count('flag()') != 6: raise ValueError('flag(): expected the definition and five calls in the module, found %d' % mod.count('flag()'))
     text = text[:i] + mod + text[j:]
+
+    # 2b. the Finance handover card keeps its cents (Codex's independent review, PR #1 6537377974): inside fh866Html only, every
+    #     figure through money, not money0; categories, hours and source branches unchanged
+    a = text.index('function fh866Html(){'); b = text.index('\nfunction ', a + 10)
+    card = text[a:b]
+    if card.count('money0(') != 20: raise ValueError('fh866Html: expected 20 money0 figures, found %d' % card.count('money0('))
+    card = card.replace('money0(', 'money(')
+    text = text[:a] + card + text[b:]
+    if 'money0(' in text[a:a + len(card)]: raise ValueError('fh866Html still rounds a figure to the dollar')
+
+    # 2c. the page's own print note said "asset map printed" on every print, the P&L included (Codex's review, optional polish):
+    #     "printed" is true of every print; the provenance after it (dataset, shared record) is unchanged
+    text = sub1(text, "' · asset map printed '", "' · printed '", 'the print note')
 
     # 2-4. the face: the pl1267 block replaced whole, ids kept
     a = text.index('<style id="pl1267-style">')

@@ -60,6 +60,7 @@ PY`, {encoding: 'utf-8'}).trim();
       check(/AUD\s+EX\s+GST/.test(flat) && /AS AT \w+ \d+ \w+ \d{4}/i.test(flat) && /WHAT WE CHARGE THE V8S/.test(flat), `${label}: the PDF's text reads the basis and the headings as words (for searching and copying): ` + (flat.match(/P&\s?L[^$]{0,80}/) || [''])[0]);
       check(missing.length === 0, `${label}: every tile figure, every cost line so far, every branch figure and Finance’s view are on the paper: missing ` + JSON.stringify(missing));
       check(!/Workings|Finance’s lines|Fencing, everything included|THE SAME FIGURES ON THE LEDGER/.test(flat) && !has('THESAMEFIGURESONTHELEDGER'), `${label}: the folds stay on the screen`);
+      check(!/asset map printed/.test(flat) && /· printed \d{4}-\d\d-\d\d · dataset/.test(flat), `${label}: the print note says printed, not asset map printed, and keeps its provenance: ` + (flat.match(/Coates Industrial Solutions[^\n]{0,160}/) || [''])[0]);
       const strip = stripByPage(file), sm = strip.match(/^(\d+) \[([\d, ]+)\]$/);
       check(sm && Number(sm[1]) === pages && sm[2].split(',').every(x => Number(x) >= 1), `${label}: the twin-steer rule runs down the edge of every page: ` + strip);
       check(pages >= 1 && pages <= 4, `${label}: the P&L prints on a few landscape pages: ` + pages);

@@ -55,7 +55,18 @@ const {open} = require('../../toolchain/harness/open_page');
       const eyebrow4 = txt(document.querySelector('#pl1267-branch .fin745-eyebrow'));
       const smallMoney = [...document.querySelectorAll('#pl1267-cost td small, #pl1267-branch td small')].flatMap(e => (e.textContent.match(/\$[\d,]+(?:\.\d+)?/g) || []));
       const cue = txt(document.querySelector('#pl1267-cost .pl1267-cue'));
+      /* Codex's review of the first candidate (6537377974): which move is a ruling, the folded table's name, the transport split's
+         period, and the Finance handover card's cents */
+      const rule = txt(document.querySelector('#pl1267-branch .pl1267-rule'));
+      const ledgerH3 = txt(document.querySelector('#pl1267-finance h3.pl1267-h3'));
+      const trRow = [...document.querySelectorAll('#pl1267-cost tbody tr')].find(tr => /^Transport paid to the carriers/.test(txt(tr.children[0]) || ''));
+      const transport = trRow ? {note: txt(trRow.querySelector('td small')), job: txt(trRow.children[2])} : null;
+      const hd = document.createElement('div'); hd.innerHTML = holdAssets(() => fh866Html());
+      /* each text node read on its own: the card's cells sit side by side, so its whole text runs one cell's figure into the next */
+      /* a rate the record states in words ("the programme $100/hour rate", in a supplier pricing note) is a rate, not a figure */
+      const handoverMoney = []; { const tw = document.createTreeWalker(hd, NodeFilter.SHOW_TEXT); while (tw.nextNode()) for (const m of tw.currentNode.nodeValue.matchAll(/-?\$[\d,]+(?:\.\d+)?(\/\w+)?/g)) if (!m[1]) handoverMoney.push(m[0]); }
       return {
+        rule, ledgerH3, transport, handoverMoney,
         bridge, bridgeCols, eyebrow4, smallMoney, cue, soft: Mo.soft, softNow: Mo.softNow, printFlag: document.documentElement.classList.contains('ts1053-armed'),
         L: {cols: L.cols, finRev: L.finRev, finCost: L.finCost, finDiff: L.finDiff, mvRev: L.mvRev, mvCost: L.mvCost, revJobB: L.revJobB, costB: L.costB, contribB: L.contribB, moved: L.moved, checks: L.checks},
         fin: {costBy: F.costTotal.by, inv: F.inv.map(x => [x.branch, x.job]), movedBy: F.costs.filter(c => c.kind === 'expenses' || c.kind === 'labour').map(c => c.by)},
@@ -134,6 +145,14 @@ const {open} = require('../../toolchain/harness/open_page');
     check(expMove > 0 && Math.abs(cell(mvCostRow, k) - expMove) < 0.005, 'the cost move to KINP is the other branches’ share of travel, accommodation and meals in the handover, to the cent: ' + expMove);
     check(Math.abs(cell(mvRevRow, jobCol)) < 0.005 && Math.abs(cell(mvCostRow, jobCol)) < 0.005 && same(finRevRow.cells[jobCol + 1], m.revJob) && same(finCostRow.cells[jobCol + 1], m.plJob) && same(finDiffRow.cells[jobCol + 1], m.diffJob), 'both views come to the same job; the moves sum to nothing');
     check(r.L.checks.finance === true && r.L.checks.bridge === true, 'the model’s own bridge checks pass: ' + JSON.stringify(r.L.checks));
+    /* Codex's review (6537377974): the revenue move is the existing management allocation; the cost move is the 29 Oct ruling */
+    check(/existing management allocation/.test(mvRevRow.cells[0]) && !/ruling/i.test(mvRevRow.cells[0]), 'the revenue move is named the existing management allocation, not a ruling: ' + mvRevRow.cells[0]);
+    check(/project manager’s ruling of 29 Oct 2026/.test(mvCostRow.cells[0]), 'the cost move carries the project manager’s ruling: ' + mvCostRow.cells[0]);
+    check(/travel, accommodation and meals sit on KINP by the project manager’s ruling of 29 Oct 2026/.test(r.rule) && /event labour revenue .*sits on KINP by the existing management allocation/.test(r.rule) && !/revenue[^;]*\(the project manager/.test(r.rule), 'the line under the bridge says which move is a ruling and which an allocation: ' + r.rule);
+    check(/BY BRANCH · JOB END · THE MANAGEMENT VIEW/i.test(r.ledgerH3 || ''), 'the folded branch table is named the management view: ' + r.ledgerH3);
+    const trParts = [...((r.transport && r.transport.note) || '').matchAll(/\b([A-Z]{4}) (\$[\d,]+\.\d\d)/g)].map(x => money2(x[2]));
+    check(r.transport && /^job end by branch: /.test(r.transport.note) && trParts.length >= 2 && Math.abs(r2(trParts.reduce((t, v) => t + v, 0)) - money2(r.transport.job)) < 0.005, 'the transport split says job end, and its parts add to the job-end figure to the cent: ' + JSON.stringify(r.transport));
+    check(r.handoverMoney.length > 10 && r.handoverMoney.every(x => /\.\d\d$/.test(x)), 'the Finance handover card keeps its cents on every figure (' + r.handoverMoney.length + '): ' + JSON.stringify(r.handoverMoney.filter(x => !/\.\d\d$/.test(x)).slice(0, 5)));
     /* v12.71: cents in the small print; the cue; the print flag */
     check(r.smallMoney.length >= 4 && r.smallMoney.every(x => /\.\d\d$/.test(x)), 'every figure in the small print says its cents: ' + JSON.stringify(r.smallMoney.slice(0, 8)));
     const softRows = r.cost.filter(x => x.cells.length === 3 && /quote|estimate/i.test(x.cells[0]) && !/^(What it costs us|Difference so far)/.test(x.cells[0]));
