@@ -27,7 +27,8 @@ w/e 25 Oct 11,774.71 POs 4670882/4671825; w/e 1 Nov 3,835.37 no PO) · Premiair 
 
 ## Labour to 13 Nov (hours; Coates wages and salary hours only)
 
-Coates wages: KINP 391 · 457.5 · 215; STPS 12 · 78; NVAC 6 · 30. Salary: KINP 198 · 256 · 110. Labour hire: KINP 110.5 · 380.3 · 52.5,
+Coates wages: KINP 391 · 385.5 · 215; STPS 12 · 78; NVAC 6 · 102 (Frank Devilles and Ludwig Chee, 36 h each over the event weekend,
+moved from KINP to NVAC on Andrew's word, 31 Oct; see pack v1.2 below). Salary: KINP 198 · 256 · 110. Labour hire: KINP 110.5 · 380.3 · 52.5,
 STPS 8 (Oct); cost 6,284.23 · 25,618.71 · 3,023.85 = 34,926.79.
 
 ## Revenue
@@ -47,8 +48,9 @@ service lines on the invoices (405,700.77) until each is matched to the record.
 Andrew: "can we mention Labour Hire their costs have been Coded to Installs . can we mention Contract Numbers where staff hours go to",
 then "anything outside of KINP we mention the Contract. rest is KINP we dont need to mention contracts Nos". Labour hire is shown as
 coded to Installs. Outside KINP the contract is named, from the hours on the running sheet's notes: water barriers 9972648 (STPS) 98 h
-(Sep 12, Oct 86); generators 9961976 (NVAC) 36 h (Sep 6, Oct 30). Everything else is KINP with no contract number: 2,170.8 h
-(Sep 699.5, Oct 1,093.8, Nov 377.5). By person in the sheet's sections 2b and 2c and the CSV.
+(Sep 12, Oct 86); generators 9961976 (NVAC) 108 h (Sep 6, Oct 102: the generators' 36 h and, from 31 Oct, Frank Devilles's and
+Ludwig Chee's 72 h over the event weekend). Everything else is KINP with no contract number: 2,098.8 h (Sep 699.5, Oct 1,021.8,
+Nov 377.5). By person in the sheet's sections 2b and 2c and the CSV.
 
 Event Portables, Premiair and Royal Wolf (Andrew: "i cant find any invoices for them either"): none has an invoice on the record.
 Event Portables 101,747.00 is the four unsigned quotes at the received and counted quantities (Q6845 42,175.00; Q6844 51,372.00;
@@ -72,12 +74,12 @@ Royal Wolf 2,428.00 (L2 and its delivery and pickup share) against an estimated 
 `build_monthend.py` now writes the pack: `GC500_PL_final.xlsx` (Summary, Revenue by invoice, Costs by supplier, Costs by branch,
 Accruals vs charges, Journals, Labour by person, Open items) and `GC500_PL_final.html` (private). It supersedes the separate final
 P&L sheet (`build_final_pl.py`). Every sheet cross-foots to the cent: revenue 1,003,876.19 (19 invoices 1,003,037.12 + November
-forecast 839.07); costs 543,382.98 (Sep 135,170.76 · Oct 382,488.71 · Nov 25,723.51; KINP 229,400.58 · STPS 302,809.37 · NVAC 9,935.80 ·
+forecast 839.07); costs 543,382.98 (Sep 135,187.78 · Oct 382,488.71 · Nov 25,706.49 after the salary allowance fix; KINP 229,400.58 · STPS 302,809.37 · NVAC 9,935.80 ·
 MEAD 1,237.23); difference 460,493.21; accruals at 31 Oct 212,472.50 = the journals.
 
 Defaults applied and told to Andrew (his call to reverse): Job Connect w/e 20 Sep and 4 Oct at their invoices (−0.15, −178.00 against
 the running sheet); Premiair line 15 (536.10) out of the estimate (not on 9961265 in Baseplan (12)); Frank Devilles and Ludwig Chee on
-KINP until he confirms their event roles; revenue kept in October as invoiced. The concert sync PO 4670270 sits on NVAC by its GL code
+KINP until he confirmed their event roles (settled 31 Oct: NVAC, see pack v1.2); revenue kept in October as invoiced. The concert sync PO 4670270 sits on NVAC by its GL code
 (201.NVAC.2144.0); Kyle Gover's 8 h of labour hire on the water barriers (460.78) is journaled to STPS. Codex asked to audit
 independently, PR1 6541369248.
 
@@ -86,5 +88,18 @@ independently, PR1 6541369248.
 - Revenue: invoice month (October) for all 19 invoices; the November hire days are information only; Andrew's call open on moving them. The 839.07 generator pick-up charge is a November forecast, not invoiced.
 - Advanced: 214,225.00 invoiced and receipted; 79,184.70 an ESTIMATE (our dockets and notes at their rates) until invoices on POs 4647522 and 4647523; 750.00 a forecast for demob week 2.
 - Event Portables 101,747.00, Premiair 3,270.21, Royal Wolf 1,364.23, Job Connect w/e 11 Oct to 8 Nov, Alfie Harris's 12 nights: ESTIMATES, no invoice seen.
-- Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; Frank Devilles and Ludwig Chee on KINP; revenue in October.
+- Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; revenue in October.
 - `build_final_pl.py` is superseded by the pack in `build_monthend.py`; its fencing note no longer says "nothing estimated".
+
+## Pack v1.2: Frank Devilles and Ludwig Chee on NVAC (31 Oct)
+
+Andrew, asked which roles they did over the event weekend: "Mechanic and electrician." On 29 Oct he had asked "So labour costs for
+nvac for my mechanic and electrician should this go to nvac over event ?" (answered yes: NVAC bills the Event Gen Tech). Both
+people's 36 h (23–25 Oct, 12 h a day, on KINP before) now sit on NVAC 9961976. The record doesn't say which of them is the
+mechanic and which the electrician, and the pack doesn't need it. Hours only, so costs, accruals and journals are unchanged. NVAC
+bills one Event Gen Tech, the event labour scope's one a day (31 h on 25121022; 4 h on KINP's 25123999). Open: Ludwig Chee's three
+event nights (655.71) stay in KINP's accommodation unless Andrew moves them with his hours.
+
+The page (`GC500_PL_final.html`) had printed sections 2, 3 and 4's tables and amounts as raw code since v1, because the segments
+after the inserted tables weren't evaluated. That's fixed, and the sections are numbered once each (4 the undated items, 5 the
+journals, 6 the open items). The workbook is built separately and was right throughout.

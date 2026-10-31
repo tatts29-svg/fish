@@ -70,8 +70,8 @@ for r in rows[2:]:
         except ValueError: pass
 assert abs(sum(LH.values()) - 34926.79) < 0.01
 HOME = {'Aaron Zelvis': ('KINP', 'Coates wages'), 'Alfie Harris': ('NTSP', 'Coates wages'), 'Andrew Fisher': ('NOIS', 'Salary'), 'Jayden Paul': ('KINP', 'Coates wages'),
-        'Wayne Crimmin': ('STPS', 'Coates wages'), 'Frank Devilles': ('BFIS', 'Coates wages (employment and pay basis unconfirmed on the record)'),
-        'Ludwig Chee': ('NSNA', 'Coates wages (employment and pay basis unconfirmed on the record)'), 'Daniel Gough': ('KINP', 'Labour hire, Job Connect, 55.70 an hour'),
+        'Wayne Crimmin': ('STPS', 'Coates wages'), 'Frank Devilles': ('BFIS', 'Coates wages · event weekend mechanic / electrician, on NVAC (Andrew, 29 and 31 Oct); pay basis unconfirmed on the record'),
+        'Ludwig Chee': ('NSNA', 'Coates wages · event weekend mechanic / electrician, on NVAC (Andrew, 29 and 31 Oct); pay basis unconfirmed on the record'), 'Daniel Gough': ('KINP', 'Labour hire, Job Connect, 55.70 an hour'),
         'Kyle Gover': ('KINP', 'Labour hire, Job Connect, 53.05 an hour'), 'Eric Lucian': ('NOIS', 'Labour hire, 55.70 an hour; the record: home branch NOIS, charge branch KINP')}
 PH = collections.defaultdict(float); PC = collections.defaultdict(float)
 for r in rows[2:]:
@@ -86,7 +86,7 @@ for r in rows[2:]:
 assert set(p for p, _, _ in PH) <= set(HOME), set(p for p, _, _ in PH) - set(HOME)
 assert abs(sum(PC.values()) - 34926.79) < 0.01
 CON = collections.defaultdict(float); CONP = collections.defaultdict(float)
-CLABEL = {'9961976': ('NVAC', 'generators', 'named on the note'), '9972648': ('STPS', 'water barriers', 'named on the note'),
+CLABEL = {'9961976': ('NVAC', 'generators; the event weekend’s mechanic and electrician', 'named on the note; the mechanic and electrician on Andrew’s word, 29 and 31 Oct'), '9972648': ('STPS', 'water barriers', 'named on the note'),
           'KINP': ('KINP', 'everything else: buildings, toilets, the concert, site days', 'KINP; no contract number needed (your call, 31 Oct)')}
 KINP_CON = {'9968862', '9968955', '9994954', '9968929', 'none'}
 for r in rows[2:]:
@@ -112,6 +112,17 @@ for r in rows[2:]:
             t_ = sum(cs.values())
             for c_, n_ in cs.items(): CON[('KINP', mo)] += rest * n_ / t_; CONP[(who, 'KINP', mo)] += rest * n_ / t_
         else: CON[('KINP', mo)] += rest; CONP[(who, 'KINP', mo)] += rest
+# Andrew, 29 Oct: "So labour costs for nvac for my mechanic and electrician should this go to nvac over event ?" (answered yes: NVAC bills the
+# Event Gen Tech); 31 Oct, asked which roles Frank and Ludwig did over the event weekend: "Mechanic and electrician." Both sets of hours go to NVAC.
+ROLE_MOVE = {'Frank Devilles': ('NVAC', '9961976'), 'Ludwig Chee': ('NVAC', '9961976')}
+for who_, (br_, con_) in ROLE_MOVE.items():
+    for mo_ in MO:
+        h_ = PH.pop((who_, mo_, 'KINP'), 0)
+        if h_:
+            PH[(who_, mo_, br_)] += h_; L[('Coates wages', 'KINP', mo_)] -= h_; L[('Coates wages', br_, mo_)] += h_
+        hc_ = CONP.pop((who_, 'KINP', mo_), 0)
+        if hc_:
+            CONP[(who_, con_, mo_)] += hc_; CON[('KINP', mo_)] -= hc_; CON[(con_, mo_)] += hc_
 assert abs(sum(CON.values()) - sum(PH.values())) < 0.01 and set(c for c, _ in CON) <= set(CLABEL), set(c for c, _ in CON) - set(CLABEL)
 
 # ---------------- revenue: the 19 invoices, and the hire days on their dated lines by month
@@ -257,15 +268,15 @@ body = f"""<main><h1>GC500 P&amp;L, final</h1><p class='s'>As at 31 Oct 2026 · 
 <h2>1 · Costs by supplier and month, with what to accrue</h2><p class='s'>Orange rows: accrue at 31 Oct (they reverse on 1 Nov and the invoice lands against them). Red rows: the record carries no date; where they sit is said on the row.</p>
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', '#Sep', '#Oct', '#Nov', '#Accrue 31 Oct', 'Status · how dated'], crow)}
 <h2>1b · Accruals beside what we charged the V8s</h2><p class='s'>Each accrued supplier next to what we charged the V8s for the same work. Where no supplier invoice has been seen, the cost is an estimate and says so; it is replaced when the invoice comes. Charges are before the damage waiver except the fencing, which shows its invoice in full.</p>
-""" + ACC_HTML + """
-<h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet on your rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out). Coates wages and salary are hours only.</p>
+""" + ACC_HTML + f"""
+<h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet on your rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only.</p>
 {tbl(['Type', 'Branch', '#September h', '#October h', '#November h (to 13 Nov)', '#Total h'], lrow)}
-<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
-""" + PERSON_HTML + """
-<h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes. Everything else is KINP, with no contract number (your call, 31 Oct). Labour hire costs are coded to Installs.</p>
-""" + CON_HTML + """
+<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: your rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, your mechanic and electrician over the event weekend, on NVAC: your word, 29 and 31 Oct). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
+""" + PERSON_HTML + f"""
+<h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes; Frank Devilles and Ludwig Chee, your mechanic and electrician over the event weekend (23–25 Oct, 36 h each), on 9961976 on your word (29 and 31 Oct). NVAC bills one Event Gen Tech, the event labour scope's one a day: 31 h, {m(4735.97)} on 25121022 (and 4 h, {m(675.50)} on KINP's 25123999). Everything else is KINP, with no contract number (your call, 31 Oct). Labour hire costs are coded to Installs.</p>
+""" + CON_HTML + f"""
 <h3>By person and contract</h3>
-""" + CONP_HTML + """
+""" + CONP_HTML + f"""
 <h2>3 · The 19 invoices, and the hire days on them by month</h2><p class='s'>All 19 are dated 27–30 Oct. For each invoice, its dated hire lines (and the waiver on them) by the days on hire in each month, from the invoice's own on/off-hire times. Services and sales carry no dates on the invoice; they're in the last column.</p>
 {tbl(['Invoice', 'Date', 'Contract · branch', '#Ex GST', '#Hire days in Sep', '#in Oct', '#in Nov', '#Services and sales (no dates)'], rrow)}
 <h2>4 · What the record can't date yet</h2><ul>
@@ -318,7 +329,7 @@ assert abs(sum(j[4] for j in JOURNALS) - acc_total) < 0.005, (sum(j[4] for j in 
 jrow = ''.join("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (e(a), e(b_), e(c_), e(d_), m(v)) for a, b_, c_, d_, v in JOURNALS)
 jrow += "<tr class='sub'><td>Accruals at 31 Oct (each reverses on 1 Nov; the invoice lands against it)</td><td></td><td></td><td></td><td class='n'>%s</td></tr>" % m(acc_total)
 OPEN = ['November revenue: kept in October as invoiced (hire days falling in November shown for information). Your call if they move.',
-        'Frank Devilles and Ludwig Chee: on KINP until you confirm their event roles (Gen Tech on NVAC 9961976; VMS movers on STPS 9961265; or toilets on KINP).',
+        'Ludwig Chee’s three event nights (655.71, 23–25 Oct) sit in KINP’s accommodation with everyone else’s; say if they should follow his hours to NVAC.',
         'Event Portables: their invoice; check block cleans (51 done, none charged), water (9,600.00, not charged), Porta Lisa (3,350.00, not charged), tank pump-outs (18 done, 24 charged).',
         'Advanced: invoices for POs 4647522 and 4647523; possible extra 2,577.00 (36524, note 24479, the week 6 balance) not accrued.',
         'Premiair and Royal Wolf: invoices; VMS19 and VMS20 billed to the V8s at 0.00; the keyed Premiair cost rate equals the V8s rate.',
@@ -383,6 +394,7 @@ import re as _re
 body = _re.sub(r"<div class='k'>.*?</div></div>\n", lambda _m: new_tiles, body, count=1, flags=_re.S)
 body = body.replace("<h2>1 · Costs by supplier and month, with what to accrue</h2>", PACK_HTML.split('<h2>4 · Journals')[0] + "<h2>1 · Costs by supplier and month, with what to accrue</h2>")
 body = body.replace('</main>', '<h2>4 · Journals' + PACK_HTML.split('<h2>4 · Journals')[1] + '</main>')
+body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4 · Journals', '<h2>5 · Journals')   # one number per section
 (OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 October month-end</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 print('costs Sep %.2f Oct %.2f Nov %.2f = %.2f · accrue %.2f' % (tot[0], tot[1], tot[2], sum(tot), acc_total))
 print('revenue hire days Sep %.2f Oct %.2f Nov %.2f · undated %.2f · total %.2f' % (RT['Sep'], RT['Oct'], RT['Nov'], UND, RT['Sep'] + RT['Oct'] + RT['Nov'] + UND))
