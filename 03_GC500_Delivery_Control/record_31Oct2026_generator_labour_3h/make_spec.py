@@ -5,8 +5,8 @@ that day we use alfie" / "Lets allocate 3 hrs to each use alfie or if no alfie u
 demob this is the labour charge why should kinp get the lot. Other branches need that share".
 
 Replaces this morning's one hour per generator move (record_31Oct2026_kinp_generator_labour/) on the same rows, so the hours
-noted against the generator's contract and branch are 1.5 per generator per move. The person is the first of the three he
-named, in his order, on the roster that day with room in the day:
+noted against the generator's contract and branch are 1.5 per generator per move. The person is the first of the three
+people Andrew named, in that order, on the roster that day with room in the day:
   - the first person named was on every generator day but Friday 30 Oct (Andrew: "Aaron didnt work friday"), where GN01's
     demob goes to the second (on 06:30-17:00);
   - Monday 26 Oct: the first person's 11 h already carries 4 h on the water barriers, so five demobs at 1.5 h (7.5 h) do not
