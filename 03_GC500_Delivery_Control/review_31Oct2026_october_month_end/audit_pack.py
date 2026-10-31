@@ -1,10 +1,12 @@
 """Author: Andrew Fisher. Independent audit of the GC500 P&L pack: recomputes the figures from the source data (not from the
 builder) and checks the workbook, page and CSV agree with them and with each other, to the cent. Read only.
 
-    python3 -I audit_pack.py <pack_dir> <progress_dir> [<alfie_nights.json>]
+    python3 -I audit_pack.py <pack_dir> <progress_dir> [<alfie_nights.json> [<dated_costs_now.json>]]
 
 <pack_dir> holds GC500_PL_final.xlsx/.html, GC500_October_month_end.csv and GC500_labour_by_month_and_branch.csv;
-<progress_dir> holds the private inputs (invoices.json, dated_costs.json, cost_sources.json, bp12.json, dated_all.json).
+<progress_dir> holds the private inputs (invoices.json, dated_costs.json, cost_sources.json, bp12.json, dated_all.json),
+captured at record 12640; <alfie_nights.json> is inputs/alfie_nights.cjs's read and <dated_costs_now.json> is
+inputs/dated_costs.cjs run with OUT=..., both on the record as it now stands (12676, after Alfie's 12 nights were priced).
 """
 import csv, html, json, re, sys, collections
 from pathlib import Path
@@ -12,6 +14,7 @@ import openpyxl
 
 PK, PR = Path(sys.argv[1]), Path(sys.argv[2])
 ALF = Path(sys.argv[3]) if len(sys.argv) > 3 else None
+NOW = Path(sys.argv[4]) if len(sys.argv) > 4 else None
 r2 = lambda x: round(x + 1e-9, 2)
 fmt = lambda x: '{:,.2f}'.format(x)
 OK, BAD = [], []
@@ -71,17 +74,33 @@ acc = [x for x in dc['exp'] if x['k'] == 'accommodation' and x['amount']]
 A = {m: r2(sum(x['amount'] for x in acc if x['d'][:7] == m)) for m in ('2026-09', '2026-10', '2026-11')}
 eq('tracker accommodation Sep', A['2026-09'], 6370.36); eq('tracker accommodation Oct', A['2026-10'], 11851.89); eq('tracker accommodation Nov', A['2026-11'], 3801.71)
 accr = [r for r in cs if r[0].startswith('Accommodation')]
-k97 = [r for r in accr if r[3].startswith('97 priced nights')][0]; lud = [r for r in accr if r[3].startswith('Ludwig')][0]; alf = [r for r in accr if r[3].startswith('Alfie')][0]
+k97 = [r for r in accr if r[3].startswith('97 ')][0]; lud = [r for r in accr if r[3].startswith('Ludwig')][0]; alf = [r for r in accr if r[3].startswith('Alfie')][0]
 eq('97 nights row Oct = tracker Oct less Ludwig 655.71', k97[8], A['2026-10'] - 655.71); eq('Ludwig row = 3 x 218.57', lud[8], 3 * 218.57)
 check('Ludwig row on NVAC', lud[1] == 'NVAC', lud[1])
 if ALF:
     al = json.load(open(ALF))['alfie']
-    un = [x for x in al if x['amt'] is None]
+    TWELVE = ('2026-10-05', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-23', '2026-10-24', '2026-10-25', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12')
+    un = [x for x in al if x['d'] in TWELVE]   # his 12 nights: unpriced to record 12640, priced at 223.63 from record 12676 (1 Nov)
+    check("Alfie's 12 nights carry 223.63 on the record (12676), as the pack says", len(un) == 12 and all(x['amt'] == 223.63 for x in un), [(x['d'], x['amt']) for x in un])
     late = [x['amt'] for x in al if x['amt'] is not None and ('2026-10-26' <= x['d'] <= '2026-10-29' or '2026-11-02' <= x['d'] <= '2026-11-05')]
     check("Alfie's rate on 26-29 Oct and 2-5 Nov is 223.63 on all 8 nights", len(late) == 8 and set(late) == {223.63}, late)
     n_oct = sum(1 for x in un if x['d'][:7] == '2026-10'); n_nov = sum(1 for x in un if x['d'][:7] == '2026-11')
     check('Alfie unpriced nights: 8 Oct, 4 Nov', (n_oct, n_nov) == (8, 4), (n_oct, n_nov))
     eq('Alfie Oct = 8 x 223.63', alf[8], r2(n_oct * 223.63)); eq('Alfie Nov = 4 x 223.63', alf[9], r2(n_nov * 223.63)); eq('Alfie accrues October only', alf[10], r2(n_oct * 223.63))
+if NOW:   # the record as it now stands (12676): only Alfie's 12 amounts differ from 12640, and the pack's accommodation equals it
+    dn = json.load(open(NOW)); TW = {'2026-10-05', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-23', '2026-10-24', '2026-10-25', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12'}
+    for k in ('labour', 'transport', 'transportWeights', 'fencingWeeks'):
+        check('record now: %s unchanged since 12640' % k, json.dumps(dn[k], sort_keys=True) == json.dumps(dc[k], sort_keys=True))
+    is12 = lambda x: x['k'] == 'accommodation' and x.get('who') == 'Alfie Harris' and x['d'] in TW
+    key = lambda x, blank: json.dumps({**{kk: vv for kk, vv in x.items() if kk not in ('who', 'id', 'keys')}, **({'amount': None} if blank else {})}, sort_keys=True)
+    check('record now: the cost lines are the 12640 lines bar Alfie\'s 12 amounts', sorted(key(x, is12(x)) for x in dn['exp']) == sorted(key(x, False) for x in dc['exp']))
+    n12 = [x for x in dn['exp'] if is12(x)]
+    check('record now: Alfie\'s 12 nights at 223.63', len(n12) == 12 and all(x['amount'] == 223.63 for x in n12), [(x['d'], x['amount']) for x in n12])
+    accn = [x for x in dn['exp'] if x['k'] == 'accommodation']
+    check('record now: 112 accommodation lines, none unpriced', len(accn) == 112 and all(x['amount'] not in (None, '') for x in accn), len(accn))
+    for j, m in enumerate(('2026-09', '2026-10', '2026-11')):
+        eq('pack accommodation %s = the record now, to the cent' % m, sum((r[7 + j] or 0) for r in accr), r2(sum((x['amount'] or 0) for x in accn if x['d'][:7] == m)))
+    eq('pack accommodation total = the record now (24,707.52)', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in accr), 24707.52)
 meals = [x for x in dc['exp'] if x['k'] in ('meals', 'misc') and x['amount']]
 M = {m: r2(sum(x['amount'] for x in meals if x['d'][:7] == m)) for m in ('2026-09', '2026-10', '2026-11')}
 mr = [r for r in cs if r[0].startswith('Meals')]

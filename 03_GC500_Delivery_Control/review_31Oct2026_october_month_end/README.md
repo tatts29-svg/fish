@@ -206,3 +206,35 @@ We need clean nunbers. And fact."
   - a facts-only text check.
 
   Result on v1.7: 159 checks, 159 pass. Run it with `python3 -I audit_pack.py <pack_dir> <progress_dir> [alfie_nights.json]`.
+
+## Pack v1.8: Alfie Harris's 12 nights on the record at 223.63 (1 Nov)
+
+Andrew: "Yes enter 223.63 for Alfie's nights on the record".
+
+- **The record:** the 12 nights now carry 223.63 on the live record. They were written through the page's own `setOurCost`,
+  in Andrew's name, with a dry run and a backup first and a fresh read after. Record 12640 → 12676, 36 documents. The run
+  is in `../record_01Nov2026_alfie_accommodation/`.
+- **The pack:** the figures are unchanged from v1.7:
+  - revenue 1,001,902.14;
+  - job cost 543,508.93 (Sep 147,015.00 · Oct 379,690.51 · Nov 16,803.42);
+  - to accrue 211,703.93.
+
+  The rows now say the nights are on the record from 1 Nov, and every output names record 12676 (page, workbook header,
+  CSV).
+- **Checked against the record as it now stands:** `inputs/dated_costs.cjs` was run again on 12676 (new `OUT` setting; each
+  cost line now carries its person and id) and compared with the 12640 capture:
+  - labour, transport and fencing are identical;
+  - the cost lines differ only in Alfie's 12 amounts;
+  - accommodation on the record is 112 lines, all priced: Sep 6,370.36 · Oct 13,640.93 · Nov 4,696.23. The pack's three
+    accommodation rows (97 nights on KINP, Ludwig Chee's 3 on NVAC, Alfie's 12) equal it by month, to the cent.
+- **Labour:** the labour register was captured on record 12622 and the labour sheet says so. The two record runs since
+  changed no labour line, and each run's read-back found every other document unchanged:
+  - six purchase orders, 12622 → 12640;
+  - Alfie's nights, 12640 → 12676.
+- **`audit_pack.py`:** takes the 12676 capture as a fourth argument and checks all of the above. Alfie's 12 nights must
+  now carry 223.63, as the pack says. Result on v1.8: 171 checks, 171 pass. Run on the 12640 reads instead, it fails, as
+  it should.
+- **Printed:** the page is 9 pages, A4 landscape, with no table overflowing at landscape or portrait width. The workbook
+  is 12 pages, A4, through LibreOffice.
+
+Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> alfie_nights.json dated_costs_now.json`.

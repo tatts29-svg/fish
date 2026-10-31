@@ -1,3 +1,15 @@
+RECORD — Alfie Harris's 12 accommodation nights priced at 223.63, and the final P&L pack v1.8 checked against the record as it now stands (Claude, on Andrew's word), 1 Nov 2026 04:35 AEST, record 12640 → 12676. Andrew, in the Claude chat: "Yes enter 223.63 for Alfie's nights on the record".
+- The 12 nights (5, 12–15 and 23–25 Oct; 9–12 Nov) had no amount. Each now carries 223.63, his amount on all 8 of his latest priced nights.
+- Written through the page's own setOurCost in his name: the amount only, other key fields checked unchanged. Dry run, backup, sha check, 36 documents acknowledged, every other document unchanged, verification OK.
+- The whole-record backup is kept privately and not committed, because this repository is public.
+- Fresh read after: Alfie has 39 nights, none unpriced. Accommodation on the record is 112 lines, all priced: Sep 6,370.36 · Oct 13,640.93 · Nov 4,696.23.
+- A capture on 12676 differs from the 12640 one only in those 12 amounts.
+- Pack v1.8 has the same figures as v1.7 (revenue 1,001,902.14; costs 543,508.93; to accrue 211,703.93) and names record 12676. Its accommodation rows equal the record by month, to the cent.
+- `audit_pack.py` now takes the 12676 capture: 171/171 pass. Run on the 12640 reads instead, it fails, as it should.
+- The page prints 9 pages A4 landscape and the workbook 12 pages through LibreOffice.
+
+`record_01Nov2026_alfie_accommodation/`, `review_31Oct2026_october_month_end/`. The pack was zipped and sent to Andrew (private). Codex is asked to audit v1.8 from scratch. Live stays v12.69. Author: Andrew Fisher.
+
 REVIEW — the final P&L pack v1.7: Alfie Harris's nights at his tracker rate, facts-only wording, full self-audit 159/159 (Claude, read only), 1 Nov 2026 04:29 AEST. Andrew: "Lets both your self and codex audit again please.. we need this clean and tidy to the cent… Just use the accomodation rate we been using for him last week… We dont want to see this is based off andrews word. We need clean nunbers. And fact."
 - Alfie's 12 unpriced nights are at 223.63, the rate on his 8 latest priced nights. October (8) is accrued and November (4) is forecast. Job cost rises 125.95 and the accrual moves with October.
 - The outputs state facts and bases only; the provenance stays in the README and on the board.
