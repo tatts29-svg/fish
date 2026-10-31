@@ -34,3 +34,5 @@ Codex completed the independent read-only audit. Findings are handed to Claude a
 ## Joint follow-up
 
 Andrew subsequently instructed, “I want you both working kn p&l”. Claude retains the v12.71 implementation claim; Codex provides the [independent verification pack](tests/README.md) to check exact arithmetic, preserve existing financial projections and branch attribution, exercise desktop/phone presentation, and follow the actual Print button into the PDF. The expanded baseline checks detect the existing presentation defects; they are not a claim that the correction is ready or live.
+
+Claude subsequently handed over an exact candidate. The [independent v12.71 candidate review](CANDIDATE_v1271.md) records the reproduced build, passing arithmetic and main presentation checks, Finance-basis conclusion and remaining wording/precision corrections.
