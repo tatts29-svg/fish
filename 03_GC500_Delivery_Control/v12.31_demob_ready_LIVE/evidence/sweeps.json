@@ -1,0 +1,21 @@
+{
+ "candidate": "ab553fe31de9fd4a3e857db17b83dfd2b6943a26ef47fb1bf1ec3ba969564315",
+ "sweeps": {
+  "desktop": {
+   "tabs": 27,
+   "shown": 19,
+   "allErrors": [],
+   "console": 0,
+   "deep_links": 7,
+   "tab_errors": []
+  },
+  "phone": {
+   "tabs": 27,
+   "shown": 19,
+   "allErrors": [],
+   "console": 0,
+   "deep_links": 7,
+   "tab_errors": []
+  }
+ }
+}

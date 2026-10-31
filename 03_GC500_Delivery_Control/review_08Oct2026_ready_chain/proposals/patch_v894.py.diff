@@ -1,0 +1,24 @@
+--- a/v8.94_lighting_basis_DRAFT/patch_v894.py
++++ b/v8.94_lighting_basis_DRAFT/patch_v894.py
+@@ -33,7 +33,7 @@
+ # 2. every function the script wraps is declared exactly once in the page, and the script wraps each exactly once
+ css = (here / 'lighting894.css').read_text(); js = (here / 'lighting894.js').read_text()
+ WRAPPED = ['buildAllAssets', 'assetOf', 'chargeLines', 'drawerTidy', 'todayGroupDetails841', 'todayWorkSummary848', 'progress881Model', 'renderToday_held']
+-READ = ['allAssets', 'deliveryOf', 'deliveryAsOf', 'assetNumbersOf', 'rentalOf', 'unitsOf', 'movedAway', 'unitsAsked', 'todayWorkDay841', 'heldMemo', 'holdAssets']
++READ = ['allAssets', 'deliveryOf', 'deliveryAsOf', 'assetNumbersOf', 'rentalOf', 'unitsOf', 'movedAway', 'unitsAsked', 'todayWorkDay841', 'heldMemo', 'holdAssets', 'todayWorkMetrics840']
+ for fn in WRAPPED + READ:
+     assert s.count('function ' + fn + '(') == 1, fn + ' must be declared exactly once in the page, found %d' % s.count('function ' + fn + '(')
+ for fn in WRAPPED:
+@@ -62,6 +62,12 @@
+ s = rep(s, "function finderIndex(){\n const out = [];\n allAssets().forEach(a => {",
+         "function finderIndex(){\n const out = [];\n lighting894MapList().forEach(a => { /* v8.94 - a symbol or a copy is still findable; its drawer says what it is */",
+         'finder index', str(p))
++
++# The Lighting drawer uses the same map-scope allocation as its headline.
++# Native work rows, linked record controls and financial readers are untouched.
++s = rep(s, '    const rows = (fence && !done ? [] : area.rows || []).filter(row => total || (done ? row.complete || number(row.done) && row.done > 0 : !row.complete || number(row.remaining) && row.remaining > 0));',
++        "    const scopeRows894 = area.id === 'lighting' && summary.scope894 && summary.scope894.confirmed ? summary.scope894.scopeRows : area.rows;\n    const rows = (fence && !done ? [] : scopeRows894 || []).filter(row => total || (done ? row.complete || number(row.done) && row.done > 0 : (!row.scope894 || row.quantity > 0) && (!row.complete || number(row.remaining) && row.remaining > 0)));",
++        'Lighting scope drilldown', str(p))
+ 
+ # 4. the page's own rows, for the checks below (DATA is read, never changed)
+ start = s.index('const DATA =') + len('const DATA =')

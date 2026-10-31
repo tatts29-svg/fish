@@ -1,0 +1,86 @@
+{
+ "by": "Andrew Fisher",
+ "why": "Andrew, 20 Oct 2026: \"rememeber anything onsiet we want all charges in\", \"delivery and pick up etc all costs need to be in for everything on gc500 that is onsite\". Read-only sweep of 170 on-site references: 868 of 897 priced pieces ticked; 17 were taken off by Andrew and stay off; WC31 block 74 steps stays off (no stairs). These 11 never-ticked pieces go in.",
+ "ops": [
+  {
+   "op": "labour_on",
+   "ref": "GN04",
+   "disc": "Generators",
+   "item": "30kva",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN10",
+   "disc": "Generators",
+   "item": "20kva",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN19",
+   "disc": "Generators",
+   "item": "60kva",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN25",
+   "disc": "Generators",
+   "item": "20kva",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT05",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT05",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "demob"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT06",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "install"
+  },
+  {
+   "op": "labour_on",
+   "ref": "LT06",
+   "disc": "Lighting towers",
+   "item": "Light Tower",
+   "line": "demob"
+  },
+  {
+   "op": "labour_on",
+   "ref": "WC67",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "172824"
+  },
+  {
+   "op": "labour_on",
+   "ref": "WC67",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "0714"
+  },
+  {
+   "op": "labour_on",
+   "ref": "T0024",
+   "disc": "Toilets & amenities",
+   "item": "FWF",
+   "line": "demob",
+   "unit": "0164"
+  }
+ ]
+}

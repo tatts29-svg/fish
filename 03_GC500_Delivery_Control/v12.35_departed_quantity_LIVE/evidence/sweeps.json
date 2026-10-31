@@ -1,0 +1,21 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "errors": 0,
+  "console": 0,
+  "deep_links": 7,
+  "tabs_with_errors": 0,
+  "writes_blocked": 0
+ },
+ "phone": {
+  "tabs": 27,
+  "shown": 19,
+  "errors": 0,
+  "console": 0,
+  "deep_links": 7,
+  "tabs_with_errors": 0,
+  "writes_blocked": 0
+ },
+ "page": "build/GC500_v12.35/GC500_Delivery_Control_hosted.html sha256 10a21fc080d8e55d141318fcc53ef7d4c43aa600388531453d5126a692061476"
+}

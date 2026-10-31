@@ -1,0 +1,49 @@
+PASS page loads with no errors and the ready helper
+PASS the Demob tab opens on today, Mon 26 Oct
+PASS the pick-up list has Pick-up and Status columns
+PASS every reference on the day shows a pick-up day and one status, six cells a row
+PASS GN19: picked up Mon 26 Oct 07:00 on the NVAC load 6 of 9 (the plan's stop time)
+PASS WC29: the supplier collects Mon 26 Oct in site hours, their own transport
+PASS WC45: Mon 26 Oct 07:00 on the Coates toilet run, load 2 of 9
+PASS every row's pick-up lines are the plan's own stops (trucks816), none made up
+PASS the day splits into a Coates section and a Sub-hired section, every row under its owner
+PASS WC29 (Event Portables) sits under Sub-hired · Event Portables; GN19 under Coates
+PASS each section banner names it and counts what it holds
+PASS each banner's ready, not ready and picked up match its rows
+PASS three lights on every row: GN19 shows red lit, Not ready for collection, not checked yet
+PASS a toilet with no Emptied tick says pump it out first
+PASS every row has its three lights, red amber green, with exactly one lit, the one its status says
+PASS every row shows its asset numbers and size from the page's own record (Loading931), or says not on record; none made up
+PASS GN10 reads Picked up, Mon 26 Oct 07:40, from the departure record
+PASS GN10's row on its day: green lit (complete) and the DEPARTED stamp with the date and time it left
+PASS the view link shows the lights but they are not buttons: it can read, not change
+PASS the day's tally: to pick up, not ready, ready, picked up, matching the rows
+PASS the tally names what was picked up this day, with the times: GN10 07:40, GN24 08:10
+PASS the filter shows only what is not ready
+PASS each day card, as per what we have: picked up that day with the last time, ready and not ready of what is still to go
+PASS today's card counts GN10 (07:40) and GN24 (08:10), which left this morning though planned for later days
+PASS the trucks view carries the same status on every stop
+PASS everywhere the state is put into words, GN24 and GN10 read Departed with the time they left
+PASS only the words change: the light, its colour and the state stay as recorded; a reference on site is untouched
+PASS GN24's drawer wears the big DEPARTED stamp: the day, the time and who recorded it
+PASS and what left, with its asset number: 1 × 60kva · 1277089
+PASS the drawer's state card reads Departed, left site 26 Oct 08:10, not In transit
+PASS on the edit link the three lights are buttons on every row still to go
+PASS amber light: GN19 reads Ready for collection with the recorder and time
+PASS red light: GN04 reads Not ready for collection with the reason, who and when
+PASS amber light on a toilet with no Emptied tick: confirmed pumped out, Emptied in the person's name, then Ready
+PASS a newer Not ready (red) wins over the Emptied tick, which stays as recorded
+PASS the tally moves with the ticks
+PASS the day card moves with the ticks: Ready for collection 1
+PASS Picked up opens the page's own departure form
+PASS green light, complete: GN19 wears the DEPARTED stamp with today's date and the time it left, and its lights are no longer buttons
+PASS and everywhere the state is worded, GN19 now reads Departed with that time
+PASS picked up now: today's card counts three with the last time, and the tally names GN19 with its time
+PASS the ticks travel to the shared record on the delivery document (captured here, never sent)
+PASS merge: the later tick wins either way round, its history kept whole
+PASS merge: the same moment with two answers keeps not ready on every copy
+PASS a delivery record holding only the tick is kept, not thrown away as empty
+PASS a tick from before the unit last arrived counts for nothing
+PASS the rehearsals were captured in the page; nothing reached the network
+PASS no runtime errors through the Demob tab and the rehearsals
+48/48

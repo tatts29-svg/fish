@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "source": "83a84b8aea5149e9e26b8e99d6043557f14b9d84",
+  "live_sha256": "1c1a981c3f674c481a0c99e13cb4b93d311396132af54bef5bd66d401addd5f5",
+  "synthetic_contract_checks": 13,
+  "retained_release_regression_checks": 14,
+  "current_page_errors": 0,
+  "record_write_attempts": 0,
+  "stable_record": true,
+  "stable_page": true,
+  "result": "No new confirmed code defect in the reviewed scope",
+  "review_limits": [
+    "Source-level and current-record consistency review; no physical Samsung Internet engine available",
+    "No operational completion inferred or record changed",
+    "Existing released docket calculation only; newer invoice-based workbook and page/P&L proposal remain outside this audit and on Claude's current hold (comment 6393794320)."
+  ]
+}

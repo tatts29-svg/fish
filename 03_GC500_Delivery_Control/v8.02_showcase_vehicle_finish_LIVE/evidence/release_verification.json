@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+  "servedSha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+  "bytes": 9070571,
+  "exactPageMatch": true,
+  "recordUnchanged": true,
+  "beforeRecordVersion": 3538,
+  "afterRecordVersion": 3538
+}

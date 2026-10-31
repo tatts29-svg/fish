@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "actual_public_page": true,
+  "checks": [
+    {
+      "name": "wide map has at least 500px usable height",
+      "ok": true
+    },
+    {
+      "name": "Original plan control remains available",
+      "ok": true
+    },
+    {
+      "name": "Large expands the live plan",
+      "ok": true
+    },
+    {
+      "name": "Full screen fills the live window",
+      "ok": true
+    },
+    {
+      "name": "Original plan zoom still works",
+      "ok": true
+    },
+    {
+      "name": "Escape inside the live plan restores normal view and focus",
+      "ok": true
+    },
+    {
+      "name": "phone plan remains usable without sideways overflow",
+      "ok": true
+    },
+    {
+      "name": "normal desktop header returns on Today",
+      "ok": true
+    },
+    {
+      "name": "zero page errors and attempted writes",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "attempted_writes": 0
+}

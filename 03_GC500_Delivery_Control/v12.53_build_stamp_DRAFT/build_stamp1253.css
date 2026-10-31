@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. Preview only: enlarge the existing Build day stamp.
+   Keep the native artwork, ink masks, per-card angle, colour and all card content.
+   Position/size alone change; Demob and print stay on their existing rules. */
+@media screen {
+  #pane-timeline .day .bc984-card > .bc984-stamp {
+    left: calc(50% + 56px);
+    inset-inline-start: calc(50% + 56px);
+    top: 100px;
+    width: 204px;
+  }
+}
+@media screen and (max-width: 360px) {
+  #pane-timeline .day .bc984-card > .bc984-stamp {
+    left: calc(50% + 48px);
+    inset-inline-start: calc(50% + 48px);
+    width: 196px;
+  }
+}

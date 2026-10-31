@@ -1,0 +1,204 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T180623Z",
+ "finished": "2026-10-30T18:06:38.745Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 ~04:1x AEST (this chat): 'There was barriers that came out Thursday night. By aaron 8 hrs. Aaron didnt work friday. To make this clean do we just have aaron do hours for friday then and assign to stps barrier. But only show as a 8hr day.' So: Friday 30 Oct becomes an 8-hour day on the water barriers, contract 9972648 (STPS), with the note saying it was the Thursday night so the date is not lost; the Friday notes written earlier today (a generator hour and the KINP units that left Friday) come off that row because he was not there; Thursday 29 Oct loses the 4-hour barrier note written earlier today under the 'rest is done on days' answer, which Thursday night supersedes; Thursday's own roster hours are untouched.",
+  "ops": [
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-30",
+    "fields": {
+     "start": "",
+     "finish": "",
+     "hours": 8,
+     "note": "Water barriers 9972648 STPS · 8 h · WB03 (30) · demob · the Thursday night, 29 Oct, shown here as an 8 h day · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: Aaron did not work Friday; the Thursday night on the barriers is shown as his Friday, an 8 h day, assigned to the STPS barriers"
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-29",
+    "fields": {
+     "note": ""
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the Thursday barrier work was the night, 8 h, shown on Friday; the 4 h days note written earlier today comes off"
+   }
+  ]
+ },
+ "pageSha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+ "version": {
+  "before": 12489,
+  "after": 12493
+ },
+ "updated": {
+  "before": "2026-10-30T17:57:00.924Z",
+  "after": "2026-10-30T18:06:37.445Z"
+ },
+ "stage": [
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261030",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 8,
+   "start": null,
+   "finish": null,
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start, finish, hours, note (was 11 h 06:00-17:00) -> 8 h ?-? - W-L-aaron-zelvis-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261029",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-29",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB03 (30) · demob · days · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261029 changed by Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261029",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261029",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261030",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261029": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261029",
+    "v": "2026-10-30T17:29:06.284Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261030": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261030",
+    "v": "2026-10-30T17:56:37.457Z"
+   },
+   "costs/W-L-aaron-zelvis-20261029": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261029",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-29",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB03 (30) · demob · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:06.284Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261029"
+   },
+   "costs/W-L-aaron-zelvis-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261030",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-30",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.457Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261030"
+   }
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261029": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261029",
+    "v": "2026-10-30T18:06:34.681Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261030": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261030",
+    "v": "2026-10-30T18:06:34.421Z"
+   },
+   "costs/W-L-aaron-zelvis-20261029": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261029",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-29",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": null,
+    "updated_at": "2026-10-30T18:06:34.681Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261029"
+   },
+   "costs/W-L-aaron-zelvis-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261030",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-30",
+    "start": null,
+    "finish": null,
+    "break_min": null,
+    "hours": 8,
+    "note": "Water barriers 9972648 STPS · 8 h · WB03 (30) · demob · the Thursday night, 29 Oct, shown here as an 8 h day · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:06:34.421Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261030"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,14 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (16:3x AEST): \"Picked up 430PM\" with a list from the crew: 0765 0573 0941 0647 0438 0994 0990 0632 0562 0554 0947 0549 0673 0542 0086. Read 16:37 AEST, all Event Portables FWF, Emptied, every one Ready, none already left, no booking: WC73 0765 (0192 stays); PG29 0573, BJR01 0941, PG05 0438, T0162 0990 (each the reference's only unit, so each leaves in full); WC69 0647 (nine stay); T0176 0994 (0576 stays); WC45 0632 0562 0947 0549 0673 0542 0086 (0544 stays). 0554 left at 10:00 on WC33 (Andrew's 10am list) and is held for Andrew. Recorded after 16:30.",
+  "ops": [
+    {"op": "depart", "ref": "WC73", "at": "2026-10-27T16:30:00+10:00", "nos": ["0765"], "complete": false},
+    {"op": "depart", "ref": "PG29", "at": "2026-10-27T16:30:00+10:00", "nos": ["0573"], "complete": true},
+    {"op": "depart", "ref": "BJR01", "at": "2026-10-27T16:30:00+10:00", "nos": ["0941"], "complete": true},
+    {"op": "depart", "ref": "WC69", "at": "2026-10-27T16:30:00+10:00", "nos": ["0647"], "complete": false},
+    {"op": "depart", "ref": "PG05", "at": "2026-10-27T16:30:00+10:00", "nos": ["0438"], "complete": true},
+    {"op": "depart", "ref": "T0176", "at": "2026-10-27T16:30:00+10:00", "nos": ["0994"], "complete": false},
+    {"op": "depart", "ref": "T0162", "at": "2026-10-27T16:30:00+10:00", "nos": ["0990"], "complete": true},
+    {"op": "depart", "ref": "WC45", "at": "2026-10-27T16:30:00+10:00", "nos": ["0632", "0562", "0947", "0549", "0673", "0542", "0086"], "complete": false}
+  ]
+}

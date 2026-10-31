@@ -1,0 +1,1069 @@
+{
+ "tag": "desktop",
+ "passed": 44,
+ "failed": 0,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "twenty grandstands, S01 to S25 with S22A, exactly as the master plan labels them",
+   "ok": true,
+   "detail": [
+    "S01",
+    "S02",
+    "S04",
+    "S05",
+    "S07",
+    "S08",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S22A",
+    "S23",
+    "S25"
+   ]
+  },
+  {
+   "name": "each grandstand is the D001 marker's own place on the sheet",
+   "ok": true
+  },
+  {
+   "name": "each grandstand's position is that place through the master registration (within 0.2 m)",
+   "ok": true,
+   "detail": 0.061078797937135235
+  },
+  {
+   "name": "\"stand 5\", \"s5\" and \"S05\" put Grandstand S05 first",
+   "ok": true,
+   "detail": {
+    "1244536": [
+     "asset:GN25"
+    ],
+    "stand 5": [
+     "stand:Grandstand S05"
+    ],
+    "s5": [
+     "stand:Grandstand S05",
+     "vms:VMS 05",
+     "vms:VMS 05a"
+    ],
+    "S05": [
+     "stand:Grandstand S05",
+     "place:S05",
+     "place:S05",
+     "vms:VMS 05",
+     "vms:VMS 05a",
+     "asset:T0001",
+     "unit:T0001",
+     "place:Big screen BS05"
+    ],
+    "grandstand 22a": [
+     "stand:Grandstand S22A"
+    ],
+    "stand 22": [
+     "stand:Grandstand S22"
+    ],
+    "stands": [
+     "stand:Grandstand S01",
+     "stand:Grandstand S02",
+     "stand:Grandstand S04",
+     "stand:Grandstand S05",
+     "stand:Grandstand S07",
+     "stand:Grandstand S08",
+     "stand:Grandstand S10",
+     "stand:Grandstand S11",
+     "stand:Grandstand S12",
+     "stand:Grandstand S13",
+     "stand:Grandstand S14",
+     "stand:Grandstand S15",
+     "stand:Grandstand S18",
+     "stand:Grandstand S19"
+    ],
+    "gate 6": [
+     "gate:Gate 6",
+     "asset:P67",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "unit:P55",
+     "unit:P56",
+     "unit:P56",
+     "unit:P60",
+     "place:G1",
+     "place:G10"
+    ],
+    "VMS 10": [
+     "vms:VMS 10",
+     "vms:VMS 02a",
+     "vms:VMS 17*",
+     "spot:VMS 17*",
+     "morning:Friday morning",
+     "morning:Monday",
+     "morning:Saturday morning",
+     "asset:T0103",
+     "unit:T0103",
+     "unit:T0103"
+    ],
+    "P33": [
+     "asset:P33",
+     "place:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33"
+    ]
+   }
+  },
+  {
+   "name": "\"grandstand 22a\" is S22A and \"stand 22\" is S22, not S22A",
+   "ok": true,
+   "detail": {
+    "1244536": [
+     "asset:GN25"
+    ],
+    "stand 5": [
+     "stand:Grandstand S05"
+    ],
+    "s5": [
+     "stand:Grandstand S05",
+     "vms:VMS 05",
+     "vms:VMS 05a"
+    ],
+    "S05": [
+     "stand:Grandstand S05",
+     "place:S05",
+     "place:S05",
+     "vms:VMS 05",
+     "vms:VMS 05a",
+     "asset:T0001",
+     "unit:T0001",
+     "place:Big screen BS05"
+    ],
+    "grandstand 22a": [
+     "stand:Grandstand S22A"
+    ],
+    "stand 22": [
+     "stand:Grandstand S22"
+    ],
+    "stands": [
+     "stand:Grandstand S01",
+     "stand:Grandstand S02",
+     "stand:Grandstand S04",
+     "stand:Grandstand S05",
+     "stand:Grandstand S07",
+     "stand:Grandstand S08",
+     "stand:Grandstand S10",
+     "stand:Grandstand S11",
+     "stand:Grandstand S12",
+     "stand:Grandstand S13",
+     "stand:Grandstand S14",
+     "stand:Grandstand S15",
+     "stand:Grandstand S18",
+     "stand:Grandstand S19"
+    ],
+    "gate 6": [
+     "gate:Gate 6",
+     "asset:P67",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "unit:P55",
+     "unit:P56",
+     "unit:P56",
+     "unit:P60",
+     "place:G1",
+     "place:G10"
+    ],
+    "VMS 10": [
+     "vms:VMS 10",
+     "vms:VMS 02a",
+     "vms:VMS 17*",
+     "spot:VMS 17*",
+     "morning:Friday morning",
+     "morning:Monday",
+     "morning:Saturday morning",
+     "asset:T0103",
+     "unit:T0103",
+     "unit:T0103"
+    ],
+    "P33": [
+     "asset:P33",
+     "place:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33"
+    ]
+   }
+  },
+  {
+   "name": "\"stands\" lists the twenty first",
+   "ok": true,
+   "detail": [
+    "stand:Grandstand S01",
+    "stand:Grandstand S02",
+    "stand:Grandstand S04",
+    "stand:Grandstand S05",
+    "stand:Grandstand S07",
+    "stand:Grandstand S08",
+    "stand:Grandstand S10",
+    "stand:Grandstand S11",
+    "stand:Grandstand S12",
+    "stand:Grandstand S13",
+    "stand:Grandstand S14",
+    "stand:Grandstand S15",
+    "stand:Grandstand S18",
+    "stand:Grandstand S19"
+   ]
+  },
+  {
+   "name": "gates, VMS boards, references and asset numbers answer as before",
+   "ok": true,
+   "detail": {
+    "1244536": [
+     "asset:GN25"
+    ],
+    "stand 5": [
+     "stand:Grandstand S05"
+    ],
+    "s5": [
+     "stand:Grandstand S05",
+     "vms:VMS 05",
+     "vms:VMS 05a"
+    ],
+    "S05": [
+     "stand:Grandstand S05",
+     "place:S05",
+     "place:S05",
+     "vms:VMS 05",
+     "vms:VMS 05a",
+     "asset:T0001",
+     "unit:T0001",
+     "place:Big screen BS05"
+    ],
+    "grandstand 22a": [
+     "stand:Grandstand S22A"
+    ],
+    "stand 22": [
+     "stand:Grandstand S22"
+    ],
+    "stands": [
+     "stand:Grandstand S01",
+     "stand:Grandstand S02",
+     "stand:Grandstand S04",
+     "stand:Grandstand S05",
+     "stand:Grandstand S07",
+     "stand:Grandstand S08",
+     "stand:Grandstand S10",
+     "stand:Grandstand S11",
+     "stand:Grandstand S12",
+     "stand:Grandstand S13",
+     "stand:Grandstand S14",
+     "stand:Grandstand S15",
+     "stand:Grandstand S18",
+     "stand:Grandstand S19"
+    ],
+    "gate 6": [
+     "gate:Gate 6",
+     "asset:P67",
+     "asset:P52",
+     "asset:P55",
+     "asset:P56",
+     "asset:P60",
+     "asset:P62",
+     "asset:P63",
+     "unit:P55",
+     "unit:P56",
+     "unit:P56",
+     "unit:P60",
+     "place:G1",
+     "place:G10"
+    ],
+    "VMS 10": [
+     "vms:VMS 10",
+     "vms:VMS 02a",
+     "vms:VMS 17*",
+     "spot:VMS 17*",
+     "morning:Friday morning",
+     "morning:Monday",
+     "morning:Saturday morning",
+     "asset:T0103",
+     "unit:T0103",
+     "unit:T0103"
+    ],
+    "P33": [
+     "asset:P33",
+     "place:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33",
+     "unit:P33"
+    ]
+   }
+  },
+  {
+   "name": "\"Find it on the map\" sits at the top of the Maps tab, above the explorer",
+   "ok": true,
+   "detail": {
+    "there": true,
+    "before": true,
+    "vis": true
+   }
+  },
+  {
+   "name": "the box survives the Maps tab drawing itself again",
+   "ok": true
+  },
+  {
+   "name": "an asset number finds its reference (1244536 → GN25)",
+   "ok": true,
+   "detail": {
+    "rows": [
+     "GN25 (none)"
+    ],
+    "hint": ""
+   }
+  },
+  {
+   "name": "a reference finds itself (WC41)",
+   "ok": true,
+   "detail": {
+    "rows": [
+     "WC41"
+    ],
+    "hint": ""
+   }
+  },
+  {
+   "name": "\"gate 6\" finds Gate 6, \"VMS 10\" finds VMS 10, \"stand 5\" finds Grandstand S05",
+   "ok": true,
+   "detail": {
+    "1244536": {
+     "rows": [
+      "GN25 (none)"
+     ],
+     "hint": ""
+    },
+    "1262224": {
+     "rows": [
+      "EQ0005"
+     ],
+     "hint": ""
+    },
+    "WC41": {
+     "rows": [
+      "WC41"
+     ],
+     "hint": ""
+    },
+    "gate 6": {
+     "rows": [
+      "Gate 6",
+      "P67",
+      "P52",
+      "P55",
+      "P56",
+      "P60",
+      "P62",
+      "P63"
+     ],
+     "hint": ""
+    },
+    "VMS 10": {
+     "rows": [
+      "VMS 10",
+      "VMS 02a",
+      "VMS 17*",
+      "T10 runoff",
+      "T0103"
+     ],
+     "hint": ""
+    },
+    "stand 5": {
+     "rows": [
+      "Grandstand S05"
+     ],
+     "hint": ""
+    },
+    "stand 3": {
+     "rows": [],
+     "hint": "The master plan draws no grandstand S03. It labels S01, S02, S04, S05, S07, S08, S10, S11, S12, S13, S14, S15, S18, S19, S20, S21, S22, S22A, S23, S25."
+    }
+   }
+  },
+  {
+   "name": "\"stand 3\" says the plan draws no S03 and names the stands it does",
+   "ok": true,
+   "detail": {
+    "rows": [],
+    "hint": "The master plan draws no grandstand S03. It labels S01, S02, S04, S05, S07, S08, S10, S11, S12, S13, S14, S15, S18, S19, S20, S21, S22, S22A, S23, S25."
+   }
+  },
+  {
+   "name": "a unit's asset number finds its reference (1262224 → EQ0005)",
+   "ok": true,
+   "detail": {
+    "rows": [
+     "EQ0005"
+    ],
+    "hint": ""
+   }
+  },
+  {
+   "name": "a reference with no position says so, and one with no drop-off says the picture is the pit lane",
+   "ok": true,
+   "detail": {
+    "gn25": "no position on the record yet",
+    "eq": "No drop-off is set for EQ0005 yet. The picture shows the pit lane, where the driver reports and site directs them."
+   }
+  },
+  {
+   "name": "picking Gate 6 opens its card",
+   "ok": true,
+   "detail": "Gate 6 · on the map"
+  },
+  {
+   "name": "two pictures, close and wider, drawn as JPEGs on the aerial with the master plan",
+   "ok": true,
+   "detail": {
+    "title": "Gate 6 · on the map",
+    "imgs": [
+     {
+      "src": "data:image/jpeg;base64,",
+      "w": 1000,
+      "h": 824,
+      "shown": true
+     },
+     {
+      "src": "data:image/jpeg;base64,",
+      "w": 1000,
+      "h": 824,
+      "shown": true
+     }
+    ],
+    "bytes": [
+     146259,
+     198168
+    ],
+    "across": [
+     190,
+     840
+    ],
+    "plan": [
+     true,
+     true
+    ],
+    "src": [
+     "aerial",
+     "aerial"
+    ],
+    "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "want": "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "words": "Coates GC500: Gate 6 (spectator gate). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "textBox": false,
+    "readonly": true
+   }
+  },
+  {
+   "name": "each picture fits a picture message (under 235 kB)",
+   "ok": true,
+   "detail": [
+    146259,
+    198168
+   ]
+  },
+  {
+   "name": "Navigate goes to Gate 6 on Google Maps",
+   "ok": true,
+   "detail": [
+    "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472"
+   ]
+  },
+  {
+   "name": "the words name it and carry the directions, in plain text-message letters",
+   "ok": true,
+   "detail": "Coates GC500: Gate 6 (spectator gate). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472"
+  },
+  {
+   "name": "Text to a mobile is not offered on a view link",
+   "ok": true,
+   "detail": {
+    "title": "Gate 6 · on the map",
+    "imgs": [
+     {
+      "src": "data:image/jpeg;base64,",
+      "w": 1000,
+      "h": 824,
+      "shown": true
+     },
+     {
+      "src": "data:image/jpeg;base64,",
+      "w": 1000,
+      "h": 824,
+      "shown": true
+     }
+    ],
+    "bytes": [
+     146259,
+     198168
+    ],
+    "across": [
+     190,
+     840
+    ],
+    "plan": [
+     true,
+     true
+    ],
+    "src": [
+     "aerial",
+     "aerial"
+    ],
+    "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "want": "https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "words": "Coates GC500: Gate 6 (spectator gate). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "textBox": false,
+    "readonly": true
+   }
+  },
+  {
+   "name": "Send… hands the two pictures and the words to the phone's share menu",
+   "ok": true,
+   "detail": {
+    "files": [
+     [
+      "GC500-Gate-6-close.jpg",
+      "image/jpeg",
+      146257
+     ],
+     [
+      "GC500-Gate-6-wide.jpg",
+      "image/jpeg",
+      198166
+     ]
+    ],
+    "text": "Coates GC500: Gate 6 (spectator gate). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.993254,153.430472",
+    "title": "Coates GC500 · Gate 6",
+    "msg": "Share menu closed. Delivery is handled by the app you chose."
+   }
+  },
+  {
+   "name": "Show on the satellite map closes the card and rings the spot at 1600%",
+   "ok": true,
+   "detail": {
+    "closed": true,
+    "ring": "G6",
+    "pct": 1600
+   }
+  },
+  {
+   "name": "the satellite map carries the twenty stands, a Grandstands filter and a list",
+   "ok": true,
+   "detail": {
+    "items": 20,
+    "btn": "Grandstands (20)",
+    "list": 20
+   }
+  },
+  {
+   "name": "the Grandstands filter shows only the stands",
+   "ok": true,
+   "detail": [
+    "S01",
+    "S02",
+    "S04",
+    "S05",
+    "S07",
+    "S08"
+   ]
+  },
+  {
+   "name": "picking \"stand 21\" in the finder opens the Maps tab and Grandstand S21's card",
+   "ok": true
+  },
+  {
+   "name": "a VMS board outside the site aerial (VMS 10) gets satellite pictures, north up, and says so",
+   "ok": true,
+   "detail": {
+    "label": "VMS 10",
+    "inAerial": false,
+    "src": [
+     "satellite",
+     "satellite"
+    ],
+    "bytes": [
+     218658,
+     208791
+    ],
+    "note": "Pictures: Esri World Imagery (Esri, Maxar, Earthstar Geographics and the GIS User Community), north up — this spot is outside the site aerial. Send… hands the pictures and words to your phone’s share menu; delivery is up to the app you choose. Nothing here changes the record."
+   }
+  },
+  {
+   "name": "a reference's card uses the same destination as its Text box (dest782), with its details one press away",
+   "ok": true,
+   "detail": {
+    "title": "WC41 · on the map",
+    "pic": true,
+    "ll": [
+     -27.9848352,
+     153.4260544
+    ],
+    "want": [
+     -27.9848352,
+     153.4260544
+    ],
+    "details": true
+   }
+  },
+  {
+   "name": "edit-mode practice: Text to a mobile shows, with the picture tick",
+   "ok": true,
+   "detail": {
+    "shown": true,
+    "tick": true,
+    "msg": "1 of 1 accepted by the messaging service. Delivery is not confirmed.",
+    "rows": "+61400000000Accepted — waiting for delivery confirmation",
+    "sendLocked": true,
+    "sent": [
+     {
+      "url": "/api/mms",
+      "to": [
+       "0400000000"
+      ],
+      "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.989146,153.428485",
+      "pic": "data:image/jpeg;base64,",
+      "picLen": 238339,
+      "subject": "Coates GC500 S05",
+      "dry": true
+     },
+     {
+      "url": "/api/mms",
+      "to": [
+       "0400000000"
+      ],
+      "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.989146,153.428485",
+      "pic": "data:image/jpeg;base64,",
+      "picLen": 238339,
+      "subject": "Coates GC500 S05",
+      "dry": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "edit-mode practice: the check sends nothing, then Send posts one picture message with the close-up, the number and the words",
+   "ok": true,
+   "detail": [
+    {
+     "url": "/api/mms",
+     "to": [
+      "0400000000"
+     ],
+     "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https",
+     "pic": "data:image/jpeg;base64,",
+     "picLen": 238339,
+     "subject": "Coates GC500 S05",
+     "dry": true
+    },
+    {
+     "url": "/api/mms",
+     "to": [
+      "0400000000"
+     ],
+     "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https",
+     "pic": "data:image/jpeg;base64,",
+     "picLen": 238339,
+     "subject": "Coates GC500 S05",
+     "dry": false
+    }
+   ]
+  },
+  {
+   "name": "edit-mode practice: the result is reported truthfully and Send locks against a duplicate",
+   "ok": true,
+   "detail": {
+    "shown": true,
+    "tick": true,
+    "msg": "1 of 1 accepted by the messaging service. Delivery is not confirmed.",
+    "rows": "+61400000000Accepted — waiting for delivery confirmation",
+    "sendLocked": true,
+    "sent": [
+     {
+      "url": "/api/mms",
+      "to": [
+       "0400000000"
+      ],
+      "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.989146,153.428485",
+      "pic": "data:image/jpeg;base64,",
+      "picLen": 238339,
+      "subject": "Coates GC500 S05",
+      "dry": true
+     },
+     {
+      "url": "/api/mms",
+      "to": [
+       "0400000000"
+      ],
+      "text": "Coates GC500: Grandstand S05 (grandstand). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.989146,153.428485",
+      "pic": "data:image/jpeg;base64,",
+      "picLen": 238339,
+      "subject": "Coates GC500 S05",
+      "dry": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "fifteen turns, T1 to T15, as the master plan labels them on the track",
+   "ok": true,
+   "detail": [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7",
+    "T8",
+    "T9",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15"
+   ]
+  },
+  {
+   "name": "Turn 10 sits on the page's own \"T10 runoff\" removal spot (within 5 m) and Turn 2 near \"T2 runoff\" (within 80 m)",
+   "ok": true,
+   "detail": {
+    "faces": [
+     "T1",
+     "T2",
+     "T3",
+     "T4",
+     "T5",
+     "T6",
+     "T7",
+     "T8",
+     "T9",
+     "T10",
+     "T11",
+     "T12",
+     "T13",
+     "T14",
+     "T15"
+    ],
+    "t10": 0.40864991552084984,
+    "t2": 4.072539476829767,
+    "spots": [
+     "T2 runoff",
+     "T10 runoff"
+    ],
+    "q": {
+     "turn 2": [
+      "turn:Turn 2",
+      "asset:WB03",
+      "asset:WB06",
+      "asset:WB14",
+      "asset:WB15",
+      "asset:WB20",
+      "unit:TL2",
+      "unit:TL2",
+      "unit:TL2",
+      "unit:TL2"
+     ],
+     "t2": [
+      "turn:Turn 2",
+      "spot:VMS 15*",
+      "vms:VMS 15*",
+      "asset:T0025",
+      "asset:WB18",
+      "unit:Trakmat",
+      "unit:TL2"
+     ],
+     "T02": [
+      "turn:Turn 2",
+      "asset:T0243",
+      "asset:T0258",
+      "asset:T0266",
+      "asset:LT02",
+      "unit:Toilet Block 6m",
+      "unit:3.0m Cont",
+      "unit:6.0m Refrigerator Cont",
+      "place:T0258",
+      "place:T0265",
+      "place:T0266",
+      "place:T0243"
+     ],
+     "turn 10": [
+      "turn:Turn 10"
+     ],
+     "turns": [
+      "turn:Turn 1",
+      "turn:Turn 2",
+      "turn:Turn 3",
+      "turn:Turn 4",
+      "turn:Turn 5",
+      "turn:Turn 6",
+      "turn:Turn 7",
+      "turn:Turn 8",
+      "turn:Turn 9",
+      "turn:Turn 10",
+      "turn:Turn 11",
+      "turn:Turn 12",
+      "turn:Turn 13",
+      "turn:Turn 14"
+     ],
+     "T0085": [
+      "asset:WC09",
+      "asset:T0085",
+      "place:T0085",
+      "unit:3.5T Forklift Std"
+     ],
+     "stand 5": [
+      "stand:Grandstand S05"
+     ]
+    }
+   }
+  },
+  {
+   "name": "\"turn 2\", \"t2\" and \"T02\" put Turn 2 first; \"turn 10\" is Turn 10",
+   "ok": true,
+   "detail": {
+    "turn 2": [
+     "turn:Turn 2",
+     "asset:WB03",
+     "asset:WB06",
+     "asset:WB14",
+     "asset:WB15",
+     "asset:WB20",
+     "unit:TL2",
+     "unit:TL2",
+     "unit:TL2",
+     "unit:TL2"
+    ],
+    "t2": [
+     "turn:Turn 2",
+     "spot:VMS 15*",
+     "vms:VMS 15*",
+     "asset:T0025",
+     "asset:WB18",
+     "unit:Trakmat",
+     "unit:TL2"
+    ],
+    "T02": [
+     "turn:Turn 2",
+     "asset:T0243",
+     "asset:T0258",
+     "asset:T0266",
+     "asset:LT02",
+     "unit:Toilet Block 6m",
+     "unit:3.0m Cont",
+     "unit:6.0m Refrigerator Cont",
+     "place:T0258",
+     "place:T0265",
+     "place:T0266",
+     "place:T0243"
+    ],
+    "turn 10": [
+     "turn:Turn 10"
+    ],
+    "turns": [
+     "turn:Turn 1",
+     "turn:Turn 2",
+     "turn:Turn 3",
+     "turn:Turn 4",
+     "turn:Turn 5",
+     "turn:Turn 6",
+     "turn:Turn 7",
+     "turn:Turn 8",
+     "turn:Turn 9",
+     "turn:Turn 10",
+     "turn:Turn 11",
+     "turn:Turn 12",
+     "turn:Turn 13",
+     "turn:Turn 14"
+    ],
+    "T0085": [
+     "asset:WC09",
+     "asset:T0085",
+     "place:T0085",
+     "unit:3.5T Forklift Std"
+    ],
+    "stand 5": [
+     "stand:Grandstand S05"
+    ]
+   }
+  },
+  {
+   "name": "\"turns\" lists the turns first; T0085 and \"stand 5\" answer as before",
+   "ok": true,
+   "detail": {
+    "turn 2": [
+     "turn:Turn 2",
+     "asset:WB03",
+     "asset:WB06",
+     "asset:WB14",
+     "asset:WB15",
+     "asset:WB20",
+     "unit:TL2",
+     "unit:TL2",
+     "unit:TL2",
+     "unit:TL2"
+    ],
+    "t2": [
+     "turn:Turn 2",
+     "spot:VMS 15*",
+     "vms:VMS 15*",
+     "asset:T0025",
+     "asset:WB18",
+     "unit:Trakmat",
+     "unit:TL2"
+    ],
+    "T02": [
+     "turn:Turn 2",
+     "asset:T0243",
+     "asset:T0258",
+     "asset:T0266",
+     "asset:LT02",
+     "unit:Toilet Block 6m",
+     "unit:3.0m Cont",
+     "unit:6.0m Refrigerator Cont",
+     "place:T0258",
+     "place:T0265",
+     "place:T0266",
+     "place:T0243"
+    ],
+    "turn 10": [
+     "turn:Turn 10"
+    ],
+    "turns": [
+     "turn:Turn 1",
+     "turn:Turn 2",
+     "turn:Turn 3",
+     "turn:Turn 4",
+     "turn:Turn 5",
+     "turn:Turn 6",
+     "turn:Turn 7",
+     "turn:Turn 8",
+     "turn:Turn 9",
+     "turn:Turn 10",
+     "turn:Turn 11",
+     "turn:Turn 12",
+     "turn:Turn 13",
+     "turn:Turn 14"
+    ],
+    "T0085": [
+     "asset:WC09",
+     "asset:T0085",
+     "place:T0085",
+     "unit:3.5T Forklift Std"
+    ],
+    "stand 5": [
+     "stand:Grandstand S05"
+    ]
+   }
+  },
+  {
+   "name": "the Maps box finds Turn 2 and says the plan labels T1 to T15 for \"turn 16\"",
+   "ok": true,
+   "detail": {
+    "turn 2": {
+     "rows": [
+      "Turn 2",
+      "WB03",
+      "WB06",
+      "WB14",
+      "WB15",
+      "WB20"
+     ],
+     "hint": ""
+    },
+    "turn 16": {
+     "rows": [],
+     "hint": "The master plan labels the turns T1 to T15; there is no turn 16."
+    }
+   }
+  },
+  {
+   "name": "Turn 2's card: two aerial-and-plan pictures, Navigate to the turn, and the words",
+   "ok": true,
+   "detail": {
+    "title": "Turn 2 · on the map",
+    "src": [
+     "aerial",
+     "aerial"
+    ],
+    "plan": [
+     true,
+     true
+    ],
+    "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.990175,153.428540",
+    "want": "https://www.google.com/maps/dir/?api=1&destination=-27.990175,153.428540",
+    "words": "Coates GC500: Turn 2 (track turn). Directions: https://www.google.com/maps/dir/?api=1&destination=-27.990175,153.428540"
+   }
+  },
+  {
+   "name": "the satellite map carries the fifteen turns, a Turns filter and a list",
+   "ok": true,
+   "detail": {
+    "items": 15,
+    "btn": "Turns (15)",
+    "list": 15
+   }
+  },
+  {
+   "name": "the Turns filter shows only the turns",
+   "ok": true,
+   "detail": [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6"
+   ]
+  },
+  {
+   "name": "picking \"turn 4\" in the finder opens the Maps tab and Turn 4's card",
+   "ok": true
+  },
+  {
+   "name": "the record is unchanged",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no write left the page",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 562,
+    "blocked": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+  "author": "Andrew Fisher",
+  "state": "verified live",
+  "candidate_sha256": "d4a10a7fe07637fdfbb97f31ff2a07f48af4a632479acce8fd29aeb9cf9c97d7",
+  "candidate_bytes": 20922036,
+  "base_sha256": "fddc937937d41bc0a1651556b4ef28749085789271fc61c3145ed044db22f8cf",
+  "source_sha256": {
+    "map1100_src.js": "bf8c2bfb01ad41c9eed73f709c07c895da8cda12076eba24832f84b650b64e36",
+    "map1100.css": "44a6d2b3956a3e5163eb974b1e3f66d7379e1beddd85af5b73253cf34d188938",
+    "patch_v1100.py": "2e1d558971304564d84ad572942ef447b90d212ab0b2b996efbfbe0f7ca3ab4b"
+  },
+  "tests": {
+    "patch_guards": 9,
+    "shared_model": 12,
+    "focused_map": 35,
+    "actual_local_server_flow": 185,
+    "performance_behavior": 34,
+    "actual_geometry_layout": 51,
+    "phone_sweep": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "desktop_sweep": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "original_source_detail_px": [
+    4096,
+    2202
+  ],
+  "preview_px": [
+    1600,
+    860
+  ],
+  "registration_and_native_config_unchanged": true,
+  "independent_source_review": "passed",
+  "performance": {
+    "conditions": "Headless Chromium, local registered geometry, synthetic saved events, final source/CSS. No network or physical-device guarantee.",
+    "desktop_viewport": [
+      3840,
+      2160
+    ],
+    "phone_viewport": [
+      390,
+      844
+    ],
+    "pan_median_ms": 16.7,
+    "zoom_median_ms": 16.7,
+    "desktop_zoom_p95_ms": 21.7,
+    "phone_zoom_p95_ms": 17,
+    "pan_and_unchanged_refresh_marker_replacements": 0
+  },
+  "private_sources_and_operational_evidence_included": false,
+  "source_commit": "42b5528f745122af6ccdfd9974fb90c47c51087e",
+  "published_at": "2026-10-21T02:20:00.950Z",
+  "native_live_checks": 426,
+  "native_mutation_attempts": 0,
+  "live_unchanged": [
+    "full job record",
+    "tracker configuration",
+    "permanent codes",
+    "saved completions"
+  ],
+  "public_exact_readback": true
+}

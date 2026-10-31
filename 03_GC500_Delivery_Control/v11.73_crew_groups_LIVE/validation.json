@@ -1,0 +1,67 @@
+{
+  "author": "Author: Andrew Fisher",
+  "status": "LIVE",
+  "checked_at": "2026-10-24T00:22:33.064671+00:00",
+  "implementation_source": "2d86df2fa6d7c0a61f4e0528358c3ac4506893c7",
+  "base_page_sha256": "84cb7d6c1eccf57ba1cca2802e149fd7ef28b4300c94ae2441f0164697af50ea",
+  "page_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
+  "page_bytes": 21753853,
+  "crew_html_sha256": "bf53b806563c907780700f861485ac29585bd39e58787174fb091a2ddd1d8db3",
+  "server_sha256": "bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396",
+  "checks": {
+    "build_inline_scripts": 173,
+    "pure_report": 54,
+    "phone_local_server": 23,
+    "native_desktop": 33,
+    "native_phone": 33,
+    "sweep_desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "sweep_phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "native_update_dry_assertions": 72,
+    "main_upload_dry": "PASS",
+    "phone_and_a4_visual": "PASS",
+    "focused_server": 23,
+    "legacy_server": 205,
+    "native_update_live_assertions": 72,
+    "actual_live_phone_report": 33,
+    "actual_live_crew_phone": 13,
+    "live_page_errors": 0,
+    "live_test_writes": 0
+  },
+  "live_test_completions": 0,
+  "main_published": true,
+  "crew_published": true,
+  "server_staged": true,
+  "server_deployed": true,
+  "claude_acknowledged": true,
+  "owners": {
+    "main_and_crew": "Codex",
+    "railway_switch": "Claude"
+  },
+  "blocker": null,
+  "publication_claim_source": "0603591b9e2afb9f649dc9dfe1e1533487bca587",
+  "main_live_at": "2026-10-24T00:19:33.396Z",
+  "crew_live_verified_at": "2026-10-24T00:20:44.673Z",
+  "exact_public_readback": {
+    "author": "Author: Andrew Fisher",
+    "at": "2026-10-24T00:21:25.999381+00:00",
+    "page_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
+    "page_bytes": 21753853,
+    "crew_sha256": "bf53b806563c907780700f861485ac29585bd39e58787174fb091a2ddd1d8db3",
+    "server_build": "v5.92",
+    "crew_groups_version": 1,
+    "healthy": true
+  },
+  "server_boot_evidence": "Claude deployment report PR #1 comment 6377390954; no independent Railway-log access"
+}

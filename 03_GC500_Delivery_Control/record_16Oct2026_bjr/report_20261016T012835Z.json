@@ -1,0 +1,158 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T012835Z",
+ "finished": "2026-10-16T01:28:45.788Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "branch": "KINP",
+  "rows": [
+   {
+    "key": "BJR01",
+    "disc": "Toilets & amenities",
+    "type": "FWF",
+    "no": "",
+    "loc": "Brad Jones Racing",
+    "from": "2026-10-22",
+    "name": "Brad Jones Racing",
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it."
+   }
+  ]
+ },
+ "pageSha256": "d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd",
+ "version": {
+  "before": 7215,
+  "after": 7222
+ },
+ "updated": {
+  "before": "2026-10-16T01:27:58.583Z",
+  "after": "2026-10-16T01:28:45.068Z"
+ },
+ "stage": [
+  {
+   "key": "BJR01",
+   "added": true,
+   "type": "FWF",
+   "no": null
+  },
+  {
+   "key": "BJR01",
+   "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it."
+  },
+  {
+   "key": "BJR01",
+   "dated": true,
+   "date": "2026-10-16",
+   "light": "on site"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/BJR01",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~BJR01",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~BJR01",
+   "status": 200
+  },
+  {
+   "key": "branch/BJR01",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~BJR01",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~BJR01",
+   "status": 200
+  },
+  {
+   "key": "added/BJR01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/BJR01": null,
+   "stamps/branch~2f~BJR01": null,
+   "stamps/dnote~2f~BJR01": null,
+   "branch/BJR01": null,
+   "by/branch~2f~BJR01": null,
+   "by/dnote~2f~BJR01": null,
+   "added/BJR01": null
+  },
+  "after": {
+   "delivery/BJR01": {
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:28:42.255Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "stamps/branch~2f~BJR01": {
+    "_k": "branch/BJR01",
+    "v": "2026-10-16T01:28:41.717Z"
+   },
+   "stamps/dnote~2f~BJR01": {
+    "_k": "dnote/BJR01",
+    "v": "2026-10-16T01:28:41.802Z"
+   },
+   "branch/BJR01": {
+    "_k": "BJR01",
+    "v": "KINP"
+   },
+   "by/branch~2f~BJR01": {
+    "_k": "branch/BJR01",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~BJR01": {
+    "_k": "dnote/BJR01",
+    "v": "Andrew Fisher"
+   },
+   "added/BJR01": {
+    "key": "BJR01",
+    "discipline": "Toilets & amenities",
+    "name": "Brad Jones Racing",
+    "item_types": [
+     "FWF"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-22",
+    "last_date": null,
+    "locations": [
+     "Brad Jones Racing"
+    ],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-16T01:28:41.717Z",
+    "added_by": "Andrew Fisher",
+    "_k": "BJR01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

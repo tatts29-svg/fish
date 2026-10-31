@@ -1,0 +1,381 @@
+{
+ "lines": [
+  {
+   "item": "Toilet Block 6m",
+   "qty": 2,
+   "total": null,
+   "labour": {
+    "ticked": [
+     "install",
+     "steps",
+     "levelling",
+     "install",
+     "steps",
+     "levelling"
+    ],
+    "total": 811.98,
+    "units": [
+     {
+      "unit": "1119489",
+      "ticked": [
+       "install",
+       "steps",
+       "levelling"
+      ]
+     },
+     {
+      "unit": "1087500",
+      "ticked": [
+       "install",
+       "steps",
+       "levelling"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "item": "Waste tank",
+   "qty": 2,
+   "total": 1501.122,
+   "labour": {
+    "ticked": [
+     "install",
+     "levelling",
+     "install",
+     "levelling"
+    ],
+    "total": 499.68,
+    "units": [
+     {
+      "unit": "1328980",
+      "ticked": [
+       "install",
+       "levelling"
+      ]
+     },
+     {
+      "unit": "1328981",
+      "ticked": [
+       "install",
+       "levelling"
+      ]
+     }
+    ]
+   }
+  }
+ ],
+ "state": {
+  "assetNumbers": [
+   [
+    "WC60",
+    [
+     "1087500",
+     "1119489",
+     "1328980",
+     "1328981"
+    ]
+   ]
+  ],
+  "labour": [
+   [
+    "WC60/u1087500|Toilets & amenities|Toilet Block 6m|install",
+    true
+   ],
+   [
+    "WC60/u1087500|Toilets & amenities|Toilet Block 6m|levelling",
+    true
+   ],
+   [
+    "WC60/u1087500|Toilets & amenities|Toilet Block 6m|steps",
+    true
+   ],
+   [
+    "WC60/u1119489|Toilets & amenities|Toilet Block 6m|install",
+    true
+   ],
+   [
+    "WC60/u1119489|Toilets & amenities|Toilet Block 6m|levelling",
+    true
+   ],
+   [
+    "WC60/u1119489|Toilets & amenities|Toilet Block 6m|steps",
+    true
+   ],
+   [
+    "WC60/u1328980|Toilets & amenities|Waste tank|install",
+    true
+   ],
+   [
+    "WC60/u1328980|Toilets & amenities|Waste tank|levelling",
+    true
+   ],
+   [
+    "WC60/u1328981|Toilets & amenities|Waste tank|install",
+    true
+   ],
+   [
+    "WC60/u1328981|Toilets & amenities|Waste tank|levelling",
+    true
+   ]
+  ],
+  "by": [
+   [
+    "assetNumbers/WC60/1087500",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "assetNumbers/WC60/1119489",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "assetNumbers/WC60/1328980",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "assetNumbers/WC60/1328981",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "deleted/back/num/WC60/1087500",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "deleted/back/num/WC60/1119489",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "deleted/back/num/WC60/1328980",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "deleted/back/num/WC60/1328981",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "dnote/WC60",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|cleaning",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|install",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|levelling",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|steps",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|install",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|levelling",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|steps",
+    "Andrew Fisher"
+   ],
+   [
+    "labour/WC60/u1328980|Toilets & amenities|Waste tank|install",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "labour/WC60/u1328980|Toilets & amenities|Waste tank|levelling",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "labour/WC60/u1328981|Toilets & amenities|Waste tank|install",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "labour/WC60/u1328981|Toilets & amenities|Waste tank|levelling",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "supplied/WC60/Toilet Block 6m",
+    "Andrew Fisher via Codex"
+   ],
+   [
+    "supplied/WC60/Waste tank",
+    "Andrew Fisher via Codex"
+   ]
+  ],
+  "supplied": [
+   [
+    "WC60",
+    {
+     "items": [
+      {
+       "asked": "Waste tank",
+       "supplied": "Waste tank",
+       "qty_supplied": 2,
+       "nums": [
+        "1328980",
+        "1328981"
+       ]
+      },
+      {
+       "asked": "Toilet Block 6m",
+       "supplied": "Toilet Block 6m",
+       "qty_supplied": 2,
+       "nums": [
+        "1119489",
+        "1087500"
+       ]
+      }
+     ]
+    }
+   ]
+  ],
+  "deleted": [
+   [
+    "back/num/WC60/1087500",
+    "2026-10-01T04:03:44.451Z"
+   ],
+   [
+    "back/num/WC60/1119489",
+    "2026-10-01T04:03:44.436Z"
+   ],
+   [
+    "back/num/WC60/1328980",
+    "2026-10-01T04:03:44.444Z"
+   ],
+   [
+    "back/num/WC60/1328981",
+    "2026-10-01T04:03:44.457Z"
+   ]
+  ],
+  "delivery": [
+   [
+    "WC60",
+    {
+     "state": "on site",
+     "set_at": "2026-10-01T04:03:44.722Z",
+     "by": "Andrew Fisher via Codex",
+     "levelled": true,
+     "levelled_by": "Andrew Fisher via Codex",
+     "levelled_at": "2026-10-01T04:03:44.722Z",
+     "steps": true,
+     "steps_by": "Andrew Fisher via Codex",
+     "steps_at": "2026-10-01T04:03:44.849Z",
+     "done": true,
+     "done_by": "Andrew Fisher via Codex",
+     "done_at": "2026-10-01T04:03:44.722Z",
+     "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026.",
+     "history": [
+      {
+       "state": "on site",
+       "at": "2026-10-01T04:03:44.722Z",
+       "by": "Andrew Fisher via Codex"
+      }
+     ],
+     "done_history": [
+      {
+       "done": true,
+       "at": "2026-10-01T04:03:44.722Z",
+       "by": "Andrew Fisher via Codex"
+      }
+     ],
+     "levelled_history": [
+      {
+       "levelled": true,
+       "at": "2026-10-01T04:03:44.722Z",
+       "by": "Andrew Fisher via Codex"
+      }
+     ],
+     "steps_history": [
+      {
+       "steps": true,
+       "at": "2026-10-01T04:03:44.849Z",
+       "by": "Andrew Fisher via Codex"
+      }
+     ]
+    }
+   ]
+  ],
+  "stamps": [
+   [
+    "assetNumbers/WC60/1087500",
+    "2026-10-01T04:03:44.451Z"
+   ],
+   [
+    "assetNumbers/WC60/1119489",
+    "2026-10-01T04:03:44.436Z"
+   ],
+   [
+    "assetNumbers/WC60/1328980",
+    "2026-10-01T04:03:44.444Z"
+   ],
+   [
+    "assetNumbers/WC60/1328981",
+    "2026-10-01T04:03:44.457Z"
+   ],
+   [
+    "dnote/WC60",
+    "2026-10-01T04:03:44.593Z"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|cleaning",
+    "2026-10-01T05:22:05.928Z"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|install",
+    "2026-10-01T05:13:05.607Z"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|levelling",
+    "2026-10-01T05:15:35.812Z"
+   ],
+   [
+    "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|steps",
+    "2026-10-01T05:15:34.838Z"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|install",
+    "2026-10-01T05:13:06.935Z"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|levelling",
+    "2026-10-01T05:15:37.012Z"
+   ],
+   [
+    "labour/WC60/u1119489|Toilets & amenities|Toilet Block 6m|steps",
+    "2026-10-01T05:15:33.347Z"
+   ],
+   [
+    "labour/WC60/u1328980|Toilets & amenities|Waste tank|install",
+    "2026-10-01T07:03:19.509Z"
+   ],
+   [
+    "labour/WC60/u1328980|Toilets & amenities|Waste tank|levelling",
+    "2026-10-01T07:03:19.686Z"
+   ],
+   [
+    "labour/WC60/u1328981|Toilets & amenities|Waste tank|install",
+    "2026-10-01T07:03:19.860Z"
+   ],
+   [
+    "labour/WC60/u1328981|Toilets & amenities|Waste tank|levelling",
+    "2026-10-01T07:03:20.019Z"
+   ],
+   [
+    "supplied/WC60/Toilet Block 6m",
+    "2026-10-01T07:03:19.488Z"
+   ],
+   [
+    "supplied/WC60/Waste tank",
+    "2026-10-01T07:03:19.466Z"
+   ]
+  ]
+ },
+ "nums": null
+}

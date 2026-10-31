@@ -1,0 +1,12 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"LT06 is here and confirmed and installed asset no 1224791 at pinned location -27.93807, 153.4263 and LT05 is here asset no 1224783 and installed and pinned at same location\". Both numbers are already on their references (scheduled 1224783 on LT05, 1224791 on LT06; contract lines /19 and /20, LT05/06-Lighting Tower POD Metro). Seaway Car Park Transporter Compound.",
+ "ops": [
+  {"op": "light", "ref": "LT06", "state": "on site"},
+  {"op": "complete", "ref": "LT06"},
+  {"op": "place", "ref": "LT06", "lat": -27.93807, "lon": 153.4263, "how": "Andrew Fisher's pinned location, 20 Oct 2026 (installed)", "source": "Andrew: pinned location -27.93807, 153.4263"},
+  {"op": "light", "ref": "LT05", "state": "on site"},
+  {"op": "complete", "ref": "LT05"},
+  {"op": "place", "ref": "LT05", "lat": -27.93807, "lon": 153.4263, "how": "Andrew Fisher's pinned location, 20 Oct 2026 (installed, same spot as LT06)", "source": "Andrew: pinned at the same location as LT06"}
+ ]
+}

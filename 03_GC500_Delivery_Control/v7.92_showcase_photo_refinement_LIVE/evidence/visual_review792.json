@@ -1,0 +1,125 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "previewSha256": "6373a7fe1782104a9f01f5df26d910631d6780910fa150a9f7384c4a5e6a33b6",
+  "scope": "Static visual inspection of all 13 desktop and 13 phone full-lap screenshots for facade/foliage rendering defects and phone control visibility.",
+  "result": "No blocking visual findings",
+  "blockingFindings": [],
+  "observations": [
+    "Pale floor bands remain coherent across near and distant facade views and break up previously uninterrupted tall glazing bays.",
+    "Tiered crown geometry stays bounded; no exploding foliage or broken shader output observed.",
+    "Phone playback, camera and quality controls remain visible without clipping or overlap in the reviewed captures."
+  ],
+  "limitations": [
+    "Static screenshots do not verify frame rate, animation smoothness, temporal shimmer, control behaviour or absence of runtime errors; those require the separate browser and performance checks.",
+    "This review covers the listed candidate captures only and does not assert surveyed building identities, tree species or landmark placement.",
+    "Fine edge aliasing remains visible at the phone Balanced rendering resolution; it was not classified as a blocking defect."
+  ],
+  "privateReferenceHandling": "Original reference photographs and screenshot binaries remain private; this report contains filenames and checksums only.",
+  "screenshots": [
+    {
+      "file": "desktop-0000m.png",
+      "sha256": "4ab8a25e39cef94be36efe9636ac15dd5359a981f12c81a745db0712c6e0f205"
+    },
+    {
+      "file": "desktop-0243m.png",
+      "sha256": "22a62bb99674ca01dbe8a8c9134a4033697a2980d85d985bbbe90dd60d194095"
+    },
+    {
+      "file": "desktop-0485m.png",
+      "sha256": "977efb645ca886dd65a2d5ca9e9a197d20bffb6257c320bd1f731aea16672533"
+    },
+    {
+      "file": "desktop-0728m.png",
+      "sha256": "2c8f0a8defce58c56e132a85c1fd648452e034f8d9636bd1eecc692a3073b1e5"
+    },
+    {
+      "file": "desktop-0970m.png",
+      "sha256": "1f1daacadf42d1c77b1d6f04650b757225da1946f189ee53ea9f03ebac6261eb"
+    },
+    {
+      "file": "desktop-1213m.png",
+      "sha256": "99f0f145178e01a4670cb735e819fd39672f0cbfb9dfdd41dd9535f42673cfbe"
+    },
+    {
+      "file": "desktop-1455m.png",
+      "sha256": "91a5199f0a9d9005ee7fda7d1986cdde3dcbc004c976de5bc4be4206b0e4e5fd"
+    },
+    {
+      "file": "desktop-1698m.png",
+      "sha256": "d3003cd23ccaba2a86a50adfbfaeec46ea2dba054a1305837b46b101dcc7825e"
+    },
+    {
+      "file": "desktop-1940m.png",
+      "sha256": "f00cc4bfad2980511202a4f594484ecb1cc91f9209cc3836bf06498c727fa7a3"
+    },
+    {
+      "file": "desktop-2183m.png",
+      "sha256": "ff02d33b5fffffb9ac78012adcbf08661eb6a353755b10c1113d0b35cbc6ea60"
+    },
+    {
+      "file": "desktop-2425m.png",
+      "sha256": "c8e3a14e94fd5961d29d123132519a2e176fe459ca712bb4cd8b9cba6a83aa09"
+    },
+    {
+      "file": "desktop-2668m.png",
+      "sha256": "03642258af4bd3b16ad7df9a537b02021691f196d844ecf1be25952954c1cc7f"
+    },
+    {
+      "file": "desktop-2935m.png",
+      "sha256": "46596524cd34b65a8d296557443872e19ebbfee860a7dbc22495d72735228f16"
+    },
+    {
+      "file": "phone-0000m.png",
+      "sha256": "8e6c5c03782bb8c6b2efc10f48d752446321abc4a97a72d96874bc6be83c4d1c"
+    },
+    {
+      "file": "phone-0243m.png",
+      "sha256": "95b44248c8aa703732f9809036427947ed8e5ad6b890c50867a4185e0945cabc"
+    },
+    {
+      "file": "phone-0485m.png",
+      "sha256": "4c70eedaded9cb943177a85005ded93d1c5f352554cb35bb6f55c1dd346066da"
+    },
+    {
+      "file": "phone-0728m.png",
+      "sha256": "435a2b4b10ffd2ae9971d61f79790788a9263e9a74d940d40e6540bc88d32595"
+    },
+    {
+      "file": "phone-0970m.png",
+      "sha256": "19fb3879d17b2325fab9c41552ffb35ec2fb407ae092618f1461d84669ce9882"
+    },
+    {
+      "file": "phone-1213m.png",
+      "sha256": "00f4ef851eec63ae05fcdeff3bbbf4dfd1bdb08859129908613547d38d814890"
+    },
+    {
+      "file": "phone-1455m.png",
+      "sha256": "216236dff4f5ddbf28c372f36a3201e084b2959b8ecdea6ded295301231f514f"
+    },
+    {
+      "file": "phone-1698m.png",
+      "sha256": "13d3b26e15e10b3ac6d799549a71faeec036ddf28a4683eb05ce2d0aba0cea26"
+    },
+    {
+      "file": "phone-1940m.png",
+      "sha256": "378546520f432fca6e6d07ba2387b972a516b72e806b9667e2806c382697740e"
+    },
+    {
+      "file": "phone-2183m.png",
+      "sha256": "8a9d61922f6cec5128990d8207480a8c5c319ade136b86f1a39e4215e3daa436"
+    },
+    {
+      "file": "phone-2425m.png",
+      "sha256": "acea64bacc66b1dad41b9a72b531aa610b9b6433d2cf703858a65f5a970e587e"
+    },
+    {
+      "file": "phone-2668m.png",
+      "sha256": "146365e8ac19d0dbf8050c938bf27853b40390288b6d5204ffb5cee7178ead36"
+    },
+    {
+      "file": "phone-2935m.png",
+      "sha256": "b7b4cb2598a8e226d3c12aefa9097cfd5c58e53f2ef41ce6088f3a4764b4cfeb"
+    }
+  ]
+}

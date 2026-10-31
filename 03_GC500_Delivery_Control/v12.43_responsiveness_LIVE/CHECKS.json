@@ -1,0 +1,103 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+  "candidate_sha256": "7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f",
+  "bytes": 16030489,
+  "inline_scripts": 214,
+  "preservation": {
+    "passed": 34,
+    "failed": 0
+  },
+  "phone": {
+    "passed": 6,
+    "failed": 0
+  },
+  "alignment": {
+    "passed": 13,
+    "failed": 0
+  },
+  "release_boundaries": 8,
+  "screenshots_inspected": true,
+  "timings": [
+    {
+      "run": "matched-A1",
+      "html_sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+      "state_sha256": "2ec6b7c0d9ca6c1a1fcb3a83a649e044f4b40bde2a1f36dd548060c21dceb74f",
+      "startup_first_live_ms": 15495,
+      "tabs": {
+        "tap-costs": 3641.7999999970198,
+        "tap-demob": 3401,
+        "tap-today": 1774.6000000089407
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    {
+      "run": "matched-A2",
+      "html_sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+      "state_sha256": "2ec6b7c0d9ca6c1a1fcb3a83a649e044f4b40bde2a1f36dd548060c21dceb74f",
+      "startup_first_live_ms": 13745,
+      "tabs": {
+        "tap-costs": 3548.2999999970198,
+        "tap-demob": 3524.7000000029802,
+        "tap-today": 1679.4000000059605
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    {
+      "run": "matched-B1",
+      "html_sha256": "7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f",
+      "state_sha256": "2ec6b7c0d9ca6c1a1fcb3a83a649e044f4b40bde2a1f36dd548060c21dceb74f",
+      "startup_first_live_ms": 3008,
+      "tabs": {
+        "tap-costs": 5033.5,
+        "tap-demob": 1664.9000000059605,
+        "tap-today": 1770.7999999970198
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    {
+      "run": "matched-B2",
+      "html_sha256": "7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f",
+      "state_sha256": "2ec6b7c0d9ca6c1a1fcb3a83a649e044f4b40bde2a1f36dd548060c21dceb74f",
+      "startup_first_live_ms": 2662,
+      "tabs": {
+        "tap-costs": 2402.9000000059605,
+        "tap-demob": 1495,
+        "tap-today": 1831.6000000089407
+      },
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    }
+  ],
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "tabs": 27,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  }
+}

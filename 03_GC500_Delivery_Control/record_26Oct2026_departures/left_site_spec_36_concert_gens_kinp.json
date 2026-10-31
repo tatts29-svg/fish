@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, answering the Baseplan (8) review on the concert contract 9994954 (GN26/GN27 200 kVA, cable, sync labour, transport, gen tech): \"I spoke with Chris about this one happy to leave KINP\". Our record carries the two concert generators (1316182, 1316183) on reference GN?, which the P&L put on NVAC; it goes on branch KINP so the P&L matches the contract.",
+  "ops": [
+    {"op": "branch", "ref": "GN?", "code": "KINP"}
+  ]
+}

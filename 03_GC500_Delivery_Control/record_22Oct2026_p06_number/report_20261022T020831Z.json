@@ -1,0 +1,113 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261022T020831Z",
+ "finished": "2026-10-22T02:08:51.241Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026, on P06 (Wilclean crib room, 6 m): \"on our end this is the correct number 1087453. please delete and remove this number now 1097453\". The record had 1097453 since 17 Oct (then his word: it stays 1097453); today he settles it the other way, which matches Baseplan 9968862 line 64. Through the page's own asset-number control, as an editor would: put 1087453 on P06, take 1097453 off. Nothing else changes.",
+  "ops": [
+   {
+    "op": "number_on",
+    "ref": "P06",
+    "no": "1087453"
+   },
+   {
+    "op": "number_off",
+    "ref": "P06",
+    "no": "1097453"
+   }
+  ]
+ },
+ "pageSha256": "8a19fcce4625eb204c2d5628bc5a885c2a4e799f11e8235ffa0b7c90cc1102ae",
+ "version": {
+  "before": 10505,
+  "after": 10509
+ },
+ "updated": {
+  "before": "2026-10-22T01:51:21.516Z",
+  "after": "2026-10-22T02:08:50.467Z"
+ },
+ "stage": [
+  {
+   "op": "number_on",
+   "ref": "P06",
+   "no": "1087453",
+   "result": "put on"
+  },
+  {
+   "op": "number_off",
+   "ref": "P06",
+   "no": "1097453",
+   "result": "taken off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/assetNumbers~2f~P06~2f~1087453",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P06",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~P06~2f~1097453",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P06~2f~1087453",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/assetNumbers~2f~P06~2f~1087453": {
+    "_k": "assetNumbers/P06/1087453",
+    "v": "2026-10-15T05:49:30.112Z"
+   },
+   "assetNumbers/P06": {
+    "_k": "P06",
+    "v": [
+     "1097453"
+    ]
+   },
+   "deleted/num~2f~P06~2f~1097453": {
+    "_k": "num/P06/1097453",
+    "v": "2026-10-15T05:49:29.736Z"
+   },
+   "deleted/back~2f~num~2f~P06~2f~1087453": {
+    "_k": "back/num/P06/1087453",
+    "v": "2026-10-15T05:49:30.112Z"
+   }
+  },
+  "after": {
+   "stamps/assetNumbers~2f~P06~2f~1087453": {
+    "_k": "assetNumbers/P06/1087453",
+    "v": "2026-10-22T02:08:38.340Z"
+   },
+   "assetNumbers/P06": {
+    "_k": "P06",
+    "v": [
+     "1087453"
+    ]
+   },
+   "deleted/num~2f~P06~2f~1097453": {
+    "_k": "num/P06/1097453",
+    "v": "2026-10-22T02:08:39.148Z"
+   },
+   "deleted/back~2f~num~2f~P06~2f~1087453": {
+    "_k": "back/num/P06/1087453",
+    "v": "2026-10-22T02:08:38.340Z"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

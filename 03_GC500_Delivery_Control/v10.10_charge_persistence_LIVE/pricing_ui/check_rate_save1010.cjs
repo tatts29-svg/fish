@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Exact rate, stamp and author acknowledgement; no live service. */
+const assert=require('assert'),{status}=require('./pricing_ui1010');let count=0;
+const expected=[{value:'rate'},{value:'stamp'},{value:'author'}],a={kept:true,expected},env={current:['rate','stamp','author'],last:['rate','stamp','author'],on:true,connection:'live',readonly:false,queued:false,inflight:false};
+function test(label,attempt,e,want){assert.equal(status(attempt,e).state,want,label);count++;}
+test('no attempt',null,env,'none');test('not saved yet',{...a,kept:null},env,'pending');test('local save failure',{...a,kept:false},env,'error');test('explicit native refusal',{error:'Refused'},env,'error');test('unsubmitted',{dirty:true},env,'dirty');test('all exact shared docs',a,env,'shared');
+for(let i=0;i<3;i++){const last=env.last.slice();last[i]='old';test('old ack '+i,a,{...env,last},'pending');const current=env.current.slice();current[i]='new';test('current changed '+i,a,{...env,current},'changed');}
+test('queued later intent',a,{...env,queued:true},'pending');test('in-flight older intent',a,{...env,inflight:true},'pending');test('offline awaiting record',a,{...env,on:false},'offline');test('unreachable while pending',a,{...env,last:[],connection:'unreachable'},'offline');test('read-only after save',a,{...env,last:[],readonly:true},'offline');test('no matching expected docs',{...a,expected:[]},env,'changed');
+const reset={kept:true,expected:[{value:null},{value:'new stamp'},{value:'author'}]},resetEnv={...env,current:[null,'new stamp','author'],last:[null,'new stamp','author']};test('reset exact absent rate and acknowledged stamp',reset,resetEnv,'shared');test('reset not confirmed from earlier absent rate',reset,{...resetEnv,last:[null,'old stamp','author']},'pending');test('reset pending deletion',reset,{...resetEnv,queued:true},'pending');
+console.log(JSON.stringify({author:'Andrew Fisher',passed:true,checks:count}));

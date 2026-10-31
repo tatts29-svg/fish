@@ -1,0 +1,46 @@
+PASS server v5.87 starts
+PASS view auth cannot inspect delivery
+PASS bad auth cannot inspect delivery
+PASS unknown ID fails whole lookup before provider reads
+PASS malformed or over-limit request rejected: 0
+PASS malformed or over-limit request rejected: 1
+PASS malformed or over-limit request rejected: 51
+PASS sms-delivered classified delivered
+PASS sms-pending classified pending
+PASS sms-failed classified failed
+PASS sms-temporary classified pending
+PASS sms-missing classified pending
+PASS sms-unsupported classified unsupported
+PASS sms-wrong-id classified unknown
+PASS sms-wrong-kind classified unknown
+PASS sms-malformed classified unknown
+PASS sms-private classified unknown
+PASS receipt response omits provider secrets, bodies and account
+PASS receipt lookup does not modify local log
+PASS mms-delivered classified delivered
+PASS mms-pending classified pending
+PASS mms-failed classified failed
+PASS mms-temporary classified pending
+PASS mms-completed classified unknown
+PASS mms-wrong-to classified pending
+PASS mms-inbound classified pending
+PASS mms-secret classified delivered
+PASS mms-missing classified pending
+PASS MMS lookup omits foreign messages, body, media URLs and provider credentials
+PASS MMS uses documented dated bounded history
+PASS MMS unsupported reports unsupported
+PASS MMS malformed reports unknown
+PASS MMS truncated reports unknown
+PASS all receipt/provider reads are GET, never mark-as-read
+PASS mixed submission reports one accepted and one rejected
+PASS acceptance is pending delivery
+PASS submission does not echo arbitrary provider response words
+PASS UNSUCCESSFUL substring never counts as acceptance or definite rejection
+PASS provider recipients match normalized number, not array order
+PASS unmatched provider recipients are unknown
+PASS malformed provider 503 is unknown and never claims nothing sent
+PASS provider network failure includes per-recipient unknown and retry warning
+PASS documented global rejection is explicit and returns allowance
+PASS MMS uses the same truthful submission contract
+PASS test provider calls stay on explicit messaging routes
+45/45 checks passed. No live calls or messages.

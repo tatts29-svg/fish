@@ -1,0 +1,14 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026 (AEST): \"Also equipment is wrong. That should read 100% all of that has turned up\". The Today card's Equipment group read 8 of 12 machines because the four access & plant references added on 21 Oct (EQ0001 scissor lift 1220903, EQ0002 knuckle boom 1300290, EQ0003 straight boom 1286482, EQ0004 forklift 1210921) had no delivery record. Each is set on site and complete through the page's own light and Complete controls. No arrival day is invented: the light is dated when it is pressed.",
+ "ops": [
+  {"op": "light", "ref": "EQ0001", "state": "on site"},
+  {"op": "complete", "ref": "EQ0001"},
+  {"op": "light", "ref": "EQ0002", "state": "on site"},
+  {"op": "complete", "ref": "EQ0002"},
+  {"op": "light", "ref": "EQ0003", "state": "on site"},
+  {"op": "complete", "ref": "EQ0003"},
+  {"op": "light", "ref": "EQ0004", "state": "on site"},
+  {"op": "complete", "ref": "EQ0004"}
+ ]
+}

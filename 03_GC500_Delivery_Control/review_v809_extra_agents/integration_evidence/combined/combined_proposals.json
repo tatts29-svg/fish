@@ -1,0 +1,159 @@
+{
+  "author": "Andrew Fisher",
+  "nodeVersion": "v24.19.0",
+  "sourceCommit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "files": {
+    "car-app.js": {
+      "sourceSha256": "718b2cfa403ae8fb0d6bc7b3bde6578719e62802b2eb23c38513e4d0700f1707",
+      "combinedSha256": "2dcb49b9e26dded7f4ce14e5733c40ab48691ca8ee66d49dc53527026cb25afb",
+      "hunks": [
+        {
+          "owner": "mechanics",
+          "originalStartLine": 262,
+          "originalEndLine": 262,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        },
+        {
+          "owner": "phone",
+          "originalStartLine": 312,
+          "originalEndLine": 312,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        },
+        {
+          "owner": "phone",
+          "originalStartLine": 347,
+          "originalEndLine": 347,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        },
+        {
+          "owner": "performance",
+          "originalStartLine": 476,
+          "originalEndLine": 477,
+          "insertBeforeLine": null,
+          "insertedLines": 2
+        },
+        {
+          "owner": "camera",
+          "originalStartLine": 618,
+          "originalEndLine": 618,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        },
+        {
+          "owner": "performance",
+          "originalStartLine": 680,
+          "originalEndLine": null,
+          "insertBeforeLine": 680,
+          "insertedLines": 2
+        },
+        {
+          "owner": "phone",
+          "originalStartLine": 785,
+          "originalEndLine": 786,
+          "insertBeforeLine": null,
+          "insertedLines": 2
+        },
+        {
+          "owner": "performance",
+          "originalStartLine": 796,
+          "originalEndLine": 796,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        }
+      ]
+    },
+    "index.html": {
+      "sourceSha256": "11dbc435a37111480dcac1f6cce55e1818de3b7968f71af39134e558acf5b4f9",
+      "combinedSha256": "fb07e7b09dd5574f3869f5e35ac61f22d950f42efbf13d7a2a2ddaa90d571148",
+      "hunks": [
+        {
+          "owner": "phone",
+          "originalStartLine": 4,
+          "originalEndLine": 4,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        },
+        {
+          "owner": "phone",
+          "originalStartLine": 9,
+          "originalEndLine": 9,
+          "insertBeforeLine": null,
+          "insertedLines": 1
+        }
+      ]
+    },
+    "mech-driveline.js": {
+      "sourceSha256": "b03f023ac59000ce1d679741e477002189e66eb9927dfac3a2e97c2bf3d3024e",
+      "combinedSha256": "5f8361b93380a7b6309eeca8580349c1cbb7eb3fb63196c1a137c3b1fa01da23",
+      "hunks": [
+        {
+          "owner": "mechanics",
+          "originalStartLine": 127,
+          "originalEndLine": 128,
+          "insertBeforeLine": null,
+          "insertedLines": 6
+        }
+      ]
+    },
+    "vendor/addons/postprocessing/GTAOPass.js": {
+      "sourceSha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+      "combinedSha256": "33e0c4074eff4f2cd6116fef1df4ae900ef33229ac91c6793c5af5d6dab4fcb2",
+      "hunks": [
+        {
+          "owner": "performance",
+          "originalStartLine": 157,
+          "originalEndLine": null,
+          "insertBeforeLine": 157,
+          "insertedLines": 2
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "name": "phone_prepare",
+      "exitCode": 0
+    },
+    {
+      "name": "camera_prepare",
+      "exitCode": 0
+    },
+    {
+      "name": "mechanics_prepare",
+      "exitCode": 0
+    },
+    {
+      "name": "performance_prepare",
+      "exitCode": 0
+    },
+    {
+      "name": "phone_cpu",
+      "exitCode": 0
+    },
+    {
+      "name": "phone_names",
+      "exitCode": 0
+    },
+    {
+      "name": "camera_cpu",
+      "exitCode": 0
+    },
+    {
+      "name": "mechanics_cpu",
+      "exitCode": 0
+    },
+    {
+      "name": "performance_cpu",
+      "exitCode": 0
+    },
+    {
+      "name": "integration",
+      "exitCode": 0
+    }
+  ],
+  "scope": "All four optional proposals composed for review only; not accepted implementation, browser evidence or READY",
+  "union": "9dd88ab40fe8fa2f09fa6d3ecca9213170cd641f23e14967a4930a3df32955c2"
+}

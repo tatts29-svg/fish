@@ -1,0 +1,208 @@
+{
+ "by": "Andrew Fisher",
+ "why": "Andrew, 20 Oct 2026: \"add a fire extinguisher to every building and tick as complete. all of these must have 1 attached Building 6m, Building 4.8m, Building 12m, Building 9.6m, Building 3.6m, Ticket Box 4.8m, Ticket Box 6m ... approved to do and go live\" - the 39 without one get one (sheet: ../record_20Oct2026_fire_extinguishers/). Also step 2 of 2 for WC31: the Accessible Toilet install back on, dated after today's receipt (\"wc31 accesbale toilet is installed\").",
+ "ops": [
+  {
+   "op": "labour_on",
+   "ref": "WC31",
+   "disc": "Toilets & amenities",
+   "item": "Accessible Toilet",
+   "line": "install"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "AA",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "CP1",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "HRP",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P01",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P03",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P04",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P05",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P06",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P09",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P10",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P11",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P12",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P13",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P14",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P15",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P16",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P17",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P18",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P19",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P20",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P21",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P33",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P36",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P37",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P38",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P39",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P41",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P42",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P44",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P55",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P56",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P58",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P60",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P62",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P63",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P65",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P67",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "T0021",
+   "qty": 1
+  },
+  {
+   "op": "fire_ext",
+   "ref": "T0022",
+   "qty": 1
+  }
+ ]
+}

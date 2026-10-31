@@ -1,0 +1,23 @@
+PASS a light on Today opens Equipment on every trade with that light  {"group":null,"light":"none","disc":"*"}
+PASS the tab is called Equipment; Plant is gone from the row  ["Today","Timeline","Equipment","Demob","Map explorer","Coates Way"]
+PASS opens on the first trade  {"group":"Toilets & amenities"}
+PASS one heading, one row of trade buttons, names only  ["All","Toilets & amenities","Portable buildings","Lighting towers","Generators","Water-filled barriers","VMS boards","Forklifts & access","Furniture","Other","Track mat"]
+PASS List/Cards and Share PDF in the heading
+PASS the Inventory, in its look, for the trade chosen; its own trade buttons gone  {"title":"On site now","disc":"Toilets & amenities"}
+PASS order: heading, Inventory, Every reference, contracts  ["rochip.view","panehead-plant","rbhero.pgban","card.eqhead","pfold","invCard","fold96.eqrefs","regsum"]
+PASS Every reference folded, its line saying how many and how many recorded  "74 references · 2 of 83 asked-for item lines recorded · 2% · lights, dates, asset numbers, contracts, asked and supplied"
+PASS no repeats: old Plant heading gone, the trade heading and progress not repeated inside  {"oldTitle":false,"groupHeads":0}
+PASS Branches folded under the contracts
+PASS opened, Every reference shows the reference rows  74
+PASS an opened fold stays open through a redraw
+PASS a trade button moves the Inventory and the references together  {"disc":"Portable buildings","words":"56 references · 1 of 56 asked-for item lines recorded · 2% · lights, dates, asset numbers, contracts, asked and supplied"}
+PASS VMS boards finds its Inventory trade (Variable message signs)  "Variable message signs"
+PASS All: every trade in both parts, each trade named in the references  {"words":"201 references across 10 trades · lights, dates, asset numbers, contracts, asked and supplied","heads":10}
+PASS pressing a number shows its locations on Equipment  {"drill":true,"heads":1,"tab":"plant"}
+PASS Share PDF opens from the heading  {"open":true}
+PASS Change deliveries no longer carries the Inventory; its button opens Equipment  {"inv":false,"btn":true}
+PASS Print opens the folds, their lines do not print, and the ones closed before close again  {"pr":[true,true],"paper":0,"after":["Every reference:true","Branches:false"]}
+PASS on an editing link the Inventory spares can be typed  {"spNo":true,"disabled":false}
+PASS no page wider than the screen  0
+PASS no page errors  []
+phone: 22/22

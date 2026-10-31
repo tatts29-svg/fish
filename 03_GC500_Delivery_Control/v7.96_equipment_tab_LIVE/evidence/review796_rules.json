@@ -1,0 +1,241 @@
+{
+ "page": "build/GC500_v7.96/GC500_Delivery_Control_hosted.html",
+ "passed": 45,
+ "of": 45,
+ "tests": [
+  {
+   "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
+   "pass": true,
+   "detail": "[-27.985403,153.427226,\"the orange generator symbol on the master D001, at the end of callout 021's line on D024 (corrected 2 Oct 2026: the 27 Sep trace had followed the wrong line to Gate 2, 423 m away)\"]"
+  },
+  {
+   "name": "G2 every generator the master places sends the driver to its orange symbol (within 1 m)",
+   "pass": true,
+   "detail": "GN01:0 GN03:0 GN04:0 GN06:0 GN10:0 GN13:0 GN18:0 GN19:0 GN20:0 GN21:0 GN23:0 GN24:0"
+  },
+  {
+   "name": "R1 every text stays inside three texts (<= 459 GSM units), all plain",
+   "pass": true,
+   "detail": "max 459"
+  },
+  {
+   "name": "R2 the order line is on every named unit",
+   "pass": true,
+   "detail": "P03:ORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry. | P01:ORDER: truck 2 of 6 - only after P03 is in. Out of order = no entry. | P05:ORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry. | P04:ORDER: truck 6 of 6 - only after the WC05 toilet block is in. Out of order = no entry. | WC05:ORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry. | GN21:ORDER: GN21 60kVA first - tight spot. GN20 350kVA after it. | GN20:ORDER: only after GN21 60kVA is placed (tight spot)."
+  },
+  {
+   "name": "R3 every reference with a waste tank says the tank goes first",
+   "pass": true,
+   "detail": "WC20:true WC27:true WC60:true"
+  },
+  {
+   "name": "R4 S08 drops (WB02, WB19, WC27) are land side: enter from the Surfers (south) end, race direction",
+   "pass": true,
+   "detail": "WB02:land side WB19:land side WC27:land side"
+  },
+  {
+   "name": "R5 seaside drops (WC50, WC60, WC62) come in at the Seaworld Dr roundabout end and drive south",
+   "pass": true,
+   "detail": "WC50:seaside WC60:seaside WC62:seaside"
+  },
+  {
+   "name": "R6 a drop nowhere near Main Beach Pde carries no Main Beach entry line (AA, P01)",
+   "pass": true,
+   "detail": "none"
+  },
+  {
+   "name": "R7 Full details carries the whole rule set (order, entry, park, stagger, D007 event-week facts)",
+   "pass": true,
+   "detail": " (the project manager, 2 Oct 2026):\nORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.\n  P01: in place on the record\nThe sequence: 1 P03 > 2 P01 > 3 P05 > 4 WC05 waste tank > 5 WC05 toilet block > 6 P04. One truck at a time, staggered. A truck out of this order is refused entry and"
+  },
+  {
+   "name": "R8 the drawer shows a Driver rules box for a named unit, none for a unit no rule touches",
+   "pass": true,
+   "detail": " Driver rules Order only after GN21 60kVA is placed (tight spot). GN21 in place on the record Arrivals Stagger them - the site is congested every Supercars week. Set by the project manager, 2 Oct 2026. In every text and in Full details. "
+  },
+  {
+   "name": "R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details",
+   "pass": true,
+   "detail": "72 in Full details · 0 in the short text"
+  },
+  {
+   "name": "R10 the order check reads the record (GN21 before GN20 recorded out of order; P01 vs P03; WC05 vs P05, P04)",
+   "pass": true,
+   "detail": "[\"P03>P01:out of order\",\"P01>P05:in order\",\"P05>WC05:in order\",\"WC05>P04:out of order\",\"GN21>GN20:out of order\"]"
+  },
+  {
+   "name": "L1 the load rule (morning: away from Kingston by 05:00, in order, no travel 07:00-09:00 or 16:00-18:00; a timed delivery follows its own leave-by) is in Full details and the drawer of a delivery still to come",
+   "pass": true,
+   "detail": "LOAD: for a morning delivery (on site before 07:00), loaded and away from Kingston by 05:00. Load in the delivery order - about 70 min to site. NO travel to the Gold Coast 07:00-09:00 or 16:00-18:00. A delivery with a time asked for gets one leave-by time that meets all of these."
+  },
+  {
+   "name": "L2 the general load check flags the 14 Sep plan as if still to come and untimed (WC05 tank 08:30 after 05:00 and in the 07:00-09:00 no-travel window; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
+   "pass": true,
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30 - away from Kingston after 05:00\",\"Waste tank: load 08:30 - away from Kingston after 05:00 and puts the truck on the road 08:30-09:40, inside the 07:00-09:00 no-travel window\"],\"p01\":[\"loads at 04:30, not after P03 (04:30) - load in the delivery order, staggered\"],\"p04\":[\"Building 12m: load 09:30 - away from Kingston after 05:00\",\"loads at 09:30, not after WC05 (09:30) - load in the delivery order, staggered\"],\"p05\":[]}"
+  },
+  {
+   "name": "L3 a waste tank loading after its toilet block is called out",
+   "pass": true,
+   "detail": "[\"Waste tank: load 10:00 - away from Kingston after 05:00\",\"the waste tank loads at 10:00, not before the toilet block (04:30) - load the tank first\",\"loads at 04:30, not after P05 (05:00) - load in the delivery order, staggered\"]"
+  },
+  {
+   "name": "L4 nothing to check on a unit already on site (no noise on finished work)",
+   "pass": true,
+   "detail": "0"
+  },
+  {
+   "name": "T1 the time given is an UNLOADED-BY time: every Full details of a delivery still to come says so; a delivered one does not (its record, not a plan)",
+   "pass": true,
+   "detail": "120 to come with the rule ·  delivered with it"
+  },
+  {
+   "name": "T2 a delivery still to come with a time reads \"on site by .., unloaded by ..\" (30 min to unload), and the check gives the latest Kingston departure (WB04 at 09:00, no load time: in before the 07:00-09:00 window and a morning run away by 05:00, so on site by 06:10)",
+   "pass": true,
+   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, on site by 06:10, unloaded by 09:00\",\"check\":[\"no load time on the schedule - to be unloaded by 09:00: on site by 06:10 (no travel 07:00-09:00, so in before 07:00; a morning run leaves Kingston by 05:00), so leave Kingston by 05:00, loaded before then (70 min run, at least 30 min to unload)\"]}"
+  },
+  {
+   "name": "T5 a load that would be on the road in a no-travel window is called out with the load-by time (load 07:30 for 09:00: leave Kingston by 05:00)",
+   "pass": true,
+   "detail": "[\"test load: load 07:30, on site about 08:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:00, loaded before then.\"]"
+  },
+  {
+   "name": "T7 one plan, one answer: a timed morning load that leaves after 05:00 is called out, even with time to unload (load 05:30 for 09:00)",
+   "pass": true,
+   "detail": "[\"test load: load 05:30, on site about 06:40 - leaves Kingston after its leave-by time (no travel 07:00-09:00, so in before 07:00; a morning run leaves Kingston by 05:00). Leave Kingston by 05:00, loaded before then.\"]"
+  },
+  {
+   "name": "T6 one plan meets every constraint: 30 min to unload, 70 min run, never on the road 07:00-09:00 or 16:00-18:00, and a morning run away from Kingston by 05:00",
+   "pass": true,
+   "detail": "07:00>06:10/05:00 09:00>06:10/05:00 10:00>06:10/05:00 10:30>06:10/05:00 10:40>10:10/09:00 12:00>11:30/10:20 18:30>16:00/14:50"
+  },
+  {
+   "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00: tank 08:30 runs into the no-travel window, toilet 09:30 lands after 07:00, as if to come); one that makes it shows its unloading time (P05: 50 min)",
+   "pass": true,
+   "detail": "{\"wc05\":[\"Toilet Block 6m: load 09:30, on site about 10:40 - AFTER 07:00, when it must already be unloaded. Leave Kingston by 05:00, loaded before then.\",\"Waste tank: load 08:30, on site about 09:40 - on the road in the 07:00-09:00 no-travel window. Leave Kingston by 05:00, loaded before then.\"],\"p05\":[\"Building 6m: load 05:00, on site about 06:10 - 50 min to unload before 07:00.\"]}"
+  },
+  {
+   "name": "T4 a delivered record keeps its own words (P03: \"on site 07:00\")",
+   "pass": true,
+   "detail": "Due Mon 14 Sep 2026, on site 07:00"
+  },
+  {
+   "name": "D1 every Full details of a delivery still to come carries the dispatch rule (no driver leaves without firm directions)",
+   "pass": true,
+   "detail": "all"
+  },
+  {
+   "name": "D2 a delivery with a verified location but no way in is held - in the text, the drawer and Full details (WB13 - GN04 has its way in since v7.84); the label says DIRECTIONS, not ready to send",
+   "pass": true,
+   "detail": "{\"sms\":[\"Welcome to Coates GC500\",\"WB13 - Water-filled barrier (TL2) - Fence bracing behind S15\",\"GPS: -27.990559, 153.428534 (water barriers: the spot the description names)\",\"Navigate: https://www.google.com/maps/dir/?api=1&destination=-27.990559,153.428534&travelmode=driving\",\"HOLD: way in not set - do not leave until site gives it.\"]}"
+  },
+  {
+   "name": "D3 no drop-off yet: the driver is sent to the pit lane (the spot by P33; never named) - text (with P33 GPS and Navigate), driver sheet and Full details (PG01)",
+   "pass": true,
+   "detail": "{\"sms\":[\"No drop-off yet: report to the pit lane.\",\"GPS: -27.984876, 153.426644 (pit lane)\"],\"sheet\":\"report\",\"words\":\"Report to the pit lane\",\"p33\":[-27.984876,153.426644]}"
+  },
+  {
+   "name": "D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted",
+   "pass": true,
+   "detail": "116 to come · 112 ready · 4 not ready (0 no location, 4 no way in) · ready: GN04,GN06,GN10,GN13,GN18,GN19,GN24,GN25,GN?,LT01,LT02,LT03,LT04,LT05,LT06,LTC01,LTC02,LTC03,LTC04,LTC05,LTC06,LTC07,LTC08,LTC09,LTC10,LTC11,LTC12,LTC14,P08,P25,P26,P28,P34,P45,P46,P47,P51,P52,P54,P55,P56,P57,P60,P62,P63,P65,P66,P67,P69,PG01,PG03,PG05,PG29,WB04,WB05,WB06,WB14,WB15,WB16,WB17,WB19,WC09,WC10,WC13,WC19,WC20,WC23,WC24,WC25,WC26,WC28,WC29,WC30,WC32,WC34,WC35,WC38,WC39,WC40,WC45,WC46,WC47,WC48,WC49,WC51,WC53,WC54,WC55,WC57,WC61,WC62,WC65,WC68,WC69,WC70,WC72,WC73,WC85,WC86,T0089,T0258,T0103,T0265,T0266,T0128,T0158,T0159,T0162,T0268,T0169,T0170,T0176"
+  },
+  {
+   "name": "D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it replaces the pit-lane fallback (T0085, in memory only)",
+   "pass": true,
+   "detail": "{\"before\":\"report\",\"after\":\"placed\",\"txt\":\"GPS: -27.980000, 153.430000 (placed on the map, not yet checked on site)\"}"
+  },
+  {
+   "name": "D6 (measure) every reference on the driver sheet: exact drop-off (pin, master, placed) vs description (water barriers) vs report to the pit lane",
+   "pass": true,
+   "detail": "197 references · master 126 · report 53 · desc 15 · none 1 · pin 2"
+  },
+  {
+   "name": "C1 clocks are always valid, and a time on another day says which (Codex review)",
+   "pass": true,
+   "detail": "23:20|01:05|23:50 the day before|00:10 the next day"
+  },
+  {
+   "name": "C2 a delivery just after midnight plans back into the day before (WB04 unloaded by 00:20: on site by 23:50 the day before, leave Kingston by 22:40 the day before)",
+   "pass": true,
+   "detail": "{\"sms\":\"Due Fri 16 Oct 2026, on site by 23:50 the day before, unloaded by 00:20\",\"check\":[\"no load time on the schedule - to be unloaded by 00:20: on site by 23:50 the day before, so leave Kingston by 22:40 the day before, loaded before then (70 min run, at least 30 min to unload)\"]}"
+  },
+  {
+   "name": "C3 a load the day before is compared on the calendar, not the clock (23:00 the day before for 09:00: on site 00:10, 530 min to unload)",
+   "pass": true,
+   "detail": "[\"night load: load 23:00 the day before, on site about 00:10 - 530 min to unload before 09:00.\"]"
+  },
+  {
+   "name": "H1 a delivered unit shows its record, not a plan: no Time or Loading row, no time/load checks, no TIME/LOAD/DISPATCH lines (P03)",
+   "pass": true,
+   "detail": "{\"html\":\" Driver rules Order truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry. Sequence 1 P03 &gt; 2 P01 &gt; 3 P05 &gt; 4 WC05 waste tank &gt; 5 WC05 toilet block &gt; 6 P04.\"}"
+  },
+  {
+   "name": "V1 a position the map review left unverified does not count as a drop-off: LTC01 goes to the pit lane - its source still says not verified, and Navigate names the pit lane it goes to (Codex recheck: the tooltip matches the destination)",
+   "pass": true,
+   "detail": "{\"by\":\"drawing D024 arrow (not verified)\",\"nav\":\"Opens your maps app with driving directions to the pit lane - no drop-off is set for LTC01 yet; the driver reports there and site directs them.\",\"dirs\":{\"drop\":false,\"dir\":true,\"ok\":true,\"report\":\"P33\",\"missing\":[],\"unverified\":false,\"located\":true},\"sheet\":\"report\",\"sms\":[\"No drop-off yet: report to the pit lane.\",\"GPS: -27.984876, 153.426644 (pit lane)\"]}"
+  },
+  {
+   "name": "V2 one source label on every surface: P47 is \"confirmed by the project manager\" in the text, Navigate, the pin record and the driver sheet",
+   "pass": true,
+   "detail": "{\"by\":\"the project manager (2 Oct 2026)\",\"nav\":\"Opens your maps app with driving directions to the spot the project manager confirmed for P47 (2 Oct 2026).\",\"sheet\":\"Confirmed position\",\"sms\":\"GPS: -27.983465, 153.424018 (confirmed by the project manager)\"}"
+  },
+  {
+   "name": "W1 every water barrier has a drop-off from its description - the spot the master marks, or (WB01, WB05, WB06) looked up from the description; none goes to the pit lane",
+   "pass": true,
+   "detail": "[\"WB01:desc\",\"WB02:desc\",\"WB03:desc\",\"WB04:desc\",\"WB05:desc\",\"WB06:desc\",\"WB07:desc\",\"WB13:desc\",\"WB14:desc\",\"WB15:desc\",\"WB16:desc\",\"WB17:desc\",\"WB18:desc\",\"WB19:desc\",\"WB20:desc\"]"
+  },
+  {
+   "name": "W2 \"P33\" is never shown to a driver for a pit-lane fallback (text, driver sheet, drawer, Full details, sign)",
+   "pass": true,
+   "detail": "[]"
+  },
+  {
+   "name": "Z1 every location has its way in by area (the project manager, 2 Oct 2026; zones read off the master D001): the island by the pit lane; seaside from the north end; land side and over the bridge from the south end; Gate 1 by the Tedder Ave access point and Gate 2 by the GC Hwy underpass (D007)",
+   "pass": true,
+   "detail": "{\"P26\":\"island/pit lane\",\"WC86\":\"island/pit lane\",\"WB06\":\"island/pit lane\",\"WC54\":\"main beach/seaside\",\"WC49\":\"main beach/seaside\",\"WC13\":\"main beach/land side\",\"WB15\":\"main beach/land side\",\"WC30\":\"main beach/land side\",\"P52\":\"gate 1/Tedder Ave\",\"WC68\":\"gate 1/Tedder Ave\",\"P46\":\"gate 2/Gate 2\",\"WC38\":\"gate 2/Gate 2\",\"GN04\":null,\"WB07\":null}"
+  },
+  {
+   "name": "Z2 only WB07 (Admiralty Dr) and WB13, WB18, WB20 (Turn 2 / Ferny Ave) still need a way in - the project manager gave the rest on 2 Oct (v7.84)",
+   "pass": true,
+   "detail": "[\"WB07\",\"WB13\",\"WB18\",\"WB20\"]"
+  },
+  {
+   "name": "M1 the done tick has its own double beat on the master plan",
+   "pass": true,
+   "detail": "{\"pills\":68,\"anim\":\"done782\"}"
+  },
+  {
+   "name": "M2 the explorer gets the finished list",
+   "pass": true,
+   "detail": "80"
+  },
+  {
+   "name": "R11 (measure) a delivery-details link gives way only where a v7.82 line needs the room (ORDER, ENTRY, HOLD, the pit-lane directions, the spot for a water barrier) (the link stays in Full details)",
+   "pass": true,
+   "detail": " · live 185 → 185"
+  },
+  {
+   "name": "R12 no Due line lost against the live page",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "R13 (measure) three-text messages",
+   "pass": true,
+   "detail": "live 194 → 194"
+  },
+  {
+   "name": "E1 no page errors",
+   "pass": true,
+   "detail": "[]"
+  }
+ ],
+ "samples": {
+  "P05": "Welcome to Coates GC500\nP05 - Portable building (Building 6m) - Event Control Center (ECC)\nGPS: -27.983378, 153.426635 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: truck 3 of 6 - only after P01 is in. Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00\nLOAD: Kingston by 05:00, in order.",
+  "GN20": "Welcome to Coates GC500\nGN20 - Generator (350kva) - S01\nGPS: -27.985391, 153.427185 (master plan)\nNavigate: <url>\nORDER: only after GN21 60kVA is placed (tight spot).\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
+  "GN21": "Welcome to Coates GC500\nGN21 - Generator (60kva)\nGPS: -27.985403, 153.427226 (master plan)\nNavigate: <url>\nORDER: GN21 60kVA first - tight spot. GN20 350kVA after it.\nDue Wed 30 Sep 2026\nDelivery details: <url>\nStagger arrivals - the site is congested every Supercars week.",
+  "WC27": "Welcome to Coates GC500\nWC27 - Toilets (Toilet Block 6m, Waste tank) - Toilet (Tank Mounted)\nGPS: -27.985240, 153.429459 (master plan)\nNavigate: <url>\nORDER: waste tank first - no toilet block before the tank is in.\nENTRY: land side - in from the Surfers end of Main Beach Pde, drive north (race direction).\nDue Fri 25 Sep 2026",
+  "WC50": "Welcome to Coates GC500\nWC50 - Toilets (FWF)\nGPS: -27.989762, 153.429836 (master plan)\nNavigate: <url>\nENTRY: seaside - in at the Seaworld Dr roundabout end of Main Beach Pde, drive south.\nDue Mon 21 Sep 2026, on site 12:00\nDelivery details: <url>",
+  "WC05": "Welcome to Coates GC500\nWC05 - Toilets (Waste tank, Toilet Block 6m) - Event Operations Compound Toilet - Combo Block (Tanked)\nGPS: -27.983608, 153.426357 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: trucks 4-5 of 6: tank, toilet, after P05. Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00",
+  "P03": "Welcome to Coates GC500\nP03 - Portable building (Building 12m) - SCA Event Management Office\nGPS: -27.983541, 153.426512 (master plan)\nNavigate: <url>\nSite access: Gold Coast Hwy > north-west pit lane entry; follow race direction.\nORDER: truck 1 of 6 (P03, P01, P05, WC05 tank, WC05 toilet, P04). Out of order = no entry.\nDue Mon 14 Sep 2026, on site 07:00"
+ }
+}

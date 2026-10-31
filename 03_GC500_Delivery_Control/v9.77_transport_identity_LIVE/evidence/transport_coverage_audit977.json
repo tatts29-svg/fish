@@ -1,0 +1,428 @@
+{
+  "author": "Andrew Fisher",
+  "basis": "v9.75 candidate current-record financial capture; native5174",
+  "onsite_ref_item_pairs": 100,
+  "onsite_demand_legs": 200,
+  "missing_demand_pairs": [],
+  "leg_states": {
+    "estimate": 155,
+    "held": 37,
+    "excluded": 6,
+    "covered": 2
+  },
+  "FWF_legs": 42,
+  "FWF_states": {
+    "estimate": 37,
+    "covered": 2,
+    "held": 1,
+    "excluded": 2
+  },
+  "FWF_held": [
+    {
+      "ref": "WC06",
+      "item": "FWF",
+      "leg": "delivery",
+      "rate": 47.5,
+      "reasons": [
+        "Existing transport description has unresolved remaining-unit scope; only the uncovered movement is held"
+      ]
+    }
+  ],
+  "held": [
+    {
+      "ref": "P36",
+      "item": "Building 6m",
+      "leg": "delivery",
+      "rate": 500,
+      "reasons": [
+        "More current asset numbers than asked units"
+      ]
+    },
+    {
+      "ref": "P36",
+      "item": "Building 6m",
+      "leg": "pickup",
+      "rate": 500,
+      "reasons": [
+        "More current asset numbers than asked units"
+      ]
+    },
+    {
+      "ref": "GN20",
+      "item": "350kva",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No current card transport charge"
+      ]
+    },
+    {
+      "ref": "GN20",
+      "item": "350kva",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No current card transport charge"
+      ]
+    },
+    {
+      "ref": "WB01",
+      "item": "TL2",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WB01",
+      "item": "TL2",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WB02",
+      "item": "TL2",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WB02",
+      "item": "TL2",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WB03",
+      "item": "TL2",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WB03",
+      "item": "TL2",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No exact numeric transport card match; a bulk load or other barrier type is not a per-unit rate"
+      ]
+    },
+    {
+      "ref": "WC05",
+      "item": "Waste tank",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC05",
+      "item": "Waste tank",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC06",
+      "item": "FWF",
+      "leg": "delivery",
+      "rate": 47.5,
+      "reasons": [
+        "Existing transport description has unresolved remaining-unit scope; only the uncovered movement is held"
+      ]
+    },
+    {
+      "ref": "WC09",
+      "item": "Pee Panel",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No exact customer transport card line for this type"
+      ]
+    },
+    {
+      "ref": "WC09",
+      "item": "Pee Panel",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No exact customer transport card line for this type"
+      ]
+    },
+    {
+      "ref": "WC100",
+      "item": "FWF Trailer",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "No exact customer transport card line for this type"
+      ]
+    },
+    {
+      "ref": "WC100",
+      "item": "FWF Trailer",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "No exact customer transport card line for this type"
+      ]
+    },
+    {
+      "ref": "WC20",
+      "item": "Waste tank",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC20",
+      "item": "Waste tank",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC27",
+      "item": "Waste tank",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC27",
+      "item": "Waste tank",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC60",
+      "item": "Waste tank",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "WC60",
+      "item": "Waste tank",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Tank dimensions and paired block/tank movement scope need confirmation; included hire does not establish transport"
+      ]
+    },
+    {
+      "ref": "T0001",
+      "item": "VMS",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load"
+      ]
+    },
+    {
+      "ref": "T0001",
+      "item": "VMS",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load"
+      ]
+    },
+    {
+      "ref": "T0003",
+      "item": "Forklift 5T",
+      "leg": "delivery",
+      "rate": 500,
+      "reasons": [
+        "Hired-in machine movement must be distinguished from other contract transport packages"
+      ]
+    },
+    {
+      "ref": "T0003",
+      "item": "Forklift 5T",
+      "leg": "pickup",
+      "rate": 500,
+      "reasons": [
+        "Hired-in machine movement must be distinguished from other contract transport packages"
+      ]
+    },
+    {
+      "ref": "T0023",
+      "item": "Event Container",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Container contract movement coverage needs exact register allocation; do not add another allowance"
+      ]
+    },
+    {
+      "ref": "T0023",
+      "item": "Event Container",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Container contract movement coverage needs exact register allocation; do not add another allowance"
+      ]
+    },
+    {
+      "ref": "T0025",
+      "item": "Trakmat",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load",
+        "Existing ground transport needs allocation within this contract"
+      ]
+    },
+    {
+      "ref": "T0025",
+      "item": "Trakmat",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load"
+      ]
+    },
+    {
+      "ref": "T0085",
+      "item": "3.5T Forklift Std",
+      "leg": "delivery",
+      "rate": 500,
+      "reasons": [
+        "Current number identifies fork extensions; requested machine and accessory allocation needs confirmation",
+        "Existing transport has no exact building allocation"
+      ]
+    },
+    {
+      "ref": "T0085",
+      "item": "3.5T Forklift Std",
+      "leg": "pickup",
+      "rate": 500,
+      "reasons": [
+        "Current number identifies fork extensions; requested machine and accessory allocation needs confirmation",
+        "Existing transport has no exact building allocation"
+      ]
+    },
+    {
+      "ref": "T0258",
+      "item": "3.0m Cont",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Container contract movement coverage needs exact register allocation; do not add another allowance"
+      ]
+    },
+    {
+      "ref": "T0258",
+      "item": "3.0m Cont",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Container contract movement coverage needs exact register allocation; do not add another allowance"
+      ]
+    },
+    {
+      "ref": "T0103",
+      "item": "VMS",
+      "leg": "delivery",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load"
+      ]
+    },
+    {
+      "ref": "T0103",
+      "item": "VMS",
+      "leg": "pickup",
+      "rate": null,
+      "reasons": [
+        "Transport is POA; unit quantities do not establish a priced customer load"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "ref": "T0021",
+      "item": "Building 4.8m",
+      "leg": "delivery",
+      "reasons": [
+        "Coates own use"
+      ]
+    },
+    {
+      "ref": "T0021",
+      "item": "Building 4.8m",
+      "leg": "pickup",
+      "reasons": [
+        "Coates own use"
+      ]
+    },
+    {
+      "ref": "T0022",
+      "item": "Building 4.8m",
+      "leg": "delivery",
+      "reasons": [
+        "Coates own use"
+      ]
+    },
+    {
+      "ref": "T0022",
+      "item": "Building 4.8m",
+      "leg": "pickup",
+      "reasons": [
+        "Coates own use"
+      ]
+    },
+    {
+      "ref": "T0024",
+      "item": "FWF",
+      "leg": "delivery",
+      "reasons": [
+        "Coates own use"
+      ]
+    },
+    {
+      "ref": "T0024",
+      "item": "FWF",
+      "leg": "pickup",
+      "reasons": [
+        "Coates own use"
+      ]
+    }
+  ],
+  "original_rate_card_sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+  "rate_evidence": {
+    "FWF": "Transport!M23 = 47.50 per listed unit/leg",
+    "Building 6m": "Current matched transport line charge500 per building/leg",
+    "VMS": "Transport!M68 = POA",
+    "Generator 315kVA": "Transport!M59 = POA; approvedGN20install basis is not transport approval",
+    "Waste tank": "Transport!M26 =500 only6m\u00d73m; currenttankdimensions/pairmovementunresolved"
+  },
+  "proposed_P36_fix": "Replace two raw source numbers with one reviewed physical identity1282487; old1327222 retainedhistory. Exactly1000forecastadditional, zeroactualchargechange expected."
+}

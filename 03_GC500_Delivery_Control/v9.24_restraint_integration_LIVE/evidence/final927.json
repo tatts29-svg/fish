@@ -1,0 +1,132 @@
+{
+  "candidateSha256": "04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09",
+  "moduleSha256": "3c1aa958440ddd9bc8e29580f92f2ca843afb83bde2931c7ff4cefd27a5612bb",
+  "catalogueRows": 274,
+  "equipmentRefs": 182,
+  "physicalRows": 250,
+  "missingIdentity": 0,
+  "actualVerifiedSpecs": 0,
+  "sourceCandidateRefs": 89,
+  "phoneOverflow": false,
+  "truthyLegacyBlocked": true,
+  "nativeCapture": {
+    "saved": true,
+    "unchecked": true,
+    "modelCopied": true,
+    "massCopied": true,
+    "nativeKey": true,
+    "sameIdentity": true
+  },
+  "failedSaveRestored": true,
+  "midEditUnitHeld": true,
+  "planCapture": {
+    "saved": true,
+    "sameNativeKey": true,
+    "noApproval": true,
+    "complete": true,
+    "acknowledgements": true
+  },
+  "midEditLoadHeld": true,
+  "demob": {
+    "available": true,
+    "resolved": true,
+    "sourceIdStable": true,
+    "warning": true,
+    "noApproval": true,
+    "html": true,
+    "print": true
+  },
+  "browserErrors": [],
+  "browserRequests": {
+    "page": 1,
+    "live": 71,
+    "blocked": 0
+  },
+  "nativePrint": {
+    "selection": {
+      "day": "2026-09-22",
+      "loadIndex": 0,
+      "units": 20
+    },
+    "native": {
+      "failed": 0,
+      "over": [],
+      "pages": 13
+    },
+    "pages": [
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true
+      }
+    ],
+    "errors": [],
+    "requests": {
+      "page": 1,
+      "live": 71,
+      "blocked": 0
+    }
+  },
+  "visualsInspected": [
+    "phone-unit.png",
+    "phone-catalogue.png",
+    "native-supplement-page3.png"
+  ],
+  "privateEvidence": "/workspace/private-restraint924-final927/",
+  "productionWrites": 0
+}

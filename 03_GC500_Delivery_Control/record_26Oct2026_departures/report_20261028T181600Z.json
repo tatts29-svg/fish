@@ -1,0 +1,252 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T181600Z",
+ "finished": "2026-10-28T18:16:33.358Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 29 Oct 2026, on the laser plane: \"Yes it arrived\" (16 Oct). EQ0006, laser plane asset 1065384, rental 9987005 line 8 (MEAD), contract start 16 Oct 2026, delivery 26135873, booked back 17 Oct; used by our crew for the V8s install. It was entered on the record on 25 Oct with that day as its arrival, so Today's Other card read 4 of 5 at the 23 Oct cut-off and the Thu 22 Oct day card read 99.88% at day's close. Its arrival, receipt and complete are dated (it carries no install stamp) to 16 Oct 2026; no time is known, so 00:00 AEST that day.",
+  "ops": [
+   {
+    "op": "light_redate",
+    "ref": "EQ0006",
+    "at": "2026-10-15T14:00:00.000Z",
+    "why": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026)."
+   },
+   {
+    "op": "date_back",
+    "ref": "EQ0006",
+    "done_at": "2026-10-15T14:00:00.000Z",
+    "supplied_at": "2026-10-15T14:00:00.000Z",
+    "item": "Laserplane",
+    "disc": "Other",
+    "why": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026)."
+   }
+  ]
+ },
+ "pageSha256": "7ea8e4d2b8230bdece88a7d566c8ae8d2eea63892b8ba1b928a3440149ca4404",
+ "version": {
+  "before": 11733,
+  "after": 11736
+ },
+ "updated": {
+  "before": "2026-10-28T14:05:27.314Z",
+  "after": "2026-10-28T18:16:32.322Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "light_redate",
+   "ref": "EQ0006",
+   "at": "2026-10-15T14:00:00.000Z",
+   "why": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026).",
+   "result": "on site dated 2026-10-15T14:00:00.000Z (was 2026-10-25T02:51:19.447Z)"
+  },
+  {
+   "op": "date_back",
+   "ref": "EQ0006",
+   "done_at": "2026-10-15T14:00:00.000Z",
+   "supplied_at": "2026-10-15T14:00:00.000Z",
+   "item": "Laserplane",
+   "disc": "Other",
+   "why": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026).",
+   "result": "dated: complete 2026-10-15T14:00:00.000Z, receipt 2026-10-15T14:00:00.000Z, install -"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~EQ0006~2f~Laserplane",
+   "status": 200
+  },
+  {
+   "key": "qtys/EQ0006",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0006": {
+    "state": "on site",
+    "set_at": "2026-10-25T02:51:19.447Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-25T02:51:21.318Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-25T02:51:19.447Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-25T02:51:21.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0006"
+   },
+   "stamps/supplied~2f~EQ0006~2f~Laserplane": {
+    "_k": "supplied/EQ0006/Laserplane",
+    "v": "2026-10-25T02:51:18.920Z"
+   },
+   "qtys/EQ0006": {
+    "_k": "EQ0006",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "EQ0006",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "Laserplane",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-25T02:51:18.920Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-25T02:51:18.920Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-25T02:51:18.920Z",
+       "on": true,
+       "onAt": "2026-10-25T02:51:19.447Z",
+       "done": true,
+       "doneAt": "2026-10-25T02:51:21.318Z",
+       "install": false,
+       "installAt": "2026-10-25T02:51:21.318Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T03:17:06.643Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  },
+  "after": {
+   "delivery/EQ0006": {
+    "state": "on site",
+    "set_at": "2026-10-15T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T14:00:00.000Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026). (entered 2026-10-25T02:51:19.447Z)"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026)."
+     }
+    ],
+    "_k": "EQ0006"
+   },
+   "stamps/supplied~2f~EQ0006~2f~Laserplane": {
+    "_k": "supplied/EQ0006/Laserplane",
+    "v": "2026-10-15T14:00:00.000Z"
+   },
+   "qtys/EQ0006": {
+    "_k": "EQ0006",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "EQ0006",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "Laserplane",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-15T14:00:00.000Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-15T14:00:00.000Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-25T02:51:18.920Z",
+       "on": true,
+       "onAt": "2026-10-25T02:51:19.447Z",
+       "done": true,
+       "doneAt": "2026-10-25T02:51:21.318Z",
+       "install": false,
+       "installAt": "2026-10-25T02:51:21.318Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T03:17:06.643Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

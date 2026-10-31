@@ -1,0 +1,154 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T125402Z",
+ "finished": "2026-10-27T12:54:41.461Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, answering the Baseplan (8) review: T0085 and T0109 (Supply forklifts, contract 9987005 lines 1 and 7) \"Forklifts will be under MEAD\"; T0085 and T0109 go on branch MEAD. (WB03's 18 Sep start is left for the page release: the record will not back-date a light that is already on site.)",
+  "ops": [
+   {
+    "op": "branch",
+    "ref": "T0085",
+    "code": "MEAD"
+   },
+   {
+    "op": "branch",
+    "ref": "T0109",
+    "code": "MEAD"
+   }
+  ]
+ },
+ "pageSha256": "318de672389be59015d1b3f6fb99de6a0837628fca49b384410aeca69ae022b6",
+ "version": {
+  "before": 11612,
+  "after": 11618
+ },
+ "updated": {
+  "before": "2026-10-27T12:31:32.912Z",
+  "after": "2026-10-27T12:54:40.647Z"
+ },
+ "money": {
+  "before": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 242338.66,
+    "STPS": 73942.65,
+    "NVAC": 49323.37,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 242338.66,
+    "STPS": 73942.65,
+    "NVAC": 48323.37,
+    "MEAD": 18859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "branch",
+   "ref": "T0085",
+   "code": "MEAD",
+   "result": "branch MEAD"
+  },
+  {
+   "op": "branch",
+   "ref": "T0109",
+   "code": "MEAD",
+   "result": "branch MEAD"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/branch~2f~T0085",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~T0109",
+   "status": 200
+  },
+  {
+   "key": "branch/T0085",
+   "status": 200
+  },
+  {
+   "key": "branch/T0109",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~T0085",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~T0109",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/branch~2f~T0085": null,
+   "stamps/branch~2f~T0109": null,
+   "branch/T0085": null,
+   "branch/T0109": null,
+   "by/branch~2f~T0085": null,
+   "by/branch~2f~T0109": null
+  },
+  "after": {
+   "stamps/branch~2f~T0085": {
+    "_k": "branch/T0085",
+    "v": "2026-10-27T12:54:23.136Z"
+   },
+   "stamps/branch~2f~T0109": {
+    "_k": "branch/T0109",
+    "v": "2026-10-27T12:54:23.321Z"
+   },
+   "branch/T0085": {
+    "_k": "T0085",
+    "v": "MEAD"
+   },
+   "branch/T0109": {
+    "_k": "T0109",
+    "v": "MEAD"
+   },
+   "by/branch~2f~T0085": {
+    "_k": "branch/T0085",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~T0109": {
+    "_k": "branch/T0109",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

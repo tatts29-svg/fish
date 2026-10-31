@@ -1,0 +1,64 @@
+{
+ "author": "Andrew Fisher",
+ "from_token": "5c6a6ae30507",
+ "token": "84e7872ac157",
+ "scene_sha256": "84e7872ac15766e31e7943c85ac151151f5a29d70d964ea56f4559892d3508b1",
+ "files": {
+  "explorer-fix864.css": {
+   "sha256": "c37afd30491161c7d2d50e792b8d96c022050a513abe93d5f4ef0c9f24303024",
+   "bytes": 1793,
+   "tokens_replaced": 0
+  },
+  "explorer-fix864.js": {
+   "sha256": "d7041320fc3ff63a133cc8e3ce859bbce3e6dc669e2a990bb0fc5f7b27a7ac3b",
+   "bytes": 7399,
+   "tokens_replaced": 0
+  },
+  "explorer-fix887.css": {
+   "sha256": "b64b6341ee142e33e21ef41651d8c0f9e2aeda4661b9f2621ff5b3895e52eb99",
+   "bytes": 4481,
+   "tokens_replaced": 0
+  },
+  "explorer-fix887.js": {
+   "sha256": "6996471a6a0f568d9136d1165cccba84b411af85638674420fe360d223a44543",
+   "bytes": 3240,
+   "tokens_replaced": 0
+  },
+  "explorer-merge.js": {
+   "sha256": "161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679",
+   "bytes": 27134,
+   "tokens_replaced": 0
+  },
+  "explorer.js": {
+   "sha256": "eba8f3b8828644c85a6fca85d2027e474b54ecbfca9d72d3dcb2b0d75d642084",
+   "bytes": 143186,
+   "tokens_replaced": 7
+  },
+  "fencing-map-core.js": {
+   "sha256": "0c26c3b7777f99573326123e264d4fb4e53196ee0a1882aaa6dd6aa7ea5393ff",
+   "bytes": 10357,
+   "tokens_replaced": 0
+  },
+  "fencing-map-explorer.js": {
+   "sha256": "e3a4bef6c17d7288f0a51c14732129fba32f1f5bbf849d113c3124dc5b55739f",
+   "bytes": 51564,
+   "tokens_replaced": 0
+  },
+  "fencing-map.css": {
+   "sha256": "a4f3e8688702c8dd80fc9522d039aab0c4ea4938f97b3384a8ae8134f18ced46",
+   "bytes": 6118,
+   "tokens_replaced": 0
+  },
+  "index.html": {
+   "sha256": "b99c48b16d4414ddaf15dfdef3cb92525574f879f5173d6a8da2e441aec76d78",
+   "bytes": 28136,
+   "tokens_replaced": 5
+  },
+  "scene-worker.js": {
+   "sha256": "ec58b3bcb4f3b8594f3ab1304cf4d564dd581bf974f708cdea56203026e9bbae",
+   "bytes": 7210,
+   "tokens_replaced": 0
+  }
+ },
+ "explorer_js_token": "eba8f3b88286"
+}

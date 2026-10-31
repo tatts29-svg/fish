@@ -1,0 +1,62 @@
+{
+ "A": [
+  [
+   0.006209606192736599,
+   -2.678811572270095,
+   124312606.97781198
+  ],
+  [
+   2.6899847635931895,
+   0.006687497663555323,
+   77981931.41801661
+  ],
+  [
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "Ai": [
+  [
+   0.0009280452538494618,
+   0.3717471752028389,
+   -29104930.4464086
+  ],
+  [
+   -0.3732977143879602,
+   0.0008617267392628457,
+   46338412.938943736
+  ],
+  [
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "main": [
+  49.46,
+  41.4,
+  2334.08,
+  1464.24
+ ],
+ "exclude": [
+  [
+   1482.86,
+   873.42,
+   2334.08,
+   1464.24
+  ]
+ ],
+ "z18_tile": 512,
+ "px_per_pt": 2.689991930763469,
+ "m_per_z18px": 0.264,
+ "basis": "image registration, main plan: the drawing's embedded aerial (xref 6) matched to Mapbox satellite z18 @2x by normalised cross-correlation on a grid, affine fit; not a survey",
+ "check": {
+  "n": 20,
+  "rms_m": 0.669719671487297,
+  "p95_m": 1.0401245322198562,
+  "max_m": 1.6108470785844329,
+  "method": "a quarter of the inlier registration points held out of the fit; residual in z18 pixels x 0.264 m per pixel"
+ },
+ "date": "2026-09-25"
+}

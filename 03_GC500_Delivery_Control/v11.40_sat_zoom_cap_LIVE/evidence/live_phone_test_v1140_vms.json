@@ -1,0 +1,312 @@
+{
+ "at": "2026-10-22T21:27:58.835Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card sits under the head: five boards, each its own colour (13 red, 14 orange, 15 yellow, 16 cyan, 17 magenta), five solid pins, five spot squares, five dotted routes in the boards’ colours fixed on the screen, tap targets for every pin and spot, labels naming the board, its time and where it goes, a legend of five with ten Navigate links, zoom buttons, Fit, 100%, the imagery credit, no agent names",
+   "ok": true,
+   "detail": {
+    "afterHead": true,
+    "items": [
+     {
+      "pos": "14",
+      "colour": "#ff9f1a",
+      "from": "03:00",
+      "spot": "Altus compound, Cypress Ave",
+      "approx": true,
+      "m": 1602,
+      "lat": -27.982576,
+      "lon": 153.424393,
+      "slat": -27.9967487,
+      "slon": 153.4273317
+     },
+     {
+      "pos": "16",
+      "colour": "#00e5ff",
+      "from": "03:00",
+      "spot": "behind 2 Breaker St, Main Beach",
+      "approx": false,
+      "m": 29,
+      "lat": -27.981782,
+      "lon": 153.42914,
+      "slat": -27.9817267,
+      "slon": 153.42943
+     },
+     {
+      "pos": "17",
+      "colour": "#ff4fd8",
+      "from": "03:00",
+      "spot": "T10 runoff",
+      "approx": false,
+      "m": 453,
+      "lat": -27.981594,
+      "lon": 153.427038,
+      "slat": -27.984903,
+      "slon": 153.429735
+     },
+     {
+      "pos": "13",
+      "colour": "#ff3b3b",
+      "from": "06:00",
+      "spot": "Altus compound, Cypress Ave",
+      "approx": true,
+      "m": 1688,
+      "lat": -27.981783,
+      "lon": 153.424452,
+      "slat": -27.9967487,
+      "slon": 153.4273317
+     },
+     {
+      "pos": "15",
+      "colour": "#ffe600",
+      "from": "06:00",
+      "spot": "T2 runoff",
+      "approx": false,
+      "m": 214,
+      "lat": -27.991937,
+      "lon": 153.429354,
+      "slat": -27.990144,
+      "slon": 153.428562
+     }
+    ],
+    "pins": 5,
+    "spots": 5,
+    "routes": [
+     "#ff9f1a",
+     "#00e5ff",
+     "#ff4fd8",
+     "#ff3b3b",
+     "#ffe600"
+    ],
+    "dash": "7px, 6px",
+    "ve": "non-scaling-stroke",
+    "navTargets": [
+     "-27.9967487,153.4273317",
+     "-27.982576,153.424393",
+     "-27.9817267,153.42943",
+     "-27.981782,153.42914",
+     "-27.984903,153.429735",
+     "-27.981594,153.427038",
+     "-27.9967487,153.4273317",
+     "-27.981783,153.424452",
+     "-27.990144,153.428562",
+     "-27.991937,153.429354"
+    ],
+    "labels": [
+     "VMS 14* → Altus compound, Cypress Ave · 1602 m",
+     "VMS 14* · from 03:00",
+     "VMS 16* → behind 2 Breaker St, Main Beach · 29 m",
+     "VMS 16* · from 03:00",
+     "VMS 17* → T10 runoff · 453 m",
+     "VMS 17* · from 03:00",
+     "VMS 13* → Altus compound, Cypress Ave · 1688 m",
+     "VMS 13* · not before 06:00",
+     "VMS 15* → T2 runoff · 214 m",
+     "VMS 15* · not before 06:00"
+    ],
+    "legend": [
+     "VMS 14* · from 03:00 · Gold Coast Highway southboundgoes to Altus compound, Cypress Ave · 1602 m (street only; the compound’s spot not pinned yet)Navigate to the board ↗ Navigate to its spot ↗",
+     "VMS 16* · from 03:00 · T11goes to behind 2 Breaker St, Main Beach · 29 mNavigate to the board ↗ Navigate to its spot ↗",
+     "VMS 17* · from 03:00 · T12 runoffgoes to T10 runoff · 453 mNavigate to the board ↗ Navigate to its spot ↗",
+     "VMS 13* · not before 06:00 · T14 DLgoes to Altus compound, Cypress Ave · 1688 m (street only; the compound’s spot not pinned yet)Navigate to the board ↗ Navigate to its spot ↗",
+     "VMS 15* · not before 06:00 · T4 runoffgoes to T2 runoff · 214 mNavigate to the board ↗ Navigate to its spot ↗"
+    ],
+    "legendLinks": 10,
+    "buttons": [
+     "out",
+     "in",
+     "fit"
+    ],
+    "pct": "100%",
+    "vb": "-1362.606 840.867 8718.012 8718.012",
+    "credit": true,
+    "noAgent": true,
+    "mornings": [
+     "2026-10-23 Friday morning",
+     "2026-10-24 Saturday morning",
+     "2026-10-25 Sunday morning",
+     "2026-10-26 Monday"
+    ],
+    "chosen": "2026-10-23",
+    "chooser": [
+     "2026-10-23*",
+     "2026-10-24",
+     "2026-10-25",
+     "2026-10-26"
+    ]
+   }
+  },
+  {
+   "name": "where each board goes, with sane distances: VMS 16 behind 2 Breaker St within 60 m of the board; VMS 15 to the T2 runoff 100 to 400 m; VMS 17 to the T10 runoff 200 to 700 m; VMS 13 and 14 to Cypress Ave at the street (marked approximate) 1.2 to 2.5 km; VMS 13 and 15 not before 06:00, the others from 03:00",
+   "ok": true,
+   "detail": [
+    {
+     "pos": "14",
+     "colour": "#ff9f1a",
+     "from": "03:00",
+     "spot": "Altus compound, Cypress Ave",
+     "approx": true,
+     "m": 1602,
+     "lat": -27.982576,
+     "lon": 153.424393,
+     "slat": -27.9967487,
+     "slon": 153.4273317
+    },
+    {
+     "pos": "16",
+     "colour": "#00e5ff",
+     "from": "03:00",
+     "spot": "behind 2 Breaker St, Main Beach",
+     "approx": false,
+     "m": 29,
+     "lat": -27.981782,
+     "lon": 153.42914,
+     "slat": -27.9817267,
+     "slon": 153.42943
+    },
+    {
+     "pos": "17",
+     "colour": "#ff4fd8",
+     "from": "03:00",
+     "spot": "T10 runoff",
+     "approx": false,
+     "m": 453,
+     "lat": -27.981594,
+     "lon": 153.427038,
+     "slat": -27.984903,
+     "slon": 153.429735
+    },
+    {
+     "pos": "13",
+     "colour": "#ff3b3b",
+     "from": "06:00",
+     "spot": "Altus compound, Cypress Ave",
+     "approx": true,
+     "m": 1688,
+     "lat": -27.981783,
+     "lon": 153.424452,
+     "slat": -27.9967487,
+     "slon": 153.4273317
+    },
+    {
+     "pos": "15",
+     "colour": "#ffe600",
+     "from": "06:00",
+     "spot": "T2 runoff",
+     "approx": false,
+     "m": 214,
+     "lat": -27.991937,
+     "lon": 153.429354,
+     "slat": -27.990144,
+     "slon": 153.428562
+    }
+   ]
+  },
+  {
+   "name": "Friday morning is a removal morning ahead of Saturday, Sunday and Monday, and the tab opens on Friday 23 Oct on the day",
+   "ok": true,
+   "detail": {
+    "mornings": [
+     "2026-10-23 Friday morning",
+     "2026-10-24 Saturday morning",
+     "2026-10-25 Sunday morning",
+     "2026-10-26 Monday"
+    ],
+    "chosen": "2026-10-23",
+    "chooser": [
+     "2026-10-23*",
+     "2026-10-24",
+     "2026-10-25",
+     "2026-10-26"
+    ]
+   }
+  },
+  {
+   "name": "the Esri imagery tiles are placed for the whole-map view at a zoom between 15 and 18",
+   "ok": true,
+   "detail": {
+    "n": 30,
+    "z": 16,
+    "zoomFn": 16,
+    "hrefs": [
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/16/38076/60696",
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/16/38076/60697"
+    ]
+   }
+  },
+  {
+   "name": "zoom in twice gives 256% with the pins keeping their screen size (radius scaled with the view), Fit returns to 100%, 1600% on 2 Breaker St asks for zoom-20 imagery (the cap)",
+   "ok": true,
+   "detail": {
+    "w0": 8718.012,
+    "w1": 3405.473,
+    "p1": 256,
+    "w2": 8718.012,
+    "p2": 100,
+    "w3": 544.876,
+    "p3": 1600,
+    "z3": 20,
+    "r1": 133.34684500099246,
+    "r0": 341.36792320254074,
+    "ratio": 2.5600000000000005
+   }
+  },
+  {
+   "name": "the VMS map really draws the imagery (the map area is neither dark nor flat)",
+   "ok": true,
+   "detail": {
+    "mean": 73,
+    "sd": 69.6
+   }
+  },
+  {
+   "name": "the closures map’s satellite layer is laid out from a local origin and really draws: the first tile sits within the map (not millions of pixels off), the map area neither dark nor flat",
+   "ok": true,
+   "detail": {
+    "cs": {
+     "n": 12,
+     "so": [
+      124312496,
+      77982064
+     ],
+     "first": [
+      -5040,
+      -368
+     ],
+     "bb": [
+      -12,
+      161,
+      106
+     ],
+     "svgW": 332
+    },
+    "cb": {
+     "mean": 161.3,
+     "sd": 97
+    }
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 529,
+    "blocked": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,249 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "actual-public plan; no local HTML, map code, drawing or satellite substitutions",
+  "expectedSha": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "checks": [
+    {
+      "name": "Actual-public page matches released hash",
+      "pass": true
+    },
+    {
+      "name": "Native Plan preference used; satellite not substituted",
+      "pass": true
+    },
+    {
+      "name": "Phone overview drawing tiles settled",
+      "pass": true
+    },
+    {
+      "name": "Phone reference detail drawing tiles settled",
+      "pass": true
+    },
+    {
+      "name": "Phone drawing rendered at device-pixel resolution",
+      "pass": true
+    },
+    {
+      "name": "Operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "No parent HTML substitution",
+      "pass": true
+    },
+    {
+      "name": "No write requests attempted",
+      "pass": true
+    },
+    {
+      "name": "No page errors",
+      "pass": true
+    }
+  ],
+  "views": [
+    {
+      "quality": "Drawing sharp at this zoom",
+      "frame": {
+        "t": 3558,
+        "vtMiss": 0,
+        "vtTot": 2,
+        "vtBlank": 0,
+        "satMiss": 0,
+        "satBlank": 0,
+        "underMiss": 0,
+        "ms": 1,
+        "ready": true,
+        "inter": false,
+        "mode": "original",
+        "z": 1,
+        "loader": true
+      },
+      "canvas": {
+        "width": 736,
+        "height": 938,
+        "cssWidth": 368,
+        "cssHeight": 469,
+        "dpr": 2
+      },
+      "pyramidLevels": [
+        -3,
+        -2.75,
+        -2.5,
+        -2.25,
+        -2,
+        -1.75,
+        -1.5,
+        -1.25,
+        -1,
+        -0.75,
+        -0.5,
+        -0.25,
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        1.25,
+        1.5,
+        1.75,
+        2,
+        2.25,
+        2.5,
+        2.75,
+        3,
+        3.25
+      ],
+      "vtLoaded": 8,
+      "vtRetry": 0,
+      "vtInflight": 0,
+      "sceneReady": false,
+      "source": {
+        "file": "D001-26003-03-MASTER.pdf",
+        "drawing": "D001",
+        "project": "26003",
+        "revision": "03",
+        "title": "Master Layout Plan \u2014 General Arrangement",
+        "sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+        "issued": "2 Oct 2026",
+        "frame_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+        "frame_note": "The 2 Oct issue, placed in the frame of the 17 Sep issue: its main plan sits 25.50 pt (9.0 mm) further left on its own paper, so it is moved back by (25.50, 0.12) pt; the inset by (-0.00, 0.06); the legend by (-0.00, 0.12). Fencing lines traced on the 17 Sep issue and both satellite registrations therefore still hold.",
+        "window_clip": "v8.93: the main plan window clips its content at 74.96 pt on this frame (the 2 Oct paper shows 9 mm less of the west); the frame lines stay where the paper draws them"
+      },
+      "perf": {
+        "sceneMs": 0,
+        "tilesFetched": 0,
+        "tileBytes": 0,
+        "frames": 14,
+        "frameMs": 14.800000190734863,
+        "lastRender": {
+          "ms": 457,
+          "count": null,
+          "zoom": 1,
+          "from": "pyramid"
+        },
+        "vtRendered": 0,
+        "vtFetched": 8,
+        "underlay": {
+          "fetch": 1177,
+          "decode": 173,
+          "composite": 425
+        },
+        "firstSharpMs": 3559
+      },
+      "scriptFiles": [
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer.js?v=5a66caa035b4",
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer-merge.js?v=1dd20a619be4",
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/fencing-map-explorer.js?v=e3a4bef6c17d"
+      ],
+      "label": "phone-plan-overview"
+    },
+    {
+      "quality": "Drawing sharp at this zoom",
+      "frame": {
+        "t": 6552,
+        "vtMiss": 0,
+        "vtTot": 9,
+        "vtBlank": 0,
+        "satMiss": 0,
+        "satBlank": 0,
+        "underMiss": 0,
+        "ms": 0.7,
+        "ready": true,
+        "inter": false,
+        "mode": "original",
+        "z": 43.93,
+        "loader": true
+      },
+      "canvas": {
+        "width": 736,
+        "height": 938,
+        "cssWidth": 368,
+        "cssHeight": 469,
+        "dpr": 2
+      },
+      "pyramidLevels": [
+        -3,
+        -2.75,
+        -2.5,
+        -2.25,
+        -2,
+        -1.75,
+        -1.5,
+        -1.25,
+        -1,
+        -0.75,
+        -0.5,
+        -0.25,
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1,
+        1.25,
+        1.5,
+        1.75,
+        2,
+        2.25,
+        2.5,
+        2.75,
+        3,
+        3.25
+      ],
+      "vtLoaded": 26,
+      "vtRetry": 0,
+      "vtInflight": 1,
+      "sceneReady": true,
+      "source": {
+        "file": "D001-26003-03-MASTER.pdf",
+        "drawing": "D001",
+        "project": "26003",
+        "revision": "03",
+        "title": "Master Layout Plan \u2014 General Arrangement",
+        "sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+        "issued": "2 Oct 2026",
+        "frame_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+        "frame_note": "The 2 Oct issue, placed in the frame of the 17 Sep issue: its main plan sits 25.50 pt (9.0 mm) further left on its own paper, so it is moved back by (25.50, 0.12) pt; the inset by (-0.00, 0.06); the legend by (-0.00, 0.12). Fencing lines traced on the 17 Sep issue and both satellite registrations therefore still hold.",
+        "window_clip": "v8.93: the main plan window clips its content at 74.96 pt on this frame (the 2 Oct paper shows 9 mm less of the west); the frame lines stay where the paper draws them"
+      },
+      "perf": {
+        "sceneMs": 2148,
+        "tilesFetched": 0,
+        "tileBytes": 0,
+        "frames": 68,
+        "frameMs": 114.39999985694885,
+        "lastRender": {
+          "ms": 57,
+          "count": 2521,
+          "zoom": 43.930436027452934
+        },
+        "vtRendered": 9,
+        "vtFetched": 17,
+        "underlay": {
+          "fetch": 1177,
+          "decode": 173,
+          "composite": 425
+        },
+        "firstSharpMs": 3559
+      },
+      "scriptFiles": [
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer.js?v=5a66caa035b4",
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/explorer-merge.js?v=1dd20a619be4",
+        "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/fencing-map-explorer.js?v=e3a4bef6c17d"
+      ],
+      "label": "phone-plan-wc61"
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "pageSha": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551",
+  "beforeRecord": {
+    "version": 5306
+  },
+  "pass": true,
+  "counts": {
+    "page": 0,
+    "live": 117,
+    "blocked": 0
+  },
+  "limit": "Actual phone Plan drawing at native DPR2, not a blanket satellite or4K-display claim."
+}

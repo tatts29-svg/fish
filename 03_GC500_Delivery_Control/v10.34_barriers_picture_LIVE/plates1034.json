@@ -1,0 +1,25 @@
+{
+ "what": "v10.34 water barriers picture for the Today group card (Water barriers), rendered illustration in the style of the v9.07 plates",
+ "source": {
+  "sha256": "215601b867b35354cb84954ed20442e23ceee45bd577dfa975f62e293832d5b9",
+  "bytes": 2227761,
+  "px": [
+   1376,
+   768
+  ]
+ },
+ "quality": 78,
+ "cells": [
+  {
+   "id": "barriers",
+   "name": "Water barriers",
+   "file": "a93fee4feb0b5f61c7729a630c6bb97e5b980aca4ef915af77e75ff27a939f1f.webp",
+   "sha256": "a93fee4feb0b5f61c7729a630c6bb97e5b980aca4ef915af77e75ff27a939f1f",
+   "type": "image/webp",
+   "bytes": 165666,
+   "scope": "view",
+   "width": 1376,
+   "height": 768
+  }
+ ]
+}

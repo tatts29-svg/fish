@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:3x AEST: \"Aircon container left 1130am\", then 11:4x, when run 85 had read that as the EAGS event container T0023: \"Recrigertor building it should be u should have a record do you not\". The record has T0266, the 6.0m Refrigerator Container (United Rentals / Royal Wolf unit 920584, Helen Park, pit lane entry), its reference's only unit: it left in full at 11:30. T0023's departure of run 85 is withdrawn separately (run 88). Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "depart", "ref": "T0266", "at": "2026-10-30T11:30:00+10:00", "nos": ["920584"], "unnumbered": [], "complete": true}
+  ]
+}

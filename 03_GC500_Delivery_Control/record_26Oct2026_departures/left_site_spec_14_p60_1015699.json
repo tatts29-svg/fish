@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026: \"Picked up 900AM   asset no 1015699\". 1015699 is P60's only unit (Gate 5 Ticket Box 4.8m, Coates portable building, ticked Ready by Andrew; read 09:07 AEST, the only place the number is on the record, not already left), so P60 left in full at 09:00 AEST.",
+  "ops": [
+    {"op": "depart", "ref": "P60", "at": "2026-10-27T09:00:00+10:00", "nos": ["1015699"], "complete": true}
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "actualPublic": false,
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "checks": [
+    {
+      "name": "Build retains the programme day cards",
+      "pass": true
+    },
+    {
+      "name": "Weather cards retain exact native staff names",
+      "pass": true
+    },
+    {
+      "name": "Weather cards retain recorded count and unknown distinction",
+      "pass": true
+    },
+    {
+      "name": "Read-only Build has no repeated staff panel",
+      "pass": true
+    },
+    {
+      "name": "Print does not repeat weather-card staff",
+      "pass": true
+    },
+    {
+      "name": "Edit mode keeps native editor without repeating summary",
+      "pass": true
+    },
+    {
+      "name": "Closed editor is a compact single row",
+      "pass": true
+    },
+    {
+      "name": "Native refresh retains unsaved availability draft",
+      "pass": true
+    },
+    {
+      "name": "Past day has neither duplicate panel nor editable availability",
+      "pass": true
+    },
+    {
+      "name": "Equipment heading has its original dark face and readable white text",
+      "pass": true
+    },
+    {
+      "name": "Demob uses approved compact staff panel styling",
+      "pass": true
+    },
+    {
+      "name": "Demob still displays its own native daily names",
+      "pass": true
+    },
+    {
+      "name": "Change deliveries uses current Build terminology",
+      "pass": true
+    },
+    {
+      "name": "Healthy machine metadata shares native More info; Open remains available",
+      "pass": true
+    },
+    {
+      "name": "No horizontal page overflow",
+      "pass": true
+    },
+    {
+      "name": "Presentation preserves shared records and P&L",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes",
+      "pass": true
+    }
+  ],
+  "staffEditor": {
+    "height": 46,
+    "editVisible": true,
+    "duplicatesHidden": true,
+    "draftRetained": true,
+    "closedHeight": 46,
+    "pastHidden": true
+  },
+  "pass": true,
+  "errors": [],
+  "writes": 0
+}

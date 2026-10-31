@@ -1,0 +1,205 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T060206Z",
+ "finished": "2026-10-28T06:02:41.444Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026, on the Today screen reading 98.31% with VMS 23/24 and Equipment 12/13: \"this needs to be fixed\". VMS: board 1211356 (contract 9961265 line 43) was on no delivery, so it read 'Still to come'; Andrew's 20 Oct entry put it on T0001 as VMS05 with rego ER9244 under a separate register key the page does not show; Andrew gave VMS05 as asset 1211356 on 20 Oct. Equipment: EQ0007, the AT009 rough-terrain forklift, has been on site and working since its delivery docket 26083924 (17 Sep 2026 13:42 AEST), but its Complete tick was only pressed on 27 Oct, after the progress cut-off of Fri 23 Oct, so the index counted it as not complete; its complete is dated to its arrival on the record.",
+  "ops": [
+   {
+    "op": "vms_board",
+    "key": "1211356",
+    "fleet": "1211356",
+    "rego": "ER9244",
+    "on": "T0001"
+   },
+   {
+    "op": "date_back",
+    "ref": "EQ0007",
+    "done_at": "2026-09-17T03:42:25.000Z",
+    "item": "Forklift Rough Terrain 2.5t",
+    "disc": "Access & plant",
+    "why": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026)."
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11694,
+  "after": 11698
+ },
+ "updated": {
+  "before": "2026-10-28T05:54:37.823Z",
+  "after": "2026-10-28T06:02:40.579Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "vms_board",
+   "key": "1211356",
+   "fleet": "1211356",
+   "rego": "ER9244",
+   "on": "T0001",
+   "result": "board saved",
+   "doc": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9244",
+    "on": "T0001",
+    "line": "9961265/43",
+    "by": "Andrew Fisher",
+    "at": "2026-10-28T06:02:25.691Z"
+   }
+  },
+  {
+   "op": "date_back",
+   "ref": "EQ0007",
+   "done_at": "2026-09-17T03:42:25.000Z",
+   "item": "Forklift Rough Terrain 2.5t",
+   "disc": "Access & plant",
+   "why": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026).",
+   "result": "dated: complete 2026-09-17T03:42:25.000Z, receipt -, install -"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0007",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~1211356",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~1211356",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/1211356",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0007": {
+    "state": "on site",
+    "set_at": "2026-09-17T03:42:25.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T12:30:03.974Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-27T12:30:03.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0007"
+   },
+   "stamps/vmsboard~2f~1211356": null,
+   "by/vmsboard~2f~1211356": null,
+   "vmsboard/1211356": null
+  },
+  "after": {
+   "delivery/EQ0007": {
+    "state": "on site",
+    "set_at": "2026-09-17T03:42:25.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T03:42:25.000Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026)."
+     }
+    ],
+    "_k": "EQ0007"
+   },
+   "stamps/vmsboard~2f~1211356": {
+    "_k": "vmsboard/1211356",
+    "v": "2026-10-28T06:02:25.691Z"
+   },
+   "by/vmsboard~2f~1211356": {
+    "_k": "vmsboard/1211356",
+    "v": "Andrew Fisher"
+   },
+   "vmsboard/1211356": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9244",
+    "on": "T0001",
+    "line": "9961265/43",
+    "by": "Andrew Fisher",
+    "at": "2026-10-28T06:02:25.691Z",
+    "_k": "1211356"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

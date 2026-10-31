@@ -1,0 +1,66 @@
+[
+  {
+    "name": "public v11.86 with finishing module",
+    "ok": true
+  },
+  {
+    "name": "selected detail label matches camera",
+    "ok": true
+  },
+  {
+    "name": "whole loaded truck remains in the public detail frame",
+    "ok": true
+  },
+  {
+    "name": "native 4K clarity and edge smoothing retained",
+    "ok": true,
+    "detail": {
+      "version": "1.8",
+      "quality": "crisp",
+      "samples": 4,
+      "shadowMap": 0,
+      "resolution": [
+        2160,
+        3267
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": null,
+      "bloom": false,
+      "reflections": false,
+      "shadowOn": false,
+      "drawnAt": "4K clarity",
+      "resolutionLocked": true,
+      "antiAliasing": 4
+    }
+  },
+  {
+    "name": "loaded branding retained",
+    "ok": true
+  },
+  {
+    "name": "phone Options remains usable",
+    "ok": true
+  },
+  {
+    "name": "clean Close",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page errors and writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 100,
+        "blocked": 0
+      }
+    }
+  }
+]

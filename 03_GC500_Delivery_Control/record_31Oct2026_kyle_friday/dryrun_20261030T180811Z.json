@@ -1,0 +1,37 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T180811Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 ~04:2x AEST (this chat): 'Also no kyle friday either.' The labour-hire row for Friday 30 Oct (10.5 h on days, entered 25 Oct from the demob roster) is taken off through the page's own removeOurCost, which keeps it with a tombstone so the removal travels with the record; the KINP note written on it earlier today goes with it. The other three people rostered that Friday keep their rows and notes.",
+  "ops": [
+   {
+    "op": "labour_remove",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "why": "Andrew Fisher, 31 Oct 2026: did not work Friday 30 Oct"
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "labour_remove",
+   "id": "W-L-kyle-gover-20261030",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "was": {
+    "hours": 10.5,
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026. · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "taken off (was 10.5 h 06:30-17:00) - W-L-kyle-gover-20261030 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "plan": [
+  "deleted/W-L-kyle-gover-20261030",
+  "by/deleted~2f~W-L-kyle-gover-20261030",
+  "costs/W-L-kyle-gover-20261030"
+ ]
+}

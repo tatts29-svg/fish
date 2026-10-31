@@ -1,0 +1,10 @@
+live scene loaded; svg 63351691 bytes
+parsed 254316 records 1132 contexts 1910 defs
+records live/new 254316 254316 styles 27396 27396 contexts 1132 1132 defs 1910 1910
+same d 254316 same ctx 254316 same style idx 254316 same bbox 254300 bbox within 0.01 254316
+identical style entries 27396
+identical context entries 1132
+identical defs 1910 def order same True
+grid identical True broad identical True nx ny cell True
+16 records differ in one box value by 0.001 (floating-point rounding at the third decimal)
+json bytes live/new 46076705 46076700 identical json: False (the 16 values)

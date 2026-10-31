@@ -1,0 +1,32 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "deep_links": 7,
+  "deep_link_errors": 0,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "page_errors": 0,
+  "console_errors": 0,
+  "writes_blocked": 0,
+  "live_reads": 540
+ },
+ "phone": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "deep_links": 7,
+  "deep_link_errors": 0,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "page_errors": 0,
+  "console_errors": 0,
+  "writes_blocked": 0,
+  "live_reads": 490
+ }
+}

@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.71",
+  "sha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "bytes": 12831751,
+  "pass": true,
+  "sourcePreservation": {
+    "checks": 15,
+    "mutationGuards": 5
+  },
+  "smokeSimulation": 13,
+  "showcaseControls": {
+    "desktop": 39,
+    "phone": 39,
+    "lifecycleCyclesEach": 3
+  },
+  "navigation": {
+    "routesPerDevice": 22,
+    "deepLinksPerDevice": 7,
+    "back": "#plant / pane-plant",
+    "devices": 2,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "blockedRequests": 0
+  },
+  "visuals": {
+    "desktopChecks": 28,
+    "phoneChecks": 10,
+    "screenshots": 22,
+    "pageErrors": 0,
+    "graphicsErrors": 0,
+    "operationalWriteAttempts": 0
+  },
+  "recordPreserved": true,
+  "financialEvidence": "financial-preservation971.json",
+  "limits": "Chromium SwiftShader software rendering; these checks do not establish hardware GPU frame rates. Phone approach shots use an ephemeral source-resolved pose fixture; separate source and simulation tests cover driving. Strict GET visual harness locally blocks the optional Google map createSession request; there were no operational write attempts. Screenshots remain in private evidence."
+}

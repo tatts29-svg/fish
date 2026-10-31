@@ -1,0 +1,42 @@
+/* Author: Andrew Fisher. Compact unit descriptions and supplier evidence, using native page colours. */
+.units925{color:var(--ink,#193038);min-width:0;max-width:100%;border-top:3px solid #ed792d}
+.units925 .units925-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+.units925 .units925-title h3{margin:0;font-size:17px}
+.units925 .units925-title>span{font-size:12px;color:var(--mute,#536873)}
+.units925 label{display:grid;gap:6px;font-size:12px;font-weight:650}
+.units925 select,.units925 input{color:#18323c;background:#fff;border:1px solid #819ba5;border-radius:7px;width:100%;min-height:44px;padding:9px;font:inherit;box-sizing:border-box}
+.units925 select option{color:#18323c;background:#fff}
+.units925 button{min-height:44px}
+.units925 input:focus-visible,.units925 select:focus-visible,.units925 button:focus-visible,.units925 summary:focus-visible{outline:3px solid #ef842f;outline-offset:2px}
+.units925 .units925-note{font-size:12px;line-height:1.5;color:var(--mute,#526772);margin:8px 0;overflow-wrap:anywhere}
+.units925 .units925-warning{font-size:12px;line-height:1.5;background:#fff2e1;color:#754413;border-left:3px solid #ed792d;border-radius:5px;padding:9px;margin:10px 0}
+.units925 .units925-unit,.units925 .units925-edit{border:1px solid var(--line,#bdcbd1);border-radius:8px;margin:8px 0;overflow:hidden}
+.units925 .units925-unit>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px;cursor:pointer;min-height:44px;box-sizing:border-box;list-style:none}
+.units925 .units925-unit>summary::after{content:'⌄';font-size:18px;flex-shrink:0}
+.units925 .units925-unit[open]>summary::after{content:'⌃'}
+.units925 .units925-unit>summary>span:first-child{min-width:0;flex:1}
+.units925 .units925-unit>summary>span:nth-child(2){font-size:11px;text-align:right;max-width:40%;overflow-wrap:anywhere}
+.units925 .units925-unit summary b{font-size:14px;overflow-wrap:anywhere}
+.units925 small{display:block;color:var(--mute,#536873);font-size:11px;line-height:1.4;margin-top:3px}
+.units925 .units925-body{padding:0 12px 12px;border-top:1px solid var(--line,#bdcbd1)}
+.units925 dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:13px 0}
+.units925 dl>div{min-width:0}
+.units925 dt{font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute,#536873);margin-bottom:4px}
+.units925 dd{font-size:13px;font-weight:650;margin:0;overflow-wrap:anywhere}
+.units925 h4{font-size:12px;margin:14px 0 8px}
+.units925 .units925-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:10px 0}
+.units925 .units925-photos img{width:100%;max-height:170px;height:130px;object-fit:cover;border-radius:7px}
+.units925 .units925-worklist{display:flex;gap:6px;flex-wrap:wrap}
+.units925 .units925-work{padding:7px 9px;border:1px solid var(--line,#9dafb6);border-radius:6px;font-size:11px}
+.units925 .units925-work.done{color:#155941;background:#e1f4e9;border-color:#8fbba3}
+.units925 .units925-edit>summary{font-size:12px;font-weight:650;padding:12px;min-height:44px;box-sizing:border-box;cursor:pointer}
+.units925 .units925-edit>p,.units925 .units925-edit>.units925-photos{margin-left:12px;margin-right:12px}
+.units925 .units925-form{padding:0 12px 12px}
+.units925 .units925-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.units925 .units925-result{font-size:12px;line-height:1.4;margin:8px 0 0}
+.units925 .units925-company-list{display:grid;gap:5px;max-height:500px;overflow:auto;margin:12px 0}
+.units925 .units925-company-unit{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;border:1px solid var(--line,#c2cdd1);border-radius:7px;padding:11px;background:var(--card,#fff);color:var(--ink,#18323c);font:inherit;cursor:pointer}
+.units925 .units925-company-unit>span{min-width:0;overflow-wrap:anywhere}
+.units925 .units925-company-unit>span:last-child{font-size:11px;color:var(--mute,#526772);max-width:40%;text-align:right}
+.units925 .units925-quote{display:grid;grid-template-columns:90px 1fr auto;gap:12px;padding:11px 12px;border-top:1px solid var(--line,#bdcbd1);font-size:12px;line-height:1.5}
+@media(max-width:600px){.units925 .units925-fields{grid-template-columns:1fr}.units925 .units925-company-unit{font-size:12px}.units925 .units925-quote{grid-template-columns:75px 1fr}.units925 .units925-quote>span:last-child{grid-column:2}.units925 .units925-title{align-items:flex-start}.units925 .units925-unit>summary{padding:10px;gap:7px}}

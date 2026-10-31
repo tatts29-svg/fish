@@ -1,0 +1,53 @@
+/* Author: Andrew Fisher. v8.21 approved Timeline packing, bounded to Timeline. */
+#pane-timeline .daily821-toggle{background:#ff6a13;color:#172027;display:flex;flex-direction:column;gap:3px;justify-content:center;min-height:45px;line-height:1.2}
+#pane-timeline .daily821-toggle span{font-size:10px;font-weight:500}
+#pane-timeline .daily821-panel{border:1px solid var(--rule,#d9dcdf);border-radius:12px;padding:18px 20px;margin:8px 0 18px;background:var(--paper,#fff)}
+#pane-timeline .daily821-panel[hidden]{display:none}
+#pane-timeline .daily821-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:13px;align-items:flex-start}
+#pane-timeline .daily821-head h4{margin:0;font-size:17px;color:var(--ink)}
+#pane-timeline .daily821-head p{margin:5px 0 0;font-size:12px;color:var(--mute)}
+#pane-timeline .daily821-head button{min-width:36px;min-height:36px;font-size:22px;padding:2px 8px}
+#pane-timeline .daily821-controls{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;gap:12px;align-items:end}
+#pane-timeline .daily821-controls label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;margin-bottom:6px;color:var(--mute)}
+#pane-timeline .daily821-controls select{display:block;width:100%;min-height:46px;padding:9px 12px;border:1px solid var(--rule);border-radius:8px;font:inherit;background:var(--paper);color:var(--ink)}
+#pane-timeline .daily821-controls button{min-height:46px;white-space:normal}
+#pane-timeline .daily821-controls button:disabled{opacity:.5;cursor:not-allowed}
+#pane-timeline .daily821-status{margin:12px 0 0;font-size:12px;color:var(--mute);overflow-wrap:anywhere}
+#pane-timeline .daily821-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+#pane-timeline .daily821-actions:empty{display:none}
+#pane-timeline .daily821-page-link{display:inline-flex;align-items:center;min-height:44px;font-weight:700;font-size:12px;margin-top:5px}
+#pane-timeline .ldlist{gap:8px}
+#pane-timeline .ld.go{grid-template-columns:minmax(0,1fr) 278px}
+#pane-timeline .ld.go .ldl{min-height:78px}
+#pane-timeline .ldl{grid-template-columns:48px minmax(140px,1fr) minmax(180px,.75fr) 16px;column-gap:15px}
+#pane-timeline .ldlist.timed .ldl{grid-template-columns:48px 98px minmax(110px,1fr) minmax(140px,.65fr) 16px}
+#pane-timeline .ld-go{gap:10px;padding:10px 12px;justify-content:flex-end}
+#pane-timeline .ld-go .ld-qr{flex:0 0 50px;height:50px;padding:3px}
+#pane-timeline .ld-go .ld-qr svg{width:44px;height:44px}
+#pane-timeline .ld-go .ld-nav{width:190px;height:54px;flex:0 0 190px;padding:0 13px;gap:8px}
+#pane-timeline .ld-nav-t em{white-space:normal;line-height:1.25;letter-spacing:.07em;font-size:8.5px}
+#pane-timeline .ld-nav-t b{font-size:18px}
+#pane-timeline .ld-nav,#pane-timeline .ld-qr{animation:none}
+#pane-timeline .ld.on .ld-nav{animation:ldNavPulse 2.6s ease-in-out infinite}
+#pane-timeline .ld-sw{font-size:9px}
+#pane-timeline .ld-c{gap:7px}
+#pane-timeline .ld-p span{white-space:normal}
+#pane-timeline .ld-refs{padding-left:12px}
+#pane-timeline .ld-w{max-width:100%;white-space:normal}
+#pane-timeline .daily821-load-message{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end;padding:0 6px 10px}
+#pane-timeline .daily821-load-message .ld-txt{min-height:44px;padding:8px 14px;display:flex;align-items:center;gap:8px;border-radius:9px}
+#pane-timeline .daily821-load-message>div{display:flex;align-items:center;gap:8px}
+#pane-timeline .daily821-load-message svg{width:20px;height:20px}
+@media(max-width:1080px){#pane-timeline .ld.go{grid-template-columns:minmax(0,1fr) 260px}#pane-timeline .ld-go .ld-nav{width:172px;flex-basis:172px}#pane-timeline .ldl{grid-template-columns:40px minmax(130px,1fr) minmax(130px,.65fr) 12px;gap:10px;padding-left:14px}#pane-timeline .ldlist.timed .ldl{grid-template-columns:40px 78px minmax(100px,1fr) minmax(80px,.5fr) 12px;gap:8px}#pane-timeline .ld-c{flex-wrap:wrap}#pane-timeline .ld-ref{gap:5px}}
+@media(max-width:760px){#pane-timeline .daily821-panel{padding:14px 12px}#pane-timeline .daily821-head h4{font-size:16px}#pane-timeline .daily821-controls{grid-template-columns:1fr 1fr;gap:8px}#pane-timeline .daily821-controls>div{grid-column:1/-1}#pane-timeline .daily821-controls button{font-size:11px;padding:9px}#pane-timeline .ld.go{grid-template-columns:minmax(0,1fr)}#pane-timeline .ld.go .ldl{min-height:88px;border-radius:12px 12px 0 0;border-right:1px solid var(--ld-edge);border-bottom:0}#pane-timeline .ldl,#pane-timeline .ldlist.timed .ldl,#pane-timeline .ldlist:not(.timed) .ldl{grid-template-columns:32px minmax(0,1fr) 12px;grid-template-areas:'n refs x' 'n p p' 'n t t' 'n sum sum';gap:6px 10px;padding:12px 12px 12px 16px}#pane-timeline .ld-t{padding:0;border:0;flex-direction:row;gap:10px}#pane-timeline .ld-t b{font-size:16px}#pane-timeline .ld-t em{font-size:10px}#pane-timeline .ld-refs{padding:0;border:0;gap:9px}#pane-timeline .ld-ref{display:flex;flex-direction:column;align-items:flex-start;gap:3px}#pane-timeline .ld-c b{font-size:26px}#pane-timeline .ld-c .ld-lamp,#pane-timeline .ld-sw{display:none}#pane-timeline .ld-ref .ld-w{font-size:11px;max-width:100%;white-space:normal}#pane-timeline .ld-refs.multi .ld-w{display:block}#pane-timeline .ld-p{padding:0;border:0;font-size:12px;align-self:center}#pane-timeline .ld-p span{white-space:normal}#pane-timeline .ld-sum{display:flex;justify-self:start;gap:8px;flex-wrap:wrap}#pane-timeline .ld-g{font-size:9px}#pane-timeline .ld-go{display:flex;align-items:center;justify-content:flex-end;border-radius:0 0 12px 12px;border:1px solid var(--ld-edge);border-top:1px solid #353e45;padding:9px 12px}#pane-timeline .ld-go .ld-qr{display:none}#pane-timeline .ld-go .ld-nav{width:100%;flex:1 1 100%;min-height:44px;height:auto;border-radius:9px;padding:10px 12px;justify-content:center}#pane-timeline .ld-nav-t{display:flex;flex-direction:row;align-items:center;gap:10px}#pane-timeline .ld-nav-t em{margin:0;letter-spacing:.04em;font-size:9px;max-width:145px}#pane-timeline .ld-nav-t b{font-size:17px}#pane-timeline .ld.on .ld-go{border-radius:0}}
+@media(prefers-reduced-motion:reduce){#pane-timeline .ld.on .ld-nav{animation:none}}
+
+/* The active day-document plate is the visible home of these actions. */
+#pane-timeline .dplate:has(.daily821-tile){grid-template-columns:auto repeat(5,minmax(0,1fr))}
+#pane-timeline .dplate:has(.daily821-tile):has(>.dpt-edit){grid-template-columns:auto repeat(6,minmax(0,1fr))}
+#pane-timeline .daily821-tile{background:linear-gradient(180deg,#ff8a3d,#f26915);border-color:#ffac77;color:#172027}
+#pane-timeline .daily821-tile .dpt-i{color:#172027;background:#ffffff30}
+#pane-timeline .daily821-tile .dpt-w{white-space:normal;font-size:17px;line-height:1.05}
+#pane-timeline .daily821-tile .dpt-s{color:#432c1d;font-size:10px}
+@media(max-width:1000px){#pane-timeline .daily821-tile .dpt-i{display:none}#pane-timeline .daily821-tile{grid-template-columns:1fr}}
+@media(max-width:760px){#pane-timeline .dplate:has(.daily821-tile),#pane-timeline .dplate:has(.daily821-tile):has(>.dpt-edit){grid-template-columns:repeat(2,minmax(0,1fr))}#pane-timeline .daily821-tile{grid-column:1/-1;grid-template-columns:auto minmax(0,1fr)}#pane-timeline .daily821-tile .dpt-i{display:grid}}

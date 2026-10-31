@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "liveAest": "2 Oct2026 17:02AEST",
+  "baseSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "publicSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "publicBytes": 9101458,
+  "wrapperSha256": "b6884825420a17df7b5b5835e502b6a249e74aba54507d522fe6bdcdbd101a5a",
+  "checks": [
+    {
+      "name": "Renamed wrapper reproduces every tested and public byte from the original806 base",
+      "pass": true
+    },
+    {
+      "name": "Replayed page passes all inline-script and secret checks",
+      "pass": true
+    },
+    {
+      "name": "Original frozen product patch remains byte-identical after relocation",
+      "pass": true
+    },
+    {
+      "name": "Imported READY README remains byte-identical; publication has a separate note",
+      "pass": true
+    },
+    {
+      "name": "All relocated source, refusal and preservation checks pass",
+      "pass": true
+    }
+  ],
+  "passed": 5,
+  "total": 5,
+  "scope": "Folder and local-path changes only; no page or record changes and no repeated browser suites."
+}

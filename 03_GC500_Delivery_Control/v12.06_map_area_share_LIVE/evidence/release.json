@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "sha256": "8e371c70200d6b6566d59e7c078f70e5f4737654470a3d812b7fda9159166933",
+  "bytes": 15247411,
+  "base_sha256": "68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895",
+  "inline_scripts": 194,
+  "phone_and_export_images_inspected": true,
+  "operational_writes": 0,
+  "native_share_captured_only": true,
+  "second_agent_review": false,
+  "ready_source": "2f70ad3f3e3ff144f5625f3ba6e5ae0749b6f430",
+  "guarded_upload_at_utc": "2026-10-24T21:20:40.828Z",
+  "public_get_at_utc": "2026-10-24T21:22:54.021539+00:00",
+  "public_ui_checks": 7,
+  "public_phone_and_desktop_inspected": true
+}

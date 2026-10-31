@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 31 Oct 2026 ~04:1x AEST (this chat): 'There was barriers that came out Thursday night. By aaron 8 hrs. Aaron didnt work friday. To make this clean do we just have aaron do hours for friday then and assign to stps barrier. But only show as a 8hr day.' So: Friday 30 Oct becomes an 8-hour day on the water barriers, contract 9972648 (STPS), with the note saying it was the Thursday night so the date is not lost; the Friday notes written earlier today (a generator hour and the KINP units that left Friday) come off that row because he was not there; Thursday 29 Oct loses the 4-hour barrier note written earlier today under the 'rest is done on days' answer, which Thursday night supersedes; Thursday's own roster hours are untouched.",
+ "ops": [
+  {"op": "labour_set", "person": "Aaron Zelvis", "date": "2026-10-30", "fields": {"start": "", "finish": "", "hours": 8, "note": "Water barriers 9972648 STPS · 8 h · WB03 (30) · demob · the Thursday night, 29 Oct, shown here as an 8 h day · Andrew Fisher, 31 Oct 2026"}, "why": "Andrew Fisher, 31 Oct 2026: Aaron did not work Friday; the Thursday night on the barriers is shown as his Friday, an 8 h day, assigned to the STPS barriers"},
+  {"op": "labour_set", "person": "Aaron Zelvis", "date": "2026-10-29", "fields": {"note": ""}, "why": "Andrew Fisher, 31 Oct 2026: the Thursday barrier work was the night, 8 h, shown on Friday; the 4 h days note written earlier today comes off"}
+ ]
+}

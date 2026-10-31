@@ -1,0 +1,121 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baseSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "assetOverrideSha256": "b86cd84b85c78b49c4dfc183b66efc3eda4dc85bd8047300b2f9126fadd6ae59",
+  "assets": {
+    "explorer/explorer.js": {
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "bytes": 133534
+    },
+    "explorer/explorer-merge.js": {
+      "sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "bytes": 25146
+    },
+    "poc3d/index.html": {
+      "sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+      "bytes": 44565
+    },
+    "explorer/index.html": {
+      "sha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "bytes": 27591
+    }
+  },
+  "maxParallelContexts": 2,
+  "purpose": "Functional checks only; not performance measurements",
+  "runs": [
+    {
+      "name": "sweep_desktop",
+      "source": "toolchain/harness/sweep.js",
+      "sourceSha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "exitCode": 0,
+      "pass": true,
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "privateResultSha256": "a28353ef88422e174178769d86be3e733fe3790af6d19cbd450d0331a2a4c447",
+      "assessedFromCompletedRun": true
+    },
+    {
+      "name": "sweep_phone",
+      "source": "toolchain/harness/sweep.js",
+      "sourceSha256": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+      "exitCode": 0,
+      "pass": true,
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "privateResultSha256": "fe021809f9886fe730e4aaacee066e1a59004bb812fb60ee637967c1fcf7f26c",
+      "assessedFromCompletedRun": true
+    },
+    {
+      "name": "packed_desktop",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 20,
+      "total": 20,
+      "privateResultSha256": "941558ef9a07330a4425bbb530e4b5f0060d16f6a7558358982733965003e700",
+      "assessedFromCompletedRun": true
+    },
+    {
+      "name": "packed_phone",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 14,
+      "total": 14,
+      "privateResultSha256": "57a7a10690dd0494629d81e7f53cc2b2b1eafe62f6680674dc1e9b1914a2b3a4",
+      "assessedFromCompletedRun": false
+    },
+    {
+      "name": "equipment_desktop",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 22,
+      "total": 22,
+      "privateResultSha256": "eb2355bfa3215249d7c36726f1046d83b9f3c4d2e72431116f357a56d6ff3ed2",
+      "assessedFromCompletedRun": false
+    },
+    {
+      "name": "equipment_phone",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 22,
+      "total": 22,
+      "privateResultSha256": "c2ea3850afe8cf9fb79685b6481b8062dc75a075cc03cb638f4fc8a8ce09bad6",
+      "assessedFromCompletedRun": false
+    },
+    {
+      "name": "rules",
+      "source": "v7.84_ways_in_from_andrew_LIVE/evidence/rules_tests.js",
+      "sourceSha256": "c34fce37d2519de7ac9c2b826783649403697d6250b5881ad80f9e4bf73de949",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 45,
+      "total": 45,
+      "privateResultSha256": "734c49f26b1912da7435cf265ca769e072f4ecf5a334b81a1d9f8475100a88f4",
+      "assessedFromCompletedRun": false
+    },
+    {
+      "name": "fresh_after_save",
+      "source": "v7.75_fresh_after_a_save_LIVE/evidence/fresh_after_save_tests.js",
+      "sourceSha256": "84c2cee38a8532be8e6f212bda6b39dacf27ca5d40e0f9c34f04047c215066b2",
+      "exitCode": 0,
+      "pass": true,
+      "passed": 11,
+      "total": 11,
+      "privateResultSha256": "8a1cec82da96d51d8aceb58be9ac3c8a1a3db65c7181f7af8d5c34a38db86408",
+      "assessedFromCompletedRun": false
+    }
+  ],
+  "assessmentNote": "Expected Register/Equipment and view-only restricted-tab redirects are accepted against unchanged source and prior v8.12 evidence. Original incorrect all-panes-visible assessment is retained privately; raw browser results are unchanged."
+}

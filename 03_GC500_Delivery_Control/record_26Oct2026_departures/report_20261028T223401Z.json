@@ -1,0 +1,139 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T223401Z",
+ "finished": "2026-10-28T22:34:30.670Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 10:58 AEST: \"this will be daniel next week 25/10/2026 4670882\" (one purchase order per person per week; Daniel's race-week hours are not yet on the record, his accommodation 22-25 Oct is)",
+  "ops": [
+   {
+    "op": "po",
+    "number": "4670882",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 25 Oct 2026",
+    "period": "w/e 25 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true
+   }
+  ]
+ },
+ "pageSha256": "69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2",
+ "version": {
+  "before": 11937,
+  "after": 11940
+ },
+ "updated": {
+  "before": "2026-10-28T22:32:33.552Z",
+  "after": "2026-10-28T22:34:29.827Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "po",
+   "number": "4670882",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Daniel Gough - week ending 25 Oct 2026",
+   "period": "w/e 25 Oct 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "confirmed": true,
+   "result": "recorded 4670882 Daniel Gough - week ending 25 Oct 2026"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4670882",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4670882",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4670882",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4670882": null,
+   "by/po~2f~4670882": null,
+   "purchaseOrders/4670882": null
+  },
+  "after": {
+   "stamps/po~2f~4670882": {
+    "_k": "po/4670882",
+    "v": "2026-10-28T22:34:18.438Z"
+   },
+   "by/po~2f~4670882": {
+    "_k": "po/4670882",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4670882": {
+    "number": "4670882",
+    "by": "Andrew Fisher",
+    "at": "2026-10-28T22:34:18.438Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 25 Oct 2026",
+    "period": "w/e 25 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true,
+    "updated_at": "2026-10-28T22:34:18.438Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4670882"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

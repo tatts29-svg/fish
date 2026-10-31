@@ -1,0 +1,226 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "v8.61 candidate daily-run flow in isolated Chromium with fixture-only APIs; no real SMS or record writes",
+  "candidateSha256": "fa9e62b9ee8cbb763bc6bd17e418a9c10ceeac41eba6af4484176623b5d21c0f",
+  "helperSha256": "2147afb8c9a22c64bb62b8becd1931c7bdcdb019eee65bff94e9ee6ff4dab516",
+  "sourceSha256": "f0ff0ff32ad11c9c0883641ec201c5c511b7f8e14f45059617cd3dbc58a36b80",
+  "rendererSha256": "47784b436a633842d37ee1be86a8a1a3a148a3696005256a70dc5c49d981b003",
+  "passed": 53,
+  "total": 53,
+  "externalRequests": [],
+  "errors": [],
+  "results": [
+    {
+      "name": "Installer contact projection filters group, validates and deduplicates mobiles",
+      "pass": true
+    },
+    {
+      "name": "Choosing installer alone never publishes a card or sends SMS",
+      "pass": true
+    },
+    {
+      "name": "Preview is read-only: no card or SMS publication",
+      "pass": true
+    },
+    {
+      "name": "Explicit Send works without requiring a separate Preview",
+      "pass": true
+    },
+    {
+      "name": "Missing operator blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "View-only capability blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Server edit permission downgrade blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Local/server record mismatch blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Card HTTP failure cannot fall through into SMS",
+      "pass": true
+    },
+    {
+      "name": "Card network failure cannot fall through into SMS",
+      "pass": true
+    },
+    {
+      "name": "Malformed card success cannot send a broken link",
+      "pass": true
+    },
+    {
+      "name": "Cross-origin card URL is rejected before SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedVersion prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedCapability prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedRecipient prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Double click during card publication starts only one card and SMS",
+      "pass": true
+    },
+    {
+      "name": "Double click during SMS submission cannot submit a duplicate",
+      "pass": true
+    },
+    {
+      "name": "unknown SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "throw SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "http500 SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "Storage failure prevents an unpersisted SMS duplicate lock",
+      "pass": true
+    },
+    {
+      "name": "Silent storage drop is detected before SMS",
+      "pass": true
+    },
+    {
+      "name": "Read status performs no new POST and distinguishes delivered",
+      "pass": true
+    },
+    {
+      "name": "Day HTML contains selected day only, no contacts/records/encoded app links",
+      "pass": true
+    },
+    {
+      "name": "Card metadata uses date, unique refs, expiry and no contact directory",
+      "pass": true
+    },
+    {
+      "name": "More than40refs refuses publication before server truncation",
+      "pass": true
+    },
+    {
+      "name": "Oversize HTML refuses publication before server body limit",
+      "pass": true
+    },
+    {
+      "name": "Expired optional preview is rejected before publication",
+      "pass": true
+    },
+    {
+      "name": "Reviewed preview cannot be reused for another selected day",
+      "pass": true
+    },
+    {
+      "name": "Empty daily schedule cannot publish or send",
+      "pass": true
+    },
+    {
+      "name": "unconfigured blocks direct one-click Send",
+      "pass": true
+    },
+    {
+      "name": "noQuota blocks direct one-click Send",
+      "pass": true
+    },
+    {
+      "name": "SMS timeout uses unknown-result lock without retry",
+      "pass": true
+    },
+    {
+      "name": "Rendered day HTML escapes executable content and has no active external subresources",
+      "pass": true
+    },
+    {
+      "name": "Card timeout clears busy and late completion never sends SMS",
+      "pass": true
+    },
+    {
+      "name": "Confirmed delivered survives a weaker unknown status lookup",
+      "pass": true
+    },
+    {
+      "name": "Confirmed failed survives a weaker pending status lookup",
+      "pass": true
+    },
+    {
+      "name": "Restoring an unknown result is quiet and never queues automatic work",
+      "pass": true
+    },
+    {
+      "name": "Personal message uses first name, exact date, Take 5 and final link",
+      "pass": true
+    },
+    {
+      "name": "Missing first name remains a natural greeting",
+      "pass": true
+    },
+    {
+      "name": "Offline weather has an honest fallback and permits an explicit send",
+      "pass": true
+    },
+    {
+      "name": "Displayed personal preview is read-only and matches sent text except link",
+      "pass": true
+    },
+    {
+      "name": "Forecast changing after preview blocks card publication and SMS",
+      "pass": true
+    },
+    {
+      "name": "changedWeather during publication: no stranded page; text keeps the forecast pinned before publishing",
+      "pass": true
+    },
+    {
+      "name": "expiredWeather during publication: no stranded page; text keeps the forecast pinned before publishing",
+      "pass": true
+    },
+    {
+      "name": "Restored receipt never invents the original sent message",
+      "pass": true
+    },
+    {
+      "name": "Text over the server length limit is refused before any daily page is published",
+      "pass": true
+    },
+    {
+      "name": "Long name (400 characters) is capped at 30 in the greeting and sends; no stranded page",
+      "pass": true
+    },
+    {
+      "name": "Strand boundary (fits): the preview and the send agree, and a text that cannot go never publishes a page",
+      "pass": true
+    },
+    {
+      "name": "Strand boundary (one over): the preview and the send agree, and a text that cannot go never publishes a page",
+      "pass": true
+    },
+    {
+      "name": "Sent text is GSM-7 only: no degree sign, curly quotes, dashes or accents",
+      "pass": true
+    },
+    {
+      "name": "A text the service rejects does not leave \"Message text / Check delivery below\" showing",
+      "pass": true
+    },
+    {
+      "name": "Unsafe recipient markup is escaped in visible message preview",
+      "pass": true
+    }
+  ]
+}

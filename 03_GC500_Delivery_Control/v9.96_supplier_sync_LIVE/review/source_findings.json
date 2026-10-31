@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Independent interim review; moving draft, not release signoff",
+  "source_review": {
+    "workbook": "GC500 26 Schedule (7).xlsx",
+    "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac",
+    "read_original": true,
+    "rows": [
+      {"sheet": "Event Week", "row": 49, "date": "2026-10-22", "product": "Toilet", "item": "FWF", "quantity": 1, "location_as_written": "Brad lones", "activity": "event p"},
+      {"sheet": "Event Week", "row": 50, "date": "2026-10-22", "product": "Toilet", "item": "FWF", "quantity": 1, "location_as_written": "Shell V power", "activity": "event p"}
+    ],
+    "reconciliation": "Supplier plan v10 names Brad Jones Racing and Shell V-Power, one FWF each on 19 October load 4. The native v9.94 DATA.assets and DATA.unreferenced contain neither toilet request. P17 is the BJR building and P11 is the DJR building; these are useful team-area context, not the toilet asset or an exact toilet pin. Preserve source-row identity; do not merge toilets into those building records.",
+    "maps_read": ["D022-26003-02-PORT_BUILDINGS.pdf", "D001-26003-03-MASTER.pdf"],
+    "map_result": "Both maps name BJR and DJR team areas. No exact BJR/Shell FWF asset pin established in this review."
+  },
+  "findings_sent_to_owner": [
+    "Cancelled or absent references must retain recorded supplier identities visibly, held out of dispatch. Draft owner added an original-inventory fallback after this finding.",
+    "Native collect816 calls setLight, which clears completion ticks but leaves item supplied quantities. Therefore receipt quantities are cumulative evidence and cannot alone label current on-site stock or pending demob. Native history after arrival can support a held outgoing status; an out_date alone cannot prove collection.",
+    "Approximate area/description coordinates need qualified source labels. Draft owner restored these labels after this finding.",
+    "Duplicate identity conflicts must prevent duplicate dispatch. Current pure model holds conflict loads, but received summary still sums both reference quantities; clarify or separate unresolved overlapping quantity from verified physical inventory.",
+    "Draft pack does not separate conflicting confirmed pickup dates. Current proposed loads must not imply that stops with different recorded outDate values belong to the same dated truck.",
+    "WC67 records two on-site FWF and a two-unit charge quantity; two dated events each say two, and the reference date is moved to 13 October. Do not infer four total or a new two-unit arrival without a reconciled source quantity."
+  ],
+  "tested": "16 independent pure projection/capacity/date tests passed against source SHA in adversarial_supplier996.json. Browser integration and final publication checks are not covered.",
+  "operational_writes": 0
+}

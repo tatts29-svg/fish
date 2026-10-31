@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 6052,
+  "checks": {
+    "sevenGroups": true,
+    "unweightedCategoryPercentages": true,
+    "boundsValid": true,
+    "notPrematurelyComplete": true
+  }
+}

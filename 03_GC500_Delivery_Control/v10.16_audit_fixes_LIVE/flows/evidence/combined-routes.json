@@ -1,0 +1,127 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "result": {
+    "checks": 29,
+    "passed": 29
+  },
+  "checks": [
+    {
+      "name": "Missing cold reference retains requested address before shared data arrives",
+      "pass": true
+    },
+    {
+      "name": "Shared reference opens automatically after its current record arrives",
+      "pass": true
+    },
+    {
+      "name": "Map updates keep the open reference address and create no phantom history",
+      "pass": true
+    },
+    {
+      "name": "Routing and refresh leave operational records untouched",
+      "pass": true
+    },
+    {
+      "name": "One browser Back closes reference and returns to its map",
+      "pass": true
+    },
+    {
+      "name": "Explicit Show on map closes drawer and changes address normally",
+      "pass": true
+    },
+    {
+      "name": "Explicit sheet hash navigation closes drawer and opens requested sheet",
+      "pass": true
+    },
+    {
+      "name": "Cold shared reference has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Cold shared reference has no operational writes",
+      "pass": true
+    },
+    {
+      "name": "Explicit navigation cancels pending reference request",
+      "pass": true
+    },
+    {
+      "name": "Late shared data never pulls user back to abandoned reference",
+      "pass": true
+    },
+    {
+      "name": "Newer navigation has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Newer navigation has no operational writes",
+      "pass": true
+    },
+    {
+      "name": "Selecting a different asset cancels the pending cold request",
+      "pass": true
+    },
+    {
+      "name": "Shared-data completion preserves the newer selected asset",
+      "pass": true
+    },
+    {
+      "name": "Newer asset request has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Newer asset request has no operational writes",
+      "pass": true
+    },
+    {
+      "name": "Unverified cold missing reference is not rejected early",
+      "pass": true
+    },
+    {
+      "name": "Truly unknown reference uses native rejection after shared data is ready",
+      "pass": true
+    },
+    {
+      "name": "Unknown reference has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Unknown reference has no operational writes",
+      "pass": true
+    },
+    {
+      "name": "Slow or failed shared read preserves requested reference with visible waiting status",
+      "pass": true
+    },
+    {
+      "name": "Recovery opens the original requested reference once",
+      "pass": true
+    },
+    {
+      "name": "Read failure and recovery has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Read failure and recovery has no operational writes",
+      "pass": true
+    },
+    {
+      "name": "Existing embedded reference still opens before shared data arrives",
+      "pass": true
+    },
+    {
+      "name": "Async map setup preserves cold embedded reference address",
+      "pass": true
+    },
+    {
+      "name": "Cold embedded reference has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "Cold embedded reference has no operational writes",
+      "pass": true
+    }
+  ],
+  "limitations": "GET-only current record; native writes are blocked. Network delay/outage is simulated solely in the test browser."
+}

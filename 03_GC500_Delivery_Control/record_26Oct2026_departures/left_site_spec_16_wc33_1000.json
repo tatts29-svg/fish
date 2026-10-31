@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (sent before 09:38 AEST): \"Pur these as picked up 10am todau please. 0554 0920 0971 0586 0487 0790 0597 0938 0297 0456 0012\". The eleven numbers are Event Portables FWF, each only on WC33 (read 09:38 AEST: every one Ready, the location Emptied, none already left), and they are the last eleven of its seventeen: 0634, 0582, 0548, 0782, 0657 and 0912 left 26 Oct 11:58. They left at 10:00 AEST, so WC33 leaves in full. Recorded after 10:00, as a departure is only recorded once its time has come.",
+  "ops": [
+    {"op": "depart", "ref": "WC33", "at": "2026-10-27T10:00:00+10:00", "nos": ["0554", "0920", "0971", "0586", "0487", "0790", "0597", "0938", "0297", "0456", "0012"], "complete": true}
+  ]
+}

@@ -1,0 +1,116 @@
+{
+ "at": "2026-10-23T01:24:36.657Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "on opening: the explorer is ready with its symbols, the Toilets chip is off, no area is drawn (nothing painted at all), the selector sits on \"With the toilets\" with every area, All areas and Hide still offered, the hint says the areas belong to the toilets, the symbols key and #expcard are there",
+   "ok": true,
+   "detail": {
+    "s0": {
+     "filter": "auto",
+     "paints": 0,
+     "shown": [],
+     "areas": 15,
+     "ready": true,
+     "toiletsOn": false,
+     "chip": true,
+     "canvas": true,
+     "ref": true
+    },
+    "bar": {
+     "value": "auto",
+     "n": 18,
+     "first": "auto|With the toilets · outlines while the Toilets & amenities filter is on",
+     "key": 15,
+     "hint": "The servicing areas belong to the toilets: their outlines show while the Toilets"
+    }
+   }
+  },
+  {
+   "name": "the Toilets & amenities chip pressed: the areas draw, each on its own, within a second",
+   "ok": true,
+   "detail": {
+    "shown": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "6",
+     "7",
+     "8",
+     "9",
+     "10",
+     "11",
+     "12",
+     "13"
+    ],
+    "paints": [
+     0,
+     21
+    ]
+   }
+  },
+  {
+   "name": "the chip released: the areas go again",
+   "ok": true,
+   "detail": {
+    "shown": []
+   }
+  },
+  {
+   "name": "one area chosen from the selector draws that area alone, with the chip off",
+   "ok": true,
+   "detail": {
+    "filter": "1",
+    "shown": [
+     "1"
+    ]
+   }
+  },
+  {
+   "name": "back to \"With the toilets\": nothing drawn while the chip is off",
+   "ok": true,
+   "detail": {
+    "filter": "auto",
+    "shown": [],
+    "value": "auto"
+   }
+  },
+  {
+   "name": "\"All areas\" still draws the outlines on request (those in the view, which Area 1 had just zoomed to)",
+   "ok": true,
+   "detail": {
+    "filter": "",
+    "shown": [
+     "1",
+     "2",
+     "3",
+     "5"
+    ]
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 135,
+    "blocked": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "stage": {
+  "w": 1370,
+  "h": 968,
+  "hasTiles": true
+ },
+ "underCursor": "IMG#.",
+ "zoom0": 1,
+ "tiles0": {
+  "all": 0,
+  "on": 0
+ },
+ "wheel5": {
+  "zoom": 4.95303,
+  "msToSettle": 1805,
+  "factorPerNotch": 1.377,
+  "tilesArrivedDuringTheZoom": {
+   "atMs": 1193,
+   "zoom": 4.92,
+   "tiles": 8
+  },
+  "trace": [
+   {
+    "z": 4.8,
+    "tiles": 8
+   },
+   {
+    "z": 4.92,
+    "tiles": 8
+   },
+   {
+    "z": 4.95,
+    "tiles": 20
+   },
+   {
+    "z": 4.95,
+    "tiles": 20
+   },
+   {
+    "z": 4.95,
+    "tiles": 20
+   },
+   {
+    "z": 4.95,
+    "tiles": 20
+   }
+  ]
+ },
+ "tilesAfterWheel": {
+  "all": 20,
+  "on": 20
+ },
+ "anchorDriftScreenPx": {
+  "dx": -0.3,
+  "dy": -0.2,
+  "zoomBefore": 4.95,
+  "zoomAfter": 7.27
+ },
+ "wheelOut3": 2.78431,
+ "buttonIn": {
+  "from": 2.78431,
+  "to": 5.56862,
+  "factor": 2
+ },
+ "buttonOut": 2.78431,
+ "reset": {
+  "zoom": 1,
+  "tiles": {
+   "all": 0,
+   "on": 0
+  }
+ },
+ "errors": [],
+ "console": []
+}

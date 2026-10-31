@@ -1,0 +1,44 @@
+{
+ "showMap": "plan",
+ "frame": true,
+ "area": "Area 1 · Pit Lane, Paddock & Teams",
+ "insideArea": {
+  "status": {
+   "state": "moved",
+   "shape": "circle",
+   "glyphCode": "e100",
+   "colour": "#7fffc1",
+   "fill": "#0f1b21",
+   "label": "Left site"
+  },
+  "key": "Left site: the symbol says what it is, the green pulse that it has gone, the badge how many (n/total = part gone); dashed = part gone; red = needs review",
+  "zoomText": [],
+  "rings": "n/a Offsite1225 is not defined"
+ },
+ "explorer_area1": "ok",
+ "search": "WC69, P12, S08, an asset number, a street…",
+ "hit": "BJR01 Left site · Qty 1Toilets & amenities · 1 mapped locat",
+ "insideSearch": {
+  "status": {
+   "state": "moved",
+   "shape": "circle",
+   "glyphCode": "e100",
+   "colour": "#7fffc1",
+   "fill": "#0f1b21",
+   "label": "Left site"
+  },
+  "key": "Left site: the symbol says what it is, the green pulse that it has gone, the badge how many (n/total = part gone); dashed = part gone; red = needs review",
+  "zoomText": [],
+  "rings": "n/a Offsite1225 is not defined"
+ },
+ "explorer_marks": "ok",
+ "cleared": "cleared",
+ "switchBox": {
+  "hidden": true,
+  "display": "none",
+  "visible": false
+ },
+ "explorer_noselect": "ok",
+ "pageErrors": 0,
+ "errorsSample": []
+}

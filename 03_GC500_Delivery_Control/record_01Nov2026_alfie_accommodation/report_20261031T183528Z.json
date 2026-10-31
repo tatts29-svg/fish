@@ -1,0 +1,711 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T183528Z",
+ "finished": "2026-10-31T18:35:48.369Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Alfie Harris's 12 accommodation nights with no amount on the record, priced at 223.63: his rate on all 8 of his latest priced nights (26-29 Oct and 2-5 Nov). Andrew, 1 Nov 2026: \"Yes enter 223.63 for Alfie's nights on the record\".",
+  "ops": [
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-23",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-24",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-25",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-09",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-10",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-11",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-12",
+    "amount": 223.63
+   }
+  ]
+ },
+ "pageSha256": "038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb",
+ "version": {
+  "before": 12640,
+  "after": 12676
+ },
+ "updated": {
+  "before": "2026-10-31T06:19:43.061Z",
+  "after": "2026-10-31T18:35:47.259Z"
+ },
+ "stage": [
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261005",
+   "person": "Alfie Harris",
+   "date": "2026-10-05",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261005 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261012",
+   "person": "Alfie Harris",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261013",
+   "person": "Alfie Harris",
+   "date": "2026-10-13",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261013 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261014",
+   "person": "Alfie Harris",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261015",
+   "person": "Alfie Harris",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261023",
+   "person": "Alfie Harris",
+   "date": "2026-10-23",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261023 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261024",
+   "person": "Alfie Harris",
+   "date": "2026-10-24",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261024 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261025",
+   "person": "Alfie Harris",
+   "date": "2026-10-25",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261025 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261109",
+   "person": "Alfie Harris",
+   "date": "2026-11-09",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261109 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261110",
+   "person": "Alfie Harris",
+   "date": "2026-11-10",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261110 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261111",
+   "person": "Alfie Harris",
+   "date": "2026-11-11",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261111 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261112",
+   "person": "Alfie Harris",
+   "date": "2026-11-12",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261112 changed by Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261015",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261023",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261024",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261025",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261109",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261110",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261111",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-A-alfie-harris-20261112",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261015",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261023",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261024",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261025",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261109",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261110",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261111",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-A-alfie-harris-20261112",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261023",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261024",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261025",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261109",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261110",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261111",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261112",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-A-alfie-harris-20261005": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261012": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261013": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261014": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261015": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261023": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261024": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261025": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261109": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261110": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261111": null,
+   "stamps/ourcost~2f~W-A-alfie-harris-20261112": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261005": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261012": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261013": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261014": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261015": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261023": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261024": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261025": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261109": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261110": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261111": null,
+   "by/ourcost~2f~W-A-alfie-harris-20261112": null,
+   "costs/W-A-alfie-harris-20261005": null,
+   "costs/W-A-alfie-harris-20261012": null,
+   "costs/W-A-alfie-harris-20261013": null,
+   "costs/W-A-alfie-harris-20261014": null,
+   "costs/W-A-alfie-harris-20261015": null,
+   "costs/W-A-alfie-harris-20261023": null,
+   "costs/W-A-alfie-harris-20261024": null,
+   "costs/W-A-alfie-harris-20261025": null,
+   "costs/W-A-alfie-harris-20261109": null,
+   "costs/W-A-alfie-harris-20261110": null,
+   "costs/W-A-alfie-harris-20261111": null,
+   "costs/W-A-alfie-harris-20261112": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-A-alfie-harris-20261005": {
+    "_k": "ourcost/W-A-alfie-harris-20261005",
+    "v": "2026-10-31T18:35:40.433Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261012": {
+    "_k": "ourcost/W-A-alfie-harris-20261012",
+    "v": "2026-10-31T18:35:40.673Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261013": {
+    "_k": "ourcost/W-A-alfie-harris-20261013",
+    "v": "2026-10-31T18:35:40.898Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261014": {
+    "_k": "ourcost/W-A-alfie-harris-20261014",
+    "v": "2026-10-31T18:35:41.063Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261015": {
+    "_k": "ourcost/W-A-alfie-harris-20261015",
+    "v": "2026-10-31T18:35:41.281Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261023": {
+    "_k": "ourcost/W-A-alfie-harris-20261023",
+    "v": "2026-10-31T18:35:41.466Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261024": {
+    "_k": "ourcost/W-A-alfie-harris-20261024",
+    "v": "2026-10-31T18:35:41.656Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261025": {
+    "_k": "ourcost/W-A-alfie-harris-20261025",
+    "v": "2026-10-31T18:35:41.820Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261109": {
+    "_k": "ourcost/W-A-alfie-harris-20261109",
+    "v": "2026-10-31T18:35:42.015Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261110": {
+    "_k": "ourcost/W-A-alfie-harris-20261110",
+    "v": "2026-10-31T18:35:42.222Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261111": {
+    "_k": "ourcost/W-A-alfie-harris-20261111",
+    "v": "2026-10-31T18:35:42.432Z"
+   },
+   "stamps/ourcost~2f~W-A-alfie-harris-20261112": {
+    "_k": "ourcost/W-A-alfie-harris-20261112",
+    "v": "2026-10-31T18:35:42.614Z"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261005": {
+    "_k": "ourcost/W-A-alfie-harris-20261005",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261012": {
+    "_k": "ourcost/W-A-alfie-harris-20261012",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261013": {
+    "_k": "ourcost/W-A-alfie-harris-20261013",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261014": {
+    "_k": "ourcost/W-A-alfie-harris-20261014",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261015": {
+    "_k": "ourcost/W-A-alfie-harris-20261015",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261023": {
+    "_k": "ourcost/W-A-alfie-harris-20261023",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261024": {
+    "_k": "ourcost/W-A-alfie-harris-20261024",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261025": {
+    "_k": "ourcost/W-A-alfie-harris-20261025",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261109": {
+    "_k": "ourcost/W-A-alfie-harris-20261109",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261110": {
+    "_k": "ourcost/W-A-alfie-harris-20261110",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261111": {
+    "_k": "ourcost/W-A-alfie-harris-20261111",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-A-alfie-harris-20261112": {
+    "_k": "ourcost/W-A-alfie-harris-20261112",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-A-alfie-harris-20261005": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261005",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:40.433Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261005"
+   },
+   "costs/W-A-alfie-harris-20261012": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261012",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:40.673Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261012"
+   },
+   "costs/W-A-alfie-harris-20261013": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261013",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:40.898Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261013"
+   },
+   "costs/W-A-alfie-harris-20261014": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261014",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.063Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261014"
+   },
+   "costs/W-A-alfie-harris-20261015": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261015",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.281Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261015"
+   },
+   "costs/W-A-alfie-harris-20261023": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261023",
+    "person": "Alfie Harris",
+    "date": "2026-10-23",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.466Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261023"
+   },
+   "costs/W-A-alfie-harris-20261024": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261024",
+    "person": "Alfie Harris",
+    "date": "2026-10-24",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.656Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261024"
+   },
+   "costs/W-A-alfie-harris-20261025": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261025",
+    "person": "Alfie Harris",
+    "date": "2026-10-25",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.820Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261025"
+   },
+   "costs/W-A-alfie-harris-20261109": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261109",
+    "person": "Alfie Harris",
+    "date": "2026-11-09",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:42.014Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261109"
+   },
+   "costs/W-A-alfie-harris-20261110": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261110",
+    "person": "Alfie Harris",
+    "date": "2026-11-10",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:42.222Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261110"
+   },
+   "costs/W-A-alfie-harris-20261111": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261111",
+    "person": "Alfie Harris",
+    "date": "2026-11-11",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:42.432Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261111"
+   },
+   "costs/W-A-alfie-harris-20261112": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261112",
+    "person": "Alfie Harris",
+    "date": "2026-11-12",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:42.614Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261112"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

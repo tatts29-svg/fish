@@ -1,0 +1,120 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T013240Z",
+ "finished": "2026-10-20T01:32:50.892Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"wc31 nothing there has stairs\" - the two steps ticks at WC31 come off (block 12, and Coates 1317645 whose ticks were filed under 16Pan Block before it was retyped as the Accessible Toilet today).",
+  "ops": [
+   {
+    "op": "labour_off",
+    "ref": "WC31",
+    "unit": "12",
+    "disc": "Toilets & amenities",
+    "item": "16Pan Block",
+    "line": "steps"
+   },
+   {
+    "op": "labour_off",
+    "ref": "WC31",
+    "unit": "1317645",
+    "disc": "Toilets & amenities",
+    "item": "16Pan Block",
+    "line": "steps"
+   }
+  ],
+  "allowRemove": [
+   "labour/WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+   "labour/WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps"
+  ],
+  "allowRemoveWhy": "the page's own untick removes the labour document; Andrew: nothing at WC31 has stairs"
+ },
+ "pageSha256": "fe480d5168ad44040dd5cd79a525bcebb444db4ccbcb91d9d0621071d7f7d4fe",
+ "version": {
+  "before": 10061,
+  "after": 10065
+ },
+ "updated": {
+  "before": "2026-10-20T01:31:11.708Z",
+  "after": "2026-10-20T01:32:49.707Z"
+ },
+ "stage": [
+  {
+   "op": "labour_off",
+   "ref": "WC31",
+   "unit": "12",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "steps",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "WC31",
+   "unit": "1317645",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "steps",
+   "result": "taken off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "labour/WC31/u12|Toilets & amenities|16Pan Block|steps",
+    "v": "2026-10-16T03:44:18.727Z"
+   },
+   "stamps/labour~2f~WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "labour/WC31/u1317645|Toilets & amenities|16Pan Block|steps",
+    "v": "2026-10-16T03:44:18.842Z"
+   },
+   "labour/WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "WC31/u12|Toilets & amenities|16Pan Block|steps",
+    "v": true
+   },
+   "labour/WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "WC31/u1317645|Toilets & amenities|16Pan Block|steps",
+    "v": true
+   }
+  },
+  "after": {
+   "stamps/labour~2f~WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "labour/WC31/u12|Toilets & amenities|16Pan Block|steps",
+    "v": "2026-10-20T01:32:46.952Z"
+   },
+   "stamps/labour~2f~WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": {
+    "_k": "labour/WC31/u1317645|Toilets & amenities|16Pan Block|steps",
+    "v": "2026-10-20T01:32:47.496Z"
+   },
+   "labour/WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": null,
+   "labour/WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

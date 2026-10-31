@@ -1,0 +1,64 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51",
+  "candidate_sha256": "682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69",
+  "checks": [
+    {
+      "name": "one viewport module appended",
+      "ok": true
+    },
+    {
+      "name": "only the native height call and footer change in existing scripts",
+      "ok": true
+    },
+    {
+      "name": "embedded DATA byte identical",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseIncident1195 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseTruck1192 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "Map1188 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "Gates1156 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "PL1194 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "Loading1200 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "cards1197 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "servicing IIFE retained exactly",
+      "ok": true
+    },
+    {
+      "name": "fonts1066 loader retained exactly",
+      "ok": true
+    },
+    {
+      "name": "ontime1057-script retained exactly",
+      "ok": true
+    },
+    {
+      "name": "original map style blocks retained",
+      "ok": true
+    }
+  ],
+  "passed": 14
+}

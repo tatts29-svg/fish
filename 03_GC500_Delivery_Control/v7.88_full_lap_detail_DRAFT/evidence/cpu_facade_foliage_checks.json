@@ -1,0 +1,297 @@
+{
+  "architecture": {
+    "garageModules": 0,
+    "garageDoors": 0,
+    "hospitalityBays": 0,
+    "towerParts": 288,
+    "roofParapets": 632,
+    "facadeFins": 0,
+    "facadeElevations": 632,
+    "balconySlabs": 2928,
+    "balconyRails": 5856,
+    "balconyPosts": 0,
+    "balconyDividers": 0,
+    "recessedGlazingBays": 632,
+    "verticalCores": 632,
+    "podiumBays": 0,
+    "duplicateFacadesSkipped": 0,
+    "hiddenFacadeSpansSkipped": 0,
+    "maxBalconyDepthM": 1.472,
+    "facadeProfiles": {
+      "sandstone terraces": 85,
+      "ivory balconies": 72,
+      "white coastal wings": 58,
+      "sea glass balconies": 73
+    },
+    "sourceShellsChanged": 0,
+    "sourceTopHeightsChanged": 0,
+    "sourceFootprintsUnchanged": true,
+    "sourceHeightsUnchanged": true,
+    "sourceRowsUnchanged": true,
+    "garagesPreserved": true,
+    "omittedNominalGarages": 0,
+    "triangles": 121840,
+    "triangleBudget": 150000,
+    "drawCalls": 1,
+    "fullCircuitSelection": true,
+    "circuitLengthM": 3769.4805563337377,
+    "refinementDistanceM": 215,
+    "eligibleTowerParts": 288,
+    "eligibleFacades": 632,
+    "coverageSectors": 12,
+    "budgetSkips": 0,
+    "sectors": [
+      {
+        "sector": 1,
+        "eligibleParts": 25,
+        "eligibleFacades": 58,
+        "towerParts": 25,
+        "facades": 58,
+        "triangles": 9860
+      },
+      {
+        "sector": 2,
+        "eligibleParts": 24,
+        "eligibleFacades": 48,
+        "towerParts": 24,
+        "facades": 48,
+        "triangles": 9888
+      },
+      {
+        "sector": 3,
+        "eligibleParts": 25,
+        "eligibleFacades": 58,
+        "towerParts": 25,
+        "facades": 58,
+        "triangles": 9860
+      },
+      {
+        "sector": 4,
+        "eligibleParts": 23,
+        "eligibleFacades": 52,
+        "towerParts": 23,
+        "facades": 52,
+        "triangles": 10712
+      },
+      {
+        "sector": 5,
+        "eligibleParts": 24,
+        "eligibleFacades": 48,
+        "towerParts": 24,
+        "facades": 48,
+        "triangles": 9888
+      },
+      {
+        "sector": 6,
+        "eligibleParts": 25,
+        "eligibleFacades": 58,
+        "towerParts": 25,
+        "facades": 58,
+        "triangles": 9860
+      },
+      {
+        "sector": 7,
+        "eligibleParts": 23,
+        "eligibleFacades": 52,
+        "towerParts": 23,
+        "facades": 52,
+        "triangles": 10712
+      },
+      {
+        "sector": 8,
+        "eligibleParts": 24,
+        "eligibleFacades": 48,
+        "towerParts": 24,
+        "facades": 48,
+        "triangles": 9888
+      },
+      {
+        "sector": 9,
+        "eligibleParts": 25,
+        "eligibleFacades": 58,
+        "towerParts": 25,
+        "facades": 58,
+        "triangles": 9860
+      },
+      {
+        "sector": 10,
+        "eligibleParts": 23,
+        "eligibleFacades": 52,
+        "towerParts": 23,
+        "facades": 52,
+        "triangles": 10712
+      },
+      {
+        "sector": 11,
+        "eligibleParts": 24,
+        "eligibleFacades": 48,
+        "towerParts": 24,
+        "facades": 48,
+        "triangles": 9888
+      },
+      {
+        "sector": 12,
+        "eligibleParts": 23,
+        "eligibleFacades": 52,
+        "towerParts": 23,
+        "facades": 52,
+        "triangles": 10712
+      }
+    ],
+    "source": "Unchanged OSM footprints and roof heights; full-circuit road-facing generic coastal facades, not surveyed building or event details",
+    "eligibleSectors": 12,
+    "fullEligibleCoverage": true,
+    "gpuBytes": 11209280
+  }
+}
+{
+  "vegetation": {
+    "trees": 1560,
+    "sourceTrees": 1560,
+    "palms": 312,
+    "broadleaf": 1248,
+    "detailedTrees": 1560,
+    "refinedTrees": 1560,
+    "distantTrees": 0,
+    "crownLobes": 4992,
+    "leafSprays": 44544,
+    "palmFronds": 3264,
+    "palmLeaflets": 52052,
+    "originalTriangles": 596520,
+    "triangles": 696520,
+    "vertices": 915708,
+    "addedTriangles": 100000,
+    "drawCalls": 1,
+    "additionalDrawCalls": 0,
+    "gpuBytes": 41323728,
+    "sourcePositionsUnchanged": true,
+    "relocatedTrees": 0,
+    "refinementRadiusWorld": null,
+    "fullCircuitSelection": true,
+    "gridRadiusRestriction": false,
+    "addedTriangleBudget": 100000,
+    "premiumTrees": 672,
+    "normalShadedTrees": 1560,
+    "sourceDimensionsUnchanged": true,
+    "sourceRangesUnchanged": true,
+    "sourceCrownCentresUnchanged": true,
+    "sourceRowsUnchanged": true,
+    "sectors": [
+      {
+        "sector": 1,
+        "sourceTrees": 132,
+        "eligibleTrees": 132,
+        "refinedTrees": 132,
+        "premiumTrees": 56,
+        "triangles": 58856,
+        "addedTriangles": 8220
+      },
+      {
+        "sector": 2,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 57,
+        "triangles": 58138,
+        "addedTriangles": 8428
+      },
+      {
+        "sector": 3,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58170,
+        "addedTriangles": 8460
+      },
+      {
+        "sector": 4,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58050,
+        "addedTriangles": 8340
+      },
+      {
+        "sector": 5,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 57770,
+        "addedTriangles": 8060
+      },
+      {
+        "sector": 6,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58010,
+        "addedTriangles": 8300
+      },
+      {
+        "sector": 7,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58250,
+        "addedTriangles": 8540
+      },
+      {
+        "sector": 8,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58250,
+        "addedTriangles": 8540
+      },
+      {
+        "sector": 9,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58010,
+        "addedTriangles": 8300
+      },
+      {
+        "sector": 10,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 57930,
+        "addedTriangles": 8220
+      },
+      {
+        "sector": 11,
+        "sourceTrees": 128,
+        "eligibleTrees": 128,
+        "refinedTrees": 128,
+        "premiumTrees": 55,
+        "triangles": 57036,
+        "addedTriangles": 8252
+      },
+      {
+        "sector": 12,
+        "sourceTrees": 130,
+        "eligibleTrees": 130,
+        "refinedTrees": 130,
+        "premiumTrees": 56,
+        "triangles": 58050,
+        "addedTriangles": 8340
+      }
+    ],
+    "placementRngCalls": 0,
+    "source": "Existing accepted tree positions and dimensions; foliage geometry only, no new planting",
+    "projectedAddedTriangles": 100000,
+    "coverageSectors": 12,
+    "eligibleSectors": 12,
+    "fullEligibleCoverage": true
+  }
+}
+PASS: full-lap synthetic CPU budget, distribution, finite vertices, immutable source, restore

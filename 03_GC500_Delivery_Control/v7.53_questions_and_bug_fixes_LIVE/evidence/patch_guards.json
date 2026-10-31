@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "patch": "patch_v753.py",
+      "guard": "reapplication",
+      "pass": true
+    },
+    {
+      "patch": "patch_v753.py",
+      "guard": "wrong base",
+      "pass": true
+    },
+    {
+      "patch": "patch_v753_finance.py",
+      "guard": "reapplication",
+      "pass": true
+    },
+    {
+      "patch": "patch_v753_finance.py",
+      "guard": "wrong base",
+      "pass": true
+    },
+    {
+      "patch": "patch_v753_runtime.py",
+      "guard": "reapplication",
+      "pass": true
+    },
+    {
+      "patch": "patch_v753_runtime.py",
+      "guard": "wrong base",
+      "pass": true
+    }
+  ]
+}

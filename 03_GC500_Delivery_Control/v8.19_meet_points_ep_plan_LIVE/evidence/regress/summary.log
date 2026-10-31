@@ -1,0 +1,26 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+suite              pass   fail  exit  result
+anchors               6      0     0  PASS
+probe                 0      0     0  PASS
+assign                3      0     0  PASS
+v819                155      0     0  PASS
+qr                    5      0     0  PASS
+fresh819              8      0     0  PASS
+photo                93      0     0  PASS
+phone-widths         12      0     0  PASS
+v799-desktop         23      0     0  PASS
+v799-phone           18      0     0  PASS
+packed-desktop       20      0     0  PASS
+packed-phone         14      0     0  PASS
+equip-desktop        22      0     0  PASS
+equip-phone          22      0     0  PASS
+results-desktop       6      1     1  FAIL
+results-phone         6      1     1  FAIL
+onetab-desktop       20      4     1  FAIL
+onetab-phone         20      4     1  FAIL
+rules                45      0     0  PASS
+fresh                11      0     0  PASS
+same-figures          0      0     0  PASS
+sweep-desktop         7      0     0  PASS
+sweep-phone           7      0     0  PASS
+suites: 23, failed: 4

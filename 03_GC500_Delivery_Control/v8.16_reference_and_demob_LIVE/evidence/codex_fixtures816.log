@@ -1,0 +1,73 @@
+PASS 1 gate_before_event_week: no date exception (refused on 18 Oct)
+PASS 2 gate_unrecorded_or_non_green_light: from the collection window a move with no recorded arrival is outgoing - refused
+PASS 2c before its collection window a unit never on site is an incoming trip (named), and the collection path is still refused
+PASS 2d [968aefb #5] from the first event day (23 Oct) a unit with no recorded arrival is not an incoming trip - refused until emptied
+PASS 2e the day before the event a unit never on site is still an incoming delivery
+PASS R1a [be47bb5 R1] no recorded arrival and NO delivery date, before the event (18 Oct): outgoing - refused until emptied
+PASS R1b no recorded arrival, a delivery date in the record, before the event: its delivery (allowed), and a collection is still refused
+PASS R1c an arrival on record, before the event, a delivery date too: outgoing - refused until emptied
+PASS R1d no arrival, a delivery date, but on the first event day: outgoing - refused until emptied
+PASS 2b a unit that has been on site and now shows red is refused (no light shortcut)
+PASS 3 gate_without_actor_or_time: emptied with no person or time is refused
+PASS 4 newer_committed_untick: the newer committed un-tick wins  - {"on":false,"by":"Newer operator","at":"2026-10-26T00:00:00Z","unproven":false,"stale":false}
+PASS 5 reused_reference_old_pumpout: set on site again, the earlier pump-out no longer clears it  - {"emptied":{"on":false,"by":"Fixture operator","at":"2026-10-03T03:31:45.857Z","unproven":false,"stale":false},"nextCollectionAllowed":false}
+PASS 5b a pump-out recorded before the last arrival (an earlier visit) clears nothing
+PASS 5c a pump-out after the last arrival, with a person and a time, clears the collection
+PASS 6 unknown_quantity: kept unknown, not a one-unit load; the load says its total is not certain  - [{"units":0,"uncertain":true,"rows":[{"key":"WC01","n":0,"unknown":true}]}]
+PASS 7 split_reference_dates: each portion on its own day, in its load, on that day's list, pump-out and confirmation  - [{"day":"2026-10-26","units":24,"rowDay":"2026-10-26","onDayList":true,"onPumpList":true,"proposedHere":true},{"day":"2026-10-27","units":1,"rowDay":"2026-10-27","onDayList":true,"onPumpList":true,"proposedHere":true}]
+PASS 8 mixed_toilet_tank_order: the tank starts after the toilet on it is off, across separate runs  - [{"kind":"supplier","group":"Sub-hire pick-up · Event Portables","stops":[{"at":null,"end":null,"tank":false,"parts":["FWF"]}]},{"kind":"normal","group":"KINP","stops":[{"at":420,"end":450,"tank":true,"parts":["Waste tank"]}]}]
+PASS 9 merge_emptied_evidence: value, who, when and history survive a merge  - {"WC01":{"emptied":true,"emptied_by":"Fixture operator","emptied_at":"2026-10-26T00:00:00Z","emptied_history":[{"emptied":true,"by":"Fixture operator","at":"2026-10-26T00:00:00Z"}]}}
+PASS 9b a newer un-tick wins the merge, whichever copy is named first  - {"h":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}},"h2":{"WC01":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T01:00:00Z"}}}
+PASS 9c merging the result with itself changes nothing
+PASS F2 confirming a split proposal keeps each portion on its own day, on the record  - {"before":[{"iso":"2026-10-26","n":24,"s":"sub","id":"2026-10-26.sub#1"},{"iso":"2026-10-27","n":1,"s":"sub","id":"2026-10-27.sub#1"}],"after":{"rec":{"out_date":"2026-10-27","out_by":"Fixture operator","out_at":"2026-10-03T03:31:45.879Z","out_portions":[{"id":"2026-10-26.sub#1","date":"2026-10-26","units":24,"stream":"sub"},{"id":"2026-10-27.sub#1","date":"2026-10-27","units":1,"stream":"sub"}]},
+PASS F3 a 49-unit reference: every portion, the first included, has a pump-out on or before its own day  - {"portions":[{"iso":"2026-10-28","n":24,"s":"sub","id":"2026-10-28.sub#1"},{"iso":"2026-10-29","n":24,"s":"sub","id":"2026-10-29.sub#1"},{"iso":"2026-10-30","n":1,"s":"sub","id":"2026-10-30.sub#1"}],"pumped":[true,true,true]}
+PASS F4a a confirmed unknown-quantity portable stays on its load, marked, and on a truck  - {"loads":[{"units":0,"uncertain":true,"keys":["WCM","WCU"]}],"trucks":[{"kind":"supplier","st":[{"k":"WCM","tank":false,"at":null,"end":null},{"k":"WCU","tank":false,"at":null,"end":null}]},{"kind":"normal","st":[{"k":"WCM","tank":true,"at":420,"end":450}]}]}
+PASS F4b a tank under an unknown-quantity toilet waits for that toilet stop  - {"toiletM":[{"k":"WCM","tank":false,"at":null,"end":null}],"tankM":{"k":"WCM","tank":true,"at":420,"end":450}}
+PASS F6 same time, two answers: not emptied on every copy, in either order, idempotent, the clash written down  - {"ab":{"X":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T00:00:00Z"}},"ba":{"X":{"emptied":false,"emptied_by":"B","emptied_at":"2026-10-26T00:00:00Z"}},"clashes":["X emptied (pumped out): this copy had emptied (2026-10-26T00:00:00Z), the other copy had not emptied (2026-10-26T00:00:00Z) - same time, kept not emptied on every copy: pump it out and tick it again"]}
+PASS F6b the page itself reads an equal-time disagreement as not emptied
+PASS F7 an explicit removal event keeps its date (5 Nov); a one-day added reference without one is proposed  - [{"src":"plan","iso":"2026-11-05"},{"src":"proposed","iso":"2026-10-26"}]
+PASS G1 [after 6a0bb20 #1] a 25-unit reference confirmed as 24 + 1 on the same day: both portions are on the day's loads (25 units, two portion ids)  - [{"day":"2026-10-27","n":24,"unplanned":false,"pid":"2026-10-27#1"},{"day":"2026-10-27","n":1,"unplanned":false,"pid":"2026-10-27#2"}]
+PASS G1b confirming a 25-unit proposal whose two loads share a day writes both portions (with ids) and keeps all 25 units  - {"pre":[{"day":"2026-10-26","n":24,"unplanned":false,"pid":null},{"day":"2026-10-26","n":1,"unplanned":false,"pid":null}],"post":[{"day":"2026-10-26","n":24,"unplanned":false,"pid":"2026-10-26.sub#1"},{"day":"2026-10-26","n":1,"unplanned":false,"pid":"2026-10-26.sub#2"}],"rec":[{"id":"2026-10-26.sub#1","date":"2026-10-26","units":24,"stream":"sub"},{"id":"2026-10-26.sub#2","date":"2026-10-26","uni
+PASS G2a [after 6a0bb20 #2] 25 confirmed, now 28: all 28 on loads, 3 marked unplanned on the due-out day, and "quantity changed from 25 to 28 since confirmed: 3 units unplanned"  - {"uu":[{"day":"2026-10-26","n":24,"unplanned":false,"pid":"2026-10-26#1"},{"day":"2026-10-27","n":1,"unplanned":false,"pid":"2026-10-27#1"},{"day":"2026-10-27","n":3,"unplanned":true,"pid":"2026-10-27.sub#u"}],"uw":"quantity changed from 25 to 28 since confirmed: 3 units unplanned - on the due-out day until moved"}
+PASS G2b 25 confirmed, now 22: 22 on loads (none counted twice), and the change is said  - {"du":[{"day":"2026-10-26","n":22,"unplanned":false,"pid":"2026-10-26#1"}],"dw":"quantity changed from 25 to 22 since confirmed: 3 fewer - taken off the last portions"}
+PASS G2c a confirmed split whose quantity is now unknown says so, and its loads are uncertain  - {"nw":"quantity changed since the portions were confirmed: now to confirm","nl":true}
+PASS G2d an unchanged quantity carries no change note
+PASS G2e the toilet run shows the unplanned units and the change  - "<p class=\"note816\">Event portables - single portable toilets and urinals (FWF, Pee Panel). The sub-hired ones and Coates"
+PASS G3 [after 6a0bb20 #3] a load holding an unknown quantity shows amber "to confirm", never green "full"  - {"unc":1,"chips":["<span class=\"chip cand unc816\">to confirm - total not certain, count on site"]}
+PASS G4 [e540cbc] confirmed 6, corrected to 0: still listed ("nothing to collect"), no load, no truck stop, no pump-out, never a 1-unit fallback  - {"conf":{"src":"confirmed","iso":"2026-10-26"},"six":6,"z":{"nothing":true,"onList":true,"loads":[],"truckStops":[],"pump":false}}
+PASS G4b the same reference with its quantity unknown: "to confirm" on an uncertain load - 0 and unknown stay distinct  - {"nothing":false,"unk":true,"loads":[{"units":0,"uncertain":true}]}
+PASS G4c a proposed reference with a known 0 makes no planned load and no truck  - {"loads":0,"stops":0}
+PASS H1 sub-hire and Coates toilets never share a load (14 sub-hire on one, 8 Coates on another)  - [{"stream":"sub","units":14,"cap":24,"capWarn":false,"keys":["HS1","HS2"]},{"stream":"coates","units":8,"cap":12,"capWarn":false,"keys":["HC1","HC2"]}]
+PASS H2 30 sub-hire toilets make 2 loads (24 + 6), at up to 24  - [{"stream":"sub","units":24,"cap":24,"capWarn":false,"keys":["HS30"]},{"stream":"sub","units":6,"cap":24,"capWarn":false,"keys":["HS30"]}]
+PASS H3a 26 Coates toilets make 3 loads (12 + 12 + 2), planned at 12  - [{"stream":"coates","units":12,"cap":12,"capWarn":false,"keys":["HC26"]},{"stream":"coates","units":12,"cap":12,"capWarn":false,"keys":["HC26"]},{"stream":"coates","units":2,"cap":12,"capWarn":false,"keys":["HC26"]}]
+PASS H3b 12 Coates toilets make 1 load
+PASS H3c 0 Coates toilets: no Coates run is shown
+PASS H3d the Coates run shows its capacity as 12–14 per load, planned at 12  - "12–14 per load (the project manager, 3 Oct 2026), planned at 12. A truck the branch confirms at 13 or 14 can be set on its load."
+PASS H4 a Coates load edited to 15 carries the "over 14" warning; the others do not  - [{"stream":"coates","units":12,"cap":15,"capWarn":true,"keys":["HC26"]},{"stream":"coates","units":12,"cap":12,"capWarn":false,"keys":["HC26"]},{"stream":"coates","units":2,"cap":12,"capWarn":false,"keys":["HC26"]}]
+PASS H4b a load set to 14 (a truck the branch confirmed) carries no warning
+PASS H5 a portable nobody recorded as Coates' or the supplier's is "owner to confirm" and on neither run  - [{"stream":"sub","units":2,"cap":24,"capWarn":false,"keys":["HS"]}]
+PASS H6 the Coates run starts from the page's 70 min Kingston figure, labelled "planning figure, not a live time", and gets departure times  - {"tv":{"v":70,"edited":false,"words":"planning figure, not a live time","basis":"46.7 km straight line × 1.25 = about 58 km by road, at 60 km/h + 10 min in the precinct — a planning figure, not a live time"},"coates":{"kind":"toilets","dep":350,"travel":70,"back":610}}
+PASS H7 the sub-hire pick-up has no departure, no travel time and no travel-time field  - {"supl":{"kind":"supplier","dep":null,"travel":null,"back":null},"card":" nosfold\"><div class=\"hubtitle\"><h3>Sub-hire pick-up · Event Portables · load 1 of 2</h3><span class=\"chip cand\">supplier's own transport · 8 of 24</span></div>"}
+PASS H8 a blank travel time never produces a computed departure or return - "travel time to confirm"  - [{"dep":null,"back":null,"travel":null}]
+PASS H9 the supplier's printed sheet is a pick-up list: no departure, its transport is the supplier's, emptied status shown  - 2335
+PASS H10 an oversize load leaving site at 15:30 with 70 min to travel is flagged (latest departure 14:50)  - {"latest":890,"flags":["on the road in a Gold Coast peak (07:00-09:00 or 16:00-18:00)","leaves site 15:30, after the latest departure 14:50 - it would be on the road after 16:00"]}
+PASS H11 a blank travel time gives no latest departure, only "travel time to confirm"  - {"latest":null,"flags":["travel time to confirm - no latest departure worked out"]}
+PASS H12 leaving at 10:00 is clear; leaving at 08:00 is flagged for the Gold Coast peak  - [{"latest":890,"flags":[]},{"latest":890,"flags":["on the road in a Gold Coast peak (07:00-09:00 or 16:00-18:00)"]}]
+PASS H12b the peak flag is the guide's window exactly: 06:00 with 50 min on the road is clear; 06:00 with 70 min runs into 07:00 and is flagged  - [{"latest":910,"flags":[]},{"latest":890,"flags":["on the road in a Gold Coast peak (07:00-09:00 or 16:00-18:00)"]}]
+PASS H13 nothing is oversize until the branch flags it; two flagged loads leaving together are told to stagger departures  - {"before":0,"T":[{"leave":540,"ov":true,"flags":["stagger departures - oversize loads may not run in convoy"]},{"leave":540,"ov":true,"flags":["stagger departures - oversize loads may not run in convoy"]}]}
+PASS H14 a flagged load says check the TMR database, pilot / escort "check permit" (never a number), and cites the guide in a tooltip
+PASS H15 the emptied gate still blocks loading on both runs (sub-hire and Coates) until it is recorded as emptied
+PASS H16 a reference dated on a weekend inside the window is shown as outside the demob days (flagged), never lost
+PASS I1 24 supplier units and 1 Coates unit each have a run and a day, and the reference is on every one of those days' pick-up lists  - {"pre":[{"d":"2026-10-26","s":"sub","n":24},{"d":"2026-10-27","s":"coates","n":1}],"listed":true}
+PASS I2 confirming on its first day finds it, writes each portion with its run, and every run keeps its day  - {"n":1,"post":[{"d":"2026-10-26","s":"sub","n":24},{"d":"2026-10-27","s":"coates","n":1}],"rec":[{"id":"2026-10-26.sub#1","date":"2026-10-26","units":24,"stream":"sub"},{"id":"2026-10-27.coates#1","date":"2026-10-27","units":1,"stream":"coates"}]}
+PASS I3 after a reload (the record read back) the runs and days are the same
+PASS I4 when the split between owners changes after confirmation, each run is reconciled on its own and the change is said  - {"moved":[{"d":"2026-10-26","s":"sub","n":22},{"d":"2026-10-27","s":"coates","n":3}],"w":"the owners changed since the portions were confirmed - re-planned by owner"}
+PASS I5 "Print this load" on a supplier load prints it (by its run-aware id, or by its number)
+PASS I6 a non-empty run sheet prints for every run type - supplier pick-up, Coates toilet run, single big piece, branch truck - with no midnight times  - [{"kind":"supplier","ok":true},{"kind":"toilets","ok":true},{"kind":"single","ok":true},{"kind":"normal","ok":true}]
+PASS I7 a Kingston-run figure saved under the earlier draft (120 min) is carried over once into both runs, said so, and the old setting removed - never applied silently  - {"b":{"v":120,"edited":true,"words":"carried over from the earlier Kingston-run setting"},"c":{"v":120,"edited":true,"words":"carried over from the earlier Kingston-run setting"}}
+PASS I8 an unflagged big piece says "oversize? the branch to say - permit not checked"; the oversize tick and both travel fields are on the page
+PASS I9 a tank under a supplier's toilet carries a hold, not a clock time: after the supplier's pick-up, and emptied
+PASS J1 a 12-unit Coates load on a truck set to 8 is re-packed 8 + 4; neither is over its truck  - [{"stream":"coates","units":8,"cap":8,"capWarn":false,"keys":["C12"]},{"stream":"coates","units":4,"cap":12,"capWarn":false,"keys":["C12"]}]
+PASS J2 a load over its truck is never "full": it says "overloaded" and by how many  - ["<span class=\"chip crit\">overloaded - 2 over this truck's 8"]
+
+ALL PASSED (71)

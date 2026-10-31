@@ -1,0 +1,63 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Four more Advanced Temporary Fencing collection forms from the event week, 28561–28564 (removals of 19 and 20 Oct 2026 from Oceanway C.Z., Pit Building B.O.H., S.O.4 C.Z. and the median strip north C.Z.), signed and photographed (Andrew, 24 Oct 2026: \"Here are another 4 dockets to add to please\"); recorded through the page's own form (recordCollection), counts only, no charge or credit inferred. Read twice at full size and by an independent reader, who agreed on every count.",
+ "ops": [
+  {
+   "op": "collection",
+   "collection_no": "28561",
+   "date": "2026-10-19",
+   "location": "Oceanway C.Z.",
+   "collected": {
+    "mesh_panel": 34,
+    "base": 34,
+    "clamp": 34,
+    "wheels": 2
+   },
+   "note": "Collected from Oceanway C.Z.: 34 mesh panels, 34 bases, 34 clamps, 2 wheels. Removal date written 19/10/26. No hire agreement number, order number or removal time written; no comments; nothing priced on the form. The owner/site supervisor's signature is dated 22/10/26, the installer's 19/10/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28562",
+   "date": "2026-10-20",
+   "location": "Pit Building B.O.H.",
+   "collected": {
+    "cc_barrier": 7
+   },
+   "note": "Collected from Pit Building B.O.H.: 7 CC barriers. Removal date written 20/10/26. No hire agreement number, order number or removal time written; no comments; nothing priced on the form. The owner/site supervisor's signature is dated 22/10/26, the installer's 20/10/26. 'Scott.' is written below the form's footer.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28563",
+   "date": "2026-10-20",
+   "location": "S.O.4 – C.Z.",
+   "collected": {
+    "mesh_panel": 5,
+    "base": 4,
+    "clamp": 8,
+    "wheels": 1
+   },
+   "note": "Collected from S.O.4 – C.Z.: 5 mesh panels, 4 bases, 8 clamps, 1 wheel. Removal date written 20/10/26. No hire agreement number, order number or removal time written; no comments; nothing priced on the form. The owner/site supervisor's signature is dated 22/10/26, the installer's 20/10/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28564",
+   "date": "2026-10-20",
+   "location": "Medium strip – North – C.Z.",
+   "collected": {
+    "mesh_panel": 5,
+    "base": 4,
+    "clamp": 4,
+    "ped_gate": 1
+   },
+   "note": "Collected from the median strip north C.Z. (written 'Medium strip – North – C.Z.'): 5 mesh panels, 4 bases, 4 clamps, 1 pedestrian gate. Removal date written 20/10/26. No hire agreement number, order number or removal time written; no comments; nothing priced on the form. The owner/site supervisor's signature is dated 22/10/26, the installer's 20/10/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  }
+ ]
+}

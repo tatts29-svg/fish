@@ -1,0 +1,386 @@
+[
+ {
+  "contract": "9961265",
+  "line": "1",
+  "description": "Variable Message Board Senior",
+  "amount": 857.76,
+  "basis": "Baseplan (11) charges this line $857.76 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "3",
+  "description": "Variable Message Board Senior - REED",
+  "amount": 3538.77,
+  "basis": "Baseplan (11) charges this line $3,538.77 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "4",
+  "description": "Variable Message Board Senior - MARS",
+  "amount": 3431.54,
+  "basis": "Baseplan (11) charges this line $3,431.54 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "5",
+  "description": "Variable Message Board Senior",
+  "amount": 3002.6,
+  "basis": "Baseplan (11) charges this line $3,002.60 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "6",
+  "description": "Variable Message Board Senior",
+  "amount": 3538.77,
+  "basis": "Baseplan (11) charges this line $3,538.77 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "7",
+  "description": "Variable Message Board Senior",
+  "amount": 3538.77,
+  "basis": "Baseplan (11) charges this line $3,538.77 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "8",
+  "description": "Variable Message Board Senior",
+  "amount": 3109.83,
+  "basis": "Baseplan (11) charges this line $3,109.83 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "9",
+  "description": "Variable Message Board - Colour - Senior",
+  "amount": 3646.01,
+  "basis": "Baseplan (11) charges this line $3,646.01 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "12",
+  "description": "VMS09 Variable Message Board Senior",
+  "amount": 1072.2,
+  "basis": "Baseplan (11) charges this line $1,072.20 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "13",
+  "description": "VMS10 120T Variable Message Board Senior Premiair",
+  "amount": 1072.2,
+  "basis": "Baseplan (11) charges this line $1,072.20 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "15",
+  "description": "VMS11 467T Variable Message Board - Premiair",
+  "amount": 536.1,
+  "basis": "$53.61 a day × 10 days — 16 Oct to 26 Oct (off-rented) — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "16",
+  "description": "VMS12 Variable Message Board Junior",
+  "amount": 589.71,
+  "basis": "Baseplan (11) charges this line $589.71 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "24",
+  "description": "VMS18 472T Variable Message Board Senior Premiair",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "25",
+  "description": "VMS19 487T Variable Message Board Senior Premiair",
+  "amount": 0,
+  "basis": "Baseplan (11) charges this line $0.00 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "26",
+  "description": "VMS20 475T Variable Message Board Senior Premiair",
+  "amount": 0,
+  "basis": "Baseplan (11) charges this line $0.00 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "28",
+  "description": "VMS21 Variable Message Board Senior Premiair",
+  "amount": 268.05,
+  "basis": "Baseplan (11) charges this line $268.05 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "29",
+  "description": "VMS22 445T Variable Message Board Senior Premiair",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "30",
+  "description": "VMS23 453T Variable Message Board Senior Premiair",
+  "amount": 321.66,
+  "basis": "Baseplan (11) charges this line $321.66 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "31",
+  "description": "VMS24 450T Variable Message Board Senior",
+  "amount": 268.05,
+  "basis": "Baseplan (11) charges this line $268.05 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "32",
+  "description": "VMS13 Variable Message Board Senior",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "34",
+  "description": "VMS14 Variable Message Board Junior",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "35",
+  "description": "VMS15 Variable Message Board Senior",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "37",
+  "description": "VMS16 Variable Message Board Senior",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "39",
+  "description": "VMS17 Variable Message Board Senior",
+  "amount": 428.88,
+  "basis": "Baseplan (11) charges this line $428.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "40",
+  "description": "Labour Charge",
+  "amount": 3539.4,
+  "basis": "Baseplan (11) charges this line $3,539.40 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "41",
+  "description": "Transport Charge",
+  "amount": 6000,
+  "basis": "Baseplan (11) charges this line $6,000.00 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "42",
+  "description": "Transport Charge Site Shifts",
+  "amount": 1200,
+  "basis": "a transport or delivery charge line — the price on it × 8 is the charge",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "43",
+  "description": "VMS05a Variable Message Board Senior",
+  "amount": 0,
+  "basis": "Baseplan (11) charges this line $0.00 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9961265",
+  "line": "44",
+  "description": "Event Labour Charge",
+  "amount": null,
+  "basis": "no rate on the line yet — unknown, not nought",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "1",
+  "description": "WB01 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 608.88,
+  "basis": "Baseplan (11) charges this line $608.88 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "2",
+  "description": "WB03 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 1097.4,
+  "basis": "Baseplan (11) charges this line $1,097.40 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "3",
+  "description": "WB02 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 1364.08,
+  "basis": "$1.18 a day × 34 × 34 days — 21 Sep to 25 Oct (off-rented) — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "4",
+  "description": "WB05 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 169.92,
+  "basis": "Baseplan (11) charges this line $169.92 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "5",
+  "description": "WB04 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 168.74,
+  "basis": "Baseplan (11) charges this line $168.74 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "6",
+  "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 920.4,
+  "basis": "Baseplan (11) charges this line $920.40 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "9",
+  "description": "WB14 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 16.52,
+  "basis": "$1.18 a day × 2 × 7 days — 21 Oct to 25 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "10",
+  "description": "WB15 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 33.04,
+  "basis": "$1.18 a day × 4 × 7 days — 21 Oct to 27 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "11",
+  "description": "WB16 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 107.38,
+  "basis": "$1.18 a day × 13 × 7 days — 21 Oct to 27 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "12",
+  "description": "WB17 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 41.3,
+  "basis": "$1.18 a day × 5 × 7 days — 22 Oct to 27 Oct (off-rented), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "13",
+  "description": "WB18 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 16.52,
+  "basis": "$1.18 a day × 2 × 7 days — 22 Oct to 27 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "14",
+  "description": "WB20 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 247.8,
+  "basis": "$1.18 a day × 30 × 7 days — 26 Oct to 29 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "15",
+  "description": "WB19 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 280.84,
+  "basis": "$1.18 a day × 34 × 7 days — 02 Nov to 06 Nov (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "16",
+  "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 920.4,
+  "basis": "Baseplan (11) charges this line $920.40 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "17",
+  "description": "WB06 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 521.56,
+  "basis": "Baseplan (11) charges this line $521.56 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "18",
+  "description": "WB22 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 4.72,
+  "basis": "Baseplan (11) charges this line $4.72 (per day where it is hired by the day) - Andrew, 30 Oct 2026",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "19",
+  "description": "Labour Charge WFB",
+  "amount": 7700,
+  "basis": "a transport or delivery charge line — the price on it is the charge",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "20",
+  "description": "Transport Charge WFB",
+  "amount": 17900,
+  "basis": "a transport or delivery charge line — the price on it is the charge",
+  "err": null
+ },
+ {
+  "contract": "9972648",
+  "line": "21",
+  "description": "WB17 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+  "amount": 8.26,
+  "basis": "$1.18 a day × 7 days — 22 Oct to 27 Oct (expected term), lifted to the line's minimum of 7 — from when it went in",
+  "err": null
+ }
+]

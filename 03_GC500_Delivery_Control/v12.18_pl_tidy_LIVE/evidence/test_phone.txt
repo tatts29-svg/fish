@@ -1,0 +1,17 @@
+PASS charge to the V8s unchanged (340871.73), Costs category equal, every docket's charge and pay unchanged
+PASS fencing cost 244173.2 -> 244368.2, on the gear side (233923.2 -> 234118.2); crew and green book unchanged; the split ties
+PASS the papers' quantities, Today and the area metres unchanged
+PASS P&L: revenue unchanged; only Rehire cost moves, +195 to date and to job end; direct costs 429315.83 -> 429510.83
+PASS the P&L card ties and renders its 14 rows
+PASS card rows that move: Rehire, Total Direct Costs, Gross Margin · all in 55.5%, Difference · all in, not a margin yet
+PASS job difference 521099.94 -> 520904.94; branch view 423970.38 -> 423775.38
+PASS column head and its definition: GC500 | Job total · all in | Of which · fencing demob still to come
+PASS card line: All in · every line to job end, demob included · fencing’s demob is the one estimate still to come, and Advanced’s relocation and removal hours are not priced yet
+PASS wages row: Coates wages and salary1,471.5 h · hours only, not priced
+PASS Rehire basis names the sheet match and the collection
+PASS the receipted-order words keep the week orders and add the collection
+PASS footer .20 · v12.18
+PASS build: 0 page errors, 0 record writes
+P&L card, base : [["Hire Revenue","$230,118.72","—"],["Rehire Revenue","$398,702.68","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$965,524.03","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$295,183.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$429,315.83","$10,350.00"],["Gross Margin · all in 55.5%","$536,208.20","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$423,970.38","$16,172.40"]]
+P&L card, build: [["Hire Revenue","$230,118.72","—"],["Rehire Revenue","$398,702.68","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$965,524.03","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$295,378.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$429,510.83","$10,350.00"],["Gross Margin · all in 55.5%","$536,013.20","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$423,775.38","$16,172.40"]]
+14/14 phone

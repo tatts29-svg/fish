@@ -1,0 +1,378 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T024812Z",
+ "finished": "2026-10-30T02:48:46.113Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 12:4x AEST: \"2.x.toilet blocks wc20 have left at 1230pm the waste tanks have not left yet\". WC20 (Coates, Toilets & amenities) holds two Toilet Block 6m (1327228 Set 1, 1327225 Set 2) and two waste tanks (1311341 Set 1, 1328982 Set 2). The two toilet blocks leave at 12:30 through the page's own Record departure form in his name; the two waste tanks stay, so WC20 stays on site. The Emptied tick first, on his word of 11:1x today that all toilets were pumped out on Sunday night 25 Oct by the servicing (the page's emptied gate keeps a toilet's departure form shut until it is ticked; the same word carried WC09's tick in run 80). Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "emptied",
+    "ref": "WC20",
+    "on": true,
+    "why": "Andrew Fisher, 30 Oct 2026: all toilets were pumped out on Sunday night 25 Oct by the servicing"
+   },
+   {
+    "op": "depart",
+    "ref": "WC20",
+    "at": "2026-10-30T12:30:00+10:00",
+    "nos": [
+     "1327228",
+     "1327225"
+    ],
+    "unnumbered": [],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12139,
+  "after": 12140
+ },
+ "updated": {
+  "before": "2026-10-30T02:42:58.503Z",
+  "after": "2026-10-30T02:48:45.214Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "emptied",
+   "ref": "WC20",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: all toilets were pumped out on Sunday night 25 Oct by the servicing",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-30T02:48:30.894Z"
+  },
+  {
+   "op": "depart",
+   "ref": "WC20",
+   "at": "2026-10-30T12:30:00+10:00",
+   "nos": [
+    "1327228",
+    "1327225"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-10-30T12:30:00+10:00, recorded by Andrew Fisher: 2 x Toilet Block 6m 1327228, 1327225 - still to leave: 2 x Waste tank"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC20",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC20": {
+    "state": "on site",
+    "set_at": "2026-10-07T01:21:10.687Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T01:21:13.580Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher via Codex",
+    "steps_at": "2026-10-07T02:08:47.857Z",
+    "pickup1238_units": {
+     "coates|1327228": {
+      "at": "2026-10-30T11:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:44:43.052Z"
+     },
+     "coates|1327225": {
+      "at": "2026-10-30T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:45:20.341Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T01:21:10.687Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:28.081Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T01:21:10.687Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T01:21:10.687Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T01:21:13.580Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T02:08:47.857Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327228",
+      "pickup": "2026-10-30T11:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:44:43.052Z"
+     },
+     {
+      "unit": "coates|1327225",
+      "pickup": "2026-10-30T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:45:20.341Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T04:42:07.290Z"
+    },
+    "loading872": {
+     "u1311341": {
+      "side": "",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-08T17:28:52.725Z"
+     },
+     "u1327225": {
+      "side": "driver",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.491Z"
+     },
+     "u1327228": {
+      "side": "driver",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-08T17:28:52.730Z"
+     }
+    },
+    "_k": "WC20"
+   }
+  },
+  "after": {
+   "delivery/WC20": {
+    "state": "on site",
+    "set_at": "2026-10-07T01:21:10.687Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T01:21:13.580Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher via Codex",
+    "steps_at": "2026-10-07T02:08:47.857Z",
+    "pickup1238_units": {
+     "coates|1327228": {
+      "at": "2026-10-30T11:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:44:43.052Z"
+     },
+     "coates|1327225": {
+      "at": "2026-10-30T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:45:20.341Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T01:21:10.687Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:28.081Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T01:21:10.687Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-30T02:48:31.719Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "7c946b19-df6f-4016-bf81-b3aeb72c9c46",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T12:30:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-07T01:21:10.687Z",
+       "requiredKey": "[[\"toilet block 6m\",2],[\"waste tank\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 2,
+         "unitIds": [
+          "[\"WC20\",\"coates\",\"asset\",\"1327228\"]",
+          "[\"WC20\",\"coates\",\"asset\",\"1327225\"]"
+         ],
+         "numbers": [
+          "1327228",
+          "1327225"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC20\",\"coates\",\"asset\",\"1327228\"]",
+           "number": "1327228",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          },
+          {
+           "id": "[\"WC20\",\"coates\",\"asset\",\"1327225\"]",
+           "number": "1327225",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T01:21:10.687Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T01:21:13.580Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T02:08:47.857Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327228",
+      "pickup": "2026-10-30T11:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:44:43.052Z"
+     },
+     {
+      "unit": "coates|1327225",
+      "pickup": "2026-10-30T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:45:20.341Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T04:42:07.290Z"
+    },
+    "loading872": {
+     "u1311341": {
+      "side": "",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-08T17:28:52.725Z"
+     },
+     "u1327225": {
+      "side": "driver",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.491Z"
+     },
+     "u1327228": {
+      "side": "driver",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-08T17:28:52.730Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-30T02:48:30.894Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-30T02:48:30.894Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC20"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

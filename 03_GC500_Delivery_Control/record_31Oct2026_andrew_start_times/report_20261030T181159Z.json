@@ -1,0 +1,3181 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T181159Z",
+ "finished": "2026-10-30T18:12:30.545Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 ~04:3x AEST (this chat): \"Can we change all my start times to 6am please\". Every one of his labour rows that starts at 06:30 is set to start at 06:00 through the page's own setOurCost; the page works the hours out again from start and finish (06:00 to 17:00 is 11 h). Rows already starting at 06:00 (the first week and the race weekend) are left as they are. His hours are salary hours, hours only, so no figure on the P&L moves.",
+  "ops": [
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-14",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-15",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-16",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-17",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-18",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-21",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-22",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-23",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-24",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-25",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-28",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-29",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-09-30",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-01",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-02",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-06",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-07",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-08",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-09",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-12",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-13",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-14",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-15",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-16",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-19",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-20",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-21",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-22",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-27",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-28",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-29",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-10-30",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-02",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-03",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-04",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-05",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-06",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-09",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-10",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-11",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-12",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   },
+   {
+    "op": "labour_set",
+    "person": "Andrew Fisher",
+    "date": "2026-11-13",
+    "fields": {
+     "start": "06:00"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: \"Can we change all my start times to 6am please\""
+   }
+  ]
+ },
+ "pageSha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+ "version": {
+  "before": 12496,
+  "after": 12600
+ },
+ "updated": {
+  "before": "2026-10-30T18:08:46.993Z",
+  "after": "2026-10-30T18:12:29.621Z"
+ },
+ "stage": [
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260914",
+   "person": "Andrew Fisher",
+   "date": "2026-09-14",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260914 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260915",
+   "person": "Andrew Fisher",
+   "date": "2026-09-15",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260915 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260916",
+   "person": "Andrew Fisher",
+   "date": "2026-09-16",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260916 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260917",
+   "person": "Andrew Fisher",
+   "date": "2026-09-17",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260917 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260918",
+   "person": "Andrew Fisher",
+   "date": "2026-09-18",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260918 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260921",
+   "person": "Andrew Fisher",
+   "date": "2026-09-21",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260921 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260922",
+   "person": "Andrew Fisher",
+   "date": "2026-09-22",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260922 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260923",
+   "person": "Andrew Fisher",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260923 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260924",
+   "person": "Andrew Fisher",
+   "date": "2026-09-24",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260924 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260925",
+   "person": "Andrew Fisher",
+   "date": "2026-09-25",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260925 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260928",
+   "person": "Andrew Fisher",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260929",
+   "person": "Andrew Fisher",
+   "date": "2026-09-29",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260929 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20260930",
+   "person": "Andrew Fisher",
+   "date": "2026-09-30",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20260930 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261001",
+   "person": "Andrew Fisher",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261002",
+   "person": "Andrew Fisher",
+   "date": "2026-10-02",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261002 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261006",
+   "person": "Andrew Fisher",
+   "date": "2026-10-06",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261006 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261007",
+   "person": "Andrew Fisher",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261008",
+   "person": "Andrew Fisher",
+   "date": "2026-10-08",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261008 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261009",
+   "person": "Andrew Fisher",
+   "date": "2026-10-09",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261009 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261012",
+   "person": "Andrew Fisher",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261013",
+   "person": "Andrew Fisher",
+   "date": "2026-10-13",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261013 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261014",
+   "person": "Andrew Fisher",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261015",
+   "person": "Andrew Fisher",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261016",
+   "person": "Andrew Fisher",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261019",
+   "person": "Andrew Fisher",
+   "date": "2026-10-19",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261019 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261020",
+   "person": "Andrew Fisher",
+   "date": "2026-10-20",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261020 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261021",
+   "person": "Andrew Fisher",
+   "date": "2026-10-21",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261021 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261022",
+   "person": "Andrew Fisher",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261027",
+   "person": "Andrew Fisher",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261028",
+   "person": "Andrew Fisher",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261029",
+   "person": "Andrew Fisher",
+   "date": "2026-10-29",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261029 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261030",
+   "person": "Andrew Fisher",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261102",
+   "person": "Andrew Fisher",
+   "date": "2026-11-02",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261102 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261103",
+   "person": "Andrew Fisher",
+   "date": "2026-11-03",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261103 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261104",
+   "person": "Andrew Fisher",
+   "date": "2026-11-04",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261104 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261105",
+   "person": "Andrew Fisher",
+   "date": "2026-11-05",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261105 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261106",
+   "person": "Andrew Fisher",
+   "date": "2026-11-06",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261106 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261109",
+   "person": "Andrew Fisher",
+   "date": "2026-11-09",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261109 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261110",
+   "person": "Andrew Fisher",
+   "date": "2026-11-10",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261110 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261111",
+   "person": "Andrew Fisher",
+   "date": "2026-11-11",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261111 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261112",
+   "person": "Andrew Fisher",
+   "date": "2026-11-12",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261112 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-andrew-fisher-20261113",
+   "person": "Andrew Fisher",
+   "date": "2026-11-13",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": null
+   },
+   "result": "changed the tracker row: start (was 10.5 h 06:30-17:00) -> 11 h 06:00-17:00 - W-L-andrew-fisher-20261113 changed by Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260914",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260915",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260916",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260917",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260921",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260922",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260923",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260924",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260925",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260928",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261006",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261007",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261008",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261012",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261015",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261016",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261022",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260918",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260929",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260930",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261002",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261009",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261013",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261019",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261020",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261021",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261029",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261102",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261103",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261104",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261105",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261106",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261109",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261110",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261111",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261112",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261113",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260918",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260929",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260930",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261002",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261009",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261013",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261019",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261020",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261021",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261029",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261102",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261103",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261104",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261105",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261106",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261109",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261110",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261111",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261112",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261113",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260914",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260915",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260916",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260917",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260921",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260922",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260923",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260924",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260925",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260928",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261006",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261007",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261008",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261016",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261022",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260918",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260929",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260930",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261002",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261009",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261013",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261019",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261020",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261021",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261029",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261102",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261103",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261104",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261105",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261106",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261109",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261110",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261111",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261112",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261113",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260914": {
+    "_k": "ourcost/W-L-andrew-fisher-20260914",
+    "v": "2026-10-30T17:56:20.647Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260915": {
+    "_k": "ourcost/W-L-andrew-fisher-20260915",
+    "v": "2026-10-30T17:56:21.291Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260916": {
+    "_k": "ourcost/W-L-andrew-fisher-20260916",
+    "v": "2026-10-30T17:56:22.012Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260917": {
+    "_k": "ourcost/W-L-andrew-fisher-20260917",
+    "v": "2026-10-30T17:56:22.751Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260921": {
+    "_k": "ourcost/W-L-andrew-fisher-20260921",
+    "v": "2026-10-30T17:56:23.480Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260922": {
+    "_k": "ourcost/W-L-andrew-fisher-20260922",
+    "v": "2026-10-30T17:56:23.973Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260923": {
+    "_k": "ourcost/W-L-andrew-fisher-20260923",
+    "v": "2026-10-30T17:56:24.779Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260924": {
+    "_k": "ourcost/W-L-andrew-fisher-20260924",
+    "v": "2026-10-30T17:56:25.609Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260925": {
+    "_k": "ourcost/W-L-andrew-fisher-20260925",
+    "v": "2026-10-30T17:56:26.503Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260928": {
+    "_k": "ourcost/W-L-andrew-fisher-20260928",
+    "v": "2026-10-30T17:56:27.414Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261001": {
+    "_k": "ourcost/W-L-andrew-fisher-20261001",
+    "v": "2026-10-30T17:56:28.444Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261006": {
+    "_k": "ourcost/W-L-andrew-fisher-20261006",
+    "v": "2026-10-30T17:56:29.613Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261007": {
+    "_k": "ourcost/W-L-andrew-fisher-20261007",
+    "v": "2026-10-30T17:56:30.348Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261008": {
+    "_k": "ourcost/W-L-andrew-fisher-20261008",
+    "v": "2026-10-30T17:56:31.043Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261012": {
+    "_k": "ourcost/W-L-andrew-fisher-20261012",
+    "v": "2026-10-30T17:56:31.530Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261014": {
+    "_k": "ourcost/W-L-andrew-fisher-20261014",
+    "v": "2026-10-30T17:56:32.093Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261015": {
+    "_k": "ourcost/W-L-andrew-fisher-20261015",
+    "v": "2026-10-30T17:56:33.090Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261016": {
+    "_k": "ourcost/W-L-andrew-fisher-20261016",
+    "v": "2026-10-30T17:56:33.617Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261022": {
+    "_k": "ourcost/W-L-andrew-fisher-20261022",
+    "v": "2026-10-30T17:56:34.694Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261027": {
+    "_k": "ourcost/W-L-andrew-fisher-20261027",
+    "v": "2026-10-30T17:56:36.220Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261028": {
+    "_k": "ourcost/W-L-andrew-fisher-20261028",
+    "v": "2026-10-30T17:56:36.984Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261030": {
+    "_k": "ourcost/W-L-andrew-fisher-20261030",
+    "v": "2026-10-30T17:56:37.821Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260918": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260929": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260930": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261002": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261009": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261013": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261019": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261020": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261021": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261029": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261102": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261103": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261104": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261105": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261106": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261109": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261110": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261111": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261112": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261113": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260918": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260929": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260930": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261002": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261009": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261013": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261019": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261020": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261021": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261029": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261102": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261103": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261104": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261105": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261106": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261109": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261110": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261111": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261112": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261113": null,
+   "costs/W-L-andrew-fisher-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260914",
+    "person": "Andrew Fisher",
+    "date": "2026-09-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.647Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260914"
+   },
+   "costs/W-L-andrew-fisher-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260915",
+    "person": "Andrew Fisher",
+    "date": "2026-09-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.291Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260915"
+   },
+   "costs/W-L-andrew-fisher-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260916",
+    "person": "Andrew Fisher",
+    "date": "2026-09-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.011Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260916"
+   },
+   "costs/W-L-andrew-fisher-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260917",
+    "person": "Andrew Fisher",
+    "date": "2026-09-17",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.751Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260917"
+   },
+   "costs/W-L-andrew-fisher-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260921",
+    "person": "Andrew Fisher",
+    "date": "2026-09-21",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.480Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260921"
+   },
+   "costs/W-L-andrew-fisher-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260922",
+    "person": "Andrew Fisher",
+    "date": "2026-09-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.973Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260922"
+   },
+   "costs/W-L-andrew-fisher-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260923",
+    "person": "Andrew Fisher",
+    "date": "2026-09-23",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.779Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260923"
+   },
+   "costs/W-L-andrew-fisher-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260924",
+    "person": "Andrew Fisher",
+    "date": "2026-09-24",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:25.609Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260924"
+   },
+   "costs/W-L-andrew-fisher-20260925": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260925",
+    "person": "Andrew Fisher",
+    "date": "2026-09-25",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:26.503Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260925"
+   },
+   "costs/W-L-andrew-fisher-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260928",
+    "person": "Andrew Fisher",
+    "date": "2026-09-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:27.414Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260928"
+   },
+   "costs/W-L-andrew-fisher-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261001",
+    "person": "Andrew Fisher",
+    "date": "2026-10-01",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:28.444Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261001"
+   },
+   "costs/W-L-andrew-fisher-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261006",
+    "person": "Andrew Fisher",
+    "date": "2026-10-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:29.613Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261006"
+   },
+   "costs/W-L-andrew-fisher-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261007",
+    "person": "Andrew Fisher",
+    "date": "2026-10-07",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.348Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261007"
+   },
+   "costs/W-L-andrew-fisher-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261008",
+    "person": "Andrew Fisher",
+    "date": "2026-10-08",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.043Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261008"
+   },
+   "costs/W-L-andrew-fisher-20261012": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261012",
+    "person": "Andrew Fisher",
+    "date": "2026-10-12",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.530Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261012"
+   },
+   "costs/W-L-andrew-fisher-20261014": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261014",
+    "person": "Andrew Fisher",
+    "date": "2026-10-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:32.092Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261014"
+   },
+   "costs/W-L-andrew-fisher-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261015",
+    "person": "Andrew Fisher",
+    "date": "2026-10-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.090Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261015"
+   },
+   "costs/W-L-andrew-fisher-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261016",
+    "person": "Andrew Fisher",
+    "date": "2026-10-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.617Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261016"
+   },
+   "costs/W-L-andrew-fisher-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261022",
+    "person": "Andrew Fisher",
+    "date": "2026-10-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:34.694Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261022"
+   },
+   "costs/W-L-andrew-fisher-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261027",
+    "person": "Andrew Fisher",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.220Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261027"
+   },
+   "costs/W-L-andrew-fisher-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261028",
+    "person": "Andrew Fisher",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.984Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261028"
+   },
+   "costs/W-L-andrew-fisher-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261030",
+    "person": "Andrew Fisher",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.821Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261030"
+   },
+   "costs/W-L-andrew-fisher-20260918": null,
+   "costs/W-L-andrew-fisher-20260929": null,
+   "costs/W-L-andrew-fisher-20260930": null,
+   "costs/W-L-andrew-fisher-20261002": null,
+   "costs/W-L-andrew-fisher-20261009": null,
+   "costs/W-L-andrew-fisher-20261013": null,
+   "costs/W-L-andrew-fisher-20261019": null,
+   "costs/W-L-andrew-fisher-20261020": null,
+   "costs/W-L-andrew-fisher-20261021": null,
+   "costs/W-L-andrew-fisher-20261029": null,
+   "costs/W-L-andrew-fisher-20261102": null,
+   "costs/W-L-andrew-fisher-20261103": null,
+   "costs/W-L-andrew-fisher-20261104": null,
+   "costs/W-L-andrew-fisher-20261105": null,
+   "costs/W-L-andrew-fisher-20261106": null,
+   "costs/W-L-andrew-fisher-20261109": null,
+   "costs/W-L-andrew-fisher-20261110": null,
+   "costs/W-L-andrew-fisher-20261111": null,
+   "costs/W-L-andrew-fisher-20261112": null,
+   "costs/W-L-andrew-fisher-20261113": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260914": {
+    "_k": "ourcost/W-L-andrew-fisher-20260914",
+    "v": "2026-10-30T18:12:11.704Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260915": {
+    "_k": "ourcost/W-L-andrew-fisher-20260915",
+    "v": "2026-10-30T18:12:12.012Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260916": {
+    "_k": "ourcost/W-L-andrew-fisher-20260916",
+    "v": "2026-10-30T18:12:12.196Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260917": {
+    "_k": "ourcost/W-L-andrew-fisher-20260917",
+    "v": "2026-10-30T18:12:12.375Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260921": {
+    "_k": "ourcost/W-L-andrew-fisher-20260921",
+    "v": "2026-10-30T18:12:12.764Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260922": {
+    "_k": "ourcost/W-L-andrew-fisher-20260922",
+    "v": "2026-10-30T18:12:12.950Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260923": {
+    "_k": "ourcost/W-L-andrew-fisher-20260923",
+    "v": "2026-10-30T18:12:13.146Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260924": {
+    "_k": "ourcost/W-L-andrew-fisher-20260924",
+    "v": "2026-10-30T18:12:13.301Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260925": {
+    "_k": "ourcost/W-L-andrew-fisher-20260925",
+    "v": "2026-10-30T18:12:13.463Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260928": {
+    "_k": "ourcost/W-L-andrew-fisher-20260928",
+    "v": "2026-10-30T18:12:13.627Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261001": {
+    "_k": "ourcost/W-L-andrew-fisher-20261001",
+    "v": "2026-10-30T18:12:14.165Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261006": {
+    "_k": "ourcost/W-L-andrew-fisher-20261006",
+    "v": "2026-10-30T18:12:14.493Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261007": {
+    "_k": "ourcost/W-L-andrew-fisher-20261007",
+    "v": "2026-10-30T18:12:14.657Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261008": {
+    "_k": "ourcost/W-L-andrew-fisher-20261008",
+    "v": "2026-10-30T18:12:14.825Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261012": {
+    "_k": "ourcost/W-L-andrew-fisher-20261012",
+    "v": "2026-10-30T18:12:15.217Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261014": {
+    "_k": "ourcost/W-L-andrew-fisher-20261014",
+    "v": "2026-10-30T18:12:15.603Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261015": {
+    "_k": "ourcost/W-L-andrew-fisher-20261015",
+    "v": "2026-10-30T18:12:15.821Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261016": {
+    "_k": "ourcost/W-L-andrew-fisher-20261016",
+    "v": "2026-10-30T18:12:16.011Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261022": {
+    "_k": "ourcost/W-L-andrew-fisher-20261022",
+    "v": "2026-10-30T18:12:16.696Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261027": {
+    "_k": "ourcost/W-L-andrew-fisher-20261027",
+    "v": "2026-10-30T18:12:16.872Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261028": {
+    "_k": "ourcost/W-L-andrew-fisher-20261028",
+    "v": "2026-10-30T18:12:17.029Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261030": {
+    "_k": "ourcost/W-L-andrew-fisher-20261030",
+    "v": "2026-10-30T18:12:17.400Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260918": {
+    "_k": "ourcost/W-L-andrew-fisher-20260918",
+    "v": "2026-10-30T18:12:12.542Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260929": {
+    "_k": "ourcost/W-L-andrew-fisher-20260929",
+    "v": "2026-10-30T18:12:13.798Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260930": {
+    "_k": "ourcost/W-L-andrew-fisher-20260930",
+    "v": "2026-10-30T18:12:13.992Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261002": {
+    "_k": "ourcost/W-L-andrew-fisher-20261002",
+    "v": "2026-10-30T18:12:14.329Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261009": {
+    "_k": "ourcost/W-L-andrew-fisher-20261009",
+    "v": "2026-10-30T18:12:15.040Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261013": {
+    "_k": "ourcost/W-L-andrew-fisher-20261013",
+    "v": "2026-10-30T18:12:15.390Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261019": {
+    "_k": "ourcost/W-L-andrew-fisher-20261019",
+    "v": "2026-10-30T18:12:16.185Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261020": {
+    "_k": "ourcost/W-L-andrew-fisher-20261020",
+    "v": "2026-10-30T18:12:16.362Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261021": {
+    "_k": "ourcost/W-L-andrew-fisher-20261021",
+    "v": "2026-10-30T18:12:16.524Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261029": {
+    "_k": "ourcost/W-L-andrew-fisher-20261029",
+    "v": "2026-10-30T18:12:17.247Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261102": {
+    "_k": "ourcost/W-L-andrew-fisher-20261102",
+    "v": "2026-10-30T18:12:17.561Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261103": {
+    "_k": "ourcost/W-L-andrew-fisher-20261103",
+    "v": "2026-10-30T18:12:17.756Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261104": {
+    "_k": "ourcost/W-L-andrew-fisher-20261104",
+    "v": "2026-10-30T18:12:18.025Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261105": {
+    "_k": "ourcost/W-L-andrew-fisher-20261105",
+    "v": "2026-10-30T18:12:18.199Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261106": {
+    "_k": "ourcost/W-L-andrew-fisher-20261106",
+    "v": "2026-10-30T18:12:18.356Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261109": {
+    "_k": "ourcost/W-L-andrew-fisher-20261109",
+    "v": "2026-10-30T18:12:18.505Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261110": {
+    "_k": "ourcost/W-L-andrew-fisher-20261110",
+    "v": "2026-10-30T18:12:18.657Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261111": {
+    "_k": "ourcost/W-L-andrew-fisher-20261111",
+    "v": "2026-10-30T18:12:18.811Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261112": {
+    "_k": "ourcost/W-L-andrew-fisher-20261112",
+    "v": "2026-10-30T18:12:18.994Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261113": {
+    "_k": "ourcost/W-L-andrew-fisher-20261113",
+    "v": "2026-10-30T18:12:19.174Z"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260918": {
+    "_k": "ourcost/W-L-andrew-fisher-20260918",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260929": {
+    "_k": "ourcost/W-L-andrew-fisher-20260929",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260930": {
+    "_k": "ourcost/W-L-andrew-fisher-20260930",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261002": {
+    "_k": "ourcost/W-L-andrew-fisher-20261002",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261009": {
+    "_k": "ourcost/W-L-andrew-fisher-20261009",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261013": {
+    "_k": "ourcost/W-L-andrew-fisher-20261013",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261019": {
+    "_k": "ourcost/W-L-andrew-fisher-20261019",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261020": {
+    "_k": "ourcost/W-L-andrew-fisher-20261020",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261021": {
+    "_k": "ourcost/W-L-andrew-fisher-20261021",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261029": {
+    "_k": "ourcost/W-L-andrew-fisher-20261029",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261102": {
+    "_k": "ourcost/W-L-andrew-fisher-20261102",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261103": {
+    "_k": "ourcost/W-L-andrew-fisher-20261103",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261104": {
+    "_k": "ourcost/W-L-andrew-fisher-20261104",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261105": {
+    "_k": "ourcost/W-L-andrew-fisher-20261105",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261106": {
+    "_k": "ourcost/W-L-andrew-fisher-20261106",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261109": {
+    "_k": "ourcost/W-L-andrew-fisher-20261109",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261110": {
+    "_k": "ourcost/W-L-andrew-fisher-20261110",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261111": {
+    "_k": "ourcost/W-L-andrew-fisher-20261111",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261112": {
+    "_k": "ourcost/W-L-andrew-fisher-20261112",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261113": {
+    "_k": "ourcost/W-L-andrew-fisher-20261113",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-andrew-fisher-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260914",
+    "person": "Andrew Fisher",
+    "date": "2026-09-14",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:11.704Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260914"
+   },
+   "costs/W-L-andrew-fisher-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260915",
+    "person": "Andrew Fisher",
+    "date": "2026-09-15",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:12.012Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260915"
+   },
+   "costs/W-L-andrew-fisher-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260916",
+    "person": "Andrew Fisher",
+    "date": "2026-09-16",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:12.196Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260916"
+   },
+   "costs/W-L-andrew-fisher-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260917",
+    "person": "Andrew Fisher",
+    "date": "2026-09-17",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:12.375Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260917"
+   },
+   "costs/W-L-andrew-fisher-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260921",
+    "person": "Andrew Fisher",
+    "date": "2026-09-21",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:12.764Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260921"
+   },
+   "costs/W-L-andrew-fisher-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260922",
+    "person": "Andrew Fisher",
+    "date": "2026-09-22",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:12.950Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260922"
+   },
+   "costs/W-L-andrew-fisher-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260923",
+    "person": "Andrew Fisher",
+    "date": "2026-09-23",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:13.146Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260923"
+   },
+   "costs/W-L-andrew-fisher-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260924",
+    "person": "Andrew Fisher",
+    "date": "2026-09-24",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:13.301Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260924"
+   },
+   "costs/W-L-andrew-fisher-20260925": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260925",
+    "person": "Andrew Fisher",
+    "date": "2026-09-25",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:13.463Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260925"
+   },
+   "costs/W-L-andrew-fisher-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260928",
+    "person": "Andrew Fisher",
+    "date": "2026-09-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:13.627Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260928"
+   },
+   "costs/W-L-andrew-fisher-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261001",
+    "person": "Andrew Fisher",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:14.165Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261001"
+   },
+   "costs/W-L-andrew-fisher-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261006",
+    "person": "Andrew Fisher",
+    "date": "2026-10-06",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:14.493Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261006"
+   },
+   "costs/W-L-andrew-fisher-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261007",
+    "person": "Andrew Fisher",
+    "date": "2026-10-07",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:14.657Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261007"
+   },
+   "costs/W-L-andrew-fisher-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261008",
+    "person": "Andrew Fisher",
+    "date": "2026-10-08",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:14.825Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261008"
+   },
+   "costs/W-L-andrew-fisher-20261012": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261012",
+    "person": "Andrew Fisher",
+    "date": "2026-10-12",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:15.217Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261012"
+   },
+   "costs/W-L-andrew-fisher-20261014": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261014",
+    "person": "Andrew Fisher",
+    "date": "2026-10-14",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:15.603Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261014"
+   },
+   "costs/W-L-andrew-fisher-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261015",
+    "person": "Andrew Fisher",
+    "date": "2026-10-15",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:15.821Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261015"
+   },
+   "costs/W-L-andrew-fisher-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261016",
+    "person": "Andrew Fisher",
+    "date": "2026-10-16",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:16.011Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261016"
+   },
+   "costs/W-L-andrew-fisher-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261022",
+    "person": "Andrew Fisher",
+    "date": "2026-10-22",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:16.696Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261022"
+   },
+   "costs/W-L-andrew-fisher-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261027",
+    "person": "Andrew Fisher",
+    "date": "2026-10-27",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:16.872Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261027"
+   },
+   "costs/W-L-andrew-fisher-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261028",
+    "person": "Andrew Fisher",
+    "date": "2026-10-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:17.029Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261028"
+   },
+   "costs/W-L-andrew-fisher-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261030",
+    "person": "Andrew Fisher",
+    "date": "2026-10-30",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T18:12:17.400Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261030"
+   },
+   "costs/W-L-andrew-fisher-20260918": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260918",
+    "person": "Andrew Fisher",
+    "date": "2026-09-18",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:12.542Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260918"
+   },
+   "costs/W-L-andrew-fisher-20260929": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260929",
+    "person": "Andrew Fisher",
+    "date": "2026-09-29",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:13.798Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260929"
+   },
+   "costs/W-L-andrew-fisher-20260930": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260930",
+    "person": "Andrew Fisher",
+    "date": "2026-09-30",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:13.992Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260930"
+   },
+   "costs/W-L-andrew-fisher-20261002": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261002",
+    "person": "Andrew Fisher",
+    "date": "2026-10-02",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:14.329Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261002"
+   },
+   "costs/W-L-andrew-fisher-20261009": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261009",
+    "person": "Andrew Fisher",
+    "date": "2026-10-09",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:15.040Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261009"
+   },
+   "costs/W-L-andrew-fisher-20261013": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261013",
+    "person": "Andrew Fisher",
+    "date": "2026-10-13",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:15.390Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261013"
+   },
+   "costs/W-L-andrew-fisher-20261019": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261019",
+    "person": "Andrew Fisher",
+    "date": "2026-10-19",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:16.185Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261019"
+   },
+   "costs/W-L-andrew-fisher-20261020": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261020",
+    "person": "Andrew Fisher",
+    "date": "2026-10-20",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:16.362Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261020"
+   },
+   "costs/W-L-andrew-fisher-20261021": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261021",
+    "person": "Andrew Fisher",
+    "date": "2026-10-21",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:16.524Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261021"
+   },
+   "costs/W-L-andrew-fisher-20261029": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261029",
+    "person": "Andrew Fisher",
+    "date": "2026-10-29",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:17.247Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261029"
+   },
+   "costs/W-L-andrew-fisher-20261102": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261102",
+    "person": "Andrew Fisher",
+    "date": "2026-11-02",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:17.561Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261102"
+   },
+   "costs/W-L-andrew-fisher-20261103": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261103",
+    "person": "Andrew Fisher",
+    "date": "2026-11-03",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:17.756Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261103"
+   },
+   "costs/W-L-andrew-fisher-20261104": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261104",
+    "person": "Andrew Fisher",
+    "date": "2026-11-04",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.025Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261104"
+   },
+   "costs/W-L-andrew-fisher-20261105": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261105",
+    "person": "Andrew Fisher",
+    "date": "2026-11-05",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.199Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261105"
+   },
+   "costs/W-L-andrew-fisher-20261106": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261106",
+    "person": "Andrew Fisher",
+    "date": "2026-11-06",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.356Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261106"
+   },
+   "costs/W-L-andrew-fisher-20261109": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261109",
+    "person": "Andrew Fisher",
+    "date": "2026-11-09",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.505Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261109"
+   },
+   "costs/W-L-andrew-fisher-20261110": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261110",
+    "person": "Andrew Fisher",
+    "date": "2026-11-10",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.657Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261110"
+   },
+   "costs/W-L-andrew-fisher-20261111": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261111",
+    "person": "Andrew Fisher",
+    "date": "2026-11-11",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.811Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261111"
+   },
+   "costs/W-L-andrew-fisher-20261112": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261112",
+    "person": "Andrew Fisher",
+    "date": "2026-11-12",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:18.994Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261112"
+   },
+   "costs/W-L-andrew-fisher-20261113": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261113",
+    "person": "Andrew Fisher",
+    "date": "2026-11-13",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T18:12:19.174Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261113"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

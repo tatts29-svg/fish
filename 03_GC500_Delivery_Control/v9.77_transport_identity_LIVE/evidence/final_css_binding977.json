@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "testedSha256": "ee6690ad9c33a2ee6dcbc721f30962f15e7ed43efecaf6e2b5f06aecb3232cb4",
+  "publishSha256": "f4d3e6aa147b2012d9347dc844bc46b11e361b414c0716a6623215e98618e7d7",
+  "all61InlineScriptsExact": false,
+  "affectedPhoneChecks": "Pass: FWF, block, VMS; exact source rates, two transport legs, all4columns fit390px, Qty singleline; native unchanged",
+  "unchangedInlineScripts": 59,
+  "changedInlineScripts": [
+    53,
+    60
+  ],
+  "changes": [
+    "Scoped header letter spacing",
+    "Work unit rates formatted with source precision"
+  ],
+  "financialModelsExact": "All15 independently recaptured, frozen5201",
+  "phoneScreenshotsInspected": true
+}

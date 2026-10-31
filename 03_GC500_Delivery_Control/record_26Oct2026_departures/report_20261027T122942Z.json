@@ -1,0 +1,347 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T122942Z",
+ "finished": "2026-10-27T12:31:34.035Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, on the Coates forklifts on contract 9961976 (all at $0 on Baseplan (8)): asked whether a forklift was off-hired earlier; the branch's delivery dockets show 1247787 (Forklift Rough Terrain 2.5t, switchable 2WD/4WD) out 14 Sep (26058104), back in 18 Sep (26083950, line 25 Returned, term 17 Sep), AT009 (Forklift Rough Terrain 2.5t, no fleet number, line 34) out 17 Sep (26083924) to The Esplanade, and 1247787 out again 20 Oct to Macintosh Island Park (26142467, line 35). Our record had T0005 on site from 14 Sep with 1247787 throughout and no AT009. Andrew: \"Add the forklifts as you said. I will need to find out rates\". So AT009 is added as EQ0007 from 17 Sep on NVAC, and T0005 carries a note of 1247787's return and second trip; rates to come from Andrew.",
+  "ops": [
+   {
+    "op": "add_ref",
+    "ref": "EQ0007",
+    "disc": "Access & plant",
+    "name": "AT009 Forklift Rough Terrain 2.5t",
+    "type": "Forklift 2.5T RT",
+    "no": "",
+    "no_none": true,
+    "from": "2026-09-17",
+    "note": "AT009, no fleet number on the docket. Contract 9961976 line 34; delivery docket 26083924, out 17 Sep 2026 to The Esplanade, in place of 1247787 (back 18 Sep). Rate to come.",
+    "branch": "NVAC"
+   },
+   {
+    "op": "light",
+    "ref": "EQ0007",
+    "state": "on site",
+    "at": "2026-09-17T03:42:25.000Z",
+    "why": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0007"
+   },
+   {
+    "op": "note_append",
+    "ref": "T0005",
+    "text": "1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come."
+   }
+  ]
+ },
+ "pageSha256": "20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9",
+ "version": {
+  "before": 11603,
+  "after": 11612
+ },
+ "updated": {
+  "before": "2026-10-27T07:52:34.100Z",
+  "after": "2026-10-27T12:31:32.912Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 997131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 549112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 82995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": [
+   {
+    "key": "EQ0007",
+    "units": [],
+    "span": {
+     "days": null,
+     "from": "2026-09-17",
+     "to": null,
+     "why": "nothing on the record takes this off site, so there is no day to charge to — no off-hire"
+    },
+    "lastOnSite": "2026-09-17T03:42:25.000Z",
+    "departure": {
+     "arrival": "2026-09-17T03:42:25.000Z",
+     "remaining": [
+      {
+       "type": "Forklift 2.5T RT",
+       "n": 1
+      }
+     ],
+     "unknown": false,
+     "issues": []
+    },
+    "cards": [],
+    "questions": [
+     "sp-nums [open] 1 received equipment lines still need fleet numbers"
+    ]
+   }
+  ],
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "add_ref",
+   "ref": "EQ0007",
+   "disc": "Access & plant",
+   "name": "AT009 Forklift Rough Terrain 2.5t",
+   "type": "Forklift 2.5T RT",
+   "no": "",
+   "no_none": true,
+   "from": "2026-09-17",
+   "note": "AT009, no fleet number on the docket. Contract 9961976 line 34; delivery docket 26083924, out 17 Sep 2026 to The Esplanade, in place of 1247787 (back 18 Sep). Rate to come.",
+   "branch": "NVAC",
+   "result": "added EQ0007 (Access & plant, AT009 Forklift Rough Terrain 2.5t, no number, in 2026-09-17, branch NVAC)"
+  },
+  {
+   "op": "light",
+   "ref": "EQ0007",
+   "state": "on site",
+   "at": "2026-09-17T03:42:25.000Z",
+   "why": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)",
+   "result": "set on site at 2026-09-17T03:42:25.000Z"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0007",
+   "result": "complete"
+  },
+  {
+   "op": "note_append",
+   "ref": "T0005",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0005",
+   "status": 200
+  },
+  {
+   "key": "delivery/EQ0007",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~T0005",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~EQ0007",
+   "status": 200
+  },
+  {
+   "key": "notes/EQ0007",
+   "status": 200
+  },
+  {
+   "key": "branch/EQ0007",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~EQ0007",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~T0005",
+   "status": 200
+  },
+  {
+   "key": "added/EQ0007",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0005": {
+    "state": "on site",
+    "set_at": "2026-09-13T23:30:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   },
+   "delivery/EQ0007": null,
+   "stamps/dnote~2f~T0005": {
+    "_k": "dnote/T0005",
+    "v": "2026-09-14T03:56:21Z"
+   },
+   "stamps/branch~2f~EQ0007": null,
+   "notes/EQ0007": null,
+   "branch/EQ0007": null,
+   "by/branch~2f~EQ0007": null,
+   "by/dnote~2f~T0005": null,
+   "added/EQ0007": null
+  },
+  "after": {
+   "delivery/T0005": {
+    "state": "on site",
+    "set_at": "2026-09-13T23:30:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes 1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   },
+   "delivery/EQ0007": {
+    "state": "on site",
+    "set_at": "2026-09-17T03:42:25.000Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T12:30:03.974Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-27T12:30:03.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0007"
+   },
+   "stamps/dnote~2f~T0005": {
+    "_k": "dnote/T0005",
+    "v": "2026-10-27T12:30:04.859Z"
+   },
+   "stamps/branch~2f~EQ0007": {
+    "_k": "branch/EQ0007",
+    "v": "2026-10-27T12:30:02.953Z"
+   },
+   "notes/EQ0007": {
+    "_k": "EQ0007",
+    "v": "AT009, no fleet number on the docket. Contract 9961976 line 34; delivery docket 26083924, out 17 Sep 2026 to The Esplanade, in place of 1247787 (back 18 Sep). Rate to come."
+   },
+   "branch/EQ0007": {
+    "_k": "EQ0007",
+    "v": "NVAC"
+   },
+   "by/branch~2f~EQ0007": {
+    "_k": "branch/EQ0007",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~T0005": {
+    "_k": "dnote/T0005",
+    "v": "Andrew Fisher"
+   },
+   "added/EQ0007": {
+    "key": "EQ0007",
+    "discipline": "Access & plant",
+    "name": "AT009 Forklift Rough Terrain 2.5t",
+    "item_types": [
+     "Forklift 2.5T RT"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-09-17",
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-27T12:30:02.953Z",
+    "added_by": "Andrew Fisher",
+    "_k": "EQ0007"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,16 @@
+/* Author: Andrew Fisher. v11.91 Today: the finished build folds behind one bar (the screen only; paper prints as before).
+   The bar wears the Available staff card's own housing, so it reads as one of Today's cards. */
+@media screen {
+  html:not([data-build1191="open"]) #pane-today > #where885,
+  html:not([data-build1191="open"]) #pane-today > #gc500-work-board840,
+  html:not([data-build1191="open"]) #pane-today > #ms1025,
+  html:not([data-build1191="open"]) #pane-today > #pane-progress { display: none !important; }
+}
+#pane-today > #build1191 { margin: 0 0 12px; padding: 0 !important; min-width: 0; color: #edf3f6; background: linear-gradient(120deg, #203640, #14262e); border: 1px solid rgba(98, 125, 138, .5); border-left: 3px solid #ff8734; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(208, 226, 235, .14); }
+#build1191 .b1191-btn { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; margin: 0; padding: 11px 12px; border: 0; border-radius: inherit; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+#build1191 .b1191-btn:focus-visible { outline: 2px solid #ff8125; outline-offset: -2px; }
+#build1191 .b1191-txt { display: flex; flex-direction: column; gap: 3px; flex: 1 1 auto; min-width: 0; }
+#build1191 .b1191-title { font-size: 14px; font-weight: 800; }
+#build1191 .b1191-sub { font-size: 11px; line-height: 1.35; color: #b8cbd5; overflow-wrap: anywhere; }
+#build1191 .b1191-act { flex: none; padding: 6px 12px; border: 1px solid #617f8d; border-radius: 8px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+@media print { #build1191 { display: none !important; } }

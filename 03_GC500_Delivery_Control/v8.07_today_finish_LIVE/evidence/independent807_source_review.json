@@ -1,0 +1,194 @@
+{
+  "author": "Andrew Fisher",
+  "reviewedAtUtc": "2026-10-02T06:46:00.665082+00:00",
+  "assessment": "Clean scoped independent review of updated READY source; no blocking source-integration concerns found.",
+  "readySourceCommit": "9deab91f9c4e9d9341e060de2d4343a6a0968d32",
+  "supersedesReadyCommit": "4b878455debde93ca8836251b4a57cd89a277889",
+  "supersedesCandidateSha256": "d547c81abd70646162bc90cd6151e1470413e841818b57beb707b16e20834988",
+  "sourcePath": "v7.99_today_faster_fuller_DRAFT/patch_v799.py",
+  "sourceSha256": "32020bcb82d59748dbaa0d4e5b8354464bf696da0a8d301b39ac1368b2f8d384",
+  "wrapperPath": "v8.07_today_finish_DRAFT/patch_v807.py",
+  "wrapperSha256": "d9960e2a2808f2685a77764e5be11d515278c2da7fdd798834df04b15320b7ae",
+  "baseSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidateBytes": 9101458,
+  "sourceAndRebuildChecks": [
+    {
+      "name": "Source matches READY commit 9deab91f git blob",
+      "pass": true
+    },
+    {
+      "name": "Base matches exact verified v8.06 hash",
+      "pass": true
+    },
+    {
+      "name": "Candidate matches exact requested v8.07 hash",
+      "pass": true
+    },
+    {
+      "name": "patch_v799.py reproduces exact expected bytes",
+      "pass": true
+    },
+    {
+      "name": "patch_v807.py reproduces exact expected bytes",
+      "pass": true
+    },
+    {
+      "name": "Repeated application is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Wrong base release is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Duplicate release marker is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Missing phone fix is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Missing CW2 plan is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Missing Wednesday bookings is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Missing Equipment component is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Changed money-summary anchor is rejected without changing input bytes",
+      "pass": true
+    },
+    {
+      "name": "Entire moneySummary_ body is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "moneySummary_ uses asOf only as parameter and initial day normalisation",
+      "pass": true
+    },
+    {
+      "name": "Inline script count is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Only main inline business script changes",
+      "pass": true
+    }
+  ],
+  "readySourceDeltaChecks": [
+    {
+      "name": "Only imported product-source delta is synchronous lazy jump rendering and its comment",
+      "pass": true
+    }
+  ],
+  "isolatedPrintHookChecks": [
+    {
+      "name": "Today with lazy content renders once",
+      "pass": true,
+      "observedRenderCalls": 1,
+      "expectedRenderCalls": 1,
+      "fullFlagRestored": true,
+      "listIdentityPreserved": true
+    },
+    {
+      "name": "Already-rendered Today does not render again",
+      "pass": true,
+      "observedRenderCalls": 0,
+      "expectedRenderCalls": 0,
+      "fullFlagRestored": true,
+      "listIdentityPreserved": true
+    },
+    {
+      "name": "Equipment printing does not redraw Today or touch its list",
+      "pass": true,
+      "observedRenderCalls": 0,
+      "expectedRenderCalls": 0,
+      "fullFlagRestored": true,
+      "listIdentityPreserved": true
+    },
+    {
+      "name": "Other-tab printing does not redraw Today",
+      "pass": true,
+      "observedRenderCalls": 0,
+      "expectedRenderCalls": 0,
+      "fullFlagRestored": true,
+      "listIdentityPreserved": true
+    },
+    {
+      "name": "Detached progress pane does not redraw Today",
+      "pass": true,
+      "observedRenderCalls": 0,
+      "expectedRenderCalls": 0,
+      "fullFlagRestored": true,
+      "listIdentityPreserved": true
+    },
+    {
+      "name": "Forced render failure restores lazy799.full through finally",
+      "pass": true,
+      "fullFlagRestored": true
+    }
+  ],
+  "isolatedImmediateJumpChecks": [
+    {
+      "name": "Closed lazy fold persists its name, renders synchronously and lands on replacement",
+      "pass": true,
+      "order": [
+        "render",
+        "land"
+      ],
+      "replacementResolved": true
+    },
+    {
+      "name": "Closed populated fold opens without another render",
+      "pass": true
+    },
+    {
+      "name": "Already-open fold retains existing rendering ownership",
+      "pass": true
+    },
+    {
+      "name": "Non-details jump target lands without fold access or rendering",
+      "pass": true
+    },
+    {
+      "name": "Detached original target resolves and renders its current lazy replacement",
+      "pass": true
+    },
+    {
+      "name": "Missing replacement target is tolerated without rendering",
+      "pass": true
+    },
+    {
+      "name": "Repeated click through replaced original resolves current fold without duplicate rendering",
+      "pass": true
+    }
+  ],
+  "sourceAndRebuildPassed": 17,
+  "readySourceDeltaPassed": 1,
+  "isolatedPrintHookPassed": 6,
+  "isolatedImmediateJumpPassed": 7,
+  "passed": 31,
+  "total": 31,
+  "codeReviewFindings": [
+    "The only imported product-source change since the prior READY commit adds synchronous rendering of a closed lazy jump target before land795 and updates its comment. The candidate is exactly the new READY patch applied to verified v8.06 plus the v8.07 release marker.",
+    "The immediate-jump branch first opens the fold and persists its name in folds795, then calls renderProgress. The resolver passed to land795 follows the replacement connected element after the redraw.",
+    "Original moneySummary_ is unchanged and receives asOf only through const day = asOf || todayIso(); downstream date-sensitive calls use day. Wrapper canonicalisation preserves default and explicit-day semantics.",
+    "The beforeprint handler checks active Today tab, progress-pane placement and lazy content before renderProgress. Its full flag is restored even when rendering throws.",
+    "The print and toggle/jump handlers contain no direct record or service mutation calls. renderProgress retains its existing assignment of the Today display list; the Equipment print guard prevents a hidden Today redraw from replacing Equipment selection.",
+    "All extension scripts remain unchanged; only the existing main business script changes."
+  ],
+  "limits": [
+    "CPU and source inspection only; no browser, visual inspection, PDF rendering, performance measurement or service access.",
+    "Print-hook fixtures use stubbed renderProgress and a minimal DOM. They verify branch guards, flag cleanup and unchanged test list identity, not complete page rendering.",
+    "Immediate-jump fixtures use the exact extracted candidate onclick body with stubbed renderProgress, jump799 and land795. They verify synchronous order and replacement-node resolution, not pixel position, scrolling, focus or browser toggle-event scheduling.",
+    "No product files were edited. Patch checks used temporary files; only this evidence JSON was saved to the repository.",
+    "Actual browser rendering, output figures, PDF layout, focus, device behaviour and final publication require the parent release checks."
+  ]
+}

@@ -1,0 +1,63 @@
+/* Author: Andrew Fisher. Private v8.25 Costs proposal. */
+#pane-costs.costs-audit-preview { border:0;background:#f4f4f2;padding:0 0 20px; }
+#pane-costs.costs-audit-preview > .pgban {height:140px;min-height:0;margin-bottom:12px;}
+#pane-costs.costs-audit-preview > .pgban .rbwin {height:140px;aspect-ratio:auto;}
+#pane-costs.costs-audit-preview > .pgban img {width:100%;height:140px;object-fit:cover;object-position:center 58%;}
+#pane-costs.costs-audit-preview > .hubhead {padding:0 14px;margin-bottom:12px;}
+#pane-costs.costs-audit-preview > .hubhead h2 {font-size:23px;}
+#pane-costs.costs-audit-preview #costs765 {margin:0 12px 14px;padding:0;border:1px solid #cbd0d2;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 4px 14px #2024280b;}
+#pane-costs.costs-audit-preview .cj765-head {padding:14px 18px;background:#292d31;color:#fff;border-top:4px solid #ff7919;}
+#pane-costs.costs-audit-preview .cj765-head h3 {font-size:21px;color:#fff;margin:0;}
+#pane-costs.costs-audit-preview .cj765-head .fin745-eyebrow {color:#ffb882;font-size:10px;margin:0 0 5px;}
+#pane-costs.costs-audit-preview .cj765-lead {color:#e2e5e8;margin:5px 0 0;max-width:none;font-size:12px;}
+#pane-costs.costs-audit-preview .cj765-tiles {display:grid;grid-template-columns:1fr;gap:9px;padding:13px;}
+#pane-costs.costs-audit-preview .cj765-tile {display:grid;grid-template-columns:180px 175px 175px minmax(0,1fr);gap:14px;align-items:center;padding:12px 15px;min-height:0;border:1px solid #d8dfe1;border-left:4px solid #8098b2;border-radius:9px;background:#f5f8fc;}
+#pane-costs.costs-audit-preview .cj765-tile:nth-child(2){background:#fff6ed;border-left-color:#ed9447;}
+#pane-costs.costs-audit-preview .cj765-tile:nth-child(3){background:#f5f1fa;border-left-color:#a38abd;}
+#pane-costs.costs-audit-preview .cj765-tile:nth-child(4){background:#edf6f4;border-left-color:#76a699;}
+#pane-costs.costs-audit-preview .cj765-tile>span {font-size:14px;line-height:1.4;color:#282d31;font-weight:750;text-transform:none;letter-spacing:0;}
+#pane-costs.costs-audit-preview .cj765-now,#pane-costs.costs-audit-preview .cj765-end {font-size:24px;font-weight:760;line-height:1.1;margin:0;padding:0;border:0;color:#20282d;}
+#pane-costs.costs-audit-preview .cj765-now small,#pane-costs.costs-audit-preview .cj765-end small {font-size:10px;font-weight:550;line-height:1.35;display:block;margin-top:5px;color:#59636a;}
+#pane-costs.costs-audit-preview .cj765-tile .pos {color:#20282d;}
+#pane-costs.costs-audit-preview .cj765-note {font-size:11px;line-height:1.5;color:#465159;margin:0;}
+#pane-costs.costs-audit-preview .costs-audit-wages {display:block;font-size:16px;color:#37332d;margin-bottom:3px;}
+#pane-costs.costs-audit-preview .cj765-note>small {display:block;font-size:11px;line-height:1.4;}
+#pane-costs.costs-audit-preview .cj765-flow {display:none;}
+#pane-costs.costs-audit-preview .costs-audit-fold {margin:8px 12px;border:1px solid #cfd3d5;border-radius:9px;background:#fff;overflow:hidden;}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary {cursor:pointer;list-style:none;display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:62px;}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary::-webkit-details-marker{display:none;}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary:before {content:'+';font-size:21px;color:#bf560a;font-weight:600;width:18px;}
+#pane-costs.costs-audit-preview .costs-audit-fold[open]>summary:before {content:'−';}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary b {font-size:14px;color:#262c30;display:block;}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary small {font-size:11px;color:#68727a;display:block;margin-top:3px;line-height:1.4;}
+#pane-costs.costs-audit-preview .costs-audit-fold>summary .costs-audit-status {margin-left:auto;flex-shrink:0;border:1px solid #e6c395;border-radius:6px;padding:5px 8px;background:#fff0db;color:#845525;font-size:10px;font-weight:650;}
+#pane-costs.costs-audit-preview .costs-audit-fold[open]>summary {background:#f9eee3;border-bottom:1px solid #ead9c6;}
+#pane-costs.costs-audit-preview .costs-audit-fold>section {margin:0;border:0;border-radius:0;}
+#pane-costs.costs-audit-preview .costs-audit-fold table {font-size:12px;}
+#pane-costs.costs-audit-preview .costs-audit-fold table tbody tr:nth-child(even) {background:#f5f7f7;}
+#pane-costs.costs-audit-preview .sec {margin:18px 14px 8px;color:#2d3439;}
+#pane-costs.costs-audit-preview>.plfold765 {margin:8px 12px;border:1px solid #d0d4d6;border-radius:9px;background:#fff;}
+#pane-costs.costs-audit-preview>.maphint {margin:12px 14px;}
+@media(max-width:700px){
+ #pane-costs.costs-audit-preview>.pgban,#pane-costs.costs-audit-preview>.pgban img{height:90px;}
+ #pane-costs.costs-audit-preview>.pgban .rbwin{height:90px;}
+ #pane-costs.costs-audit-preview>.pgban figcaption {font-size:8px;}
+ #pane-costs.costs-audit-preview>.hubhead{padding:0 6px;}
+ #pane-costs.costs-audit-preview>.hubhead h2{font-size:18px;}
+ #pane-costs.costs-audit-preview #costs765{margin:0 3px 10px;}
+ #pane-costs.costs-audit-preview .cj765-head{padding:10px 12px;}
+ #pane-costs.costs-audit-preview .cj765-head h3{font-size:18px;}
+ #pane-costs.costs-audit-preview .cj765-tiles{padding:8px;gap:7px;}
+ #pane-costs.costs-audit-preview .cj765-tile{grid-template-columns:1fr 1fr;gap:7px 12px;padding:10px 12px;}
+ #pane-costs.costs-audit-preview .cj765-tile>span{grid-column:1/-1;font-size:13px;}
+ #pane-costs.costs-audit-preview .cj765-now,#pane-costs.costs-audit-preview .cj765-end{font-size:22px;}
+ #pane-costs.costs-audit-preview .cj765-note{grid-column:1/-1;font-size:10px;}
+ #pane-costs.costs-audit-preview .costs-audit-fold{margin:7px 3px;}
+ #pane-costs.costs-audit-preview .costs-audit-fold>summary{padding:11px 10px;gap:8px;}
+ #pane-costs.costs-audit-preview .costs-audit-fold>summary .costs-audit-status{font-size:9px;max-width:76px;white-space:normal;}
+}
+@media print{
+ #pane-costs.costs-audit-preview .costs-audit-fold>summary{display:none;}
+ #pane-costs.costs-audit-preview .costs-audit-fold{border:0;margin:0;}
+ #pane-costs.costs-audit-preview .costs-audit-fold>section{display:block!important;}
+}

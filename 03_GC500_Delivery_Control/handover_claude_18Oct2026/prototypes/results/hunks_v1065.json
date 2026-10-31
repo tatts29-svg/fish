@@ -1,0 +1,1406 @@
+[
+ {
+  "patch": "load",
+  "what": "unseenNow hold",
+  "old": "function unseenNow(){ if (!W.MS1025 || !boardIsToday()) return []; const s = MS1025.seen(); return MS1025.allFacts().filter(",
+  "new": "function unseenNow(){ if (!W.MS1025 || !boardIsToday()) return []; const s = MS1025.seen(); /* load1061: one asset list for the whole read */ return (typeof holdAssets === 'function' ? holdAssets(() => MS1025.allFacts()) : MS1025.allFacts()).filter(",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18074294,
+    "end": 18074418,
+    "line": 89206,
+    "script": "ms1026-script",
+    "within": [
+     "unseenNow"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "nights1040 memo",
+  "old": "function nights1040(){\n let days = null; try { const C = window.EventConfig1013 && EventConfig1013.current ? EventConfig1013.current() : null; days = C && Array.isArray(C.eventDays) && C.eventDays.length ? C.eventDays.slice(0, 3) : null; } catch (e) {}\n days = days || ['2026-10-23', '2026-10-24', '2026-10-25'];\n return days.map(d => {",
+  "new": "const NIGHTS1061 = new Map(); /* load1061: the labels for one event-day list, built once; callers get their own copies */\nfunction nights1040(){\n let days = null; try { const C = window.EventConfig1013 && EventConfig1013.current ? EventConfig1013.current() : null; days = C && Array.isArray(C.eventDays) && C.eventDays.length ? C.eventDays.slice(0, 3) : null; } catch (e) {}\n days = days || ['2026-10-23', '2026-10-24', '2026-10-25'];\n const k1061 = days.join('|'); if (!NIGHTS1061.has(k1061)) NIGHTS1061.set(k1061, nights1040make(days));\n return NIGHTS1061.get(k1061).map(x => Object.assign({}, x));\n}\nfunction nights1040make(days){\n return days.map(d => {",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 9941382,
+    "end": 9941718,
+    "line": 27814,
+    "script": "#3",
+    "within": [
+     "nights1040"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "metadata925 index",
+  "old": "function metadata925(loads){return Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));}",
+  "new": "function metadata925(loads){return Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));}\n/* load1061: the same documents, in the same order, for one reference; indexed once per render hold */\nfunction metadataRef1061(loads,ref){if(!ASSETS_HELD||!loads||typeof loads!=='object'||typeof heldMemo!=='function')return metadata925(loads).filter(d=>d.ref===ref);const memo=heldMemo('metadataRef1061',()=>new WeakMap());let by=memo.get(loads);if(!by){by=new Map();for(const [key,v] of Object.entries(loads))if(key.startsWith(prefix)&&v&&v.kind===kind){const d=Object.assign({docKey:key},v),L=by.get(d.ref);if(L)L.push([key,v]);else by.set(d.ref,[[key,v]]);}memo.set(loads,by);}return (by.get(ref)||[]).map(([key,v])=>Object.assign({docKey:key},v));}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15049313,
+    "end": 15049477,
+    "line": 78708,
+    "script": "units925-script",
+    "within": [
+     "metadata925"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "model925 docs",
+  "old": "const native=sourceUnits925(a,env),docs=metadata925(env.loads).filter(d=>d.ref===a.key),claimed=new Set(),rows=[];",
+  "new": "const native=sourceUnits925(a,env),docs=metadataRef1061(env.loads,a.key),claimed=new Set(),rows=[];",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15052634,
+    "end": 15052748,
+    "line": 78733,
+    "script": "units925-script",
+    "within": [
+     "model925"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "EventConfig current per task (open)",
+  "old": " const current=makeCurrent(()=>typeof DATA==='undefined'?{}:DATA,",
+  "new": " const perTask1061=f=>{let fresh=false,value;return function(){if(fresh)return value;value=f();fresh=true;queueMicrotask(()=>{fresh=false;});return value;};}; /* load1061 */\n const current=perTask1061(makeCurrent(()=>typeof DATA==='undefined'?{}:DATA,",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 9877738,
+    "end": 9877802,
+    "line": 27143,
+    "script": "#3",
+    "within": [
+     "EventConfig1013"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "EventConfig current per task (close)",
+  "old": "try{if(typeof HELD_MEMO!=='undefined')HELD_MEMO.clear();}catch(e){}});",
+  "new": "try{if(typeof HELD_MEMO!=='undefined')HELD_MEMO.clear();}catch(e){}}));",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 9877878,
+    "end": 9877948,
+    "line": 27143,
+    "script": "#3",
+    "within": [
+     "EventConfig1013",
+     "current"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "names first pass",
+  "old": " const start = () => { if (!D.body || W.__names1044) return; W.__names1044 = true; cleanEl(D.body);",
+  "new": " const cleanAll1061 = el => { const w = D.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n => { const p = n.parentNode && n.parentNode.tagName; return p === 'SCRIPT' || p === 'STYLE' || p === 'TEXTAREA' ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }}); let n; while ((n = w.nextNode())) cleanText(n);\n  if (el.hasAttribute && el.hasAttribute('title') && RX.test(el.getAttribute('title'))) el.setAttribute('title', fix(el.getAttribute('title')));\n  el.querySelectorAll('[title]').forEach(x => { const v = x.getAttribute('title'); if (RX.test(v)) x.setAttribute('title', fix(v)); }); }; /* load1061 */\n const start = () => { if (!D.body || W.__names1044) return; W.__names1044 = true; cleanAll1061(D.body);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 10005850,
+    "end": 10005948,
+    "line": 28223,
+    "script": "#3",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "reveal routed draw",
+  "old": "if (document.readyState === 'loading')document.addEventListener('DOMContentLoaded', () => { WeatherStrip1002.resetRefresh(); route(); Refresh904.update(); }, {once: true});",
+  "new": "if (document.readyState === 'loading')document.addEventListener('DOMContentLoaded', () => { WeatherStrip1002.resetRefresh(); const had1061 = Refresh904.report().complete; route(); if (had1061 && Refresh904.report().complete) { clearTimeout(SYNC.rtimer); Refresh904.drawn(); syncFooter(); } else Refresh904.update(); }, {once: true}); /* load1061 */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12939175,
+    "end": 12939347,
+    "line": 57720,
+    "script": "#3",
+    "within": []
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "load",
+  "what": "photoRedraw wait",
+  "old": "function photoRedraw(){\n try {\n if (state.tab && state.tab !== 'docs') render();",
+  "new": "/* load1061: a registry settle needs no draw of its own (a) before DOMContentLoaded - route() draws the page then, with\n   this registry - or (b) behind the loading panel when the first-record draw is already queued: that draw renders it. */\nfunction photoWait1061(){ if (document.readyState === 'loading') return true;\n try { const r = window.GC500Refresh904 && GC500Refresh904.report ? GC500Refresh904.report() : null; return !!(r && r.hosted && !r.settled && r.drawing && r.state === 'loading'); } catch (e) { return false; } }\nfunction photoRedraw(){\n try {\n if (photoWait1061()) return;\n if (state.tab && state.tab !== 'docs') render();",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12051358,
+    "end": 12051438,
+    "line": 47496,
+    "script": "#3",
+    "within": [
+     "photoRedraw"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "load",
+  "what": "capture hidden scope",
+  "old": " for(const el of [scope,...scope.querySelectorAll('*')])if(el.scrollTop||el.scrollLeft)held.scroll.push({el,key:key(el,scope),top:el.scrollTop,left:el.scrollLeft});",
+  "new": " if(scope.getClientRects().length||getComputedStyle(scope).display==='contents')for(const el of [scope,...scope.querySelectorAll('*')])if(el.scrollTop||el.scrollLeft)held.scroll.push({el,key:key(el,scope),top:el.scrollTop,left:el.scrollLeft}); /* load1061 */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16051927,
+    "end": 16052090,
+    "line": 86460,
+    "script": "persistence1010-script",
+    "within": [
+     "capture"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "docs at boot",
+  "old": " if (rest) { SYNC.backend = rest; syncStart(rest); rest.start(); docsRedraw(); return; }",
+  "new": " if (rest) { SYNC.backend = rest; syncStart(rest); rest.start(); docsRedraw(); try { docsRefresh(false); } catch (e) {} /* load1061 */ return; }",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12640090,
+    "end": 12640177,
+    "line": 54577,
+    "script": "#3",
+    "within": [
+     "syncBoot"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "load",
+  "what": "histOf held",
+  "old": "function histOf(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;",
+  "new": "function histOf(key, field){ return typeof heldMemo === 'function' && ASSETS_HELD ? heldMemo('histOf1061|' + field + '|' + key, () => histOf_(key, field)).slice() : histOf_(key, field); } /* load1061 */\nfunction histOf_(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12302381,
+    "end": 12302485,
+    "line": 50547,
+    "script": "#3",
+    "within": [
+     "histOf"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "load",
+  "what": "map key before route",
+  "old": "liveMapKeyFromService().then(() => { const ab = $('#pane-about'), mp = $('#pane-map'); if (ab && !ab.hidden) renderAbout(); if (mp && !mp.hidden) renderMap(); }).catch(() => {});",
+  "new": "liveMapKeyFromService().then(() => { if (document.readyState === 'loading') return; /* load1061: route() draws it */ const ab = $('#pane-about'), mp = $('#pane-map'); if (ab && !ab.hidden) renderAbout(); if (mp && !mp.hidden) renderMap(); }).catch(() => {});",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12631091,
+    "end": 12631269,
+    "line": 54468,
+    "script": "#3",
+    "within": [
+     "restBackend",
+     "pull"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "load",
+  "what": "redraw before route",
+  "old": "if (typing) { SYNC.rtimer = setTimeout(syncRedraw, 1500); return; }\ntry { window.Idle1006.redraw(); } catch (e) {}",
+  "new": "if (typing) { SYNC.rtimer = setTimeout(syncRedraw, 1500); return; }\nif (document.readyState !== 'loading') try { window.Idle1006.redraw(); } catch (e) {} /* load1061: before DOMContentLoaded route() draws the page */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12615399,
+    "end": 12615513,
+    "line": 54249,
+    "script": "#3",
+    "within": [
+     "syncRedraw"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "load",
+  "what": "unitEvidence index",
+  "old": "function unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}",
+  "new": "function unitKeys1061(labour,stamps){const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]),by=new Map();\n for(const k of keys){for(let i=k.indexOf('/u');i>=0;i=k.indexOf('/u',i+1)){const p=k.slice(0,i);let L=by.get(p);if(!L)by.set(p,L=[]);L.push(k);}}return by;} /* load1061 */\nfunction unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n if(typeof ASSETS_HELD!=='undefined'&&ASSETS_HELD&&typeof heldMemo==='function'){ /* load1061: the same keys, grouped once per render hold */\n  const m=heldMemo('unitKeys1061',()=>({}));if(m.labour!==labour||m.stamps!==stamps||!m.by){m.labour=labour;m.stamps=stamps;m.by=unitKeys1061(labour,stamps);}\n  for(const k of m.by.get(ref)||[])if(k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n  return rows;\n }\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16152986,
+    "end": 16153466,
+    "line": 87605,
+    "script": "quantity-scope1017-script",
+    "within": [
+     "unitEvidence"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F1a work986/past984: the record string worked out once per draw, not once per day card",
+  "old": "const key=String(ready)+'|'+photoState+'|'+docsAt+'|'+(typeof S==='undefined'?'':JSON.stringify(S));\n  if(cached && key===cachedKey)return cached;",
+  "new": "  const keyOf=()=>String(ready)+'|'+photoState+'|'+docsAt+'|'+(typeof S==='undefined'?'':JSON.stringify(S));\n  const key=typeof heldMemo==='function'?heldMemo('work986-key1061|'+ready+'|'+photoState+'|'+docsAt,keyOf):keyOf();\n  if(cached && key===cachedKey)return cached;",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15629540,
+    "end": 15629686,
+    "line": 81680,
+    "script": "work986-script",
+    "within": [
+     "native"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F1b work986/past984: the record string worked out once per draw, not once per day card",
+  "old": "function begin(){healthRevision=progressHealth985();const key=todayIso()+healthRevision+JSON.stringify(S);",
+  "new": "function begin(){healthRevision=progressHealth985();const key=todayIso()+healthRevision+(typeof heldMemo==='function'?heldMemo('S-json1061',()=>JSON.stringify(S)):JSON.stringify(S));",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15769559,
+    "end": 15769665,
+    "line": 83317,
+    "script": "past984-script",
+    "within": [
+     "begin"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F2 EventConfig1013.current(): event dates read once per draw",
+  "old": "function makeCurrent(provider,changed=()=>{}){let key,value;return function(){const data=provider(),next=signature(data);if(next!==key){const prior=key;value=read(data);key=next;if(prior!==undefined)changed();}return value;};}",
+  "new": " function makeCurrent(provider,changed=()=>{}){let key,value,held1061=null;return function(){const h=typeof ASSETS_HELD!=='undefined'?ASSETS_HELD:null;if(h&&h===held1061&&key!==undefined)return value;const data=provider(),next=signature(data);if(next!==key){const prior=key;value=read(data);key=next;if(prior!==undefined)changed();}held1061=h;return value;};}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 9877510,
+    "end": 9877736,
+    "line": 27142,
+    "script": "#3",
+    "within": [
+     "EventConfig1013",
+     "makeCurrent"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F3 units925: unit metadata indexed once per draw",
+  "old": "function model925(a,env){\n const native=sourceUnits925(a,env),docs=metadata925(env.loads).filter(d=>d.ref===a.key),claimed=new Set(),rows=[];",
+  "new": "var EMPTY1061={};\nfunction metadataFor925(loads,ref){\n if(typeof ASSETS_HELD==='undefined'||!ASSETS_HELD||typeof heldMemo!=='function')return metadata925(loads).filter(d=>d.ref===ref);\n const idx=heldMemo('metadata925-index1061',()=>new WeakMap()),src=loads&&typeof loads==='object'?loads:EMPTY1061;let byRef=idx.get(src);\n if(!byRef){byRef=new Map();for(const [key,v] of Object.entries(loads||{})){if(key.startsWith(prefix)&&v&&v.kind===kind){const r=v.ref;if(!byRef.has(r))byRef.set(r,[]);byRef.get(r).push([key,v]);}}idx.set(src,byRef);}\n return (byRef.get(ref)||[]).map(([key,v])=>Object.assign({docKey:key},v)).filter(d=>d.ref===ref);\n}\nfunction model925(a,env){\n const native=sourceUnits925(a,env),docs=metadataFor925(env.loads,a.key),claimed=new Set(),rows=[];",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15052607,
+    "end": 15052748,
+    "line": 78732,
+    "script": "units925-script",
+    "within": [
+     "model925"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F4a daycats1057/daycards1056: one time formatter",
+  "old": " const hm = at => { try { const t = new Date(at); return isNaN(t) ? '' : t.toLocaleTimeString('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); } catch (x) { return ''; } };",
+  "new": " let HM1061 = null; const hm = at => { try { const t = new Date(at); if (isNaN(t)) return ''; if (!HM1061) HM1061 = new Intl.DateTimeFormat('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); return HM1061.format(t); } catch (x) { return ''; } };",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18142172,
+    "end": 18142389,
+    "line": 89870,
+    "script": "daycats1057-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F4b daycats1057/daycards1056: one time formatter",
+  "old": " const hhmm = at => { try { return new Date(at).toLocaleTimeString('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); } catch (x) { return ''; } };",
+  "new": " let HM1061 = null; const hhmm = at => { try { const t = new Date(at); if (isNaN(t)) return t.toLocaleTimeString('en-AU'); if (!HM1061) HM1061 = new Intl.DateTimeFormat('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); return HM1061.format(t); } catch (x) { return ''; } };",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18134240,
+    "end": 18134430,
+    "line": 89781,
+    "script": "daycards1056-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F5 isoIn: the same timestamp converted once",
+  "old": "function isoIn(when){\n const t = when instanceof Date ? when : new Date(when);\n if (isNaN(t)) return '';\n try {\n if (!ISO_FMT) ISO_FMT = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'});\n const s = ISO_FMT.format(t);\n if (/^\\d{4}-\\d{2}-\\d{2}$/.test(s)) return s;",
+  "new": "var ISO_MEMO1061;\nfunction isoIn(when){\n if (!ISO_MEMO1061) ISO_MEMO1061 = new Map();\n if (typeof when === 'string') { const m = ISO_MEMO1061.get(when); if (m !== undefined) return m; }\n const t = when instanceof Date ? when : new Date(when);\n if (isNaN(t)) return '';\n try {\n if (!ISO_FMT) ISO_FMT = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'});\n const s = ISO_FMT.format(t);\n if (/^\\d{4}-\\d{2}-\\d{2}$/.test(s)) { if (typeof when === 'string' && ISO_MEMO1061.size < 50000) ISO_MEMO1061.set(when, s); return s; }",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 11555671,
+    "end": 11555990,
+    "line": 43725,
+    "script": "#3",
+    "within": [
+     "isoIn"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F6a histOf / deliveryAsOf / work986 rawDelivery: once per reference per draw",
+  "old": "function histOf(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;",
+  "new": "function histOf(key, field){ if (typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function') return heldMemo('histOf1061|' + field + '|' + key, () => histOf0(key, field)).slice(); return histOf0(key, field); }\nfunction histOf0(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12302381,
+    "end": 12302485,
+    "line": 50547,
+    "script": "#3",
+    "within": [
+     "histOf"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F6b histOf / deliveryAsOf / work986 rawDelivery: once per reference per draw",
+  "old": "function deliveryAsOf(key, asOf){\n const d = deliveryOf(key);\n if (!asOf || asOf >= todayIso()) return d;",
+  "new": "function deliveryAsOf(key, asOf){\n if (!asOf || asOf >= todayIso()) return deliveryOf(key);\n const d = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('dOf1061|' + key, () => deliveryOf(key)) : deliveryOf(key);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12302890,
+    "end": 12302995,
+    "line": 50555,
+    "script": "#3",
+    "within": [
+     "deliveryAsOf"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F6c histOf / deliveryAsOf / work986 rawDelivery: once per reference per draw",
+  "old": "rawDelivery:key=>typeof deliveryOf==='function'?deliveryOf(key):null",
+  "new": "   rawDelivery:key=>typeof deliveryOf!=='function'?null:typeof ASSETS_HELD!=='undefined'&&ASSETS_HELD&&typeof heldMemo==='function'?heldMemo('dOf1061|'+key,()=>deliveryOf(key)):deliveryOf(key)",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15629857,
+    "end": 15629925,
+    "line": 81684,
+    "script": "work986-script",
+    "within": [
+     "native"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F7 renderTimeline: header car picture copied onto <html> once",
+  "old": "try { const hz = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); if (hz) document.documentElement.style.setProperty('--hzcar', hz); } catch (e) {}",
+  "new": " try { if (!window.HZCAR1061) { const hz = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); if (hz) { document.documentElement.style.setProperty('--hzcar', hz); window.HZCAR1061 = true; } } } catch (e) {}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12028003,
+    "end": 12028185,
+    "line": 47217,
+    "script": "#3",
+    "within": [
+     "renderTimeline_held"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F8 staff910 roster: workforce lines read once per draw",
+  "old": "  function roster(day) { return rosterFromRows(day, ourCosts(), {includes: rosterIncludes858, hours: runHours, worked: runWorked}); }",
+  "new": "  function roster(day) { const rows = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('roster-costs1061', () => ourCosts()) : ourCosts(); return rosterFromRows(day, rows, {includes: rosterIncludes858, hours: runHours, worked: runWorked}); }",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 14771501,
+    "end": 14771632,
+    "line": 77237,
+    "script": "staff910-script",
+    "within": [
+     "StaffNames910",
+     "roster"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F9 quantity-scope1017 unitEvidence: labour keys indexed by reference once per draw",
+  "old": "function unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);",
+  "new": "function unitKeys1061(labour,stamps,ref){\n const all=()=>new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n if(typeof ASSETS_HELD==='undefined'||!ASSETS_HELD||typeof heldMemo!=='function'||String(ref).includes('/'))return all();\n const memo=heldMemo('unitKeys1061',()=>({labour:undefined,stamps:undefined,byRef:null}));\n if(!memo.byRef||memo.labour!==labour||memo.stamps!==stamps){const byRef=new Map();for(const k of all()){const i=k.indexOf('/');if(i<0)continue;const r=k.slice(0,i);if(!byRef.has(r))byRef.set(r,[]);byRef.get(r).push(k);}memo.labour=labour;memo.stamps=stamps;memo.byRef=byRef;}\n return memo.byRef.get(String(ref))||[];\n}\nfunction unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=unitKeys1061(labour,stamps,ref);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16152986,
+    "end": 16153301,
+    "line": 87605,
+    "script": "quantity-scope1017-script",
+    "within": [
+     "unitEvidence"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F10 arrivalsOn(day): one replay per day per draw",
+  "old": "function arrivalsOn(iso){\n const out = [];\n allAssets().forEach(a => {\n const d = deliveryOf(a.key);",
+  "new": "function arrivalsOn(iso){ if (typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function') return heldMemo('arrivalsOn1061|' + iso, () => arrivalsOn0(iso)).slice(); return arrivalsOn0(iso); }\nfunction arrivalsOn0(iso){\n const out = [];\n allAssets().forEach(a => {\n const d = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('dOf1061|' + a.key, () => deliveryOf(a.key)) : deliveryOf(a.key);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12157036,
+    "end": 12157136,
+    "line": 48769,
+    "script": "#3",
+    "within": [
+     "arrivalsOn"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F11 weather1002 reveal(): only write an edge padding that changes something",
+  "old": " strip.style.setProperty('--wx1002-edge-start',on.classList.contains('today')&&cards[0]===on?edge+'px':'8px');\n strip.style.setProperty('--wx1002-edge-end',on.classList.contains('today')&&cards.at(-1)===on?edge+'px':'8px');",
+  "new": " const edge1061=(name,v)=>{const cur=strip.style.getPropertyValue(name);if(cur===v||(!cur&&v==='8px'))return;strip.style.setProperty(name,v);};\n edge1061('--wx1002-edge-start',on.classList.contains('today')&&cards[0]===on?edge+'px':'8px');\n edge1061('--wx1002-edge-end',on.classList.contains('today')&&cards.at(-1)===on?edge+'px':'8px');",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 3046388,
+    "end": 3046610,
+    "line": 11047,
+    "script": "weather1002-source",
+    "within": [
+     "reveal"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F12a renderTimeline: header car picture copied in the same style pass as the new pane",
+  "old": "function renderTimeline_held(){\n const days = calendarDays();",
+  "new": "function renderTimeline_held(){\n let hz1061 = ''; try { if (!window.HZCAR1061) hz1061 = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); } catch (e) {}\n const days = calendarDays();",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12015841,
+    "end": 12015902,
+    "line": 47070,
+    "script": "#3",
+    "within": [
+     "renderTimeline_held"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F12b renderTimeline: header car picture copied in the same style pass as the new pane",
+  "old": " </div>`;\n const pane = $('#pane-timeline');\n raceMount(pane);",
+  "new": " </div>`;\n try { if (hz1061 && !window.HZCAR1061) { document.documentElement.style.setProperty('--hzcar', hz1061); window.HZCAR1061 = true; } } catch (e) {}\n const pane = $('#pane-timeline');\n raceMount(pane);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12025573,
+    "end": 12025634,
+    "line": 47191,
+    "script": "#3",
+    "within": [
+     "renderTimeline_held"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F13 Build strip keeps its place on a background redraw (behaviour: optional)",
+  "old": "<script id=\"shapes1060-script\">",
+  "new": "<script id=\"strip1061-script\">/* Author: Andrew Fisher. A background redraw keeps the day strip where the person left it. */\n(function(){if(typeof renderTimeline!=='function'||typeof timelineChange!=='function')return;let nav=0;const tc=timelineChange;timelineChange=function(){nav++;try{return tc.apply(this,arguments);}finally{nav--;}};const rt=renderTimeline;renderTimeline=function(){const s0=document.querySelector('#pane-timeline .daystrip');const keep=!nav&&!(typeof GO_CHANGED!=='undefined'&&GO_CHANGED)&&!!s0&&s0.isConnected&&s0.clientWidth>0;const sl=keep?s0.scrollLeft:0,sel=keep?(s0.querySelector('.day.on')||{}).dataset?.day:null;const r=rt.apply(this,arguments);if(keep&&sel){const s1=document.querySelector('#pane-timeline .daystrip'),on=s1&&s1.querySelector('.day.on');if(on&&on.dataset.day===sel&&Math.abs(s1.scrollLeft-sl)>.5)s1.scrollLeft=sl;}return r;};})();\n</script>\n<script id=\"shapes1060-script\">",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18233871,
+    "end": 18233902,
+    "line": 90418,
+    "script": null,
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F14 selection-save1012: rescan for save-able fields only when one is added",
+  "old": "new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *'))))schedule();}).observe(document.body,{subtree:true,childList:true});",
+  "new": "new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *')&&(n.matches?.(selector)||!!n.querySelector?.(selector)))))schedule();}).observe(document.body,{subtree:true,childList:true});",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16086221,
+    "end": 16086466,
+    "line": 86867,
+    "script": "selection-save1012-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F15a Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+  "old": "let ASSETS_HELD = null;\nconst HELD_MEMO = new Map();",
+  "new": "let ASSETS_HELD = null;\nconst HELD_MEMO = new Map();\nvar REC_EPOCH1061 = 0; /* v10.61 - moves on every save and every received record */\nfunction holdCarry1061(carry, fn){\n if (ASSETS_HELD) return holdAssets(fn); /* inside another draw: use it and keep nothing */\n const fresh = carry.epoch !== REC_EPOCH1061 || carry.today !== todayIso();\n if (fresh) { const e0 = REC_EPOCH1061; return holdAssets(() => { const r = fn(); if (REC_EPOCH1061 === e0 && !HELD_STALE775) { carry.epoch = e0; carry.today = todayIso(); carry.assets = ASSETS_HELD; carry.memo = new Map(HELD_MEMO); } else carry.epoch = -1; return r; }); }\n if (window.EventConfig1013) window.EventConfig1013.current();\n ASSETS_HELD = carry.assets; HELD_MEMO.clear(); carry.memo.forEach((v, k) => HELD_MEMO.set(k, v)); HELD_STALE775 = false;\n try { const r = fn(); if (carry.epoch === REC_EPOCH1061 && !HELD_STALE775) { carry.assets = ASSETS_HELD; carry.memo = new Map(HELD_MEMO); } else carry.epoch = -1; return r; } finally { ASSETS_HELD = null; HELD_MEMO.clear(); HELD_STALE775 = false; }\n}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 7678273,
+    "end": 7678325,
+    "line": 12803,
+    "script": "#3",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F15b Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+  "old": "function save(){ RENDER_MEMO.clear(); /* v7.80",
+  "new": "function save(){ REC_EPOCH1061++; RENDER_MEMO.clear(); /* v7.80",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 7641540,
+    "end": 7641586,
+    "line": 12324,
+    "script": "#3",
+    "within": [
+     "save"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F15c Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+  "old": "function sharedCache975(){\n RENDER_MEMO.clear();",
+  "new": "function sharedCache975(){\n REC_EPOCH1061++;\n RENDER_MEMO.clear();",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12606375,
+    "end": 12606423,
+    "line": 54119,
+    "script": "#3",
+    "within": [
+     "sharedCache975"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F15d Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+  "old": " holdAssets(() => { while (qi < q.length && performance.now() - t0 < 10) if (plantFill(pane, q[qi], qi, 6)) qi++; });",
+  "new": " holdCarry1061(carry1061, () => { while (qi < q.length && performance.now() - t0 < 10) if (plantFill(pane, q[qi], qi, 6)) qi++; });",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 7859033,
+    "end": 7859149,
+    "line": 15215,
+    "script": "#3",
+    "within": [
+     "plantPump",
+     "step"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F15e Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+  "old": " const pane = $('#pane-plant'); let qi = 0;\n const step = () => {",
+  "new": " const pane = $('#pane-plant'); let qi = 0; const carry1061 = {};\n const step = () => {",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 7858878,
+    "end": 7858942,
+    "line": 15211,
+    "script": "#3",
+    "within": [
+     "plantPump"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F16a Build day-close progress: consecutive cards share the models while the record is unchanged",
+  "old": "try{const value=holdAssets(()=>progress881Model(iso));if(value?.ready)progress.set(iso,value);return value;}",
+  "new": "try{const value=typeof holdCarry1061==='function'?holdCarry1061(PROG_CARRY1061,()=>progress881Model(iso)):holdAssets(()=>progress881Model(iso));if(value?.ready)progress.set(iso,value);return value;}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15769900,
+    "end": 15770008,
+    "line": 83321,
+    "script": "past984-script",
+    "within": [
+     "jobAtDate"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "buildtab",
+  "what": "F16b Build day-close progress: consecutive cards share the models while the record is unchanged",
+  "old": "function jobAtDate(iso){",
+  "new": "var PROG_CARRY1061={};\nfunction jobAtDate(iso){",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15769731,
+    "end": 15769755,
+    "line": 83318,
+    "script": "past984-script",
+    "within": [
+     "jobAtDate"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "flicker",
+  "what": "head early style/script",
+  "old": "<meta name=\"gc500-weather-v818\"",
+  "new": "<style id=\"smooth1061-early\">\n/* A - until the page's script has laid the header out (html.hdr1061), the first paint keeps its finished shape */\nhtml:not(.hdr1061) .brandrow > .tools{display:none}\nhtml:not(.hdr1061) #tpodDate:empty::before,html:not(.hdr1061) #hzcdT:empty::before,html:not(.hdr1061) #hzcdSub:empty::before,\nhtml:not(.hdr1061) #footL:empty::before,html:not(.hdr1061) #footR:empty::before{content:\"\\00a0\"}\nhtml.cd1061:not(.hdr1061) .hzpod .num small.cdt:empty{display:inline}\n@media(max-width:640px){html.cd1061:not(.hdr1061) .hzpod .num small.cdt:empty{display:block}}\n#ts1053-banner{position:relative;z-index:2;background:#b3120b;color:#fff;font-weight:700;font-size:13px;line-height:1.3;padding:5px 12px;text-align:center;letter-spacing:0;text-shadow:none;border-top:1px solid #7d0c07;text-wrap:balance}#ts1053-banner b{font-weight:900;letter-spacing:.03em;white-space:nowrap}#ts1053-banner .ts1053-nw{white-space:nowrap}#ts1053-banner .ts1053-ic{display:inline-block;background:#fff;border-radius:50%;line-height:1;padding:1px;margin-right:3px;vertical-align:-1px}@media (max-width:640px){#ts1053-banner{font-size:12.5px;line-height:1.28;padding:4px 10px}}\n@media print{#ts1053-banner{display:none!important}}\n/* D - a pressed tab is answered on the same frame and keeps moving while its page is drawn (transform/opacity only,\n   so the compositor animates it even while the page's script holds the phone) */\nnav.tabs button.busy{color:#fff;box-shadow:0 0 0 1px #ffb16b,0 0 13px 2px #ff873b60!important}\nnav.tabs button.busy::after{content:'';position:absolute;left:12%;right:12%;bottom:-2.5px;height:2.5px;border-radius:2px;background:#ff6a13;box-shadow:0 0 12px 2px rgba(255,106,19,.55);transform-origin:50% 50%;animation:busy1061 .8s ease-in-out infinite alternate}\nnav.tabs:has(button.busy) button[aria-selected=\"true\"]:not(.busy)::after{opacity:.2}\n@keyframes busy1061{from{transform:scaleX(.2);opacity:.55}to{transform:scaleX(1);opacity:1}}\n@media (prefers-reduced-motion:reduce){nav.tabs button.busy::after{animation:none}}\n</style>\n<script id=\"smooth1061-head\">/* Author: Andrew Fisher. v10.61 - smooth opening. */\n/* A - the countdown line is there until race day (hzCountdownTick empties it from then on) */\nif(Date.now()<Date.parse('2026-10-23T00:00:00+10:00'))document.documentElement.classList.add('cd1061');\n/* A - safety: if the page's script ever stops before it marks the header laid out, the shape rules still end at DOMContentLoaded */\ndocument.addEventListener('DOMContentLoaded',function(){document.documentElement.classList.add('hdr1061');});\n/* B - the hosted fonts, declared and fetched before the first paint (same files, same rules as hostedMedia) */\n(function(){var m=location.pathname.match(/^\\/(?:v|e)\\/([^/]+)\\/?$/);if(!m)return;var b='/m/'+m[1]+'/',F=[[\"Barlow Condensed\", \"italic\", \"700\", \"3e91132781a58039c31d419b741d75de86107897428f95680323ff5ce279fee6.woff2\"], [\"Inter\", \"normal\", \"400\", \"8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc.woff2\"], [\"Inter\", \"normal\", \"600\", \"f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a.woff2\"], [\"Inter\", \"normal\", \"700\", \"6f56409fd3d64bb85f7d070bce20749db2d66b6d63cec586cc22d1c761be2491.woff2\"], [\"Inter\", \"normal\", \"800\", \"a7d0a50f15d389cad679238466bdb5fc9787aa0715719064ce25abaff042820d.woff2\"]],css='';\nF.forEach(function(f){css+='@font-face{font-family:'+JSON.stringify(f[0])+';font-style:'+f[1]+';font-weight:'+f[2]+';font-display:swap;src:url('+JSON.stringify(b+f[3])+') format(\"woff2\")}\\n';\nvar l=document.createElement('link');l.rel='preload';l.as='font';l.type='font/woff2';l.crossOrigin='anonymous';l.href=b+f[3];document.head.appendChild(l);});\nvar s=document.createElement('style');s.id='fonts1061';s.textContent=css;document.head.appendChild(s);})();\n/* E - a wait that counts waiting: a tick the page's own script held up counts as about one second, not the whole hold */\nwindow.patient1061=function(ms,fn){var h={t:0,acc:0,last:performance.now(),off:false};function step(){if(h.off)return;var now=performance.now(),d=now-h.last;h.last=now;h.acc+=document.hidden?d:Math.min(d,1100);if(h.acc>=ms){h.off=true;fn();}else h.t=setTimeout(step,1000);}\nh.t=setTimeout(step,1000);h.stop=function(){h.off=true;clearTimeout(h.t);};return h;};\nwindow.patientStop1061=function(h){if(h&&h.stop)h.stop();else clearTimeout(h);};\n</script>\n<meta name=\"gc500-weather-v818\"",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 1907,
+    "end": 1938,
+    "line": 29,
+    "script": null,
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "flicker",
+  "what": "static twin-steer banner",
+  "old": "<nav class=\"tabs\" id=\"tabs\" aria-label=\"Views\"></nav>",
+  "new": "<div id=\"ts1053-banner\" role=\"note\"><span class=\"ts1053-ic\" aria-hidden=\"true\">⛔</span><b>NO TWIN-STEER TRUCKS</b> · <span class=\"ts1053-nw\">Week 3 to demob</span> · <span class=\"ts1053-nw\">track, Esplanade,</span> <span class=\"ts1053-nw\">Macintosh Island Park</span></div><nav class=\"tabs\" id=\"tabs\" aria-label=\"Views\"></nav>",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 3093238,
+    "end": 3093291,
+    "line": 11713,
+    "script": null,
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "flicker",
+  "what": "header laid out marker",
+  "old": "syncBoot();\nwindow.addEventListener('popstate', onPop);",
+  "new": "syncBoot();\ndocument.documentElement.classList.add('hdr1061'); /* v10.61: the header is laid out; the first-paint shape rules stop */\nwindow.addEventListener('popstate', onPop);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12939689,
+    "end": 12939744,
+    "line": 57726,
+    "script": "#3",
+    "within": []
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "flicker",
+  "what": "hostedMedia font guard",
+  "old": "document.head.appendChild(font);",
+  "new": "if(!document.getElementById('fonts1061'))document.head.appendChild(font); /* v10.61: already declared in the head */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 7610985,
+    "end": 7611017,
+    "line": 11854,
+    "script": "#3",
+    "within": [
+     "hostedMedia"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "flicker",
+  "what": "first tab bar marks the routed tab",
+  "old": "renderTabs();\n/* A deep link uses the later inline map/progress extensions too.",
+  "new": "{ const t1061 = state.tab, h1061 = (location.hash || '').replace(/^#/, ''); if (!h1061 || TABS.some(([k]) => k === h1061)) state.tab = h1061 || 'today'; renderTabs(); state.tab = t1061; } /* v10.61: the first bar marks the tab the address opens */\n/* A deep link uses the later inline map/progress extensions too.",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12939062,
+    "end": 12939141,
+    "line": 57718,
+    "script": "#3",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "flicker",
+  "what": "saved-copy wait",
+  "old": "timer = setTimeout(() => { if (!settled) { show('saved'); update(); } }, 12000);",
+  "new": "timer = patient1061(12000, () => { if (!settled) { show('saved'); update(); } });",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12938677,
+    "end": 12938757,
+    "line": 57711,
+    "script": "#3",
+    "within": [
+     "Refresh904"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "flicker",
+  "what": "saved-copy wait stop",
+  "old": "settled = true; clearTimeout(timer); show('ready');",
+  "new": "settled = true; patientStop1061(timer); show('ready');",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12938029,
+    "end": 12938080,
+    "line": 57698,
+    "script": "#3",
+    "within": [
+     "Refresh904",
+     "drawn"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "flicker",
+  "what": "unreachable wait stop (syncStop)",
+  "old": "clearTimeout(SYNC.ftimer); clearTimeout(SYNC.utimer);",
+  "new": "clearTimeout(SYNC.ftimer); patientStop1061(SYNC.utimer);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12621312,
+    "end": 12621365,
+    "line": 54330,
+    "script": "#3",
+    "within": [
+     "syncStop"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "flicker",
+  "what": "unreachable wait",
+  "old": "clearTimeout(SYNC.utimer);\n SYNC.utimer = setTimeout(() => { if (SYNC.status === 'connecting') { SYNC.status = 'unreachable'; syncFooter(); } }, 12000);",
+  "new": "patientStop1061(SYNC.utimer);\n SYNC.utimer = patient1061(12000, () => { if (SYNC.status === 'connecting') { SYNC.status = 'unreachable'; syncFooter(); } });",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12622687,
+    "end": 12622839,
+    "line": 54347,
+    "script": "#3",
+    "within": [
+     "syncStart"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "flicker",
+  "what": "milestone check inside one asset hold",
+  "old": "const s = MS1025.seen(); return MS1025.allFacts().filter(f => f.reached && s[f.id] !== (f.reachedAt || 'reached')).map(f => ({f})); }",
+  "new": "const s = MS1025.seen(); const all = typeof W.holdAssets === 'function' ? W.holdAssets(() => MS1025.allFacts()) : MS1025.allFacts(); /* v10.61: one asset build for the whole check */ return all.filter(f => f.reached && s[f.id] !== (f.reachedAt || 'reached')).map(f => ({f})); }",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18074361,
+    "end": 18074494,
+    "line": 89206,
+    "script": "ms1026-script",
+    "within": [
+     "unseenNow"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "syncFold compare",
+  "old": "if (JSON.stringify(next) === JSON.stringify(c.get()) && (name !== 'qtys' || ScopeSync1017.same(next,S))) return false;",
+  "new": "const cur1061 = JSON.stringify(c.get());\n if ((JSON.stringify(next) === cur1061 || (c.wouldBe && JSON.stringify(c.wouldBe(next)) === cur1061)) && (name !== 'qtys' || ScopeSync1017.same(next,S))) return false; /* v10.61 - a delivery that would leave the record exactly as it is changes nothing */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12606895,
+    "end": 12607013,
+    "line": 54131,
+    "script": "#3",
+    "within": [
+     "syncFold"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "idle",
+  "what": "loads wouldBe",
+  "old": "SYNC_COLLS.loads.set=function(v){return loadsSet0({...without(v),...scopes(S)});};",
+  "new": "SYNC_COLLS.loads.set=function(v){return loadsSet0({...without(v),...scopes(S)});};\nSYNC_COLLS.loads.wouldBe=function(v){return {...without(v),...scopes(S)};}; /* v10.61 - what set() would make S.loads, for syncFold */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16164565,
+    "end": 16164647,
+    "line": 87791,
+    "script": "quantity-scope-sync1017-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "post-delivery footer",
+  "old": " deliverAll();\nif (SYNC.status !== 'live') { SYNC.status = 'live'; syncFooter(); docsRedraw(); }",
+  "new": " deliverAll();\nif (SYNC.status !== 'live') { SYNC.status = 'live'; syncFooter(); docsRedraw(); } else syncFooter(); /* v10.61 - save lines read the record just delivered */",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12630366,
+    "end": 12630461,
+    "line": 54458,
+    "script": "#3",
+    "within": [
+     "restBackend",
+     "pull"
+    ]
+   }
+  ],
+  "shared": true
+ },
+ {
+  "patch": "idle",
+  "what": "clock helpers",
+  "old": "function tpodPaint(at){",
+  "new": "/* v10.61 - the clock writes only what changed. The same markup with new digits updates the digits in place, so no\n element is replaced every second and the page's document-wide observers are not woken by the clock. */\nfunction text1061(el, v){ v = String(v); if (el.textContent === v) return; const t = el.firstChild; if (t && t.nodeType === 3 && !t.nextSibling) t.nodeValue = v; else el.textContent = v; }\nfunction shape1061(a, b){ const x = a.childNodes, y = b.childNodes; if (x.length !== y.length) return false;\n for (let i = 0; i < x.length; i++) { const p = x[i], q = y[i]; if (p.nodeType !== q.nodeType) return false;\n if (p.nodeType === 1) { if (p.nodeName !== q.nodeName || p.attributes.length !== q.attributes.length) return false;\n for (const at of q.attributes) if (p.getAttribute(at.name) !== at.value) return false;\n if (!shape1061(p, q)) return false; } else if (p.nodeType !== 3) return false; }\n return true; }\nfunction fill1061(a, b){ const x = a.childNodes, y = b.childNodes; for (let i = 0; i < x.length; i++) { if (x[i].nodeType === 3) { if (x[i].nodeValue !== y[i].nodeValue) x[i].nodeValue = y[i].nodeValue; } else fill1061(x[i], y[i]); } }\nfunction html1061(el, html){ const tpl = html1061.tpl || (html1061.tpl = document.createElement('template')); tpl.innerHTML = html;\n if (shape1061(el, tpl.content)) fill1061(el, tpl.content); else el.innerHTML = html; tpl.innerHTML = ''; }\nfunction attr1061(el, k, v){ if (el.getAttribute(k) !== v) el.setAttribute(k, v); }\nfunction tpodPaint(at){",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12293381,
+    "end": 12293404,
+    "line": 50411,
+    "script": "#3",
+    "within": [
+     "tpodPaint"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "clock digits",
+  "old": " num.innerHTML = (cd && r.d ? `<span class=\"d\">${r.d}<small>d</small></span>` : '')\n + `${esc(r.h)}<span class=\"sep\">:</span>${esc(r.m)}<span class=\"sep\">:</span><span class=\"sec\">${esc(r.s)}</span>`;\n num.setAttribute('aria-label', cd",
+  "new": " html1061(num, (cd && r.d ? `<span class=\"d\">${r.d}<small>d</small></span>` : '')\n + `${esc(r.h)}<span class=\"sep\">:</span>${esc(r.m)}<span class=\"sep\">:</span><span class=\"sec\">${esc(r.s)}</span>`);\n attr1061(num, 'aria-label', cd",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12293549,
+    "end": 12293783,
+    "line": 50416,
+    "script": "#3",
+    "within": [
+     "tpodPaint"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "clock date",
+  "old": " if (dt) { if (cd) dt.textContent = ''; else { try { dt.textContent = fmtDate(isoIn(new Date(at == null ? Date.now() : at))); } catch (e) { dt.textContent = ''; } } }",
+  "new": " if (dt) { if (cd) text1061(dt, ''); else { try { text1061(dt, fmtDate(isoIn(new Date(at == null ? Date.now() : at)))); } catch (e) { text1061(dt, ''); } } }",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12294885,
+    "end": 12295050,
+    "line": 50433,
+    "script": "#3",
+    "within": [
+     "tpodPaint"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "clock labels",
+  "old": " if (lab) lab.textContent = cd ? (r.expired ? 'Event date reached' : 'Countdown to the event') : 'Gold Coast · AEST';\n if (src) src.textContent = cd ? 'days · hours · minutes' : 'device clock';\n const sub = $('#tpodSub');\n if (sub) sub.innerHTML = cd",
+  "new": " if (lab) text1061(lab, cd ? (r.expired ? 'Event date reached' : 'Countdown to the event') : 'Gold Coast · AEST');\n if (src) text1061(src, cd ? 'days · hours · minutes' : 'device clock');\n const sub = $('#tpodSub');\n if (sub) html1061(sub, cd",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12295117,
+    "end": 12295366,
+    "line": 50436,
+    "script": "#3",
+    "within": [
+     "tpodPaint"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "clock note",
+  "old": " return `The day cannot be read from this device's clock — the time above is still ${esc(EVENT_TZ)}.`;\n } })();\n const note = $('#tpodNote');\n if (note) note.textContent = 'This is the clock on this device, read in Brisbane time. It is not a server clock, '\n + 'and it says nothing about the record — the record’s own freshness is the sync state beside it.';",
+  "new": " return `The day cannot be read from this device's clock — the time above is still ${esc(EVENT_TZ)}.`;\n } })());\n const note = $('#tpodNote');\n if (note) text1061(note, 'This is the clock on this device, read in Brisbane time. It is not a server clock, '\n + 'and it says nothing about the record — the record’s own freshness is the sync state beside it.');",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12296150,
+    "end": 12296507,
+    "line": 50450,
+    "script": "#3",
+    "within": [
+     "tpodPaint"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "banner countdown",
+  "old": " el.textContent = [h, m, sec].map(x => String(x).padStart(2, '0')).join(':');\n}\n/* v10.61 - the clock",
+  "new": " text1061(el, [h, m, sec].map(x => String(x).padStart(2, '0')).join(':'));\n}\n/* v10.61 - the clock",
+  "in_sequence": 1,
+  "found": 0,
+  "at": [],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "selection observer",
+  "old": "new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *'))))schedule();}).observe(document.body,{subtree:true,childList:true});",
+  "new": "/* v10.61 - mount() only acts on fields, so only a new field wakes it: a clock digit or a status line no longer re-reads the whole page */\nnew MutationObserver(records=>{if(records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *')&&(n.matches(selector)||n.querySelector(selector)))))schedule();}).observe(document.body,{subtree:true,childList:true});",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16086221,
+    "end": 16086466,
+    "line": 86867,
+    "script": "selection-save1012-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "selection refresh",
+  "old": "function refresh(){for(const el of document.querySelectorAll(selector)){const f=family(el);if(f)draw(el,f);}}",
+  "new": "const live1061=new Set(); /* v10.61 - the fields this script has put a Save bar beside; draw() ignores every other field */\nfunction refresh(){for(const el of [...live1061]){if(!el.isConnected||!mounted.get(el)?.isConnected){live1061.delete(el);continue;}const f=family(el);if(f)draw(el,f);}}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16078465,
+    "end": 16078574,
+    "line": 86806,
+    "script": "selection-save1012-script",
+    "within": [
+     "refresh"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "selection mount set",
+  "old": "anchor.after(bar);mounted.set(el,bar);owners.set(bar,el);\n  }draw(el,f);",
+  "new": "anchor.after(bar);mounted.set(el,bar);owners.set(bar,el);\n  }live1061.add(el);draw(el,f);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16078299,
+    "end": 16078371,
+    "line": 86801,
+    "script": "selection-save1012-script",
+    "within": [
+     "mount"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "clock formatter",
+  "old": "function tpodParts(at){\n try {\n const f = new Intl.DateTimeFormat('en-AU', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit',\n second: '2-digit', hourCycle: 'h23'}).formatToParts(at);",
+  "new": "/* v10.61 - one formatter, made once, instead of one a second */\nfunction tpodParts(at){\n try {\n const f = (tpodParts.fmt || (tpodParts.fmt = new Intl.DateTimeFormat('en-AU', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit',\n second: '2-digit', hourCycle: 'h23'}))).formatToParts(at);",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 12288606,
+    "end": 12288795,
+    "line": 50343,
+    "script": "#3",
+    "within": [
+     "tpodParts"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "idle",
+  "what": "glow folded",
+  "old": "@keyframes complete1008-glow{0%,100%{opacity:.55}50%{opacity:1}}",
+  "new": "@keyframes complete1008-glow{0%,100%{opacity:.55}50%{opacity:1}} /* v10.61 - a ring inside a folded section is not on screen: its glow waits there and carries on when the section opens */ details:not([open]) > :not(summary) .complete1008-ring{animation-play-state:paused}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 3062494,
+    "end": 3062558,
+    "line": 11385,
+    "script": null,
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "index unit identity records within each hold",
+  "old": "function metadata925(loads){return Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));}",
+  "new": "function metadata925(loads,ref){\n const filterRef=arguments.length>1;\n /* v10.57: one native metadata index per existing synchronous asset hold.\n    Keep foreign/snapshot inputs uncached, and return new records in native order.\n    heldMemo is invalidated by the page's existing local-save and remote-read rules. */\n if(typeof ASSETS_HELD==='undefined'||!ASSETS_HELD||typeof S==='undefined'||loads!==S.loads||!loads||typeof loads!=='object'){\n  const rows=Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));\n  return filterRef?rows.filter(d=>d.ref===ref):rows;\n }\n const indexes=heldMemo('unitMetadata1057',()=>new WeakMap());\n let index=indexes.get(loads);\n if(!index){\n  const all=[],byRef=new Map();\n  for(const entry of Object.entries(loads||{})){\n   const [key,value]=entry;if(!key.startsWith(prefix)||!value||value.kind!==kind)continue;\n   all.push(entry);\n   const reference=Object.prototype.propertyIsEnumerable.call(value,'ref')?value.ref:undefined;\n   let rows=byRef.get(reference);if(!rows){rows=[];byRef.set(reference,rows);}rows.push(entry);\n  }\n  index={all,byRef};indexes.set(loads,index);\n }\n const rows=filterRef?(ref===ref?(index.byRef.get(ref)||[]):[]):index.all;\n return rows.map(([key,value])=>Object.assign({docKey:key},value));\n}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15049313,
+    "end": 15049477,
+    "line": 78708,
+    "script": "units925-script",
+    "within": [
+     "metadata925"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "read one reference from the index",
+  "old": "docs=metadata925(env.loads).filter(d=>d.ref===a.key),claimed=new Set(),rows=[];",
+  "new": "docs=metadata925(env.loads,a.key),claimed=new Set(),rows=[];",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15052669,
+    "end": 15052748,
+    "line": 78733,
+    "script": "units925-script",
+    "within": [
+     "model925",
+     "docs"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "index work-record keys within each hold",
+  "old": "function unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}",
+  "new": "function unitEvidenceKeys1057(ref,labour,stamps){\n const read=()=>new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n /* Only native objects inside the existing synchronous read hold are indexed.\n    Snapshot/custom inputs retain their original uncached behaviour. Values and\n    timestamps are read afresh below; this index holds keys only. */\n if(typeof ASSETS_HELD==='undefined'||!ASSETS_HELD||typeof S==='undefined'||labour!==S.labour||stamps!==S.stamps||!labour||typeof labour!=='object'||!stamps||typeof stamps!=='object'||typeof ref!=='string')return read();\n const byLabour=heldMemo('unitEvidenceKeys1057',()=>new WeakMap());\n let byStamps=byLabour.get(labour);if(!byStamps){byStamps=new WeakMap();byLabour.set(labour,byStamps);}\n let index=byStamps.get(stamps);if(!index){index={keys:read(),byPrefix:new Map()};byStamps.set(stamps,index);}\n const prefix=ref+'/u';\n if(!index.byPrefix.has(prefix))index.byPrefix.set(prefix,[...index.keys].filter(k=>k.startsWith(prefix)));\n return index.byPrefix.get(prefix);\n}\nfunction unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=unitEvidenceKeys1057(ref,labour,stamps);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 16152986,
+    "end": 16153466,
+    "line": 87605,
+    "script": "quantity-scope1017-script",
+    "within": [
+     "unitEvidence"
+    ]
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "one asset list per completion read",
+  "old": "window.gc500CompleteKeys897 = function () { try { return allAssets().filter(verified897).map(a => a.key); } catch (e) { return null; } };",
+  "new": "window.gc500CompleteKeys897 = function () { try { return holdAssets(() => allAssets().filter(verified897).map(a => a.key)); } catch (e) { return null; } };",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 14727325,
+    "end": 14727462,
+    "line": 76706,
+    "script": "map897-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "one day-work snapshot per hold",
+  "old": " let cachedKey='', cached;\n function native() {",
+  "new": " let cachedKey='', cached;\n function native() { return heldMemo('buildWork1057', nativeRead1057); }\n function nativeRead1057() {",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15629280,
+    "end": 15629326,
+    "line": 81675,
+    "script": "work986-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "reset clears the held snapshot",
+  "old": "reset:()=>{cached=null;cachedKey='';}",
+  "new": "reset:()=>{cached=null;cachedKey='';HELD_MEMO.delete('buildWork1057');}",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 15630697,
+    "end": 15630734,
+    "line": 81691,
+    "script": "work986-script",
+    "within": []
+   }
+  ],
+  "shared": false
+ },
+ {
+  "patch": "codexport",
+  "what": "one asset list per Site-vs-Baseplan check, only when there is something to check",
+  "old": "requestAnimationFrame(() => { q = false; try { drawer(); costs(); } catch (x) {} });",
+  "new": "requestAnimationFrame(() => { q = false; try { const dr1061 = D.getElementById('drawer'), pc1061 = D.getElementById('pane-costs'); if ((dr1061 && dr1061.classList.contains('on')) || (pc1061 && !pc1061.querySelector('#align1055'))) holdAssets(() => { drawer(); costs(); }); } catch (x) {} });",
+  "in_sequence": 1,
+  "found": 1,
+  "at": [
+   {
+    "offset": 18132987,
+    "end": 18133071,
+    "line": 89766,
+    "script": "align1055-script",
+    "within": [
+     "run"
+    ]
+   }
+  ],
+  "shared": false
+ }
+]

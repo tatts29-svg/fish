@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "0f8f1ef70037e9402595d374fabe13920d71784599ef01dee6c7dc3da1c5e9e7",
+  "mode": "Synthetic memory-only pending entries in actual candidate drawer; no blob, IDB write, file upload or record mutation",
+  "runs": [
+    {
+      "name": "desktop-queued",
+      "metrics": {
+        "text": "In position\nQueued on this device\n\nThe photograph stays in this device’s queue until the file and its reference are confirmed.",
+        "width": 209,
+        "height": 141.0625,
+        "overflow": false,
+        "viewport": 1440,
+        "drawerWidth": 460
+      },
+      "errors": []
+    },
+    {
+      "name": "desktop-uploaded",
+      "metrics": {
+        "text": "In position\nUploaded — confirming the reference\n\nThe file is uploaded and its reference is saved on this device. Waiting for the shared record to confirm it; the photograph remains queued.",
+        "width": 209,
+        "height": 141.0625,
+        "overflow": false,
+        "viewport": 1440,
+        "drawerWidth": 460
+      },
+      "errors": []
+    },
+    {
+      "name": "phone-queued",
+      "metrics": {
+        "text": "In position\nQueued on this device\n\nThe photograph stays in this device’s queue until the file and its reference are confirmed.",
+        "width": 176,
+        "height": 155.234375,
+        "overflow": false,
+        "viewport": 390,
+        "drawerWidth": 390
+      },
+      "errors": []
+    },
+    {
+      "name": "phone-uploaded",
+      "metrics": {
+        "text": "In position\nUploaded — confirming the reference\n\nThe file is uploaded and its reference is saved on this device. Waiting for the shared record to confirm it; the photograph remains queued.",
+        "width": 176,
+        "height": 155.234375,
+        "overflow": false,
+        "viewport": 390,
+        "drawerWidth": 390
+      },
+      "errors": []
+    }
+  ]
+}

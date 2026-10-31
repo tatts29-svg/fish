@@ -1,0 +1,42 @@
+{
+ "28": {
+  "take": "a",
+  "why": "both takes carry every figure; take 1",
+  "ratio": 0.932
+ },
+ "29": {
+  "take": "a",
+  "why": "every figure; take 1 scored higher",
+  "ratio": 0.96
+ },
+ "30": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0
+ },
+ "31": {
+  "take": "b",
+  "why": "every figure; take 2 says \"every one\" cleanly",
+  "ratio": 0.933
+ },
+ "32": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0
+ },
+ "35": {
+  "take": "a",
+  "why": "take 1 word-perfect (take 2 runs the K figures together)",
+  "ratio": 1.0
+ },
+ "42": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0
+ },
+ "43": {
+  "take": "a",
+  "why": "both carry every figure, the pause before \"Stop and think\" as written; take 1",
+  "ratio": 0.972
+ }
+}

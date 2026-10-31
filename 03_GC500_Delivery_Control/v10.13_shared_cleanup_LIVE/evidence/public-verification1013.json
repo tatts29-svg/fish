@@ -1,0 +1,319 @@
+{
+  "nativeVersion": 6064,
+  "checks": [
+    {
+      "name": "Shared finance allocation installed",
+      "pass": true
+    },
+    {
+      "name": "Shared event configuration installed",
+      "pass": true
+    },
+    {
+      "name": "Reading-state fixes installed",
+      "pass": true
+    },
+    {
+      "name": "Shared information presentation installed",
+      "pass": true
+    },
+    {
+      "name": "Generator boundary agrees with event settings",
+      "pass": true
+    },
+    {
+      "name": "Demob boundary agrees with event settings",
+      "pass": true
+    },
+    {
+      "name": "Explicit date-only arrival retains its date",
+      "pass": true
+    },
+    {
+      "name": "An actual recorded midnight is not suppressed",
+      "pass": true
+    },
+    {
+      "name": "Explicit loading Save module installed",
+      "pass": true
+    },
+    {
+      "name": "Native selection Save module installed",
+      "pass": true
+    },
+    {
+      "name": "Readable controls stylesheet installed",
+      "pass": true
+    },
+    {
+      "name": "Quantity and percentage modules installed",
+      "pass": true
+    },
+    {
+      "name": "Described item defaults to one",
+      "pass": true
+    },
+    {
+      "name": "Explicit description quantity is used",
+      "pass": true
+    },
+    {
+      "name": "Recorded quantity overrides description",
+      "pass": true
+    },
+    {
+      "name": "Dimensions and asset numbers do not become counts",
+      "pass": true
+    },
+    {
+      "name": "Generator size is not a quantity",
+      "pass": true
+    },
+    {
+      "name": "Explicit multiplied panel quantity is used",
+      "pass": true
+    },
+    {
+      "name": "Explicit zero remains zero",
+      "pass": true
+    },
+    {
+      "name": "Invalid recorded quantity remains unknown",
+      "pass": true
+    },
+    {
+      "name": "Missing description does not invent an item",
+      "pass": true
+    },
+    {
+      "name": "89.9 percent retains its precision",
+      "pass": true
+    },
+    {
+      "name": "Almost complete never displays 100 percent",
+      "pass": true
+    },
+    {
+      "name": "Exact completion displays 100 percent",
+      "pass": true
+    },
+    {
+      "name": "Unknown and zero scope remain unavailable",
+      "pass": true
+    },
+    {
+      "name": "Averaging cannot promote incomplete scope",
+      "pass": true
+    },
+    {
+      "name": "Conservative percentage preserves exact hundredths",
+      "pass": true
+    },
+    {
+      "name": "WC70 inventory uses its confirmed Event Portables units",
+      "pass": true
+    },
+    {
+      "name": "WC72 inventory uses its confirmed Event Portables units",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave original contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pure checks leave native version unchanged",
+      "pass": true
+    },
+    {
+      "name": "Standalone read starts outside render hold",
+      "pass": true
+    },
+    {
+      "name": "Bounded financial scope remains installed",
+      "pass": true
+    },
+    {
+      "name": "Standalone hold clears on return",
+      "pass": true
+    },
+    {
+      "name": "Standalone financial values equal held read",
+      "pass": true
+    },
+    {
+      "name": "Standalone call builds one asset snapshot",
+      "pass": true
+    },
+    {
+      "name": "Each ownership and reference index builds once",
+      "pass": true
+    },
+    {
+      "name": "Standalone financial call completes within 15 seconds",
+      "pass": true
+    },
+    {
+      "name": "Public financial reconciliation controls pass",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves shared record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves source contracts unchanged",
+      "pass": true
+    },
+    {
+      "name": "Financial read leaves native version unchanged",
+      "pass": true
+    },
+    {
+      "name": "Final asset scope is empty",
+      "pass": true
+    },
+    {
+      "name": "Same native record throughout checks",
+      "pass": true
+    },
+    {
+      "name": "Public plant photo refresh retains disclosure, position and records",
+      "pass": true,
+      "details": {
+        "found": true,
+        "open": true,
+        "before": [
+          5,
+          0
+        ],
+        "after": [
+          5,
+          0
+        ],
+        "recordUnchanged": true
+      }
+    },
+    {
+      "name": "Public costs photo refresh retains disclosure, position and records",
+      "pass": true,
+      "details": {
+        "found": true,
+        "open": true,
+        "before": [
+          206,
+          0
+        ],
+        "after": [
+          206,
+          0
+        ],
+        "recordUnchanged": true
+      }
+    },
+    {
+      "name": "Public subhired photo refresh retains disclosure, position and records",
+      "pass": true,
+      "details": {
+        "found": true,
+        "open": true,
+        "before": [
+          0,
+          0
+        ],
+        "after": [
+          0,
+          0
+        ],
+        "recordUnchanged": true
+      }
+    },
+    {
+      "name": "Public Inventory Close returns focus to the visible originating quantity",
+      "pass": true,
+      "details": {
+        "found": true,
+        "closed": true,
+        "focusReturned": true,
+        "visible": true,
+        "recordUnchanged": true
+      }
+    },
+    {
+      "name": "Public delayed Inventory reveal yields to newer scrolling",
+      "pass": true,
+      "details": {
+        "before": {
+          "found": true,
+          "top": 100,
+          "recordUnchanged": true
+        },
+        "after": 100
+      }
+    },
+    {
+      "name": "No local page substitution",
+      "pass": true
+    },
+    {
+      "name": "Only GET requests were forwarded to network",
+      "pass": true
+    },
+    {
+      "name": "No unexpected non-GET attempts; map session setup remains blocked",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "financial": {
+    "milliseconds": 2793,
+    "assetBuilds": 1,
+    "indexes": {
+      "contractReferenceBranches1010": 1,
+      "currentFwfOwners1010": 1
+    }
+  },
+  "author": "Andrew Fisher",
+  "at": "2026-10-14T01:54:22.460Z",
+  "sha256": "ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143",
+  "expectedSha256": "ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143",
+  "bytes": 15197894,
+  "navigationResponses": [
+    {
+      "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026/",
+      "status": 200,
+      "bytes": 15197894,
+      "sha256": "ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143"
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 0,
+    "live": 53,
+    "blocked": 0
+  },
+  "rejectedMethods": [
+    "POST"
+  ],
+  "rejectedRequests": [
+    {
+      "method": "POST",
+      "host": "tile.googleapis.com",
+      "pathname": "/v1/createSession",
+      "classification": "blocked map session setup",
+      "forwarded": false
+    }
+  ],
+  "forwardedMethodCounts": {
+    "GET": 52
+  },
+  "actualPublic": true,
+  "screenshot": "public-costs-phone-viewport.png"
+}

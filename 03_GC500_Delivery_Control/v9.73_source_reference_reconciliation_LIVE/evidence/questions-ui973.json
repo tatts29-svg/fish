@@ -1,0 +1,97 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "nativeVersion": 5168,
+  "checksPassed": 10,
+  "checks": [
+    "12 open, 5 pending and 41 answered/history",
+    "All four intended source-evidence predicates and specific staffing remainder are active",
+    "Current P36 building and retained planned history are distinct",
+    "Phone Questions keeps settled P36 in closed history with evidence folded",
+    "Question evidence disclosure survives redraw and navigation",
+    "Phone drawer shows one current building and the old allocation in closed history",
+    "GN25/LT05/LT06 retain named sourced destinations without invented coordinates or pit-lane navigation",
+    "31 linked source rows, 3 source tasks, 8 specific remaining allocation facts",
+    "Original 17-page VMS document publicly answers with the verified original bytes",
+    "Native record preserved and zero errors or operational writes"
+  ],
+  "questionCounts": {
+    "open": 12,
+    "pending": 5,
+    "answered": 41
+  },
+  "sourcePredicates": {
+    "ready": true,
+    "p36": true,
+    "staffing": true,
+    "offices": true,
+    "loads": true
+  },
+  "folds": {
+    "historyClosed": true,
+    "whyFolded": true,
+    "historyContainsP36": true,
+    "wide": false
+  },
+  "disclosurePersistence": {
+    "redraw": true,
+    "navigation": true
+  },
+  "p36": {
+    "currentBuilding": "1282487",
+    "historicalAllocation": "1327222",
+    "currentBuildingCount": 1,
+    "plannedBuildingCount": 1,
+    "nativeRecordsChanged": false
+  },
+  "referenceCounts": {
+    "rows": 34,
+    "linked": 31,
+    "tasks": 3,
+    "remaining": 8
+  },
+  "namedDestinations": [
+    {
+      "ref": "GN25",
+      "name": "Seaway Carpark",
+      "exactPosition": false,
+      "destinationIsNull": true,
+      "pointIsNull": true,
+      "noDrop": false,
+      "wayIn": ""
+    },
+    {
+      "ref": "LT05",
+      "name": "Seaway Car Park Transporter Compound",
+      "exactPosition": false,
+      "destinationIsNull": true,
+      "pointIsNull": true,
+      "noDrop": false,
+      "wayIn": ""
+    },
+    {
+      "ref": "LT06",
+      "name": "Seaway Car Park Transporter Compound",
+      "exactPosition": false,
+      "destinationIsNull": true,
+      "pointIsNull": true,
+      "noDrop": false,
+      "wayIn": ""
+    }
+  ],
+  "vmsDocument": {
+    "href": "/f/Coates-GC500-2026/VMS001-26003-01_GC500_COATES_VMS_LOCATIONS.pdf",
+    "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+    "pages": 17,
+    "httpStatus": 200,
+    "bytes": 2994014
+  },
+  "visualReview": "Questions and P36 phone screenshots inspected; current item, retained history, counts and folded supporting information are readable.",
+  "operationalWrites": 0,
+  "pageErrors": [],
+  "privateScreenshotNames": [
+    "questions-final973-record5168-questions-phone.png",
+    "questions-final973-record5168-p36-phone.png"
+  ],
+  "test": "tests/questions_ui973.cjs supports local PAGE/STATE and actual PUBLIC=1 without page/state substitution."
+}

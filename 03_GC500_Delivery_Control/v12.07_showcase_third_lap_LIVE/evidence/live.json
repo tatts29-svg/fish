@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-10-24T21:52:26.406392+00:00",
+  "sha256": "dc2d5eff8a345f0f090135fa6bd90013bdc1f7786f0193588a46e965ac3ee894",
+  "bytes": 15251289,
+  "footer": "v12.07",
+  "scene_version": 1207,
+  "author": "Andrew Fisher",
+  "uploaded_at_utc": "2026-10-24T21:52:06.227Z",
+  "ready_source": "517e561411d92c06e92609aa56de5f84b9978495",
+  "public_ui_passed": 6,
+  "public_ui_total": 6,
+  "phone_inspected": true,
+  "operational_record_writes": 0
+}

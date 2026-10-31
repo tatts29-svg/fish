@@ -1,0 +1,42 @@
+[
+ {
+  "name": "page loads with no errors, the footer v12.42.4, the Demob cards module unchanged (v12.42.3)",
+  "ok": false,
+  "detail": {
+   "errors": [],
+   "foot": [
+    "v12.42.3"
+   ]
+  }
+ },
+ {
+  "name": "v12.42.4: with no name, Book pick-up asks for the name once (the browser's own box, above the sheet) and keeps it in Tools · Recording as",
+  "ok": false,
+  "detail": {
+   "asked": 0,
+   "msg": "",
+   "who": "",
+   "op": "",
+   "fy": "Saved on the shared record, with the time it was booked. The view link shows it and cannot change it."
+  }
+ },
+ {
+  "name": "v12.42.4: Save booking then books it in that name, the sheet closes, nothing more is asked",
+  "ok": false,
+  "detail": {
+   "B1": {
+    "n": 0,
+    "b": null
+   },
+   "S1": {
+    "open": true,
+    "asked": 0
+   }
+  }
+ },
+ {
+  "name": "the test ran to the end",
+  "ok": false,
+  "detail": "page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#pane-demob article.sg1238[data-sg1238=\"GN18\"][data-u1238=\"coates|1261273\"] button[data-book1238]')\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" data-book1238=\"GN18\" data-u1238=\"coates|1261273\">Book pick-up</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <footer>…</footer> from <dialog open=\"\" class=\"bkd1238\" aria-labelledby=\"bkh1238\">…</dialog> subtree intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled and stable\u001b[22m\n\u001b[2m    - scrolling into view if needed\u001b[22m\n\u001b[2m    - done scrolling\u001b[22m\n\u001b[2m    - <dialog open=\"\" class=\"bkd1238\" aria-labelledby=\"bkh1238\">…</dialog> intercepts pointer events\u001b[22m\n\u001b[2m  - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m    - element is visible, enabled "
+ }
+]

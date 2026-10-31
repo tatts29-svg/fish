@@ -1,0 +1,192 @@
+
+== 1. generated card HTML
+PASS build is deterministic (same bytes twice)
+PASS exactly one <script>, and it is bare
+PASS no inline on*= handler in the markup
+PASS only Google Maps links leave the card
+PASS no external fonts, stylesheets or scripts
+PASS the embedded data has no "<" at all, and nothing in the script can close it early (</script, <!--)
+PASS the embedded data is the tracker data (75 references, 83 lines)
+PASS the script parses
+PASS a "<" in the data is written as \u003c and the card still has one script
+PASS the card is well under the 2 MB card limit
+PASS Author line present
+PASS the generator hash matches the service hash
+PASS tracker config: 4 days, 83 lines, 75 references, 263 units
+PASS tracker config days carry their plans
+PASS weighted jobs: 760 a night, 777 on Sunday, as the README says (760 / 777)
+
+== 2. mock service keeps the API contract
+PASS a bad tracker is refused with 400
+PASS the edit link makes the tracker card and gets 75 signed links
+PASS the view link cannot make cards
+PASS a second live tracker for the load without a token: 409 with the existing token
+PASS re-posting the tracker card without its tracker: 409
+PASS re-posting with the token keeps the token and the links
+PASS GET ticks answers now, epoch, seq, days, ticks
+PASS the secret is in no answer
+PASS links are not handed to phones
+PASS sig = base64url(HMAC-SHA256(secret, token:REF)) cut to 16
+PASS before the event a Friday tick is refused (day after the current service day)
+PASS the wrong sig for a reference: 403
+PASS a line of another reference: 400
+PASS a task not on the day's plan (lock on Friday): 400
+PASS water on a waste tank: 400
+PASS 21 ticks in one post: 400
+PASS a post over 2 KB: 413
+PASS a short id: 400
+PASS an untick that names nothing: 400
+PASS report routes on a tracker card: 404
+PASS prototype names are not tokens (propertyIsEnumerable, constructor)
+PASS the card page is served under the card CSP read from server.js
+PASS that CSP is the v5.87 card policy word for word
+
+== 3. the service day comes from the service clock
+PASS phone clock says Sat 24, service says 18 Oct: the card opens on Friday
+PASS before the event the jobs are shut ("Opens Fri 23 08:00")
+PASS a banner says servicing has not started
+PASS day boundaries: Thu 07:59:59 Fri, 08:00 Thu, Fri 07:59 Thu, 08:00 Fri, Sun late Sun, Mon 07:59 Sun, Mon 09:00 Sun
+PASS Thursday is labelled "if needed"
+PASS a shut job cannot be ticked
+PASS a job's time is the earliest tap of its uncancelled ticks
+PASS a job's time is never later than the service's own time for it
+PASS a job's time is never in the future
+PASS an untick cancels only the tick it names (a later tick from another phone stands)
+PASS an untick naming a tick of another job cancels nothing
+PASS a voided tick counts for nothing
+PASS 759 of 760 shows 99%, never 100%, and no finish time
+
+== 4. two phones: one reference per QR code; area and overall percentages by units
+PASS no code: read-only overview, no tick buttons
+PASS the overview lists all 14 groups
+PASS the overview opens on the service day (Fri 23)
+PASS completion mode: big reference, its area, units and asset numbers
+PASS Navigate opens Google Maps at the pin
+PASS Friday FWF jobs in Andrew's words: Pumped out · Fresh water refilled · Cleaned & restocked
+PASS only this QR code's reference can be ticked
+PASS jobs are big tap targets (at least 56 px high)
+PASS the tap reached the service once, as WC06 · Pumped out · Fri 23
+PASS the button shows "Done hh:mm" with the tap time
+PASS after the tap: this area 3% and everything 0% (weighted by units)
+PASS the counts say the jobs done of the jobs there are
+PASS phone B shows it within one 15 s poll (15 s)
+PASS phone B shows the same time as phone A
+PASS WC06 all done: area 5 9%, 1 of 2 references
+PASS scanning WC07 in the open card switches to WC07 (hashchange), 20 asset numbers shown
+PASS the open card did not reload its page (no extra card open)
+PASS area 5 complete: 100% and "Area finished 22:00" (its last job)
+PASS everything: 8%
+PASS phone B: area 5 100%, finished 22:00
+PASS tapping a done job asks first
+PASS "Keep it done" keeps it, nothing sent
+PASS the undo is sent as done:false naming the tick it cancels
+PASS after the undo: area 5 back to 69%, no finish time
+PASS phone B follows the undo
+PASS WC06's code on WC07: the service refuses it (403), the card says so and drops it
+PASS a code with no signature: view only, says so, no tick buttons
+PASS a code for a reference not on the tracker: view only
+
+== 5. no signal: the outbox keeps the taps, then sends them
+PASS offline: "No signal · 3 ticks waiting"
+PASS offline: the jobs show as waiting for signal
+PASS offline: 3 in the outbox on the phone, none on the service
+PASS offline: the area percentage already counts them (37%)
+PASS signal back: the outbox drains, 3 on the service
+PASS each keeps the time it was tapped (earlier than the service received it)
+PASS the buttons show the tap time, not the arrival time
+PASS phone B sees them
+
+== 6. offline untick against a later tick from another phone
+PASS A (offline) queues an untick naming its own tick
+PASS the service holds A's tick, B's tick, then A's untick (arrival order)
+PASS WC11 · Pumped out still done on both phones, at B's time
+
+== 7. a lost reply is retried and counted once
+PASS the service got it on the first try, the card retried, exactly 1 stored
+
+== 8. a tick the service will not take is dropped with a message; the rest go
+PASS (edit link re-posts the tracker without WC86)
+PASS the service named the refused tick, so the rest went in one more post (2 posts)
+PASS WC86 dropped with a plain message naming it
+PASS WC19 went through
+PASS (tracker restored)
+PASS when the service's tracker days no longer match the card, it says "Reload"
+PASS Reload loads the card again and the banner goes
+
+== 9. epoch change: the phone re-reads and re-sends what the service lost
+PASS (service loses the newest 2 ticks, new epoch, seq reused)
+PASS the phone re-sent them (same ids)
+PASS and still shows WC50 done
+PASS ticks voided on the edit link drop off the phone and are not re-sent
+
+== 10. 429: the phone waits as told
+PASS "Busy · trying again in …" while held back
+PASS then it goes
+PASS 503 no_key: a banner, the tick kept on the phone
+PASS and it goes once the service can
+
+== 11. Sunday: lock added, no water; waste tanks pump only; blocks as the data says
+PASS opens on Sunday
+PASS WC20 block (block): Pumped out · Cleaned & restocked · Locked & confirmed empty
+PASS WC20 waste tank: Pumped out only
+PASS WC17 block: Pumped out · Cleaned & restocked · Locked & confirmed empty
+PASS FWF on Sunday: Pumped out · Cleaned & restocked · Locked & confirmed empty (no water)
+PASS Locked & confirmed empty is accepted on Sunday
+PASS Sunday counts 777 jobs
+PASS Friday chosen: loud banner names it; Friday's jobs include the water
+PASS Friday's WC07 ticks still show on Friday
+PASS "Back to Sunday 25" returns to today
+
+== 12. 08:00 change-over and the day chosen by hand
+PASS 07:59 Sunday morning is Saturday's service
+PASS at 08:00 the card moves on to Sunday by itself and says so
+PASS a crew that ticked in the last hour is offered "Stay on Saturday 24"
+PASS staying: loud banner "You are on Saturday 24's service"
+PASS a late tick lands on Saturday (a past day is accepted)
+PASS at the next 08:00 the chosen day lapses (after the event it stays on Sunday)
+PASS a day not started yet can be looked at but not ticked
+
+== 13. /d/<token>/ works the same
+PASS ticks go to /d/<token>/ticks, never //ticks
+PASS read in pages of 4 (6 reads for 22 ticks), the same totals as one read
+
+== 14. storage, names, CSP, requests
+PASS A: localStorage holds only gc500.svc1063.* keys
+PASS A: never reads gc500.edit, gc500.view or any other key
+PASS A: no Content-Security-Policy violation
+PASS A: every request stayed on the service (127.0.0.1)
+PASS A: no script errors
+PASS B: localStorage holds only gc500.svc1063.* keys
+PASS B: never reads gc500.edit, gc500.view or any other key
+PASS B: no Content-Security-Policy violation
+PASS B: every request stayed on the service (127.0.0.1)
+PASS B: no script errors
+PASS ticks carry only id, ref, sig, line, task, day, done, undoes, tapped_at (no names)
+PASS every post stays under 2 KB
+PASS the page renders no on* attribute anywhere
+PASS hostile text in the data shows as text and runs nothing
+PASS every button has words a screen reader can read
+
+== 15. withdrawn and finished stop the card; an older service answer waits
+PASS withdrawn: banner, ticking stops
+PASS withdrawn: the unsent tick is kept on the phone and said so
+PASS withdrawn: no request for 60 s, nor on signal, focus or a new scan
+PASS finished (410): banner, ticking stops
+PASS finished: no request for 60 s
+PASS an HTML 404 (older service): "being updated", not stopped
+PASS it tries again after 60 s, not sooner
+PASS when the service is back the card carries on
+
+== 16. 360 px phone, light and dark: no sideways scroll; screenshots
+PASS light: the undo confirm is in view when it opens (clear of the header)
+PASS light: #a7 opens area 7 clear of the header
+PASS light: no sideways scroll at 360 px (tick 360, overview 360)
+PASS light: day buttons at least 44 px
+PASS light: no CSP violation, no script error
+PASS dark: the undo confirm is in view when it opens (clear of the header)
+PASS dark: #a7 opens area 7 clear of the header
+PASS dark: no sideways scroll at 360 px (tick 360, overview 360)
+PASS dark: day buttons at least 44 px
+PASS dark: no CSP violation, no script error
+
+158 passed, 0 failed in 41 s

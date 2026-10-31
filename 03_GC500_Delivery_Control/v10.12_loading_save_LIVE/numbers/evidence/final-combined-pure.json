@@ -1,0 +1,180 @@
+{
+  "author": "Andrew Fisher",
+  "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "quantities": {
+    "author": "Andrew Fisher",
+    "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "checks": [
+      {
+        "name": "Partial collection subtracts only its own typed quantity",
+        "pass": true
+      },
+      {
+        "name": "A duplicate collection id is counted once",
+        "pass": true
+      },
+      {
+        "name": "Two collection events cannot collect the same physical unit twice",
+        "pass": true
+      },
+      {
+        "name": "Two collection events cannot collect the same legacy asset number twice",
+        "pass": true
+      },
+      {
+        "name": "A collection beyond the required quantity contributes nothing",
+        "pass": true
+      },
+      {
+        "name": "Wrong item type cannot reduce FWF pickup quantity",
+        "pass": true
+      },
+      {
+        "name": "A stale scope fingerprint requests review, never completion",
+        "pass": true
+      },
+      {
+        "name": "Future collection is excluded before its dated day",
+        "pass": true
+      },
+      {
+        "name": "Unconfirmed arrival cannot establish physical collection",
+        "pass": true
+      },
+      {
+        "name": "Complete collection requires every typed item, not a summed count",
+        "pass": true
+      },
+      {
+        "name": "Unknown quantity prevents collection Complete",
+        "pass": true
+      },
+      {
+        "name": "Cancelled, duplicate and zero references do not inflate Demob denominator",
+        "pass": true
+      },
+      {
+        "name": "Demob whole percentage uses reference completion, never unlike unit totals",
+        "pass": true
+      },
+      {
+        "name": "No recorded collections show unknown percentage, not invented 0% complete",
+        "pass": true
+      },
+      {
+        "name": "Physical day loads count one truck even with multiple item references",
+        "pass": true
+      },
+      {
+        "name": "A truck is incomplete if any scheduled reference has no receipt",
+        "pass": true
+      },
+      {
+        "name": "Repeated unallocated reference appears once in delivery-reference denominator",
+        "pass": true
+      },
+      {
+        "name": "Cancelled day rows are excluded instead of a failed delivery",
+        "pass": true
+      },
+      {
+        "name": "Future delivery has no invented completed quantity or percentage",
+        "pass": true
+      },
+      {
+        "name": "No deliveries planned has no 100% claim",
+        "pass": true
+      },
+      {
+        "name": "A missing receipt does not count as received",
+        "pass": true
+      }
+    ],
+    "passed": 21,
+    "failed": []
+  },
+  "inventory": {
+    "author": "Andrew Fisher",
+    "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "checks": [
+      {
+        "name": "One confirmed supplier FWF unit is counted as Event Portables",
+        "pass": true
+      },
+      {
+        "name": "WC72 follows the same generic single-item identity rule",
+        "pass": true
+      },
+      {
+        "name": "Single-item Coates identity remains Coates",
+        "pass": true
+      },
+      {
+        "name": "Mixed owner single-item scope remains split by owner",
+        "pass": true
+      },
+      {
+        "name": "No physical identity preserves legacy reader without inventing ownership",
+        "pass": true
+      },
+      {
+        "name": "Unknown ordered scope does not activate the new single-item projection",
+        "pass": true
+      },
+      {
+        "name": "Zero ordered scope does not activate the new single-item projection",
+        "pass": true
+      },
+      {
+        "name": "No receipt contributes no supplier unit",
+        "pass": true
+      },
+      {
+        "name": "Partial receipt cannot identify which of two assigned units arrived",
+        "pass": true
+      },
+      {
+        "name": "Duplicate physical id cannot multiply supplier count",
+        "pass": true
+      },
+      {
+        "name": "Duplicate supplier fleet number cannot multiply supplier count",
+        "pass": true
+      },
+      {
+        "name": "Identity belonging to another reference is not credited here",
+        "pass": true
+      },
+      {
+        "name": "Unconfirmed owner remains unidentified",
+        "pass": true
+      },
+      {
+        "name": "Different item identity cannot satisfy the requested item",
+        "pass": true
+      },
+      {
+        "name": "Existing multi-item ownership stays separated by item",
+        "pass": true
+      },
+      {
+        "name": "Existing VMS allocation path remains managed",
+        "pass": true
+      },
+      {
+        "name": "Inventory row, reference and company total update together with unchanged quantities",
+        "pass": true
+      },
+      {
+        "name": "Repeated reconciliation is idempotent, never a second unit",
+        "pass": true
+      },
+      {
+        "name": "An excluded/cancelled reference is not reintroduced into inventory",
+        "pass": true
+      }
+    ],
+    "passed": 19,
+    "failed": []
+  }
+}

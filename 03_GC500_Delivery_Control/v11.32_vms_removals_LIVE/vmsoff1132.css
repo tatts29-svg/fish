@@ -1,0 +1,46 @@
+/* Author: Andrew Fisher. VMS daily removals tab (v11.32): phone first, big ticks, one card per board. */
+#pane-vmsoff .v1132-mornings{display:flex;gap:6px;flex-wrap:wrap}
+#pane-vmsoff .v1132-mornings .btn small{display:block;font-weight:400;font-size:.78em;opacity:.8}
+#pane-vmsoff .v1132-tl{list-style:none;margin:4px 0 8px;padding:0}
+#pane-vmsoff .v1132-tl li{display:flex;gap:10px;padding:5px 6px;border-bottom:1px solid rgba(0,0,0,.08);align-items:baseline}
+#pane-vmsoff .v1132-tl li i{font-style:normal;font-weight:700;min-width:98px;flex:none;font-variant-numeric:tabular-nums}
+#pane-vmsoff .v1132-tl li.hard i{color:#b4521a}
+#pane-vmsoff .v1132-tl li.hard span{font-weight:600}
+#pane-vmsoff .v1132-tl li.us{background:rgba(255,179,71,.14);border-radius:6px}
+#pane-vmsoff .v1132-sum{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0;font-size:.95em}
+#pane-vmsoff .v1132-sum b{font-size:1.15em}
+#pane-vmsoff .v1132-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+#pane-vmsoff .v1132-board{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:start}
+#pane-vmsoff .v1132-board.done{background:rgba(46,125,50,.06)}
+#pane-vmsoff .v1132-b{grid-column:1/-1;display:flex;gap:8px 10px;align-items:baseline;flex-wrap:wrap}
+#pane-vmsoff .v1132-b b{font-size:1.25em}
+#pane-vmsoff .v1132-b span{opacity:.85;font-size:.95em;flex-basis:100%}
+#pane-vmsoff .v1132-from{font-style:normal;font-weight:800;padding:2px 8px;border-radius:999px;font-size:.85em;letter-spacing:.02em;background:rgba(46,125,50,.14);color:#1f6b2a}
+#pane-vmsoff .v1132-from.f06{background:rgba(180,82,26,.14);color:#9a4213}
+#pane-vmsoff .v1132-where{grid-column:1/-1;display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center;font-size:.92em}
+#pane-vmsoff .v1132-where small{opacity:.7}
+#pane-vmsoff .v1132-where .btn.sm{padding:4px 10px;font-size:.9em;min-height:32px}
+#pane-vmsoff .v1132-t{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.9em}
+#pane-vmsoff .v1132-t>span{min-width:110px}
+#pane-vmsoff .v1132-t.wide{padding:8px 0;border-bottom:1px solid rgba(0,0,0,.08);align-items:flex-start}
+#pane-vmsoff .v1132-t.wide>span{flex:1;min-width:200px}
+#pane-vmsoff .v1132-t small{display:block;width:100%;opacity:.7;font-size:.8em}
+#pane-vmsoff .v1132-tick{width:28px;height:28px;margin:0;flex:none}
+#pane-vmsoff .v1132-n{grid-column:1/-1;display:flex;flex-direction:column;gap:2px;font-size:.78em}
+#pane-vmsoff .v1132-n span,#pane-vmsoff .v1132-signgrid label span{text-transform:uppercase;letter-spacing:.04em;font-size:.85em;opacity:.75}
+#pane-vmsoff .v1132-txt{width:100%;min-height:30px;font:inherit;padding:3px 6px;box-sizing:border-box}
+#pane-vmsoff .v1132-signgrid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:6px}
+#pane-vmsoff .v1132-signgrid label{display:flex;flex-direction:column;gap:2px;font-size:.85em}
+#pane-vmsoff .v1132-days{display:grid;grid-template-columns:1fr;gap:8px}
+#pane-vmsoff .v1132-day{padding:6px 8px;border:1px solid rgba(0,0,0,.1);border-radius:8px;font-size:.9em}
+#pane-vmsoff .v1132-day b{display:block;margin-bottom:3px}
+#pane-vmsoff .v1132-day span{display:flex;gap:8px;padding:1px 0}
+#pane-vmsoff .v1132-day span i{font-style:normal;font-weight:700;min-width:44px;flex:none;font-variant-numeric:tabular-nums}
+@media (min-width:760px){
+#pane-vmsoff .v1132-board{grid-template-columns:minmax(260px,1.4fr) 1fr 1fr 1.4fr}
+#pane-vmsoff .v1132-b{grid-column:auto;flex-direction:column;align-items:flex-start;gap:2px}
+#pane-vmsoff .v1132-where{grid-column:1/-1}
+#pane-vmsoff .v1132-n{grid-column:auto}
+#pane-vmsoff .v1132-signgrid{grid-template-columns:1fr 2fr}
+#pane-vmsoff .v1132-days{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+}

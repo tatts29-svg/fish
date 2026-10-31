@@ -1,0 +1,576 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 31 Oct 2026 (this chat, ~03:4x AEST): 'Kinp is easy just assign who ever is working to that' and 'The generators. Is just an hour each from aaron mob and demob for each generator'. KINP per-piece labour (install, levelling, steps and cleaning on the day a unit came on site; demob on the day it left) goes to every person on the roster that day, as a note on their labour row naming the contract and the units, the rest of the day after any hours already noted; the generators go to one person at one hour per generator on its day in and its day out, as a note on that person's row (a new row where the roster had none that day). Rows' own hours and times untouched. Nothing inferred beyond those two rules. One labour-hire row (15 Oct) already carries a note at the page's 240-character limit and cannot take the KINP words; its KINP share is the rest of that day by the same rule, recorded here instead.",
+ "ops": [
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-15",
+   "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-15",
+   "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-15",
+   "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-15",
+   "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-16",
+   "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-16",
+   "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-16",
+   "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-16",
+   "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-17",
+   "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-17",
+   "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-17",
+   "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-17",
+   "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-21",
+   "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-21",
+   "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-21",
+   "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-22",
+   "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-22",
+   "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-22",
+   "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-22",
+   "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-23",
+   "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-23",
+   "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-23",
+   "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-23",
+   "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-24",
+   "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-24",
+   "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-24",
+   "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-24",
+   "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-25",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-25",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-25",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-09-25",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-28",
+   "text": "Generators 9961976 NVAC · 1 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-09-28",
+   "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-09-28",
+   "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-09-28",
+   "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-30",
+   "text": "Generators 9961976 NVAC · 1 h · GN20-A mob · Generators 9961976 NVAC · 2 h · GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-01",
+   "text": "Generators 9961976 NVAC · 1 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-01",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-01",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-01",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Jayden Paul",
+   "date": "2026-10-01",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Wayne Crimmin",
+   "date": "2026-10-01",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-06",
+   "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-06",
+   "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-06",
+   "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-06",
+   "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-07",
+   "text": "Generators 9961976 NVAC · 1 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-07",
+   "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-07",
+   "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-07",
+   "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-08",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-08",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-08",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-08",
+   "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-12",
+   "text": "Generators 9961976 NVAC · 1 h · GN13 mob · Generators 9994954 KINP · 1 h · GN? mob · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-12",
+   "text": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-10-12",
+   "text": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-14",
+   "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Eric Lucian",
+   "date": "2026-10-14",
+   "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-10-14",
+   "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-15",
+   "text": "Generators 9961976 NVAC · 1 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-15",
+   "text": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-15",
+   "text": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-16",
+   "text": "KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-16",
+   "text": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-16",
+   "text": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-10-16",
+   "text": "KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-19",
+   "text": "Generators 9961976 NVAC · 5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-22",
+   "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-22",
+   "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-22",
+   "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-10-22",
+   "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-26",
+   "text": "Generators 9961976 NVAC · 5 h · GN04 demob, GN06 demob, GN10 demob, GN13 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-26",
+   "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-26",
+   "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-26",
+   "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-27",
+   "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-27",
+   "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-27",
+   "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-27",
+   "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-28",
+   "text": "Generators 9961976 NVAC · 4 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob · Generators 9961976 NVAC · 1 h · GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-28",
+   "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-28",
+   "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-28",
+   "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-30",
+   "text": "Generators 9961976 NVAC · 1 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Alfie Harris",
+   "date": "2026-10-30",
+   "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Andrew Fisher",
+   "date": "2026-10-30",
+   "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Daniel Gough",
+   "date": "2026-10-30",
+   "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+  },
+  {
+   "op": "labour_note",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+  }
+ ]
+}

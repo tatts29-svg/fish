@@ -1,0 +1,32 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P63 door to driver  p62 door to passenger p60 door to passenger\". Each has one unit; none had a door side recorded.",
+ "refs": [
+  "P63",
+  "P62",
+  "P60"
+ ],
+ "ops": [
+  {
+   "op": "door",
+   "ref": "P63",
+   "id": "u960719",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P63 door to driver"
+  },
+  {
+   "op": "door",
+   "ref": "P62",
+   "id": "u1189409",
+   "side": "passenger",
+   "why": "Andrew, 17 Oct 2026: P62 door to passenger"
+  },
+  {
+   "op": "door",
+   "ref": "P60",
+   "id": "u1015699",
+   "side": "passenger",
+   "why": "Andrew, 17 Oct 2026: P60 door to passenger"
+  }
+ ]
+}

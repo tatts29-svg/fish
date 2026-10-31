@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "28ea59432b7472bf76c6eba52753fdfdfc74cb4c467ac648390703642dc2c955",
+  "candidate_bytes": 15649549,
+  "comparison_sha256": "13cfeb20458d097ffbb148ec5f9c0b2ba3f61c02cd2a99f9e5b95d3c4e002fa3",
+  "live_base_sha256": "e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422",
+  "change": "Two visibility guards defer only the hidden Costs alignment decoration; financial/data code unchanged.",
+  "inline_scripts_checked": 213,
+  "focused_checks": 20,
+  "native_browser_checks": 13,
+  "native_browser_failures": 0,
+  "runtime_errors": 0,
+  "console_errors": 0,
+  "http_write_attempts": 0,
+  "record_unchanged": true,
+  "original_hidden_report_present": true,
+  "candidate_hidden_report_present": false,
+  "active_report_same": true,
+  "phone_screenshot": "Inspected privately",
+  "status": "DRAFT. Final v12.42 rebuild and release gates pending; overall startup performance remains unresolved."
+}

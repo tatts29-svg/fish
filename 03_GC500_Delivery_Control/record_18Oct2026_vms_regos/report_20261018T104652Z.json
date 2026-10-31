@@ -1,0 +1,96 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T104652Z",
+ "finished": "2026-10-18T10:47:01.988Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "number_off",
+    "ref": "T0001",
+    "no": "1211404"
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9736,
+  "after": 9739
+ },
+ "updated": {
+  "before": "2026-10-18T10:34:17.988Z",
+  "after": "2026-10-18T10:47:01.127Z"
+ },
+ "stage": [
+  {
+   "op": "number_off",
+   "ref": "T0001",
+   "no": "1211404",
+   "result": "taken off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "assetNumbers/T0001",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~T0001~2f~1211404",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~T0001~2f~1211404",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "assetNumbers/T0001": {
+    "_k": "T0001",
+    "v": [
+     "1182999",
+     "1191877",
+     "1211354",
+     "1211359",
+     "1211370",
+     "1211383",
+     "1211404",
+     "1271129"
+    ]
+   },
+   "deleted/num~2f~T0001~2f~1211404": null,
+   "by/deleted~2f~num~2f~T0001~2f~1211404": null
+  },
+  "after": {
+   "assetNumbers/T0001": {
+    "_k": "T0001",
+    "v": [
+     "1182999",
+     "1191877",
+     "1211354",
+     "1211359",
+     "1211370",
+     "1211383",
+     "1271129"
+    ]
+   },
+   "deleted/num~2f~T0001~2f~1211404": {
+    "_k": "num/T0001/1211404",
+    "v": "2026-10-18T10:46:58.697Z"
+   },
+   "by/deleted~2f~num~2f~T0001~2f~1211404": {
+    "_k": "deleted/num/T0001/1211404",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

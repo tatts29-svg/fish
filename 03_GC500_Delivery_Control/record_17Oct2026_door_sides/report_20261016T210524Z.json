@@ -1,0 +1,216 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T210524Z",
+ "finished": "2026-10-16T21:05:39.903Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P51 door to driver\". P51 has one unit, 1322579; no door side was recorded.",
+  "refs": [
+   "P51"
+  ],
+  "ops": [
+   {
+    "op": "door",
+    "ref": "P51",
+    "id": "u1322579",
+    "side": "driver",
+    "why": "Andrew, 17 Oct 2026: P51 door to driver"
+   }
+  ]
+ },
+ "pageSha256": "0cfe02f8dd823bae3c89f3600db8343b2d384f432c8884bc0188323bc44c0b36",
+ "version": {
+  "before": 9575,
+  "after": 9576
+ },
+ "updated": {
+  "before": "2026-10-16T21:04:47.658Z",
+  "after": "2026-10-16T21:05:38.514Z"
+ },
+ "stage": [
+  {
+   "op": "door",
+   "ref": "P51",
+   "id": "u1322579",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P51 door to driver",
+   "result": "door side driver"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P51",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P51": {
+    "state": "on site",
+    "set_at": "2026-10-05T22:21:39.761Z",
+    "by": "andrew fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-05T23:24:59.615Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-05T23:25:00.346Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-05T23:24:58.734Z",
+    "note": "Tue 06 Oct 2026 — Commodore Park: 4x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:12:58.027Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T20:18:35.368Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-05T22:21:39.761Z",
+      "by": "andrew fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-05T23:24:58.734Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-05T23:24:59.615Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-05T23:25:00.346Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-06T03:26:57.737Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-05T22:21:39.842Z",
+       "by": "andrew fisher",
+       "recorded_at": "2026-10-05T22:21:39.842Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-06T03:26:57.737Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T03:26:57.737Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T03:26:57.737Z"
+    },
+    "_k": "P51"
+   }
+  },
+  "after": {
+   "delivery/P51": {
+    "state": "on site",
+    "set_at": "2026-10-05T22:21:39.761Z",
+    "by": "andrew fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-05T23:24:59.615Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-05T23:25:00.346Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-05T23:24:58.734Z",
+    "note": "Tue 06 Oct 2026 — Commodore Park: 4x buildings are coming in to Commodore park please make sure the team keep an eye on the drivers is a tight area and have had a couple of incidents with hitting light poles in past years.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:12:58.027Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T20:18:35.368Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-05T22:21:39.761Z",
+      "by": "andrew fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-05T23:24:58.734Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-05T23:24:59.615Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-05T23:25:00.346Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-06T03:26:57.737Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-05T22:21:39.842Z",
+       "by": "andrew fisher",
+       "recorded_at": "2026-10-05T22:21:39.842Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-06T03:26:57.737Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T03:26:57.737Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T03:26:57.737Z"
+    },
+    "loading872": {
+     "u1322579": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:05:35.821Z"
+     }
+    },
+    "_k": "P51"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

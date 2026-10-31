@@ -1,0 +1,14 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (08:5x AEST): \"Wc54 can we have picked up at 830am today please. All asset in this area to that reference. 8:50am Then 0915 0949 0472 0075 0969 0992 0008 0492 0970 0294 0190 0491 0721 0064\". (1) WC54's six Event Portables FWF (0007, 0071, 0087, 0186, 0295, 0619), every unit on that reference, left at 08:30 AEST: WC54 leaves in full. (2) The fourteen numbers are Event Portables FWF, each on exactly one reference on the record (read 08:58 AEST, every one Ready and its location Emptied, none already left), and left at 08:50 AEST: WC57 0915 and 0008 (in full); WC47 0949 (in full); WC25 0472 (in full); WC26 0075 (in full); WC23 0969 and 0992 (the last two of five; 0968, 0960 and 0107 left 26 Oct 11:04); WC59 0492 and 0064 (the last two of seven; five left 26 Oct 11:04); WC56 0970, 0294, 0190, 0491 and 0721 (the last five of twelve; seven left 26 Oct 11:04). Each unit is recorded on the reference it is on; nothing is moved between references.",
+  "ops": [
+    {"op": "depart", "ref": "WC54", "at": "2026-10-27T08:30:00+10:00", "nos": ["0007", "0071", "0087", "0186", "0295", "0619"], "complete": true},
+    {"op": "depart", "ref": "WC57", "at": "2026-10-27T08:50:00+10:00", "nos": ["0915", "0008"], "complete": true},
+    {"op": "depart", "ref": "WC47", "at": "2026-10-27T08:50:00+10:00", "nos": ["0949"], "complete": true},
+    {"op": "depart", "ref": "WC25", "at": "2026-10-27T08:50:00+10:00", "nos": ["0472"], "complete": true},
+    {"op": "depart", "ref": "WC26", "at": "2026-10-27T08:50:00+10:00", "nos": ["0075"], "complete": true},
+    {"op": "depart", "ref": "WC23", "at": "2026-10-27T08:50:00+10:00", "nos": ["0969", "0992"], "complete": true},
+    {"op": "depart", "ref": "WC59", "at": "2026-10-27T08:50:00+10:00", "nos": ["0492", "0064"], "complete": true},
+    {"op": "depart", "ref": "WC56", "at": "2026-10-27T08:50:00+10:00", "nos": ["0970", "0294", "0190", "0491", "0721"], "complete": true}
+  ]
+}

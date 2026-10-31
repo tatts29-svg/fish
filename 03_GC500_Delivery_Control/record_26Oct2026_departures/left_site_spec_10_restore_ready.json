@@ -1,0 +1,510 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Restore, 27 Oct 2026 04:30 AEST. At 03:59:55 an edit-link page left open since before 10:29 on 26 Oct (older than v12.31, so it does not know the Ready fields) woke on a phone and wrote back 68 delivery documents without ready1231_* / ready1238_* / pickup1238_* (every other field unchanged). This puts back exactly what the record held and our own files prove: record run 9's Ready ticks (Andrew, 26 Oct 18:30: \"all event portaloos showing ready for collection apart from the 2 16pans\"; 177 Event Portables units at 51 references, the same units, through the page's own per-unit Ready) and Andrew's own Ready ticks on GN25 (16:13), LT05 and LT06 (13:48), now per unit. Not in this run: what a laptop wrote between 21:56 and 22:13 on T0001, T0002, T0128, T0158, P25, P45, P60, P62, P63, P65, P66, P67, P69, WC51 and WC60 (no copy of it is held here).",
+ "ops": [
+  {
+   "op": "unit_ready",
+   "ref": "BJR01",
+   "units": [
+    "event-portables|0941"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "PG01",
+   "units": [
+    "event-portables|0285"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "PG03",
+   "units": [
+    "event-portables|0100"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "PG05",
+   "units": [
+    "event-portables|0438"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "PG29",
+   "units": [
+    "event-portables|0573"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "SVP01",
+   "units": [
+    "event-portables|0939"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0024",
+   "units": [
+    "event-portables|0164"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0162",
+   "units": [
+    "event-portables|0990"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0176",
+   "units": [
+    "event-portables|0576",
+    "event-portables|0994"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC09",
+   "units": [
+    "event-portables|0081",
+    "event-portables|0085",
+    "event-portables|0089",
+    "event-portables|0140",
+    "event-portables|0450",
+    "event-portables|0551",
+    "event-portables|0553",
+    "event-portables|0584",
+    "event-portables|0585",
+    "event-portables|0993",
+    "event-portables|PP01",
+    "event-portables|PP02",
+    "event-portables|PP03",
+    "event-portables|PP04",
+    "event-portables|PP05",
+    "event-portables|PP06"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC10",
+   "units": [
+    "event-portables|0119",
+    "event-portables|0488",
+    "event-portables|0677"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC13",
+   "units": [
+    "event-portables|0036",
+    "event-portables|0444"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC19",
+   "units": [
+    "event-portables|0435"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC23",
+   "units": [
+    "event-portables|0969",
+    "event-portables|0992"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC25",
+   "units": [
+    "event-portables|0472"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC26",
+   "units": [
+    "event-portables|0075"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC28",
+   "units": [
+    "event-portables|0102"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC29",
+   "units": [
+    "event-portables|0044",
+    "event-portables|0079",
+    "event-portables|0441",
+    "event-portables|0546",
+    "event-portables|0564",
+    "event-portables|0598",
+    "event-portables|0707"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC30",
+   "units": [
+    "event-portables|0024",
+    "event-portables|0043",
+    "event-portables|0419",
+    "event-portables|0428",
+    "event-portables|0440",
+    "event-portables|0545",
+    "event-portables|0681",
+    "event-portables|0963"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC33",
+   "units": [
+    "event-portables|0012",
+    "event-portables|0297",
+    "event-portables|0456",
+    "event-portables|0487",
+    "event-portables|0554",
+    "event-portables|0586",
+    "event-portables|0597",
+    "event-portables|0790",
+    "event-portables|0920",
+    "event-portables|0938",
+    "event-portables|0971"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC34",
+   "units": [
+    "event-portables|0526"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC35",
+   "units": [
+    "event-portables|0284"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC38",
+   "units": [
+    "event-portables|0183"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC39",
+   "units": [
+    "event-portables|0188",
+    "event-portables|0637"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC40",
+   "units": [
+    "event-portables|0433",
+    "event-portables|0541",
+    "event-portables|0626",
+    "event-portables|0648",
+    "event-portables|0965"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC41",
+   "units": [
+    "event-portables|0065",
+    "event-portables|0191",
+    "event-portables|0517",
+    "event-portables|0518",
+    "event-portables|0521",
+    "event-portables|0643",
+    "event-portables|0651",
+    "event-portables|0669",
+    "event-portables|0682",
+    "event-portables|0996"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC42",
+   "units": [
+    "event-portables|0141"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC43",
+   "units": [
+    "event-portables|0056",
+    "event-portables|0161",
+    "event-portables|0182",
+    "event-portables|0420",
+    "event-portables|0528",
+    "event-portables|0581",
+    "event-portables|0646",
+    "event-portables|0696",
+    "event-portables|0723",
+    "event-portables|0961"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC44",
+   "units": [
+    "event-portables|0037",
+    "event-portables|0146"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC45",
+   "units": [
+    "event-portables|0086",
+    "event-portables|0542",
+    "event-portables|0544",
+    "event-portables|0549",
+    "event-portables|0562",
+    "event-portables|0632",
+    "event-portables|0673",
+    "event-portables|0947"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC47",
+   "units": [
+    "event-portables|0949"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC48",
+   "units": [
+    "event-portables|0050",
+    "event-portables|0289",
+    "event-portables|0471",
+    "event-portables|0486"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC49",
+   "units": [
+    "event-portables|0084",
+    "event-portables|0907",
+    "event-portables|0919"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC51",
+   "units": [
+    "event-portables|0028",
+    "event-portables|0136",
+    "event-portables|0167",
+    "event-portables|0453",
+    "event-portables|0653",
+    "event-portables|0991"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC53",
+   "units": [
+    "event-portables|0074",
+    "event-portables|0951",
+    "event-portables|0952"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC54",
+   "units": [
+    "event-portables|0007",
+    "event-portables|0071",
+    "event-portables|0087",
+    "event-portables|0186",
+    "event-portables|0295",
+    "event-portables|0619"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC56",
+   "units": [
+    "event-portables|0190",
+    "event-portables|0294",
+    "event-portables|0491",
+    "event-portables|0721",
+    "event-portables|0970"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC57",
+   "units": [
+    "event-portables|0008",
+    "event-portables|0915"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC59",
+   "units": [
+    "event-portables|0064",
+    "event-portables|0492"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC61",
+   "units": [
+    "event-portables|0015",
+    "event-portables|0038",
+    "event-portables|0105",
+    "event-portables|0290",
+    "event-portables|0547",
+    "event-portables|0645",
+    "event-portables|0945",
+    "event-portables|0977"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC62",
+   "units": [
+    "event-portables|0103",
+    "event-portables|0976"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC65",
+   "units": [
+    "event-portables|0033"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC67",
+   "units": [
+    "event-portables|0714",
+    "event-portables|0769",
+    "event-portables|0793"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC68",
+   "units": [
+    "event-portables|0426"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC69",
+   "units": [
+    "event-portables|0010",
+    "event-portables|0070",
+    "event-portables|0078",
+    "event-portables|0123",
+    "event-portables|0152",
+    "event-portables|0432",
+    "event-portables|0592",
+    "event-portables|0622",
+    "event-portables|0647",
+    "event-portables|0679",
+    "event-portables|0692",
+    "event-portables|0958"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC70",
+   "units": [
+    "event-portables|0423"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC71",
+   "units": [
+    "event-portables|0116",
+    "event-portables|0279",
+    "event-portables|0280",
+    "event-portables|0293",
+    "event-portables|0490",
+    "event-portables|0531",
+    "event-portables|0552",
+    "event-portables|0644"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC72",
+   "units": [
+    "event-portables|0699"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC73",
+   "units": [
+    "event-portables|0192",
+    "event-portables|0765"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC81",
+   "units": [
+    "event-portables|0124"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC85",
+   "units": [
+    "event-portables|0135"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "GN25",
+   "units": [
+    "coates|1244536"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "LT05",
+   "units": [
+    "coates|1224783"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "LT06",
+   "units": [
+    "coates|1224791"
+   ]
+  }
+ ]
+}

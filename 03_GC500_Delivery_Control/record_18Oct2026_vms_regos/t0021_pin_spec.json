@@ -1,0 +1,2 @@
+{"by": "Andrew Fisher", "why": "Andrew, 20 Oct 2026: \"Coates office pinned at https://maps.app.goo.gl/GPAiY1C8x1bXKjR48\" (resolves to -27.9831377, 153.4264433). T0021 is the Coates office (Building 4.8m, Office 4.8x3); it had no location on the record.",
+ "ops": [{"op": "place", "ref": "T0021", "lat": -27.9831377, "lon": 153.4264433, "how": "Andrew Fisher's pinned location, 20 Oct 2026 (Coates office)", "source": "https://maps.app.goo.gl/GPAiY1C8x1bXKjR48"}]}

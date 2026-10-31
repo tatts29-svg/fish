@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "serverSha256": "d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc",
+  "method": "Exact deployed uploadFile evaluated with synthetic file stream and local temporary directory; no HTTP or service writes",
+  "sameFilenameSameId": true,
+  "sameBytesSameChecksum": true,
+  "fileIndexEntries": 1,
+  "physicalFiles": 1,
+  "limitation": "A retry can refresh upload metadata. This is stable file identity, not an exactly-once transaction guarantee."
+}

@@ -1,0 +1,7 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 31 Oct 2026 ~04:2x AEST (this chat): 'Also no kyle friday either.' The labour-hire row for Friday 30 Oct (10.5 h on days, entered 25 Oct from the demob roster) is taken off through the page's own removeOurCost, which keeps it with a tombstone so the removal travels with the record; the KINP note written on it earlier today goes with it. The other three people rostered that Friday keep their rows and notes.",
+ "ops": [
+  {"op": "labour_remove", "person": "Kyle Gover", "date": "2026-10-30", "why": "Andrew Fisher, 31 Oct 2026: did not work Friday 30 Oct"}
+ ]
+}

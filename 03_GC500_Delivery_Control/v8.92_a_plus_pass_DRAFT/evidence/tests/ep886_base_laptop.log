@@ -1,0 +1,33 @@
+PASS every plan reference is listed on its load day, or on the day recorded on the shared record (40 drops)
+PASS no moved row is left on the day the schedule had written
+PASS WC34 keeps the Fri 9 Oct recorded on the record, moved from Thu 8 Oct in the recorder's name, not the plan's
+FAIL WC57 reads Fri 9 Oct from Load 1, moved from Mon 12 Oct, a schedule correction named to the plan
+PASS WC09: FWF and pee panels on Fri 9 Oct (moved from Thu 8); the two 6 m toilet blocks still Thu 8 Oct; the reference's first day still Thu 8
+FAIL WC67: the 2 FWF on site since 1 Oct stay; the second 2 read Tue 13 Oct with Load 2
+PASS T0089 is off the plan on the record and not moved: folded under Tue 6 Oct, not on Fri 9 Oct
+PASS T0176 (Red Bull, no WC number) reads Mon 19 Oct with Load 4, off Thu 22 Oct
+FAIL Fri 9 Oct lists WC09, WC34, WC38, WC39, WC40, WC57 and WC61
+PASS Tue 13 Oct lists WC29, WC67, WC68, WC69, WC70 and WC72
+PASS Thu 15 Oct lists WC46, WC48, WC49, WC51, WC53, WC54 and WC55
+PASS Mon 19 Oct lists the Load 4 and Load 5 references, the pit garages among them
+FAIL the supplier card and the Load 1 run sheet say T0089 is off the plan on the record and the load is 23 FWF; no record line disagrees with the plan
+PASS moved-off folds name the rows and the source (Wed 7: 4; Thu 8: WC09 FWF and pee panels, WC34; Mon 12: WC57 and WC67's second drop; Mon 19: 5; Tue 20: 5; Thu 22: T0176)
+FAIL the drop sheet for Fri 9 Oct carries WC57 on its day; WC57 has no drop sheet on Mon 12 Oct
+PASS installer text: no "date needs confirmation" on Thu 8 or Fri 9 Oct (the toilet blocks are not the supplier's)
+PASS delivery cards: WC09 on Fri 9 reads 9 Oct, 4 / 6, moved from 08 Oct, the plan named; on Thu 8 reads 8 Oct, 2, no plan line
+FAIL delivery cards: WC57 reads 9 Oct, moved from 12 Oct by the plan; WC34 reads 9 Oct, moved from 08 Oct by the record, the plan beside it
+PASS Today's pod counts the day list the Timeline shows (08 Oct: 3 due in)
+PASS Where we are is ready
+PASS the day lists are the same on a second reading
+PASS the Timeline's due in / due out for 9, 13, 15 and 19 Oct equal the day list (09: 6/0, 13: 10/0, 15: 12/0, 19: 29/1)
+FAIL the WC57 card on the Timeline reads Fri 9 Oct with the plan beside it
+PASS a Timeline redraw keeps the day, its cards and the scroll position
+PASS the WC09 drawer says the FWF and pee panels come Fri 9 Oct with Load 1 and the toilet blocks stay Thu 8 Oct
+PASS the WC09 drawer's In tile keeps Thu 8 Oct on the plan and says the FWF and pee panels go Fri 9 Oct with the plan
+PASS Today's pod shows the day list's due-in count (3)
+PASS the programme panel's next-milestone due in / due out read the same day list
+PASS a Today redraw changes no data or money
+PASS no runtime errors
+PASS no attempted live writes
+{"wc09":{"ev8":["T0102"],"ev9":["T0101","T0259"],"moved9":"2026-10-08","moved8":null,"in":"2026-10-08","inMoved":false,"items8":["Toilet Block 6m"]},"wc57":{"on":["2026-10-13"],"moved":null,"in":"2026-10-13","plan":"2026-10-09","where":"local"},"wc34":{"rec":"2026-10-09","on":["2026-10-09"],"moved":"2026-10-08","in":"2026-10-09"},"wc67":{"on":["2026-10-13"],"ev13":["T0081","T0262"]},"mv":{"d7":["WC38","WC39","WC40","WC61"],"d8":["WC09:4 × FWF, 6 × Pee Panel","WC34:1 × FWF"],"d12":["WC57:2 × FWF>2026-10-09","WC67:2 × FWF>2026-10-13"],"d19":["WC29","WC46","WC55","WC68","WC72"],"d20":["PG01","PG03","PG05","PG29","WC85"],"d22":["T0176"]},"cards":{"c9date":"2026-10-09","c9qty":"4 / 6","c9src":"Event Portables plan v10, 3 Oct · Load 1, Fri 09 Oct","c9chip":"moved from 08 Oct","c8date":"2026-10-08","c8qty":"2","c8src":null,"c8chip":null,"c57date":null,"c57qty":null,"c57src":null,"c57chip":null,"c34date":"2026-10-09","c34qty":"1","c34src":"Event Portables plan v10, 3 Oct · Load 1, Fri 09 Oct","c34chip":"moved from 08 Oct"},"today":{"podIso":"2026-10-08","podIn":3,"figDue":3,"figDm":"08 Oct","podDm":"08 Oct","msIso":"2026-10-23","msIn":0,"msOut":0,"whereReady":true},"tl":{"2026-10-09":{"in":6,"out":0,"pin":6,"pout":0},"2026-10-13":{"in":10,"out":0,"pin":10,"pout":0},"2026-10-15":{"in":12,"out":0,"pin":12,"pout":0},"2026-10-19":{"in":29,"out":1,"pin":29,"pout":1}},"dom57":null,"hint":"Event Portables plan v10, 3 Oct · Load 1: 4 × FWF, 6 × Pee Panel come Fri 09 Oct (the schedule had Thu 08 Oct); 2 × Toilet Block 6m stays Thu 08 Oct.","td":{"pod":3,"hidden":false,"fig":[0,0]}}
+1440 px: 24/31

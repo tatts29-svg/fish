@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "files": {
+    "preview.template.html": {
+      "sha256": "c64899043a47298eb480482a2aa6feaede8cec1e5f7bfdfa307406f9d724e7f7",
+      "bytes": 12717
+    },
+    "GC500-motion-preview.html": {
+      "sha256": "8112dfc388c9019f389c47f814c40faef686b551470f5cc07fcc567699b0b6e2",
+      "bytes": 251295
+    },
+    "vendor/lottie_light.min.js": {
+      "sha256": "9588432bec30c8ef8200bac4a67d8aaad881047bc2a6c9fa624d90ec96402410",
+      "bytes": 168394
+    },
+    "check_preview.cjs": {
+      "sha256": "3abb8f2c18f49e53d7e29a964001ad2594d8c2e1940b709f5d5d94a19470258f",
+      "bytes": 5907
+    },
+    "check_fallback.cjs": {
+      "sha256": "9847f4a2e101d465aa0ea1b37dff407ab8b5dd42fac2a12bc8cc1ac40e7d794b",
+      "bytes": 2264
+    }
+  }
+}

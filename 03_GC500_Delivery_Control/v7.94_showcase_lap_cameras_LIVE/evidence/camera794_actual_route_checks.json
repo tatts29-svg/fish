@@ -1,0 +1,68 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "cameraSha256": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+  "cases": [
+    {
+      "width": 1280,
+      "height": 517,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.4753597925533741,
+      "hiddenOverviewChanges": 2,
+      "roadSamples": 3415,
+      "roadSampleFraction": 0.8419625246548323,
+      "desiredRoadFovMax": 68,
+      "settledFollowingSamples": 1900,
+      "settledCarOutside": 0
+    },
+    {
+      "width": 390,
+      "height": 650,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.4753597925533741,
+      "hiddenOverviewChanges": 2,
+      "roadSamples": 3415,
+      "roadSampleFraction": 0.8419625246548323,
+      "desiredRoadFovMax": 60.17714303598503,
+      "settledFollowingSamples": 1900,
+      "settledCarOutside": 0
+    },
+    {
+      "width": 2400,
+      "height": 600,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.4753597925533741,
+      "hiddenOverviewChanges": 2,
+      "roadSamples": 3415,
+      "roadSampleFraction": 0.8419625246548323,
+      "desiredRoadFovMax": 67.99999999999999,
+      "settledFollowingSamples": 1900,
+      "settledCarOutside": 0
+    },
+    {
+      "width": 3600,
+      "height": 600,
+      "samples": 4056,
+      "sections": 12,
+      "adjusted": 0,
+      "fallbacks": 0,
+      "maxVisibleStepM": 1.4753597925533741,
+      "hiddenOverviewChanges": 2,
+      "roadSamples": 3415,
+      "roadSampleFraction": 0.8419625246548323,
+      "desiredRoadFovMax": 68,
+      "settledFollowingSamples": 1900,
+      "settledCarOutside": 0
+    }
+  ],
+  "scope": "Actual source circuit, OSM footprints and original physics at 60 Hz in CPU fixture; rendering quality and device frame rate require browser checks"
+}

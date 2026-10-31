@@ -1,0 +1,163 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "candidateBytes": 9101458,
+  "suites": {
+    "source807_checks": {
+      "passed": 28,
+      "total": 28,
+      "reportSha256": "4e90a1ee1160dc817e6a8c523885775d712315c9a8b7aa6a1077e4434b515eb0"
+    },
+    "focus807_desktop": {
+      "passed": 22,
+      "total": 22,
+      "reportSha256": "d25a17a6afed87f33b5cbc82b9a090d2df011929fb3002a515cbbfa718a049d5"
+    },
+    "focus807_phone": {
+      "passed": 18,
+      "total": 18,
+      "reportSha256": "507e773087190beac60ad388ebec9a626c81557e77fd71792e6f661e286d1d2e"
+    },
+    "integration807_browser": {
+      "passed": 32,
+      "total": 32,
+      "reportSha256": "91f754ce7ac2437996135a2d6cf1ceb3d0186df82618e02649bb46add8f3bcfb"
+    },
+    "sweep_desktop": {
+      "tabs": 21,
+      "links": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "reportSha256": "edac05fa7d299c7b34bcf8f59fe66bedbc8c79cb47449ef58eca71a6ee5e3290"
+    },
+    "sweep_phone": {
+      "tabs": 21,
+      "links": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "reportSha256": "8d0e9f20f81a104994441d0de5b4d152d7c8c3f89610451e991a80e1e2368e72"
+    },
+    "independent807_source_review": {
+      "passed": 31,
+      "total": 31,
+      "reportSha256": "db4c122f5bd2795672e19281f9f1674101dd13efdeb0fac6a027cc75844a4e2f"
+    },
+    "navigation807_summary": {
+      "passed": 21,
+      "total": 21,
+      "reportSha256": "c25585c63cc4e90241a93dccb59f2bc687eeccd2116c1a985f1d4679adf3c306"
+    },
+    "standing_browser": {
+      "packed_desktop": {
+        "passed": 20,
+        "total": 20
+      },
+      "packed_phone": {
+        "passed": 14,
+        "total": 14
+      },
+      "equipment_desktop": {
+        "passed": 22,
+        "total": 22
+      },
+      "equipment_phone": {
+        "passed": 22,
+        "total": 22
+      },
+      "rules": {
+        "passed": 45,
+        "total": 45
+      },
+      "fresh_after_save": {
+        "passed": 11,
+        "total": 11
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "source807_checks is bound to final candidate and fresh base",
+      "pass": true
+    },
+    {
+      "name": "source807_checks passes every assertion",
+      "pass": true
+    },
+    {
+      "name": "focus807_desktop is bound to final candidate and fresh base",
+      "pass": true
+    },
+    {
+      "name": "focus807_desktop passes every assertion",
+      "pass": true
+    },
+    {
+      "name": "focus807_phone is bound to final candidate and fresh base",
+      "pass": true
+    },
+    {
+      "name": "focus807_phone passes every assertion",
+      "pass": true
+    },
+    {
+      "name": "integration807_browser is bound to final candidate and fresh base",
+      "pass": true
+    },
+    {
+      "name": "integration807_browser passes every assertion",
+      "pass": true
+    },
+    {
+      "name": "desktop sweep covers all 21 tabs and seven links",
+      "pass": true
+    },
+    {
+      "name": "desktop sweep has no page, console or navigation errors",
+      "pass": true
+    },
+    {
+      "name": "desktop final sweep and body captures are hash-bound with no errors or write attempts",
+      "pass": true
+    },
+    {
+      "name": "desktop changed-body images still match their capture hashes",
+      "pass": true
+    },
+    {
+      "name": "phone sweep covers all 21 tabs and seven links",
+      "pass": true
+    },
+    {
+      "name": "phone sweep has no page, console or navigation errors",
+      "pass": true
+    },
+    {
+      "name": "phone final sweep and body captures are hash-bound with no errors or write attempts",
+      "pass": true
+    },
+    {
+      "name": "phone changed-body images still match their capture hashes",
+      "pass": true
+    },
+    {
+      "name": "independent807_source_review passes on the final candidate",
+      "pass": true
+    },
+    {
+      "name": "navigation807_summary passes on the final candidate",
+      "pass": true
+    },
+    {
+      "name": "Standing browser suites are bound to the final candidate and fresh base",
+      "pass": true
+    },
+    {
+      "name": "All six required standing browser runs pass",
+      "pass": true
+    }
+  ],
+  "passed": 20,
+  "total": 20,
+  "publication": "Not performed by these tests; parent release owner decides after independent review."
+}

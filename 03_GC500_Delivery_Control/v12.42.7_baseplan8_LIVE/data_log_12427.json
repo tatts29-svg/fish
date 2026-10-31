@@ -1,0 +1,3290 @@
+{
+ "schema": 1,
+ "author": "Andrew Fisher",
+ "reviewed": "2026-10-27",
+ "sha256": "13f576696464f2c87b0a005921b2f3c2ac0b2825a58fbae1d967f1a21c51eb14",
+ "contract_tabs": 17,
+ "lines": 377,
+ "added": [
+  {
+   "line": "10000475/1",
+   "branch": "KINP",
+   "item": "MISCCONS",
+   "description": "Scrim 50m roll",
+   "what": "Scrim 50m roll",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000484/1",
+   "branch": "KINP",
+   "item": "MISCCONS",
+   "description": "Scrim 50m roll",
+   "what": "Scrim 50m roll",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-27",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000484/2",
+   "branch": "KINP",
+   "item": "MISCCONS",
+   "description": "Scrim 50m Roll",
+   "what": "Scrim 50m Roll",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000484/3",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge for 10x rolls",
+   "what": "Transport Charge for 10x rolls",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000506/1",
+   "branch": "KINP",
+   "item": "MISCCONS",
+   "description": "Toilet Paper",
+   "what": "Toilet Paper",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000506/2",
+   "branch": "KINP",
+   "item": "MISCCONS",
+   "description": "Hand Towel",
+   "what": "Hand Towel",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/1",
+   "branch": "KINP",
+   "item": "MISCITEMS",
+   "description": "P68 Hydration Station",
+   "what": "Hydration Station",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": "2026-10-31",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/2",
+   "branch": "KINP",
+   "item": "WATER",
+   "description": "Water Charges",
+   "what": "Water Charges",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/3",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Hydration Station",
+   "what": "Transport Charge Hydration Station",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/4",
+   "branch": "KINP",
+   "item": "TRAKMAT2.4X1.1",
+   "description": "Trakmat - 2.4M x 1.1M - TM4496",
+   "what": "Trakmat - 2.4M x 1.1M - TM4496",
+   "kind": "ground protection",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-15",
+   "demob_date": "2026-11-13",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/5",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge 20x matts",
+   "what": "Transport Charge 20x matts",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/6",
+   "branch": "KINP",
+   "item": "TRAKMAT2.4X1.1",
+   "description": "Trakmat - 2.4M x 1.1M - TM4496",
+   "what": "Trakmat - 2.4M x 1.1M - TM4496",
+   "kind": "ground protection",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": "2026-11-13",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/7",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge 16/10 20x",
+   "what": "Transport Charge 16/10 20x",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/8",
+   "branch": "KINP",
+   "item": "TRAKMAT2.4X1.1",
+   "description": "Trakmat - 2.4M x 1.1M - TM4496",
+   "what": "Trakmat - 2.4M x 1.1M - TM4496",
+   "kind": "ground protection",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": "2026-10-28",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/9",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge 37x 19/10",
+   "what": "Transport Charge 37x 19/10",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/10",
+   "branch": "KINP",
+   "item": "PICKUP CHARGE",
+   "description": "Pickup Charge For Track Mat",
+   "what": "Pickup Charge For Track Mat",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Quoted",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "10000523/11",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Site Shift Supply Container",
+   "what": "Container",
+   "kind": "container",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961265/40",
+   "branch": "STPS",
+   "item": "LABOUR",
+   "description": "Labour Charge",
+   "what": "Labour Charge",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-07",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961265/42",
+   "branch": "STPS",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Site Shifts",
+   "what": "Transport Charge Site Shifts",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-07",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961265/43",
+   "branch": "STPS",
+   "item": "1211356",
+   "description": "VMS05a Variable Message Board Senior",
+   "what": "Variable Message Board Senior",
+   "kind": "vms",
+   "register_type": "VMS",
+   "status": "Off Rent",
+   "booked_delivery_date": "2026-10-20",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961265/44",
+   "branch": "STPS",
+   "item": "LABOUR",
+   "description": "Event Labour Charge",
+   "what": "Labour Charge",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-07",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/51",
+   "branch": "NVAC",
+   "item": "LABOUR",
+   "description": "Labour Charge Generator",
+   "what": "Generator",
+   "kind": "generator",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/52",
+   "branch": "NVAC",
+   "item": "LABOUR",
+   "description": "Labour Charge Generator",
+   "what": "Generator",
+   "kind": "generator",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/53",
+   "branch": "NVAC",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/54",
+   "branch": "NVAC",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/55",
+   "branch": "NVAC",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/56",
+   "branch": "NVAC",
+   "item": "LABOUR",
+   "description": "Labour Charge Event Gen Tech",
+   "what": "Labour Charge Event Gen Tech",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/58",
+   "branch": "NVAC",
+   "item": "LABOUR",
+   "description": "Labour Charge Light Tower",
+   "what": "Labour Charge Light Tower",
+   "kind": "lighting",
+   "register_type": "Light Tower",
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/59",
+   "branch": "NVAC",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Light Towers",
+   "what": "Transport Charge Light Towers",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9961976/60",
+   "branch": "NVAC",
+   "item": "LABOUR",
+   "description": "Labour Charge 350KVA",
+   "what": "Labour Charge 350KVA",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-11",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/133",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install & Demob",
+   "what": "Install & Demob",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/134",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge up to 6m Buildings",
+   "what": "Transport Charge up to 6m Buildings",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/135",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge 9.6m & 12m Building",
+   "what": "Transport Charge 9.6m & 12m Building",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/137",
+   "branch": "KINP",
+   "item": "MISCITEM",
+   "description": "Stillage Fire Extinguishers",
+   "what": "Stillage Fire Extinguishers",
+   "kind": "other",
+   "register_type": null,
+   "status": "Del Req",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": "2026-11-13",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/139",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install & Demob (no steps)",
+   "what": "Install & Demob (no steps)",
+   "kind": "accessory",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/140",
+   "branch": "KINP",
+   "item": "TRAVEL EXPENSES",
+   "description": "ACCOM / ETC 50%",
+   "what": "ACCOM / ETC 50%",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968862/141",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Project Manager Event",
+   "what": "Labour Charge Project Manager Event",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968929/8",
+   "branch": "KINP",
+   "item": "1328965",
+   "description": "Spare Air Conditioner - 1hp - 2hp",
+   "what": "Spare Air Conditioner - 1hp - 2hp",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": "2026-10-22",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968929/9",
+   "branch": "KINP",
+   "item": "1327125",
+   "description": "Spare Air Conditioner - 1hp - 2hp",
+   "what": "Spare Air Conditioner - 1hp - 2hp",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": "2026-10-22",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968929/10",
+   "branch": "KINP",
+   "item": "1326268",
+   "description": "Spare Air Conditioner - 1hp - 2hp",
+   "what": "Spare Air Conditioner - 1hp - 2hp",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": "2026-10-22",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968929/11",
+   "branch": "KINP",
+   "item": "1284004",
+   "description": "Spare Refrigerator - Medium",
+   "what": "Refrigerator - Medium",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": "2026-10-22",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968929/12",
+   "branch": "KINP",
+   "item": "1254847",
+   "description": "Spare Refrigerator - Medium",
+   "what": "Refrigerator - Medium",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": "2026-10-22",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/141",
+   "branch": "KINP",
+   "item": "PUMPOUT",
+   "description": "Pumpout Service FWF & Accessable",
+   "what": "FWF & Accessable",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/142",
+   "branch": "KINP",
+   "item": "PUMPOUT",
+   "description": "Pumpout Service Tank Mounts",
+   "what": "Pumpout Service Tank Mounts",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/143",
+   "branch": "KINP",
+   "item": "CLEAN",
+   "description": "Cleaning & Restock Sewer Connect",
+   "what": "Cleaning & Restock Sewer Connect",
+   "kind": "accessory",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/144",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install Demob Toilet Blocks",
+   "what": "Toilet Blocks",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/145",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Accessable Install & Demob",
+   "what": "Labour Charge Accessable Install & Demob",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/146",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge FWF Install & Demob",
+   "what": "FWF Install & Demob",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/147",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Blocks & 16 Pan",
+   "what": "Transport Charge Blocks & 16 Pan",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/148",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Accessable Toilets",
+   "what": "Transport Charge Accessable Toilets",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/149",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge FWF",
+   "what": "Transport Charge FWF",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/150",
+   "branch": "KINP",
+   "item": "MISC",
+   "description": "Pallets Toilet Consumables Paper",
+   "what": "Toilet Consumables Paper",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/154",
+   "branch": "KINP",
+   "item": "MISCITEM",
+   "description": "PG29 Toilet FWF",
+   "what": "Toilet FWF",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": "2026-10-23",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/160",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install Demob 16 Pan",
+   "what": "Install Demob 16 Pan",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/162",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Waste Tanks",
+   "what": "Transport Charge Waste Tanks",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/163",
+   "branch": "KINP",
+   "item": "TRAVEL EXPENSES",
+   "description": "ACCOM / ETC 50%",
+   "what": "ACCOM / ETC 50%",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/164",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Project Manager 50%",
+   "what": "Labour Charge Project Manager 50%",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9968955/165",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Event Toilet",
+   "what": "Toilet",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9972648/18",
+   "branch": "STPS",
+   "item": "ARMORZONMASHTL2",
+   "description": "WB22 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "what": "Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "kind": "barrier",
+   "register_type": "TL2",
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-18",
+   "demob_date": "2026-10-27",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9972648/19",
+   "branch": "STPS",
+   "item": "LABOUR",
+   "description": "Labour Charge WFB",
+   "what": "Labour Charge WFB",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9972648/20",
+   "branch": "STPS",
+   "item": "TRANSPORT",
+   "description": "Transport Charge WFB",
+   "what": "Transport Charge WFB",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9972648/21",
+   "branch": "STPS",
+   "item": "ARMORZONMASHTL2",
+   "description": "WB17 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "what": "Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "kind": "barrier",
+   "register_type": "TL2",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-22",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9973977/2",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install & Demob",
+   "what": "Install & Demob",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9973977/3",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-14",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9987005/8",
+   "branch": "MEAD",
+   "item": "1065384",
+   "description": "Laserplane",
+   "what": "Laserplane",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-09-21",
+   "demob_date": "2026-10-17",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/1",
+   "branch": "KINP",
+   "item": "1327218",
+   "description": "P38 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "what": "Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "kind": "building",
+   "register_type": "Building 6m",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": "P38",
+   "via": "asset number"
+  },
+  {
+   "line": "9994954/3",
+   "branch": "KINP",
+   "item": "1327216",
+   "description": "P39 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "what": "Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "kind": "building",
+   "register_type": "Building 6m",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": "P39",
+   "via": "asset number"
+  },
+  {
+   "line": "9994954/4",
+   "branch": "KINP",
+   "item": "1327221",
+   "description": "P42 Portable Building Shell 6.0M x 3.0M - Cyclonic Rat",
+   "what": "Portable Building Shell 6.0M x 3.0M - Cyclonic Rat",
+   "kind": "building",
+   "register_type": "Building 6m",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": "P42",
+   "via": "asset number"
+  },
+  {
+   "line": "9994954/5",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Install & Demob",
+   "what": "Install & Demob",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/6",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/7",
+   "branch": "KINP",
+   "item": "1272737",
+   "description": "P38 Refrigerator",
+   "what": "Refrigerator",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/8",
+   "branch": "KINP",
+   "item": "1272755",
+   "description": "P39 Refrigerator",
+   "what": "Refrigerator",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/9",
+   "branch": "KINP",
+   "item": "1272746",
+   "description": "P42 Refrigerator",
+   "what": "Refrigerator",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/10",
+   "branch": "KINP",
+   "item": "1316182",
+   "description": "GN26 Generator - 200kVA (Diesel)",
+   "what": "Generator - 200kVA (Diesel)",
+   "kind": "generator",
+   "register_type": "200kva",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-12",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": "GN?",
+   "via": "asset number"
+  },
+  {
+   "line": "9994954/11",
+   "branch": "KINP",
+   "item": "1316183",
+   "description": "GN27 Generator - 200kVA (Diesel)",
+   "what": "Generator - 200kVA (Diesel)",
+   "kind": "generator",
+   "register_type": "200kva",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-12",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": "GN?",
+   "via": "asset number"
+  },
+  {
+   "line": "9994954/12",
+   "branch": "KINP",
+   "item": "CABLESSDI120MM",
+   "description": "Cable - 120mm2 Single Double Insulated",
+   "what": "Cable - 120mm2 Single Double Insulated",
+   "kind": "accessory",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/13",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Sync Generators",
+   "what": "Labour Charge Sync Generators",
+   "kind": "generator",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/14",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Generators",
+   "what": "Transport Charge Generators",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/15",
+   "branch": "KINP",
+   "item": "1268858",
+   "description": "WC09 Toilet Block 6.0M x 3.0M - CAT 2",
+   "what": "Toilet Block 6.0M x 3.0M - CAT 2",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/16",
+   "branch": "KINP",
+   "item": "1311146",
+   "description": "WC09 Toilet Block Male Female Cyclone Rated 6m x 3m",
+   "what": "Toilet Block Male Female Cyclone Rated 6m x 3m",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/17",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Toilet Block",
+   "what": "Toilet Block",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/18",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge Toilet Block",
+   "what": "Transport Charge Toilet Block",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/21",
+   "branch": "KINP",
+   "item": "MISCITEM",
+   "description": "WC09 FWF Toilet",
+   "what": "FWF Toilet",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/22",
+   "branch": "KINP",
+   "item": "MISCITEM",
+   "description": "WC10 FWF Toilet",
+   "what": "FWF Toilet",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": "2026-10-26",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/23",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge FWF",
+   "what": "FWF",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/24",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge FWF",
+   "what": "Transport Charge FWF",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-21",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/25",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Event Gen Tech",
+   "what": "Labour Charge Event Gen Tech",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9994954/26",
+   "branch": "KINP",
+   "item": "LABOUR",
+   "description": "Labour Charge Toilet Tech",
+   "what": "Toilet Tech",
+   "kind": "toilet",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-23",
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9997710/1",
+   "branch": "STPS",
+   "item": "TEMPFENCEFEETRH",
+   "description": "1.8m Fence",
+   "what": "1.8m Fence",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": "2026-10-17",
+   "demob_date": "2026-10-27",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9997710/2",
+   "branch": "STPS",
+   "item": "SHADECLOTH",
+   "description": "Shade Cloth",
+   "what": "Shade Cloth",
+   "kind": "other",
+   "register_type": null,
+   "status": "Pending",
+   "booked_delivery_date": null,
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9997711/1",
+   "branch": "KINP",
+   "item": "1129733",
+   "description": "Refrigerator - Large",
+   "what": "Refrigerator - Large",
+   "kind": "furniture",
+   "register_type": "Fridge Lge",
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-17",
+   "demob_date": "2026-10-27",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9997711/2",
+   "branch": "KINP",
+   "item": "TRANSPORT",
+   "description": "Transport Charge",
+   "what": "Transport Charge",
+   "kind": "transport",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": null,
+   "demob_date": null,
+   "has_rate": false,
+   "joined_to": null,
+   "via": null
+  },
+  {
+   "line": "9997711/3",
+   "branch": "KINP",
+   "item": "1157786",
+   "description": "Fridge Freezer",
+   "what": "Fridge Freezer",
+   "kind": "other",
+   "register_type": null,
+   "status": "Delivered",
+   "booked_delivery_date": "2026-10-17",
+   "demob_date": "2026-10-27",
+   "has_rate": true,
+   "joined_to": null,
+   "via": null
+  }
+ ],
+ "removed_to_history": [
+  {
+   "line": "9961976/13",
+   "item": "1283681",
+   "description": "SPARE-Generator - 60kVA",
+   "status": "Pending"
+  },
+  {
+   "line": "9961976/42",
+   "item": "1316182",
+   "description": "GN26 CONCERT Generator - 200kVA (Diesel)",
+   "status": "Delivered"
+  },
+  {
+   "line": "9961976/43",
+   "item": "1316183",
+   "description": "GN27 CONCERT-Generator - 200kVA (Diesel)",
+   "status": "Delivered"
+  },
+  {
+   "line": "9961976/45",
+   "item": "1261271",
+   "description": "SPARE-Generator - 60kVA (Diesel)",
+   "status": "Pending"
+  },
+  {
+   "line": "9961976/46",
+   "item": null,
+   "description": "Cable - Set of 5 to suit 200KVA",
+   "status": "Delivered"
+  },
+  {
+   "line": "9961976/47",
+   "item": "CABLESSDI120MM",
+   "description": "Cable - 120mm2 Single Double Insulated",
+   "status": "Delivered"
+  },
+  {
+   "line": "9961976/50",
+   "item": "Delivery",
+   "description": "Delivery for Line Item(s) 7,14 15 Oct 2026",
+   "status": "Quoted"
+  },
+  {
+   "line": "9968862/70",
+   "item": "1327218",
+   "description": "P38 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968862/72",
+   "item": "1272737",
+   "description": "P38 Refrigerator - Large",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968862/73",
+   "item": "1327216",
+   "description": "P39 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968862/75",
+   "item": "1272755",
+   "description": "P39 Refrigerator - Large",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968862/76",
+   "item": "1327221",
+   "description": "P42 Portable Building Shell 6.0M x 3.0M - Cyclonic Rated",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968862/78",
+   "item": "1272746",
+   "description": "P42 Refrigerator - Large",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968955/9",
+   "item": "1083399",
+   "description": "WC21 Toilet Portable - Fresh Water Flush",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968955/102",
+   "item": "MISCITEM",
+   "description": "WC09 Toilet Portable - Fresh Water Flush",
+   "status": "Pending"
+  },
+  {
+   "line": "9968955/103",
+   "item": "1268858",
+   "description": "WC09 Toilet Block 6.0M x 3.0M",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968955/105",
+   "item": "1311146",
+   "description": "WC09 Toilet Block 6.0M x 3.0M",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968955/114",
+   "item": "MISCITEM",
+   "description": "WC10 Toilet Portable - Fresh Water Flush",
+   "status": "Pending"
+  },
+  {
+   "line": "9968955/138",
+   "item": "STEPSTOILETBLK",
+   "description": "Steps Toilet Block",
+   "status": "Delivered"
+  },
+  {
+   "line": "9968955/139",
+   "item": "STEPSTOILETBLK",
+   "description": "Steps Toilet Block",
+   "status": "Delivered"
+  },
+  {
+   "line": "9972648/7",
+   "item": "ARMORZONMASHTL2",
+   "description": "WB07 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "status": "Pending"
+  },
+  {
+   "line": "9972648/8",
+   "item": "ARMORZONMASHTL2",
+   "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+   "status": "Del Req"
+  },
+  {
+   "line": "9973079/1",
+   "item": "TRAKMAT2.4X1.1",
+   "description": "Trakmat - 2.4M x 1.1M - TM4496",
+   "status": "Delivered"
+  },
+  {
+   "line": "9973079/2",
+   "item": "Delivery",
+   "description": "Delivery for HA Line Item(s) 1,2 15 Sep 2026",
+   "status": "Applied"
+  },
+  {
+   "line": "9994996/1",
+   "item": "LABOUR",
+   "description": "Labour Charge WFB Install & Removal",
+   "status": "Pending"
+  },
+  {
+   "line": "9994996/2",
+   "item": "TRANSPORT",
+   "description": "Transport Charge WFB Delivery & Removal",
+   "status": "Pending"
+  }
+ ],
+ "changed_lines": [
+  {
+   "line": "9961265/13",
+   "fields": [
+    "description"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961265/15",
+   "fields": [
+    "booked_pickup_date",
+    "demob_date",
+    "description",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961265/16",
+   "fields": [
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/24",
+   "fields": [
+    "delivered",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/25",
+   "fields": [
+    "delivered",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/26",
+   "fields": [
+    "booked_pickup_date",
+    "demob_date",
+    "description",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961265/28",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/29",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start",
+    "delivered",
+    "delivery_number",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/30",
+   "fields": [
+    "delivered",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/31",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start",
+    "delivered",
+    "delivery_number",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/32",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/34",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/35",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/37",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961265/39",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961976/1",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/2",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/3",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/4",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/5",
+   "fields": [
+    "description",
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/6",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/7",
+   "fields": [
+    "delivered",
+    "rate_1",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961976/9",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/10",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "rate_1",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961976/11",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/14",
+   "fields": [
+    "rate_1",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Return Pending"
+   ]
+  },
+  {
+   "line": "9961976/15",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "delivered",
+    "delivery_number",
+    "description",
+    "item",
+    "rate_1",
+    "return_number",
+    "start_date",
+    "status_as_written",
+    "term_date",
+    "what"
+   ],
+   "status": [
+    "Pending",
+    "Returned"
+   ]
+  },
+  {
+   "line": "9961976/16",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/18",
+   "fields": [
+    "booked_pickup_date",
+    "demob_date",
+    "rate_1",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961976/19",
+   "fields": [
+    "booked_pickup_date",
+    "delivery_number",
+    "demob_date",
+    "rate_1",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Pending",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961976/20",
+   "fields": [
+    "booked_pickup_date",
+    "delivery_number",
+    "demob_date",
+    "rate_1",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Pending",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961976/27",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/35",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961976/37",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9961976/38",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961976/44",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "rate_1",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Return Pending"
+   ]
+  },
+  {
+   "line": "9961976/48",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start",
+    "rate_1",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9961976/49",
+   "fields": [
+    "delivered",
+    "rate_1",
+    "return_number",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Returned"
+   ]
+  },
+  {
+   "line": "9968862/59",
+   "fields": [
+    "description"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968862/63",
+   "fields": [
+    "rate_1"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968862/93",
+   "fields": [
+    "asset_no",
+    "delivery_number",
+    "description",
+    "item",
+    "what"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968862/103",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/105",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/107",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/108",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/110",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/112",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/113",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/115",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/116",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/118",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/120",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/121",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/123",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "delivered",
+    "delivery_number",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968862/124",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "delivered",
+    "delivery_number",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968862/125",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968862/131",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968862/132",
+   "fields": [
+    "booked_pickup_date",
+    "delivery_number",
+    "demob_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Pending",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968955/85",
+   "fields": [
+    "asset_no",
+    "delivered",
+    "delivery_number",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/87",
+   "fields": [
+    "asset_no",
+    "delivered",
+    "delivery_number",
+    "item",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/88",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/89",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/90",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/96",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/100",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/107",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/108",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/109",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/110",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/111",
+   "fields": [
+    "asset_no",
+    "asset_no_is_plant_number",
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "demob_date",
+    "item",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9968955/112",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/115",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/116",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/117",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/118",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/119",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/120",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/121",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/122",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/123",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/124",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/125",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/126",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/127",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/128",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/129",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/130",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/131",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/132",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/133",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/134",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9968955/140",
+   "fields": [
+    "description"
+   ],
+   "status": null
+  },
+  {
+   "line": "9972648/1",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/2",
+   "fields": [
+    "delivered",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/3",
+   "fields": [
+    "booked_pickup_date",
+    "delivered",
+    "demob_date",
+    "expected_term_date",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/4",
+   "fields": [
+    "description",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Del Req",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/5",
+   "fields": [
+    "delivered",
+    "description",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9972648/6",
+   "fields": [
+    "contract_start",
+    "delivered",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/9",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "expected_term_date",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9972648/10",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9972648/11",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9972648/12",
+   "fields": [
+    "booked_pickup_date",
+    "delivery_number",
+    "demob_date",
+    "quantity",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Pending",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/13",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9972648/16",
+   "fields": [
+    "contract_start",
+    "delivered",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9972648/17",
+   "fields": [
+    "contract_start",
+    "delivered",
+    "start_date",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Delivered",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9987005/3",
+   "fields": [
+    "quantity"
+   ],
+   "status": null
+  },
+  {
+   "line": "9992300/1",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/2",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/3",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/4",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/5",
+   "fields": [
+    "booked_delivery_date",
+    "contract_start",
+    "delivery_number",
+    "status_as_written",
+    "term_date"
+   ],
+   "status": [
+    "Pending",
+    "Off Rent"
+   ]
+  },
+  {
+   "line": "9992300/6",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "start_date",
+    "status_as_written"
+   ],
+   "status": [
+    "Del Req",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/7",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/8",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/9",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/10",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/11",
+   "fields": [
+    "delivered",
+    "delivery_number",
+    "status_as_written"
+   ],
+   "status": [
+    "Pending",
+    "Delivered"
+   ]
+  },
+  {
+   "line": "9992300/13",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "delivery_number",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9961265/41",
+   "fields": [
+    "booked_delivery_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968862/136",
+   "fields": [
+    "booked_delivery_date",
+    "delivered",
+    "delivery_number",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/151",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/152",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/153",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/155",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/156",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/157",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  },
+  {
+   "line": "9968955/158",
+   "fields": [
+    "booked_delivery_date",
+    "booked_pickup_date",
+    "delivered",
+    "delivery_number",
+    "demob_date",
+    "expected_term_date",
+    "start_date"
+   ],
+   "status": null
+  }
+ ],
+ "rejoined_by_filled_number": [],
+ "held": [
+  {
+   "line": "9961976/15",
+   "asset_no": "1283681",
+   "serial_in_export": "FGWPEP63AJS700478",
+   "description": "G10- Generator - 60kVA (Diesel)",
+   "status": "Returned",
+   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+   "join": null
+  },
+  {
+   "line": "9968862/123",
+   "asset_no": "1311992",
+   "serial_in_export": "2402200050",
+   "description": "P26 Refrigerator - Large",
+   "status": "Delivered",
+   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+   "join": null
+  },
+  {
+   "line": "9968862/124",
+   "asset_no": "1283996",
+   "serial_in_export": "1130128",
+   "description": "P28 Refrigerator - Large",
+   "status": "Delivered",
+   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+   "join": null
+  },
+  {
+   "line": "9968955/111",
+   "asset_no": "1197174",
+   "serial_in_export": "Coates1197174",
+   "description": "WC51 Toilet - Accessible",
+   "status": "Off Rent",
+   "why": "no reference carries this number - not on the shared record, not on the as-supplied record, not in the register; the line keeps its join by kind",
+   "join": null
+  }
+ ],
+ "repeated_numbers": [
+  {
+   "asset_no": "1211404",
+   "lines": [
+    "9961265/1 Returned 2026-09-07..2026-10-12 Variable Message Board Senior",
+    "9961265/12 Delivered 2026-09-07..2026-10-27 VMS09 Variable Message Board Senior"
+   ],
+   "why": "one number on two priced lines: two machines with one misnumbered, or one machine charged twice"
+  }
+ ],
+ "plant_line_copies": [
+  {
+   "line": "T0025",
+   "contract_lines_before": 1,
+   "after": 0,
+   "added": [],
+   "gone": [
+    "9973079/1"
+   ]
+  }
+ ],
+ "held_out_why": {
+  "9990776": "Fencing. The page charges fencing from Advanced's measured dockets at the 2026 street card (Andrew, 19 Sep 2026); this contract books the same scope.",
+  "9968726": "TV compound, superseded by 9992300-MEAD (v10.26).",
+  "9973079": "Cancelled (Baseplan (8) sheet \"9973079-Cancelled\"; Andrew, 27 Oct 2026: \"i have canelled a couple\").",
+  "9994996": "Cancelled (Baseplan (8) sheet \"9994996 Cancelled\"; Andrew, 27 Oct 2026).",
+  "9994248": "Not delivered on Baseplan (8) or our record (fence and barrier Pending, chairs Del Req on docket 26139948, delivery Quoted). Andrew, 28 Oct 2026: \"has this been delivered this is probaly seperate\" - held out until he confirms it came."
+ },
+ "never": {
+  "9961976/17": "GN24 80 kVA 1276412 never came to site (Andrew, 22 Oct 2026; v11.19)",
+  "9994954/19": "Pee panels: already charged on WC09 from the card, 6 at $672.17 (Andrew, 28 Oct 2026: \"Pee panels may of been on the toilet contract\")",
+  "9994954/20": "Pee panel labour: with the pee panels already charged on WC09 (Andrew, 28 Oct 2026)",
+  "9992300/12": "EQ0003 boom 1286482: v11.05 (financialAssociation1105) adds and pins this line itself; importing it again conflicts"
+ },
+ "card_rate_kept": [
+  "9961976/1",
+  "9961976/2",
+  "9961976/3",
+  "9961976/4",
+  "9961976/5",
+  "9961976/6",
+  "9961976/7",
+  "9961976/9",
+  "9961976/10",
+  "9961976/11",
+  "9961976/14",
+  "9961976/15",
+  "9961976/16",
+  "9961976/18",
+  "9961976/19",
+  "9961976/20",
+  "9961976/38",
+  "9961976/44",
+  "9961976/48",
+  "9961976/49"
+ ],
+ "quantity_written_as_date": [
+  "9992300/1=1",
+  "9992300/2=1",
+  "9992300/3=1",
+  "9992300/4=1",
+  "9992300/5=1",
+  "9992300/6=10"
+ ],
+ "rule": "Contract information as exported; the site record stays authoritative for what stands where. A line the export no longer has is kept in the source history, out of the active totals."
+}

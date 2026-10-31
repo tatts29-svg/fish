@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>P&amp;L summary — mock-up, 30 Oct 2026</title>
+<!-- Author: Andrew Fisher. A mock-up of the Costs & P&L face for Andrew's yes (30 Oct 2026, 20:3x AEST): nothing on the page has
+     changed. Every figure is the live page's own model's as read at 20:24 AEST on record 12172 (pl770Model, fh866Model,
+     moneySummary, cj764Model); the layout is the proposal in ../README.md. -->
+<style>
+  :root { --ink:#1d2730; --mute:#6b7681; --line:#e3e7eb; --soft:#f7f9fa; --eye:#9c470c; --ok:#1d7a46; --bg:#eef1f4; }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 Inter, "Segoe UI", system-ui, -apple-system, Roboto, sans-serif; font-variant-numeric:tabular-nums }
+  .wrap { max-width:1180px; margin:0 auto; padding:16px 20px 40px }
+  .mock { background:#fff3cd; border:1px solid #f0d58c; color:#5a4300; border-radius:10px; padding:8px 12px; font-size:13px; margin:0 0 12px }
+  .viewbar { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 14px }
+  .viewbar span { border:1px solid var(--line); background:#fff; border-radius:10px; padding:10px 16px; font-size:15px }
+  .viewbar span.on { background:#13232e; color:#fff; border-color:#13232e; box-shadow:0 0 0 2px #e8923a }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px 14px; margin:0 0 14px }
+  .eye { margin:0 0 12px; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--eye) }
+  .tiles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0 0 6px }
+  .tile { border:1px solid var(--line); border-radius:12px; padding:12px 14px; background:#fff }
+  .tile .l { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--mute) }
+  .tile .v { font-size:26px; font-weight:800; margin:4px 0 2px; white-space:nowrap }
+  .tile .v small { font-size:13px; font-weight:600; color:var(--mute); margin-left:6px }
+  .tile .s { font-size:12.5px; color:var(--mute) }
+  table { width:100%; border-collapse:collapse; font-size:14.5px }
+  th { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); text-align:left; padding:6px 8px; border-bottom:2px solid #d9dde2; white-space:nowrap }
+  td { padding:8px 8px; border-bottom:1px solid #edf0f3; vertical-align:top }
+  th.n, td.n { text-align:right; white-space:nowrap }
+  td small { display:block; font-size:12px; color:var(--mute); font-weight:400; margin-top:1px }
+  .code { font-size:11px; color:var(--mute); font-weight:600; margin-left:6px; white-space:nowrap }
+  tr.grp td { padding-top:14px; font-size:11.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--eye); border-bottom:1px solid #d9dde2 }
+  tr.grp td span { font-weight:600; letter-spacing:0; text-transform:none; color:var(--mute); margin-left:8px }
+  tr.tot td { font-weight:800; background:#eef3f6; border-top:2px solid #cfd6dc }
+  tr.diff td { font-weight:800; background:#e8f3ec; font-size:15.5px }
+  .pc { font-size:12px; font-weight:600; color:var(--mute); margin-left:4px }
+  .foot { font-size:12.5px; color:#4b5560; margin:10px 0 0 }
+  .tick { color:var(--ok); font-weight:700 }
+  .note { font-size:12.5px; color:var(--mute); margin:8px 0 0 }
+  .branches { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px }
+  .br { border:1px solid var(--line); border-radius:12px; padding:10px 12px }
+  .br .b { font-size:12px; font-weight:800; letter-spacing:.06em; color:var(--mute) }
+  .br .r { display:flex; justify-content:space-between; gap:8px; font-size:13.5px; padding:3px 0; border-bottom:1px solid #f0f2f4 }
+  .br .r:last-child { border-bottom:0; font-weight:800 }
+  .br .r span:first-child { color:var(--mute); font-weight:500 }
+  .br.job { background:var(--soft) }
+  ul.gaps { margin:4px 0 0; padding-left:18px } ul.gaps li { margin:5px 0; font-size:14px } ul.gaps li span { color:var(--mute) }
+  details { border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 14px; margin:0 0 10px }
+  summary { font-weight:700; cursor:pointer } summary small { font-weight:500; color:var(--mute); margin-left:8px }
+  @media (max-width:720px) {
+    .wrap { padding:12px 12px 32px }
+    .card { padding:14px 12px 10px; border-radius:12px }
+    .tiles { grid-template-columns:1fr; gap:8px }
+    .tile .v { font-size:24px }
+    table { font-size:13.5px } td, th { padding:7px 5px } td small { font-size:11.5px }
+    .code { display:none }
+    .branches { grid-template-columns:1fr; gap:8px }
+    .viewbar span { padding:9px 12px; font-size:14px }
+    th { white-space:normal }
+    tr.diff td { font-size:14px }
+    .pc { display:block; margin:0; font-size:11px }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mock">MOCK-UP for Andrew's yes · the Costs &amp; P&amp;L face as proposed · the live figures as at 20:24, Fri 30 Oct 2026 · nothing on the page has changed</p>
+  <div class="viewbar"><span class="on">P&amp;L summary</span><span>Customer rates &amp; charges</span><span>Fencing costs &amp; dockets</span><span>Workforce costs</span><span>Finance handover</span><span>Transport</span><span>Generators</span></div>
+
+  <section class="card">
+    <p class="eye">P&amp;L · whole job · AUD ex GST · as at Fri 30 Oct 2026</p>
+    <div class="tiles">
+      <div class="tile"><div class="l">Charged to the V8s</div><div class="v">$1,012,101.16</div><div class="s">so far on the record · $1,027,917.09 at job end</div></div>
+      <div class="tile"><div class="l">What it costs us</div><div class="v">$488,502.78</div><div class="s">so far · $541,340.34 at job end</div></div>
+      <div class="tile"><div class="l">Difference so far</div><div class="v">$523,598.38<small>51.7%</small></div><div class="s">$486,576.75 · 47.3% at job end · not a margin until the costs are complete</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="eye">What we charge the V8s · Revenue</p>
+    <table>
+      <thead><tr><th>What</th><th class="n">So far</th><th class="n">Job end</th></tr></thead>
+      <tbody>
+        <tr><td>Our gear on hire<span class="code">1005</span><small>the contracts at their rate, the card where a line has none</small></td><td class="n">$221,095.76</td><td class="n">$221,095.76</td></tr>
+        <tr><td>Hired-in gear at our rates<span class="code">1010</span><small>Advanced's fencing, Event Portables' toilets, the sub-hired boards and plant · job end adds the fencing to come</small></td><td class="n">$408,017.23</td><td class="n">$423,833.16</td></tr>
+        <tr><td>Delivery and pick-up<span class="code">1030 · 1031</span></td><td class="n">$159,213.48</td><td class="n">$159,213.48</td></tr>
+        <tr><td>Toilet pump-outs<span class="code">1032</span><small>water included</small></td><td class="n">$66,145.14</td><td class="n">$66,145.14</td></tr>
+        <tr><td>Install, levelling, steps, cleaning, demob and the people<span class="code">1047 · 1025</span></td><td class="n">$121,355.87</td><td class="n">$121,355.87</td></tr>
+        <tr><td>Consumables<span class="code">1020</span><small>toilet paper, hand towels, shade cloth</small></td><td class="n">$8,073.68</td><td class="n">$8,073.68</td></tr>
+        <tr><td>Accommodation and travel in the event scope<small>Finance to confirm the line</small></td><td class="n">$27,700.00</td><td class="n">$27,700.00</td></tr>
+        <tr><td>Contract services, miscellaneous</td><td class="n">$500.00</td><td class="n">$500.00</td></tr>
+        <tr class="tot"><td>Charged to the V8s</td><td class="n">$1,012,101.16</td><td class="n">$1,027,917.09</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <p class="eye">Where the costs are · the eight categories management expect · who we pay</p>
+    <table>
+      <thead><tr><th>Who we pay, and what for</th><th class="n">So far</th><th class="n">Job end</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3">Temporary fencing and crowd control<span>STPS</span></td></tr>
+        <tr><td>Advanced's gear on the dockets, at their sheet<span class="code">2126</span><small>178 dockets · receipted orders at their amount · job end adds the programme to come</small></td><td class="n">$241,018.70</td><td class="n">$244,743.70</td></tr>
+        <tr class="grp"><td colspan="3">External contractor costs</td></tr>
+        <tr><td>Advanced's crew: the dockets and the green book<span class="code">2142</span><small>STPS · 333 h in the green book</small></td><td class="n">$52,391.00</td><td class="n">$52,391.00</td></tr>
+        <tr><td>Job Connect's people on the running sheet, by the run rules<small>KINP · hired-in people and the race crew</small></td><td class="n">$32,507.71</td><td class="n">$35,531.56</td></tr>
+        <tr class="grp"><td colspan="3">Rehire costs<span>KINP</span></td></tr>
+        <tr><td>Event Portables: toilet hire, their labour, delivery and pick-up<span class="code">2126</span><small>four quotes approved · the final total may change</small></td><td class="n">$45,525.00</td><td class="n">$45,525.00</td></tr>
+        <tr><td>Event Portables: servicing on our site count<span class="code">3325</span></td><td class="n">$51,372.00</td><td class="n">$51,372.00</td></tr>
+        <tr><td>Event Portables: water deliveries and the tank<span class="code">2144</span></td><td class="n">$4,850.00</td><td class="n">$4,850.00</td></tr>
+        <tr><td>Premiair's boards and Royal Wolf's container, estimates to come<span class="code">2126</span><small>KINP $3,806.31 · STPS $1,364.23 · no invoice yet</small></td><td class="n">—</td><td class="n">$5,170.54</td></tr>
+        <tr class="grp"><td colspan="3">Internal labour hours and overtime<span>KINP</span></td></tr>
+        <tr><td>Coates wages<small>hours only, never priced here (the project manager, 23 Oct 2026)</small></td><td class="n">1,126.5 h</td><td class="n">1,467.5 h</td></tr>
+        <tr><td>Salary allowance, living away<small>job end</small></td><td class="n">—</td><td class="n">$14,700.00</td></tr>
+        <tr class="grp"><td colspan="3">Any other event-related expenses</td></tr>
+        <tr><td>Transport paid to the carriers<span class="code">2120 · 2140</span><small>KINP $42,073.62 · NVAC $9,313.78 · STPS $4,186.02 · MEAD $1,237.23 · 59 figures are floors</small></td><td class="n">$33,150.09</td><td class="n">$56,810.65</td></tr>
+        <tr><td>Accommodation, 112 nights<small>KINP · 12 nights not priced yet</small></td><td class="n">$22,023.96</td><td class="n">$24,581.57</td></tr>
+        <tr><td>Meals and expenses<small>KINP</small></td><td class="n">$5,664.32</td><td class="n">$5,664.32</td></tr>
+        <tr><td colspan="3"><small>Nothing recorded under Equipment costs, Any installation-related costs (the crews' hours are above) or Buy invoicing branch costs.</small></td></tr>
+        <tr class="tot"><td>What it costs us</td><td class="n">$488,502.78</td><td class="n">$541,340.34</td></tr>
+        <tr class="diff"><td>Difference so far</td><td class="n">$523,598.38<span class="pc">51.7%</span></td><td class="n">$486,576.75<span class="pc">47.3%</span></td></tr>
+      </tbody>
+    </table>
+    <p class="foot"><span class="tick">✓</span> ties to the Forecast P&amp;L and the Finance handover to the cent · one difference, the same figure on At a glance</p>
+  </section>
+
+  <section class="card">
+    <p class="eye">By branch · job end</p>
+    <div class="branches">
+      <div class="br"><div class="b">KINP · Brisbane Portables</div><div class="r"><span>Charged</span><span>$477,997.22</span></div><div class="r"><span>Costs</span><span>$228,104.38</span></div><div class="r"><span>Difference</span><span>$249,892.84</span></div></div>
+      <div class="br"><div class="b">STPS · Brisbane Traffic</div><div class="r"><span>Charged</span><span>$478,217.88</span></div><div class="r"><span>Costs</span><span>$302,684.95</span></div><div class="r"><span>Difference</span><span>$175,532.93</span></div></div>
+      <div class="br"><div class="b">NVAC · North Power and HVAC</div><div class="r"><span>Charged</span><span>$44,272.04</span></div><div class="r"><span>Costs</span><span>$9,313.78</span></div><div class="r"><span>Difference</span><span>$34,958.26</span></div></div>
+      <div class="br"><div class="b">MEAD · Brisbane Mechanical</div><div class="r"><span>Charged</span><span>$27,429.95</span></div><div class="r"><span>Costs</span><span>$1,237.23</span></div><div class="r"><span>Difference</span><span>$26,192.72</span></div></div>
+      <div class="br job"><div class="b">THE JOB</div><div class="r"><span>Charged</span><span>$1,027,917.09</span></div><div class="r"><span>Costs</span><span>$541,340.34</span></div><div class="r"><span>Difference</span><span>$486,576.75</span></div></div>
+    </div>
+    <p class="note">The people's event labour ($30,520.54), their travel, accommodation and meals sit on KINP (the project manager, 29 Oct 2026). Gear and moves sit on the branch of the gear.</p>
+  </section>
+
+  <section class="card">
+    <p class="eye">Not in it yet · named, never added</p>
+    <ul class="gaps">
+      <li>Fencing relocation and removal to come, billed by the hour <span>· Advanced's dockets as the work is done</span></li>
+      <li>Transport: final carrier figures and bookings <span>· Andrew</span></li>
+      <li>36 planned transport movements, rate or scope to confirm <span>· Andrew</span></li>
+      <li>17 demob movements not priced <span>· Andrew, the demob rate and scope</span></li>
+      <li>One schedule task with no transport basis <span>· Andrew</span></li>
+      <li>Coates wages, hours only <span>· never priced here (23 Oct 2026)</span></li>
+    </ul>
+  </section>
+
+  <details><summary>Finance's lines <small>the ledger codes · Hire, Rehire, Transport, Pump-outs, Installation · cost of sales, gross margin 55.2% and contribution, as Finance reads it</small></summary></details>
+  <details><summary>Fencing, everything included <small>charged $378,036.09 · we pay $293,409.70</small></summary></details>
+  <details><summary>Workings <small>every card the figures come from · month-end for Finance · ticks and controls</small></summary></details>
+</div>
+</body>
+</html>

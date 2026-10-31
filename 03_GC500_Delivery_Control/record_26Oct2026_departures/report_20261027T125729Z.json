@@ -1,0 +1,116 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T125729Z",
+ "finished": "2026-10-27T12:58:07.145Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, answering the Baseplan (8) review on the concert contract 9994954 (GN26/GN27 200 kVA, cable, sync labour, transport, gen tech): \"I spoke with Chris about this one happy to leave KINP\". Our record carries the two concert generators (1316182, 1316183) on reference GN?, which the P&L put on NVAC; it goes on branch KINP so the P&L matches the contract.",
+  "ops": [
+   {
+    "op": "branch",
+    "ref": "GN?",
+    "code": "KINP"
+   }
+  ]
+ },
+ "pageSha256": "318de672389be59015d1b3f6fb99de6a0837628fca49b384410aeca69ae022b6",
+ "version": {
+  "before": 11618,
+  "after": 11621
+ },
+ "updated": {
+  "before": "2026-10-27T12:54:40.647Z",
+  "after": "2026-10-27T12:58:06.295Z"
+ },
+ "money": {
+  "before": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 242338.66,
+    "STPS": 73942.65,
+    "NVAC": 48323.37,
+    "MEAD": 18859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 250936.14,
+    "STPS": 73942.65,
+    "NVAC": 39725.89,
+    "MEAD": 18859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "branch",
+   "ref": "GN?",
+   "code": "KINP",
+   "result": "branch KINP"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/branch~2f~GN~3f~",
+   "status": 200
+  },
+  {
+   "key": "branch/GN~3f~",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~GN~3f~",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/branch~2f~GN~3f~": null,
+   "branch/GN~3f~": null,
+   "by/branch~2f~GN~3f~": null
+  },
+  "after": {
+   "stamps/branch~2f~GN~3f~": {
+    "_k": "branch/GN?",
+    "v": "2026-10-27T12:57:50.968Z"
+   },
+   "branch/GN~3f~": {
+    "_k": "GN?",
+    "v": "KINP"
+   },
+   "by/branch~2f~GN~3f~": {
+    "_k": "branch/GN?",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

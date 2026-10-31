@@ -1,0 +1,265 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Focused scope ready for root integration; not published",
+  "baseCommit805": "5fac75b",
+  "baseSha256": "36d27b553b9d2ee8c221b155d49d760d02fd225645653eaaec9f3637fd3789ad",
+  "candidateSha256": "0344325c5fa32798a64cc58ee686d954fdc9d0cf947cb97cc43c6595a9873611",
+  "candidateBytes": 9105084,
+  "releaseMarker": "Deliberately unchanged; root integration owns the release marker",
+  "patchSha256": "14c350a2c247dc0e1def8d20cbe91c31265c2e3bcd1ae6826d4a8df42b21c1da",
+  "sourceSha256": "70d9fc6e45d6910b58910f83c5b80a54b0546f521b00a399770e5be5e5d104bc",
+  "native": {
+    "passed": 42,
+    "total": 42,
+    "evidence": "evidence/native_results.json"
+  },
+  "browser": [
+    {
+      "device": "phone",
+      "passed": 27,
+      "total": 27,
+      "pageSha256": "0344325c5fa32798a64cc58ee686d954fdc9d0cf947cb97cc43c6595a9873611",
+      "checks": [
+        {
+          "name": "Valid requested delivery day opens exactly",
+          "pass": true
+        },
+        {
+          "name": "Existing reference opens by keyboard with close focus",
+          "pass": true
+        },
+        {
+          "name": "Escape closes drawer and returns keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "Missing reference closes previous drawer and scrim",
+          "pass": true
+        },
+        {
+          "name": "Missing reference has truthful Equipment address and notice",
+          "pass": true
+        },
+        {
+          "name": "Back from rejected reference returns to valid reference",
+          "pass": true
+        },
+        {
+          "name": "Forward returns to canonical safe destination",
+          "pass": true
+        },
+        {
+          "name": "Empty reference cannot retain the previous drawer",
+          "pass": true
+        },
+        {
+          "name": "Encoded newline reference cannot retain the previous drawer",
+          "pass": true
+        },
+        {
+          "name": "Malformed reference URI closes drawer and shows canonical Today",
+          "pass": true
+        },
+        {
+          "name": "Impossible date shows Today with explicit invalid-date notice",
+          "pass": true
+        },
+        {
+          "name": "Back from invalid day restores exact prior valid day",
+          "pass": true
+        },
+        {
+          "name": "Forward from valid day uses canonical Today fallback",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-2-03",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-10-07/extra",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-10-07%0A",
+          "pass": true
+        },
+        {
+          "name": "Real leap date is recognised as valid but outside this programme",
+          "pass": true
+        },
+        {
+          "name": "Non-leap February 29 is rejected as invalid",
+          "pass": true
+        },
+        {
+          "name": "Valid empty programme day retained exactly",
+          "pass": true
+        },
+        {
+          "name": "Malformed day URI shows an explicit safe destination",
+          "pass": true
+        },
+        {
+          "name": "Existing next-day control unchanged",
+          "pass": true
+        },
+        {
+          "name": "Browser Back restores requested day after normal step",
+          "pass": true
+        },
+        {
+          "name": "Browser Forward restores next day after normal step",
+          "pass": true
+        },
+        {
+          "name": "All shared-record document fields unchanged",
+          "pass": true
+        },
+        {
+          "name": "No page errors",
+          "pass": true
+        },
+        {
+          "name": "No operational write attempts",
+          "pass": true
+        }
+      ],
+      "fullPrivateEvidence": "/workspace/private-navigation-quality-02Oct2026/v810/phone_browser_results.json",
+      "evidenceSha256": "283005ab1b2fe13926b04dbf0e19a6a349788972560d765d825f23140db127ff"
+    },
+    {
+      "device": "desktop",
+      "passed": 27,
+      "total": 27,
+      "pageSha256": "0344325c5fa32798a64cc58ee686d954fdc9d0cf947cb97cc43c6595a9873611",
+      "checks": [
+        {
+          "name": "Valid requested delivery day opens exactly",
+          "pass": true
+        },
+        {
+          "name": "Existing reference opens by keyboard with close focus",
+          "pass": true
+        },
+        {
+          "name": "Escape closes drawer and returns keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "Missing reference closes previous drawer and scrim",
+          "pass": true
+        },
+        {
+          "name": "Missing reference has truthful Equipment address and notice",
+          "pass": true
+        },
+        {
+          "name": "Back from rejected reference returns to valid reference",
+          "pass": true
+        },
+        {
+          "name": "Forward returns to canonical safe destination",
+          "pass": true
+        },
+        {
+          "name": "Empty reference cannot retain the previous drawer",
+          "pass": true
+        },
+        {
+          "name": "Encoded newline reference cannot retain the previous drawer",
+          "pass": true
+        },
+        {
+          "name": "Malformed reference URI closes drawer and shows canonical Today",
+          "pass": true
+        },
+        {
+          "name": "Impossible date shows Today with explicit invalid-date notice",
+          "pass": true
+        },
+        {
+          "name": "Back from invalid day restores exact prior valid day",
+          "pass": true
+        },
+        {
+          "name": "Forward from valid day uses canonical Today fallback",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-2-03",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-10-07/extra",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/",
+          "pass": true
+        },
+        {
+          "name": "Invalid day shape rejected: #day/2026-10-07%0A",
+          "pass": true
+        },
+        {
+          "name": "Real leap date is recognised as valid but outside this programme",
+          "pass": true
+        },
+        {
+          "name": "Non-leap February 29 is rejected as invalid",
+          "pass": true
+        },
+        {
+          "name": "Valid empty programme day retained exactly",
+          "pass": true
+        },
+        {
+          "name": "Malformed day URI shows an explicit safe destination",
+          "pass": true
+        },
+        {
+          "name": "Existing next-day control unchanged",
+          "pass": true
+        },
+        {
+          "name": "Browser Back restores requested day after normal step",
+          "pass": true
+        },
+        {
+          "name": "Browser Forward restores next day after normal step",
+          "pass": true
+        },
+        {
+          "name": "All shared-record document fields unchanged",
+          "pass": true
+        },
+        {
+          "name": "No page errors",
+          "pass": true
+        },
+        {
+          "name": "No operational write attempts",
+          "pass": true
+        }
+      ],
+      "fullPrivateEvidence": "/workspace/private-navigation-quality-02Oct2026/v810/desktop_browser_results.json",
+      "evidenceSha256": "9ac3eb9a4cbd488f07395e157c6600b985103e4a41aad228887f0ef339d1825d"
+    }
+  ],
+  "static": "Official check_page.py passes all 8 scripts, preservation and secret checks",
+  "scrub": "Official attribution scrub leaves candidate byte-identical",
+  "visualReview": "Final phone and desktop notices inspected; existing components retained and foreground stale reference removed",
+  "operationalWrites": 0,
+  "sharedRecordPreservation": "Full toDocs(collection) mappings byte-equal before/after in each real-browser run",
+  "knownLimits": [
+    "Only the assigned asset/day address bugs are changed.",
+    "No new layouts, financial model, DATA or print route change.",
+    "Full combined release standing checks and publication belong to root.",
+    "Optional Google tile-session POST deliberately aborted; induced failure is not a product error."
+  ]
+}

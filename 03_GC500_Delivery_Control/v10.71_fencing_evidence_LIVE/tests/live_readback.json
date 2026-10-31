@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at_utc": "2026-10-18T02:41:30.398372+00:00",
+  "page_sha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+  "page_bytes": 18506356,
+  "server_build": "v5.90",
+  "healthy": true,
+  "record_unchanged": true,
+  "machine_unchanged": true,
+  "protected_inventory_unchanged_before_server_stage": true,
+  "actual_served_page_phone_smoke": true,
+  "phone_screenshot_inspected": true,
+  "runtime_errors": 0,
+  "operational_writes": 0,
+  "smoke_oracle_note": "Initial check selected a nested card footer. Corrected to actual page text; exact served-page version and Today-Build-Today smoke passed. Runtime source unchanged."
+}

@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "bytes": 8950159,
+  "baseSha256": "dd16fa3bd21d9e2b3f7e412e56855670dae7ebe5d5b03954b5951ba699c7f43c",
+  "immutablePath": "/workspace/private-v801-review/70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11/candidate.html",
+  "chain": [
+    "v7.97",
+    "v7.98",
+    "v8.01"
+  ],
+  "staticPassed": true
+}

@@ -1,0 +1,15 @@
+PASS every money figure unchanged: {"total":960064.14,"known":417803.57,"diff0":542260,"diff":542260.57,"revJob":989468.7,"directJob":429510.83,"charged":364816.4,"cost":244368.2,"rh":null}
+PASS the cards' figures unchanged (18 P&L amounts, 14 transport groups, 98 rehire cells)
+PASS each card carries its "Show the workings" button: [["pl752","Show the workings","false"],["transport831","Show the workings","false"],["rehire766","Show the workings","false"]]
+PASS by default the workings are folded away (P&L notes 0 of 14 shown; transport and rehire basis hidden; short list shown)
+PASS after "Show the workings" every note, basis and the full list are back
+PASS and they fold away again
+PASS "Not in it yet": the full list is the base list, 23 lines
+PASS short list 10 lines (from 23), each short; barriers: 13 × TL2 (WB01–WB07, WB13–WB18) — Applicable installation / removal scope and rate need confirmation
+PASS the short lines keep their figures (lost [], new []) and no character is cut (0)
+PASS visible text: P&L 25%, rehire 20%, transport 99% of before
+PASS with the workings shown, the text is all there again
+PASS footer .20 · v12.22
+PASS build: 0 page errors, 0 record writes
+short list: ["13 × TL2 (WB01–WB07, WB13–WB18) — Applicable installation / removal scope and rate need confirmation","WC100 FWF Trailer, T0258 3.0m Cont — No matching work-rate line","wages — 74 hired-in shifts at the rates on the record, $67,413.10; Coates wages and salary 1,467.5 h tracked in hours only, no hourly rate","accommodation — 12 nights for [name] with no rate yet","transport — only the loads with a figure are in: 69 loads from the schedule's TPORT COST column ($33,150, 59 of them written with a plus, so at least that)","10 SUB contract lines: 10 without a linked recorded supplier cost; 10 with a calculated supplier-rate forecast in Costs to job end","Provisional: $101,747.00 ex GST known subtotal — current received hire and site-count servicing at supplier rates","Provisional: the water services are charged on at what Event Portables charge us, $13,950 — until the branch puts a rate on","Provisional: the schedule's transport figures are in as written — 59 of them with a plus after the figure, which is the figure and more","Not charged here: T0024, T0162, T0176, BJR01, SVP01, PG29 are on their own hire schedules, a different contract — tracked on this page, charged there"]
+13/13 desktop

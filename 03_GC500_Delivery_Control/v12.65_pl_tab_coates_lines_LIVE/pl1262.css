@@ -1,0 +1,43 @@
+/* Author: Andrew Fisher. v12.62 - the P&L tab cleaned up: figures first, Coates lines, by branch; the rest folded under Workings */
+.pl1262{padding:18px 20px 14px}
+.pl1262 .fin745-eyebrow{margin-bottom:10px!important}
+.pl1262-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.pl1262-kpi{border:1px solid #e3e7eb;border-radius:12px;padding:10px 12px;background:#fff}
+.pl1262-kpi-l{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7681}
+.pl1262-kpi-v{font-size:22px;font-weight:800;color:#1d2730;margin:2px 0;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pl1262-kpi-s{font-size:12px;color:#6b7681}
+.pl1262 .tblwrap{overflow:auto;-webkit-overflow-scrolling:touch}
+.pl1262-tbl{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.pl1262-tbl th{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7681;text-align:left;padding:8px 10px;border-bottom:2px solid #d9dde2;white-space:nowrap}
+.pl1262-tbl th.num,.pl1262-tbl td.num{text-align:right;white-space:nowrap}
+.pl1262-tbl td{padding:7px 10px;border-bottom:1px solid #edf0f3;vertical-align:top}
+.pl1262-tbl td small{display:block;font-size:11.5px;color:#6b7681;font-weight:400}
+.pl1262-code{width:1%;white-space:nowrap}
+.pl1262-sub td{padding-top:14px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9c470c;border-bottom:1px solid #d9dde2}
+.pl1262-tot td{font-weight:700;background:#f7f9fa}
+.pl1262-grand td{font-weight:800;background:#eef3f6;border-top:2px solid #cfd6dc}
+.pl1262-final td{font-size:15px}
+.pl1262-pc{font-size:12px;font-weight:600;color:#6b7681;margin-left:4px}
+.pl1262-h{color:#6b7681;font-weight:600}
+.pl1262-dash{color:#9aa5af}
+.pl1262-h3{margin:20px 0 6px;font-size:15px}
+.pl1262-branch td:first-child{white-space:nowrap}
+.pl1262-foot{font-size:12px;color:#4b5560;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.pl1262-tick{font-weight:700}.pl1262-tick.ok{color:#1d7a46}.pl1262-tick.bad{color:#b42318}
+.pl1262-rule{font-weight:400;color:#6b7681}
+.pl1262-gaps ul{margin:4px 0 0;padding-left:18px}
+.pl1262-gaps li{margin:4px 0;font-size:14px}
+.pl1262-gaps li small{display:block;font-size:11.5px;color:#6b7681}
+.pl1262-fold.pl1262-empty{display:none}
+.pl1262-fold>summary small{font-weight:600}
+.pl1262-fold[open]{padding-bottom:8px}
+.pl1262-fold>:not(summary){margin-top:10px}
+@media (max-width:720px){
+  .pl1262{padding:14px 12px 12px}
+  .pl1262-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .pl1262-kpi-v{font-size:18px}
+  .pl1262-tbl{font-size:13px}
+  .pl1262-tbl td,.pl1262-tbl th{padding:6px 7px}
+  .pl1262-code .chip{font-size:10px}
+}
+@media print{.pl1262-fold{display:none}}

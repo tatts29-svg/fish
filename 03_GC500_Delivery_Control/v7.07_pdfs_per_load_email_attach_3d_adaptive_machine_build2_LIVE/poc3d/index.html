@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>GC500 3D Proof</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Widgets/widgets.css">
+<style>
+:root{--or:#ff6a13;--or2:#ff9a4d;--ink:#f3efe9;--mute:#a9a39c;--bg:#0f0d0c;--rule:#2e2723}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+#cesium{position:absolute;inset:0}
+header{position:absolute;left:0;right:0;top:0;height:50px;display:flex;align-items:center;gap:12px;padding:0 14px;background:linear-gradient(180deg,rgba(28,22,19,.95),rgba(18,15,13,.9));border-bottom:2px solid var(--or);z-index:3}
+header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic}header b i{color:var(--or);font-style:italic}
+.views{display:flex;gap:4px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.views button{background:none;border:0;color:var(--mute);padding:7px 11px;border-radius:7px;font:600 12.5px Inter,sans-serif;cursor:pointer}.views button:hover{color:var(--ink)}
+.pill{transition:opacity .3s;position:absolute;left:12px;top:62px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:7px 10px;font-size:12px;max-width:min(520px,calc(100% - 24px))}.pill b{color:var(--or2)}
+.perf{position:absolute;left:12px;bottom:34px;z-index:3;background:rgba(15,13,12,.85);border:1px solid var(--rule);border-radius:9px;padding:6px 10px;font-size:11.5px;color:var(--mute)}
+.q{position:absolute;right:12px;top:62px;z-index:3;display:flex;gap:6px}.q button{background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:32px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}.q button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.cesium-viewer-bottom{z-index:3!important}.cesium-widget-credits{color:#fff!important;font-size:11px!important;background:rgba(15,13,12,.6)!important;padding:2px 6px!important;border-radius:6px}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5;flex-direction:column;gap:8px}.loader.done{display:none}
+.xnav{margin-left:auto;display:flex;gap:4px;align-items:center}.xnav a{color:var(--mute);text-decoration:none;font:600 12px Inter,sans-serif;padding:6px 9px;border-radius:7px;border:1px solid transparent}.xnav a:hover{color:var(--ink);border-color:var(--rule)}.xnav a[aria-current=page]{color:var(--ink);background:#0b0908;border-color:var(--rule)}.xnav[hidden]{display:none}@media(max-width:900px){.xnav a{padding:5px 6px;font-size:11px}}
+/* v6.90: search, the compass, orbit, trade chips */
+:root{--hh:50px}
+.q{top:calc(var(--hh) + 12px)}
+.find{position:absolute;left:12px;top:calc(var(--hh) + 12px);z-index:4;width:min(320px,calc(100% - 24px))}
+.find input{box-sizing:border-box;width:100%;height:36px;border-radius:9px;border:1px solid var(--rule);background:rgba(15,13,12,.92);color:var(--ink);padding:0 12px;font:600 13px Inter,system-ui,sans-serif;outline:none}
+.find input:focus{border-color:var(--or)}
+.hits{margin-top:4px;background:rgba(15,13,12,.96);border:1px solid var(--rule);border-radius:9px;max-height:320px;overflow:auto}
+.hits button{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);padding:8px 12px;cursor:pointer;font:13px Inter,system-ui,sans-serif}
+.hits button:hover,.hits button:focus-visible{background:#221c18;outline:none}.hits small{color:var(--mute)}.hits .none{padding:10px 12px;color:var(--mute);font-size:12.5px}
+.pill{top:calc(var(--hh) + 56px)}
+.rose3d{position:absolute;right:14px;top:calc(var(--hh) + 56px);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px}
+.dialwrap{position:relative;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 50% 45%,#2a221d 0,#15110f 72%);border:1px solid var(--rule);box-shadow:0 3px 14px rgba(0,0,0,.5)}
+.dialwrap::after{content:'';position:absolute;left:50%;top:-1px;margin-left:-6px;border:6px solid transparent;border-top:9px solid var(--or);border-bottom:0}
+#dial{position:absolute;inset:0;border-radius:50%;transition:none}
+#dial::before{content:'';position:absolute;inset:18px;border-radius:50%;border:1.5px solid rgba(243,239,233,.14)}
+#dial [data-face]{position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer;color:var(--ink);transform:rotate(var(--b)) translateY(-29px)}
+#dial [data-face] b{display:block;font:800 13px/28px Inter,system-ui,sans-serif;border-radius:50%}
+#dial [data-face="0"]{color:var(--or)}
+#dial [data-face]:hover b,#dial [data-face]:focus-visible b{background:var(--ink);color:#1b1207}
+#dial [data-face]:focus-visible{outline:none}
+.facing{font:700 11px/1 Inter,system-ui,sans-serif;background:rgba(15,13,12,.9);border:1px solid var(--rule);padding:5px 9px;border-radius:10px;white-space:nowrap}
+#orbitBtn{background:rgba(15,13,12,.9);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:30px;padding:0 10px;cursor:pointer;font:600 12px Inter,sans-serif}
+#orbitBtn[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.chips{position:absolute;left:12px;right:12px;bottom:66px;z-index:3;display:flex;flex-wrap:wrap;gap:5px;pointer-events:none}
+.chips button{pointer-events:auto;display:flex;align-items:center;gap:6px;background:rgba(15,13,12,.88);border:1px solid var(--rule);color:var(--mute);border-radius:16px;height:28px;padding:0 10px;cursor:pointer;font:600 11.5px Inter,system-ui,sans-serif}
+.chips button i{width:9px;height:9px;border-radius:50%;background:var(--c);opacity:.45}
+.chips button[aria-pressed="true"]{color:var(--ink);border-color:var(--c)}.chips button[aria-pressed="true"] i{opacity:1}
+.chips small{color:var(--mute);font-weight:500}
+@media(max-width:900px){
+  header{height:auto;flex-wrap:wrap;row-gap:6px;padding:6px 10px}header>span{display:none}header b{font-size:15px}
+  .xnav{margin-left:auto}.views{order:3;flex:1 1 100%;overflow-x:auto;scrollbar-width:none}.views button{flex:none;padding:6px 9px}
+  .q{right:10px;gap:5px}.q>span{display:none}.q .fsl{display:none}.q button{padding:0 9px}
+  .q{top:calc(var(--hh) + 8px)}.find{width:calc(100% - 20px);left:10px;top:calc(var(--hh) + 50px)}.pill{left:10px;top:calc(var(--hh) + 96px);max-width:calc(100% - 116px);font-size:11.5px}
+  .rose3d{right:10px;top:calc(var(--hh) + 96px)}.dialwrap{width:74px;height:74px}#dial [data-face]{transform:rotate(var(--b)) translateY(-24px)}#dial::before{inset:15px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;pointer-events:auto;scrollbar-width:none;bottom:62px}.chips button{flex:none}
+  .perf{display:none}}
+/* v6.99 - inside the Map explorer: the model only; the explorer's search and chips drive it */
+body.embed3d .find,body.embed3d .chips,body.embed3d .xnav,body.embed3d .perf{display:none !important}
+body.embed3d .pill{max-width:min(420px,calc(100% - 24px))}
+body.embed3d header>b,body.embed3d header>span{display:none !important}   /* the explorer's own title is above it */
+/* v7.14 - the status box: shows briefly then fades, never takes a touch, never sits over the controls */
+.pill{pointer-events:none;transition:opacity .45s ease,visibility 0s linear 0s}
+.pill.gone{opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
+.pill.gone.now{transition:opacity .12s ease,visibility 0s linear .12s}
+body.embed3d .pill{left:12px;top:calc(var(--hh) + 56px);max-width:min(420px,calc(100% - 156px))}
+@media(max-width:900px){body.embed3d .pill{left:10px;top:calc(var(--hh) + 50px);max-width:calc(100% - 136px)}}
+</style>
+</head>
+<body>
+<div id="cesium"></div>
+<header><b>Coates Industrial Solutions <i>| GC500 2026</i></b><span style="color:var(--mute);font-size:12px">3D proof · Google Photorealistic 3D Tiles in CesiumJS · separate from the dashboard</span>
+  <nav class="xnav" id="xnav" aria-label="Pages"></nav><div class="views"><button data-v="overhead">Overhead</button><button data-v="angled">Angled</button><button data-v="close">Close-up</button><button data-v="island">Macintosh Island</button><button data-v="narrowneck">Narrowneck</button><button data-v="pits">Pit straight</button><button data-v="street">Street level</button><button data-v="ground">Ground</button></div></header>
+<div class="pill" id="status"><b>Loading</b></div>
+<div class="q"><button id="fsBtn" title="Full screen" aria-label="Full screen" style="margin-right:6px">⛶<span class="fsl"> Full screen</span></button><span style="align-self:center;font-size:11.5px;color:var(--mute)">Quality</span><button data-q="auto" aria-pressed="true">Auto</button><button data-q="crisp" aria-pressed="false">Ultra (4K)</button><button data-q="light" aria-pressed="false">Light</button></div>
+<div class="find" role="search"><input id="q" type="search" placeholder="Find a unit: WC23, P12, GN04, BS05…" aria-label="Find a unit on the 3D model" autocomplete="off" spellcheck="false"><div class="hits" id="hits" hidden></div></div>
+<div class="rose3d"><div class="dialwrap" title="Press a letter to face that way"><div id="dial" role="group" aria-label="Compass"><button type="button" data-face="0" style="--b:0deg" aria-label="Face north"><b>N</b></button><button type="button" data-face="90" style="--b:90deg" aria-label="Face east"><b>E</b></button><button type="button" data-face="180" style="--b:180deg" aria-label="Face south"><b>S</b></button><button type="button" data-face="270" style="--b:270deg" aria-label="Face west"><b>W</b></button></div></div><span class="facing" id="facing">Facing east</span><button id="orbitBtn" aria-pressed="false" title="Slowly circle what you are looking at; touch the map to stop">⟳ Orbit</button></div>
+<div class="chips" id="chips" aria-label="Show on the model"></div>
+<div class="perf" id="perf">—</div>
+<div class="loader" id="loader"><b style="font:700 22px 'Barlow Condensed',sans-serif;font-style:italic">3D proof</b><div id="loadText">Asking the service for the Google key…</div></div>
+<script>(function(){ const h = document.querySelector('header'), set = () => document.documentElement.style.setProperty('--hh', h.offsetHeight + 'px'); set(); if (window.ResizeObserver) new ResizeObserver(set).observe(h); })();</script>
+<script src="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Cesium.js"></script>
+<script>
+'use strict';
+/* GC500 3D proof, v6.90 (Andrew Fisher, 27 Sep 2026: "high tech attention … more detail, more quality … smoother and
+   clearer"). Google Photorealistic 3D Tiles (Map Tiles API) streamed by CesiumJS for the current view only; the Google key
+   comes from the dashboard service at runtime (never written into this file); Google's attribution stays on screen.
+   Cesium's own buttons are off (their bindings need string eval, which the service's policy refuses).
+   New in v6.90:
+   - SHARPER: each screen draws at its own pixel density, detail is fetched finer at rest, and anti-aliasing (MSAA and
+     FXAA) is on.
+   - SMOOTHER: the camera coasts, tiles along a flight are preloaded, and requests that a move makes stale are culled.
+   - THE JOB ON THE MODEL: every unit the master plan places, and what the other sheets draw, stands on the 3D model as
+     a pin in its trade's colour. Tap one for what it is; search a reference to fly to it.
+   - N, E, S, W: a compass that faces the camera any way, and a slow orbit round what you are looking at.
+   Rendering is on demand (nothing is drawn while the camera is still) and stops when the tab is hidden. */
+const $ = id => document.getElementById(id);
+const PHONE = /Android|iPhone|iPad/.test(navigator.userAgent) || matchMedia('(max-width:900px)').matches;
+/* v7.14 - a large foldable or tablet asks for the desktop site, so its name does not say phone; its coarse touch pointer does */
+const TOUCH = (navigator.maxTouchPoints || 0) > 0 && matchMedia('(pointer: coarse)').matches;
+const LOWPOWER = PHONE || TOUCH || !!(navigator.userAgentData && navigator.userAgentData.mobile);
+/* the ground at the circuit on the ellipsoid (Surfers Paradise, near sea level): read off the Google model, 27 Sep 2026 */
+const SITE_H = 44.6;
+const perf = {frames: 0, frameMs: 0, tilesLoaded: 0, bytes: 0, t0: performance.now(), firstFull: null};
+window.__perf = perf;
+const VIEWS = {
+  overhead:  {lon: 153.4255, lat: -27.9885, height: 1400, heading: 89.87, pitch: -89},   /* the D001 way round: the sheet's top bears 89.87°, beach along the top, like every map here */
+  angled:    {lon: 153.4300, lat: -27.9960, height: 520, heading: -35, pitch: -32},
+  close:     {lon: 153.42525, lat: -27.98905, height: 140, heading: 20, pitch: -38},
+  island:    {lon: 153.4232, lat: -27.9870, height: 420, heading: -20, pitch: -45},
+  narrowneck:{lon: 153.4190, lat: -27.9808, height: 600, heading: 40, pitch: -35},
+  pits:      {lon: 153.4245, lat: -27.9890, height: 180, heading: 60, pitch: -25},
+  street:    {lon: 153.42500, lat: -27.98880, height: 45, heading: 35, pitch: -18},
+  ground:    {lon: 153.42480, lat: -27.98890, height: 12, heading: 60, pitch: -6}};
+/* trades, as the dashboard names and colours them */
+const TRADES = {
+  buildings: {name: 'Buildings', c: '#ff9a4d'}, toilets: {name: 'Toilets', c: '#39e07a'}, gensets: {name: 'Generators', c: '#ffd166'},
+  lights: {name: 'Light towers', c: '#ffffff'}, barriers: {name: 'Barriers (ours)', c: '#4cc9f0'}, wbruns: {name: 'Barrier runs', c: '#e8641b'},
+  screens: {name: 'Big screens', c: '#8fa8ff'}, gates: {name: 'Gates', c: '#7bd88f'}, entry: {name: 'Entry points', c: '#35c2e0'},
+  othergens: {name: 'Others\' gensets', c: '#d97bd1'}, iface: {name: 'Interface areas', c: '#ff6b6b'}, drawn: {name: 'Drawn, not ours', c: '#c9a27a'}, other: {name: 'Other', c: '#bdbdbd'}};
+let viewer, tileset, quality = 'auto', qualityChosen = false, PINS = [], pinEntities = [], shown = new Set(['buildings', 'toilets', 'gensets', 'lights', 'barriers', 'screens']), orbit = 0;
+const EMBED3D = new URLSearchParams(location.search).get('embed') === '1';
+if (EMBED3D) document.body.classList.add('embed3d');
+let GROUPS = null, RING = null;
+/* v7.14 - QUALITY THAT ADAPTS. Still: the tier's full sharpness. Moving: a lower resolution and looser detail, tuned by the
+   measured time between frames; about 200 ms after the camera stops it snaps back to full sharpness.
+   still(dpr): the pixel density when still; stillMP / moveMP: caps in megapixels; sse / sseMove: detail (px of error). */
+const TIERS = {
+  crisp: {still: d => Math.min(d, 3), stillMP: 16, moveMP: LOWPOWER ? 3.5 : 6, sse: 1.5, sseMove: 4},
+  auto:  {still: d => Math.min(d, 2), stillMP: LOWPOWER ? 6 : 8, moveMP: LOWPOWER ? 2.5 : 4, sse: 4, sseMove: 10},
+  light: {still: d => 1, stillMP: 3, moveMP: 1.5, sse: 16, sseMove: 24}};
+const ADAPT = {moving: false, timer: 0, k: LOWPOWER ? 0.6 : 0.7, last: 0, lastChange: 0, lastDt: 0, win: [], winT: 0, all: [], autoUp: false, upTried: false, vm: null};
+window.__adaptMoving = false;
+const median = a => { const s = a.slice().sort((x, y) => x - y); return s.length ? s[s.length >> 1] : 0; };
+function cssPixels() { const c = viewer.canvas; return Math.max(1, c.clientWidth * c.clientHeight); }
+function stillScale() { const T = TIERS[quality] || TIERS.auto; return Math.max(0.5, Math.min(T.still(window.devicePixelRatio || 1), Math.sqrt(T.stillMP * 1e6 / cssPixels()))); }
+function applyRender() {
+  if (!viewer || !tileset) return; const T = TIERS[quality] || TIERS.auto, s = stillScale();
+  let r = s; if (ADAPT.moving) r = Math.max(Math.min(s, 0.5), Math.min(s * ADAPT.k, Math.sqrt(T.moveMP * 1e6 / cssPixels())));
+  r = Math.round(r * 20) / 20;                                  /* steps of 0.05, so small wobbles do not reallocate */
+  const sse = ADAPT.moving && !orbit ? T.sseMove : T.sse;       /* a slow orbit keeps full detail, only fewer pixels */
+  const rs = r / (window.devicePixelRatio || 1);               /* Cesium multiplies resolutionScale by devicePixelRatio */
+  if (Math.abs(viewer.resolutionScale - rs) > 0.001) viewer.resolutionScale = rs;
+  if (tileset.maximumScreenSpaceError !== sse) tileset.maximumScreenSpaceError = sse;
+  viewer.scene.requestRender(); perfText();
+}
+function adaptFrame() {
+  const t = performance.now(), vm = viewer.camera.viewMatrix;
+  const changed = !ADAPT.vm || !Cesium.Matrix4.equalsEpsilon(vm, ADAPT.vm, 1e-6); ADAPT.vm = Cesium.Matrix4.clone(vm, ADAPT.vm || new Cesium.Matrix4());
+  if (!changed) { ADAPT.last = 0; return; }                     /* a tile arriving is not movement */
+  const dt = ADAPT.last ? t - ADAPT.last : 0; ADAPT.last = t; ADAPT.lastChange = t; if (dt) ADAPT.lastDt = dt;
+  clearTimeout(ADAPT.timer); ADAPT.timer = setTimeout(settle, 200);
+  if (!ADAPT.moving) { ADAPT.moving = true; window.__adaptMoving = true; ADAPT.win = []; ADAPT.winT = t; applyRender(); return; }
+  if (dt > 0 && dt < 400) { ADAPT.win.push(dt); ADAPT.all.push(dt); if (ADAPT.all.length > 240) ADAPT.all.shift(); }
+  if (t - ADAPT.winT > 800 && ADAPT.win.length >= 6) { tune(median(ADAPT.win)); ADAPT.win = []; ADAPT.winT = t; }
+}
+function tune(ms) {
+  const k0 = ADAPT.k;
+  if (ms > 24) ADAPT.k = Math.max(0.3, ADAPT.k * 0.82); else if (ms < 17.5) ADAPT.k = Math.min(0.9, ADAPT.k * 1.08);
+  if (ADAPT.k !== k0) applyRender();
+  if (ADAPT.autoUp && quality === 'crisp' && ADAPT.k <= 0.3 && ms > 40) { quality = 'auto'; ADAPT.autoUp = false; applyQuality(); setStatus('<b>Auto</b> · stepped down from Ultra (4K) to keep the movement smooth on this screen', 4000); }
+}
+function settle() {
+  const t = performance.now(), need = Math.min(1500, Math.max(200, 1.6 * (ADAPT.lastDt || 0)));   /* a slow frame is not a stop; 1.5 s still is */
+  if (t - ADAPT.lastChange < need) { ADAPT.timer = setTimeout(settle, need - (t - ADAPT.lastChange) + 5); return; }
+  ADAPT.moving = false; ADAPT.last = 0; window.__adaptMoving = false;
+  if (quality === 'auto' && !qualityChosen && !EMBED3D && !LOWPOWER && !ADAPT.upTried && ADAPT.all.length >= 60) {
+    if (median(ADAPT.all) <= 17.5 && ADAPT.k >= 0.7) { ADAPT.upTried = true; ADAPT.autoUp = true; quality = 'crisp'; applyQuality(); }
+    else if (ADAPT.all.length >= 200) ADAPT.upTried = true;
+  }
+  applyRender(); scheduleHeights();
+}
+/* v7.14b - Andrew Fisher, 27 Sep 2026: "that box shows up and won't go away". It shows, then fades by itself
+   (2.5 s inside the Map explorer, 5 s on its own), and any touch or click anywhere closes it at once. */
+/* v7.14 - on the v7.14b timings: a view change shows it 2.5 s inside the explorer (5 s on its own), a message that matters
+   about 4 s; any press, touch or wheel anywhere closes it at once. It fades by a class, so no inline style fights it. */
+let STATUS_T = 0;
+function setStatus(html, ms) {
+  const el = $('status'); if (!el) return; el.innerHTML = html; el.classList.remove('gone', 'now'); clearTimeout(STATUS_T);
+  const keep = ms != null ? ms : (EMBED3D ? 2500 : 5000); if (keep > 0) STATUS_T = setTimeout(() => hideStatus(false), keep);
+}
+function hideStatus(now) { clearTimeout(STATUS_T); const el = $('status'); if (!el || el.classList.contains('gone')) return; el.classList.toggle('now', !!now); el.classList.add('gone'); }
+document.addEventListener('pointerdown', () => hideStatus(true), true);
+document.addEventListener('touchstart', () => hideStatus(true), {capture: true, passive: true});
+document.addEventListener('wheel', () => hideStatus(true), {capture: true, passive: true});
+async function key() {
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); const r = await fetch('/api/map-key' + (m ? '?t=' + encodeURIComponent(m[1]) : ''), {cache: 'no-store'}); const j = await r.json(); if (!(j && j.google && /^AIza/.test(j.google.key))) throw new Error('The service did not give this page a Google key.'); return j.google.key;
+}
+/* Auto: the screen's own pixel density (up to 2), fine detail at rest. Ultra: up to 3, finest detail. Light: for an old phone. */
+function applyQuality() {
+  viewer.useBrowserRecommendedResolution = false;              /* draw at devicePixelRatio x resolutionScale (applyRender sets the product) */
+  const ms = stillScale() >= 1.5 ? 1 : (LOWPOWER ? 2 : 4);     /* at 1.5x or finer the pixels do the smoothing; FXAA stays */
+  if (viewer.scene.msaaSamples !== ms) viewer.scene.msaaSamples = ms;
+  applyRender();
+  document.querySelectorAll('.q button[data-q]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.q === quality)));
+}
+function fly(name, ms = 1500) {
+  const v = VIEWS[name]; if (!v) return; stopOrbit();
+  viewer.camera.flyTo({destination: Cesium.Cartesian3.fromDegrees(v.lon, v.lat, v.height), orientation: {heading: Cesium.Math.toRadians(v.heading), pitch: Cesium.Math.toRadians(v.pitch), roll: 0}, duration: ms / 1000, easingFunction: Cesium.EasingFunction.QUADRATIC_IN_OUT});
+  setStatus(`<b>${name}</b> · camera ${v.height} m above the ground`, 2500);
+}
+/* ---- the point the camera looks at (the model under the middle of the screen, else the ground there) ---- */
+function lookTarget() {
+  const s = viewer.scene, c = new Cesium.Cartesian2(s.canvas.clientWidth / 2, s.canvas.clientHeight / 2);
+  let p = null; try { if (s.pickPositionSupported) p = s.pickPosition(c); } catch (e) {}
+  if (!p) { const ray = viewer.camera.getPickRay(c); const t = Cesium.IntersectionTests.rayEllipsoid(ray, Cesium.Ellipsoid.WGS84); if (t) p = Cesium.Ray.getPoint(ray, t.start); }
+  return p;
+}
+/* ---- the compass: face N, E, S or W about the point in the middle of the view ---- */
+let faceAnim = 0;
+function stopFace() { if (!faceAnim) return; cancelAnimationFrame(faceAnim); faceAnim = 0; viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY); }
+function faceTo(deg) {
+  stopOrbit(); stopFace(); const cam = viewer.camera, target = lookTarget(); if (!target) return;
+  const range = Cesium.Cartesian3.distance(cam.positionWC, target), pitch = cam.pitch;
+  const from = cam.heading, to = Cesium.Math.toRadians(deg); let d = Cesium.Math.negativePiToPi(to - from); const t0 = performance.now(), dur = 700;
+  const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    cam.lookAt(target, new Cesium.HeadingPitchRange(from + d * e, pitch, range)); viewer.scene.requestRender(); updateCompass();
+    if (k < 1) faceAnim = requestAnimationFrame(step); else { faceAnim = 0; cam.lookAtTransform(Cesium.Matrix4.IDENTITY); } };
+  step();
+}
+const POINTS = ['north', 'north-east', 'east', 'south-east', 'south', 'south-west', 'west', 'north-west'];
+let lastCompass = NaN;
+function updateCompass() {
+  const h = Cesium.Math.toDegrees(viewer.camera.heading), el = $('dial'); if (!el || Math.abs(h - lastCompass) < 0.2) return; lastCompass = h;
+  el.style.transform = `rotate(${-h}deg)`; el.querySelectorAll('[data-face] b').forEach(b => { b.style.transform = `rotate(${h - +b.parentElement.dataset.face}deg)`; });
+  const w = POINTS[Math.round(((h % 360) + 360) % 360 / 45) % 8]; $('facing').textContent = 'Facing ' + w;
+}
+/* ---- orbit: a slow turn round what the view is on (stops at a touch) ---- */
+function startOrbit() {
+  stopOrbit(); const target = lookTarget(); if (!target) return; const cam = viewer.camera;
+  const range = Cesium.Cartesian3.distance(cam.positionWC, target), pitch = Math.min(cam.pitch, Cesium.Math.toRadians(-12)); let h = cam.heading, last = performance.now();
+  $('orbitBtn').setAttribute('aria-pressed', 'true');
+  const step = t => { const dt = Math.min(50, t - last); last = t; h += dt * 0.00012; cam.lookAt(target, new Cesium.HeadingPitchRange(h, pitch, range)); viewer.scene.requestRender(); updateCompass(); orbit = requestAnimationFrame(step); };
+  orbit = requestAnimationFrame(step);
+}
+function stopOrbit() { if (!orbit) return; cancelAnimationFrame(orbit); orbit = 0; viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY); $('orbitBtn').setAttribute('aria-pressed', 'false'); }
+/* ---- the job on the model: a pin for every unit the master plan places ---- */
+function pinImage(color, ring) {
+  const c = document.createElement('canvas'), W = 40, H = 54; c.width = W * 3; c.height = H * 3; const g = c.getContext('2d'); g.scale(3, 3);
+  g.shadowColor = 'rgba(0,0,0,.55)'; g.shadowBlur = 5; g.shadowOffsetY = 2;
+  g.beginPath(); g.moveTo(20, 52); g.bezierCurveTo(20, 40, 5, 30, 5, 18); g.arc(20, 18, 15, Math.PI, 0); g.bezierCurveTo(35, 30, 20, 40, 20, 52); g.closePath();
+  g.fillStyle = color; g.fill(); g.shadowColor = 'transparent'; g.lineWidth = 2.5; g.strokeStyle = '#fff'; g.stroke();
+  g.beginPath(); g.arc(20, 18, 6, 0, Math.PI * 2); g.fillStyle = ring ? 'rgba(255,255,255,.35)' : '#fff'; g.fill();
+  return c;
+}
+const IMG_BY_C = {};
+function imgFor(c, area) { const k = c + (area ? '_a' : ''); return IMG_BY_C[k] || (IMG_BY_C[k] = pinImage(c, !!area).toDataURL('image/png')); }
+function colourOf(p) { return p.c || (TRADES[p.t] || TRADES.other).c; }
+function visible(p) { return GROUPS ? GROUPS.has(p.g) : (p.g ? /^t/.test(p.g) : shown.has(p.t)); }
+/* v7.14 - the pins are one billboard collection and one label collection (not 732 entities), each at a known height: the
+   site's ground to start, then the model's own ground under each pin near the camera, read once when the camera is still.
+   Each pin record keeps .show (both its pin and its label), ._gc (the pin) and is the pick id, so a tap still finds it. */
+let pinBB = null, pinLB = null, ringPin = null;
+const pinH = p => (p._h != null ? p._h : SITE_H);
+const pinPos = p => Cesium.Cartesian3.fromDegrees(p.ll[1], p.ll[0], pinH(p));
+const DDC = {base: new Cesium.DistanceDisplayCondition(0, PHONE ? 450 : 650), group: new Cesium.DistanceDisplayCondition(0, 1500), all: new Cesium.DistanceDisplayCondition(0, 1e7)};
+const labelFarFor = p => (p === ringPin ? DDC.all : GROUPS ? DDC.group : DDC.base);
+function relabel() { for (const r of pinEntities) { const d = labelFarFor(r._gc); if (r.l.distanceDisplayCondition !== d) r.l.distanceDisplayCondition = d; } }
+function drawPins() {
+  const sc = viewer.scene;
+  if (!pinBB) { pinBB = sc.primitives.add(new Cesium.BillboardCollection({scene: sc})); pinLB = sc.primitives.add(new Cesium.LabelCollection({scene: sc})); }
+  pinBB.removeAll(); pinLB.removeAll(); pinEntities = [];
+  const far = new Cesium.NearFarScalar(150, 1.0, 4000, 0.45), bottom = Cesium.VerticalOrigin.BOTTOM, off = new Cesium.Cartesian2(0, -38), pad = new Cesium.Cartesian2(6, 3);
+  const dark = Cesium.Color.fromCssColorString('#15181a'), outline = Cesium.Color.fromCssColorString('#0f0d0c');
+  for (const p of PINS) {
+    const c = colourOf(p), pos = pinPos(p), show = visible(p), rec = {_gc: p};
+    const b = pinBB.add({position: pos, image: imgFor(c, p.a), width: 26, height: 35, verticalOrigin: bottom, scaleByDistance: far, disableDepthTestDistance: 2500, show, id: rec});
+    const l = pinLB.add({position: pos, text: p.k, font: '700 13px Inter, system-ui, sans-serif', fillColor: c === '#ffffff' || c === '#ffd166' ? dark : Cesium.Color.WHITE, outlineColor: outline, outlineWidth: 0, style: Cesium.LabelStyle.FILL,
+      verticalOrigin: bottom, pixelOffset: off, distanceDisplayCondition: labelFarFor(p), scaleByDistance: far, disableDepthTestDistance: 2500,
+      showBackground: true, backgroundColor: Cesium.Color.fromCssColorString(c).withAlpha(.92), backgroundPadding: pad, show, id: rec});
+    rec.b = b; rec.l = l; Object.defineProperty(rec, 'show', {get() { return b.show; }, set(v) { b.show = l.show = !!v; }});
+    pinEntities.push(rec);
+  }
+  sc.requestRender(); scheduleHeights();
+}
+/* the model's ground under the pins near the camera: a batch at a time, only while the camera is still, each pin once (and
+   again only if the camera comes in to under a third of the distance it was read from). The pins are left out of the reading. */
+const HQ = {busy: false, t: 0};
+function scheduleHeights() { clearTimeout(HQ.t); HQ.t = setTimeout(heightBatch, 350); }
+async function heightBatch() {
+  if (HQ.busy || !viewer || !pinBB || ADAPT.moving || !viewer.scene.sampleHeightSupported) return;
+  const cam = viewer.camera.positionWC, todo = [];
+  for (const r of pinEntities) { if (!r.show) continue; const d = Cesium.Cartesian3.distance(cam, r.b.position); if (d > 450) continue; const p = r._gc; if (p._hd != null && p._hd <= d * 3) continue; todo.push([d, r]); }
+  if (!todo.length) return;
+  todo.sort((a, b) => a[0] - b[0]); const batch = todo.slice(0, 24); HQ.busy = true;
+  try {
+    const carto = batch.map(([, r]) => Cesium.Cartographic.fromDegrees(r._gc.ll[1], r._gc.ll[0]));
+    const exclude = pinEntities.slice(); if (RING) exclude.push(RING);
+    const got = await viewer.scene.sampleHeightMostDetailed(carto, exclude);
+    let moved = false;
+    batch.forEach(([d, r], i) => { const h = got[i] && got[i].height, p = r._gc; p._hd = d;
+      if (h != null && isFinite(h) && h > SITE_H - 15 && h < SITE_H + 60 && (p._h == null || Math.abs(p._h - h) > 0.05)) { p._h = h; const pos = pinPos(p); r.b.position = pos; r.l.position = pos; moved = true; } });
+    if (moved) { if (ringPin && batch.some(([, r]) => r._gc === ringPin)) ringAt(ringPin); viewer.scene.requestRender(); }
+  } catch (e) { /* a reading can fail while tiles change; the site height stands */ }
+  HQ.busy = false; if (todo.length > batch.length) scheduleHeights();
+}
+function ringAt(p) {
+  if (RING) { viewer.entities.remove(RING); RING = null; }
+  const was = ringPin; ringPin = p || null; if (was !== ringPin) relabel();
+  if (!p) return;
+  const orange = Cesium.Color.fromCssColorString('#ff6a13');
+  RING = viewer.entities.add({position: pinPos(p),
+    ellipse: {semiMajorAxis: 10, semiMinorAxis: 10, material: orange.withAlpha(.18), outline: true, outlineColor: orange, outlineWidth: 4, classificationType: Cesium.ClassificationType.CESIUM_3D_TILE}});
+}
+async function loadPins() {
+  if (EMBED3D) { if (!PINS.length) { const w = window.__pendingPins; if (w) PINS = w; } drawPins(); return; }
+  try { const j = await (await fetch('units3d.json')).json(); PINS = j.pins || []; } catch (e) { PINS = []; }
+  drawPins(); chips();
+}
+function chips() {
+  const counts = {}; for (const p of PINS) counts[p.t] = (counts[p.t] || 0) + 1;
+  $('chips').innerHTML = Object.entries(TRADES).filter(([k]) => counts[k]).map(([k, t]) => `<button data-t="${k}" aria-pressed="${shown.has(k)}" style="--c:${t.c}"><i></i>${t.name} <small>${counts[k]}</small></button>`).join('');
+  $('chips').onclick = e => { const b = e.target.closest('[data-t]'); if (!b) return; const k = b.dataset.t; if (shown.has(k)) shown.delete(k); else shown.add(k); b.setAttribute('aria-pressed', String(shown.has(k))); for (const en of pinEntities) en.show = shown.has(en._gc.t); viewer.scene.requestRender(); scheduleHeights(); };
+}
+function describe(p) {
+  const t = TRADES[p.t] || TRADES.other;
+  return `<b>${esc(p.k)}</b> · ${esc(t.name)}${ownName(p) ? '<br>' + esc(ownName(p)) : ''}${p.x ? '<br><i>cancelled on the register</i>' : ''}${p.a ? '<br><i>area only — the master names a place, not a spot</i>' : ''}${p.note ? '<br><small>' + esc(p.note) + '</small>' : ''}<br><small>Position from the master plan D001-26003-03 laid on the ground by image registration (about ±8 m), not a survey.</small>`;
+}
+/* the schedule's own name, unless it only repeats the trade ("Toilets", "Generator") */
+const ownName = p => { const n = (p.n || '').trim(), g = n.toLowerCase().replace(/s$/, ''); return !n || n === p.k || ['toilet', 'generator', 'entry point', 'ee genset', 'gate', 'big screen ' + p.k.toLowerCase()].includes(g) || g === ((TRADES[p.t] || TRADES.other).name.toLowerCase().replace(/s$/, '')) ? '' : n; };
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+function flyToPin(p, pick = true) {
+  stopOrbit(); if (EMBED3D) { if (!visible(p)) { const en = pinEntities.find(x => x._gc === p); if (en) en.show = true; } ringAt(p); } else if (!shown.has(p.t)) { shown.add(p.t); for (const en of pinEntities) en.show = shown.has(en._gc.t); chips(); }
+  const dest = pinPos(p);
+  viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(dest, 30), {offset: new Cesium.HeadingPitchRange(viewer.camera.heading, Cesium.Math.toRadians(-35), 170), duration: 1.6});
+  if (pick) setStatus(describe(p));
+}
+function search() {
+  const q = $('q').value.trim().toUpperCase().replace(/\s+/g, ''), box = $('hits'); if (!q) { box.hidden = true; box.innerHTML = ''; return; }
+  const hits = PINS.filter(p => p.k.toUpperCase().replace(/\s+/g, '').includes(q) || (p.n || '').toUpperCase().includes(q)).sort((a, b) => (a.k.toUpperCase() === q ? -1 : 0) - (b.k.toUpperCase() === q ? -1 : 0) || a.k.length - b.k.length).slice(0, 12);
+  box.hidden = false; box.innerHTML = hits.length ? hits.map((p, i) => `<button data-i="${PINS.indexOf(p)}"><b>${esc(p.k)}</b> <small>${esc((TRADES[p.t] || TRADES.other).name)}${ownName(p) ? ' · ' + esc(ownName(p)) : ''}</small></button>`).join('') : '<div class="none">No pin by that name. Units the master plan does not place have no pin.</div>';
+}
+async function boot() {
+  try {
+    const k = await key(); $('loadText').textContent = 'Starting the 3D scene…';
+    viewer = new Cesium.Viewer('cesium', {baseLayer: false, baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
+      requestRenderMode: true, maximumRenderTimeChange: Infinity, msaaSamples: 1, contextOptions: {webgl: {powerPreference: 'high-performance', antialias: false}}});   /* v7.14: Cesium draws to its own buffers; MSAA set per quality */
+    const sc = viewer.scene;
+    sc.globe.show = false; sc.skyAtmosphere.show = true; sc.fog.enabled = true; sc.fog.density = 1.2e-4; sc.postProcessStages.fxaa.enabled = true;
+    sc.highDynamicRange = false; sc.shadowMap && (sc.shadowMap.enabled = false); sc.backgroundColor = Cesium.Color.fromCssColorString('#0f0d0c');
+    const cc = sc.screenSpaceCameraController; cc.inertiaSpin = .93; cc.inertiaTranslate = .93; cc.inertiaZoom = .85; cc.minimumZoomDistance = 3; cc.maximumZoomDistance = 12000;
+    tileset = await Cesium.Cesium3DTileset.fromUrl('https://tile.googleapis.com/v1/3dtiles/root.json?key=' + encodeURIComponent(k), {showCreditsOnScreen: true, skipLevelOfDetail: true,
+      cacheBytes: PHONE ? 512 * 1048576 : LOWPOWER ? 768 * 1048576 : 1536 * 1048576, maximumCacheOverflowBytes: PHONE ? 256 * 1048576 : LOWPOWER ? 384 * 1048576 : 768 * 1048576,
+      preloadFlightDestinations: true, cullRequestsWhileMoving: true, cullRequestsWhileMovingMultiplier: 60, foveatedScreenSpaceError: true, foveatedConeSize: .25,
+      dynamicScreenSpaceError: true, dynamicScreenSpaceErrorDensity: 2e-4, dynamicScreenSpaceErrorFactor: 24, progressiveResolutionHeightFraction: .5});
+    sc.primitives.add(tileset); applyQuality();
+    let failT = 0; tileset.tileFailed.addEventListener(() => { const n = performance.now(); if (n - failT > 30000) { failT = n; setStatus('<b>Some of the 3D imagery did not load</b> · the connection may be weak; it retries as you move', 4000); } });
+    tileset.tileLoad.addEventListener(t => { perf.tilesLoaded++; const c = t.content; if (c && c.byteLength) perf.bytes += c.byteLength; });
+    tileset.allTilesLoaded.addEventListener(() => { scheduleHeights(); if (!perf.firstFull) perf.firstFull = Math.round(performance.now() - perf.t0); perfText(); window.__allLoaded = true; });
+    tileset.loadProgress.addEventListener((p, r) => { window.__allLoaded = (p === 0 && r === 0); perfText(); });
+    sc.postRender.addEventListener(() => { perf.frames++; updateCompass(); adaptFrame(); });
+    viewer.camera.changed.addEventListener(updateCompass); window.addEventListener('resize', () => viewer && applyQuality()); viewer.camera.percentageChanged = .01;
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stopOrbit(); else sc.requestRender(); });
+    $('loader').classList.add('done'); fly('overhead', 0); window.__ready = true;
+    document.querySelectorAll('.views button').forEach(b => b.onclick = () => { window.__allLoaded = false; fly(b.dataset.v); });
+    const QNOTE = {crisp: '<b>Ultra (4K)</b> · the sharpest picture when still; lighter while moving so it stays smooth', auto: '<b>Auto</b> · sharp when still, smooth while moving', light: '<b>Light</b> · the lightest picture, for a slow connection or an older screen'};
+    document.querySelectorAll('.q button[data-q]').forEach(b => b.onclick = () => { quality = b.dataset.q; qualityChosen = true; ADAPT.autoUp = false; applyQuality(); setStatus(QNOTE[quality] || '', 2500); });
+    document.querySelectorAll('#dial [data-face]').forEach(b => b.onclick = () => faceTo(+b.dataset.face));
+    $('orbitBtn').onclick = () => orbit ? stopOrbit() : startOrbit();
+    ['pointerdown', 'wheel', 'touchstart'].forEach(ev => viewer.canvas.addEventListener(ev, () => { stopOrbit(); stopFace(); }, {passive: true}));
+    /* tap a pin: what it is */
+    const h = new Cesium.ScreenSpaceEventHandler(viewer.canvas);
+    h.setInputAction(e => { const o = sc.pick(e.position); if (o && o.id && o.id._gc) { if (EMBED3D) { ringAt(o.id._gc); sc.requestRender(); try { window.parent.gc500Explorer3DPick && window.parent.gc500Explorer3DPick(o.id._gc.k); } catch (x) {} } else setStatus(describe(o.id._gc)); } }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+    $('q').addEventListener('input', search); $('q').addEventListener('keydown', e => { if (e.key === 'Enter') { const b = $('hits').querySelector('[data-i]'); if (b) b.click(); } if (e.key === 'Escape') { $('q').value = ''; search(); } });
+    $('hits').onclick = e => { const b = e.target.closest('[data-i]'); if (!b) return; flyToPin(PINS[+b.dataset.i]); $('hits').hidden = true; };
+    setInterval(perfText, 1000);
+    $('fsBtn').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); };
+    await loadPins(); sc.requestRender();
+    const f = new URLSearchParams(location.search).get('find'); if (f) { const p = PINS.find(x => x.k.toUpperCase() === f.toUpperCase()); if (p) flyToPin(p); }
+  } catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String(e); }
+}
+function perfText() {
+  if (!viewer) return; const cam = viewer.camera.positionCartographic; const h = Math.round(cam.height);
+  $('perf').textContent = `tiles ${perf.tilesLoaded} · camera ${h} m · render ${(viewer.resolutionScale * (window.devicePixelRatio || 1)).toFixed(2)}× · detail ${tileset.maximumScreenSpaceError} · ${quality}${ADAPT.moving ? ' · moving' : ''}`;
+}
+boot();
+window.GC500_3D = {fly, faceTo, startOrbit, stopOrbit,
+  setPins: list => { PINS = (list || []).filter(p => p && p.ll && isFinite(p.ll[0]) && isFinite(p.ll[1])); window.__pendingPins = PINS; if (viewer) drawPins(); },
+  showGroups: ids => { GROUPS = ids ? new Set(ids) : null; for (const en of pinEntities) en.show = visible(en._gc); if (viewer) { relabel(); viewer.scene.requestRender(); scheduleHeights(); } },
+  find: code => { const c = String(code || '').toUpperCase().replace(/\s+/g, ''); const p = PINS.find(x => x.k.toUpperCase().replace(/\s+/g, '') === c); if (p && viewer) { flyToPin(p, !EMBED3D); return true; } return false; },
+  ring: code => { const c = String(code || '').toUpperCase().replace(/\s+/g, ''); ringAt(PINS.find(x => x.k.toUpperCase().replace(/\s+/g, '') === c) || null); if (viewer) viewer.scene.requestRender(); }, get state() { return {ready: !!viewer, quality, perf, loaded: window.__allLoaded, pins: PINS.length, heading: viewer ? Cesium.Math.toDegrees(viewer.camera.heading) : null,
+    adapt: viewer ? {moving: ADAPT.moving, k: +ADAPT.k.toFixed(2), res: +(viewer.resolutionScale * (window.devicePixelRatio || 1)).toFixed(2), still: +stillScale().toFixed(2), sse: tileset && tileset.maximumScreenSpaceError, msaa: viewer.scene.msaaSamples, lowpower: LOWPOWER, autoUp: ADAPT.autoUp} : null}; },
+  setQuality: q => { quality = q; applyQuality(); }};
+/* for the test harness: where each shown pin stands, and a way to hide the pins while the ground under them is read */
+window.__pinProbe = () => pinEntities.filter(r => r.show).map(r => ({k: r._gc.k, pos: r.b.position, hide: v => { pinBB.show = pinLB.show = !v; }}));
+</script>
+
+<script>
+(function(){ /* page-to-page navigation from the link's own token; hidden inside the dashboard's frame */
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname), nav = document.getElementById('xnav'); if (!nav) return;
+  const framed = (function(){ try { return window.self !== window.top; } catch (e) { return true; } })();
+  if (framed) { document.body.classList.add('framed'); nav.hidden = true; return; }
+  if (!m) { nav.hidden = true; return; }
+  const t = m[1], q = new URLSearchParams(location.search), back = q.get('back') === 'e' ? 'e' : q.get('back') === 'v' ? 'v' : (/\/e\//.test(document.referrer) ? 'e' : 'v');
+  const here = location.pathname.replace(/^\/w\/[^/]+\//, ''), tail = '?back=' + back;
+  const links = [['/' + back + '/' + encodeURIComponent(t), 'Dashboard', ''], ['/w/' + t + '/explorer/index.html' + tail, 'Plan on satellite', 'explorer/index.html'], ['/w/' + t + '/poc3d/index.html' + tail, '3D proof', 'poc3d/index.html'], ['/w/' + t + '/', 'The Coates Way', '__cw']];
+  nav.innerHTML = links.map(([h, n, k]) => `<a href="${h}"${k === here ? ' aria-current="page"' : ''}>${n}</a>`).join('');
+})();
+</script>
+</body>
+</html>

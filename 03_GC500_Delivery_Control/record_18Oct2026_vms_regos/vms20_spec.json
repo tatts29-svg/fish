@@ -1,0 +1,11 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: \"Vms20 asset no 475t rego TE88HN COMPLETED\". Contract 9961265 line 26 is \"VMS20 Variable Message Board Senior Premiair\" (SUB-2631, booked 19 Oct), on T0158 (VMS x 9, 19 Oct). Complete is pressed again after the arrival so the page counts the eight received as installed.",
+ "ops": [
+  {"op": "unit_reidentify", "ref": "T0158", "no": "475T", "item": "VMS", "owner": "prem-air-hire", "label": "VMS20", "note": "Arrival recorded by Andrew Fisher, 19 Oct 2026. Rego TE88HN. Premiair Hire sub-hire, contract 9961265 line 26."},
+  {"op": "supplied", "ref": "T0158", "item": "VMS", "qty": 8},
+  {"op": "vms_board", "key": "VMS20", "fleet": "475T", "rego": "TE88HN", "on": "T0158"},
+  {"op": "note_append", "ref": "T0158", "text": "VMS20 arrived and completed 19 Oct 2026: Premiair Hire sub-hire, fleet 475T, rego TE88HN (contract 9961265 line 26)."},
+  {"op": "complete_again", "ref": "T0158"}
+ ]
+}

@@ -1,0 +1,7 @@
+{
+"by": "Andrew Fisher",
+"basis": "Andrew, 28 Oct 2026, after the 10:00 Event Portables pick-up (run 40): \"And 0958 and 0152\" - the last two FWF at WC69, with the same 10:00 load. WC69 was ticked Emptied on 26 Oct. Left site 28 Oct 2026 10:00 AEST; WC69 leaves in full.",
+"ops": [
+ {"op": "depart", "ref": "WC69", "at": "2026-10-28T10:00:00+10:00", "nos": ["0958", "0152"], "complete": true}
+]
+}

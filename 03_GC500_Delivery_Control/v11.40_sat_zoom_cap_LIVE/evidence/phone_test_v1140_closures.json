@@ -1,0 +1,218 @@
+{
+ "at": "2026-10-22T21:21:57.459Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card: nine lines as thin neon strokes (halo 7 px, glow 3 px, core 1.2 px, widths fixed on the screen), the zoom buttons, Plan on and Satellite off with the credit hidden, the satellite group placed by the georeferencing matrix and clipped, the drawing visible, legend of three, no agent names",
+   "ok": true,
+   "detail": {
+    "vb": "0 -1.735 2384 1687.47",
+    "lines": 9,
+    "halo": "7px",
+    "glow": "3px",
+    "core": "1.2px",
+    "ve": "non-scaling-stroke",
+    "buttons": [
+     "out",
+     "in",
+     "fit",
+     "plan",
+     "sat"
+    ],
+    "planOn": true,
+    "satOn": false,
+    "creditHidden": true,
+    "clip": true,
+    "satGroup": true,
+    "sheetVis": "visible",
+    "base": "plan",
+    "geo": true,
+    "legend": 3,
+    "noAgent": true
+   }
+  },
+  {
+   "name": "the lines sit on the footpath side: the pink north of Main Beach Pde’s north fence (y below 449, mean below 446.5, between x 250 and 420), south of the south fence east of Gate 7 (y above 470.5), west of Breaker St’s west fence (x below 193.5); the orange east of the east fence (x above 218); the pink’s west reach climbs the access path between the compound and Meriton (x 1676 to 1684) and the loop closes down Meriton’s west edge (x 1683 to 1693)",
+   "ok": true,
+   "detail": {
+    "northPart": [
+     [
+      417.07,
+      439.22
+     ],
+     [
+      401.63,
+      442.76
+     ],
+     [
+      375.92,
+      445.31
+     ],
+     [
+      360.25,
+      445.59
+     ],
+     [
+      352.06,
+      444.01
+     ],
+     [
+      333.65,
+      444.6
+     ],
+     [
+      327.66,
+      446.41
+     ],
+     [
+      316.17,
+      445.01
+     ],
+     [
+      271.15,
+      448.02
+     ],
+     [
+      259.76,
+      446.57
+     ]
+    ],
+    "southPart": [
+     [
+      128.17,
+      470.86
+     ],
+     [
+      137.94,
+      472.92
+     ],
+     [
+      149.99,
+      471.76
+     ]
+    ],
+    "breakerW": [
+     [
+      190.1971296215366,
+      520
+     ],
+     [
+      191.00212918451183,
+      550
+     ],
+     [
+      191.8071287474871,
+      580
+     ]
+    ],
+    "breakerE": [
+     [
+      218.53696223659503,
+      520
+     ],
+     [
+      219.76071843853822,
+      550
+     ],
+     [
+      218.83975308641973,
+      580
+     ]
+    ],
+    "climb": [
+     [
+      1681.59,
+      332.48
+     ],
+     [
+      1681.25,
+      321.35
+     ]
+    ],
+    "closing": [
+     [
+      1691.42,
+      357.83
+     ],
+     [
+      1685.16,
+      337.97
+     ],
+     [
+      1689.46,
+      332.66
+     ]
+    ]
+   }
+  },
+  {
+   "name": "Satellite: the drawing and its tiles hidden, Esri World Imagery tiles placed under the lines at a zoom that fits the whole-plan view (15 to 17), the credit shown, the button states swapped, the lines the top layer",
+   "ok": true,
+   "detail": {
+    "base": "sat",
+    "cls": true,
+    "n": 12,
+    "z": 16,
+    "zoomFn": 16,
+    "hrefs": [
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/16/38077/60697",
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/16/38077/60698"
+    ],
+    "sheetVis": "hidden",
+    "tilesVis": "hidden",
+    "credit": true,
+    "satOn": true,
+    "planOn": false,
+    "linesAfter": true,
+    "first": [
+     "-5040",
+     "2048"
+    ]
+   }
+  },
+  {
+   "name": "16000% at the Gate 7 crossing on satellite: the view 15 pt wide, Esri tiles at zoom 20 (the sharpest real imagery here), only a handful of them",
+   "ok": true,
+   "detail": {
+    "pct": 16000,
+    "z": 20,
+    "n": 2,
+    "w": "14.9"
+   }
+  },
+  {
+   "name": "Plan brings the drawing back and empties the satellite layer",
+   "ok": true,
+   "detail": {
+    "base": "plan",
+    "cls": false,
+    "n": 0,
+    "creditHidden": true,
+    "sheetVis": "visible",
+    "planOn": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 135,
+    "blocked": 0
+   }
+  }
+ ]
+}

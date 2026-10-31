@@ -1,0 +1,22 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "v12.63 and v12.64 LIVE 30 Oct 2026 16:45 AEST on Andrew's word \"Go live\". WC41's superseded 28 Oct 12:15 entry (same collection id 14c64f48... as the corrected 30 Oct 09:40 entry) was taken out in runs 82 and 91 and merged back three times (10:34, 12:42, 14:05) by a copy of the page that still holds it: the page keeps its own saved copy of the record on each device and merges histories as a union keyed by state|at. v12.63 teaches the merge the record's tombstone for a history entry. This spec takes the duplicate out once more and, through the runner's v12.63 change, writes the tombstone deleted['hist/WC41/in transit|2026-10-28T02:20:44.187Z'] through the page's own tomb(); and it writes the tombstone for T0023's withdrawn departure entry of run 85/88 (entered 2026-10-30T01:32:03.637Z), which the same kind of stale copy could otherwise merge back. Dry run first, P&L unchanged.",
+ "ops": [
+  {
+   "op": "collection_remove",
+   "ref": "WC41",
+   "id": "14c64f48-1792-41ac-88d4-4be728336e99",
+   "at": "2026-10-28T02:20:44.187Z",
+   "keep_at": "2026-10-30T00:15:13.212Z",
+   "keep_departed": "2026-10-30T09:40:00+10:00",
+   "why": "Andrew Fisher, 30 Oct 2026: the 28 Oct entry came back a third time (14:05) from a copy of the page not yet refreshed; taken out again with its tombstone (v12.63); the ten left Thu 30 Oct at 09:40"
+  },
+  {
+   "op": "hist_tomb",
+   "ref": "T0023",
+   "state": "in transit",
+   "at": "2026-10-30T01:32:03.637Z",
+   "why": "Andrew Fisher, 30 Oct 2026: T0023's departure of 11:30 was withdrawn (run 88, the container that left was T0266); the tombstone keeps a stale copy of the page from merging it back"
+  }
+ ]
+}

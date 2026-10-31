@@ -1,0 +1,306 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "uploaded": "12 Oct 2026 04:12 AEST",
+  "verified": "12 Oct 2026 04:15 AEST",
+  "ready_commit": "520d05b2",
+  "source_commit": "6e7709c3",
+  "sha256": "c52e2204776eb43e48649ff4780705b0af989a419fda19c9fe29f9831db61e90",
+  "bytes": 14881070,
+  "public_media_bytes_verified": true,
+  "public_tests": {
+    "desktop": {
+      "checks": 35,
+      "pass": true,
+      "actual_public": true,
+      "sustained_seconds": 35,
+      "errors": 0,
+      "operational_writes": 0,
+      "checks_detail": [
+        {
+          "name": "Actual public HTML, no substitution",
+          "pass": true
+        },
+        {
+          "name": "Public bytes match verified candidate",
+          "pass": true
+        },
+        {
+          "name": "Other initial page downloads no machine movie",
+          "pass": true
+        },
+        {
+          "name": "One lazy muted inline looping video; no eager source",
+          "pass": true
+        },
+        {
+          "name": "Motion off shows native poster without movie download",
+          "pass": true
+        },
+        {
+          "name": "Reduced motion retains poster and no film source",
+          "pass": true
+        },
+        {
+          "name": "Complete16:9 poster fits inside original hero without cropping",
+          "pass": true
+        },
+        {
+          "name": "Actual film duration is32seconds",
+          "pass": true
+        },
+        {
+          "name": "CSS viewport chooses one full source",
+          "pass": true
+        },
+        {
+          "name": "Selected media actually decodes at declared dimensions",
+          "pass": true
+        },
+        {
+          "name": "Only the chosen movie is fetched",
+          "pass": true
+        },
+        {
+          "name": "Entire decoded movie frame fits inside hero without clipping geometry",
+          "pass": true
+        },
+        {
+          "name": "Actual decoded frames and playback time advance",
+          "pass": true
+        },
+        {
+          "name": "Film remains mounted and playing through35seconds and native version polls",
+          "pass": true
+        },
+        {
+          "name": "Actual media loops across the end without stopping",
+          "pass": true
+        },
+        {
+          "name": "Decoded film is visible without an incorrect picture-loading overlay",
+          "pass": true
+        },
+        {
+          "name": "Film pauses when card leaves the viewport",
+          "pass": true
+        },
+        {
+          "name": "Tools Motion off pauses active film",
+          "pass": true
+        },
+        {
+          "name": "Print pauses film",
+          "pass": true
+        },
+        {
+          "name": "Hidden document pauses film",
+          "pass": true
+        },
+        {
+          "name": "Native Open machine pauses background film",
+          "pass": true
+        },
+        {
+          "name": "Native Escape closes machine and returns original hero focus",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 1 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 1 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 2 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 2 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 3 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 3 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Live OS reduced-motion change pauses film",
+          "pass": true
+        },
+        {
+          "name": "A full-source error while motion is off does not start a hidden download",
+          "pass": true
+        },
+        {
+          "name": "Returning to an allowed view applies the pending one-time preview fallback",
+          "pass": true
+        },
+        {
+          "name": "Film leaves operational records and P&L unchanged",
+          "pass": true
+        },
+        {
+          "name": "No horizontal document overflow",
+          "pass": true
+        },
+        {
+          "name": "No browser errors",
+          "pass": true
+        },
+        {
+          "name": "No operational writes",
+          "pass": true
+        }
+      ]
+    },
+    "phone": {
+      "checks": 33,
+      "pass": true,
+      "actual_public": true,
+      "sustained_seconds": 35,
+      "errors": 0,
+      "operational_writes": 0,
+      "checks_detail": [
+        {
+          "name": "Actual public HTML, no substitution",
+          "pass": true
+        },
+        {
+          "name": "Public bytes match verified candidate",
+          "pass": true
+        },
+        {
+          "name": "Other initial page downloads no machine movie",
+          "pass": true
+        },
+        {
+          "name": "One lazy muted inline looping video; no eager source",
+          "pass": true
+        },
+        {
+          "name": "Motion off shows native poster without movie download",
+          "pass": true
+        },
+        {
+          "name": "Reduced motion retains poster and no film source",
+          "pass": true
+        },
+        {
+          "name": "Complete16:9 poster fits inside original hero without cropping",
+          "pass": true
+        },
+        {
+          "name": "Actual film duration is32seconds",
+          "pass": true
+        },
+        {
+          "name": "CSS viewport chooses one preview source",
+          "pass": true
+        },
+        {
+          "name": "Selected media actually decodes at declared dimensions",
+          "pass": true
+        },
+        {
+          "name": "Only the chosen movie is fetched",
+          "pass": true
+        },
+        {
+          "name": "Entire decoded movie frame fits inside hero without clipping geometry",
+          "pass": true
+        },
+        {
+          "name": "Actual decoded frames and playback time advance",
+          "pass": true
+        },
+        {
+          "name": "Film remains mounted and playing through35seconds and native version polls",
+          "pass": true
+        },
+        {
+          "name": "Actual media loops across the end without stopping",
+          "pass": true
+        },
+        {
+          "name": "Decoded film is visible without an incorrect picture-loading overlay",
+          "pass": true
+        },
+        {
+          "name": "Film pauses when card leaves the viewport",
+          "pass": true
+        },
+        {
+          "name": "Tools Motion off pauses active film",
+          "pass": true
+        },
+        {
+          "name": "Print pauses film",
+          "pass": true
+        },
+        {
+          "name": "Hidden document pauses film",
+          "pass": true
+        },
+        {
+          "name": "Native Open machine pauses background film",
+          "pass": true
+        },
+        {
+          "name": "Native Escape closes machine and returns original hero focus",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 1 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 1 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 2 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 2 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Tab exit 3 pauses film",
+          "pass": true
+        },
+        {
+          "name": "Return 3 has one owned lifecycle and one source",
+          "pass": true
+        },
+        {
+          "name": "Live OS reduced-motion change pauses film",
+          "pass": true
+        },
+        {
+          "name": "Film leaves operational records and P&L unchanged",
+          "pass": true
+        },
+        {
+          "name": "No horizontal document overflow",
+          "pass": true
+        },
+        {
+          "name": "No browser errors",
+          "pass": true
+        },
+        {
+          "name": "No operational writes",
+          "pass": true
+        }
+      ]
+    }
+  },
+  "visual_review": "Actual-public desktop and phone orbit screenshots inspected; original card design and complete decoded frame retained."
+}

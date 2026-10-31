@@ -1,0 +1,77 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "results": [
+    {
+      "name": "identity",
+      "exit": 0,
+      "seconds": 8.9
+    },
+    {
+      "name": "profile",
+      "exit": 0,
+      "seconds": 10.1
+    },
+    {
+      "name": "idle-phone",
+      "exit": 0,
+      "seconds": 18.3
+    },
+    {
+      "name": "idle-desktop",
+      "exit": 0,
+      "seconds": 18.8
+    },
+    {
+      "name": "contrast",
+      "exit": 0,
+      "seconds": 115.5
+    },
+    {
+      "name": "charges-phone",
+      "exit": 0,
+      "seconds": 8.5
+    },
+    {
+      "name": "charges-desktop",
+      "exit": 0,
+      "seconds": 8.8
+    },
+    {
+      "name": "transport",
+      "exit": 0,
+      "seconds": 7.1
+    },
+    {
+      "name": "transport-editor",
+      "exit": 0,
+      "seconds": 41.5
+    },
+    {
+      "name": "standdown",
+      "exit": 0,
+      "seconds": 117.9
+    },
+    {
+      "name": "runs-desktop",
+      "exit": 0,
+      "seconds": 7.8
+    },
+    {
+      "name": "runs-phone",
+      "exit": 0,
+      "seconds": 5.7
+    },
+    {
+      "name": "practice-identity",
+      "exit": 0,
+      "seconds": 8.7
+    },
+    {
+      "name": "practice-roster",
+      "exit": 0,
+      "seconds": 6.5
+    }
+  ],
+  "testWrites": 0
+}

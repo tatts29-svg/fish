@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "source_commit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "files": {
+    "mech-driveline.js": {
+      "base_sha256": "b03f023ac59000ce1d679741e477002189e66eb9927dfac3a2e97c2bf3d3024e",
+      "proposal_sha256": "5f8361b93380a7b6309eeca8580349c1cbb7eb3fb63196c1a137c3b1fa01da23"
+    },
+    "car-app.js": {
+      "base_sha256": "718b2cfa403ae8fb0d6bc7b3bde6578719e62802b2eb23c38513e4d0700f1707",
+      "proposal_sha256": "504af68f40310620fda07b00661d0b262133edce9f3a3c4bb12bd5df49a9a0af"
+    }
+  }
+}

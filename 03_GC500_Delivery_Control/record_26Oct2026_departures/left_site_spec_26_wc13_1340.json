@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (13:4x AEST): \"140pm picked up. 0444 and 0036\". Both are Event Portables FWF on WC13 only, both of WC13's units (read 13:43 AEST: Emptied, both Ready, neither already left), so WC13 left in full at 13:40 AEST.",
+  "ops": [
+    {"op": "depart", "ref": "WC13", "at": "2026-10-27T13:40:00+10:00", "nos": ["0444", "0036"], "complete": true}
+  ]
+}

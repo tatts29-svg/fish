@@ -1,0 +1,141 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "pointer activation runs native selection handler",
+      "pass": true
+    },
+    {
+      "name": "selection receives finite independent halo",
+      "pass": true
+    },
+    {
+      "name": "target animation is preserved and old lit class is absent",
+      "pass": true
+    },
+    {
+      "name": "target transform is preserved",
+      "pass": true
+    },
+    {
+      "name": "one halo never intercepts events",
+      "pass": true
+    },
+    {
+      "name": "selection pulse expires with no running halo",
+      "pass": true
+    },
+    {
+      "name": "native disclosure opens on tap",
+      "pass": true
+    },
+    {
+      "name": "native disclosure closes only when tapped again",
+      "pass": true
+    },
+    {
+      "name": "checkbox label keeps its native selection",
+      "pass": true
+    },
+    {
+      "name": "ordinary link handler still executes",
+      "pass": true
+    },
+    {
+      "name": "keyboard Space activates and acknowledges native button",
+      "pass": true
+    },
+    {
+      "name": "keyboard focus has a visible outline",
+      "pass": true
+    },
+    {
+      "name": "disabled controls receive no misleading acknowledgement",
+      "pass": true
+    },
+    {
+      "name": "reduced motion keeps static acknowledgement without animation",
+      "pass": true
+    },
+    {
+      "name": "reduced motion acknowledgement also expires",
+      "pass": true
+    },
+    {
+      "name": "application Motion Off suppresses animation",
+      "pass": true
+    },
+    {
+      "name": "scroll removes positional feedback immediately",
+      "pass": true
+    },
+    {
+      "name": "offscreen target stops its halo",
+      "pass": true
+    },
+    {
+      "name": "hidden document stops its halo",
+      "pass": true
+    },
+    {
+      "name": "native top-layer dialog contains correctly aligned feedback",
+      "pass": true
+    },
+    {
+      "name": "select change keeps its value and acknowledges selected option",
+      "pass": true
+    },
+    {
+      "name": "360px selected halo stays inside viewport without adding scroll",
+      "pass": true
+    },
+    {
+      "name": "390px selected halo stays inside viewport without adding scroll",
+      "pass": true
+    },
+    {
+      "name": "1440px selected halo stays inside viewport without adding scroll",
+      "pass": true
+    },
+    {
+      "name": "3840px selected halo stays inside viewport without adding scroll",
+      "pass": true
+    },
+    {
+      "name": "plant standalone phone actions have44px targets",
+      "pass": true
+    },
+    {
+      "name": "plant phone page retains viewport width",
+      "pass": true
+    },
+    {
+      "name": "docs standalone phone actions have44px targets",
+      "pass": true
+    },
+    {
+      "name": "docs phone page retains viewport width",
+      "pass": true
+    },
+    {
+      "name": "arrival PDF link uses readable dark orange",
+      "pass": true
+    },
+    {
+      "name": "native operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "no browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 66,
+    "blocked": 0,
+    "blockedMapSessions": 1
+  },
+  "candidate_sha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d"
+}

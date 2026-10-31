@@ -1,0 +1,64 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 25 Oct 2026, on the items Coates' delivery dockets name that our record did not hold: \"yes onsite please add\" - the P05 microwave, the CP1 fridge and urn, the P09 boiling-water unit, and the laserplane (1065384) on the plant contract. Through the page's own controls, as an editor would: the four building items attached through each drawer's Attach form with their numbers; the laserplane added as a new reference through the page's Add form (as EQ0001-EQ0005 were), filed under Other so it is not counted among the forklifts and access machines, its contract line as its note and branch MEAD, its quantity 1 and 1 of 1 received, its light on site and Complete ticked. Nothing else changes.",
+ "ops": [
+  {
+   "op": "acc_add",
+   "ref": "P05",
+   "type": "Microwave",
+   "no": "1320150",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+  },
+  {
+   "op": "acc_add",
+   "ref": "CP1",
+   "type": "Fridge",
+   "no": "1116687",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+  },
+  {
+   "op": "acc_add",
+   "ref": "CP1",
+   "type": "Urn",
+   "no": "119810",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+  },
+  {
+   "op": "acc_add",
+   "ref": "P09",
+   "type": "Zip boiler",
+   "no": "1254390",
+   "desc": "Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026."
+  },
+  {
+   "op": "add_ref",
+   "ref": "EQ0006",
+   "disc": "Other",
+   "name": "Laserplane",
+   "type": "Laserplane",
+   "no": "1065384",
+   "note": "Rental 9987005, line 8.",
+   "branch": "MEAD"
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 1
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0006",
+   "item": "Laserplane",
+   "qty": 1
+  },
+  {
+   "op": "light",
+   "ref": "EQ0006",
+   "state": "on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0006"
+  }
+ ]
+}

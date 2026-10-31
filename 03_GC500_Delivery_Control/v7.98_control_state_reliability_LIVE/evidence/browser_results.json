@@ -1,0 +1,346 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "e430552d4788d052320773e90675fd93345db89c43a8e8d0625da8191d5e6bdb",
+  "runs": [
+    {
+      "mode": "desktop",
+      "checks": [
+        {
+          "name": "online drawer reflects editing capability",
+          "pass": true
+        },
+        {
+          "name": "unchanged status causes no badge DOM mutation",
+          "pass": true
+        },
+        {
+          "name": "open drawer changes to Offline after failed GETs",
+          "pass": true
+        },
+        {
+          "name": "outage preserves draft, focus, selection, node identity and scroll",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": true,
+            "sameSelection": true,
+            "sameDrawerScroll": true,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "same open drawer returns to Live after GET recovery",
+          "pass": true
+        },
+        {
+          "name": "recovery preserves draft, focus, selection, node identity and scroll",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": true,
+            "sameSelection": true,
+            "sameDrawerScroll": true,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "capability downgrade refreshes the same badge",
+          "pass": true
+        },
+        {
+          "name": "capability downgrade keeps field node and draft",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": false,
+            "sameSelection": true,
+            "sameDrawerScroll": true,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "badge refresh adds no capability focus or scroll change",
+          "pass": true,
+          "detail": {
+            "withoutBadgeRefresh": {
+              "sameInput": true,
+              "sameBadge": true,
+              "sameValue": true,
+              "sameFocus": false,
+              "sameSelection": true,
+              "sameDrawerScroll": true,
+              "sameBodyScroll": true
+            },
+            "withBadgeRefresh": {
+              "sameInput": true,
+              "sameBadge": true,
+              "sameValue": true,
+              "sameFocus": false,
+              "sameSelection": true,
+              "sameDrawerScroll": true,
+              "sameBodyScroll": true
+            }
+          }
+        },
+        {
+          "name": "read-only outage never promises a send",
+          "pass": true
+        },
+        {
+          "name": "read-only recovery updates without reopening",
+          "pass": true
+        },
+        {
+          "name": "capability upgrade refreshes the same badge",
+          "pass": true
+        },
+        {
+          "name": "no page exceptions",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "no service or other non-GET requests attempted",
+          "pass": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/createSession",
+              "host": "tile.googleapis.com"
+            }
+          ]
+        },
+        {
+          "name": "no unexpected console errors",
+          "pass": true,
+          "detail": []
+        }
+      ],
+      "errors": [],
+      "console": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: net::ERR_FAILED",
+          "path": "/v1/createSession"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        }
+      ],
+      "blocked": [
+        {
+          "method": "POST",
+          "path": "/v1/createSession",
+          "host": "tile.googleapis.com"
+        }
+      ],
+      "apiGets": 15,
+      "capabilityWithoutBadgeRefresh": {
+        "sameInput": true,
+        "sameBadge": true,
+        "sameValue": true,
+        "sameFocus": false,
+        "sameSelection": true,
+        "sameDrawerScroll": true,
+        "sameBodyScroll": true
+      },
+      "passed": 15
+    },
+    {
+      "mode": "phone",
+      "checks": [
+        {
+          "name": "online drawer reflects editing capability",
+          "pass": true
+        },
+        {
+          "name": "unchanged status causes no badge DOM mutation",
+          "pass": true
+        },
+        {
+          "name": "open drawer changes to Offline after failed GETs",
+          "pass": true
+        },
+        {
+          "name": "outage preserves draft, focus, selection, node identity and scroll",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": true,
+            "sameSelection": true,
+            "sameDrawerScroll": true,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "same open drawer returns to Live after GET recovery",
+          "pass": true
+        },
+        {
+          "name": "recovery preserves draft, focus, selection, node identity and scroll",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": true,
+            "sameSelection": true,
+            "sameDrawerScroll": true,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "capability downgrade refreshes the same badge",
+          "pass": true
+        },
+        {
+          "name": "capability downgrade keeps field node and draft",
+          "pass": true,
+          "detail": {
+            "sameInput": true,
+            "sameBadge": true,
+            "sameValue": true,
+            "sameFocus": false,
+            "sameSelection": true,
+            "sameDrawerScroll": false,
+            "sameBodyScroll": true
+          }
+        },
+        {
+          "name": "badge refresh adds no capability focus or scroll change",
+          "pass": true,
+          "detail": {
+            "withoutBadgeRefresh": {
+              "sameInput": true,
+              "sameBadge": true,
+              "sameValue": true,
+              "sameFocus": false,
+              "sameSelection": true,
+              "sameDrawerScroll": false,
+              "sameBodyScroll": true
+            },
+            "withBadgeRefresh": {
+              "sameInput": true,
+              "sameBadge": true,
+              "sameValue": true,
+              "sameFocus": false,
+              "sameSelection": true,
+              "sameDrawerScroll": false,
+              "sameBodyScroll": true
+            }
+          }
+        },
+        {
+          "name": "read-only outage never promises a send",
+          "pass": true
+        },
+        {
+          "name": "read-only recovery updates without reopening",
+          "pass": true
+        },
+        {
+          "name": "capability upgrade refreshes the same badge",
+          "pass": true
+        },
+        {
+          "name": "no page exceptions",
+          "pass": true,
+          "detail": []
+        },
+        {
+          "name": "no service or other non-GET requests attempted",
+          "pass": true,
+          "detail": [
+            {
+              "method": "POST",
+              "path": "/v1/createSession",
+              "host": "tile.googleapis.com"
+            }
+          ]
+        },
+        {
+          "name": "no unexpected console errors",
+          "pass": true,
+          "detail": []
+        }
+      ],
+      "errors": [],
+      "console": [
+        {
+          "text": "Failed to load resource: net::ERR_FAILED",
+          "path": "/v1/createSession"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+          "path": "/api/version"
+        }
+      ],
+      "blocked": [
+        {
+          "method": "POST",
+          "path": "/v1/createSession",
+          "host": "tile.googleapis.com"
+        }
+      ],
+      "apiGets": 15,
+      "capabilityWithoutBadgeRefresh": {
+        "sameInput": true,
+        "sameBadge": true,
+        "sameValue": true,
+        "sameFocus": false,
+        "sameSelection": true,
+        "sameDrawerScroll": false,
+        "sameBodyScroll": true
+      },
+      "passed": 15
+    }
+  ]
+}

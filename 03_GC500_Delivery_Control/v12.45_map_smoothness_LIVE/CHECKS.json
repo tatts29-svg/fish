@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD; not live",
+  "base_sha256": "174b7f4c51c46696caa44610eb31b1339c5f3e54dc573fb45c0b652d6f8133ff",
+  "candidate_sha256": "63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57",
+  "bytes": 16054255,
+  "inline_scripts": 214,
+  "source_fragment_checks": 296,
+  "projection_checks": 229,
+  "patch_boundary_tests": 8,
+  "exact_reversal": true,
+  "pending": [
+    "Claude guarded publication and exact public read-back"
+  ],
+  "native_final": {
+    "candidate_sha256": "63856220d5541f3e1f66b0bc2ea4bc98cdecee6f41d9804baf59401ffbc9ba57",
+    "affected_sessions": 6,
+    "viewports": [
+      "phone",
+      "desktop"
+    ],
+    "closure_satellite": "fit and detailed imagery visible; no SVG clamping; loaded coverage; unchanged closure paths",
+    "other_checks": "four modes retain tile nodes; delayed closure plan keeps completed imagery and reverse coarse anchor",
+    "runtime_errors": 0,
+    "console_errors": 0,
+    "http_writes": 0,
+    "screenshots_inspected": true
+  },
+  "preservation_checks": 34,
+  "source_commit": "bb2cf6ff78c6a6b8934e57002e20f35a238db747",
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": "#plant",
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": "#plant",
+      "errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    }
+  },
+  "shared_build_exact_match": true,
+  "predecessor_independently_byte_verified": true
+}

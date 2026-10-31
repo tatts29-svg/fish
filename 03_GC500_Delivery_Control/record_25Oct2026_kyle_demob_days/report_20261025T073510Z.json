@@ -1,0 +1,615 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261025T073510Z",
+ "finished": "2026-10-25T07:37:49.363Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\". Nine new running-sheet day shifts for Kyle Gover (Job Connect), 06:30-17:00, the break left blank as on his other day shifts and on the crew's demob days, through the sheet's own control (runSetShift). He has no line on any of these days before the run. Nothing else changes.",
+  "ops": [
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-10-29",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-11-02",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-11-03",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-11-04",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-11-05",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   },
+   {
+    "op": "shift_add",
+    "person": "Kyle Gover",
+    "date": "2026-11-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+   }
+  ]
+ },
+ "pageSha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
+ "version": {
+  "before": 10954,
+  "after": 10981
+ },
+ "updated": {
+  "before": "2026-10-25T07:31:03.083Z",
+  "after": "2026-10-25T07:37:48.187Z"
+ },
+ "stage": [
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-27",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261027",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-28",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261028",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-29",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261029",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261030",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-02",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261102",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-03",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261103",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-04",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261104",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-05",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261105",
+   "hours": 10.5
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-06",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\"",
+   "result": "added 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261106",
+   "hours": 10.5
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261029",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261102",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261103",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261104",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261105",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261106",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261027",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261028",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261029",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261102",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261103",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261104",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261105",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261106",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261029",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261102",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261103",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261104",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261105",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261106",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20261027": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261028": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261029": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261030": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261102": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261103": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261104": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261105": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20261106": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261027": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261028": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261029": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261030": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261102": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261103": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261104": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261105": null,
+   "by/ourcost~2f~W-L-kyle-gover-20261106": null,
+   "costs/W-L-kyle-gover-20261027": null,
+   "costs/W-L-kyle-gover-20261028": null,
+   "costs/W-L-kyle-gover-20261029": null,
+   "costs/W-L-kyle-gover-20261030": null,
+   "costs/W-L-kyle-gover-20261102": null,
+   "costs/W-L-kyle-gover-20261103": null,
+   "costs/W-L-kyle-gover-20261104": null,
+   "costs/W-L-kyle-gover-20261105": null,
+   "costs/W-L-kyle-gover-20261106": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20261027": {
+    "_k": "ourcost/W-L-kyle-gover-20261027",
+    "v": "2026-10-25T07:35:25.957Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261028": {
+    "_k": "ourcost/W-L-kyle-gover-20261028",
+    "v": "2026-10-25T07:35:39.502Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261029": {
+    "_k": "ourcost/W-L-kyle-gover-20261029",
+    "v": "2026-10-25T07:35:53.330Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261030": {
+    "_k": "ourcost/W-L-kyle-gover-20261030",
+    "v": "2026-10-25T07:36:07.621Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261102": {
+    "_k": "ourcost/W-L-kyle-gover-20261102",
+    "v": "2026-10-25T07:36:21.968Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261103": {
+    "_k": "ourcost/W-L-kyle-gover-20261103",
+    "v": "2026-10-25T07:36:35.075Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261104": {
+    "_k": "ourcost/W-L-kyle-gover-20261104",
+    "v": "2026-10-25T07:36:48.588Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261105": {
+    "_k": "ourcost/W-L-kyle-gover-20261105",
+    "v": "2026-10-25T07:37:02.570Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261106": {
+    "_k": "ourcost/W-L-kyle-gover-20261106",
+    "v": "2026-10-25T07:37:15.928Z"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261027": {
+    "_k": "ourcost/W-L-kyle-gover-20261027",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261028": {
+    "_k": "ourcost/W-L-kyle-gover-20261028",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261029": {
+    "_k": "ourcost/W-L-kyle-gover-20261029",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261030": {
+    "_k": "ourcost/W-L-kyle-gover-20261030",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261102": {
+    "_k": "ourcost/W-L-kyle-gover-20261102",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261103": {
+    "_k": "ourcost/W-L-kyle-gover-20261103",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261104": {
+    "_k": "ourcost/W-L-kyle-gover-20261104",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261105": {
+    "_k": "ourcost/W-L-kyle-gover-20261105",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261106": {
+    "_k": "ourcost/W-L-kyle-gover-20261106",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-kyle-gover-20261027": {
+    "id": "W-L-kyle-gover-20261027",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:35:25.957Z",
+    "at": "2026-10-25T07:35:25.957Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:35:25.957Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261027"
+   },
+   "costs/W-L-kyle-gover-20261028": {
+    "id": "W-L-kyle-gover-20261028",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:35:39.502Z",
+    "at": "2026-10-25T07:35:39.502Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:35:39.502Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261028"
+   },
+   "costs/W-L-kyle-gover-20261029": {
+    "id": "W-L-kyle-gover-20261029",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-29",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:35:53.330Z",
+    "at": "2026-10-25T07:35:53.330Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:35:53.330Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261029"
+   },
+   "costs/W-L-kyle-gover-20261030": {
+    "id": "W-L-kyle-gover-20261030",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:07.621Z",
+    "at": "2026-10-25T07:36:07.621Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:36:07.621Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261030"
+   },
+   "costs/W-L-kyle-gover-20261102": {
+    "id": "W-L-kyle-gover-20261102",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-11-02",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:21.968Z",
+    "at": "2026-10-25T07:36:21.968Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:36:21.968Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261102"
+   },
+   "costs/W-L-kyle-gover-20261103": {
+    "id": "W-L-kyle-gover-20261103",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-11-03",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:35.075Z",
+    "at": "2026-10-25T07:36:35.075Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:36:35.075Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261103"
+   },
+   "costs/W-L-kyle-gover-20261104": {
+    "id": "W-L-kyle-gover-20261104",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-11-04",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:48.588Z",
+    "at": "2026-10-25T07:36:48.588Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:36:48.588Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261104"
+   },
+   "costs/W-L-kyle-gover-20261105": {
+    "id": "W-L-kyle-gover-20261105",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-11-05",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:37:02.570Z",
+    "at": "2026-10-25T07:37:02.570Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:37:02.570Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261105"
+   },
+   "costs/W-L-kyle-gover-20261106": {
+    "id": "W-L-kyle-gover-20261106",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-11-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:37:15.927Z",
+    "at": "2026-10-25T07:37:15.927Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:37:15.927Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261106"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,1954 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261023T094349Z",
+ "finished": "2026-10-23T09:44:48.991Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Twenty hire agreements on the record (the thirteen of weeks 4-5 that are built into the page go through a page build) of construction weeks 1-5 set to the scrim metres Advanced's five Commercial Approval sheets bill (orders 4647520, 4647519, 4647515, 4647517, 4647509, on the record line by line): Andrew, 23 Oct 2026, after the match-up of the event week and the table of braced-for-scrim metres billed but not charged: 'Please make sure we price correctly. Numbers match up.' Twenty-four up to the sheet, nine down to it; every other line of each docket unchanged; 36609 kept at the 420 m its signed scrim note of 22 Oct records (the week 1 sheet carries 125 m of it). Through the page's own docket correction, by Andrew Fisher.",
+  "ops": [
+   {
+    "op": "docket_fix",
+    "docket_no": "36560",
+    "quantities": {
+     "clean": 507.5,
+     "ccb_demarc": 447.5,
+     "ped_gates": 1,
+     "scrim": 427.5
+    },
+    "note": "Includes 4 smoking zones. No shade cloth yet, requested from John (IEDM). Paper says CC Barrier 447.5 m; event or demarcation not written - recorded as demarcation, to confirm CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 427.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 65 m clean, 447.5 m ccb demarc, 6 vehicle gates, 1 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Claude"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36566",
+    "quantities": {
+     "fence_blocks": 216,
+     "scrim": 270
+    },
+    "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line. Charged as used (Andrew, 2 Oct): 216 bases on the card line Fence Blocks( per block), $3.02 = $652.32; clamps and braces have no card line and are not charged separately; what Advanced bill comes off their invoice. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-09-30. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 270 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -270 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36568",
+    "quantities": {
+     "clean": 462.5,
+     "ccb_demarc": 420,
+     "scrim": 447.5
+    },
+    "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct). Original brace quantity is unclear: 151 or 157. The summary reads 151; independent original-source review leans 157 but cannot confirm. Brace quantity omitted pending confirmation. Base 474 was independently rechecked. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-10-01. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 447.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 462.5 m on the record. The sheet's other lines for this paper: 420 m ccb demarc, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36569",
+    "quantities": {
+     "clean": 82.5,
+     "scrim": 65
+    },
+    "note": "Written on the paper: Mesh Fence 82.5 m, Wheels 2; items Mesh Panel 33, Base 83, Clamp 85, Brace 26 (the three item figures are written over corrected entries). Notes relating to installation: \"Braced & Scrimmed\". Scrim 82.5 m, same as the fence, by Andrew's rule of 2 Oct (\"shade cloth same as fencing\"). Prices and totals are blank on the paper. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 65 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 82.5 m on the record. The sheet's other lines for this paper: 12.5 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36570",
+    "quantities": {
+     "scrim": 10
+    },
+    "note": "Written on the paper: no metres and no panels; items Base 8, Clamp 8, Brace 4. Notes relating to installation: \"Braced ... & Scrim\" (one word crossed out). The scrim metres are on service note 24466 for the same site and day: \"Scrim 25m\". No mesh fence is charged on this paper: the fence at the Telstra COW is not on any docket recorded so far. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 10 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 25 m on the record. The sheet's other lines for this paper: -10 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36574",
+    "quantities": {
+     "clean": 177.5,
+     "scrim": 10
+    },
+    "note": "Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36574.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 10 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 162.5 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36575",
+    "quantities": {
+     "clean": 135
+    },
+    "note": "Zip tied panel to [unclear; apparently stairs/structure]. Scrim completed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36575.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim taken off: Advanced's week 2 sheet (order 4647519) bills no braced-for-scrim metre on this paper; was 135 m on the record. The sheet's other lines for this paper: 120 m clean, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36577",
+    "quantities": {
+     "clean": 30,
+     "scrim": 25
+    },
+    "note": "Scrimmed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36577.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 25 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 30 m on the record. The sheet's other lines for this paper: 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36579",
+    "quantities": {
+     "clean": 177.5,
+     "ped_gates": 2,
+     "scrim": 122.5
+    },
+    "note": "Braced + scrim; ticked. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36579.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 122.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 177.5 m on the record. The sheet's other lines for this paper: 35 m clean, 8 vehicle gates, 2 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36581",
+    "quantities": {
+     "scrim": 72.5
+    },
+    "note": "Braced only, not scrimmed. Mesh length and mesh panel count are blank; do not derive new installed fence or scrim metres from braces. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36581.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 72.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -72.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36583",
+    "quantities": {
+     "clean": 215,
+     "scrim": 55
+    },
+    "note": "Not scrimmed as requested by John, IEDM. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36583.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 55 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 145 m clean, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36587",
+    "quantities": {
+     "clean": 30,
+     "scrim": 22.5
+    },
+    "note": "Not scrimmed as requested by John — IEDM. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 22.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 3 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36588",
+    "quantities": {
+     "clean": 95,
+     "scrim": 62.5
+    },
+    "note": "Scrimmed. Clamp quantity 65 visually verified. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 62.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 95 m on the record. The sheet's other lines for this paper: 32.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36597",
+    "quantities": {
+     "scrim": 17.5
+    },
+    "note": "Braces added to the existing front fence line: 14 bases, 14 clamps and 7 braces. Paper reads McMahon's / Harry's Compound (Spit) and Added Braces to Front Fence Line. The supplied scan also annotates Deducted from braced for scrim. No metres or charge amount are written on the original; retain components only. CON WK6 row 7 names the historical McMahon's/HTH/Fuel Bund compound; this is area context for the 12 Oct addition, not completion of that earlier task. Owner sign-off dated 20.10.26; amendment date not separately stated. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 17.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -17.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36598",
+    "quantities": {
+     "clean": 7.5,
+     "scrim": 7.5
+    },
+    "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 7.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: none (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36603",
+    "quantities": {
+     "clean": 537.5,
+     "ccb_demarc": 672.5,
+     "ped_gates": 4,
+     "scrim": 52.5
+    },
+    "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper. Source review 20 Oct 2026: the supplied original writes Castle St in its main location and demarcation run, while the reviewed programme uses Cable St; retain that wording discrepancy. Several handwritten building names are uncertain; the existing programme associations are area/task context, not a new exact transcription of those names. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 52.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 450 m clean, 672.5 m ccb demarc, 14 vehicle gates, 4 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36611",
+    "quantities": {
+     "clean": 165,
+     "ccb_event": 130,
+     "scrim": 30
+    },
+    "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 30 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 125 m clean, 130 m ccb demarc, 4 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36614",
+    "quantities": {
+     "clean": 40,
+     "scrim": 85
+    },
+    "note": "Mesh fence 40 m; component table 16 panels, 78 bases, 38 clamps, 34 braces and 2 wheels. The earlier native base count 18 was explicitly provisional; both the hosted original and supplied scan read 78 with retraced strokes. Added notes in the supplied scan say Scrimmed, added Advanced panels and additional bracing, -50 m (panels already installed) and +14 panels added. Retain the 14-panel note separately from the 16-panel component table; no conversion or priced credit inferred. Service note 24481 separately records 65 m relocation and 120 m scrim with 4 person-hours. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 85 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -50 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36615",
+    "quantities": {
+     "clean": 110,
+     "scrim": 40
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 40 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 70 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36617",
+    "quantities": {
+     "clean": 155,
+     "scrim": 37.5
+    },
+    "note": "Mesh fence 155 m (62 panels). Started install 7:15 am, completed 10:30 am. Programme CON WK1 row 59: Perimeter Fence - MBLRS, 155 m, braced every 4th panel. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 37.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 117.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher"
+   }
+  ]
+ },
+ "pageSha256": "bf54c4a68843a460f0b23728ece16d91c60bc9a2ea036a9dc2740f4425300ed2",
+ "version": {
+  "before": 10719,
+  "after": 10777
+ },
+ "updated": {
+  "before": "2026-10-23T09:19:51.952Z",
+  "after": "2026-10-23T09:44:48.071Z"
+ },
+ "stage": [
+  {
+   "op": "docket_fix",
+   "no": "36560",
+   "id": "F-AFV-0002",
+   "charge": 25005.12,
+   "paid": 13858.5,
+   "result": "quantities {\"clean\":507.5,\"ccb_demarc\":447.5,\"ped_gates\":1} -> {\"clean\":507.5,\"ccb_demarc\":447.5,\"ped_gates\":1,\"scrim\":427.5}; $25,005.12 charged at the 2026 card, $13,858.50 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36566",
+   "id": "F-AFV-0008",
+   "charge": 7545.42,
+   "paid": 3888,
+   "result": "quantities {\"fence_blocks\":216} -> {\"fence_blocks\":216,\"scrim\":270}; $7,545.42 charged at the 2026 card, $3,888.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36568",
+   "id": "F-AFV-0010",
+   "charge": 24392.6,
+   "paid": 13487,
+   "result": "quantities {\"clean\":462.5,\"ccb_demarc\":420,\"scrim\":462.5} -> {\"clean\":462.5,\"ccb_demarc\":420,\"scrim\":447.5}; $24,392.60 charged at the 2026 card, $13,487.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36569",
+   "id": "F-AFV-0011",
+   "charge": 2992.71,
+   "paid": 1811,
+   "result": "quantities {\"clean\":82.5,\"scrim\":82.5} -> {\"clean\":82.5,\"scrim\":65}; $2,992.71 charged at the 2026 card, $1,811.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36570",
+   "id": "F-AFV-0012",
+   "charge": 255.3,
+   "paid": 144,
+   "result": "quantities {\"scrim\":25} -> {\"scrim\":10}; $255.30 charged at the 2026 card, $144.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36574",
+   "id": "F-AFV-0016",
+   "charge": 3123.82,
+   "paid": 1969,
+   "result": "quantities {\"clean\":177.5} -> {\"clean\":177.5,\"scrim\":10}; $3,123.82 charged at the 2026 card, $1,969.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36575",
+   "id": "F-AFV-0017",
+   "charge": 2181.69,
+   "paid": 1500,
+   "result": "quantities {\"clean\":135,\"scrim\":135} -> {\"clean\":135}; $2,181.69 charged at the 2026 card, $1,500.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36577",
+   "id": "F-AFV-0019",
+   "charge": 1123.07,
+   "paid": 710,
+   "result": "quantities {\"clean\":30,\"scrim\":30} -> {\"clean\":30,\"scrim\":25}; $1,123.07 charged at the 2026 card, $710.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36579",
+   "id": "F-AFV-0021",
+   "charge": 6068.32,
+   "paid": 3861,
+   "result": "quantities {\"clean\":177.5,\"scrim\":177.5,\"ped_gates\":2} -> {\"clean\":177.5,\"ped_gates\":2,\"scrim\":122.5}; $6,068.32 charged at the 2026 card, $3,861.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36581",
+   "id": "F-AFV-0025",
+   "charge": 1850.93,
+   "paid": 1044,
+   "result": "quantities {} -> {\"scrim\":72.5}; $1,850.93 charged at the 2026 card, $1,044.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36583",
+   "id": "F-AFV-0024",
+   "charge": 4878.7,
+   "paid": 3092,
+   "result": "quantities {\"clean\":215} -> {\"clean\":215,\"scrim\":55}; $4,878.70 charged at the 2026 card, $3,092.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36587",
+   "id": "F-AFV-0030",
+   "charge": 1059.25,
+   "paid": 699,
+   "result": "quantities {\"clean\":30} -> {\"clean\":30,\"scrim\":22.5}; $1,059.25 charged at the 2026 card, $699.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36588",
+   "id": "F-AFV-0031",
+   "charge": 3130.9,
+   "paid": 1850,
+   "result": "quantities {\"clean\":95,\"scrim\":95} -> {\"clean\":95,\"scrim\":62.5}; $3,130.90 charged at the 2026 card, $1,850.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36597",
+   "id": "F-AF-0024",
+   "charge": 446.78,
+   "paid": 252,
+   "result": "quantities {} -> {\"scrim\":17.5}; $446.78 charged at the 2026 card, $252.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36598",
+   "id": "F-AF-0025",
+   "charge": 312.69,
+   "paid": 183,
+   "result": "quantities {\"clean\":7.5} -> {\"clean\":7.5,\"scrim\":7.5}; $312.69 charged at the 2026 card, $183.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36603",
+   "id": "F-AF-0003",
+   "charge": 18967.75,
+   "paid": 10356.5,
+   "result": "quantities {\"clean\":537.5,\"ccb_demarc\":672.5,\"ped_gates\":4} -> {\"clean\":537.5,\"ccb_demarc\":672.5,\"ped_gates\":4,\"scrim\":52.5}; $18,967.75 charged at the 2026 card, $10,356.50 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36611",
+   "id": "F-AF-0011",
+   "charge": 4408.72,
+   "paid": 2884,
+   "result": "quantities {\"clean\":165,\"ccb_event\":130} -> {\"clean\":165,\"ccb_event\":130,\"scrim\":30}; $4,408.72 charged at the 2026 card, $2,884.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36614",
+   "id": "F-AF-0014",
+   "charge": 2816.48,
+   "paid": 1674,
+   "result": "quantities {\"clean\":40} -> {\"clean\":40,\"scrim\":85}; $2,816.48 charged at the 2026 card, $1,674.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36615",
+   "id": "F-AF-0015",
+   "charge": 2798.88,
+   "paid": 1676,
+   "result": "quantities {\"clean\":110} -> {\"clean\":110,\"scrim\":40}; $2,798.88 charged at the 2026 card, $1,676.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36617",
+   "id": "F-AF-0017",
+   "charge": 3462.29,
+   "paid": 2090,
+   "result": "quantities {\"clean\":155} -> {\"clean\":155,\"scrim\":37.5}; $3,462.29 charged at the 2026 card, $2,090.00 paid"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0025",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0002",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0011",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0014",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0015",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0008",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0010",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0011",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0012",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0016",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0017",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0019",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0021",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0030",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0031",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0017",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0025",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0002",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0014",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0008",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0010",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0011",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0012",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0016",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0017",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0019",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0021",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0024",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0030",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0031",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0017",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0008",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0010",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0011",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0012",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0017",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0016",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0019",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0021",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0024",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0025",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0030",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0031",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0002",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0015",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0011",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0014",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0017",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0025",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AFV-0025": {
+    "_k": "fenceDockets/F-AFV-0025",
+    "v": "2026-10-08T01:20:19.875Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0002": {
+    "_k": "fenceDockets/F-AFV-0002",
+    "v": "2026-10-11T16:38:45.922Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0011": {
+    "_k": "fenceDockets/F-AF-0011",
+    "v": "2026-10-15T23:24:01.744Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0003": {
+    "_k": "fenceDockets/F-AF-0003",
+    "v": "2026-10-20T15:13:42.834Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0014": {
+    "_k": "fenceDockets/F-AF-0014",
+    "v": "2026-10-20T15:13:42.834Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0015": {
+    "_k": "fenceDockets/F-AF-0015",
+    "v": "2026-10-15T23:24:06.435Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "2026-10-20T15:13:42.834Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0008": null,
+   "stamps/fenceDockets~2f~F-AFV-0010": null,
+   "stamps/fenceDockets~2f~F-AFV-0011": null,
+   "stamps/fenceDockets~2f~F-AFV-0012": null,
+   "stamps/fenceDockets~2f~F-AFV-0016": null,
+   "stamps/fenceDockets~2f~F-AFV-0017": null,
+   "stamps/fenceDockets~2f~F-AFV-0019": null,
+   "stamps/fenceDockets~2f~F-AFV-0021": null,
+   "stamps/fenceDockets~2f~F-AFV-0024": null,
+   "stamps/fenceDockets~2f~F-AFV-0030": null,
+   "stamps/fenceDockets~2f~F-AFV-0031": null,
+   "stamps/fenceDockets~2f~F-AF-0025": null,
+   "stamps/fenceDockets~2f~F-AF-0017": null,
+   "by/fenceDockets~2f~F-AFV-0025": {
+    "_k": "fenceDockets/F-AFV-0025",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AFV-0002": {
+    "_k": "fenceDockets/F-AFV-0002",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AF-0003": {
+    "_k": "fenceDockets/F-AF-0003",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AF-0014": {
+    "_k": "fenceDockets/F-AF-0014",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AFV-0008": null,
+   "by/fenceDockets~2f~F-AFV-0010": null,
+   "by/fenceDockets~2f~F-AFV-0011": null,
+   "by/fenceDockets~2f~F-AFV-0012": null,
+   "by/fenceDockets~2f~F-AFV-0016": null,
+   "by/fenceDockets~2f~F-AFV-0017": null,
+   "by/fenceDockets~2f~F-AFV-0019": null,
+   "by/fenceDockets~2f~F-AFV-0021": null,
+   "by/fenceDockets~2f~F-AFV-0024": null,
+   "by/fenceDockets~2f~F-AFV-0030": null,
+   "by/fenceDockets~2f~F-AFV-0031": null,
+   "by/fenceDockets~2f~F-AF-0025": null,
+   "by/fenceDockets~2f~F-AF-0017": null,
+   "fenceDockets/F-AFV-0008": {
+    "id": "F-AFV-0008",
+    "date": "2026-09-30",
+    "week": "Week 3",
+    "docket_no": "36566",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rear of pit building / rear of Puppet Theatre",
+    "quantities": {
+     "fence_blocks": 216
+    },
+    "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line. Charged as used (Andrew, 2 Oct): 216 bases on the card line Fence Blocks( per block), $3.02 = $652.32; clamps and braces have no card line and are not charged separately; what Advanced bill comes off their invoice. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-09-30. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-02",
+    "components": {
+     "base": 216,
+     "clamp": 216,
+     "brace": 108
+    },
+    "signed_by": "Andrew (2 Oct 2026)",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36566, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0008"
+   },
+   "fenceDockets/F-AFV-0010": {
+    "id": "F-AFV-0010",
+    "date": "2026-10-01",
+    "week": "Week 3",
+    "docket_no": "36568",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "GC Hwy median strip (south)",
+    "quantities": {
+     "clean": 462.5,
+     "ccb_demarc": 420,
+     "scrim": 462.5
+    },
+    "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct). Original brace quantity is unclear: 151 or 157. The summary reads 151; independent original-source review leans 157 but cannot confirm. Brace quantity omitted pending confirmation. Base 474 was independently rechecked. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-10-01. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-02",
+    "components": {
+     "mesh_panel": 185,
+     "cc_barrier": 168,
+     "base": 474,
+     "clamp": 487,
+     "wheels": 6
+    },
+    "signed_by": "Andrew (2 Oct 2026)",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36568, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0010"
+   },
+   "fenceDockets/F-AFV-0011": {
+    "id": "F-AFV-0011",
+    "date": "2026-10-02",
+    "week": "Week 3",
+    "docket_no": "36569",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Event - ELEC",
+    "quantities": {
+     "clean": 82.5,
+     "scrim": 82.5
+    },
+    "note": "Written on the paper: Mesh Fence 82.5 m, Wheels 2; items Mesh Panel 33, Base 83, Clamp 85, Brace 26 (the three item figures are written over corrected entries). Notes relating to installation: \"Braced & Scrimmed\". Scrim 82.5 m, same as the fence, by Andrew's rule of 2 Oct (\"shade cloth same as fencing\"). Prices and totals are blank on the paper. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-06",
+    "components": {
+     "mesh_panel": 33,
+     "base": 83,
+     "clamp": 85,
+     "brace": 26,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36569, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0011"
+   },
+   "fenceDockets/F-AFV-0012": {
+    "id": "F-AFV-0012",
+    "date": "2026-10-02",
+    "week": "Week 3",
+    "docket_no": "36570",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Telstra COW",
+    "quantities": {
+     "scrim": 25
+    },
+    "note": "Written on the paper: no metres and no panels; items Base 8, Clamp 8, Brace 4. Notes relating to installation: \"Braced ... & Scrim\" (one word crossed out). The scrim metres are on service note 24466 for the same site and day: \"Scrim 25m\". No mesh fence is charged on this paper: the fence at the Telstra COW is not on any docket recorded so far. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-06",
+    "components": {
+     "base": 8,
+     "clamp": 8,
+     "brace": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36570, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0012"
+   },
+   "fenceDockets/F-AFV-0017": {
+    "id": "F-AFV-0017",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36575",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S01–S02 — stairs",
+    "quantities": {
+     "clean": 135,
+     "scrim": 135
+    },
+    "note": "Zip tied panel to [unclear; apparently stairs/structure]. Scrim completed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36575.jpg.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 54,
+     "clamp": 24,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36575, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0017"
+   },
+   "fenceDockets/F-AFV-0016": {
+    "id": "F-AFV-0016",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36574",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "TV parking",
+    "quantities": {
+     "clean": 177.5
+    },
+    "note": "Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36574.jpg.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 71,
+     "base": 76,
+     "clamp": 80,
+     "brace": 4,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36574, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0016"
+   },
+   "fenceDockets/F-AFV-0019": {
+    "id": "F-AFV-0019",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36577",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500 storage — perimeter fence",
+    "quantities": {
+     "clean": 30,
+     "scrim": 30
+    },
+    "note": "Scrimmed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36577.jpg.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 12,
+     "base": 25,
+     "clamp": 25,
+     "brace": 7,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36577, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0019"
+   },
+   "fenceDockets/F-AFV-0021": {
+    "id": "F-AFV-0021",
+    "date": "2026-10-07",
+    "week": "Week 2",
+    "docket_no": "36579",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Commodore Park",
+    "quantities": {
+     "clean": 177.5,
+     "scrim": 177.5,
+     "ped_gates": 2
+    },
+    "note": "Braced + scrim; ticked. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36579.jpg.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 71,
+     "base": 163,
+     "clamp": 160,
+     "brace": 49,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36579, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0021"
+   },
+   "fenceDockets/F-AFV-0024": {
+    "id": "F-AFV-0024",
+    "date": "2026-10-08",
+    "week": "Week 2",
+    "docket_no": "36583",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Helen Park C.2 + perimeter fence",
+    "quantities": {
+     "clean": 215
+    },
+    "note": "Not scrimmed as requested by John, IEDM. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36583.jpg.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 86,
+     "base": 129,
+     "clamp": 128,
+     "brace": 22,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36583, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0024"
+   },
+   "fenceDockets/F-AFV-0025": {
+    "id": "F-AFV-0025",
+    "date": "2026-10-07",
+    "week": "Week 2",
+    "docket_no": "36581",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S04 — Corporate",
+    "quantities": {},
+    "components": {
+     "base": 58,
+     "clamp": 58,
+     "brace": 29
+    },
+    "components_only": true,
+    "note": "Braced only, not scrimmed. Mesh length and mesh panel count are blank; do not derive new installed fence or scrim metres from braces. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36581.jpg.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36581, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "_k": "F-AFV-0025"
+   },
+   "fenceDockets/F-AFV-0030": {
+    "id": "F-AFV-0030",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36587",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Event Operations — perimeter fence",
+    "quantities": {
+     "clean": 30
+    },
+    "note": "Not scrimmed as requested by John — IEDM. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 12,
+     "base": 20,
+     "clamp": 20,
+     "brace": 5,
+     "wheels": 3
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36587, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0030"
+   },
+   "fenceDockets/F-AFV-0031": {
+    "id": "F-AFV-0031",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36588",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500 Toilets",
+    "quantities": {
+     "clean": 95,
+     "scrim": 95
+    },
+    "note": "Scrimmed. Clamp quantity 65 visually verified. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 38,
+     "base": 85,
+     "clamp": 65,
+     "brace": 25
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36588, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0031"
+   },
+   "fenceDockets/F-AFV-0002": {
+    "id": "F-AFV-0002",
+    "date": "2026-09-28",
+    "week": "Week 3",
+    "docket_no": "36560",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "GC Hwy median strip (north)",
+    "quantities": {
+     "clean": 507.5,
+     "ccb_demarc": 447.5,
+     "ped_gates": 1
+    },
+    "note": "Includes 4 smoking zones. No shade cloth yet, requested from John (IEDM). Paper says CC Barrier 447.5 m; event or demarcation not written - recorded as demarcation, to confirm",
+    "recorded_by": "Andrew Fisher via Claude",
+    "recorded_on": "2026-09-29",
+    "components": {
+     "mesh_panel": 203,
+     "cc_barrier": 179,
+     "base": 538,
+     "clamp": 547,
+     "brace": 171,
+     "wheels": 6
+    },
+    "signed_by": "Brenden",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36560, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0002"
+   },
+   "fenceDockets/F-AF-0003": {
+    "id": "F-AF-0003",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36603",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Eastern Residents & Demarc - Cable St to Gate 8A - DL & DR",
+    "quantities": {
+     "clean": 537.5,
+     "ccb_demarc": 672.5,
+     "ped_gates": 4
+    },
+    "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper. Source review 20 Oct 2026: the supplied original writes Castle St in its main location and demarcation run, while the reviewed programme uses Cable St; retain that wording discrepancy. Several handwritten building names are uncertain; the existing programme associations are area/task context, not a new exact transcription of those names.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 215,
+     "cc_barrier": 269,
+     "base": 209,
+     "clamp": 240,
+     "brace": 21,
+     "wheels": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36603, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0003"
+   },
+   "fenceDockets/F-AF-0015": {
+    "id": "F-AF-0015",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36615",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Gate 5 Compound",
+    "quantities": {
+     "clean": 110
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 44,
+     "base": 75,
+     "clamp": 70,
+     "brace": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36615, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0015"
+   },
+   "fenceDockets/F-AF-0011": {
+    "id": "F-AF-0011",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36611",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Surfers Paradise Light Rail",
+    "quantities": {
+     "clean": 165,
+     "ccb_event": 130
+    },
+    "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36611, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0011"
+   },
+   "fenceDockets/F-AF-0014": {
+    "id": "F-AF-0014",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36614",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": "S08",
+    "location": "S.0.8 B.O.H.",
+    "quantities": {
+     "clean": 40
+    },
+    "note": "Mesh fence 40 m; component table 16 panels, 78 bases, 38 clamps, 34 braces and 2 wheels. The earlier native base count 18 was explicitly provisional; both the hosted original and supplied scan read 78 with retraced strokes. Added notes in the supplied scan say Scrimmed, added Advanced panels and additional bracing, -50 m (panels already installed) and +14 panels added. Retain the 14-panel note separately from the 16-panel component table; no conversion or priced credit inferred. Service note 24481 separately records 65 m relocation and 120 m scrim with 4 person-hours. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 16,
+     "base": 78,
+     "clamp": 38,
+     "brace": 34,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36614, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0014"
+   },
+   "fenceDockets/F-AF-0017": {
+    "id": "F-AF-0017",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36617",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Light Rail",
+    "quantities": {
+     "clean": 155
+    },
+    "note": "Mesh fence 155 m (62 panels). Started install 7:15 am, completed 10:30 am. Programme CON WK1 row 59: Perimeter Fence - MBLRS, 155 m, braced every 4th panel. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 62,
+     "base": 93,
+     "clamp": 90,
+     "brace": 15
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36617, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0017"
+   },
+   "fenceDockets/F-AF-0024": {
+    "id": "F-AF-0024",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36597",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "The Spit - McMahon's/HTH Compound",
+    "quantities": {},
+    "components": {
+     "base": 14,
+     "clamp": 14,
+     "brace": 7
+    },
+    "components_only": true,
+    "note": "Braces added to the existing front fence line: 14 bases, 14 clamps and 7 braces. Paper reads McMahon's / Harry's Compound (Spit) and Added Braces to Front Fence Line. The supplied scan also annotates Deducted from braced for scrim. No metres or charge amount are written on the original; retain components only. CON WK6 row 7 names the historical McMahon's/HTH/Fuel Bund compound; this is area context for the 12 Oct addition, not completion of that earlier task. Owner sign-off dated 20.10.26; amendment date not separately stated.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36597, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "_k": "F-AF-0024"
+   },
+   "fenceDockets/F-AF-0025": {
+    "id": "F-AF-0025",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36598",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Pde - Rhapsody",
+    "quantities": {
+     "clean": 7.5
+    },
+    "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "components": {
+     "mesh_panel": 3,
+     "base": 9,
+     "clamp": 7,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36598, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0025"
+   }
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AFV-0025": {
+    "_k": "fenceDockets/F-AFV-0025",
+    "v": "2026-10-23T09:44:17.459Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0002": {
+    "_k": "fenceDockets/F-AFV-0002",
+    "v": "2026-10-23T09:43:58.021Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0011": {
+    "_k": "fenceDockets/F-AF-0011",
+    "v": "2026-10-23T09:44:31.426Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0003": {
+    "_k": "fenceDockets/F-AF-0003",
+    "v": "2026-10-23T09:44:29.484Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0014": {
+    "_k": "fenceDockets/F-AF-0014",
+    "v": "2026-10-23T09:44:33.505Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0015": {
+    "_k": "fenceDockets/F-AF-0015",
+    "v": "2026-10-23T09:44:35.601Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "2026-10-23T09:44:25.484Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0008": {
+    "_k": "fenceDockets/F-AFV-0008",
+    "v": "2026-10-23T09:43:59.952Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0010": {
+    "_k": "fenceDockets/F-AFV-0010",
+    "v": "2026-10-23T09:44:01.861Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0011": {
+    "_k": "fenceDockets/F-AFV-0011",
+    "v": "2026-10-23T09:44:03.827Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0012": {
+    "_k": "fenceDockets/F-AFV-0012",
+    "v": "2026-10-23T09:44:06.249Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0016": {
+    "_k": "fenceDockets/F-AFV-0016",
+    "v": "2026-10-23T09:44:08.582Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0017": {
+    "_k": "fenceDockets/F-AFV-0017",
+    "v": "2026-10-23T09:44:10.621Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0019": {
+    "_k": "fenceDockets/F-AFV-0019",
+    "v": "2026-10-23T09:44:12.536Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0021": {
+    "_k": "fenceDockets/F-AFV-0021",
+    "v": "2026-10-23T09:44:15.307Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0024": {
+    "_k": "fenceDockets/F-AFV-0024",
+    "v": "2026-10-23T09:44:19.380Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0030": {
+    "_k": "fenceDockets/F-AFV-0030",
+    "v": "2026-10-23T09:44:21.387Z"
+   },
+   "stamps/fenceDockets~2f~F-AFV-0031": {
+    "_k": "fenceDockets/F-AFV-0031",
+    "v": "2026-10-23T09:44:23.598Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0025": {
+    "_k": "fenceDockets/F-AF-0025",
+    "v": "2026-10-23T09:44:27.566Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0017": {
+    "_k": "fenceDockets/F-AF-0017",
+    "v": "2026-10-23T09:44:37.652Z"
+   },
+   "by/fenceDockets~2f~F-AFV-0025": {
+    "_k": "fenceDockets/F-AFV-0025",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0002": {
+    "_k": "fenceDockets/F-AFV-0002",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0003": {
+    "_k": "fenceDockets/F-AF-0003",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0014": {
+    "_k": "fenceDockets/F-AF-0014",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0024": {
+    "_k": "fenceDockets/F-AF-0024",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0008": {
+    "_k": "fenceDockets/F-AFV-0008",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0010": {
+    "_k": "fenceDockets/F-AFV-0010",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0011": {
+    "_k": "fenceDockets/F-AFV-0011",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0012": {
+    "_k": "fenceDockets/F-AFV-0012",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0016": {
+    "_k": "fenceDockets/F-AFV-0016",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0017": {
+    "_k": "fenceDockets/F-AFV-0017",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0019": {
+    "_k": "fenceDockets/F-AFV-0019",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0021": {
+    "_k": "fenceDockets/F-AFV-0021",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0024": {
+    "_k": "fenceDockets/F-AFV-0024",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0030": {
+    "_k": "fenceDockets/F-AFV-0030",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AFV-0031": {
+    "_k": "fenceDockets/F-AFV-0031",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0025": {
+    "_k": "fenceDockets/F-AF-0025",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0017": {
+    "_k": "fenceDockets/F-AF-0017",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AFV-0008": {
+    "id": "F-AFV-0008",
+    "date": "2026-09-30",
+    "week": "Week 3",
+    "docket_no": "36566",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rear of pit building / rear of Puppet Theatre",
+    "quantities": {
+     "fence_blocks": 216,
+     "scrim": 270
+    },
+    "note": "Written on the paper: \"Brace existing fence. Not scrimmed.\" No metres on any charge line. Charged as used (Andrew, 2 Oct): 216 bases on the card line Fence Blocks( per block), $3.02 = $652.32; clamps and braces have no card line and are not charged separately; what Advanced bill comes off their invoice. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-09-30. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 270 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -270 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-02",
+    "components": {
+     "base": 216,
+     "clamp": 216,
+     "brace": 108
+    },
+    "signed_by": "Andrew (2 Oct 2026)",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36566, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0008"
+   },
+   "fenceDockets/F-AFV-0010": {
+    "id": "F-AFV-0010",
+    "date": "2026-10-01",
+    "week": "Week 3",
+    "docket_no": "36568",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "GC Hwy median strip (south)",
+    "quantities": {
+     "clean": 462.5,
+     "ccb_demarc": 420,
+     "scrim": 447.5
+    },
+    "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct). Original brace quantity is unclear: 151 or 157. The summary reads 151; independent original-source review leans 157 but cannot confirm. Brace quantity omitted pending confirmation. Base 474 was independently rechecked. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-10-01. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 447.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 462.5 m on the record. The sheet's other lines for this paper: 420 m ccb demarc, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-02",
+    "components": {
+     "mesh_panel": 185,
+     "cc_barrier": 168,
+     "base": 474,
+     "clamp": 487,
+     "wheels": 6
+    },
+    "signed_by": "Andrew (2 Oct 2026)",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36568, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0010"
+   },
+   "fenceDockets/F-AFV-0011": {
+    "id": "F-AFV-0011",
+    "date": "2026-10-02",
+    "week": "Week 3",
+    "docket_no": "36569",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Event - ELEC",
+    "quantities": {
+     "clean": 82.5,
+     "scrim": 65
+    },
+    "note": "Written on the paper: Mesh Fence 82.5 m, Wheels 2; items Mesh Panel 33, Base 83, Clamp 85, Brace 26 (the three item figures are written over corrected entries). Notes relating to installation: \"Braced & Scrimmed\". Scrim 82.5 m, same as the fence, by Andrew's rule of 2 Oct (\"shade cloth same as fencing\"). Prices and totals are blank on the paper. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 65 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 82.5 m on the record. The sheet's other lines for this paper: 12.5 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-06",
+    "components": {
+     "mesh_panel": 33,
+     "base": 83,
+     "clamp": 85,
+     "brace": 26,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36569, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0011"
+   },
+   "fenceDockets/F-AFV-0012": {
+    "id": "F-AFV-0012",
+    "date": "2026-10-02",
+    "week": "Week 3",
+    "docket_no": "36570",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Telstra COW",
+    "quantities": {
+     "scrim": 10
+    },
+    "note": "Written on the paper: no metres and no panels; items Base 8, Clamp 8, Brace 4. Notes relating to installation: \"Braced ... & Scrim\" (one word crossed out). The scrim metres are on service note 24466 for the same site and day: \"Scrim 25m\". No mesh fence is charged on this paper: the fence at the Telstra COW is not on any docket recorded so far. Source reviewed against the original signed paper, 6 Oct 2026; entry authorised by Andrew Fisher. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 10 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 25 m on the record. The sheet's other lines for this paper: -10 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-06",
+    "components": {
+     "base": 8,
+     "clamp": 8,
+     "brace": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36570, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0012"
+   },
+   "fenceDockets/F-AFV-0017": {
+    "id": "F-AFV-0017",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36575",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S01–S02 — stairs",
+    "quantities": {
+     "clean": 135
+    },
+    "note": "Zip tied panel to [unclear; apparently stairs/structure]. Scrim completed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36575.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim taken off: Advanced's week 2 sheet (order 4647519) bills no braced-for-scrim metre on this paper; was 135 m on the record. The sheet's other lines for this paper: 120 m clean, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 54,
+     "clamp": 24,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36575, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0017"
+   },
+   "fenceDockets/F-AFV-0016": {
+    "id": "F-AFV-0016",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36574",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "TV parking",
+    "quantities": {
+     "clean": 177.5,
+     "scrim": 10
+    },
+    "note": "Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36574.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 10 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 162.5 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 71,
+     "base": 76,
+     "clamp": 80,
+     "brace": 4,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36574, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0016"
+   },
+   "fenceDockets/F-AFV-0019": {
+    "id": "F-AFV-0019",
+    "date": "2026-10-06",
+    "week": "Week 2",
+    "docket_no": "36577",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500 storage — perimeter fence",
+    "quantities": {
+     "clean": 30,
+     "scrim": 25
+    },
+    "note": "Scrimmed. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36577.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 25 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 30 m on the record. The sheet's other lines for this paper: 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 12,
+     "base": 25,
+     "clamp": 25,
+     "brace": 7,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36577, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0019"
+   },
+   "fenceDockets/F-AFV-0021": {
+    "id": "F-AFV-0021",
+    "date": "2026-10-07",
+    "week": "Week 2",
+    "docket_no": "36579",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Commodore Park",
+    "quantities": {
+     "clean": 177.5,
+     "ped_gates": 2,
+     "scrim": 122.5
+    },
+    "note": "Braced + scrim; ticked. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36579.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 122.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 177.5 m on the record. The sheet's other lines for this paper: 35 m clean, 8 vehicle gates, 2 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 71,
+     "base": 163,
+     "clamp": 160,
+     "brace": 49,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36579, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0021"
+   },
+   "fenceDockets/F-AFV-0024": {
+    "id": "F-AFV-0024",
+    "date": "2026-10-08",
+    "week": "Week 2",
+    "docket_no": "36583",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Helen Park C.2 + perimeter fence",
+    "quantities": {
+     "clean": 215,
+     "scrim": 55
+    },
+    "note": "Not scrimmed as requested by John, IEDM. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36583.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 55 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 145 m clean, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "components": {
+     "mesh_panel": 86,
+     "base": 129,
+     "clamp": 128,
+     "brace": 22,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36583, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0024"
+   },
+   "fenceDockets/F-AFV-0025": {
+    "id": "F-AFV-0025",
+    "date": "2026-10-07",
+    "week": "Week 2",
+    "docket_no": "36581",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S04 — Corporate",
+    "quantities": {
+     "scrim": 72.5
+    },
+    "components": {
+     "base": 58,
+     "clamp": 58,
+     "brace": 29
+    },
+    "components_only": true,
+    "note": "Braced only, not scrimmed. Mesh length and mesh panel count are blank; do not derive new installed fence or scrim metres from braces. Work date from the paper; owner signed 8 Oct 2026. Prices and totals are blank; existing GC500 card and supplier rates apply where quantities are chargeable. Original signed paper 36581.jpg. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 72.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -72.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36581, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-08",
+    "_k": "F-AFV-0025"
+   },
+   "fenceDockets/F-AFV-0030": {
+    "id": "F-AFV-0030",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36587",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Event Operations — perimeter fence",
+    "quantities": {
+     "clean": 30,
+     "scrim": 22.5
+    },
+    "note": "Not scrimmed as requested by John — IEDM. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 22.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 3 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 12,
+     "base": 20,
+     "clamp": 20,
+     "brace": 5,
+     "wheels": 3
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36587, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0030"
+   },
+   "fenceDockets/F-AFV-0031": {
+    "id": "F-AFV-0031",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36588",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500 Toilets",
+    "quantities": {
+     "clean": 95,
+     "scrim": 62.5
+    },
+    "note": "Scrimmed. Clamp quantity 65 visually verified. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 62.5 m Advanced's week 2 sheet (order 4647519) bills as braced for scrim; was 95 m on the record. The sheet's other lines for this paper: 32.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 38,
+     "base": 85,
+     "clamp": 65,
+     "brace": 25
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36588, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0031"
+   },
+   "fenceDockets/F-AFV-0002": {
+    "id": "F-AFV-0002",
+    "date": "2026-09-28",
+    "week": "Week 3",
+    "docket_no": "36560",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "GC Hwy median strip (north)",
+    "quantities": {
+     "clean": 507.5,
+     "ccb_demarc": 447.5,
+     "ped_gates": 1,
+     "scrim": 427.5
+    },
+    "note": "Includes 4 smoking zones. No shade cloth yet, requested from John (IEDM). Paper says CC Barrier 447.5 m; event or demarcation not written - recorded as demarcation, to confirm CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 427.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 65 m clean, 447.5 m ccb demarc, 6 vehicle gates, 1 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher via Claude",
+    "recorded_on": "2026-09-29",
+    "components": {
+     "mesh_panel": 203,
+     "cc_barrier": 179,
+     "base": 538,
+     "clamp": 547,
+     "brace": 171,
+     "wheels": 6
+    },
+    "signed_by": "Brenden",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36560, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0002"
+   },
+   "fenceDockets/F-AF-0003": {
+    "id": "F-AF-0003",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36603",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Eastern Residents & Demarc - Cable St to Gate 8A - DL & DR",
+    "quantities": {
+     "clean": 537.5,
+     "ccb_demarc": 672.5,
+     "ped_gates": 4,
+     "scrim": 52.5
+    },
+    "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper. Source review 20 Oct 2026: the supplied original writes Castle St in its main location and demarcation run, while the reviewed programme uses Cable St; retain that wording discrepancy. Several handwritten building names are uncertain; the existing programme associations are area/task context, not a new exact transcription of those names. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 52.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 450 m clean, 672.5 m ccb demarc, 14 vehicle gates, 4 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 215,
+     "cc_barrier": 269,
+     "base": 209,
+     "clamp": 240,
+     "brace": 21,
+     "wheels": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36603, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0003"
+   },
+   "fenceDockets/F-AF-0015": {
+    "id": "F-AF-0015",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36615",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Gate 5 Compound",
+    "quantities": {
+     "clean": 110,
+     "scrim": 40
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 40 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 70 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 44,
+     "base": 75,
+     "clamp": 70,
+     "brace": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36615, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0015"
+   },
+   "fenceDockets/F-AF-0011": {
+    "id": "F-AF-0011",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36611",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Surfers Paradise Light Rail",
+    "quantities": {
+     "clean": 165,
+     "ccb_event": 130,
+     "scrim": 30
+    },
+    "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 30 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 125 m clean, 130 m ccb demarc, 4 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36611, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0011"
+   },
+   "fenceDockets/F-AF-0014": {
+    "id": "F-AF-0014",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36614",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": "S08",
+    "location": "S.0.8 B.O.H.",
+    "quantities": {
+     "clean": 40,
+     "scrim": 85
+    },
+    "note": "Mesh fence 40 m; component table 16 panels, 78 bases, 38 clamps, 34 braces and 2 wheels. The earlier native base count 18 was explicitly provisional; both the hosted original and supplied scan read 78 with retraced strokes. Added notes in the supplied scan say Scrimmed, added Advanced panels and additional bracing, -50 m (panels already installed) and +14 panels added. Retain the 14-panel note separately from the 16-panel component table; no conversion or priced credit inferred. Service note 24481 separately records 65 m relocation and 120 m scrim with 4 person-hours. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 85 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -50 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 16,
+     "base": 78,
+     "clamp": 38,
+     "brace": 34,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36614, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0014"
+   },
+   "fenceDockets/F-AF-0017": {
+    "id": "F-AF-0017",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36617",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Light Rail",
+    "quantities": {
+     "clean": 155,
+     "scrim": 37.5
+    },
+    "note": "Mesh fence 155 m (62 panels). Started install 7:15 am, completed 10:30 am. Programme CON WK1 row 59: Perimeter Fence - MBLRS, 155 m, braced every 4th panel. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 37.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 117.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 62,
+     "base": 93,
+     "clamp": 90,
+     "brace": 15
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36617, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0017"
+   },
+   "fenceDockets/F-AF-0024": {
+    "id": "F-AF-0024",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36597",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "The Spit - McMahon's/HTH Compound",
+    "quantities": {
+     "scrim": 17.5
+    },
+    "components": {
+     "base": 14,
+     "clamp": 14,
+     "brace": 7
+    },
+    "components_only": true,
+    "note": "Braces added to the existing front fence line: 14 bases, 14 clamps and 7 braces. Paper reads McMahon's / Harry's Compound (Spit) and Added Braces to Front Fence Line. The supplied scan also annotates Deducted from braced for scrim. No metres or charge amount are written on the original; retain components only. CON WK6 row 7 names the historical McMahon's/HTH/Fuel Bund compound; this is area context for the 12 Oct addition, not completion of that earlier task. Owner sign-off dated 20.10.26; amendment date not separately stated. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 17.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -17.5 m clean (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36597, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "_k": "F-AF-0024"
+   },
+   "fenceDockets/F-AF-0025": {
+    "id": "F-AF-0025",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36598",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Pde - Rhapsody",
+    "quantities": {
+     "clean": 7.5,
+     "scrim": 7.5
+    },
+    "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 7.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: none (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-19",
+    "components": {
+     "mesh_panel": 3,
+     "base": 9,
+     "clamp": 7,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36598, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0025"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

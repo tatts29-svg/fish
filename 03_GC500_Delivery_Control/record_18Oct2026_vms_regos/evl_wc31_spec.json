@@ -1,0 +1,11 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"asset no 0164 you have in wrong area it belong here EVL wher the toilet symbol is this is an event portable toilet\" (Map explorer crop of EVL) and \"pinned location is -27.983217488199138, 153.4266422001142\"; asked where on the record, he chose \"Add to T0024\" (T0024 is the FWF at EVL, 1211968), with T0024's pin at the toilet symbol. 0164 sits on T0024 as an Event Portables sub-hire unit, as it did on WC05, so Costs do not change. Also \"wc31 16pan Block Asset no 12 is at location -27.98253262858165, 153.42515075329888 another 16pan block asset no 74 is at location ... too\" - the two blocks already carry 12 and 74; WC31 is placed at his location (the master plan's own spot for WC31 is 19 m away and still leads Navigate, as the page holds master-plan units).",
+ "allowRemove": ["units/WC05", "deleted/back~2f~unit~2f~WC05~2f~0164"],
+ "allowRemoveWhy": "the drawer's own take-off of 0164 from WC05 (its unit list and the earlier put-back marker go with it)",
+ "ops": [
+  {"op": "sub_move", "from": "WC05", "to": "T0024", "no": "0164", "co": "Event Portables"},
+  {"op": "place", "ref": "T0024", "lat": -27.983217, "lon": 153.426642, "how": "Andrew Fisher's pinned location, 20 Oct 2026 (EVL, at the toilet symbol)", "source": "Andrew: -27.983217488199138, 153.4266422001142"},
+  {"op": "place", "ref": "WC31", "lat": -27.982533, "lon": 153.425151, "how": "Andrew Fisher's location for the two 16-pan blocks (12 and 74), 20 Oct 2026", "source": "Andrew: -27.98253262858165, 153.42515075329888"}
+ ]
+}

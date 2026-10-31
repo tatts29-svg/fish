@@ -1,0 +1,571 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T071525Z",
+ "finished": "2026-10-16T07:15:53.005Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Six Advanced Temporary Fencing hire agreements 36617-36622, installed 16 Oct 2026, signed and photographed; recorded through the page's own red-book form (recordHireAgreement) and charged at the 2026 card. CCB event or demarcation is set from the request in the fencing programme (Andrew, 16 Oct: \"you should know based off request in schedule\"): 36619 Event (CON WK1 row 63), 36613 Event (Porsche Lounge construction zone, CON WK1 rows 39/65), 36595 Event (rear of S20, back of house, not a spectator route).",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36617",
+    "date": "2026-10-16",
+    "location": "Main Beach Light Rail",
+    "map_ref": "",
+    "quantities": {
+     "clean": 155
+    },
+    "components": {
+     "mesh_panel": 62,
+     "base": 93,
+     "clamp": 90,
+     "brace": 15
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 155 m (62 panels). Started install 7:15 am, completed 10:30 am. Programme CON WK1 row 59: Perimeter Fence - MBLRS, 155 m, braced every 4th panel. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36618",
+    "date": "2026-10-16",
+    "location": "Cypress Carpark",
+    "map_ref": "",
+    "quantities": {
+     "clean": 152.5
+    },
+    "components": {
+     "mesh_panel": 61,
+     "base": 60,
+     "clamp": 60,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 152.5 m (61 panels), 4 wheels. Programme CON WK1 row 62: Perimeter Fence - Cypress Carpark Compound, 366 m and 2 vehicle gates planned. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36619",
+    "date": "2026-10-16",
+    "location": "Focus to Meriton - The Esplanade",
+    "map_ref": "",
+    "quantities": {
+     "clean": 262.5,
+     "ccb_event": 302.5
+    },
+    "components": {
+     "mesh_panel": 105,
+     "cc_barrier": 121,
+     "base": 101,
+     "clamp": 108,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 262.5 m (105 panels) and CC barrier 302.5 m (121 barriers), 8 wheels. CCB recorded as Event from the programme request: CON WK1 row 63, CCB - Pacific Plaza to The Triangle, 285 m Event, 16 Oct (Meriton construction lane); fence against row 64, Perimeter Fence - Focus to Shore, 185 m. Clamp count read as 108 (overwritten figure). Owner sign-off 16 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36620",
+    "date": "2026-10-16",
+    "location": "I.E.D.M - Compound",
+    "map_ref": "",
+    "quantities": {},
+    "components_only": true,
+    "components": {
+     "base": 100
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Drop off: 100 bases delivered to the iEDM compound. No fence installed and no charge line on the paper. Owner sign-off 16 Oct 2026."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36621",
+    "date": "2026-10-16",
+    "location": "Monster C.Z. - The Hill",
+    "map_ref": "",
+    "quantities": {
+     "clean": 2.5
+    },
+    "components": {
+     "mesh_panel": 1
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Added one panel (2.5 m) to the construction zone at the concrete barriers. Programme CON WK1 row 51: Monster Energy CZ Compound Fencing, The Hill. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36622",
+    "date": "2026-10-16",
+    "location": "Golden Gate",
+    "map_ref": "",
+    "quantities": {
+     "clean": 130
+    },
+    "components": {
+     "mesh_panel": 52,
+     "base": 50,
+     "clamp": 50,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 130 m (52 panels), 6 wheels. Programme EVENT WEEK rows 8 and 64: Residents Fence - Golden Gate East (61 m) and West (31 m), installed ahead of the 19 and 22 Oct dates. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36613",
+    "quantities": {
+     "ccb_event": 70
+    },
+    "components": {
+     "cc_barrier": 28
+    },
+    "recorded_by": "Andrew Fisher",
+    "note": "Paper says CC Barrier 70 m, 28 barriers. Recorded as CCB Event from the programme request: Porsche C.2 is the Porsche Lounge construction zone on The Esplanade (CON WK1 row 39, Exclusion Zone - Porsche Lounge CZ, 14 Oct; row 65, Porsche Lounge BOH & Compound, 16 Oct) - a works and compound barrier, not a spectator demarcation route, as PB01 works area (36530) stands. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36595",
+    "quantities": {
+     "ccb_event": 10
+    },
+    "components": {
+     "cc_barrier": 4
+    },
+    "recorded_by": "Andrew Fisher via Codex",
+    "note": "CC barrier 10 m / 4 barriers at the rear of S20 - shower. Recorded as CCB Event from the programme: back-of-house protection behind the S20 corporate facility (CON WK2 rows 20-21, S19/S20 walkthrough works), not a spectator demarcation route. Rates/amounts blank on paper; charged at the 2026 card."
+   }
+  ]
+ },
+ "pageSha256": "62b96d62ea38758f31b0f3876d1d0a00886dbf504ed26e7ed79ec1db863f9399",
+ "version": {
+  "before": 8064,
+  "after": 8077
+ },
+ "updated": {
+  "before": "2026-10-16T03:45:21.412Z",
+  "after": "2026-10-16T07:15:52.195Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36617",
+   "id": "F-AF-0017",
+   "charge": 2504.91,
+   "paid": 1550,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0017 - 155 clean - F-AF-0017 saved in this browser — $2,504.91 charged at the 2026 card, $1,550.00 paid. Export and rebuild to put it on the record. | Hire agreement 36617 recorded as F-AF-0017 - $2,504.91 charged at the 2026 card, $1,550.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36618",
+   "id": "F-AF-0018",
+   "charge": 2464.51,
+   "paid": 1525,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0018 - 152.5 clean - F-AF-0018 saved in this browser — $2,464.51 charged at the 2026 card, $1,525.00 paid. Export and rebuild to put it on the record. | Hire agreement 36618 recorded as F-AF-0018 - $2,464.51 charged at the 2026 card, $1,525.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36619",
+   "id": "F-AF-0019",
+   "charge": 6513.96,
+   "paid": 4258.5,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0019 - 262.5 clean, 302.5 ccb_event - F-AF-0019 saved in this browser — $6,513.96 charged at the 2026 card, $4,258.50 paid. Export and rebuild to put it on the record. | Hire agreement 36619 recorded as F-AF-0019 - $6,513.96 charged at the 2026 card, $4,258.50 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36620",
+   "id": "F-AF-0020",
+   "charge": 0,
+   "paid": 0,
+   "cost_state": "nothing to price",
+   "result": "recorded as F-AF-0020 -  - Hire agreement 36620 recorded: components only; no charge quantity confirmed."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36621",
+   "id": "F-AF-0021",
+   "charge": 40.4,
+   "paid": 25,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0021 - 2.5 clean - F-AF-0021 saved in this browser — $40.40 charged at the 2026 card, $25.00 paid. Export and rebuild to put it on the record. | Hire agreement 36621 recorded as F-AF-0021 - $40.40 charged at the 2026 card, $25.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36622",
+   "id": "F-AF-0022",
+   "charge": 2100.89,
+   "paid": 1300,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0022 - 130 clean - F-AF-0022 saved in this browser — $2,100.89 charged at the 2026 card, $1,300.00 paid. Export and rebuild to put it on the record. | Hire agreement 36622 recorded as F-AF-0022 - $2,100.89 charged at the 2026 card, $1,300.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "docket_fix",
+   "no": "36613",
+   "id": "F-AF-0013",
+   "charge": 525.7,
+   "paid": 378,
+   "result": "quantities {\"ccb_demarc\":70} {\"cc_barrier\":28} -> {\"ccb_event\":70} {\"cc_barrier\":28}; $525.70 charged at the 2026 card, $378.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36595",
+   "id": "F-AFV-0038",
+   "charge": 75.1,
+   "paid": 54,
+   "result": "quantities {} {\"cc_barrier\":4} -> {\"ccb_event\":10} {\"cc_barrier\":4}; $75.10 charged at the 2026 card, $54.00 paid"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0038",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0013",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0038",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0038",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0013",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0017",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0018",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0019",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0022",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AFV-0038": {
+    "_k": "fenceDockets/F-AFV-0038",
+    "v": "2026-10-09T04:42:56.000Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0013": {
+    "_k": "fenceDockets/F-AF-0013",
+    "v": "2026-10-15T23:24:04.359Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0020": null,
+   "by/fenceDockets~2f~F-AFV-0038": {
+    "_k": "fenceDockets/F-AFV-0038",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AF-0020": null,
+   "fenceDockets/F-AFV-0038": {
+    "id": "F-AFV-0038",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36595",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rear of S20 — Shower",
+    "quantities": {},
+    "components": {
+     "cc_barrier": 4
+    },
+    "components_only": true,
+    "note": "CC barrier 10 m / 4 barriers. Event/Demarcation category awaiting confirmation; no guessed charge allocated. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36595, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "_k": "F-AFV-0038"
+   },
+   "fenceDockets/F-AF-0013": {
+    "id": "F-AF-0013",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36613",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Porsche C.2",
+    "quantities": {
+     "ccb_demarc": 70
+    },
+    "note": "Paper says CC Barrier 70 m, 28 barriers; event or demarcation not written - recorded as demarcation, to confirm (the Porsche Lounge corporate area may be an event line). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "cc_barrier": 28
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36613, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0013"
+   },
+   "fenceDockets/F-AF-0017": null,
+   "fenceDockets/F-AF-0018": null,
+   "fenceDockets/F-AF-0019": null,
+   "fenceDockets/F-AF-0020": null,
+   "fenceDockets/F-AF-0021": null,
+   "fenceDockets/F-AF-0022": null
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AFV-0038": {
+    "_k": "fenceDockets/F-AFV-0038",
+    "v": "2026-10-16T07:15:47.752Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0013": {
+    "_k": "fenceDockets/F-AF-0013",
+    "v": "2026-10-16T07:15:46.495Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0020": {
+    "_k": "fenceDockets/F-AF-0020",
+    "v": "2026-10-16T07:15:40.009Z"
+   },
+   "by/fenceDockets~2f~F-AFV-0038": {
+    "_k": "fenceDockets/F-AFV-0038",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0020": {
+    "_k": "fenceDockets/F-AF-0020",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AFV-0038": {
+    "id": "F-AFV-0038",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36595",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rear of S20 — Shower",
+    "quantities": {
+     "ccb_event": 10
+    },
+    "components": {
+     "cc_barrier": 4
+    },
+    "components_only": true,
+    "note": "CC barrier 10 m / 4 barriers at the rear of S20 - shower. Recorded as CCB Event from the programme: back-of-house protection behind the S20 corporate facility (CON WK2 rows 20-21, S19/S20 walkthrough works), not a spectator demarcation route. Rates/amounts blank on paper; charged at the 2026 card.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36595, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "_k": "F-AFV-0038"
+   },
+   "fenceDockets/F-AF-0013": {
+    "id": "F-AF-0013",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36613",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Porsche C.2",
+    "quantities": {
+     "ccb_event": 70
+    },
+    "note": "Paper says CC Barrier 70 m, 28 barriers. Recorded as CCB Event from the programme request: Porsche C.2 is the Porsche Lounge construction zone on The Esplanade (CON WK1 row 39, Exclusion Zone - Porsche Lounge CZ, 14 Oct; row 65, Porsche Lounge BOH & Compound, 16 Oct) - a works and compound barrier, not a spectator demarcation route, as PB01 works area (36530) stands. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "cc_barrier": 28
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36613, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0013"
+   },
+   "fenceDockets/F-AF-0017": {
+    "id": "F-AF-0017",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36617",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Light Rail",
+    "quantities": {
+     "clean": 155
+    },
+    "note": "Mesh fence 155 m (62 panels). Started install 7:15 am, completed 10:30 am. Programme CON WK1 row 59: Perimeter Fence - MBLRS, 155 m, braced every 4th panel. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 62,
+     "base": 93,
+     "clamp": 90,
+     "brace": 15
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36617, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0017"
+   },
+   "fenceDockets/F-AF-0018": {
+    "id": "F-AF-0018",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36618",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Cypress Carpark",
+    "quantities": {
+     "clean": 152.5
+    },
+    "note": "Mesh fence 152.5 m (61 panels), 4 wheels. Programme CON WK1 row 62: Perimeter Fence - Cypress Carpark Compound, 366 m and 2 vehicle gates planned. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 61,
+     "base": 60,
+     "clamp": 60,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36618, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0018"
+   },
+   "fenceDockets/F-AF-0019": {
+    "id": "F-AF-0019",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36619",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Focus to Meriton - The Esplanade",
+    "quantities": {
+     "clean": 262.5,
+     "ccb_event": 302.5
+    },
+    "note": "Mesh fence 262.5 m (105 panels) and CC barrier 302.5 m (121 barriers), 8 wheels. CCB recorded as Event from the programme request: CON WK1 row 63, CCB - Pacific Plaza to The Triangle, 285 m Event, 16 Oct (Meriton construction lane); fence against row 64, Perimeter Fence - Focus to Shore, 185 m. Clamp count read as 108 (overwritten figure). Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 105,
+     "cc_barrier": 121,
+     "base": 101,
+     "clamp": 108,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36619, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0019"
+   },
+   "fenceDockets/F-AF-0020": {
+    "id": "F-AF-0020",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36620",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "I.E.D.M - Compound",
+    "quantities": {},
+    "components": {
+     "base": 100
+    },
+    "components_only": true,
+    "note": "Drop off: 100 bases delivered to the iEDM compound. No fence installed and no charge line on the paper. Owner sign-off 16 Oct 2026.",
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36620, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "_k": "F-AF-0020"
+   },
+   "fenceDockets/F-AF-0021": {
+    "id": "F-AF-0021",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36621",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Monster C.Z. - The Hill",
+    "quantities": {
+     "clean": 2.5
+    },
+    "note": "Added one panel (2.5 m) to the construction zone at the concrete barriers. Programme CON WK1 row 51: Monster Energy CZ Compound Fencing, The Hill. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 1
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36621, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0021"
+   },
+   "fenceDockets/F-AF-0022": {
+    "id": "F-AF-0022",
+    "date": "2026-10-16",
+    "week": "Week 1",
+    "docket_no": "36622",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Golden Gate",
+    "quantities": {
+     "clean": 130
+    },
+    "note": "Mesh fence 130 m (52 panels), 6 wheels. Programme EVENT WEEK rows 8 and 64: Residents Fence - Golden Gate East (61 m) and West (31 m), installed ahead of the 19 and 22 Oct dates. Owner sign-off 16 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 52,
+     "base": 50,
+     "clamp": 50,
+     "wheels": 6
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36622, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0022"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

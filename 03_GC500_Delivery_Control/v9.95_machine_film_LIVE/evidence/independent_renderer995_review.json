@@ -1,0 +1,183 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent read-only renderer/capture/batch/encoder source review",
+  "result": "No actionable or release-blocking source findings",
+  "source_hashes": {
+    "machine_film995.js": "44c7725c8123c4f8e698aec52bd95cbb9a03123db27c71e55c12f45e4a492cc9",
+    "capture_machine995.cjs": "5a10485c7a00527e5cc8359d6ebe3fa2ace9cc01bf39260358b2d44df43dc0c9",
+    "render_batches995.py": "2c4f54f6aaa0142de247d7abfa1b182c44e1cf26c3d299695986b6e88bfac000",
+    "encode_machine995.py": "e625c804a9116d0a6dbe3c67b766edca4afa06ee3ed02203791b9d0afff3e5dd"
+  },
+  "binding": {
+    "source_manifest": "d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13",
+    "checked_at_utc": "2026-10-11T15:24:09Z",
+    "method": "Fresh GET of all22 actual current public-machine capture dependencies; all matched the source manifest.",
+    "files": [
+      {
+        "path": "app.js",
+        "bytes": 37425,
+        "sha256": "bac91710fb44caa06ed79e262b2f40c9b0420b98d08b4511612c9ce04b063e34",
+        "matches_bound_source": true
+      },
+      {
+        "path": "assets/coates-logo.png",
+        "bytes": 3155,
+        "sha256": "ce98b187e38811a30b6d91b869ac943a61d461d4186a316fc0fc920a3d354053",
+        "matches_bound_source": true
+      },
+      {
+        "path": "assets/cog-reference.png",
+        "bytes": 337444,
+        "sha256": "601b19f8be7bd63c70a0442e0570f294fa7db110676bfaddc52ed2d724ff63ed",
+        "matches_bound_source": true
+      },
+      {
+        "path": "assets/favicon.svg",
+        "bytes": 238,
+        "sha256": "e611562f055c9615174fadb310bbe1f43ed44c385738ff6026047222ff5e59b6",
+        "matches_bound_source": true
+      },
+      {
+        "path": "assets/machine/coates-23.glb.gz.bin",
+        "bytes": 1818975,
+        "sha256": "c4ab4906c5bd552a0914beaaa7b72cc27a0440a97451bf3daa0ef519f6764a93",
+        "matches_bound_source": true
+      },
+      {
+        "path": "assets/machine/studio.hdr.gz.bin",
+        "bytes": 58773,
+        "sha256": "8a1ff2ccacb4a7bae9fa37c0543501d6f2f7731ff613f9868ee26b6b7ad459ba",
+        "matches_bound_source": true
+      },
+      {
+        "path": "cockpit-surfaces.js",
+        "bytes": 11616,
+        "sha256": "9d09692404126eab990b402ae2e85949c3609fdf5f0ee95dc7ffcf6ae3ac07b1",
+        "matches_bound_source": true
+      },
+      {
+        "path": "content.js",
+        "bytes": 4519,
+        "sha256": "0ba343ffbb2cb04e9ac89e7ca05071ccf6b5ea93bf95a59361f38d9c513175ad",
+        "matches_bound_source": true
+      },
+      {
+        "path": "drive.js",
+        "bytes": 6964,
+        "sha256": "1877d3cf85c9df5a2a9be737ae657f026a93cfd296c38bac7ec8ff2cca7bf0a7",
+        "matches_bound_source": true
+      },
+      {
+        "path": "fx-quality.js",
+        "bytes": 18834,
+        "sha256": "3bde119ed7da19feaf01b8f7778b9836a0053431b324f74437bffc750760b31d",
+        "matches_bound_source": true
+      },
+      {
+        "path": "gear-math.js",
+        "bytes": 1349,
+        "sha256": "b8933f5e53ace025ac08ae58d07f01a92674c1900801481661933b8a1c96209c",
+        "matches_bound_source": true
+      },
+      {
+        "path": "mechanics.js",
+        "bytes": 5688,
+        "sha256": "959b2216623796f8f1a7d60031e39caefe699f0ce94b2c8b1948d4a7d5c941d1",
+        "matches_bound_source": true
+      },
+      {
+        "path": "mechanism.html",
+        "bytes": 8531,
+        "sha256": "698f48a8695c03be7a00b74f9d9708b31723a2c5c722a289bd8ee528cf975394",
+        "matches_bound_source": true
+      },
+      {
+        "path": "model.js",
+        "bytes": 9843,
+        "sha256": "86725d2606b9a15e0f5d30682b068e7e26c48681b86000624da59d9f979af582",
+        "matches_bound_source": true
+      },
+      {
+        "path": "parts-register.js",
+        "bytes": 2926,
+        "sha256": "5aa0aa9a99a18275c155a73908fb4152b2d11bfc498ce6ca4b9eeb656395bf74",
+        "matches_bound_source": true
+      },
+      {
+        "path": "parts.js",
+        "bytes": 28883,
+        "sha256": "c6a57131c5968037834f0ac381b2f2ca04f49e553c90adb40e5094a0fd7c9ea8",
+        "matches_bound_source": true
+      },
+      {
+        "path": "poses.js",
+        "bytes": 1270,
+        "sha256": "a8a6b42e872c334490a100bb83719d121dc9ba6b6ba1691af5e70ab200608fc1",
+        "matches_bound_source": true
+      },
+      {
+        "path": "service-parts.js",
+        "bytes": 16144,
+        "sha256": "90c2ddbb785c4761add2dda6f73cf77c20675975fccbc02a8ddece5258e65dcf",
+        "matches_bound_source": true
+      },
+      {
+        "path": "style.css",
+        "bytes": 21985,
+        "sha256": "b01c5c0ce0ac04929267b15e5f8b625b55f8f74c87cc9745afc17bf3eeafa389",
+        "matches_bound_source": true
+      },
+      {
+        "path": "vendor/OrbitControls.js",
+        "bytes": 32134,
+        "sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+        "matches_bound_source": true
+      },
+      {
+        "path": "vendor/meshopt_decoder.module.js",
+        "bytes": 29019,
+        "sha256": "10b313edaa0e322b0c1b46443f6c8b186b42139fe1eca189d50c09511d0ebedc",
+        "matches_bound_source": true
+      },
+      {
+        "path": "vendor/three.module.js",
+        "bytes": 1314681,
+        "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+        "matches_bound_source": true
+      }
+    ]
+  },
+  "geometry": {
+    "source_parts": 176,
+    "only_hidden_part": {
+      "index": 18,
+      "id": "base"
+    },
+    "retained_parts": 175,
+    "proof_poses": 137,
+    "checked_vertices_per_pose": 1040759,
+    "all_proof_bounds_fit": true
+  },
+  "native4k": {
+    "capture": "WebGL framebuffer at3840\u00d72160, pixel ratio1; no4K encoder scaling",
+    "first_final_frames": "Actual PNG IHDR3840\u00d72160 confirmed",
+    "preview": "Intentional1920\u00d71080 downsample",
+    "print_limit": "Original artwork1179\u00d71179 retained; missing print detail is not manufactured."
+  },
+  "loop": {
+    "proof": "Matching image and complete-pose endpoint hashes; exact reversed source frames and quintic boundary holds",
+    "encoder_checks": "420frames,30fps,14s,full-resolution decoded first/last-frame seamMAE<2"
+  },
+  "export": {
+    "codec": "H264 high,yuv420p,MP4 faststart",
+    "maximum_bytes": 33554432,
+    "tracks": "Video only"
+  },
+  "remaining_release_checks": [
+    "Complete final3840\u00d72160 capture",
+    "Encode and verify both MP4s,poster,seam,size andframecounts",
+    "Inspect final encoded motion and stills",
+    "Run desktop/phone actual-media playback,pause/resume,reduced-motion,visibility/unmount andBack/Close tests"
+  ],
+  "note": "This is a source/proof review, not approval of an unfinished final render or browser playback."
+}

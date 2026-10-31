@@ -1,0 +1,141 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": true,
+  "checks": [
+    {
+      "name": "One asset per exact delivery docket and load time",
+      "pass": true
+    },
+    {
+      "name": "GN13 names the source-proved orange-symbol destination",
+      "pass": true
+    },
+    {
+      "name": "GN13 identity and approved coordinates retained",
+      "pass": true
+    },
+    {
+      "name": "No invented exact Concert pin",
+      "pass": true
+    },
+    {
+      "name": "Both Concert loads rendered with the original data key",
+      "pass": true
+    },
+    {
+      "name": "Clear Concert name and physical-location gap on each card",
+      "pass": true
+    },
+    {
+      "name": "Displayed asset numbers are scoped to their loads",
+      "pass": true
+    },
+    {
+      "name": "Build uses the same GN13 destination",
+      "pass": true
+    },
+    {
+      "name": "Map finder accepts useful names and preserves identities",
+      "pass": true
+    },
+    {
+      "name": "Booking details share both exact asset/DD joins",
+      "pass": true
+    },
+    {
+      "name": "Today shares Concert label and GN13 destination",
+      "pass": true
+    },
+    {
+      "name": "No horizontal page overflow",
+      "pass": true
+    },
+    {
+      "name": "No operational data, financial, source or map mutation",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions",
+      "pass": true
+    },
+    {
+      "name": "No operational write attempted",
+      "pass": true
+    }
+  ],
+  "mapFixture": "Local tile/session only, no project data fixture",
+  "facts": {
+    "concert": [
+      {
+        "dd": [
+          "26121298"
+        ],
+        "time": "11:00",
+        "rows": [
+          {
+            "key": "GN?",
+            "nums": [
+              "1316182"
+            ],
+            "quantity": 1
+          }
+        ]
+      },
+      {
+        "dd": [
+          "26121310"
+        ],
+        "time": "11:30",
+        "rows": [
+          {
+            "key": "GN?",
+            "nums": [
+              "1316183"
+            ],
+            "quantity": 1
+          }
+        ]
+      }
+    ],
+    "gn13": {
+      "label": "SLS Equipment Compound · Narrowneck",
+      "source": "master plan · orange generator symbol",
+      "nums": [
+        "1261271"
+      ],
+      "target": {
+        "kind": "master",
+        "ll": {
+          "lat": -27.9883915,
+          "lon": 153.4300855,
+          "text": "-27.988391, 153.430085"
+        },
+        "approx": false,
+        "label": "master plan",
+        "sms": "master plan",
+        "spoken": "to the spot on the master plan for"
+      }
+    },
+    "concertTarget": {
+      "kind": "report",
+      "ll": {
+        "lat": -27.984876,
+        "lon": 153.426644,
+        "text": "-27.984876, 153.426644"
+      },
+      "approx": false,
+      "label": "pit lane",
+      "sms": "pit lane",
+      "spoken": "to the pit lane (no drop-off yet) for",
+      "nav": "the pit lane - no drop-off is set for GN? yet; the driver reports there and site directs them"
+    }
+  },
+  "pass": true,
+  "counts": {
+    "page": 0,
+    "live": 60,
+    "blocked": 0,
+    "localMapSessions": 1
+  },
+  "errors": []
+}

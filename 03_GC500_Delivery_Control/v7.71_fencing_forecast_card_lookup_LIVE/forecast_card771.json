@@ -1,0 +1,30 @@
+{
+  "schema": "gc500-forecast-card-1",
+  "author": "Andrew Fisher",
+  "source": {
+    "file": "reference_street_rate_card_2026/Street_Rate_Card_2026.pdf",
+    "sha256": "551f7b3d225b6b4b56a836d842e91295b3e682cf1b6e7a3e7833b39db379994e",
+    "section": "FENCING — Per Mtr 2026",
+    "page": 1
+  },
+  "entries": [
+    {
+      "programme_type": "Temporary Fence (m) — Hoarding",
+      "card_line": "Hoarding Fencing 1.8m x 2.5m (per mtr)",
+      "unit": "m",
+      "rate": 23.59
+    },
+    {
+      "programme_type": "Crowd Control Barriers (m) — Flat Feet",
+      "card_line": "CCB Flat feet",
+      "unit": "m",
+      "rate": 9.65
+    },
+    {
+      "programme_type": "Crowd Control Barriers (m) — WPF",
+      "card_line": "White Picket fence",
+      "unit": "m",
+      "rate": 30.16
+    }
+  ]
+}

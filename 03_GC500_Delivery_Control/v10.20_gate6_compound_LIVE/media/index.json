@@ -1,0 +1,82 @@
+{
+ "P60": {
+  "close": {
+   "file": "P60_close_1020.webp",
+   "sha256": "0f4832d599627e2380945c227f76d1c6fb8e95ce6a38e53150d239546b998d5c",
+   "bytes": 61054,
+   "size": [
+    771,
+    491
+   ]
+  },
+  "wide": {
+   "file": "P60_wide_1020.webp",
+   "sha256": "f2f83ad6ec8f129f6ff7570326252ce496ee8f46af52e1e4875138ea3cd22435",
+   "bytes": 55484,
+   "size": [
+    937,
+    613
+   ]
+  }
+ },
+ "P62": {
+  "close": {
+   "file": "P62_close_1020.webp",
+   "sha256": "59278f68294710022dce73631725d77b78a298821b4347a39549bac0691b1632",
+   "bytes": 59690,
+   "size": [
+    771,
+    491
+   ]
+  },
+  "wide": {
+   "file": "P62_wide_1020.webp",
+   "sha256": "bf5ecd23fd865329c8a31a3051cced9c9fa727abdb71c6c99ea1f9a7e5878508",
+   "bytes": 54222,
+   "size": [
+    937,
+    613
+   ]
+  }
+ },
+ "P63": {
+  "close": {
+   "file": "P63_close_1020.webp",
+   "sha256": "714d870a4cfc2c8fbd31f31ac4d28f82457638df67d3a979f84633c76bf928fe",
+   "bytes": 58536,
+   "size": [
+    771,
+    491
+   ]
+  },
+  "wide": {
+   "file": "P63_wide_1020.webp",
+   "sha256": "94c50a811acd325b4578927ec0dc810ef717ead2979816464ee536f0a1547778",
+   "bytes": 52088,
+   "size": [
+    937,
+    613
+   ]
+  }
+ },
+ "WC49": {
+  "close": {
+   "file": "WC49_close_1020.webp",
+   "sha256": "65a6d7d93bbbcf9d6c12715538cf0eb4abb57627600e02ba75a8279befaee8e1",
+   "bytes": 58006,
+   "size": [
+    771,
+    491
+   ]
+  },
+  "wide": {
+   "file": "WC49_wide_1020.webp",
+   "sha256": "d2818b646a9ddc0fd9307d8c8dff46cc12c23498ae7254d387eef570b669f8a0",
+   "bytes": 52950,
+   "size": [
+    937,
+    613
+   ]
+  }
+ }
+}

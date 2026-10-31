@@ -1,0 +1,248 @@
+{
+ "errors": [],
+ "ccb": {
+  "36766": {
+   "id": "F-AF-0070",
+   "expected": {
+    "date": "2026-10-23",
+    "location": "Smoking Zone - Breaker St",
+    "quantities": {
+     "ccb_event": 10
+    },
+    "components": {
+     "cc_barrier": 4
+    },
+    "note": "CC barrier 10 m (4 barriers), installed 23 Oct 2026 at the Smoking Zone - Breaker St. The printed number reads like 36765 at phone size; at full size the last figure is a 6 (36765 is the Gate 5 paper). Event: the paper does not say; smoking zones have been Event since Andrew accepted it on 2 Oct (programme CON WK3 smoking rows and EVENT WEEK row 11 are Event), and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+   },
+   "review": {
+    "recordId": "F-AF-0070",
+    "docketNo": "36766",
+    "state": "pending",
+    "reviewState": "none",
+    "currentType": "ccb_event",
+    "confirmedType": null,
+    "quantity": 10,
+    "reason": "CCB classification has no current source confirmation.",
+    "sourceRefs": []
+   }
+  },
+  "36768": {
+   "id": "F-AF-0072",
+   "expected": {
+    "date": "2026-10-23",
+    "location": "Club 500 - B.O.H.",
+    "quantities": {
+     "ccb_event": 50
+    },
+    "components": {
+     "cc_barrier": 20
+    },
+    "note": "CC barrier 50 m (20 barriers), installed 23 Oct 2026 at Club 500 - B.O.H. Event: the paper does not say and there is no programme row for it; the Club 500 CCB on the programme (creek protection, CON WK2 row 14) is Event, as Monster Energy's was read, and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+   },
+   "review": {
+    "recordId": "F-AF-0072",
+    "docketNo": "36768",
+    "state": "pending",
+    "reviewState": "none",
+    "currentType": "ccb_event",
+    "confirmedType": null,
+    "quantity": 50,
+    "reason": "CCB classification has no current source confirmation.",
+    "sourceRefs": []
+   }
+  }
+ },
+ "green": {
+  "24492": {
+   "id": "N-AF-0018",
+   "note_no": "24492",
+   "date": "2026-10-22",
+   "week": "Event Week",
+   "usable": true,
+   "location": "Transporter Compound (The Spit)",
+   "note": "Labour '15 mins x 2 men', quantity 1/2 HR; notes 'Relocated 30 m.' at the Transporter Compound (The Spit) on 22 Oct 2026, the day after hire agreement 36757 there. Company Coates V8s, contact Brendan. Owner/site supervisor and installer signatures dated 22/10/26. Prices blank.",
+   "crew_note": "15 mins x 2 men",
+   "labour_hours": 0.5,
+   "metres": 30
+  }
+ },
+ "overlap": {
+  "relocation": [
+   {
+    "id": "F010",
+    "docket_no": "36510",
+    "date": "2026-09-14",
+    "week": "Week 5",
+    "scope": "programme",
+    "usable": true,
+    "quantities": {
+     "relocation": 50
+    },
+    "components": {},
+    "location": "Sea World Drive, Main Beach",
+    "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+   },
+   {
+    "id": "F025",
+    "docket_no": "36525",
+    "date": "2026-09-17",
+    "week": "Week 5",
+    "scope": "programme",
+    "usable": true,
+    "quantities": {
+     "relocation": 60
+    },
+    "components": {},
+    "location": "S.O.5 C.2",
+    "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+   },
+   {
+    "id": "F027",
+    "docket_no": "36528",
+    "date": "2026-09-17",
+    "week": "Week 5",
+    "scope": "programme",
+    "usable": true,
+    "quantities": {
+     "relocation": 27.5
+    },
+    "components": {
+     "wheels": 2
+    },
+    "location": "S.O.8 exclusion zone",
+    "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+   }
+  ]
+ },
+ "photos": {
+  "36766.jpg": "32a6e55eb7ca9d65199fdff5f13ae19170180699e38fa3e573d9fa4ef4ba3f21",
+  "36768.jpg": "0fc1b49cce5c7f2a8737935c2f1c5b33003414adf4ae02ed345dece9c0fc00dc",
+  "24492.jpg": "d54eb522575a404985d2dcd516889159101aef5d124dd4bccf6a215f24eb029a",
+  "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx": "836a3e1036c660caa89b1b36d4b821e2f84df7a8d8b977068b13a4f07602d9db"
+ },
+ "review_rows": [
+  {
+   "record_id": "F-AF-0028",
+   "docket_no": "36751",
+   "expected": {
+    "date": "2026-10-22",
+    "location": "Ocean Ave",
+    "quantities": {
+     "clean": 147.5,
+     "ccb_event": 315
+    },
+    "components": {
+     "mesh_panel": 59,
+     "cc_barrier": 126,
+     "base": 54,
+     "clamp": 54,
+     "wheels": 8
+    },
+    "note": "Mesh fence 147.5 m (59 panels), CC barrier 315 m (126 barriers), 8 wheels, 54 bases, 54 clamps. No gate line on the paper: the 8 wheels are recorded as components. Programme EVENT WEEK rows 60-61 (22 Oct): Perimeter Fence - Ocean Ave, 150 m clean with 3 double-wide vehicle gates (3 wheels), and CCB - Ocean Ave, 300 m Event (quantity may reduce - awaiting confirmation), so the CCB is Event. Vehicle gates are inside the card's metre; Advanced's sheet prices the wheels when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+   },
+   "source_ids": [
+    "36751.jpg",
+    "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+   ],
+   "decision": {
+    "state": "confirmed",
+    "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36751 stands as recorded: CC barrier 315 m (126 barriers) on Ocean Ave is Event: programme EVENT WEEK rows 60-61 (22 Oct), CCB - Ocean Ave, 300 m Event. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+    "type": "ccb_event"
+   }
+  },
+  {
+   "record_id": "F-AF-0040",
+   "docket_no": "36764",
+   "expected": {
+    "date": "2026-10-22",
+    "location": "Monster (Energy)",
+    "quantities": {
+     "ccb_event": 15
+    },
+    "components": {
+     "cc_barrier": 6
+    },
+    "note": "CC barrier 15 m (6 barriers) at the Monster Energy compound on The Hill. Programme EVENT WEEK row 62 (22 Oct) is the Monster Energy CZ compound fencing removal (130 m), a different job; the CCB is read as Event - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+   },
+   "source_ids": [
+    "36764.jpg",
+    "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+   ],
+   "decision": {
+    "state": "confirmed",
+    "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36764 stands as recorded: CC barrier 15 m (6 barriers) at the Monster Energy compound on The Hill is Event, crowd control at the compound. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+    "type": "ccb_event"
+   }
+  }
+ ],
+ "catalogue": {
+  "ops": 34,
+  "reloc": [
+   [
+    "physical-relocation-24460",
+    40,
+    3
+   ],
+   [
+    "physical-relocation-24461",
+    32.5,
+    3
+   ],
+   [
+    "physical-relocation-24462",
+    100,
+    3
+   ],
+   [
+    "physical-relocation-24463",
+    17.5,
+    3
+   ],
+   [
+    "physical-relocation-24469",
+    17.5,
+    3
+   ],
+   [
+    "physical-relocation-24474",
+    25,
+    3
+   ],
+   [
+    "physical-relocation-24481",
+    65,
+    3
+   ],
+   [
+    "physical-relocation-24482",
+    22.5,
+    3
+   ],
+   [
+    "physical-relocation-24483",
+    17.5,
+    3
+   ],
+   [
+    "physical-relocation-24484",
+    80,
+    3
+   ],
+   [
+    "physical-relocation-24490",
+    27.5,
+    3
+   ]
+  ]
+ },
+ "reviewNow": [
+  [
+   "36766",
+   "{\"recordId\":\"F-AF-0070\",\"docketNo\":\"36766\",\"state\":\"pending\",\"reviewState\":\"none\",\"currentType\":\"ccb_event\",\"confirmedType\":null,\"quantity\":10,\"reason\":\"CCB classification has no current source confirmation.\",\"sourceRefs\":[]}"
+  ],
+  [
+   "36768",
+   "{\"recordId\":\"F-AF-0072\",\"docketNo\":\"36768\",\"state\":\"pending\",\"reviewState\":\"none\",\"currentType\":\"ccb_event\",\"confirmedType\":null,\"quantity\":50,\"reason\":\"CCB classification has no current source confirmation.\",\"sourceRefs\":[]}"
+  ]
+ ]
+}

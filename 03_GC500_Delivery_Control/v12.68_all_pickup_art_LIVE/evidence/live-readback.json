@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS",
+  "read_at_utc": "2026-10-30T23:22:49.267841+00:00",
+  "read_at_aest": "31 Oct 2026 09:22 AEST",
+  "public_sha256": "fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547",
+  "public_bytes": 16520784,
+  "exact_public_bytes_match": true,
+  "operational_record_unchanged": true,
+  "version": "v12.68",
+  "all_five_embedded_atlases_match": true,
+  "footer_helper_and_styles_match": true,
+  "old_single_type_helper_removed": true,
+  "implementation_commit": "d421430b52c884fd984e936a95274c606d43c9d5",
+  "tests_commit": "3aff05cd77aedd7b3733df531afb80fde7bd3017",
+  "ready_evidence_commit": "f4df1f5e067034df73d502efe38d52c89ed47f64",
+  "predecessor_sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+  "uploader_unchanged_base_guard_passed": true,
+  "uploader_full_public_readback_passed": true,
+  "separate_cache_busted_full_readback_passed": true,
+  "external_live_review": "pending"
+}

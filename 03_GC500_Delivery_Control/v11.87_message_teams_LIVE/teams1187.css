@@ -1,0 +1,47 @@
+/* Author: Andrew Fisher. v11.87 "Message the teams": the card under the three job meters on the Servicing tab, and its drawer.
+   The panel is a column ordered by `order`; the card sits straight after the pump / clean / water meters. */
+#svc1067 > .teams1187 { order: 0; }
+.teams1187 { margin: 12px 0 4px; padding: 12px 14px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.04); min-width: 0; }
+.teams1187-head { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap; margin: 0 0 4px; }
+.teams1187-head h4 { margin: 0; font: 700 12px/1.2 Inter, Arial, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--svc-orange, #ff8125); }
+.teams1187-head span { font-size: 12px; color: var(--svc-muted, #9cb0c2); }
+.teams1187-list { display: grid; }
+.teams1187-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) auto; align-items: center; gap: 4px 12px; padding: 9px 0; border-top: 1px solid rgba(255,255,255,.08); min-width: 0; }
+.teams1187-row:first-child { border-top: 0; }
+.teams1187-who { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.teams1187-who b { font-size: 13.5px; color: #fff; }
+.teams1187-who span { font-size: 12.5px; color: #cfdbe5; overflow-wrap: anywhere; }
+.teams1187-state { min-width: 0; font-size: 12.5px; line-height: 1.35; color: #cfdbe5; font-variant-numeric: tabular-nums; }
+.teams1187-state b { font-size: 16px; font-weight: 800; color: #ffb347; }
+.teams1187-row.cleaners .teams1187-state b { color: #5ef2c8; }
+.teams1187-row.water .teams1187-state b { color: #8fd0ff; }
+.teams1187-ok { font-weight: 700; color: #7dffd0; }
+.teams1187-did, .teams1187-none { color: #9cb0c2; }
+.teams1187-row .btn { min-height: 40px; white-space: nowrap; }
+.teams1187-note { margin: 6px 0 0; font-size: 11.5px; color: var(--svc-muted, #9cb0c2); }
+@media (max-width: 720px) {
+  .teams1187-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .teams1187-who { grid-column: 1; grid-row: 1; }
+  .teams1187-state { grid-column: 1; grid-row: 2; }
+  .teams1187-row .btn { grid-column: 2; grid-row: 1 / span 2; }
+}
+#pane-servicing:fullscreen .teams1187 { display: none; }
+@media print { .teams1187 { display: none; } }
+
+.teams1187-drawer .teams1187-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.teams1187-drawer .teams1187-nums input { width: 100%; font-size: 16px; }
+.teams1187-keep { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 13px; }
+.teams1187-areas { margin: 0 0 12px; border: 1px solid var(--line, #d6dde2); border-radius: 10px; min-width: 0; }
+.teams1187-areas > summary { cursor: pointer; padding: 10px 12px; font-size: 13px; font-weight: 700; }
+.teams1187-areas[open] > summary { border-bottom: 1px solid var(--line, #d6dde2); }
+.teams1187-arealist { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 10px 12px 6px; }
+.teams1187-areas .hint { margin: 4px 0 0; padding: 0 12px 10px; }
+.teams1187-drawer label { box-shadow: none !important; }
+.teams1187-area { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.teams1187-area small { opacity: .7; }
+.teams1187-drawer textarea { font-size: 15px; line-height: 1.4; }
+.teams1187-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 520px) {
+  .teams1187-drawer .teams1187-nums { grid-template-columns: 1fr; }
+  .teams1187-buttons .btn { flex: 1 1 100%; text-align: center; }
+}

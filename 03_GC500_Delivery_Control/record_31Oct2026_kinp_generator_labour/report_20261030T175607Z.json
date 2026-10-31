@@ -1,0 +1,5992 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T175607Z",
+ "finished": "2026-10-30T17:57:01.866Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 (this chat, ~03:4x AEST): 'Kinp is easy just assign who ever is working to that' and 'The generators. Is just an hour each from aaron mob and demob for each generator'. KINP per-piece labour (install, levelling, steps and cleaning on the day a unit came on site; demob on the day it left) goes to every person on the roster that day, as a note on their labour row naming the contract and the units, the rest of the day after any hours already noted; the generators go to one person at one hour per generator on its day in and its day out, as a note on that person's row (a new row where the roster had none that day). Rows' own hours and times untouched. Nothing inferred beyond those two rules. One labour-hire row (15 Oct) already carries a note at the page's 240-character limit and cannot take the KINP words; its KINP share is the rest of that day by the same rule, recorded here instead.",
+  "ops": [
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-15",
+    "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-15",
+    "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-15",
+    "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-15",
+    "text": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-16",
+    "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-16",
+    "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-16",
+    "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-16",
+    "text": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-17",
+    "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-17",
+    "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-17",
+    "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-17",
+    "text": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-21",
+    "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-21",
+    "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-21",
+    "text": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-22",
+    "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-22",
+    "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-22",
+    "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-22",
+    "text": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-23",
+    "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-23",
+    "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-23",
+    "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-23",
+    "text": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-24",
+    "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-24",
+    "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-24",
+    "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-24",
+    "text": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-25",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-25",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-25",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-09-25",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-28",
+    "text": "Generators 9961976 NVAC · 1 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-09-28",
+    "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-09-28",
+    "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-09-28",
+    "text": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-30",
+    "text": "Generators 9961976 NVAC · 1 h · GN20-A mob · Generators 9961976 NVAC · 2 h · GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-01",
+    "text": "Generators 9961976 NVAC · 1 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-01",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-01",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-01",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Jayden Paul",
+    "date": "2026-10-01",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Wayne Crimmin",
+    "date": "2026-10-01",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-06",
+    "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-06",
+    "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-06",
+    "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-06",
+    "text": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-07",
+    "text": "Generators 9961976 NVAC · 1 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-07",
+    "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-07",
+    "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-07",
+    "text": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-08",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-08",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-08",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-08",
+    "text": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-12",
+    "text": "Generators 9961976 NVAC · 1 h · GN13 mob · Generators 9994954 KINP · 1 h · GN? mob · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-12",
+    "text": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-12",
+    "text": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-14",
+    "text": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Eric Lucian",
+    "date": "2026-10-14",
+    "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-14",
+    "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-15",
+    "text": "Generators 9961976 NVAC · 1 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-15",
+    "text": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-15",
+    "text": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-16",
+    "text": "KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-16",
+    "text": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-16",
+    "text": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-16",
+    "text": "KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-19",
+    "text": "Generators 9961976 NVAC · 5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-22",
+    "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-22",
+    "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-22",
+    "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-22",
+    "text": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-26",
+    "text": "Generators 9961976 NVAC · 5 h · GN04 demob, GN06 demob, GN10 demob, GN13 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-26",
+    "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-26",
+    "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-26",
+    "text": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-27",
+    "text": "KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-27",
+    "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-27",
+    "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-27",
+    "text": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-28",
+    "text": "Generators 9961976 NVAC · 4 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob · Generators 9961976 NVAC · 1 h · GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-28",
+    "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-28",
+    "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-28",
+    "text": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-30",
+    "text": "Generators 9961976 NVAC · 1 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Alfie Harris",
+    "date": "2026-10-30",
+    "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Andrew Fisher",
+    "date": "2026-10-30",
+    "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Daniel Gough",
+    "date": "2026-10-30",
+    "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   {
+    "op": "labour_note",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "text": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   }
+  ]
+ },
+ "pageSha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+ "version": {
+  "before": 12224,
+  "after": 12489
+ },
+ "updated": {
+  "before": "2026-10-30T17:29:13.005Z",
+  "after": "2026-10-30T17:57:00.924Z"
+ },
+ "stage": [
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260914",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-14",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260914 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260914",
+   "person": "Alfie Harris",
+   "date": "2026-09-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260914 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260914",
+   "person": "Andrew Fisher",
+   "date": "2026-09-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260914 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260914",
+   "person": "Kyle Gover",
+   "date": "2026-09-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-kyle-gover-20260914 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260915",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-15",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260915 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260915",
+   "person": "Alfie Harris",
+   "date": "2026-09-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260915 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260915",
+   "person": "Andrew Fisher",
+   "date": "2026-09-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260915 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260915",
+   "person": "Kyle Gover",
+   "date": "2026-09-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-kyle-gover-20260915 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260916",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-16",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260916 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260916",
+   "person": "Alfie Harris",
+   "date": "2026-09-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260916 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260916",
+   "person": "Andrew Fisher",
+   "date": "2026-09-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260916 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260916",
+   "person": "Kyle Gover",
+   "date": "2026-09-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-kyle-gover-20260916 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260917",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-17",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260917 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260917",
+   "person": "Alfie Harris",
+   "date": "2026-09-17",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260917 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260917",
+   "person": "Andrew Fisher",
+   "date": "2026-09-17",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260917 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260917",
+   "person": "Kyle Gover",
+   "date": "2026-09-17",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-kyle-gover-20260917 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260921",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-21",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260921 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260921",
+   "person": "Alfie Harris",
+   "date": "2026-09-21",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260921 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260921",
+   "person": "Andrew Fisher",
+   "date": "2026-09-21",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260921 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260922",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-22",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260922 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260922",
+   "person": "Alfie Harris",
+   "date": "2026-09-22",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260922 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260922",
+   "person": "Andrew Fisher",
+   "date": "2026-09-22",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260922 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260922",
+   "person": "Kyle Gover",
+   "date": "2026-09-22",
+   "usable": true,
+   "problems": [],
+   "hours": 7,
+   "start": "10:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (7 h 10:00-17:00) - W-L-kyle-gover-20260922 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260923",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260923 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260923",
+   "person": "Alfie Harris",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260923 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260923",
+   "person": "Andrew Fisher",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260923 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260923",
+   "person": "Kyle Gover",
+   "date": "2026-09-23",
+   "usable": true,
+   "problems": [],
+   "hours": 7,
+   "start": "10:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (7 h 10:00-17:00) - W-L-kyle-gover-20260923 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260924",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-24",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260924 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260924",
+   "person": "Alfie Harris",
+   "date": "2026-09-24",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260924 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260924",
+   "person": "Andrew Fisher",
+   "date": "2026-09-24",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260924 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260924",
+   "person": "Kyle Gover",
+   "date": "2026-09-24",
+   "usable": true,
+   "problems": [],
+   "hours": 7,
+   "start": "10:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (7 h 10:00-17:00) - W-L-kyle-gover-20260924 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260925",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-25",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260925 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260925",
+   "person": "Alfie Harris",
+   "date": "2026-09-25",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20260925 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260925",
+   "person": "Andrew Fisher",
+   "date": "2026-09-25",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260925 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20260925",
+   "person": "Kyle Gover",
+   "date": "2026-09-25",
+   "usable": true,
+   "problems": [],
+   "hours": 5,
+   "start": "12:00",
+   "finish": "17:00",
+   "result": "note on the record row (5 h 12:00-17:00) - W-L-kyle-gover-20260925 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260928",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20260928",
+   "person": "Alfie Harris",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-alfie-harris-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20260928",
+   "person": "Andrew Fisher",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20260928",
+   "person": "Daniel Gough",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20260930",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-30",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20260930 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261001",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261001",
+   "person": "Alfie Harris",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261001",
+   "person": "Andrew Fisher",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261001",
+   "person": "Daniel Gough",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-jayden-paul-20261001",
+   "person": "Jayden Paul",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-jayden-paul-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-wayne-crimmin-20261001",
+   "person": "Wayne Crimmin",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-wayne-crimmin-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261006",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-06",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261006 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261006",
+   "person": "Alfie Harris",
+   "date": "2026-10-06",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261006 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261006",
+   "person": "Andrew Fisher",
+   "date": "2026-10-06",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261006 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261006",
+   "person": "Daniel Gough",
+   "date": "2026-10-06",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261006 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261007",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261007",
+   "person": "Alfie Harris",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261007",
+   "person": "Andrew Fisher",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261007",
+   "person": "Daniel Gough",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261008",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-08",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261008 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261008",
+   "person": "Alfie Harris",
+   "date": "2026-10-08",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261008 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261008",
+   "person": "Andrew Fisher",
+   "date": "2026-10-08",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261008 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261008",
+   "person": "Daniel Gough",
+   "date": "2026-10-08",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261008 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261012",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261012",
+   "person": "Andrew Fisher",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261012",
+   "person": "Kyle Gover",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261014",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261014",
+   "person": "Andrew Fisher",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261014",
+   "person": "Daniel Gough",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-eric-lucian-20261014",
+   "person": "Eric Lucian",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-eric-lucian-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261014",
+   "person": "Kyle Gover",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261015",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 14,
+   "start": "03:00",
+   "finish": "17:00",
+   "result": "note on the record row (14 h 03:00-17:00) - W-L-aaron-zelvis-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261015",
+   "person": "Andrew Fisher",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261015",
+   "person": "Daniel Gough",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261016",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261016",
+   "person": "Andrew Fisher",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261016",
+   "person": "Daniel Gough",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261016",
+   "person": "Kyle Gover",
+   "date": "2026-10-16",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261016 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261019",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-19",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261019 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261022",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261022",
+   "person": "Andrew Fisher",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261022",
+   "person": "Daniel Gough",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261022",
+   "person": "Kyle Gover",
+   "date": "2026-10-22",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261022 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261026",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261026",
+   "person": "Alfie Harris",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-alfie-harris-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261026",
+   "person": "Andrew Fisher",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-andrew-fisher-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261026",
+   "person": "Daniel Gough",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-daniel-gough-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261027",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the record row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261027",
+   "person": "Alfie Harris",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261027",
+   "person": "Andrew Fisher",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261027",
+   "person": "Daniel Gough",
+   "date": "2026-10-27",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261027 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261028",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261028",
+   "person": "Alfie Harris",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261028",
+   "person": "Andrew Fisher",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261028",
+   "person": "Daniel Gough",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-aaron-zelvis-20261030",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "result": "note on the tracker row (11 h 06:00-17:00) - W-L-aaron-zelvis-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-alfie-harris-20261030",
+   "person": "Alfie Harris",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-alfie-harris-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-andrew-fisher-20261030",
+   "person": "Andrew Fisher",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-andrew-fisher-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-daniel-gough-20261030",
+   "person": "Daniel Gough",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the tracker row (10.5 h 06:30-17:00) - W-L-daniel-gough-20261030 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_note",
+   "id": "W-L-kyle-gover-20261030",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "note on the record row (10.5 h 06:30-17:00) - W-L-kyle-gover-20261030 changed by Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260925",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260928",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-jayden-paul-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-wayne-crimmin-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261012",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261022",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261016",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-eric-lucian-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261015",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261026",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261026",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261026",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260921",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261016",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261019",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261022",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261026",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260914",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260914",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260914",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260914",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260915",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260915",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260915",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260915",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260916",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260916",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260916",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260916",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260917",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260917",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260917",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260917",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260921",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260921",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260922",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260922",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260922",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260922",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260923",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260923",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260923",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260923",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260924",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260924",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260924",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20260924",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260925",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20260925",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260925",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260928",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20260928",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20260928",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20260930",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261001",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261006",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261006",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261006",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261006",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261007",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261007",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261007",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261007",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261008",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261008",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261008",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261008",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261012",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261012",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261014",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261015",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261015",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261016",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261016",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261022",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261022",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261027",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261028",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-aaron-zelvis-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-andrew-fisher-20261030",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-daniel-gough-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260914",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260914",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260914",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260914",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260915",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260915",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260915",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260915",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260916",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260916",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260916",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260916",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260917",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260917",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260917",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260917",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260921",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260921",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260922",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260922",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260922",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260922",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260923",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260923",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260923",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260923",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260924",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260924",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260924",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20260924",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260925",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20260925",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260925",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260928",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20260928",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20260928",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20260930",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261001",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261001",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261001",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261001",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261006",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261006",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261006",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261006",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261007",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261007",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261007",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261007",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261008",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261008",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261008",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261008",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261012",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261012",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261014",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261014",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261014",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261015",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261015",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261016",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261016",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261022",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261022",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261027",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261027",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261027",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261028",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261028",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261028",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261028",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-aaron-zelvis-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-andrew-fisher-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-daniel-gough-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260925",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260928",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-jayden-paul-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-wayne-crimmin-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261022",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261016",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-eric-lucian-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261026",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261026",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261026",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260921",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261016",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261019",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261022",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261026",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260914",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260914",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260914",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260914",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260915",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260915",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260915",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260915",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260916",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260916",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260916",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260916",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260917",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260917",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260917",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260917",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260921",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260921",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260922",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260922",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260922",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260922",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260923",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260923",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260923",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260923",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260924",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260924",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260924",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20260924",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260925",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20260925",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260925",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260928",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20260928",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20260928",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20260930",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261001",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261006",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261006",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261006",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261006",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261007",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261007",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261007",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261007",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261008",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261008",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261008",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261008",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261016",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261016",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261022",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261022",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261027",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261028",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-aaron-zelvis-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-andrew-fisher-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-daniel-gough-20261030",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20260925": {
+    "_k": "ourcost/W-L-kyle-gover-20260925",
+    "v": "2026-09-27T06:25:59.210Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260928": {
+    "_k": "ourcost/W-L-alfie-harris-20260928",
+    "v": "2026-09-28T04:59:13.174Z"
+   },
+   "stamps/ourcost~2f~W-L-jayden-paul-20261001": {
+    "_k": "ourcost/W-L-jayden-paul-20261001",
+    "v": "2026-09-30T03:04:01.178Z"
+   },
+   "stamps/ourcost~2f~W-L-wayne-crimmin-20261001": {
+    "_k": "ourcost/W-L-wayne-crimmin-20261001",
+    "v": "2026-09-30T03:04:11.191Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261012": {
+    "_k": "ourcost/W-L-kyle-gover-20261012",
+    "v": "2026-10-13T16:30:57.963Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261022": {
+    "_k": "ourcost/W-L-kyle-gover-20261022",
+    "v": "2026-10-19T05:58:07.595Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261016": {
+    "_k": "ourcost/W-L-kyle-gover-20261016",
+    "v": "2026-10-19T05:52:33.365Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261014": {
+    "_k": "ourcost/W-L-kyle-gover-20261014",
+    "v": "2026-10-15T04:53:32.788Z"
+   },
+   "stamps/ourcost~2f~W-L-eric-lucian-20261014": {
+    "_k": "ourcost/W-L-eric-lucian-20261014",
+    "v": "2026-10-15T04:53:11.367Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261015": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261015",
+    "v": "2026-10-30T17:29:04.264Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261026": {
+    "_k": "ourcost/W-L-andrew-fisher-20261026",
+    "v": "2026-10-25T07:22:19.097Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261026": {
+    "_k": "ourcost/W-L-daniel-gough-20261026",
+    "v": "2026-10-25T07:22:28.185Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261026": {
+    "_k": "ourcost/W-L-alfie-harris-20261026",
+    "v": "2026-10-25T07:22:45.676Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261030": {
+    "_k": "ourcost/W-L-kyle-gover-20261030",
+    "v": "2026-10-25T07:36:07.621Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260921": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260921",
+    "v": "2026-10-30T17:29:02.809Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261016": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261016",
+    "v": "2026-10-30T17:29:04.564Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261019": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261019",
+    "v": "2026-10-30T17:29:04.732Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261022": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261022",
+    "v": "2026-10-30T17:29:05.132Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261026": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261026",
+    "v": "2026-10-30T17:29:05.515Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261027": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261027",
+    "v": "2026-10-30T17:29:05.706Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260914": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260914": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260914": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260914": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260915": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260915": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260915": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260915": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260916": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260916": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260916": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260916": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260917": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260917": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260917": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260917": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260921": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260921": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260922": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260922": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260922": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260922": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260923": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260923": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260923": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260923": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260924": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260924": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260924": null,
+   "stamps/ourcost~2f~W-L-kyle-gover-20260924": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260925": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20260925": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260925": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260928": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260928": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20260928": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260930": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261001": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261001": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261001": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261001": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261006": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261006": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261006": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261006": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261007": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261007": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261007": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261007": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261008": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261008": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261008": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261008": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261012": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261012": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261014": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261014": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261014": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261015": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261015": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261016": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261016": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261022": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261022": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261027": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261027": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261027": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261028": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261028": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261028": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261028": null,
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261030": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261030": null,
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261030": null,
+   "stamps/ourcost~2f~W-L-daniel-gough-20261030": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260914": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260914": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260914": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260914": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260915": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260915": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260915": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260915": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260916": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260916": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260916": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260916": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260917": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260917": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260917": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260917": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260921": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260921": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260922": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260922": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260922": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260922": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260923": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260923": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260923": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260923": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260924": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260924": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260924": null,
+   "by/ourcost~2f~W-L-kyle-gover-20260924": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260925": null,
+   "by/ourcost~2f~W-L-alfie-harris-20260925": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260925": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260928": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20260928": null,
+   "by/ourcost~2f~W-L-daniel-gough-20260928": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20260930": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261001": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261001": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261001": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261001": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261006": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261006": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261006": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261006": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261007": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261007": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261007": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261007": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261008": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261008": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261008": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261008": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261012": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261012": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261014": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261014": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261014": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261015": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261015": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261016": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261016": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261022": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261022": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261027": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261027": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261027": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261028": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261028": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261028": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261028": null,
+   "by/ourcost~2f~W-L-aaron-zelvis-20261030": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261030": null,
+   "by/ourcost~2f~W-L-andrew-fisher-20261030": null,
+   "by/ourcost~2f~W-L-daniel-gough-20261030": null,
+   "costs/W-L-kyle-gover-20260925": {
+    "id": "W-L-kyle-gover-20260925",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-09-25",
+    "start": "12:00",
+    "hours": 5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-27T06:25:44.489Z",
+    "at": "2026-09-27T06:25:44.489Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-09-27T06:25:59.210Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "break_min": 0,
+    "_k": "W-L-kyle-gover-20260925"
+   },
+   "costs/W-L-alfie-harris-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260928",
+    "person": "Alfie Harris",
+    "date": "2026-09-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-09-28T04:59:13.174Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260928"
+   },
+   "costs/W-L-jayden-paul-20261001": {
+    "id": "W-L-jayden-paul-20261001",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Jayden Paul",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "hours": 11,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-30T03:03:42.570Z",
+    "at": "2026-09-30T03:03:42.570Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-09-30T03:04:01.178Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "_k": "W-L-jayden-paul-20261001"
+   },
+   "costs/W-L-wayne-crimmin-20261001": {
+    "id": "W-L-wayne-crimmin-20261001",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Wayne Crimmin",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "hours": 11,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-30T03:03:49.861Z",
+    "at": "2026-09-30T03:03:49.861Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-09-30T03:04:11.191Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "_k": "W-L-wayne-crimmin-20261001"
+   },
+   "costs/W-L-kyle-gover-20261012": {
+    "id": "W-L-kyle-gover-20261012",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-12",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:09.982Z",
+    "at": "2026-10-13T08:53:09.982Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-13T16:30:57.963Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261012"
+   },
+   "costs/W-L-kyle-gover-20261022": {
+    "id": "W-L-kyle-gover-20261022",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-22",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.029Z",
+    "at": "2026-10-13T08:53:10.029Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-19T05:58:07.595Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261022"
+   },
+   "costs/W-L-kyle-gover-20261014": {
+    "id": "W-L-kyle-gover-20261014",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-14",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.000Z",
+    "at": "2026-10-13T08:53:10.000Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-15T04:53:32.788Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261014"
+   },
+   "costs/W-L-kyle-gover-20261016": {
+    "id": "W-L-kyle-gover-20261016",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-16",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.014Z",
+    "at": "2026-10-13T08:53:10.014Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-19T05:52:33.365Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261016"
+   },
+   "costs/W-L-eric-lucian-20261014": {
+    "id": "W-L-eric-lucian-20261014",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Eric Lucian",
+    "date": "2026-10-14",
+    "note": "Added 14 Oct 2026 by Andrew Fisher: labour hire; home branch NOIS; charge branch KINP. Hourly pay rate matches Daniel Gough. Hours not supplied.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T18:26:48.207Z",
+    "at": "2026-10-13T18:26:48.207Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-15T04:53:11.367Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-eric-lucian-20261014"
+   },
+   "costs/W-L-aaron-zelvis-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261015",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-15",
+    "start": "03:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 14,
+    "updated_at": "2026-10-30T17:29:04.264Z",
+    "updated_by": "Andrew Fisher",
+    "note": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-aaron-zelvis-20261015"
+   },
+   "costs/W-L-andrew-fisher-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261026",
+    "person": "Andrew Fisher",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-25T07:22:19.097Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261026"
+   },
+   "costs/W-L-daniel-gough-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261026",
+    "person": "Daniel Gough",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-25T07:22:28.185Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261026"
+   },
+   "costs/W-L-alfie-harris-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261026",
+    "person": "Alfie Harris",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-25T07:22:45.676Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261026"
+   },
+   "costs/W-L-kyle-gover-20261030": {
+    "id": "W-L-kyle-gover-20261030",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:07.621Z",
+    "at": "2026-10-25T07:36:07.621Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-25T07:36:07.621Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261030"
+   },
+   "costs/W-L-aaron-zelvis-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260921",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-21",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB02 S08 pathway (34) · install · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:02.809Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260921"
+   },
+   "costs/W-L-aaron-zelvis-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261016",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-16",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB04 (14), WB05 (13) · install · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:04.564Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261016"
+   },
+   "costs/W-L-aaron-zelvis-20261019": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261019",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-19",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:04.732Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261019"
+   },
+   "costs/W-L-aaron-zelvis-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261022",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-22",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB17 (6), WB18 (2) · install · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:05.132Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261022"
+   },
+   "costs/W-L-aaron-zelvis-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261026",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:05.515Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261026"
+   },
+   "costs/W-L-aaron-zelvis-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261027",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-27",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 8 h · nine runs, 235 barriers · demob · nights · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:29:05.706Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261027"
+   },
+   "costs/W-L-aaron-zelvis-20260914": null,
+   "costs/W-L-alfie-harris-20260914": null,
+   "costs/W-L-andrew-fisher-20260914": null,
+   "costs/W-L-kyle-gover-20260914": null,
+   "costs/W-L-aaron-zelvis-20260915": null,
+   "costs/W-L-alfie-harris-20260915": null,
+   "costs/W-L-andrew-fisher-20260915": null,
+   "costs/W-L-kyle-gover-20260915": null,
+   "costs/W-L-aaron-zelvis-20260916": null,
+   "costs/W-L-alfie-harris-20260916": null,
+   "costs/W-L-andrew-fisher-20260916": null,
+   "costs/W-L-kyle-gover-20260916": null,
+   "costs/W-L-aaron-zelvis-20260917": null,
+   "costs/W-L-alfie-harris-20260917": null,
+   "costs/W-L-andrew-fisher-20260917": null,
+   "costs/W-L-kyle-gover-20260917": null,
+   "costs/W-L-alfie-harris-20260921": null,
+   "costs/W-L-andrew-fisher-20260921": null,
+   "costs/W-L-aaron-zelvis-20260922": null,
+   "costs/W-L-alfie-harris-20260922": null,
+   "costs/W-L-andrew-fisher-20260922": null,
+   "costs/W-L-kyle-gover-20260922": null,
+   "costs/W-L-aaron-zelvis-20260923": null,
+   "costs/W-L-alfie-harris-20260923": null,
+   "costs/W-L-andrew-fisher-20260923": null,
+   "costs/W-L-kyle-gover-20260923": null,
+   "costs/W-L-aaron-zelvis-20260924": null,
+   "costs/W-L-alfie-harris-20260924": null,
+   "costs/W-L-andrew-fisher-20260924": null,
+   "costs/W-L-kyle-gover-20260924": null,
+   "costs/W-L-aaron-zelvis-20260925": null,
+   "costs/W-L-alfie-harris-20260925": null,
+   "costs/W-L-andrew-fisher-20260925": null,
+   "costs/W-L-aaron-zelvis-20260928": null,
+   "costs/W-L-andrew-fisher-20260928": null,
+   "costs/W-L-daniel-gough-20260928": null,
+   "costs/W-L-aaron-zelvis-20260930": null,
+   "costs/W-L-aaron-zelvis-20261001": null,
+   "costs/W-L-alfie-harris-20261001": null,
+   "costs/W-L-andrew-fisher-20261001": null,
+   "costs/W-L-daniel-gough-20261001": null,
+   "costs/W-L-aaron-zelvis-20261006": null,
+   "costs/W-L-alfie-harris-20261006": null,
+   "costs/W-L-andrew-fisher-20261006": null,
+   "costs/W-L-daniel-gough-20261006": null,
+   "costs/W-L-aaron-zelvis-20261007": null,
+   "costs/W-L-alfie-harris-20261007": null,
+   "costs/W-L-andrew-fisher-20261007": null,
+   "costs/W-L-daniel-gough-20261007": null,
+   "costs/W-L-aaron-zelvis-20261008": null,
+   "costs/W-L-alfie-harris-20261008": null,
+   "costs/W-L-andrew-fisher-20261008": null,
+   "costs/W-L-daniel-gough-20261008": null,
+   "costs/W-L-aaron-zelvis-20261012": null,
+   "costs/W-L-andrew-fisher-20261012": null,
+   "costs/W-L-aaron-zelvis-20261014": null,
+   "costs/W-L-andrew-fisher-20261014": null,
+   "costs/W-L-daniel-gough-20261014": null,
+   "costs/W-L-andrew-fisher-20261015": null,
+   "costs/W-L-daniel-gough-20261015": null,
+   "costs/W-L-andrew-fisher-20261016": null,
+   "costs/W-L-daniel-gough-20261016": null,
+   "costs/W-L-andrew-fisher-20261022": null,
+   "costs/W-L-daniel-gough-20261022": null,
+   "costs/W-L-alfie-harris-20261027": null,
+   "costs/W-L-andrew-fisher-20261027": null,
+   "costs/W-L-daniel-gough-20261027": null,
+   "costs/W-L-aaron-zelvis-20261028": null,
+   "costs/W-L-alfie-harris-20261028": null,
+   "costs/W-L-andrew-fisher-20261028": null,
+   "costs/W-L-daniel-gough-20261028": null,
+   "costs/W-L-aaron-zelvis-20261030": null,
+   "costs/W-L-alfie-harris-20261030": null,
+   "costs/W-L-andrew-fisher-20261030": null,
+   "costs/W-L-daniel-gough-20261030": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20260925": {
+    "_k": "ourcost/W-L-kyle-gover-20260925",
+    "v": "2026-10-30T17:56:26.674Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260928": {
+    "_k": "ourcost/W-L-alfie-harris-20260928",
+    "v": "2026-10-30T17:56:27.158Z"
+   },
+   "stamps/ourcost~2f~W-L-jayden-paul-20261001": {
+    "_k": "ourcost/W-L-jayden-paul-20261001",
+    "v": "2026-10-30T17:56:28.843Z"
+   },
+   "stamps/ourcost~2f~W-L-wayne-crimmin-20261001": {
+    "_k": "ourcost/W-L-wayne-crimmin-20261001",
+    "v": "2026-10-30T17:56:29.047Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261012": {
+    "_k": "ourcost/W-L-kyle-gover-20261012",
+    "v": "2026-10-30T17:56:31.688Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261022": {
+    "_k": "ourcost/W-L-kyle-gover-20261022",
+    "v": "2026-10-30T17:56:35.021Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261016": {
+    "_k": "ourcost/W-L-kyle-gover-20261016",
+    "v": "2026-10-30T17:56:34.035Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261014": {
+    "_k": "ourcost/W-L-kyle-gover-20261014",
+    "v": "2026-10-30T17:56:32.715Z"
+   },
+   "stamps/ourcost~2f~W-L-eric-lucian-20261014": {
+    "_k": "ourcost/W-L-eric-lucian-20261014",
+    "v": "2026-10-30T17:56:32.521Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261015": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261015",
+    "v": "2026-10-30T17:56:32.883Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261026": {
+    "_k": "ourcost/W-L-andrew-fisher-20261026",
+    "v": "2026-10-30T17:56:35.499Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261026": {
+    "_k": "ourcost/W-L-daniel-gough-20261026",
+    "v": "2026-10-30T17:56:35.686Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261026": {
+    "_k": "ourcost/W-L-alfie-harris-20261026",
+    "v": "2026-10-30T17:56:35.336Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261030": {
+    "_k": "ourcost/W-L-kyle-gover-20261030",
+    "v": "2026-10-30T17:56:38.205Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260921": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260921",
+    "v": "2026-10-30T17:56:23.133Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261016": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261016",
+    "v": "2026-10-30T17:56:33.425Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261019": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261019",
+    "v": "2026-10-30T17:56:34.218Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261022": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261022",
+    "v": "2026-10-30T17:56:34.407Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261026": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261026",
+    "v": "2026-10-30T17:56:35.184Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261027": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261027",
+    "v": "2026-10-30T17:56:35.874Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260914": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260914",
+    "v": "2026-10-30T17:56:20.159Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260914": {
+    "_k": "ourcost/W-L-alfie-harris-20260914",
+    "v": "2026-10-30T17:56:20.405Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260914": {
+    "_k": "ourcost/W-L-andrew-fisher-20260914",
+    "v": "2026-10-30T17:56:20.647Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260914": {
+    "_k": "ourcost/W-L-kyle-gover-20260914",
+    "v": "2026-10-30T17:56:20.811Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260915": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260915",
+    "v": "2026-10-30T17:56:20.972Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260915": {
+    "_k": "ourcost/W-L-alfie-harris-20260915",
+    "v": "2026-10-30T17:56:21.142Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260915": {
+    "_k": "ourcost/W-L-andrew-fisher-20260915",
+    "v": "2026-10-30T17:56:21.291Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260915": {
+    "_k": "ourcost/W-L-kyle-gover-20260915",
+    "v": "2026-10-30T17:56:21.441Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260916": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260916",
+    "v": "2026-10-30T17:56:21.612Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260916": {
+    "_k": "ourcost/W-L-alfie-harris-20260916",
+    "v": "2026-10-30T17:56:21.800Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260916": {
+    "_k": "ourcost/W-L-andrew-fisher-20260916",
+    "v": "2026-10-30T17:56:22.012Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260916": {
+    "_k": "ourcost/W-L-kyle-gover-20260916",
+    "v": "2026-10-30T17:56:22.210Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260917": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260917",
+    "v": "2026-10-30T17:56:22.396Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260917": {
+    "_k": "ourcost/W-L-alfie-harris-20260917",
+    "v": "2026-10-30T17:56:22.577Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260917": {
+    "_k": "ourcost/W-L-andrew-fisher-20260917",
+    "v": "2026-10-30T17:56:22.751Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260917": {
+    "_k": "ourcost/W-L-kyle-gover-20260917",
+    "v": "2026-10-30T17:56:22.918Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260921": {
+    "_k": "ourcost/W-L-alfie-harris-20260921",
+    "v": "2026-10-30T17:56:23.319Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260921": {
+    "_k": "ourcost/W-L-andrew-fisher-20260921",
+    "v": "2026-10-30T17:56:23.480Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260922": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260922",
+    "v": "2026-10-30T17:56:23.630Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260922": {
+    "_k": "ourcost/W-L-alfie-harris-20260922",
+    "v": "2026-10-30T17:56:23.784Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260922": {
+    "_k": "ourcost/W-L-andrew-fisher-20260922",
+    "v": "2026-10-30T17:56:23.973Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260922": {
+    "_k": "ourcost/W-L-kyle-gover-20260922",
+    "v": "2026-10-30T17:56:24.199Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260923": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260923",
+    "v": "2026-10-30T17:56:24.402Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260923": {
+    "_k": "ourcost/W-L-alfie-harris-20260923",
+    "v": "2026-10-30T17:56:24.567Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260923": {
+    "_k": "ourcost/W-L-andrew-fisher-20260923",
+    "v": "2026-10-30T17:56:24.779Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260923": {
+    "_k": "ourcost/W-L-kyle-gover-20260923",
+    "v": "2026-10-30T17:56:24.979Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260924": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260924",
+    "v": "2026-10-30T17:56:25.156Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260924": {
+    "_k": "ourcost/W-L-alfie-harris-20260924",
+    "v": "2026-10-30T17:56:25.343Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260924": {
+    "_k": "ourcost/W-L-andrew-fisher-20260924",
+    "v": "2026-10-30T17:56:25.609Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20260924": {
+    "_k": "ourcost/W-L-kyle-gover-20260924",
+    "v": "2026-10-30T17:56:25.854Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260925": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260925",
+    "v": "2026-10-30T17:56:26.082Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20260925": {
+    "_k": "ourcost/W-L-alfie-harris-20260925",
+    "v": "2026-10-30T17:56:26.331Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260925": {
+    "_k": "ourcost/W-L-andrew-fisher-20260925",
+    "v": "2026-10-30T17:56:26.503Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260928": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260928",
+    "v": "2026-10-30T17:56:26.901Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20260928": {
+    "_k": "ourcost/W-L-andrew-fisher-20260928",
+    "v": "2026-10-30T17:56:27.414Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20260928": {
+    "_k": "ourcost/W-L-daniel-gough-20260928",
+    "v": "2026-10-30T17:56:27.662Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20260930": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260930",
+    "v": "2026-10-30T17:56:27.852Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261001": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261001",
+    "v": "2026-10-30T17:56:28.050Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261001": {
+    "_k": "ourcost/W-L-alfie-harris-20261001",
+    "v": "2026-10-30T17:56:28.242Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261001": {
+    "_k": "ourcost/W-L-andrew-fisher-20261001",
+    "v": "2026-10-30T17:56:28.444Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261001": {
+    "_k": "ourcost/W-L-daniel-gough-20261001",
+    "v": "2026-10-30T17:56:28.644Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261006": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261006",
+    "v": "2026-10-30T17:56:29.229Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261006": {
+    "_k": "ourcost/W-L-alfie-harris-20261006",
+    "v": "2026-10-30T17:56:29.429Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261006": {
+    "_k": "ourcost/W-L-andrew-fisher-20261006",
+    "v": "2026-10-30T17:56:29.613Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261006": {
+    "_k": "ourcost/W-L-daniel-gough-20261006",
+    "v": "2026-10-30T17:56:29.786Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261007": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261007",
+    "v": "2026-10-30T17:56:30.054Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261007": {
+    "_k": "ourcost/W-L-alfie-harris-20261007",
+    "v": "2026-10-30T17:56:30.202Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261007": {
+    "_k": "ourcost/W-L-andrew-fisher-20261007",
+    "v": "2026-10-30T17:56:30.348Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261007": {
+    "_k": "ourcost/W-L-daniel-gough-20261007",
+    "v": "2026-10-30T17:56:30.557Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261008": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261008",
+    "v": "2026-10-30T17:56:30.717Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261008": {
+    "_k": "ourcost/W-L-alfie-harris-20261008",
+    "v": "2026-10-30T17:56:30.886Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261008": {
+    "_k": "ourcost/W-L-andrew-fisher-20261008",
+    "v": "2026-10-30T17:56:31.043Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261008": {
+    "_k": "ourcost/W-L-daniel-gough-20261008",
+    "v": "2026-10-30T17:56:31.195Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261012": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261012",
+    "v": "2026-10-30T17:56:31.346Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261012": {
+    "_k": "ourcost/W-L-andrew-fisher-20261012",
+    "v": "2026-10-30T17:56:31.530Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261014": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261014",
+    "v": "2026-10-30T17:56:31.893Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261014": {
+    "_k": "ourcost/W-L-andrew-fisher-20261014",
+    "v": "2026-10-30T17:56:32.093Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261014": {
+    "_k": "ourcost/W-L-daniel-gough-20261014",
+    "v": "2026-10-30T17:56:32.322Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261015": {
+    "_k": "ourcost/W-L-andrew-fisher-20261015",
+    "v": "2026-10-30T17:56:33.090Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261015": {
+    "_k": "ourcost/W-L-daniel-gough-20261015",
+    "v": "2026-10-30T17:56:33.256Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261016": {
+    "_k": "ourcost/W-L-andrew-fisher-20261016",
+    "v": "2026-10-30T17:56:33.617Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261016": {
+    "_k": "ourcost/W-L-daniel-gough-20261016",
+    "v": "2026-10-30T17:56:33.848Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261022": {
+    "_k": "ourcost/W-L-andrew-fisher-20261022",
+    "v": "2026-10-30T17:56:34.694Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261022": {
+    "_k": "ourcost/W-L-daniel-gough-20261022",
+    "v": "2026-10-30T17:56:34.855Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261027": {
+    "_k": "ourcost/W-L-alfie-harris-20261027",
+    "v": "2026-10-30T17:56:36.070Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261027": {
+    "_k": "ourcost/W-L-andrew-fisher-20261027",
+    "v": "2026-10-30T17:56:36.220Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261027": {
+    "_k": "ourcost/W-L-daniel-gough-20261027",
+    "v": "2026-10-30T17:56:36.390Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261028": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261028",
+    "v": "2026-10-30T17:56:36.569Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261028": {
+    "_k": "ourcost/W-L-alfie-harris-20261028",
+    "v": "2026-10-30T17:56:36.779Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261028": {
+    "_k": "ourcost/W-L-andrew-fisher-20261028",
+    "v": "2026-10-30T17:56:36.984Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261028": {
+    "_k": "ourcost/W-L-daniel-gough-20261028",
+    "v": "2026-10-30T17:56:37.222Z"
+   },
+   "stamps/ourcost~2f~W-L-aaron-zelvis-20261030": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261030",
+    "v": "2026-10-30T17:56:37.457Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261030": {
+    "_k": "ourcost/W-L-alfie-harris-20261030",
+    "v": "2026-10-30T17:56:37.640Z"
+   },
+   "stamps/ourcost~2f~W-L-andrew-fisher-20261030": {
+    "_k": "ourcost/W-L-andrew-fisher-20261030",
+    "v": "2026-10-30T17:56:37.821Z"
+   },
+   "stamps/ourcost~2f~W-L-daniel-gough-20261030": {
+    "_k": "ourcost/W-L-daniel-gough-20261030",
+    "v": "2026-10-30T17:56:38.003Z"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260914": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260914",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260914": {
+    "_k": "ourcost/W-L-alfie-harris-20260914",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260914": {
+    "_k": "ourcost/W-L-andrew-fisher-20260914",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260914": {
+    "_k": "ourcost/W-L-kyle-gover-20260914",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260915": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260915",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260915": {
+    "_k": "ourcost/W-L-alfie-harris-20260915",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260915": {
+    "_k": "ourcost/W-L-andrew-fisher-20260915",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260915": {
+    "_k": "ourcost/W-L-kyle-gover-20260915",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260916": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260916",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260916": {
+    "_k": "ourcost/W-L-alfie-harris-20260916",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260916": {
+    "_k": "ourcost/W-L-andrew-fisher-20260916",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260916": {
+    "_k": "ourcost/W-L-kyle-gover-20260916",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260917": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260917",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260917": {
+    "_k": "ourcost/W-L-alfie-harris-20260917",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260917": {
+    "_k": "ourcost/W-L-andrew-fisher-20260917",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260917": {
+    "_k": "ourcost/W-L-kyle-gover-20260917",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260921": {
+    "_k": "ourcost/W-L-alfie-harris-20260921",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260921": {
+    "_k": "ourcost/W-L-andrew-fisher-20260921",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260922": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260922",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260922": {
+    "_k": "ourcost/W-L-alfie-harris-20260922",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260922": {
+    "_k": "ourcost/W-L-andrew-fisher-20260922",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260922": {
+    "_k": "ourcost/W-L-kyle-gover-20260922",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260923": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260923",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260923": {
+    "_k": "ourcost/W-L-alfie-harris-20260923",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260923": {
+    "_k": "ourcost/W-L-andrew-fisher-20260923",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260923": {
+    "_k": "ourcost/W-L-kyle-gover-20260923",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260924": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260924",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260924": {
+    "_k": "ourcost/W-L-alfie-harris-20260924",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260924": {
+    "_k": "ourcost/W-L-andrew-fisher-20260924",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20260924": {
+    "_k": "ourcost/W-L-kyle-gover-20260924",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260925": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260925",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20260925": {
+    "_k": "ourcost/W-L-alfie-harris-20260925",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260925": {
+    "_k": "ourcost/W-L-andrew-fisher-20260925",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260928": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260928",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20260928": {
+    "_k": "ourcost/W-L-andrew-fisher-20260928",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20260928": {
+    "_k": "ourcost/W-L-daniel-gough-20260928",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20260930": {
+    "_k": "ourcost/W-L-aaron-zelvis-20260930",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261001": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261001",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261001": {
+    "_k": "ourcost/W-L-alfie-harris-20261001",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261001": {
+    "_k": "ourcost/W-L-andrew-fisher-20261001",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261001": {
+    "_k": "ourcost/W-L-daniel-gough-20261001",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261006": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261006",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261006": {
+    "_k": "ourcost/W-L-alfie-harris-20261006",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261006": {
+    "_k": "ourcost/W-L-andrew-fisher-20261006",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261006": {
+    "_k": "ourcost/W-L-daniel-gough-20261006",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261007": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261007",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261007": {
+    "_k": "ourcost/W-L-alfie-harris-20261007",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261007": {
+    "_k": "ourcost/W-L-andrew-fisher-20261007",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261007": {
+    "_k": "ourcost/W-L-daniel-gough-20261007",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261008": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261008",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261008": {
+    "_k": "ourcost/W-L-alfie-harris-20261008",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261008": {
+    "_k": "ourcost/W-L-andrew-fisher-20261008",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261008": {
+    "_k": "ourcost/W-L-daniel-gough-20261008",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261012": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261012",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261012": {
+    "_k": "ourcost/W-L-andrew-fisher-20261012",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261014": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261014",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261014": {
+    "_k": "ourcost/W-L-andrew-fisher-20261014",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261014": {
+    "_k": "ourcost/W-L-daniel-gough-20261014",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261015": {
+    "_k": "ourcost/W-L-andrew-fisher-20261015",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261015": {
+    "_k": "ourcost/W-L-daniel-gough-20261015",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261016": {
+    "_k": "ourcost/W-L-andrew-fisher-20261016",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261016": {
+    "_k": "ourcost/W-L-daniel-gough-20261016",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261022": {
+    "_k": "ourcost/W-L-andrew-fisher-20261022",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261022": {
+    "_k": "ourcost/W-L-daniel-gough-20261022",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261027": {
+    "_k": "ourcost/W-L-alfie-harris-20261027",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261027": {
+    "_k": "ourcost/W-L-andrew-fisher-20261027",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261027": {
+    "_k": "ourcost/W-L-daniel-gough-20261027",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261028": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261028",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261028": {
+    "_k": "ourcost/W-L-alfie-harris-20261028",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261028": {
+    "_k": "ourcost/W-L-andrew-fisher-20261028",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261028": {
+    "_k": "ourcost/W-L-daniel-gough-20261028",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-aaron-zelvis-20261030": {
+    "_k": "ourcost/W-L-aaron-zelvis-20261030",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261030": {
+    "_k": "ourcost/W-L-alfie-harris-20261030",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-andrew-fisher-20261030": {
+    "_k": "ourcost/W-L-andrew-fisher-20261030",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-daniel-gough-20261030": {
+    "_k": "ourcost/W-L-daniel-gough-20261030",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-kyle-gover-20260925": {
+    "id": "W-L-kyle-gover-20260925",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-09-25",
+    "start": "12:00",
+    "hours": 5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-27T06:25:44.489Z",
+    "at": "2026-09-27T06:25:44.489Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-30T17:56:26.674Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "break_min": 0,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-kyle-gover-20260925"
+   },
+   "costs/W-L-alfie-harris-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260928",
+    "person": "Alfie Harris",
+    "date": "2026-09-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T17:56:27.158Z",
+    "updated_by": "Andrew Fisher",
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-alfie-harris-20260928"
+   },
+   "costs/W-L-jayden-paul-20261001": {
+    "id": "W-L-jayden-paul-20261001",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Jayden Paul",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "hours": 11,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-30T03:03:42.570Z",
+    "at": "2026-09-30T03:03:42.570Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-30T17:56:28.843Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-jayden-paul-20261001"
+   },
+   "costs/W-L-wayne-crimmin-20261001": {
+    "id": "W-L-wayne-crimmin-20261001",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Wayne Crimmin",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "hours": 11,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-30T03:03:49.861Z",
+    "at": "2026-09-30T03:03:49.861Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-30T17:56:29.047Z",
+    "updated_by": "Andrew Fisher",
+    "finish": "17:00",
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-wayne-crimmin-20261001"
+   },
+   "costs/W-L-kyle-gover-20261012": {
+    "id": "W-L-kyle-gover-20261012",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-12",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026. · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:09.982Z",
+    "at": "2026-10-13T08:53:09.982Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-30T17:56:31.688Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261012"
+   },
+   "costs/W-L-kyle-gover-20261022": {
+    "id": "W-L-kyle-gover-20261022",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-22",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026. · KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.029Z",
+    "at": "2026-10-13T08:53:10.029Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-30T17:56:35.021Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261022"
+   },
+   "costs/W-L-kyle-gover-20261014": {
+    "id": "W-L-kyle-gover-20261014",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-14",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026. · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.000Z",
+    "at": "2026-10-13T08:53:10.000Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-30T17:56:32.715Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261014"
+   },
+   "costs/W-L-kyle-gover-20261016": {
+    "id": "W-L-kyle-gover-20261016",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-16",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026. · KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.014Z",
+    "at": "2026-10-13T08:53:10.014Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-30T17:56:34.035Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261016"
+   },
+   "costs/W-L-eric-lucian-20261014": {
+    "id": "W-L-eric-lucian-20261014",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Eric Lucian",
+    "date": "2026-10-14",
+    "note": "Added 14 Oct 2026 by Andrew Fisher: labour hire; home branch NOIS; charge branch KINP. Hourly pay rate matches Daniel Gough. Hours not supplied. · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T18:26:48.207Z",
+    "at": "2026-10-13T18:26:48.207Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-30T17:56:32.521Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-eric-lucian-20261014"
+   },
+   "costs/W-L-aaron-zelvis-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261015",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-15",
+    "start": "03:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 14,
+    "updated_at": "2026-10-30T17:56:32.883Z",
+    "updated_by": "Andrew Fisher",
+    "note": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 1 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-aaron-zelvis-20261015"
+   },
+   "costs/W-L-andrew-fisher-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261026",
+    "person": "Andrew Fisher",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T17:56:35.499Z",
+    "updated_by": "Andrew Fisher",
+    "note": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-andrew-fisher-20261026"
+   },
+   "costs/W-L-daniel-gough-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261026",
+    "person": "Daniel Gough",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T17:56:35.686Z",
+    "updated_by": "Andrew Fisher",
+    "note": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-daniel-gough-20261026"
+   },
+   "costs/W-L-alfie-harris-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261026",
+    "person": "Alfie Harris",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-30T17:56:35.336Z",
+    "updated_by": "Andrew Fisher",
+    "note": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026",
+    "_k": "W-L-alfie-harris-20261026"
+   },
+   "costs/W-L-kyle-gover-20261030": {
+    "id": "W-L-kyle-gover-20261030",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026. · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:07.621Z",
+    "at": "2026-10-25T07:36:07.621Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-30T17:56:38.205Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261030"
+   },
+   "costs/W-L-aaron-zelvis-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260921",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-21",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB02 S08 pathway (34) · install · days · Andrew Fisher, 31 Oct 2026 · KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.133Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260921"
+   },
+   "costs/W-L-aaron-zelvis-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261016",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-16",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB04 (14), WB05 (13) · install · days · Andrew Fisher, 31 Oct 2026 · KINP labour, the rest of the day · 9968955 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.425Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261016"
+   },
+   "costs/W-L-aaron-zelvis-20261019": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261019",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-19",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:34.218Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261019"
+   },
+   "costs/W-L-aaron-zelvis-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261022",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-22",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB17 (6), WB18 (2) · install · days · Andrew Fisher, 31 Oct 2026 · KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:34.407Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261022"
+   },
+   "costs/W-L-aaron-zelvis-20261026": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261026",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-26",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 demob, GN06 demob, GN10 demob, GN13 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:35.184Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261026"
+   },
+   "costs/W-L-aaron-zelvis-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261027",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-27",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 8 h · nine runs, 235 barriers · demob · nights · Andrew Fisher, 31 Oct 2026 · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:35.874Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261027"
+   },
+   "costs/W-L-aaron-zelvis-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260914",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-14",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.159Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260914"
+   },
+   "costs/W-L-alfie-harris-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260914",
+    "person": "Alfie Harris",
+    "date": "2026-09-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.405Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260914"
+   },
+   "costs/W-L-andrew-fisher-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260914",
+    "person": "Andrew Fisher",
+    "date": "2026-09-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.647Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260914"
+   },
+   "costs/W-L-kyle-gover-20260914": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260914",
+    "person": "Kyle Gover",
+    "date": "2026-09-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: CP1, P01, P03, P04, P05, P33 · 9968955 in: WC05, WC11, WC12, WC16, WC21 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.811Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260914"
+   },
+   "costs/W-L-aaron-zelvis-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260915",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-15",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:20.972Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260915"
+   },
+   "costs/W-L-alfie-harris-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260915",
+    "person": "Alfie Harris",
+    "date": "2026-09-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.142Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260915"
+   },
+   "costs/W-L-andrew-fisher-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260915",
+    "person": "Andrew Fisher",
+    "date": "2026-09-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.291Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260915"
+   },
+   "costs/W-L-kyle-gover-20260915": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260915",
+    "person": "Kyle Gover",
+    "date": "2026-09-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968929 in: T0022 · 9968955 in: WC17 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.441Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260915"
+   },
+   "costs/W-L-aaron-zelvis-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260916",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-16",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.612Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260916"
+   },
+   "costs/W-L-alfie-harris-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260916",
+    "person": "Alfie Harris",
+    "date": "2026-09-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:21.800Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260916"
+   },
+   "costs/W-L-andrew-fisher-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260916",
+    "person": "Andrew Fisher",
+    "date": "2026-09-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.011Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260916"
+   },
+   "costs/W-L-kyle-gover-20260916": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260916",
+    "person": "Kyle Gover",
+    "date": "2026-09-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P09, P17, P18, P19, P20, P21 · 9968929 in: T0021 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.210Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260916"
+   },
+   "costs/W-L-aaron-zelvis-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260917",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-17",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.396Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260917"
+   },
+   "costs/W-L-alfie-harris-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260917",
+    "person": "Alfie Harris",
+    "date": "2026-09-17",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.577Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260917"
+   },
+   "costs/W-L-andrew-fisher-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260917",
+    "person": "Andrew Fisher",
+    "date": "2026-09-17",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.751Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260917"
+   },
+   "costs/W-L-kyle-gover-20260917": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260917",
+    "person": "Kyle Gover",
+    "date": "2026-09-17",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P12 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:22.918Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260917"
+   },
+   "costs/W-L-alfie-harris-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260921",
+    "person": "Alfie Harris",
+    "date": "2026-09-21",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.319Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260921"
+   },
+   "costs/W-L-andrew-fisher-20260921": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260921",
+    "person": "Andrew Fisher",
+    "date": "2026-09-21",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P15, P16 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.480Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260921"
+   },
+   "costs/W-L-aaron-zelvis-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260922",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-22",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.630Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260922"
+   },
+   "costs/W-L-alfie-harris-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260922",
+    "person": "Alfie Harris",
+    "date": "2026-09-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.784Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260922"
+   },
+   "costs/W-L-andrew-fisher-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260922",
+    "person": "Andrew Fisher",
+    "date": "2026-09-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:23.973Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260922"
+   },
+   "costs/W-L-kyle-gover-20260922": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260922",
+    "person": "Kyle Gover",
+    "date": "2026-09-22",
+    "start": "10:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 7,
+    "note": "KINP labour, the rest of the day · 9968862 in: P41 · 9968955 in: WC02, WC04, WC07 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.199Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260922"
+   },
+   "costs/W-L-aaron-zelvis-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260923",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-23",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.402Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260923"
+   },
+   "costs/W-L-alfie-harris-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260923",
+    "person": "Alfie Harris",
+    "date": "2026-09-23",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.567Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260923"
+   },
+   "costs/W-L-andrew-fisher-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260923",
+    "person": "Andrew Fisher",
+    "date": "2026-09-23",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.779Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260923"
+   },
+   "costs/W-L-kyle-gover-20260923": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260923",
+    "person": "Kyle Gover",
+    "date": "2026-09-23",
+    "start": "10:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 7,
+    "note": "KINP labour, the rest of the day · 9968862 in: P58 · 9968955 in: WC06, WC50 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:24.979Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260923"
+   },
+   "costs/W-L-aaron-zelvis-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260924",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-24",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:25.155Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260924"
+   },
+   "costs/W-L-alfie-harris-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260924",
+    "person": "Alfie Harris",
+    "date": "2026-09-24",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:25.343Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260924"
+   },
+   "costs/W-L-andrew-fisher-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260924",
+    "person": "Andrew Fisher",
+    "date": "2026-09-24",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:25.609Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260924"
+   },
+   "costs/W-L-kyle-gover-20260924": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20260924",
+    "person": "Kyle Gover",
+    "date": "2026-09-24",
+    "start": "10:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 7,
+    "note": "KINP labour, the rest of the day · 9968862 in: P44 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:25.854Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20260924"
+   },
+   "costs/W-L-aaron-zelvis-20260925": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260925",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-25",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:26.082Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260925"
+   },
+   "costs/W-L-alfie-harris-20260925": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20260925",
+    "person": "Alfie Harris",
+    "date": "2026-09-25",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:26.331Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20260925"
+   },
+   "costs/W-L-andrew-fisher-20260925": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260925",
+    "person": "Andrew Fisher",
+    "date": "2026-09-25",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC15, WC27, WC31 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:26.503Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260925"
+   },
+   "costs/W-L-aaron-zelvis-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260928",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:26.901Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260928"
+   },
+   "costs/W-L-andrew-fisher-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20260928",
+    "person": "Andrew Fisher",
+    "date": "2026-09-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:27.414Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20260928"
+   },
+   "costs/W-L-daniel-gough-20260928": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20260928",
+    "person": "Daniel Gough",
+    "date": "2026-09-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:27.662Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20260928"
+   },
+   "costs/W-L-aaron-zelvis-20260930": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20260930",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-30",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN20-A mob · Generators 9961976 NVAC · 2 h · GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:27.852Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20260930"
+   },
+   "costs/W-L-aaron-zelvis-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261001",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-01",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:28.049Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261001"
+   },
+   "costs/W-L-alfie-harris-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261001",
+    "person": "Alfie Harris",
+    "date": "2026-10-01",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:28.242Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261001"
+   },
+   "costs/W-L-andrew-fisher-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261001",
+    "person": "Andrew Fisher",
+    "date": "2026-10-01",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:28.444Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261001"
+   },
+   "costs/W-L-daniel-gough-20261001": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261001",
+    "person": "Daniel Gough",
+    "date": "2026-10-01",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:28.644Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261001"
+   },
+   "costs/W-L-aaron-zelvis-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261006",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-06",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:29.229Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261006"
+   },
+   "costs/W-L-alfie-harris-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261006",
+    "person": "Alfie Harris",
+    "date": "2026-10-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:29.429Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261006"
+   },
+   "costs/W-L-andrew-fisher-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261006",
+    "person": "Andrew Fisher",
+    "date": "2026-10-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:29.613Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261006"
+   },
+   "costs/W-L-daniel-gough-20261006": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261006",
+    "person": "Daniel Gough",
+    "date": "2026-10-06",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P08, P46, P51 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:29.786Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261006"
+   },
+   "costs/W-L-aaron-zelvis-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261007",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-07",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.054Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261007"
+   },
+   "costs/W-L-alfie-harris-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261007",
+    "person": "Alfie Harris",
+    "date": "2026-10-07",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.202Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261007"
+   },
+   "costs/W-L-andrew-fisher-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261007",
+    "person": "Andrew Fisher",
+    "date": "2026-10-07",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.348Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261007"
+   },
+   "costs/W-L-daniel-gough-20261007": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261007",
+    "person": "Daniel Gough",
+    "date": "2026-10-07",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.557Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261007"
+   },
+   "costs/W-L-aaron-zelvis-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261008",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-08",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.717Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261008"
+   },
+   "costs/W-L-alfie-harris-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261008",
+    "person": "Alfie Harris",
+    "date": "2026-10-08",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:30.886Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261008"
+   },
+   "costs/W-L-andrew-fisher-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261008",
+    "person": "Andrew Fisher",
+    "date": "2026-10-08",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.043Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261008"
+   },
+   "costs/W-L-daniel-gough-20261008": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261008",
+    "person": "Daniel Gough",
+    "date": "2026-10-08",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: WC09 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.195Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261008"
+   },
+   "costs/W-L-aaron-zelvis-20261012": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261012",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-12",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN13 mob · Generators 9994954 KINP · 1 h · GN? mob · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.346Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261012"
+   },
+   "costs/W-L-andrew-fisher-20261012": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261012",
+    "person": "Andrew Fisher",
+    "date": "2026-10-12",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.530Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261012"
+   },
+   "costs/W-L-aaron-zelvis-20261014": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261014",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-14",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:31.893Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261014"
+   },
+   "costs/W-L-andrew-fisher-20261014": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261014",
+    "person": "Andrew Fisher",
+    "date": "2026-10-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:32.092Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261014"
+   },
+   "costs/W-L-daniel-gough-20261014": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261014",
+    "person": "Daniel Gough",
+    "date": "2026-10-14",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P25, P65, P66, P67 · 9968955 in: WC48, WC49, WC53, WC54, WC57 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:32.322Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261014"
+   },
+   "costs/W-L-andrew-fisher-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261015",
+    "person": "Andrew Fisher",
+    "date": "2026-10-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.090Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261015"
+   },
+   "costs/W-L-daniel-gough-20261015": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261015",
+    "person": "Daniel Gough",
+    "date": "2026-10-15",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 in: P60, P62, P63 · 9968955 in: WC13, WC23, WC24, WC25, WC26, WC28, WC29, WC47, WC51, WC55 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.256Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261015"
+   },
+   "costs/W-L-andrew-fisher-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261016",
+    "person": "Andrew Fisher",
+    "date": "2026-10-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.617Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261016"
+   },
+   "costs/W-L-daniel-gough-20261016": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261016",
+    "person": "Daniel Gough",
+    "date": "2026-10-16",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968955 in: PG01, PG03, PG05, WC19, WC30, WC35, WC45, WC46, WC62, WC65, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:33.848Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261016"
+   },
+   "costs/W-L-andrew-fisher-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261022",
+    "person": "Andrew Fisher",
+    "date": "2026-10-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:34.694Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261022"
+   },
+   "costs/W-L-daniel-gough-20261022": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261022",
+    "person": "Daniel Gough",
+    "date": "2026-10-22",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · — in: VMS-01, VMS-02 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:34.855Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261022"
+   },
+   "costs/W-L-alfie-harris-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261027",
+    "person": "Alfie Harris",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.070Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261027"
+   },
+   "costs/W-L-andrew-fisher-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261027",
+    "person": "Andrew Fisher",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.220Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261027"
+   },
+   "costs/W-L-daniel-gough-20261027": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261027",
+    "person": "Daniel Gough",
+    "date": "2026-10-27",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P25, P60, P62, P63, P65, P66, P67 · 9968955 out: PG05, WC13, WC23, WC25, WC26, WC28, WC29, WC30, WC35, WC45, WC47, WC48, WC49, WC51, WC53, WC54, WC57, WC62, WC65 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.390Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261027"
+   },
+   "costs/W-L-aaron-zelvis-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261028",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-28",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 4 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob · Generators 9961976 NVAC · 1 h · GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.569Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261028"
+   },
+   "costs/W-L-alfie-harris-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261028",
+    "person": "Alfie Harris",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.779Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261028"
+   },
+   "costs/W-L-andrew-fisher-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261028",
+    "person": "Andrew Fisher",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:36.984Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261028"
+   },
+   "costs/W-L-daniel-gough-20261028": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261028",
+    "person": "Daniel Gough",
+    "date": "2026-10-28",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.222Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261028"
+   },
+   "costs/W-L-aaron-zelvis-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-aaron-zelvis-20261030",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-30",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.457Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-aaron-zelvis-20261030"
+   },
+   "costs/W-L-alfie-harris-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261030",
+    "person": "Alfie Harris",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.640Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261030"
+   },
+   "costs/W-L-andrew-fisher-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-andrew-fisher-20261030",
+    "person": "Andrew Fisher",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:37.821Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-andrew-fisher-20261030"
+   },
+   "costs/W-L-daniel-gough-20261030": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-daniel-gough-20261030",
+    "person": "Daniel Gough",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-30T17:56:38.003Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-daniel-gough-20261030"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

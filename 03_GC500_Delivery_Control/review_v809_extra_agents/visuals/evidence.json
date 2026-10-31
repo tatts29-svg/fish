@@ -1,0 +1,831 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "dateUTC": "2026-10-02",
+  "browser": "/usr/bin/chromium with SwiftShader",
+  "allBrowserSessionsClosed": true,
+  "sources": {
+    "base": {
+      "count": 56,
+      "treeSha256": "bd9c83e5a594a79dc51049c5039064b0b63653fd79401e4677ee42d31428db19"
+    },
+    "work": {
+      "count": 63,
+      "treeSha256": "c3e8f74d3883e5081d12045da227c9eff05600b368d991ae4388a9ac518b7d9e"
+    }
+  },
+  "capturedFiles": [
+    {
+      "name": "desk_car_base.png",
+      "bytes": 1029963,
+      "sha256": "bbe2aea2dad038709c640f46ae57c13a65cf9c88e345114fa9c8747508216300"
+    },
+    {
+      "name": "desk_car_complete_work.png",
+      "bytes": 1014521,
+      "sha256": "f63609990483ac5aa8de0dacdc9c0cf54b23e6d60df9174d6a532fac97f3c429"
+    },
+    {
+      "name": "desk_car_work.png",
+      "bytes": 1066767,
+      "sha256": "5ff06db171415938a6e3f58b202ccaa7236c04785cb2666a5e933af0666d3833"
+    },
+    {
+      "name": "desk_cog_base.png",
+      "bytes": 1099662,
+      "sha256": "c32413c9a6c220c7a7460c8b6ca2aac40953953ae0a16382e5cc7dca36665152"
+    },
+    {
+      "name": "desk_cog_work.png",
+      "bytes": 1079103,
+      "sha256": "89088981507495110ad7d961de7e578f48fd205f0c6a800cbd4a700c1818e13f"
+    },
+    {
+      "name": "desk_cog_work_fixed1.png",
+      "bytes": 1104059,
+      "sha256": "7758822ab1f90d3d228938cb604a1805903f75f94fa1902d014dc8f3315743fa"
+    },
+    {
+      "name": "desk_driver_crawlout_work.png",
+      "bytes": 1101506,
+      "sha256": "b1365b860110740948ddfbfa7129617197db1af548e5a4b8c5838657d34ddf0c"
+    },
+    {
+      "name": "desk_driver_door_work.png",
+      "bytes": 1115327,
+      "sha256": "b6d3754b0548ba604d511011b939227f75ac9857db3c5650555db8d3af346bdc"
+    },
+    {
+      "name": "desk_driver_duck_work.png",
+      "bytes": 1089474,
+      "sha256": "fdefcd90d6951dbc2849b26ef88c02106b8203e8b98333e3204081c83601d233"
+    },
+    {
+      "name": "desk_driver_rise_work.png",
+      "bytes": 1101875,
+      "sha256": "649048a1077b4d4d64d2cb98cfb68cbb87e3591b8e4dd60f747b390ebbeb2191"
+    },
+    {
+      "name": "desk_driver_seated_work.png",
+      "bytes": 1073722,
+      "sha256": "8a49fc144ea1ae18464fb08dae28e2001ffceb9f7fcaf82607113b3c619ea14d"
+    },
+    {
+      "name": "desk_driver_stepout_work.png",
+      "bytes": 1095106,
+      "sha256": "a81665e1862776efb9527d1c1a920adf472e811f0598fcb2174b9a9b354ec6f7"
+    },
+    {
+      "name": "desk_driver_walkaway_work.png",
+      "bytes": 1097422,
+      "sha256": "1e56d591a444ca6a4177df2ee9726497bb7f81ddcd65040e3fb44409daddfd1d"
+    },
+    {
+      "name": "desk_engine_base.png",
+      "bytes": 1251955,
+      "sha256": "b14f733508c31f4352312a3fb9459aba71ac6a325d4a66861582558d6eae0ebf"
+    },
+    {
+      "name": "desk_engine_work.png",
+      "bytes": 1177027,
+      "sha256": "ca3e0f713578dfc31c657caded65b123c28b56ac51ce6cc400efb9f77e3b2bf2"
+    },
+    {
+      "name": "desk_tour_register_work.png",
+      "bytes": 284869,
+      "sha256": "49d371be2c9b1137ee61e7302d3a05f592b7c2a2fc3178d354bbda3b2af72caf"
+    },
+    {
+      "name": "phone_car_base.png",
+      "bytes": 939483,
+      "sha256": "a08338f025d2497705aa19d6fe3060e583e8307b06c3f59f446969bc6ee19814"
+    },
+    {
+      "name": "phone_car_work.png",
+      "bytes": 915440,
+      "sha256": "eb930b99a64e4678f3bd53213985241de8faef1cc9a55ed0a4fc7849e7534922"
+    },
+    {
+      "name": "phone_cog_base.png",
+      "bytes": 908633,
+      "sha256": "4a25273a9504e1fdf26d66e6181fca1cebf231609a43dbb4a1cc1b11e5caa4ca"
+    },
+    {
+      "name": "phone_cog_work.png",
+      "bytes": 895273,
+      "sha256": "6ff7ff51f6cca19e56a1ab51804a55dbaa190eac7769651965b832dfd8cf7226"
+    },
+    {
+      "name": "phone_driver_crawlout_work.png",
+      "bytes": 876633,
+      "sha256": "9d6b9f7aa5a27e5c998dd817430870207335e4de17b727c86b75195b37149358"
+    },
+    {
+      "name": "phone_driver_door_work.png",
+      "bytes": 511885,
+      "sha256": "71b50fdefd19374086f6febd23d9c346ece9e1d8721a406584f6b0d2ba904d12"
+    },
+    {
+      "name": "phone_driver_duck_work.png",
+      "bytes": 840514,
+      "sha256": "9848d3338b5c32545d3d593a77c316b16a893f92ed6b96b6bf3a5c1dd07ebf77"
+    },
+    {
+      "name": "phone_driver_rise_work.png",
+      "bytes": 795565,
+      "sha256": "8d9c08100256ee285780eb9e61e220fee80c5809be6796ab0eba91d181d7245b"
+    },
+    {
+      "name": "phone_driver_seated_work.png",
+      "bytes": 793125,
+      "sha256": "517c468bc2c267f01127705739924bf690b65f97ef62575ba449444dd98df3d2"
+    },
+    {
+      "name": "phone_driver_stepout_work.png",
+      "bytes": 843653,
+      "sha256": "e0bdce136302173554d9c0a2e055c84158759dfc2899f8efdcae4ad344721365"
+    },
+    {
+      "name": "phone_driver_walkaway_work.png",
+      "bytes": 843243,
+      "sha256": "ffdf85ceba23810f69e13703cf5f19bc4c897f54a299bf9466e5312237df83e3"
+    },
+    {
+      "name": "phone_engine_base.png",
+      "bytes": 1099270,
+      "sha256": "9f05343925578f38e58782a6e6c5e23aa0838da169023b29715c29d66f0e80ac"
+    },
+    {
+      "name": "phone_engine_work.png",
+      "bytes": 1069016,
+      "sha256": "2d52b570d21fbe918b1b3b335fa89f0d8d917612834a408323e59265cc9a3644"
+    },
+    {
+      "name": "phone_short_landscape_controls_work.png",
+      "bytes": 407418,
+      "sha256": "44634632f8b49ddf11e323bd5a61c59a882c667192025f7709bee9f899fecaa7"
+    },
+    {
+      "name": "phone_tour_register_work.png",
+      "bytes": 166781,
+      "sha256": "3b63685989fcc5c2e29a49d6d77188dadd4457ba5c7a889bf28f12d1df3b1415"
+    }
+  ],
+  "reports": {
+    "desk_base_report": {
+      "tag": "base",
+      "dev": "desk",
+      "source": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+      "shots": [
+        {
+          "view": "car",
+          "quality": "laptop",
+          "ratio": 1,
+          "canvas": [
+            1130,
+            802
+          ],
+          "calls": 859,
+          "triangles": 746855,
+          "cam": [
+            -7.1314584379008625,
+            1.4969115248215166,
+            3.6368075194265064
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "engine",
+          "quality": "laptop",
+          "ratio": 1,
+          "canvas": [
+            1130,
+            802
+          ],
+          "calls": 782,
+          "triangles": 623025,
+          "cam": [
+            -6.718343202090829,
+            4.1808084408350625,
+            5.366775372677302
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "cog",
+          "quality": "laptop",
+          "ratio": 1,
+          "canvas": [
+            1130,
+            802
+          ],
+          "calls": 858,
+          "triangles": 833622,
+          "cam": [
+            0.39,
+            1.02,
+            -0.3
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        }
+      ],
+      "errors": []
+    },
+    "desk_work_report": {
+      "tag": "work",
+      "dev": "desk",
+      "source": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+      "shots": [
+        {
+          "view": "car",
+          "quality": "laptop",
+          "ratio": 1,
+          "canvas": [
+            1130,
+            802
+          ],
+          "calls": 923,
+          "triangles": 771851,
+          "cam": [
+            -7.1314584379008625,
+            1.4969115248215166,
+            3.6368075194265064
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "engine",
+          "quality": "laptop",
+          "ratio": 1,
+          "canvas": [
+            1130,
+            802
+          ],
+          "calls": 848,
+          "triangles": 644831,
+          "cam": [
+            -6.718343202090829,
+            4.1808084408350625,
+            5.366775372677302
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "cog",
+          "quality": "laptop",
+          "ratio": 0.75,
+          "canvas": [
+            847,
+            601
+          ],
+          "calls": 896,
+          "triangles": 872836,
+          "cam": [
+            0.39,
+            1.02,
+            -0.3
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        }
+      ],
+      "errors": []
+    },
+    "phone_base_report": {
+      "tag": "base",
+      "dev": "phone",
+      "source": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+      "shots": [
+        {
+          "view": "car",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            1059
+          ],
+          "calls": 960,
+          "triangles": 814107,
+          "cam": [
+            -13.80207129737337,
+            2.4307973251476676,
+            6.972113949162761
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "engine",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            1059
+          ],
+          "calls": 901,
+          "triangles": 702457,
+          "cam": [
+            -12.2496556225913,
+            7.223030272110318,
+            9.791825309077682
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "cog",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            1059
+          ],
+          "calls": 756,
+          "triangles": 780558,
+          "cam": [
+            0.39000000000000057,
+            1.0199999999999996,
+            -0.3000000000000007
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        }
+      ],
+      "errors": []
+    },
+    "phone_work_report": {
+      "tag": "work",
+      "dev": "phone",
+      "source": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+      "shots": [
+        {
+          "view": "car",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            986
+          ],
+          "calls": 1030,
+          "triangles": 849271,
+          "cam": [
+            -13.80207129737337,
+            2.4307973251476676,
+            6.972113949162761
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "engine",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            986
+          ],
+          "calls": 970,
+          "triangles": 724311,
+          "cam": [
+            -12.249655622591296,
+            7.223030272110317,
+            9.791825309077678
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        },
+        {
+          "view": "cog",
+          "quality": "laptop",
+          "ratio": 2,
+          "canvas": [
+            780,
+            986
+          ],
+          "calls": 802,
+          "triangles": 819574,
+          "cam": [
+            0.39000000000000057,
+            1.0200000000000005,
+            -0.3000000000000007
+          ],
+          "driver": {
+            "state": "seated",
+            "phase": null,
+            "door": 0,
+            "seated": true,
+            "doorTo": 0,
+            "spreadStarted": false,
+            "reach": null,
+            "halt": false,
+            "pos": [
+              0,
+              0
+            ],
+            "spreadTarget": 0
+          }
+        }
+      ],
+      "errors": []
+    },
+    "desk_extra_report": {
+      "errors": []
+    }
+  },
+  "browserCases": {
+    "phoneTourRegister": {
+      "tourHidden": false,
+      "registerOpen": true,
+      "tourVisible": true,
+      "tourRect": {
+        "x": 8,
+        "y": 404.1875,
+        "width": 374,
+        "height": 242.8125,
+        "top": 404.1875,
+        "right": 382,
+        "bottom": 647,
+        "left": 8
+      }
+    },
+    "desktopTourRegister": {
+      "tourHidden": false,
+      "registerOpen": true,
+      "tourVisible": true,
+      "tourRect": {
+        "x": 335,
+        "y": 196,
+        "width": 390,
+        "height": 260,
+        "top": 196,
+        "right": 725,
+        "bottom": 456,
+        "left": 335
+      }
+    },
+    "shortLandscape": {
+      "close": {
+        "x": 606,
+        "y": 126,
+        "width": 44,
+        "height": 44,
+        "top": 126,
+        "right": 650,
+        "bottom": 170,
+        "left": 606
+      },
+      "card": {
+        "x": 8,
+        "y": 113,
+        "width": 651,
+        "height": 210,
+        "top": 113,
+        "right": 659,
+        "bottom": 323,
+        "left": 8
+      },
+      "dock": {
+        "x": 12,
+        "y": 333,
+        "width": 643,
+        "height": 154.78125,
+        "top": 333,
+        "right": 655,
+        "bottom": 487.78125,
+        "left": 12
+      },
+      "hit": "exhibit-close",
+      "screen": [
+        667,
+        375
+      ],
+      "scrollY": 117
+    },
+    "qualityCycles": [
+      {
+        "quality": "laptop",
+        "textures": 114,
+        "programs": 86
+      },
+      {
+        "quality": "balanced",
+        "textures": 78,
+        "programs": 141
+      },
+      {
+        "quality": "laptop",
+        "textures": 89,
+        "programs": 141
+      },
+      {
+        "quality": "balanced",
+        "textures": 97,
+        "programs": 143
+      },
+      {
+        "quality": "laptop",
+        "textures": 95,
+        "programs": 143
+      },
+      {
+        "quality": "balanced",
+        "textures": 103,
+        "programs": 143
+      },
+      {
+        "quality": "laptop",
+        "textures": 101,
+        "programs": 143
+      }
+    ],
+    "desktopFirstSpawn": {
+      "label": "door",
+      "requiredDistance": 11.25209313691707,
+      "actualDistance": 11.252093136917068,
+      "canvasRect": {
+        "x": 310,
+        "y": 64,
+        "width": 1130,
+        "height": 802,
+        "top": 64,
+        "right": 1440,
+        "bottom": 866,
+        "left": 310
+      },
+      "exit": {
+        "state": "exiting",
+        "phase": "crawlout",
+        "door": 1,
+        "seated": false,
+        "doorTo": 1,
+        "spreadStarted": false,
+        "reach": {
+          "x": -0.7737820744514465,
+          "z": -0.9658676981925964,
+          "len": 2.419701874256134,
+          "out": [
+            2.6293143132718164,
+            -2.199227594718445
+          ]
+        },
+        "halt": false,
+        "pos": [
+          0.7,
+          -1.5
+        ],
+        "spreadTarget": 0
+      },
+      "cam": {
+        "mode": "hold",
+        "leg": "out",
+        "saved": [
+          -7.131458437900863,
+          1.4969115248215172,
+          3.636807519426506
+        ],
+        "pos": [
+          9.388994660797364,
+          4.016260148380699,
+          -7.053766913967834
+        ]
+      },
+      "logical": [
+        0.7,
+        -1.5
+      ],
+      "root": [
+        0,
+        0,
+        0
+      ],
+      "visible": true
+    },
+    "desktopSubsequentPose": {
+      "label": "crawlout",
+      "requiredDistance": 11.252093136917068,
+      "actualDistance": 11.252093136917066,
+      "canvasRect": {
+        "x": 310,
+        "y": 64,
+        "width": 1130,
+        "height": 802,
+        "top": 64,
+        "right": 1440,
+        "bottom": 866,
+        "left": 310
+      },
+      "exit": {
+        "state": "exiting",
+        "phase": "rise",
+        "door": 1,
+        "seated": false,
+        "doorTo": 1,
+        "spreadStarted": false,
+        "reach": {
+          "x": -0.7737820744514465,
+          "z": -0.9658676981925964,
+          "len": 2.419701874256134,
+          "out": [
+            2.6293143132718164,
+            -2.199227594718445
+          ]
+        },
+        "halt": false,
+        "pos": [
+          0.7,
+          -1.5
+        ],
+        "spreadTarget": 0
+      },
+      "cam": {
+        "mode": "hold",
+        "leg": "out",
+        "saved": [
+          -7.131458437900863,
+          1.4969115248215172,
+          3.636807519426506
+        ],
+        "pos": [
+          9.388994660797362,
+          4.016260148380699,
+          -7.053766913967833
+        ]
+      },
+      "logical": [
+        0.7,
+        -1.5
+      ],
+      "root": [
+        0.7,
+        0,
+        -1.5
+      ],
+      "visible": true
+    },
+    "phoneDriverExcluded": "Previous landscape resize was still pending, altered aspect and cancelled driver camera. Do not use the phone_driver_* files as normal portrait-entry evidence."
+  },
+  "caveats": [
+    "Use desk_cog_work_fixed1.png for comparison. desk_cog_work.png captured adaptive ratio0.75.",
+    "Final phone comparisons both at ratio2.",
+    "Matched camera positions, targets and quaternions; CSS canvas dimensions differ on phone.",
+    "Driver phases use fast-forward followed by actual production frame; not real-time video.",
+    "Native-only phone-driver script was prepared but not run; no claim based on it.",
+    "No physical-device FPS, 4K export or final-release verification."
+  ],
+  "remoteAssets": [
+    {
+      "path": "assets/gc500/cutaway-preview.png",
+      "bytes": 223801,
+      "status": 200,
+      "sha256": "b7640c26a82192c871ede53269e2bb8081e00af25c0586381742ea082d559bb6"
+    },
+    {
+      "path": "assets/coates-logo.png",
+      "bytes": 3155,
+      "status": 200,
+      "sha256": "ce98b187e38811a30b6d91b869ac943a61d461d4186a316fc0fc920a3d354053"
+    },
+    {
+      "path": "assets/machine/studio.hdr.gz.bin",
+      "bytes": 58773,
+      "status": 200,
+      "sha256": "8a1ff2ccacb4a7bae9fa37c0543501d6f2f7731ff613f9868ee26b6b7ad459ba"
+    },
+    {
+      "path": "assets/machine/coates-23.glb.gz.bin",
+      "bytes": 1818975,
+      "status": 200,
+      "sha256": "c4ab4906c5bd552a0914beaaa7b72cc27a0440a97451bf3daa0ef519f6764a93"
+    },
+    {
+      "path": "assets/favicon.svg",
+      "bytes": 238,
+      "status": 200,
+      "sha256": "e611562f055c9615174fadb310bbe1f43ed44c385738ff6026047222ff5e59b6"
+    }
+  ]
+}

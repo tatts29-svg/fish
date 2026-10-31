@@ -1,0 +1,569 @@
+{
+ "phone": {
+  "fails": [],
+  "samples": 2193,
+  "people": {
+   "operator": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": 9,
+    "maxSole": -9,
+    "worst": {},
+    "post": {
+     "sit": 2193
+    }
+   },
+   "mechanic": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": -0.029999999780250208,
+    "maxSole": 0.0000746779041950767,
+    "worst": {},
+    "post": {
+     "stand": 1883,
+     "kneel": 296,
+     "crouch": 14
+    },
+    "longestPause": 1.75
+   },
+   "tech": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": -6.697255164375045e-11,
+    "maxSole": 0.00007218863902402317,
+    "worst": {},
+    "post": {
+     "stand": 1674,
+     "crouch": 482,
+     "kneel": 37
+    },
+    "longestPause": 1.25
+   },
+   "engine": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": -1.0255069901516751e-10,
+    "maxSole": 0.00007592253678015928,
+    "worst": {},
+    "post": {
+     "stand": 2193
+    },
+    "longestPause": 10.5
+   },
+   "lead": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": -4.2485114779869764e-10,
+    "maxSole": 0.00007716716936573617,
+    "worst": {},
+    "post": {
+     "stand": 2193
+    },
+    "longestPause": 0
+   },
+   "driver": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": 9,
+    "maxSole": -9,
+    "worst": {},
+    "post": {
+     "sit": 2193
+    }
+   },
+   "safety": {
+    "samples": 2193,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": 1.674201244025775e-11,
+    "maxSole": 0.00007426302909170354,
+    "worst": {},
+    "post": {
+     "stand": 1928,
+     "crouch": 265
+    },
+    "longestPause": 2.5
+   },
+   "race driver, walking": {
+    "samples": 178,
+    "counts": {},
+    "maxSlide": 0,
+    "minSole": -0.030000000186264756,
+    "maxSole": 0.00007384815398851346,
+    "worst": {},
+    "post": {
+     "crouch": 6,
+     "stand": 172
+    },
+    "longestPause": 0
+   }
+  },
+  "seatChecks": [
+   {
+    "label": "rest",
+    "helmetTop": 1.104,
+    "roofGap": 0.074,
+    "roofPart": "roof-26",
+    "insideCarBox": true,
+    "gloveToRim": null,
+    "rims": []
+   },
+   {
+    "label": "rest",
+    "helmetTop": 1.104,
+    "roofGap": 0.074,
+    "roofPart": "roof-26",
+    "insideCarBox": true,
+    "gloveToRim": null,
+    "rims": []
+   }
+  ],
+  "seatWorst": null,
+  "over": {
+   "tech · car view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 170,
+    "at work": 109,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 360.25,
+      "at": [
+       4.97,
+       -0.33
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 360.5,
+      "at": [
+       4.9,
+       -0.64
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 360.75,
+      "at": [
+       4.82,
+       -0.95
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 361,
+      "at": [
+       4.74,
+       -1.26
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     }
+    ]
+   },
+   "tech · V8 powertrain view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 100,
+    "at work": 39,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 360.5,
+      "at": [
+       4.9,
+       -0.64
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 360.75,
+      "at": [
+       4.82,
+       -0.95
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 361,
+      "at": [
+       4.74,
+       -1.26
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     },
+     {
+      "t": 361.25,
+      "at": [
+       4.66,
+       -1.57
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       -0.1,
+       -1.65
+      ]
+     }
+    ]
+   },
+   "mechanic · V8 powertrain view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 66,
+    "at work": 179,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 361.75,
+      "at": [
+       -0.59,
+       -2.08
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362,
+      "at": [
+       -0.26,
+       -2.01
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362.25,
+      "at": [
+       0.06,
+       -1.93
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362.5,
+      "at": [
+       0.39,
+       -1.86
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     }
+    ]
+   },
+   "mechanic · car view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 74,
+    "at work": 194,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 362,
+      "at": [
+       -0.26,
+       -2.01
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362.25,
+      "at": [
+       0.06,
+       -1.93
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362.5,
+      "at": [
+       0.39,
+       -1.86
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     },
+     {
+      "t": 362.75,
+      "at": [
+       0.72,
+       -1.79
+      ],
+      "post": "stand",
+      "label": "far wheel service",
+      "kind": "moving",
+      "goal": [
+       1.68,
+       -1.58
+      ]
+     }
+    ]
+   },
+   "race driver, walking · V8 powertrain view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 35,
+    "at work": 6,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 489.75,
+      "at": [
+       0.7,
+       -1.5
+      ],
+      "post": "crouch",
+      "label": "explode: driver out",
+      "kind": "at work",
+      "goal": null
+     },
+     {
+      "t": 490,
+      "at": [
+       0.7,
+       -1.5
+      ],
+      "post": "crouch",
+      "label": "explode: driver out",
+      "kind": "at work",
+      "goal": null
+     },
+     {
+      "t": 490.25,
+      "at": [
+       0.7,
+       -1.5
+      ],
+      "post": "crouch",
+      "label": "explode: driver out",
+      "kind": "at work",
+      "goal": null
+     },
+     {
+      "t": 490.5,
+      "at": [
+       0.71,
+       -1.5
+      ],
+      "post": "stand",
+      "label": "explode: driver out",
+      "kind": "moving",
+      "goal": [
+       2.63,
+       -2.2
+      ]
+     }
+    ]
+   },
+   "race driver, walking · car view": {
+    "still": 0,
+    "stillApart": 0,
+    "moving": 37,
+    "at work": 0,
+    "idle": 0,
+    "samples": [
+     {
+      "t": 490.75,
+      "at": [
+       0.82,
+       -1.54
+      ],
+      "post": "stand",
+      "label": "explode: driver out",
+      "kind": "moving",
+      "goal": [
+       2.63,
+       -2.2
+      ]
+     },
+     {
+      "t": 491,
+      "at": [
+       1.04,
+       -1.62
+      ],
+      "post": "stand",
+      "label": "explode: driver out",
+      "kind": "moving",
+      "goal": [
+       2.63,
+       -2.2
+      ]
+     },
+     {
+      "t": 491.25,
+      "at": [
+       1.3,
+       -1.72
+      ],
+      "post": "stand",
+      "label": "explode: driver out",
+      "kind": "moving",
+      "goal": [
+       2.63,
+       -2.2
+      ]
+     },
+     {
+      "t": 491.5,
+      "at": [
+       1.56,
+       -1.81
+      ],
+      "post": "stand",
+      "label": "explode: driver out",
+      "kind": "moving",
+      "goal": [
+       2.63,
+       -2.2
+      ]
+     }
+    ]
+   }
+  },
+  "__cores": [],
+  "inUse": 178,
+  "fadedSamples": 294,
+  "crewDraws": 20,
+  "crewTriangles": 115930,
+  "heldMax": 8.03,
+  "lastWords": 1,
+  "errors": [],
+  "cams": [
+   {
+    "name": "car view",
+    "p": [
+     -13.365245360290771,
+     2.3696416939561042,
+     6.75370098062146
+    ]
+   },
+   {
+    "name": "V8 powertrain view",
+    "p": [
+     -11.8522763449666,
+     7.004471669416737,
+     9.473921886977921
+    ]
+   }
+  ],
+  "servicePhases": [
+   "isolated",
+   "supported",
+   "wheelOff",
+   "inspect",
+   "refit",
+   "ready"
+  ],
+  "driverExit": {
+   "state": "out",
+   "phase": null,
+   "door": 0,
+   "seated": false,
+   "doorTo": 0,
+   "spreadStarted": true,
+   "reach": {
+    "x": -0.7737820744514465,
+    "z": -0.9658676981925964,
+    "len": 2.419701874256134,
+    "out": [
+     2.6293143132718164,
+     -2.199227594718445
+    ]
+   },
+   "halt": false,
+   "pos": [
+    -4.4,
+    -4.9
+   ],
+   "spreadTarget": 1
+  }
+ }
+}

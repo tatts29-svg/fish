@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026, on P06 (Wilclean crib room, 6 m): \"on our end this is the correct number 1087453. please delete and remove this number now 1097453\". The record had 1097453 since 17 Oct (then his word: it stays 1097453); today he settles it the other way, which matches Baseplan 9968862 line 64. Through the page's own asset-number control, as an editor would: put 1087453 on P06, take 1097453 off. Nothing else changes.",
+ "ops": [
+  {"op": "number_on", "ref": "P06", "no": "1087453"},
+  {"op": "number_off", "ref": "P06", "no": "1097453"}
+ ]
+}

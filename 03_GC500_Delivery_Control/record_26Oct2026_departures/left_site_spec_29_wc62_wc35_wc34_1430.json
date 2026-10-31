@@ -1,0 +1,9 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026: \"0103 and 0284 is next\"; asked the time, \"230pm and 0526\" (14:3x AEST). All three are Event Portables FWF (read 14:32 AEST: every one Emptied and Ready, none already left, no booking): 0103 is WC62's last unit (0976 left at 11:30), so WC62 now leaves in full; 0284 is WC35's only unit; 0526 is WC34's only unit. So all three left at 14:30 AEST and WC62, WC35 and WC34 are each off site in full.",
+  "ops": [
+    {"op": "depart", "ref": "WC62", "at": "2026-10-27T14:30:00+10:00", "nos": ["0103"], "complete": true},
+    {"op": "depart", "ref": "WC35", "at": "2026-10-27T14:30:00+10:00", "nos": ["0284"], "complete": true},
+    {"op": "depart", "ref": "WC34", "at": "2026-10-27T14:30:00+10:00", "nos": ["0526"], "complete": true}
+  ]
+}

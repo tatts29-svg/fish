@@ -1,0 +1,1763 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T191839Z",
+ "finished": "2026-10-26T19:21:08.490Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026: \"Im happy with new referenwces referencws should be vms-01   vms-02  etc  simple\". Asked whether VMS22 and VMS24 came on 21 Oct (the VMS plan) or 22 Oct (Premiair docket 26143911), Andrew, 27 Oct 2026: \"22 oct\". The Premiair boards VMS21 (97T), VMS22 (445T) and VMS24 (450T) are on the VMS plan and the register but on no delivery reference (contract 9961265 lines 28, 29 and 31, STPS). This run: (1) the VMS plan's own arrival for positions 22 and 24 corrected from 21 Oct to 22 Oct through the plan's own writer, in Andrew Fisher's name, the 21 Oct entries kept in the history (a withdrawal takes the complete tick off, so both are ticked complete again); the reason, naming docket 26143911, stays in this run's report and in VMS-02's and VMS-03's light history and is kept out of the plan's notes, because that box is the plan's \"Notes · special instructions\" and prints on the VMS board sheets for 22 and 24 under NOTES · SPECIAL INSTRUCTIONS for the crew; it goes there only if Andrew OKs it (notes_ok with his words). Asked with the dry run whether the reason may print on those two board sheets, Andrew, 27 Oct 2026, 05:18 AEST: \"No, keep sheets clean\". (2) VMS-01, VMS-02 and VMS-03 added through the Add form, each with its one Premiair unit, in from 22 Oct (VMS21 at its own plan time, 22 Oct 08:08 AEST; VMS22 and VMS24 at 00:00 AEST 22 Oct, no time recorded), received, complete, install ticked as on T0103/T0128/T0158, quantity 1 (2 then 1 at the end, as GN20-A). Mapping confirmed by Andrew with the dry run, 27 Oct 2026, 05:18 AEST (\"Yes, apply it\"): VMS-01 = VMS21, fleet 97T, rego T16922, contract 9961265 line 28; VMS-02 = VMS22, fleet 445T, rego TE99CL, line 29; VMS-03 = VMS24, fleet 450T, rego TE94CL, line 31. Charged to the V8s and known costs expected unchanged (each board's install charge moves from the stand-alone board to its reference); no branch total moves. Nothing else changes.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "vms_arrival",
+    "pos": "22",
+    "board": "VMS22",
+    "was": "2026-10-21",
+    "day": "2026-10-22",
+    "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."
+   },
+   {
+    "op": "vms_arrival",
+    "pos": "24",
+    "board": "VMS24",
+    "was": "2026-10-21",
+    "day": "2026-10-22",
+    "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."
+   },
+   {
+    "op": "add_ref",
+    "ref": "VMS-01",
+    "disc": "Variable message signs",
+    "name": "VMS21 Premiair Hire 97T",
+    "type": "VMS",
+    "no": "",
+    "from": "2026-10-22",
+    "note": "VMS21, Premiair Hire sub-hire, fleet 97T, rego T16922. Contract 9961265 line 28. VMS plan position 21, Staghorn Ave / Surfers Paradise Blvd.",
+    "branch": "STPS"
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "VMS-01",
+    "no": "97T",
+    "item": "VMS",
+    "owner": "prem-air-hire",
+    "label": "VMS21",
+    "note": "Premiair Hire sub-hire VMS21, fleet 97T, rego T16922, contract 9961265 line 28. On site 22 Oct 2026 by the VMS plan."
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-01",
+    "qty": 1
+   },
+   {
+    "op": "light",
+    "ref": "VMS-01",
+    "state": "on site",
+    "at": "2026-10-21T22:08:24.160Z",
+    "why": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference."
+   },
+   {
+    "op": "supplied",
+    "ref": "VMS-01",
+    "item": "VMS",
+    "qty": 1
+   },
+   {
+    "op": "complete",
+    "ref": "VMS-01"
+   },
+   {
+    "op": "labour_on",
+    "ref": "VMS-01",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install"
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-01",
+    "qty": 2
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-01",
+    "qty": 1
+   },
+   {
+    "op": "add_ref",
+    "ref": "VMS-02",
+    "disc": "Variable message signs",
+    "name": "VMS22 Premiair Hire 445T",
+    "type": "VMS",
+    "no": "",
+    "from": "2026-10-22",
+    "note": "VMS22, Premiair Hire sub-hire, fleet 445T, rego TE99CL. Contract 9961265 line 29. VMS plan position 22, south of Sundale Bridge. On site 22 Oct (docket 26143911).",
+    "branch": "STPS"
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "VMS-02",
+    "no": "445T",
+    "item": "VMS",
+    "owner": "prem-air-hire",
+    "label": "VMS22",
+    "note": "Premiair Hire sub-hire VMS22, fleet 445T, rego TE99CL, contract 9961265 line 29. On site 22 Oct 2026 by Premiair docket 26143911."
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-02",
+    "qty": 1
+   },
+   {
+    "op": "light",
+    "ref": "VMS-02",
+    "state": "on site",
+    "at": "2026-10-21T14:00:00.000Z",
+    "why": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+   },
+   {
+    "op": "supplied",
+    "ref": "VMS-02",
+    "item": "VMS",
+    "qty": 1
+   },
+   {
+    "op": "complete",
+    "ref": "VMS-02"
+   },
+   {
+    "op": "labour_on",
+    "ref": "VMS-02",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install"
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-02",
+    "qty": 2
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-02",
+    "qty": 1
+   },
+   {
+    "op": "add_ref",
+    "ref": "VMS-03",
+    "disc": "Variable message signs",
+    "name": "VMS24 Premiair Hire 450T",
+    "type": "VMS",
+    "no": "",
+    "from": "2026-10-22",
+    "note": "VMS24, Premiair Hire sub-hire, fleet 450T, rego TE94CL. Contract 9961265 line 31. VMS plan position 24, The Esplanade before Staghorn Ave. On site 22 Oct (docket 26143911).",
+    "branch": "STPS"
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "VMS-03",
+    "no": "450T",
+    "item": "VMS",
+    "owner": "prem-air-hire",
+    "label": "VMS24",
+    "note": "Premiair Hire sub-hire VMS24, fleet 450T, rego TE94CL, contract 9961265 line 31. On site 22 Oct 2026 by Premiair docket 26143911."
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-03",
+    "qty": 1
+   },
+   {
+    "op": "light",
+    "ref": "VMS-03",
+    "state": "on site",
+    "at": "2026-10-21T14:00:00.000Z",
+    "why": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+   },
+   {
+    "op": "supplied",
+    "ref": "VMS-03",
+    "item": "VMS",
+    "qty": 1
+   },
+   {
+    "op": "complete",
+    "ref": "VMS-03"
+   },
+   {
+    "op": "labour_on",
+    "ref": "VMS-03",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install"
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-03",
+    "qty": 2
+   },
+   {
+    "op": "set_qty",
+    "ref": "VMS-03",
+    "qty": 1
+   }
+  ]
+ },
+ "pageSha256": "85826c9bf9fcfc5a1bf10d5464971f4bab751e89fdcdb9152bf74b67a55b0f34",
+ "version": {
+  "before": 11428,
+  "after": 11488
+ },
+ "updated": {
+  "before": "2026-10-26T18:32:15.910Z",
+  "after": "2026-10-26T19:21:07.629Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": [
+    "VMS21 88.49",
+    "VMS22 88.49",
+    "VMS24 88.49"
+   ]
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": [
+   {
+    "key": "VMS-01",
+    "units": [
+     "prem-air-hire/97T/VMS21/VMS/identified/-"
+    ],
+    "span": {
+     "days": null,
+     "from": "2026-10-22",
+     "to": null,
+     "why": "nothing on the record takes this off site, so there is no day to charge to — no off-hire"
+    },
+    "lastOnSite": "2026-10-21T22:08:24.160Z",
+    "departure": {
+     "arrival": "2026-10-21T22:08:24.160Z",
+     "remaining": [
+      {
+       "type": "VMS",
+       "n": 1
+      }
+     ],
+     "unknown": false,
+     "issues": []
+    },
+    "cards": [
+     {
+      "uid": "prem-air-hire|97T",
+      "owner": "prem-air-hire",
+      "no": "97T",
+      "label": "VMS21",
+      "cat": "vms",
+      "vms": "VMS 21 at VMS 21",
+      "st": "not"
+     }
+    ],
+    "questions": []
+   },
+   {
+    "key": "VMS-02",
+    "units": [
+     "prem-air-hire/445T/VMS22/VMS/identified/-"
+    ],
+    "span": {
+     "days": null,
+     "from": "2026-10-22",
+     "to": null,
+     "why": "nothing on the record takes this off site, so there is no day to charge to — no off-hire"
+    },
+    "lastOnSite": "2026-10-21T14:00:00.000Z",
+    "departure": {
+     "arrival": "2026-10-21T14:00:00.000Z",
+     "remaining": [
+      {
+       "type": "VMS",
+       "n": 1
+      }
+     ],
+     "unknown": false,
+     "issues": []
+    },
+    "cards": [
+     {
+      "uid": "prem-air-hire|445T",
+      "owner": "prem-air-hire",
+      "no": "445T",
+      "label": "VMS22",
+      "cat": "vms",
+      "vms": "VMS 22 at VMS 22",
+      "st": "not"
+     }
+    ],
+    "questions": []
+   },
+   {
+    "key": "VMS-03",
+    "units": [
+     "prem-air-hire/450T/VMS24/VMS/identified/-"
+    ],
+    "span": {
+     "days": null,
+     "from": "2026-10-22",
+     "to": null,
+     "why": "nothing on the record takes this off site, so there is no day to charge to — no off-hire"
+    },
+    "lastOnSite": "2026-10-21T14:00:00.000Z",
+    "departure": {
+     "arrival": "2026-10-21T14:00:00.000Z",
+     "remaining": [
+      {
+       "type": "VMS",
+       "n": 1
+      }
+     ],
+     "unknown": false,
+     "issues": []
+    },
+    "cards": [
+     {
+      "uid": "prem-air-hire|450T",
+      "owner": "prem-air-hire",
+      "no": "450T",
+      "label": "VMS24",
+      "cat": "vms",
+      "vms": "VMS 24 at VMS 24",
+      "st": "not"
+     }
+    ],
+    "questions": []
+   }
+  ],
+  "vmsBoards": {
+   "before": {
+    "VMS22 @ 22": {
+     "card": "VMS22#vms:22",
+     "demobCard": {
+      "owner": "prem-air-hire",
+      "no": "445T",
+      "label": "VMS 22",
+      "st": "not"
+     },
+     "plan": {
+      "today": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "2026-10-21": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "2026-10-22": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "complete": true,
+      "entries": 1,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    },
+    "VMS24 @ 24": {
+     "card": "VMS24#vms:24",
+     "demobCard": {
+      "owner": "prem-air-hire",
+      "no": "450T",
+      "label": "VMS 24",
+      "st": "not"
+     },
+     "plan": {
+      "today": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "2026-10-21": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "2026-10-22": "on site from 2026-10-21, in place · Andrew Fisher via Codex",
+      "complete": true,
+      "entries": 1,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    },
+    "VMS21 @ 21": {
+     "card": "VMS21#vms:21",
+     "demobCard": {
+      "owner": "prem-air-hire",
+      "no": "97T",
+      "label": "VMS 21",
+      "st": "not"
+     },
+     "plan": {
+      "today": "on site from 2026-10-22, in place · Andrew Fisher",
+      "2026-10-21": "not confirmed (2026-10-21) · Andrew Fisher via Codex",
+      "2026-10-22": "on site from 2026-10-22, in place · Andrew Fisher",
+      "complete": true,
+      "entries": 3,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    }
+   },
+   "after": {
+    "VMS22 @ 22": {
+     "card": "VMS22#vms:22",
+     "demobCard": null,
+     "plan": {
+      "today": "on site from 2026-10-22, in place · Andrew Fisher",
+      "2026-10-21": "not confirmed (2026-10-21) · Andrew Fisher",
+      "2026-10-22": "on site from 2026-10-22, in place · Andrew Fisher",
+      "complete": true,
+      "entries": 3,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    },
+    "VMS24 @ 24": {
+     "card": "VMS24#vms:24",
+     "demobCard": null,
+     "plan": {
+      "today": "on site from 2026-10-22, in place · Andrew Fisher",
+      "2026-10-21": "not confirmed (2026-10-21) · Andrew Fisher",
+      "2026-10-22": "on site from 2026-10-22, in place · Andrew Fisher",
+      "complete": true,
+      "entries": 3,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    },
+    "VMS21 @ 21": {
+     "card": "VMS21#vms:21",
+     "demobCard": null,
+     "plan": {
+      "today": "on site from 2026-10-22, in place · Andrew Fisher",
+      "2026-10-21": "not confirmed (2026-10-21) · Andrew Fisher via Codex",
+      "2026-10-22": "on site from 2026-10-22, in place · Andrew Fisher",
+      "complete": true,
+      "entries": 3,
+      "notes": "",
+      "sheetPrints": ""
+     }
+    }
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "vms_arrival",
+   "pos": "22",
+   "board": "VMS22",
+   "was": "2026-10-21",
+   "day": "2026-10-22",
+   "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn.",
+   "wasDone": true,
+   "sheetNotes": {
+    "before": "",
+    "after": "",
+    "withOk": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."
+   },
+   "result": "VMS plan 22 (VMS22): the 2026-10-21 entry withdrawn, on site and in place from 2026-10-22, complete ticked again, by Andrew Fisher; the reason kept out of its notes (no notes_ok): its board sheet prints under NOTES · SPECIAL INSTRUCTIONS nothing, as before; with Andrew's OK (notes_ok) it would print \"Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \\\"22 oct\\\"); the 21 Oct arrival entry is withdrawn.\""
+  },
+  {
+   "op": "vms_arrival",
+   "pos": "24",
+   "board": "VMS24",
+   "was": "2026-10-21",
+   "day": "2026-10-22",
+   "why": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn.",
+   "wasDone": true,
+   "sheetNotes": {
+    "before": "",
+    "after": "",
+    "withOk": "Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \"22 oct\"); the 21 Oct arrival entry is withdrawn."
+   },
+   "result": "VMS plan 24 (VMS24): the 2026-10-21 entry withdrawn, on site and in place from 2026-10-22, complete ticked again, by Andrew Fisher; the reason kept out of its notes (no notes_ok): its board sheet prints under NOTES · SPECIAL INSTRUCTIONS nothing, as before; with Andrew's OK (notes_ok) it would print \"Arrived 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct 2026: \\\"22 oct\\\"); the 21 Oct arrival entry is withdrawn.\""
+  },
+  {
+   "op": "add_ref",
+   "ref": "VMS-01",
+   "disc": "Variable message signs",
+   "name": "VMS21 Premiair Hire 97T",
+   "type": "VMS",
+   "no": "",
+   "from": "2026-10-22",
+   "note": "VMS21, Premiair Hire sub-hire, fleet 97T, rego T16922. Contract 9961265 line 28. VMS plan position 21, Staghorn Ave / Surfers Paradise Blvd.",
+   "branch": "STPS",
+   "result": "added VMS-01 (Variable message signs, VMS21 Premiair Hire 97T, no number, in 2026-10-22, branch STPS)"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "VMS-01",
+   "no": "97T",
+   "item": "VMS",
+   "owner": "prem-air-hire",
+   "label": "VMS21",
+   "note": "Premiair Hire sub-hire VMS21, fleet 97T, rego T16922, contract 9961265 line 28. On site 22 Oct 2026 by the VMS plan.",
+   "result": "identified as VMS"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-01",
+   "qty": 1,
+   "result": "quantity undefined -> 1"
+  },
+  {
+   "op": "light",
+   "ref": "VMS-01",
+   "state": "on site",
+   "at": "2026-10-21T22:08:24.160Z",
+   "why": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference.",
+   "result": "set on site at 2026-10-21T22:08:24.160Z"
+  },
+  {
+   "op": "supplied",
+   "ref": "VMS-01",
+   "item": "VMS",
+   "qty": 1,
+   "result": "VMS supplied 1"
+  },
+  {
+   "op": "complete",
+   "ref": "VMS-01",
+   "result": "complete"
+  },
+  {
+   "op": "labour_on",
+   "ref": "VMS-01",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-01",
+   "qty": 2,
+   "result": "quantity 1 -> 2"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-01",
+   "qty": 1,
+   "result": "quantity 2 -> 1"
+  },
+  {
+   "op": "add_ref",
+   "ref": "VMS-02",
+   "disc": "Variable message signs",
+   "name": "VMS22 Premiair Hire 445T",
+   "type": "VMS",
+   "no": "",
+   "from": "2026-10-22",
+   "note": "VMS22, Premiair Hire sub-hire, fleet 445T, rego TE99CL. Contract 9961265 line 29. VMS plan position 22, south of Sundale Bridge. On site 22 Oct (docket 26143911).",
+   "branch": "STPS",
+   "result": "added VMS-02 (Variable message signs, VMS22 Premiair Hire 445T, no number, in 2026-10-22, branch STPS)"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "VMS-02",
+   "no": "445T",
+   "item": "VMS",
+   "owner": "prem-air-hire",
+   "label": "VMS22",
+   "note": "Premiair Hire sub-hire VMS22, fleet 445T, rego TE99CL, contract 9961265 line 29. On site 22 Oct 2026 by Premiair docket 26143911.",
+   "result": "identified as VMS"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-02",
+   "qty": 1,
+   "result": "quantity undefined -> 1"
+  },
+  {
+   "op": "light",
+   "ref": "VMS-02",
+   "state": "on site",
+   "at": "2026-10-21T14:00:00.000Z",
+   "why": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day.",
+   "result": "set on site at 2026-10-21T14:00:00.000Z"
+  },
+  {
+   "op": "supplied",
+   "ref": "VMS-02",
+   "item": "VMS",
+   "qty": 1,
+   "result": "VMS supplied 1"
+  },
+  {
+   "op": "complete",
+   "ref": "VMS-02",
+   "result": "complete"
+  },
+  {
+   "op": "labour_on",
+   "ref": "VMS-02",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-02",
+   "qty": 2,
+   "result": "quantity 1 -> 2"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-02",
+   "qty": 1,
+   "result": "quantity 2 -> 1"
+  },
+  {
+   "op": "add_ref",
+   "ref": "VMS-03",
+   "disc": "Variable message signs",
+   "name": "VMS24 Premiair Hire 450T",
+   "type": "VMS",
+   "no": "",
+   "from": "2026-10-22",
+   "note": "VMS24, Premiair Hire sub-hire, fleet 450T, rego TE94CL. Contract 9961265 line 31. VMS plan position 24, The Esplanade before Staghorn Ave. On site 22 Oct (docket 26143911).",
+   "branch": "STPS",
+   "result": "added VMS-03 (Variable message signs, VMS24 Premiair Hire 450T, no number, in 2026-10-22, branch STPS)"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "VMS-03",
+   "no": "450T",
+   "item": "VMS",
+   "owner": "prem-air-hire",
+   "label": "VMS24",
+   "note": "Premiair Hire sub-hire VMS24, fleet 450T, rego TE94CL, contract 9961265 line 31. On site 22 Oct 2026 by Premiair docket 26143911.",
+   "result": "identified as VMS"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-03",
+   "qty": 1,
+   "result": "quantity undefined -> 1"
+  },
+  {
+   "op": "light",
+   "ref": "VMS-03",
+   "state": "on site",
+   "at": "2026-10-21T14:00:00.000Z",
+   "why": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day.",
+   "result": "set on site at 2026-10-21T14:00:00.000Z"
+  },
+  {
+   "op": "supplied",
+   "ref": "VMS-03",
+   "item": "VMS",
+   "qty": 1,
+   "result": "VMS supplied 1"
+  },
+  {
+   "op": "complete",
+   "ref": "VMS-03",
+   "result": "complete"
+  },
+  {
+   "op": "labour_on",
+   "ref": "VMS-03",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-03",
+   "qty": 2,
+   "result": "quantity 1 -> 2"
+  },
+  {
+   "op": "set_qty",
+   "ref": "VMS-03",
+   "qty": 1,
+   "result": "quantity 2 -> 1"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "delivery/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "delivery/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~24",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~22",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~VMS-01",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~VMS-01",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-01~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~VMS-02",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~VMS-02",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-02~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-03~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "notes/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "notes/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "notes/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~24",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~22",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49",
+   "status": 200
+  },
+  {
+   "key": "supplied/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "supplied/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "supplied/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~24",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~22",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~VMS-01",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~VMS-01",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~VMS-01~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~VMS-02",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~VMS-02",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~VMS-02~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~VMS-03~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "added/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "added/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "added/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-03",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/VMS-01": null,
+   "delivery/VMS-02": null,
+   "delivery/VMS-03": null,
+   "stamps/loads~2f~vms1024~2f~24": {
+    "_k": "loads/vms1024/24",
+    "v": "2026-10-21T02:38:19.438Z"
+   },
+   "stamps/loads~2f~vms1024~2f~22": {
+    "_k": "loads/vms1024/22",
+    "v": "2026-10-21T02:38:18.600Z"
+   },
+   "stamps/branch~2f~VMS-01": null,
+   "stamps/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": null,
+   "stamps/qtys~2f~VMS-01": null,
+   "stamps/supplied~2f~VMS-01~2f~VMS": null,
+   "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/branch~2f~VMS-02": null,
+   "stamps/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": null,
+   "stamps/qtys~2f~VMS-02": null,
+   "stamps/supplied~2f~VMS-02~2f~VMS": null,
+   "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "stamps/branch~2f~VMS-03": null,
+   "stamps/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": null,
+   "stamps/qtys~2f~VMS-03": null,
+   "stamps/supplied~2f~VMS-03~2f~VMS": null,
+   "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "notes/VMS-01": null,
+   "notes/VMS-02": null,
+   "notes/VMS-03": null,
+   "loads/vms1024~2f~24": {
+    "lat": -27.99267380473336,
+    "lon": 153.42820544565674,
+    "posHow": "Andrew Fisher's confirmed VMS location, 21 Oct 2026",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:46.133Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-21",
+     "recorded_at": "2026-10-21T00:36:03.236Z",
+     "by": "Andrew Fisher via Codex"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:03.236Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "24",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-21T02:38:19.438Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-21",
+     "recorded_at": "2026-10-21T02:38:19.438Z",
+     "by": "Andrew Fisher via Codex",
+     "sequence1101": 1
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T02:38:19.438Z",
+      "by": "Andrew Fisher via Codex",
+      "sequence1101": 1
+     }
+    ],
+    "_k": "vms1024/24"
+   },
+   "loads/vms1024~2f~22": {
+    "lat": -27.9975453518776,
+    "lon": 153.43058842885355,
+    "posHow": "Andrew Fisher's confirmed VMS location, 21 Oct 2026",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:45.340Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-21",
+     "recorded_at": "2026-10-21T01:17:45.340Z",
+     "by": "Andrew Fisher via Codex"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:45.340Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "22",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-21T02:38:18.599Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-21",
+     "recorded_at": "2026-10-21T02:38:18.599Z",
+     "by": "Andrew Fisher via Codex",
+     "sequence1101": 1
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T02:38:18.599Z",
+      "by": "Andrew Fisher via Codex",
+      "sequence1101": 1
+     }
+    ],
+    "_k": "vms1024/22"
+   },
+   "loads/unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": null,
+   "loads/unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": null,
+   "loads/unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": null,
+   "supplied/VMS-01": null,
+   "supplied/VMS-02": null,
+   "supplied/VMS-03": null,
+   "branch/VMS-01": null,
+   "branch/VMS-02": null,
+   "branch/VMS-03": null,
+   "by/loads~2f~vms1024~2f~24": {
+    "_k": "loads/vms1024/24",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/loads~2f~vms1024~2f~22": {
+    "_k": "loads/vms1024/22",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/branch~2f~VMS-01": null,
+   "by/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": null,
+   "by/qtys~2f~VMS-01": null,
+   "by/supplied~2f~VMS-01~2f~VMS": null,
+   "by/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/branch~2f~VMS-02": null,
+   "by/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": null,
+   "by/qtys~2f~VMS-02": null,
+   "by/supplied~2f~VMS-02~2f~VMS": null,
+   "by/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/branch~2f~VMS-03": null,
+   "by/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": null,
+   "by/qtys~2f~VMS-03": null,
+   "by/supplied~2f~VMS-03~2f~VMS": null,
+   "by/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "added/VMS-01": null,
+   "added/VMS-02": null,
+   "added/VMS-03": null,
+   "qtys/VMS-01": null,
+   "qtys/VMS-02": null,
+   "qtys/VMS-03": null
+  },
+  "after": {
+   "delivery/VMS-01": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:24.160Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "note": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference."
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:12.101Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:12.101Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-01"
+   },
+   "delivery/VMS-02": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:18.953Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:18.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-02"
+   },
+   "delivery/VMS-03": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:25.384Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:25.384Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-03"
+   },
+   "stamps/loads~2f~vms1024~2f~24": {
+    "_k": "loads/vms1024/24",
+    "v": "2026-10-26T19:19:08.068Z"
+   },
+   "stamps/loads~2f~vms1024~2f~22": {
+    "_k": "loads/vms1024/22",
+    "v": "2026-10-26T19:19:04.559Z"
+   },
+   "stamps/branch~2f~VMS-01": {
+    "_k": "branch/VMS-01",
+    "v": "2026-10-26T19:19:09.101Z"
+   },
+   "stamps/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": {
+    "_k": "loads/unit925/c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+    "v": "2026-10-26T19:19:09.325Z"
+   },
+   "stamps/qtys~2f~VMS-01": {
+    "_k": "qtys/VMS-01",
+    "v": "2026-10-26T19:19:14.945Z"
+   },
+   "stamps/supplied~2f~VMS-01~2f~VMS": {
+    "_k": "supplied/VMS-01/VMS",
+    "v": "2026-10-26T19:19:11.946Z"
+   },
+   "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-01|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:12.876Z"
+   },
+   "stamps/branch~2f~VMS-02": {
+    "_k": "branch/VMS-02",
+    "v": "2026-10-26T19:19:15.871Z"
+   },
+   "stamps/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": {
+    "_k": "loads/unit925/3f82630f-e9bf-4c42-bf34-592b6b078e56",
+    "v": "2026-10-26T19:19:16.162Z"
+   },
+   "stamps/qtys~2f~VMS-02": {
+    "_k": "qtys/VMS-02",
+    "v": "2026-10-26T19:19:21.848Z"
+   },
+   "stamps/supplied~2f~VMS-02~2f~VMS": {
+    "_k": "supplied/VMS-02/VMS",
+    "v": "2026-10-26T19:19:18.817Z"
+   },
+   "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-02|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:19.868Z"
+   },
+   "stamps/branch~2f~VMS-03": {
+    "_k": "branch/VMS-03",
+    "v": "2026-10-26T19:19:22.563Z"
+   },
+   "stamps/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": {
+    "_k": "loads/unit925/27844b21-e215-436f-b871-10ec8b02fe49",
+    "v": "2026-10-26T19:19:22.786Z"
+   },
+   "stamps/qtys~2f~VMS-03": {
+    "_k": "qtys/VMS-03",
+    "v": "2026-10-26T19:19:28.107Z"
+   },
+   "stamps/supplied~2f~VMS-03~2f~VMS": {
+    "_k": "supplied/VMS-03/VMS",
+    "v": "2026-10-26T19:19:25.239Z"
+   },
+   "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-03|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:26.190Z"
+   },
+   "notes/VMS-01": {
+    "_k": "VMS-01",
+    "v": "VMS21, Premiair Hire sub-hire, fleet 97T, rego T16922. Contract 9961265 line 28. VMS plan position 21, Staghorn Ave / Surfers Paradise Blvd."
+   },
+   "notes/VMS-02": {
+    "_k": "VMS-02",
+    "v": "VMS22, Premiair Hire sub-hire, fleet 445T, rego TE99CL. Contract 9961265 line 29. VMS plan position 22, south of Sundale Bridge. On site 22 Oct (docket 26143911)."
+   },
+   "notes/VMS-03": {
+    "_k": "VMS-03",
+    "v": "VMS24, Premiair Hire sub-hire, fleet 450T, rego TE94CL. Contract 9961265 line 31. VMS plan position 24, The Esplanade before Staghorn Ave. On site 22 Oct (docket 26143911)."
+   },
+   "loads/vms1024~2f~24": {
+    "lat": -27.99267380473336,
+    "lon": 153.42820544565674,
+    "posHow": "Andrew Fisher's confirmed VMS location, 21 Oct 2026",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:46.133Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-26T19:19:06.847Z",
+     "by": "Andrew Fisher"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:03.236Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-26T19:19:05.607Z",
+      "by": "Andrew Fisher",
+      "inPlace": false,
+      "sequence1101": 2
+     },
+     {
+      "state": "on site",
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-26T19:19:06.847Z",
+      "by": "Andrew Fisher",
+      "inPlace": true,
+      "sequence1101": 3
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "24",
+    "by": "Andrew Fisher",
+    "at": "2026-10-26T19:19:08.024Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-27",
+     "recorded_at": "2026-10-26T19:19:08.024Z",
+     "by": "Andrew Fisher",
+     "sequence1101": 4
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T02:38:19.438Z",
+      "by": "Andrew Fisher via Codex",
+      "sequence1101": 1
+     },
+     {
+      "done": false,
+      "effective_date": "2026-10-27",
+      "recorded_at": "2026-10-26T19:19:05.609Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 2
+     },
+     {
+      "done": true,
+      "effective_date": "2026-10-27",
+      "recorded_at": "2026-10-26T19:19:08.024Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 4
+     }
+    ],
+    "_k": "vms1024/24"
+   },
+   "loads/vms1024~2f~22": {
+    "lat": -27.9975453518776,
+    "lon": 153.43058842885355,
+    "posHow": "Andrew Fisher's confirmed VMS location, 21 Oct 2026",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:45.340Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-26T19:19:03.405Z",
+     "by": "Andrew Fisher"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:45.340Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-26T19:19:02.185Z",
+      "by": "Andrew Fisher",
+      "inPlace": false,
+      "sequence1101": 2
+     },
+     {
+      "state": "on site",
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-26T19:19:03.405Z",
+      "by": "Andrew Fisher",
+      "inPlace": true,
+      "sequence1101": 3
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "22",
+    "by": "Andrew Fisher",
+    "at": "2026-10-26T19:19:04.508Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-27",
+     "recorded_at": "2026-10-26T19:19:04.508Z",
+     "by": "Andrew Fisher",
+     "sequence1101": 4
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T02:38:18.599Z",
+      "by": "Andrew Fisher via Codex",
+      "sequence1101": 1
+     },
+     {
+      "done": false,
+      "effective_date": "2026-10-27",
+      "recorded_at": "2026-10-26T19:19:02.187Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 2
+     },
+     {
+      "done": true,
+      "effective_date": "2026-10-27",
+      "recorded_at": "2026-10-26T19:19:04.508Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 4
+     }
+    ],
+    "_k": "vms1024/22"
+   },
+   "loads/unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": {
+    "ref": "VMS-01",
+    "owner": "prem-air-hire",
+    "assetNo": "97T",
+    "item": "VMS",
+    "label": "VMS21",
+    "branch": "",
+    "note": "Premiair Hire sub-hire VMS21, fleet 97T, rego T16922, contract 9961265 line 28. On site 22 Oct 2026 by the VMS plan.",
+    "kind": "unit925-record",
+    "uuid": "c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+    "nativeId": "slot:c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+    "transportId": "[\"VMS-01\",\"prem-air-hire\",\"native\",\"slot:c97118ee-96a8-48ef-85b8-9d52ca6d7e6b\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-26T19:19:09.325Z",
+    "_k": "unit925/c97118ee-96a8-48ef-85b8-9d52ca6d7e6b"
+   },
+   "loads/unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": {
+    "ref": "VMS-02",
+    "owner": "prem-air-hire",
+    "assetNo": "445T",
+    "item": "VMS",
+    "label": "VMS22",
+    "branch": "",
+    "note": "Premiair Hire sub-hire VMS22, fleet 445T, rego TE99CL, contract 9961265 line 29. On site 22 Oct 2026 by Premiair docket 26143911.",
+    "kind": "unit925-record",
+    "uuid": "3f82630f-e9bf-4c42-bf34-592b6b078e56",
+    "nativeId": "slot:3f82630f-e9bf-4c42-bf34-592b6b078e56",
+    "transportId": "[\"VMS-02\",\"prem-air-hire\",\"native\",\"slot:3f82630f-e9bf-4c42-bf34-592b6b078e56\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-26T19:19:16.162Z",
+    "_k": "unit925/3f82630f-e9bf-4c42-bf34-592b6b078e56"
+   },
+   "loads/unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": {
+    "ref": "VMS-03",
+    "owner": "prem-air-hire",
+    "assetNo": "450T",
+    "item": "VMS",
+    "label": "VMS24",
+    "branch": "",
+    "note": "Premiair Hire sub-hire VMS24, fleet 450T, rego TE94CL, contract 9961265 line 31. On site 22 Oct 2026 by Premiair docket 26143911.",
+    "kind": "unit925-record",
+    "uuid": "27844b21-e215-436f-b871-10ec8b02fe49",
+    "nativeId": "slot:27844b21-e215-436f-b871-10ec8b02fe49",
+    "transportId": "[\"VMS-03\",\"prem-air-hire\",\"native\",\"slot:27844b21-e215-436f-b871-10ec8b02fe49\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-26T19:19:22.786Z",
+    "_k": "unit925/27844b21-e215-436f-b871-10ec8b02fe49"
+   },
+   "supplied/VMS-01": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "VMS-01"
+   },
+   "supplied/VMS-02": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "VMS-02"
+   },
+   "supplied/VMS-03": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "VMS-03"
+   },
+   "branch/VMS-01": {
+    "_k": "VMS-01",
+    "v": "STPS"
+   },
+   "branch/VMS-02": {
+    "_k": "VMS-02",
+    "v": "STPS"
+   },
+   "branch/VMS-03": {
+    "_k": "VMS-03",
+    "v": "STPS"
+   },
+   "by/loads~2f~vms1024~2f~24": {
+    "_k": "loads/vms1024/24",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~vms1024~2f~22": {
+    "_k": "loads/vms1024/22",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~VMS-01": {
+    "_k": "branch/VMS-01",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~c97118ee-96a8-48ef-85b8-9d52ca6d7e6b": {
+    "_k": "loads/unit925/c97118ee-96a8-48ef-85b8-9d52ca6d7e6b",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~VMS-01": {
+    "_k": "qtys/VMS-01",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~VMS-01~2f~VMS": {
+    "_k": "supplied/VMS-01/VMS",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-01|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~VMS-02": {
+    "_k": "branch/VMS-02",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~3f82630f-e9bf-4c42-bf34-592b6b078e56": {
+    "_k": "loads/unit925/3f82630f-e9bf-4c42-bf34-592b6b078e56",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~VMS-02": {
+    "_k": "qtys/VMS-02",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~VMS-02~2f~VMS": {
+    "_k": "supplied/VMS-02/VMS",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-02|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~VMS-03": {
+    "_k": "branch/VMS-03",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~27844b21-e215-436f-b871-10ec8b02fe49": {
+    "_k": "loads/unit925/27844b21-e215-436f-b871-10ec8b02fe49",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~VMS-03": {
+    "_k": "qtys/VMS-03",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~VMS-03~2f~VMS": {
+    "_k": "supplied/VMS-03/VMS",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-03|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "VMS-01|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "VMS-02|Variable message signs|VMS|install",
+    "v": true
+   },
+   "labour/VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "VMS-03|Variable message signs|VMS|install",
+    "v": true
+   },
+   "added/VMS-01": {
+    "key": "VMS-01",
+    "discipline": "Variable message signs",
+    "name": "VMS21 Premiair Hire 97T",
+    "item_types": [
+     "VMS"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-22",
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-26T19:19:09.101Z",
+    "added_by": "Andrew Fisher",
+    "_k": "VMS-01"
+   },
+   "added/VMS-02": {
+    "key": "VMS-02",
+    "discipline": "Variable message signs",
+    "name": "VMS22 Premiair Hire 445T",
+    "item_types": [
+     "VMS"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-22",
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-26T19:19:15.871Z",
+    "added_by": "Andrew Fisher",
+    "_k": "VMS-02"
+   },
+   "added/VMS-03": {
+    "key": "VMS-03",
+    "discipline": "Variable message signs",
+    "name": "VMS24 Premiair Hire 450T",
+    "item_types": [
+     "VMS"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-22",
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-26T19:19:22.563Z",
+    "added_by": "Andrew Fisher",
+    "_k": "VMS-03"
+   },
+   "qtys/VMS-01": {
+    "_k": "VMS-01",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-01",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:11.946Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:11.946Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:11.946Z",
+       "on": true,
+       "onAt": "2026-10-21T22:08:24.160Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:12.101Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:12.876Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:14.945Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-02": {
+    "_k": "VMS-02",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-02",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:18.817Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:18.817Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:18.817Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:18.953Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:19.868Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:21.847Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-03": {
+    "_k": "VMS-03",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-03",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:25.239Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:25.239Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:25.239Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:25.384Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:26.190Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:28.107Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

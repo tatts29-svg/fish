@@ -1,0 +1,164 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T205655Z",
+ "finished": "2026-10-16T20:57:06.097Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P44 door to passenger\". P44 has one unit, 198481; no door side was recorded.",
+  "refs": [
+   "P44"
+  ],
+  "ops": [
+   {
+    "op": "door",
+    "ref": "P44",
+    "id": "u198481",
+    "side": "passenger",
+    "why": "Andrew, 17 Oct 2026: P44 door to passenger"
+   }
+  ]
+ },
+ "pageSha256": "0cfe02f8dd823bae3c89f3600db8343b2d384f432c8884bc0188323bc44c0b36",
+ "version": {
+  "before": 9569,
+  "after": 9570
+ },
+ "updated": {
+  "before": "2026-10-16T20:54:57.106Z",
+  "after": "2026-10-16T20:57:05.109Z"
+ },
+ "stage": [
+  {
+   "op": "door",
+   "ref": "P44",
+   "id": "u198481",
+   "side": "passenger",
+   "why": "Andrew, 17 Oct 2026: P44 door to passenger",
+   "result": "door side passenger"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P44",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P44": {
+    "state": "on site",
+    "set_at": "2026-09-23T18:23:43.626Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T18:23:53.049Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-24T21:06:35.993Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T18:23:51.860Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:14.195Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T18:23:43.626Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T18:23:51.860Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T18:23:53.049Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-24T21:06:35.993Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "P44"
+   }
+  },
+  "after": {
+   "delivery/P44": {
+    "state": "on site",
+    "set_at": "2026-09-23T18:23:43.626Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T18:23:53.049Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-24T21:06:35.993Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T18:23:51.860Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:14.195Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T18:23:43.626Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T18:23:51.860Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T18:23:53.049Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-24T21:06:35.993Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u198481": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:57:02.045Z"
+     }
+    },
+    "_k": "P44"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

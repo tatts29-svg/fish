@@ -1,0 +1,24 @@
+[
+ {
+  "slot": 30,
+  "take": "a, cut",
+  "file": "takes/turn30.mp3",
+  "bytes": 241103,
+  "sha256": "6fb5d349009bcfeb9356b4d5e394ac03ab259770f547904e2ab838846eeec40f",
+  "measured_s": 20.06,
+  "from": {
+   "raw_sha256": "3e7783737026ed8b30e337171e596813720d32a33e5d40ede3725af75d65dbe0",
+   "keep": [
+    [
+     0,
+     11.98
+    ],
+    [
+     15.22,
+     null
+    ]
+   ],
+   "gap_s": 0.18
+  }
+ }
+]

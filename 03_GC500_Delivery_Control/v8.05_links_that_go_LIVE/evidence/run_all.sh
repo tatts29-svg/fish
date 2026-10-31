@@ -1,0 +1,20 @@
+#!/bin/bash
+# Every check for v7.99, on the built page (read-only). Run from 03_GC500_Delivery_Control.
+export CHROMIUM_PATH=${CHROMIUM_PATH:-/opt/pw-browsers/chromium} NODE_PATH=${NODE_PATH:-$(npm root -g)}
+PAGE=$PWD/build/GC500_v8.05/GC500_Delivery_Control_hosted.html; BASE=$PWD/build/GC500_v8.05/base_live.html; export PAGE
+E=v8.05_links_that_go_DRAFT/evidence; R=$E/regress; V=v7.99_today_faster_fuller_DRAFT/evidence; mkdir -p $R
+if [ "$(sha256sum < $PAGE)" = "$(sha256sum < $BASE)" ] || ! grep -q 'v8.05 - links that go' $PAGE; then echo 'STOP: the built page is not v7.99 (the patch did not apply)'; exit 1; fi
+(BASE=$BASE node $E/v805_tests.js > $E/v805_desktop.log 2>&1) & (MOB=1 node $E/v805_tests.js > $E/v805_phone.log 2>&1) & (BASE=$BASE node $V/v799_tests.js > $R/v799_desktop.log 2>&1) & (MOB=1 node $V/v799_tests.js > $R/v799_phone.log 2>&1) & wait
+(node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_desktop.log 2>&1) & (MOB=1 node v7.95_today_packed_DRAFT/evidence/packed_tests.js > $R/packed_phone.log 2>&1) & (node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_desktop.log 2>&1) & (MOB=1 node v7.96_equipment_tab_DRAFT/evidence/equipment_tests.js > $R/equipment_phone.log 2>&1) & wait
+(node $V/results796_tests.cjs > $R/results_desktop.log 2>&1) & (MOB=1 node $V/results796_tests.cjs > $R/results_phone.log 2>&1) & (OUTD=$R node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js > $R/one_tab_desktop.log 2>&1) & (MOB=1 OUTD=$R node v7.93_one_tab_today_DRAFT/evidence/one_tab_tests.js > $R/one_tab_phone.log 2>&1) & wait
+(GC500_NAV_BASE=$PWD/build/GC500_v7.74/GC500_Delivery_Control_hosted.html node v7.76_navigation_performance_LIVE/evidence/navigation_regressions.js > $R/navigation.log 2>&1) & (BASE=$BASE OUT=$R/rules.json node v7.84_ways_in_from_andrew_LIVE/evidence/rules_tests.js > $R/rules.log 2>&1) & (OUT=$R/fresh.json node v7.75_fresh_after_a_save_LIVE/evidence/fresh_after_save_tests.js > $R/fresh.log 2>&1) & wait
+(cd toolchain && node harness/sweep.js > ../$R/sweep_desktop.json 2> ../$R/sweep_desktop.err) & (cd toolchain && MOB=1 node harness/sweep.js > ../$R/sweep_phone.json 2> ../$R/sweep_phone.err) & (cd toolchain && OUT=../layout_map_02Oct2026/repeats_v805.json node harness/repeat_check.js > ../layout_map_02Oct2026/repeats_v805.txt 2>&1) & wait
+BASE=$BASE node $V/same_figures.js > $E/same_figures.log 2>&1
+sha256sum $PAGE
+for f in $E/v805_desktop $E/v805_phone $R/v799_desktop $R/v799_phone $R/packed_desktop $R/packed_phone $R/equipment_desktop $R/equipment_phone $R/results_desktop $R/results_phone $R/one_tab_desktop $R/one_tab_phone; do echo "$(basename $f): $(grep -c ^PASS $f.log) pass, $(grep -c ^FAIL $f.log) fail"; grep ^FAIL $f.log | cut -c1-200; done
+tail -n1 $R/navigation.log $R/rules.log $R/fresh.log | grep -v '^$'; head -1 layout_map_02Oct2026/repeats_v805.txt; tail -n1 $E/same_figures.log
+python3 -c "
+import json
+for f in ['sweep_desktop','sweep_phone']:
+  s=open('$R/'+f+'.json').read(); j=json.loads(s[s.index('{'):]); t=j['tabs']
+  print(f, len(t),'tabs', sum(len(v.get('errors',[])) for v in t.values()),'page errors', sum(len(v.get('console',[])) for v in t.values()),'console errors')"

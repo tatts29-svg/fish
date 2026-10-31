@@ -1,0 +1,4 @@
+{"by": "Andrew Fisher", "why": "Andrew, 20 Oct 2026, on Schedule 11: TM01 \"Set to 10\" (named Trakmat x 10; 10 trakmats on 16 Oct, docket 26133383); GN24 \"60 kVA trailer\" (Schedule 11: SPARE GN24 60KVA TRAILER 1277089 IPSW, docket 26134440). GN10 stays 20 kVA: \"we charge as per the request so if a larger one comes in we still charge what was requested rate\".",
+ "ops": [{"op": "set_qty", "ref": "TM01", "qty": 10},
+         {"op": "number_item", "ref": "GN24", "no": "1277089", "item": "60kva"},
+         {"op": "item_type", "ref": "GN24", "item": "60kva"}]}

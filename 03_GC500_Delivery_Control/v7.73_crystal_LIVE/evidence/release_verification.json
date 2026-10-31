@@ -1,0 +1,118 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.73",
+  "released_at": "2026-10-01T18:19:46+10:00",
+  "base": "v7.71",
+  "patch_order": [
+    "v7.70",
+    "v7.72",
+    "v7.73"
+  ],
+  "bytes": 8667935,
+  "sha256": "6010538894d3637c4d7267fecd4da75ad46484bdc22170244244d4835927a5f9",
+  "public_view_matches": true,
+  "record_version_before": 3520,
+  "record_version_after": 3520,
+  "record_writes": 0,
+  "ledger_posts": 0,
+  "checks": {
+    "check_page": "PASS",
+    "synthetic_classification": {
+      "passed": 10,
+      "of": 10
+    },
+    "synthetic_recorder_display": {
+      "passed": 23,
+      "of": 23
+    },
+    "practice_desktop": {
+      "passed": 31,
+      "of": 31
+    },
+    "practice_phone": {
+      "passed": 31,
+      "of": 31
+    },
+    "upload_dry_run": "PASS",
+    "sweep_desktop": {
+      "tabs_exercised": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "redirected_tabs": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "redirect_note": "Register is an alias; editor-only tabs redirect on the view-only link."
+    },
+    "sweep_phone": {
+      "tabs_exercised": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "redirected_tabs": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "redirect_note": "Register is an alias; editor-only tabs redirect on the view-only link."
+    }
+  },
+  "theme_header_checks": [
+    {
+      "mode": "light",
+      "tab": "fencing",
+      "headers": 10,
+      "minimum_contrast": 7.36,
+      "backdrop_blur": false
+    },
+    {
+      "mode": "light",
+      "tab": "plant",
+      "headers": 10,
+      "minimum_contrast": 7.36,
+      "backdrop_blur": false
+    },
+    {
+      "mode": "light",
+      "tab": "costs",
+      "headers": 10,
+      "minimum_contrast": 7.01,
+      "backdrop_blur": false
+    },
+    {
+      "mode": "dark",
+      "tab": "fencing",
+      "headers": 10,
+      "minimum_contrast": 8.99,
+      "backdrop_blur": false
+    },
+    {
+      "mode": "dark",
+      "tab": "plant",
+      "headers": 10,
+      "minimum_contrast": 8.99,
+      "backdrop_blur": false
+    },
+    {
+      "mode": "dark",
+      "tab": "costs",
+      "headers": 10,
+      "minimum_contrast": 7.01,
+      "backdrop_blur": false
+    }
+  ],
+  "limitations": [
+    "Speed work and v7.74 wording follow-up remain separate.",
+    "Historical full contrast-audit counts are not claimed as a fresh audit of this final candidate.",
+    "Banner image sources are unchanged; no native 4K claim.",
+    "Wide financial tables retain inner horizontal scrolling on a phone; further phone layout polish remains."
+  ]
+}

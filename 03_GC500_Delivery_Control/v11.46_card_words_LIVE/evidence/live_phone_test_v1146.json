@@ -1,0 +1,130 @@
+{
+ "at": "2026-10-22T23:56:11.267Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template carries the words, the line kind and the inline symbol, one script",
+   "ok": true,
+   "detail": {
+    "len": 198230,
+    "lines": 84
+   }
+  },
+  {
+   "name": "the words for every kind on the record: flush toilets, toilet blocks (on sewer), sewer tanks, accessible, 16-pan, trailer, a place kept",
+   "ok": true,
+   "detail": {
+    "wrong": [],
+    "blocks": [
+     "2 toilet blocks on sewer",
+     "2 toilet blocks on sewer",
+     "2 toilet blocks on sewer",
+     "2 toilet blocks",
+     "2 toilet blocks on sewer",
+     "2 toilet blocks"
+    ],
+    "sample": [
+     {
+      "ref": "PG01",
+      "label": "1 × FWF",
+      "words": "1 flush toilet",
+      "kind": "fwf",
+      "k": "fwf"
+     },
+     {
+      "ref": "PG03",
+      "label": "1 × FWF",
+      "words": "1 flush toilet",
+      "kind": "fwf",
+      "k": "fwf"
+     },
+     {
+      "ref": "PG05",
+      "label": "1 × FWF",
+      "words": "1 flush toilet",
+      "kind": "fwf",
+      "k": "fwf"
+     },
+     {
+      "ref": "PG29",
+      "label": "1 × FWF",
+      "words": "1 flush toilet",
+      "kind": "fwf",
+      "k": "fwf"
+     },
+     {
+      "ref": "WC12",
+      "label": "4 × FWF",
+      "words": "4 flush toilets",
+      "kind": "fwf",
+      "k": "fwf"
+     },
+     {
+      "ref": "WC16",
+      "label": "2 × Toilet block 6 m",
+      "words": "2 toilet blocks on sewer",
+      "kind": "sewer",
+      "k": "sewer"
+     }
+    ]
+   }
+  },
+  {
+   "name": "no line reads FWF or × in its words; every line has a number and one of the six symbols",
+   "ok": true,
+   "detail": {
+    "bad": [],
+    "n": 84
+   }
+  },
+  {
+   "name": "six references of different kinds at their codes: each line title in words with its symbol (28 px), the record label small, the spoken labels in words",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "each reference drawn is of its own kind: flush toilet, on sewer, sewer tank, accessible, toilet block, trailer",
+   "ok": true,
+   "detail": [
+    "PG01:fwf",
+    "WC16:sewer",
+    "WC20:tank",
+    "WC86:access",
+    "WC20:block",
+    "SPASHDOWN:trailer"
+   ]
+  },
+  {
+   "name": "the focused reference under the plan reads in words",
+   "ok": true,
+   "detail": "PG01 · 1 flush toilet Navigate ↗"
+  },
+  {
+   "name": "the card tab has no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 77,
+    "blocked": 0
+   }
+  }
+ ]
+}

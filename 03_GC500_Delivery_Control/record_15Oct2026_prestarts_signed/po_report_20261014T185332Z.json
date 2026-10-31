@@ -1,0 +1,1821 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261014T185332Z",
+ "finished": "2026-10-14T18:53:43.141Z",
+ "mode": "apply",
+ "spec": {
+  "numbers": [
+   "4647519",
+   "4657010",
+   "4658850",
+   "4660565",
+   "4661783"
+  ],
+  "by": "Andrew Fisher",
+  "at": "2026-10-14T18:20:00.000Z",
+  "note": "Andrew Fisher, 15 Oct 2026: 'all others should have a tick as they should all been checked the same too' (00:31 AEST); 'Update and go live' (04:20 AEST) after Claude reported these five without a check on the service"
+ },
+ "pageSha256": "06d6e6b0956c793299c99b5e48a7ee1c3fe16616f20a60ff0696d410f111848d",
+ "version": {
+  "before": 6100,
+  "after": 6114
+ },
+ "updated": {
+  "before": "2026-10-14T18:21:20.768Z",
+  "after": "2026-10-14T18:53:42.319Z"
+ },
+ "writes": [
+  {
+   "key": "stamps/po~2f~4658850",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4657010",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4661783",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4660565",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4647519",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4658850",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4657010",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4660565",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4647519",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647519",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4657010",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4658850",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4660565",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4661783",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "auditDocs": [
+  {
+   "number": "4647519",
+   "stamp": "stamps/po~2f~4647519",
+   "by": "by/po~2f~4647519"
+  },
+  {
+   "number": "4657010",
+   "stamp": "stamps/po~2f~4657010",
+   "by": "by/po~2f~4657010"
+  },
+  {
+   "number": "4658850",
+   "stamp": "stamps/po~2f~4658850",
+   "by": "by/po~2f~4658850"
+  },
+  {
+   "number": "4660565",
+   "stamp": "stamps/po~2f~4660565",
+   "by": "by/po~2f~4660565"
+  },
+  {
+   "number": "4661783",
+   "stamp": "stamps/po~2f~4661783",
+   "by": "by/po~2f~4661783"
+  }
+ ],
+ "docs": {
+  "before": {
+   "purchaseOrders/4647519": {
+    "number": "4647519",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-14T04:07:29.977Z",
+    "amount": 28246.5,
+    "period": "Construction week 2",
+    "programme_sheet": "CON WK2",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "stream": "fencing",
+    "what": "Construction week 2",
+    "note": "GC500 Week 2 · work 6–9 Oct 2026 · approval sheet 13 Oct 2026",
+    "updated_at": "2026-10-14T04:54:09.425Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "supplier_pricing": {
+     "schema": 1,
+     "currency": "AUD",
+     "basis": "ex GST",
+     "source": {
+      "file": "Copy of P003-25003-01-GC600 2026_Coates Hire Fencing Programme - WEEK 2 - INV TOTALS -13-10-2026 - Commercial Approval.pdf",
+      "sha256": "1a43f7f08e9194e407e3c55b6a0648b2f817ba5082c6dc0a034cd317aafe6782",
+      "date": "2026-10-13"
+     },
+     "records": [
+      {
+       "book": "red",
+       "id": "F-AFV-0015",
+       "number": "36573",
+       "date": "2026-10-06",
+       "source_page": 3,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 97.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 975
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0009",
+       "number": "24469",
+       "date": "2026-10-06",
+       "source_page": 2,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 0.75,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 75
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0016",
+       "number": "36574",
+       "date": "2026-10-06",
+       "source_page": 4,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 162.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1625
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 10,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 244
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0008",
+       "number": "24468",
+       "date": "2026-10-06",
+       "source_page": 1,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 0.25,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 25
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0017",
+       "number": "36575",
+       "date": "2026-10-06",
+       "source_page": 5,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 120,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1200
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 6,
+         "unit": "each",
+         "rate": 50,
+         "amount": 300
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0018",
+       "number": "36576",
+       "date": "2026-10-06",
+       "source_page": 6,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 2.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 61
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0019",
+       "number": "36577",
+       "date": "2026-10-06",
+       "source_page": 7,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 25,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 610
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0020",
+       "number": "36578",
+       "date": "2026-10-06",
+       "source_page": 8,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 75,
+         "unit": "m",
+         "rate": 10,
+         "amount": 750
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0001",
+       "number": "28554",
+       "date": "2026-10-06",
+       "source_page": 9,
+       "lines": []
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0021",
+       "number": "36579",
+       "date": "2026-10-07",
+       "source_page": 12,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 35,
+         "unit": "m",
+         "rate": 10,
+         "amount": 350
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 122.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 2989
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 8,
+         "unit": "each",
+         "rate": 50,
+         "amount": 400
+        },
+        {
+         "column": "ped_gates",
+         "name": "Pedestrian gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 61,
+         "amount": 122
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0011",
+       "number": "24471",
+       "date": "2026-10-07",
+       "source_page": 10,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 1.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0012",
+       "number": "24472",
+       "date": "2026-10-07",
+       "source_page": 11,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 4,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 400
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0022",
+       "number": "36580",
+       "date": "2026-10-07",
+       "source_page": 13,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 150,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1500
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0025",
+       "number": "36581",
+       "date": "2026-10-07",
+       "source_page": 14,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 72.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1769
+        },
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": -72.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": -725
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0023",
+       "number": "36582",
+       "date": "2026-10-07",
+       "source_page": 15,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 77.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 775
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0010",
+       "number": "24470",
+       "date": "2026-10-07",
+       "source_page": 16,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 1.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0027",
+       "number": "36584",
+       "date": "2026-10-08",
+       "source_page": 18,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 7.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 183
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0028",
+       "number": "36585",
+       "date": "2026-10-08",
+       "source_page": 19,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 45,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1098
+        },
+        {
+         "column": "ped_gates",
+         "name": "Pedestrian gate incl one wheel",
+         "qty": 1,
+         "unit": "each",
+         "rate": 61,
+         "amount": 61
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0029",
+       "number": "36586",
+       "date": "2026-10-08",
+       "source_page": 20,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 25,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 610
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0024",
+       "number": "36583",
+       "date": "2026-10-08",
+       "source_page": 17,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 145,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1450
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 55,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1342
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 6,
+         "unit": "each",
+         "rate": 50,
+         "amount": 300
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0013",
+       "number": "24473",
+       "date": "2026-10-08",
+       "source_page": 21,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 4,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 400
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0014",
+       "number": "24474",
+       "date": "2026-10-09",
+       "source_page": 22,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 0.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 50
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0002",
+       "number": "28555",
+       "date": "2026-10-09",
+       "source_page": 32,
+       "lines": []
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0030",
+       "number": "36587",
+       "date": "2026-10-09",
+       "source_page": 23,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 22.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 549
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 3,
+         "unit": "each",
+         "rate": 50,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0033",
+       "number": "36590",
+       "date": "2026-10-09",
+       "source_page": 26,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 97.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 975
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 4,
+         "unit": "each",
+         "rate": 50,
+         "amount": 200
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0031",
+       "number": "36588",
+       "date": "2026-10-09",
+       "source_page": 24,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 32.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 325
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 62.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1525
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0032",
+       "number": "36589",
+       "date": "2026-10-09",
+       "source_page": 25,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 15,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 366
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0034",
+       "number": "36591",
+       "date": "2026-10-09",
+       "source_page": 27,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 105,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 567
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0035",
+       "number": "36592",
+       "date": "2026-10-09",
+       "source_page": 28,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 137.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1375
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0036",
+       "number": "36593",
+       "date": "2026-10-09",
+       "source_page": 29,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 90,
+         "unit": "m",
+         "rate": 10,
+         "amount": 900
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0037",
+       "number": "36594",
+       "date": "2026-10-09",
+       "source_page": 30,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 22.5,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 121.5
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0038",
+       "number": "36595",
+       "date": "2026-10-09",
+       "source_page": 31,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 10,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 54
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0003",
+       "number": "28556",
+       "date": "2026-10-09",
+       "source_page": 33,
+       "lines": []
+      }
+     ],
+     "extras": [
+      {
+       "id": "team-leader-2026-10-06",
+       "date": "2026-10-06",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-07",
+       "date": "2026-10-07",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-08",
+       "date": "2026-10-08",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-09",
+       "date": "2026-10-09",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      }
+     ],
+     "total": 28246.5,
+     "supplier_code": "ZINC001",
+     "branch": "STPS"
+    },
+    "_k": "4647519"
+   },
+   "stamps/po~2f~4647519": {
+    "_k": "po/4647519",
+    "v": "2026-10-14T04:54:09.425Z"
+   },
+   "by/po~2f~4647519": {
+    "_k": "po/4647519",
+    "v": "Andrew Fisher via Codex"
+   },
+   "purchaseOrders/4657010": {
+    "number": "4657010",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 20 Sep 2026",
+    "period": "w/e 20 Sep 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 3023.7,
+    "note": "Job Connect invoice $3,023.70, all GC500",
+    "confirmed": true,
+    "updated_at": "2026-10-06T02:09:53.064Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "_k": "4657010"
+   },
+   "stamps/po~2f~4657010": {
+    "_k": "po/4657010",
+    "v": "2026-10-06T02:09:53.064Z"
+   },
+   "by/po~2f~4657010": {
+    "_k": "po/4657010",
+    "v": "Andrew Fisher via Codex"
+   },
+   "purchaseOrders/4658850": {
+    "number": "4658850",
+    "by": "Andrew Fisher (via Claude)",
+    "at": "2026-09-29T05:52:20.308Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "period": null,
+    "confirmed": false,
+    "updated_at": "2026-09-29T06:31:08.584Z",
+    "updated_by": "Andrew Fisher (via Claude)",
+    "programme_sheet": null,
+    "invoice_no": "4922343",
+    "amount": 195,
+    "note": "INV 93920 - partial Collection",
+    "_k": "4658850"
+   },
+   "stamps/po~2f~4658850": {
+    "_k": "po/4658850",
+    "v": "2026-09-29T06:31:08.584Z"
+   },
+   "by/po~2f~4658850": {
+    "_k": "po/4658850",
+    "v": "Andrew Fisher (via Claude)"
+   },
+   "purchaseOrders/4660565": {
+    "number": "4660565",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 27 Sep 2026",
+    "period": "w/e 27 Sep 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 1299.74,
+    "note": "GC500 share of Job Connect invoice $3,044.97 (24.5 h of the week); balance $1,745.23 not GC500",
+    "confirmed": true,
+    "updated_at": "2026-10-06T02:09:53.064Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "_k": "4660565"
+   },
+   "stamps/po~2f~4660565": {
+    "_k": "po/4660565",
+    "v": "2026-10-06T02:09:53.064Z"
+   },
+   "by/po~2f~4660565": {
+    "_k": "po/4660565",
+    "v": "Andrew Fisher via Codex"
+   },
+   "purchaseOrders/4661783": {
+    "number": "4661783",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 4 Oct 2026",
+    "period": "w/e 4 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 3052.6,
+    "confirmed": true,
+    "updated_at": "2026-10-09T01:45:04.607Z",
+    "updated_by": "Andrew Fisher",
+    "invoice_no": "15294",
+    "receipted": "full",
+    "receipted_amount": null,
+    "_k": "4661783"
+   },
+   "stamps/po~2f~4661783": {
+    "_k": "po/4661783",
+    "v": "2026-10-09T01:45:04.607Z"
+   },
+   "by/po~2f~4661783": {
+    "_k": "po/4661783",
+    "v": "Andrew Fisher"
+   }
+  },
+  "after": {
+   "purchaseOrders/4647519": {
+    "number": "4647519",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-14T04:07:29.977Z",
+    "amount": 28246.5,
+    "period": "Construction week 2",
+    "programme_sheet": "CON WK2",
+    "confirmed": true,
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "stream": "fencing",
+    "what": "Construction week 2",
+    "note": "GC500 Week 2 · work 6–9 Oct 2026 · approval sheet 13 Oct 2026",
+    "updated_at": "2026-10-14T18:53:39.582Z",
+    "updated_by": "Andrew Fisher",
+    "supplier_pricing": {
+     "schema": 1,
+     "currency": "AUD",
+     "basis": "ex GST",
+     "source": {
+      "file": "Copy of P003-25003-01-GC600 2026_Coates Hire Fencing Programme - WEEK 2 - INV TOTALS -13-10-2026 - Commercial Approval.pdf",
+      "sha256": "1a43f7f08e9194e407e3c55b6a0648b2f817ba5082c6dc0a034cd317aafe6782",
+      "date": "2026-10-13"
+     },
+     "records": [
+      {
+       "book": "red",
+       "id": "F-AFV-0015",
+       "number": "36573",
+       "date": "2026-10-06",
+       "source_page": 3,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 97.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 975
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0009",
+       "number": "24469",
+       "date": "2026-10-06",
+       "source_page": 2,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 0.75,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 75
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0016",
+       "number": "36574",
+       "date": "2026-10-06",
+       "source_page": 4,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 162.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1625
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 10,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 244
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0008",
+       "number": "24468",
+       "date": "2026-10-06",
+       "source_page": 1,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 0.25,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 25
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0017",
+       "number": "36575",
+       "date": "2026-10-06",
+       "source_page": 5,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 120,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1200
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 6,
+         "unit": "each",
+         "rate": 50,
+         "amount": 300
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0018",
+       "number": "36576",
+       "date": "2026-10-06",
+       "source_page": 6,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 2.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 61
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0019",
+       "number": "36577",
+       "date": "2026-10-06",
+       "source_page": 7,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 25,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 610
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0020",
+       "number": "36578",
+       "date": "2026-10-06",
+       "source_page": 8,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 75,
+         "unit": "m",
+         "rate": 10,
+         "amount": 750
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0001",
+       "number": "28554",
+       "date": "2026-10-06",
+       "source_page": 9,
+       "lines": []
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0021",
+       "number": "36579",
+       "date": "2026-10-07",
+       "source_page": 12,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 35,
+         "unit": "m",
+         "rate": 10,
+         "amount": 350
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 122.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 2989
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 8,
+         "unit": "each",
+         "rate": 50,
+         "amount": 400
+        },
+        {
+         "column": "ped_gates",
+         "name": "Pedestrian gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 61,
+         "amount": 122
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0011",
+       "number": "24471",
+       "date": "2026-10-07",
+       "source_page": 10,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 1.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0012",
+       "number": "24472",
+       "date": "2026-10-07",
+       "source_page": 11,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 4,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 400
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0022",
+       "number": "36580",
+       "date": "2026-10-07",
+       "source_page": 13,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 150,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1500
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0025",
+       "number": "36581",
+       "date": "2026-10-07",
+       "source_page": 14,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 72.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1769
+        },
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": -72.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": -725
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0023",
+       "number": "36582",
+       "date": "2026-10-07",
+       "source_page": 15,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 77.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 775
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 2,
+         "unit": "each",
+         "rate": 50,
+         "amount": 100
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0010",
+       "number": "24470",
+       "date": "2026-10-07",
+       "source_page": 16,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 1.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0027",
+       "number": "36584",
+       "date": "2026-10-08",
+       "source_page": 18,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 7.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 183
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0028",
+       "number": "36585",
+       "date": "2026-10-08",
+       "source_page": 19,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 45,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1098
+        },
+        {
+         "column": "ped_gates",
+         "name": "Pedestrian gate incl one wheel",
+         "qty": 1,
+         "unit": "each",
+         "rate": 61,
+         "amount": 61
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0029",
+       "number": "36586",
+       "date": "2026-10-08",
+       "source_page": 20,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 25,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 610
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0024",
+       "number": "36583",
+       "date": "2026-10-08",
+       "source_page": 17,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 145,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1450
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 55,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1342
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 6,
+         "unit": "each",
+         "rate": 50,
+         "amount": 300
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0013",
+       "number": "24473",
+       "date": "2026-10-08",
+       "source_page": 21,
+       "lines": [
+        {
+         "column": "labour",
+         "name": "Installer labour",
+         "qty": 4,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 400
+        }
+       ]
+      },
+      {
+       "book": "green",
+       "id": "N-AFV-0014",
+       "number": "24474",
+       "date": "2026-10-09",
+       "source_page": 22,
+       "lines": [
+        {
+         "column": "relocation",
+         "name": "Relocation labour",
+         "qty": 0.5,
+         "unit": "hours",
+         "rate": 100,
+         "amount": 50
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0002",
+       "number": "28555",
+       "date": "2026-10-09",
+       "source_page": 32,
+       "lines": []
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0030",
+       "number": "36587",
+       "date": "2026-10-09",
+       "source_page": 23,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 22.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 549
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 3,
+         "unit": "each",
+         "rate": 50,
+         "amount": 150
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0033",
+       "number": "36590",
+       "date": "2026-10-09",
+       "source_page": 26,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 97.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 975
+        },
+        {
+         "column": "v_gates",
+         "name": "Vehicle gate incl one wheel",
+         "qty": 4,
+         "unit": "each",
+         "rate": 50,
+         "amount": 200
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0031",
+       "number": "36588",
+       "date": "2026-10-09",
+       "source_page": 24,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 32.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 325
+        },
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 62.5,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 1525
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0032",
+       "number": "36589",
+       "date": "2026-10-09",
+       "source_page": 25,
+       "lines": [
+        {
+         "column": "scrim",
+         "name": "Braced for scrim",
+         "qty": 15,
+         "unit": "m",
+         "rate": 24.4,
+         "amount": 366
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0034",
+       "number": "36591",
+       "date": "2026-10-09",
+       "source_page": 27,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 105,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 567
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0035",
+       "number": "36592",
+       "date": "2026-10-09",
+       "source_page": 28,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 137.5,
+         "unit": "m",
+         "rate": 10,
+         "amount": 1375
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0036",
+       "number": "36593",
+       "date": "2026-10-09",
+       "source_page": 29,
+       "lines": [
+        {
+         "column": "clean",
+         "name": "Clean temporary fencing",
+         "qty": 90,
+         "unit": "m",
+         "rate": 10,
+         "amount": 900
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0037",
+       "number": "36594",
+       "date": "2026-10-09",
+       "source_page": 30,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 22.5,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 121.5
+        }
+       ]
+      },
+      {
+       "book": "red",
+       "id": "F-AFV-0038",
+       "number": "36595",
+       "date": "2026-10-09",
+       "source_page": 31,
+       "lines": [
+        {
+         "column": "ccb_demarc",
+         "name": "Demarcation CCB",
+         "qty": 10,
+         "unit": "m",
+         "rate": 5.4,
+         "amount": 54
+        }
+       ]
+      },
+      {
+       "book": "blue",
+       "id": "FC-AFV-0003",
+       "number": "28556",
+       "date": "2026-10-09",
+       "source_page": 33,
+       "lines": []
+      }
+     ],
+     "extras": [
+      {
+       "id": "team-leader-2026-10-06",
+       "date": "2026-10-06",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-07",
+       "date": "2026-10-07",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-08",
+       "date": "2026-10-08",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      },
+      {
+       "id": "team-leader-2026-10-09",
+       "date": "2026-10-09",
+       "column": "team_leader",
+       "name": "Team leader — daily supplier charge",
+       "qty": 2,
+       "unit": "day",
+       "rate": 200
+      }
+     ],
+     "total": 28246.5,
+     "supplier_code": "ZINC001",
+     "branch": "STPS"
+    },
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T18:20:00.000Z",
+     "basis": "{\"amount\":28246.5,\"period\":\"Construction week 2\",\"programme_sheet\":\"CON WK2\",\"invoice_no\":null,\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":\"fencing\",\"revenue_branch\":null,\"confirmed\":true,\"what\":\"Construction week 2\",\"note\":\"GC500 Week 2 · work 6–9 Oct 2026 · approval sheet 13 Oct 2026\",\"supplier_pricing\":{\"basis\":\"ex GST\",\"branch\":\"STPS\",\"currency\":\"AUD\",\"extras\":[{\"column\":\"team_leader\",\"date\":\"2026-10-06\",\"id\":\"team-leader-2026-10-06\",\"name\":\"Team leader — daily supplier charge\",\"qty\":2,\"rate\":200,\"unit\":\"day\"},{\"column\":\"team_leader\",\"date\":\"2026-10-07\",\"id\":\"team-leader-2026-10-07\",\"name\":\"Team leader — daily supplier charge\",\"qty\":2,\"rate\":200,\"unit\":\"day\"},{\"column\":\"team_leader\",\"date\":\"2026-10-08\",\"id\":\"team-leader-2026-10-08\",\"name\":\"Team leader — daily supplier charge\",\"qty\":2,\"rate\":200,\"unit\":\"day\"},{\"column\":\"team_leader\",\"date\":\"2026-10-09\",\"id\":\"team-leader-2026-10-09\",\"name\":\"Team leader — daily supplier charge\",\"qty\":2,\"rate\":200,\"unit\":\"day\"}],\"records\":[{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0015\",\"lines\":[{\"amount\":975,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":97.5,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36573\",\"source_page\":3},{\"book\":\"green\",\"date\":\"2026-10-06\",\"id\":\"N-AFV-0009\",\"lines\":[{\"amount\":75,\"column\":\"relocation\",\"name\":\"Relocation labour\",\"qty\":0.75,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24469\",\"source_page\":2},{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0016\",\"lines\":[{\"amount\":1625,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":162.5,\"rate\":10,\"unit\":\"m\"},{\"amount\":244,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":10,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":100,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":2,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36574\",\"source_page\":4},{\"book\":\"green\",\"date\":\"2026-10-06\",\"id\":\"N-AFV-0008\",\"lines\":[{\"amount\":25,\"column\":\"labour\",\"name\":\"Installer labour\",\"qty\":0.25,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24468\",\"source_page\":1},{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0017\",\"lines\":[{\"amount\":1200,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":120,\"rate\":10,\"unit\":\"m\"},{\"amount\":300,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":6,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36575\",\"source_page\":5},{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0018\",\"lines\":[{\"amount\":61,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":2.5,\"rate\":24.4,\"unit\":\"m\"}],\"number\":\"36576\",\"source_page\":6},{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0019\",\"lines\":[{\"amount\":610,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":25,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":100,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":2,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36577\",\"source_page\":7},{\"book\":\"red\",\"date\":\"2026-10-06\",\"id\":\"F-AFV-0020\",\"lines\":[{\"amount\":750,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":75,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36578\",\"source_page\":8},{\"book\":\"blue\",\"date\":\"2026-10-06\",\"id\":\"FC-AFV-0001\",\"lines\":[],\"number\":\"28554\",\"source_page\":9},{\"book\":\"red\",\"date\":\"2026-10-07\",\"id\":\"F-AFV-0021\",\"lines\":[{\"amount\":350,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":35,\"rate\":10,\"unit\":\"m\"},{\"amount\":2989,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":122.5,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":400,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":8,\"rate\":50,\"unit\":\"each\"},{\"amount\":122,\"column\":\"ped_gates\",\"name\":\"Pedestrian gate incl one wheel\",\"qty\":2,\"rate\":61,\"unit\":\"each\"}],\"number\":\"36579\",\"source_page\":12},{\"book\":\"green\",\"date\":\"2026-10-07\",\"id\":\"N-AFV-0011\",\"lines\":[{\"amount\":150,\"column\":\"relocation\",\"name\":\"Relocation labour\",\"qty\":1.5,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24471\",\"source_page\":10},{\"book\":\"green\",\"date\":\"2026-10-07\",\"id\":\"N-AFV-0012\",\"lines\":[{\"amount\":400,\"column\":\"labour\",\"name\":\"Installer labour\",\"qty\":4,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24472\",\"source_page\":11},{\"book\":\"red\",\"date\":\"2026-10-07\",\"id\":\"F-AFV-0022\",\"lines\":[{\"amount\":1500,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":150,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36580\",\"source_page\":13},{\"book\":\"red\",\"date\":\"2026-10-07\",\"id\":\"F-AFV-0025\",\"lines\":[{\"amount\":1769,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":72.5,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":-725,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":-72.5,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36581\",\"source_page\":14},{\"book\":\"red\",\"date\":\"2026-10-07\",\"id\":\"F-AFV-0023\",\"lines\":[{\"amount\":775,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":77.5,\"rate\":10,\"unit\":\"m\"},{\"amount\":100,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":2,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36582\",\"source_page\":15},{\"book\":\"green\",\"date\":\"2026-10-07\",\"id\":\"N-AFV-0010\",\"lines\":[{\"amount\":150,\"column\":\"labour\",\"name\":\"Installer labour\",\"qty\":1.5,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24470\",\"source_page\":16},{\"book\":\"red\",\"date\":\"2026-10-08\",\"id\":\"F-AFV-0027\",\"lines\":[{\"amount\":183,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":7.5,\"rate\":24.4,\"unit\":\"m\"}],\"number\":\"36584\",\"source_page\":18},{\"book\":\"red\",\"date\":\"2026-10-08\",\"id\":\"F-AFV-0028\",\"lines\":[{\"amount\":1098,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":45,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":61,\"column\":\"ped_gates\",\"name\":\"Pedestrian gate incl one wheel\",\"qty\":1,\"rate\":61,\"unit\":\"each\"}],\"number\":\"36585\",\"source_page\":19},{\"book\":\"red\",\"date\":\"2026-10-08\",\"id\":\"F-AFV-0029\",\"lines\":[{\"amount\":610,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":25,\"rate\":24.4,\"unit\":\"m\"}],\"number\":\"36586\",\"source_page\":20},{\"book\":\"red\",\"date\":\"2026-10-08\",\"id\":\"F-AFV-0024\",\"lines\":[{\"amount\":1450,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":145,\"rate\":10,\"unit\":\"m\"},{\"amount\":1342,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":55,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":300,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":6,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36583\",\"source_page\":17},{\"book\":\"green\",\"date\":\"2026-10-08\",\"id\":\"N-AFV-0013\",\"lines\":[{\"amount\":400,\"column\":\"labour\",\"name\":\"Installer labour\",\"qty\":4,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24473\",\"source_page\":21},{\"book\":\"green\",\"date\":\"2026-10-09\",\"id\":\"N-AFV-0014\",\"lines\":[{\"amount\":50,\"column\":\"relocation\",\"name\":\"Relocation labour\",\"qty\":0.5,\"rate\":100,\"unit\":\"hours\"}],\"number\":\"24474\",\"source_page\":22},{\"book\":\"blue\",\"date\":\"2026-10-09\",\"id\":\"FC-AFV-0002\",\"lines\":[],\"number\":\"28555\",\"source_page\":32},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0030\",\"lines\":[{\"amount\":549,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":22.5,\"rate\":24.4,\"unit\":\"m\"},{\"amount\":150,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":3,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36587\",\"source_page\":23},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0033\",\"lines\":[{\"amount\":975,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":97.5,\"rate\":10,\"unit\":\"m\"},{\"amount\":200,\"column\":\"v_gates\",\"name\":\"Vehicle gate incl one wheel\",\"qty\":4,\"rate\":50,\"unit\":\"each\"}],\"number\":\"36590\",\"source_page\":26},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0031\",\"lines\":[{\"amount\":325,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":32.5,\"rate\":10,\"unit\":\"m\"},{\"amount\":1525,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":62.5,\"rate\":24.4,\"unit\":\"m\"}],\"number\":\"36588\",\"source_page\":24},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0032\",\"lines\":[{\"amount\":366,\"column\":\"scrim\",\"name\":\"Braced for scrim\",\"qty\":15,\"rate\":24.4,\"unit\":\"m\"}],\"number\":\"36589\",\"source_page\":25},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0034\",\"lines\":[{\"amount\":567,\"column\":\"ccb_demarc\",\"name\":\"Demarcation CCB\",\"qty\":105,\"rate\":5.4,\"unit\":\"m\"}],\"number\":\"36591\",\"source_page\":27},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0035\",\"lines\":[{\"amount\":1375,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":137.5,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36592\",\"source_page\":28},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0036\",\"lines\":[{\"amount\":900,\"column\":\"clean\",\"name\":\"Clean temporary fencing\",\"qty\":90,\"rate\":10,\"unit\":\"m\"}],\"number\":\"36593\",\"source_page\":29},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0037\",\"lines\":[{\"amount\":121.5,\"column\":\"ccb_demarc\",\"name\":\"Demarcation CCB\",\"qty\":22.5,\"rate\":5.4,\"unit\":\"m\"}],\"number\":\"36594\",\"source_page\":30},{\"book\":\"red\",\"date\":\"2026-10-09\",\"id\":\"F-AFV-0038\",\"lines\":[{\"amount\":54,\"column\":\"ccb_demarc\",\"name\":\"Demarcation CCB\",\"qty\":10,\"rate\":5.4,\"unit\":\"m\"}],\"number\":\"36595\",\"source_page\":31},{\"book\":\"blue\",\"date\":\"2026-10-09\",\"id\":\"FC-AFV-0003\",\"lines\":[],\"number\":\"28556\",\"source_page\":33}],\"schema\":1,\"source\":{\"date\":\"2026-10-13\",\"file\":\"Copy of P003-25003-01-GC600 2026_Coates Hire Fencing Programme - WEEK 2 - INV TOTALS -13-10-2026 - Commercial Approval.pdf\",\"sha256\":\"1a43f7f08e9194e407e3c55b6a0648b2f817ba5082c6dc0a034cd317aafe6782\"},\"supplier_code\":\"ZINC001\",\"total\":28246.5}}"
+    },
+    "_k": "4647519"
+   },
+   "stamps/po~2f~4647519": {
+    "_k": "po/4647519",
+    "v": "2026-10-14T18:53:39.582Z"
+   },
+   "by/po~2f~4647519": {
+    "_k": "po/4647519",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4657010": {
+    "number": "4657010",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 20 Sep 2026",
+    "period": "w/e 20 Sep 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 3023.7,
+    "note": "Job Connect invoice $3,023.70, all GC500",
+    "confirmed": true,
+    "updated_at": "2026-10-14T18:53:39.676Z",
+    "updated_by": "Andrew Fisher",
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T18:20:00.000Z",
+     "basis": "{\"amount\":3023.7,\"period\":\"w/e 20 Sep 2026\",\"programme_sheet\":null,\"invoice_no\":null,\"supplier_code\":null,\"supplier_name\":\"Job Connect\",\"branch\":\"KINP\",\"stream\":\"labour\",\"revenue_branch\":\"KINP\",\"confirmed\":true,\"what\":\"Kyle Gover - week ending 20 Sep 2026\",\"note\":\"Job Connect invoice $3,023.70, all GC500\",\"supplier_pricing\":null}"
+    },
+    "_k": "4657010"
+   },
+   "stamps/po~2f~4657010": {
+    "_k": "po/4657010",
+    "v": "2026-10-14T18:53:39.676Z"
+   },
+   "by/po~2f~4657010": {
+    "_k": "po/4657010",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4658850": {
+    "number": "4658850",
+    "by": "Andrew Fisher (via Claude)",
+    "at": "2026-09-29T05:52:20.308Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "period": null,
+    "confirmed": false,
+    "updated_at": "2026-10-14T18:53:39.761Z",
+    "updated_by": "Andrew Fisher",
+    "programme_sheet": null,
+    "invoice_no": "4922343",
+    "amount": 195,
+    "note": "INV 93920 - partial Collection",
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T18:20:00.000Z",
+     "basis": "{\"amount\":195,\"period\":null,\"programme_sheet\":null,\"invoice_no\":\"4922343\",\"supplier_code\":\"ZINC001\",\"supplier_name\":\"Advanced Temporary Fencing\",\"branch\":\"STPS\",\"stream\":null,\"revenue_branch\":null,\"confirmed\":false,\"what\":null,\"note\":\"INV 93920 - partial Collection\",\"supplier_pricing\":null}"
+    },
+    "_k": "4658850"
+   },
+   "stamps/po~2f~4658850": {
+    "_k": "po/4658850",
+    "v": "2026-10-14T18:53:39.761Z"
+   },
+   "by/po~2f~4658850": {
+    "_k": "po/4658850",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4660565": {
+    "number": "4660565",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 27 Sep 2026",
+    "period": "w/e 27 Sep 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 1299.74,
+    "note": "GC500 share of Job Connect invoice $3,044.97 (24.5 h of the week); balance $1,745.23 not GC500",
+    "confirmed": true,
+    "updated_at": "2026-10-14T18:53:39.846Z",
+    "updated_by": "Andrew Fisher",
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T18:20:00.000Z",
+     "basis": "{\"amount\":1299.74,\"period\":\"w/e 27 Sep 2026\",\"programme_sheet\":null,\"invoice_no\":null,\"supplier_code\":null,\"supplier_name\":\"Job Connect\",\"branch\":\"KINP\",\"stream\":\"labour\",\"revenue_branch\":\"KINP\",\"confirmed\":true,\"what\":\"Kyle Gover - week ending 27 Sep 2026\",\"note\":\"GC500 share of Job Connect invoice $3,044.97 (24.5 h of the week); balance $1,745.23 not GC500\",\"supplier_pricing\":null}"
+    },
+    "_k": "4660565"
+   },
+   "stamps/po~2f~4660565": {
+    "_k": "po/4660565",
+    "v": "2026-10-14T18:53:39.846Z"
+   },
+   "by/po~2f~4660565": {
+    "_k": "po/4660565",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4661783": {
+    "number": "4661783",
+    "by": "Andrew Fisher via Codex",
+    "at": "2026-10-06T02:09:53.064Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 4 Oct 2026",
+    "period": "w/e 4 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 3052.6,
+    "confirmed": true,
+    "updated_at": "2026-10-14T18:53:39.944Z",
+    "updated_by": "Andrew Fisher",
+    "invoice_no": "15294",
+    "receipted": "full",
+    "receipted_amount": null,
+    "checked": {
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T18:20:00.000Z",
+     "basis": "{\"amount\":3052.6,\"period\":\"w/e 4 Oct 2026\",\"programme_sheet\":null,\"invoice_no\":\"15294\",\"supplier_code\":null,\"supplier_name\":\"Job Connect\",\"branch\":\"KINP\",\"stream\":\"labour\",\"revenue_branch\":\"KINP\",\"confirmed\":true,\"what\":\"Daniel Gough - week ending 4 Oct 2026\",\"note\":null,\"supplier_pricing\":null}"
+    },
+    "_k": "4661783"
+   },
+   "stamps/po~2f~4661783": {
+    "_k": "po/4661783",
+    "v": "2026-10-14T18:53:39.944Z"
+   },
+   "by/po~2f~4661783": {
+    "_k": "po/4661783",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

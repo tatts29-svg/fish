@@ -1,0 +1,983 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T213015Z",
+ "finished": "2026-10-15T21:31:00.771Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Sixteen Advanced Temporary Fencing hire agreements 36601-36616, installed 12 to 15 Oct 2026, signed by Andrew on 16 Oct 2026 and photographed; recorded through the page's own red-book form (recordHireAgreement) and charged at the 2026 card by the page's own rules. Mesh fence metres go on the clean line; a paper that says braced and scrimmed carries scrim for the same metres (the clean-plus-scrim convention); CC barrier goes to demarcation where the paper's notes say demarcation, and to demarcation marked to confirm where the paper says only CC barrier (as 36559 and 36560 stand); flat-feet CCB on its own line; pedestrian gates each. Wheels, bases, clamps and braces are components on the paper, not charge lines.",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36601",
+    "date": "2026-10-12",
+    "location": "Commodore Park - Ticket Entry",
+    "map_ref": "",
+    "quantities": {
+     "clean": 25,
+     "scrim": 25
+    },
+    "components": {
+     "mesh_panel": 10,
+     "base": 26,
+     "clamp": 26,
+     "brace": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Braced & scrimmed (ticked). Mesh fence 25 m on the clean line; scrim 25 m, same as the fence. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper; charged at the 2026 card by the page's rules."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36602",
+    "date": "2026-10-12",
+    "location": "Cove - Optus",
+    "map_ref": "",
+    "quantities": {
+     "clean": 45,
+     "scrim": 45
+    },
+    "components": {
+     "mesh_panel": 18,
+     "base": 46,
+     "clamp": 46,
+     "brace": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Braced & scrimmed (ticked). Mesh fence 45 m on the clean line; scrim 45 m, same as the fence. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36603",
+    "date": "2026-10-13",
+    "location": "Eastern Residents & Demarc - Cable St to Gate 8A - DL & DR",
+    "map_ref": "",
+    "quantities": {
+     "clean": 537.5,
+     "ccb_demarc": 672.5,
+     "ped_gates": 4
+    },
+    "components": {
+     "mesh_panel": 215,
+     "cc_barrier": 269,
+     "base": 209,
+     "clamp": 240,
+     "brace": 21,
+     "wheels": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36604",
+    "date": "2026-10-13",
+    "location": "Breaker St - T11 - DL",
+    "map_ref": "",
+    "quantities": {
+     "flat_feet": 93
+    },
+    "components": {
+     "flat_feet_ccb": 42
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Flat feet CCBs: CC barrier (flat feet) 93 m, 42 pieces, on the flat-feet line. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36605",
+    "date": "2026-10-13",
+    "location": "Aloha Lane to Cronin St (Crest)",
+    "map_ref": "",
+    "quantities": {
+     "clean": 95
+    },
+    "components": {
+     "mesh_panel": 38,
+     "base": 38,
+     "clamp": 37
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 95 m (an earlier figure crossed out on the paper; 95 stands). Site address overwritten on the paper, reads Aloha Lane to Cronin St (Crest). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36606",
+    "date": "2026-10-13",
+    "location": "Fishermans Walk",
+    "map_ref": "",
+    "quantities": {
+     "clean": 10
+    },
+    "components": {
+     "mesh_panel": 4,
+     "base": 4,
+     "clamp": 3
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 10 m. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36607",
+    "date": "2026-10-14",
+    "location": "Main Beach Tower",
+    "map_ref": "",
+    "quantities": {
+     "clean": 47.5
+    },
+    "components": {
+     "mesh_panel": 19,
+     "base": 20,
+     "clamp": 19
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 47.5 m. Site address has words crossed out before Main Beach Tower. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36608",
+    "date": "2026-10-14",
+    "location": "Ferny Ave to Narrow Neck Court",
+    "map_ref": "",
+    "quantities": {
+     "clean": 117.5,
+     "ccb_demarc": 192.5
+    },
+    "components": {
+     "mesh_panel": 47,
+     "cc_barrier": 77,
+     "base": 40,
+     "clamp": 40,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Demarcation - S05 to Ferny Ave (written on the paper). Mesh fence 117.5 m on the clean line; CC barrier 192.5 m recorded as demarcation as the paper says. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36609",
+    "date": "2026-10-14",
+    "location": "Esplanade south of Meriton - Porsche Lounge C.2",
+    "map_ref": "",
+    "quantities": {
+     "clean": 420
+    },
+    "components": {
+     "mesh_panel": 168,
+     "base": 265,
+     "clamp": 264,
+     "brace": 50,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36610",
+    "date": "2026-10-14",
+    "location": "G8 & surround",
+    "map_ref": "",
+    "quantities": {
+     "clean": 367.5,
+     "ccb_demarc": 200,
+     "ped_gates": 2
+    },
+    "components": {
+     "mesh_panel": 147,
+     "cc_barrier": 80,
+     "base": 136,
+     "clamp": 136,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Install includes: Contessa West; Aris to Malibu; Aloha Lane - Breaker St; Demarcation - Aloha Lane to T12 run off. Mesh fence 367.5 m on the clean line; CC barrier 200 m recorded as demarcation as the paper's notes say; 2 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36611",
+    "date": "2026-10-15",
+    "location": "Surfers Paradise Light Rail",
+    "map_ref": "",
+    "quantities": {
+     "clean": 165,
+     "ccb_demarc": 130
+    },
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 165 m on the clean line. Paper says CC Barrier 130 m; event or demarcation not written - recorded as demarcation, to confirm (as 36559 and 36560 stand). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36612",
+    "date": "2026-10-15",
+    "location": "Pacific Ave to Cable St",
+    "map_ref": "",
+    "quantities": {
+     "clean": 315,
+     "ped_gates": 3
+    },
+    "components": {
+     "mesh_panel": 126,
+     "base": 122,
+     "clamp": 120,
+     "wheels": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 315 m (a figure after it crossed out on the paper; 315 stands); 3 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36613",
+    "date": "2026-10-15",
+    "location": "Porsche C.2",
+    "map_ref": "",
+    "quantities": {
+     "ccb_demarc": 70
+    },
+    "components": {
+     "cc_barrier": 28
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Paper says CC Barrier 70 m, 28 barriers; event or demarcation not written - recorded as demarcation, to confirm (the Porsche Lounge corporate area may be an event line). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36614",
+    "date": "2026-10-15",
+    "location": "S.0.8 B.O.H.",
+    "map_ref": "S08",
+    "quantities": {
+     "clean": 40
+    },
+    "components": {
+     "mesh_panel": 16,
+     "base": 18,
+     "clamp": 38,
+     "brace": 34,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 40 m on the clean line; 2 wheels. The base count is written over on the paper and reads 18 (or 78) - 18 taken, to confirm. Named on service note 24481 (relocation 65 m and 120 m scrim at S08 BOH on the same day). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36615",
+    "date": "2026-10-15",
+    "location": "Gate 5 Compound",
+    "map_ref": "",
+    "quantities": {
+     "clean": 110
+    },
+    "components": {
+     "mesh_panel": 44,
+     "base": 75,
+     "clamp": 70,
+     "brace": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36616",
+    "date": "2026-10-15",
+    "location": "Triangle C.2",
+    "map_ref": "",
+    "quantities": {
+     "clean": 147.5
+    },
+    "components": {
+     "mesh_panel": 59,
+     "base": 55,
+     "clamp": 54,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "Mesh fence 147.5 m on the clean line; 2 wheels. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6615,
+  "after": 6631
+ },
+ "updated": {
+  "before": "2026-10-15T21:23:33.259Z",
+  "after": "2026-10-15T21:31:00.059Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36601",
+   "id": "F-AF-0001",
+   "charge": 1042.27,
+   "paid": 860,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0001 - 25 clean, 25 scrim - F-AF-0001 saved in this browser — $1,042.27 charged at the 2026 card, $860.00 paid. Export and rebuild to put it on the record. | Hire agreement 36601 recorded as F-AF-0001 - $1,042.27 charged at the 2026 card, $860.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36602",
+   "id": "F-AF-0002",
+   "charge": 1876.08,
+   "paid": 1548,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0002 - 45 clean, 45 scrim - F-AF-0002 saved in this browser — $1,876.08 charged at the 2026 card, $1,548.00 paid. Export and rebuild to put it on the record. | Hire agreement 36602 recorded as F-AF-0002 - $1,876.08 charged at the 2026 card, $1,548.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36603",
+   "id": "F-AF-0003",
+   "charge": 17627.42,
+   "paid": 9150.5,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0003 - 537.5 clean, 672.5 ccb_demarc, 4 ped_gates - F-AF-0003 saved in this browser — $17,627.42 charged at the 2026 card, $9,150.50 paid. Export and rebuild to put it on the record. | Hire agreement 36603 recorded as F-AF-0003 - $17,627.42 charged at the 2026 card, $9,150.50 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36604",
+   "id": "F-AF-0004",
+   "charge": 897.55,
+   "paid": 0,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0004 - 93 flat_feet - F-AF-0004 saved in this browser — $897.55 charged at the 2026 card, $0.00 paid. Export and rebuild to put it on the record. | Hire agreement 36604 recorded as F-AF-0004 - $897.55 charged at the 2026 card, $0.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36605",
+   "id": "F-AF-0005",
+   "charge": 1535.27,
+   "paid": 950,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0005 - 95 clean - F-AF-0005 saved in this browser — $1,535.27 charged at the 2026 card, $950.00 paid. Export and rebuild to put it on the record. | Hire agreement 36605 recorded as F-AF-0005 - $1,535.27 charged at the 2026 card, $950.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36606",
+   "id": "F-AF-0006",
+   "charge": 161.61,
+   "paid": 100,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0006 - 10 clean - F-AF-0006 saved in this browser — $161.61 charged at the 2026 card, $100.00 paid. Export and rebuild to put it on the record. | Hire agreement 36606 recorded as F-AF-0006 - $161.61 charged at the 2026 card, $100.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36607",
+   "id": "F-AF-0007",
+   "charge": 767.63,
+   "paid": 475,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0007 - 47.5 clean - F-AF-0007 saved in this browser — $767.63 charged at the 2026 card, $475.00 paid. Export and rebuild to put it on the record. | Hire agreement 36607 recorded as F-AF-0007 - $767.63 charged at the 2026 card, $475.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36608",
+   "id": "F-AF-0008",
+   "charge": 4416.78,
+   "paid": 2214.5,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0008 - 117.5 clean, 192.5 ccb_demarc - F-AF-0008 saved in this browser — $4,416.78 charged at the 2026 card, $2,214.50 paid. Export and rebuild to put it on the record. | Hire agreement 36608 recorded as F-AF-0008 - $4,416.78 charged at the 2026 card, $2,214.50 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36609",
+   "id": "F-AF-0009",
+   "charge": 6787.49,
+   "paid": 4200,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0009 - 420 clean - F-AF-0009 saved in this browser — $6,787.49 charged at the 2026 card, $4,200.00 paid. Export and rebuild to put it on the record. | Hire agreement 36609 recorded as F-AF-0009 - $6,787.49 charged at the 2026 card, $4,200.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36610",
+   "id": "F-AF-0010",
+   "charge": 8627.43,
+   "paid": 4827,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0010 - 367.5 clean, 200 ccb_demarc, 2 ped_gates - F-AF-0010 saved in this browser — $8,627.43 charged at the 2026 card, $4,827.00 paid. Export and rebuild to put it on the record. | Hire agreement 36610 recorded as F-AF-0010 - $8,627.43 charged at the 2026 card, $4,827.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36611",
+   "id": "F-AF-0011",
+   "charge": 4366.92,
+   "paid": 2352,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0011 - 165 clean, 130 ccb_demarc - F-AF-0011 saved in this browser — $4,366.92 charged at the 2026 card, $2,352.00 paid. Export and rebuild to put it on the record. | Hire agreement 36611 recorded as F-AF-0011 - $4,366.92 charged at the 2026 card, $2,352.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36612",
+   "id": "F-AF-0012",
+   "charge": 5199.17,
+   "paid": 3258,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0012 - 315 clean, 3 ped_gates - F-AF-0012 saved in this browser — $5,199.17 charged at the 2026 card, $3,258.00 paid. Export and rebuild to put it on the record. | Hire agreement 36612 recorded as F-AF-0012 - $5,199.17 charged at the 2026 card, $3,258.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36613",
+   "id": "F-AF-0013",
+   "charge": 915.6,
+   "paid": 378,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0013 - 70 ccb_demarc - F-AF-0013 saved in this browser — $915.60 charged at the 2026 card, $378.00 paid. Export and rebuild to put it on the record. | Hire agreement 36613 recorded as F-AF-0013 - $915.60 charged at the 2026 card, $378.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36614",
+   "id": "F-AF-0014",
+   "charge": 646.43,
+   "paid": 400,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0014 - 40 clean - F-AF-0014 saved in this browser — $646.43 charged at the 2026 card, $400.00 paid. Export and rebuild to put it on the record. | Hire agreement 36614 recorded as F-AF-0014 - $646.43 charged at the 2026 card, $400.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36615",
+   "id": "F-AF-0015",
+   "charge": 1777.68,
+   "paid": 1100,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0015 - 110 clean - F-AF-0015 saved in this browser — $1,777.68 charged at the 2026 card, $1,100.00 paid. Export and rebuild to put it on the record. | Hire agreement 36615 recorded as F-AF-0015 - $1,777.68 charged at the 2026 card, $1,100.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36616",
+   "id": "F-AF-0016",
+   "charge": 2383.7,
+   "paid": 1475,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0016 - 147.5 clean - F-AF-0016 saved in this browser — $2,383.70 charged at the 2026 card, $1,475.00 paid. Export and rebuild to put it on the record. | Hire agreement 36616 recorded as F-AF-0016 - $2,383.70 charged at the 2026 card, $1,475.00 paid to Advanced. By Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "fenceDockets/F-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0005",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0006",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0007",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0008",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0009",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0010",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0011",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0012",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0013",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0014",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0015",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0016",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "fenceDockets/F-AF-0001": null,
+   "fenceDockets/F-AF-0002": null,
+   "fenceDockets/F-AF-0003": null,
+   "fenceDockets/F-AF-0004": null,
+   "fenceDockets/F-AF-0005": null,
+   "fenceDockets/F-AF-0006": null,
+   "fenceDockets/F-AF-0007": null,
+   "fenceDockets/F-AF-0008": null,
+   "fenceDockets/F-AF-0009": null,
+   "fenceDockets/F-AF-0010": null,
+   "fenceDockets/F-AF-0011": null,
+   "fenceDockets/F-AF-0012": null,
+   "fenceDockets/F-AF-0013": null,
+   "fenceDockets/F-AF-0014": null,
+   "fenceDockets/F-AF-0015": null,
+   "fenceDockets/F-AF-0016": null
+  },
+  "after": {
+   "fenceDockets/F-AF-0001": {
+    "id": "F-AF-0001",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36601",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Commodore Park - Ticket Entry",
+    "quantities": {
+     "clean": 25,
+     "scrim": 25
+    },
+    "note": "Braced & scrimmed (ticked). Mesh fence 25 m on the clean line; scrim 25 m, same as the fence. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper; charged at the 2026 card by the page's rules.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 10,
+     "base": 26,
+     "clamp": 26,
+     "brace": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36601, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0001"
+   },
+   "fenceDockets/F-AF-0002": {
+    "id": "F-AF-0002",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "docket_no": "36602",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Cove - Optus",
+    "quantities": {
+     "clean": 45,
+     "scrim": 45
+    },
+    "note": "Braced & scrimmed (ticked). Mesh fence 45 m on the clean line; scrim 45 m, same as the fence. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 18,
+     "base": 46,
+     "clamp": 46,
+     "brace": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36602, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0002"
+   },
+   "fenceDockets/F-AF-0003": {
+    "id": "F-AF-0003",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36603",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Eastern Residents & Demarc - Cable St to Gate 8A - DL & DR",
+    "quantities": {
+     "clean": 537.5,
+     "ccb_demarc": 672.5,
+     "ped_gates": 4
+    },
+    "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 215,
+     "cc_barrier": 269,
+     "base": 209,
+     "clamp": 240,
+     "brace": 21,
+     "wheels": 14
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36603, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0003"
+   },
+   "fenceDockets/F-AF-0004": {
+    "id": "F-AF-0004",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36604",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Breaker St - T11 - DL",
+    "quantities": {
+     "flat_feet": 93
+    },
+    "note": "Flat feet CCBs: CC barrier (flat feet) 93 m, 42 pieces, on the flat-feet line. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "flat_feet_ccb": 42
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36604, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0004"
+   },
+   "fenceDockets/F-AF-0005": {
+    "id": "F-AF-0005",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36605",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Aloha Lane to Cronin St (Crest)",
+    "quantities": {
+     "clean": 95
+    },
+    "note": "Mesh fence 95 m (an earlier figure crossed out on the paper; 95 stands). Site address overwritten on the paper, reads Aloha Lane to Cronin St (Crest). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 38,
+     "base": 38,
+     "clamp": 37
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36605, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0005"
+   },
+   "fenceDockets/F-AF-0006": {
+    "id": "F-AF-0006",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "docket_no": "36606",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Fishermans Walk",
+    "quantities": {
+     "clean": 10
+    },
+    "note": "Mesh fence 10 m. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 4,
+     "base": 4,
+     "clamp": 3
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36606, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0006"
+   },
+   "fenceDockets/F-AF-0007": {
+    "id": "F-AF-0007",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36607",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Main Beach Tower",
+    "quantities": {
+     "clean": 47.5
+    },
+    "note": "Mesh fence 47.5 m. Site address has words crossed out before Main Beach Tower. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 19,
+     "base": 20,
+     "clamp": 19
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36607, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0007"
+   },
+   "fenceDockets/F-AF-0008": {
+    "id": "F-AF-0008",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36608",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Ferny Ave to Narrow Neck Court",
+    "quantities": {
+     "clean": 117.5,
+     "ccb_demarc": 192.5
+    },
+    "note": "Demarcation - S05 to Ferny Ave (written on the paper). Mesh fence 117.5 m on the clean line; CC barrier 192.5 m recorded as demarcation as the paper says. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 47,
+     "cc_barrier": 77,
+     "base": 40,
+     "clamp": 40,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36608, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0008"
+   },
+   "fenceDockets/F-AF-0009": {
+    "id": "F-AF-0009",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36609",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Esplanade south of Meriton - Porsche Lounge C.2",
+    "quantities": {
+     "clean": 420
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 168,
+     "base": 265,
+     "clamp": 264,
+     "brace": 50,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36609, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0009"
+   },
+   "fenceDockets/F-AF-0010": {
+    "id": "F-AF-0010",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36610",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "G8 & surround",
+    "quantities": {
+     "clean": 367.5,
+     "ccb_demarc": 200,
+     "ped_gates": 2
+    },
+    "note": "Install includes: Contessa West; Aris to Malibu; Aloha Lane - Breaker St; Demarcation - Aloha Lane to T12 run off. Mesh fence 367.5 m on the clean line; CC barrier 200 m recorded as demarcation as the paper's notes say; 2 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 147,
+     "cc_barrier": 80,
+     "base": 136,
+     "clamp": 136,
+     "wheels": 8
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36610, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0010"
+   },
+   "fenceDockets/F-AF-0011": {
+    "id": "F-AF-0011",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36611",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Surfers Paradise Light Rail",
+    "quantities": {
+     "clean": 165,
+     "ccb_demarc": 130
+    },
+    "note": "Mesh fence 165 m on the clean line. Paper says CC Barrier 130 m; event or demarcation not written - recorded as demarcation, to confirm (as 36559 and 36560 stand). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36611, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0011"
+   },
+   "fenceDockets/F-AF-0012": {
+    "id": "F-AF-0012",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36612",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Pacific Ave to Cable St",
+    "quantities": {
+     "clean": 315,
+     "ped_gates": 3
+    },
+    "note": "Mesh fence 315 m (a figure after it crossed out on the paper; 315 stands); 3 pedestrian gates. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 126,
+     "base": 122,
+     "clamp": 120,
+     "wheels": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36612, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0012"
+   },
+   "fenceDockets/F-AF-0013": {
+    "id": "F-AF-0013",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36613",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Porsche C.2",
+    "quantities": {
+     "ccb_demarc": 70
+    },
+    "note": "Paper says CC Barrier 70 m, 28 barriers; event or demarcation not written - recorded as demarcation, to confirm (the Porsche Lounge corporate area may be an event line). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "cc_barrier": 28
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36613, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0013"
+   },
+   "fenceDockets/F-AF-0014": {
+    "id": "F-AF-0014",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36614",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": "S08",
+    "location": "S.0.8 B.O.H.",
+    "quantities": {
+     "clean": 40
+    },
+    "note": "Mesh fence 40 m on the clean line; 2 wheels. The base count is written over on the paper and reads 18 (or 78) - 18 taken, to confirm. Named on service note 24481 (relocation 65 m and 120 m scrim at S08 BOH on the same day). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 16,
+     "base": 18,
+     "clamp": 38,
+     "brace": 34,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36614, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0014"
+   },
+   "fenceDockets/F-AF-0015": {
+    "id": "F-AF-0015",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36615",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Gate 5 Compound",
+    "quantities": {
+     "clean": 110
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 44,
+     "base": 75,
+     "clamp": 70,
+     "brace": 16
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36615, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0015"
+   },
+   "fenceDockets/F-AF-0016": {
+    "id": "F-AF-0016",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36616",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Triangle C.2",
+    "quantities": {
+     "clean": 147.5
+    },
+    "note": "Mesh fence 147.5 m on the clean line; 2 wheels. Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 59,
+     "base": 55,
+     "clamp": 54,
+     "wheels": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36616, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0016"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

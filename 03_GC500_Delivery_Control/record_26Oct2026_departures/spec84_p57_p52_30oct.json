@@ -1,0 +1,8 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:3x AEST: \"P57 left 1030 p52 left 1045\". P57 (Radio Distribution Office, Building 9.6m 1268888, Helen Park) left site 30 Oct 10:30; P52 (Gate 1 Volunteer Check-In, Building 12m 1327211, Helen Park) left 30 Oct 10:45. Each is its reference's only unit, so each leaves in full. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "depart", "ref": "P57", "at": "2026-10-30T10:30:00+10:00", "nos": ["1268888"], "unnumbered": [], "complete": true},
+    {"op": "depart", "ref": "P52", "at": "2026-10-30T10:45:00+10:00", "nos": ["1327211"], "unnumbered": [], "complete": true}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (10:3x AEST): \"1030Am 1189409 has just left\". 1189409 is P62's only unit (Gate 5 QFES Office, Building 6m, Coates; ticked Ready by Andrew and booked by him for pick-up 27 Oct 09:00; read 10:36 AEST, the only place the number is on the record, not already left), so P62 left in full at 10:30 AEST. Its air conditioners 1189912 and 1189908, fire extinguisher and fridge 1254221 stay listed on P62 as gear that goes with it.",
+  "ops": [
+    {"op": "depart", "ref": "P62", "at": "2026-10-27T10:30:00+10:00", "nos": ["1189409"], "complete": true}
+  ]
+}

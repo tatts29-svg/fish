@@ -1,0 +1,123 @@
+{
+  "author": "Andrew Fisher",
+  "checked_utc": "2026-10-13T08:47:32.363677+00:00",
+  "candidate_sha256": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "harness": "toolchain/harness/sweep.js",
+  "harness_blocks_operational_writes": true,
+  "candidate_modified": false,
+  "results": {
+    "desktop": {
+      "pass": true,
+      "checks": {
+        "22_routes_exercised": true,
+        "active_panes_or_intended_redirects": true,
+        "7_deep_links": true,
+        "driver_print_bar_opens": true,
+        "back_returns_to_equipment": true,
+        "zero_page_errors": true,
+        "zero_console_errors": true
+      },
+      "routes": [
+        "today",
+        "progress",
+        "map",
+        "docs",
+        "register",
+        "plant",
+        "demob",
+        "fencing",
+        "prestarts",
+        "coatesway",
+        "journal",
+        "breakdowns",
+        "variances",
+        "costs",
+        "edit",
+        "change",
+        "add",
+        "pricing",
+        "timeline",
+        "subhired",
+        "questions",
+        "about"
+      ],
+      "legacy_redirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "deep_links": [
+        "#timeline",
+        "#day/2026-09-28",
+        "#change/2026-09-28",
+        "#print/drivers/2026-09-28",
+        "#sheet/__satellite3d",
+        "#plant",
+        "#today"
+      ],
+      "page_error_count": 0,
+      "console_error_count": 0,
+      "private_report": "/workspace/private-gc500-unit1006/final-checks/sweep-desktop.json"
+    },
+    "phone": {
+      "pass": true,
+      "checks": {
+        "22_routes_exercised": true,
+        "active_panes_or_intended_redirects": true,
+        "7_deep_links": true,
+        "driver_print_bar_opens": true,
+        "back_returns_to_equipment": true,
+        "zero_page_errors": true,
+        "zero_console_errors": true
+      },
+      "routes": [
+        "today",
+        "progress",
+        "map",
+        "docs",
+        "register",
+        "plant",
+        "demob",
+        "fencing",
+        "prestarts",
+        "coatesway",
+        "journal",
+        "breakdowns",
+        "variances",
+        "costs",
+        "edit",
+        "change",
+        "add",
+        "pricing",
+        "timeline",
+        "subhired",
+        "questions",
+        "about"
+      ],
+      "legacy_redirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "deep_links": [
+        "#timeline",
+        "#day/2026-09-28",
+        "#change/2026-09-28",
+        "#print/drivers/2026-09-28",
+        "#sheet/__satellite3d",
+        "#plant",
+        "#today"
+      ],
+      "page_error_count": 0,
+      "console_error_count": 0,
+      "private_report": "/workspace/private-gc500-unit1006/final-checks/sweep-phone.json"
+    }
+  },
+  "pass": true
+}

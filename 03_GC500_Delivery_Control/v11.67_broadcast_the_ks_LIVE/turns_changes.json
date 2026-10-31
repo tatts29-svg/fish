@@ -1,0 +1,38 @@
+{
+ "schema": "gc500-broadcast-revoice-v1",
+ "base": "v11.65",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "flow": "Qc1iMoJTLhlFZqKutDwx",
+ "turns": [
+  {
+   "slot": 2,
+   "scene": "countdown",
+   "old": "[rapid] Forty-seven days! From the first truck through the gate on the seventh of September — to race day, Friday the twenty-third of October! [fast] Seven hundred and twenty-seven pieces of equipment! Twenty kilometres of fencing work! [punchy] Sun, wind, and a LOT of rain — [shouting] and they got it DONE!",
+   "text": "[rapid] Forty-seven days! From the first truck through the gate on the seventh of September — to race day, Friday the twenty-third of October! [fast] Seven hundred and twenty-seven pieces of equipment! More than twenty kilometres of fence and crowd control! [punchy] Sun, wind, and a LOT of rain — [shouting] and they got it DONE!",
+   "loop": false
+  },
+  {
+   "slot": 28,
+   "scene": "fence_length1090",
+   "old": "[fast, building] THIRTEEN KILOMETRES of temporary fence standing! [punchy] Thirteen thousand one hundred and eighty-seven metres — [rapid] more than five hundred metres MORE than the programme asked for! [laughs] Walk it end to end and you'd want a packed lunch! [shouting] THIRTEEN K!",
+   "text": "[fast, building] THIRTEEN POINT TWO KILOMETRES of temporary fence put in! [punchy] Thirteen thousand one hundred and eighty-seven and a half metres — [rapid] five hundred and seventy metres MORE than the programme asked for! [laughs] Walk that lot end to end and you'd want a packed lunch! [shouting] THIRTEEN POINT TWO K!",
+   "loop": false
+  },
+  {
+   "slot": 35,
+   "scene": "fenceprog",
+   "old": "[fast, summing up] Put it all together — the fence, the crowd control, the flat feet — [building] twenty kilometres of fencing work around the precinct! [punchy] Wayne Woods and the Advanced crew — [shouting] twenty K, in the wind, in the rain, and done RIGHT!",
+   "text": "[fast, summing up] Put it all together — thirteen point two K of fence, seven point two of crowd control, two hundred and seventy metres of flat feet — [building] TWENTY POINT SEVEN kilometres of fencing work around the precinct! [punchy] And four point four K of scrim on top of that! [shouting] Wayne Woods and the Advanced crew — in the wind, in the rain, and done RIGHT!",
+   "loop": false
+  },
+  {
+   "slot": 43,
+   "scene": "complete",
+   "old": "[building, awed] Seven hundred and twenty-seven pieces of equipment — every one booked for race weekend — ON SITE! [fast] Thirteen kilometres of fence! Seven kilometres of crowd control! Twenty kilometres of fencing work, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "text": "[building, awed] Seven hundred and twenty-seven pieces of equipment — every one booked for race weekend — ON SITE! [fast] Thirteen point two kilometres of fence! Seven point two of crowd control! Four point four of scrim! [building] Twenty point seven kilometres of fence and crowd control, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "loop": false
+  }
+ ]
+}

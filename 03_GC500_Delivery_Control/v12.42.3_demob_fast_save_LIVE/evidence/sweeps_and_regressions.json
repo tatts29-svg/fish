@@ -1,0 +1,205 @@
+{
+ "author": "Andrew Fisher",
+ "candidate": "81cacbcf24551cb5ed5178fa59601b7577da47af0e0a7b29b11bed343fb3e57f",
+ "base": "live v12.42.2 c83f1a27a3995852437afe4890bf4dd43d253aecb3128baa52b12a61d9b704ba",
+ "note": "one Chromium at a time, 27 Oct 2026 11:26-12:05 AEST; GET only, every write aborted",
+ "sweep_desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "allErrors": 0,
+  "console": 0,
+  "blocked": 0,
+  "hashes": {
+   "#timeline": "pane-timeline",
+   "#day/2026-09-28": "pane-timeline",
+   "#change/2026-09-28": "pane-today",
+   "#print/drivers/2026-09-28": "pane-timeline",
+   "#sheet/__satellite3d": "pane-map",
+   "#plant": "pane-plant",
+   "#today": "pane-today"
+  },
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  }
+ },
+ "sweep_phone": {
+  "tabs": 27,
+  "shown": 19,
+  "allErrors": 0,
+  "console": 0,
+  "blocked": 0,
+  "hashes": {
+   "#timeline": "pane-timeline",
+   "#day/2026-09-28": "pane-timeline",
+   "#change/2026-09-28": "pane-today",
+   "#print/drivers/2026-09-28": "pane-timeline",
+   "#sheet/__satellite3d": "pane-map",
+   "#plant": "pane-plant",
+   "#today": "pane-today"
+  },
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  }
+ },
+ "persistence1010_base": {
+  "checks": 32,
+  "passed": 30,
+  "failed": [
+   {
+    "name": "phone refresh preserves reading scroll",
+    "detail": {
+     "opened": {
+      "total": 12,
+      "top": 3922,
+      "bodyTop": 0
+     },
+     "refreshed": {
+      "total": 12,
+      "open": 12,
+      "on": true,
+      "top": 3979,
+      "bodyTop": 0
+     }
+    }
+   },
+   {
+    "name": "desktop refresh preserves reading scroll",
+    "detail": {
+     "opened": {
+      "total": 12,
+      "top": 0,
+      "bodyTop": 3330
+     },
+     "refreshed": {
+      "total": 12,
+      "open": 12,
+      "on": true,
+      "top": 0,
+      "bodyTop": 3388
+     }
+    }
+   }
+  ],
+  "blocked": 0,
+  "errors": []
+ },
+ "persistence1010_cand": {
+  "checks": 32,
+  "passed": 30,
+  "failed": [
+   {
+    "name": "phone refresh preserves reading scroll",
+    "detail": {
+     "opened": {
+      "total": 12,
+      "top": 3922,
+      "bodyTop": 0
+     },
+     "refreshed": {
+      "total": 12,
+      "open": 12,
+      "on": true,
+      "top": 3979,
+      "bodyTop": 0
+     }
+    }
+   },
+   {
+    "name": "desktop refresh preserves reading scroll",
+    "detail": {
+     "opened": {
+      "total": 12,
+      "top": 0,
+      "bodyTop": 3330
+     },
+     "refreshed": {
+      "total": 12,
+      "open": 12,
+      "on": true,
+      "top": 0,
+      "bodyTop": 3388
+     }
+    }
+   }
+  ],
+  "blocked": 0,
+  "errors": []
+ },
+ "flows1013_phone_base": {
+  "checks": 22,
+  "passed": 21,
+  "failed": [
+   {
+    "name": "Delayed Inventory reference reveal yields to newer scrolling",
+    "details": {
+     "before": {
+      "found": false
+     },
+     "after": 994
+    }
+   }
+  ]
+ },
+ "flows1013_desktop_base": {
+  "checks": 22,
+  "passed": 21,
+  "failed": [
+   {
+    "name": "Delayed Inventory reference reveal yields to newer scrolling",
+    "details": {
+     "before": {
+      "found": false
+     },
+     "after": 683
+    }
+   }
+  ]
+ },
+ "flows1013_phone_cand": {
+  "checks": 22,
+  "passed": 21,
+  "failed": [
+   {
+    "name": "Delayed Inventory reference reveal yields to newer scrolling",
+    "details": {
+     "before": {
+      "found": false
+     },
+     "after": 994
+    }
+   }
+  ]
+ },
+ "flows1013_desktop_cand": {
+  "checks": 22,
+  "passed": 21,
+  "failed": [
+   {
+    "name": "Delayed Inventory reference reveal yields to newer scrolling",
+    "details": {
+     "before": {
+      "found": false
+     },
+     "after": 759
+    }
+   }
+  ]
+ },
+ "flows1013_phone_cand2": {
+  "checks": 22,
+  "passed": 21,
+  "failed": [
+   {
+    "name": "Delayed Inventory reference reveal yields to newer scrolling",
+    "details": {
+     "before": {
+      "found": false
+     },
+     "after": 994
+    }
+   }
+  ]
+ }
+}

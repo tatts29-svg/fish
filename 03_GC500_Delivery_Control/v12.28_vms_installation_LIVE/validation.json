@@ -1,0 +1,56 @@
+{
+  "author": "Andrew Fisher",
+  "state": "LIVE",
+  "base_sha256": "2db3457f12692ccd660de48b6c134d964827e27c3a4be976b482f12edbccc9b2",
+  "candidate_sha256": "c8057284f1b0f42f7eef336a4def584574e7baea8146239c5273fbcee0c497d3",
+  "candidate_bytes": 15455776,
+  "checks": {
+    "inline_scripts": 204,
+    "native_engine_synthetic": 36,
+    "independent_lifecycle": 29,
+    "source_preservation_and_refusal": 12,
+    "native_desktop": 300,
+    "native_phone": 300,
+    "negative_controls": 7,
+    "matching_viewport_models": 39,
+    "native_state_preserved": true,
+    "phone_screenshots_inspected": true,
+    "upload_dry_run": "passed"
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_writes": 0,
+      "back_navigation": true,
+      "navigation_errors": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_writes": 0,
+      "back_navigation": true,
+      "navigation_errors": 0
+    }
+  },
+  "review": "Codex implementation and independent sub-agent reviews; no Claude review claimed",
+  "private_evidence": "Native snapshots, financial details and screenshots are retained privately, outside this repository.",
+  "ready_source": "bfa85727ce6c48e68101412c4e015a0ef95d0043",
+  "published_utc": "2026-10-25T20:56:38.617Z",
+  "independent_live_readback": {
+    "at": "2026-10-25T20:57:16.454643Z",
+    "http_status": 200,
+    "footer": "v12.28",
+    "byte_for_byte_match": true,
+    "sha256": "c8057284f1b0f42f7eef336a4def584574e7baea8146239c5273fbcee0c497d3",
+    "bytes": 15455776,
+    "browser_tests_repeated": false
+  },
+  "native_version_unchanged_after_publication": true
+}

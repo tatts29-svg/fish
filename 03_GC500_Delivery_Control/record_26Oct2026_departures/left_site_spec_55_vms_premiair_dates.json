@@ -1,0 +1,36 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026, late evening: \"Things in build are no longer showing 100% please fix.\" The Build progress bar read 6 of 7 areas at 100%: VMS boards had 7 references with 4 Complete at the Fri 23 Oct cut-off, though all 24 boards were on site. The three Premiair references VMS-01 (VMS21), VMS-02 (VMS22) and VMS-03 (VMS24) were added to the record on 27 Oct and their Complete ticks carry that day's time, after the cut-off; the boards themselves were in place on 22 Oct 2026, as the record's own on-site stamps and Andrew's 27 Oct word (\"22 oct\", Premiair docket 26143911) already say. Each Complete is dated to its reference's on-site stamp. Receipt and install are dated to the same on-site stamp, since each board was delivered and put in place on arrival.",
+ "ops": [
+  {
+   "op": "date_back",
+   "ref": "VMS-01",
+   "done_at": "2026-10-21T22:08:24.160Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS21 in place 22 Oct 2026 08:08 on the VMS plan; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T22:08:24.160Z",
+   "install_at": "2026-10-21T22:08:24.160Z"
+  },
+  {
+   "op": "date_back",
+   "ref": "VMS-02",
+   "done_at": "2026-10-21T14:00:00.000Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS22 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T14:00:00.000Z",
+   "install_at": "2026-10-21T14:00:00.000Z"
+  },
+  {
+   "op": "date_back",
+   "ref": "VMS-03",
+   "done_at": "2026-10-21T14:00:00.000Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T14:00:00.000Z",
+   "install_at": "2026-10-21T14:00:00.000Z"
+  }
+ ]
+}

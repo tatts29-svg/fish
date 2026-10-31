@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "page_version": "v7.59",
+  "live_aest": "1 Oct 2026 08:11",
+  "page_bytes": 8489105,
+  "page_sha256": "ed1e2f4b9e97b94558d09522bdd9b7c64aaf1e18740a39dd88494227b388a403",
+  "focused_checks_passed": 55,
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "record_version_before": 3082,
+  "record_version_after": 3082,
+  "server_local_checks_passed": 37,
+  "mms_server_activation": "Pending Railway SERVER_FILE change and redeploy; validated blob staged, current health v5.84",
+  "coordination": "https://github.com/tatts29-svg/fish/pull/1#issuecomment-5920624903"
+}

@@ -1,0 +1,22 @@
+// Author: Andrew Fisher. Exact sheet projection, including rotated and invalid views.
+'use strict';
+const assert = require('assert/strict'), plan = require('../plan911');
+const [w, h] = plan.sheet, box = {left: 11, top: 23, width: 800, height: 500};
+const sheet = {corners: [{x: 0, y: 0}, {x: w, y: 0}, {x: 0, y: h}, {x: w, y: h}]};
+assert.deepEqual(plan.projectPoint([0, 0], sheet, box), {x: 11, y: 23});
+assert.deepEqual(plan.projectPoint([1, 1], sheet, box), {x: 811, y: 523});
+assert.deepEqual(plan.projectPoint([.5, .5], sheet, box), {x: 411, y: 273});
+const rotated = {corners: [{x: w, y: 0}, {x: w, y: h}, {x: 0, y: 0}, {x: 0, y: h}]};
+assert.deepEqual(plan.projectPoint([1, 0], rotated, box), {x: 11, y: 23});
+assert.deepEqual(plan.projectPoint([0, 1], rotated, box), {x: 811, y: 523});
+assert.deepEqual(plan.projectPoint([.5, .5], rotated, box), {x: 411, y: 273});
+for (const point of [[NaN, .5], [Infinity, 0], [-.1, .5], [1.1, .5], null, []]) assert.equal(plan.projectPoint(point, sheet, box), null);
+assert.equal(plan.projectPoint([.5, .5], {corners: [{x: 0, y: 0}, {x: 0, y: 0}, {x: 0, y: 0}]}, box), null);
+assert.equal(plan.projectPoint([.5, .5], sheet, {...box, width: 0}), null);
+assert.equal(plan.projectPoint([.5, .5], sheet, {...box, left: NaN}), null);
+assert.equal(plan.bounds([], 3), null);
+assert.equal(plan.bounds([[.5, .5]], NaN), null);
+assert.deepEqual(plan.bounds([[0, 0], [1, 1], [NaN, 0]], 3), [0, 0, w, h]);
+assert.deepEqual(plan.bounds([[.5, .5]], 3), [w / 2 - 3, h / 2 - 3, w / 2 + 3, h / 2 + 3]);
+assert.equal(plan.maxZoom, 64000);
+console.log('Master-plan projection and bounds checks passed');

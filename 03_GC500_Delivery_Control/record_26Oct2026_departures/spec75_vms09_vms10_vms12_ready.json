@@ -1,0 +1,8 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 14:29 AEST: \"these are ready for pick up\" - the three VMS boards still to come out: VMS09 1211404 (TF15JR, Coates) and VMS10 120T (Premiair, already Ready since 08:20) on T0103, VMS12 1211646 (TF59LR, Coates) on T0128; each unit's own Ready tick on the Demob cards",
+  "ops": [
+    {"op": "unit_ready", "ref": "T0103", "units": ["coates|1211404", "prem-air-hire|120T"]},
+    {"op": "unit_ready", "ref": "T0128", "units": ["coates|1211646"]}
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Restore six source quantities only; preserve separate event labour pricing and operational records.",
+  "source": {
+    "path": "03_GC500_Delivery_Control/review_27Oct2026_baseplan8/GC500_Baseplan8_vs_Site_27Oct2026.xlsx",
+    "commit": "752328e1c4bd88c2292dc62a23b92465668fc9e4",
+    "git_blob": "c4dd2a1d5ce7dcb96064fddd748958bdb1fc40af",
+    "sha256": "eb511675db0da36d924dc56c5820c0d4fdb361485d0e2ecdc849360cff88c06b",
+    "sheet": "Every line"
+  },
+  "rows": [
+    {
+      "contract": "9968955",
+      "line": 164,
+      "description": "Labour Charge Project Manager 50%",
+      "item": "LABOUR",
+      "branch": "KINP",
+      "sales_code": "KINP-INS",
+      "old_quantity": 15,
+      "quantity": 15.22,
+      "source_contract_cell": "A136",
+      "source_line_cell": "B136",
+      "source_quantity_cell": "F136"
+    },
+    {
+      "contract": "9968955",
+      "line": 165,
+      "description": "Labour Charge Event Toilet",
+      "item": "LABOUR",
+      "branch": "KINP",
+      "sales_code": "KINP-INS",
+      "old_quantity": 27,
+      "quantity": 27.15,
+      "source_contract_cell": "A137",
+      "source_line_cell": "B137",
+      "source_quantity_cell": "F137"
+    },
+    {
+      "contract": "9968862",
+      "line": 141,
+      "description": "Labour Charge Project Manager Event",
+      "item": "LABOUR",
+      "branch": "KINP",
+      "sales_code": "KINP-INS",
+      "old_quantity": 15,
+      "quantity": 15.22,
+      "source_contract_cell": "A231",
+      "source_line_cell": "B231",
+      "source_quantity_cell": "F231"
+    },
+    {
+      "contract": "9961976",
+      "line": 56,
+      "description": "Labour Charge Event Gen Tech",
+      "item": "LABOUR",
+      "branch": "NVAC",
+      "sales_code": "NVAC-INS",
+      "old_quantity": 31,
+      "quantity": 31.55,
+      "source_contract_cell": "A270",
+      "source_line_cell": "B270",
+      "source_quantity_cell": "F270"
+    },
+    {
+      "contract": "9994954",
+      "line": 25,
+      "description": "Labour Charge Event Gen Tech",
+      "item": "LABOUR",
+      "branch": "KINP",
+      "sales_code": "KINP-INS",
+      "old_quantity": 4,
+      "quantity": 4.5,
+      "source_contract_cell": "A386",
+      "source_line_cell": "B386",
+      "source_quantity_cell": "F386"
+    },
+    {
+      "contract": "9994954",
+      "line": 26,
+      "description": "Labour Charge Toilet Tech",
+      "item": "LABOUR",
+      "branch": "KINP",
+      "sales_code": "KINP-INS",
+      "old_quantity": 4,
+      "quantity": 4.5,
+      "source_contract_cell": "A387",
+      "source_line_cell": "B387",
+      "source_quantity_cell": "F387"
+    }
+  ]
+}

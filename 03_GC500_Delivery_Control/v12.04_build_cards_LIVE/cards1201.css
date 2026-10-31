@@ -1,0 +1,35 @@
+/* Author: Andrew Fisher. v12.04 (claimed as v12.01) - the closed day's stamp is its closed mark, inked like a real stamp.
+   Andrew, 25 Oct 2026: "Remove the closed and have stamp here like its been stamped with a stamp".
+   CLOSED comes off a closed card (TODAY and UPCOMING stay); the stamp keeps its artwork and its place in the gap beside the
+   date, now centred in the taller gap CLOSED leaves. No glow, no screen blend, no pulse: solid ink, a fine speckle where
+   the ink missed and a little uneven pressure, each card struck at its own angle. */
+:is(#pane-timeline,#pane-demob) .day.past984 .bc984-closed{display:none}
+:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 41px);inset-inline-start:calc(50% + 41px);top:104px;width:166px;opacity:.92!important;animation:none!important;mix-blend-mode:normal!important;filter:brightness(1.8) saturate(1.05) contrast(1.15)!important;transform:translate(-50%,-50%) rotate(var(--bw1201-rot,-11deg))!important;
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.62' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6 4.75'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.011' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.5 1.62'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.62' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -6 4.75'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23f)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.011' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.5 1.62'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23f)'/%3E%3C/svg%3E");-webkit-mask-size:240px 240px,100% 100%;mask-size:240px 240px,100% 100%;-webkit-mask-repeat:repeat,no-repeat;mask-repeat:repeat,no-repeat;
+  -webkit-mask-position:var(--bw1201-grain,0 0),0 0;mask-position:var(--bw1201-grain,0 0),0 0;-webkit-mask-composite:source-in;mask-composite:intersect}
+:is(#pane-timeline,#pane-demob) .daystrip>.day:nth-child(4n+2) .bc984-card>.bc984-stamp{--bw1201-rot:-7deg;--bw1201-grain:61px 37px}
+:is(#pane-timeline,#pane-demob) .daystrip>.day:nth-child(4n+3) .bc984-card>.bc984-stamp{--bw1201-rot:-13deg;--bw1201-grain:119px 143px}
+:is(#pane-timeline,#pane-demob) .daystrip>.day:nth-child(4n+4) .bc984-card>.bc984-stamp{--bw1201-rot:-9deg;--bw1201-grain:23px 181px}
+@media(max-width:360px){:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 37px);inset-inline-start:calc(50% + 37px);width:148px}}
+/* a late time reads in one piece ("1 h 21 min late"), never "1 h" on one line and "21 min late" on the next */
+:is(#pane-timeline,#pane-demob) .ot1059-late .ot1201-by{white-space:nowrap}
+/* The tidy-up. Andrew, 25 Oct 2026, of the Build cards on his monitor: "Looks over crowded how can we fix"; to the mock-up:
+   "build it". 440 px cards on a computer screen (phones unchanged); the chart key on one line without the counts (the chart
+   shows each booking); What went in as plain lines, not boxes; the staff names on one line; a slimmer life-saving-rule strip;
+   a smaller Coates on time ring. The day's deliveries figure itself moves into the chart's heading (cards1197, pack1204). */
+@media screen and (min-width:1280px){:is(#pane-timeline,#pane-demob) .daystrip>.day:has(.bc984-card){flex:0 0 min(440px,100%);width:min(440px,100%);max-width:440px}}
+:is(#pane-timeline,#pane-demob) .bc984-card .bw1197-key{display:flex;flex-direction:row;flex-wrap:wrap;gap:3px 12px}
+:is(#pane-timeline,#pane-demob) .bc984-card .bw1197-key-cats,:is(#pane-timeline,#pane-demob) .bc984-card .bw1197-key-done{display:contents}
+:is(#pane-timeline,#pane-demob) .bc984-card .bw1197-cat b{display:none}
+:is(#pane-timeline,#pane-demob) .bc984-card .bc984-load-count.bw1197-ring{width:52px;height:52px;line-height:52px;font-size:19px}
+#pane-timeline .bc984-card .dc1057-grid{gap:0 18px}
+#pane-timeline .bc984-card .dc1057-tile{display:block;padding:5px 0 6px;border:0;border-radius:0;background:none;border-bottom:1px solid #8fb3c41f}
+#pane-timeline .bc984-card .dc1057-n{display:inline;font-size:19px}
+#pane-timeline .bc984-card .dc1057-k{display:inline;margin-left:6px;font-size:12px}
+#pane-timeline .bc984-card .dc1057-s{font-size:10.5px}
+:is(#pane-timeline,#pane-demob) .bc984-card .bc984-names{display:flex;flex-wrap:wrap;gap:2px 14px;min-height:0;font-size:12.5px}
+:is(#pane-timeline,#pane-demob) .bc984-card .bc984-crew-head{margin-bottom:4px}
+:is(#pane-timeline,#pane-demob) .bc984-card .bc984-safety-rule{padding:9px 0 11px;margin-top:12px}
+#pane-timeline .bc984-card .bc984-rule-icon{flex:0 0 32px;width:32px;height:32px}
+#pane-timeline .bc984-card .bc984-rule-icon .ls989-icon{--ls989-size:32px}
+#pane-timeline .bc984-card .bc984-rule-icon .ls989-svg{width:32px;height:32px}

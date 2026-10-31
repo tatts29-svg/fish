@@ -1,0 +1,8 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (sent before 10:28 AEST): \"11am can we do picked up 0102 0598 0044 0707\". All four are Event Portables FWF, each on one reference only (read 10:28 AEST: every one Ready, its location Emptied, none already left). 0102 is WC28's only unit, so WC28 leaves in full; 0598, 0044 and 0707 are the last three of WC29's seven (0079, 0546, 0564 and 0441 left 09:27), so WC29 leaves in full. They left at 11:00 AEST. Recorded after 11:00, as a departure is only recorded once its time has come.",
+  "ops": [
+    {"op": "depart", "ref": "WC28", "at": "2026-10-27T11:00:00+10:00", "nos": ["0102"], "complete": true},
+    {"op": "depart", "ref": "WC29", "at": "2026-10-27T11:00:00+10:00", "nos": ["0598", "0044", "0707"], "complete": true}
+  ]
+}

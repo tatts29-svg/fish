@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "base_sha256": "4ab22e6bf6a9af93c255fd3732ae8ba57f047dccfb1d3be770b4b1ac7d8d0382",
+  "candidate_sha256": "1c1a981c3f674c481a0c99e13cb4b93d311396132af54bef5bd66d401addd5f5",
+  "candidate_bytes": 15348113,
+  "crew_candidate_sha256": "2c9fed6f23d3a3732e28b2c6f32846aa7e467da233f39c40b4a67ac30b3df272",
+  "toolchain": "PASS 197 inline scripts",
+  "directions_boundaries": 11,
+  "exact_preservation": 3,
+  "native_readiness": {
+    "desktop": 17,
+    "phone": 17
+  },
+  "crew_card": {
+    "desktop": 9,
+    "phone": 9
+  },
+  "native_dry_capture": {
+    "checks": 77,
+    "live_posts": 0,
+    "unexpected_writes": 0,
+    "errors": 0
+  },
+  "phone_inspected": true,
+  "upload_dry_run": "PASS",
+  "operational_records_changed": false
+}

@@ -1,0 +1,716 @@
+{
+ "01a": {
+  "credits": 329.00000000000006,
+  "duration": 21.68,
+  "generation": "fjfnluIhYW7jd8Zkk9GF",
+  "prompt_head": "[shouting over the engine roar] AND WE ARE LIVE from the Gol",
+  "session": "hd1zqzQUmZ48pHVtWugY"
+ },
+ "01b": {
+  "credits": 329.00000000000006,
+  "duration": 21.92,
+  "generation": "mwCWLHqlVzCqFuVqrNk5",
+  "prompt_head": "[shouting over the engine roar] AND WE ARE LIVE from the Gol",
+  "session": "133MyZUj28KFVUFRqjzP"
+ },
+ "02a": {
+  "credits": 309,
+  "duration": 22.64,
+  "generation": "69n0BbdygwOQ05qTiWkK",
+  "prompt_head": "[rapid] Forty-seven days! From the first truck through the g",
+  "session": "nFhqis9IdyYn7USMBha6"
+ },
+ "02b": {
+  "credits": 309,
+  "duration": 22.4,
+  "generation": "s0B6i2xTzHXrt3jxt7UY",
+  "prompt_head": "[rapid] Forty-seven days! From the first truck through the g",
+  "session": "wAiRx3s9AZ62bDnVfrtB"
+ },
+ "03a": {
+  "credits": 175,
+  "duration": 10.64,
+  "generation": "ElbEokaRFim4Oz8oIM2z",
+  "prompt_head": "[warm, grinning] So settle in, grab a cold drink \u2014 [laughs] ",
+  "session": "nrUgT9OOd9cuD1lc18gD"
+ },
+ "03b": {
+  "credits": 175,
+  "duration": 10.32,
+  "generation": "zAAPe9FKLATERJaDeeS1",
+  "prompt_head": "[warm, grinning] So settle in, grab a cold drink \u2014 [laughs] ",
+  "session": "omK09n8nGWFsMK1kVBwQ"
+ },
+ "04a": {
+  "credits": 308,
+  "duration": 21.2,
+  "generation": "Qk3FQXCaJhqCc8cxF8hT",
+  "prompt_head": "[race-caller, warm] Running the Coates show on site \u2014 the pr",
+  "session": "aEMz5tjVmmQ4voxGlfSz"
+ },
+ "04b": {
+  "credits": 308,
+  "duration": 18.88,
+  "generation": "PpDl95FxaKqJnQOeiBkP",
+  "prompt_head": "[race-caller, warm] Running the Coates show on site \u2014 the pr",
+  "session": "NJiCX6cKw059vPOh4Lrn"
+ },
+ "05a": {
+  "credits": 272.00000000000006,
+  "duration": 19.52,
+  "generation": "15usxd0G1WqUCkSt1sP7",
+  "prompt_head": "[race-caller, naming them like the grid] And the install tea",
+  "session": "baEOKS0S8XdsIcdGzL1c"
+ },
+ "05b": {
+  "credits": 272.00000000000006,
+  "duration": 17.92,
+  "generation": "4EUUN7DYu0mtCEZv58v9",
+  "prompt_head": "[race-caller, naming them like the grid] And the install tea",
+  "session": "8vOsx6um75N4eSZgQn8g"
+ },
+ "06a": {
+  "credits": 326.00000000000006,
+  "duration": 20.08,
+  "generation": "gMoUr7UlAYn5Mn2CsYvN",
+  "prompt_head": "[building, with real respect] Let's start at the top. Aaron ",
+  "session": "ESgE600Boho1LHsXX1zr"
+ },
+ "06b": {
+  "credits": 326.00000000000006,
+  "duration": 20.88,
+  "generation": "ioG78405BMLTbgwzLFX6",
+  "prompt_head": "[building, with real respect] Let's start at the top. Aaron ",
+  "session": "1YPnKK88JTq16uXT4iS2"
+ },
+ "07a": {
+  "credits": 318,
+  "duration": 20.8,
+  "generation": "s22Df6kO1vdPETBCMLln",
+  "prompt_head": "[driving] Aaron got everyone MOVING! [rapid] Where it goes, ",
+  "session": "tzLAW4LyloZNUjLkuqB6"
+ },
+ "07b": {
+  "credits": 318,
+  "duration": 20.08,
+  "generation": "zZDJD83F2yeF0rchY3Rg",
+  "prompt_head": "[driving] Aaron got everyone MOVING! [rapid] Where it goes, ",
+  "session": "KjzdyIK16Ih0mXmoW4Hz"
+ },
+ "08a": {
+  "credits": 265.00000000000006,
+  "duration": 17.6,
+  "generation": "IXxNVEgFW6gPx4iMnBL3",
+  "prompt_head": "[excited] Kyle Gover! [fast] Nineteen days, nearly a hundred",
+  "session": "B1obioEz2pGKZpkOG3Lc"
+ },
+ "08b": {
+  "credits": 265.00000000000006,
+  "duration": 16.32,
+  "generation": "PEHo6G0YQcTT4uXzpE1X",
+  "prompt_head": "[excited] Kyle Gover! [fast] Nineteen days, nearly a hundred",
+  "session": "Gh60HHVuIlx0BEDRl3gx"
+ },
+ "09a": {
+  "credits": 251,
+  "duration": 17.2,
+  "generation": "QuH0yoepL57Z6LBqRfkI",
+  "prompt_head": "[excited] Alfie Harris! [fast] Day one, the seventh of Septe",
+  "session": "J2MA6mQ6RijfyOwqVLdI"
+ },
+ "09b": {
+  "credits": 251,
+  "duration": 19.12,
+  "generation": "s6sumtiBrrT4GvVLP25Q",
+  "prompt_head": "[excited] Alfie Harris! [fast] Day one, the seventh of Septe",
+  "session": "MMoqmbIpYhdg5vtn3COu"
+ },
+ "10a": {
+  "credits": 257,
+  "duration": 16,
+  "generation": "uc33kFE2G8DDExzRXjPK",
+  "prompt_head": "[excited] Daniel Gough! [fast] In from the twenty-eighth of ",
+  "session": "0NOAwdviGUbWFijx8RW7"
+ },
+ "10b": {
+  "credits": 257,
+  "duration": 15.84,
+  "generation": "2Pa7gEdPhQpAnSs3CJtl",
+  "prompt_head": "[excited] Daniel Gough! [fast] In from the twenty-eighth of ",
+  "session": "R70gOeRY6GFlPvDOa0sh"
+ },
+ "11a": {
+  "credits": 318,
+  "duration": 21.28,
+  "generation": "4j2Xu4eSVr7q1s89PLH9",
+  "prompt_head": "[serious, heartfelt] Kyle. Alfie. Daniel. Over and beyond \u2014 ",
+  "session": "3pwF0eKIKJvkS5LLjxxp"
+ },
+ "11b": {
+  "credits": 318,
+  "duration": 22.16,
+  "generation": "VoOkzCRC4fiCwXDGwjNX",
+  "prompt_head": "[serious, heartfelt] Kyle. Alfie. Daniel. Over and beyond \u2014 ",
+  "session": "XuhE4xtHZ94wvaLpAYDu"
+ },
+ "12a": {
+  "credits": 257,
+  "duration": 16.96,
+  "generation": "872jipSrPHk9iaybvYxt",
+  "prompt_head": "[warm, fast] And the extra hands when it counted! Jayden Pau",
+  "session": "Qf6us91XsVUM9lfE7ie7"
+ },
+ "12b": {
+  "credits": 257,
+  "duration": 16.16,
+  "generation": "YQW5rQOpM2KeSH0tuqcQ",
+  "prompt_head": "[warm, fast] And the extra hands when it counted! Jayden Pau",
+  "session": "zIcHOndcNJfNhQaAlAI8"
+ },
+ "13a": {
+  "credits": 313.00000000000006,
+  "duration": 22.64,
+  "generation": "Y1Sro4W4pVdAyn7QYQRk",
+  "prompt_head": "[driving, over the engine] Now \u2014 what did they BUILD? [shout",
+  "session": "NBsfyZG2hMPRCNaNvyUm"
+ },
+ "13b": {
+  "credits": 313.00000000000006,
+  "duration": 23.28,
+  "generation": "IuLAqzNM0ujZCidQgdRW",
+  "prompt_head": "[driving, over the engine] Now \u2014 what did they BUILD? [shout",
+  "session": "7CIUeZsk7UJbdGLDl8x5"
+ },
+ "14a": {
+  "credits": 361,
+  "duration": 29.28,
+  "generation": "yP9XABojk97h4ydMRkfy",
+  "prompt_head": "[rapid-fire, naming them] A team office for every garage in ",
+  "session": "sD7qQynBOcurxPKMj5TZ"
+ },
+ "14b": {
+  "credits": 361,
+  "duration": 28.16,
+  "generation": "qYRqb1SJHtqV8egVjyKo",
+  "prompt_head": "[rapid-fire, naming them] A team office for every garage in ",
+  "session": "Mq0SrCKB8VaQRk4roOAR"
+ },
+ "15a": {
+  "credits": 358,
+  "duration": 26.72,
+  "generation": "yV7vTiwYyNCcUGMy4q2z",
+  "prompt_head": "[fast, pointing] And not one of them just dropped and left! ",
+  "session": "NJ113qcPfGVOcP7KcVNg"
+ },
+ "15b": {
+  "credits": 358,
+  "duration": 23.2,
+  "generation": "qH7aTt5MN7MliEo2LbvY",
+  "prompt_head": "[fast, pointing] And not one of them just dropped and left! ",
+  "session": "FskCRF85seDU6oEJI7YA"
+ },
+ "16a": {
+  "credits": 318,
+  "duration": 24.64,
+  "generation": "fscb90d0VpGUoOAWjkHq",
+  "prompt_head": "[excited] Now the BIG number! TWO HUNDRED AND SIXTY-FIVE toi",
+  "session": "kD2ZdWnqIIMXhaTBloAN"
+ },
+ "16b": {
+  "credits": 318,
+  "duration": 26.16,
+  "generation": "rI5IkAgE4M3TOFj29t2s",
+  "prompt_head": "[excited] Now the BIG number! TWO HUNDRED AND SIXTY-FIVE toi",
+  "session": "Ba7Dapwqt3vHOiIeIe7N"
+ },
+ "17a": {
+  "credits": 267,
+  "duration": 16.96,
+  "generation": "JUW9gohuFksIxejs0xvK",
+  "prompt_head": "[laughs] And let's be honest \u2014 on race day, these are the mo",
+  "session": "Bvqbrj8Hjh1W4J1ZeOxx"
+ },
+ "17b": {
+  "credits": 267,
+  "duration": 17.52,
+  "generation": "9FfYpFX4VfalcHfRf1Qe",
+  "prompt_head": "[laughs] And let's be honest \u2014 on race day, these are the mo",
+  "session": "GdNBvXrCsqN5YpTdsvMZ"
+ },
+ "18a": {
+  "credits": 298,
+  "duration": 21.6,
+  "generation": "x0KiuU8H4TTTUbe2IAW6",
+  "prompt_head": "[driving] And every race night, every single one pumped out,",
+  "session": "QCAXqhpQFIqJduHP7Gdl"
+ },
+ "18b": {
+  "credits": 298,
+  "duration": 23.84,
+  "generation": "Ur9qZdTsISgSAcws6PQs",
+  "prompt_head": "[driving] And every race night, every single one pumped out,",
+  "session": "oFsRvaYY8iNFNlN2JtHo"
+ },
+ "19a": {
+  "credits": 261,
+  "duration": 19.04,
+  "generation": "BoWa6pEJIZqPqye5bvKN",
+  "prompt_head": "[rapid] Twenty-four variable message boards! [fast] Every on",
+  "session": "GE1BiKF1gEaAljjt2EMX"
+ },
+ "19b": {
+  "credits": 261,
+  "duration": 16.8,
+  "generation": "WrJqiuZL8LENq9RXNtqI",
+  "prompt_head": "[rapid] Twenty-four variable message boards! [fast] Every on",
+  "session": "1xP6I1daRAnjTSintCkf"
+ },
+ "20a": {
+  "credits": 302,
+  "duration": 21.76,
+  "generation": "cX7w0S008bMuynTCv7be",
+  "prompt_head": "[driving] Fourteen generators! [rapid] Two two-hundred-kVA s",
+  "session": "iz3m4FbZ6CMB2wjSiOXJ"
+ },
+ "20b": {
+  "credits": 302,
+  "duration": 22,
+  "generation": "W6LZZVuGuKtYBMSN0oRW",
+  "prompt_head": "[driving] Fourteen generators! [rapid] Two two-hundred-kVA s",
+  "session": "jzXPXs11DNimWBU927Ar"
+ },
+ "21a": {
+  "credits": 333.00000000000006,
+  "duration": 22.72,
+  "generation": "eXdgzGbNMG5YmkThwtiF",
+  "prompt_head": "[fast] Seven light towers! Thirty trakmats! [rapid] Forklift",
+  "session": "OCYYUf3vExawJAss410L"
+ },
+ "21b": {
+  "credits": 333.00000000000006,
+  "duration": 22.24,
+  "generation": "3XNvZctP5Mtdd2hMa2tZ",
+  "prompt_head": "[fast] Seven light towers! Thirty trakmats! [rapid] Forklift",
+  "session": "DZW3AvAf5vpk3rlnl6AF"
+ },
+ "22a": {
+  "credits": 444.00000000000006,
+  "duration": 30.96,
+  "generation": "HM3Btyl4QpRaC8jm8q07",
+  "prompt_head": "[serious, driving] And the ones that keep people SAFE! [rapi",
+  "session": "zdJhUvbUAMZRN71ciqp1"
+ },
+ "22b": {
+  "credits": 444.00000000000006,
+  "duration": 30.4,
+  "generation": "jxDBOt4Xowj6pAFnfPTT",
+  "prompt_head": "[serious, driving] And the ones that keep people SAFE! [rapi",
+  "session": "unR60ykYKjGa1pYeegGZ"
+ },
+ "23a": {
+  "credits": 257,
+  "duration": 18.08,
+  "generation": "U7YNX08dFcddEqsPXV5a",
+  "prompt_head": "[laughs] Filled with WATER \u2014 and in event week, somehow stil",
+  "session": "WrAHI6bSMbkjRrGEEhD0"
+ },
+ "23b": {
+  "credits": 257,
+  "duration": 18.32,
+  "generation": "d1cy3NDyGW3JWrfLZYXE",
+  "prompt_head": "[laughs] Filled with WATER \u2014 and in event week, somehow stil",
+  "session": "LUL6FCCTHgfoZ3z7N7D2"
+ },
+ "24a": {
+  "credits": 309,
+  "duration": 21.84,
+  "generation": "w0EU4Ln08LI6FHlZcpG3",
+  "prompt_head": "[rapid, commentating] And the TRUCKS! [fast] Seven hundred a",
+  "session": "BieMt0mkgujmxeRvISO2"
+ },
+ "24b": {
+  "credits": 309,
+  "duration": 20.32,
+  "generation": "n2cdVHN7cY4uxUdTK5El",
+  "prompt_head": "[rapid, commentating] And the TRUCKS! [fast] Seven hundred a",
+  "session": "entIvOMzF0VOrgribQjP"
+ },
+ "25a": {
+  "credits": 307,
+  "duration": 21.68,
+  "generation": "PuVu2gHA4UiJinvMsJPV",
+  "prompt_head": "[driving, over the engine] And NOW \u2014 the crew that wraps the",
+  "session": "wHrC3yHku2ENREVHxB7r"
+ },
+ "25b": {
+  "credits": 307,
+  "duration": 22.88,
+  "generation": "G9qftadUmYcyStIFKiGM",
+  "prompt_head": "[driving, over the engine] And NOW \u2014 the crew that wraps the",
+  "session": "h8ZC9f0NfeqcBHDIUrQN"
+ },
+ "26a": {
+  "credits": 269.00000000000006,
+  "duration": 17.6,
+  "generation": "kIqsuZW68xFQ2KW4W02a",
+  "prompt_head": "[warm, proud] And here's the thing about Wayne's crew. [fast",
+  "session": "1jBtUUSBWTjYktaP0R0u"
+ },
+ "26b": {
+  "credits": 269.00000000000006,
+  "duration": 17.52,
+  "generation": "ZTOK5ecI2xoWJDtkbpOD",
+  "prompt_head": "[warm, proud] And here's the thing about Wayne's crew. [fast",
+  "session": "Ba5FEgmW5xRc95V07P1K"
+ },
+ "27a": {
+  "credits": 265.00000000000006,
+  "duration": 17.28,
+  "generation": "ggbh5GQGtOK9xHLZjqSD",
+  "prompt_head": "[sincere] Fencing isn't glamorous. Panel after panel, clamp ",
+  "session": "kme9T4TTlj0oCMibbEd7"
+ },
+ "27b": {
+  "credits": 265.00000000000006,
+  "duration": 17.84,
+  "generation": "wH0gwUfLedNRfCq6qTCg",
+  "prompt_head": "[sincere] Fencing isn't glamorous. Panel after panel, clamp ",
+  "session": "4PaebcPejIMJi65Myxv5"
+ },
+ "28a": {
+  "credits": 285,
+  "duration": 17.68,
+  "generation": "w0bMEP8cw7EDlypRBguw",
+  "prompt_head": "[fast, building] THIRTEEN KILOMETRES of temporary fence stan",
+  "session": "A7z29GgcjpStgEBZ5893"
+ },
+ "28b": {
+  "credits": 285,
+  "duration": 19.2,
+  "generation": "gQk2UPpK7wJSq8igEAJ1",
+  "prompt_head": "[fast, building] THIRTEEN KILOMETRES of temporary fence stan",
+  "session": "vDTwzo4wdsCATZKqz5hw"
+ },
+ "29a": {
+  "credits": 244,
+  "duration": 15.68,
+  "generation": "gab9VuLeovknUH1wqupM",
+  "prompt_head": "[rapid] A hundred and sixty-two dockets! [fast] Thirty-one d",
+  "session": "QnYQy57Hs07zMIyjMjwo"
+ },
+ "29b": {
+  "credits": 244,
+  "duration": 15.92,
+  "generation": "8hemRRcO9rUUA47ZZLGQ",
+  "prompt_head": "[rapid] A hundred and sixty-two dockets! [fast] Thirty-one d",
+  "session": "GQHXskT8qznj8pODpPR7"
+ },
+ "30a": {
+  "credits": 321,
+  "duration": 20.88,
+  "generation": "PFLR4G1DMMD8tU5B1xLl",
+  "prompt_head": "[rapid-fire] Five thousand one hundred and ninety mesh panel",
+  "session": "ctoV6UogHGAJRHW9x0W3"
+ },
+ "30b": {
+  "credits": 321,
+  "duration": 19.36,
+  "generation": "xHWydyz5LgWgKu3dWNJ6",
+  "prompt_head": "[rapid-fire] Five thousand one hundred and ninety mesh panel",
+  "session": "5exCAJl8z7HKFMT6pzxk"
+ },
+ "31a": {
+  "credits": 310,
+  "duration": 23.28,
+  "generation": "Dmed1byyVTOaU7q3piXi",
+  "prompt_head": "[fast] Seven thousand nine hundred and thirty-six clamps! Fo",
+  "session": "Rv2N1u33GWiy9TB8aR16"
+ },
+ "31b": {
+  "credits": 310,
+  "duration": 23.04,
+  "generation": "q0aB6J1BtC1povcTQzZk",
+  "prompt_head": "[fast] Seven thousand nine hundred and thirty-six clamps! Fo",
+  "session": "cRJ9uShctGVu5K2tPKSt"
+ },
+ "32a": {
+  "credits": 365,
+  "duration": 24.88,
+  "generation": "blziSa3FgLG7qfNX6Cqx",
+  "prompt_head": "[driving] Then the crowd control! [rapid] Seven point two ki",
+  "session": "BTnxlt3aKXU7tuD3q78G"
+ },
+ "32b": {
+  "credits": 365,
+  "duration": 27.44,
+  "generation": "iic6ySCFloLv2T64VBQs",
+  "prompt_head": "[driving] Then the crowd control! [rapid] Seven point two ki",
+  "session": "PR1pbh2uNx9583v6ZsjQ"
+ },
+ "33a": {
+  "credits": 325,
+  "duration": 20.32,
+  "generation": "xT8Zo4DqRSysN3xvtHpZ",
+  "prompt_head": "[fast] And the work you do TWICE! [rapid] Four point four ki",
+  "session": "obhttzHFv3naywdamFL2"
+ },
+ "33b": {
+  "credits": 325,
+  "duration": 21.76,
+  "generation": "VO0EZJzUhDv1NOUDlLxx",
+  "prompt_head": "[fast] And the work you do TWICE! [rapid] Four point four ki",
+  "session": "HBRhvqdyD9Qc7Q51WiTP"
+ },
+ "34a": {
+  "credits": 272.00000000000006,
+  "duration": 18.24,
+  "generation": "Fs9H46BV71kEGZLu4Ixm",
+  "prompt_head": "[punchy] Corporate! Pit lane! The paddock! Main Beach! The E",
+  "session": "dm6E05BMoPXKlhwVMOyP"
+ },
+ "34b": {
+  "credits": 272.00000000000006,
+  "duration": 18.8,
+  "generation": "bKVvFioKiv9alrrBN5eA",
+  "prompt_head": "[punchy] Corporate! Pit lane! The paddock! Main Beach! The E",
+  "session": "HwV3fNQm44s9GTRaXqSM"
+ },
+ "35a": {
+  "credits": 260,
+  "duration": 15.6,
+  "generation": "4syPSsVcSwUjSrKWeL3D",
+  "prompt_head": "[fast, summing up] Put it all together \u2014 the fence, the crow",
+  "session": "YYO6R3ZjSJZoQQV38Mi2"
+ },
+ "35b": {
+  "credits": 260,
+  "duration": 17.76,
+  "generation": "SJUbo5oSyqKv9kWFT5FG",
+  "prompt_head": "[fast, summing up] Put it all together \u2014 the fence, the crow",
+  "session": "iq1qhSLijrMrryTEUlch"
+ },
+ "36a": {
+  "credits": 298,
+  "duration": 19.6,
+  "generation": "hK5HaDETN1jCZgLfGvoG",
+  "prompt_head": "[laughing] And the WEATHER! [fast] Beautiful one day, perfec",
+  "session": "nHVqTfH4NYW1XUh1zB8r"
+ },
+ "36b": {
+  "credits": 298,
+  "duration": 18.24,
+  "generation": "lgOLlV35VB4UJVf9H0LS",
+  "prompt_head": "[laughing] And the WEATHER! [fast] Beautiful one day, perfec",
+  "session": "30SiqepiZLmgQqoqhgXc"
+ },
+ "37a": {
+  "credits": 316.00000000000006,
+  "duration": 21.84,
+  "generation": "D3nLN7d7jWKfpbQNJBkx",
+  "prompt_head": "[fast, warm] The wind? Gusts over fifty kilometres an hour o",
+  "session": "kfe8qJETneC9csPGGPrj"
+ },
+ "37b": {
+  "credits": 316.00000000000006,
+  "duration": 21.28,
+  "generation": "l4mEmx0jcDXgRdrqUzWk",
+  "prompt_head": "[fast, warm] The wind? Gusts over fifty kilometres an hour o",
+  "session": "r346ODFBZd2DA2vLt4UV"
+ },
+ "38a": {
+  "credits": 253.00000000000003,
+  "duration": 18,
+  "generation": "V7vLNn01Z1AvIt45kdXL",
+  "prompt_head": "[sincere, building] Forty-seven days on the Bureau's records",
+  "session": "7lkPbs1xBIooKS5ul4On"
+ },
+ "38b": {
+  "credits": 253.00000000000003,
+  "duration": 17.04,
+  "generation": "JWW388iC16OiH9MSGU31",
+  "prompt_head": "[sincere, building] Forty-seven days on the Bureau's records",
+  "session": "8JqXPZut4gIBoXDxzozJ"
+ },
+ "39a": {
+  "credits": 263,
+  "duration": 15.36,
+  "generation": "W4I6rJCRB7aI0DNG7N92",
+  "prompt_head": "[sincere, fast] Pre-starts every morning \u2014 fifty-eight of th",
+  "session": "q4zbiVyzyN2VVBchRf12"
+ },
+ "39b": {
+  "credits": 263,
+  "duration": 16,
+  "generation": "xzSAMZdqYdzetmCgP4fz",
+  "prompt_head": "[sincere, fast] Pre-starts every morning \u2014 fifty-eight of th",
+  "session": "PYuZjLHQKsyI4B3EQgcv"
+ },
+ "40a": {
+  "credits": 244.99999999999997,
+  "duration": 18.16,
+  "generation": "Qi9LXBTs9qEt34gAmc6O",
+  "prompt_head": "[fast, proud] Close to fifteen hundred hours of Coates hands",
+  "session": "OCELpMgFhBq8zbz4gkVu"
+ },
+ "40b": {
+  "credits": 244.99999999999997,
+  "duration": 18.72,
+  "generation": "wROg4OOQbXHjb7PtkQX5",
+  "prompt_head": "[fast, proud] Close to fifteen hundred hours of Coates hands",
+  "session": "JM167fqbTnzHsf3yUhlT"
+ },
+ "41a": {
+  "credits": 382,
+  "duration": 27.12,
+  "generation": "U66sq2IeFZezLYJGBKk3",
+  "prompt_head": "[fast] The dates that made it! [rapid] The seventh of Septem",
+  "session": "WBiKzQKEdvdMPmvTxUNQ"
+ },
+ "41b": {
+  "credits": 382,
+  "duration": 27.92,
+  "generation": "tTu4M8NXdtM9LI5Y5qyT",
+  "prompt_head": "[fast] The dates that made it! [rapid] The seventh of Septem",
+  "session": "DVNWeQ0CWiGJbBNltcUJ"
+ },
+ "42a": {
+  "credits": 291,
+  "duration": 23.28,
+  "generation": "gWueyAVpttTU5XNTAMdl",
+  "prompt_head": "[proud, over the roar] Buildings \u2014 one hundred per cent! Toi",
+  "session": "w1lly2vdNyB1wRPZ8Sbt"
+ },
+ "42b": {
+  "credits": 291,
+  "duration": 22.88,
+  "generation": "rShiwqPEYZRxCpbWKQ2a",
+  "prompt_head": "[proud, over the roar] Buildings \u2014 one hundred per cent! Toi",
+  "session": "SAKRoHBNOSEO12DiyfWu"
+ },
+ "43a": {
+  "credits": 321,
+  "duration": 22,
+  "generation": "eT5Db6WIZydEAngHXVrS",
+  "prompt_head": "[building, awed] Seven hundred and twenty-seven pieces of eq",
+  "session": "F4S34hBUeRWlycyme14Z"
+ },
+ "43b": {
+  "credits": 321,
+  "duration": 22.8,
+  "generation": "a7JXmPV5tkorfLoyvisH",
+  "prompt_head": "[building, awed] Seven hundred and twenty-seven pieces of eq",
+  "session": "KoZ3lf4Rqin5hFG8Ud5M"
+ },
+ "44a": {
+  "credits": 265.00000000000006,
+  "duration": 18.24,
+  "generation": "R0cqXPzbddZlQ4PlSPAH",
+  "prompt_head": "[punchy, one at a time] Care Deeply! Customer Focused! Be Ou",
+  "session": "hHF2KaZlLnjqUbXK8C5P"
+ },
+ "44b": {
+  "credits": 265.00000000000006,
+  "duration": 17.92,
+  "generation": "15pOZ24bE5gj3oyHTEzk",
+  "prompt_head": "[punchy, one at a time] Care Deeply! Customer Focused! Be Ou",
+  "session": "BTL00znYfaUOyUWOqcdq"
+ },
+ "45a": {
+  "credits": 250,
+  "duration": 14.88,
+  "generation": "jzjXMtckZCWV6gL6WTAQ",
+  "prompt_head": "[warm, sincere] One team. Coates and Advanced, install and f",
+  "session": "CEuLZFRGuTvlFyo0FZvd"
+ },
+ "45b": {
+  "credits": 250,
+  "duration": 15.36,
+  "generation": "iIVPv91HxtDSqHfCnQ0X",
+  "prompt_head": "[warm, sincere] One team. Coates and Advanced, install and f",
+  "session": "pTjhTnA4WLLRZA2aVmKU"
+ },
+ "46a": {
+  "credits": 265.00000000000006,
+  "duration": 18.16,
+  "generation": "0BgGDY8DxsFRCWl99Izl",
+  "prompt_head": "[warm, fast] Special mentions! [rapid] To the branches and t",
+  "session": "ZI3iPtE6WZX5ifWZg1aN"
+ },
+ "46b": {
+  "credits": 265.00000000000006,
+  "duration": 19.6,
+  "generation": "0oYmOPi7SI79dxEZSCy7",
+  "prompt_head": "[warm, fast] Special mentions! [rapid] To the branches and t",
+  "session": "31coIZI6uQ9qCMMC06Hw"
+ },
+ "47a": {
+  "credits": 371,
+  "duration": 32.64,
+  "generation": "kJ85WtMbIh2V3yX0Npfa",
+  "prompt_head": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle",
+  "session": "DZVcGswMBBbiCo8X2npb"
+ },
+ "47b": {
+  "credits": 371,
+  "duration": 34.4,
+  "generation": "P3mZ465HT54yPTsmPnjl",
+  "prompt_head": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle",
+  "session": "62ibrXsV87JWzgq7rCE8"
+ },
+ "48a": {
+  "credits": 281.00000000000006,
+  "duration": 17.92,
+  "generation": "zIusgBeAOw87hEWuKn2A",
+  "prompt_head": "[the roar dropping away, slow, sincere] So this weekend... w",
+  "session": "vx1gDNHLWv2Yfs3nW2ib"
+ },
+ "48b": {
+  "credits": 281.00000000000006,
+  "duration": 21.52,
+  "generation": "lW8njhaZkaKdz1xrgtiw",
+  "prompt_head": "[the roar dropping away, slow, sincere] So this weekend... w",
+  "session": "QNHw3CqyER4SYQb4BgNI"
+ },
+ "49a": {
+  "credits": 157,
+  "duration": 10.96,
+  "generation": "UfD1n04ZwslcZG4YfeW4",
+  "prompt_head": "[softly, emotional] Every one of you... deserves to be recog",
+  "session": "dEnCKcXo1cxGVEMGz3gO"
+ },
+ "49b": {
+  "credits": 157,
+  "duration": 10.88,
+  "generation": "8MYSjqysmrBVo17V7bU4",
+  "prompt_head": "[softly, emotional] Every one of you... deserves to be recog",
+  "session": "tvR9FZjUd81tWRprHUZm"
+ },
+ "50a": {
+  "credits": 167,
+  "duration": 8.32,
+  "generation": "4QwBWRtQiazbvoC5fnVL",
+  "prompt_head": "[lifting again, into the engine, fast] Stay with us! [shouti",
+  "session": "C4e45cDNM4FlPLsclohs"
+ },
+ "50b": {
+  "credits": 167,
+  "duration": 7.76,
+  "generation": "YQPgMxtdjLAmZPCcsB9f",
+  "prompt_head": "[lifting again, into the engine, fast] Stay with us! [shouti",
+  "session": "ERQ62NpfxmX3G4BQVAaL"
+ },
+ "51a": {
+  "credits": 236,
+  "duration": 12.56,
+  "generation": "CNFjQYiK30HuKy6ffHUN",
+  "prompt_head": "[energetic, shouting over the engine] Back LIVE with the Coa",
+  "session": "OtzmO1apcuehhGh3AA4O"
+ },
+ "51b": {
+  "credits": 236,
+  "duration": 13.36,
+  "generation": "DW4jVka17Tq7ikn7LFdV",
+  "prompt_head": "[energetic, shouting over the engine] Back LIVE with the Coa",
+  "session": "4cd9odmzAEferhX2dxFa"
+ }
+}

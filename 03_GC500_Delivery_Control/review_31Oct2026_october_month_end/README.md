@@ -1,0 +1,240 @@
+# Review: October month-end, 31 Oct 2026 (Claude, read only, not live)
+
+Author: Andrew Fisher. Nothing on the record changed. Andrew, in the Claude chat: "we want to know what is from each month ... whats in
+sept. oct november", "this needs to be 1000% Accurate Advise of invoice numbers and P/O Numbers and we need to align Labour ... right up to
+13/11/2026", and on the fencing: "we need to know what is still owing and what has not been Invoiced as this need to be journled".
+
+From the live record (12640) through page v12.69 (`038bd277…`), the 19 invoices and the purchase orders. `build_monthend.py` writes the
+page and CSV sent to Andrew (`GC500_October_month_end.*`, private); `build_final_pl.py` the final P&L sheet (now with the record's branch
+names: KINP Brisbane Portables, STPS Brisbane Traffic, NVAC North Power and HVAC, MEAD Brisbane Mechanical Specialist; the names used
+before were guesses and wrong) and its fencing journal section.
+
+## Costs by month of work (ties to the P&L's 544,097.23)
+
+September 135,278.94 · October 383,094.78 · November 25,723.51. Fencing by each docket, note and sheet line's date (Sep 99,664.50;
+Oct 193,745.20); labour hire by the running sheet's day; Premiair by each line's hire days; Royal Wolf on site 13–30 Oct; Event
+Portables Q6846 by its days (14 Sep–25 Oct, quoted 4,850.00), the rest October; consumables by PO date; accommodation and meals by date;
+the salary allowance (no dates) by the salaried hours (198 · 256 · 110 h).
+
+## To accrue at 31 Oct: 213,008.60 (work done, not invoiced)
+
+Advanced 79,184.70 (event week 71,159.70 on PO 4647522, demob week 1 8,025.00 on PO 4647523; both this year's orders, open, nothing
+invoiced on either yet: Andrew, 31 Oct, "4647522 and 4647523 are this years P/O these are still open") · Event Portables 101,747.00 (no PO or invoice on the record;
+September's 1,963.10 as a catch-up) · Job Connect 24,348.75 (w/e 11 Oct 2,539.92 PO 4665091; w/e 18 Oct 6,198.75 POs 4667755/4668970;
+w/e 25 Oct 11,774.71 POs 4670882/4671825; w/e 1 Nov 3,835.37 no PO) · Premiair 3,806.31 · Royal Wolf 1,364.23 · Alfie Harris's 12 nights
+2,557.61. Accruals reverse on 1 Nov; the invoices land against them. Job Connect w/e 4 Oct: the running sheet is 178.00 over invoice
+15294 (3,052.60).
+
+## Labour to 13 Nov (hours; Coates wages and salary hours only)
+
+Coates wages: KINP 391 · 385.5 · 215; STPS 12 · 78; NVAC 6 · 102 (Frank Devilles and Ludwig Chee, 36 h each over the event weekend,
+moved from KINP to NVAC on Andrew's word, 31 Oct; see pack v1.2 below). Salary: KINP 198 · 256 · 110. Labour hire: KINP 110.5 · 380.3 · 52.5,
+STPS 8 (Oct); cost 6,284.23 · 25,618.71 · 3,023.85 = 34,926.79.
+
+## Revenue
+
+All 19 invoices are dated 27–30 Oct (1,003,037.12). Their dated hire lines with the waiver on them, by the days on hire: September
+57,202.81 · October 343,496.87 · November 196,636.68; lines with no dates (services, sales, transport) 405,700.77 (the 1 cent is rounding).
+Revenue basis: the invoice month (October). Andrew's call is still open on moving the November hire days; the pack defaults to October as invoiced and shows the hire days by month for information only. Invoice 25124396 carries a 500.00 transport
+line (2 × 250.00) the line parser missed; the invoice total was right.
+
+## Not dated on the record
+
+Transport: 14,647.65 of the load figures to date and 12,990.03 of the loads to come; Alfie Harris's 12 nights; the salary allowance; the
+service lines on the invoices (405,700.77) until each is matched to the record.
+
+## Staff hours by contract (added 31 Oct, on Andrew's ask)
+
+Andrew: "can we mention Labour Hire their costs have been Coded to Installs . can we mention Contract Numbers where staff hours go to",
+then "anything outside of KINP we mention the Contract. rest is KINP we dont need to mention contracts Nos". Labour hire is shown as
+coded to Installs. Outside KINP the contract is named, from the hours on the running sheet's notes: water barriers 9972648 (STPS) 98 h
+(Sep 12, Oct 86); generators 9961976 (NVAC) 108 h (Sep 6, Oct 102: the generators' 36 h and, from 31 Oct, Frank Devilles's and
+Ludwig Chee's 72 h over the event weekend). Everything else is KINP with no contract number: 2,098.8 h (Sep 699.5, Oct 1,021.8,
+Nov 377.5). By person in the sheet's sections 2b and 2c and the CSV.
+
+Event Portables, Premiair and Royal Wolf (Andrew: "i cant find any invoices for them either"): none has an invoice on the record.
+Event Portables 101,747.00 is the four unsigned quotes at the received and counted quantities (Q6845 42,175.00; Q6844 51,372.00;
+Q6846 4,850.00; Q6847 3,350.00); checks: 51 block cleans at their rate against 33 charged to the V8s; 702 FWF services against 195 FWF
+hired from them; Q6846's tank line printed 1 × 350.00 = 2,100.00. Premiair 3,806.31 is the contract's keyed cost rate (53.61 a day,
+the same as the V8s' rate) × the hire days; it still costs line 15, which Baseplan (12) no longer has (536.10); VMS19 and VMS20 are
+billed to the V8s at 0.00. Royal Wolf 1,364.23 is 9974042's keyed cost rate for the refrigerated container (line 2, 13–30 Oct),
+billed to the V8s at 1,428.00 plus 1,000.00 delivery and 1,000.00 pickup.
+
+## Accruals beside what we charged the V8s (added 31 Oct, on Andrew's ask)
+
+Andrew: "we need to understand what we charged v8s for to do with this and state we are still waiting for invoice and this is the
+esitimate cost. And we do same with fencing". Section 1b of the sheet: Event Portables charged 140,661.07 (25122322 FWF hire for their 195 units at 90.07,
+L98, L141, L142 and the toilet transport lines L147–L149, L162, L167; 25123999 L18, L19) against an estimated 101,747.00 (no invoice;
+Andrew: "We charge the v8s for transport for toilets"; the transport covers our own toilets too, whose carrier cost is in transport); Advanced charged 370,888.55 on 25122628
+against 214,225.00 invoiced plus an estimated 79,184.70 (POs 4647522, 4647523); Premiair 2,787.72 against an estimated 3,806.31;
+Royal Wolf 2,428.00 (L2 and its delivery and pickup share) against an estimated 1,364.23.
+
+## The final P&L pack v1 (31 Oct, on Andrew's "Lets go over the P&L again ... accurate to the cent")
+
+`build_monthend.py` now writes the pack: `GC500_PL_final.xlsx` (Summary, Revenue by invoice, Costs by supplier, Costs by branch,
+Accruals vs charges, Journals, Labour by person, Open items) and `GC500_PL_final.html` (private). It supersedes the separate final
+P&L sheet (`build_final_pl.py`). Every sheet cross-foots to the cent: revenue 1,003,876.19 (19 invoices 1,003,037.12 + November
+forecast 839.07); costs 543,382.98 (Sep 135,187.78 · Oct 382,488.71 · Nov 25,706.49 after the salary allowance fix; KINP 229,400.58 · STPS 302,809.37 · NVAC 9,935.80 ·
+MEAD 1,237.23); difference 460,493.21; accruals at 31 Oct 212,472.50 = the journals.
+
+Defaults applied and told to Andrew (his call to reverse): Job Connect w/e 20 Sep and 4 Oct at their invoices (−0.15, −178.00 against
+the running sheet); Premiair line 15 (536.10) out of the estimate (not on 9961265 in Baseplan (12)); Frank Devilles and Ludwig Chee on
+KINP until he confirmed their event roles (settled 31 Oct: NVAC, see pack v1.2); revenue kept in October as invoiced. The concert sync PO 4670270 sits on NVAC by its GL code
+(201.NVAC.2144.0); Kyle Gover's 8 h of labour hire on the water barriers (460.78) is journaled to STPS. Codex asked to audit
+independently, PR1 6541369248.
+
+## Basis and status, labelled once (31 Oct, after Codex's 6541370424)
+
+- Revenue: invoice month (October) for all 19 invoices, on Andrew's word (31 Oct: "Yes they should. But we can still mention novembwr but invoiced in october"). The hire for days in November on them (196,636.69 from v1.4) is named as invoiced in October, not moved. The 839.07 generator pick-up charge is a November forecast, not invoiced.
+- Advanced: 214,225.00 invoiced and receipted; 79,184.70 an ESTIMATE (our dockets and notes at their rates) until invoices on POs 4647522 and 4647523; 750.00 a forecast for demob week 2.
+- Event Portables 101,747.00, Premiair 3,270.21, Royal Wolf 1,364.23, Job Connect w/e 11 Oct to 8 Nov, Alfie Harris's 12 nights: ESTIMATES, no invoice seen.
+- Defaults applied pending Andrew: Job Connect at its invoices where received; Premiair line 15 out; revenue in October.
+- `build_final_pl.py` is superseded by the pack in `build_monthend.py`; its fencing note no longer says "nothing estimated".
+
+## Pack v1.2: Frank Devilles and Ludwig Chee on NVAC (31 Oct)
+
+Andrew, asked which roles they did over the event weekend: "Mechanic and electrician." On 29 Oct he had asked "So labour costs for
+nvac for my mechanic and electrician should this go to nvac over event ?" (answered yes: NVAC bills the Event Gen Tech). Both
+people's 36 h (23–25 Oct, 12 h a day, on KINP before) now sit on NVAC 9961976. The record doesn't say which of them is the
+mechanic and which the electrician, and the pack doesn't need it. Hours only, so costs, accruals and journals are unchanged. NVAC
+bills one Event Gen Tech, the event labour scope's one a day (31 h on 25121022; 4 h on KINP's 25123999). Open: Ludwig Chee's three
+event nights (655.71) stay in KINP's accommodation unless Andrew moves them with his hours.
+
+The page (`GC500_PL_final.html`) had printed sections 2, 3 and 4's tables and amounts as raw code since v1, because the segments
+after the inserted tables weren't evaluated. That's fixed, and the sections are numbered once each (4 the undated items, 5 the
+journals, 6 the open items). The workbook is built separately and was right throughout.
+
+## Pack v1.3: the hire contract and PO on every line; Ludwig Chee's nights on NVAC; November named (31 Oct)
+
+Andrew: "Yes they should. But we can still mention novembwr but invoiced in october. We need to make sire we mention hire contract
+nos.and p/o numbers so we know where things maych up." Asked where Ludwig Chee's three event nights should sit: "Move to NVAC".
+
+- **November:** revenue stays in October, the invoice month. The November hire days on those invoices (196,636.68) are named on
+  the revenue tile, in section 3 and on the revenue sheet as "invoiced in October". The open decision is closed.
+- **Ludwig Chee's nights:** his three event nights (23–25 Oct, 218.57 each, 655.71, checked on the live record with
+  `inputs/ludwig_nights.cjs`) move from KINP's accommodation to NVAC with his hours. KINP is now 228,744.87 and NVAC 10,591.51.
+  A branch-move journal sits beside Kyle Gover's (460.78 KINP → STPS).
+- **Contracts and POs:** every cost line carries the hire contract and V8s invoice it's charged on, beside its PO (CSV, workbook,
+  page section 1). The journals carry the contract too. Section 3 and the revenue sheet list the POs against each contract.
+- **Match-up:** new section 3b and workbook sheet "Match-up by contract". It lists every invoiced contract, what's on it (the
+  invoice's biggest lines), and the POs and costs against it. Costs that nothing ties to one contract are listed apart, with the
+  reason. Tied to a contract 420,322.07 + not tied 123,060.91 = 543,382.98 (asserted).
+- **Carriers:** tied to contracts by each load's delivery docket, through Baseplan (12)'s docket list. That covers 15,546.12 of
+  the 33,150.09 to date: 9968862 8,670.72, 9968955 4,350.00, 9972648 1,380.00, 9961976 870.00, 9974042 275.40. Another 17,033.97
+  has no docket on the record, and docket 26095295 (570.00) isn't in Baseplan (12).
+- **How each PO is linked:** all 23 POs on the record are in the pack, and none carries a contract field. A contract is named only
+  where the record ties it:
+  - the PO itself says so: 4663216 "for the GC500 fencing" → 9990776; 4670270's note → 9994954;
+  - the work is that contract: Advanced → 9990776;
+  - the V8s are charged for it on that contract's lines: Event Portables → 9968955 and 9994954; Premiair → 9961265; Royal Wolf
+    → 9974042.
+  POs 4655573, 4666720, 4669481 and 4670876 name no contract, and the pack says so.
+- **Totals unchanged:** revenue 1,003,876.19, costs 543,382.98, accruals 212,472.50.
+
+## Pack v1.4: Codex's code corrections (31 Oct)
+
+Codex reviewed v1.2 against Andrew's originals. The public source-only notes are in
+`../review_31Oct2026_pl_independent/PACK_v12_CODE_REVIEW.md` (PR1 6542008260); the detailed private findings went to Andrew for
+the handover and have **not reached Claude yet**. v1.4 applies the five public corrections on top of v1.3:
+
+| Codex's note (v1.2 lines) | What v1.4 does |
+|---|---|
+| Residual policies differ (151, 164, 227, 370) | One revenue model for every output. Each invoice's services stay as sourced (the undated lines plus any remainder the line parser missed). Its hire lines and their waiver are split across the months by days on hire, and the cents are reconciled once, by largest remainder. The page, CSV and workbook all read the same numbers. Every row adds up to its ex GST exactly (asserted), and the 19 invoices add up to exactly 1,003,037.12; v1.3 was 1 cent over. Four invoices move by one cent between a month and services, so November hire is now 196,636.69 (196,636.68 in v1.3). |
+| Labour hire cost hardcoded to KINP (225) | Labour hire cost rows now go by the branch that received the hours (KINP, plus STPS 460.78), labelled "running sheet basis" (34,926.79). They stay separate from the P&L's invoice basis (34,748.64, Job Connect's invoices where received). The page and CSV say which basis is which. |
+| Month headings say days but show money | The headings read "Sep / Oct / Nov hire $ (with waiver)" and "Services, sales, other $". The day weighting is explained in the text, and the revenue tile says "hire (with waiver) for days in November". |
+| No print rules for the page | Added an A4 landscape print layout: full width, no scroll clipping, repeated table headers, light colours. It was checked as a real PDF: 9 pages, no table overflowing in print, all 14 section headings, and every right-hand column present. That PDF is in the zip as `GC500_PL_final.pdf`. |
+| Workbook print setup | Narrative cells wrap. Every sheet is set to A4 landscape fitted to width, with the header row repeated, a set print area, and the date, currency and tax basis in the page header with page numbers in the footer. The Summary sheet states the basis, and the wide sheets were narrowed so they print legibly. Checked by printing the workbook to PDF with LibreOffice: 13 pages, median text 7.1 to 11 pt, all right-hand headers present. |
+
+Output hashes (SHA-256, private files not committed): HTML `cd349c63…`, XLSX `2c64624d…` (the XLSX carries build timestamps,
+so it changes on every build), CSV `9d59f0a3…`, page PDF `c3ebe852…`. Builder `fd421748…`. Totals unchanged: revenue
+1,003,876.19, costs 543,382.98, accruals 212,472.50.
+
+## Pack v1.5: Codex's private audit applied (1 Nov)
+
+Andrew passed Codex's private audit of v1.2 to Claude on 1 Nov. It stays private and is not in this repository. Each finding was
+checked against the source before it was applied:
+
+| Finding | v1.5 |
+|---|---|
+| F01 one cent model | Done in v1.4; unchanged. |
+| F02 two invoices are STPS | 25120652 and 25120689 move KINP → STPS. Their invoice headers say "Staplyton (S)" and Baseplan (12)'s Sales Analysis Codes are STPS-CON; only the sheet names say KINP. Job revenue is unchanged. |
+| F03 transport dates | Every transport row goes in by its own date on the schedule, each once: the recorded figures, the forecasts on loads with no figure, and the planned loads. No undated transport is left. |
+| F04 Alfie's nights | The 8 October nights are accrued and the 4 November nights are forecast. October is taken from the unrounded mean; the balancing cent sits in November (`inputs/alfie_nights.cjs`). |
+| F05 salary window | Split by the salaried hours inside the record's window (labourAllowance858, 14 Sep–13 Nov). |
+| F06 toilet transport | The comparison now includes 25123999 L24. |
+| F07 labour label | Done in v1.4. |
+| F08 billed hours | The gen tech hours are now shown exactly as Baseplan prices them. |
+| F09 hours precision | The labour CSV keeps the source's two decimals (`inputs/build_sheet.py`), and the pack shows hours at the source's precision. |
+| F10 future meals | November's meal lines are labelled "recorded ahead", not "actual". |
+| F11 interbranch | The branch moves are a zero-net schedule with both legs shown. |
+| F12 print | The page prints landscape by CSS. Also checked at portrait width: no table overflows. |
+| F13 units | The revenue columns name AUD ex GST, and the section headings drop "hire days". |
+| F14 workbook | Done in v1.4; re-checked through LibreOffice. |
+| Retained decisions | Codex's customer-scope and Event Portables reference items are now open items for Andrew. Comparison wording is "no identified matching charge". The fencing comparison says what it leaves out, Royal Wolf's transport is labelled an equal share, and supplier estimates stay estimates. |
+| Ludwig's nights | Codex's bundle predates Andrew's ruling (31 Oct: "Move to NVAC"). v1.3's move stands. |
+
+Job revenue, job cost and branch costs are unchanged. The months, the accruals and the KINP/STPS revenue move exactly as in Codex's
+bridges, and the builder asserts each figure.
+
+## Pack v1.6: invoice 25124396 out of GC500 revenue (1 Nov)
+
+Andrew, on Codex's customer-scope item: "Good pick up.. remove Invoice 25124396 please." The invoice (contract 9994248) is to Gold
+Coast Helitours (customer CASH-STPS), not the V8s. It comes off GC500 revenue, and the pack now has 18 invoices. It stays visible as
+a "removed" row on the revenue sheet with no amount, and section 3 says why. No cost on the record ties to it: no Baseplan (12)
+docket, no carrier figure and no cost line names 9994248. Costs, months and accruals are unchanged, and STPS revenue and the job's
+revenue each drop by that invoice. The builder asserts the 18-invoice totals.
+
+## Pack v1.7: Alfie Harris's nights at his tracker rate; facts only; a full audit (1 Nov)
+
+Andrew: "Just use the accomodation rate we been using for him last week", and "We dont want to see this is based off andrews word.
+We need clean nunbers. And fact."
+
+- **Alfie's 12 unpriced nights:** costed at 223.63, the rate on all 8 of his latest priced nights on the tracker (26–29 Oct and
+  2–5 Nov). The 8 October nights are accrued (1,789.04) and the 4 November nights are forecast (894.52). Job cost rises by 125.95
+  against the earlier mean-rate figure.
+- **Facts only in the outputs:** the page, workbook and CSV now state each basis as a fact (rate, date, contract, rule). The
+  "your call", "your word" and "Andrew, <date>" wording is gone. The decisions behind them stay in this README and on the board,
+  which are the audit trail.
+- **`audit_pack.py`:** a new independent audit that recomputes the figures from the private inputs, not from the builder, and
+  checks the workbook, page and CSV against them and each other to the cent. It covers:
+  - revenue by invoice and branch;
+  - carriers by date;
+  - accommodation, meals, salary window and Job Connect weeks;
+  - every PO amount and the Advanced and Event Portables totals;
+  - costs by supplier against costs by branch, the match-up, the journals and the CSV;
+  - labour hours and dollars;
+  - a facts-only text check.
+
+  Result on v1.7: 159 checks, 159 pass. Run it with `python3 -I audit_pack.py <pack_dir> <progress_dir> [alfie_nights.json]`.
+
+## Pack v1.8: Alfie Harris's 12 nights on the record at 223.63 (1 Nov)
+
+Andrew: "Yes enter 223.63 for Alfie's nights on the record".
+
+- **The record:** the 12 nights now carry 223.63 on the live record. They were written through the page's own `setOurCost`,
+  in Andrew's name, with a dry run and a backup first and a fresh read after. Record 12640 → 12676, 36 documents. The run
+  is in `../record_01Nov2026_alfie_accommodation/`.
+- **The pack:** the figures are unchanged from v1.7:
+  - revenue 1,001,902.14;
+  - job cost 543,508.93 (Sep 147,015.00 · Oct 379,690.51 · Nov 16,803.42);
+  - to accrue 211,703.93.
+
+  The rows now say the nights are on the record from 1 Nov, and every output names record 12676 (page, workbook header,
+  CSV).
+- **Checked against the record as it now stands:** `inputs/dated_costs.cjs` was run again on 12676 (new `OUT` setting; each
+  cost line now carries its person and id) and compared with the 12640 capture:
+  - labour, transport and fencing are identical;
+  - the cost lines differ only in Alfie's 12 amounts;
+  - accommodation on the record is 112 lines, all priced: Sep 6,370.36 · Oct 13,640.93 · Nov 4,696.23. The pack's three
+    accommodation rows (97 nights on KINP, Ludwig Chee's 3 on NVAC, Alfie's 12) equal it by month, to the cent.
+- **Labour:** the labour register was captured on record 12622 and the labour sheet says so. The two record runs since
+  changed no labour line, and each run's read-back found every other document unchanged:
+  - six purchase orders, 12622 → 12640;
+  - Alfie's nights, 12640 → 12676.
+- **`audit_pack.py`:** takes the 12676 capture as a fourth argument and checks all of the above. Alfie's 12 nights must
+  now carry 223.63, as the pack says. Result on v1.8: 171 checks, 171 pass. Run on the 12640 reads instead, it fails, as
+  it should.
+- **Printed:** the page is 9 pages, A4 landscape, with no table overflowing at landscape or portrait width. The workbook
+  is 12 pages, A4, through LibreOffice.
+
+Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> alfie_nights.json dated_costs_now.json`.

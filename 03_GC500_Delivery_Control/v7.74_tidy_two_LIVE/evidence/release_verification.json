@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.74",
+  "live_at": "2026-10-01T18:45:34+10:00",
+  "base": "v7.73",
+  "bytes": 8673113,
+  "sha256": "59e58833ab1ee8c6fb0ad2f8c2b3ff5e7b13c14923cd3e70459bc32503fda7d8",
+  "frozen_handover_match": true,
+  "public_view_matches": true,
+  "record_version_before": 3521,
+  "record_version_after": 3521,
+  "record_writes": 0,
+  "ledger_posts": 0,
+  "verification": {
+    "build": "PASS",
+    "handover_practice_desktop": "31/31",
+    "handover_practice_phone": "31/31",
+    "independent_practice_desktop": "31/31 before final two spacing corrections",
+    "independent_practice_phone": "31/31 before final two spacing corrections",
+    "sweeps_desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "sweeps_phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone_visual": "light and dark inspected; page width390px; inner table scrolling preserved",
+    "dry_run": "PASS"
+  },
+  "scope": "70 wording replacements, five P&L display fixes, four recorder display sites; pricing rules and records unchanged",
+  "remaining": "v7.75 follow-up belongs to Claude; v7.76 navigation performance is separate."
+}

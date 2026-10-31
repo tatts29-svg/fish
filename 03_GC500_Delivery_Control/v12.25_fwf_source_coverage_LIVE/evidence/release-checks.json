@@ -1,0 +1,56 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "implementation_source": "c6a3b64b9827dc46bd34384570b1ef6cf8ba7496",
+  "base_sha256": "0dbb968dd75f92d159f41e2d29849a1d9c283ba950d3f572a31db4e32c14f340",
+  "candidate_sha256": "25a68311ca34ba367d6d4f6b9c44e4867d65dbe4a66a9d1196c424663a04e221",
+  "candidate_bytes": 15440214,
+  "shared_checker_scripts": 202,
+  "source_preservation_checks": 79,
+  "advisory_checks": 19,
+  "native_desktop": 13,
+  "native_phone": 13,
+  "native_errors": 0,
+  "record_write_attempts": 0,
+  "full_sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back_to_plant": true,
+      "errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back_to_plant": true,
+      "errors": 0,
+      "console_errors": 0
+    }
+  },
+  "phone_screenshots_inspected": true,
+  "guard_dry_run_passed": true,
+  "operational_record_changes": false,
+  "invoice_certified": false,
+  "ready_source": "99e6cc25cad18fae8f6d04d0acab756b57500770",
+  "uploaded_at": "2026-10-25T13:13:15.590Z",
+  "guarded_upload_exact_readback": true,
+  "independent_public_readback": {
+    "at": "2026-10-25T13:14:30.777687+00:00",
+    "http": 200,
+    "sha256": "25a68311ca34ba367d6d4f6b9c44e4867d65dbe4a66a9d1196c424663a04e221",
+    "bytes": 15440214,
+    "exact_candidate_match": true,
+    "source_advisory_footer_verified": true
+  },
+  "post_live_phone": {
+    "at": "2026-10-25T13:14:43.205Z",
+    "checks": 13,
+    "page_errors": 0,
+    "record_write_attempts": 0,
+    "models_match_candidate": true,
+    "screenshot_inspected": true
+  }
+}

@@ -1,0 +1,630 @@
+{
+ "author": "Andrew Fisher",
+ "utc": "20261028T061935Z",
+ "mode": "apply",
+ "manifest": "manifest_sep.json",
+ "options": {
+  "only": null,
+  "crew": null,
+  "no_remove": false
+ },
+ "plan": {
+  "uploads": [
+   {
+    "entry": 1,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-07",
+    "crew": "coates",
+    "replaces": [
+     "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 151451,
+    "sha256": "eeabc02fcd2f4f5cf6a1b5160b33c005f10ddad99d95f1c04d062ce0654ced70",
+    "ok": true
+   },
+   {
+    "entry": 2,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-08",
+    "crew": "coates",
+    "replaces": [
+     "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 151465,
+    "sha256": "01123e538ab711389a0ad65d59aac177764530e891c7336148ded36e2f9cf59d",
+    "ok": true
+   },
+   {
+    "entry": 3,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-09",
+    "note": "Daily pre-start for Wed 09 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-09",
+    "crew": "coates",
+    "replaces": [
+     "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 151456,
+    "sha256": "70781a42e60a83db723937ba949094b220a70b8acf6f2bf7d55268ae1f7b9a4f",
+    "ok": true
+   },
+   {
+    "entry": 4,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-10",
+    "crew": "coates",
+    "replaces": [
+     "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 151452,
+    "sha256": "49a66239a3fb00c3a69a700e42a38f0d87ac74abd8896a8b3dcf9632c1532d84",
+    "ok": true
+   },
+   {
+    "entry": 5,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-11",
+    "note": "Daily pre-start for Fri 11 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-11",
+    "crew": "coates",
+    "replaces": [
+     "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 151835,
+    "sha256": "5bc51183c287a6b73b916d7cded50dd6112ff03a2fff74a03d715bc9ed793ab3",
+    "ok": true
+   },
+   {
+    "entry": 6,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-07",
+    "crew": "fencing",
+    "replaces": [
+     "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 155133,
+    "sha256": "53dde89f723ad264b899e1faed89e52803e748b19503c0125ffc54e25cff22c8",
+    "ok": true
+   },
+   {
+    "entry": 7,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-08",
+    "crew": "fencing",
+    "replaces": [
+     "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 155153,
+    "sha256": "4ee566e3ef5434b701b2e770fc6a9bae288c48d932ad81f8deae08e0cd102457",
+    "ok": true
+   },
+   {
+    "entry": 8,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-10",
+    "crew": "fencing",
+    "replaces": [
+     "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf"
+    ],
+    "bytes": 155128,
+    "sha256": "600c5fd0653ac545e573ba5829f5a02e7748046a42d66c60a4d234ccbf8296f7",
+    "ok": true
+   }
+  ],
+  "removals": [
+   {
+    "id": "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-07 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 93335,
+    "sha256": "28f8606756b4539a2b1c1ae8884f07d83a43c99af8f3ab690ff8a4f2e06218a2",
+    "uploaded": "2026-10-05T01:50:50.095Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-08 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88256,
+    "sha256": "00a2c4f003708653e8c245c7278f1f311b2da80bd8ffdbc9fbf15364b5c97b91",
+    "uploaded": "2026-10-05T01:50:51.493Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-09 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88078,
+    "sha256": "d66ea45db52236b74abb402fc5d93994ae7c782876b355ab8fe4a8d47196b7aa",
+    "uploaded": "2026-10-05T01:50:52.681Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-10 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88141,
+    "sha256": "caf0cb683ae4dc90584fef01a99ec9d4dbfc6590b24325284dde43fd1a26361d",
+    "uploaded": "2026-10-05T01:50:54.071Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-11 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 93575,
+    "sha256": "852cd524f1f697ba980329d324108bdd788e007ef79f81ca52a474e37bfe2b76",
+    "uploaded": "2026-10-05T01:50:55.267Z"
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83599,
+    "sha256": "54bcd0d5ecdd063a1ddd336f7b971e0e3590ca18c18b7d6bfa3e83a17dc6179c",
+    "uploaded": "2026-10-05T01:51:04.370Z"
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83701,
+    "sha256": "28aeb6c0cd03de63c9c3dfbca7598552f00f032274301d149eff978dcf63a905",
+    "uploaded": "2026-10-05T01:51:05.573Z"
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83594,
+    "sha256": "057f6280d7a259f050715b81fb3f61958539fde13573d46e8b460e6ec683ed67",
+    "uploaded": "2026-10-05T01:51:07.991Z"
+   }
+  ]
+ },
+ "key_check": {
+  "http": 200,
+  "level": "edit"
+ },
+ "attempted": true,
+ "backup": {
+  "folder": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z",
+  "files": [
+   {
+    "id": "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-07 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 93335,
+    "sha256": "28f8606756b4539a2b1c1ae8884f07d83a43c99af8f3ab690ff8a4f2e06218a2",
+    "uploaded": "2026-10-05T01:50:50.095Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf",
+    "backup_sha256": "28f8606756b4539a2b1c1ae8884f07d83a43c99af8f3ab690ff8a4f2e06218a2",
+    "backup_bytes": 93335
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-08 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88256,
+    "sha256": "00a2c4f003708653e8c245c7278f1f311b2da80bd8ffdbc9fbf15364b5c97b91",
+    "uploaded": "2026-10-05T01:50:51.493Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf",
+    "backup_sha256": "00a2c4f003708653e8c245c7278f1f311b2da80bd8ffdbc9fbf15364b5c97b91",
+    "backup_bytes": 88256
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-09 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88078,
+    "sha256": "d66ea45db52236b74abb402fc5d93994ae7c782876b355ab8fe4a8d47196b7aa",
+    "uploaded": "2026-10-05T01:50:52.681Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf",
+    "backup_sha256": "d66ea45db52236b74abb402fc5d93994ae7c782876b355ab8fe4a8d47196b7aa",
+    "backup_bytes": 88078
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-10 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 88141,
+    "sha256": "caf0cb683ae4dc90584fef01a99ec9d4dbfc6590b24325284dde43fd1a26361d",
+    "uploaded": "2026-10-05T01:50:54.071Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf",
+    "backup_sha256": "caf0cb683ae4dc90584fef01a99ec9d4dbfc6590b24325284dde43fd1a26361d",
+    "backup_bytes": 88141
+   },
+   {
+    "id": "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-11 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 93575,
+    "sha256": "852cd524f1f697ba980329d324108bdd788e007ef79f81ca52a474e37bfe2b76",
+    "uploaded": "2026-10-05T01:50:55.267Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf",
+    "backup_sha256": "852cd524f1f697ba980329d324108bdd788e007ef79f81ca52a474e37bfe2b76",
+    "backup_bytes": 93575
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83599,
+    "sha256": "54bcd0d5ecdd063a1ddd336f7b971e0e3590ca18c18b7d6bfa3e83a17dc6179c",
+    "uploaded": "2026-10-05T01:51:04.370Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf",
+    "backup_sha256": "54bcd0d5ecdd063a1ddd336f7b971e0e3590ca18c18b7d6bfa3e83a17dc6179c",
+    "backup_bytes": 83599
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83701,
+    "sha256": "28aeb6c0cd03de63c9c3dfbca7598552f00f032274301d149eff978dcf63a905",
+    "uploaded": "2026-10-05T01:51:05.573Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf",
+    "backup_sha256": "28aeb6c0cd03de63c9c3dfbca7598552f00f032274301d149eff978dcf63a905",
+    "backup_bytes": 83701
+   },
+   {
+    "id": "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10 · Retrospective prefill — unsigned",
+    "by": "Andrew Fisher via Codex",
+    "kind": "pack",
+    "bytes": 83594,
+    "sha256": "057f6280d7a259f050715b81fb3f61958539fde13573d46e8b460e6ec683ed67",
+    "uploaded": "2026-10-05T01:51:07.991Z",
+    "backup": "/home/user/fish/03_GC500_Delivery_Control/record_28Oct2026_prestarts_ahead/backup_20261028T061935Z/GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf",
+    "backup_sha256": "057f6280d7a259f050715b81fb3f61958539fde13573d46e8b460e6ec683ed67",
+    "backup_bytes": 83594
+   }
+  ]
+ },
+ "uploads": [
+  {
+   "name": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-07",
+   "sha256": "eeabc02fcd2f4f5cf6a1b5160b33c005f10ddad99d95f1c04d062ce0654ced70",
+   "bytes": 151451,
+   "http": 200,
+   "id": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Coates Installs · 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "bytes": 151451,
+    "sha256": "eeabc02fcd2f4f5cf6a1b5160b33c005f10ddad99d95f1c04d062ce0654ced70",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:40.206Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-08",
+   "sha256": "01123e538ab711389a0ad65d59aac177764530e891c7336148ded36e2f9cf59d",
+   "bytes": 151465,
+   "http": 200,
+   "id": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Coates Installs · 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "bytes": 151465,
+    "sha256": "01123e538ab711389a0ad65d59aac177764530e891c7336148ded36e2f9cf59d",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:40.671Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-09",
+   "sha256": "70781a42e60a83db723937ba949094b220a70b8acf6f2bf7d55268ae1f7b9a4f",
+   "bytes": 151456,
+   "http": 200,
+   "id": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Coates Installs · 2026-09-09",
+    "note": "Daily pre-start for Wed 09 Sep 2026",
+    "bytes": 151456,
+    "sha256": "70781a42e60a83db723937ba949094b220a70b8acf6f2bf7d55268ae1f7b9a4f",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:41.310Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-10",
+   "sha256": "49a66239a3fb00c3a69a700e42a38f0d87ac74abd8896a8b3dcf9632c1532d84",
+   "bytes": 151452,
+   "http": 200,
+   "id": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Coates Installs · 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "bytes": 151452,
+    "sha256": "49a66239a3fb00c3a69a700e42a38f0d87ac74abd8896a8b3dcf9632c1532d84",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:41.793Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-11",
+   "sha256": "5bc51183c287a6b73b916d7cded50dd6112ff03a2fff74a03d715bc9ed793ab3",
+   "bytes": 151835,
+   "http": 200,
+   "id": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "name": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Coates Installs · 2026-09-11",
+    "note": "Daily pre-start for Fri 11 Sep 2026",
+    "bytes": 151835,
+    "sha256": "5bc51183c287a6b73b916d7cded50dd6112ff03a2fff74a03d715bc9ed793ab3",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:42.264Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07",
+   "sha256": "53dde89f723ad264b899e1faed89e52803e748b19503c0125ffc54e25cff22c8",
+   "bytes": 155133,
+   "http": 200,
+   "id": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "bytes": 155133,
+    "sha256": "53dde89f723ad264b899e1faed89e52803e748b19503c0125ffc54e25cff22c8",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:42.728Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08",
+   "sha256": "4ee566e3ef5434b701b2e770fc6a9bae288c48d932ad81f8deae08e0cd102457",
+   "bytes": 155153,
+   "http": 200,
+   "id": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "bytes": 155153,
+    "sha256": "4ee566e3ef5434b701b2e770fc6a9bae288c48d932ad81f8deae08e0cd102457",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:43.203Z",
+    "by": "Andrew Fisher"
+   }
+  },
+  {
+   "name": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10",
+   "sha256": "600c5fd0653ac545e573ba5829f5a02e7748046a42d66c60a4d234ccbf8296f7",
+   "bytes": 155128,
+   "http": 200,
+   "id": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+   "answer": {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "name": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "bytes": 155128,
+    "sha256": "600c5fd0653ac545e573ba5829f5a02e7748046a42d66c60a4d234ccbf8296f7",
+    "type": "application/pdf",
+    "uploaded": "2026-10-28T06:19:43.678Z",
+    "by": "Andrew Fisher"
+   }
+  }
+ ],
+ "removals": [
+  {
+   "id": "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf",
+   "http": 200,
+   "answer": "{\"ok\":true}"
+  }
+ ],
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "files": [
+   {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-07",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 151451,
+    "sha256": "eeabc02fcd2f4f5cf6a1b5160b33c005f10ddad99d95f1c04d062ce0654ced70",
+    "uploaded": "2026-10-28T06:19:40.206Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-08",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 151465,
+    "sha256": "01123e538ab711389a0ad65d59aac177764530e891c7336148ded36e2f9cf59d",
+    "uploaded": "2026-10-28T06:19:40.671Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-09",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 151456,
+    "sha256": "70781a42e60a83db723937ba949094b220a70b8acf6f2bf7d55268ae1f7b9a4f",
+    "uploaded": "2026-10-28T06:19:41.310Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-10",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 151452,
+    "sha256": "49a66239a3fb00c3a69a700e42a38f0d87ac74abd8896a8b3dcf9632c1532d84",
+    "uploaded": "2026-10-28T06:19:41.793Z"
+   },
+   {
+    "id": "GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "title": "Pre-start · Coates Installs · 2026-09-11",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 151835,
+    "sha256": "5bc51183c287a6b73b916d7cded50dd6112ff03a2fff74a03d715bc9ed793ab3",
+    "uploaded": "2026-10-28T06:19:42.264Z"
+   },
+   {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 155133,
+    "sha256": "53dde89f723ad264b899e1faed89e52803e748b19503c0125ffc54e25cff22c8",
+    "uploaded": "2026-10-28T06:19:42.728Z"
+   },
+   {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 155153,
+    "sha256": "4ee566e3ef5434b701b2e770fc6a9bae288c48d932ad81f8deae08e0cd102457",
+    "uploaded": "2026-10-28T06:19:43.203Z"
+   },
+   {
+    "id": "GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 155128,
+    "sha256": "600c5fd0653ac545e573ba5829f5a02e7748046a42d66c60a4d234ccbf8296f7",
+    "uploaded": "2026-10-28T06:19:43.678Z"
+   }
+  ]
+ },
+ "result": "VERIFIED"
+}

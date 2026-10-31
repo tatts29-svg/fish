@@ -1,0 +1,129 @@
+{
+"by": "Andrew Fisher",
+"basis": "Andrew, 26 Oct 2026, with Event Portables' trucks collecting: 11:04 \"Picking up now 0650 0525 0489 0968 0960 0107 / Here is more 0935 0497 0442 0988 0445 0004 0009 0533 0974 0066 0633 0003\"; 11:58 \"Things are being picked up. Eeek. Next lot 0634 0582 0548 0782 0657 0912\". Then 12:06 \"Gn06 left site demob 12pm\": GN06's only unit is 1320828 (Coates 50 kVA generator), so GN06 left in full at 12:00 AEST. Of the toilet numbers, twenty-three are Event Portables FWF units on the record: WC55 0650, WC46 0525 and WC24 0489 (each its location's only unit, so those three leave in full); WC23 0968, 0960, 0107 (0992 and 0969 stay); WC59 0935, 0497, 0633, 0066, 0533 (0492 and 0064 stay); WC56 0974, 0004, 0003, 0445, 0442, 0009 (0721, 0491, 0190, 0294, 0970 and 0088 stay); WC33 0634, 0582, 0548, 0782, 0657, 0912 (eleven stay). 0988 is not on the record and is not recorded. Picked up at the time Andrew sent each lot (11:04 and 11:58 AEST). Emptied (pumped out): the page keeps a toilet's departure form shut until it is ticked; the servicing tracker holds the final night's pump-out, clean and lock-up at every one of these locations, done and not undone (service night 25 Oct: WC23 20:20, WC46 20:39, WC56 20:00, WC59 21:10, WC24 21:30, WC55 22:05, WC33 01:39 on 26 Oct), after the last race day, so each is ticked Emptied on that record.",
+"ops": [
+ {
+"op": "emptied",
+"ref": "WC55",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC55",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0650"
+],
+"complete": true
+},
+ {
+"op": "emptied",
+"ref": "WC46",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC46",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0525"
+],
+"complete": true
+},
+ {
+"op": "emptied",
+"ref": "WC24",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC24",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0489"
+],
+"complete": true
+},
+ {
+"op": "emptied",
+"ref": "WC23",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC23",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0968",
+"0960",
+"0107"
+],
+"complete": false
+},
+ {
+"op": "emptied",
+"ref": "WC59",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC59",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0935",
+"0497",
+"0633",
+"0066",
+"0533"
+],
+"complete": false
+},
+ {
+"op": "emptied",
+"ref": "WC56",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC56",
+"at": "2026-10-26T11:04:00+10:00",
+"nos": [
+"0974",
+"0004",
+"0003",
+"0445",
+"0442",
+"0009"
+],
+"complete": false
+},
+ {
+"op": "emptied",
+"ref": "WC33",
+"on": true
+},
+ {
+"op": "depart",
+"ref": "WC33",
+"at": "2026-10-26T11:58:00+10:00",
+"nos": [
+"0634",
+"0582",
+"0548",
+"0782",
+"0657",
+"0912"
+],
+"complete": false
+},
+ {
+"op": "depart",
+"ref": "GN06",
+"at": "2026-10-26T12:00:00+10:00",
+"nos": [
+"1320828"
+],
+"complete": true
+}
+]
+}

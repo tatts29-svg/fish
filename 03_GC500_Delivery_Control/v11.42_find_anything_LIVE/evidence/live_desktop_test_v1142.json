@@ -1,0 +1,360 @@
+{
+ "at": "2026-10-22T22:10:45.828Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "everyday words find the tabs: closures and fence -> Fence closures, removals -> VMS removals, where it is and satellite -> Map explorer, Build -> Build, showcase -> the Showcase",
+   "ok": true,
+   "detail": {
+    "closures": [
+     {
+      "kind": "tab",
+      "key": "fenceclose",
+      "name": "Fence closures"
+     }
+    ],
+    "fence": [
+     {
+      "kind": "tab",
+      "key": "fenceclose",
+      "name": "Fence closures"
+     },
+     {
+      "kind": "tab",
+      "key": "fencing",
+      "name": "Fencing"
+     },
+     {
+      "kind": "asset",
+      "key": "WB13",
+      "name": "Fence bracing behind S15"
+     }
+    ],
+    "removals": [
+     {
+      "kind": "tab",
+      "key": "vmsoff",
+      "name": "VMS removals"
+     }
+    ],
+    "where": [
+     {
+      "kind": "tab",
+      "key": "map",
+      "name": "Map explorer"
+     },
+     {
+      "kind": "tab",
+      "key": "vms",
+      "name": "VMS boards"
+     }
+    ],
+    "sat": [
+     {
+      "kind": "tab",
+      "key": "map",
+      "name": "Map explorer"
+     },
+     {
+      "kind": "tab",
+      "key": "vms",
+      "name": "VMS boards"
+     }
+    ],
+    "build": [
+     {
+      "kind": "tab",
+      "key": "timeline",
+      "name": "Build"
+     },
+     {
+      "kind": "asset",
+      "key": "T0021",
+      "name": "Building 4.8m · Office 4.8x3"
+     }
+    ],
+    "show": [
+     {
+      "kind": "tab",
+      "key": "showcase",
+      "name": "Showcase · race-day broadcast"
+     }
+    ]
+   }
+  },
+  {
+   "name": "a board by its number: \"VMS 10\" -> VMS 10 first, \"vms16\" -> VMS 16*, \"VMS 02a\" -> VMS 02a",
+   "ok": true,
+   "detail": {
+    "v10": [
+     {
+      "kind": "vms",
+      "key": "VMS 10",
+      "name": "Old Burleigh Rd (northbound), south of Queensland Ave intersection"
+     },
+     {
+      "kind": "vms",
+      "key": "VMS 02a",
+      "name": "Relocate VMS02 to Gold Coast Highway (southbound), top of path near S10"
+     },
+     {
+      "kind": "vms",
+      "key": "VMS 17*",
+      "name": "T12 runoff"
+     }
+    ],
+    "v16": [
+     {
+      "kind": "vms",
+      "key": "VMS 16*",
+      "name": "T11"
+     },
+     {
+      "kind": "asset",
+      "key": "T0158",
+      "name": "VMS × 9"
+     },
+     {
+      "kind": "unit",
+      "key": "T0158",
+      "name": "VMS"
+     }
+    ],
+    "v02a": [
+     {
+      "kind": "vms",
+      "key": "VMS 02a",
+      "name": "Relocate VMS02 to Gold Coast Highway (southbound), top of path near S10"
+     }
+    ]
+   }
+  },
+  {
+   "name": "where a board goes: Breaker -> VMS 16 behind 2 Breaker St, Altus -> VMS 13 and 14 to the Altus compound, T10 -> VMS 17 to the T10 runoff",
+   "ok": true,
+   "detail": {
+    "breaker": [
+     {
+      "kind": "spot",
+      "key": "VMS 16*",
+      "name": "behind 2 Breaker St, Main Beach"
+     },
+     {
+      "kind": "vms",
+      "key": "VMS 03",
+      "name": "Gold Coast Highway (southbound), north of Breaker St intersection"
+     }
+    ],
+    "altus": [
+     {
+      "kind": "spot",
+      "key": "VMS 13*",
+      "name": "Altus compound, Cypress Ave"
+     },
+     {
+      "kind": "spot",
+      "key": "VMS 14*",
+      "name": "Altus compound, Cypress Ave"
+     },
+     {
+      "kind": "vms",
+      "key": "VMS 13*",
+      "name": "T14 DL"
+     }
+    ],
+    "t10": [
+     {
+      "kind": "spot",
+      "key": "VMS 17*",
+      "name": "T10 runoff"
+     },
+     {
+      "kind": "vms",
+      "key": "VMS 17*",
+      "name": "T12 runoff"
+     }
+    ]
+   }
+  },
+  {
+   "name": "a removal morning: Friday -> Friday morning 2026-10-23, Monday -> Monday 2026-10-26",
+   "ok": true,
+   "detail": {
+    "fri": [
+     {
+      "kind": "morning",
+      "key": "2026-10-23",
+      "name": "Friday morning"
+     },
+     {
+      "kind": "morning",
+      "key": "2026-10-24",
+      "name": "Saturday morning"
+     }
+    ],
+    "mon": [
+     {
+      "kind": "morning",
+      "key": "2026-10-26",
+      "name": "Monday"
+     }
+    ]
+   }
+  },
+  {
+   "name": "a generator by its register asset number: 1244536 -> GN25 first; GN25 still found by its reference",
+   "ok": true,
+   "detail": {
+    "n": [
+     {
+      "kind": "asset",
+      "key": "GN25",
+      "name": "Generator"
+     }
+    ],
+    "g": [
+     {
+      "kind": "asset",
+      "key": "GN25",
+      "name": "Generator"
+     }
+    ]
+   }
+  },
+  {
+   "name": "the old kinds unchanged: PG01 and WC43 as references first, callout 033 as a place",
+   "ok": true,
+   "detail": {
+    "pg": [
+     {
+      "kind": "asset",
+      "key": "PG01",
+      "name": "Toilet (Pit Garage)"
+     },
+     {
+      "kind": "place",
+      "key": "PG01",
+      "name": "Master plan"
+     }
+    ],
+    "wc": [
+     {
+      "kind": "asset",
+      "key": "WC43",
+      "name": "Toilets"
+     },
+     {
+      "kind": "place",
+      "key": "WC43",
+      "name": "Toilets & amenities"
+     }
+    ],
+    "c": [
+     {
+      "kind": "place",
+      "key": "033",
+      "name": "Portable buildings"
+     }
+    ]
+   }
+  },
+  {
+   "name": "the new rows draw with their words and no \"undefined\"",
+   "ok": true,
+   "detail": {
+    "closures": {
+     "cls": "fi tab on",
+     "text": "▸ Fence closures a tab of this page opens the tab TAB",
+     "undef": false
+    },
+    "VMS 10": {
+     "cls": "fi vms on",
+     "text": "10 VMS 10 Old Burleigh Rd (northbound), south of Queensland Ave intersection opens the VMS boards tab with the satellite map zoomed on it VMS",
+     "undef": false
+    },
+    "Breaker": {
+     "cls": "fi spot on",
+     "text": "16 VMS 16* → behind 2 Breaker St, Main Beach where the board goes when it comes off the track opens the VMS removals map zoomed on the spot REMOVAL",
+     "undef": false
+    },
+    "Friday": {
+     "cls": "fi morning on",
+     "text": "23 Friday morning Fri 23 Oct 2026 · VMS removals opens the removals tab on that morning REMOVAL",
+     "undef": false
+    }
+   }
+  },
+  {
+   "name": "picking \"closures\" opens the Fence closures tab and closes the finder",
+   "ok": true,
+   "detail": {
+    "tab": "fenceclose",
+    "finderHidden": true,
+    "q": ""
+   }
+  },
+  {
+   "name": "picking \"VMS 10\" opens the VMS boards tab with the satellite map at 1600% centred on VMS 10",
+   "ok": true,
+   "detail": {
+    "tab": "vms",
+    "pct": 1600,
+    "cx": 124313242.61034666,
+    "cy": 78002767.71136877,
+    "bx": 124313242.61034666,
+    "by": 78002767.71136877
+   }
+  },
+  {
+   "name": "picking \"Breaker\" opens the VMS removals tab with the removal map at 1600% on 2 Breaker St",
+   "ok": true,
+   "detail": {
+    "tab": "vmsoff",
+    "pct": 1600,
+    "dx": 0,
+    "dy": 0
+   }
+  },
+  {
+   "name": "picking \"Monday\" opens the removals tab on Monday 26 Oct",
+   "ok": true,
+   "detail": {
+    "tab": "vmsoff",
+    "morning": "2026-10-26",
+    "chosen": [
+     "2026-10-26"
+    ]
+   }
+  },
+  {
+   "name": "picking \"showcase\" opens the Showcase",
+   "ok": true,
+   "detail": {
+    "open": false,
+    "dlg": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 662,
+    "blocked": 0
+   }
+  }
+ ]
+}

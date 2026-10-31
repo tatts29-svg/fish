@@ -1,0 +1,7 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 26 Oct 2026: \"Asset no 1277089 left 60kva trailer left 810AM\". Asset 1277089 is the only unit on GN24 (60 kVA generator, Coates), so GN24 left site in full on 26 Oct 2026 at 08:10 AEST. Recorded through the page's own Record departure form.",
+ "ops": [
+  {"op": "depart", "ref": "GN24", "at": "2026-10-26T08:10:00+10:00", "nos": ["1277089"], "complete": true}
+ ]
+}

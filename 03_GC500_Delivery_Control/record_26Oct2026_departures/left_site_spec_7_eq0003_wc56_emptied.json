@@ -1,0 +1,239 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 26 Oct 2026. (1) \"Yes its that number\" (14:53 AEST): the 0988 in his 11:04 list (\"Here is more 0935 0497 0442 0988 0445 ...\") is 0088, a WC56 Event Portables FWF on the record, still on site, so 0088 left with the other six WC56 units at 11:04 AEST (WC56 then 7 of 12 gone; 0721, 0491, 0190, 0294 and 0970 stay). (2) \"Picked up 130PM / Asset no 1286482\": 1286482 is EQ0003's only unit (Straight Boom 60ft - Diesel, Coates), so EQ0003 left in full at 13:30 AEST. (3) \"recors shows 100% done\", with the Servicing night report for Sunday 25 October into Monday 26 October (night 3 of 3, final night, lock-up: 100%, pump out 250 of 250 units, all 74 locations, finished 01:39); then (14:54 AEST) \"i want all Event Portaloo's Showing Ready part from the 16Pan. this is organised through Eventportaloos to pick up not coates\". The servicing tracker holds the final night's pump-out, done and not undone, at each of these 43 locations whose every unit is Event Portables' and which had no Emptied tick and had not left (none has a Ready or Not ready tick): BJR01 00:31; PG01 22:53; PG03 22:31; PG05 22:34; PG29 22:40; SVP01 00:31; T0162 00:31; T0176 22:22; WC10 01:23; WC13 21:29; WC19 20:28; WC25 20:21; WC26 20:20; WC28 19:38; WC29 19:34; WC30 19:21; WC34 01:31; WC35 22:30; WC38 18:56; WC39 18:56; WC40 18:57; WC41 20:29; WC42 19:56; WC43 21:37; WC44 20:59; WC45 21:38; WC47 20:30; WC48 19:16; WC49 22:02; WC53 19:12; WC54 19:25; WC57 21:48; WC61 20:52; WC62 19:06; WC65 19:32; WC68 19:59; WC69 20:00; WC70 20:10; WC71 19:33; WC72 19:44; WC73 00:32; WC81 01:31; WC85 01:30 (AEST, service night 25 Oct; times after midnight are 26 Oct). Each is ticked Emptied on that record, so it reads Ready for collection (Event Portables collect, their own transport). Not ticked: WC31 (the 16Pan Block, Andrew's exception); the four locations holding Event Portables and Coates units together (WC09, WC51, WC67, T0024), held for Andrew; and Coates' own toilets, which Andrew did not include. Recorded through the page's own Emptied tick and Record departure form.",
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "BJR01",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "PG01",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "PG03",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "PG05",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "PG29",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "SVP01",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "T0162",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "T0176",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC10",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC13",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC19",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC25",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC26",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC28",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC29",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC30",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC34",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC35",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC38",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC39",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC40",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC41",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC42",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC43",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC44",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC45",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC47",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC48",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC49",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC53",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC54",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC57",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC61",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC62",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC65",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC68",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC69",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC70",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC71",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC72",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC73",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC81",
+   "on": true
+  },
+  {
+   "op": "emptied",
+   "ref": "WC85",
+   "on": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC56",
+   "at": "2026-10-26T11:04:00+10:00",
+   "nos": [
+    "0088"
+   ],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "EQ0003",
+   "at": "2026-10-26T13:30:00+10:00",
+   "nos": [
+    "1286482"
+   ],
+   "complete": true
+  }
+ ]
+}

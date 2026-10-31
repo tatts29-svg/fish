@@ -1,0 +1,6 @@
+v12.69 public read-back, 31 Oct 2026 10:2x–10:3x AEST (uploaded 10:25:04 AEST, record 12600 at upload)
+fetch 1 (toolchain/fetch_live.sh, 10:2x): 038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb 16540615 bytes, footer +' · v12.69'
+fetch 2 (cache-busted curl, 10:2x): 038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb 16540615 bytes
+candidate: 038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb 16540615 bytes
+record: {"version":12600,"updated":"2026-10-30T18:12:29.621Z","level":"view"}
+live tests on the public page: desktop 41/41 checks passed, phone 41/41 checks passed

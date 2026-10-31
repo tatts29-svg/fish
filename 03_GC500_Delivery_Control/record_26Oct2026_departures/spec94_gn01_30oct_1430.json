@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 14:1x AEST: \"Gn01 leaving at 230pm\". GN01 is the 60 kVA generator, Coates 1276507, at the median strip meet-up by FOAM (on site since 28 Sep), its reference's only unit: it leaves in full at 14:30. Through the page's own Record departure form in his name; the runner refuses a departure still in the future, so this runs after 14:30. Applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "GN01",
+   "at": "2026-10-30T14:30:00+10:00",
+   "nos": [
+    "1276507"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,863 @@
+[
+{
+"disc": "Portable buildings",
+"ref": "AA",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "CP1",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Generators",
+"ref": "GN06",
+"tick": "Labour · install",
+"item": "50kva",
+"rate": 145.74
+},
+{
+"disc": "Generators",
+"ref": "GN13",
+"tick": "Labour · install",
+"item": "45kva",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "HRP",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P01",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P03",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P04",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P05",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P06",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P08",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P09",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P10",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P11",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P12",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P13",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P14",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P15",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P16",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P17",
+"tick": "Labour · cleaning",
+"item": "Building 9.6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P18",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P19",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P20",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P21",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P25",
+"tick": "Labour · install",
+"item": "Building 4.8m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P25",
+"tick": "Labour · steps",
+"item": "Building 4.8m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P25",
+"tick": "Labour · levelling",
+"item": "Building 4.8m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P25",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P33",
+"tick": "Labour · cleaning",
+"item": "Building 9.6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P36",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P37",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P38",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P39",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P41",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P42",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P44",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P45",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P45",
+"tick": "Labour · steps",
+"item": "Building 6m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P45",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P45",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P46",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P51",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P52",
+"tick": "Labour · cleaning",
+"item": "Building 12m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P54",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P55",
+"tick": "Labour · cleaning",
+"item": "Ticket Box 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P56",
+"tick": "Labour · cleaning",
+"item": "Building 3.6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P57",
+"tick": "Labour · cleaning",
+"item": "Building 9.6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P58",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P60",
+"tick": "Labour · install",
+"item": "Ticket Box 4.8m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P60",
+"tick": "Labour · steps",
+"item": "Ticket Box 4.8m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P60",
+"tick": "Labour · levelling",
+"item": "Ticket Box 4.8m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P60",
+"tick": "Labour · cleaning",
+"item": "Ticket Box 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P62",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P62",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P62",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P63",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P63",
+"tick": "Labour · steps",
+"item": "Building 6m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P63",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P63",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P65",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P65",
+"tick": "Labour · steps",
+"item": "Building 6m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P65",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P65",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P66",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P66",
+"tick": "Labour · steps",
+"item": "Building 6m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P66",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P66",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P67",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P67",
+"tick": "Labour · steps",
+"item": "Building 6m",
+"rate": 156.15
+},
+{
+"disc": "Portable buildings",
+"ref": "P67",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P67",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "P69",
+"tick": "Labour · install",
+"item": "Building 6m",
+"rate": 145.74
+},
+{
+"disc": "Portable buildings",
+"ref": "P69",
+"tick": "Labour · levelling",
+"item": "Building 6m",
+"rate": 52.05
+},
+{
+"disc": "Portable buildings",
+"ref": "P69",
+"tick": "Labour · cleaning",
+"item": "Building 6m",
+"rate": 104.1
+},
+{
+"disc": "Water-filled barriers",
+"ref": "WB06",
+"tick": "Complete",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC01",
+"tick": "Levelled",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC05",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1328978",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC05",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC09",
+"tick": "Labour · install",
+"item": "FWF · unit rest",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC09",
+"tick": "Labour · steps",
+"item": "Pee Panel",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC09",
+"tick": "Labour · levelling",
+"item": "Pee Panel",
+"rate": 104.1
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC09",
+"tick": "Labour · cleaning",
+"item": "Pee Panel",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC09",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC15",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1327226",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC15",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1303835",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC16",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1322587",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC16",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1322588",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC17",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1327224",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC17",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1327223",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC20",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1327228",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC20",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1327225",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC20",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1311341",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC20",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1328982",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC27",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1119484",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC27",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1328979",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Levelled",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Steps",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · steps",
+"item": "16Pan Block · unit 12",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · steps",
+"item": "16Pan Block · unit 1317645",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · levelling",
+"item": "16Pan Block · unit 12",
+"rate": 104.1
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · levelling",
+"item": "16Pan Block · unit 1317645",
+"rate": 104.1
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · cleaning",
+"item": "16Pan Block · unit 12",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC31",
+"tick": "Labour · cleaning",
+"item": "16Pan Block · unit 1317645",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC38",
+"tick": "Labour · install",
+"item": "FWF · unit 0183",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC39",
+"tick": "Labour · install",
+"item": "FWF · unit 0188",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC39",
+"tick": "Labour · install",
+"item": "FWF · unit 0637",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC40",
+"tick": "Labour · install",
+"item": "FWF · unit 0626",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC40",
+"tick": "Labour · install",
+"item": "FWF · unit 0541",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC40",
+"tick": "Labour · install",
+"item": "FWF · unit 0965",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC40",
+"tick": "Labour · install",
+"item": "FWF · unit 0433",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC40",
+"tick": "Labour · install",
+"item": "FWF · unit 0648",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC51",
+"tick": "Levelled",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC51",
+"tick": "Labour · install",
+"item": "Accessible Toilet · unit 1197174",
+"rate": 88.485
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC60",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m · unit 1119489",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC60",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1328980",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC60",
+"tick": "Labour · cleaning",
+"item": "Waste tank · unit 1328981",
+"rate": 156.15
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC70",
+"tick": "Labour · install",
+"item": "FWF · unit 0423",
+"rate": 36.435
+},
+{
+"disc": "Toilets & amenities",
+"ref": "WC86",
+"tick": "Levelled",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Portable buildings",
+"ref": "T0021",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Portable buildings",
+"ref": "T0022",
+"tick": "Labour · cleaning",
+"item": "Building 4.8m",
+"rate": 104.1
+},
+{
+"disc": "Toilets & amenities",
+"ref": "T0243",
+"tick": "Levelled",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "T0243",
+"tick": "Steps",
+"item": "",
+"rate": 0
+},
+{
+"disc": "Toilets & amenities",
+"ref": "T0243",
+"tick": "Labour · cleaning",
+"item": "Toilet Block 6m",
+"rate": 156.15
+}
+]

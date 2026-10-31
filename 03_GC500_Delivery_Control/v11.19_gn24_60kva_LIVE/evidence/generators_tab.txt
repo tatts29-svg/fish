@@ -1,0 +1,486 @@
+View only · More info
+Costs & P&L — Boost Mobile Gold Coast 500
+🔓
+Ticks · not locked
+
+52 buildings on site · last locked 21 Oct 2026 01:05 by Andrew Fisher, unlocked 21 Oct 2026 01:05 by Andrew Fisher
+
+$147,371.26
+
+Lock the ticks to hold everything on site where it is. The buildings total stays here, and any change after that shows here.
+
+Site vs Baseplan · to align
+0
+
+Every building's site number matches its Baseplan line.
+
+← Back to P&L summary
+P&L summary
+Customer rates & charges
+Fencing costs & dockets
+Workforce costs
+Finance handover
+Transport
+Generators
+
+Customer: V8 Supercars Aust Pty · Customer code: V8SU0845 · Site: QLD_GOLD COAST 600
+
+HIRE REVENUE · 2026 · AUD EX GST
+
+Generators
+Actual
+$26,491.53
+Confirmed arrivals · full hire period
+Standdown $17,980.23
+Remaining forecast
+$2,702.02
+Awaiting delivery
+Standdown $1,544.02
+Total forecast
+$29,193.55
+Standdown $19,524.25
+Race weekend $9,669.30
+Charging basis
+REFERENCE / LOCATION	GENERATOR	DATES	BRANCH	STANDDOWN CHARGE	ACTUAL	REMAINING FORECAST	TOTAL CHARGE
+
+GN01
+D024-26003-02 · callout 001
+Map
+	
+1 × 60kva
+Asset 1276507
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Actual start
+28 Sep
+End
+22 Oct
+Total days
+25
+Total
+$2,412.52
+	
+$2,991.52
+	
+$0.00
+	
+$2,991.52
+
+
+GN03
+D024-26003-02 · callout 003
+Map
+	
+1 × 30kva
+Asset 1320829
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$70.77
+Actual start
+01 Oct
+End
+22 Oct
+Total days
+22
+Total
+$1,556.88
+	
+$1,981.47
+	
+$0.00
+	
+$1,981.47
+
+
+GN04
+D024-26003-02 · callout 004
+Map
+	
+1 × 30kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$70.77
+Actual start
+19 Oct
+End
+22 Oct
+Total days
+4
+Total
+$283.07
+	
+$707.67
+	
+$0.00
+	
+$707.67
+
+
+GN06
+D024-26003-02 · callout 006
+Map
+	
+1 × 50kva
+Asset 1320828
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$91.14
+Actual start
+15 Oct
+End
+22 Oct
+Total days
+8
+Total
+$729.12
+	
+$1,275.95
+	
+$0.00
+	
+$1,275.95
+
+
+GN10
+D024-26003-02 · callout 010
+Map
+	
+1 × 20kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$61.12
+Actual start
+19 Oct
+End
+22 Oct
+Total days
+4
+Total
+$244.47
+	
+$611.16
+	
+$0.00
+	
+$611.16
+
+
+GN13
+SLS Equipment Compound · Narrowneck
+Map
+	
+1 × 45kva
+Asset 1276503
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$87.92
+Actual start
+12 Oct
+End
+22 Oct
+Total days
+11
+Total
+$967.15
+	
+$1,494.68
+	
+$0.00
+	
+$1,494.68
+
+
+GN18
+D024-26003-02 · callout 018
+Map
+	
+1 × 50kva
+Asset 1261273
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$91.14
+Actual start
+07 Oct
+End
+22 Oct
+Total days
+16
+Total
+$1,458.23
+	
+$2,005.07
+	
+$0.00
+	
+$2,005.07
+
+
+GN19
+D024-26003-02 · callout 019
+Map
+	
+1 × 60kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Actual start
+19 Oct
+End
+22 Oct
+Total days
+4
+Total
+$386.00
+	
+$965.01
+	
+$0.00
+	
+$965.01
+
+
+GN21
+D024-26003-02 · callout 021
+Map
+	
+1 × 60kva
+Asset 1261284
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Actual start
+30 Sep
+End
+22 Oct
+Total days
+23
+Total
+$2,219.52
+	
+$2,798.52
+	
+$0.00
+	
+$2,798.52
+
+
+GN23
+D024-26003-02 · callout 023
+Map
+	
+1 × 150kva
+Asset 1297157
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$134.03
+Actual start
+30 Sep
+End
+22 Oct
+Total days
+23
+Total
+$3,082.66
+	
+$3,886.83
+	
+$0.00
+	
+$3,886.83
+
+
+GN24
+D024-26003-02 · callout 024
+Map
+	
+1 × 60kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Actual start
+19 Oct
+End
+22 Oct
+Total days
+4
+Total
+$386.00
+	
+$965.01
+	
+$0.00
+	
+$965.01
+
+
+GN25
+Seaway Carpark
+Map
+	
+1 × 20kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$61.12
+Actual start
+19 Oct
+End
+22 Oct
+Total days
+4
+Total
+$244.47
+	
+$611.16
+	
+$0.00
+	
+$611.16
+
+
+Concert
+Concert generators · Macintosh Island Park · lawn beside the path junction near the peacock enclosure
+Map
+	
+2 × 200kva & cables
+Assets 1316182 · 1316183
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$182.28
+Actual start
+12 Oct
+End
+22 Oct
+Total days
+11
+Total
+$4,010.14
+	
+$6,197.48
+	
+$0.00
+	
+$6,197.48
+
+
+9961976 · line 13
+Location not confirmed
+	
+1 × 60kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Planned start
+15 Oct
+End
+22 Oct
+Total days
+8
+Total
+$772.01
+	
+$0.00
+	
+$1,351.01
+	
+$1,351.01
+
+
+9961976 · line 45
+Location not confirmed
+	
+1 × 60kva
+More info
+	
+Off hire 25 Oct
+	
+NVAC
+	
+Rate / unit / day
+$96.50
+Planned start
+15 Oct
+End
+22 Oct
+Total days
+8
+Total
+$772.01
+	
+$0.00
+	
+$1,351.01
+	
+$1,351.01
+
+Author: Andrew Fisher

@@ -1,0 +1,81 @@
+Author: Andrew Fisher
+GC500 v8.47 — VERIFIED LIVE, 5 Oct 2026 at 08:19 AEST
+
+Implementation and review
+Codex owns source review, implementation, testing and guarded release. Independent
+source, correction-model and browser reviewers checked the changes. Claude remains
+intentionally paused and has not reviewed this release. Fresh PR #1 discussion and
+unchanged owner board dacf75dd were read; no actionable new handover appeared.
+
+Implementation commit: 458ae964
+Base v8.46: e176119c8ad29b8af472d8c740d66b0c20534284ebef260bd8cb9f682b5a4236
+Candidate: c2541d7e51dec18187f9163a213fd6c77d607d8a50823b7c3234354019172f21
+Bytes: 10,769,344
+
+Source review and correction boundaries
+Original docket scans, programme purposes and master-plan symbols support the
+category corrections. Uniform supplier summary columns are not treated as a
+standalone override of the operational purpose. Exact private original-record and
+source-checksum manifests guard each transfer; quantities, dates, components and
+historical source calculations are preserved. Current Revenue is recalculated by
+the existing functions at unchanged rates. Supplier cost and all unrelated source
+data are checked independently. One non-specific scope remains qualified without
+inventing a location. Existing map associations and unmapped records are retained,
+with corrected record signatures bound to their source reviews.
+
+Today presentation
+Large group names, qualified percentages, Done and Left stay visible. View details
+contains the type breakdown and supporting programme/source/cost information.
+Fencing retains a compact visible list of each work type with its own Recorded,
+Left and percentage. Metres, gates and hours are not combined. Installation scope
+includes Build and Event weeks, excluding Demob. Pending category allocation and
+provisional programme totals remain qualified. Existing lamp motion, count links,
+print support, native actions, header and media are preserved.
+
+Completed candidate checks
+- Standard build/check_page: 11 inline scripts parse; no new keys or edit key.
+- Exact preservation and allowed source-delta checks: 66/66.
+- Synthetic category, source, scope and replay model checks: 21/21.
+- Guarded correction boundary tests: 7/7.
+- Focused compact renderer checks: 10/10.
+- Independent original-source/input review: passed, including available hashes and
+  exact rendered docket-page bindings.
+- Final read-only browser suite: 240/240 at laptop and phone widths. Independent
+  current-rate calculations match the source correction delta; native source and
+  map-review bindings are current. Compact closed facts, expandable detail, source
+  failures, replay and hydration pass. No JavaScript errors or operational writes.
+  Only map-session POSTs deliberately blocked by the read-only harness appear in
+  the expected console exclusions.
+- Root inspected laptop group and phone fencing captures: readable headings,
+  readings and disclosures. Broader device performance is not claimed.
+- Final desktop and phone sweeps each pass 22 routes, seven deep links and Back,
+  with zero JavaScript or console errors on the exact candidate.
+
+Earlier candidates
+The earlier display-only candidates and their checks are historical. They were
+superseded by the source-resolved corrections and compact layout; they were never
+published. Private evidence is retained outside Git and is not a public handover.
+
+Publication
+READY commit 7e1006e8 followed implementation 458ae964. Guarded uploader verified
+the exact unchanged v8.46 base before publication, then public readback matched
+all 10,769,344 candidate bytes at 08:19 AEST on 5 Oct 2026.
+
+Actual-public laptop/phone suite: 242/242 passed on exact c2541d7e. No local HTML
+substitution in either live viewport. Upstream bytes match exactly; browser text
+capture differs only by the normal UTF-8 BOM removal. Source/model/price oracles,
+source and map bindings, compact presentation and expanded details pass. No
+JavaScript errors, operational writes or unexpected console errors; the only
+excluded entries are deliberately blocked Google Maps session requests.
+
+Four complete closed-card candidate captures and final live phone/laptop captures
+were inspected. Exact published bytes bind the visual evidence; no clipping or
+lost controls were found at the tested widths. No universal device-performance
+claim is made.
+
+All 33 shared-record collection fingerprints and the record content hash match
+before/after; capture timestamps differ as expected. Embedded docket category
+inputs changed only as specified by the separately checked correction manifest.
+No backend deployment was needed; health is OK on v5.87. Existing tabs require a
+reload to v8.47. Header, native media and the separately held film remain untouched.
+Private source findings, financial values and captures remain outside Git.

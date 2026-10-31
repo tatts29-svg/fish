@@ -1,0 +1,9 @@
+[ 14.5s] 17 Sep issue: 254316 records
+[ 30.8s] 2 Oct issue: 301253 records
+[ 55.2s] shift (2 Oct minus 17 Sep), modal, pt: {'main': [-25.5, -0.12], 'inset': [0.0, -0.06], 'legend': [0.0, -0.12], 'border': [0.0, -0.06]}
+[ 72.6s] phase correlation, main drawing area (pt): [25.523, 0.042] inset: [-0.011, 0.033]
+[ 83.0s] content placed on the 17 Sep frame: main (25.5, 0.12) inset (-0.0, 0.06) legend (-0.0, 0.12) border (-0.0, 0.06)
+[ 91.7s] labels: kept 809 moved 86 removed 63 added 24
+[ 99.7s] scene written: {'records': 301253, 'styles': 27193, 'contexts': 1095, 'defs': 1835, 'labels': 919, 'broad': 66, 'json_bytes': 51166275, 'gzip_bytes': 14340912, 'sha256': '5c6a6ae3050767533184bf4aa65011d36377278f14a6b459c8b7c443f8a82e54'}
+[102.6s] images: 595 aerial patches 64 (17 Sep had 64 )
+[156.9s] done; report at ../out890/report.json

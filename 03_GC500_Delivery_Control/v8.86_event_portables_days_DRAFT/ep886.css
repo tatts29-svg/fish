@@ -1,0 +1,4 @@
+/* v8.86 - the source beside a day the Event Portables plan moved. Author: Andrew Fisher. */
+.ep886-src{display:block;font-size:11px;line-height:1.3;color:var(--mute);margin-top:3px}
+.ep886-hint{margin-top:4px}
+@media print{.ep886-src{color:#333}}

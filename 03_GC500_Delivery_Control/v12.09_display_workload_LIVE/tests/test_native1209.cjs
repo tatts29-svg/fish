@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. Native phone pixels, actual frame completion and responsive controls. */
+const fs=require('fs'),path=require('path'),assert=require('assert'),{open}=require('../../toolchain/harness/open_page');
+(async()=>{const out=process.env.OUT;fs.mkdirSync(out,{recursive:true});const h=await open({pageFile:process.env.PAGE,gl:true,W:390,H:844,dpr:3,mobile:true}),p=h.page,checks=[];
+const check=(name,ok,detail)=>{checks.push({name,ok:!!ok,detail});console.log((ok?'PASS ':'FAIL ')+name);assert(ok,name)};
+try{await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&window.ShowcaseDisplay1209,null,{timeout:180000});const record=await p.evaluate(()=>JSON.stringify(S));
+ await p.evaluate(()=>{window.render1209=GC3D.render;GC3D.render=()=>{};GC3D.frame=()=>{};localStorage.setItem('gc500.showquality','crisp');localStorage.setItem('gc500.showback','circuit3d_day');localStorage.setItem('gc500.showvehicle','fencing_truck');showOpen();showClose();});check('Close cancels preparation immediately',await p.evaluate(()=>!ShowcaseSmooth1157.state().pending&&!SHOW.open));
+ await p.evaluate(()=>{window.phases1209=[];new MutationObserver(()=>{const t=document.getElementById('show3dNote')?.textContent;if(t&&phases1209.at(-1)!==t)phases1209.push(t);}).observe(document.body,{childList:true,subtree:true,characterData:true});showOpen();showPause();});
+ await p.waitForFunction(()=>GC3D.S?.cv?.isConnected&&!ShowcaseSmooth1157.state().pending,null,{timeout:180000});
+ check('preparation reports actual scene phases',await p.evaluate(()=>phases1209.some(t=>/Preparing buildings|Preparing grandstands|Finishing the scene/.test(t))));
+ const r=await p.evaluate(()=>{const Q=GC3D.S;GC3D.render=render1209;const n=ShowcaseGPU1175.state().submitted;GC3D.render();window.fence1209=Q.gl.fenceSync(Q.gl.SYNC_GPU_COMMANDS_COMPLETE,0);Q.gl.flush();return {css:[Q.cv.clientWidth,Q.cv.clientHeight],pixels:[Q.cv.width,Q.cv.height],dpr:devicePixelRatio,samples:Q.rt.samples,submitted:ShowcaseGPU1175.state().submitted===n+1};});
+ const scale=Math.min(r.dpr,2160/r.css[0],3840/r.css[1]);check('phone targets native display pixels without forced UHD',r.pixels[0]===Math.floor(r.css[0]*scale)&&r.pixels[1]===Math.floor(r.css[1]*scale),r);check('actual target retains four-sample smoothing',r.samples===4&&r.submitted,r);
+ await p.waitForFunction(()=>GC3D.S.gl.clientWaitSync(fence1209,0,0)!==GC3D.S.gl.TIMEOUT_EXPIRED,null,{timeout:240000,polling:200});check('frame completes with no GL errors',await p.evaluate(()=>{GC3D.S.gl.deleteSync(fence1209);return GC3D.S.gl.getError()===0;}));
+ await p.screenshot({path:path.join(out,'phone-native.png'),timeout:180000});await p.getByRole('button',{name:'Options',exact:true}).click();check('Options and quality choice remain usable',await p.locator('#showQuality').isVisible()&&await p.locator('#showQuality').inputValue()==='crisp');
+ check('third-lap scene and detailed stock truck remain present',await p.evaluate(()=>ShowcaseIncident1207.interval===3&&GC3D.plantModel('fencing_truck','high').stats.detailVersion===1192));
+ await p.evaluate(()=>showClose());check('Close releases scene without changing shared record',await p.evaluate(()=>!GC3D.S&&!ShowcaseSmooth1157.state().pending)&&record===await p.evaluate(()=>JSON.stringify(S)));
+ check('zero page errors and attempted writes',!h.errors.length&&!h.counts.blocked,{errors:h.errors,counts:h.counts});
+}finally{fs.writeFileSync(path.join(out,'checks.json'),JSON.stringify(checks,null,2));await h.browser.close()}console.log(checks.length+'/'+checks.length);
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v5.86",
+  "state": "DRAFT_NOT_DEPLOYED",
+  "bytes": 236308,
+  "sha256": "f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9",
+  "delivery_checks": 45,
+  "legacy_mms_checks": 37,
+  "live_sends": 0,
+  "live_api_writes": 0
+}

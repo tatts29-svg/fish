@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "dc2d5eff8a345f0f090135fa6bd90013bdc1f7786f0193588a46e965ac3ee894",
+  "bytes": 15251289,
+  "base_sha256": "8e371c70200d6b6566d59e7c078f70e5f4737654470a3d812b7fda9159166933",
+  "inline_scripts": 194,
+  "checks": {
+    "rules": {
+      "passed": 34,
+      "total": 34
+    },
+    "native": {
+      "passed": 20,
+      "total": 20
+    },
+    "uhd": {
+      "passed": 5,
+      "total": 5
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  },
+  "visual_review": [
+    "phone scene",
+    "desktop scene and waving arms",
+    "native 3840 by 2160 scene"
+  ],
+  "limits": "Software-GPU functional frames; no physical-device frame-rate guarantee. Raw frames remain private.",
+  "record_writes": 0
+}

@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Decorative equipment-type illustrations, not asset photographs or identification",
+  "format": "WebP with transparency",
+  "atlas_size": [
+    768,
+    512
+  ],
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "atlases": {
+    "a": {
+      "file": "atlas-a.webp",
+      "sha256": "53732ed5fa62bc1d25b61a2c9e367bafdb4abb34681f7cd5af88e749fb0b9c83",
+      "bytes": 65848,
+      "types": [
+        "generator",
+        "vms",
+        "tower",
+        "boom",
+        "scissor",
+        "forklift"
+      ]
+    },
+    "b": {
+      "file": "atlas-b.webp",
+      "sha256": "38182b6ac112b9e21a125d2f53e856e7db155abe214c286662991653858c7318",
+      "bytes": 53472,
+      "types": [
+        "portable-toilet",
+        "accessible-toilet",
+        "urinal",
+        "toilet-block",
+        "waste-tank",
+        "block-tank"
+      ]
+    },
+    "c": {
+      "file": "atlas-c.webp",
+      "sha256": "02ce10e6a7be2ce27616f7f6749f769aaa26c07a4ac2e010489de6ff1951b7be",
+      "bytes": 33774,
+      "types": [
+        "building",
+        "ticket-box",
+        "container",
+        "fridge",
+        "freezer",
+        "mats"
+      ]
+    },
+    "d": {
+      "file": "atlas-d.webp",
+      "sha256": "c0852263e910a1407b6d3297a701eab287f50cace22c3d56ec835f551ebede8c",
+      "bytes": 53254,
+      "types": [
+        "water-barrier",
+        "fence",
+        "crowd-barrier",
+        "chair",
+        "stool",
+        "laser"
+      ]
+    },
+    "e": {
+      "file": "atlas-e.webp",
+      "sha256": "06318c216a9d2ec23c0283b1bd6568ce5992cc8b50b44ffbf0f6bea9d5430b4f",
+      "bytes": 51188,
+      "types": [
+        "toilet-trailer",
+        "distribution-board",
+        "tyne-rotator",
+        "fork-extensions",
+        "refrigerated-container",
+        "straight-boom"
+      ]
+    }
+  },
+  "source_window_exceptions": {
+    "toilet-trailer": [
+      0,
+      0,
+      280,
+      256
+    ],
+    "distribution-board": [
+      288,
+      0,
+      224,
+      256
+    ]
+  }
+}

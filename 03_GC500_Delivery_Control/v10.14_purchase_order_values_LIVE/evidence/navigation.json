@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "b1bd7bc843632a5ccb99bcead3dfd47a31f2d9810ac1459b4218d1d13d91df7a",
+  "desktop": {
+    "pass": true,
+    "routes": 22,
+    "deepLinks": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "pageErrors": 0,
+    "applicationConsoleErrors": 0,
+    "deliberatelyBlockedMapSessions": 1,
+    "unexpectedNonGET": 0
+  },
+  "mobile": {
+    "pass": true,
+    "routes": 22,
+    "deepLinks": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "pageErrors": 0,
+    "applicationConsoleErrors": 0,
+    "deliberatelyBlockedMapSessions": 1,
+    "unexpectedNonGET": 0
+  }
+}

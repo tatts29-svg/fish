@@ -1,0 +1,233 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Thirteen Advanced Temporary Fencing hire agreements 36751-36756 and 36758-36764, installed 21 and 22 Oct 2026 (the event week), signed and photographed (Andrew, 23 Oct 2026, the photographs sent without words); recorded through the page's own red-book form (recordHireAgreement) and charged at the 2026 card. Every figure read twice at full size, the hard ones from crops, and by an independent reader, who agreed on every charged figure. CCB event or demarcation from the programme request where there is one (Ocean Ave is Event, EVENT WEEK row 61); the wheels are recorded as components because no paper carries a gate line and vehicle gates are inside the card's metre; mesh fence is recorded clean where the paper writes no bracing metres and no scrim - Advanced's sheet decides the line when it comes.",
+ "ops": [
+  {
+   "op": "hire_agreement",
+   "docket_no": "36751",
+   "date": "2026-10-22",
+   "location": "Ocean Ave",
+   "map_ref": "",
+   "quantities": {
+    "clean": 147.5,
+    "ccb_event": 315
+   },
+   "components": {
+    "mesh_panel": 59,
+    "cc_barrier": 126,
+    "base": 54,
+    "clamp": 54,
+    "wheels": 8
+   },
+   "signed_by": "",
+   "note": "Mesh fence 147.5 m (59 panels), CC barrier 315 m (126 barriers), 8 wheels, 54 bases, 54 clamps. No gate line on the paper: the 8 wheels are recorded as components. Programme EVENT WEEK rows 60-61 (22 Oct): Perimeter Fence - Ocean Ave, 150 m clean with 3 double-wide vehicle gates (3 wheels), and CCB - Ocean Ave, 300 m Event (quantity may reduce - awaiting confirmation), so the CCB is Event. Vehicle gates are inside the card's metre; Advanced's sheet prices the wheels when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36752",
+   "date": "2026-10-22",
+   "location": "Staghorn St Entry",
+   "map_ref": "",
+   "quantities": {
+    "clean": 20
+   },
+   "components": {
+    "mesh_panel": 8,
+    "base": 6,
+    "clamp": 8,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 20 m (8 panels), 2 wheels, 6 bases, 8 clamps. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components. Not a named row in the EVENT WEEK programme (its gate entries on 22 Oct are rows 58, 59, 66, 67 and 68: Gates 5A, 5B, 10, 9 and 8). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36753",
+   "date": "2026-10-22",
+   "location": "Gate 9 - Breaker St",
+   "map_ref": "",
+   "quantities": {
+    "clean": 17.5
+   },
+   "components": {
+    "mesh_panel": 7,
+    "base": 7,
+    "clamp": 5,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 17.5 m (7 panels), 2 wheels, 7 bases, 5 clamps. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components. Programme EVENT WEEK row 67 (22 Oct): Perimeter Fence - Gate 9 Entry, 15 m clean and 1 double-wide vehicle gate (3 wheels) planned. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36754",
+   "date": "2026-10-22",
+   "location": "Aloha Lane - Gate 8",
+   "map_ref": "",
+   "quantities": {
+    "clean": 37.5
+   },
+   "components": {
+    "mesh_panel": 15,
+    "base": 14,
+    "clamp": 13,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 37.5 m (15 panels), 2 wheels, 14 bases, 13 clamps. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components. Programme EVENT WEEK row 68 (22 Oct): Perimeter Fence - Gate 8 Entry, 50 m clean and 1 double-wide vehicle gate (3 wheels) planned. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36755",
+   "date": "2026-10-22",
+   "location": "Helipad",
+   "map_ref": "",
+   "quantities": {
+    "clean": 35,
+    "ccb_event": 45
+   },
+   "components": {
+    "mesh_panel": 14,
+    "cc_barrier": 18,
+    "base": 14,
+    "clamp": 14
+   },
+   "signed_by": "",
+   "note": "Mesh fence 35 m (14 panels), CC barrier 45 m (18 barriers), 14 bases, 14 clamps. No helipad row in the EVENT WEEK programme; the CCB is read as Event (crowd control at the helipad), not a demarcation request - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36756",
+   "date": "2026-10-21",
+   "location": "Meriton",
+   "map_ref": "",
+   "quantities": {
+    "clean": 10
+   },
+   "components": {
+    "mesh_panel": 4
+   },
+   "signed_by": "",
+   "note": "Mesh fence 10 m (4 panels), zip tied to the gantry (the note reads 'Zip tied to gantry'); Base and Clamp written as a dash - none. Installed 21 Oct 2026, both signatures dated 21/10/26. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36758",
+   "date": "2026-10-22",
+   "location": "T.V - Compound",
+   "map_ref": "",
+   "quantities": {
+    "clean": 30
+   },
+   "components": {
+    "mesh_panel": 12,
+    "base": 19,
+    "clamp": 19,
+    "brace": 1
+   },
+   "signed_by": "",
+   "note": "Mesh fence 30 m (12 panels), 19 bases, 19 clamps, 1 brace. The note reads 'Also labour charge added, invoice num 24490' (one reading: 'noted'): a green-book service note 24490 not in hand yet - its hours go on the record when it comes. Programme EVENT WEEK row 39 (21 Oct): Perimeter Fence - TV Compound, 50 m braced for scrim and 2 vehicle gates planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36759",
+   "date": "2026-10-22",
+   "location": "Rhapsody Sales Office - walk through",
+   "map_ref": "",
+   "quantities": {
+    "clean": 72.5
+   },
+   "components": {
+    "mesh_panel": 29,
+    "base": 78,
+    "clamp": 76,
+    "brace": 25,
+    "wheels": 1
+   },
+   "signed_by": "",
+   "note": "Mesh fence 72.5 m (29 panels), 78 bases, 76 clamps, 25 braces, 1 wheel (a single slanted stroke in the Wheels box, read as 1 by one reader and as a stroke, not clearly a number, by the other). Braces on most panels but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. The site address reads 'Rhapsody Sales Office - walk threw'. Programme EVENT WEEK row 23 (20 Oct) is Demarcation CCB - Rhapsody, 133 m, a different job; no mesh-fence row for the sales office walk-through. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36760",
+   "date": "2026-10-22",
+   "location": "Macintosh Island - fallen tree",
+   "map_ref": "",
+   "quantities": {
+    "ccb_demarc": 10
+   },
+   "components": {
+    "cc_barrier": 4
+   },
+   "signed_by": "",
+   "note": "CC barrier 10 m (4 barriers) around a fallen tree on Macintosh Island (the site address was overwritten twice, then 'Macintosh Island failen', read as fallen, with 'tree' in the Region box). Not in the programme: an exclusion around a hazard, recorded as Demarcation CCB - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36761",
+   "date": "2026-10-22",
+   "location": "Rubbish Compactor (Cleanaway)",
+   "map_ref": "",
+   "quantities": {
+    "clean": 35
+   },
+   "components": {
+    "mesh_panel": 14,
+    "base": 24,
+    "clamp": 24,
+    "brace": 6
+   },
+   "signed_by": "",
+   "note": "Mesh fence 35 m (14 panels), 24 bases, 24 clamps, 6 braces. Programme EVENT WEEK row 40 (21 Oct): Perimeter Fence - Cleanaway Compactor, rear of the Pit Building, 26 m braced for scrim and 1 vehicle gate planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36762",
+   "date": "2026-10-22",
+   "location": "Turn 2-3 - Crash Protection",
+   "map_ref": "",
+   "quantities": {
+    "clean": 20
+   },
+   "components": {
+    "mesh_panel": 8,
+    "base": 9,
+    "clamp": 10,
+    "brace": 1
+   },
+   "signed_by": "",
+   "note": "Mesh fence 20 m (8 panels), 9 bases, 10 clamps, 1 brace, crash protection at turns 2-3. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36763",
+   "date": "2026-10-22",
+   "location": "Triangle",
+   "map_ref": "",
+   "quantities": {},
+   "components_only": true,
+   "components": {
+    "base": 34,
+    "clamp": 34,
+    "brace": 17
+   },
+   "signed_by": "",
+   "note": "Bracing added to the existing fence at the Triangle: 34 bases, 34 clamps, 17 braces. No metres and no charge line on the paper; components only, as 36597 and 36519 (bracing an existing fence). Advanced's sheet decides whether it bills braced-for-scrim metres. Owner/site supervisor signature present, name not written; contact Brendan."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36764",
+   "date": "2026-10-22",
+   "location": "Monster (Energy)",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 15
+   },
+   "components": {
+    "cc_barrier": 6
+   },
+   "signed_by": "",
+   "note": "CC barrier 15 m (6 barriers) at the Monster Energy compound on The Hill. Programme EVENT WEEK row 62 (22 Oct) is the Monster Energy CZ compound fencing removal (130 m), a different job; the CCB is read as Event - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  }
+ ]
+}

@@ -1,0 +1,196 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T030807Z",
+ "finished": "2026-10-26T03:09:19.763Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026 13:02: \"Gn13 1276503 has left site\". 1276503 is GN13's only unit on the record (the replacement generator delivered 12 Oct, contract line 44, as v10.29 recorded). GN13 left site in full by 13:02 AEST, when Andrew sent it; no earlier time was given. Recorded through the page's own Record departure form.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN13",
+    "at": "2026-10-26T13:02:00+10:00",
+    "nos": [
+     "1276503"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3625dd965f394bdd7b17aa6e8748236e58793dec1460be3a153b0d5f92598a33",
+ "version": {
+  "before": 11012,
+  "after": 11013
+ },
+ "updated": {
+  "before": "2026-10-26T02:54:29.066Z",
+  "after": "2026-10-26T03:09:18.837Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN13",
+   "at": "2026-10-26T13:02:00+10:00",
+   "nos": [
+    "1276503"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-26T13:02:00+10:00, recorded by Andrew Fisher: 1 x 45kva 1276503 - GN13 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN13",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN13": {
+    "state": "on site",
+    "set_at": "2026-10-12T00:56:20.325Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-12T00:56:25.552Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.665Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T00:56:20.325Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-12T00:56:25.552Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:42:39.348Z"
+    },
+    "_k": "GN13"
+   }
+  },
+  "after": {
+   "delivery/GN13": {
+    "state": "in transit",
+    "set_at": "2026-10-26T03:08:37.259Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T03:08:37.259Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.665Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T00:56:20.325Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T03:08:37.259Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "41dbf9b7-4c86-4b53-912e-dfc7c51271f0",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T13:02:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-12T00:56:20.325Z",
+       "requiredKey": "[[\"45kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "45kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN13\",\"coates\",\"asset\",\"1276503\"]"
+         ],
+         "numbers": [
+          "1276503"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN13\",\"coates\",\"asset\",\"1276503\"]",
+           "number": "1276503",
+           "owner": "coates",
+           "item": "45kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-12T00:56:25.552Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T03:08:37.259Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:42:39.348Z"
+    },
+    "_k": "GN13"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

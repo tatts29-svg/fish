@@ -1,0 +1,99 @@
+{
+ "by": "Andrew Fisher",
+ "what": "The last build papers, 24 Oct 2026 (Andrew: 'I have more dockets this will be the last for the build yah'; then 'So we need fencing to be 100% now and we work off number we have for completion of build'): hire agreements 36757 (21 Oct) and 36765-36768 (23 Oct), service note 24492 (22 Oct), signed Advanced Temporary Fencing papers photographed by Andrew.",
+ "ops": [
+  {
+   "op": "hire_agreement",
+   "docket_no": "36757",
+   "date": "2026-10-21",
+   "location": "The Spit - Transporter Compound",
+   "map_ref": "",
+   "quantities": {
+    "clean": 70
+   },
+   "components": {
+    "mesh_panel": 28,
+    "base": 22,
+    "clamp": 34,
+    "wheels": 9
+   },
+   "signed_by": "",
+   "note": "Mesh fence 70 m (28 panels), 22 bases, 34 clamps, 9 wheels, installed 21 Oct 2026 at The Spit - Transporter Compound (the paper missing from the 36751-36764 batch). Programme EVENT WEEK row 17 (19 Oct): Perimeter Fence - Supercars Transporter Compound, The Spit; an earlier paper carried 492.5 m at the Seaway carpark, The Spit, on 19 Oct. The 9 wheels are vehicle gates, recorded as components (gates are inside the card's metre). No bracing metres or scrim written, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. Both signatures dated 21/10/26."
+  },
+  {
+   "op": "service_note",
+   "note_no": "24492",
+   "date": "2026-10-22",
+   "location": "Transporter Compound (The Spit)",
+   "labour_hours": 0.5,
+   "crew_note": "15 mins x 2 men",
+   "metres": "30",
+   "signed_by": "",
+   "note": "Labour '15 mins x 2 men', quantity 1/2 HR; notes 'Relocated 30 m.' at the Transporter Compound (The Spit) on 22 Oct 2026, the day after hire agreement 36757 there. Company Coates V8s, contact Brendan. Owner/site supervisor and installer signatures dated 22/10/26. Prices blank."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36765",
+   "date": "2026-10-23",
+   "location": "Gate 5 - Ocean Ave",
+   "map_ref": "",
+   "quantities": {
+    "clean": 5
+   },
+   "components": {
+    "mesh_panel": 2,
+    "clamp": 4,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 5 m (2 panels), 4 clamps, 2 wheels, installed 23 Oct 2026 at Gate 5 - Ocean Ave; the Base box holds a dash (no bases). The 2 wheels on 2 panels read as a wheeled gate, recorded as components (gates are inside the card's metre). Clean recorded - no bracing or scrim written. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36766",
+   "date": "2026-10-23",
+   "location": "Smoking Zone - Breaker St",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 10
+   },
+   "components": {
+    "cc_barrier": 4
+   },
+   "signed_by": "",
+   "note": "CC barrier 10 m (4 barriers), installed 23 Oct 2026 at the Smoking Zone - Breaker St. The printed number reads like 36765 at phone size; at full size the last figure is a 6 (36765 is the Gate 5 paper). Event: the paper does not say; smoking zones have been Event since Andrew accepted it on 2 Oct (programme CON WK3 smoking rows and EVENT WEEK row 11 are Event), and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36767",
+   "date": "2026-10-23",
+   "location": "Gate 7 - security entry",
+   "map_ref": "",
+   "quantities": {
+    "clean": 7.5
+   },
+   "components": {
+    "mesh_panel": 3,
+    "base": 3,
+    "clamp": 3
+   },
+   "signed_by": "",
+   "note": "Mesh fence 7.5 m (3 panels), 3 bases, 3 clamps, installed 23 Oct 2026 at Gate 7; notes 'Security Entry'. Programme EVENT WEEK row 69 (22 Oct): Perimeter Fence - Gate 7 Entry, 37 m clean with a vehicle gate; this paper is the security entry addition. Clean recorded - no bracing or scrim written. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36768",
+   "date": "2026-10-23",
+   "location": "Club 500 - B.O.H.",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 50
+   },
+   "components": {
+    "cc_barrier": 20
+   },
+   "signed_by": "",
+   "note": "CC barrier 50 m (20 barriers), installed 23 Oct 2026 at Club 500 - B.O.H. Event: the paper does not say and there is no programme row for it; the Club 500 CCB on the programme (creek protection, CON WK2 row 14) is Event, as Monster Energy's was read, and Andrew was told Event would be recorded unless he said otherwise. Owner/site supervisor signature present, name not written; contact Brendan. Prices blank. Both signatures dated 23/10/26."
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 10:1x AEST: \"Here is another that can go 0285\", in the same breath as the 09:40 pick-up (\"Picked up 940am\" + twelve numbers, \"Another is 0435\"). 0285 is PG01's only toilet (Toilet, Pit Garage: 1 FWF, Event Portables 0285, Ready since 26 Oct, emptied 26 Oct), so PG01 leaves in full. Recorded at the same pick-up time, 09:40, as the runner's basis; Andrew to say if it went at another time. Applied only if the dry run shows the P&L unchanged (Andrew: \"It should not change any pricing\").",
+  "ops": [
+    {"op": "depart", "ref": "PG01", "at": "2026-10-30T09:40:00+10:00", "nos": ["0285"], "unnumbered": [], "complete": true}
+  ]
+}

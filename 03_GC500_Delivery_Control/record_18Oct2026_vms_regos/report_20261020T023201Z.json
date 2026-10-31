@@ -1,0 +1,161 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T023201Z",
+ "finished": "2026-10-20T02:32:12.488Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026, on Schedule 11: TM01 \"Set to 10\" (named Trakmat x 10; 10 trakmats on 16 Oct, docket 26133383); GN24 \"60 kVA trailer\" (Schedule 11: SPARE GN24 60KVA TRAILER 1277089 IPSW, docket 26134440). GN10 stays 20 kVA: \"we charge as per the request so if a larger one comes in we still charge what was requested rate\".",
+  "ops": [
+   {
+    "op": "set_qty",
+    "ref": "TM01",
+    "qty": 10
+   },
+   {
+    "op": "number_item",
+    "ref": "GN24",
+    "no": "1277089",
+    "item": "60kva"
+   },
+   {
+    "op": "item_type",
+    "ref": "GN24",
+    "item": "60kva"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10135,
+  "after": 10141
+ },
+ "updated": {
+  "before": "2026-10-20T02:22:53.219Z",
+  "after": "2026-10-20T02:32:11.702Z"
+ },
+ "stage": [
+  {
+   "op": "set_qty",
+   "ref": "TM01",
+   "qty": 10,
+   "result": "quantity undefined -> 10"
+  },
+  {
+   "op": "number_item",
+   "ref": "GN24",
+   "no": "1277089",
+   "item": "60kva",
+   "result": "counts as 60kva"
+  },
+  {
+   "op": "item_type",
+   "ref": "GN24",
+   "item": "60kva",
+   "result": "item type 60kva"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/qtys~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "stamps/items~2f~GN24",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "by/items~2f~GN24",
+   "status": 200
+  },
+  {
+   "key": "qtys/TM01",
+   "status": 200
+  },
+  {
+   "key": "items/GN24",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/qtys~2f~TM01": null,
+   "stamps/items~2f~GN24": null,
+   "by/qtys~2f~TM01": null,
+   "by/items~2f~GN24": null,
+   "qtys/TM01": null,
+   "items/GN24": null
+  },
+  "after": {
+   "stamps/qtys~2f~TM01": {
+    "_k": "qtys/TM01",
+    "v": "2026-10-20T02:32:08.270Z"
+   },
+   "stamps/items~2f~GN24": {
+    "_k": "items/GN24",
+    "v": "2026-10-20T02:32:09.252Z"
+   },
+   "by/qtys~2f~TM01": {
+    "_k": "qtys/TM01",
+    "v": "Andrew Fisher"
+   },
+   "by/items~2f~GN24": {
+    "_k": "items/GN24",
+    "v": "Andrew Fisher"
+   },
+   "qtys/TM01": {
+    "_k": "TM01",
+    "v": 10,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "TM01",
+     "firstQuantity": 1,
+     "items": [
+      {
+       "item": "Trakmat",
+       "quantity": 1,
+       "received": 10,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-16T00:40:03.035Z",
+         "quantity": 10
+        }
+       ],
+       "receiptAt": "2026-10-16T00:40:03.035Z",
+       "supplied": 10,
+       "suppliedAt": "2026-10-16T00:40:03.035Z",
+       "on": true,
+       "onAt": "2026-10-16T00:40:03.932Z",
+       "done": true,
+       "doneAt": "2026-10-16T01:56:23.856Z",
+       "install": true,
+       "installAt": "2026-10-16T01:56:23.856Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 10,
+     "at": "2026-10-20T02:32:08.270Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "items/GN24": {
+    "_k": "GN24",
+    "v": "60kva"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

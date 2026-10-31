@@ -1,0 +1,22 @@
+{
+ "2": {
+  "take": "a",
+  "why": "both takes word-perfect; take 1",
+  "ratio": 1.0
+ },
+ "28": {
+  "take": "b",
+  "why": "says \"packed lunch\" cleanly",
+  "ratio": 0.979
+ },
+ "35": {
+  "take": "b",
+  "why": "says \"Wayne Woods and the Advanced crew\" cleanly",
+  "ratio": 0.949
+ },
+ "43": {
+  "take": "a",
+  "why": "word-perfect, no pause inside the line",
+  "ratio": 1.0
+ }
+}

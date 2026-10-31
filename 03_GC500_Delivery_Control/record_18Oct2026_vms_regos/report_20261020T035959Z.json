@@ -1,0 +1,97 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T035959Z",
+ "finished": "2026-10-20T04:00:10.547Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"Coates office pinned at https://maps.app.goo.gl/GPAiY1C8x1bXKjR48\" (resolves to -27.9831377, 153.4264433). T0021 is the Coates office (Building 4.8m, Office 4.8x3); it had no location on the record.",
+  "ops": [
+   {
+    "op": "place",
+    "ref": "T0021",
+    "lat": -27.9831377,
+    "lon": 153.4264433,
+    "how": "Andrew Fisher's pinned location, 20 Oct 2026 (Coates office)",
+    "source": "https://maps.app.goo.gl/GPAiY1C8x1bXKjR48"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10200,
+  "after": 10203
+ },
+ "updated": {
+  "before": "2026-10-20T03:09:28.489Z",
+  "after": "2026-10-20T04:00:09.353Z"
+ },
+ "stage": [
+  {
+   "op": "place",
+   "ref": "T0021",
+   "lat": -27.9831377,
+   "lon": 153.4264433,
+   "how": "Andrew Fisher's pinned location, 20 Oct 2026 (Coates office)",
+   "source": "https://maps.app.goo.gl/GPAiY1C8x1bXKjR48",
+   "result": "T0021 placed at -27.9831377, 153.4264433"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/places~2f~T0021",
+   "status": 200
+  },
+  {
+   "key": "by/places~2f~T0021",
+   "status": 200
+  },
+  {
+   "key": "places/T0021",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/places~2f~T0021": null,
+   "by/places~2f~T0021": null,
+   "places/T0021": null
+  },
+  "after": {
+   "stamps/places~2f~T0021": {
+    "_k": "places/T0021",
+    "v": "2026-10-20T04:00:06.877Z"
+   },
+   "by/places~2f~T0021": {
+    "_k": "places/T0021",
+    "v": "Andrew Fisher"
+   },
+   "places/T0021": {
+    "_k": "T0021",
+    "v": {
+     "lat": -27.9831377,
+     "lon": 153.4264433,
+     "at": "2026-10-20T04:00:06.877Z",
+     "by": "Andrew Fisher",
+     "how": "Andrew Fisher's pinned location, 20 Oct 2026 (Coates office)",
+     "source": "https://maps.app.goo.gl/GPAiY1C8x1bXKjR48",
+     "note": null,
+     "ax": 0.16495629404866224,
+     "ay": 0.5486572726484199,
+     "outside": null,
+     "away_m": null,
+     "ref": "T0021",
+     "unit": null
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,178 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T025315Z",
+ "finished": "2026-10-26T02:54:29.853Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026 12:47: \"Also picked up now 1300290\". 1300290 is EQ0002's only unit on the record (Knuckle Boom 61ft (18.6M) - Diesel, rental 9992300 line 5, MEAD; on site since its arrival recorded 22 Oct). EQ0002 left site in full at 12:47 AEST, when Andrew sent it. Recorded through the page's own Record departure form. The page counts this added reference's quantity from its complete tick, which the departure form takes off, so its departure reading then asks for review; the departure is read back from the delivery history (readback: history).",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "EQ0002",
+    "at": "2026-10-26T12:47:00+10:00",
+    "nos": [
+     "1300290"
+    ],
+    "complete": true,
+    "readback": "history"
+   }
+  ]
+ },
+ "pageSha256": "3625dd965f394bdd7b17aa6e8748236e58793dec1460be3a153b0d5f92598a33",
+ "version": {
+  "before": 11011,
+  "after": 11012
+ },
+ "updated": {
+  "before": "2026-10-26T02:45:28.046Z",
+  "after": "2026-10-26T02:54:29.066Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "EQ0002",
+   "at": "2026-10-26T12:47:00+10:00",
+   "nos": [
+    "1300290"
+   ],
+   "complete": true,
+   "readback": "history",
+   "result": "left site 2026-10-26T12:47:00+10:00, recorded by Andrew Fisher: 1 x Knuckle Boom 61ft (18.6M) - Diesel 1300290 - read from the history; light in transit; departure reading: Item quantities changed after a collection record; review the collection scope."
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0002",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0002": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:47.091Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:48.167Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:47.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:48.167Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0002"
+   }
+  },
+  "after": {
+   "delivery/EQ0002": {
+    "state": "in transit",
+    "set_at": "2026-10-26T02:53:46.691Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T02:53:46.691Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:47.091Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T02:53:46.691Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "eb50402a-0a1d-462e-9185-c467455fe846",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T12:47:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T18:26:47.091Z",
+       "requiredKey": "[[\"knuckle boom 61ft (18.6m) - diesel\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Knuckle Boom 61ft (18.6M) - Diesel",
+         "n": 1,
+         "unitIds": [
+          "[\"EQ0002\",\"coates\",\"asset\",\"1300290\"]"
+         ],
+         "numbers": [
+          "1300290"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"EQ0002\",\"coates\",\"asset\",\"1300290\"]",
+           "number": "1300290",
+           "owner": "coates",
+           "item": "Knuckle Boom 61ft (18.6M) - Diesel"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:48.167Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T02:53:46.691Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "EQ0002"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

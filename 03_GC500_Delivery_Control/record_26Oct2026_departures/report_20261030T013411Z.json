@@ -1,0 +1,1058 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T013411Z",
+ "finished": "2026-10-30T01:34:46.151Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:4x AEST: \"P54 left 11 p56 left 1115 p55 left 1130 / 120t left at 10am\". P54 (Accred Centre BOH, Building 6m 1327219), P56 (Gate 1 Ticket BOH, Building 3.6m 1268865) and P55 (Gate 1 Ticket Box, Ticket Box 6m 172114), all Helen Park, each its reference's only unit, each leaves in full. 120T is Premiair's VMS10 on T0103 (pit lane entry); VMS09 1211404 stays on T0103. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P54",
+    "at": "2026-10-30T11:00:00+10:00",
+    "nos": [
+     "1327219"
+    ],
+    "unnumbered": [],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "P56",
+    "at": "2026-10-30T11:15:00+10:00",
+    "nos": [
+     "1268865"
+    ],
+    "unnumbered": [],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "P55",
+    "at": "2026-10-30T11:30:00+10:00",
+    "nos": [
+     "172114"
+    ],
+    "unnumbered": [],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "T0103",
+    "at": "2026-10-30T10:00:00+10:00",
+    "nos": [
+     "120T"
+    ],
+    "unnumbered": [],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12129,
+  "after": 12133
+ },
+ "updated": {
+  "before": "2026-10-30T01:32:15.977Z",
+  "after": "2026-10-30T01:34:44.804Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P54",
+   "at": "2026-10-30T11:00:00+10:00",
+   "nos": [
+    "1327219"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T11:00:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1327219 - P54 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "P56",
+   "at": "2026-10-30T11:15:00+10:00",
+   "nos": [
+    "1268865"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T11:15:00+10:00, recorded by Andrew Fisher: 1 x Building 3.6m 1268865 - P56 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "P55",
+   "at": "2026-10-30T11:30:00+10:00",
+   "nos": [
+    "172114"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T11:30:00+10:00, recorded by Andrew Fisher: 1 x Ticket Box 6m 172114 - P55 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "T0103",
+   "at": "2026-10-30T10:00:00+10:00",
+   "nos": [
+    "120T"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-10-30T10:00:00+10:00, recorded by Andrew Fisher: 1 x VMS 120T - still to leave: 1 x VMS"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P55",
+   "status": 200
+  },
+  {
+   "key": "delivery/P54",
+   "status": 200
+  },
+  {
+   "key": "delivery/P56",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0103",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P55": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:32:46.985Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T00:49:56.405Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-07T00:49:57.004Z",
+    "pickup1238_units": {
+     "coates|172114": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:42:45.512Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:49:55.753Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.992Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:32:46.985Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:55.753Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:56.405Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:57.004Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|172114",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:42:45.512Z"
+     }
+    ],
+    "loading872": {
+     "u172114": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.438Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:32:47.115Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:32:47.115Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:32:47.115Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:32:47.115Z"
+    },
+    "_k": "P55"
+   },
+   "delivery/P54": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:34:44.692Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T00:49:26.711Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-07T00:49:27.300Z",
+    "pickup1238_units": {
+     "coates|1327219": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:42:18.886Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:49:25.768Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.832Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:44.692Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:25.768Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:26.711Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:27.300Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327219",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:42:18.886Z"
+     }
+    ],
+    "loading872": {
+     "u1327219": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.461Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:34:44.851Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:44.851Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:44.851Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:34:44.851Z"
+    },
+    "_k": "P54"
+   },
+   "delivery/P56": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:33:53.962Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-07T00:49:39.230Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-07T00:49:39.908Z",
+    "pickup1238_units": {
+     "coates|1268865": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:43:10.392Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:49:37.430Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.148Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:33:53.962Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:37.430Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:39.230Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:39.908Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1268865",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:43:10.392Z"
+     }
+    ],
+    "loading872": {
+     "u1268865": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.454Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:33:54.102Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:33:54.102Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:33:54.102Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:33:54.102Z"
+    },
+    "_k": "P56"
+   },
+   "delivery/T0103": {
+    "state": "on site",
+    "set_at": "2026-10-08T05:27:09.801Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|120T": {
+      "on": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211404": {
+      "on": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-08T05:27:09.801Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.616Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|120T",
+      "ready": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211404",
+      "ready": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:35:09.305Z"
+    },
+    "_k": "T0103"
+   }
+  },
+  "after": {
+   "delivery/P55": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:34:30.198Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:34:30.198Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-30T01:34:30.198Z",
+    "pickup1238_units": {
+     "coates|172114": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:42:45.512Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:34:30.198Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.992Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:32:46.985Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:34:30.198Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "e920389e-fcd4-4bf7-ab6b-71b4a4fdfa39",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:30:00+10:00",
+       "programmeDate": "2026-10-30",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T22:32:46.985Z",
+       "requiredKey": "[[\"ticket box 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Ticket Box 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P55\",\"coates\",\"asset\",\"172114\"]"
+         ],
+         "numbers": [
+          "172114"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P55\",\"coates\",\"asset\",\"172114\"]",
+           "number": "172114",
+           "owner": "coates",
+           "item": "Ticket Box 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:55.753Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:34:30.198Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:56.405Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:34:30.198Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:57.004Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-30T01:34:30.198Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|172114",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:42:45.512Z"
+     }
+    ],
+    "loading872": {
+     "u172114": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.438Z"
+     }
+    },
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-30T01:34:30.198Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:32:47.115Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:32:47.115Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-30T01:34:30.198Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-30T01:34:30.198Z"
+      }
+     ],
+     "recorded_at": "2026-10-30T01:34:30.198Z"
+    },
+    "_k": "P55"
+   },
+   "delivery/P54": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:34:28.606Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:34:28.606Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-30T01:34:28.606Z",
+    "pickup1238_units": {
+     "coates|1327219": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:42:18.886Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:34:28.606Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.832Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:44.692Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:34:28.606Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "48311a18-998c-456c-8f58-e1a9b7a397f4",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:00:00+10:00",
+       "programmeDate": "2026-10-30",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T22:34:44.692Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P54\",\"coates\",\"asset\",\"1327219\"]"
+         ],
+         "numbers": [
+          "1327219"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P54\",\"coates\",\"asset\",\"1327219\"]",
+           "number": "1327219",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:25.768Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:34:28.606Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:26.711Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:34:28.606Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:27.300Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-30T01:34:28.606Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327219",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:42:18.886Z"
+     }
+    ],
+    "loading872": {
+     "u1327219": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.461Z"
+     }
+    },
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-30T01:34:28.606Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:44.851Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:44.851Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-30T01:34:28.606Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-30T01:34:28.606Z"
+      }
+     ],
+     "recorded_at": "2026-10-30T01:34:28.606Z"
+    },
+    "_k": "P54"
+   },
+   "delivery/P56": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:34:29.429Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:34:29.429Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-30T01:34:29.429Z",
+    "pickup1238_units": {
+     "coates|1268865": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "set": "2026-10-28T03:43:10.392Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:34:29.429Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.148Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:33:53.962Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:34:29.429Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "cb4cc557-62ac-4b3e-8be5-625316c33ae2",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:15:00+10:00",
+       "programmeDate": "2026-10-30",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T22:33:53.962Z",
+       "requiredKey": "[[\"building 3.6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 3.6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P56\",\"coates\",\"asset\",\"1268865\"]"
+         ],
+         "numbers": [
+          "1268865"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P56\",\"coates\",\"asset\",\"1268865\"]",
+           "number": "1268865",
+           "owner": "coates",
+           "item": "Building 3.6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:49:37.430Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:34:29.429Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-07T00:49:39.230Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:34:29.429Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-07T00:49:39.908Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-30T01:34:29.429Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1268865",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "Crane Load",
+      "by": "Brenden Meek",
+      "at": "2026-10-28T03:43:10.392Z"
+     }
+    ],
+    "loading872": {
+     "u1268865": {
+      "side": "passenger",
+      "by": "Andrew Fisher via Codex",
+      "at": "2026-10-07T02:22:33.454Z"
+     }
+    },
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-30T01:34:29.429Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:33:54.102Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:33:54.102Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-30T01:34:29.429Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-30T01:34:29.429Z"
+      }
+     ],
+     "recorded_at": "2026-10-30T01:34:29.429Z"
+    },
+    "_k": "P56"
+   },
+   "delivery/T0103": {
+    "state": "on site",
+    "set_at": "2026-10-08T05:27:09.801Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "prem-air-hire|120T": {
+      "on": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211404": {
+      "on": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-08T05:27:09.801Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.616Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-30T01:34:31.017Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "ec1275ef-9afd-4182-96b3-7f27e3d1b8d1",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T10:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-08T05:27:09.801Z",
+       "requiredKey": "[[\"vms\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 1,
+         "unitIds": [
+          "[\"T0103\",\"prem-air-hire\",\"native\",\"vms:VMS10\"]"
+         ],
+         "numbers": [
+          "120T"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0103\",\"prem-air-hire\",\"native\",\"vms:VMS10\"]",
+           "number": "120T",
+           "owner": "prem-air-hire",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-08T05:27:09.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "prem-air-hire|120T",
+      "ready": true,
+      "at": "2026-10-28T22:20:14.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211404",
+      "ready": true,
+      "at": "2026-10-29T04:31:22.799Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:35:09.305Z"
+    },
+    "_k": "T0103"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
