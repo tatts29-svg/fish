@@ -6,8 +6,9 @@ builder) and checks the workbook, page and CSV agree with them and with each oth
 <pack_dir> holds GC500_PL_final.xlsx/.html, GC500_October_month_end.csv and GC500_labour_by_month_and_branch.csv;
 <progress_dir> holds the private inputs (invoices.json, dated_costs.json, cost_sources.json, bp12.json, dated_all.json),
 captured at record 12640; <alfie_nights.json> is inputs/alfie_nights.cjs's read and <dated_costs_now.json> is
-inputs/dated_costs.cjs run with OUT=..., both on the record as it now stands (12685: Alfie's nine nights priced, his 23-25 Oct
-nights taken off). transport_loads.json (inputs/transport_loads.cjs) is read from the same folder as <dated_costs_now.json>.
+inputs/dated_costs.cjs run with OUT=..., both on the record as it now stands (12715: Alfie's nine nights priced, his 23-25 Oct
+nights taken off (12685); Daniel Gough's ten days 2-13 Nov put back, Aaron Zelvis's Fridays 6 and 13 Nov off and Alfie Harris's
+Mondays 2 and 9 Nov from 06:00 (12715)). transport_loads.json (inputs/transport_loads.cjs) is read from the same folder as <dated_costs_now.json>.
 """
 import csv, html, json, re, sys, collections
 from pathlib import Path
@@ -90,10 +91,13 @@ if ALF:
     n_oct = sum(1 for x in un if x['d'][:7] == '2026-10'); n_nov = sum(1 for x in un if x['d'][:7] == '2026-11')
     check('Alfie nights in the pack: 5 Oct, 4 Nov', (n_oct, n_nov) == (5, 4), (n_oct, n_nov))
     eq('Alfie Oct = 5 x 223.63', alf[8], r2(n_oct * 223.63)); eq('Alfie Nov = 4 x 223.63', alf[9], r2(n_nov * 223.63)); eq('Alfie accrues October only', alf[10], r2(n_oct * 223.63))
-if NOW:   # the record as it now stands (12685): the 12640 lines less Alfie's three 23-25 Oct nights, his nine priced; the pack's accommodation equals it
+DAN10 = ('2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13')
+if NOW:   # the record as it now stands (12715): the 12640 lines less Alfie's three 23-25 Oct nights, his nine priced (12685); Daniel's ten November days back (12715)
     dn = json.load(open(NOW))
-    for k in ('labour', 'transport', 'transportWeights', 'fencingWeeks'):
+    for k in ('transport', 'transportWeights', 'fencingWeeks'):
         check('record now: %s unchanged since 12640' % k, json.dumps(dn[k], sort_keys=True) == json.dumps(dc[k], sort_keys=True))
+    la_, lb_ = collections.Counter((x['d'], x['c']) for x in dc['labour']), collections.Counter((x['d'], x['c']) for x in dn['labour'])
+    check("record now: labour hire = the 12640 shifts plus Daniel Gough's ten days 2-13 Nov at 634.98, nothing else", not (la_ - lb_) and sorted((lb_ - la_).elements()) == [(d, 634.98) for d in DAN10], (sorted((la_ - lb_).elements()), sorted((lb_ - la_).elements())))
     is9 = lambda x: x['k'] == 'accommodation' and x.get('who') == 'Alfie Harris' and x['d'] in NINE
     key = lambda x, blank: json.dumps({**{kk: vv for kk, vv in x.items() if kk not in ('who', 'id', 'keys')}, **({'amount': None} if blank else {})}, sort_keys=True)
     was_, now_ = collections.Counter(key(x, False) for x in dc['exp']), collections.Counter(key(x, is9(x)) for x in dn['exp'])
@@ -121,9 +125,32 @@ import datetime as dt
 for r in LAB[2:]:
     if r and r[0][:4] == '2026' and r[3] == 'Labour hire' and r[5] not in ('', 'hours only'):
         d = dt.date.fromisoformat(r[0]); we = d + dt.timedelta(days=(6 - d.weekday())); LHW[we.isoformat()] += float(r[5])
+LHWP = collections.defaultdict(float)   # labour hire by person and week on the running sheet
+for r in LAB[2:]:
+    if r and r[0][:4] == '2026' and r[3] == 'Labour hire' and r[5] not in ('', 'hours only'):
+        d = dt.date.fromisoformat(r[0]); LHWP[(r[2], (d + dt.timedelta(days=(6 - d.weekday()))).isoformat())] += float(r[5])
+# the shifts as Andrew set them on 1 Nov (Mon 2 - Fri 13 Nov): Daniel 06:30-17:00, Andrew 06:00-17:00, Alfie Mon 06:00 else 06:30 (to 17:00), Aaron Mon-Thu 06:00-17:00
+LROW = collections.defaultdict(list)
+for r in LAB[2:]:
+    if r and r[0][:4] == '2026': LROW[(r[2], r[0])].append(r)
+WANT = {'Daniel Gough': lambda wd: 10.5, 'Andrew Fisher': lambda wd: 11.0, 'Alfie Harris': lambda wd: 11.0 if wd == 0 else 10.5, 'Aaron Zelvis': lambda wd: None if wd == 4 else 11.0}
+for who_, f_ in WANT.items():
+    got_ = [(d, [float(x[4]) for x in LROW.get((who_, d), [])]) for d in DAN10]
+    check('labour sheet: %s Mon-Fri 2-13 Nov as set on the record (%s)' % (who_, 'Mon-Thu, no Fridays' if who_ == 'Aaron Zelvis' else 'Monday 11 h, other days 10.5 h' if who_ == 'Alfie Harris' else '%s h a day' % f_(0)),
+          all(g == ([f_(dt.date.fromisoformat(d).weekday())] if f_(dt.date.fromisoformat(d).weekday()) is not None else []) for d, g in got_), got_)
+check("labour sheet: Daniel's ten November days at 634.98 each on the running sheet", all(len(LROW.get(('Daniel Gough', d), [])) == 1 and LROW[('Daniel Gough', d)][0][5] == '634.98' for d in DAN10))
 jc = {r[3].replace('Running sheet ', ''): r for r in cs if r[0].startswith('Job Connect')}
 JCPO = json.load(open(NOW.parent / 'jc_pos.json'))['amounts'] if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
-for we, key in (('2026-10-11', 'w/e 11 Oct'), ('2026-10-18', 'w/e 18 Oct'), ('2026-10-25', 'w/e 25 Oct'), ('2026-11-01', 'w/e 1 Nov'), ('2026-11-08', 'w/e 8 Nov')):
+JCP = json.load(open(NOW.parent / 'jc_pos.json')).get('po_amounts', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
+check("Daniel Gough's POs 4674224 (w/e 8 Nov) and 4674225 (w/e 15 Nov), 3,052.60 each, are in the private PO file", {k: (v['amount'], v['we'], v['who']) for k, v in JCP.items()} == {'4674224': (3052.60, '2026-11-08', 'Daniel Gough'), '4674225': (3052.60, '2026-11-15', 'Daniel Gough')}, JCP)
+if '4674224' in JCP:
+    eq('Job Connect w/e 8 Nov = PO 4674224 (Daniel) + Kyle Gover on the running sheet', sum((jc['w/e 8 Nov'][k] or 0) for k in (7, 8, 9)), r2(JCP['4674224']['amount'] + LHW['2026-11-08'] - LHWP[('Daniel Gough', '2026-11-08')]))
+    eq('Job Connect w/e 8 Nov: Kyle Gover on the running sheet = 3,023.85', LHWP[('Kyle Gover', '2026-11-08')], 3023.85)
+if '4674225' in JCP:
+    eq('Job Connect w/e 15 Nov = PO 4674225 (Daniel; nobody else on the running sheet that week)', sum((jc['w/e 15 Nov'][k] or 0) for k in (7, 8, 9)), JCP['4674225']['amount'])
+    eq('running sheet w/e 15 Nov is Daniel alone', LHW['2026-11-15'], LHWP[('Daniel Gough', '2026-11-15')])
+    check('Job Connect November weeks are not accrued, and sit in November', all((jc[k][10] or 0) == 0 and (jc[k][7] or 0) == 0 and (jc[k][8] or 0) == 0 for k in ('w/e 8 Nov', 'w/e 15 Nov')))
+for we, key in (('2026-10-11', 'w/e 11 Oct'), ('2026-10-18', 'w/e 18 Oct'), ('2026-10-25', 'w/e 25 Oct'), ('2026-11-01', 'w/e 1 Nov')) + ((('2026-11-08', 'w/e 8 Nov'),) if '4674224' not in JCP else ()):
     if key == 'w/e 11 Oct' and '4665091' in JCPO: eq('Job Connect w/e 11 Oct = PO 4665091 (its one PO)', sum((jc[key][k] or 0) for k in (7, 8, 9)), JCPO['4665091']); continue
     if key == 'w/e 25 Oct' and {'4670882', '4671825'} <= set(JCPO): eq('Job Connect w/e 25 Oct = POs 4670882 + 4671825 (its two POs)', sum((jc[key][k] or 0) for k in (7, 8, 9)), r2(JCPO['4670882'] + JCPO['4671825'])); continue
     eq('Job Connect %s = running sheet week' % key, sum((jc[key][k] or 0) for k in (7, 8, 9)), LHW[we])
@@ -159,9 +186,13 @@ check('journals total row', any(r[0] == 'Total accruals' and abs(r[5] - ACC) < 0
 moves = [r for r in jn if str(r[0]).startswith('Branch move ·')]   # the two moves, not the header row above them
 check('branch moves net to zero (two legs each)', all(re.search(r'−([\d,.]+) · \w+ \+([\d,.]+)', r[4]) and re.search(r'−([\d,.]+)', r[4]).group(1) == re.search(r'\+([\d,.]+)', r[4]).group(1) for r in moves) and len(moves) == 2, [r[4] for r in moves])
 lp = [r for r in rows('Labour by person') if r and r[0]]
-eq('labour hours = the labour register (2,304.78)', sum((r[6] or 0) + (r[7] or 0) + (r[8] or 0) for r in lp), sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][:4] == '2026'))
+eq('labour hours = the labour register', sum((r[6] or 0) + (r[7] or 0) + (r[8] or 0) for r in lp), sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][:4] == '2026'))
 eq('labour hire $ by person = running sheet', sum((r[9] or 0) for r in lp), sum(float(r[5]) for r in LAB[2:] if r and r[0][:4] == '2026' and r[3] == 'Labour hire' and r[5] not in ('', 'hours only')))
-eq('P&L labour hire: invoices and PO amounts where there are any, the running sheet where not', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in cs if r[0].startswith('Job Connect')), r2(34748.64 - LHW['2026-10-11'] + JCPO.get('4665091', LHW['2026-10-11']) - LHW['2026-10-25'] + (JCPO['4670882'] + JCPO['4671825'] if {'4670882', '4671825'} <= set(JCPO) else LHW['2026-10-25'])))
+eq('running sheet labour hire, job end (12715) = 41,276.59', sum(LHW.values()), 41276.59)
+eq('P&L labour hire: invoices and PO amounts where there are any, the running sheet where not', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in cs if r[0].startswith('Job Connect')),
+   r2(sum(LHW.values()) - 178.15 - LHW['2026-10-11'] + JCPO.get('4665091', LHW['2026-10-11']) - LHW['2026-10-25'] + (JCPO['4670882'] + JCPO['4671825'] if {'4670882', '4671825'} <= set(JCPO) else LHW['2026-10-25'])
+      - (LHWP[('Daniel Gough', '2026-11-08')] - JCP['4674224']['amount'] if '4674224' in JCP else 0) - (LHWP[('Daniel Gough', '2026-11-15')] - JCP['4674225']['amount'] if '4674225' in JCP else 0)))
+eq('the running sheet was 178.15 over the three invoices to 4 Oct', sum(LHW[w] for w in ('2026-09-20', '2026-09-27', '2026-10-04')) - sum(float(pos[p]['amount']) for p in ('4657010', '4660565', '4661783')), 178.15)
 
 # ------------------------------------------------------------------ the CSV and the page say the same
 tot_csv = [r for r in CS if r and r[0] == 'Total'][0]
@@ -200,7 +231,7 @@ if SUPX and SUPX.exists():
     rwl = subl('9974042'); rw = [r for r in cs if r[0].startswith('United Rentals')][0]
     eq('Royal Wolf = its cost line on 9974042 (32 days at 42.63)', rw[8], r2(sum(x['GST Excl Price'] for x in rwl)))
 else:
-    check('the suppliers export (sub-hire cost lines) is beside the 12685 captures', False)
+    check('the suppliers export (sub-hire cost lines) is beside the record captures', False)
 cbr = collections.defaultdict(float)
 for r in cb: cbr[(r[0], r[1])] += r[2]
 TLP = (NOW.parent / 'transport_loads.json') if NOW else None
@@ -254,8 +285,31 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
+check('page title is pack v1.10', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.10', re.findall(r'<title>([^<]*)</title>', H))
+check('the page names record 12715 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12715)', '4674224', '4674225')))
+check('open items name the invoices still to come on 4674224 and 4674225', any('the invoices on 4674224 and 4674225' in str(r[0]) for r in rows('Open items') if r))
 epj = [r for r in jn if str(r[0]).startswith('Accrual · Event Portables')]
 check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00', len(epj) == 2 and abs(sum(r[5] for r in epj) - 101747.00) < 0.005 and any('3325' in r[3] for r in epj) and any('2126' in r[3] for r in epj))
+# ------------------------------------------------------------------ v1.10: the final P&L as data (what the page's P&L tab carries) = the workbook, to the cent
+JP = PK / 'GC500_PL_final.json'
+if JP.exists():
+    J = json.load(open(JP, encoding='utf-8'))
+    check('final P&L data: pack v1.10 on record 12715, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.10', 12715, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
+    eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
+    for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
+    eq('final P&L data: to accrue = the journals', J['accrue'], ACC); eq('final P&L data: difference = the summary', J['difference'], summ['The job'][5])
+    for bj in J['branches']:
+        sb = summ[bj['b']]
+        check('final P&L data: %s invoiced, forecast, revenue, costs, difference = the summary' % bj['b'], all(abs(a - (b or 0)) < 0.005 for a, b in zip((bj['invoiced'], bj['novForecast'], bj['revenue'], bj['costs'], bj['difference']), sb[1:6])), (bj, sb))
+        eq('final P&L data: %s cost lines add to its costs' % bj['b'], sum(v for _, v in J['branchLines'][bj['b']]), bj['costs'])
+    check('final P&L data: every cost line = the costs by supplier sheet (%d lines)' % len(cs), len(J['lines']) == len(cs) and all(l['supplier'] == r[0] and all(abs(l[k] - (r[i] or 0)) < 0.005 for k, i in (('sep', 7), ('oct', 8), ('nov', 9), ('accrue', 10))) for l, r in zip(J['lines'], cs)))
+    eq('final P&L data: suppliers add to the job cost', sum(x['total'] for x in J['suppliers']), JOB)
+    check('final P&L data: the journals = the accruals on the Journals sheet', len(J['journals']) == len(accr_j) and all(abs(j['amount'] - r[5]) < 0.005 for j, r in zip(J['journals'], accr_j)))
+    check('final P&L data: the open items = the Open items sheet', J['open'] == [r[0] for r in rows('Open items') if r and r[0]])
+    check('final P&L data: facts only (no "your word", agent names)', not prov.search(json.dumps(J, ensure_ascii=False)), sorted({m.group(0) for m in prov.finditer(json.dumps(J, ensure_ascii=False))}))
+else:
+    check('final P&L data (GC500_PL_final.json) is beside the pack', False)
 print('AUDIT: %d checks, %d pass, %d fail' % (len(OK) + len(BAD), len(OK), len(BAD)))
 print('job cost %s · Sep %s · Oct %s · Nov %s · accruals %s · revenue %s · difference %s' % (fmt(JOB), fmt(SEP), fmt(OCT), fmt(NOV), fmt(ACC), fmt(summ['The job'][3]), fmt(summ['The job'][5])))
 for b in BAD: print('FAIL', b)

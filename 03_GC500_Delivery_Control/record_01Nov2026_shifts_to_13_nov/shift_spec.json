@@ -1,0 +1,138 @@
+{
+ "author": "Andrew Fisher",
+ "by": "Andrew Fisher",
+ "ops": [
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-02",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-03",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-04",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-05",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-06",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-09",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-10",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-11",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-12",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_back",
+   "person": "Daniel Gough",
+   "date": "2026-11-13",
+   "expect": {
+    "start": "06:30",
+    "finish": "17:00"
+   },
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_set",
+   "person": "Alfie Harris",
+   "date": "2026-11-02",
+   "fields": {
+    "start": "06:00"
+   },
+   "worked": 11,
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_set",
+   "person": "Alfie Harris",
+   "date": "2026-11-09",
+   "fields": {
+    "start": "06:00"
+   },
+   "worked": 11,
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+  },
+  {
+   "op": "shift_off",
+   "person": "Aaron Zelvis",
+   "date": "2026-11-06",
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\" (06/11/2025 read as Friday 6 Nov 2026, the only 6 Nov in the job)"
+  },
+  {
+   "op": "shift_off",
+   "person": "Aaron Zelvis",
+   "date": "2026-11-13",
+   "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\" (06/11/2025 read as Friday 6 Nov 2026, the only 6 Nov in the job)"
+  }
+ ]
+}

@@ -313,3 +313,66 @@ and all 13 Open items print in full.
 
 Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12685>/alfie_nights.json <12685>/dated_costs.json`. The 12685
 folder also holds `transport_loads.json`, `suppliers.xlsx` and `jc_pos.json`.
+
+## Pack v1.10: Daniel Gough's November POs and the shifts to 13 Nov (1 Nov)
+
+Andrew:
+- "New P/o for Daniel 4674224 week Ending 08/11/2026 $3,052.6000";
+- "4674225 = $3,052.6000 W/E 15/11/2026";
+- "Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on
+  30/10/2026 and 06/11/2025 and 13/11/2026 …".
+
+**Record change (1 Nov, `../record_01Nov2026_shifts_to_13_nov/`).** Made through the running sheet's own controls:
+- Daniel Gough's ten 06:30–17:00 days from 2 to 13 Nov put back (Put back);
+- Alfie Harris's Mondays 2 and 9 Nov to 06:00 (the time boxes);
+- Aaron Zelvis's Fridays 6 and 13 Nov taken off (Take off).
+
+Andrew's own days were already 06:00–17:00. Record 12685 → 12715; every other document unchanged.
+
+A fresh capture on 12715 differs from 12685 only in Daniel's ten days at 634.98 each. Accommodation, transport and fencing
+are identical.
+
+**New source (private, not committed):** Daniel Gough's POs, in `jc_pos.json` beside the 12715 captures. They are PO amounts
+for weeks not yet invoiced:
+
+| PO | Week ending | Amount |
+|---|---|---|
+| 4674224 | 8 Nov | 3,052.60 |
+| 4674225 | 15 Nov | 3,052.60 |
+
+**What changed.**
+
+| Item | Change |
+|---|---|
+| Job Connect w/e 8 Nov | Daniel at PO 4674224 (3,052.60) plus Kyle Gover at the running sheet (3,023.85) = 6,076.45, November. The running sheet has Daniel at 3,174.90 that week. |
+| Job Connect w/e 15 Nov | New row: Daniel at PO 4674225 (3,052.60), November. The running sheet has him at 3,174.90. |
+| Labour sheet | Rebuilt on 12715. Daniel +105 h (10 × 10.5 h), Aaron −22 h (Fridays 6 and 13 Nov), Alfie +1 h (Mondays at 11 h). The running sheet's labour hire, job end, is 41,276.59 (was 34,926.79). |
+| Open items | Job Connect still needed: the w/e 18 Oct invoices (4667755, 4668970), the PO and invoice for w/e 1 Nov, Kyle Gover's PO and invoice for w/e 8 Nov, and the invoices on 4674224 and 4674225. |
+
+**v1.10 figures:**
+- revenue 1,001,902.14 (unchanged);
+- costs 547,831.85 (Sep 147,015.00 · Oct 377,908.23 · Nov 22,908.62), up 6,105.20 in November;
+- difference 454,070.29;
+- to accrue 195,970.70 (unchanged: November is forecast, not accrued);
+- branch costs: KINP 221,838.03 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20.
+
+**`audit_pack.py`** now also checks:
+- record 12715 against 12640: the labour hire shifts plus Daniel's ten days, nothing else;
+- the labour sheet against the shifts as set, person by person and day by day for 2–13 Nov:
+  - Daniel 10.5 h;
+  - Andrew 11 h;
+  - Alfie 11 h on Mondays, 10.5 h on other days;
+  - Aaron Mon–Thu 11 h, no Fridays;
+- w/e 8 Nov = PO 4674224 + Kyle's running sheet;
+- w/e 15 Nov = PO 4674225, with Daniel alone on the running sheet;
+- both weeks in November and not accrued;
+- the P&L labour hire from the running sheet, the invoices and the POs.
+
+Result on v1.10: 247 checks, 247 pass (with the final P&L as data, `GC500_PL_final.json`, checked against the workbook to the cent). Run on the 12685 reads instead, it fails on exactly the four things that changed, as
+it should.
+
+**Printed:** the page is 10 pages, A4 landscape, with no table overflowing at landscape or portrait width. The workbook is
+17 pages through LibreOffice, and all 13 Open items print in full.
+
+Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12715>/alfie_nights.json <12715>/dated_costs.json`. The 12715
+folder also holds `transport_loads.json`, `labour_register.json`, `suppliers.xlsx` and `jc_pos.json`.

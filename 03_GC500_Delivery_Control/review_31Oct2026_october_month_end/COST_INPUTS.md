@@ -4,7 +4,7 @@ Author: Andrew Fisher. For Codex's audit (PR1 6541370424). Read only; no record 
 `toolchain/harness/open_page.js` (writes aborted), waits for `SYNC.status === 'live'`, and must run under
 `flock -x /tmp/gc500-browser.lock`. Set `PAGE` to the live v12.69 page (`build/GC500_v12.69/GC500_Delivery_Control_hosted.html`,
 SHA-256 `038bd277…`). The pack's inputs were captured on record **12640**. v1.9 is checked against record **12685**, where Alfie
-Harris's nine nights carry 223.63, his 23–25 Oct nights are off, and nothing else differs (`inputs/dated_costs.cjs` with `OUT=<file>`; see the README). Outputs are
+Harris's nine nights carry 223.63, his 23–25 Oct nights are off, and nothing else differs. v1.10 is checked against record **12715**, which differs from 12685 only in Daniel Gough's ten days 2–13 Nov put back (and, hours only, Aaron Zelvis's Fridays 6 and 13 Nov off and Alfie Harris's Mondays 2 and 9 Nov from 06:00) (`inputs/dated_costs.cjs` with `OUT=<file>`; see the README). Outputs are
 written to `/tmp/gc500-scratch/progress/` (change the path in the probe if needed). Private inputs that are NOT here: the 19 invoice PDFs and the Baseplan (12) export (Andrew's
 originals); everything on the cost side below comes from the live record and the page.
 
@@ -33,12 +33,13 @@ originals); everything on the cost side below comes from the live record and the
 | Forecast loads tied by docket (v1.9) | same | the loads' `dd` / `dockets` + Baseplan (12) "Delivery Dockets" | a forecast load whose docket Baseplan (12) names a hire contract sits against it in the match-up, still forecast; the rest untied |
 | Premiair and Royal Wolf (v1.9) | Andrew's suppliers export, 1 Nov 2026 (private, not committed; beside the 12685 captures) | Coates' sub-hire cost lines for 9961265 and 9974042 (the only contracts with sub-rental lines in Baseplan (12)) | days charged × daily cost rate: Premiair's eight boards at 36.25 a day (VMS24 26.00, NVAC); VMS11 (10001927 L1, no cost line) estimated at 7 days × 36.25; Royal Wolf 32 days at 42.63. Replaces the 53.61 customer rate |
 | Job Connect invoice amounts (v1.9) | Andrew, 1 Nov 2026: the amounts on the invoices (private `jc_pos.json` beside the 12685 captures) | the Job Connect POs | w/e 11 Oct at its invoice (PO 4665091); w/e 25 Oct at its two invoices (POs 4670882, 4671825); invoiced weeks are not accrued; w/e 18 Oct stays at the running sheet until both its POs (4667755, 4668970) are in |
+| Job Connect November POs (v1.10) | Andrew, 1 Nov 2026: Daniel Gough's POs 4674224 (w/e 8 Nov) and 4674225 (w/e 15 Nov), 3,052.60 each (private `jc_pos.json` beside the 12715 captures, `po_amounts`) | the Job Connect POs; the running sheet's Daniel Gough days 2–13 Nov (`fin745Rows`) | w/e 8 Nov = PO 4674224 + Kyle Gover's running sheet week (3,023.85); w/e 15 Nov = PO 4674225; both November, not accrued; the running sheet's 3,174.90 a week is shown beside each |
 
-Checks the pack asserts (v1.9):
-- costs by month = costs by branch = 541,726.65 (job end);
+Checks the pack asserts (v1.10):
+- costs by month = costs by branch = 547,831.85 (job end);
 - accruals = the journals (195,970.70);
 - revenue = the 18 invoices to V8 Supercars (1,001,063.07) + the 839.07 November forecast. Invoice 25124396 is to Gold
   Coast Helitours and is not GC500 revenue;
 - every revenue row cross-foots: the hire by month + services = the invoice's ex GST.
 
-`audit_pack.py` derives all of it again from the inputs, not the builder: 209 checks on v1.9.
+`audit_pack.py` derives all of it again from the inputs, not the builder: 209 checks on v1.9; 247 on v1.10 (with the final P&L data the page carries, `GC500_PL_final.json`).
