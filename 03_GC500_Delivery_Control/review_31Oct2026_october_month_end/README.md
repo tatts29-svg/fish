@@ -175,3 +175,11 @@ checked against the source before it was applied:
 
 Job revenue, job cost and branch costs are unchanged. The months, the accruals and the KINP/STPS revenue move exactly as in Codex's
 bridges, and the builder asserts each figure.
+
+## Pack v1.6: invoice 25124396 out of GC500 revenue (1 Nov)
+
+Andrew, on Codex's customer-scope item: "Good pick up.. remove Invoice 25124396 please." The invoice (contract 9994248) is to Gold
+Coast Helitours (customer CASH-STPS), not the V8s. It comes off GC500 revenue, and the pack now has 18 invoices. It stays visible as
+a "removed" row on the revenue sheet with no amount, and section 3 says why. No cost on the record ties to it: no Baseplan (12)
+docket, no carrier figure and no cost line names 9994248. Costs, months and accruals are unchanged, and STPS revenue and the job's
+revenue each drop by that invoice. The builder asserts the 18-invoice totals.

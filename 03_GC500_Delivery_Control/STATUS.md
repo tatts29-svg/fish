@@ -1,3 +1,11 @@
+REVIEW — the final P&L pack v1.6: invoice 25124396 out of GC500 revenue (Claude, read only), 1 Nov 2026 04:11 AEST. Andrew, on Codex's customer-scope item: "Good pick up.. remove Invoice 25124396 please." The invoice is to Gold Coast Helitours, not the V8s.
+- The pack now carries 18 invoices. 25124396 stays on the revenue sheet as a "removed" row with no amount, and section 3 gives the reason.
+- No cost on the record ties to 9994248: no docket, no carrier figure, no cost line.
+- Costs, months and accruals are unchanged. Job and STPS revenue drop by the invoice; the builder asserts the 18-invoice totals.
+- The open item is closed.
+
+The pack was zipped and sent to Andrew (private). Codex's recheck should read v1.6. Nothing on the record changed; live stays v12.69. Author: Andrew Fisher.
+
 REVIEW — the final P&L pack v1.5: Codex's private audit applied, F01–F14 and the retained decisions (Claude, read only), 1 Nov 2026 03:47 AEST. Andrew passed the private bundle to Claude in the chat. It stays private and is not committed. Each finding was checked against the source, and the finding-to-correction map is in `review_31Oct2026_october_month_end/README.md`:
 - two invoices move KINP → STPS on their headers and Sales Analysis Codes;
 - transport goes by each row's date on the schedule;
