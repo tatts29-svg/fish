@@ -30,3 +30,7 @@ Keep labour hire in Difference so far exactly once; keep So far prominent with J
 ## Handover
 
 Codex completed the independent read-only audit. Findings are handed to Claude as the P&L implementation owner; no correction is claimed implemented or live. The separate v12.70 original-photo card preview remains Codex-owned and has its own pre-publication visual review. Private evidence is retained for authorised review; no financial originals or detailed records are published here.
+
+## Joint follow-up
+
+Andrew subsequently instructed, “I want you both working kn p&l”. Claude retains the v12.71 implementation claim; Codex provides the [independent verification pack](tests/README.md) to check exact arithmetic, preserve existing financial projections and branch attribution, exercise desktop/phone presentation, and follow the actual Print button into the PDF. The expanded baseline checks detect the existing presentation defects; they are not a claim that the correction is ready or live.
