@@ -47,7 +47,7 @@ Revenue (1,001,902.14) and every other branch, category and supplier figure are 
 
 ```
 PLF_JSON_OLD=<pack v1.22>/GC500_PL_final.json PLF_JSON=<pack v1.25>/GC500_PL_final.json \
-  toolchain/build.sh v12.81 v12.81_pl_november_hours/patch_v1281.py
+  toolchain/build.sh v12.81 v12.81_pl_november_hours_LIVE/patch_v1281.py
 ```
 
 ## Tests
@@ -67,3 +67,5 @@ Results on `3b17c3de…`, reading the live record (12749) with every write block
 | `../v12.78_finance_fingerprint_LIVE/tests/test_v1278.cjs` | 10/10 | |
 | caret (`../review_01Nov2026_pl_deeper/test_caret_focus.cjs`) | 9/9 | |
 | `toolchain/harness/sweep.js` | 27 tabs, 0 errors, 0 console, 0 writes | 27 tabs, 0 errors, 0 console, 0 writes |
+
+The same suite on the live page after upload (2 Nov 2026), the record read only: every result as above.

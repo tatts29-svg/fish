@@ -25,7 +25,7 @@ October, so October and the job each fall by exactly that, on KINP, labour hire;
 - The release footer, v12.80 -> v12.81.
 
     PLF_JSON_OLD=<pack v1.22>/GC500_PL_final.json PLF_JSON=<pack v1.25>/GC500_PL_final.json \
-      toolchain/build.sh v12.81 v12.81_pl_november_hours/patch_v1281.py
+      toolchain/build.sh v12.81 v12.81_pl_november_hours_LIVE/patch_v1281.py
 """
 import hashlib, importlib.util, json, re, sys
 from pathlib import Path
