@@ -378,8 +378,8 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.16'
-check('page title and heading: the dated job position, pack v1.16 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.17'
+check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
 check('open items: the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('Carried at the running sheet until invoiced: w/e 18 Oct' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
@@ -398,7 +398,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.16 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.16', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.17 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.17', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -585,6 +585,65 @@ _b72 = {x['Line']: x for x in bp['9972648']}
 check('elite revenue-03: WB03’s unbilled stretch is 19–26 Oct, 247.80 (WB20 bills 26–29 Oct), not 354.00', _b72[14]['Billed Amount'] == 247.8 and r2(7 * 30 * 1.18) == 247.80 and '7 days × 30 × 1.18 = 247.80' in _opx and 'WB03 (354.00)' not in _opx)
 _con = [sum(x['Billed Amount'] for x in bp[k] if x['Line'] in ls) for k, ls in (('1000050', (1, 2)), ('1000047', (1,)), ('1000048', (1, 2)))]
 check('elite pos-01: the open items say the consumables sold to the V8s carry no cost (6,724.40 KINP; 4,230.40 STPS), Finance to confirm', abs(_con[0] - 6724.40) < 0.005 and abs(_con[1] + _con[2] - 4230.40) < 0.005 and 'Consumables sold to the V8s carry no cost in this P&L' in _opx and '6,724.40' in _opx and '4,230.40' in _opx)
+# ------------------------------------------------------------------ v1.17: the parts behind the page's filters (category, branch, month), worked out again here from the workbook
+if JP.exists():
+    _ci = lambda v: int(round(v * 100))
+    F_ = J['facts']; LN_ = J['lines']
+    _CAT = lambda sup: ('Fencing' if sup.startswith('Advanced') else 'Toilets and water' if sup.startswith('Event Portables') else 'Sub-hire' if sup.startswith(('Premiair', 'United Rentals'))
+                        else 'Transport' if sup.startswith('Carriers') else 'Labour hire' if sup.startswith('Job Connect') else 'Salary' if sup.startswith('Salary') else 'Accommodation' if sup.startswith('Accommodation')
+                        else 'Meals and expenses' if sup.startswith('Meals') else 'Forklift re-hire' if sup.startswith('Queensland Forklifts') else 'Consumables (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
+    check('parts: every cost line has its category, as its supplier gives it (%d lines, %d categories)' % (len(LN_), len({l['category'] for l in LN_})), len(LN_) == len(cs) and all(l['category'] == _CAT(r[0]) and l['category'] for l, r in zip(LN_, cs)))
+    eq('parts: they add to the job cost', sum(f[3] for f in F_) / 100, JOB)
+    for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('parts: %s’s add to its costs on the Summary sheet' % b, sum(f[3] for f in F_ if f[1] == b) / 100, summ[b][4])
+    for j_, (mo_, tv_) in enumerate((('Sep', SEP), ('Oct', OCT), ('Nov', NOV))): eq('parts: %s’s add to the month on Costs by supplier' % mo_, sum(f[3] for f in F_ if f[2] == mo_) / 100, tv_)
+    _bad = [i for i, r in enumerate(cs) if any(sum(f[3] for f in F_ if f[0] == i and f[2] == mo_) != _ci(r[7 + j_] or 0) for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))]
+    check('parts: each cost line’s parts add to its September, October and November on Costs by supplier, to the cent (%d lines)' % len(cs), not _bad, _bad)
+    _sb = [i for i, r in enumerate(cs) if r[1] in ('KINP', 'STPS', 'NVAC', 'MEAD') and any(f[1] != r[1] and not f[4] for f in F_ if f[0] == i)]
+    check('parts: a line with one branch sits only on that branch (bar the one branch move)', not _sb, _sb)
+    _mv = [f for f in F_ if f[4]]
+    check('parts: the one branch move is Kyle Gover’s 8 h on the water barriers, KINP −460.78 · STPS +460.78 in October, on the Job Connect w/e 18 Oct line', sorted((f[1], f[2], f[3]) for f in _mv) == [('KINP', 'Oct', -46078), ('STPS', 'Oct', 46078)] and all(cs[f[0]][3] == 'Running sheet w/e 18 Oct' for f in _mv) and any(abs(r[5] - 460.78) < 0.005 for r in moves))
+    _CBL = lambda n: ('Toilets and water' if n.startswith('Event Portables') else 'Sub-hire' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
+                      else 'Salary' if n.startswith('Salary') else 'Accommodation' if n.startswith('Accommodation') else 'Meals and expenses' if n.startswith('Meals') else 'Consumables (POs)' if n.startswith('Consumables')
+                      else 'Fencing' if n.startswith('Fencing') else 'Forklift re-hire' if n.startswith('Forklift') else None)
+    _want = collections.defaultdict(int)
+    for r in cb: _want[(r[0], _CBL(r[1]))] += _ci(r[2])
+    _got = collections.defaultdict(int)
+    for f in F_: _got[(f[1], LN_[f[0]]['category'])] += f[3]
+    check('parts: each branch’s parts by category = its lines on Costs by branch, to the cent (%d branch × category cells)' % len([k for k, v in _want.items() if v]), {k: v for k, v in _got.items() if v} == {k: v for k, v in _want.items() if v} and None not in {k[1] for k in _want}, sorted(set(_got.items()) ^ set(_want.items()))[:4])
+    _cat = [r for r in rows('By category') if r and r[0]]
+    _cm = collections.defaultdict(int)
+    for f in F_: _cm[(LN_[f[0]]['category'], f[1], f[2])] += f[3]
+    _catok = all(abs(sum(_cm[(r[0], r[1], mo_)] for _ in [0]) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if not str(r[0]).startswith('Total') for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
+    _cattot = all(abs(sum(v for k, v in _cm.items() if k[0] == r[0][7:] and k[2] == mo_) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if str(r[0]).startswith('Total, ') and r[0] != 'Total, the job' for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
+    _job = [r for r in _cat if r[0] == 'Total, the job']
+    check('parts: the By category sheet = the parts, category × branch × month, its category totals and the job (%d rows)' % len(_cat), _catok and _cattot and len(_job) == 1 and all(abs((_job[0][2 + j_] or 0) - tv_) < 0.005 for j_, tv_ in enumerate((SEP, OCT, NOV))) and abs(_job[0][5] - JOB) < 0.005)
+    check('parts: the data’s category totals = the lines of each category, month by month', all(abs(c['total'] - sum(r2((l['sep'] or 0) + (l['oct'] or 0) + (l['nov'] or 0)) for l in LN_ if l['category'] == c['name'])) < 0.005 and all(abs(c[k] - sum(l[k] for l in LN_ if l['category'] == c['name'])) < 0.005 for k in ('sep', 'oct', 'nov')) for c in J['categories']) and abs(sum(c['total'] for c in J['categories']) - JOB) < 0.005)
+    check('parts: the page has section 1c, costs by category, branch and month', '1c · Costs by category, branch and month' in HT)
+    RF_ = J['revFacts']
+    check('revenue parts: the 18 invoices once each, at their amounts on Revenue by invoice, in October, on their branch; the November forecast 839.07 on NVAC in November',
+          sorted((x[0], x[1], x[3]) for x in RF_ if x[2] == 'Oct') == sorted((str(r[0]), r[4].split(' ')[0], _ci(r[5])) for r in rv) and [(x[1], x[2], x[3]) for x in RF_ if x[2] == 'Nov'] == [('NVAC', 'Nov', 83907)] and len(RF_) == 19)
+    for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('revenue parts: %s’s = its revenue on the Summary sheet' % b, sum(x[3] for x in RF_ if x[1] == b) / 100, summ[b][3])
+    _lj = J['labourJournal']
+    check('labour journals: the data = the Labour by person sheet, row for row (%d rows: who, type, home branch, branch of the work, contract, journal, hours, labour hire $)' % len(lp),
+          len(_lj) == len(lp) and all((x['who'], x['type'], x['home'], x['branch'], x['contract'] or None, x['journal'], x['sep'], x['oct'], x['labourHire']) == (r[0], r[1], r[2], r[3], r[4] or None, r[5], r[6], r[7], r[8]) for x, r in zip(_lj, lp)))
+    eq('labour journals: their hours = the labour register', sum(x['sep'] + x['oct'] for x in _lj), sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][:4] == '2026'))
+    check('labour journals: each row’s kind follows its type (Labour hire, Salary, else Coates wages)', all(x['kind'] == ('Labour hire' if x['type'].startswith('Labour hire') else 'Salary' if x['type'].startswith('Salary') else 'Coates wages') for x in _lj))
+    # the labour hire bridge, worked out again here: the running sheet's labour hire $ by week ending (the labour register), against the Job Connect lines on Costs by supplier
+    import datetime as _dt
+    _rsw = collections.defaultdict(float)
+    for r in LAB[2:]:
+        if r and r[0][:4] == '2026' and r[3] == 'Labour hire' and r[5] not in ('', 'hours only'):
+            _d = _dt.date.fromisoformat(r[0]); _rsw[(_d + _dt.timedelta(days=6 - _d.weekday())).strftime('%-d %b').replace('Sept', 'Sep')] += float(r[5])
+    _jcl = {str(r[3]).replace('Running sheet w/e ', ''): r2(sum(r[7 + j_] or 0 for j_ in range(3))) for r in cs if str(r[0]).startswith('Job Connect')}
+    _BR = J['labourHireBridge']
+    check('labour hire bridge: one row per Job Connect week on Costs by supplier, in order (%d)' % len(_BR), [x['week'].replace('w/e ', '') for x in _BR] == list(_jcl) and len(_BR) == 9, ([x['week'] for x in _BR], list(_jcl)))
+    check('labour hire bridge: each week’s running sheet = the labour register’s labour hire $ for that week, to the cent', all(abs(x['runningSheet'] - r2(_rsw[x['week'].replace('w/e ', '')])) < 0.005 for x in _BR), [(x['week'], x['runningSheet'], r2(_rsw[x['week'].replace('w/e ', '')])) for x in _BR])
+    check('labour hire bridge: each week’s cost = its line on Costs by supplier, and the difference = running sheet less cost', all(abs(x['cost'] - _jcl[x['week'].replace('w/e ', '')]) < 0.005 and abs(x['difference'] - r2(x['runningSheet'] - x['cost'])) < 0.005 for x in _BR))
+    eq('labour hire bridge: the running sheet adds to the labour journals’ labour hire $', sum(x['runningSheet'] for x in _BR), sum(x['labourHire'] for x in _lj))
+    eq('labour hire bridge: the costs add to the Labour hire category', sum(x['cost'] for x in _BR), [c['total'] for c in J['categories'] if c['name'] == 'Labour hire'][0])
+    _lhb = [r for r in rows('Labour hire bridge') if r and r[0]]
+    check('labour hire bridge: the workbook sheet = the data, row for row, with its total', len(_lhb) == len(_BR) + 1 and all((r[0], r[3], r[4], r[5]) == (x['week'], x['runningSheet'], x['cost'], x['difference']) for r, x in zip(_lhb, _BR)) and _lhb[-1][0] == 'Total' and abs(_lhb[-1][5] - r2(sum(x['difference'] for x in _BR))) < 0.005, _lhb[-1:])
+    check('labour hire bridge: the page has section 2d with its three totals', '2d · Labour hire: the running sheet beside the costs, week by week' in HT and all(fmt(v) in HT for v in (r2(sum(x['runningSheet'] for x in _BR)), r2(sum(x['cost'] for x in _BR)), r2(sum(x['difference'] for x in _BR)))))
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]

@@ -645,3 +645,29 @@ in the costs (KINP, with Daniel Gough on PO 4667755). The figure is kept with it
 unproven reason; Eric Lucian's invoice and PO 4667755 agree; Royal Wolf ex GST; 4658850's receipt as on the record): v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
 rows, the print sizes, each elite fix against its source, and the labour move: no salary or Job Connect line in November, each person's
 October hours = the register's October and November, the accruals unchanged, the open item's figures).
+
+## Pack v1.17 — the parts behind the tab's finder, the labour journals and the labour hire bridge (1 Nov 2026)
+
+Andrew, 1 Nov 2026: "search function that makes sense. If you want to search by category you can or by branch. Or by month ... And
+its accurate to the cent. And we need to know labour where everyone needs to be jornled to". No figure changes: v1.16's figures to
+the cent.
+
+- **Categories:** every cost line carries one of ten categories, by its supplier (Fencing, Toilets and water, Sub-hire, Transport,
+  Labour hire, Salary, Accommodation, Meals and expenses, Consumables (POs), Forklift re-hire). Section 1c and the "By category" sheet:
+  category × branch × month, the category totals and the job.
+- **The parts** (`facts` in the data): each cost line split by branch and month in whole cents, with the one branch move (Kyle Gover's
+  8 h on the water barriers, KINP to STPS in October, on the Job Connect w/e 18 Oct line) marked; the carriers by their loads' kinds
+  and months; Premiair split KINP / NVAC. `revFacts`: each of the 18 invoices on its branch in October, and the November forecast on
+  NVAC in November. The build stops unless the parts add to every line, month, branch, category and total it prints.
+- **Labour journals** (`labourJournal`, = the "Labour by person" sheet row for row, with each row's kind: Coates wages, Salary or
+  Labour hire).
+- **The labour hire bridge** (section 2d; "Labour hire bridge" sheet; `labourHireBridge`): week by week, the running sheet's labour hire
+  dollars (section 2b and the journals) beside the cost the P&L carries (the invoice, the PO amount, or the running sheet where
+  neither). The difference is each week's invoice or PO against the running sheet: w/e 20 Sep, 4 Oct, 11 Oct (the invoice above the
+  running sheet), 25 Oct, 8 Nov and 15 Nov. The running sheet adds to the journals' labour hire dollars and the costs to the Labour
+  hire category.
+
+`audit_pack.py`: 542 checks, 542 pass: v1.16's 511, plus the parts against the workbook worked out again (each line's months, each
+branch's costs and revenue, each branch × category against Costs by branch, the By category sheet, the one branch move), the labour
+journals against the Labour by person sheet and the labour register's hours, and the bridge: each week's running sheet from the labour
+register by week ending, each week's cost from its line on Costs by supplier, the totals, the sheet and section 2d.

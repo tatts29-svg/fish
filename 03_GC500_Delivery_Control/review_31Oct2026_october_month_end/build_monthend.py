@@ -649,7 +649,7 @@ S17_NOTES = ['Schedule 17 has %d rows with a figure, %s. %d tie to the record’
 S17_HTML = ("<h2>2e · Transport checked against Schedule 17</h2><p class='s'>Schedule 17 (1 Nov) against every load on the record. The figures are the schedule’s (the carriers’ minimums), as with every load. Each change is one Schedule 17 row; its docket ties it to the hire contract (Baseplan (12)).</p>"
             + tbl(['Ref', 'Date', 'What', 'Hire contract · docket', 'Schedule 17', '#Figure', 'On the record before', '#Change', 'Branch'], _s17r)
             + "<ul>" + ''.join('<li>' + e(t) + '</li>' for t in S17_NOTES) + "</ul>")
-body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.16</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
+body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.17</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 18 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire with waiver by month: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2><p class='s'>By month of work, except November’s labour (to 13 Nov: the salary allowance, Job Connect and the Coates wages hours), which is in October with October’s. Each line names its purchase order and the hire contract and V8s invoice it's charged on (section 3b groups them by contract). Orange rows: in the accruals through 31 Oct, the journals prepared for Finance (they reverse on 1 Nov and the invoice lands against them; September’s part of Event Portables’ water is in them as a catch-up). Red rows: the record carries no date; where they sit is said on the row.</p>
@@ -826,6 +826,16 @@ _preg('4674224', JC_NAME, 'Daniel Gough, w/e 8 Nov', _KINPW, 'KINP', JCP['467422
 _nopo(JC_NAME, 'Kyle Gover, w/e 8 Nov', _KINPW, 'KINP', _k8, 'no PO yet: November work, taken in October, at the running sheet')
 assert abs(_row(_JCW['w/e 15 Nov']) - JCP['4674225']['amount']) < 0.005
 _preg('4674225', JC_NAME, 'Daniel Gough, w/e 15 Nov', _KINPW, 'KINP', JCP['4674225']['amount'], 'November work, taken in October: the PO amount, an estimate until invoiced')
+# v1.17: the labour hire bridge, week by week: the running sheet's labour hire dollars against the cost the P&L carries for the week (the invoice,
+# the PO amount or the running sheet), so the labour journals' running-sheet dollars and the Labour hire category tie to the cent
+_WE = {'w/e 20 Sep': '2026-09-20', 'w/e 27 Sep': '2026-09-27', 'w/e 4 Oct': '2026-10-04', 'w/e 11 Oct': '2026-10-11', 'w/e 18 Oct': '2026-10-18', 'w/e 25 Oct': '2026-10-25', 'w/e 1 Nov': '2026-11-01', 'w/e 8 Nov': '2026-11-08', 'w/e 15 Nov': '2026-11-15'}
+assert set(_WE) == set(_JCW) and set(w_ for _, w_ in _LP) == set(_WE.values()), (set(_JCW), sorted(set(w_ for _, w_ in _LP)))
+LH_BRIDGE = []
+for wk_, _r in sorted(_JCW.items(), key=lambda kv: _WE[kv[0]]):
+    _rs = r2(sum(v_ for (p_, w_), v_ in _LP.items() if w_ == _WE[wk_])); _ct = r2(_row(_r))
+    LH_BRIDGE.append({'week': wk_, 'po': _r[4], 'runningSheet': _rs, 'cost': _ct, 'difference': r2(_rs - _ct), 'invoice': _r[5]})
+assert abs(sum(x['runningSheet'] for x in LH_BRIDGE) - 41276.59) < 0.005 and abs(sum(x['cost'] for x in LH_BRIDGE) - JC_TOT) < 0.005, LH_BRIDGE
+assert abs(sum(x['difference'] for x in LH_BRIDGE) - r2(41276.59 - JC_TOT)) < 0.005
 # consumables and the forklifts: each PO at its amount in Coates' system, its status from there (1 Nov)
 for r in C:
     if r[4] in _POSYS:
@@ -902,13 +912,13 @@ def sheet(title, head, rows, money_cols=(), hour_cols=(), widths=None, first=Fal
                 cpl = max(1, int(cw * 1.05))
                 lines = max(lines, sum(max(1, -(-len(part) // cpl)) for part in c.value.split('\n')))
         if lines > 1: ws.row_dimensions[row[0].row].height = 15 * lines + 3
-    ws.oddHeader.left.text = 'GC500 P&&L pack v1.16 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
+    ws.oddHeader.left.text = 'GC500 P&&L pack v1.17 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
     ws.oddFooter.left.text = 'Author: Andrew Fisher · private to the job team'; ws.oddFooter.right.text = 'Page &P of &N'
     return ws
 ws_sum = sheet('Summary', ['Branch', 'Invoiced (Oct)', 'November forecast', 'Revenue', 'Costs', 'Difference'],
       [[b, REV_B.get(b, 0), NOV_REV.get(b, 0), r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), CB[b], r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')]
       + [['The job', r2(sum(REV_B.values())), r2(sum(NOV_REV.values())), JOB_REV, JOB_COST, r2(JOB_REV - JOB_COST)], [],
-         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.16'],
+         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.17'],
          ['Revenue: the 18 invoices, %s, booked in October, the invoice month; and the November forecast, %s, the pick-up charge on 9961976 (L61, 29 Oct, NVAC), not invoiced yet. Costs are the management view at job end, by month of work except November’s labour (to 13 Nov), which is in October; some are estimates until invoiced, and Coates wages are hours only, not yet costed, so the difference is not a margin yet.' % (m(r2(sum(REV_B.values()))), m(r2(sum(NOV_REV.values()))))]],
       money_cols=range(2, 7), widths=[14, 16, 18, 16, 16, 16], first=True)
 assert {r_.min_row for r_ in ws_sum.merged_cells.ranges} == {ws_sum.max_row - 1, ws_sum.max_row}   # v1.16: sheet() merges the two notes across the table, sized for the width
@@ -950,6 +960,88 @@ sheet('Labour lines', ['Branch', 'Invoice', 'Hire contract', 'Contract line', 'W
 sheet('Schedule 17 transport', ['Ref', 'Date', 'What', 'Hire contract · docket', 'Schedule 17', 'Figure', 'On the record before', 'Change', 'Branch'],
       S17_ROWS + [['12 loads', '', '', '', '', S17_ADD, 'forecasts replaced %s' % m(S17_WAS), S17_NET, ''], []] + [[t] for t in S17_NOTES],
       money_cols=[6, 8], widths=[8, 8, 30, 26, 14, 11, 22, 11, 8])
+# ---------------- v1.17: the P&L in its smallest parts, for the page's filters (Andrew, 1 Nov 2026: "If you want to search by category you can
+# or by branch. Or by month have these options available. And its accurate to the cent"). Every cost is split to line × branch × month, in cents;
+# the parts must add to every total the pack prints (the job, each month, each branch, each line, each branch's lines in Costs by branch).
+_BRS = ('KINP', 'STPS', 'NVAC', 'MEAD')
+CATS = ['Fencing', 'Toilets and water', 'Sub-hire', 'Transport', 'Labour hire', 'Salary', 'Accommodation', 'Meals and expenses', 'Consumables (POs)', 'Forklift re-hire']
+def cat_of(sup):
+    for pre_, c_ in (('Advanced', 'Fencing'), ('Event Portables', 'Toilets and water'), ('Premiair', 'Sub-hire'), ('United Rentals', 'Sub-hire'), ('Carriers', 'Transport'),
+                     ('Job Connect', 'Labour hire'), ('Salary', 'Salary'), ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Queensland Forklifts', 'Forklift re-hire')):
+        if sup.startswith(pre_): return c_
+    if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec'): return 'Consumables (POs)'
+    raise ValueError('no category for ' + sup)
+def cat_of_branch_line(n_):   # the same categories for the lines under Costs by branch
+    for pre_, c_ in (('Event Portables', 'Toilets and water'), ('Premiair', 'Sub-hire'), ('Royal Wolf', 'Sub-hire'), ('Transport', 'Transport'), ('Labour hire', 'Labour hire'), ('Salary', 'Salary'),
+                     ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Consumables', 'Consumables (POs)'), ('Fencing', 'Fencing'), ('Forklift', 'Forklift re-hire')):
+        if n_.startswith(pre_): return c_
+    raise ValueError('no category for ' + n_)
+_ci = lambda v: int(round(v * 100))
+FACT = collections.defaultdict(int)   # (cost line, branch, month, 1 if a branch move) -> cents
+_cidx = {k_: [i_ for i_, r_ in enumerate(C) if r_[0].startswith('Carriers') and r_[3].startswith(p_)] for k_, p_ in (('rec', 'Loads to date'), ('fc', 'Loads on the schedule with no figure'), ('plan', 'Planned loads'))}
+assert all(len(v_) == 1 for v_ in _cidx.values()), _cidx
+for i_, r_ in enumerate(C):
+    if r_[0].startswith('Carriers'): continue   # by load, below
+    if r_[0].startswith('Premiair'):   # KINP's boards and VMS24 on NVAC, all October
+        assert not r_[6] and not r_[8] and abs(r_[7] - PREM_TOT) < 0.005
+        for b_ in ('KINP', 'NVAC'): FACT[(i_, b_, 'Oct', 0)] += _ci(PREM_BR[b_])
+        continue
+    b_ = 'STPS' if r_[0].startswith('United Rentals') else r_[1]
+    assert b_ in _BRS, (r_[0], r_[1])
+    for k_, v_ in zip(MO, (r_[6], r_[7], r_[8])):
+        if v_: FACT[(i_, b_, k_, 0)] += _ci(v_)
+for l_ in TL:   # each load on its branch and in its month (the same loads the carriers' three lines and Costs by branch are built from)
+    a_ = _tamt(l_)
+    if not a_: continue
+    b_, _w = _tbr(l_); FACT[(_cidx['rec' if l_['actual'] else ('plan' if l_['planned'] else 'fc')][0], b_, _MO(l_['d']), 0)] += _ci(a_)
+_k18 = [i_ for i_, r_ in enumerate(C) if r_[0].startswith('Job Connect') and r_[3] == 'Running sheet w/e 18 Oct']; assert len(_k18) == 1
+FACT[(_k18[0], 'KINP', 'Oct', 1)] -= _ci(460.78); FACT[(_k18[0], 'STPS', 'Oct', 1)] += _ci(460.78)   # the branch move: Kyle Gover's 8 h on the water barriers (MOVES)
+FACT = {k_: v_ for k_, v_ in FACT.items() if v_}
+_fs = lambda f_: sum(v_ for k_, v_ in FACT.items() if f_(k_))
+assert _fs(lambda k_: True) == _ci(JOB_COST)
+for b_ in _BRS: assert _fs(lambda k_: k_[1] == b_) == _ci(CB[b_]), ('branch', b_)
+for j_, k2_ in enumerate(MO): assert _fs(lambda k_: k_[2] == k2_) == _ci(tot[j_]), ('month', k2_)
+for i_, r_ in enumerate(C): assert _fs(lambda k_: k_[0] == i_) == _ci(r2(r_[6] + r_[7] + r_[8])), ('line', i_, r_[0])
+for b_, LL_ in COST_B.items():
+    want_ = collections.defaultdict(int); got_ = collections.defaultdict(int)
+    for n_, v_ in LL_: want_[cat_of_branch_line(n_)] += _ci(v_)
+    for (i_, bb_, k2_, mv_), v_ in FACT.items():
+        if bb_ == b_: got_[cat_of(C[i_][0])] += v_
+    assert {k: v for k, v in got_.items() if v} == {k: v for k, v in want_.items() if v}, (b_, dict(got_), dict(want_))
+for (i_, b_, k2_, mv_), v_ in FACT.items(): assert v_ > 0 or mv_ == 1, ('a negative part that is not a move', i_, b_, k2_, v_)
+CATM = {(c_, b_, k2_): _fs(lambda k_: cat_of(C[k_[0]][0]) == c_ and k_[1] == b_ and k_[2] == k2_) for c_ in CATS for b_ in _BRS for k2_ in MO}
+assert sum(CATM.values()) == _ci(JOB_COST) and set(cat_of(r_[0]) for r_ in C) == set(CATS)
+RFACT = [[r_['inv'], r_['branch'], 'Oct', _ci(r_['ex'])] for r_ in REV] + [['November forecast, 9961976 L61', 'NVAC', 'Nov', _ci(839.07)]]
+for b_ in _BRS: assert sum(x_[3] for x_ in RFACT if x_[1] == b_) == _ci(r2(REV_B.get(b_, 0) + NOV_REV.get(b_, 0))), ('revenue', b_)
+assert sum(x_[3] for x_ in RFACT) == _ci(JOB_REV)
+_crow = ''
+for c_ in CATS:
+    for b_ in _BRS:
+        v_ = [CATM[(c_, b_, k2_)] / 100 for k2_ in MO]
+        if any(v_): _crow += "<tr><td>%s</td><td>%s</td>%s<td class='n'><b>%s</b></td></tr>" % (e(c_), b_, ''.join("<td class='n'>%s</td>" % m(x) for x in v_), m(r2(sum(v_))))
+    _ct = [sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100 for k2_ in MO]
+    _crow += "<tr class='sub'><td>%s</td><td></td>%s<td class='n'>%s</td></tr>" % (e(c_), ''.join("<td class='n'>%s</td>" % m(x) for x in _ct), m(r2(sum(_ct))))
+_crow += "<tr class='sub'><td>The job</td><td></td>%s<td class='n'>%s</td></tr>" % (''.join("<td class='n'>%s</td>" % m(t_) for t_ in tot), m(JOB_COST))
+CAT_HTML = ("<h2>1c · Costs by category, branch and month</h2><p class='s'>Every cost line in a category (Fencing, Toilets and water, Sub-hire, Transport, Labour hire, Salary, Accommodation, Meals and expenses, Consumables (POs), Forklift re-hire), "
+            "on the branch it sits on, by month (November’s labour in October). Each row is the sum of its parts, to the cent; the categories add to each branch’s costs, each month and the job. The P&L tab’s filters use the same parts.</p>"
+            + tbl(['Category', 'Branch', '#Sep', '#Oct', '#Nov', '#Job end'], _crow))
+_cat_rows = []
+for c_ in CATS:
+    for b_ in _BRS:
+        v_ = [r2(CATM[(c_, b_, k2_)] / 100) for k2_ in MO]
+        if any(v_): _cat_rows.append([c_, b_] + v_ + [r2(sum(v_))])
+    _ct = [r2(sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100) for k2_ in MO]; _cat_rows.append(['Total, ' + c_, ''] + _ct + [r2(sum(_ct))])
+_cat_rows.append(['Total, the job', ''] + list(tot) + [JOB_COST])
+sheet('By category', ['Category', 'Branch', 'Sep', 'Oct', 'Nov', 'Job end'], _cat_rows, money_cols=[3, 4, 5, 6], widths=[30, 10, 14, 14, 14, 14])
+# v1.17: the labour hire bridge (section 2d, the 'Labour hire bridge' sheet): the running sheet's dollars beside the cost the P&L carries, week by week
+_LHB_TOT = (r2(sum(x['runningSheet'] for x in LH_BRIDGE)), r2(sum(x['cost'] for x in LH_BRIDGE)), r2(sum(x['difference'] for x in LH_BRIDGE)))
+BRIDGE_HTML = ("<h2>2d · Labour hire: the running sheet beside the costs, week by week</h2><p class='s'>Section 2b’s labour hire dollars are the running sheet’s (" + m(_LHB_TOT[0]) + "); the costs carry Job Connect’s invoices where received, "
+               "the PO amount where there is one, and the running sheet where neither (" + m(_LHB_TOT[1]) + ", the Labour hire category). The difference, " + m(_LHB_TOT[2]) + ", is each week’s invoice or PO against the running sheet.</p>"
+               + tbl(['Week', 'PO', 'Invoice or PO against the running sheet', '#Running sheet', '#Costs (the P&L)', '#Difference'],
+                     ''.join('<tr><td>%s</td><td>%s</td><td>%s</td><td class=\'n\'>%s</td><td class=\'n\'>%s</td><td class=\'n\'>%s</td></tr>' % (e(x['week']), e(x['po']), e(x['invoice']), m(x['runningSheet']), m(x['cost']), m(x['difference']) if x['difference'] else '—') for x in LH_BRIDGE)
+                     + "<tr class='sub'><td>Total</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (m(_LHB_TOT[0]), m(_LHB_TOT[1]), m(_LHB_TOT[2]))))
+sheet('Labour hire bridge', ['Week', 'PO', 'Invoice or PO against the running sheet', 'Running sheet', 'Costs (the P&L)', 'Difference'],
+      [[x['week'], x['po'], x['invoice'], x['runningSheet'], x['cost'], x['difference']] for x in LH_BRIDGE] + [['Total', '', '', _LHB_TOT[0], _LHB_TOT[1], _LHB_TOT[2]]], money_cols=[4, 5, 6], widths=[12, 30, 60, 14, 14, 14])
 sheet('Open items', ['Open item'], [[o] for o in OPEN], widths=[110])
 wb.save(OUT / 'GC500_PL_final.xlsx')
 print('pack: revenue', JOB_REV, 'costs', JOB_COST, 'difference', r2(JOB_REV - JOB_COST), '| branches', CB, '| accrue', acc_total)
@@ -962,20 +1054,28 @@ body = _re.sub(r"<div class='k'>.*?</div></div>\n", lambda _m: new_tiles, body, 
 body = body.replace("<h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2>", PACK_HTML.split('<h2>4 · Journals')[0] + "<h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2>")
 body = body.replace('</main>', '<h2>4 · Journals' + PACK_HTML.split('<h2>4 · Journals')[1] + '</main>')
 body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4 · Journals', '<h2>5 · Journals')   # one number per section
+assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + '<h2>2 · Labour by month and branch')   # v1.17
+assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge
 assert body.count(MATCH_HTML) == 1; body = body.replace(MATCH_HTML, MATCH_HTML + POREG_HTML)   # v1.15: 3c, every PO in the costs
-(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.16</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
+(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.17</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 # v1.10: the final P&L as data for the page's P&L tab (v12.72): the same figures as the workbook, to the cent. Private, beside the pack, not committed.
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD'); _SUP = collections.OrderedDict()
 for r_ in C:
     v_ = _SUP.setdefault(r_[0], [0.0, 0.0, 0.0, 0.0]); v_[0] += r_[6]; v_[1] += r_[7]; v_[2] += r_[8]; v_[3] += (r_[9] or 0)
-PLF = {'pack': 'v1.16', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
+PLF = {'pack': 'v1.17', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
        'source': 'the live record (12727), the 18 invoices to V8 Supercars, the purchase orders and Schedule 17',
        'revenue': {'invoices': r2(sum(REV_B.values())), 'novForecast': r2(sum(NOV_REV.values())), 'total': JOB_REV},
        'costs': {'sep': tot[0], 'oct': tot[1], 'nov': tot[2], 'total': JOB_COST}, 'difference': r2(JOB_REV - JOB_COST), 'accrue': acc_total,
        'branches': [{'b': b, 'invoiced': r2(REV_B.get(b, 0)), 'novForecast': r2(NOV_REV.get(b, 0)), 'revenue': r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), 'costs': CB[b], 'difference': r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])} for b in _BRS],
        'branchLines': {b: [[n_, r2(v_)] for n_, v_ in COST_B[b]] for b in _BRS},
        'suppliers': [{'name': k_, 'sep': r2(v_[0]), 'oct': r2(v_[1]), 'nov': r2(v_[2]), 'total': r2(v_[0] + v_[1] + v_[2]), 'accrue': r2(v_[3])} for k_, v_ in _SUP.items()],
-       'lines': [{'supplier': r_[0], 'branch': r_[1], 'account': r_[2], 'what': r_[3], 'po': r_[4], 'invoice': r_[5], 'contract': ch_, 'sep': r2(r_[6]), 'oct': r2(r_[7]), 'nov': r2(r_[8]), 'accrue': (r2(r_[9]) if r_[9] else 0), 'basis': r_[10], 'status': r_[11]} for r_, ch_ in zip(C, CH)],
+       'lines': [{'supplier': r_[0], 'branch': r_[1], 'account': r_[2], 'what': r_[3], 'po': r_[4], 'invoice': r_[5], 'contract': ch_, 'sep': r2(r_[6]), 'oct': r2(r_[7]), 'nov': r2(r_[8]), 'accrue': (r2(r_[9]) if r_[9] else 0), 'basis': r_[10], 'status': r_[11], 'category': cat_of(r_[0])} for r_, ch_ in zip(C, CH)],
+       'categories': [{'name': c_, 'sep': r2(sum(CATM[(c_, b_, 'Sep')] for b_ in _BRS) / 100), 'oct': r2(sum(CATM[(c_, b_, 'Oct')] for b_ in _BRS) / 100), 'nov': r2(sum(CATM[(c_, b_, 'Nov')] for b_ in _BRS) / 100), 'total': r2(sum(v_ for k_, v_ in CATM.items() if k_[0] == c_) / 100)} for c_ in CATS],
+       'facts': [[i_, b_, k2_, v_, mv_] for (i_, b_, k2_, mv_), v_ in sorted(FACT.items(), key=lambda x_: (x_[0][0], _BRS.index(x_[0][1]), MO.index(x_[0][2]), x_[0][3]))],
+       'revFacts': RFACT,
+       'labourJournal': [{'who': x_[0], 'type': x_[1], 'home': x_[2], 'branch': x_[3], 'contract': x_[4], 'journal': x_[5], 'sep': x_[6], 'oct': x_[7], 'labourHire': x_[8],
+                         'kind': 'Labour hire' if x_[1].startswith('Labour hire') else 'Salary' if x_[1].startswith('Salary') else 'Coates wages'} for x_ in lab_rows],
+       'labourHireBridge': LH_BRIDGE,
        'journals': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in JOURNALS],
        'moves': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in MOVES],
        'open': list(OPEN),
