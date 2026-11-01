@@ -238,18 +238,36 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     for (const b of BRS) { const g = await S_(b.toLowerCase()), w = at('', b, ''); if (JSON.stringify(g.k) !== JSON.stringify(w) || !/is a branch/.test(g.note)) tBad.push(['branch', b, g.k, w]); }
     for (const c of CATS) { const g = await S_(c.toLowerCase()), w = at(c, '', ''); if (JSON.stringify(g.k) !== JSON.stringify(w) || !/is a category/.test(g.note)) tBad.push(['category', c, g.k, w]); }
     check(!tBad.length, `${tag}: a branch code or category name typed gives exactly what the Branch or Category choice gives (${BRS.length + CATS.length}): bad ` + JSON.stringify(tBad.slice(0, 3)));
-    const lowq = t => String(t == null ? '' : t).toLowerCase().replace(/[“”"‘’`]/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim();
+    const lowq = t => String(t == null ? '' : t).toLowerCase().replace(/[“”"‘’`']/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim();
     const lineText = l => lowq([l.supplier, l.branch, l.account, l.what, l.po, l.invoice, l.contract, l.status, l.basis, l.category].join(' '));
     const words_ = ['Event Portables', 'Advanced', 'accrue', 'water barriers'], wBad = [];
     for (const w of words_) { const ws = lowq(w).split(' '), li = J.lines.map((l, i) => ws.every(x => lineText(l).includes(x)) ? i : -1).filter(i => i >= 0), cost = F.filter(f => li.includes(f[0])).reduce((a, f) => a + f[3], 0), g = await S_(w);
       if (JSON.stringify(g.k) !== JSON.stringify(['—', f2(cost / 100), '—']) || g.lines.length !== li.length || !/that mention/.test(g.small[1]) || !/whole lines/.test(g.small[1])) wBad.push([w, g.k, f2(cost / 100), g.lines.length, li.length]); }
     check(!wBad.length, `${tag}: other words find the cost lines that mention them, labelled as whole lines, to the cent: bad ` + JSON.stringify(wBad));
+    // the second independent review's cases: under a branch or category, only that branch's or category's own figure, else a reason
+    const rv = {};
+    for (const [lbl, q, ch] of [['nvacCon', '9961976', {'plx-br': 'NVAC'}], ['fenceCon', '9968955', {'plx-cat': 'Fencing'}], ['kinpMove', '4668970', {'plx-br': 'KINP'}], ['stpsFork', '4647983', {'plx-br': 'STPS'}], ['meadFork', '4654789', {'plx-br': 'MEAD'}],
+                                ['meadCpo', 'P029416', {'plx-br': 'MEAD'}], ['meadInv', '25120720', {'plx-br': 'MEAD'}], ['p028607', 'P028607'], ['alfie', 'Alfie'], ['apos', "Ludwig Chee's"], ['an', 'an'], ['remCon', J.removedInvoices[0].contract], ['typed', 'STPS', {'plx-br': 'KINP'}]]) rv[lbl] = await S_(q, ch);
+    const lin = id => J.lines.map((l, i) => i).filter(i => F.some(f => f[0] === i && f[1] === id));
+    const meadP = J.invoices.filter(x => cpoK(x.customerPO) === 'p029416' && x.branch === 'MEAD').reduce((a, x) => a + ct(x.ex), 0);
+    const p286 = J.invoices.filter(x => cpoK(x.customerPO) === 'p28607');
+    const alfieLines = J.lines.filter(l => /\balfie\b/.test(lineText(l))).length;
+    check(rv.nvacCon.k[1] === '—' && /not split by branch/.test(rv.nvacCon.small[1]) && rv.fenceCon.k[1] === '—' && /not split by category/.test(rv.fenceCon.small[1]) && rv.kinpMove.k[1] === '—' && /branch move/.test(rv.kinpMove.small[1])
+      && rv.stpsFork.k[1] === f2(2820) && rv.meadFork.k[1] === f2(950), `${tag}: a hire contract or PO under a branch or category gives only that branch's or category's own figure, else the reason: ` + JSON.stringify([rv.nvacCon.k, rv.fenceCon.k, rv.kinpMove.k, rv.stpsFork.k, rv.meadFork.k]));
+    check(rv.meadCpo.k[0] === f2(meadP / 100) && rv.meadCpo.inv.some(r => r[0].startsWith('In the choice (MEAD)') && r[3] === f2(meadP / 100)) && rv.meadInv.k[0] === '0.00' && rv.meadInv.inv.some(r => r[0].startsWith('In the choice (MEAD)') && r[3] === '0.00'),
+      `${tag}: invoices under a branch: the revenue is the branch's own, and the table says what is in the choice: ` + JSON.stringify([rv.meadCpo.k, rv.meadInv.k]));
+    check(p286.length === 1 && rv.p028607.k[0] === f2(p286[0].ex) && /as keyed/.test(rv.p028607.small[0]), `${tag}: P028607 finds the invoice keyed P28607, and says how it is keyed: ` + JSON.stringify(rv.p028607.k));
+    check(rv.alfie.k[1] === '—' && rv.alfie.lines.length === alfieLines && alfieLines > 0 && rv.alfie.lj.length === J.labourJournal.filter(x => x.who.startsWith('Alfie')).length, `${tag}: a person gives their journal rows and the cost lines that mention them, with no total that is not theirs (${alfieLines} lines)`);
+    check(rv.apos.lines.length > 0 && /that mention/.test(rv.apos.small[1]) && /that mention/.test(rv.an.small[1]) && rv.an.k[1] !== '—' && /not in the revenue/.test(rv.remCon.small[0]) && /set aside/.test(rv.typed.note),
+      `${tag}: a straight apostrophe searches like a curly one; "an" is a word search, not a person; the removed invoice's contract points to its note; a typed branch says the Branch choice is set aside: ` + JSON.stringify({apos: [rv.apos.lines.length, rv.apos.small[1]], an: [rv.an.k, rv.an.small[1]], rem: rv.remCon.small[0], typed: rv.typed.note}));
     const gm = await S_('4658850', {'plx-mo': 'Oct'}), gi = await S_('25122628', {'plx-mo': 'Sep'}), gb = await S_('4658850', {'plx-br': 'KINP'});
     check(gm.k[1] === '—' && /choose Job end/.test(gm.small[1]) && gi.k[0] === '0.00' && /dated October/.test(gi.small[0]) && gb.k[1] === '—' && /is on STPS/.test(gb.small[1]), `${tag}: a PO with a month, an invoice in September and a PO on another branch each say why, with no wrong figure: ` + JSON.stringify([gm.k, gm.small[1], gi.k, gi.small[0], gb.small[1]]));
     const redraw = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); const q = g('plx-q'); q.focus(); q.value = '4658850'; q.dispatchEvent(new Event('input'));
+      const before = g('plx'); render(); await new Promise(r => setTimeout(r, 1500));   /* the page's own redraw, as when the record syncs while someone types */
+      const synced = {q: g('plx-q').value, focus: document.activeElement && document.activeElement.id, redrawn: before !== g('plx')};
       go('today'); go('costs'); await new Promise(r => setTimeout(r, 1500));
-      return {q: g('plx-q').value, k: [...document.querySelectorAll('#plx-sum .plx-k b')].map(x => x.textContent.trim()), focus: document.activeElement && document.activeElement.id}; });
-    check(redraw.q === '4658850' && redraw.k[1] === f2(J.purchaseOrders.find(x => x.po === '4658850').amount), `${tag}: a redraw while typing keeps the typed search and its figure: ` + JSON.stringify(redraw));
+      return {q: g('plx-q').value, k: [...document.querySelectorAll('#plx-sum .plx-k b')].map(x => x.textContent.trim()), focus: synced.focus, syncedQ: synced.q, redrawn: synced.redrawn}; });
+    check(redraw.redrawn && redraw.syncedQ === '4658850' && redraw.focus === 'plx-q' && redraw.q === '4658850' && redraw.k[1] === f2(J.purchaseOrders.find(x => x.po === '4658850').amount), `${tag}: a redraw while typing keeps the typed search, the cursor in the box and its figure, and a tab switch keeps the search: ` + JSON.stringify(redraw));
     const qz = await S_('zzzz nothing'); check(qz.none && qz.k[1] === '0.00', `${tag}: a search that finds nothing says so`);
     // a category opens from the by-category table; Clear puts it all back; the choice survives the tab being drawn again
     const flow = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));

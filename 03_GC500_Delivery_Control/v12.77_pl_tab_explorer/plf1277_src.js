@@ -59,21 +59,21 @@ var XS = {cat: '', br: '', mo: '', q: '', f: 0};   /* the choice survives the ta
 var LT = null, PT = null, IX = null;
 function cents(c) { return c ? f2(c / 100) : '<span class="pl1267-dash">—</span>'; }
 /* words as typed: lower case, quotes dropped, a thousands comma in a number dropped, spaces collapsed */
-function norm(s) { return String(s == null ? '' : s).toLowerCase().replace(/[“”"‘’`]/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim(); }
+function norm(s) { return String(s == null ? '' : s).toLowerCase().replace(/[“”"‘’`']/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim(); }
 function words(q) { return norm(q).split(' ').filter(Boolean); }
 function hit(text, ws) { for (var i = 0; i < ws.length; i++) if (text.indexOf(ws[i]) < 0) return false; return true; }
 function tight(s) { return norm(s).replace(/\s+/g, ''); }
-function cpoKey(v) { return tight(String(v == null ? '' : v).split(' (')[0]); }   /* the V8s' PO as keyed, without the note after it */
+function cpoKey(v) { return tight(String(v == null ? '' : v).split(' (')[0]).replace(/^p0*/, ''); }   /* the V8s' PO as keyed, without the note after it, and without the P and its leading zeros (P028607 and P28607 are one PO) */
 function poText(po) { var t = String(po == null ? '' : po).trim(); return /^none/i.test(t) ? 'No PO' + (t.length > 4 ? ' (' + t.replace(/^none\s*/i, '') + ')' : '') : 'PO ' + t; }
 function xIndex() {
   if (IX) return IX;
-  var J = DATA; IX = {po: {}, con: {}, inv: {}, rem: {}, cpo: {}, people: []};
+  var J = DATA; IX = {po: {}, con: {}, inv: {}, rem: {}, remCon: {}, cpo: {}, people: []};
   LT = J.lines.map(function (l) { return norm([l.supplier, l.branch, l.account, l.what, l.po, l.invoice, l.contract, l.status, l.basis, l.category].join(' ')); });
   PT = (J.labourJournal || []).map(function (x) { return norm([x.who, x.type, x.home, x.branch, x.contract, x.journal].join(' ')); });
   (J.purchaseOrders || []).forEach(function (x) { IX.po[tight(x.po)] = x; });
   (J.contracts || []).forEach(function (x) { IX.con[tight(x.contract)] = x; });
   (J.invoices || []).forEach(function (x) { IX.inv[tight(x.inv)] = x; var k = cpoKey(x.customerPO); (IX.cpo[k] = IX.cpo[k] || []).push(x); });
-  (J.removedInvoices || []).forEach(function (x) { IX.rem[tight(x.inv)] = x; });
+  (J.removedInvoices || []).forEach(function (x) { IX.rem[tight(x.inv)] = x; IX.remCon[tight(x.contract)] = x; });
   (J.labourJournal || []).forEach(function (x) { if (IX.people.indexOf(x.who) < 0) IX.people.push(x.who); });
   return IX;
 }
@@ -88,8 +88,10 @@ function xKind(q) {
   if (I.con[qc]) return {kind: 'contract', x: I.con[qc]};
   if (I.inv[qc]) return {kind: 'invoice', x: I.inv[qc]};
   if (I.rem[qc]) return {kind: 'removed', x: I.rem[qc]};
-  if (I.cpo[qc]) return {kind: 'cpo', key: qc, list: I.cpo[qc]};
-  var ws = qn.split(' '), who = I.people.filter(function (w) { var nw = norm(w).split(' '); return ws.every(function (x) { return nw.some(function (y) { return y.indexOf(x) === 0; }); }); });
+  if (I.remCon[qc]) return {kind: 'removed', x: I.remCon[qc]};
+  if (/^p/.test(qc) && I.cpo[qc.replace(/^p0*/, '')]) return {kind: 'cpo', key: qc, list: I.cpo[qc.replace(/^p0*/, '')]};
+  /* a person: every word is a whole part of the name, or the start of one with at least three letters (so "an" stays a word search) */
+  var ws = qn.split(' '), who = I.people.filter(function (w) { var nw = norm(w).split(' '); return ws.every(function (x) { return nw.some(function (y) { return y === x || (x.length >= 3 && y.indexOf(x) === 0); }); }); });
   if (who.length) return {kind: 'person', who: who};
   return {kind: 'text', ws: ws};
 }
@@ -117,8 +119,8 @@ function xRender() {
   if (!sumEl || !outEl) return;
   xIndex();
   var J = DATA, K = xKind(XS.q), s = {cat: XS.cat, br: XS.br, mo: XS.mo}, note = '', out = '';
-  if (K.kind === 'branch') { s.br = K.br; note = '“' + XS.q.trim() + '” is a branch: showing ' + BRN[K.br] + ', as the Branch choice does.'; K = {kind: ''}; }
-  if (K.kind === 'category') { s.cat = K.cat; note = '“' + XS.q.trim() + '” is a category: showing ' + K.cat + ', as the Category choice does.'; K = {kind: ''}; }
+  if (K.kind === 'branch') { note = '“' + XS.q.trim() + '” is a branch: showing ' + BRN[K.br] + ', as the Branch choice does' + (s.br && s.br !== K.br ? ' (the Branch choice, ' + s.br + ', is set aside)' : '') + '.'; s.br = K.br; K = {kind: ''}; }
+  if (K.kind === 'category') { note = '“' + XS.q.trim() + '” is a category: showing ' + K.cat + ', as the Category choice does' + (s.cat && s.cat !== K.cat ? ' (the Category choice, ' + s.cat + ', is set aside)' : '') + '.'; s.cat = K.cat; K = {kind: ''}; }
   var jobOnly = function (what) { return s.mo ? what + ' is for the job, not by month: choose Job end' : ''; };
   var cols = s.mo ? [s.mo] : MOS;
   var head = function (first, extra) { return '<thead><tr><th>' + first + '</th>' + (extra || '') + cols.map(function (m) { return '<th class="num">' + e(m) + '</th>'; }).join('') + (s.mo ? '' : '<th class="num">Job end</th>') + '</tr></thead>'; };
@@ -170,7 +172,10 @@ function xRender() {
     if (s.br || KIND[s.cat]) out += journals(function () { return true; });
   } else if (K.kind === 'po') {   /* a purchase order: its own amount, from the purchase orders in the costs */
     var x = K.x, li = J.lines.map(function (l, i) { return (String(l.po).match(/\b\d{7}\b/g) || []).indexOf(x.po) >= 0 ? i : -1; }).filter(function (i) { return i >= 0; });
-    var cats = li.map(function (i) { return J.lines[i].category; }), off = (s.br && x.branch !== s.br) ? 'this PO is on ' + x.branch : (s.cat && cats.indexOf(s.cat) < 0) ? 'this PO is ' + (cats[0] || 'in another category') : '';
+    var pf = J.facts.filter(function (f) { return li.indexOf(f[0]) >= 0; }), pb = [], pmv = pf.some(function (f) { return f[4]; });
+    pf.forEach(function (f) { if (f[3] && pb.indexOf(f[1]) < 0) pb.push(f[1]); });
+    var brOff = !s.br ? '' : pb.indexOf(s.br) < 0 ? 'this PO’s cost is on ' + pb.join(' and ') : (pb.length > 1 || pmv) ? 'not split by branch: its line is on ' + pb.join(' and ') + (pmv ? ', with the branch move' : '') + ': choose All branches' : '';
+    var cats = li.map(function (i) { return J.lines[i].category; }), off = brOff || ((s.cat && cats.indexOf(s.cat) < 0) ? 'this PO is ' + (cats[0] || 'in another category') : '');
     var amt = Math.round(x.amount * 100);
     sum = kpi('Revenue', null, 'a PO is a cost') + kpi('Costs', off || s.mo ? null : amt, off || jobOnly('a PO’s amount') || 'PO ' + x.po + ', as in Every purchase order in the costs') + kpi('Difference so far', null, 'for the job or a branch, with no search');
     out += '<p class="fin745-eyebrow plf1272-sub">PURCHASE ORDER ' + e(x.po) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-po"><thead><tr><th>PO · supplier</th><th>Hire contract</th><th>Branch</th><th class="num">AUD ex GST</th></tr></thead><tbody>'
@@ -178,10 +183,11 @@ function xRender() {
       + (li.length ? '<p class="plf1272-note">On the cost line' + (li.length > 1 ? 's' : '') + ' below. A line can carry more than one PO, so a line’s total is not the PO’s amount.</p>' + linesTable(lineFacts(function (i) { return li.indexOf(i) >= 0; })) : '');
   } else if (K.kind === 'contract') {   /* a hire contract: what we charged on it and the costs tied to it, as in By hire contract */
     var c = K.x, inv = (J.invoices || []).filter(function (x) { return x.contract === c.contract; }), fcl = (J.novForecastLines || []).filter(function (x) { return x.contract === c.contract; });
-    var offc = s.br && c.branch !== s.br ? 'this hire contract is on ' + c.branch : '';
+    var offc = s.br && c.branch !== s.br ? 'this hire contract’s invoices are on ' + c.branch : '';
+    var costOff = s.br ? 'a hire contract’s costs are not split by branch (some sit on other branches): choose All branches' : s.cat ? 'a hire contract’s costs are not split by category' : '';
     var fcTxt = fcl.length ? ' · plus the November forecast ' + fcl.map(function (x) { return f2(x.amount); }).join(', ') + ', not invoiced yet' : '';
     sum = kpi('Revenue', offc || s.mo || s.cat ? null : Math.round(c.revenue * 100), offc || jobOnly('a hire contract’s charge') || (s.cat ? 'not split by cost category' : n(inv.length, 'invoice', 'invoices') + ' on ' + c.contract + fcTxt))
-      + kpi('Costs', offc || s.mo ? null : Math.round(c.costTotal * 100), offc || jobOnly('a hire contract’s costs') || n(c.costs.length, 'cost', 'costs') + ' tied to it, as in By hire contract' + (s.cat ? ' (not split by category)' : ''))
+      + kpi('Costs', costOff || s.mo ? null : Math.round(c.costTotal * 100), costOff || jobOnly('a hire contract’s costs') || n(c.costs.length, 'cost', 'costs') + ' tied to it, as in By hire contract')
       + kpi('Difference so far', null, 'not for one contract: some costs are tied to none');
     out += '<p class="fin745-eyebrow plf1272-sub">HIRE CONTRACT ' + e(c.contract) + ' · ' + e(c.branch) + ' · THE V8S’ PO ' + e(c.customerPO) + '</p>'
       + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>' + inv.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('')
@@ -193,20 +199,27 @@ function xRender() {
   } else if (K.kind === 'invoice' || K.kind === 'cpo') {   /* an invoice, or every invoice on a V8s PO, at its amount */
     var L = K.kind === 'invoice' ? [K.x] : K.list, offi = s.br ? L.filter(function (x) { return x.branch === s.br; }) : L, ra = 0;
     offi.forEach(function (x) { ra += Math.round(x.ex * 100); });
-    var why = s.cat ? 'not split by cost category' : !offi.length ? 'not on ' + s.br + ': ' + L.map(function (x) { return x.inv + ' is on ' + x.branch; }).join(', ') : (s.mo && s.mo !== 'Oct') ? 'none in ' + MOL[s.mo].split(' ')[0] + ': ' + (L.length === 1 ? 'the invoice is' : 'the invoices are') + ' dated October' : (K.kind === 'invoice' ? 'invoice ' + L[0].inv + ' on ' + L[0].contract : n(offi.length, 'invoice', 'invoices') + ' on the V8s’ PO ' + XS.q.trim().toUpperCase());
-    sum = kpi('Revenue', s.cat ? null : (s.mo && s.mo !== 'Oct') ? 0 : ra, why) + kpi('Costs', null, 'an invoice is revenue: its hire contract carries the costs tied to it') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="fin745-eyebrow plf1272-sub">' + (K.kind === 'invoice' ? 'INVOICE ' + e(L[0].inv) : 'INVOICES ON THE V8S’ PO ' + e(XS.q.trim().toUpperCase())) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>'
-      + L.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('') + '<tr class="pl1267-grand"><td>' + n(L.length, 'invoice', 'invoices') + '</td><td></td><td></td><td class="num">' + cents(L.reduce(function (a, x) { return a + Math.round(x.ex * 100); }, 0)) + '</td></tr></tbody></table></div>'
+    var moOff = s.mo && s.mo !== 'Oct', inChoice = moOff ? 0 : ra, keyed = L.map(function (x) { return String(x.customerPO).split(' (')[0]; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
+    var why = s.cat ? 'not split by cost category' : !offi.length ? 'none on ' + s.br + ': ' + L.map(function (x) { return x.inv + ' is on ' + x.branch; }).join(', ') : moOff ? 'none in ' + MOL[s.mo].split(' ')[0] + ': ' + (L.length === 1 ? 'the invoice is' : 'the invoices are') + ' dated October'
+      : (K.kind === 'invoice' ? 'invoice ' + L[0].inv + ' on ' + L[0].contract : n(offi.length, 'invoice', 'invoices') + (s.br ? ' on ' + s.br : '') + ' on the V8s’ PO ' + keyed.join(', ') + (keyed.join('').replace(/\s/g, '').toUpperCase() !== XS.q.replace(/\s/g, '').toUpperCase() ? ' (as keyed on the invoice)' : ''));
+    var chosen = s.br || moOff, choiceWord = [s.br, moOff ? MOL[s.mo].split(' ')[0] : ''].filter(Boolean).join(', ');
+    sum = kpi('Revenue', s.cat ? null : inChoice, why) + kpi('Costs', null, 'an invoice is revenue: its hire contract carries the costs tied to it') + kpi('Difference so far', null, 'for the job or a branch, with no search');
+    out += '<p class="fin745-eyebrow plf1272-sub">' + (K.kind === 'invoice' ? 'INVOICE ' + e(L[0].inv) : 'INVOICES ON THE V8S’ PO ' + e(keyed.join(', ').toUpperCase())) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>'
+      + L.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('') + '<tr class="pl1267-grand"><td>' + (chosen ? 'All ' + n(L.length, 'invoice', 'invoices') + ', every branch and month' : n(L.length, 'invoice', 'invoices')) + '</td><td></td><td></td><td class="num">' + cents(L.reduce(function (a, x) { return a + Math.round(x.ex * 100); }, 0)) + '</td></tr>'
+      + (chosen && !s.cat ? '<tr class="pl1267-tot"><td>In the choice (' + e(choiceWord) + ')</td><td></td><td></td><td class="num">' + f2(inChoice / 100) + '</td></tr>' : '') + '</tbody></table></div>'
       + '<p class="plf1272-note">' + L.map(function (x) { return '<button type="button" class="plx-go" data-q="' + e(x.contract) + '">Hire contract ' + e(x.contract) + '</button>'; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' ') + '</p>';
   } else if (K.kind === 'removed') {
     sum = kpi('Revenue', null, 'not in the revenue') + kpi('Costs', null, 'an invoice is revenue') + kpi('Difference so far', null, 'for the job or a branch, with no search');
     out += '<p class="plf1272-note">Invoice ' + e(K.x.inv) + ' on ' + e(K.x.contract) + ' (' + f2(K.x.ex) + ') is not in the revenue: ' + e(K.x.why) + '.</p>';
   } else if (K.kind === 'person') {   /* a person: where their hours go; costs are carried by week and supplier, not by person */
-    sum = kpi('Revenue', null, 'charged by line, not by person') + kpi('Costs', null, 'carried by week and supplier, not by person: the labour hire $ below are the running sheet’s') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += journals(function (x) { return K.who.indexOf(x.who) >= 0; }, 'LABOUR JOURNALS · ' + e(K.who.join(', ').toUpperCase())) || '<p class="plx-none">No hours for ' + e(K.who.join(', ')) + ' in that choice.</p>';
+    var firsts = K.who.map(function (w) { return new RegExp('\\b' + norm(w).split(' ')[0] + '\\b'); });
+    var pl = lineFacts(function (i) { return (!s.cat || J.lines[i].category === s.cat) && firsts.some(function (r) { return r.test(LT[i]); }); });
+    sum = kpi('Revenue', null, 'charged by line, not by person') + kpi('Costs', null, 'not totalled for a person: some lines below are theirs alone (accommodation, meals), others are shared (a week of labour hire); labour hire $ in the journals are the running sheet’s') + kpi('Difference so far', null, 'for the job or a branch, with no search');
+    out += journals(function (x) { return K.who.indexOf(x.who) >= 0; }, 'LABOUR JOURNALS · ' + e(K.who.join(', ').toUpperCase())) + linesTable(pl, 'COST LINES THAT MENTION ' + e(K.who.map(function (w) { return w.split(' ')[0]; }).join(', ').toUpperCase()) + ' (WHOLE LINES; SOME ARE SHARED)');
+    if (!out) out = '<p class="plx-none">No hours or cost lines for ' + e(K.who.join(', ')) + ' in that choice.</p>';
   } else {   /* any other words: the cost lines that mention them, whole lines, at their parts in the choice */
     var tf = lineFacts(function (i) { return (!s.cat || J.lines[i].category === s.cat) && hit(LT[i], K.ws); }), tc = 0, tl = {}; tf.forEach(function (f) { tc += f[3]; tl[f[0]] = 1; });
-    sum = kpi('Revenue', null, 'search an invoice, hire contract or V8s PO for revenue') + kpi('Matching cost lines', tc, n(Object.keys(tl).length, 'cost line', 'cost lines') + ' that mention “' + XS.q.trim() + '”, whole lines: a line can be shared with other items, so this is not one item’s cost') + kpi('Difference so far', null, 'for the job or a branch, with no search');
+    sum = kpi('Revenue', null, 'search an invoice, hire contract or V8s PO for revenue') + kpi('Matching cost lines', tc, n(Object.keys(tl).length, 'cost line', 'cost lines') + (Object.keys(tl).length === 1 ? ' that mentions “' : ' that mention “') + XS.q.trim() + '”, whole lines: a line can be shared with other items, so this is not one item’s cost') + kpi('Difference so far', null, 'for the job or a branch, with no search');
     out += linesTable(tf, 'COST LINES THAT MENTION “' + e(XS.q.trim().toUpperCase()) + '”');
     out += journals(function (x, i) { return hit(PT[i], K.ws); });
   }
@@ -223,7 +236,7 @@ function xBind() {
   var q = D.getElementById('plx-q'), tq = 0;
   if (q) {   /* the typed words are kept at once, so a redraw while typing loses nothing; the figures follow a moment later */
     q.oninput = function () { XS.q = q.value; clearTimeout(tq); tq = setTimeout(xRender, 120); };
-    q.onfocus = function () { XS.f = 1; }; q.onblur = function () { XS.f = 0; };
+    q.onfocus = function () { XS.f = 1; }; q.onblur = function () { setTimeout(function () { if (q.isConnected) XS.f = 0; }, 0); };   /* a box removed by a redraw keeps the focus for the new one */
     if (XS.f) { try { q.focus(); var L = q.value.length; q.setSelectionRange(L, L); } catch (er) {} }
   }
   var c = D.getElementById('plx-clear'); if (c) c.onclick = function () { XS = {cat: '', br: '', mo: '', q: '', f: 0}; Object.keys(ids).forEach(function (k) { var el = D.getElementById(ids[k]); if (el) el.value = ''; }); xRender(); };
