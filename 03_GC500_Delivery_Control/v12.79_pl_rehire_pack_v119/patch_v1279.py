@@ -28,7 +28,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0'        # live v12.78, uploaded 1 Nov 2026 18:07 AEST
 OLD_SHA = 'f896184a78c9c95ae665985a73980ce1231275acb0aca8b40b49c0eaf60b5f6d'     # pack v1.18, in the live v12.78 block
-NEW_SHA = 'cc088dc7912db22cea6adef353244652b682578f3b93d92848fa43b52b136437'     # pack v1.19, record 12727 (audit_pack.py 573/573)
+NEW_SHA = 'fd38abeacaacf8983901a222427bdba01e5c96a8d153851a76e31c7889f482cc'     # pack v1.19, record 12727 (audit_pack.py 573/573)
 
 spec = importlib.util.spec_from_file_location('p1277', HERE.parent / 'v12.77_pl_tab_explorer_LIVE' / 'patch_v1277.py')
 P1277 = importlib.util.module_from_spec(spec); spec.loader.exec_module(P1277)
@@ -51,16 +51,21 @@ WORKING = [
     ('<p class="fin745-eyebrow">ACCRUALS FOR FINANCE · ${esc(X.label.toUpperCase())} · AUD EX GST</p>',
      '<p class="fin745-eyebrow">ACCRUALS FOR FINANCE · ${esc(X.label.toUpperCase())} · AUD EX GST · WORKING FIGURES</p><p class="fin745-note acc1279-superseded"><b>Superseded at 31 Oct 2026 by “Journals prepared for Finance, through 31 Oct” in the P&amp;L at the top of this tab.</b> The V8s were invoiced in October (18 invoices, in Revenue by invoice), so no revenue is to be accrued from here. Working figures from the record: do not post from this block.</p>',
      'the month-end accruals block'),
-    ("handover: 'Finance handover'", "handover: 'PO receipts and handover (working)'", 'the handover button (the pane heading)'),
+    ("handover: 'Finance handover'", "handover: 'PO receipts and handover (working figures)'", 'the handover button (the pane heading)'),
     ('data-finance857="runsheet">Workforce costs</button><button class="btn" data-finance857="handover">Finance handover</button>',
-     'data-finance857="runsheet">Workforce costs</button><button class="btn" data-finance857="handover">PO receipts and handover (working)</button>', 'the handover button (the sub-view buttons)'),
-    ('data-tr888-go="handover">Finance handover</button>', 'data-tr888-go="handover">PO receipts and handover (working)</button>', 'the handover button (Transport)'),
+     'data-finance857="runsheet">Workforce costs</button><button class="btn" data-finance857="handover">PO receipts and handover (working figures)</button>', 'the handover button (the sub-view buttons)'),
+    ('data-tr888-go="handover">Finance handover</button>', 'data-tr888-go="handover">PO receipts and handover (working figures)</button>', 'the handover button (Transport)'),
     ('data-finance857="pricing">Customer rates &amp; charges</button><button class="btn" data-finance857="handover">Finance handover</button>',
-     'data-finance857="pricing">Customer rates &amp; charges</button><button class="btn" data-finance857="handover">PO receipts and handover (working)</button>', 'the handover button (the charges card)'),
+     'data-finance857="pricing">Customer rates &amp; charges</button><button class="btn" data-finance857="handover">PO receipts and handover (working figures)</button>', 'the handover button (the charges card)'),
     ('<h2 id="fh866Title">Purchase orders, costs and revenue by branch</h2>',
      '<h2 id="fh866Title">Purchase orders, costs and revenue by branch</h2><p class="fin745-note fh1279-working"><b>Working figures from the live record.</b> The position for Finance is the P&amp;L at 31 Oct 2026 at the top of the Costs &amp; P&amp;L summary: the 18 invoices to the V8s, all dated October, the costs and the journals prepared for Finance.</p>',
      'the handover heading'),
 ]
+
+# v12.79, after the pre-upload check of 1 Nov 2026: the working views' words, one pair per anchor (handover and sub-views; the month-end accruals
+# block and its Copy and CSV, which now open with the superseded line; the live model and forecast model headings; the transport view; dated
+# facts in place of attributions). Words only; each anchor exactly once outside the block; checked when applied below.
+WORKING += [tuple(x) for x in json.loads((HERE / 'working_v1279.json').read_text(encoding='utf-8'))]
 
 
 def sub1(text, old, new, what):
@@ -114,6 +119,8 @@ def patch(text):
     b = text.index('</script>\n', b0) + len('</script>\n')
     if text[a:b] != block(HERE.parent / 'v12.77_pl_tab_explorer_LIVE', 'plf1277_src.js', 'plf1277.css', old_J, OLD_SHA):
         raise ValueError('the live P&L block is not the v12.77 module on pack v1.18')
+    if len(new_J['invoices']) != 18 or any(not str(x['date']).endswith('/10/2026') for x in new_J['invoices']) or new_J['asAt'] != '2026-10-31':
+        raise ValueError('the working words say 18 invoices, all dated October, and the P&L at 31 Oct 2026: the pack no longer agrees')
     before, after = text[:a], text[b:]
     for old, new, what in WORKING:   # outside the block: the working figures' own words, each anchor exactly once
         n_ = before.count(old) + after.count(old)
