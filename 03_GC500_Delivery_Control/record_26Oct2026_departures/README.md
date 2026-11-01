@@ -696,3 +696,23 @@ outside the repo. Through the page's own Record departure form in Andrew's name,
   2.5T RT 1247787, light on site, still to leave 1 × Forklift 2.5T RT; GN19 "Left site" 02/11/2026 08:15:00 AEST, 1 × 60kva 1276416, light
   in transit, nothing to leave; 97 of 186 demob references left in full; errors 0, writes 0.
 - Between v12.81's upload (record 12749) and this run the record moved to 12767 through other writes; this run changed only its 2 documents.
+
+## Run 97 — 1262224 (fork extensions, EQ0005) and 1272166 (forklift, T0085) left site 2 Nov 07:30 (2 Nov 2026 08:25–08:27 AEST, record 12769 → 12771)
+
+Andrew, 2 Nov 2026 08:2x AEST: "1262224 and  1272166 left at 730am". 1262224 is EQ0005's Fork Extensions 2.4m (Coates); 1272166 is
+T0085's forklift (Coates; the page lists it as 3.5T Forklift Std; contract 9987005 line 1, MEAD). Each is its reference's only unit, so
+both references leave in full. Specs `spec97_t0085_eq0005_2nov_0730.json` and `spec97b_t0085_2nov_0730.json`, report
+`report_20261101T222719Z.json`; the whole-record backups are kept privately outside the repo. Through the page's own Record departure form
+in Andrew's name, on the live v12.81 page (`3b17c3de…`).
+
+- **Dry run first** (every write aborted): both leave in full; P&L identical (charge 1,012,101.16, known cost 456,889.59, every branch
+  unchanged); Today unchanged.
+- **First apply (08:25):** backup and page sha checked; EQ0005's write landed (record 12769 → 12770, light in transit, departed 07:30),
+  but the page's write of delivery/T0085 did not land and the page tried to send it again, which the runner refuses by design ("automatic
+  retry refused"), so the run stopped there and wrote no report. A read of the service straight after showed only delivery/EQ0005
+  changed and T0085 still on site, as before.
+- **Second apply (08:27), T0085 alone** (`spec97b`): dry run passed (P&L identical), backup, sha checked, delivery/T0085 acknowledged 200,
+  record 12770 → 12771, every other document unchanged in value, verified on the service.
+- **Read back** (`check_after.cjs`, fresh load of the live page): T0085 "Left site" 02/11/2026 07:30:00 AEST, 1 × 3.5T Forklift Std
+  1272166, light in transit; EQ0005 "Left site" 02/11/2026 07:30:00 AEST, 1 × Fork Extensions 2.4m 1262224, light in transit; nothing
+  still to leave on either; 99 of 186 demob references left in full; errors 0, writes 0.

@@ -1,0 +1,361 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T222719Z",
+ "finished": "2026-11-01T22:27:52.781Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 08:2x AEST: \"1262224 and  1272166 left at 730am\". The T0085 half of spec97: 1272166 (the page lists it as 3.5T Forklift Std; contract 9987005 line 1, MEAD), T0085's only unit, left site at 07:30 on 2 Nov; T0085 leaves in full. EQ0005 (1262224) was recorded in spec97's first apply. Through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0085",
+    "at": "2026-11-02T07:30:00+10:00",
+    "nos": [
+     "1272166"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12770,
+  "after": 12771
+ },
+ "updated": {
+  "before": "2026-11-01T22:25:47.782Z",
+  "after": "2026-11-01T22:27:51.784Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0085",
+   "at": "2026-11-02T07:30:00+10:00",
+   "nos": [
+    "1272166"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T07:30:00+10:00, recorded by Andrew Fisher: 1 x 3.5T Forklift Std 1272166 - T0085 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0085",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0085": {
+    "state": "on site",
+    "set_at": "2026-10-06T03:26:45.619Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1272166": {
+      "on": true,
+      "at": "2026-10-30T04:22:07.224Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-06T03:26:45.619Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-27T17:45:01.705Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:12:19.917Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-04T20:26:03.307Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-10-04T20:26:08.648Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T03:26:45.619Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:45:01.705Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-03T10:12:13.965Z",
+      "by": "andrew fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-04T20:26:06.021Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-04T20:26:08.648Z",
+      "by": "Andrew Fisher",
+      "because": "not on site"
+     },
+     {
+      "done": true,
+      "at": "2026-10-06T03:26:45.619Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1272166",
+      "ready": true,
+      "at": "2026-10-30T04:22:07.224Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-04T20:26:08.649Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-04T20:26:03.432Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-04T20:26:03.432Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-04T20:26:08.649Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-04T20:26:08.649Z"
+      }
+     ],
+     "recorded_at": "2026-10-04T20:26:08.649Z"
+    },
+    "_k": "T0085"
+   }
+  },
+  "after": {
+   "delivery/T0085": {
+    "state": "in transit",
+    "set_at": "2026-11-01T22:27:38.031Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1272166": {
+      "on": true,
+      "at": "2026-10-30T04:22:07.224Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-01T22:27:38.031Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-27T17:45:01.705Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:12:19.917Z",
+      "by": "andrew fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-04T20:26:03.307Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "not on site",
+      "at": "2026-10-04T20:26:08.648Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T03:26:45.619Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-01T22:27:38.031Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "3d0f148e-090d-4169-a81c-0fc987215b20",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T07:30:00+10:00",
+       "programmeDate": "2026-10-30",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T03:26:45.619Z",
+       "requiredKey": "[[\"3.5t forklift std\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "3.5T Forklift Std",
+         "n": 1,
+         "unitIds": [
+          "[\"T0085\",\"coates\",\"asset\",\"1272166\"]"
+         ],
+         "numbers": [
+          "1272166"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0085\",\"coates\",\"asset\",\"1272166\"]",
+           "number": "1272166",
+           "owner": "coates",
+           "item": "3.5T Forklift Std"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:45:01.705Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-03T10:12:13.965Z",
+      "by": "andrew fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-04T20:26:06.021Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-04T20:26:08.648Z",
+      "by": "Andrew Fisher",
+      "because": "not on site"
+     },
+     {
+      "done": true,
+      "at": "2026-10-06T03:26:45.619Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-01T22:27:38.031Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1272166",
+      "ready": true,
+      "at": "2026-10-30T04:22:07.224Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-11-01T22:27:38.031Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-04T20:26:03.432Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-04T20:26:03.432Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-04T20:26:08.649Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-04T20:26:08.649Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-11-01T22:27:38.031Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-11-01T22:27:38.031Z"
+      }
+     ],
+     "recorded_at": "2026-11-01T22:27:38.031Z"
+    },
+    "_k": "T0085"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
