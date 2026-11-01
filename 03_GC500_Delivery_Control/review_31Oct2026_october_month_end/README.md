@@ -577,5 +577,5 @@ billed 0.00) + 3 on the WC-TV block T0243 (asset 1311144), which is on 9973977 w
 8 blocks × the 3 event nights, as keyed.
 
 Result: 465 checks, 465 pass (with every branch line and every journal naming its PO or none, and the block cleans tying to Baseplan (12)
-L142, L143 and 9973977 and to Event Portables' Q6844). **Printed:** the
+L142, L143 and 9973977 and to Event Portables' Q6844). **Printed:** the page is 14 pages; the
 workbook is 31 pages (LibreOffice), with every open item and every PO number in full.
