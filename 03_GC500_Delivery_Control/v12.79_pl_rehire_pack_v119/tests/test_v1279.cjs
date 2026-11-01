@@ -101,7 +101,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       `${tag}: the face names the transport estimate, its October and November parts and the pick-ups moved to November`);
     // every cost line
     check(r.lines.length === J.lines.length + 1, `${tag}: every cost line is on the tab (${r.lines.length - 1} of ${J.lines.length})`);
-    const lineBad = J.lines.map((l, i) => { const c = r.lines[i].cells; const ok = c[0].startsWith(l.supplier + ' · ' + l.branch) && c[0].includes(l.what) && (!l.po || c[0].includes(/^none/i.test(String(l.po).trim()) ? 'No PO' : 'PO ' + l.po)) && c[0].includes('Hire contract: ' + l.contract) && c[1] === c2(l.sep) && c[2] === c2(l.oct) && c[3] === c2(l.nov) && c[4] === c2((Math.round(l.sep * 100) + Math.round(l.oct * 100) + Math.round(l.nov * 100)) / 100) && c[5] === c2(l.accrue) && J.states.includes(l.state) && c[6].startsWith(l.state + l.status); return ok ? null : i; }).filter(x => x !== null);
+    const lineBad = J.lines.map((l, i) => { const c = r.lines[i].cells; const ok = c[0].startsWith(l.supplier + ' · ' + l.branch) && c[0].includes(l.what) && (!l.po || c[0].includes(/^none/i.test(String(l.po).trim()) ? 'No PO' : 'PO ' + l.po)) && c[0].includes('Hire contract: ' + l.contract) && c[1] === c2(l.sep) && c[2] === c2(l.oct) && c[3] === c2(l.nov) && c[4] === c2((Math.round(l.sep * 100) + Math.round(l.oct * 100) + Math.round(l.nov * 100)) / 100) && c[5] === c2(l.accrue) && J.states.includes(l.state) && c[6].startsWith(l.state + (() => { const s = String(l.status).replace(/^ACCRUE\s*/, '').replace(/^\((.*)\)$/, '$1').trim(); return s.toLowerCase() === l.state.toLowerCase() ? '' : s; })()) && !/^ACCRUE/.test(c[6].slice(l.state.length)); return ok ? null : i; }).filter(x => x !== null);
     check(!lineBad.length, `${tag}: each line's supplier, what, PO, hire contract, months, accrual and status, to the cent: bad rows ` + JSON.stringify(lineBad));
     check(J.lines.every(l => String(l.po).trim() && String(l.contract).trim()), `${tag}: every cost line names its PO (or that there is none) and the hire contract it is charged on`);
     const lt = r.lines[r.lines.length - 1].cells;
@@ -204,7 +204,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
         const k = [...document.querySelectorAll('#plx-sum .plx-k')].map(x => x.querySelector('b').textContent.trim());
         const grand = document.querySelector('#plx-out table.plx-cats tr.pl1267-grand, #plx-out table.plx-lines tr.pl1267-grand');
         out.push({k, rows: [...document.querySelectorAll('#plx-out table.plx-cats tbody tr:not(.pl1267-grand):not(.plx-grp)')].map(tr => [...tr.children].map(td => td.textContent.trim())),
-          lines: document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)').length, grand: grand ? [...grand.children].map(td => td.textContent.trim()) : null, none: !!document.querySelector('#plx-out .plx-none')});
+          lines: document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)').length, grand: grand ? [...grand.children].map(td => td.textContent.trim()) : null, none: !!document.querySelector('#plx-out .plx-none'), empty: !!document.querySelector('#plx-out .plx-empty')});
       }
       return out; }, combos);
     const bad = [];
@@ -213,7 +213,8 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       const rev = c ? null : RF.filter(x => (!b || x[1] === b) && (!m || x[2] === m)).reduce((a, x) => a + x[3], 0);
       const want = [rev === null ? '—' : f2(rev / 100), f2(cost / 100), !c && !m ? f2((rev - cost) / 100) : '—'];
       const got = seen[i]; let ok = JSON.stringify(got.k) === JSON.stringify(want);
-      if (!c) {   // by category: one row per category with a cost, each to the cent, and the grand row
+      if (!c && !b && !m) ok = got.k.length === 0 && got.rows.length === 0 && !got.grand && got.empty;   // v12.79: nothing chosen, nothing typed: the finder waits (the face carries the tables)
+      else if (!c) {   // by category: one row per category with a cost, each to the cent, and the grand row
         const cr = CATS.map(cn => { const by = MOS.map(mm => fs_.filter(f => J.lines[f[0]].category === cn && f[2] === mm).reduce((a, f) => a + f[3], 0)); return [cn, by]; }).filter(x => x[1].some(Boolean));
         const note = cn => (J.categories.find(x => x.name === cn) || {}).note || '';   // v12.79: each category carries what is in it
         const cells = cr.map(([cn, by]) => [cn + note(cn)].concat(m ? [c2(by[MOS.indexOf(m)] / 100)] : by.map(v => c2(v / 100)).concat([c2(by.reduce((a, v) => a + v, 0) / 100)])));
@@ -227,7 +228,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(!bad.length, `${tag}: every category × branch × month (${combos.length} choices): revenue, costs, difference and the table, to the cent: bad ` + JSON.stringify(bad.slice(0, 3)));
     // the independent figures: the job, each branch, each category, each month (the pack's own totals, not the parts)
     const at = (c, b, m) => seen[combos.findIndex(x => x[0] === c && x[1] === b && x[2] === m)].k;
-    check(JSON.stringify(at('', '', '')) === JSON.stringify([f2(J.revenue.total), f2(J.costs.total), f2(J.difference)]), `${tag}: with nothing chosen: the job's revenue, costs and difference, as the tiles: ` + JSON.stringify(at('', '', '')));
+    check(at('', '', '').length === 0 && seen[combos.findIndex(x => !x[0] && !x[1] && !x[2])].empty, `${tag}: with nothing chosen and nothing typed, the finder shows no figures and says the P&L's own tables are below (they are not repeated): ` + JSON.stringify(at('', '', '')));
     check(J.branches.every(b => JSON.stringify(at('', b.b, '')) === JSON.stringify([c2(b.revenue) === '—' ? '0.00' : f2(b.revenue), f2(b.costs), f2(b.difference)])), `${tag}: each branch: its revenue, costs and difference as the branch table: ` + JSON.stringify(BRS.map(b => at('', b, ''))));
     check(MOS.every(m => at('', '', m)[1] === f2(J.costs[mk[m]])) && at('', '', 'Sep')[0] === '0.00' && at('', '', 'Oct')[0] === f2(J.revenue.invoices) && at('', '', 'Nov')[0] === f2(J.revenue.novForecast), `${tag}: each month: the costs by month; the revenue in its invoice month (Sep none, Oct the 18 invoices, Nov the forecast)`);
     check(J.categories.every(cg => at(cg.name, '', '')[1] === f2(cg.total) && MOS.every(m => at(cg.name, '', m)[1] === f2(cg[mk[m]]))), `${tag}: each category and each of its months, as the pack's category totals`);
@@ -298,11 +299,11 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       go('today'); await new Promise(r => setTimeout(r, 1500)); go('costs'); await new Promise(r => setTimeout(r, 2500));
       const kept = {cat: g('plx-cat') && g('plx-cat').value, br: g('plx-br') && g('plx-br').value, costs: document.querySelectorAll('#plx-sum .plx-k b')[1] && document.querySelectorAll('#plx-sum .plx-k b')[1].textContent.trim()};
       g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
-      return {picked, kept, cleared: {cat: g('plx-cat').value, br: g('plx-br').value, mo: g('plx-mo').value, q: g('plx-q').value, rows: document.querySelectorAll('#plx-out table.plx-cats tbody tr:not(.pl1267-grand):not(.plx-grp)').length}}; });
+      return {picked, kept, cleared: {cat: g('plx-cat').value, br: g('plx-br').value, mo: g('plx-mo').value, q: g('plx-q').value, rows: document.querySelectorAll('#plx-out table.plx-cats tbody tr:not(.pl1267-grand):not(.plx-grp)').length, empty: !!document.querySelector('#plx-out .plx-empty'), kpis: document.querySelectorAll('#plx-sum .plx-k').length}}; });
     const tr = J.categories.find(c => c.name === 'Transport'), trS = F.filter(f => J.lines[f[0]].category === 'Transport' && f[1] === 'STPS').reduce((a, f) => a + f[3], 0);
     check(flow.picked.focus === 'plx-cat' && flow.picked.cat === 'Transport' && flow.picked.costs === f2(tr.total) && flow.picked.lines === J.lines.filter(l => l.category === 'Transport').length, `${tag}: a category in the by-category table opens its lines at its total: ` + JSON.stringify(flow.picked));
     check(flow.kept.cat === 'Transport' && flow.kept.br === 'STPS' && flow.kept.costs === f2(trS / 100), `${tag}: the choice survives the tab being drawn again: ` + JSON.stringify(flow.kept));
-    check(!flow.cleared.cat && !flow.cleared.br && !flow.cleared.mo && !flow.cleared.q && flow.cleared.rows === J.categories.filter(c => Math.abs(c.total) >= 0.005).length, `${tag}: Clear puts everything back: ` + JSON.stringify(flow.cleared));
+    check(!flow.cleared.cat && !flow.cleared.br && !flow.cleared.mo && !flow.cleared.q && flow.cleared.rows === 0 && flow.cleared.empty && flow.cleared.kpis === 0, `${tag}: Clear puts everything back: ` + JSON.stringify(flow.cleared));
     // the labour journals in the finder: a branch gives the people whose hours are journaled to it, their hours to the hour
     const ljb = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-br').value = 'STPS'; g('plx-br').dispatchEvent(new Event('change'));
       const rows = [...document.querySelectorAll('#plx-out table.plx-lj tbody tr')].map(tr => [...tr.children].map(td => td.textContent.trim())); g('plx-clear').click(); return rows; });

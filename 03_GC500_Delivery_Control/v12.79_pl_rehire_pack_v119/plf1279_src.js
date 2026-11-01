@@ -69,6 +69,11 @@ function poText(po) { var t = String(po == null ? '' : po).trim(); return /^none
 var DASH = '<span class="pl1267-dash">—</span>';
 function hrs(h) { return h ? (Math.round(h * 100) / 100).toLocaleString('en-AU', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '<span class="pl1267-dash">—</span>'; }
 /*__PLF1279_FIND__*/
+/* v12.79: what a line's status adds to its state (the pack's 'ACCRUE (…)' becomes its note; a status that only repeats the state is not repeated) */
+function stNote(l) {
+  var s = String(l.status || '').replace(/^ACCRUE\s*/, '').replace(/^\((.*)\)$/, '$1').trim();
+  return s && s.toLowerCase() !== String(l.state || '').toLowerCase() ? s : '';
+}
 function html() {
   var J = DATA, R = J.revenue, C = J.costs, ME = J.monthEnd, TE = J.transportEstimate;
   var asAt = day(J.asAt), d = asAt.replace(/ \d{4}$/, '');   /* 31 Oct 2026 · 31 Oct */
@@ -166,7 +171,7 @@ function html() {
       + ((l.po || l.invoice) ? '<small>' + (l.po ? e(poText(l.po)) : '') + (l.po && l.invoice ? ' · ' : '') + (l.invoice ? e(l.invoice) : '') + '</small>' : '')
       + (l.contract ? '<small class="plf1275-hc">Hire contract: ' + e(l.contract) + '</small>' : '') + (l.category ? '<small class="plx-cat">' + e(l.category) + '</small>' : '')
       + '</td><td class="num">' + c2(l.sep) + '</td><td class="num">' + c2(l.oct) + '</td><td class="num">' + c2(l.nov) + '</td><td class="num">' + c2((Math.round(l.sep * 100) + Math.round(l.oct * 100) + Math.round(l.nov * 100)) / 100) + '</td><td class="num">' + c2(l.accrue) + '</td><td>'
-      + (l.state ? '<b class="plf1279-state">' + e(l.state) + '</b><small>' + e(l.status) + '</small>' : e(l.status)) + (l.basis ? '<small>' + e(l.basis) + '</small>' : '') + '</td></tr>';
+      + (l.state ? '<b class="plf1279-state">' + e(l.state) + '</b>' + (stNote(l) ? '<small>' + e(stNote(l)) + '</small>' : '') : e(l.status)) + (l.basis ? '<small>' + e(l.basis) + '</small>' : '') + '</td></tr>';
   });
   lines += '<tr class="pl1267-grand"><td>Total costs</td><td class="num">' + c2(C.sep) + '</td><td class="num">' + c2(C.oct) + '</td><td class="num">' + c2(C.nov) + '</td><td class="num">' + c2(C.total) + '</td><td class="num">' + c2(J.accrue) + '</td><td></td></tr></tbody></table></div>';
   var bl = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-bl"><thead><tr><th>Branch · line</th><th class="num">Job end</th></tr></thead><tbody>';

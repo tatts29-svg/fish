@@ -87,6 +87,11 @@ function xRender() {
       + '<tr class="pl1267-grand"><td>' + n(lj.length, 'row', 'rows') + '</td><td></td><td></td>' + hm.map(function (m) { return '<td class="num">' + hrs(hs[m]) + '</td>'; }).join('') + (s.mo ? '<td class="num">' + hrs(lj.reduce(function (a, x) { return a + Math.round((s.mo === 'Sep' ? x.paidSep : x.paidOct) * 100); }, 0) / 100) + '</td>' : '<td class="num">' + hrs(hs.Sep + hs.Oct) + '</td><td class="num">' + hrs(lj.reduce(function (a, x) { return a + Math.round((x.paidSep + x.paidOct) * 100); }, 0) / 100) + '</td><td class="num">' + cents(lh) + '</td>') + '</tr></tbody></table></div>';
   };
   var sum = '', scope = (s.br || s.cat || s.mo) ? '<p class="plf1272-note plx-scope">The table below is the whole ' + '%s' + ', for the job: ' + [s.br ? 'branch ' + s.br : '', s.cat ? 'category ' + s.cat : '', s.mo ? MOL[s.mo] : ''].filter(Boolean).join(', ') + ' is applied in the figures above where the P&amp;L splits it, and not otherwise.</p>' : '';
+  if (!K.kind && !s.cat && !s.br && !s.mo) {   /* v12.79: nothing chosen and nothing typed: the P&L's own tables are on the face, so the finder waits */
+    sumEl.innerHTML = '';
+    outEl.innerHTML = '<p class="plx-none plx-empty">Choose a category, branch or month, or search: the figures come up here. With nothing chosen, the P&amp;L’s own tables are below.</p>';
+    return;
+  }
   if (!K.kind) {   /* the choices alone: the parts in whole cents */
     var facts = lineFacts(function (i) { return !s.cat || J.lines[i].category === s.cat; }), cost = 0, nl = {}; facts.forEach(function (f) { cost += f[3]; nl[f[0]] = 1; });
     var rev = null, rf = [];
@@ -107,7 +112,7 @@ function xRender() {
           if (gt) r += '<tr class="pl1267-tot plx-grp"><td>' + e(g.name) + '</td>' + cells(gb) + '</tr>'; });
         return r; }).join('');
       out += '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-cats">' + head('Category' + (s.br ? ' · ' + e(s.br) : '')) + '<tbody>' + rows
-        + '<tr class="pl1267-grand"><td>' + (s.br ? 'Costs, ' + e(BRN[s.br]) : 'Costs, the job') + '</td>' + cells(tot) + '</tr></tbody></table></div>';
+        + '<tr class="pl1267-grand"><td>' + (s.br ? 'Total costs, ' + e(BRN[s.br]) : 'Total costs') + '</td>' + cells(tot) + '</tr></tbody></table></div>';
     } else out += linesTable(facts);
     if (s.br || KIND[s.cat]) out += journals(function () { return true; });
   } else if (K.kind === 'po') {   /* a purchase order: its own amount, from the purchase orders in the costs */

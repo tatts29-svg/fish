@@ -684,6 +684,9 @@ S17_NOTES = ['Schedule 17 has %d rows with a figure, %s. %d tie to the record’
 _EST_GL = {'oct_ran': 'Ran by 31 Oct', 'nov_on_site': 'Still on site (November)'}
 _edmy = lambda d_: '%d %s' % (int(d_[8:10]), {'09': 'Sep', '10': 'Oct', '11': 'Nov'}[d_[5:7]])
 _est_rows = [l_ for g_ in ('oct_ran', 'nov_on_site') for l_ in EST['legs'] if l_['group'] == g_]
+for l_ in _est_rows:   # the record has the two concert generators as "GN?"; Schedule 17 names them GN26: one name on the workbook, the pack page and the tab
+    if l_['ref'] == 'GN?': l_['ref'] = 'GN26'; l_['what'] = l_['what'].replace(' x ', ' × ') + ' (the record’s GN?)'
+assert sum(l_['ref'] == 'GN26' for l_ in _est_rows) == 1, 'the GN26 leg'
 EST_HTML = ("<h2>2h · Transport estimate (1 Nov): trucks that ran with no figure, and pick-ups still to come</h2><p class='s'>"
             + e("No carrier has invoiced Coates for any GC500 load, and none has a PO on the record. The record's 1 Nov read and Schedule 17 show trucks that ran by 31 Oct with no figure or row in the costs, and Coates gear still on site with no pick-up in the costs; each leg is estimated here. " + EST['method'][0].upper() + EST['method'][1:] + ". Whatever the record shows on site is on site; when a departure is recorded, its pick-up falls in that month. Coates gear only: Event Portables collect their own (already accrued in their estimate). The four October pick-ups still on site (WC60, GN18, P46 and P51, " + m(1788.02) + ") are in November in the planned loads. Ran by 31 Oct: " + m(EST_OCT) + " (" + ' · '.join('%s %s' % (b_, m(v_)) for b_, v_ in EST_BR['oct_ran'].items()) + "), a manual accrual candidate. Still on site: " + m(EST_NOV) + " (" + ' · '.join('%s %s' % (b_, m(v_)) for b_, v_ in EST_BR['nov_on_site'].items()) + "), November.") + "</p>"
             + tbl(['When', 'Branch', 'Ref', 'What', 'Leg', 'Date', '#Loads', '#Rate', 'Rate from', '#ESTIMATE'],
@@ -1278,8 +1281,7 @@ def _page_text(o):
     return o
 _PLF_FIG = json.dumps(PLF, sort_keys=True)
 PLF = {k_: (v_ if k_ == 'journals' else _page_text(v_)) for k_, v_ in PLF.items()}   # the accrual journal, where Finance posts, keeps Job Connect's registered name and code
-for l_ in PLF['transportEstimate']['legs']:   # the record has the two concert generators as "GN?"; Schedule 17 names them GN26 (as the Schedule 17 fold does)
-    if l_['ref'] == 'GN?': l_['ref'] = 'GN26'; l_['what'] = l_['what'].replace(' x ', ' × ') + ' (the record’s GN?)'
+assert not any(l_['ref'] == 'GN?' for l_ in PLF['transportEstimate']['legs'])   # GN26 since the legs were built (above)
 _pj = json.dumps({k_: v_ for k_, v_ in PLF.items() if k_ != 'journals'}, ensure_ascii=False)
 assert JCS['code'] not in _pj and JCS['name'].split()[0].lower() not in _pj.lower() and 'P/L' not in _pj, 'the page data carries the supplier code or registered name outside the journal'
 assert sum(JCS['code'] in j_['journal'] for j_ in PLF['journals']) == 1, 'the Job Connect accrual journal names its supplier code once'
