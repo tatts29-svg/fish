@@ -380,7 +380,7 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.18'
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.19'
 check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
@@ -400,7 +400,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.18 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.18', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.19 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.19', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -593,7 +593,7 @@ if JP.exists():
     F_ = J['facts']; LN_ = J['lines']
     _CAT = lambda sup: ('Fencing' if sup.startswith('Advanced') else 'Toilets and water' if sup.startswith('Event Portables') else 'Rehire' if sup.startswith(('Premiair', 'United Rentals'))
                         else 'Transport' if sup.startswith('Carriers') else 'Labour hire' if sup.startswith('Job Connect') else 'Salary allowance' if sup.startswith('Salary') else 'Accommodation' if sup.startswith('Accommodation')
-                        else 'Meals and expenses' if sup.startswith('Meals') else 'Forklift rehire' if sup.startswith('Queensland Forklifts') else 'Consumables and services (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
+                        else 'Meals and expenses' if sup.startswith('Meals') else 'Rehire' if sup.startswith('Queensland Forklifts') else 'Consumables and services (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
     check('parts: every cost line has its category, as its supplier gives it (%d lines, %d categories)' % (len(LN_), len({l['category'] for l in LN_})), len(LN_) == len(cs) and all(l['category'] == _CAT(r[0]) and l['category'] for l, r in zip(LN_, cs)))
     eq('parts: they add to the job cost', sum(f[3] for f in F_) / 100, JOB)
     for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('parts: %s’s add to its costs on the Summary sheet' % b, sum(f[3] for f in F_ if f[1] == b) / 100, summ[b][4])
@@ -606,7 +606,7 @@ if JP.exists():
     check('parts: the one branch move is Kyle Gover’s 8 h on the water barriers, KINP −460.78 · STPS +460.78 in October, on the Job Connect w/e 18 Oct line', sorted((f[1], f[2], f[3]) for f in _mv) == [('KINP', 'Oct', -46078), ('STPS', 'Oct', 46078)] and all(cs[f[0]][3] == 'Running sheet w/e 18 Oct' for f in _mv) and any(abs(r[5] - 460.78) < 0.005 for r in moves))
     _CBL = lambda n: ('Toilets and water' if n.startswith('Event Portables') else 'Rehire' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
                       else 'Salary allowance' if n.startswith('Salary') else 'Accommodation' if n.startswith('Accommodation') else 'Meals and expenses' if n.startswith('Meals') else 'Consumables and services (POs)' if n.startswith('Consumables')
-                      else 'Fencing' if n.startswith('Fencing') else 'Forklift rehire' if n.startswith('Forklift') else None)
+                      else 'Fencing' if n.startswith('Fencing') else 'Rehire' if n.startswith('Forklift') else None)
     _want = collections.defaultdict(int)
     for r in cb: _want[(r[0], _CBL(r[1]))] += _ci(r[2])
     _got = collections.defaultdict(int)
