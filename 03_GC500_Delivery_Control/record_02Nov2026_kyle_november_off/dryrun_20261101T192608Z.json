@@ -1,0 +1,130 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T192608Z",
+ "mode": "dry",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-02",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-03",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-04",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-05",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-06",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261102",
+   "person": "Kyle Gover",
+   "date": "2026-11-02",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 02 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261103",
+   "person": "Kyle Gover",
+   "date": "2026-11-03",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 03 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261104",
+   "person": "Kyle Gover",
+   "date": "2026-11-04",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 04 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261105",
+   "person": "Kyle Gover",
+   "date": "2026-11-05",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 05 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261106",
+   "person": "Kyle Gover",
+   "date": "2026-11-06",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 06 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  }
+ ],
+ "plan": [
+  "deleted/W-L-kyle-gover-20261102",
+  "deleted/W-L-kyle-gover-20261103",
+  "deleted/W-L-kyle-gover-20261104",
+  "deleted/W-L-kyle-gover-20261105",
+  "deleted/W-L-kyle-gover-20261106",
+  "by/deleted~2f~W-L-kyle-gover-20261102",
+  "by/deleted~2f~W-L-kyle-gover-20261103",
+  "by/deleted~2f~W-L-kyle-gover-20261104",
+  "by/deleted~2f~W-L-kyle-gover-20261105",
+  "by/deleted~2f~W-L-kyle-gover-20261106"
+ ]
+}

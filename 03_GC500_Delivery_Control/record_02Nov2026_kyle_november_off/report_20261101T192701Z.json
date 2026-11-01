@@ -1,0 +1,234 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T192701Z",
+ "finished": "2026-11-01T19:27:18.406Z",
+ "mode": "apply",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-02",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-03",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-04",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-05",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Kyle Gover",
+    "date": "2026-11-06",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat): \"Kyle wont be doing any works in november\""
+   }
+  ]
+ },
+ "pageSha256": "3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8",
+ "version": {
+  "before": 12739,
+  "after": 12749
+ },
+ "updated": {
+  "before": "2026-11-01T16:36:55.821Z",
+  "after": "2026-11-01T19:27:17.348Z"
+ },
+ "stage": [
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261102",
+   "person": "Kyle Gover",
+   "date": "2026-11-02",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 02 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261103",
+   "person": "Kyle Gover",
+   "date": "2026-11-03",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 03 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261104",
+   "person": "Kyle Gover",
+   "date": "2026-11-04",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 04 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261105",
+   "person": "Kyle Gover",
+   "date": "2026-11-05",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 05 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-kyle-gover-20261106",
+   "person": "Kyle Gover",
+   "date": "2026-11-06",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "result": "took off the record line (was 06:30-17:00, 10.5 h worked) - Kyle Gover, 06 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  }
+ ],
+ "writes": [
+  {
+   "key": "deleted/W-L-kyle-gover-20261102",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-kyle-gover-20261103",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-kyle-gover-20261104",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-kyle-gover-20261105",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-kyle-gover-20261106",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261102",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261103",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261104",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261105",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261106",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "deleted/W-L-kyle-gover-20261102": null,
+   "deleted/W-L-kyle-gover-20261103": null,
+   "deleted/W-L-kyle-gover-20261104": null,
+   "deleted/W-L-kyle-gover-20261105": null,
+   "deleted/W-L-kyle-gover-20261106": null,
+   "by/deleted~2f~W-L-kyle-gover-20261102": null,
+   "by/deleted~2f~W-L-kyle-gover-20261103": null,
+   "by/deleted~2f~W-L-kyle-gover-20261104": null,
+   "by/deleted~2f~W-L-kyle-gover-20261105": null,
+   "by/deleted~2f~W-L-kyle-gover-20261106": null
+  },
+  "after": {
+   "deleted/W-L-kyle-gover-20261102": {
+    "_k": "W-L-kyle-gover-20261102",
+    "v": "2026-11-01T19:27:13.372Z"
+   },
+   "deleted/W-L-kyle-gover-20261103": {
+    "_k": "W-L-kyle-gover-20261103",
+    "v": "2026-11-01T19:27:13.584Z"
+   },
+   "deleted/W-L-kyle-gover-20261104": {
+    "_k": "W-L-kyle-gover-20261104",
+    "v": "2026-11-01T19:27:13.769Z"
+   },
+   "deleted/W-L-kyle-gover-20261105": {
+    "_k": "W-L-kyle-gover-20261105",
+    "v": "2026-11-01T19:27:13.966Z"
+   },
+   "deleted/W-L-kyle-gover-20261106": {
+    "_k": "W-L-kyle-gover-20261106",
+    "v": "2026-11-01T19:27:14.191Z"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261102": {
+    "_k": "deleted/W-L-kyle-gover-20261102",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261103": {
+    "_k": "deleted/W-L-kyle-gover-20261103",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261104": {
+    "_k": "deleted/W-L-kyle-gover-20261104",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261105": {
+    "_k": "deleted/W-L-kyle-gover-20261105",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261106": {
+    "_k": "deleted/W-L-kyle-gover-20261106",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
