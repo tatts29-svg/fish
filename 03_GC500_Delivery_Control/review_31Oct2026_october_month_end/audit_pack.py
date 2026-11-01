@@ -758,7 +758,7 @@ if JP.exists() and WPF and WPF.exists():
     eq('v1.23: worked hours on 1\u201313 Nov, the job (v1.25: 409.00, Kyle Gover\u2019s 52.50 off)', sum(x['novInOct'] for x in J['labourJournal']), 409.00)
     eq('v1.23: paid hours on 1\u201313 Nov, the job (v1.25: 390.00, Kyle Gover\u2019s 50.00 off)', sum(x['paidNovInOct'] for x in J['labourJournal']), 390.00)
     eq('v1.23: the salary\u2019s 1\u201313 Nov hours (Andrew Fisher)', sum(x['novInOct'] for x in J['labourJournal'] if x['kind'] == 'Salary'), 110.00)
-    # v1.24 (Andrew, 2 Nov 2026: "For w/e 18th oct its been invoiced"): the week is invoiced, not accrued; its amounts are to confirm, so it stays at the running sheet
+    # v1.24 (Andrew, 2 Nov 2026: "For w/e 18th oct its been invoiced"): the week is invoiced, not accrued; v1.25 ("work off his hrs worked and hrly rate"): at each person's hours and hourly rate on the running sheet
     _w18 = [l for l in J['lines'] if l['supplier'].startswith('Job Connect') and l['what'] == 'Running sheet w/e 18 Oct']
     check('v1.24: Job Connect w/e 18 Oct is invoiced, not accrued, at each person\u2019s hours and hourly rate on the running sheet (6,198.75, October; v1.25)', len(_w18) == 1 and (_w18[0]['state'], _w18[0]['status'], _w18[0]['accrue'], _w18[0]['oct']) == ('Invoiced', 'invoiced', 0, 6198.75) and 'Daniel Gough 2,539.92, Eric Lucian 634.98, Kyle Gover 3,023.85' in _w18[0]['invoice'], _w18)
     _jj = [j for j in J['journals'] if j['journal'].startswith('Accrual · Job Connect')]
@@ -766,12 +766,17 @@ if JP.exists() and WPF and WPF.exists():
     _mr = {x['state']: x['oct'] for x in J['monthEnd']['rows']}
     check('v1.24: October at month end: invoiced 139,428.20 and accrued 186,690.70 (6,198.75 moved from accrued to invoiced); October 402,944.25 (v1.25: less Kyle Gover\u2019s w/e 8 Nov)', (_mr.get('Invoiced'), _mr.get('Accrued at 31 Oct'), J['monthEnd']['oct']) == (139428.2, 186690.7, 402944.25), _mr)
     check('v1.24: five lines accrued at 31 Oct', [l['state'] for l in J['lines']].count('Accrued at 31 Oct') == 5)
-    check('v1.24: POs 4667755 and 4668970 say invoiced, amounts to confirm', [x['status'] for x in J['purchaseOrders'] if x['po'] == '4668970'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rate: Kyle Gover 3,023.85') and [x['status'] for x in J['purchaseOrders'] if x['po'] == '4667755'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rates: Daniel Gough 2,539.92'))
+    check('v1.24/v1.25: POs 4667755 and 4668970 say invoiced, at the running sheet\u2019s hours and rates', [x['status'] for x in J['purchaseOrders'] if x['po'] == '4668970'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rate: Kyle Gover 3,023.85') and [x['status'] for x in J['purchaseOrders'] if x['po'] == '4667755'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rates: Daniel Gough 2,539.92'))
     # v1.25 (Andrew, 2 Nov 2026: "Kyle wont be doing any works in november"; record 12749): his 2–6 Nov shifts off; the job falls by his w/e 8 Nov, 3,023.85
     _kn = [x for x in J['labourJournal'] if x['who'] == 'Kyle Gover']
     check('v1.25: Kyle Gover has no 1\u201313 Nov hours on the journal rows, worked or paid', _kn and all(x['novInOct'] == 0 and x['paidNovInOct'] == 0 for x in _kn), [(x['branch'], x['novInOct'], x['paidNovInOct']) for x in _kn])
     _lhc = [c for c in J['categories'] if c['name'] == 'Labour hire']
     check('v1.25: the job 585,217.91, October 402,944.25, difference 416,684.23, labour hire 37,466.31; the accruals 188,653.80 unchanged', (J['costs']['total'], J['costs']['oct'], J['difference'], J['accrue'], _lhc[0]['total'] if _lhc else None) == (585217.91, 402944.25, 416684.23, 188653.8, 37466.31), (J['costs'], J['difference'], J['accrue']))
+    # v1.25 independent check findings: no 'to confirm' left beside Job Connect's w/e 18 Oct anywhere; the section 2 sentence's running-sheet figure = the bridge total
+    _blob = json.dumps(J, ensure_ascii=False) + HT
+    check('v1.25: nothing beside Job Connect\u2019s w/e 18 Oct, 4667755 or 4668970 still says the amounts are to confirm (data, page)', not re.search(r'(w/e 18 Oct|4667755|4668970)[^.\"<]{0,160}to confirm|to confirm[^.\"<]{0,160}(w/e 18 Oct|4667755|4668970)', _blob), re.findall(r'.{60}to confirm.{60}', _blob)[:3])
+    _rsb = round(sum(x['runningSheet'] for x in J['labourHireBridge']), 2)
+    check('v1.25: the page\u2019s section 2 gives the running sheet\u2019s labour hire as the bridge total (%s), not a typed figure' % fmt(_rsb), ('The labour hire cost rows are the running sheet’s (' + fmt(_rsb) + ')') in HT, re.findall(r'labour hire cost rows are the running sheet’s \(([\d,.]+)\)', HT))
     _phs = [r for r in rows('Paid hours (journal basis)') if r and r[0]]
     _prs = [r for r in _phs if not str(r[0]).startswith(('Paid hours on', 'Coates wages, the job', 'All hours', 'Paid hours are'))]
     check('paid hours: the workbook sheet = the data, row for row, with each branch’s total and the job’s', len(_prs) == len(J['labourJournal']) and all((r[0], r[3], r[4], r[5], r[7], r[8], r[9]) == (x['who'], x['branch'], x['paidSep'], x['paidOct'], x['normal'], x['x15'], x['x2']) for r, x in zip(_prs, J['labourJournal']))

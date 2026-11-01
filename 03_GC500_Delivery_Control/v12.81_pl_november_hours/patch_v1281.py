@@ -17,8 +17,9 @@ And: "Kyle wont be doing any works in november". His 2–6 Nov shifts came off t
 October, so October and the job each fall by exactly that, on KINP, labour hire; the accruals do not move.
 
 - Pack v1.25 is pack v1.22 plus two fields on each of the 16 labour journal rows, novInOct and paidNovInOct (v1.23), the w/e 18 Oct
-  week invoiced (v1.24), and Kyle Gover's November off (v1.25, record 12749). The patch refuses any money change that is not exactly
-  the 6,198.75 accrual or Kyle's 3,023.85, any branch but KINP moving, any category but labour hire, and any journal row but Kyle's.
+  week invoiced (v1.24), and Kyle Gover's November off (v1.25, record 12749). The patch holds an exact map of the 36 figures that move
+  (each path, what it must be, and by how much) and refuses any other figure moving, any journal row but Kyle Gover's changing, any
+  no-PO entry but his w/e 8 Nov going, and any text that still says the w/e 18 Oct amounts are to confirm or that Kyle works in November.
 - The block's code is the live v12.79/v12.80 code with the two tables changed (plf1281_src.js, plf1281.css, here); the find files are
   the live ones, read from ../v12.79_pl_rehire_pack_v119_LIVE/. The patch checks the live block is v12.80's before it swaps it.
 - The release footer, v12.80 -> v12.81.
@@ -33,7 +34,7 @@ HERE = Path(__file__).resolve().parent
 LIVE1279 = HERE.parent / 'v12.79_pl_rehire_pack_v119_LIVE'
 BASE = '3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8'        # live v12.80, uploaded 2 Nov 2026 04:55 AEST
 OLD_SHA = '5029e24ce4ea151bf5a7f7abbaffcb617f15fa54faeabb8a585cfea927a9d9cc'     # pack v1.22, record 12739, in the live v12.80 block
-NEW_SHA = 'c562b1d9da27f421f7f1a360aede5728212fceb5ea52825b16f0ef3e24dccebb'     # pack v1.25, record 12749 (audit_pack.py 596/596)
+NEW_SHA = '10691c10fd5d6f65f4ff490346c11d0697c398750745744b7e2bb00f931189f0'     # pack v1.25, record 12749 (audit_pack.py 598/598)
 W18 = 6198.75                                                                    # Job Connect w/e 18 Oct, invoiced, at the running sheet's hours and rates
 K8 = 3023.85                                                                     # Kyle Gover's w/e 8 Nov on the running sheet (off the record, 12749)
 FIND = ('plf1279_find.js', 'plf1279_find.css')
@@ -58,62 +59,73 @@ def diffs(a, b, path=''):
     return [] if a == b else [path]
 
 
+# v1.25: every figure that moves from v1.22, by exactly how much; anything else must not move (the independent check, 2 Nov 2026)
+EXPECT = {'accrue': -W18, 'journals[4].amount': -W18, 'lines[15].accrue': -W18, 'suppliers[5].accrue': -W18, 'monthEnd.rows[0].oct': W18, 'monthEnd.rows[1].oct': -W18,
+          'branchLines.KINP[4][1]': -K8, 'branches[0].costs': -K8, 'branches[0].difference': K8, 'byAccount[9].holds[0].amount': -K8, 'byAccount[9].total': -K8,
+          'categories[4].oct': -K8, 'categories[4].total': -K8, 'costs.oct': -K8, 'costs.total': -K8, 'difference': K8, 'facts[47][3]': -302385,
+          'labourCharged.branches[0].installLabourHire': -K8, 'labourCharged.branches[0].left': K8, 'labourCharged.installTotal': -K8, 'labourCharged.leftTotal': K8,
+          'labourHireBridge[7].cost': -K8, 'labourHireBridge[7].runningSheet': -K8, 'lines[18].oct': -K8, 'matchTotals.costs': -K8, 'matchTotals.notTied': -K8,
+          'monthEnd.novLabourInOct.jobConnect': -K8, 'monthEnd.novLabourInOct.total': -K8, 'monthEnd.oct': -K8, 'monthEnd.rows[3].oct': -K8, 'notTied[0].amount': -K8,
+          'poTotals.noPO': -K8, 'poTotals.total': -K8, 'suppliers[5].oct': -K8, 'suppliers[5].total': -K8, 'record': 10}
+
+
+def nums(a, b, p=''):   # every number that differs between two same-shaped trees (lists of different length are left to their own checks)
+    out = {}
+    if isinstance(a, dict) and isinstance(b, dict):
+        for k in a:
+            if k in b: out.update(nums(a[k], b[k], (p + '.' + k) if p else k))
+    elif isinstance(a, list) and isinstance(b, list) and len(a) == len(b):
+        for i, (u, v) in enumerate(zip(a, b)): out.update(nums(u, v, '%s[%d]' % (p, i)))
+    elif isinstance(a, (int, float)) and isinstance(b, (int, float)) and not isinstance(a, bool) and a != b:
+        out[p] = round(b - a, 2)
+    return out
+
+
 def check_delta(o, n):
     if (o.get('pack'), n.get('pack'), o.get('record'), n.get('record')) != ('v1.22', 'v1.25', 12739, 12749):
         raise ValueError('expected pack v1.22 on 12739 -> v1.25 on 12749')
     c = lambda x, y: abs(round(x, 2) - round(y, 2)) < 0.005
-    d = diffs(o, n)
-    def at(obj, path):   # a value by its diff path, e.g. 'byAccount[7].holds[0].amount'
-        for k, i in re.findall(r'([^.\[\]]+)|\[(\d+)\]', path):
-            obj = obj[int(i)] if i else obj[k]
-        return obj
-    # every money figure that moved (outside the journal rows' hours, the facts, the journals and the text) moved by exactly one of the two
-    for x in d:
-        if x.endswith(' len') or x.startswith(('labourJournal', 'facts', 'journals', 'open', 'record', 'pack', 'source', 'noPO')): continue   # noPO is checked by content below (one entry fewer)
-        u, v = at(o, x), at(n, x)
-        if isinstance(u, (int, float)) and isinstance(v, (int, float)) and not isinstance(u, bool):
-            dv = abs(round(v - u, 2))
-            if not any(abs(dv - k) < 0.005 for k in (W18, K8)): raise ValueError('%s moved by %s, not by the w/e 18 Oct accrual or Kyle Gover\'s week' % (x, round(v - u, 2)))
-    if n['revenue'] != o['revenue']: raise ValueError('revenue moved')
+    # 1. the positions the map names hold what the map says they hold
+    if not (n['branches'][0]['b'] == 'KINP' and n['categories'][4]['name'] == 'Labour hire' and n['byAccount'][9]['code'] == 'Installs – Temp Staff' and n['suppliers'][5]['name'].startswith('Job Connect')
+            and n['lines'][15]['what'] == 'Running sheet w/e 18 Oct' and n['lines'][18]['what'] == 'Running sheet w/e 8 Nov' and n['facts'][47][0] == 18 and n['labourHireBridge'][7]['week'] == 'w/e 8 Nov'
+            and n['branchLines']['KINP'][4][0].startswith('Labour hire') and n['journals'][4]['journal'].startswith('Accrual · Job Connect') and n['notTied'][0]['what'].startswith('Job Connect')
+            and [x['state'] for x in n['monthEnd']['rows'][:4]] == ['Invoiced', 'Accrued at 31 Oct', 'Not accrued: manual accrual candidate', 'November labour, carried in October (not accrued)']
+            and n['labourCharged']['branches'][0]['b'] == 'KINP'):
+        raise ValueError('a position in the change map does not hold what it should')
+    # 2. exactly the mapped figures move, each by exactly its amount (the journal rows' hours and the no-PO list are checked below)
+    moved = {k: v for k, v in nums(o, n).items() if not k.startswith(('labourJournal', 'noPO'))}
+    if set(moved) != set(EXPECT) or any(not c(moved[k], EXPECT[k]) for k in EXPECT):
+        raise ValueError('figures moved outside the map, or by the wrong amount: ' + repr(sorted(set(moved) ^ set(EXPECT))[:8] or [(k, moved[k], EXPECT[k]) for k in EXPECT if not c(moved[k], EXPECT[k])][:8]))
+    if n['revenue'] != o['revenue'] or n['monthEnd']['octWithoutNovLabour'] != o['monthEnd']['octWithoutNovLabour']: raise ValueError('revenue or October without November labour moved')
+    # 3. the lists: only the no-PO list changes length, losing only Kyle Gover's w/e 8 Nov
+    if [k for k in diffs(o, n) if k.endswith(' len') and k != 'noPO len']: raise ValueError('a list other than noPO changed length')
     np_o, np_n = [json.dumps(x, sort_keys=True) for x in o['noPO']], [json.dumps(x, sort_keys=True) for x in n['noPO']]
     gone = [json.loads(x) for x in np_o if x not in np_n]
     if len(np_n) != len(np_o) - 1 or [x for x in np_n if x not in np_o] or len(gone) != 1 or (gone[0]['what'], gone[0]['amount']) != ('Kyle Gover, w/e 8 Nov', K8):
         raise ValueError('the no-PO list: only Kyle Gover\'s w/e 8 Nov (3,023.85) may go, and nothing else may change')
-    if [k for k in diffs(o, n) if k.endswith(' len') and k != 'noPO len']: raise ValueError('a list other than noPO changed length')
-    if not (c(n['accrue'], o['accrue'] - W18) and c(n['costs']['total'], o['costs']['total'] - K8) and c(n['costs']['oct'], o['costs']['oct'] - K8)
-            and n['costs']['sep'] == o['costs']['sep'] and n['costs']['nov'] == o['costs']['nov'] and c(n['difference'], o['difference'] + K8)):
-        raise ValueError('the totals: accruals must fall by 6,198.75, the job and October by 3,023.85, the difference rise by 3,023.85')
-    bo, bn = {x['b']: x for x in o['branches']}, {x['b']: x for x in n['branches']}
-    if not (c(bn['KINP']['costs'], bo['KINP']['costs'] - K8) and all(bn[b] == bo[b] for b in bo if b != 'KINP')): raise ValueError('a branch other than KINP moved')
-    co, cn = {x['name']: x for x in o['categories']}, {x['name']: x for x in n['categories']}
-    if not (c(cn['Labour hire']['total'], co['Labour hire']['total'] - K8) and all(cn[k] == co[k] for k in co if k != 'Labour hire')): raise ValueError('a category other than labour hire moved')
-    # the journal rows: every row gains its November hours (v1.23); only Kyle Gover's rows change otherwise (v1.25)
+    # 4. the journal rows: every row gains its November hours (v1.23); only Kyle Gover's rows change otherwise (v1.25), by his 2–6 Nov
     LJ, LO = n['labourJournal'], o['labourJournal']
     if len(LJ) != len(LO) or any('novInOct' in x or 'paidNovInOct' in x for x in LO): raise ValueError('the journal rows changed shape')
     for x, y in zip(LO, LJ):
         z = {k: v for k, v in y.items() if k not in ('novInOct', 'paidNovInOct')}
         if x['who'] != 'Kyle Gover' and z != x: raise ValueError('a journal row other than Kyle Gover\'s changed: ' + x['who'])
+        if x['who'] == 'Kyle Gover' and x['branch'] == 'KINP' and not (c(x['oct'] - y['oct'], 52.5) and c(x['paidOct'] - y['paidOct'], 50) and c(x['labourHire'] - y['labourHire'], K8)
+                                                                       and c(x['normal'] - y['normal'], 38) and c(x['x15'] - y['x15'], 10) and c(x['x2'] - y['x2'], 2)):
+            raise ValueError('Kyle Gover\'s KINP row did not fall by exactly his 2–6 Nov (52.5 worked, 50 paid, 3,023.85)')
+        if x['who'] == 'Kyle Gover' and x['branch'] != 'KINP' and z != x: raise ValueError('Kyle Gover\'s ' + x['branch'] + ' row changed')
         if not (isinstance(y.get('novInOct'), (int, float)) and isinstance(y.get('paidNovInOct'), (int, float)) and y['novInOct'] <= y['oct'] + 1e-9 and y['paidNovInOct'] <= y['paidOct'] + 1e-9 and y['paidNovInOct'] <= y['novInOct'] + 1e-9):
             raise ValueError('a journal row\'s November hours do not sit inside October\'s: ' + x['who'])
-    kn = [y for y in LJ if y['who'] == 'Kyle Gover']
-    if not kn or any(y['novInOct'] or y['paidNovInOct'] for y in kn): raise ValueError('Kyle Gover still has November hours')
-    tw, tp = round(sum(x['novInOct'] for x in LJ), 2), round(sum(x['paidNovInOct'] for x in LJ), 2)
-    if (tw, tp) != (409.0, 390.0): raise ValueError('November hours, the job: %s worked, %s paid; expected 409.00 and 390.00' % (tw, tp))
-    # the w/e 18 Oct line: accrued -> invoiced at the same cost; the Job Connect accrual journal is w/e 1 Nov alone
-    l18 = [(x, y) for x, y in zip(o['lines'], n['lines']) if y['what'] == 'Running sheet w/e 18 Oct' and y['supplier'].startswith('Job Connect')]
-    if len(l18) != 1 or not ((l18[0][0]['state'], l18[0][0]['accrue']) == ('Accrued at 31 Oct', W18) and (l18[0][1]['state'], l18[0][1]['status'], l18[0][1]['accrue']) == ('Invoiced', 'invoiced', 0) and l18[0][1]['oct'] == l18[0][0]['oct'] == W18):
-        raise ValueError('the w/e 18 Oct line is not accrued -> invoiced at 6,198.75')
-    l8 = [(x, y) for x, y in zip(o['lines'], n['lines']) if y['what'] == 'Running sheet w/e 8 Nov' and y['supplier'].startswith('Job Connect')]
-    if len(l8) != 1 or not c(l8[0][1]['oct'], l8[0][0]['oct'] - K8) or not c(l8[0][1]['oct'], 3052.60): raise ValueError('w/e 8 Nov is not Daniel Gough\'s PO alone, 3,052.60')
-    changed = [i for i, (x, y) in enumerate(zip(o['lines'], n['lines'])) if x != y]
-    if len(o['lines']) != len(n['lines']) or sorted(n['lines'][i]['what'] for i in changed) != ['Running sheet w/e 18 Oct', 'Running sheet w/e 8 Nov']: raise ValueError('a cost line other than the two Job Connect weeks changed')
-    jc = [(x, y) for x, y in zip(o['journals'], n['journals']) if x != y]
-    if len(o['journals']) != len(n['journals']) or len(jc) != 1 or not (jc[0][1]['journal'].startswith('Accrual · Job Connect') and c(jc[0][1]['amount'], 3835.37) and '4667755' not in jc[0][1]['po']): raise ValueError('the Job Connect accrual journal is not w/e 1 Nov alone at 3,835.37')
-    mo, mn = {x['state']: x['oct'] for x in o['monthEnd']['rows']}, {x['state']: x['oct'] for x in n['monthEnd']['rows']}
-    nl = 'November labour, carried in October (not accrued)'
-    if not (c(mn['Invoiced'], mo['Invoiced'] + W18) and c(mn['Accrued at 31 Oct'], mo['Accrued at 31 Oct'] - W18) and c(mn[nl], mo[nl] - K8) and all(mn[k] == mo[k] for k in mo if k not in ('Invoiced', 'Accrued at 31 Oct', nl))):
-        raise ValueError('October at month end: only the w/e 18 Oct move and Kyle Gover\'s week may change')
-    return len(d)
+    if any(y['novInOct'] or y['paidNovInOct'] for y in LJ if y['who'] == 'Kyle Gover'): raise ValueError('Kyle Gover still has November hours')
+    if (round(sum(x['novInOct'] for x in LJ), 2), round(sum(x['paidNovInOct'] for x in LJ), 2)) != (409.0, 390.0): raise ValueError('November hours, the job: expected 409.00 worked and 390.00 paid')
+    # 5. the w/e 18 Oct and w/e 8 Nov lines, and the words
+    l15, l18 = n['lines'][15], n['lines'][18]
+    if not ((l15['state'], l15['status'], l15['accrue'], l15['oct']) == ('Invoiced', 'invoiced', 0, W18) and 'Daniel Gough 2,539.92, Eric Lucian 634.98, Kyle Gover 3,023.85' in l15['invoice']):
+        raise ValueError('the w/e 18 Oct line is not invoiced at 6,198.75 with its three people')
+    if not (c(l18['oct'], 3052.60) and 'Kyle Gover has no November work' in l18['invoice']): raise ValueError('w/e 8 Nov is not Daniel Gough\'s PO alone, 3,052.60')
+    blob = json.dumps(n, ensure_ascii=False)
+    if re.search(r'amounts? (are )?to confirm|amount to confirm', blob): raise ValueError('text still says an amount is to confirm (the w/e 18 Oct wording)')
+    if 'Kyle Gover’s w/e 8 Nov' in blob or 'none yet (Kyle)' in blob or 'Kyle: not invoiced' in blob: raise ValueError('text still has Kyle Gover working w/e 8 Nov')
+    return len(diffs(o, n))
 
 
 def block(J, sha):   # the v12.79 block, with this release's code and the live find files
