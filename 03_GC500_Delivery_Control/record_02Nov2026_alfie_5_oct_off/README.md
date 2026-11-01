@@ -4,7 +4,8 @@ Author: Andrew Fisher. Earlier that morning, Alfie Harris's 5 Oct shift was put 
 Andrew then corrected it, 2 Nov 2026 (this chat): "No he diid not work kings bdat", "No one did", "Alfie did not work the 5th",
 "Alfie did not stay 5th either for the night".
 
-Mon 5 Oct 2026 was the King's Birthday, a Queensland public holiday. Nobody worked that day. So both lines come off:
+Mon 5 Oct 2026 was the King's Birthday, a Queensland public holiday. Andrew: "No one did" work it; he is the exception (his own 5 Oct night
+and meals stay: "Im an exception"). So Alfie's two lines come off:
 
 - Alfie's 5 Oct labour row, `W-L-alfie-harris-20261005`;
 - his 5 Oct accommodation night, `W-A-alfie-harris-20261005`, 223.63.
@@ -12,8 +13,9 @@ Mon 5 Oct 2026 was the King's Birthday, a Queensland public holiday. Nobody work
 ## Applied
 
 2 Nov 2026 02:36 AEST (1 Nov 16:36 UTC), on the live v12.79 page (`73df88ae…`), by Andrew Fisher, through the page's own
-`removeOurCost`. This is the same as clearing each line on the Costs tab. Each line is set aside with a tombstone, so it can be put
-back.
+`removeOurCost`. This is the same as clearing each line on the Costs tab. The page writes a removal mark (a tombstone) and drops the
+record's own copy of each line. Putting one back would bring back the tracker line; its 223.63 amount and the shift's note would have
+to be entered again from the private backup.
 
 Two runs, each with its own spec carrying Andrew's words:
 
@@ -31,12 +33,14 @@ For each run:
 
 A separate read of the service at record 12739 found:
 
-- neither line live;
-- no labour or accommodation line live for anyone on 5 Oct;
+- neither of Alfie's lines live;
+- no labour line live for anyone on 5 Oct. Andrew's own 5 Oct night (`W-A-andrew-fisher-20261005`, a tracker line) and his meals
+  line are live: he is the exception. The first read checked only the record's documents and missed the tracker night; an independent
+  check found it;
 - Alfie's live nights: 14–17, 21–24 and 28 Sep–1 Oct; 6–9, 19–21 and 26–29 Oct; 2–5 and 9–12 Nov.
 
-One line dated 5 Oct is still live: a meals line for Andrew Fisher, `W-M-andrew-fisher-20261005`, 50.40, recorded on 13 Oct. It is left as
-it is for Andrew to say.
+Andrew's meals line, `W-M-andrew-fisher-20261005` (50.40, recorded on 13 Oct), and his 5 Oct night stay as they are. Asked about the meals
+line, he answered "Im an exception".
 
 ## What it means for the figures
 

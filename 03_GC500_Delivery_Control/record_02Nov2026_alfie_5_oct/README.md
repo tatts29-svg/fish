@@ -1,4 +1,4 @@
-# Alfie Harris on Mon 5 Oct 2026, 06:30–17:00 — 2 Nov 2026
+# Alfie Harris on Mon 5 Oct 2026, 06:30–17:00 — 2 Nov 2026 (reversed the same morning)
 
 > **Reversed the same morning.** Andrew, 2 Nov 2026: "No he diid not work kings bdat", "No one did", "Alfie did not work the 5th".
 > The row was taken off again at 02:36 AEST (record 12734 → 12736), and his 5 Oct night with it (12736 → 12739):
