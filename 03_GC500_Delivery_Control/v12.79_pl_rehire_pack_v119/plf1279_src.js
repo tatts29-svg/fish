@@ -425,7 +425,7 @@ function html() {
   var GA = J.byAccount, ga = '';
   if (GA && GA.length) {   /* v12.79: costs by GL account, from the account on each cost line */
     var gat = 0; GA.forEach(function (g) { gat += Math.round(g.total * 100); });
-    ga = '<p class="plf1272-note">From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record (the fencing weeks 6–1, 2126 or 2142; transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>'
+    ga = '<p class="plf1272-note">From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record (transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>'
       + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-gl"><thead><tr><th>GL account</th><th>What is in it</th><th class="num">Job end</th></tr></thead><tbody>'
       + GA.map(function (g) { return '<tr><td><b>' + e(g.code) + '</b>' + (g.name ? '<small>' + e(g.name) + '</small>' : (g.split ? '' : '<small>not split on the record</small>')) + '</td><td>' + g.holds.map(function (h) { return e(h.category) + ' ' + f2(h.amount); }).join('<br>') + '</td><td class="num">' + f2(g.total) + '</td></tr>'; }).join('')
       + '<tr class="pl1267-grand"><td>Costs, the job</td><td></td><td class="num">' + f2(gat / 100) + '</td></tr></tbody></table></div>';

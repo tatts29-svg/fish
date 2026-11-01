@@ -17,7 +17,7 @@ MO = ['Sep', 'Oct', 'Nov']
 # ---------------- costs by supplier and month (management view, job end; the P&L's 544,097.23 + 750.00 November forecast)
 C = []   # (supplier, branch, account, what, po, invoice/receipt, Sep, Oct, Nov, accrue_oct, basis, status)
 def add(*a): C.append(a)
-add('Advanced Temporary Fencing', 'STPS', '2126 · 2142', 'Fencing weeks 6–1 (9 Sep–16 Oct) and a partial collection',
+add('Advanced Temporary Fencing', 'STPS', '2126', 'Fencing weeks 6–1 (9 Sep–16 Oct) and a partial collection: hire only (the build weeks’ dockets; no installation is charged; Advanced’s labour is paid on the event weekend only, 2142)',   # v1.19 (1 Nov 2026: "we dont pay for them to actually install it.. but we do pay for labour over event weekend")
     '4647508 · 4647509 · 4647515 · 4647517 · 4647519 · 4647520 · 4658850', 'Advanced invoices GC090926 · GC220926 · GC071026 · GC290926 · GC141026 · GC121026 · 93920; receipts 4918492 · 4922398 · 4929277 · 4926209 · 4936461 · 4934877 · 4922343',
     99664.50, 114560.50, 0, 0, 'by the date on each docket, note and sheet line', 'invoiced and receipted')
 add('Advanced Temporary Fencing', 'STPS', '2126 41,193.70 · 2142 37,991.00', 'Event week 19–25 Oct (48 dockets, 11 notes, race crew 210.5 h) and demob week 1 26–29 Oct (8 dockets, 7 notes)',
@@ -1082,7 +1082,7 @@ sheet('Schedule 17 transport', ['Ref', 'Date', 'What', 'Hire contract · docket'
 # the parts must add to every total the pack prints (the job, each month, each branch, each line, each branch's lines in Costs by branch).
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD')
 CATS = ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts', 'Transport', 'Labour hire', 'Salary allowance', 'Accommodation', 'Meals and expenses', 'Consumables and services (POs)']   # v1.19 (Andrew, 1 Nov 2026: "Forklift r3hire should that not go to rehire"; "Or.do we.go toilets -rehire   fencing  -rehire"; on the two tweaks, what is inside in brackets and a Rehire, all subtotal: "1 and 2"). Reporting categories, not GL coding.
-CAT_NOTE = {'Rehire – fencing': 'Advanced: hire and installation (2126 rehire · 2142 installation)', 'Rehire – toilets and water': 'Event Portables: hire, transport and water (2126) · servicing (3325)', 'Rehire – VMS, container and forklifts': 'Premiair VMS boards, the Royal Wolf container, Queensland Forklifts (2126)'}
+CAT_NOTE = {'Rehire – fencing': 'Advanced: hire (2126) and the event weekend’s labour (2142 installation)', 'Rehire – toilets and water': 'Event Portables: hire, transport and water (2126) · servicing (3325)', 'Rehire – VMS, container and forklifts': 'Premiair VMS boards, the Royal Wolf container, Queensland Forklifts (2126)'}
 CAT_GROUPS = [('Rehire, all', ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts'])]
 def cat_of(sup):
     for pre_, c_ in (('Advanced', 'Rehire – fencing'), ('Event Portables', 'Rehire – toilets and water'), ('Premiair', 'Rehire – VMS, container and forklifts'), ('United Rentals', 'Rehire – VMS, container and forklifts'), ('Carriers', 'Transport'),
@@ -1169,7 +1169,7 @@ for r_ in C:
 BY_ACC = sorted(({'code': g_['code'], 'name': g_['name'], 'total': r2(g_['total']), 'split': g_['split'], 'holds': [{'category': k_, 'amount': v_} for k_, v_ in g_['holds'].items()]} for g_ in _glr.values()), key=lambda g_: (g_['code'][:4] if g_['code'][:1].isdigit() else 'zzzz', g_['code']))
 assert abs(sum(g_['total'] for g_ in BY_ACC) - JOB_COST) < 0.005, BY_ACC
 GL_HTML = ("<h2>1d · Costs by GL account</h2><p class='s'>From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record "
-           "(the fencing weeks 6–1, 2126 or 2142; transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>"
+           "(transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>"
            + tbl(['GL account', 'What is in it', '#Job end'], ''.join("<tr><td><b>%s</b>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (e(g_['code']), (' ' + e(g_['name'])) if g_['name'] else ('' if g_['split'] else " <span class='w'>not split on the record</span>"), e(' · '.join('%s %s' % (h_['category'], m(h_['amount'])) for h_ in g_['holds'])), m(g_['total'])) for g_ in BY_ACC)
                  + "<tr class='sub'><td>The job</td><td></td><td class='n'>%s</td></tr>" % m(JOB_COST)))
 _cat_rows = []
