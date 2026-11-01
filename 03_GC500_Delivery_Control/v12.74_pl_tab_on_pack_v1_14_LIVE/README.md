@@ -1,4 +1,4 @@
-# v12.74 — the P&L tab on pack v1.14: transport checked against Schedule 17; the two forklift POs in the costs (DRAFT)
+# v12.74 — the P&L tab on pack v1.14: transport checked against Schedule 17; the two forklift POs in the costs (LIVE)
 
 Author: Andrew Fisher. Andrew, 1 Nov 2026 (this chat), on Schedule 17: "lets make sure we double check this for any transports costs in
 here we may of missed. obviously you know where things belong to VMS and Generators and forlifts etc belong to their brances". On the
@@ -11,7 +11,7 @@ Candidate: **`58695330689cd54cbb1bfa48b9b4a0489ca56398d6c08913a011daf1be635bc4`*
 on pack v1.13 (`4db0e937…`), which never went live.
 
 ```
-PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.74 v12.74_pl_tab_on_pack_v1_14_DRAFT/patch_v1274.py
+PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.74 v12.74_pl_tab_on_pack_v1_14_LIVE/patch_v1274.py
 ```
 
 ## What changes on the Costs & P&L tab
@@ -43,6 +43,11 @@ Nothing is typed; nothing is written to the record.
 | `toolchain/harness/sweep.js` phone | 27 tabs, 0 errors, 0 console, 0 writes |
 | `toolchain/upload_page.py --dry-run` | live page unchanged since the build (v12.73); the key is the edit key; record 12729 |
 
-## State
+## Live
 
-Built and tested; ready. Upload on Andrew's word.
+**LIVE 1 Nov 2026 12:08 AEST**, on Andrew's word ("Upload go live"), over the live v12.73 `84a1b3cd…`. `toolchain/upload_page.py`:
+the live page was unchanged since the build; the view link serves the build byte for byte, 16,605,697 bytes, SHA-256
+`58695330689cd54cbb1bfa48b9b4a0489ca56398d6c08913a011daf1be635bc4`. A separate fetch of the public link is identical (`cmp`).
+
+On the public bytes: `tests/test_v1274.cjs` 33/33 desktop and 33/33 phone; `tests/print_v1274.cjs` 15/15 (11 pages A4 landscape).
+Record unchanged (12729). L143 (9968955, Cleaning & Restock Sewer Connect) stays under possible extra revenue until it is billed.
