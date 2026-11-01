@@ -79,10 +79,17 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     /* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): the P&L's print carries no twin-steer rule */
     const e1 = edge(file);
     check(at.strip.replace(/\s+/g, ' ').trim() === RULE && e1.length === pages && e1.every(x => x[0] === '') && !/TWIN-STEER/.test(text), `the P&L's paper carries no twin-steer rule on any page (${e1.filter(x => x[0] === '').length} of ${pages} pages clear), though the page keeps it for its other prints`);
-    /* the page's other prints (A4 landscape, 12 mm margins, no costs page) still carry the whole rule: in one line, plain; wrapped, never cut off, with "Checked by" */
+    /* the browser's own print (Ctrl+P) while the Costs & P&L tab is showing: no twin-steer rule either */
     await p.evaluate(() => { window.dispatchEvent(new Event('afterprint')); }); await p.waitForTimeout(800);
+    const file5 = path.join(out, 'print_costs_ctrlp.pdf');
+    const c5 = await p.evaluate(() => ({costsOn: !!document.querySelector('#pane-costs.on'), printing: document.body.classList.contains('printing-costs')}));
+    await p.pdf({path: file5, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true, pageRanges: '1-4'});
+    const e5 = edge(file5);
+    check(c5.costsOn && !c5.printing && e5.length >= 1 && e5.every(x => x[0] === ''), `the browser's own print of the Costs & P&L tab carries no twin-steer rule (${e5.filter(x => x[0] === '').length} of ${e5.length} pages clear)`);
+    /* the page's other prints (another tab: A4 landscape, 12 mm margins, no costs page) still carry the whole rule: in one line, plain; wrapped, never cut off, with "Checked by" */
+    await p.evaluate(() => go('today')); await p.waitForTimeout(2500);
     const file3 = path.join(out, 'print_general.pdf');
-    const g = await p.evaluate(() => ({costPage: !!document.getElementById('costPage'), printing: document.body.classList.contains('printing-costs'), armed: document.documentElement.classList.contains('ts1053-armed'), strip: (document.getElementById('ts1053-strip') || {}).textContent || ''}));
+    const g = await p.evaluate(() => ({costPage: !!document.getElementById('costPage') || !!document.querySelector('#pane-costs.on'), printing: document.body.classList.contains('printing-costs'), armed: document.documentElement.classList.contains('ts1053-armed'), strip: (document.getElementById('ts1053-strip') || {}).textContent || ''}));
     await p.pdf({path: file3, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true, pageRanges: '1-6'});
     const e3 = edge(file3);
     check(!g.costPage && !g.printing && g.armed && g.strip.replace(/\s+/g, ' ').trim() === RULE && e3.length >= 1 && e3.every(x => x[0] === RULE && x[1] === 1), `on the page's other prints the whole rule prints in one line (${e3.filter(x => x[0] === RULE && x[1] === 1).length} of ${e3.length} pages): ` + JSON.stringify({g: {costPage: g.costPage, printing: g.printing, armed: g.armed}, bad: e3.filter(x => x[0] !== RULE || x[1] !== 1).slice(0, 2)}));
@@ -93,6 +100,7 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     const e4 = edge(file4);
     check(want4.startsWith(RULE + ' · Checked by Andrew Fisher, ') && e4.length >= 1 && e4.every(x => x[0] === want4), `with “Checked by”, the other prints carry the whole rule and the stamp on every page (${e4.filter(x => x[0] === want4).length} of ${e4.length}): ` + JSON.stringify(e4.filter(x => x[0] !== want4).slice(0, 2)));
     await p.evaluate(() => window.dispatchEvent(new Event('afterprint'))); await p.waitForTimeout(800);
+    await p.evaluate(() => go('costs')); await p.waitForFunction(() => document.getElementById('pl1267-fp') && document.getElementById('pl1267-live'), null, {timeout: 60000});   /* back to the tab */
     const after = await p.evaluate(() => ({armed: document.documentElement.classList.contains('ts1053-armed'), printing: document.body.classList.contains('printing-costs'), fp: !!document.getElementById('pl1267-fp'), live: !!document.getElementById('pl1267-live')}));
     check(after.armed && !after.printing && after.fp && after.live, 'after the prints the page tidies, keeps the flag, and the final P&L and the live model are still there: ' + JSON.stringify(after));
     check(!cons.length && !s.errors.length && s.counts.blocked === 0, 'no console or page error, no write: ' + JSON.stringify({cons: cons.slice(0, 2), errors: s.errors.slice(0, 2), blocked: s.counts.blocked}));

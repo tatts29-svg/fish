@@ -624,9 +624,9 @@ record's loads).
 - The scissor lift on 9992300 L4 is "With Operator Protection": no MEAD line supplies an operator.
 - The month-end CSV's invoice rows carry the V8s' PO, as the workbook and page do.
 
-**C. All the labour in October** (Andrew, 1 Nov 2026: "We want all labour costs. As in all hrs to all fall into october ... from
-november for. Coates wages. Salary. Job connect"). The 18 invoices are all dated October, including the hire for days in November, so
-the job's labour sits with that revenue:
+**C. November's labour in October** (Andrew, 1 Nov 2026: "We want all labour costs. As in all hrs to all fall into october ... from
+november for. Coates wages. Salary. Job connect"; and "There is no other works in novemeber that will include my labour. Thats for
+(Coates wages hours, salary, Job Connect"). November's labour, to 13 Nov, moves into October; September's stays in September:
 - the salary allowance's November share (110 of the window's 509 salaried hours), 3,176.82, is in October;
 - Job Connect's w/e 8 Nov (Daniel Gough's PO 4674224, 3,052.60, and Kyle Gover at the running sheet, 3,023.85) and w/e 15 Nov (PO
   4674225, 3,052.60), 9,129.05, are in October, still estimates until invoiced and not accrued;
@@ -641,6 +641,7 @@ labour (12,305.87 and the Coates wages hours) at 31 Oct.
 (w/e 18 Oct), 2,435.83, is the total; he worked for the V8s on 14 Oct only (10.5 h, 634.98 on the running sheet), so only that day is
 in the costs (KINP, with Daniel Gough on PO 4667755). The figure is kept with its source in the private Job Connect file.
 
-`audit_pack.py`: 510 checks, 510 pass: v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
+`audit_pack.py`: 511 checks, 511 pass (510, then the release check's wording findings: November's labour, not all of it; no
+unproven reason; Eric Lucian's invoice and PO 4667755 agree; Royal Wolf ex GST; 4658850's receipt as on the record): v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
 rows, the print sizes, each elite fix against its source, and the labour move: no salary or Job Connect line in November, each person's
 October hours = the register's October and November, the accruals unchanged, the open item's figures).

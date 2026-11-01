@@ -155,6 +155,9 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       await p.locator('#pl1267-fp').screenshot({path: path.join(shot, `final_pl_${tag}.png`)});
       await p.setViewportSize({width: vw, height: mobile ? 844 : 1000});
     }
+    const bn = await p.evaluate(async () => { const b = () => { const x = document.getElementById('ts1053-banner'); return x ? getComputedStyle(x).display : 'absent'; };
+      const onCosts = b(); go('today'); await new Promise(r => setTimeout(r, 1500)); const onToday = b(); go('costs'); await new Promise(r => setTimeout(r, 1500)); return {onCosts, onToday}; });
+    check(bn.onCosts === 'none' && bn.onToday !== 'none' && bn.onToday !== 'absent', `${tag}: the twin-steer banner is not on the Costs & P&L tab, and is still on the others: ` + JSON.stringify(bn));
     await p.waitForTimeout(800);
     check(!cons.length, `${tag}: no console errors: ` + JSON.stringify(cons.slice(0, 3)));
     check(!s.errors.length, `${tag}: no page errors: ` + JSON.stringify(s.errors.slice(0, 3)));

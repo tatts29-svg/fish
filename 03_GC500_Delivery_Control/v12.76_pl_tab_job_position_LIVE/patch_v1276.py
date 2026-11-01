@@ -9,10 +9,11 @@ wording, not figures (item 4), and for the twin-steer rule down the edge of the 
    - "Accruals through 31 Oct": the journals prepared for Finance, not a record of what is posted, with September's part of a line
      in them as a catch-up named, and the classes not in them (carrier loads, the consumables and forklift POs) for Finance to confirm;
    - the invoices and the November forecast shown apart;
-2. the twin-steer strip: the P&L's print (the Costs & P&L tab) no longer carries it (Andrew, 1 Nov 2026: "I dont want the no twin
+2. the twin-steer strip: the P&L's print (the Costs & P&L tab, by its Print button or the browser's own print) no longer carries it (Andrew, 1 Nov 2026: "I dont want the no twin
    steer on here"); on the page's other prints it now prints whole: it starts 3 mm above the bottom of the printable area (was a box
    12 mm in from top and bottom, which cut the end of the rule off) and runs up the edge, 1.5 mm in from it; when "Checked by" makes it
    longer than the edge, it wraps to a second line rather than cutting off. The rule's words, size and colour are unchanged;
+   on screen, the red twin-steer banner above the tabs is not shown on the Costs & P&L tab either (every other tab keeps it);
 3. footer v12.75 -> v12.76.
 
 No figure changes: pack v1.16 has v1.15's figures to the cent (audit_pack.py). The pack data is private and never committed; this patch
@@ -29,7 +30,7 @@ PLF_SHA256 = '797f99b9be5a98bf0dbd778e7a1b5f812c6c14b8b23d444d0833a5e34ad2e253' 
 OLD_SHA = '31b9a283e41058556aab1c6c226a5c165ba66b6b28244f89f8ce5c12b6b64065'     # pack v1.15, in the live v12.75 block
 STRIP_OLD = 'left:4mm;top:12mm;bottom:12mm;width:4mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1 Arial,sans-serif;color:#a00;text-align:center;z-index:2147483647;white-space:nowrap;overflow:hidden}'
 STRIP_NEW = ('left:1.5mm;top:auto;bottom:3mm;width:auto;max-width:14mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1.15 Arial,sans-serif;color:#a00;text-align:start;z-index:2147483647;white-space:normal;overflow:visible}'
-             'html.ts1053-armed:not(#ts1053x):not(#ts1053y):not(#ts1053z) body.printing-costs #ts1053-strip{display:none!important}')   # Andrew, 1 Nov 2026: "I dont want the no twin steer on here" (the P&L's print)
+             'html.ts1053-armed:not(#ts1053x):not(#ts1053y):not(#ts1053z) body.printing-costs #ts1053-strip,html.ts1053-armed:not(#ts1053x):not(#ts1053y):not(#ts1053z) body:has(#pane-costs.on) #ts1053-strip{display:none!important}')   # Andrew, 1 Nov 2026: "I dont want the no twin steer on here": the P&L's Print button, and the browser's own print while the Costs & P&L tab is showing
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 
 

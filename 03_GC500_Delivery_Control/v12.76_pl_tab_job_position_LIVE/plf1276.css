@@ -48,3 +48,6 @@
   .plf1272-sub,.plf1272-more>summary{break-after:avoid;page-break-after:avoid}.plf1272-tbl thead{display:table-header-group}.plf1272-tbl tr{break-inside:avoid;page-break-inside:avoid}
   .plf1272-live{display:none!important}
 }
+
+/* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): not on the Costs & P&L tab; every other tab keeps the banner */
+body:has(#pane-costs.on) #ts1053-banner{display:none!important}
