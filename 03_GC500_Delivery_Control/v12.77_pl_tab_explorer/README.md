@@ -18,8 +18,8 @@ No figure changes: pack v1.17 has v1.16's figures to the cent. The patch holds n
 refused unless it ties (the parts included).
 
 - **Find in the P&L**, under the four tiles, on one quiet panel:
-  - **Category** (all, or one of the pack's ten: Fencing, Toilets and water, Sub-hire, Transport, Labour hire, Salary,
-    Accommodation, Meals and expenses, Consumables (POs), Forklift re-hire), **Branch** (all, KINP, STPS, NVAC, MEAD), **Month**
+  - **Category** (all, or one of the pack's ten reporting categories, not GL codes: Fencing, Toilets and water, Rehire, Transport,
+    Labour hire, Salary allowance, Accommodation, Meals and expenses, Consumables and services (POs), Forklift rehire), **Branch** (all, KINP, STPS, NVAC, MEAD), **Month**
     (job end, September, October with November's labour, November forecast), a **search** and **Clear**.
   - **The choices alone:** Revenue, Costs and Difference so far for the choice, each a sum in whole cents of the pack's own parts
     (each cost line split by branch and month; each invoice and the November forecast by branch and month). The pack's build and
@@ -38,7 +38,8 @@ refused unless it ties (the parts included).
     - a **person** (full name or first name) gives their labour journal rows; costs are carried by week and supplier, not by
       person, so Revenue and Costs show a dash rather than a figure that is not theirs;
     - a **branch code** or **category name** typed acts as that choice and says so;
-    - **any other words** give the cost lines that mention them, labelled "whole lines", with no revenue.
+    - **any other words** give the cost lines that mention them, as "Matching cost lines" (whole lines: a line can be shared with
+      other items, so the figure is not one item's cost), with no revenue.
     With an identifier, a month, branch or category that does not apply gives the reason (e.g. "a PO's amount is for the job, not
     by month: choose Job end"; "this PO is on STPS"; "the invoice is dated October"), never a different figure.
   - The choice and the typed search stay when the record syncs and the tab is drawn again. The panel is for the screen; the print
@@ -50,7 +51,11 @@ refused unless it ties (the parts included).
   (and the contract outside KINP), September and October hours (November's, to 13 Nov, in October), labour hire $ (the running
   sheet's), the hours on each branch and in all. Then **the labour hire bridge**: the running sheet beside the costs, week by week,
   so the journals' labour hire dollars and the Labour hire category tie to the cent.
+- **The P&L's print button reads "Print full P&L"** (the finder is for the screen; the folds below are the full pack).
 - **Footer:** v12.76 → v12.77.
+
+The category names follow the independent recheck of the candidate (PR #1, 1 Nov 2026): Coates says "Rehire"; the salary line
+is the allowance, not the full salary cost; the PO suppliers include services (a crane, an electrician).
 
 The labour journals name each person. `toolchain/scrub_attributions.py` keeps who-fields on the record's data, but it reads this
 block as code, so the one name it would otherwise rewrite is written with a JSON escape (as the page already does elsewhere). The

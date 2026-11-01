@@ -652,8 +652,10 @@ Andrew, 1 Nov 2026: "search function that makes sense. If you want to search by 
 its accurate to the cent. And we need to know labour where everyone needs to be jornled to". No figure changes: v1.16's figures to
 the cent.
 
-- **Categories:** every cost line carries one of ten categories, by its supplier (Fencing, Toilets and water, Sub-hire, Transport,
-  Labour hire, Salary, Accommodation, Meals and expenses, Consumables (POs), Forklift re-hire). Section 1c and the "By category" sheet:
+- **Categories:** every cost line carries one of ten reporting categories (not GL codes), by its supplier (Fencing, Toilets and
+  water, Rehire, Transport, Labour hire, Salary allowance, Accommodation, Meals and expenses, Consumables and services (POs),
+  Forklift rehire). The names follow the recheck of the candidate (Coates says Rehire; the salary line is the allowance; the PO
+  suppliers include services); the forklift lines and Premiair's VMS line say rehire too. Section 1c and the "By category" sheet:
   category × branch × month, the category totals and the job.
 - **The parts** (`facts` in the data): each cost line split by branch and month in whole cents, with the one branch move (Kyle Gover's
   8 h on the water barriers, KINP to STPS in October, on the Job Connect w/e 18 Oct line) marked; the carriers by their loads' kinds

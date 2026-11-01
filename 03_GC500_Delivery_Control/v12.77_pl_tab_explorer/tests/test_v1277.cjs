@@ -37,7 +37,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
         folds: [...fp.querySelectorAll('details.plf1272-more')].map(d => ({id: d.id, open: d.open, cls: d.className})),
         live: live ? {tag: live.tagName, open: live.open, cls: live.className, summary: txt(live.querySelector('summary')), hasFace: !!live.querySelector('#pl1267'), parts: ['pl1267-rev', 'pl1267-cost', 'pl1267-branch', 'pl1267-gaps'].map(id => !!live.querySelector('#' + id)),
           oldTiles: [...live.querySelectorAll('#pl1267 .pl1267-tile .pl1267-tv')].map(txt), oldPrint: !!live.querySelector('#pl1267-print')} : null,
-        printBtn: (() => { const b = document.getElementById('pl1267-fp-print'); return b ? {bound: typeof b.onclick === 'function', inFace: fp.contains(b), w: b.getBoundingClientRect().width} : null; })(),
+        printBtn: (() => { const b = document.getElementById('pl1267-fp-print'); return b ? {bound: typeof b.onclick === 'function', inFace: fp.contains(b), w: b.getBoundingClientRect().width, text: b.textContent.trim()} : null; })(),
         box: {w: box.width, h: box.height, top: box.top}, doc: {sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth},
         ties: pane.getAttribute('data-pl1267'), footer: (document.body.innerText.match(/· v12\.\d+/g) || []).slice(-1)[0] || null,
         prose: [...fp.querySelectorAll('p, summary, h2, li, td, th')].map(txt).join(' ')
@@ -133,7 +133,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(r.live && r.live.tag === 'DETAILS' && !r.live.open && /pl1267-fold/.test(r.live.cls) && /^The live model/.test(r.live.summary) && /not the P&L job position above/.test(r.live.summary), `${tag}: the live model folds under the job position, closed, named the working figures: ` + JSON.stringify(r.live && r.live.summary));
     check(r.live.hasFace && r.live.parts.every(Boolean) && r.live.oldTiles.length === 3 && r.live.oldTiles.every(t => /\d/.test(t)) && r.live.oldPrint, `${tag}: the live model keeps its face, tiles, tables, cards and Print: ` + JSON.stringify(r.live.oldTiles));
     check(r.ties === 'ties' || r.ties === 'differs', `${tag}: the live model still works out its figures (data-pl1267 ${r.ties})`);
-    check(r.printBtn && r.printBtn.bound && r.printBtn.inFace && r.printBtn.w > 20, `${tag}: the final P&L has its own Print, bound to the tab's print: ` + JSON.stringify(r.printBtn));
+    check(r.printBtn && r.printBtn.bound && r.printBtn.inFace && r.printBtn.w > 20 && r.printBtn.text === 'Print full P&L', `${tag}: the final P&L has its own Print, bound to the tab's print: ` + JSON.stringify(r.printBtn));
     check(r.footer === '· v12.77', `${tag}: the footer says v12.77: ${r.footer}`);
     // v12.76: the recheck's wording (PACK_v115_RECHECK.md item 4), worked from the data where it names a figure
     const cu = J.lines.filter(l => l.accrue > 0.004 && l.sep > 0.004), cuAmt = cu.reduce((a, l) => a + l.sep, 0), cuWho = [...new Set(cu.map(l => l.supplier))].join(' and ');
@@ -199,7 +199,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
         ok = ok && JSON.stringify(got.rows) === JSON.stringify(cells) && got.grand && got.grand[got.grand.length - 1] === c2(cost / 100);
       } else {     // the category's lines, and their total
         const ids = new Set(fs_.map(f => f[0]));
-        ok = ok && (ids.size ? got.lines === ids.size && got.grand && got.grand[got.grand.length - 1] === c2(cost / 100) : got.lines === 0 && !got.grand && (got.none || ['Labour hire', 'Salary'].includes(c)));   // Labour hire and Salary show their people even with no cost in the choice
+        ok = ok && (ids.size ? got.lines === ids.size && got.grand && got.grand[got.grand.length - 1] === c2(cost / 100) : got.lines === 0 && !got.grand && (got.none || ['Labour hire', 'Salary allowance'].includes(c)));   // Labour hire and Salary show their people even with no cost in the choice
       }
       if (!ok) bad.push({c, b, m, got: got.k, want, rows: got.rows.length});
     });

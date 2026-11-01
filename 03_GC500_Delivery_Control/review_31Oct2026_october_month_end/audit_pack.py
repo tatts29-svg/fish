@@ -305,7 +305,7 @@ for po_, ln_ in (('4647983', 31), ('4654789', 34)):
     check('forklift PO %s on %s, the branch it is raised on' % (po_, p_['branch']), rr_[0][1] == p_['branch'], (rr_[0][1], p_['branch']))
     check('forklift PO %s is not in the accruals (its status is from Coates’ system)' % po_, not rr_[0][10], rr_[0][10])
     check('9961976 L%d (%s) is own use at 0.00 on Baseplan (12): not charged to the V8s' % (ln_, l_['Description'][:34]), all((l_.get(k) or 0) == 0 for k in ('Price', 'Rate 1', 'Billed Amount', 'Prebill Amount')))
-    eq('forklift PO %s on Costs by branch (%s)' % (po_, p_['branch']), sum(v for (b, k), v in cbr.items() if b == p_['branch'] and k.startswith('Forklift re-hire') and po_ in k), ex_)
+    eq('forklift PO %s on Costs by branch (%s)' % (po_, p_['branch']), sum(v for (b, k), v in cbr.items() if b == p_['branch'] and k.startswith('Forklift rehire') and po_ in k), ex_)
     MB_ = collections.defaultdict(float)
     if po_ == '4647983':   # each PO line in the month it mostly falls in, the lines in turn from the hire start on L31
         d0 = dt.date.fromisoformat(l_['Start Date'][:10])
@@ -589,9 +589,9 @@ check('elite pos-01: the open items say the consumables sold to the V8s carry no
 if JP.exists():
     _ci = lambda v: int(round(v * 100))
     F_ = J['facts']; LN_ = J['lines']
-    _CAT = lambda sup: ('Fencing' if sup.startswith('Advanced') else 'Toilets and water' if sup.startswith('Event Portables') else 'Sub-hire' if sup.startswith(('Premiair', 'United Rentals'))
-                        else 'Transport' if sup.startswith('Carriers') else 'Labour hire' if sup.startswith('Job Connect') else 'Salary' if sup.startswith('Salary') else 'Accommodation' if sup.startswith('Accommodation')
-                        else 'Meals and expenses' if sup.startswith('Meals') else 'Forklift re-hire' if sup.startswith('Queensland Forklifts') else 'Consumables (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
+    _CAT = lambda sup: ('Fencing' if sup.startswith('Advanced') else 'Toilets and water' if sup.startswith('Event Portables') else 'Rehire' if sup.startswith(('Premiair', 'United Rentals'))
+                        else 'Transport' if sup.startswith('Carriers') else 'Labour hire' if sup.startswith('Job Connect') else 'Salary allowance' if sup.startswith('Salary') else 'Accommodation' if sup.startswith('Accommodation')
+                        else 'Meals and expenses' if sup.startswith('Meals') else 'Forklift rehire' if sup.startswith('Queensland Forklifts') else 'Consumables and services (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
     check('parts: every cost line has its category, as its supplier gives it (%d lines, %d categories)' % (len(LN_), len({l['category'] for l in LN_})), len(LN_) == len(cs) and all(l['category'] == _CAT(r[0]) and l['category'] for l, r in zip(LN_, cs)))
     eq('parts: they add to the job cost', sum(f[3] for f in F_) / 100, JOB)
     for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('parts: %s’s add to its costs on the Summary sheet' % b, sum(f[3] for f in F_ if f[1] == b) / 100, summ[b][4])
@@ -602,9 +602,9 @@ if JP.exists():
     check('parts: a line with one branch sits only on that branch (bar the one branch move)', not _sb, _sb)
     _mv = [f for f in F_ if f[4]]
     check('parts: the one branch move is Kyle Gover’s 8 h on the water barriers, KINP −460.78 · STPS +460.78 in October, on the Job Connect w/e 18 Oct line', sorted((f[1], f[2], f[3]) for f in _mv) == [('KINP', 'Oct', -46078), ('STPS', 'Oct', 46078)] and all(cs[f[0]][3] == 'Running sheet w/e 18 Oct' for f in _mv) and any(abs(r[5] - 460.78) < 0.005 for r in moves))
-    _CBL = lambda n: ('Toilets and water' if n.startswith('Event Portables') else 'Sub-hire' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
-                      else 'Salary' if n.startswith('Salary') else 'Accommodation' if n.startswith('Accommodation') else 'Meals and expenses' if n.startswith('Meals') else 'Consumables (POs)' if n.startswith('Consumables')
-                      else 'Fencing' if n.startswith('Fencing') else 'Forklift re-hire' if n.startswith('Forklift') else None)
+    _CBL = lambda n: ('Toilets and water' if n.startswith('Event Portables') else 'Rehire' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
+                      else 'Salary allowance' if n.startswith('Salary') else 'Accommodation' if n.startswith('Accommodation') else 'Meals and expenses' if n.startswith('Meals') else 'Consumables and services (POs)' if n.startswith('Consumables')
+                      else 'Fencing' if n.startswith('Fencing') else 'Forklift rehire' if n.startswith('Forklift') else None)
     _want = collections.defaultdict(int)
     for r in cb: _want[(r[0], _CBL(r[1]))] += _ci(r[2])
     _got = collections.defaultdict(int)
