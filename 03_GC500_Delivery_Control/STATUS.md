@@ -2,9 +2,10 @@ INDEPENDENT FINANCE REVIEW HANDOVER — P&L pack v1.19 / live v12.79 (Codex), 1 
 
 LIVE — v12.80, the Costs & P&L tab on pack v1.22 (Claude, on Andrew's word "Upload go live"), data only, 2 Nov 2026 04:55 AEST (1 Nov 18:55 UTC), on the live v12.79 `73df88aeb79bd4c3dccdeafd01a9d23f72aa3d7d87257220919b0464cb6be95f`.
 - Live `3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8`, 16,947,679 bytes. `upload_page.py --dry-run` clean (live unchanged since the build), then the upload; a separate fetch of the view link matches the build byte for byte (`cmp` identical). No record change (record 12739).
-- Built by `toolchain/build.sh` from `39bc34f8`; pack v1.22 `5029e24c…` (`audit_pack.py` 583/583). What changes: `v12.80_pack_v122_night_off_transport/README.md`.
+- Built by `toolchain/build.sh` from `39bc34f8`; pack v1.22 `5029e24c…` (`audit_pack.py` 583/583). What changes: `v12.80_pack_v122_night_off_transport_LIVE/README.md`.
 - Andrew, 2 Nov: Alfie Harris's 5 Oct night off (record 12739); Job Connect on Installs – Temp Staff, as coded on Baseplan; transport by branch as deliveries and pick-ups, with the fencing semis on STPS on their own line; open item 18 (no semi for the fence going back).
 - Tests on this build, the record read only (12739): test_v1280 89/89 desktop and phone; test_v1280_find 155/155 desktop, 156/156 phone; print 25/25 (40 pages); test_v1278 10/10; caret 9/9; sweeps 27 tabs desktop and phone, 0 errors, 0 console, 0 writes.
+- The same suite on the live page after upload, the record read only (12739): test_v1280 89/89 desktop and phone; test_v1280_find 155/155 desktop, 156/156 phone; print 25/25 (40 pages); test_v1278 10/10; caret 9/9; sweeps 27 tabs desktop and phone, 0 errors, 0 console, 0 writes. Folder renamed `_LIVE`.
 - Codex's handover line above says `abeaf188` postdates the v12.80 candidate. That was true of the first candidate (`8d919df1…`, withdrawn). `abeaf188` is the record change (5 Oct shift and night off), and it is in the history this build comes from (`39bc34f8`). Codex's review proposals (`review_01Nov2026_pl_v119/`) are not in this build; they go in the next one.
 
 LIVE — v12.79, the Costs & P&L tab made clean for Finance and the elite Find in the P&L (Claude, on Andrew's word "Upload"), 2 Nov 2026 02:03 AEST, on the live v12.78 `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0`.

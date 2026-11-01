@@ -54,7 +54,7 @@ footer (v12.79 → v12.80), the page is byte for byte the live v12.79.
 
 ```
 PLF_JSON_OLD=<pack v1.19>/GC500_PL_final.json PLF_JSON=<pack v1.22>/GC500_PL_final.json \
-  toolchain/build.sh v12.80 v12.80_pack_v122_night_off_transport/patch_v1280.py
+  toolchain/build.sh v12.80 v12.80_pack_v122_night_off_transport_LIVE/patch_v1280.py
 ```
 
 ## Tests
@@ -76,3 +76,5 @@ Results on the build `3f31d69e…`, reading the live record (12739) with every w
 | `../v12.78_finance_fingerprint_LIVE/tests/test_v1278.cjs` | 10/10 | |
 | caret (`../review_01Nov2026_pl_deeper/test_caret_focus.cjs`) | 9/9 | |
 | `toolchain/harness/sweep.js` | 27 tabs, 0 errors, 0 console, 0 writes | 27 tabs, 0 errors, 0 console, 0 writes |
+
+The same suite on the live page after upload (2 Nov 2026), the record read only: every result as above.
