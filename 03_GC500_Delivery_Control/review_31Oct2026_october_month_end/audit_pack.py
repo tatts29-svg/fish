@@ -213,8 +213,8 @@ JCPO = json.load(open(NOW.parent / 'jc_pos.json'))['amounts'] if NOW and (NOW.pa
 JCP = json.load(open(NOW.parent / 'jc_pos.json')).get('po_amounts', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
 check("Daniel Gough's POs 4674224 (w/e 8 Nov) and 4674225 (w/e 15 Nov), 3,052.60 each, are in the private PO file", {k: (v['amount'], v['we'], v['who']) for k, v in JCP.items()} == {'4674224': (3052.60, '2026-11-08', 'Daniel Gough'), '4674225': (3052.60, '2026-11-15', 'Daniel Gough')}, JCP)
 if '4674224' in JCP:
-    eq('Job Connect w/e 8 Nov = PO 4674224 (Daniel) + Kyle Gover on the running sheet', sum((jc['w/e 8 Nov'][k] or 0) for k in (7, 8, 9)), r2(JCP['4674224']['amount'] + LHW['2026-11-08'] - LHWP[('Daniel Gough', '2026-11-08')]))
-    eq('Job Connect w/e 8 Nov: Kyle Gover on the running sheet = 3,023.85', LHWP[('Kyle Gover', '2026-11-08')], 3023.85)
+    eq('Job Connect w/e 8 Nov = PO 4674224 (Daniel) alone (v1.25: Kyle Gover has no November work)', sum((jc['w/e 8 Nov'][k] or 0) for k in (7, 8, 9)), JCP['4674224']['amount'])
+    check('v1.25: Kyle Gover has no November shift on the running sheet', not [r for r in LAB[2:] if r and r[0][:7] == '2026-11' and r[2] == 'Kyle Gover'] and not LHWP.get(('Kyle Gover', '2026-11-08')), [r[:3] for r in LAB[2:] if r and r[0][:7] == '2026-11' and r[2] == 'Kyle Gover'])
 if '4674225' in JCP:
     eq('Job Connect w/e 15 Nov = PO 4674225 (Daniel; nobody else on the running sheet that week)', sum((jc['w/e 15 Nov'][k] or 0) for k in (7, 8, 9)), JCP['4674225']['amount'])
     eq('running sheet w/e 15 Nov is Daniel alone', LHW['2026-11-15'], LHWP[('Daniel Gough', '2026-11-15')])
@@ -264,7 +264,7 @@ check('branch moves net to zero (two legs each)', all(re.search(r'−([\d,.]+) �
 lp = [r for r in rows('Labour by person') if r and r[0]]
 eq('labour hours = the labour register', sum((r[6] or 0) + (r[7] or 0) for r in lp), sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][:4] == '2026'))
 eq('labour hire $ by person = running sheet', sum((r[8] or 0) for r in lp), sum(float(r[5]) for r in LAB[2:] if r and r[0][:4] == '2026' and r[3] == 'Labour hire' and r[5] not in ('', 'hours only')))
-eq('running sheet labour hire, job end (12715) = 41,276.59', sum(LHW.values()), 41276.59)
+eq('running sheet labour hire, job end (12749) = 38,252.74 (v1.25: less Kyle Gover\u2019s 2\u20136 Nov, 3,023.85)', sum(LHW.values()), 38252.74)
 eq('P&L labour hire: invoices and PO amounts where there are any, the running sheet where not', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in cs if r[0].startswith('Job Connect')),
    r2(sum(LHW.values()) - 178.15 - LHW['2026-10-11'] + JCPO.get('4665091', LHW['2026-10-11']) - LHW['2026-10-25'] + (JCPO['4670882'] + JCPO['4671825'] if {'4670882', '4671825'} <= set(JCPO) else LHW['2026-10-25'])
       - (LHWP[('Daniel Gough', '2026-11-08')] - JCP['4674224']['amount'] if '4674224' in JCP else 0) - (LHWP[('Daniel Gough', '2026-11-15')] - JCP['4674225']['amount'] if '4674225' in JCP else 0)))
@@ -398,11 +398,11 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.24'
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.25'
 check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
-check('the page names record 12739 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12739)', '4674224', '4674225')))
+check('the page names record 12749 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12749)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
-check('open items: w/e 18 Oct is invoiced with its amounts to confirm; the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('w/e 18 Oct is invoiced (confirmed 2 Nov 2026; POs 4667755 and 4668970): the invoice amounts are to confirm, so it stays at the running sheet, 6,198.75, and is not accrued' in str(r[0]) and 'Carried at the running sheet until invoiced: w/e 1 Nov (no PO, accrued)' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
+check('open items: w/e 18 Oct is invoiced with its amounts to confirm; the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('w/e 18 Oct is invoiced (confirmed 2 Nov 2026; POs 4667755 and 4668970) and is not accrued; it is taken at each person’s hours and hourly rate on the running sheet, 6,198.75 (Daniel Gough 2,539.92, Eric Lucian 634.98, Kyle Gover 3,023.85)' in str(r[0]) and 'Carried at the running sheet until invoiced: w/e 1 Nov (no PO, accrued); Kyle Gover has no November work' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
 _wk = lambda w: 'w/e %d %s' % (int(w[8:10]), {'09': 'Sep', '10': 'Oct', '11': 'Nov'}[w[5:7]])
 check('every Job Connect week on the running sheet has its row in the costs (w/e 20 Sep to w/e 15 Nov)', sorted(_wk(w) for w in LHW) == sorted(jc) and len(jc) == 9, (sorted(_wk(w) for w in LHW), sorted(jc)))
 check('PO 4658653 is not in the pack (no running-sheet week is without its PO or invoice)', not any('4658653' in t for t in texts) and '4658653' not in H)
@@ -427,7 +427,7 @@ def _pg(s):
     return s
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.24 on record 12739, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.24', 12739, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.25 on record 12749, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.25', 12749, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -450,7 +450,7 @@ if JP.exists():
     check('final P&L data: the month-end rows add to October costs, by state, to the cent', round(sum(x['oct'] for x in _me.get('rows', [])) * 100) == round(OCT * 100) == round(_me.get('oct', 0) * 100)
           and all(round(x['oct'] * 100) == round(sum(l['oct'] for l in J['lines'] if l['state'] == x['state']) * 100) for x in _me.get('rows', [])))
     check('final P&L data: the accruals = October accrued + September accrued part', round((sum(x['oct'] for x in _me.get('rows', []) if x['state'] == 'Accrued at 31 Oct') + _me.get('accruedSep', 0)) * 100) == round(ACC * 100))
-    check('final P&L data: November labour in October 12,305.87, and October without it', _me.get('novLabourInOct', {}).get('total') == 12305.87 and round((OCT - 12305.87) * 100) == round(_me.get('octWithoutNovLabour', 0) * 100))
+    check('final P&L data: November labour in October 9,282.02, and October without it (v1.25: less Kyle Gover\u2019s w/e 8 Nov)', _me.get('novLabourInOct', {}).get('total') == 9282.02 and round((OCT - 9282.02) * 100) == round(_me.get('octWithoutNovLabour', 0) * 100))
     check('final P&L data: the open-item groups hold each item once', sorted(i for g in J.get('openGroups', []) for i in g['items']) == list(range(1, len(J['open']) + 1)))
 else:
     check('final P&L data (GC500_PL_final.json) is beside the pack', False)
@@ -513,7 +513,7 @@ for r in cs:
     if str(r[4]).startswith('none'): CS_SUP[r[0]] += (r[7] or 0) + (r[8] or 0) + (r[9] or 0)
 jcn_ = [k for k in NOPO_SUP if k.startswith('Job Connect')]   # Job Connect is checked on its own below (one of its no-PO weeks shares a line with PO 4674224)
 check('PO register: every cost line with no PO is listed with why, supplier by supplier', all(abs(NOPO_SUP[k] - v) < 0.005 for k, v in CS_SUP.items() if v and not k.startswith('Job Connect')) and set(NOPO_SUP) == set(k for k, v in CS_SUP.items() if v) and len(jcn_) == 1, {k: (round(NOPO_SUP[k], 2), round(v, 2)) for k, v in CS_SUP.items()})
-eq('PO register: Job Connect weeks with no PO yet = w/e 1 Nov + Kyle Gover’s w/e 8 Nov on the running sheet', NOPO_SUP[jcn_[0]] if jcn_ else 0, LHW['2026-11-01'] + LHWP[('Kyle Gover', '2026-11-08')])
+eq('PO register: Job Connect weeks with no PO yet = w/e 1 Nov on the running sheet (v1.25: Kyle Gover has no November work)', NOPO_SUP[jcn_[0]] if jcn_ else 0, LHW['2026-11-01'])
 check('the page has section 3c and the PO and no-PO totals', '3c · Every purchase order in the costs' in HT and fmt(sum(r[5] for r in pre)) in HT and fmt(sum(r[5] for r in prn)) in HT)
 if JP.exists():
     check('final P&L data: each cost line carries its hire contract, as on Costs by supplier', len(J['lines']) == len(cs) and all(l['contract'] == _pg(r[6]) and l['po'] == _pg(r[4]) for l, r in zip(J['lines'], cs)))
@@ -586,9 +586,9 @@ check('labour in October: each person’s October hours = the register’s Octob
 _lph = [c.value for c in wb['Labour by person'][1]]
 check('labour in October: the hours tables have September and October columns only (workbook, page, CSV)', _lph[6:9] == ['Sep worked h', 'Oct worked h (with 1–13 Nov)', 'Labour hire $ (running sheet)'] and len(_lph) == 9 and 'November h (to 13 Nov)' not in H and '#Nov h' not in H and 'Nov worked h' not in H and 'November worked h' not in H and not any('November h' in ' '.join(r) or 'November worked h' in ' '.join(r) for r in CS if r), _lph)
 _cwN = r2(sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][5:7] == '11' and r[3] == 'Coates wages'))
-check('labour in October: the open item for Finance names November’s labour (3,176.82 salary, 9,129.05 Job Connect, %s h of Coates wages) and keeps it out of the accruals' % fmt(_cwN), any(str(r[0]).startswith('November’s labour in October:') and 'is GC500 work (no other work in November carries it)' in str(r[0]) and '3,176.82' in str(r[0]) and '9,129.05' in str(r[0]) and (('{:,.2f}'.format(_cwN)).rstrip('0').rstrip('.') + ' h of Coates wages') in str(r[0]) and 'Finance to confirm whether to provision it' in str(r[0]) for r in rows('Open items') if r))
+check('labour in October: the open item for Finance names November’s labour (3,176.82 salary, 6,105.20 Job Connect, %s h of Coates wages) and keeps it out of the accruals' % fmt(_cwN), any(str(r[0]).startswith('November’s labour in October:') and 'is GC500 work (no other work in November carries it)' in str(r[0]) and '3,176.82' in str(r[0]) and '6,105.20' in str(r[0]) and 'Kyle Gover has no November work' in str(r[0]) and (('{:,.2f}'.format(_cwN)).rstrip('0').rstrip('.') + ' h of Coates wages') in str(r[0]) and 'Finance to confirm whether to provision it' in str(r[0]) for r in rows('Open items') if r))
 eq('labour in October: the accruals are unchanged by the labour move (work done to 31 Oct; v1.21: 195,076.18 less Alfie Harris\u2019s 5 Oct night, 223.63; v1.24: less Job Connect\u2019s w/e 18 Oct, invoiced, 6,198.75)', ACC, 188653.80)
-eq('labour in October: November’s labour moved = 12,305.87 (October up, November down by it; v1.19: less the transport moves: 1,788.02 to November, and the October estimate)', r2(OCT + 223.63 - 379590.09 + 1788.02 - _eo), 12305.87)   # v1.21: October is 223.63 lower for Alfie Harris's 5 Oct night (off the record 2 Nov), not a labour move: added back here
+eq('labour in October: November’s labour moved = 9,282.02 (v1.25: 12,305.87 less Kyle Gover’s w/e 8 Nov, 3,023.85; October up, November down by it; v1.19: less the transport moves: 1,788.02 to November, and the October estimate)', r2(OCT + 223.63 - 379590.09 + 1788.02 - _eo), 9282.02)   # v1.21: October is 223.63 lower for Alfie Harris's 5 Oct night (off the record 2 Nov), not a labour move: added back here
 # ------------------------------------------------------------------ v1.16: the elite check of live v12.75 (1 Nov 2026), the findings verified against the sources
 _PSY = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}
 _cons = {str(r[4]): r for r in cs if str(r[4]) in _PSY}
@@ -607,7 +607,7 @@ check('elite pos-09: the carrier rows with no figure are called forecasts (or ES
 _EPQ = json.load(open(PR / 'ep_detail.json'))['svc']['quotes']
 check('elite pos-10 (refuted, kept): the Event Portables quotes were approved on 24 Sep, and are unsigned with no PO; the pack says both', all(str(q.get('signed', '')).startswith('no') and not q.get('purchase_order_no') for q in _EPQ) and 'four quotes, approved on 24 Sep (unsigned, with no PO on them)' in HT)
 _EW = json.load(open(NOW.parent / 'jc_pos.json')).get('eric_week', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
-check('elite pos-11: Eric Lucian’s week is in the private Job Connect file with its source; the open item and PO 4667755 say it is invoiced in total and only his 14 Oct day (634.98) is GC500', _EW.get('amount') == 2435.83 and str(_EW.get('given', '')).startswith('Andrew Fisher, 31 Oct 2026') and any(('Eric Lucian’s week (w/e 18 Oct) is ' + fmt(_EW['amount']) + ' in total') in str(r[0]) and ('(' + fmt(r2(_EW['amount'] - 634.98)) + ') is not GC500') in str(r[0]) for r in rows('Open items') if r) and [r for r in pre if r[0] == '4667755'][0][6].startswith('invoiced (confirmed 2 Nov 2026), amounts to confirm; Eric Lucian’s whole week invoiced (2,435.83'))
+check('elite pos-11: Eric Lucian’s week is in the private Job Connect file with its source; the open item and PO 4667755 say it is invoiced in total and only his 14 Oct day (634.98) is GC500', _EW.get('amount') == 2435.83 and str(_EW.get('given', '')).startswith('Andrew Fisher, 31 Oct 2026') and any(('Eric Lucian’s week (w/e 18 Oct) is ' + fmt(_EW['amount']) + ' in total') in str(r[0]) and ('(' + fmt(r2(_EW['amount'] - 634.98)) + ') is not GC500') in str(r[0]) for r in rows('Open items') if r) and [r for r in pre if r[0] == '4667755'][0][6].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rates: Daniel Gough 2,539.92; Eric Lucian’s whole week invoiced (2,435.83'))
 _b9 = {x['Line']: x for x in bp['9994954']}
 check('elite revenue-06: on 9994954, Event Portables’ units are L19, L21 and L22; L18 is the transport of Coates’ WC09 blocks', _b9[18]['Description'] == 'Transport Charge Toilet Block' and 'Pee Panels' in _b9[19]['Description'] and 'FWF' in _b9[21]['Description'] and 'FWF' in _b9[22]['Description'] and any('Event Portables: L19 (6 pee panels) and L21–L22 (13 FWF at WC09 and WC10) hire, L23 FWF labour, L24 FWF transport (26 × 47.50)' in str(r[6]) for r in mu if r and r[0] == '9994954') and _b9[24]['Description'] == 'Transport Charge FWF' and _b9[24]['Quantity'] == 26 and not any('L18 transport and L19 hire' in t for t in texts))
 _b4 = {x['Line']: x for x in bp['9992300']}
@@ -729,7 +729,7 @@ if JP.exists() and WPF and WPF.exists():
     eq('paid hours: Coates wages paid hours, the job (from 14 Sep)', sum(x['paidSep'] + x['paidOct'] for x in _cw), 1018.50)   # v1.21: as v1.19
     check('paid hours: Coates wages normal / ×1.5 / ×2 = 684.40 / 178.00 / 156.10 h (the two-method check of 1 Nov, less 7–11 Sep)', [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')] == [684.40, 178.00, 156.10], [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')])
     # v1.21: Alfie Harris did not work or stay on 5 Oct (the King's Birthday; Andrew, 2 Nov 2026): no 5 Oct shift on the record, his paid hours as v1.19
-    check('v1.21: no labour line on 5 Oct on the record (%s): Alfie Harris did not work the King\u2019s Birthday, and no other 5 Oct shift is live' % WPJ['record'], WPJ['record'] == 12739 and not [x for x in WPJ['shifts'] if x['date'] == '2026-10-05'], [x['id'] for x in WPJ['shifts'] if x['date'] == '2026-10-05'])
+    check('v1.21: no labour line on 5 Oct on the record (%s): Alfie Harris did not work the King\u2019s Birthday, and no other 5 Oct shift is live' % WPJ['record'], WPJ['record'] == 12749 and not [x for x in WPJ['shifts'] if x['date'] == '2026-10-05'], [x['id'] for x in WPJ['shifts'] if x['date'] == '2026-10-05'])
     _aj = [x for x in J['labourJournal'] if x['who'] == 'Alfie Harris' and x['branch'] == 'KINP']
     check('v1.21: Alfie Harris at KINP in October: 250.5 worked, 238.63 paid (as v1.19)', len(_aj) == 1 and (_aj[0]['oct'], _aj[0]['paidOct']) == (250.5, 238.63), _aj)
     _jcl = [l for l in J['lines'] if l['supplier'].startswith('Job Connect')] + [x for x in J['journals'] + J['moves'] if 'Job Connect' in x['journal'] or 'labour hire' in x['journal']]
@@ -754,18 +754,23 @@ if JP.exists() and WPF and WPF.exists():
     check('v1.23: each person\u2019s 1\u201313 Nov worked hours on the journal rows = the register\u2019s November hours', all(abs(_nw[w] - _regN.get(w, 0)) < 0.005 for w in set(_nw) | set(_regN)), {w: (round(_nw[w], 2), round(_regN.get(w, 0), 2)) for w in set(_nw) | set(_regN) if abs(_nw[w] - _regN.get(w, 0)) >= 0.005})
     check('v1.23: each person\u2019s 1\u201313 Nov paid hours = the paid hours of their 1\u201313 Nov shifts, from each shift\u2019s own times (%s)' % WPJ['record'], all(abs(_np[w] - _wpn.get(w, 0)) < 0.006 for w in set(_np) | set(_wpn)), {w: (round(_np[w], 2), round(_wpn.get(w, 0), 2)) for w in set(_np) | set(_wpn) if abs(_np[w] - _wpn.get(w, 0)) >= 0.006})
     check('v1.23: on every journal row November\u2019s hours sit inside October\u2019s (worked and paid), and paid is never above worked', all(x['novInOct'] <= x['oct'] + 1e-9 and x['paidNovInOct'] <= x['paidOct'] + 1e-9 and x['paidNovInOct'] <= x['novInOct'] + 1e-9 for x in J['labourJournal']))
-    eq('v1.23: worked hours on 1\u201313 Nov, the job', sum(x['novInOct'] for x in J['labourJournal']), 461.50)
-    eq('v1.23: paid hours on 1\u201313 Nov, the job', sum(x['paidNovInOct'] for x in J['labourJournal']), 440.00)
+    eq('v1.23: worked hours on 1\u201313 Nov, the job (v1.25: 409.00, Kyle Gover\u2019s 52.50 off)', sum(x['novInOct'] for x in J['labourJournal']), 409.00)
+    eq('v1.23: paid hours on 1\u201313 Nov, the job (v1.25: 390.00, Kyle Gover\u2019s 50.00 off)', sum(x['paidNovInOct'] for x in J['labourJournal']), 390.00)
     eq('v1.23: the salary\u2019s 1\u201313 Nov hours (Andrew Fisher)', sum(x['novInOct'] for x in J['labourJournal'] if x['kind'] == 'Salary'), 110.00)
     # v1.24 (Andrew, 2 Nov 2026: "For w/e 18th oct its been invoiced"): the week is invoiced, not accrued; its amounts are to confirm, so it stays at the running sheet
     _w18 = [l for l in J['lines'] if l['supplier'].startswith('Job Connect') and l['what'] == 'Running sheet w/e 18 Oct']
-    check('v1.24: Job Connect w/e 18 Oct is invoiced (amount to confirm), not accrued, at the running sheet (6,198.75, October)', len(_w18) == 1 and (_w18[0]['state'], _w18[0]['status'], _w18[0]['accrue'], _w18[0]['oct']) == ('Invoiced', 'invoiced (amount to confirm)', 0, 6198.75), _w18)
+    check('v1.24: Job Connect w/e 18 Oct is invoiced, not accrued, at each person\u2019s hours and hourly rate on the running sheet (6,198.75, October; v1.25)', len(_w18) == 1 and (_w18[0]['state'], _w18[0]['status'], _w18[0]['accrue'], _w18[0]['oct']) == ('Invoiced', 'invoiced', 0, 6198.75) and 'Daniel Gough 2,539.92, Eric Lucian 634.98, Kyle Gover 3,023.85' in _w18[0]['invoice'], _w18)
     _jj = [j for j in J['journals'] if j['journal'].startswith('Accrual · Job Connect')]
     check('v1.24: the Job Connect accrual journal is w/e 1 Nov alone, 3,835.37 (w/e 11, 18 and 25 Oct invoiced)', len(_jj) == 1 and _jj[0]['amount'] == 3835.37 and 'w/e 1 Nov (the running sheet; w/e 11, 18 and 25 Oct are invoiced)' in _jj[0]['journal'] and '4667755' not in _jj[0]['po'], _jj)
     _mr = {x['state']: x['oct'] for x in J['monthEnd']['rows']}
-    check('v1.24: October at month end: invoiced 139,428.20 and accrued 186,690.70 (6,198.75 moved from accrued to invoiced); October still 405,968.10', (_mr.get('Invoiced'), _mr.get('Accrued at 31 Oct'), J['monthEnd']['oct']) == (139428.2, 186690.7, 405968.1), _mr)
+    check('v1.24: October at month end: invoiced 139,428.20 and accrued 186,690.70 (6,198.75 moved from accrued to invoiced); October 402,944.25 (v1.25: less Kyle Gover\u2019s w/e 8 Nov)', (_mr.get('Invoiced'), _mr.get('Accrued at 31 Oct'), J['monthEnd']['oct']) == (139428.2, 186690.7, 402944.25), _mr)
     check('v1.24: five lines accrued at 31 Oct', [l['state'] for l in J['lines']].count('Accrued at 31 Oct') == 5)
-    check('v1.24: POs 4667755 and 4668970 say invoiced, amounts to confirm', [x['status'] for x in J['purchaseOrders'] if x['po'] == '4668970'][0].startswith('invoiced (confirmed 2 Nov 2026), amount to confirm') and [x['status'] for x in J['purchaseOrders'] if x['po'] == '4667755'][0].startswith('invoiced (confirmed 2 Nov 2026), amounts to confirm'))
+    check('v1.24: POs 4667755 and 4668970 say invoiced, amounts to confirm', [x['status'] for x in J['purchaseOrders'] if x['po'] == '4668970'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rate: Kyle Gover 3,023.85') and [x['status'] for x in J['purchaseOrders'] if x['po'] == '4667755'][0].startswith('invoiced (confirmed 2 Nov 2026), at the running sheet’s hours and rates: Daniel Gough 2,539.92'))
+    # v1.25 (Andrew, 2 Nov 2026: "Kyle wont be doing any works in november"; record 12749): his 2–6 Nov shifts off; the job falls by his w/e 8 Nov, 3,023.85
+    _kn = [x for x in J['labourJournal'] if x['who'] == 'Kyle Gover']
+    check('v1.25: Kyle Gover has no 1\u201313 Nov hours on the journal rows, worked or paid', _kn and all(x['novInOct'] == 0 and x['paidNovInOct'] == 0 for x in _kn), [(x['branch'], x['novInOct'], x['paidNovInOct']) for x in _kn])
+    _lhc = [c for c in J['categories'] if c['name'] == 'Labour hire']
+    check('v1.25: the job 585,217.91, October 402,944.25, difference 416,684.23, labour hire 37,466.31; the accruals 188,653.80 unchanged', (J['costs']['total'], J['costs']['oct'], J['difference'], J['accrue'], _lhc[0]['total'] if _lhc else None) == (585217.91, 402944.25, 416684.23, 188653.8, 37466.31), (J['costs'], J['difference'], J['accrue']))
     _phs = [r for r in rows('Paid hours (journal basis)') if r and r[0]]
     _prs = [r for r in _phs if not str(r[0]).startswith(('Paid hours on', 'Coates wages, the job', 'All hours', 'Paid hours are'))]
     check('paid hours: the workbook sheet = the data, row for row, with each branch’s total and the job’s', len(_prs) == len(J['labourJournal']) and all((r[0], r[3], r[4], r[5], r[7], r[8], r[9]) == (x['who'], x['branch'], x['paidSep'], x['paidOct'], x['normal'], x['x15'], x['x2']) for r, x in zip(_prs, J['labourJournal']))

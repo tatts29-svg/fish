@@ -1,5 +1,5 @@
 """Author: Andrew Fisher. v12.81: the Costs & P&L tab shows November's hours (1–13 Nov) beside October's, and Job Connect's w/e 18 Oct
-as invoiced, on pack v1.24.
+as invoiced, and Kyle Gover's November shifts off, on pack v1.25.
 
 On 2 Nov 2026 Andrew sent the Labour journals and Paid hours tables from the live v12.80 tab and asked: "Also can we show what november
 is made up of hrs too here". November's labour, to 13 Nov, is counted in October with the labour costs (Andrew, 1 Nov: "We want all
@@ -8,17 +8,22 @@ gains one column, "of which 1–13 Nov": the part of each person's October hours
 1–13 Nov. No total, cost, month or branch figure moves.
 
 Andrew then said, the same morning: "For w/e 18th oct its been invoiced". Job Connect's w/e 18 Oct (POs 4667755 and 4668970) is
-invoiced, so it is no longer accrued; the invoice amounts are to confirm, so it stays at the running sheet, 6,198.75. The accruals
-fall by exactly that (194,852.55 -> 188,653.80); October at month end moves it from accrued to invoiced; no cost moves.
+invoiced, so it is no longer accrued; Andrew: "work off his hrs worked and hrly rate", so it is taken at each person's hours and
+hourly rate on the running sheet, 6,198.75. The accruals fall by exactly that (194,852.55 -> 188,653.80); October at month end moves
+it from accrued to invoiced; no cost moves.
 
-- Pack v1.24 (audit_pack.py 594/594) is pack v1.22 plus two fields on each of the 16 labour journal rows, novInOct and paidNovInOct
-  (worked 461.50 h and paid 440.00 h on 1–13 Nov, the job; v1.23), and the w/e 18 Oct week invoiced (v1.24). The patch refuses any
-  other data difference, and any money change but the 6,198.75 moving from accrued to invoiced.
+And: "Kyle wont be doing any works in november". His 2–6 Nov shifts came off the record (12739 -> 12749,
+../record_02Nov2026_kyle_november_off/). His w/e 8 Nov on the running sheet, 3,023.85, is no longer a cost; November's labour is in
+October, so October and the job each fall by exactly that, on KINP, labour hire; the accruals do not move.
+
+- Pack v1.25 is pack v1.22 plus two fields on each of the 16 labour journal rows, novInOct and paidNovInOct (v1.23), the w/e 18 Oct
+  week invoiced (v1.24), and Kyle Gover's November off (v1.25, record 12749). The patch refuses any money change that is not exactly
+  the 6,198.75 accrual or Kyle's 3,023.85, any branch but KINP moving, any category but labour hire, and any journal row but Kyle's.
 - The block's code is the live v12.79/v12.80 code with the two tables changed (plf1281_src.js, plf1281.css, here); the find files are
   the live ones, read from ../v12.79_pl_rehire_pack_v119_LIVE/. The patch checks the live block is v12.80's before it swaps it.
 - The release footer, v12.80 -> v12.81.
 
-    PLF_JSON_OLD=<pack v1.22>/GC500_PL_final.json PLF_JSON=<pack v1.24>/GC500_PL_final.json \
+    PLF_JSON_OLD=<pack v1.22>/GC500_PL_final.json PLF_JSON=<pack v1.25>/GC500_PL_final.json \
       toolchain/build.sh v12.81 v12.81_pl_november_hours/patch_v1281.py
 """
 import hashlib, importlib.util, json, re, sys
@@ -28,18 +33,15 @@ HERE = Path(__file__).resolve().parent
 LIVE1279 = HERE.parent / 'v12.79_pl_rehire_pack_v119_LIVE'
 BASE = '3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8'        # live v12.80, uploaded 2 Nov 2026 04:55 AEST
 OLD_SHA = '5029e24ce4ea151bf5a7f7abbaffcb617f15fa54faeabb8a585cfea927a9d9cc'     # pack v1.22, record 12739, in the live v12.80 block
-NEW_SHA = '6f57969e000490815a847c2144727305044e034cd0b46cc1fdabdddec1aefca2'     # pack v1.24, record 12739 (audit_pack.py 594/594)
-W18 = 6198.75                                                                    # Job Connect w/e 18 Oct, invoiced (amount to confirm)
+NEW_SHA = '__V125__'     # pack v1.25, record 12749
+W18 = 6198.75                                                                    # Job Connect w/e 18 Oct, invoiced, at the running sheet's hours and rates
+K8 = 3023.85                                                                     # Kyle Gover's w/e 8 Nov on the running sheet (off the record, 12749)
 FIND = ('plf1279_find.js', 'plf1279_find.css')
 
 spec = importlib.util.spec_from_file_location('p1279', LIVE1279 / 'patch_v1279.py')
 P1279 = importlib.util.module_from_spec(spec); spec.loader.exec_module(P1279)
 P1277 = P1279.P1277
 
-ALLOWED = [r'pack', r'labourJournal\[\d+\]\.(novInOct|paidNovInOct)',   # the name, and the two new fields on each journal row (v1.23)
-           r'accrue', r'contracts\[\d+\]\.costs\[\d+\]\.status', r'journals\[\d+\]\.(amount|contract|journal|po)', r'labourHireBridge\[\d+\]\.invoice',
-           r'lines\[\d+\]\.(accrue|basis|invoice|state|status)', r'monthEnd\.rows\[[01]\]\.oct', r'notTied\[0\]\.po', r'open\[4\]',
-           r'purchaseOrders\[\d+\]\.status', r'suppliers\[\d+\]\.accrue']   # v1.24: Job Connect's w/e 18 Oct invoiced
 
 
 def diffs(a, b, path=''):
@@ -57,35 +59,55 @@ def diffs(a, b, path=''):
 
 
 def check_delta(o, n):
-    if (o.get('pack'), n.get('pack'), o.get('record'), n.get('record')) != ('v1.22', 'v1.24', 12739, 12739):
-        raise ValueError('expected pack v1.22 -> v1.24, both on record 12739')
-    d = diffs(o, n)
-    bad = [x for x in d if not any(re.fullmatch(p, x) for p in ALLOWED)]
-    if bad: raise ValueError('pack v1.23 differs from v1.22 outside the November hours: ' + repr(bad[:12]))
-    LJ = n['labourJournal']
-    if any('novInOct' in x or 'paidNovInOct' in x for x in o['labourJournal']): raise ValueError('v1.22 already had November fields')
-    if not all(isinstance(x.get('novInOct'), (int, float)) and isinstance(x.get('paidNovInOct'), (int, float)) for x in LJ): raise ValueError('a journal row without its November hours')
-    if not all(x['novInOct'] <= x['oct'] + 1e-9 and x['paidNovInOct'] <= x['paidOct'] + 1e-9 and x['paidNovInOct'] <= x['novInOct'] + 1e-9 for x in LJ):
-        raise ValueError('November hours above October\'s, or paid above worked, on a row')
-    tw, tp = round(sum(x['novInOct'] for x in LJ), 2), round(sum(x['paidNovInOct'] for x in LJ), 2)
-    if (tw, tp) != (461.5, 440.0): raise ValueError('November hours, the job: %s worked, %s paid; expected 461.50 and 440.00' % (tw, tp))
-    # v1.24: only the w/e 18 Oct line, its journal, its POs and the totals that carry its accrual; the money moves by exactly the week
+    if (o.get('pack'), n.get('pack'), o.get('record'), n.get('record')) != ('v1.22', 'v1.25', 12739, 12749):
+        raise ValueError('expected pack v1.22 on 12739 -> v1.25 on 12749')
     c = lambda x, y: abs(round(x, 2) - round(y, 2)) < 0.005
-    if not (c(n['accrue'], o['accrue'] - W18) and n['costs'] == o['costs'] and n['revenue'] == o['revenue'] and n['difference'] == o['difference']): raise ValueError('the accruals did not fall by exactly the w/e 18 Oct week, or a total moved')
-    lc = [i for i, (x, y) in enumerate(zip(o['lines'], n['lines'])) if x != y]
-    if len(lc) != 1: raise ValueError('expected exactly one cost line to change: ' + repr(lc))
-    lo, ln = o['lines'][lc[0]], n['lines'][lc[0]]
-    if not (ln['supplier'].startswith('Job Connect') and ln['what'] == 'Running sheet w/e 18 Oct' and (lo['state'], lo['accrue']) == ('Accrued at 31 Oct', W18) and (ln['state'], ln['status'], ln['accrue']) == ('Invoiced', 'invoiced (amount to confirm)', 0)
-            and all(ln[k] == lo[k] for k in ('sep', 'oct', 'nov', 'po', 'branch', 'account', 'category'))): raise ValueError('the changed line is not Job Connect w/e 18 Oct, accrued -> invoiced at the same cost')
+    d = diffs(o, n)
+    def at(obj, path):   # a value by its diff path, e.g. 'byAccount[7].holds[0].amount'
+        for k, i in re.findall(r'([^.\[\]]+)|\[(\d+)\]', path):
+            obj = obj[int(i)] if i else obj[k]
+        return obj
+    # every money figure that moved (outside the journal rows' hours, the facts, the journals and the text) moved by exactly one of the two
+    for x in d:
+        if x.endswith(' len') or x.startswith(('labourJournal', 'facts', 'journals', 'open', 'record', 'pack', 'source')): continue
+        u, v = at(o, x), at(n, x)
+        if isinstance(u, (int, float)) and isinstance(v, (int, float)) and not isinstance(u, bool):
+            dv = abs(round(v - u, 2))
+            if not any(abs(dv - k) < 0.005 for k in (W18, K8)): raise ValueError('%s moved by %s, not by the w/e 18 Oct accrual or Kyle Gover\'s week' % (x, round(v - u, 2)))
+    if n['revenue'] != o['revenue']: raise ValueError('revenue moved')
+    if not (c(n['accrue'], o['accrue'] - W18) and c(n['costs']['total'], o['costs']['total'] - K8) and c(n['costs']['oct'], o['costs']['oct'] - K8)
+            and n['costs']['sep'] == o['costs']['sep'] and n['costs']['nov'] == o['costs']['nov'] and c(n['difference'], o['difference'] + K8)):
+        raise ValueError('the totals: accruals must fall by 6,198.75, the job and October by 3,023.85, the difference rise by 3,023.85')
+    bo, bn = {x['b']: x for x in o['branches']}, {x['b']: x for x in n['branches']}
+    if not (c(bn['KINP']['costs'], bo['KINP']['costs'] - K8) and all(bn[b] == bo[b] for b in bo if b != 'KINP')): raise ValueError('a branch other than KINP moved')
+    co, cn = {x['name']: x for x in o['categories']}, {x['name']: x for x in n['categories']}
+    if not (c(cn['Labour hire']['total'], co['Labour hire']['total'] - K8) and all(cn[k] == co[k] for k in co if k != 'Labour hire')): raise ValueError('a category other than labour hire moved')
+    # the journal rows: every row gains its November hours (v1.23); only Kyle Gover's rows change otherwise (v1.25)
+    LJ, LO = n['labourJournal'], o['labourJournal']
+    if len(LJ) != len(LO) or any('novInOct' in x or 'paidNovInOct' in x for x in LO): raise ValueError('the journal rows changed shape')
+    for x, y in zip(LO, LJ):
+        z = {k: v for k, v in y.items() if k not in ('novInOct', 'paidNovInOct')}
+        if x['who'] != 'Kyle Gover' and z != x: raise ValueError('a journal row other than Kyle Gover\'s changed: ' + x['who'])
+        if not (isinstance(y.get('novInOct'), (int, float)) and isinstance(y.get('paidNovInOct'), (int, float)) and y['novInOct'] <= y['oct'] + 1e-9 and y['paidNovInOct'] <= y['paidOct'] + 1e-9 and y['paidNovInOct'] <= y['novInOct'] + 1e-9):
+            raise ValueError('a journal row\'s November hours do not sit inside October\'s: ' + x['who'])
+    kn = [y for y in LJ if y['who'] == 'Kyle Gover']
+    if not kn or any(y['novInOct'] or y['paidNovInOct'] for y in kn): raise ValueError('Kyle Gover still has November hours')
+    tw, tp = round(sum(x['novInOct'] for x in LJ), 2), round(sum(x['paidNovInOct'] for x in LJ), 2)
+    if (tw, tp) != (409.0, 390.0): raise ValueError('November hours, the job: %s worked, %s paid; expected 409.00 and 390.00' % (tw, tp))
+    # the w/e 18 Oct line: accrued -> invoiced at the same cost; the Job Connect accrual journal is w/e 1 Nov alone
+    l18 = [(x, y) for x, y in zip(o['lines'], n['lines']) if y['what'] == 'Running sheet w/e 18 Oct' and y['supplier'].startswith('Job Connect')]
+    if len(l18) != 1 or not ((l18[0][0]['state'], l18[0][0]['accrue']) == ('Accrued at 31 Oct', W18) and (l18[0][1]['state'], l18[0][1]['status'], l18[0][1]['accrue']) == ('Invoiced', 'invoiced', 0) and l18[0][1]['oct'] == l18[0][0]['oct'] == W18):
+        raise ValueError('the w/e 18 Oct line is not accrued -> invoiced at 6,198.75')
+    l8 = [(x, y) for x, y in zip(o['lines'], n['lines']) if y['what'] == 'Running sheet w/e 8 Nov' and y['supplier'].startswith('Job Connect')]
+    if len(l8) != 1 or not c(l8[0][1]['oct'], l8[0][0]['oct'] - K8) or not c(l8[0][1]['oct'], 3052.60): raise ValueError('w/e 8 Nov is not Daniel Gough\'s PO alone, 3,052.60')
+    changed = [i for i, (x, y) in enumerate(zip(o['lines'], n['lines'])) if x != y]
+    if len(o['lines']) != len(n['lines']) or sorted(n['lines'][i]['what'] for i in changed) != ['Running sheet w/e 18 Oct', 'Running sheet w/e 8 Nov']: raise ValueError('a cost line other than the two Job Connect weeks changed')
     jc = [(x, y) for x, y in zip(o['journals'], n['journals']) if x != y]
-    if len(jc) != 1 or not (jc[0][1]['journal'].startswith('Accrual · Job Connect') and c(jc[0][1]['amount'], jc[0][0]['amount'] - W18) and c(jc[0][1]['amount'], 3835.37) and '4667755' not in jc[0][1]['po']): raise ValueError('the Job Connect accrual journal is not w/e 1 Nov alone at 3,835.37')
+    if len(o['journals']) != len(n['journals']) or len(jc) != 1 or not (jc[0][1]['journal'].startswith('Accrual · Job Connect') and c(jc[0][1]['amount'], 3835.37) and '4667755' not in jc[0][1]['po']): raise ValueError('the Job Connect accrual journal is not w/e 1 Nov alone at 3,835.37')
     mo, mn = {x['state']: x['oct'] for x in o['monthEnd']['rows']}, {x['state']: x['oct'] for x in n['monthEnd']['rows']}
-    if not (c(mn['Invoiced'], mo['Invoiced'] + W18) and c(mn['Accrued at 31 Oct'], mo['Accrued at 31 Oct'] - W18) and all(mn[k] == mo[k] for k in mo if k not in ('Invoiced', 'Accrued at 31 Oct')) and n['monthEnd']['oct'] == o['monthEnd']['oct']):
-        raise ValueError('October at month end: the week must move from accrued to invoiced and nothing else')
-    so = {x['name']: x for x in o['suppliers']}; sn = {x['name']: x for x in n['suppliers']}
-    if not all(sn[k] == so[k] if not k.startswith('Job Connect') else (c(sn[k]['accrue'], so[k]['accrue'] - W18) and dict(sn[k], accrue=0) == dict(so[k], accrue=0)) for k in so): raise ValueError('a supplier other than Job Connect moved, or Job Connect by more than the week')
-    po = [(x, y) for x, y in zip(o['purchaseOrders'], n['purchaseOrders']) if x != y]
-    if sorted(y['po'] for x, y in po) != ['4667755', '4668970'] or not all(y['status'].startswith('invoiced (confirmed 2 Nov 2026)') and dict(y, status='') == dict(x, status='') for x, y in po): raise ValueError('only POs 4667755 and 4668970 may change, to invoiced')
+    nl = 'November labour, carried in October (not accrued)'
+    if not (c(mn['Invoiced'], mo['Invoiced'] + W18) and c(mn['Accrued at 31 Oct'], mo['Accrued at 31 Oct'] - W18) and c(mn[nl], mo[nl] - K8) and all(mn[k] == mo[k] for k in mo if k not in ('Invoiced', 'Accrued at 31 Oct', nl))):
+        raise ValueError('October at month end: only the w/e 18 Oct move and Kyle Gover\'s week may change')
     return len(d)
 
 
@@ -114,7 +136,7 @@ def patch(text):
     found = P1277.FOOTER.findall(text)
     if found != ['v12.80']: raise ValueError('release footer: expected one v12.80 footer, found ' + repr(found))
     text = P1277.FOOTER.sub(lambda m: m.group(0).replace(m.group(1), 'v12.81'), text, count=1)
-    print('patch_v1281 applied: November\'s hours beside October\'s on the Labour journals and Paid hours tables, and Job Connect w/e 18 Oct invoiced, pack v1.24 (data %s; %d data paths, all allowed); footer v12.80 -> v12.81'
+    print('patch_v1281 applied: November\'s hours beside October\'s on the Labour journals and Paid hours tables, Job Connect w/e 18 Oct invoiced, Kyle Gover\'s November off; pack v1.25 (data %s; %d data paths checked); footer v12.80 -> v12.81'
           % (NEW_SHA[:12], nd))
     return text
 
