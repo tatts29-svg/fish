@@ -1,3 +1,12 @@
+CANDIDATE — v12.79, the Costs & P&L tab made clean for Finance and the elite Find in the P&L (Claude), 2 Nov 2026 ~01:15 AEST, on the live v12.78 `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0`. Not uploaded: upload only on Andrew's word.
+- Built by `toolchain/build.sh` from `c7b5526c`: `73df88aeb79bd4c3dccdeafd01a9d23f72aa3d7d87257220919b0464cb6be95f`, 16,946,654 bytes; `upload_page.py --dry-run` clean (live unchanged since the build). Pack v1.19 `fd38abea…` (`audit_pack.py` 573/573).
+- Andrew, 1 Nov: "Please make sure the costs/p&l tab is very clean and organised"; "We want the search feature in here to be elite".
+- The face: October costs at 31 Oct by where each stands (adding to October to the cent); costs by category (prints); one statement of the transport not accrued to 31 Oct; plain states on every cost line; folds journals first; open items in four groups; print with a footer and page numbers on every page.
+- The working figures from the live record (live model, ledger lines, fencing, workings, handover, transport) sit in one closed fold and say what they are; their Copy and CSV exports open with the superseded line (210 word pairs, `working_v1279.json`).
+- Find in the P&L: one box for PO, contract, invoice, supplier, GL code, week, date, amount, branch, month and finance views (accruals, manual accrual, margin, month end, actual vs estimate and more), with export and copy.
+- Tests on the release build: test_v1279 89/89 desktop and phone; test_v1279_find 155/155 desktop, 156/156 phone; print 25/25; test_v1278 10/10; caret 9/9; sweeps 27 tabs, 0 errors, 0 writes. Three independent pre-upload checks; every blocker fixed and retested.
+- README: `v12.79_pl_rehire_pack_v119/README.md` (open items listed there).
+
 LIVE: v12.78, the P&L explorer and paid hours on pack v1.18, plus the Finance rows fix (Claude, on Andrew's word "Upload"), 1 Nov 2026 18:07 AEST, on the live v12.76 `30ab13155c21c7284cde18a4d9752fad7b07cb3d703114948162833d62d9fcc9`.
 - Live `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0`, 16,700,055 bytes. The public view serves the build byte for byte (`toolchain/upload_page.py`, then a separate fetch and `cmp`).
 - Find in the P&L (Andrew: "search function that makes sense ... by category ... by branch ... by month ... accurate to the cent"):
