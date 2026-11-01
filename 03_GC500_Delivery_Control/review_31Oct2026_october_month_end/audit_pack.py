@@ -212,11 +212,13 @@ adv = [r for r in cs if r[0].startswith('Advanced')]
 eq('Advanced invoiced row = the POs', sum((adv[0][k] or 0) for k in (7, 8, 9)), 214225.00)
 eq('Event Portables = the four quotes', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in cs if r[0] == 'Event Portables'), 42175.00 + 51372.00 + 4850.00 + 3350.00)
 POSYS = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}   # v1.13: Coates' system, 1 Nov (private)
+PONOW = json.load(open(NOW.parent / 'po_record_now.json')) if NOW and (NOW.parent / 'po_record_now.json').exists() else None   # v1.13: the record's POs read after the 4669481 correction
 check('the six consumables POs as Coates’ system has them are beside the record captures', len(POSYS) == 6, sorted(POSYS))
 for po in ('4655573', '4663216', '4666720', '4670270', '4670876', '4669481'):
     row = [r for r in cs if r[4] == po][0]; amt_ = (row[7] or 0) + (row[8] or 0) + (row[9] or 0)
     if po in POSYS: eq('consumables PO %s at its amount in Coates’ system (qty × unit cost, ex GST)' % po, amt_, r2(POSYS[po]['qty'] * POSYS[po]['unit_cost']))
-    if po == '4669481': eq('PO 4669481: the record still carries 42.34 (2 × 21.17 from the printed PO), one cent over the system’s 2 × 21.1650', float(pos[po]['amount']) - amt_, 0.01)
+    if PONOW: eq('consumables PO %s = the record as it now stands (%s)' % (po, PONOW['version']), amt_, float(PONOW['pos'][po]['amount']))   # v1.13: 4669481 corrected to 42.33 on 1 Nov (12727 -> 12729)
+    elif po == '4669481': eq('PO 4669481: the record (12640 capture) carries 42.34, one cent over the system’s 2 × 21.1650', float(pos[po]['amount']) - amt_, 0.01)
     else: eq('consumables PO %s = the record' % po, amt_, float(pos[po]['amount']))
 check('every PO on the record is in the pack', all(any(p in str(r[4]) for r in cs) for p in pos), [p for p in pos if not any(p in str(r[4]) for r in cs)])
 
