@@ -273,7 +273,7 @@ function html() {
     TE.legs.forEach(function (x) { tsum[x.group] += Math.round(x.amount * 100); });
     var tbr = function (o) { return BRS.filter(function (b) { return o[b]; }).map(function (b) { return b + ' ' + f2(o[b]); }).join(' · '); };
     te = '<p class="plf1272-note">No carrier has invoiced Coates for any GC500 load, and none has a PO. These are the trucks the record and Schedule 17 show ran by 31 Oct with no figure in the costs, and the Coates gear still on site with no pick-up in the costs, each as an ESTIMATE: ' + e(TE.method) + '. Whatever the record shows on site is on site; when a departure is recorded, its pick-up falls in that month. Event Portables collect their own (already in their accrual).</p>'
-      + '<ul class="plf1279-tenotes"><li><b>Ran by 31 Oct: ' + f2(TE.ranBy31Oct) + '</b> (' + e(tbr(TE.byBranch.ranBy31Oct)) + '), in October: a manual accrual candidate for Finance.</li>'
+      + '<ul class="plf1279-tenotes"><li><b>Ran by 31 Oct: ' + f2(TE.ranBy31Oct) + '</b> (' + e(tbr(TE.byBranch.ranBy31Oct)) + '), in October: part of the transport not accrued to ' + e(d) + ' (' + f2((candSep + candOct) / 100) + '), a manual accrual candidate for Finance.</li>'
       + '<li><b>Still on site: ' + f2(TE.stillOnSite) + '</b> (' + e(tbr(TE.byBranch.stillOnSite)) + '), in November.</li>'
       + '<li>Moved to November, still on site: ' + TE.moved.map(function (m) { return e(m.ref) + ' ' + f2(m.amount); }).join(', ') + ' (in the planned loads).</li>'
       + (TE.notIn && TE.notIn.length ? '<li>Not in it (who pays is not on the record): ' + TE.notIn.map(function (x) { return e(x.what) + ', ' + f2(x.amount); }).join('; ') + '.</li>' : '') + '</ul>'

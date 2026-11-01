@@ -11,6 +11,9 @@ const money = t => { const o = [], re = /([−-]?)(\d{1,3}(?:,\d{3})+|\d+)\.(\d{
 (async () => {
   const mobile = !!process.env.MOB, tag = mobile ? 'phone' : 'desktop';
   const J = JSON.parse(fs.readFileSync(process.env.PLF_JSON, 'utf-8'));
+  const JCJ = ((J.journals || []).find(j => /supplier [A-Z]{2,4}\d{2,4}/.test(j.journal)) || {}).journal || '';
+  const JCC = (JCJ.match(/supplier ([A-Z]{2,4}\d{2,4})/) || [])[1], JCN = ((JCJ.match(/\(([^,()]+), supplier/) || [])[1] || '').split(' ').slice(0, 2).join(' ');
+  const JC_PRIV = new RegExp([JCC, JCN].filter(Boolean).map(x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') || 'NO_SUCH_NAME', 'i');   // read from the pack's Job Connect journal, never written in this file
   const s = await open({pageFile: process.env.PAGE, mobile, W: mobile ? 390 : 1440, H: mobile ? 844 : 1000, dpr: mobile ? 2 : 1, hash: '#costs'}), p = s.page;
   const cons = []; p.on('console', m => { if (m.type() === 'error') cons.push(m.text().slice(0, 200)); });
   let n = 0; const fails = [];
@@ -190,9 +193,9 @@ const money = t => { const o = [], re = /([−-]?)(\d{1,3}(?:,\d{3})+|\d+)\.(\d{
     { const r = await run('Eric Lucian'), x = LJ.find(y => y.who === 'Eric Lucian'); check(r.k[0] === '—' && r.k[1] === '—' && r.lj === 1 && has(r.ans, f2(x.labourHire), 'No person total') && G(r, 'po').n >= 1, `${tag}: a person: hours, the running sheet, POs naming them, no total: ` + r.ans); }
     { const r = await run('Daniel Gough'), pos = PO.filter(x => /\b(Daniel|Gough)\b/.test(x.what)); check(r.lj === LJ.filter(y => y.who === 'Daniel Gough').length && G(r, 'po').n === pos.length && pos.every(x => has(r.ans, x.po + ' ' + f2(x.amount))) && G(r, 'po').grand === '—', `${tag}: Daniel Gough: every PO naming him, none added: ` + r.ans); }
     { const r = await run('QLD Forklifts'), sp = J.suppliers.find(x => /^Queensland/.test(x.name)); check(/read as Queensland Forklifts/.test(r.note) && r.k[1] === f2(sp.total) && has(r.ans, PO.filter(x => x.supplier === sp.name).length + ' POs'), `${tag}: QLD Forklifts is read as Queensland Forklifts: ` + JSON.stringify([r.note, r.k])); }
-    { const r = await run('Job Connect'), r2 = await run('labour hire'), jr = JN.find(j => /HIG025/.test(j.journal));
+    { const r = await run('Job Connect'), r2 = await run('labour hire'), jr = JN.find(j => JCC && j.journal.includes(JCC));
       const outside = t => t.replace(jr ? jr.journal : '@@', '');
-      check(!/HIG025|High Level/i.test(outside(r.own)) && !/HIG025|High Level/i.test(outside(r2.own)), `${tag}: Job Connect's registered name and code appear only inside its one accrual journal`); }
+      check(!JC_PRIV.test(outside(r.own)) && !JC_PRIV.test(outside(r2.own)), `${tag}: Job Connect's registered name and code appear only inside its one accrual journal`); }
     /* ------------------------------------------------ amounts, dates, ranges */
     { const r = await run('3052.60'), pos = PO.filter(x => ct(x.amount) === 305260), bw = J.labourHireBridge.filter(x => ct(x.cost) === 305260);
       check(r.k[1] === '—' && /^3,052\.60 is the own figure of/.test(r.ans) && G(r, 'po').n === pos.length && G(r, 'lh').n === bw.length && Object.values(r.groups).every(g => g.grand === '—') && r.marks > 0, `${tag}: 3052.60: the items that own it, none added, highlighted: ` + JSON.stringify([r.k, r.ans])); }
@@ -265,7 +268,7 @@ const money = t => { const o = [], re = /([−-]?)(\d{1,3}(?:,\d{3})+|\d+)\.(\d{
     { const r = await run('accruals'), g = await run('2126'), g3 = await run('3325'); check(/Finance to confirm 2126 or 3325/.test(r.own) && /Finance to confirm 2126 or 3325/.test(g.ans) && /Finance to confirm 2126 or 3325/.test(g3.ans), `${tag}: a journal part marked to confirm is flagged on both codes`); }
     { const sl = (re, ok) => L.map((l, i) => re.test(l.supplier) && l.accrue > 0 ? i : -1).filter(i => i >= 0), acf = ls => F.filter(f => ls.includes(f[0]) && f[2] !== 'Nov').reduce((a, f) => a + f[3], 0);
       const r1 = await run('Job Connect accrual'), r2 = await run('Event Portables accrual'), r3 = await run('transport accrual'), r4 = await run('accruals by branch'), r5 = await run('accrued revenue'), r6 = await run('Nov labour');
-      check(r1.k[1] === fc(acf(sl(/^Job Connect/))) && r2.k[1] === fc(acf(sl(/^Event Portables/))) && r3.k[1] === '0.00' && r3.chips.includes('Manual accrual') && r4.k[1] === f2(J.accrue) && /no revenue accrual/.test(r5.note) && r6.k[1] === f2(NL.total) && !/HIG025|High Level/.test(r1.ans + r1.note),
+      check(r1.k[1] === fc(acf(sl(/^Job Connect/))) && r2.k[1] === fc(acf(sl(/^Event Portables/))) && r3.k[1] === '0.00' && r3.chips.includes('Manual accrual') && r4.k[1] === f2(J.accrue) && /no revenue accrual/.test(r5.note) && r6.k[1] === f2(NL.total) && !JC_PRIV.test(r1.ans + r1.note),
         `${tag}: month-end phrases: a supplier's or category's accrual, accruals by branch, accrued revenue, November's labour: ` + JSON.stringify([r1.k, r2.k, r3.k, r4.k, r6.k])); }
     { const r = await run('VMS'), l4 = L.findIndex(l => /\bVMS\b/.test(l.what)); check(/match only through the category name/.test(r.ans) && has(r.ans, 'line ' + l4), `${tag}: VMS says which lines match only through the category name: ` + r.ans.slice(-260)); }
     { const r = await run('labour recovery'), sal = J.categories.find(c => /^Salary/.test(c.name)); check(/not a labour margin/.test(r.ans) && has(r.ans, f2(sal.total)), `${tag}: labour recovery says what Left is not: ` + r.ans.slice(-300)); }
@@ -287,6 +290,13 @@ const money = t => { const o = [], re = /([−-]?)(\d{1,3}(?:,\d{3})+|\d+)\.(\d{
       const en = await p.evaluate(() => (document.querySelector('#plx-sum .plx-ans') || {}).textContent || ''); await p.keyboard.press('Escape'); await p.waitForTimeout(150);
       const es = await p.evaluate(() => ({q: document.getElementById('plx-q').value, cards: document.querySelectorAll('#plx-sum .plx-k').length}));
       check(f1 === 'plx-q' && /Difference so far/.test(en) && es.q === '' && es.cards === 0, `${tag}: / goes to the search, Enter answers at once, Escape clears: ` + JSON.stringify([f1, en.slice(0, 60), es])); }
+    /* v12.79 final check: 'manual accrual candidate' only for what is not accrued at 31 Oct (the carriers' state, the POs received and not invoiced); November's labour is not one, and a GL answer under a category says its journals are for the job */
+    { const nl = await run('November labour'), rn = await run('received not invoiced'), ma = await run('manual accrual'), gc = await run('2126', {'plx-cat': 'Rehire – toilets and water'}), gb = await run('2126', {'plx-br': 'STPS'});
+      const rnHead = rn.ans.split('Nothing received')[0], rnRest = rn.ans.split('Nothing received').slice(1).join('');
+      check(!/manual accrual candidate/.test(nl.ans) && /allocated through payroll/.test(nl.ans) && /open item 11/.test(nl.ans) && !nl.chips.includes('Manual accrual'), `${tag}: November's labour is not called a manual accrual candidate: ` + nl.ans.slice(0, 300));
+      check(!/manual accrual candidate/.test(rnRest) && (/manual accrual candidate/.test(rnHead) || !/manual accrual candidate/.test(rn.ans)) && /Accrued at 31 Oct/.test(rn.ans), `${tag}: received not invoiced: the candidate clause sits with the received POs; other POs say their line's state: ` + rn.ans.slice(0, 400));
+      check(/Apart from these, not a candidate: November’s labour/.test(ma.ans) && /open item 11/.test(ma.ans), `${tag}: the manual accrual answer names November's labour apart, not as a candidate`);
+      check(/for the job, all categories/.test(gc.ans) && !/the accruals of these lines/.test(gc.ans) && /(for the job)/.test(gb.ans), `${tag}: a GL answer under a category or a branch says its journals are for the job: ` + gc.ans.slice(0, 300)); }
     { await run('received not invoiced'); const j = await p.evaluate(async () => { const b = [...document.querySelectorAll('#plx-g-grni .plx-open[data-av]')].find(x => x.getAttribute('data-av') === '4663216'); if (!b) return {b: false}; b.click(); await new Promise(r => setTimeout(r, 300));
       const f = document.getElementById('pl1267-fp-pos'), row = f && [...f.querySelectorAll('[data-po]')].find(x => x.getAttribute('data-po') === '4663216'); const out = {b: true, open: !!(f && f.open), flash: !!(row && row.classList.contains('plx-flash'))}; if (f) f.open = false; return out; });
       check(j.b && j.open && j.flash, `${tag}: a row link opens its fold at the row and flashes it: ` + JSON.stringify(j)); }

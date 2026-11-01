@@ -66,6 +66,7 @@
   #pl1267-fp .tblwrap th:first-child{z-index:3;background:#fff}
   #pl1267-fp-print,.plx-clear{min-height:42px}
   #pl1267-fp a.plf1279-jump{display:inline-block;min-height:40px;line-height:40px;padding:0 4px}
+  #pl1267-fp .plf1279-pick,#pl1267-fp .plx-pick{display:inline-flex;align-items:center;min-height:40px}
 }
 /* on paper (the tab's Print, A4 landscape): the final P&L in full, every fold in it open; the live model stays on the screen */
 @media print{

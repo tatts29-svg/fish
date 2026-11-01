@@ -76,7 +76,7 @@
 ],
 [
 ", none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)', words: 'Andrew’s direction, 1 Oct 2026: accrue earned, unbilled fencing Revenue in the work month; keep the cost in the month the work occurred. Finance must match invoices, payments and prior postings before booking the accrual. The page records invoices, not proof of payment'",
-"; the fencing was confirmed as paid on 1 Oct 2026 (amount not matched), before the branch billed it', words: 'The rule set on 1 Oct 2026, before invoicing: earned, unbilled fencing Revenue was to be accrued in the work month, with the cost kept in the month the work occurred. The V8s were invoiced in October, so no fencing revenue is to be accrued from here; the journals for Finance at 31 Oct are in the P&L at the top of the Costs & P&L tab. The page records invoices, not proof of payment'",
+"; the record has the fencing marked as paid, entered 1 Oct 2026 (amount not matched)', words: 'The rule set on 1 Oct 2026, before invoicing: earned, unbilled fencing Revenue was to be accrued in the work month, with the cost kept in the month the work occurred. The V8s were invoiced in October, so no fencing revenue is to be accrued from here; the journals for Finance at 31 Oct are in the P&L at the top of the Costs & P&L tab. The page records invoices, not proof of payment'",
 "accruals fencing note (attribution, now invoiced)"
 ],
 [
@@ -826,7 +826,7 @@
 ],
 [
 "Radios $578 (14 Sep) removed on Andrew's word, 20 Oct 2026.",
-"Radios $578 (14 Sep) removed as set on 20 Oct 2026.",
+" Radios $578 (14 Sep) removed as set on 20 Oct 2026.",
 "Workforce: other expenses (Andrew's word)"
 ],
 [
@@ -1043,5 +1043,10 @@
 "· AUD EX GST</p><h2 id=\"generator1004-title\">Generators</h2></div></div>'+",
 "· AUD EX GST · WORKING FIGURES</p><h2 id=\"generator1004-title\">Generators</h2></div></div>'+\n  '<p class=\"fin745-note sv1279-working\"><b>Working figures from the live record</b>: generator hire at the 2026 rate card, by reference. Revenue in the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026) is by invoice; do not post from here.</p>'+",
 "Generators: working-figures eyebrow and line"
+],
+[
+"data-a761=\"copy\">Copy for Finance</button>",
+"data-a761=\"copy\">Copy (working figures)</button>",
+"accruals: the Copy button (working figures)"
 ]
 ]
