@@ -132,18 +132,19 @@ function html() {
     var ctot = [0, 0, 0, 0];
     cats = '<p class="fin745-eyebrow plf1272-sub">COSTS BY CATEGORY AND MONTH · JOB END</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1279-cats"><thead><tr><th>Category</th><th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Job end</th></tr></thead><tbody>'
       + J.categories.map(function (c) { var a = cc(c); for (var i = 0; i < 4; i++) ctot[i] += a[i];
-          var r = crow('', e(c.name), c.note, a);
+          var r = crow('', '<button type="button" class="plf1279-pick" data-cat="' + e(c.name) + '" title="Open its cost lines in Find in the P&amp;L">' + e(c.name) + '</button>', c.note, a);
           grp.forEach(function (g) { if (g.members[g.members.length - 1] === c.name) r += crow('pl1267-tot plx-grp', e(g.name), g.members.length + ' categories', cc(g)); });
           return r; }).join('')
       + crow('pl1267-grand', 'Total costs', '', ctot) + '</tbody></table></div>'
-      + '<p class="plf1272-note">Categories group the cost lines for reporting; they are not GL codes (the codes are under Costs by GL account). The rehire categories are each supplier’s 2126 hire, with their other codes named.</p>';
+      + '<p class="plf1272-note">Categories group the cost lines for reporting; they are not GL codes (the codes are under Costs by GL account). The rehire categories are each supplier’s 2126 hire, with their other codes named. A category’s name opens its lines in Find in the P&amp;L.</p>';
   }
   /* v12.79: the transport estimate named on the face; each leg is in its fold */
-  var teLine = '';
+  var teLine = '', cand = J.lines.filter(function (l) { return l.state === 'Not accrued: manual accrual candidate'; });
+  var candSep = cand.reduce(function (a, l) { return a + Math.round(l.sep * 100); }, 0), candOct = cand.reduce(function (a, l) { return a + Math.round(l.oct * 100); }, 0);
   if (TE) {
     var mvAmt = TE.moved.reduce(function (a, m) { return a + Math.round(m.amount * 100); }, 0);
-    teLine = '<ul class="plf1279-tenotes plf1279-face"><li><b>Transport includes the 1 Nov estimate</b> (ESTIMATE until the carriers invoice; no carrier has a PO or an invoice): ' + f2(TE.ranBy31Oct) + ' in October for trucks that ran by ' + e(d) + ' with no figure (a manual accrual candidate, not in the accruals), and ' + f2(TE.stillOnSite)
-      + ' in November for pick-ups still to come. The October pick-ups of gear still on site (' + TE.moved.map(function (m) { return e(m.ref); }).join(', ') + ', ' + f2(mvAmt / 100) + ') are in November. Each leg: <a href="#pl1267-fp-test" class="plf1279-jump">Transport estimate</a>.</li></ul>';
+    teLine = '<ul class="plf1279-tenotes plf1279-face"><li><b>Transport not accrued to ' + e(d) + ': ' + f2((candSep + candOct) / 100) + '</b> (September ' + f2(candSep / 100) + ', October ' + f2(candOct / 100) + '): no carrier has a PO or an invoice, so the carrier loads are not in the accruals; a manual accrual candidate for Finance. '
+      + 'It includes the 1 Nov estimate for trucks that ran by ' + e(d) + ' with no figure, ' + f2(TE.ranBy31Oct) + ' (ESTIMATE). Pick-ups still to come for gear on site are ' + f2(TE.stillOnSite) + ', in November, and the October pick-ups of gear still on site (' + TE.moved.map(function (m) { return e(m.ref); }).join(', ') + ', ' + f2(mvAmt / 100) + ') are in November too. Each leg: <a href="#pl1267-fp-test" class="plf1279-jump">Transport estimate</a>.</li></ul>';
   }
   /* v12.79: October at month end, where each cost stands (the pack's monthEnd: the states add to October to the cent) */
   var me = '';
@@ -151,7 +152,7 @@ function html() {
     var who = function (st) { return J.lines.filter(function (l) { return l.state === st && Math.abs(l.oct) > 0.004; }).map(function (l) { return l.supplier; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' · '); };
     var accRow = ME.rows.filter(function (x) { return x.state === 'Accrued at 31 Oct'; })[0];
     me = '<p class="fin745-eyebrow plf1272-sub" id="plf1279-me">OCTOBER COSTS AT ' + e(d.toUpperCase()) + ' · WHERE EACH STANDS</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1279-me"><thead><tr><th>October costs by where they stand</th><th class="num">October</th></tr></thead><tbody>'
-      + ME.rows.map(function (x) { return '<tr><td><b>' + e(x.state) + '</b><small>' + e(who(x.state)) + '</small></td><td class="num">' + c2(x.oct) + '</td></tr>'; }).join('')
+      + ME.rows.map(function (x) { return '<tr><td><b>' + e(x.state) + '</b><small>' + e(who(x.state)) + (x.state === 'Not accrued: manual accrual candidate' && candSep ? ': October’s loads; with September’s (' + f2(candSep / 100) + '), transport not accrued to ' + e(d) + ' is ' + f2((candSep + candOct) / 100) + (TE ? ', including the 1 Nov estimate ' + f2(TE.ranBy31Oct) : '') : '') + '</small></td><td class="num">' + c2(x.oct) + '</td></tr>'; }).join('')
       + '<tr class="pl1267-grand"><td>October costs, as in the P&amp;L</td><td class="num">' + c2(ME.oct) + '</td></tr>'
       + (ME.novLabourInOct ? '<tr><td>of which November’s labour, 1–13 Nov<small>salary allowance ' + f2(ME.novLabourInOct.salary) + ' · Job Connect ' + f2(ME.novLabourInOct.jobConnect) + ' (w/e 8 and 15 Nov)</small></td><td class="num">' + c2(ME.novLabourInOct.total) + '</td></tr>'
         + '<tr class="pl1267-tot"><td>October’s own work, without it</td><td class="num">' + c2(ME.octWithoutNovLabour) + '</td></tr>' : '')
@@ -316,8 +317,9 @@ function wrap(old) {
 /* v12.79: the paper. A4 landscape with margins office printers keep, and on every page what it is and its page number */
 function pageRule() {
   var q = function (s) { return '"' + String(s).replace(/["\\\n]/g, '') + '"'; };
-  return '@page{size:A4 landscape;margin:10mm 10mm 12mm;@bottom-left{content:' + q('GC500 · The P&L, job position at ' + day(DATA.asAt) + ' · AUD ex GST · pack ' + DATA.pack)
-    + ';font-size:7pt;color:#555}@bottom-right{content:"Page " counter(page) " of " counter(pages);font-size:7pt;color:#555}}';
+  var font = 'font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:7pt;color:#555';
+  return '@page{size:A4 landscape;margin:10mm 10mm 12mm;@bottom-left{content:' + q('GC500 · The P&L, job position at ' + day(DATA.asAt) + ' · AUD ex GST · pack ' + DATA.pack + ' · Author: Andrew Fisher')
+    + ';' + font + '}@bottom-right{content:"Page " counter(page) " of " counter(pages);' + font + '}}';
 }
 /* v12.79: the working figures from the live record (the live model, its ledger lines, fencing and the workings) under one closed fold (#pl1267-papers)
    below the P&L, named for what they are; every card and figure in them is kept as it is */
@@ -338,10 +340,20 @@ var PRINTED = false;
 function bind() {
   var b = D.getElementById('pl1267-fp-print');
   if (b && !b.__plf1272) { b.__plf1272 = true; b.onclick = function () { try { printCosts(); var st = D.getElementById('costPage'); if (st) st.textContent = pageRule(); } catch (er) { try { console.warn('PLF1272: print', er); } catch (_) {} } }; }
+  ['pl1267-print', 'printCosts'].forEach(function (id) {   /* the working figures' Print buttons: the same paper (the P&L at 31 Oct) with its page footer */
+    var pb = D.getElementById(id); if (pb && b && b.onclick) pb.onclick = b.onclick;
+  });
   var fp = D.getElementById('pl1267-fp');
   if (fp && !fp.__plf1279) {   /* a link on the face opens its fold and goes to it (no change to the address) */
     fp.__plf1279 = true;
     fp.addEventListener('click', function (ev) {
+      var pk = ev.target && ev.target.closest ? ev.target.closest('.plf1279-pick') : null;
+      if (pk) {   /* a category on the face opens its lines in Find in the P&L, through the finder's own Category choice */
+        var sel = D.getElementById('plx-cat'); if (!sel) return;
+        sel.value = pk.getAttribute('data-cat') || ''; sel.dispatchEvent(new Event('change', {bubbles: true}));
+        try { sel.focus({preventScroll: true}); D.getElementById('plx').scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (er) {}
+        return;
+      }
       var a = ev.target && ev.target.closest ? ev.target.closest('a.plf1279-jump') : null; if (!a) return;
       var t = D.getElementById((a.getAttribute('href') || '').replace(/^#/, '')); if (!t) return;
       ev.preventDefault(); if (t.tagName === 'DETAILS') t.open = true;

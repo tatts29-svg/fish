@@ -97,8 +97,10 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(r.cats.length === catW.length && catW.every((w, i) => JSON.stringify(r.cats[i].cells) === JSON.stringify(w)) && ctot[3] === Math.round(J.costs.total * 100), `${tag}: costs by category and month on the face, the rehire subtotal and the total, to the cent: ` + JSON.stringify(r.cats.map(x => x.cells).slice(0, 3)));
     // v12.79: the transport estimate named on the face
     const TE = J.transportEstimate;
-    check(r.prose.includes('Transport includes the 1 Nov estimate') && r.prose.includes(f2(TE.ranBy31Oct) + ' in October for trucks that ran by 31 Oct') && r.prose.includes(f2(TE.stillOnSite) + ' in November for pick-ups still to come') && TE.moved.every(m => r.prose.includes(m.ref)),
-      `${tag}: the face names the transport estimate, its October and November parts and the pick-ups moved to November`);
+    const cand = J.lines.filter(l => l.state === 'Not accrued: manual accrual candidate'), cS = cand.reduce((a, l) => a + Math.round(l.sep * 100), 0), cO = cand.reduce((a, l) => a + Math.round(l.oct * 100), 0);
+    check(r.prose.includes(`Transport not accrued to 31 Oct: ${f2((cS + cO) / 100)} (September ${f2(cS / 100)}, October ${f2(cO / 100)})`) && r.prose.includes('the 1 Nov estimate for trucks that ran by 31 Oct with no figure, ' + f2(TE.ranBy31Oct) + ' (ESTIMATE)')
+      && r.prose.includes('Pick-ups still to come for gear on site are ' + f2(TE.stillOnSite)) && TE.moved.every(m => r.prose.includes(m.ref)) && r.prose.includes(`transport not accrued to 31 Oct is ${f2((cS + cO) / 100)}, including the 1 Nov estimate ${f2(TE.ranBy31Oct)}`),
+      `${tag}: one statement of the transport not accrued to 31 Oct (September and October), the estimate inside it, the pick-ups to come, the same words in the month-end table`);
     // every cost line
     check(r.lines.length === J.lines.length + 1, `${tag}: every cost line is on the tab (${r.lines.length - 1} of ${J.lines.length})`);
     const lineBad = J.lines.map((l, i) => { const c = r.lines[i].cells; const ok = c[0].startsWith(l.supplier + ' · ' + l.branch) && c[0].includes(l.what) && (!l.po || c[0].includes(/^none/i.test(String(l.po).trim()) ? 'No PO' : 'PO ' + l.po)) && c[0].includes('Hire contract: ' + l.contract) && c[1] === c2(l.sep) && c[2] === c2(l.oct) && c[3] === c2(l.nov) && c[4] === c2((Math.round(l.sep * 100) + Math.round(l.oct * 100) + Math.round(l.nov * 100)) / 100) && c[5] === c2(l.accrue) && J.states.includes(l.state) && c[6].startsWith(l.state + (() => { const s = String(l.status).replace(/^ACCRUE\s*/, '').replace(/^\((.*)\)$/, '$1').trim(); return s.toLowerCase() === l.state.toLowerCase() ? '' : s; })()) && !/^ACCRUE/.test(c[6].slice(l.state.length)); return ok ? null : i; }).filter(x => x !== null);
@@ -293,7 +295,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     const qz = await S_('zzzz nothing'); check(qz.none && qz.k[1] === '0.00', `${tag}: a search that finds nothing says so`);
     // a category opens from the by-category table; Clear puts it all back; the choice survives the tab being drawn again
     const flow = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
-      const b = [...document.querySelectorAll('#plx-out .plx-pick')].find(x => x.dataset.cat === 'Transport'); b.click(); await new Promise(r => setTimeout(r, 100));
+      const b = [...document.querySelectorAll('#pl1267-fp .plf1279-pick')].find(x => x.dataset.cat === 'Transport'); b.click(); await new Promise(r => setTimeout(r, 100));
       const picked = {focus: document.activeElement && document.activeElement.id, cat: g('plx-cat').value, costs: document.querySelectorAll('#plx-sum .plx-k b')[1].textContent.trim(), lines: document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)').length};
       g('plx-br').value = 'STPS'; g('plx-br').dispatchEvent(new Event('change'));
       go('today'); await new Promise(r => setTimeout(r, 1500)); go('costs'); await new Promise(r => setTimeout(r, 2500));
@@ -301,7 +303,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
       return {picked, kept, cleared: {cat: g('plx-cat').value, br: g('plx-br').value, mo: g('plx-mo').value, q: g('plx-q').value, rows: document.querySelectorAll('#plx-out table.plx-cats tbody tr:not(.pl1267-grand):not(.plx-grp)').length, empty: !!document.querySelector('#plx-out .plx-empty'), kpis: document.querySelectorAll('#plx-sum .plx-k').length}}; });
     const tr = J.categories.find(c => c.name === 'Transport'), trS = F.filter(f => J.lines[f[0]].category === 'Transport' && f[1] === 'STPS').reduce((a, f) => a + f[3], 0);
-    check(flow.picked.focus === 'plx-cat' && flow.picked.cat === 'Transport' && flow.picked.costs === f2(tr.total) && flow.picked.lines === J.lines.filter(l => l.category === 'Transport').length, `${tag}: a category in the by-category table opens its lines at its total: ` + JSON.stringify(flow.picked));
+    check(flow.picked.focus === 'plx-cat' && flow.picked.cat === 'Transport' && flow.picked.costs === f2(tr.total) && flow.picked.lines === J.lines.filter(l => l.category === 'Transport').length, `${tag}: a category on the face's by-category table opens its lines in the finder at its total: ` + JSON.stringify(flow.picked));
     check(flow.kept.cat === 'Transport' && flow.kept.br === 'STPS' && flow.kept.costs === f2(trS / 100), `${tag}: the choice survives the tab being drawn again: ` + JSON.stringify(flow.kept));
     check(!flow.cleared.cat && !flow.cleared.br && !flow.cleared.mo && !flow.cleared.q && flow.cleared.rows === 0 && flow.cleared.empty && flow.cleared.kpis === 0, `${tag}: Clear puts everything back: ` + JSON.stringify(flow.cleared));
     // the labour journals in the finder: a branch gives the people whose hours are journaled to it, their hours to the hour

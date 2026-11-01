@@ -1,28 +1,23 @@
 #!/usr/bin/env python3
-"""v12.79: the P&L tab on pack v1.19: Forklift rehire under Rehire, and the transport estimate of 1 Nov.
+"""v12.79: the Costs & P&L tab made clean for Finance, on pack v1.19.
 
 Author: Andrew Fisher.
 
-Andrew, 1 Nov 2026: "Forklift r3hire should that not go to rehire". Queensland Forklifts' rehire (POs 4647983 and
-4654789) is coded 2126, like the other rehire, so pack v1.19 puts it in the Rehire category. It is still Coates' own use,
-not charged to the V8s. Pack v1.19 also corrects the transport open item's "36 planned movements ... and 17 unpriced demob
-movements": the 17 are part of the 36, and Schedule 17 prices two of them, so 34 are not in the costs.
+Andrew, 1 Nov 2026: "Please make sure the costs/p&l tab is very clean and organised. I have the finacial team is looking at it
+tommorrow". Pack v1.19: the rehire categories (fencing; toilets and water; VMS, container and forklifts) with a Rehire, all subtotal
+(Andrew: "Forklift r3hire should that not go to rehire"; "1 and 2"); costs by GL account ("And 3"); the transport estimate of 1 Nov
+("The transport we work out by what ever had a transport pick up cost. And is still onsite"; "What u think we do both ?"): the October
+pick-ups of gear still on site move to November, and two ESTIMATE rows come in (trucks that ran by 31 Oct with no figure, October; pick-ups
+still to come, November). Revenue and the accruals are unchanged; the costs and the difference move by exactly the estimate (checked below).
 
-The categories go from ten to nine; Rehire becomes 3,886.73 + 3,770.00.
-
-Transport (Andrew, 1 Nov 2026: "The transport we work out by what ever had a transport pick up cost. And is still onsite. Thats the amount we
-move"; "What ever is left onsite is left onsite"; "What u think we do both ?"): the four October pick-ups still on site (WC60, GN18, P46,
-P51, 1,788.02) move to November, and two ESTIMATE rows come in: the trucks that ran by 31 Oct with no figure or row on the record (16,083.79,
-October, a manual accrual candidate) and the pick-ups still to come for Coates gear on site (19,847.89, November). Revenue and the accruals
-are unchanged; the costs and the difference change by 35,931.68. Each leg is in the pack's section 2h.
-
-This patch holds no figure. On the live v12.78 page (BASE pinned) it replaces the P&L block (the module and its data):
-- it reads PLF_JSON_OLD (pack v1.18, pinned) and PLF_JSON (pack v1.19, pinned);
-- it runs the v12.77 patch's tie checks on the new data;
-- it rebuilds the live block from the v12.77 module and the v1.18 data and requires it to equal the page's block byte for byte;
-- it puts in the block built from this folder's module (plf1279_src.js, plf1279.css: the tab's presentation for Finance and the
-  Transport estimate fold) and the v1.19 data; then the release footer, v12.78 -> v12.79.
-Nothing outside the block changes.
+This patch holds no figure. On the live v12.78 page (BASE pinned) it:
+- reads PLF_JSON_OLD (pack v1.18, pinned) and PLF_JSON (pack v1.19, pinned) and runs the v12.77 patch's tie checks on the new data;
+- rebuilds the live P&L block from the v12.77 module and the v1.18 data and requires it to equal the page's block byte for byte;
+- puts in the block built from this folder's module (plf1279_src.js and plf1279.css, with plf1279_find.js and plf1279_find.css, the
+  finder, spliced in at /*__PLF1279_FIND__*/) and the v1.19 data;
+- outside the block, changes words only (WORKING below), each anchor exactly once: the working figures from the live record say what
+  they are, so nothing under the P&L reads as a second month-end P&L, and their exports say they are superseded;
+- the release footer, v12.78 -> v12.79.
 
     PLF_JSON_OLD=<pack v1.18>/GC500_PL_final.json PLF_JSON=<pack v1.19>/GC500_PL_final.json \
       toolchain/build.sh v12.79 v12.79_pl_rehire_pack_v119/patch_v1279.py
