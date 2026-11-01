@@ -1,5 +1,7 @@
 # v12.77 — find in the P&L (category, branch, month, search) and the labour journals (pack v1.17)
 
+**LIVE as part of v12.78, 1 Nov 2026 18:07 AEST** (Andrew: "Upload"), on pack v1.18 (data `f896184a…`): live `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0`. See `../v12.78_finance_fingerprint_LIVE/README.md` for the release, the checks and the build command. Pack v1.18 adds paid hours (normal, ×1.5, ×2) to the labour journals; the rest below is as built for v12.77.
+
 Author: Andrew Fisher. Andrew, 1 Nov 2026 (this chat): "Make sure the P&l has a professional feel. And search function that makes
 sense. If you want to search by category you can or by branch. Or by month have these options available. And its accurate to the
 cent. And we need to know labour where everyone needs to be jornled to ... No stone unturned the finance want 0 mistakes and wrong
@@ -9,7 +11,7 @@ Built on the live v12.76 (`30ab13155c21c7284cde18a4d9752fad7b07cb3d7031149481628
 (`../review_31Oct2026_october_month_end/`, "Pack v1.17"):
 
 ```
-PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.77 v12.77_pl_tab_explorer/patch_v1277.py
+PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.77 v12.77_pl_tab_explorer_LIVE/patch_v1277.py
 ```
 
 ## What changes on the Costs & P&L tab

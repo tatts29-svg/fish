@@ -15,7 +15,7 @@ are unchanged reads confirmed again, and a rule change that does change its pay 
 record) still reads "changed". The lock keeps its state where it is; nothing is moved, typed or written to the record.
 
 Applied after patch_v1277.py (footer v12.77 -> v12.78):
-    PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.78 v12.77_pl_tab_explorer/patch_v1277.py v12.78_finance_fingerprint/patch_v1278.py
+    PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.78 v12.77_pl_tab_explorer_LIVE/patch_v1277.py v12.78_finance_fingerprint_LIVE/patch_v1278.py
 """
 import re, sys
 from pathlib import Path

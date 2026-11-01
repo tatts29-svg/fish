@@ -1,3 +1,28 @@
+LIVE: v12.78, the P&L explorer and paid hours on pack v1.18, plus the Finance rows fix (Claude, on Andrew's word "Upload"), 1 Nov 2026 18:07 AEST, on the live v12.76 `30ab13155c21c7284cde18a4d9752fad7b07cb3d703114948162833d62d9fcc9`.
+- Live `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0`, 16,700,055 bytes. The public view serves the build byte for byte (`toolchain/upload_page.py`, then a separate fetch and `cmp`).
+- Find in the P&L (Andrew: "search function that makes sense ... by category ... by branch ... by month ... accurate to the cent"):
+  - Category, Branch, Month, search and Clear on the Costs & P&L tab.
+  - The search finds each PO, hire contract, invoice, V8s' PO and person by their own figure.
+  - The labour journals show who is journaled where.
+- Paid hours are the journal basis (Andrew: "What payrol pays"):
+  - each shift from start to finish, less the unpaid break;
+  - Coates wages split into normal, ×1.5 and ×2 (weekday 7.6 h, then 2 h, then the rest; Saturday 2 h at ×1.5, then ×2; Sunday all ×2);
+  - the hours are worked out from the running sheet, not payroll's own figures.
+- The job's labour starts on 14 Sep (Andrew: "No one officially worked prior to the 14th september"). The event weekend is the planned 12 h days (Andrew: "Event use planned 12hrs").
+- Finance rows fix (Andrew: "Fix this page fix for later"):
+  - Before: a buildings-lock action turned Finance-confirmed rows to "changed".
+  - Now: each row fingerprints only the pay rules its own calculation reads (Codex's row-scope patch, applied as given). Its paid hours and split stay in the fingerprint.
+- Codex's review patches are in: caret, workbook print note, Finance rule scope, and worked vs paid wording.
+- No cost, revenue, month or branch total changes from v12.76 (pack v1.18 data `f896184a…`, `audit_pack.py` 552/552).
+- Checks on the candidate:
+  - desktop 85/85, phone 85/85, print 23/23 (25 pages A4 landscape);
+  - caret 9/9, `test_v1278` 10/10;
+  - both sweeps 27 tabs, 0 errors, 0 console, 0 writes.
+- Checks on the live bytes: 85/85, 85/85, 23/23, 10/10.
+- Nothing written to the record (12729).
+
+`v12.77_pl_tab_explorer_LIVE/` and `v12.78_finance_fingerprint_LIVE/`. Author: Andrew Fisher.
+
 SOURCE REVIEW HANDOVER — P&L pack v1.18 / v12.78 candidate (Codex), 1 Nov 2026. Reviewed source `dc055cddc2f88a4879d65a4aa676c974adaf1f90` and the current candidate identified in PR1 comment 6554599617. Source-only proposals, synthetic tests and integration boundaries: `review_01Nov2026_pl_v118/README.md`. Scope: row-relevant Finance pay-rule fingerprints and explicit worked/paid/monetary journal wording; active release modules and records remain untouched. Claude retains integration/publication and the separately claimed Costs-redraw follow-up. Detailed financial evidence is private with Andrew. These review patches are not a published release or READY TO UPLOAD. Author: Andrew Fisher.
 
 INDEPENDENT DEEPER RECHECK — P&L v12.77 candidate / pack v1.17 (Codex), 1 Nov 2026. Reviewed owner source `33a16c51a14809662490e0462adfc259dddcdb83`; exact candidate `42ffac66e136cb1dc4f6cd4e716df9da646db1bf63f1076140cba9bf10b5ed99` reproduced, data `75d54b573767929aa09855977f334fedd85b75cf3836cefc1c296d26b52bfaf2`. Claude has incorporated exact-entity search, unsupported branch/category guards, scope labels, terminology and keyboard drill-through. Source-only findings, remaining caret and workbook-print review patches, synthetic tests and evidence boundaries: `review_01Nov2026_pl_deeper/README.md`. Independent financial and actual print evidence remains private with Andrew. Search is responsive in measured samples; the complete Costs redraw has an existing approximately ten-second bottleneck on both baseline and candidate, requiring a separately coordinated fix. Claude retains implementation/publication; Codex the independent recheck. This audit changes no active module, financial data, operational record or live release. Author: Andrew Fisher.
