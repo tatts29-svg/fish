@@ -955,6 +955,74 @@ for who in sorted(HOME):
         if any(hs): lab_rows.append([who, typ, home, b, {'STPS': '9972648', 'NVAC': '9961976'}.get(b, ''), 'stays' if b == home else home + ' → ' + b] + [r2(x) for x in hs] + [r2(sum(PC.get((who, k, b), 0) for k in LMO))])
 sheet('Labour by person', ['Person', 'Type', 'Home branch', 'Branch of the work', 'Contract (outside KINP)', 'Journal', 'Sep h', 'Oct h (with 1–13 Nov)', 'Labour hire $ (running sheet)'],
       lab_rows, money_cols=[9], hour_cols=[7, 8], widths=[16, 40, 12, 12, 14, 16, 9, 12, 16])
+# v1.18: paid hours, the journal basis (1 Nov 2026: journal what payroll pays): each shift's paid hours (start to finish less the unpaid
+# break: what is typed, else 30 minutes on a weekday, none at the weekend; hours typed without times as they are) and its normal / x1.5 / x2
+# split by the running sheet's rules (Coates wages: weekday 7.6 normal, the next 2 at x1.5, the rest x2; Saturday 2 at x1.5 then x2; Sunday
+# x2), as the page works them out on the live record (wages_paid.json, private). A day on more than one branch shares each band pro rata by
+# the hours on each branch, in hundredths of an hour, so the parts add exactly.
+WP = json.load(open(P2 / 'wages_paid.json'))
+assert WP['record'] == 12729 and WP['rulesInForce'] == {'cna_ord': 7.6, 'lh_ord': 7.6, 'ot_x15': 2, 'sat_x15': 2, 'wd_break': 30}, (WP['record'], WP['rulesInForce'])
+_REG = {}
+for r in rows[2:]:
+    if r and r[0][:4] == '2026':
+        bh = {}
+        for seg in re.split(r', | · ', r[6]):
+            g = re.match(r'^(KINP|STPS|NVAC|MEAD) ([\d.]+) h$', seg.strip())
+            if g: bh[g.group(1)] = bh.get(g.group(1), 0) + float(g.group(2))
+        assert (r[2], r[0]) not in _REG, (r[2], r[0]); _REG[(r[2], r[0])] = (float(r[4] or 0), bh)
+_SH = {}
+for x in WP['shifts']:
+    if x['person'] in HOME and JOB_START <= x['date'] <= '2026-11-13' and x['paid'] is not None:
+        assert (x['person'], x['date']) not in _SH, (x['person'], x['date']); _SH[(x['person'], x['date'])] = x
+assert set(_SH) == set(_REG), (sorted(set(_SH) ^ set(_REG))[:6])
+def _alloc(v100, w):   # v100 (hundredths) shared by weights w {branch: hours}: largest remainder, exact
+    tot = sum(w.values()); bs = sorted(w); base = {b: v100 * w[b] // tot if tot else 0 for b in bs}
+    left = v100 - sum(base.values()); rem = sorted(bs, key=lambda b: (-(v100 * w[b] % tot) if tot else 0, b))
+    for b in rem[:left]: base[b] += 1
+    return base
+PAIDH = collections.defaultdict(lambda: [0, 0, 0, 0])   # (who, branch, month) -> hundredths [paid, ordinary, x1.5, x2]
+for (who_, d_), x in sorted(_SH.items()):
+    wk_, bh_ = _REG[(who_, d_)]
+    assert abs(x['worked'] - wk_) < 0.005 and x['paid'] <= x['worked'] + 1e-9, (who_, d_, x['worked'], wk_, x['paid'])
+    sp_ = x['split']; bands = [round(x['paid'] * 100), round(sp_['ordinary'] * 100), round(sp_['at_1_5'] * 100), round(sp_['at_2'] * 100)]
+    assert bands[0] == sum(bands[1:]), (who_, d_, bands)
+    w_ = {b: round(h * 100) for b, h in bh_.items() if h}
+    assert sum(w_.values()) == round(wk_ * 100), (who_, d_, bh_, wk_)
+    mo_ = 'Sep' if d_[5:7] == '09' else 'Oct'   # November's labour in October
+    parts = [_alloc(v_, w_) for v_ in bands[1:]]
+    for b in w_:
+        o_, a_, t_ = parts[0][b], parts[1][b], parts[2][b]; P_ = PAIDH[(who_, b, mo_)]
+        P_[0] += o_ + a_ + t_; P_[1] += o_; P_[2] += a_; P_[3] += t_
+_cna = [v for (w, b, m), v in PAIDH.items() if HOME[w][1].startswith('Coates wages')]
+_CNA_TOT = [sum(v[i] for v in _cna) for i in range(4)]
+assert _CNA_TOT == [101850, 68440, 17800, 15610], _CNA_TOT   # the two-method check (1 Nov), less 7-11 Sep: paid 1,018.50 = 684.40 + 178.00 + 156.10 h
+assert all(sum(PAIDH.get((w, b, m2), [0])[0] for m2 in LMO) <= round(sum(PH.get((w, m2, b), 0) for m2 in LMO) * 100) for (w, b, m) in list(PAIDH))   # paid never above worked
+for r_ in lab_rows:
+    w, b = r_[0], r_[3]; ps = PAIDH.get((w, b, 'Sep'), [0, 0, 0, 0]); po = PAIDH.get((w, b, 'Oct'), [0, 0, 0, 0])
+    r_ += [ps[0] / 100, po[0] / 100, (ps[1] + po[1]) / 100, (ps[2] + po[2]) / 100, (ps[3] + po[3]) / 100]
+_ph = lambda r_: r_[9:14]
+PAID_NOTE = ('Paid hours are the journal basis (what payroll pays): each shift from start to finish less the unpaid break (as typed, else 30 minutes on a weekday; '
+             'weekend breaks are paid; hours typed without times are taken as they are). Coates wages split by the running sheet’s rules: on a weekday 7.6 h normal, the next 2 h at ×1.5, '
+             'the rest at ×2; Saturday 2 h at ×1.5, then ×2; Sunday all ×2. Salary is all normal. Labour hire is priced on the running sheet by the same rules (the $ column in 2b). '
+             'A day on more than one branch shares each band pro rata by the hours on each branch. The job’s labour starts on 14 Sep; October includes 1–13 Nov; the event weekend, 23–25 Oct, is the planned 12 h days.')
+_pt = lambda f: r2(sum(f(r_) for r_ in lab_rows))
+_bt = {b: [r2(sum(r_[9 + i] for r_ in lab_rows if r_[3] == b)) for i in range(5)] for b in ('KINP', 'STPS', 'NVAC')}
+_ct = [r2(sum(r_[9 + i] for r_ in lab_rows if r_[1].startswith('Coates wages'))) for i in range(5)]
+sheet('Paid hours (journal basis)', ['Person', 'Type', 'Home branch', 'Journal to', 'Sep paid h', 'Oct paid h (with 1–13 Nov)', 'Paid h', 'Normal', '×1.5', '×2', 'Worked h'],
+      [[r_[0], r_[1], r_[2], r_[3], r_[9], r_[10], r2(r_[9] + r_[10]), r_[11], r_[12], r_[13], r2(r_[6] + r_[7])] for r_ in lab_rows]
+      + [['Paid hours on ' + b, '', '', '', _bt[b][0], _bt[b][1], r2(_bt[b][0] + _bt[b][1]), _bt[b][2], _bt[b][3], _bt[b][4], r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[3] == b))] for b in ('KINP', 'STPS', 'NVAC')]
+      + [['Coates wages, the job', '', '', '', _ct[0], _ct[1], r2(_ct[0] + _ct[1]), _ct[2], _ct[3], _ct[4], r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[1].startswith('Coates wages')))],
+         ['All hours, the job', '', '', '', _pt(lambda r_: r_[9]), _pt(lambda r_: r_[10]), _pt(lambda r_: r_[9] + r_[10]), _pt(lambda r_: r_[11]), _pt(lambda r_: r_[12]), _pt(lambda r_: r_[13]), _pt(lambda r_: r_[6] + r_[7])], [], [PAID_NOTE]],
+      hour_cols=range(5, 12), widths=[16, 34, 11, 11, 10, 12, 10, 10, 10, 10, 10])
+_hh = lambda v: hd(v) if v else '—'
+PAID_HTML = ("<h2>2f · Paid hours, the journal basis: normal, ×1.5 and ×2</h2><p class='s'>" + e(PAID_NOTE) + "</p>"
+             + tbl(['Person · type', 'Home', 'Journal to', '#Sep paid h', '#Oct paid h (with 1–13 Nov)', '#Paid h', '#Normal', '#×1.5', '#×2', '#Worked h'],
+                   ''.join("<tr><td><b>%s</b><br><span class='w'>%s</span></td><td>%s</td><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
+                       e(r_[0]), e(r_[1]), e(r_[2]), e(r_[3]), _hh(r_[9]), _hh(r_[10]), _hh(r2(r_[9] + r_[10])), _hh(r_[11]), _hh(r_[12]), _hh(r_[13]), _hh(r2(r_[6] + r_[7]))) for r_ in lab_rows)
+                   + ''.join("<tr class='sub'><td>Paid hours on %s</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
+                       b, _hh(_bt[b][0]), _hh(_bt[b][1]), _hh(r2(_bt[b][0] + _bt[b][1])), _hh(_bt[b][2]), _hh(_bt[b][3]), _hh(_bt[b][4]), _hh(r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[3] == b)))) for b in ('KINP', 'STPS', 'NVAC'))
+                   + "<tr class='sub'><td>Coates wages, the job</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
+                       _hh(_ct[0]), _hh(_ct[1]), _hh(r2(_ct[0] + _ct[1])), _hh(_ct[2]), _hh(_ct[3]), _hh(_ct[4]), _hh(r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[1].startswith('Coates wages')))))))
 sheet('Labour charged', ['Branch', 'Labour charged (lines coded LABOUR on the 18 invoices)', 'Lines', 'Labour hire already in Installs (this pack)', 'Left for people’s cost'],
       [[b, LCB[b], sum(1 for x in LCL if x['b'] == b), LCI[b], LCLEFT[b]] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')] + [['Total, the job', LC_TOT, len(LCL), r2(sum(LCI.values())), r2(sum(LCLEFT.values()))], []] + [[t] for t in LC_NOTES],
       money_cols=[2, 4, 5], widths=[16, 30, 8, 30, 24])
@@ -1063,7 +1131,7 @@ body = body.replace("<h2>1 · Costs by supplier and month, with the accruals thr
 body = body.replace('</main>', '<h2>4 · Journals' + PACK_HTML.split('<h2>4 · Journals')[1] + '</main>')
 body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4 · Journals', '<h2>5 · Journals')   # one number per section
 assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + '<h2>2 · Labour by month and branch')   # v1.17
-assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge
+assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + PAID_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge; v1.18: paid hours
 assert body.count(MATCH_HTML) == 1; body = body.replace(MATCH_HTML, MATCH_HTML + POREG_HTML)   # v1.15: 3c, every PO in the costs
 (OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.18</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 # v1.10: the final P&L as data for the page's P&L tab (v12.72): the same figures as the workbook, to the cent. Private, beside the pack, not committed.
@@ -1082,7 +1150,9 @@ PLF = {'pack': 'v1.18', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex 
        'facts': [[i_, b_, k2_, v_, mv_] for (i_, b_, k2_, mv_), v_ in sorted(FACT.items(), key=lambda x_: (x_[0][0], _BRS.index(x_[0][1]), MO.index(x_[0][2]), x_[0][3]))],
        'revFacts': RFACT,
        'labourJournal': [{'who': x_[0], 'type': x_[1], 'home': x_[2], 'branch': x_[3], 'contract': x_[4], 'journal': x_[5], 'sep': x_[6], 'oct': x_[7], 'labourHire': x_[8],
-                         'kind': 'Labour hire' if x_[1].startswith('Labour hire') else 'Salary' if x_[1].startswith('Salary') else 'Coates wages'} for x_ in lab_rows],
+                         'kind': 'Labour hire' if x_[1].startswith('Labour hire') else 'Salary' if x_[1].startswith('Salary') else 'Coates wages',
+                         'paidSep': x_[9], 'paidOct': x_[10], 'normal': x_[11], 'x15': x_[12], 'x2': x_[13]} for x_ in lab_rows],
+       'paidNote': PAID_NOTE,
        'labourHireBridge': LH_BRIDGE,
        'journals': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in JOURNALS],
        'moves': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in MOVES],

@@ -27,7 +27,7 @@ import hashlib, json, os, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '30ab13155c21c7284cde18a4d9752fad7b07cb3d703114948162833d62d9fcc9'        # live v12.76, uploaded 1 Nov 2026 14:16 AEST
-PLF_SHA256 = 'aa6cb02a0ca1780339058b40e90bf42b1039075cce8b145d2d5ac40c1cc9f18a'  # pack v1.18, record 12727 (audit_pack.py 545/545)
+PLF_SHA256 = 'd8d3328ab6ac983111f69164670c27c8b0533aae764656ff7006366601dc9c07'  # pack v1.18, record 12727 (audit_pack.py 552/552)
 OLD_SHA = '797f99b9be5a98bf0dbd778e7a1b5f812c6c14b8b23d444d0833a5e34ad2e253'     # pack v1.16, in the live v12.76 block
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 

@@ -286,7 +286,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     const ljb = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-br').value = 'STPS'; g('plx-br').dispatchEvent(new Event('change'));
       const rows = [...document.querySelectorAll('#plx-out table.plx-lj tbody tr')].map(tr => [...tr.children].map(td => td.textContent.trim())); g('plx-clear').click(); return rows; });
     const ljS = J.labourJournal.filter(x => x.branch === 'STPS'), hh = h => h ? (Math.round(h * 100) / 100).toLocaleString('en-AU', {minimumFractionDigits: 0, maximumFractionDigits: 2}) : '—';
-    check(ljb.length === ljS.length + 1 && ljS.every((x, i) => ljb[i][0].startsWith(x.who) && ljb[i][1] === x.home && ljb[i][3] === hh(x.sep) && ljb[i][4] === hh(x.oct) && ljb[i][5] === hh(x.sep + x.oct) && ljb[i][6] === c2(x.labourHire)) && ljb[ljS.length][5] === hh(ljS.reduce((a, x) => a + x.sep + x.oct, 0)),
+    check(ljb.length === ljS.length + 1 && ljS.every((x, i) => ljb[i][0].startsWith(x.who) && ljb[i][1] === x.home && ljb[i][3] === hh(x.sep) && ljb[i][4] === hh(x.oct) && ljb[i][5] === hh(x.sep + x.oct) && ljb[i][6].startsWith(hh(x.paidSep + x.paidOct)) && ljb[i][7] === c2(x.labourHire)) && ljb[ljS.length][5] === hh(ljS.reduce((a, x) => a + x.sep + x.oct, 0)) && ljb[ljS.length][6] === hh(ljS.reduce((a, x) => a + ct(x.paidSep + x.paidOct), 0) / 100),
       `${tag}: the finder's labour journals for STPS: each person, home branch, hours and labour hire $ (${ljS.length}): ` + JSON.stringify(ljb.slice(0, 2)));
     // the labour journals fold: every row, the hours on each branch, the total; the labour hire bridge, week by week, and its totals
     const lj = await p.evaluate(() => ({rows: [...document.querySelectorAll('#pl1267-fp table.plx-ljall tbody tr')].map(tr => ({cls: tr.className, b: tr.getAttribute('data-b'), c: [...tr.children].map(td => td.textContent.trim())})),
@@ -298,6 +298,14 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     const byB = {}; LJ.forEach(x => byB[x.branch] = (byB[x.branch] || 0) + x.sep + x.oct);
     check(ljTot.length === Object.keys(byB).length && ljTot.every(x => x.c[5] === hh(byB[x.b])) && ljAll.length === 1 && ljAll[0].c[3] === hh(LJ.reduce((a, x) => a + x.sep, 0)) && ljAll[0].c[4] === hh(LJ.reduce((a, x) => a + x.oct, 0)) && ljAll[0].c[6] === c2(LJ.reduce((a, x) => a + ct(x.labourHire), 0) / 100),
       `${tag}: the hours on each branch, all the hours and all the labour hire $, to the hour and the cent: ` + JSON.stringify(ljTot.map(x => x.c[0] + ' ' + x.c[5])));
+    // paid hours, the journal basis: every row, each branch, Coates wages for the job (1,018.50 = 684.40 + 178.00 + 156.10 from 14 Sep)
+    const pd = await p.evaluate(() => [...document.querySelectorAll('#pl1267-fp table.plx-paid tbody tr')].map(tr => ({cls: tr.className, b: tr.getAttribute('data-b'), c: [...tr.children].map(td => td.textContent.trim())})));
+    const pRows = pd.filter(x => !x.cls), pB = pd.filter(x => /pl1267-tot/.test(x.cls)), pJob = pd.filter(x => /pl1267-grand/.test(x.cls));
+    check(pRows.length === LJ.length && LJ.every((x, i) => { const c = pRows[i].c; return c[0].startsWith(x.who) && c[1] === hh(x.paidSep) && c[2] === hh(x.paidOct) && c[3] === hh(ct(x.paidSep + x.paidOct) / 100) && c[4] === hh(x.normal) && c[5] === hh(x.x15) && c[6] === hh(x.x2); }),
+      `${tag}: paid hours, the journal basis: every row's Sep and Oct paid hours and its normal / ×1.5 / ×2, to 0.01 h (${LJ.length})`);
+    const cw = LJ.filter(x => x.kind === 'Coates wages'), cws = k => cw.reduce((a, x) => a + ct(x[k]), 0) / 100;
+    check(pB.every(x => x.c[3] === hh(LJ.filter(y => y.branch === x.b).reduce((a, y) => a + ct(y.paidSep + y.paidOct), 0) / 100)) && pJob.length === 1 && pJob[0].c[3] === hh(1018.5) && pJob[0].c[4] === hh(684.4) && pJob[0].c[5] === hh(178) && pJob[0].c[6] === hh(156.1) && cws('normal') === 684.4 && cws('x15') === 178 && cws('x2') === 156.1,
+      `${tag}: paid hours on each branch, and Coates wages for the job: 1,018.50 paid = 684.40 normal + 178.00 ×1.5 + 156.10 ×2: ` + JSON.stringify(pJob[0] && pJob[0].c));
     const BR = J.labourHireBridge, lhCat = J.categories.find(c => c.name === 'Labour hire');
     check(lj.br.length === BR.length + 1 && BR.every((x, i) => lj.br[i][0].startsWith(x.week) && lj.br[i][1] === x.invoice && lj.br[i][2] === f2(x.runningSheet) && lj.br[i][3] === f2(x.cost) && lj.br[i][4] === c2(x.difference)) && BR.every(x => ct(x.difference) === ct(x.runningSheet) - ct(x.cost)),
       `${tag}: the labour hire bridge: each week, its PO, the running sheet, the costs and the difference, to the cent (${BR.length})`);

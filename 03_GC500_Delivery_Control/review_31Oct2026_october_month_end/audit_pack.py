@@ -650,6 +650,47 @@ if JP.exists():
 check('labour from 14 Sep: the register’s lines before 14 Sep are Aaron Zelvis and Alfie Harris (Coates wages) and Andrew Fisher (salary), 7–11 Sep, 165 h, no cost, and none is in the pack', sorted({(r[2], r[3]) for r in LAB_PRE}) == [('Aaron Zelvis', 'Coates wages'), ('Alfie Harris', 'Coates wages'), ('Andrew Fisher', 'Salary')] and abs(sum(float(r[4] or 0) for r in LAB_PRE) - 165) < 0.005 and min(r[0] for r in LAB_PRE) == '2026-09-07' and max(r[0] for r in LAB_PRE) == '2026-09-11' and all(r[5] in ('', 'hours only') for r in LAB_PRE))
 check('labour from 14 Sep: each person’s September hours (Labour by person) = the register’s September hours from 14 Sep', all(abs(sum((r[6] or 0) for r in lp if r[0] == w) - sum(float(x[4] or 0) for x in LAB[2:] if x and x[0][:7] == '2026-09' and x[2] == w)) < 0.005 for w in {r[0] for r in lp}))
 check('labour from 14 Sep: the page says the job’s labour starts on 14 Sep, and the event weekend is the planned 12 h days', 'The job’s labour starts on 14 Sep' in HT and 'The event weekend, 23–25 Oct, is the planned 12 h days' in HT)
+# ------------------------------------------------------------------ v1.18: paid hours, the journal basis, worked out again here from each shift's own times
+WPF = (NOW.parent / 'wages_paid.json') if NOW else None
+if JP.exists() and WPF and WPF.exists():
+    WPJ = json.load(open(WPF)); _who = {x['who'] for x in J['labourJournal']}
+    def _mins(hm): h_, m_ = hm.split(':'); return int(h_) * 60 + int(m_)
+    def _paid(x):
+        wd = dt.date.fromisoformat(x['date']).weekday()
+        if x['start'] and x['finish']:
+            span = (_mins(x['finish']) - _mins(x['start'])) % (24 * 60)
+            brk = float(x['break_min']) if x['break_min'] not in (None, '') else (0 if wd >= 5 else 30)
+            return round(span / 60, 2), round(max(0, span - brk) / 60, 2)
+        return float(x['hours_typed']), float(x['hours_typed'])
+    def _bands(h, d, typ):
+        wd = dt.date.fromisoformat(d).weekday()
+        if typ == 'salary': return [h, 0, 0]
+        if wd == 6: return [0, 0, h]
+        if wd == 5: a = min(h, 2); return [0, a, h - a]
+        o_ = min(h, 7.6); a = min(max(h - 7.6, 0), 2); return [o_, a, max(h - 9.6, 0)]
+    _bad, _per = [], collections.defaultdict(lambda: [0.0, 0.0, 0.0, 0.0])
+    for x in WPJ['shifts']:
+        if x['person'] not in _who or not ('2026-09-14' <= x['date'] <= '2026-11-13'): continue
+        wk_, pd_ = _paid(x)
+        if abs(wk_ - x['worked']) > 0.005 or abs(pd_ - x['paid']) > 0.005: _bad.append((x['person'], x['date'], wk_, x['worked'], pd_, x['paid']))
+        b_ = _bands(pd_, x['date'], x['runType'])
+        if any(abs(b_[i] - [x['split']['ordinary'], x['split']['at_1_5'], x['split']['at_2']][i]) > 0.005 for i in range(3)): _bad.append((x['person'], x['date'], 'split', b_, x['split']))
+        P_ = _per[x['person']]; P_[0] += pd_; P_[1] += b_[0]; P_[2] += b_[1]; P_[3] += b_[2]
+    check('paid hours: every shift from 14 Sep worked out again from its own start, finish and break (else typed hours) and split by the rules agrees with the record (%d shifts)' % sum(1 for x in WPJ['shifts'] if x['person'] in _who and '2026-09-14' <= x['date'] <= '2026-11-13'), not _bad, _bad[:4])
+    _pj = collections.defaultdict(lambda: [0.0, 0.0, 0.0, 0.0])
+    for x in J['labourJournal']: P_ = _pj[x['who']]; P_[0] += x['paidSep'] + x['paidOct']; P_[1] += x['normal']; P_[2] += x['x15']; P_[3] += x['x2']
+    check('paid hours: each person’s paid hours and normal / ×1.5 / ×2 in the data = the shifts worked out again, to 0.01 h (%d people)' % len(_pj), all(all(abs(_pj[w][i] - _per[w][i]) < 0.006 for i in range(4)) for w in _pj) and set(_pj) == set(_per), {w: ([round(v, 2) for v in _pj[w]], [round(v, 2) for v in _per[w]]) for w in _pj if any(abs(_pj[w][i] - _per[w][i]) >= 0.006 for i in range(4))})
+    check('paid hours: on every journal row the bands add to the paid hours, and paid is never above worked', all(abs(x['normal'] + x['x15'] + x['x2'] - x['paidSep'] - x['paidOct']) < 0.006 and x['paidSep'] <= x['sep'] + 1e-9 and x['paidOct'] <= x['oct'] + 1e-9 for x in J['labourJournal']))
+    _cw = [x for x in J['labourJournal'] if x['kind'] == 'Coates wages']
+    eq('paid hours: Coates wages paid hours, the job (from 14 Sep)', sum(x['paidSep'] + x['paidOct'] for x in _cw), 1018.50)
+    check('paid hours: Coates wages normal / ×1.5 / ×2 = 684.40 / 178.00 / 156.10 h (the two-method check of 1 Nov, less 7–11 Sep)', [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')] == [684.40, 178.00, 156.10], [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')])
+    _phs = [r for r in rows('Paid hours (journal basis)') if r and r[0]]
+    _prs = [r for r in _phs if not str(r[0]).startswith(('Paid hours on', 'Coates wages, the job', 'All hours', 'Paid hours are'))]
+    check('paid hours: the workbook sheet = the data, row for row, with each branch’s total and the job’s', len(_prs) == len(J['labourJournal']) and all((r[0], r[3], r[4], r[5], r[7], r[8], r[9]) == (x['who'], x['branch'], x['paidSep'], x['paidOct'], x['normal'], x['x15'], x['x2']) for r, x in zip(_prs, J['labourJournal']))
+          and all(abs([r for r in _phs if r[0] == 'Paid hours on ' + b][0][6] - sum(x['paidSep'] + x['paidOct'] for x in J['labourJournal'] if x['branch'] == b)) < 0.006 for b in ('KINP', 'STPS', 'NVAC')))
+    check('paid hours: the page has section 2f with the basis and the rules', '2f · Paid hours, the journal basis: normal, ×1.5 and ×2' in HT and 'Paid hours are the journal basis (what payroll pays)' in HT and J.get('paidNote', '').startswith('Paid hours are the journal basis'))
+else:
+    check('paid hours: the private paid-hours extract is beside the record captures', False)
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]
