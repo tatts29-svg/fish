@@ -1,5 +1,9 @@
 # Alfie Harris on Mon 5 Oct 2026, 06:30–17:00 — 2 Nov 2026
 
+> **Reversed the same morning.** Andrew, 2 Nov 2026: "No he diid not work kings bdat", "No one did", "Alfie did not work the 5th".
+> The row was taken off again at 02:36 AEST (record 12734 → 12736), and his 5 Oct night with it (12736 → 12739):
+> see `../record_02Nov2026_alfie_5_oct_off/`. What follows is the record of the run as it was applied.
+
 Author: Andrew Fisher. Pack v1.19 carried an open item: "Alfie Harris: his 5 Oct night has no shift for him on the record; confirm it
 against the hotel invoice." Andrew's answer, 2 Nov 2026 (this chat): "Oct 5  6'30-17:00". Alfie's labour row for Mon 5 Oct goes back on
 the record at 06:30–17:00, the same times as his other weekdays that week.
