@@ -378,7 +378,7 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.14', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.14', re.findall(r'<title>([^<]*)</title>', H))
+check('page title is pack v1.15', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.15', re.findall(r'<title>([^<]*)</title>', H))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
 check('open items: the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('Carried at the running sheet until invoiced: w/e 18 Oct' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
@@ -397,7 +397,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.14 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.14', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.15 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.15', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -435,6 +435,59 @@ if JP.exists():
     check('final P&L data: the 26 labour lines', len(LJ.get('lines', [])) == 26 and abs(sum(x['amount'] for x in LJ['lines']) - sum(LCA.values())) < 0.005)
 check('the page has the labour-charged section and its total', '2d · Labour we charged the V8s, by branch' in HT and fmt(sum(LCA.values())) in HT)
 check('the Event Portables units at excluded references are not mentioned (Andrew, 1 Nov)', not any(('195 units' in t) or ('735.00' in t) for t in texts + [json.dumps(J, ensure_ascii=False) if JP.exists() else '']))
+# ------------------------------------------------------------------ v1.15: every PO and every hire contract named, and everything ties (Andrew, 1 Nov:
+#                                                                     "Please make sure we mentioned purchase order numbers. And hire contract numbers. Everything must talk to each other.")
+check('Costs by supplier: every line names its PO, or says there is none', all(str(r[4] or '').strip() for r in cs), [r[0] for r in cs if not str(r[4] or '').strip()])
+check('Costs by supplier: every line names the hire contract it is charged on, or why none', all(str(r[6] or '').strip() for r in cs), [r[0] for r in cs if not str(r[6] or '').strip()])
+check('Costs by branch: every line names its POs, or says there is none', all(re.search(r'\bPOs?\b|no PO', str(r[1])) for r in cb), [r[1][:60] for r in cb if not re.search(r'\bPOs?\b|no PO', str(r[1]))])
+check('Journals: every accrual and branch move names its PO, or says there is none', all(str(r[1] or '').strip() for r in accr_j + moves), [r[0] for r in accr_j + moves if not str(r[1] or '').strip()])
+pr_ = [r for r in rows('Purchase orders') if r and r[0]]
+pre = [r for r in pr_ if re.fullmatch(r'4\d{6}', str(r[0]))]; prn = [r for r in pr_ if r[0] == 'none']
+PO_LINES = set(re.findall(r'\b4\d{6}\b', ' '.join(str(r[4]) for r in cs)))
+check('PO register: every PO number on the cost lines, once each (%d)' % len(pre), sorted(r[0] for r in pre) == sorted(PO_LINES) and len(pre) == len(PO_LINES) == 27, sorted(PO_LINES ^ {r[0] for r in pre}))
+check('PO register: every PO on the record is in it', set(pos) <= {r[0] for r in pre}, sorted(set(pos) - {r[0] for r in pre}))
+PA = {r[0]: r[5] for r in pre}
+for p_ in ('4647508', '4647509', '4647515', '4647517', '4647519', '4647520', '4658850', '4657010', '4660565', '4661783'):
+    eq('PO register %s = its amount on the record' % p_, PA[p_], float(pos[p_]['amount']))
+eq('PO register 4647522 = the event-week accrual (Journals)', PA['4647522'], [r[5] for r in accr_j if r[1] == '4647522'][0])
+eq('PO register 4647523 = the demob week 1 accrual + the demob week 2 forecast', PA['4647523'], [r[5] for r in accr_j if r[1] == '4647523'][0] + sum((r[9] or 0) for r in cs if r[0].startswith('Advanced') and str(r[4]).startswith('4647523 (demob), open')))
+for p_ in ('4665091', '4670882', '4671825'):
+    if p_ in JCPO: eq('PO register %s = its Job Connect invoice' % p_, PA[p_], JCPO[p_])
+for p_ in ('4674224', '4674225'):
+    if p_ in JCP: eq('PO register %s = its PO amount (November)' % p_, PA[p_], JCP[p_]['amount'])
+check('the record names the people on each w/e 18 Oct PO', pos['4667755']['what'].startswith('Eric Lucian and Daniel Gough') and pos['4668970']['what'].startswith('Kyle Gover'), (pos['4667755']['what'], pos['4668970']['what']))
+eq('PO register 4667755 = the running sheet for Daniel Gough and Eric Lucian, w/e 18 Oct', PA['4667755'], LHWP[('Daniel Gough', '2026-10-18')] + LHWP[('Eric Lucian', '2026-10-18')])
+eq('PO register 4668970 = the running sheet for Kyle Gover, w/e 18 Oct', PA['4668970'], LHWP[('Kyle Gover', '2026-10-18')])
+for p_ in POSYS: eq('PO register %s = Coates’ system (qty × unit cost)' % p_, PA[p_], r2(POSYS[p_]['qty'] * POSYS[p_]['unit_cost']))
+FPO2 = json.load(open(NOW.parent / 'forklift_pos.json'))['pos'] if NOW and (NOW.parent / 'forklift_pos.json').exists() else {}
+for p_ in FPO2: eq('PO register %s = Coates’ system (its lines’ qty × unit cost)' % p_, PA[p_], r2(sum(l['qty'] * l['unit_cost'] for l in FPO2[p_]['lines'])))
+prt = {r[0]: r[5] for r in pr_ if str(r[0]).startswith(('Total', 'The job'))}
+eq('PO register: the POs add to their total row', sum(r[5] for r in pre), prt.get('Total, 27 POs'))
+eq('PO register: the costs with no PO add to their total row', sum(r[5] for r in prn), prt.get('Total, no PO'))
+eq('PO register: with a PO + no PO = the job cost', sum(r[5] for r in pre) + sum(r[5] for r in prn), JOB); eq('PO register: its job cost row', prt.get('The job cost'), JOB)
+NOPO_SUP = collections.defaultdict(float)
+for r in prn: NOPO_SUP[r[1]] += r[5]
+CS_SUP = collections.defaultdict(float)
+for r in cs:
+    if str(r[4]).startswith('none'): CS_SUP[r[0]] += (r[7] or 0) + (r[8] or 0) + (r[9] or 0)
+jcn_ = [k for k in NOPO_SUP if k.startswith('Job Connect')]   # Job Connect is checked on its own below (one of its no-PO weeks shares a line with PO 4674224)
+check('PO register: every cost line with no PO is listed with why, supplier by supplier', all(abs(NOPO_SUP[k] - v) < 0.005 for k, v in CS_SUP.items() if v and not k.startswith('Job Connect')) and set(NOPO_SUP) == set(k for k, v in CS_SUP.items() if v) and len(jcn_) == 1, {k: (round(NOPO_SUP[k], 2), round(v, 2)) for k, v in CS_SUP.items()})
+eq('PO register: Job Connect weeks with no PO yet = w/e 1 Nov + Kyle Gover’s w/e 8 Nov on the running sheet', NOPO_SUP[jcn_[0]] if jcn_ else 0, LHW['2026-11-01'] + LHWP[('Kyle Gover', '2026-11-08')])
+check('the page has section 3c and the PO and no-PO totals', '3c · Every purchase order in the costs' in HT and fmt(sum(r[5] for r in pre)) in HT and fmt(sum(r[5] for r in prn)) in HT)
+if JP.exists():
+    check('final P&L data: each cost line carries its hire contract, as on Costs by supplier', len(J['lines']) == len(cs) and all(l['contract'] == r[6] and l['po'] == r[4] for l, r in zip(J['lines'], cs)))
+    check('final P&L data: the 18 invoices, each with its hire contract, the V8s’ PO, branch and amount, as on Revenue by invoice',
+          len(J['invoices']) == 18 and all((x['inv'], x['contract'], x['customerPO'], x['branch']) == (r[0], r[2], r[3], r[4].split(' ')[0]) and abs(x['ex'] - r[5]) < 0.005 for x, r in zip(J['invoices'], rv)))
+    eq('final P&L data: the invoices add to the 18-invoice revenue', sum(x['ex'] for x in J['invoices']), REV_TOT)
+    check('final P&L data: the November forecast line is 9961976 L61, 839.07 on NVAC', [(x['contract'], x['line'], x['branch'], x['amount']) for x in J['novForecastLines']] == [('9961976', 'L61', 'NVAC', 839.07)])
+    MUR = collections.defaultdict(float); MUI = {}
+    for r in mu:
+        if r[0] and r[0][0].isdigit(): MUR[r[0]] += r[8] or 0; MUI.setdefault(r[0], (r[2], r[3], r[4]))
+    check('final P&L data: every hire contract, its V8s PO, invoice, revenue and the costs against it, as on the match-up sheet',
+          len(J['contracts']) == 18 and all((x['customerPO'], x['invoice']) == (MUI[x['contract']][0], MUI[x['contract']][1]) and abs(x['revenue'] - MUI[x['contract']][2]) < 0.005 and abs(x['costTotal'] - MUR[x['contract']]) < 0.005 for x in J['contracts']))
+    eq('final P&L data: costs not tied to one contract = the match-up sheet', sum(x['amount'] for x in J['notTied']), sum((r[8] or 0) for r in mu if r[0] == 'not tied to one contract'))
+    eq('final P&L data: tied + not tied = the job cost', J['matchTotals']['tied'] + J['matchTotals']['notTied'], JOB)
+    check('final P&L data: the PO register = the Purchase orders sheet, PO for PO', [(x['po'], x['amount']) for x in J['purchaseOrders']] == [(r[0], r[5]) for r in pre] and abs(J['poTotals']['total'] - JOB) < 0.005)
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]

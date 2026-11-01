@@ -533,3 +533,43 @@ November weeks at his PO amounts; Kyle Gover's w/e 8 Nov at the running sheet. T
 - the Job Connect open item asks for no further paperwork.
 
 Result: 411 checks, 411 pass.
+
+## Pack v1.15: every PO and every hire contract named, and everything ties (1 Nov)
+
+Andrew, 1 Nov 2026 (this chat): "Please make sure we mentioned purchase order numbers. And hire contract numbers. Everything must talk to
+each other. And all add up and match. We have the buisness that have eyes on this p&l billing and we need to ensure everything aligns."
+
+No figure changes: v1.15 carries v1.14's figures to the cent. What's new:
+
+- **Every cost line names its PO, or says there is none.** The two carriers' forecast lines had a blank PO field; they now say "none
+  on the record" like the loads to date. Every line also names the hire contract it is charged on, or why none (job-wide, KINP work
+  with no contract number, contract not named on the PO).
+- **Every line under Costs by branch names its POs, or says there is none** (salary, accommodation, meals, Premiair's VMS24 and
+  Ludwig Chee's nights now say so too).
+- **Purchase order register (section 3c; workbook sheet "Purchase orders"):** all 27 POs in the costs, each at its amount in this P&L,
+  with supplier, what, hire contract, branch and status. Where a line carries two POs, it is split by the weeks or people on each:
+  - Advanced's seven receipted orders at their amounts on the record (receipt numbers in the cost line's order); 4647522 and 4647523 at
+    the journals' accruals, plus demob week 2's 750.00 on 4647523;
+  - Job Connect's w/e 18 Oct by the people the record names on each PO: 4667755 (Daniel Gough and Eric Lucian's GC500 hours) 3,174.90,
+    4668970 (Kyle Gover) 3,023.85;
+  - the consumables and forklift POs at their amounts and status in Coates' system.
+  Then every cost with no PO on the record, line by line, with why. **With a PO 337,897.29 + no PO 214,636.42 = 552,533.71**, the job cost.
+- **The P&L data the tab carries** (`GC500_PL_final.json`) now also holds:
+  - the 18 invoices, each with its hire contract, the V8s' PO and our POs against it;
+  - the November forecast line (9961976 L61) and the invoice not in the revenue (25124396, with why);
+  - each hire contract with what we charged on it and the costs and POs against it, then the costs not tied to one contract
+    (tied 428,580.11 + not tied 123,953.60 = 552,533.71);
+  - the PO register and the costs with no PO.
+
+**Ties the builder asserts:** the 27 PO numbers are exactly the PO numbers on the cost lines, and every PO on the record is among them;
+POs + no PO = job cost; the invoices = the 18-invoice revenue; the contracts carry the invoices; tied + not tied = job cost; every cost
+line names a PO (or none) and a hire contract (or why none).
+
+**`audit_pack.py`** now also checks, independently of the builder:
+- every PO's amount against its source: the record, the journals, Job Connect's invoices and PO amounts, the running sheet by the
+  people named on each PO, Coates' system for the consumables and forklifts;
+- the register's totals and that every no-PO cost line is listed, supplier by supplier;
+- the tab's data against the Revenue, Match-up and Purchase orders sheets, line for line.
+
+Result: 460 checks, 460 pass (with every branch line and every journal naming its PO or none). **Printed:** the
+workbook is 31 pages (LibreOffice), with every open item and every PO number in full.
