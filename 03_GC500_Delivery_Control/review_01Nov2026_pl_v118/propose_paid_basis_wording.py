@@ -16,7 +16,7 @@ def once(text,old,new):
 def change_builder(text):
     pairs=[
         ('GC500 October month-end: costs by supplier and month, accruals, labour, invoices',
-         'GC500 October month-end: costs by supplier and month, accruals, labour (worked hours), invoices. Labour before the job start date is excluded here. The separate daily register CSV is an unfiltered source copy, not the paid-hours journal.'),
+         'GC500 October month-end: costs by supplier and month, accruals, labour (worked hours), invoices. Staff worked-hour rows before the job start date are excluded here. The separate daily register CSV is an unfiltered source copy, not the paid-hours journal.'),
         ('Hours from the running sheet, allocated by the job’s rules',
          'Worked hours from the running sheet, allocated by the job’s rules'),
         ('Coates wages and salary are hours only.',

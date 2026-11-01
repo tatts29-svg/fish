@@ -34,7 +34,7 @@ class ReviewWordingTests(unittest.TestCase):
         self.assertEqual(sum('(same period)' in h for h in HEADERS),sum('(same period)' in h for h in ns['headers']))
     def test_raw_register_and_paid_basis_are_distinct(self):
         revised=helper.change_builder(FIXTURE)
-        self.assertIn('Labour before the job start date is excluded here',revised)
+        self.assertIn('Staff worked-hour rows before the job start date are excluded here',revised)
         self.assertIn('unfiltered source copy, not the paid-hours journal',revised)
         self.assertIn('Calculated paid hours for journal preparation',revised)
     def test_money_is_not_repriced_from_rounded_bands(self):
