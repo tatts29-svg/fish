@@ -140,6 +140,10 @@ acc_total = r2(sum(r[9] for r in C if r[9]))
 
 # ---------------- labour by month and branch (the running sheet, to 13 Nov)
 rows = list(csv.reader(open(SP / 'GC500_labour_by_month_and_branch.csv', encoding='utf-8-sig')))
+JOB_START = '2026-09-14'   # v1.18: the job's labour starts on 14 Sep (1 Nov 2026: no one officially worked before it); the register's 7–11 Sep lines are left out
+PRE_START = [r for r in rows[2:] if r and r[0][:4] == '2026' and r[0] < JOB_START]
+assert sorted({(r[2], r[3]) for r in PRE_START}) == [('Aaron Zelvis', 'Coates wages'), ('Alfie Harris', 'Coates wages'), ('Andrew Fisher', 'Salary')] and abs(sum(float(r[4] or 0) for r in PRE_START) - 165) < 0.005 and all(r[5] in ('', 'hours only') for r in PRE_START), PRE_START
+rows = rows[:2] + [r for r in rows[2:] if not (r and r[0][:4] == '2026' and r[0] < JOB_START)]
 L = collections.defaultdict(float); LH = collections.defaultdict(float)
 mon = {'September': 'Sep', 'October': 'Oct', 'November (forecast)': 'Nov'}
 for r in rows[2:]:
@@ -649,14 +653,14 @@ S17_NOTES = ['Schedule 17 has %d rows with a figure, %s. %d tie to the record’
 S17_HTML = ("<h2>2e · Transport checked against Schedule 17</h2><p class='s'>Schedule 17 (1 Nov) against every load on the record. The figures are the schedule’s (the carriers’ minimums), as with every load. Each change is one Schedule 17 row; its docket ties it to the hire contract (Baseplan (12)).</p>"
             + tbl(['Ref', 'Date', 'What', 'Hire contract · docket', 'Schedule 17', '#Figure', 'On the record before', '#Change', 'Branch'], _s17r)
             + "<ul>" + ''.join('<li>' + e(t) + '</li>' for t in S17_NOTES) + "</ul>")
-body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.17</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
+body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.18</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 18 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire with waiver by month: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2><p class='s'>By month of work, except November’s labour (to 13 Nov: the salary allowance, Job Connect and the Coates wages hours), which is in October with October’s. Each line names its purchase order and the hire contract and V8s invoice it's charged on (section 3b groups them by contract). Orange rows: in the accruals through 31 Oct, the journals prepared for Finance (they reverse on 1 Nov and the invoice lands against them; September’s part of Event Portables’ water is in them as a catch-up). Red rows: the record carries no date; where they sit is said on the row.</p>
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', 'Charged on (hire contract · V8s invoice)', '#Sep', '#Oct', '#Nov', '#Accruals through 31 Oct', 'Status · how dated'], crow)}
 <h2>1b · Accruals beside what we charged the V8s</h2><p class='s'>Each accrued supplier next to what we charged the V8s for the same work. Where no supplier invoice has been seen, the cost is an estimate and says so; it is replaced when the invoice comes. Charges are before the damage waiver except the fencing, which shows its fencing lines with their waiver; WB13, a water barrier on the same invoice, is left out, as its row says.</p>
 """ + ACC_HTML + f"""
-<h2>2 · Labour by month and branch, to 13 Nov</h2><p class='s'>Hours from the running sheet, allocated by the job’s rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only. November’s hours, to 13 Nov, are counted in October ({hd(NOVH['Coates wages'])} h of Coates wages, {hd(NOVH['Salary'])} h of salary and {hd(NOVH['Labour hire'])} h of labour hire); September’s stay in September. The labour hire cost rows are the running sheet’s ({m(41276.59)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received and the running sheet where not ({m(JC_TOT)}, section 1).</p>
+<h2>2 · Labour by month and branch, 14 Sep to 13 Nov</h2><p class='s'>The job’s labour starts on 14 Sep: the register’s 7–11 Sep lines (Aaron Zelvis and Alfie Harris, Coates wages, and Andrew Fisher, salary; {hd(sum(float(r_[4] or 0) for r_ in PRE_START))} h, hours only, no cost) are not in it. The event weekend, 23–25 Oct, is the planned 12 h days (06:00–18:00). Hours from the running sheet, allocated by the job’s rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only. November’s hours, to 13 Nov, are counted in October ({hd(NOVH['Coates wages'])} h of Coates wages, {hd(NOVH['Salary'])} h of salary and {hd(NOVH['Labour hire'])} h of labour hire); September’s stay in September. The labour hire cost rows are the running sheet’s ({m(41276.59)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received and the running sheet where not ({m(JC_TOT)}, section 1).</p>
 {tbl(['Type', 'Branch', '#September h', '#October h (with 1–13 Nov)', '#Total h'], lrow)}
 <h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: the job’s allocation rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician, on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
 """ + PERSON_HTML + f"""
@@ -804,7 +808,7 @@ _preg('4647523', 'Advanced Temporary Fencing', 'Demob week 1, 26–29 Oct, %s (a
 _JCW = {r[3].replace('Running sheet ', ''): r for r in C if r[0].startswith('Job Connect')}
 _LP = collections.defaultdict(float)   # the running sheet's labour hire cost by person and week ending
 for r_ in csv.reader(open(SP / 'GC500_labour_by_month_and_branch.csv', encoding='utf-8-sig')):
-    if r_ and r_[0][:4] == '2026' and r_[3] == 'Labour hire' and r_[5] not in ('', 'hours only'):
+    if r_ and r_[0][:4] == '2026' and r_[0] >= JOB_START and r_[3] == 'Labour hire' and r_[5] not in ('', 'hours only'):
         d_ = dt.date.fromisoformat(r_[0]); _LP[(r_[2], (d_ + dt.timedelta(days=6 - d_.weekday())).isoformat())] += float(r_[5])
 _who = lambda p_: _RECPO[p_]['what'].replace(' - week ending ', ', w/e ').replace(' 2026', '')
 for p_, wk_ in (('4657010', 'w/e 20 Sep'), ('4660565', 'w/e 27 Sep'), ('4661783', 'w/e 4 Oct')):
@@ -912,13 +916,13 @@ def sheet(title, head, rows, money_cols=(), hour_cols=(), widths=None, first=Fal
                 cpl = max(1, int(cw * 1.05))
                 lines = max(lines, sum(max(1, -(-len(part) // cpl)) for part in c.value.split('\n')))
         if lines > 1: ws.row_dimensions[row[0].row].height = 15 * lines + 3
-    ws.oddHeader.left.text = 'GC500 P&&L pack v1.17 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
+    ws.oddHeader.left.text = 'GC500 P&&L pack v1.18 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
     ws.oddFooter.left.text = 'Author: Andrew Fisher · private to the job team'; ws.oddFooter.right.text = 'Page &P of &N'
     return ws
 ws_sum = sheet('Summary', ['Branch', 'Invoiced (Oct)', 'November forecast', 'Revenue', 'Costs', 'Difference'],
       [[b, REV_B.get(b, 0), NOV_REV.get(b, 0), r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), CB[b], r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')]
       + [['The job', r2(sum(REV_B.values())), r2(sum(NOV_REV.values())), JOB_REV, JOB_COST, r2(JOB_REV - JOB_COST)], [],
-         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.17'],
+         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.18'],
          ['Revenue: the 18 invoices, %s, booked in October, the invoice month; and the November forecast, %s, the pick-up charge on 9961976 (L61, 29 Oct, NVAC), not invoiced yet. Costs are the management view at job end, by month of work except November’s labour (to 13 Nov), which is in October; some are estimates until invoiced, and Coates wages are hours only, not yet costed, so the difference is not a margin yet.' % (m(r2(sum(REV_B.values()))), m(r2(sum(NOV_REV.values()))))]],
       money_cols=range(2, 7), widths=[14, 16, 18, 16, 16, 16], first=True)
 assert {r_.min_row for r_ in ws_sum.merged_cells.ranges} == {ws_sum.max_row - 1, ws_sum.max_row}   # v1.16: sheet() merges the two notes across the table, sized for the width
@@ -1058,12 +1062,12 @@ body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4
 assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + '<h2>2 · Labour by month and branch')   # v1.17
 assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge
 assert body.count(MATCH_HTML) == 1; body = body.replace(MATCH_HTML, MATCH_HTML + POREG_HTML)   # v1.15: 3c, every PO in the costs
-(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.17</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
+(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.18</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 # v1.10: the final P&L as data for the page's P&L tab (v12.72): the same figures as the workbook, to the cent. Private, beside the pack, not committed.
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD'); _SUP = collections.OrderedDict()
 for r_ in C:
     v_ = _SUP.setdefault(r_[0], [0.0, 0.0, 0.0, 0.0]); v_[0] += r_[6]; v_[1] += r_[7]; v_[2] += r_[8]; v_[3] += (r_[9] or 0)
-PLF = {'pack': 'v1.17', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
+PLF = {'pack': 'v1.18', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
        'source': 'the live record (12727), the 18 invoices to V8 Supercars, the purchase orders and Schedule 17',
        'revenue': {'invoices': r2(sum(REV_B.values())), 'novForecast': r2(sum(NOV_REV.values())), 'total': JOB_REV},
        'costs': {'sep': tot[0], 'oct': tot[1], 'nov': tot[2], 'total': JOB_COST}, 'difference': r2(JOB_REV - JOB_COST), 'accrue': acc_total,

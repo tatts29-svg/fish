@@ -30,6 +30,8 @@ H = open(PK / 'GC500_PL_final.html', encoding='utf-8').read()
 HT = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', H)))
 CS = list(csv.reader(open(PK / 'GC500_October_month_end.csv', encoding='utf-8-sig')))
 LAB = list(csv.reader(open(PK / 'GC500_labour_by_month_and_branch.csv', encoding='utf-8-sig')))
+LAB_PRE = [r for r in LAB[2:] if r and r[0][:4] == '2026' and r[0] < '2026-09-14']   # v1.18: the job's labour starts on 14 Sep; the register's 7–11 Sep lines are left out
+LAB = LAB[:2] + [r for r in LAB[2:] if not (r and r[0][:4] == '2026' and r[0] < '2026-09-14')]
 rows = lambda name: [r for r in wb[name].iter_rows(min_row=2, values_only=True)]
 
 # ------------------------------------------------------------------ revenue, from the invoices
@@ -378,7 +380,7 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.17'
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.18'
 check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
@@ -398,7 +400,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.17 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.17', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.18 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.18', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -644,6 +646,10 @@ if JP.exists():
     _lhb = [r for r in rows('Labour hire bridge') if r and r[0]]
     check('labour hire bridge: the workbook sheet = the data, row for row, with its total', len(_lhb) == len(_BR) + 1 and all((r[0], r[3], r[4], r[5]) == (x['week'], x['runningSheet'], x['cost'], x['difference']) for r, x in zip(_lhb, _BR)) and _lhb[-1][0] == 'Total' and abs(_lhb[-1][5] - r2(sum(x['difference'] for x in _BR))) < 0.005, _lhb[-1:])
     check('labour hire bridge: the page has section 2d with its three totals', '2d · Labour hire: the running sheet beside the costs, week by week' in HT and all(fmt(v) in HT for v in (r2(sum(x['runningSheet'] for x in _BR)), r2(sum(x['cost'] for x in _BR)), r2(sum(x['difference'] for x in _BR)))))
+# ------------------------------------------------------------------ v1.18: the job's labour starts on 14 Sep (no one officially worked before it); the event weekend at the planned 12 h days
+check('labour from 14 Sep: the register’s lines before 14 Sep are Aaron Zelvis and Alfie Harris (Coates wages) and Andrew Fisher (salary), 7–11 Sep, 165 h, no cost, and none is in the pack', sorted({(r[2], r[3]) for r in LAB_PRE}) == [('Aaron Zelvis', 'Coates wages'), ('Alfie Harris', 'Coates wages'), ('Andrew Fisher', 'Salary')] and abs(sum(float(r[4] or 0) for r in LAB_PRE) - 165) < 0.005 and min(r[0] for r in LAB_PRE) == '2026-09-07' and max(r[0] for r in LAB_PRE) == '2026-09-11' and all(r[5] in ('', 'hours only') for r in LAB_PRE))
+check('labour from 14 Sep: each person’s September hours (Labour by person) = the register’s September hours from 14 Sep', all(abs(sum((r[6] or 0) for r in lp if r[0] == w) - sum(float(x[4] or 0) for x in LAB[2:] if x and x[0][:7] == '2026-09' and x[2] == w)) < 0.005 for w in {r[0] for r in lp}))
+check('labour from 14 Sep: the page says the job’s labour starts on 14 Sep, and the event weekend is the planned 12 h days', 'The job’s labour starts on 14 Sep' in HT and 'The event weekend, 23–25 Oct, is the planned 12 h days' in HT)
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]

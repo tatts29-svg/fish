@@ -134,7 +134,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(r.live.hasFace && r.live.parts.every(Boolean) && r.live.oldTiles.length === 3 && r.live.oldTiles.every(t => /\d/.test(t)) && r.live.oldPrint, `${tag}: the live model keeps its face, tiles, tables, cards and Print: ` + JSON.stringify(r.live.oldTiles));
     check(r.ties === 'ties' || r.ties === 'differs', `${tag}: the live model still works out its figures (data-pl1267 ${r.ties})`);
     check(r.printBtn && r.printBtn.bound && r.printBtn.inFace && r.printBtn.w > 20 && r.printBtn.text === 'Print full P&L', `${tag}: the final P&L has its own Print, bound to the tab's print: ` + JSON.stringify(r.printBtn));
-    check(r.footer === '· v12.77', `${tag}: the footer says v12.77: ${r.footer}`);
+    check(r.footer === '· ' + (process.env.FOOTER || 'v12.77'), `${tag}: the footer says ${process.env.FOOTER || 'v12.77'}: ${r.footer}`);
     // v12.76: the recheck's wording (PACK_v115_RECHECK.md item 4), worked from the data where it names a figure
     const cu = J.lines.filter(l => l.accrue > 0.004 && l.sep > 0.004), cuAmt = cu.reduce((a, l) => a + l.sep, 0), cuWho = [...new Set(cu.map(l => l.supplier))].join(' and ');
     const NOTE = ['the two are shown apart, above and in “Revenue by invoice”', 'Costs are by month of work at job end, except November’s labour (to 13 Nov: the Coates wages hours, the salary allowance and Job Connect), which is in October with October’s; the rest of November is forecast', 'Some costs are estimates until invoiced (each line says so), and Coates’ own wages are hours only, not yet costed, so the difference so far is not a margin yet',

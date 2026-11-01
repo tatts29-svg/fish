@@ -81,7 +81,7 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     check(!tight.includes('FINDINTHEP&L') && !tight.includes('Allcategories'), 'the finder stays on the screen: none of it on the paper');
     { /* the paper lays a row's name and type on two lines with the other columns between, so each part is found on its own, in the fold's text */
       const lj = tight.slice(tight.indexOf('Labourjournals:whereeveryone’shoursgo')), jt = lj.slice(0, lj.indexOf('LABOURHIRE:THERUNNINGSHEETBESIDETHECOSTS'));
-      const miss = J.labourJournal.filter(x => !jt.includes(x.who.replace(/\s+/g, '')) || !jt.includes(x.type.split(' · ')[0].split(';')[0].replace(/\s+/g, '')) || (x.journal !== 'stays' && !jt.includes(('journal' + x.journal).replace(/\s+/g, ''))));
+      const miss = J.labourJournal.filter(x => !jt.includes(x.who.replace(/\s+/g, '')) || !jt.includes(x.type.split(' · ')[0].split(';')[0].replace(/\s+/g, '')) || (x.journal !== 'stays' && !jt.includes(('journal' + x.journal.split('→')[0] + '→').replace(/\s+/g, ''))));
       const rows = J.labourJournal.reduce((a, x) => (a[x.who] = (a[x.who] || 0) + 1, a), {});
       const counts = Object.entries(rows).filter(([w, k]) => jt.split(w.replace(/\s+/g, '')).length - 1 < k);
       check(jt.length > 200 && !miss.length && !counts.length && (jt.match(/stays/g) || []).length >= J.labourJournal.filter(x => x.journal === 'stays').length, `every labour journal row prints: person, type and where the hours go (${J.labourJournal.length}): ` + JSON.stringify({miss: miss.map(x => x.who + ' ' + x.journal), counts})); }
