@@ -415,6 +415,15 @@ epj = [r for r in jn if str(r[0]).startswith('Accrual · Event Portables')]
 check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00', len(epj) == 2 and abs(sum(r[5] for r in epj) - 101747.00) < 0.005 and any('3325' in r[3] for r in epj) and any('2126' in r[3] for r in epj))
 # ------------------------------------------------------------------ v1.10: the final P&L as data (what the page's P&L tab carries) = the workbook, to the cent
 JP = PK / 'GC500_PL_final.json'
+# v1.19: the page's wording, applied to the workbook's text before it is compared with the page data: no supplier code or registered name
+# (the page keeps them on the accrual journal only), and the page's fold names for this pack's section numbers. Written here on its own.
+_PGR = [('Transport estimate (section 2h)', 'Transport estimate fold'), ('(1 Nov, section 2h)', '(1 Nov; fold: Transport estimate)'), ('in section 2h', 'in the fold Transport estimate'),
+        ('(section 2h)', '(fold: Transport estimate)'), ('(section 2e)', '(fold: Transport checked against Schedule 17)'), ('(the lines are in section 1b)', '(the lines: fold By hire contract)'),
+        ('(the $ column in 2b)', '(the Labour hire $ column in Labour journals)'), ('(section 2d)', '(Labour journals: the running sheet beside the costs)')]
+def _pg(s):
+    s = re.sub(r' \((labour hire; )?([^()]*?, )?supplier [A-Z]{2,4}\d{2,4}\)', lambda m: ' (labour hire)' if m.group(1) else '', str(s if s is not None else ''))
+    for a, b in _PGR: s = s.replace(a, b)
+    return s
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
     check('final P&L data: pack v1.19 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.19', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
@@ -426,11 +435,22 @@ if JP.exists():
         sb = summ[bj['b']]
         check('final P&L data: %s invoiced, forecast, revenue, costs, difference = the summary' % bj['b'], all(abs(a - (b or 0)) < 0.005 for a, b in zip((bj['invoiced'], bj['novForecast'], bj['revenue'], bj['costs'], bj['difference']), sb[1:6])), (bj, sb))
         eq('final P&L data: %s cost lines add to its costs' % bj['b'], sum(v for _, v in J['branchLines'][bj['b']]), bj['costs'])
-    check('final P&L data: every cost line = the costs by supplier sheet (%d lines)' % len(cs), len(J['lines']) == len(cs) and all(l['supplier'] == r[0] and all(abs(l[k] - (r[i] or 0)) < 0.005 for k, i in (('sep', 7), ('oct', 8), ('nov', 9), ('accrue', 10))) for l, r in zip(J['lines'], cs)))
+    check('final P&L data: every cost line = the costs by supplier sheet (%d lines)' % len(cs), len(J['lines']) == len(cs) and all(l['supplier'] == _pg(r[0]) and all(abs(l[k] - (r[i] or 0)) < 0.005 for k, i in (('sep', 7), ('oct', 8), ('nov', 9), ('accrue', 10))) for l, r in zip(J['lines'], cs)))
     eq('final P&L data: suppliers add to the job cost', sum(x['total'] for x in J['suppliers']), JOB)
     check('final P&L data: the journals = the accruals on the Journals sheet', len(J['journals']) == len(accr_j) and all(abs(j['amount'] - r[5]) < 0.005 for j, r in zip(J['journals'], accr_j)))
-    check('final P&L data: the open items = the Open items sheet', J['open'] == [r[0] for r in rows('Open items') if r and r[0]])
+    check('final P&L data: the open items = the Open items sheet', J['open'] == [_pg(r[0]) for r in rows('Open items') if r and r[0]])
     check('final P&L data: facts only (no "your word", agent names)', not prov.search(json.dumps(J, ensure_ascii=False)), sorted({m.group(0) for m in prov.finditer(json.dumps(J, ensure_ascii=False))}))
+    _pjx = json.dumps({k: v for k, v in J.items() if k != 'journals'}, ensure_ascii=False)
+    check('final P&L data: no supplier code or registered name outside the accrual journal', not re.search(r'supplier [A-Z]{2,4}\d{2,4}\b|P/L', _pjx) and sum(bool(re.search(r'supplier [A-Z]{2,4}\d{2,4}\b', j['journal'])) for j in J['journals']) == 1)
+    check('final P&L data: no pack section numbers on the page', not re.search(r'\bsection \d|\bin 2[a-h]\b', json.dumps(J, ensure_ascii=False)))
+    _ST = J.get('states') or []; _me = J.get('monthEnd') or {}
+    check('final P&L data: each cost line has one state from the fixed set', len(_ST) == 8 and all(l.get('state') in _ST for l in J['lines']))
+    check('final P&L data: only the lines accrued at 31 Oct carry an accrual', all((l['accrue'] > 0.004) <= (l['state'] == 'Accrued at 31 Oct') for l in J['lines']))
+    check('final P&L data: the month-end rows add to October costs, by state, to the cent', round(sum(x['oct'] for x in _me.get('rows', [])) * 100) == round(OCT * 100) == round(_me.get('oct', 0) * 100)
+          and all(round(x['oct'] * 100) == round(sum(l['oct'] for l in J['lines'] if l['state'] == x['state']) * 100) for x in _me.get('rows', [])))
+    check('final P&L data: the accruals = October accrued + September accrued part', round((sum(x['oct'] for x in _me.get('rows', []) if x['state'] == 'Accrued at 31 Oct') + _me.get('accruedSep', 0)) * 100) == round(ACC * 100))
+    check('final P&L data: November labour in October 12,305.87, and October without it', _me.get('novLabourInOct', {}).get('total') == 12305.87 and round((OCT - 12305.87) * 100) == round(_me.get('octWithoutNovLabour', 0) * 100))
+    check('final P&L data: the open-item groups hold each item once', sorted(i for g in J.get('openGroups', []) for i in g['items']) == list(range(1, len(J['open']) + 1)))
 else:
     check('final P&L data (GC500_PL_final.json) is beside the pack', False)
 # ------------------------------------------------------------------ v1.12: labour charged by branch, worked out again from the invoices; the EP 7 units not mentioned
@@ -495,7 +515,7 @@ check('PO register: every cost line with no PO is listed with why, supplier by s
 eq('PO register: Job Connect weeks with no PO yet = w/e 1 Nov + Kyle Gover’s w/e 8 Nov on the running sheet', NOPO_SUP[jcn_[0]] if jcn_ else 0, LHW['2026-11-01'] + LHWP[('Kyle Gover', '2026-11-08')])
 check('the page has section 3c and the PO and no-PO totals', '3c · Every purchase order in the costs' in HT and fmt(sum(r[5] for r in pre)) in HT and fmt(sum(r[5] for r in prn)) in HT)
 if JP.exists():
-    check('final P&L data: each cost line carries its hire contract, as on Costs by supplier', len(J['lines']) == len(cs) and all(l['contract'] == r[6] and l['po'] == r[4] for l, r in zip(J['lines'], cs)))
+    check('final P&L data: each cost line carries its hire contract, as on Costs by supplier', len(J['lines']) == len(cs) and all(l['contract'] == _pg(r[6]) and l['po'] == _pg(r[4]) for l, r in zip(J['lines'], cs)))
     check('final P&L data: the 18 invoices, each with its hire contract, the V8s’ PO, branch and amount, as on Revenue by invoice',
           len(J['invoices']) == 18 and all((x['inv'], x['contract'], x['customerPO'], x['branch']) == (r[0], r[2], r[3], r[4].split(' ')[0]) and abs(x['ex'] - r[5]) < 0.005 for x, r in zip(J['invoices'], rv)))
     eq('final P&L data: the invoices add to the 18-invoice revenue', sum(x['ex'] for x in J['invoices']), REV_TOT)

@@ -17,7 +17,7 @@ MO = ['Sep', 'Oct', 'Nov']
 # ---------------- costs by supplier and month (management view, job end; the P&L's 544,097.23 + 750.00 November forecast)
 C = []   # (supplier, branch, account, what, po, invoice/receipt, Sep, Oct, Nov, accrue_oct, basis, status)
 def add(*a): C.append(a)
-add('Advanced Temporary Fencing', 'STPS', '2126', 'Fencing weeks 6–1 (9 Sep–16 Oct) and a partial collection: hire only (the build weeks’ dockets; no installation is charged; Advanced’s labour is paid on the event weekend only, 2142)',   # v1.19 (1 Nov 2026: "we dont pay for them to actually install it.. but we do pay for labour over event weekend")
+add('Advanced Temporary Fencing', 'STPS', '2126', 'Fencing weeks 6–1 (9 Sep–16 Oct) and a partial collection: hire only (the build weeks’ dockets; no installation is charged in the build weeks; Advanced’s labour, 2142, is on the event week and demob week 1 POs, accrued)',   # v1.19 (1 Nov 2026: "we dont pay for them to actually install it.. but we do pay for labour over event weekend")
     '4647508 · 4647509 · 4647515 · 4647517 · 4647519 · 4647520 · 4658850', 'Advanced invoices GC090926 · GC220926 · GC071026 · GC290926 · GC141026 · GC121026 · 93920; receipts 4918492 · 4922398 · 4929277 · 4926209 · 4936461 · 4934877 · 4922343',
     99664.50, 114560.50, 0, 0, 'by the date on each docket, note and sheet line', 'invoiced and receipted')
 add('Advanced Temporary Fencing', 'STPS', '2126 41,193.70 · 2142 37,991.00', 'Event week 19–25 Oct (48 dockets, 11 notes, race crew 210.5 h) and demob week 1 26–29 Oct (8 dockets, 7 notes)',
@@ -680,7 +680,7 @@ S17_NOTES = ['Schedule 17 has %d rows with a figure, %s. %d tie to the record’
                  (m(v_) if i_ == 4 else ('+' if v_ > 0 else '') + m(v_)) for i_, v_ in enumerate((S17_BR['KINP'], S17_BR['STPS'], S17_BR['NVAC'], S17_BR['MEAD'], FORK_TOT, S17_BRALL['NVAC'], S17_BRALL['MEAD']))),
              'By month: September +%s (GN20, 30 Sep), October +%s.' % (m(S17_SEP), m(r2(S17_NET - S17_SEP))),
              S17['kept'][0]['why'].replace('1151.62', '1,151.62') + ' (15 and 17 Sep).',
-             'No figure on Schedule 17 and no load on the record (not costed): ' + '; '.join(S17['no_figure']) + '.']
+             'No figure on Schedule 17 and no load on the record: ' + '; '.join(S17['no_figure']) + '. Both are priced in the 1 Nov transport estimate, as ESTIMATE.']
 _EST_GL = {'oct_ran': 'Ran by 31 Oct', 'nov_on_site': 'Still on site (November)'}
 _edmy = lambda d_: '%d %s' % (int(d_[8:10]), {'09': 'Sep', '10': 'Oct', '11': 'Nov'}[d_[5:7]])
 _est_rows = [l_ for g_ in ('oct_ran', 'nov_on_site') for l_ in EST['legs'] if l_['group'] == g_]
@@ -1082,7 +1082,7 @@ sheet('Schedule 17 transport', ['Ref', 'Date', 'What', 'Hire contract · docket'
 # the parts must add to every total the pack prints (the job, each month, each branch, each line, each branch's lines in Costs by branch).
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD')
 CATS = ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts', 'Transport', 'Labour hire', 'Salary allowance', 'Accommodation', 'Meals and expenses', 'Consumables and services (POs)']   # v1.19 (Andrew, 1 Nov 2026: "Forklift r3hire should that not go to rehire"; "Or.do we.go toilets -rehire   fencing  -rehire"; on the two tweaks, what is inside in brackets and a Rehire, all subtotal: "1 and 2"). Reporting categories, not GL coding.
-CAT_NOTE = {'Rehire – fencing': 'Advanced: hire (2126) and the event weekend’s labour (2142 installation)', 'Rehire – toilets and water': 'Event Portables: hire, transport and water (2126) · servicing (3325)', 'Rehire – VMS, container and forklifts': 'Premiair VMS boards, the Royal Wolf container, Queensland Forklifts (2126)'}
+CAT_NOTE = {'Rehire – fencing': 'Advanced: hire (2126) and their labour on the event week and demob week 1 POs (2142 installation)', 'Rehire – toilets and water': 'Event Portables: hire, transport and water (2126) · servicing (3325)', 'Rehire – VMS, container and forklifts': 'Premiair VMS boards, the Royal Wolf container, Queensland Forklifts (2126)'}
 CAT_GROUPS = [('Rehire, all', ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts'])]
 def cat_of(sup):
     for pre_, c_ in (('Advanced', 'Rehire – fencing'), ('Event Portables', 'Rehire – toilets and water'), ('Premiair', 'Rehire – VMS, container and forklifts'), ('United Rentals', 'Rehire – VMS, container and forklifts'), ('Carriers', 'Transport'),
@@ -1263,6 +1263,59 @@ assert abs(sum(x['ex'] for x in PLF['invoices']) - PLF['revenue']['invoices']) <
 assert abs(sum(x['revenue'] for x in PLF['contracts']) - PLF['revenue']['invoices']) < 0.005 and abs(PLF['matchTotals']['costs'] - PLF['costs']['total']) < 0.005 and abs(PLF['poTotals']['total'] - PLF['costs']['total']) < 0.005
 assert abs(sum(x['costTotal'] for x in PLF['contracts']) + sum(x['amount'] for x in PLF['notTied']) - PLF['costs']['total']) < 0.005 and len(PLF['invoices']) == len(PLF['contracts']) == 18
 assert abs(sum(x['accrue'] for x in PLF['suppliers']) - PLF['accrue']) < 0.005 and abs(sum(j['amount'] for j in PLF['journals']) - PLF['accrue']) < 0.005
+# v1.19: the page's wording. The page carries no supplier code or registered name (they stay in the private PO file and this workbook), and it
+# points to its own folds, not to this pack's section numbers. Text only: no figure, key or count changes (checked below and by audit_pack.py).
+_PAGE_REF = [('Transport estimate (section 2h)', 'Transport estimate fold'), ('(1 Nov, section 2h)', '(1 Nov; fold: Transport estimate)'),
+             ('in section 2h', 'in the fold Transport estimate'), ('(section 2h)', '(fold: Transport estimate)'),
+             ('(section 2e)', '(fold: Transport checked against Schedule 17)'), ('(the lines are in section 1b)', '(the lines: fold By hire contract)'),
+             ('(the $ column in 2b)', '(the Labour hire $ column in Labour journals)'), ('(section 2d)', '(Labour journals: the running sheet beside the costs)')]
+def _page_text(o):
+    if isinstance(o, dict): return {k_: _page_text(v_) for k_, v_ in o.items()}
+    if isinstance(o, list): return [_page_text(v_) for v_ in o]
+    if not isinstance(o, str): return o
+    o = o.replace(JC_NAME, 'Job Connect (labour hire)').replace(' (' + JC_LEGAL + ')', '').replace(' (supplier ' + JCS['code'] + ')', '')
+    for a_, b_ in _PAGE_REF: o = o.replace(a_, b_)
+    return o
+_PLF_FIG = json.dumps(PLF, sort_keys=True)
+PLF = {k_: (v_ if k_ == 'journals' else _page_text(v_)) for k_, v_ in PLF.items()}   # the accrual journal, where Finance posts, keeps Job Connect's registered name and code
+for l_ in PLF['transportEstimate']['legs']:   # the record has the two concert generators as "GN?"; Schedule 17 names them GN26 (as the Schedule 17 fold does)
+    if l_['ref'] == 'GN?': l_['ref'] = 'GN26'; l_['what'] = l_['what'].replace(' x ', ' × ') + ' (the record’s GN?)'
+_pj = json.dumps({k_: v_ for k_, v_ in PLF.items() if k_ != 'journals'}, ensure_ascii=False)
+assert JCS['code'] not in _pj and JCS['name'].split()[0].lower() not in _pj.lower() and 'P/L' not in _pj, 'the page data carries the supplier code or registered name outside the journal'
+assert sum(JCS['code'] in j_['journal'] for j_ in PLF['journals']) == 1, 'the Job Connect accrual journal names its supplier code once'
+# v1.19: each cost line's state, one of a fixed set, from its status (the status keeps its full wording); the month-end table from the states
+STATES = ['Invoiced', 'Accrued at 31 Oct', 'Not accrued: manual accrual candidate', 'Not accrued: estimate', 'PO raised, not invoiced', 'On the tracker: how paid to check', 'Allocated (payroll)', 'November forecast']
+def _state(l_):
+    s_ = l_['status']
+    if s_.startswith('invoiced'): return 'Invoiced'
+    if s_.startswith('ACCRUE'): return 'Accrued at 31 Oct'
+    if l_['supplier'] == 'Carriers (transport)': return 'November forecast' if l_['sep'] == 0 and l_['oct'] == 0 else 'Not accrued: manual accrual candidate'
+    if s_.startswith('November work, taken in October'): return 'Not accrued: estimate'
+    if 'November forecast' in s_: return 'November forecast'
+    if s_.startswith(('check how they were paid', 'recorded on the tracker')): return 'On the tracker: how paid to check'
+    if s_.startswith('allocated'): return 'Allocated (payroll)'
+    if s_.startswith(('nothing received yet', 'received in full, not invoiced', 'check invoice')): return 'PO raised, not invoiced'
+    raise AssertionError('no state for: ' + s_)
+for l_ in PLF['lines']: l_['state'] = _state(l_)
+assert [l_['state'] for l_ in PLF['lines']].count('Accrued at 31 Oct') == 7 and abs(sum(l_['accrue'] for l_ in PLF['lines'] if l_['state'] != 'Accrued at 31 Oct')) < 0.005, 'only the accrued lines carry an accrual'
+PLF['states'] = STATES
+_cents = lambda v_: int(round(v_ * 100))
+_me = collections.OrderedDict((s_, 0) for s_ in STATES)
+for l_ in PLF['lines']: _me[l_['state']] += _cents(l_['oct'])
+_accSep = sum(_cents(l_['sep']) for l_ in PLF['lines'] if l_['state'] == 'Accrued at 31 Oct' and l_['accrue'] > 0)
+_nl = {'salary': NOV_LAB['salary'], 'jobConnect': NOV_LAB['jc'], 'total': r2(NOV_LAB['salary'] + NOV_LAB['jc'])}
+PLF['monthEnd'] = {'rows': [{'state': s_, 'oct': v_ / 100} for s_, v_ in _me.items() if v_], 'oct': PLF['costs']['oct'], 'accruedSep': _accSep / 100,
+                   'novLabourInOct': _nl, 'octWithoutNovLabour': r2(PLF['costs']['oct'] - _nl['total'])}
+assert sum(_me.values()) == _cents(PLF['costs']['oct']) and _cents(sum(l_['accrue'] for l_ in PLF['lines'])) == _me['Accrued at 31 Oct'] + _accSep == _cents(PLF['accrue']), (dict(_me), _accSep)
+assert _nl['total'] == 12305.87, _nl
+# v1.19: the open items in four groups for Finance (the items keep their numbers; the groups only order them)
+PLF['openGroups'] = [{'name': 'For Finance at 31 Oct', 'items': [9, 11, 10]}, {'name': 'Supplier invoices to come', 'items': [1, 2, 3, 5, 14]},
+                     {'name': 'Revenue to check', 'items': [4, 16, 17]}, {'name': 'Notes on the figures', 'items': [6, 7, 8, 12, 13, 15]}]
+assert sorted(i_ for g_ in PLF['openGroups'] for i_ in g_['items']) == list(range(1, len(PLF['open']) + 1))
+assert [PLF['open'][i_ - 1].split(' ')[0] for i_ in (9, 11, 10, 1, 2, 3, 5, 14, 4, 16, 17)] == ['Not', 'November’s', 'Consumables', 'Event', 'Advanced:', 'Premiair', 'Job', 'Forklift', '9974042:', 'On', 'Possible'], 'the open items moved: regroup them'
+assert not re.search(r'\bsection \d|\bin 2[a-h]\b', _pj), re.findall(r'.{40}(?:section \d|in 2[a-h]\b).{20}', _pj)
+_num = lambda o: [o] if isinstance(o, (int, float)) and not isinstance(o, bool) else sum((_num(v_) for v_ in (o.values() if isinstance(o, dict) else o)), []) if isinstance(o, (dict, list)) else []
+_o = json.loads(_PLF_FIG); assert _num(_o) == _num(json.loads(json.dumps({k_: PLF[k_] for k_ in _o}, sort_keys=True))), 'the page wording changed a figure'
 (OUT / 'GC500_PL_final.json').write_text(json.dumps(PLF, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
 print('costs Sep %.2f Oct %.2f Nov %.2f = %.2f · accrue %.2f' % (tot[0], tot[1], tot[2], sum(tot), acc_total))
 print('revenue hire $ by days on hire Sep %.2f Oct %.2f Nov %.2f · undated %.2f · total %.2f' % (RT['Sep'], RT['Oct'], RT['Nov'], UND, RT['Sep'] + RT['Oct'] + RT['Nov'] + UND))

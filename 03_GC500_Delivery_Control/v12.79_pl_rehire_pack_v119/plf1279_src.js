@@ -66,223 +66,19 @@ function hit(text, ws) { for (var i = 0; i < ws.length; i++) if (text.indexOf(ws
 function tight(s) { return norm(s).replace(/\s+/g, ''); }
 function cpoKey(v) { return tight(String(v == null ? '' : v).split(' (')[0]).replace(/^p0*/, ''); }   /* the V8s' PO as keyed, without the note after it, and without the P and its leading zeros (P028607 and P28607 are one PO) */
 function poText(po) { var t = String(po == null ? '' : po).trim(); return /^none/i.test(t) ? 'No PO' + (t.length > 4 ? ' (' + t.replace(/^none\s*/i, '') + ')' : '') : 'PO ' + t; }
-function xIndex() {
-  if (IX) return IX;
-  var J = DATA; IX = {po: {}, con: {}, inv: {}, rem: {}, remCon: {}, cpo: {}, people: []};
-  LT = J.lines.map(function (l) { return norm([l.supplier, l.branch, l.account, l.what, l.po, l.invoice, l.contract, l.status, l.basis, l.category].join(' ')); });
-  PT = (J.labourJournal || []).map(function (x) { return norm([x.who, x.type, x.home, x.branch, x.contract, x.journal].join(' ')); });
-  (J.purchaseOrders || []).forEach(function (x) { IX.po[tight(x.po)] = x; });
-  (J.contracts || []).forEach(function (x) { IX.con[tight(x.contract)] = x; });
-  (J.invoices || []).forEach(function (x) { IX.inv[tight(x.inv)] = x; var k = cpoKey(x.customerPO); (IX.cpo[k] = IX.cpo[k] || []).push(x); });
-  (J.removedInvoices || []).forEach(function (x) { IX.rem[tight(x.inv)] = x; IX.remCon[tight(x.contract)] = x; });
-  (J.labourJournal || []).forEach(function (x) { if (IX.people.indexOf(x.who) < 0) IX.people.push(x.who); });
-  return IX;
-}
-/* what the search is: an identifier gives that thing's own figure in the P&L; a branch code or a category name acts as that choice;
-   anything else finds the cost lines that mention it */
-function xKind(q) {
-  var I = xIndex(), qn = norm(q), qc = qn.replace(/\s+/g, '');
-  if (!qn) return {kind: ''};
-  if (BRS.indexOf(qn.toUpperCase()) >= 0) return {kind: 'branch', br: qn.toUpperCase()};
-  var cat = (DATA.categories || []).filter(function (c) { return norm(c.name) === qn; })[0]; if (cat) return {kind: 'category', cat: cat.name};
-  if (I.po[qc]) return {kind: 'po', x: I.po[qc]};
-  if (I.con[qc]) return {kind: 'contract', x: I.con[qc]};
-  if (I.inv[qc]) return {kind: 'invoice', x: I.inv[qc]};
-  if (I.rem[qc]) return {kind: 'removed', x: I.rem[qc]};
-  if (I.remCon[qc]) return {kind: 'removed', x: I.remCon[qc]};
-  if (/^p/.test(qc) && I.cpo[qc.replace(/^p0*/, '')]) return {kind: 'cpo', key: qc, list: I.cpo[qc.replace(/^p0*/, '')]};
-  /* a person: every word is a whole part of the name, or the start of one with at least three letters (so "an" stays a word search) */
-  var ws = qn.split(' '), who = I.people.filter(function (w) { var nw = norm(w).split(' '); return ws.every(function (x) { return nw.some(function (y) { return y === x || (x.length >= 3 && y.indexOf(x) === 0); }); }); });
-  if (who.length) return {kind: 'person', who: who};
-  return {kind: 'text', ws: ws};
-}
-function xBox() {
-  if (!DATA.facts || !DATA.revFacts) return '';
-  var o = function (v, t) { return '<option value="' + e(v) + '">' + e(t) + '</option>'; };
-  /* data-ro: the page's read-only lock (a view-only link disables every field) leaves these alone; they filter what is shown and write nothing */
-  return '<div class="plx" id="plx" data-ro role="search" aria-label="Find in the P&amp;L">'
-    + '<div class="plx-top"><p class="fin745-eyebrow">FIND IN THE P&amp;L</p><p class="plx-help">Choose a category, branch or month. Or search a PO, hire contract, invoice, V8s PO or person for its own figure in the P&amp;L, or any word for the cost lines that mention it. Categories group the cost lines for reporting; they are not GL codes. Every figure is the P&amp;L’s own, to the cent.</p></div>'
-    + '<div class="plx-bar">'
-    + '<label class="plx-f"><span>Category</span><select id="plx-cat">' + o('', 'All categories') + (DATA.categories || []).map(function (c) { return o(c.name, c.name); }).join('') + '</select></label>'
-    + '<label class="plx-f"><span>Branch</span><select id="plx-br">' + o('', 'All branches') + BRS.map(function (b) { return o(b, BRN[b]); }).join('') + '</select></label>'
-    + '<label class="plx-f"><span>Month</span><select id="plx-mo">' + o('', 'Job end (Sep to Nov)') + MOS.map(function (m) { return o(m, MOL[m]); }).join('') + '</select></label>'
-    + '<label class="plx-f plx-qf"><span>Search</span><input type="search" id="plx-q" autocomplete="off" spellcheck="false" placeholder="e.g. 4658850, 9961976, 25122628, Kyle"></label>'
-    + '<button type="button" class="btn ghost sm plx-clear" id="plx-clear">Clear</button>'
-    + '</div><div class="plx-sum" id="plx-sum" aria-live="polite"></div><div class="plx-out" id="plx-out"></div></div>';
-}
 var DASH = '<span class="pl1267-dash">—</span>';
-var KIND = {'Labour hire': 'Labour hire', 'Salary allowance': 'Salary'};   /* a cost category and the labour journal rows that belong to it */
-function kpi(label, cents_, small, neg) { return '<div class="plx-k' + (neg ? ' pl1267-neg' : '') + '"><span>' + e(label) + '</span><b>' + (cents_ === null ? DASH : f2(cents_ / 100)) + '</b><small>' + e(small) + '</small></div>'; }
-function invRow(x, amt) { return '<tr><td><b>' + e(x.inv) + '</b><small>' + dmy(x.date) + '</small></td><td>' + e(x.contract) + ' · ' + e(x.branch) + '<small>our POs against it: ' + e(/^no PO/.test(x.pos) ? 'none on the record' : x.pos) + '</small></td><td>' + e(x.customerPO) + '</td><td class="num">' + cents(amt) + '</td></tr>'; }
-var INV_HEAD = '<thead><tr><th>Invoice · date</th><th>Hire contract · branch</th><th>V8s PO</th><th class="num">AUD ex GST</th></tr></thead>';
-function xRender() {
-  var sumEl = D.getElementById('plx-sum'), outEl = D.getElementById('plx-out');
-  if (!sumEl || !outEl) return;
-  xIndex();
-  var J = DATA, K = xKind(XS.q), s = {cat: XS.cat, br: XS.br, mo: XS.mo}, note = '', out = '';
-  if (K.kind === 'branch') { note = '“' + XS.q.trim() + '” is a branch: showing ' + BRN[K.br] + ', as the Branch choice does' + (s.br && s.br !== K.br ? ' (the Branch choice, ' + s.br + ', is set aside)' : '') + '.'; s.br = K.br; K = {kind: ''}; }
-  if (K.kind === 'category') { note = '“' + XS.q.trim() + '” is a category: showing ' + K.cat + ', as the Category choice does' + (s.cat && s.cat !== K.cat ? ' (the Category choice, ' + s.cat + ', is set aside)' : '') + '.'; s.cat = K.cat; K = {kind: ''}; }
-  var jobOnly = function (what) { return s.mo ? what + ' is for the job, not by month: choose Job end' : ''; };
-  var cols = s.mo ? [s.mo] : MOS;
-  var head = function (first, extra) { return '<thead><tr><th>' + first + '</th>' + (extra || '') + cols.map(function (m) { return '<th class="num">' + e(m) + '</th>'; }).join('') + (s.mo ? '' : '<th class="num">Job end</th>') + '</tr></thead>'; };
-  var cells = function (by) { var t = 0; var h = cols.map(function (m) { t += by[m] || 0; return '<td class="num">' + cents(by[m] || 0) + '</td>'; }).join(''); return h + (s.mo ? '' : '<td class="num"><b>' + cents(t) + '</b></td>'); };
-  var lineFacts = function (ok) { return J.facts.filter(function (f) { return ok(f[0]) && (!s.br || f[1] === s.br) && (!s.mo || f[2] === s.mo); }); };
-  var linesTable = function (facts, caption) {
-    var ids = [], seen = {}, tot = {}; MOS.forEach(function (m) { tot[m] = 0; });
-    facts.forEach(function (f) { tot[f[2]] += f[3]; if (!seen[f[0]]) { seen[f[0]] = 1; ids.push(f[0]); } }); ids.sort(function (a, b) { return a - b; });
-    if (!ids.length) return '';
-    var lr = ids.map(function (i) { var l = J.lines[i], by = {}, brs = [], mv = false;
-      facts.forEach(function (f) { if (f[0] === i) { by[f[2]] = (by[f[2]] || 0) + f[3]; if (brs.indexOf(f[1]) < 0) brs.push(f[1]); if (f[4]) mv = true; } });
-      return '<tr><td><b>' + e(l.supplier) + '</b><small>' + e(l.what) + '</small><small>' + e(poText(l.po)) + ' · Hire contract: ' + e(l.contract) + '</small><small class="plx-cat">' + e(l.category) + '</small></td><td>' + e(brs.join(' · ')) + (mv ? '<small>with the branch move</small>' : '') + '</td>' + cells(by) + '</tr>'; }).join('');
-    return (caption ? '<p class="fin745-eyebrow plf1272-sub">' + caption + '</p>' : '') + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-lines">' + head('Cost line', '<th>Branch</th>') + '<tbody>' + lr
-      + '<tr class="pl1267-grand"><td>' + n(ids.length, 'cost line', 'cost lines') + '</td><td></td>' + cells(tot) + '</tr></tbody></table></div>';
-  };
-  var journals = function (rowsOk, title) {   /* the labour journals: who, home branch, where the hours are journaled to, by month */
-    var lj = (J.labourJournal || []).filter(function (x, i) { return (!s.br || x.branch === s.br) && (!s.cat || x.kind === KIND[s.cat]) && rowsOk(x, i); });
-    if (s.mo) lj = lj.filter(function (x) { return s.mo === 'Sep' ? x.sep : s.mo === 'Oct' ? x.oct : true; });
-    if (!lj.length) return '';
-    var t = '<p class="fin745-eyebrow plf1272-sub">' + (title || 'LABOUR JOURNALS' + (s.br ? ' · TO ' + e(s.br) : '')) + '</p>';
-    if (s.mo === 'Nov') return t + '<p class="plf1272-note">November’s hours, to 13 Nov, are counted in October: choose October to see them.</p>';
-    var hm = s.mo ? [s.mo] : ['Sep', 'Oct'], hs = {Sep: 0, Oct: 0}, lh = 0;
-    var jr = lj.map(function (x) { hs.Sep += x.sep; hs.Oct += x.oct; lh += Math.round(x.labourHire * 100);
-      return '<tr><td><b>' + e(x.who) + '</b><small>' + e(x.type) + '</small></td><td>' + e(x.home) + '</td><td>' + e(x.journal === 'stays' ? 'stays on ' + x.branch : x.journal) + (x.contract ? '<small>' + e(x.contract) + '</small>' : '') + '</td>'
-        + hm.map(function (m) { return '<td class="num">' + hrs(m === 'Sep' ? x.sep : x.oct) + '</td>'; }).join('') + (s.mo ? '<td class="num"><b>' + hrs(s.mo === 'Sep' ? x.paidSep : x.paidOct) + '</b></td>' : '<td class="num"><b>' + hrs(x.sep + x.oct) + '</b></td><td class="num"><b>' + hrs(x.paidSep + x.paidOct) + '</b><small>' + (x.kind === 'Salary' ? 'all normal' : hrs(x.normal) + ' · ' + hrs(x.x15) + ' · ' + hrs(x.x2)) + '</small></td><td class="num">' + cents(Math.round(x.labourHire * 100)) + '</td>') + '</tr>'; }).join('');
-    return t + '<p class="plf1272-note">Coates wages are hours only, not yet costed; the salary allowance is costed (the Salary allowance category). Worked and paid hours differ: the journals use the paid hours. ' + (s.mo ? '' : 'Labour hire $ here is the running sheet’s; the costs carry Job Connect’s invoices and POs where there are any (the bridge, week by week, is in the Labour journals fold). ') + (s.mo === 'Oct' ? 'October’s hours include November’s, to 13 Nov.' : '') + '</p>'
-      + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-lj"><thead><tr><th>Person · type</th><th>Home branch</th><th>Journal</th>' + hm.map(function (m) { return '<th class="num">' + e(m === 'Oct' ? 'Oct worked h (with 1–13 Nov)' : m + ' worked h') + '</th>'; }).join('')
-      + (s.mo ? '<th class="num">Paid h (journal basis)</th>' : '<th class="num">Worked h</th><th class="num">Paid h (journal basis)<small>normal · ×1.5 · ×2</small></th><th class="num">Labour hire $ (running sheet)</th>') + '</tr></thead><tbody>' + jr
-      + '<tr class="pl1267-grand"><td>' + n(lj.length, 'row', 'rows') + '</td><td></td><td></td>' + hm.map(function (m) { return '<td class="num">' + hrs(hs[m]) + '</td>'; }).join('') + (s.mo ? '<td class="num">' + hrs(lj.reduce(function (a, x) { return a + Math.round((s.mo === 'Sep' ? x.paidSep : x.paidOct) * 100); }, 0) / 100) + '</td>' : '<td class="num">' + hrs(hs.Sep + hs.Oct) + '</td><td class="num">' + hrs(lj.reduce(function (a, x) { return a + Math.round((x.paidSep + x.paidOct) * 100); }, 0) / 100) + '</td><td class="num">' + cents(lh) + '</td>') + '</tr></tbody></table></div>';
-  };
-  var sum = '', scope = (s.br || s.cat || s.mo) ? '<p class="plf1272-note plx-scope">The table below is the whole ' + '%s' + ', for the job: ' + [s.br ? 'branch ' + s.br : '', s.cat ? 'category ' + s.cat : '', s.mo ? MOL[s.mo] : ''].filter(Boolean).join(', ') + ' is applied in the figures above where the P&amp;L splits it, and not otherwise.</p>' : '';
-  if (!K.kind) {   /* the choices alone: the parts in whole cents */
-    var facts = lineFacts(function (i) { return !s.cat || J.lines[i].category === s.cat; }), cost = 0, nl = {}; facts.forEach(function (f) { cost += f[3]; nl[f[0]] = 1; });
-    var rev = null, rf = [];
-    if (!s.cat) { rf = J.revFacts.filter(function (r) { return (!s.br || r[1] === s.br) && (!s.mo || r[2] === s.mo); }); rev = 0; rf.forEach(function (r) { rev += r[3]; }); }
-    var nInv = rf.filter(function (r) { return r[2] !== 'Nov'; }).length, fc = rf.some(function (r) { return r[2] === 'Nov'; });
-    var revWhy = rev === null ? 'not split by cost category' : s.mo === 'Sep' ? 'none in September: the 18 invoices are dated October' : s.mo === 'Nov' ? (fc ? 'the November forecast, not invoiced yet' : 'none in November: the forecast is on NVAC')
-      : ((nInv ? n(nInv, 'invoice', 'invoices') : '') + (nInv && fc ? ' and ' : '') + (fc ? 'the November forecast' : '') || 'none on this branch');
-    var diff = !s.cat && !s.mo;   /* job end only, for the job or a branch: the revenue is booked in October, the invoice month */
-    sum = kpi('Revenue', rev, revWhy) + kpi('Costs', cost, n(Object.keys(nl).length, 'cost line', 'cost lines') + (s.mo === 'Oct' ? ' · with November’s labour' : s.mo === 'Nov' ? ' · forecast' : ''))
-      + kpi('Difference so far', diff ? rev - cost : null, diff ? 'revenue less costs, job end · not a margin yet' : s.cat ? 'for the job or a branch, with no category' : 'at job end only: the revenue is booked in October, the invoice month', diff && rev - cost < 0);
-    if (!s.cat) {   /* by category, for the branch and month chosen; each opens its lines */
-      var tot = {}; MOS.forEach(function (m) { tot[m] = 0; }); facts.forEach(function (f) { tot[f[2]] += f[3]; });
-      var grp = J.categoryGroups || [];   /* v12.79: the rehire groups, each with what is inside it, and their subtotal (Rehire, all) from the same parts */
-      var rows = (J.categories || []).map(function (c) { var by = {}, t = 0; facts.forEach(function (f) { if (J.lines[f[0]].category === c.name) { by[f[2]] = (by[f[2]] || 0) + f[3]; t += f[3]; } });
-        var r = t ? '<tr><td><button type="button" class="plx-pick" data-cat="' + e(c.name) + '">' + e(c.name) + '</button>' + (c.note ? '<small>' + e(c.note) + '</small>' : '') + '</td>' + cells(by) + '</tr>' : '';
-        grp.forEach(function (g) { if (g.members[g.members.length - 1] !== c.name) return; var gb = {}, gt = 0;
-          facts.forEach(function (f) { if (g.members.indexOf(J.lines[f[0]].category) >= 0) { gb[f[2]] = (gb[f[2]] || 0) + f[3]; gt += f[3]; } });
-          if (gt) r += '<tr class="pl1267-tot plx-grp"><td>' + e(g.name) + '</td>' + cells(gb) + '</tr>'; });
-        return r; }).join('');
-      out += '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-cats">' + head('Category' + (s.br ? ' · ' + e(s.br) : '')) + '<tbody>' + rows
-        + '<tr class="pl1267-grand"><td>' + (s.br ? 'Costs, ' + e(BRN[s.br]) : 'Costs, the job') + '</td>' + cells(tot) + '</tr></tbody></table></div>';
-    } else out += linesTable(facts);
-    if (s.br || KIND[s.cat]) out += journals(function () { return true; });
-  } else if (K.kind === 'po') {   /* a purchase order: its own amount, from the purchase orders in the costs */
-    var x = K.x, li = J.lines.map(function (l, i) { return (String(l.po).match(/\b\d{7}\b/g) || []).indexOf(x.po) >= 0 ? i : -1; }).filter(function (i) { return i >= 0; });
-    var pf = J.facts.filter(function (f) { return li.indexOf(f[0]) >= 0; }), pb = [], pmv = pf.some(function (f) { return f[4]; });
-    pf.forEach(function (f) { if (f[3] && pb.indexOf(f[1]) < 0) pb.push(f[1]); });
-    var brOff = !s.br ? '' : pb.indexOf(s.br) < 0 ? 'this PO’s cost is on ' + pb.join(' and ') : (pb.length > 1 || pmv) ? 'not split by branch: its line is on ' + pb.join(' and ') + (pmv ? ', with the branch move' : '') + ': choose All branches' : '';
-    var cats = li.map(function (i) { return J.lines[i].category; }), off = brOff || ((s.cat && cats.indexOf(s.cat) < 0) ? 'this PO is ' + (cats[0] || 'in another category') : '');
-    var amt = Math.round(x.amount * 100);
-    sum = kpi('Revenue', null, 'a PO is a cost') + kpi('Costs', off || s.mo ? null : amt, off || jobOnly('a PO’s amount') || 'PO ' + x.po + ', as in Every purchase order in the costs') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="fin745-eyebrow plf1272-sub">PURCHASE ORDER ' + e(x.po) + '</p>' + scope.replace('%s', 'PO') + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-po"><thead><tr><th>PO · supplier</th><th>Hire contract</th><th>Branch</th><th class="num">AUD ex GST</th></tr></thead><tbody>'
-      + '<tr><td><b>' + e(x.po) + ' · ' + e(x.supplier) + '</b><small>' + e(x.what) + '</small><small>' + e(x.status) + '</small></td><td>' + e(x.contract) + '</td><td>' + e(x.branch) + '</td><td class="num"><b>' + f2(x.amount) + '</b></td></tr></tbody></table></div>'
-      + (li.length ? '<p class="plf1272-note">On the cost line' + (li.length > 1 ? 's' : '') + ' below. A line can carry more than one PO, so a line’s total is not the PO’s amount.</p>' + linesTable(lineFacts(function (i) { return li.indexOf(i) >= 0; })) : '');
-  } else if (K.kind === 'contract') {   /* a hire contract: what we charged on it and the costs tied to it, as in By hire contract */
-    var c = K.x, inv = (J.invoices || []).filter(function (x) { return x.contract === c.contract; }), fcl = (J.novForecastLines || []).filter(function (x) { return x.contract === c.contract; });
-    var offc = s.br && c.branch !== s.br ? 'this hire contract’s invoices are on ' + c.branch : '';
-    var costOff = s.br ? 'a hire contract’s costs are not split by branch (some sit on other branches): choose All branches' : s.cat ? 'a hire contract’s costs are not split by category' : '';
-    var fcTxt = fcl.length ? ' · plus the November forecast ' + fcl.map(function (x) { return f2(x.amount); }).join(', ') + ', not invoiced yet' : '';
-    sum = kpi('Revenue', offc || s.mo || s.cat ? null : Math.round(c.revenue * 100), offc || jobOnly('a hire contract’s charge') || (s.cat ? 'not split by cost category' : n(inv.length, 'invoice', 'invoices') + ' on ' + c.contract + fcTxt))
-      + kpi('Costs', costOff || s.mo ? null : Math.round(c.costTotal * 100), costOff || jobOnly('a hire contract’s costs') || n(c.costs.length, 'cost', 'costs') + ' tied to it, as in By hire contract')
-      + kpi('Difference so far', null, 'not for one contract: some costs are tied to none');
-    out += '<p class="fin745-eyebrow plf1272-sub">HIRE CONTRACT ' + e(c.contract) + ' · ' + e(c.branch) + ' · THE V8S’ PO ' + e(c.customerPO) + '</p>' + scope.replace('%s', 'hire contract')
-      + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>' + inv.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('')
-      + '<tr class="pl1267-grand"><td>Charged on ' + e(c.contract) + '</td><td></td><td></td><td class="num">' + f2(c.revenue) + '</td></tr></tbody></table></div>'
-      + fcl.map(function (x) { return '<p class="plf1272-note">Not in the charge above: the November forecast on ' + e(x.contract) + ' ' + e(x.line) + ' (' + e(x.branch) + '), ' + f2(x.amount) + ', ' + e(x.what) + '. It is in the revenue as the November forecast.</p>'; }).join('')
-      + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-con"><thead><tr><th>Cost tied to ' + e(c.contract) + '</th><th>PO</th><th class="num">AUD ex GST</th></tr></thead><tbody>'
-      + (c.costs.length ? c.costs.map(function (x) { return '<tr><td><b>' + e(x.what) + '</b><small>' + e(x.status) + '</small></td><td>' + e(x.po) + '</td><td class="num">' + c2(x.amount) + '</td></tr>'; }).join('') : '<tr><td>no supplier PO or cost on the record against it</td><td></td><td class="num">' + c2(0) + '</td></tr>')
-      + '<tr class="pl1267-grand"><td>Costs against ' + e(c.contract) + '</td><td></td><td class="num">' + c2(c.costTotal) + '</td></tr></tbody></table></div>';
-  } else if (K.kind === 'invoice' || K.kind === 'cpo') {   /* an invoice, or every invoice on a V8s PO, at its amount */
-    var L = K.kind === 'invoice' ? [K.x] : K.list, offi = s.br ? L.filter(function (x) { return x.branch === s.br; }) : L, ra = 0;
-    offi.forEach(function (x) { ra += Math.round(x.ex * 100); });
-    var moOff = s.mo && s.mo !== 'Oct', inChoice = moOff ? 0 : ra, keyed = L.map(function (x) { return String(x.customerPO).split(' (')[0]; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
-    var why = s.cat ? 'not split by cost category' : !offi.length ? 'none on ' + s.br + ': ' + L.map(function (x) { return x.inv + ' is on ' + x.branch; }).join(', ') : moOff ? 'none in ' + MOL[s.mo].split(' ')[0] + ': ' + (L.length === 1 ? 'the invoice is' : 'the invoices are') + ' dated October'
-      : (K.kind === 'invoice' ? 'invoice ' + L[0].inv + ' on ' + L[0].contract : n(offi.length, 'invoice', 'invoices') + (s.br ? ' on ' + s.br : '') + ' on the V8s’ PO ' + keyed.join(', ') + (keyed.join('').replace(/\s/g, '').toUpperCase() !== XS.q.replace(/\s/g, '').toUpperCase() ? ' (as keyed on the invoice)' : ''));
-    var chosen = s.br || moOff, choiceWord = [s.br, moOff ? MOL[s.mo].split(' ')[0] : ''].filter(Boolean).join(', ');
-    sum = kpi('Revenue', s.cat ? null : inChoice, why) + kpi('Costs', null, 'an invoice is revenue: its hire contract carries the costs tied to it') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="fin745-eyebrow plf1272-sub">' + (K.kind === 'invoice' ? 'INVOICE ' + e(L[0].inv) : 'INVOICES ON THE V8S’ PO ' + e(keyed.join(', ').toUpperCase())) + '</p>' + scope.replace('%s', K.kind === 'invoice' ? 'invoice' : 'set of invoices') + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>'
-      + L.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('') + '<tr class="pl1267-grand"><td>' + (chosen ? 'All ' + n(L.length, 'invoice', 'invoices') + ', every branch and month' : n(L.length, 'invoice', 'invoices')) + '</td><td></td><td></td><td class="num">' + cents(L.reduce(function (a, x) { return a + Math.round(x.ex * 100); }, 0)) + '</td></tr>'
-      + (chosen && !s.cat ? '<tr class="pl1267-tot"><td>In the choice (' + e(choiceWord) + ')</td><td></td><td></td><td class="num">' + f2(inChoice / 100) + '</td></tr>' : '') + '</tbody></table></div>'
-      + '<p class="plf1272-note">' + L.map(function (x) { return '<button type="button" class="plx-go" data-q="' + e(x.contract) + '">Hire contract ' + e(x.contract) + '</button>'; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' ') + '</p>';
-  } else if (K.kind === 'removed') {
-    sum = kpi('Revenue', null, 'not in the revenue') + kpi('Costs', null, 'an invoice is revenue') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="plf1272-note">Invoice ' + e(K.x.inv) + ' on ' + e(K.x.contract) + ' (' + f2(K.x.ex) + ') is not in the revenue: ' + e(K.x.why) + '.</p>';
-  } else if (K.kind === 'person') {   /* a person: where their hours go; costs are carried by week and supplier, not by person */
-    var firsts = K.who.map(function (w) { return new RegExp('\\b' + norm(w).split(' ')[0] + '\\b'); });
-    var pl = lineFacts(function (i) { return (!s.cat || J.lines[i].category === s.cat) && firsts.some(function (r) { return r.test(LT[i]); }); });
-    sum = kpi('Revenue', null, 'charged by line, not by person') + kpi('Costs', null, 'not totalled for a person: some lines below are theirs alone (accommodation, meals), others are shared (a week of labour hire); labour hire $ in the journals are the running sheet’s') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += journals(function (x) { return K.who.indexOf(x.who) >= 0; }, 'LABOUR JOURNALS · ' + e(K.who.join(', ').toUpperCase())) + linesTable(pl, 'COST LINES THAT MENTION ' + e(K.who.map(function (w) { return w.split(' ')[0]; }).join(', ').toUpperCase()) + ' (WHOLE LINES; SOME ARE SHARED)');
-    if (!out) out = '<p class="plx-none">No hours or cost lines for ' + e(K.who.join(', ')) + ' in that choice.</p>';
-  } else {   /* any other words: the cost lines that mention them, whole lines, at their parts in the choice */
-    var tf = lineFacts(function (i) { return (!s.cat || J.lines[i].category === s.cat) && hit(LT[i], K.ws); }), tc = 0, tl = {}; tf.forEach(function (f) { tc += f[3]; tl[f[0]] = 1; });
-    sum = kpi('Revenue', null, 'search an invoice, hire contract or V8s PO for revenue') + kpi('Matching cost lines', tc, n(Object.keys(tl).length, 'cost line', 'cost lines') + (Object.keys(tl).length === 1 ? ' that mentions “' : ' that mention “') + XS.q.trim() + '”, whole lines: a line can be shared with other items, so this is not one item’s cost') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += linesTable(tf, 'COST LINES THAT MENTION “' + e(XS.q.trim().toUpperCase()) + '”');
-    out += journals(function (x, i) { return hit(PT[i], K.ws); });
-  }
-  sumEl.innerHTML = (note ? '<p class="plx-note">' + e(note) + '</p>' : '') + sum;
-  outEl.innerHTML = out || '<p class="plx-none">Nothing in the P&amp;L matches that choice.</p>';
-}
-function hrs(h) { return h ? (Math.round(h * 100) / 100).toLocaleString('en-AU', {minimumFractionDigits: 0, maximumFractionDigits: 2}) : '<span class="pl1267-dash">—</span>'; }
-function xBind() {
-  var box = D.getElementById('plx'); if (!box || box.__plx) return; box.__plx = true;
-  var ids = {cat: 'plx-cat', br: 'plx-br', mo: 'plx-mo', q: 'plx-q'};
-  Object.keys(ids).forEach(function (k) { var el = D.getElementById(ids[k]); if (el) el.value = XS[k]; });
-  var read = function () { ['cat', 'br', 'mo'].forEach(function (k) { var el = D.getElementById(ids[k]); XS[k] = el ? el.value : ''; }); xRender(); };
-  ['plx-cat', 'plx-br', 'plx-mo'].forEach(function (id) { var el = D.getElementById(id); if (el) el.onchange = read; });
-  var q = D.getElementById('plx-q'), tq = 0;
-  if (!XPOINTER) {   /* an intentional click away cancels a pending redraw restoration */
-    D.addEventListener('pointerdown', function (ev) { if (ev.target !== D.getElementById('plx-q')) { XS.f = 0; XFOCUS++; } }, true);
-    XPOINTER = true;
-  }
-  if (q) {   /* keep the query now; debounce only the figures, never typing or selection */
-    var remember = function () { XSELECTION = {value: q.value, start: q.selectionStart, end: q.selectionEnd, direction: q.selectionDirection}; };
-    var restore = function (field, selection) { try { field.focus({preventScroll: true}); if (selection && selection.value === field.value) field.setSelectionRange(selection.start, selection.end, selection.direction); } catch (er) {} };
-    q.oninput = function () { XS.q = q.value; remember(); clearTimeout(tq); tq = setTimeout(xRender, 120); };
-    q.onselect = q.onkeyup = q.onclick = remember;
-    q.onfocus = function () { XS.f = 1; XFOCUS++; };
-    q.onblur = function (ev) {
-      var hadFocus = XS.f; remember(); var selection = XSELECTION, ticket = ++XFOCUS; XS.f = 0;
-      if (!hadFocus || (ev && ev.relatedTarget)) return;
-      /* The page blurs the still-connected old input before replacing it. Recheck after that synchronous redraw.
-         Only a replaced field on the same active tab qualifies; another control or a deliberate click wins. */
-      setTimeout(function () {
-        var current = D.getElementById('plx-q'), pane = D.getElementById('pane-costs'), active = D.activeElement;
-        if (ticket !== XFOCUS || q.isConnected || !current || current === q || !current.isConnected || !pane || !pane.classList.contains('on')) return;
-        if (active && active !== D.body && active !== current) return;
-        if (D.hasFocus && !D.hasFocus()) return;
-        if (current.value !== selection.value || XS.q !== selection.value) return;
-        restore(current, selection);
-      }, 0);
-    };
-    if (XS.f) { var pane = D.getElementById('pane-costs'); if (pane && pane.classList.contains('on')) restore(q, XSELECTION); else XS.f = 0; }
-  }
-  var c = D.getElementById('plx-clear'); if (c) c.onclick = function () { XS = {cat: '', br: '', mo: '', q: '', f: 0}; Object.keys(ids).forEach(function (k) { var el = D.getElementById(ids[k]); if (el) el.value = ''; }); xRender(); };
-  box.addEventListener('click', function (ev) {
-    var t = ev.target && ev.target.closest ? ev.target : null; if (!t) return;
-    var b = t.closest('.plx-pick'); if (b) { XS.cat = b.getAttribute('data-cat') || ''; var el = D.getElementById('plx-cat'); if (el) el.value = XS.cat; xRender(); if (el) try { el.focus(); } catch (er) {} return; }
-    var g = t.closest('.plx-go'); if (g) { XS.q = g.getAttribute('data-q') || ''; var qi = D.getElementById('plx-q'); if (qi) qi.value = XS.q; xRender(); if (qi) try { qi.focus(); } catch (er) {} }
-  });
-  xRender();
-}
+function hrs(h) { return h ? (Math.round(h * 100) / 100).toLocaleString('en-AU', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : '<span class="pl1267-dash">—</span>'; }
+/*__PLF1279_FIND__*/
 function html() {
-  var J = DATA, R = J.revenue, C = J.costs;
+  var J = DATA, R = J.revenue, C = J.costs, ME = J.monthEnd, TE = J.transportEstimate;
   var asAt = day(J.asAt), d = asAt.replace(/ \d{4}$/, '');   /* 31 Oct 2026 · 31 Oct */
+  var cwPaid = (J.labourJournal || []).reduce(function (a, x) { return x.kind === 'Coates wages' ? a + Math.round(x.paidSep * 100) + Math.round(x.paidOct * 100) : a; }, 0);   /* v12.79: paid hours, not costed */
   var head = '<div class="pl1267-headrow"><p class="fin745-eyebrow">THE P&amp;L · JOB POSITION · AUD EX GST · AS AT ' + e(asAt.toUpperCase()) + '</p>'
     + '<button type="button" class="btn ghost sm" id="pl1267-fp-print" title="The whole P&amp;L, every fold open; the finder stays on the screen">Print full P&amp;L</button></div>'
     + '<h2 id="plf1272Title" class="plf1272-h">The P&amp;L, job position at ' + e(asAt) + '<small>pack ' + e(J.pack) + ' · from ' + e(J.source) + '</small></h2>';
   var tiles = '<div class="pl1267-tiles plf1272-tiles">'
     + tile('Charged to the V8s', f2(R.total), n((J.invoices || []).length, 'invoice', 'invoices') + ' ' + f2(R.invoices) + ' · November forecast ' + f2(R.novForecast) + ', not invoiced yet')
-    + tile('What it costs us', f2(C.total), 'Sep ' + f2(C.sep) + ' · Oct ' + f2(C.oct) + ' · Nov ' + f2(C.nov) + ' (forecast) · some estimates until invoiced; Coates wages not yet costed')
+    + tile('What it costs us', f2(C.total), 'Sep ' + f2(C.sep) + ' · Oct ' + f2(C.oct) + (ME && ME.novLabourInOct ? ' (with November’s labour to 13 Nov, ' + f2(ME.novLabourInOct.total) + ')' : '') + ' · Nov ' + f2(C.nov) + ' (forecast) · some estimates until invoiced; Coates wages not yet costed' + (cwPaid ? ' (' + hrs(cwPaid / 100) + ' paid h)' : ''))
     + tile('Difference so far', f2(J.difference), 'revenue less costs, job end · not a margin yet', J.difference < 0 ? 'pl1267-neg' : '')
     + tile('Accruals through ' + d, f2(J.accrue), 'the journals prepared for Finance · what is in them is below')
     + '</div>' + xBox();
@@ -290,19 +86,19 @@ function html() {
     + '<th class="num">Invoiced (Oct)</th><th class="num">November forecast</th><th class="num">Revenue</th><th class="num">Costs</th><th class="num">Difference</th></tr></thead><tbody>';
   var tot = {inv: 0, fc: 0, rev: 0, cost: 0, diff: 0};
   J.branches.forEach(function (b) {
-    br += '<tr data-b="' + e(b.b) + '"><td>' + e(b.b) + '</td><td class="num">' + c2(b.invoiced) + '</td><td class="num">' + c2(b.novForecast) + '</td><td class="num">' + c2(b.revenue)
+    br += '<tr data-b="' + e(b.b) + '"><td>' + e(BRN[b.b] || b.b) + '</td><td class="num">' + c2(b.invoiced) + '</td><td class="num">' + c2(b.novForecast) + '</td><td class="num">' + c2(b.revenue)
       + '</td><td class="num">' + c2(b.costs) + '</td><td class="num' + (b.difference < 0 ? ' pl1267-neg' : '') + '">' + c2(b.difference) + '</td></tr>';
   });
   br += '<tr class="pl1267-grand" data-b="job"><td>The job</td><td class="num">' + c2(R.invoices) + '</td><td class="num">' + c2(R.novForecast) + '</td><td class="num">' + c2(R.total)
     + '</td><td class="num">' + c2(C.total) + '</td><td class="num">' + c2(J.difference) + '</td></tr></tbody></table></div>';
   var LC = J.labourCharged, lc = '', lcl = '';
   if (LC) {
-    lc = '<p class="fin745-eyebrow plf1272-sub">LABOUR WE CHARGED THE V8S, BY BRANCH · WHAT PEOPLE’S COST IN INSTALLS IS SET AGAINST</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lc"><thead><tr><th>Branch</th>'
+    lc = '<p class="fin745-eyebrow plf1272-sub">LABOUR WE CHARGED THE V8S, BY BRANCH</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lc"><thead><tr><th>Branch</th>'
       + '<th class="num">Labour charged</th><th class="num">Lines</th><th class="num">Labour hire already in Installs</th><th class="num">Left for people’s cost</th></tr></thead><tbody>';
     var nl = 0;
-    LC.branches.forEach(function (b) { nl += b.lines; lc += '<tr data-b="' + e(b.b) + '"><td>' + e(b.b) + '</td><td class="num">' + c2(b.charged) + '</td><td class="num">' + b.lines + '</td><td class="num">' + c2(b.installLabourHire) + '</td><td class="num">' + c2(b.left) + '</td></tr>'; });
+    LC.branches.forEach(function (b) { nl += b.lines; lc += '<tr data-b="' + e(b.b) + '"><td>' + e(BRN[b.b] || b.b) + '</td><td class="num">' + c2(b.charged) + '</td><td class="num">' + b.lines + '</td><td class="num">' + c2(b.installLabourHire) + '</td><td class="num">' + c2(b.left) + '</td></tr>'; });
     lc += '<tr class="pl1267-grand" data-b="job"><td>The job</td><td class="num">' + c2(LC.total) + '</td><td class="num">' + nl + '</td><td class="num">' + c2(LC.installTotal) + '</td><td class="num">' + c2(LC.leftTotal) + '</td></tr></tbody></table></div>'
-      + '<p class="plf1272-note">Every line the 18 invoices code LABOUR, as invoiced, on the branch that invoices it.</p><ul class="plf1272-lcnotes">' + (LC.notes || []).map(function (t) { return '<li>' + e(t) + '</li>'; }).join('') + '</ul>';
+      + '<p class="plf1272-note">Every line the 18 invoices code LABOUR, as invoiced, on the branch that invoices it: what people’s cost in Installs is set against.</p><ul class="plf1272-lcnotes">' + (LC.notes || []).map(function (t) { return '<li>' + e(t) + '</li>'; }).join('') + '</ul>';
     lcl = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lclines"><thead><tr><th>Branch · invoice · contract line · what</th><th class="num">Hours or units</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead><tbody>';
     LC.lines.forEach(function (x) { lcl += '<tr><td><b>' + e(x.b) + '</b> · ' + e(x.inv) + ' · ' + e(x.contract) + ' L' + e(x.line) + '<small>' + e(x.what) + (x.note ? ' (' + e(x.note) + ')' : '') + '</small></td><td class="num">' + (x.hours == null ? '—' : e(String(x.hours))) + '</td><td class="num">' + c2(x.rate) + '</td><td class="num">' + c2(x.amount) + '</td></tr>'; });
     lcl += '<tr class="pl1267-grand"><td>The job, ' + n(LC.lines.length, 'line', 'lines') + '</td><td></td><td></td><td class="num">' + c2(LC.total) + '</td></tr></tbody></table></div>';
@@ -317,12 +113,46 @@ function html() {
     s7 += '<tr class="pl1267-grand"><td>' + n(S7.changes.length, 'load', 'loads') + '<small>forecasts replaced ' + f2(S7.forecastsReplaced) + '</small></td><td class="num">' + c2(S7.added) + '</td><td></td><td class="num">+' + c2(S7.net) + '</td><td></td></tr></tbody></table></div>'
       + '<ul class="plf1272-s17notes">' + (S7.notes || []).map(function (t) { return '<li>' + e(t) + '</li>'; }).join('') + '</ul>';
   }
-  var sup = '<p class="fin745-eyebrow plf1272-sub">COSTS BY SUPPLIER AND MONTH (NOVEMBER’S LABOUR IN OCTOBER) · ACCRUALS THROUGH ' + e(d.toUpperCase()) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-sup"><thead><tr><th>Supplier</th>'
+  var sup = '<p class="fin745-eyebrow plf1272-sub">COSTS BY SUPPLIER AND MONTH · ACCRUALS THROUGH ' + e(d.toUpperCase()) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-sup"><thead><tr><th>Supplier</th>'
     + '<th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Job end</th><th class="num">Accruals</th></tr></thead><tbody>';
   J.suppliers.forEach(function (s) {
     sup += '<tr><td>' + e(s.name) + '</td><td class="num">' + c2(s.sep) + '</td><td class="num">' + c2(s.oct) + '</td><td class="num">' + c2(s.nov) + '</td><td class="num">' + c2(s.total) + '</td><td class="num">' + c2(s.accrue) + '</td></tr>';
   });
   sup += '<tr class="pl1267-grand"><td>Total costs</td><td class="num">' + c2(C.sep) + '</td><td class="num">' + c2(C.oct) + '</td><td class="num">' + c2(C.nov) + '</td><td class="num">' + c2(C.total) + '</td><td class="num">' + c2(J.accrue) + '</td></tr></tbody></table></div>';
+  /* v12.79: costs by category and month, on the face (the finder's own table stays on the screen; this one prints), with the rehire group's subtotal */
+  var cats = '', grp = J.categoryGroups || [];
+  if (J.categories && J.categories.length) {
+    var crow = function (cls, label, small, a) { return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + (small ? '<small>' + e(small) + '</small>' : '') + '</td><td class="num">' + c2(a[0] / 100) + '</td><td class="num">' + c2(a[1] / 100) + '</td><td class="num">' + c2(a[2] / 100) + '</td><td class="num">' + c2(a[3] / 100) + '</td></tr>'; };
+    var cc = function (x) { var s = Math.round(x.sep * 100), o = Math.round(x.oct * 100), v = Math.round(x.nov * 100); return [s, o, v, s + o + v]; };
+    var ctot = [0, 0, 0, 0];
+    cats = '<p class="fin745-eyebrow plf1272-sub">COSTS BY CATEGORY AND MONTH · JOB END</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1279-cats"><thead><tr><th>Category</th><th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Job end</th></tr></thead><tbody>'
+      + J.categories.map(function (c) { var a = cc(c); for (var i = 0; i < 4; i++) ctot[i] += a[i];
+          var r = crow('', e(c.name), c.note, a);
+          grp.forEach(function (g) { if (g.members[g.members.length - 1] === c.name) r += crow('pl1267-tot plx-grp', e(g.name), g.members.length + ' categories', cc(g)); });
+          return r; }).join('')
+      + crow('pl1267-grand', 'Total costs', '', ctot) + '</tbody></table></div>'
+      + '<p class="plf1272-note">Categories group the cost lines for reporting; they are not GL codes (the codes are under Costs by GL account). The rehire categories are each supplier’s 2126 hire, with their other codes named.</p>';
+  }
+  /* v12.79: the transport estimate named on the face; each leg is in its fold */
+  var teLine = '';
+  if (TE) {
+    var mvAmt = TE.moved.reduce(function (a, m) { return a + Math.round(m.amount * 100); }, 0);
+    teLine = '<ul class="plf1279-tenotes plf1279-face"><li><b>Transport includes the 1 Nov estimate</b> (ESTIMATE until the carriers invoice; no carrier has a PO or an invoice): ' + f2(TE.ranBy31Oct) + ' in October for trucks that ran by ' + e(d) + ' with no figure (a manual accrual candidate, not in the accruals), and ' + f2(TE.stillOnSite)
+      + ' in November for pick-ups still to come. The October pick-ups of gear still on site (' + TE.moved.map(function (m) { return e(m.ref); }).join(', ') + ', ' + f2(mvAmt / 100) + ') are in November. Each leg: <a href="#pl1267-fp-test" class="plf1279-jump">Transport estimate</a>.</li></ul>';
+  }
+  /* v12.79: October at month end, where each cost stands (the pack's monthEnd: the states add to October to the cent) */
+  var me = '';
+  if (ME && ME.rows) {
+    var who = function (st) { return J.lines.filter(function (l) { return l.state === st && Math.abs(l.oct) > 0.004; }).map(function (l) { return l.supplier; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' · '); };
+    var accRow = ME.rows.filter(function (x) { return x.state === 'Accrued at 31 Oct'; })[0];
+    me = '<p class="fin745-eyebrow plf1272-sub" id="plf1279-me">OCTOBER COSTS AT ' + e(d.toUpperCase()) + ' · WHERE EACH STANDS</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1279-me"><thead><tr><th>October costs by where they stand</th><th class="num">October</th></tr></thead><tbody>'
+      + ME.rows.map(function (x) { return '<tr><td><b>' + e(x.state) + '</b><small>' + e(who(x.state)) + '</small></td><td class="num">' + c2(x.oct) + '</td></tr>'; }).join('')
+      + '<tr class="pl1267-grand"><td>October costs, as in the P&amp;L</td><td class="num">' + c2(ME.oct) + '</td></tr>'
+      + (ME.novLabourInOct ? '<tr><td>of which November’s labour, 1–13 Nov<small>salary allowance ' + f2(ME.novLabourInOct.salary) + ' · Job Connect ' + f2(ME.novLabourInOct.jobConnect) + ' (w/e 8 and 15 Nov)</small></td><td class="num">' + c2(ME.novLabourInOct.total) + '</td></tr>'
+        + '<tr class="pl1267-tot"><td>October’s own work, without it</td><td class="num">' + c2(ME.octWithoutNovLabour) + '</td></tr>' : '')
+      + '</tbody></table></div>'
+      + (accRow ? '<p class="plf1272-note">The accruals through ' + e(d) + ', ' + f2(J.accrue) + ', are the October part above (' + f2(accRow.oct) + ') and September’s part of the same lines (' + f2(ME.accruedSep) + '), as a catch-up. What is not accrued is for Finance to decide: the open items say what each is.</p>' : '');
+  }
   /* what is in the accruals beyond the month: the accrued lines that also carry September work (v12.76) */
   var cu = J.lines.filter(function (l) { return l.accrue > 0.004 && l.sep > 0.004; });
   var cuAmt = cu.reduce(function (a, l) { return a + l.sep; }, 0), cuWho = cu.map(function (l) { return l.supplier; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
@@ -330,21 +160,22 @@ function html() {
     + 'Costs are by month of work at job end, except November’s labour (to 13 Nov: the Coates wages hours, the salary allowance and Job Connect), which is in October with October’s; the rest of November is forecast. Some costs are estimates until invoiced (each line says so), and Coates’ own wages are hours only, not yet costed, so the difference so far is not a margin yet. '
     + 'Accruals through ' + e(d) + ' are the journals prepared for Finance, not a record of what is posted: work to ' + e(d) + ' with no invoice yet' + (cu.length ? ', including September’s part of ' + e(cuWho.join(' and ')) + ' (' + f2(cuAmt) + ') as a catch-up' : '') + '. Carrier loads to ' + e(d) + ' and the consumables and forklift POs are not in them: Finance to confirm (see the open items). '
     + 'Each line below names its purchase order, the hire contract it is charged on, and its invoice or receipt; the folds below tie the invoices, the hire contracts and every purchase order to these totals.</p>';
-  var lines = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lines"><thead><tr><th>Supplier · what</th><th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Accruals</th><th>Status</th></tr></thead><tbody>';
+  var lines = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lines"><thead><tr><th>Supplier · what</th><th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Job end</th><th class="num">Accruals</th><th>Status</th></tr></thead><tbody>';
   J.lines.forEach(function (l) {
     lines += '<tr><td><b>' + e(l.supplier) + '</b> · ' + e(l.branch) + (l.account ? ' · ' + e(l.account) : '') + '<small>' + e(l.what) + '</small>'
       + ((l.po || l.invoice) ? '<small>' + (l.po ? e(poText(l.po)) : '') + (l.po && l.invoice ? ' · ' : '') + (l.invoice ? e(l.invoice) : '') + '</small>' : '')
       + (l.contract ? '<small class="plf1275-hc">Hire contract: ' + e(l.contract) + '</small>' : '') + (l.category ? '<small class="plx-cat">' + e(l.category) + '</small>' : '')
-      + '</td><td class="num">' + c2(l.sep) + '</td><td class="num">' + c2(l.oct) + '</td><td class="num">' + c2(l.nov) + '</td><td class="num">' + c2(l.accrue) + '</td><td>' + e(l.status) + (l.basis ? '<small>' + e(l.basis) + '</small>' : '') + '</td></tr>';
+      + '</td><td class="num">' + c2(l.sep) + '</td><td class="num">' + c2(l.oct) + '</td><td class="num">' + c2(l.nov) + '</td><td class="num">' + c2((Math.round(l.sep * 100) + Math.round(l.oct * 100) + Math.round(l.nov * 100)) / 100) + '</td><td class="num">' + c2(l.accrue) + '</td><td>'
+      + (l.state ? '<b class="plf1279-state">' + e(l.state) + '</b><small>' + e(l.status) + '</small>' : e(l.status)) + (l.basis ? '<small>' + e(l.basis) + '</small>' : '') + '</td></tr>';
   });
-  lines += '<tr class="pl1267-grand"><td>Total costs</td><td class="num">' + c2(C.sep) + '</td><td class="num">' + c2(C.oct) + '</td><td class="num">' + c2(C.nov) + '</td><td class="num">' + c2(J.accrue) + '</td><td></td></tr></tbody></table></div>';
+  lines += '<tr class="pl1267-grand"><td>Total costs</td><td class="num">' + c2(C.sep) + '</td><td class="num">' + c2(C.oct) + '</td><td class="num">' + c2(C.nov) + '</td><td class="num">' + c2(C.total) + '</td><td class="num">' + c2(J.accrue) + '</td><td></td></tr></tbody></table></div>';
   var bl = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-bl"><thead><tr><th>Branch · line</th><th class="num">Job end</th></tr></thead><tbody>';
   J.branches.forEach(function (b) {
-    bl += '<tr class="pl1267-grp"><td colspan="2">' + e(b.b) + '</td></tr>';
+    bl += '<tr class="pl1267-grp"><td colspan="2">' + e(BRN[b.b] || b.b) + '</td></tr>';
     (J.branchLines[b.b] || []).forEach(function (x) { bl += '<tr><td>' + e(x[0]) + '</td><td class="num">' + c2(x[1]) + '</td></tr>'; });
     bl += '<tr class="pl1267-tot" data-b="' + e(b.b) + '"><td>Total ' + e(b.b) + '</td><td class="num">' + c2(b.costs) + '</td></tr>';
   });
-  bl += '<tr class="pl1267-grand"><td>The job</td><td class="num">' + c2(C.total) + '</td></tr></tbody></table></div>';
+  bl += '<tr class="pl1267-grand"><td>Total costs</td><td class="num">' + c2(C.total) + '</td></tr></tbody></table></div>';
   var jr = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-jn"><thead><tr><th>Journal</th><th>PO</th><th>Account · branch</th><th class="num">Amount</th></tr></thead><tbody>';
   J.journals.forEach(function (j) { jr += '<tr><td>' + e(j.journal) + '<small>' + e(j.contract) + '</small></td><td>' + e(j.po) + '</td><td>' + e(j.account) + '<small>' + e(j.branch) + '</small></td><td class="num">' + c2(j.amount) + '</td></tr>'; });
   jr += '<tr class="pl1267-grand"><td>Accruals through ' + e(d) + ', prepared for Finance (each reverses on 1 Nov; the invoice lands against it)</td><td></td><td></td><td class="num">' + c2(J.accrue) + '</td></tr>';
@@ -389,7 +220,7 @@ function html() {
     po += '<tr class="pl1267-grp"><td colspan="4">No PO on the record</td></tr>';
     (J.noPO || []).forEach(function (x) { po += '<tr><td>' + e(x.supplier) + '<small>' + e(x.what) + '</small><small>' + e(x.why) + '</small></td><td>' + e(x.contract) + '</td><td>' + e(x.branch) + '</td><td class="num">' + c2(x.amount) + '</td></tr>'; });
     po += '<tr class="pl1267-tot"><td>No PO on the record</td><td></td><td></td><td class="num">' + c2(PT.noPO) + '</td></tr>';
-    po += '<tr class="pl1267-grand"><td>The job cost<small>with a PO ' + f2(PT.withPO) + ' · no PO ' + f2(PT.noPO) + '</small></td><td></td><td></td><td class="num">' + c2(PT.total) + '</td></tr></tbody></table></div>';
+    po += '<tr class="pl1267-grand"><td>Total costs<small>with a PO ' + f2(PT.withPO) + ' · no PO ' + f2(PT.noPO) + '</small></td><td></td><td></td><td class="num">' + c2(PT.total) + '</td></tr></tbody></table></div>';
   }
   var LJ = J.labourJournal, lj = '';
   if (LJ) {   /* v12.77: where everyone's labour is journaled to: each person, home branch, the branch of the work, by month */
@@ -428,7 +259,7 @@ function html() {
     ga = '<p class="plf1272-note">From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record (transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>'
       + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-gl"><thead><tr><th>GL account</th><th>What is in it</th><th class="num">Job end</th></tr></thead><tbody>'
       + GA.map(function (g) { return '<tr><td><b>' + e(g.code) + '</b>' + (g.name ? '<small>' + e(g.name) + '</small>' : (g.split ? '' : '<small>not split on the record</small>')) + '</td><td>' + g.holds.map(function (h) { return e(h.category) + ' ' + f2(h.amount); }).join('<br>') + '</td><td class="num">' + f2(g.total) + '</td></tr>'; }).join('')
-      + '<tr class="pl1267-grand"><td>Costs, the job</td><td></td><td class="num">' + f2(gat / 100) + '</td></tr></tbody></table></div>';
+      + '<tr class="pl1267-grand"><td>Total costs</td><td></td><td class="num">' + f2(gat / 100) + '</td></tr></tbody></table></div>';
   }
   var TE = J.transportEstimate, te = '';
   if (TE) {   /* v12.79: the transport estimate of 1 Nov, each leg (the pack's section 2h) */
@@ -436,7 +267,7 @@ function html() {
     TE.legs.forEach(function (x) { tsum[x.group] += Math.round(x.amount * 100); });
     var tbr = function (o) { return BRS.filter(function (b) { return o[b]; }).map(function (b) { return b + ' ' + f2(o[b]); }).join(' · '); };
     te = '<p class="plf1272-note">No carrier has invoiced Coates for any GC500 load, and none has a PO. These are the trucks the record and Schedule 17 show ran by 31 Oct with no figure in the costs, and the Coates gear still on site with no pick-up in the costs, each as an ESTIMATE: ' + e(TE.method) + '. Whatever the record shows on site is on site; when a departure is recorded, its pick-up falls in that month. Event Portables collect their own (already in their accrual).</p>'
-      + '<ul class="plf1272-lcnotes"><li><b>Ran by 31 Oct: ' + f2(TE.ranBy31Oct) + '</b> (' + e(tbr(TE.byBranch.ranBy31Oct)) + '), in October: a manual accrual candidate for Finance.</li>'
+      + '<ul class="plf1279-tenotes"><li><b>Ran by 31 Oct: ' + f2(TE.ranBy31Oct) + '</b> (' + e(tbr(TE.byBranch.ranBy31Oct)) + '), in October: a manual accrual candidate for Finance.</li>'
       + '<li><b>Still on site: ' + f2(TE.stillOnSite) + '</b> (' + e(tbr(TE.byBranch.stillOnSite)) + '), in November.</li>'
       + '<li>Moved to November, still on site: ' + TE.moved.map(function (m) { return e(m.ref) + ' ' + f2(m.amount); }).join(', ') + ' (in the planned loads).</li>'
       + (TE.notIn && TE.notIn.length ? '<li>Not in it (who pays is not on the record): ' + TE.notIn.map(function (x) { return e(x.what) + ', ' + f2(x.amount); }).join('; ') + '.</li>' : '') + '</ul>'
@@ -448,20 +279,22 @@ function html() {
         }).join('')
       + '<tr class="pl1267-grand"><td>The transport estimate</td><td></td><td></td><td></td><td></td><td></td><td class="num">' + f2((tsum.oct_ran + tsum.nov_on_site) / 100) + '</td></tr></tbody></table></div>';
   }
-  var op = '<ol class="plf1272-open">' + J.open.map(function (o) { return '<li>' + e(o) + '</li>'; }).join('') + '</ol>';
-  return '<section id="pl1267-fp" class="card pl1267 plf1272 nosfold" aria-labelledby="plf1272Title">' + head + tiles + br + lc + sup + note
+  var op = J.openGroups && J.openGroups.length ? J.openGroups.map(function (g) { return '<p class="plf1279-og">' + e(g.name) + '</p><ol class="plf1272-open">' + g.items.map(function (i) { return '<li value="' + i + '">' + e(J.open[i - 1]) + '</li>'; }).join('') + '</ol>'; }).join('')
+    : '<ol class="plf1272-open">' + J.open.map(function (o) { return '<li>' + e(o) + '</li>'; }).join('') + '</ol>';
+  return '<section id="pl1267-fp" class="card pl1267 plf1272 nosfold" aria-labelledby="plf1272Title">' + head + tiles + br + cats + sup + teLine + me + note
+    + folded('pl1267-fp-journals', 'Journals prepared for Finance, through ' + d, n(J.journals.length, 'accrual', 'accruals') + (J.moves && J.moves.length ? ' and ' + n(J.moves.length, 'branch move', 'branch moves') : ''), jr)
+    + folded('pl1267-fp-open', 'Open items', n(J.open.length, 'item', 'items') + ': paperwork to come and calls still to make', op)
     + folded('pl1267-fp-lines', 'Every cost line', n(J.lines.length, 'line', 'lines') + ', with its purchase order, invoice or receipt, and basis', lines)
+    + (TE ? folded('pl1267-fp-test', 'Transport estimate: trucks that ran with no figure, and pick-ups still to come', n(TE.legs.length, 'leg', 'legs') + ' · ' + f2(TE.ranBy31Oct) + ' ran by 31 Oct · ' + f2(TE.stillOnSite) + ' still on site · ESTIMATE, 1 Nov', te) : '')
+    + (ga ? folded('pl1267-fp-gl', 'Costs by GL account', n(GA.length, 'account', 'accounts') + ' as coded on the cost lines, adding to the job cost', ga) : '')
     + folded('pl1267-fp-branch', 'Costs by branch, line by line', 'what makes up each branch’s costs', bl)
     + (rv ? folded('pl1267-fp-revenue', 'Revenue by invoice', n(J.invoices.length, 'invoice', 'invoices') + ', each with its hire contract and the V8s’ PO, and the November forecast', rv) : '')
     + (ct ? folded('pl1267-fp-contracts', 'By hire contract', 'what we charged on each of the ' + n(J.contracts.length, 'contract', 'contracts') + ', and the costs and POs against it', ct) : '')
     + (po ? folded('pl1267-fp-pos', 'Every purchase order in the costs', n(PT.count, 'purchase order', 'purchase orders') + ' and the costs with no PO, adding to the job cost', po) : '')
-    + (LC ? folded('pl1267-fp-labour', 'Every labour line on the invoices', n(LC.lines.length, 'line', 'lines') + ' coded LABOUR, with its invoice, contract line, hours and rate', lcl) : '')
+    + (LC ? folded('pl1267-fp-labour', 'Labour charged to the V8s, by branch, and every labour line', n(LC.lines.length, 'line', 'lines') + ' coded LABOUR, by branch and one by one, with its invoice, contract line, hours and rate', lc + lcl) : '')
     + (LJ ? folded('pl1267-fp-lj', 'Labour journals: where everyone’s hours go', n(LJ.length, 'row', 'rows') + ': each person’s home branch and the branch the hours are journaled to, by month', lj) : '')
     + (S7 ? folded('pl1267-fp-s17', 'Transport checked against Schedule 17', n(S7.changes.length, 'load', 'loads') + ' changed, +' + f2(S7.net) + ', each with its Schedule 17 row, docket and hire contract', s7) : '')
-    + (ga ? folded('pl1267-fp-gl', 'Costs by GL account', n(GA.length, 'account', 'accounts') + ' as coded on the cost lines, adding to the job cost', ga) : '')
-    + (TE ? folded('pl1267-fp-test', 'Transport estimate: trucks that ran with no figure, and pick-ups still to come', n(TE.legs.length, 'leg', 'legs') + ' · ' + f2(TE.ranBy31Oct) + ' ran by 31 Oct · ' + f2(TE.stillOnSite) + ' still on site · ESTIMATE, 1 Nov', te) : '')
-    + folded('pl1267-fp-journals', 'Journals prepared for Finance, through ' + d, n(J.journals.length, 'accrual', 'accruals') + (J.moves && J.moves.length ? ' and ' + n(J.moves.length, 'branch move', 'branch moves') : ''), jr)
-    + folded('pl1267-fp-open', 'Open items', n(J.open.length, 'item', 'items') + ': paperwork to come and calls still to make', op)
+    + '<p class="plf1272-note plf1279-printonly">Not on this paper: the finder, and the working figures from the live record (the live model, its ledger lines, fencing and the workings). They are on the Costs &amp; P&amp;L tab, under the P&amp;L.</p>'
     + '<p class="pl1267-foot plf1272-foot"><span>Pack ' + e(J.pack) + ' · record ' + e(J.record) + ' · as at ' + e(day(J.asAt)) + ' · ' + e(J.basis) + '</span><span>Author: Andrew Fisher</span></p>'
     + '</section>';
 }
@@ -475,9 +308,53 @@ function wrap(old) {
   box.appendChild(live);
   return box;
 }
+/* v12.79: the paper. A4 landscape with margins office printers keep, and on every page what it is and its page number */
+function pageRule() {
+  var q = function (s) { return '"' + String(s).replace(/["\\\n]/g, '') + '"'; };
+  return '@page{size:A4 landscape;margin:10mm 10mm 12mm;@bottom-left{content:' + q('GC500 · The P&L, job position at ' + day(DATA.asAt) + ' · AUD ex GST · pack ' + DATA.pack)
+    + ';font-size:7pt;color:#555}@bottom-right{content:"Page " counter(page) " of " counter(pages);font-size:7pt;color:#555}}';
+}
+/* v12.79: the working figures from the live record (the live model, its ledger lines, fencing and the workings) under one closed fold (#pl1267-papers)
+   below the P&L, named for what they are; every card and figure in them is kept as it is */
+function papers() {
+  var live = D.getElementById('pl1267-live'); if (!live || !live.parentNode) return;
+  var g = D.getElementById('pl1267-papers');   /* its id starts pl1267, so the pane's late-card sweep keeps it where it is */
+  if (g && !g.contains(live)) { if (g.parentNode) g.parentNode.removeChild(g); g = null; }   /* one from an earlier draw */
+  if (!g) {
+    var key = 'costs765|pl1267-papers', open = false; try { open = typeof SFOLD_OPEN !== 'undefined' && SFOLD_OPEN.has(key); } catch (er) {}
+    g = D.createElement('details'); g.id = 'pl1267-papers'; g.className = 'plfold765 pl1267-fold'; g.setAttribute('data-sfold', key); if (open) g.open = true;
+    g.innerHTML = '<summary>Working figures from the live record<small>not the P&amp;L at ' + e(day(DATA.asAt).replace(/ \d{4}$/, '')) + ' above: the live model, its ledger lines, fencing and the workings; their totals differ from the P&amp;L</small></summary>'
+      + '<p class="plf1272-note">These work from the record as it stands, with quotes and the running sheet where invoices are not in. The P&amp;L above is the position for Finance.</p>';
+    live.parentNode.insertBefore(g, live);
+  }
+  ['pl1267-live', 'pl1267-finance', 'pl1267-fence', 'pl1267-work'].forEach(function (id) { var el = D.getElementById(id); if (el && el.parentNode !== g) g.appendChild(el); });
+}
+var PRINTED = false;
 function bind() {
   var b = D.getElementById('pl1267-fp-print');
-  if (b && !b.__plf1272) { b.__plf1272 = true; b.onclick = function () { try { printCosts(); } catch (er) { try { console.warn('PLF1272: print', er); } catch (_) {} } }; }
+  if (b && !b.__plf1272) { b.__plf1272 = true; b.onclick = function () { try { printCosts(); var st = D.getElementById('costPage'); if (st) st.textContent = pageRule(); } catch (er) { try { console.warn('PLF1272: print', er); } catch (_) {} } }; }
+  var fp = D.getElementById('pl1267-fp');
+  if (fp && !fp.__plf1279) {   /* a link on the face opens its fold and goes to it (no change to the address) */
+    fp.__plf1279 = true;
+    fp.addEventListener('click', function (ev) {
+      var a = ev.target && ev.target.closest ? ev.target.closest('a.plf1279-jump') : null; if (!a) return;
+      var t = D.getElementById((a.getAttribute('href') || '').replace(/^#/, '')); if (!t) return;
+      ev.preventDefault(); if (t.tagName === 'DETAILS') t.open = true;
+      try { t.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (er) { try { t.scrollIntoView(); } catch (_) {} }
+    });
+  }
+  try { papers(); } catch (er) { try { console.warn('PLF1279: working figures', er); } catch (_) {} }
+  if (!PRINTED && typeof W.addEventListener === 'function') {   /* the browser's own print (Ctrl+P) on this tab gives the same paper as Print full P&L */
+    PRINTED = true;
+    W.addEventListener('beforeprint', function () {
+      var pane = D.getElementById('pane-costs');
+      if (!pane || !pane.classList.contains('on') || !D.getElementById('pl1267-fp') || D.getElementById('costPage')) return;
+      if (Array.prototype.some.call(D.body.classList, function (c) { return /^printing/.test(c); })) return;
+      var st = D.createElement('style'); st.id = 'costPage'; st.textContent = pageRule(); D.head.appendChild(st); D.body.classList.add('printing-costs');
+      var shut = Array.prototype.slice.call(D.querySelectorAll('#pl1267-fp details.plf1272-more:not([open])')); shut.forEach(function (d) { d.open = true; });
+      W.addEventListener('afterprint', function () { st.remove(); D.body.classList.remove('printing-costs'); shut.forEach(function (d) { d.open = false; }); }, {once: true});
+    });
+  }
   try { xBind(); } catch (er) { try { console.warn('PLF1277: find', er); } catch (_) {} }
 }
 return {data: DATA, sha: SHA, html: html, wrap: wrap, bind: bind, f2: f2};

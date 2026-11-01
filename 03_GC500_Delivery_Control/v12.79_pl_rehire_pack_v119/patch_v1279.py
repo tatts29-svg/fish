@@ -33,10 +33,34 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0'        # live v12.78, uploaded 1 Nov 2026 18:07 AEST
 OLD_SHA = 'f896184a78c9c95ae665985a73980ce1231275acb0aca8b40b49c0eaf60b5f6d'     # pack v1.18, in the live v12.78 block
-NEW_SHA = '416d2022aa185ff007b481f28e2af131b6118de939fbef83f890717db6351772'     # pack v1.19, record 12727 (audit_pack.py 563/563)
+NEW_SHA = 'cc088dc7912db22cea6adef353244652b682578f3b93d92848fa43b52b136437'     # pack v1.19, record 12727 (audit_pack.py 573/573)
 
 spec = importlib.util.spec_from_file_location('p1277', HERE.parent / 'v12.77_pl_tab_explorer_LIVE' / 'patch_v1277.py')
 P1277 = importlib.util.module_from_spec(spec); spec.loader.exec_module(P1277)
+
+
+# v12.79 (Finance reads the tab on 2 Nov 2026): the working figures from the live record keep every figure and card, but say what they are, so
+# nothing under the P&L reads as a second P&L. Words only; no figure, function or card is removed.
+WORKING = [
+    ("fold('pl1267-finance', 'Finance’s lines', 'the ledger codes · cost of sales, gross margin ' + pc(Mo.L.gmPc.job) + ' and contribution, as Finance reads it')",
+     "fold('pl1267-finance', 'The live model on the ledger codes', 'working figures from the record, not the P&L at 31 Oct')", 'the ledger fold'),
+    ("'<p class=\"fin745-eyebrow\">THE SAME FIGURES ON THE LEDGER’S LINES · ON THE RECORD AND JOB END</p>'",
+     "'<p class=\"fin745-eyebrow\">THE LIVE MODEL ON THE LEDGER’S LINES (WORKING FIGURES) · ON THE RECORD AND JOB END</p>'", 'the ledger heading'),
+    ("'contribution is the P&L’s difference to job end'", "'contribution is the live model’s difference to job end'", 'the ledger tick'),
+    ("tot('Gross margin', L.gm.now, L.gm.job,", "tot('Revenue less cost of sales (working figures)', L.gm.now, L.gm.job,", 'the ledger gross margin row'),
+    ("tot('Contribution', L.contrib.now, L.contrib.job,", "tot('Difference (working figures)', L.contrib.now, L.contrib.job,", 'the ledger contribution row'),
+    ("fold('pl1267-fence', 'Fencing, everything included',", "fold('pl1267-fence', 'Fencing, everything included (working figures)',", 'the fencing fold'),
+    ("we pay <b>${m(M.cost)}</b>· ${M.scopeReview12451?'difference on known subtotal':'margin'}", "we pay <b>${m(M.cost)}</b> · ${M.scopeReview12451?'difference on known subtotal':'difference'}", 'the fencing card'),
+    ("'every card the figures come from · At a glance · the Forecast P&L · month-end for Finance · ticks and controls'",
+     "'every card the working figures come from: rate holds, the forecast model, ticks and controls'", 'the workings fold'),
+    ('<p class="fin745-eyebrow">ACCRUALS FOR FINANCE · ${esc(X.label.toUpperCase())} · AUD EX GST</p>',
+     '<p class="fin745-eyebrow">ACCRUALS FOR FINANCE · ${esc(X.label.toUpperCase())} · AUD EX GST · WORKING FIGURES</p><p class="fin745-note acc1279-superseded"><b>Superseded at 31 Oct 2026 by “Journals prepared for Finance, through 31 Oct” in the P&amp;L at the top of this tab.</b> The V8s were invoiced in October (18 invoices, in Revenue by invoice), so no revenue is to be accrued from here. Working figures from the record: do not post from this block.</p>',
+     'the month-end accruals block'),
+    ("handover: 'Finance handover'", "handover: 'PO receipts and handover (working)'", 'the handover button'),
+    ('<h2 id="fh866Title">Purchase orders, costs and revenue by branch</h2>',
+     '<h2 id="fh866Title">Purchase orders, costs and revenue by branch</h2><p class="fin745-note fh1279-working"><b>Working figures from the live record.</b> The position for Finance is the P&amp;L at 31 Oct 2026 at the top of the Costs &amp; P&amp;L summary: the 18 invoices to the V8s, all dated October, the costs and the journals prepared for Finance.</p>',
+     'the handover heading'),
+]
 
 
 def sub1(text, old, new, what):
@@ -44,8 +68,12 @@ def sub1(text, old, new, what):
     return text.replace(old, new)
 
 
-def block(folder, js_name, css_name, J, sha):   # the block exactly as patch_v1277 writes it
+def block(folder, js_name, css_name, J, sha, find=None):   # the block exactly as patch_v1277 writes it; v12.79: the find files spliced in first
     js = (folder / js_name).read_text(encoding='utf-8').rstrip(); css = (folder / css_name).read_text(encoding='utf-8').rstrip()
+    if find:
+        fjs = (folder / find[0]).read_text(encoding='utf-8').rstrip()
+        if '__PLF1272_' in fjs or '__PLF1279_' in fjs: raise ValueError('a slot name inside the find file')
+        js = sub1(js, '/*__PLF1279_FIND__*/', fjs, 'the find slot'); css = css + '\n' + (folder / find[1]).read_text(encoding='utf-8').rstrip()
     js = sub1(sub1(js, '__PLF1272_DATA__', page_data(J), 'the data slot'), '__PLF1272_SHA__', sha, 'the hash slot')
     if '</script' in js.lower() or '</style' in css.lower(): raise ValueError('a closing tag inside the block')
     return '<style id="plf1272-style">\n' + css + '\n</style>\n<script id="plf1272-script">\n' + js + '\n</script>\n'
@@ -72,7 +100,7 @@ def patch(text):
     P1277.PLF_SHA256 = NEW_SHA                   # the v12.77 tie checks, on the new data
     new_J, sha = P1277.pack_data()
     if new_J.get('pack') != 'v1.19' or old_J.get('pack') != 'v1.18': raise ValueError('expected pack v1.18 -> v1.19')
-    if [c['name'] for c in new_J['categories']].count('Forklift rehire') or not any(l['supplier'] == 'Queensland Forklifts' and l['category'] == 'Rehire' for l in new_J['lines']):
+    if [c['name'] for c in new_J['categories']].count('Forklift rehire') or not all(l['category'] == 'Rehire – VMS, container and forklifts' for l in new_J['lines'] if l['supplier'] == 'Queensland Forklifts'):
         raise ValueError('pack v1.19 should carry Queensland Forklifts under Rehire')
     for k in ('revenue', 'accrue'):
         if new_J[k] != old_J[k]: raise ValueError('a total changed between v1.18 and v1.19: ' + k)
@@ -86,7 +114,12 @@ def patch(text):
     b = text.index('</script>\n', b0) + len('</script>\n')
     if text[a:b] != block(HERE.parent / 'v12.77_pl_tab_explorer_LIVE', 'plf1277_src.js', 'plf1277.css', old_J, OLD_SHA):
         raise ValueError('the live P&L block is not the v12.77 module on pack v1.18')
-    text = text[:a] + block(HERE, 'plf1279_src.js', 'plf1279.css', new_J, NEW_SHA) + text[b:]
+    before, after = text[:a], text[b:]
+    for old, new, what in WORKING:   # outside the block: the working figures' own words, each anchor exactly once
+        n_ = before.count(old) + after.count(old)
+        if n_ != 1: raise ValueError('%s: expected the anchor once outside the P&L block, found %d' % (what, n_))
+        before, after = before.replace(old, new), after.replace(old, new)
+    text = before + block(HERE, 'plf1279_src.js', 'plf1279.css', new_J, NEW_SHA, ('plf1279_find.js', 'plf1279_find.css')) + after
     if text.count('<script id="plf1272-script">') != 1 or text.count('<style id="plf1272-style">') != 1: raise ValueError('the block is not in once')
     found = P1277.FOOTER.findall(text)
     if found != ['v12.78']: raise ValueError('release footer: expected one v12.78 footer, found ' + repr(found))

@@ -20,7 +20,26 @@
 .plf1272-open{margin:6px 0 0;padding-left:22px}
 .plf1272-open li{margin:6px 0;font-size:13.5px;line-height:1.4}
 .plf1272-live>summary small{font-weight:500}
-.plf1272-lcnotes,.plf1272-s17notes{margin:4px 0 6px;padding-left:20px}.plf1272-lcnotes li,.plf1272-s17notes li{font-size:12.5px;color:#4b5560;margin:3px 0}
+.plf1272-lcnotes,.plf1272-s17notes,.plf1279-tenotes{margin:4px 0 6px;padding-left:20px}.plf1272-lcnotes li,.plf1272-s17notes li,.plf1279-tenotes li{font-size:12.5px;color:#4b5560;margin:3px 0}
+/* v12.79 (Finance, 2 Nov): a total row is tinted across its whole width (the page's sticky first-cell rule painted the label cell white);
+   the job's totals stand out from the subtotals; each hire contract's charge reads as a figure, not a label */
+#pane-costs .tblwrap tr.pl1267-tot>td:first-child{background:#eef3f6}
+#pl1267-fp .tblwrap tr.pl1267-grand>td,#pl1267-fp .tblwrap tr.pl1267-grand>td:first-child{background:#e3ebf1;border-top:2px solid #1d2730}
+#pl1267-fp .plf1275-con tr.pl1267-grp td.num{font-size:14.5px;letter-spacing:0;text-transform:none;color:#1d2730;font-weight:700}
+#pl1267-fp .plf1272-tbl td.num{white-space:nowrap}
+/* the face: the month-end table, the category table, the open items in groups, the transport estimate line */
+.plf1279-me{min-width:520px}.plf1279-me td small{display:block;color:#6b7681;font-size:11.5px}
+.plf1279-cats{min-width:560px}.plf1279-cats td small{display:block;color:#6b7681;font-size:11.5px;font-weight:400;margin-top:2px}.plf1279-cats tr.plx-grp td{font-weight:800}
+.plf1279-og{margin:12px 0 2px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#1d2730}
+.plf1279-state{display:block;font-weight:700;color:#1d2730}
+.plf1279-face a{color:#1d5f8a}
+.plf1279-printonly{display:none}
+/* the working figures from the live record, grouped under one closed fold below the P&L */
+#pl1267-papers>summary small{font-weight:500;color:#6b7681;margin-left:8px}
+#pl1267-papers>.plf1272-note{margin:8px 2px 10px}
+/* the Costs & P&L sub-views (Customer rates & charges, Finance handover and the rest) open straight under their buttons:
+   the cards another script puts back into the pane stay on the P&L summary, not above every sub-view */
+#pane-costs:has(> #finance857-section)>:not(.panehead):not(.finance857-nav):not(#finance857-section){display:none!important}
 @media (max-width:720px){
   #pl1267-fp .plf1272-tiles{grid-template-columns:1fr}
   /* v12.75: on a phone the words keep a readable width and the figures scroll sideways inside the table */
@@ -28,6 +47,12 @@
   #pl1267-fp .plf1275-rev td:nth-child(2),#pl1267-fp .plf1275-con td:nth-child(2),#pl1267-fp .plf1275-po td:nth-child(2),#pl1267-fp .plf1272-lines td:last-child{min-width:120px}
   .plf1272-h{font-size:18px}
   .plf1272-more>summary small{display:block;margin:2px 0 0}
+  /* v12.79: on a phone the row's name stays in view while the figures scroll sideways */
+  #pl1267-fp .tblwrap td:first-child,#pl1267-fp .tblwrap th:first-child{position:sticky;left:0;z-index:1;background:#fff;box-shadow:1px 0 0 #e1e6ea}
+  #pl1267-fp .tblwrap tr.pl1267-tot>td:first-child{background:#eef3f6}#pl1267-fp .tblwrap tr.pl1267-grand>td:first-child{background:#e3ebf1}
+  #pl1267-fp .tblwrap tr.pl1267-grp>td:first-child{background:inherit}
+  #pl1267-fp .plf1272-lines td:first-child,#pl1267-fp .plf1275-rev td:first-child,#pl1267-fp .plf1275-con td:first-child,#pl1267-fp .plf1275-po td:first-child{min-width:150px}
+  #pl1267-papers>summary small{display:block;margin:2px 0 0}
 }
 /* on paper (the tab's Print, A4 landscape): the final P&L in full, every fold in it open; the live model stays on the screen */
 @media print{
@@ -47,6 +72,18 @@
   /* a heading stays with what follows it; a long table runs on across the page, its header repeated */
   .plf1272-sub,.plf1272-more>summary{break-after:avoid;page-break-after:avoid}.plf1272-tbl thead{display:table-header-group}.plf1272-tbl tr{break-inside:avoid;page-break-inside:avoid}
   .plf1272-live{display:none!important}
+  /* v12.79 (Finance, 2 Nov): white paper, no screen frame; the PO, invoice and hire contract lines Finance ticks are readable;
+     a heading and the first rows of its table stay together; the paper says what it leaves out */
+  body.printing-costs #pane-costs,body.printing-costs #pane-costs .plf1272{background:#fff!important}
+  #pane-costs #pl1267-fp{border-left:0!important;border-right:0!important;border-bottom:0!important;box-shadow:none!important;border-radius:0!important}
+  #pl1267-fp .plf1272-tbl td small{font-size:7.5pt!important;color:#333!important}
+  #pl1267-fp .plf1272-tbl th{font-size:7.5pt!important;color:#333!important}
+  #pl1267-fp .plf1275-con tr.pl1267-grp td.num{font-size:8.5pt!important;color:#14181d!important}
+  #pl1267-fp .tblwrap tr.pl1267-grand>td{background:#e3ebf1!important;border-top:1.5pt solid #1d2730!important}
+  #pl1267-fp .plf1279-me,#pl1267-fp .plf1279-cats{break-inside:avoid;page-break-inside:avoid}
+  #pl1267-fp .plf1279-og{font-size:8pt;margin:2.5mm 0 1mm;break-after:avoid;page-break-after:avoid}
+  #pl1267-fp .plf1279-printonly{display:block}
+  #pl1267-papers{display:none!important}
 }
 
 /* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): not on the Costs & P&L tab; every other tab keeps the banner */
