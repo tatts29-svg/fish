@@ -20,17 +20,29 @@ refused unless it ties (the parts included).
 - **Find in the P&L**, under the four tiles, on one quiet panel:
   - **Category** (all, or one of the pack's ten: Fencing, Toilets and water, Sub-hire, Transport, Labour hire, Salary,
     Accommodation, Meals and expenses, Consumables (POs), Forklift re-hire), **Branch** (all, KINP, STPS, NVAC, MEAD), **Month**
-    (job end, September, October with November's labour, November forecast), a **search** (supplier, PO, hire contract, invoice,
-    the V8s' PO, person; every word must match) and **Clear**.
-  - **Revenue, Costs and Difference** for the choice. Each is a sum in whole cents of the pack's own parts: each cost line split by
-    branch and month, and each invoice and the November forecast by branch and month. The pack's build and `audit_pack.py` prove
-    that the parts add to every total the pack prints. Revenue is not split by cost category, so with a category it shows a dash.
-    With a search, revenue is the invoices the search names. The difference is shown at job end for the job or a branch only,
-    because the revenue is booked in the invoice month (all 18 invoices are dated October), so a month's difference would not be one.
-  - Below: **by category** when no category or search is chosen (each category opens its lines), else **the matching cost lines**,
-    each at its parts in the choice. A search shows **the invoices to the V8s that match**. A branch, a search, or the Labour hire
-    or Salary category shows **the labour journals** for it.
-  - The choice stays when the record syncs and the tab is drawn again. The panel is for the screen; the print is unchanged.
+    (job end, September, October with November's labour, November forecast), a **search** and **Clear**.
+  - **The choices alone:** Revenue, Costs and Difference so far for the choice, each a sum in whole cents of the pack's own parts
+    (each cost line split by branch and month; each invoice and the November forecast by branch and month). The pack's build and
+    `audit_pack.py` prove that the parts add to every total the pack prints. Revenue is not split by cost category (a dash with a
+    category). The difference is shown at job end for the job or a branch only: the revenue is booked in the invoice month (all
+    18 invoices are dated October), so a month's difference would not be one. Below: by category (each category opens its lines),
+    or the category's lines; and the labour journals for a branch or the Labour hire or Salary category.
+  - **The search gives a thing's own figure** (the independent review found that matching whole lines and invoices by their text
+    gave, for example, a PO's whole line instead of the PO's amount, so the search works this way):
+    - a **PO** gives its amount, as in "Every purchase order in the costs", and the line it is on (a line can carry more than one
+      PO, so the note says the line's total is not the PO's amount);
+    - a **hire contract** gives what we charged on it and the costs tied to it, as in "By hire contract" (the November forecast on
+      9961976 is named under the table, not added to the charge);
+    - an **invoice** gives its own amount, with a button to its hire contract; the invoice not in the revenue says why;
+    - the **V8s' PO** (as keyed, e.g. P028604, P0 07.04, P28607) gives only the invoices keyed with it;
+    - a **person** (full name or first name) gives their labour journal rows; costs are carried by week and supplier, not by
+      person, so Revenue and Costs show a dash rather than a figure that is not theirs;
+    - a **branch code** or **category name** typed acts as that choice and says so;
+    - **any other words** give the cost lines that mention them, labelled "whole lines", with no revenue.
+    With an identifier, a month, branch or category that does not apply gives the reason (e.g. "a PO's amount is for the job, not
+    by month: choose Job end"; "this PO is on STPS"; "the invoice is dated October"), never a different figure.
+  - The choice and the typed search stay when the record syncs and the tab is drawn again. The panel is for the screen; the print
+    is unchanged.
   - It works on the view-only link: the page's read-only lock disables every field, and this panel is marked `data-ro` (as the
     fencing filters are) because it filters what is shown and writes nothing.
 - **Every cost line names its category.**

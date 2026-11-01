@@ -79,7 +79,12 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     check(!/Not printed|tick the twin-steer check/i.test(flat), 'not one word of the refusal page in the PDF');
     /* v12.77: the finder is for the screen; the labour journals print every person, their home branch and where the hours go */
     check(!tight.includes('FINDINTHEP&L') && !tight.includes('Allcategories'), 'the finder stays on the screen: none of it on the paper');
-    check(J.labourJournal.every(x => tight.includes((x.who + x.type).replace(/\s+/g, ''))) && J.labourJournal.filter(x => x.journal !== 'stays').every(x => tight.includes(('journal' + x.journal).replace(/\s+/g, ''))), `every labour journal row prints: person, type and where the hours go (${J.labourJournal.length})`);
+    { /* the paper lays a row's name and type on two lines with the other columns between, so each part is found on its own, in the fold's text */
+      const lj = tight.slice(tight.indexOf('Labourjournals:whereeveryone’shoursgo')), jt = lj.slice(0, lj.indexOf('LABOURHIRE:THERUNNINGSHEETBESIDETHECOSTS'));
+      const miss = J.labourJournal.filter(x => !jt.includes(x.who.replace(/\s+/g, '')) || !jt.includes(x.type.split(' · ')[0].split(';')[0].replace(/\s+/g, '')) || (x.journal !== 'stays' && !jt.includes(('journal' + x.journal).replace(/\s+/g, ''))));
+      const rows = J.labourJournal.reduce((a, x) => (a[x.who] = (a[x.who] || 0) + 1, a), {});
+      const counts = Object.entries(rows).filter(([w, k]) => jt.split(w.replace(/\s+/g, '')).length - 1 < k);
+      check(jt.length > 200 && !miss.length && !counts.length && (jt.match(/stays/g) || []).length >= J.labourJournal.filter(x => x.journal === 'stays').length, `every labour journal row prints: person, type and where the hours go (${J.labourJournal.length}): ` + JSON.stringify({miss: miss.map(x => x.who + ' ' + x.journal), counts})); }
     const cats = new Set(J.lines.map(l => l.category)); check([...cats].every(c => tight.includes(c.replace(/\s+/g, ''))), `every category label is on the paper (${cats.size})`);
     /* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): the P&L's print carries no twin-steer rule */
     const e1 = edge(file);

@@ -81,7 +81,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(r.sup.length === S.length && S.every((w, i) => JSON.stringify(r.sup[i].cells) === JSON.stringify(w)), `${tag}: costs by supplier and month, to the cent (${J.suppliers.length} suppliers and the total)`);
     // every cost line
     check(r.lines.length === J.lines.length + 1, `${tag}: every cost line is on the tab (${r.lines.length - 1} of ${J.lines.length})`);
-    const lineBad = J.lines.map((l, i) => { const c = r.lines[i].cells; const ok = c[0].startsWith(l.supplier + ' · ' + l.branch) && c[0].includes(l.what) && (!l.po || c[0].includes('PO ' + l.po)) && c[0].includes('Hire contract: ' + l.contract) && c[1] === c2(l.sep) && c[2] === c2(l.oct) && c[3] === c2(l.nov) && c[4] === c2(l.accrue) && c[5].startsWith(l.status); return ok ? null : i; }).filter(x => x !== null);
+    const lineBad = J.lines.map((l, i) => { const c = r.lines[i].cells; const ok = c[0].startsWith(l.supplier + ' · ' + l.branch) && c[0].includes(l.what) && (!l.po || c[0].includes(/^none/i.test(String(l.po).trim()) ? 'No PO' : 'PO ' + l.po)) && c[0].includes('Hire contract: ' + l.contract) && c[1] === c2(l.sep) && c[2] === c2(l.oct) && c[3] === c2(l.nov) && c[4] === c2(l.accrue) && c[5].startsWith(l.status); return ok ? null : i; }).filter(x => x !== null);
     check(!lineBad.length, `${tag}: each line's supplier, what, PO, hire contract, months, accrual and status, to the cent: bad rows ` + JSON.stringify(lineBad));
     check(J.lines.every(l => String(l.po).trim() && String(l.contract).trim()), `${tag}: every cost line names its PO (or that there is none) and the hire contract it is charged on`);
     const lt = r.lines[r.lines.length - 1].cells;
@@ -210,22 +210,46 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(J.branches.every(b => JSON.stringify(at('', b.b, '')) === JSON.stringify([c2(b.revenue) === '—' ? '0.00' : f2(b.revenue), f2(b.costs), f2(b.difference)])), `${tag}: each branch: its revenue, costs and difference as the branch table: ` + JSON.stringify(BRS.map(b => at('', b, ''))));
     check(MOS.every(m => at('', '', m)[1] === f2(J.costs[mk[m]])) && at('', '', 'Sep')[0] === '0.00' && at('', '', 'Oct')[0] === f2(J.revenue.invoices) && at('', '', 'Nov')[0] === f2(J.revenue.novForecast), `${tag}: each month: the costs by month; the revenue in its invoice month (Sep none, Oct the 18 invoices, Nov the forecast)`);
     check(J.categories.every(cg => at(cg.name, '', '')[1] === f2(cg.total) && MOS.every(m => at(cg.name, '', m)[1] === f2(cg[mk[m]]))), `${tag}: each category and each of its months, as the pack's category totals`);
-    // searches: by PO, hire contract, invoice, supplier, person; nothing found says so
-    const S_ = async q => p.evaluate(async q => { const g = id => document.getElementById(id); ['plx-cat', 'plx-br', 'plx-mo'].forEach(id => { g(id).value = ''; g(id).dispatchEvent(new Event('change')); });
-      g('plx-q').value = q; g('plx-q').dispatchEvent(new Event('input')); await new Promise(r => setTimeout(r, 400));
-      return {k: [...document.querySelectorAll('#plx-sum .plx-k')].map(x => x.querySelector('b').textContent.trim()), lines: [...document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)')].map(tr => tr.querySelector('td b').textContent),
-        lj: [...document.querySelectorAll('#plx-out table.plx-lj tbody tr:not(.pl1267-grand)')].map(tr => tr.querySelector('td b').textContent), inv: [...document.querySelectorAll('#plx-out table.plx-inv tbody tr:not(.pl1267-grand)')].map(tr => tr.querySelector('td b').textContent), none: !!document.querySelector('#plx-out .plx-none')}; }, q);
-    const lowq = t => String(t == null ? '' : t).toLowerCase().replace(/\s+/g, ' ').trim();
+    // searches: an identifier gives that thing's own figure in the P&L (the PO, contract and revenue folds); a branch code or category name acts as the choice; other words find the lines that mention them
+    const S_ = async (q, ch) => p.evaluate(async ([q, ch]) => { const g = id => document.getElementById(id); ['plx-cat', 'plx-br', 'plx-mo'].forEach(id => { g(id).value = (ch && ch[id]) || ''; g(id).dispatchEvent(new Event('change')); });
+      g('plx-q').value = q; g('plx-q').dispatchEvent(new Event('input')); await new Promise(r => setTimeout(r, 300));
+      const T = sel => [...document.querySelectorAll('#plx-out ' + sel + ' tbody tr:not(.pl1267-grand)')].map(tr => [...tr.children].map(td => td.textContent.trim()));
+      return {k: [...document.querySelectorAll('#plx-sum .plx-k')].map(x => x.querySelector('b').textContent.trim()), small: [...document.querySelectorAll('#plx-sum .plx-k small')].map(x => x.textContent.trim()), note: (document.querySelector('#plx-sum .plx-note') || {}).textContent || '',
+        lines: T('table.plx-lines').map(r => r[0]), po: T('table.plx-po'), inv: T('table.plx-inv'), con: T('table.plx-con'), lj: T('table.plx-lj').map(r => r[0]), none: !!document.querySelector('#plx-out .plx-none'),
+        cats: T('table.plx-cats')}; }, [q, ch || null]);
+    const sBad = [];
+    for (const x of J.purchaseOrders) { const g = await S_(x.po); if (JSON.stringify(g.k) !== JSON.stringify(['—', f2(x.amount), '—']) || g.po.length !== 1 || g.po[0][3] !== f2(x.amount) || !g.po[0][0].startsWith(x.po + ' · ' + x.supplier)) sBad.push(['po', x.po, g.k, g.po]); }
+    check(!sBad.length, `${tag}: every one of the ${J.purchaseOrders.length} POs searched gives its own amount in the costs, as in Every purchase order in the costs: bad ` + JSON.stringify(sBad.slice(0, 3)));
+    const cBad = [];
+    for (const c of J.contracts) { const g = await S_(c.contract), inv = J.invoices.filter(x => x.contract === c.contract);
+      if (JSON.stringify(g.k) !== JSON.stringify([f2(c.revenue), f2(c.costTotal), '—']) || g.inv.filter(r => /^\d{8}/.test(r[0])).length !== inv.length || g.con.length !== Math.max(c.costs.length, 1) || (c.costs.length && !c.costs.every((y, i) => g.con[i][2] === c2(y.amount)))) cBad.push(['contract', c.contract, g.k, [c.revenue, c.costTotal]]); }
+    check(!cBad.length, `${tag}: every one of the ${J.contracts.length} hire contracts searched gives what we charged on it and the costs tied to it, as in By hire contract: bad ` + JSON.stringify(cBad.slice(0, 3)));
+    const iBad = [];
+    for (const x of J.invoices) { const g = await S_(x.inv); if (JSON.stringify(g.k) !== JSON.stringify([f2(x.ex), '—', '—']) || g.inv.length !== 1 || g.inv[0][3] !== f2(x.ex)) iBad.push(['invoice', x.inv, g.k]); }
+    const cpoK = v => String(v).split(' (')[0].toLowerCase().replace(/\s+/g, ''), cpos = [...new Set(J.invoices.map(x => cpoK(x.customerPO)))];
+    for (const k of cpos) { const L = J.invoices.filter(x => cpoK(x.customerPO) === k), g = await S_(k.toUpperCase()); if (g.k[0] !== f2(L.reduce((a, x) => a + ct(x.ex), 0) / 100) || g.inv.length !== L.length) iBad.push(['V8s PO', k, g.k, L.length]); }
+    check(!iBad.length, `${tag}: every invoice searched gives its own amount, and every V8s PO (${cpos.length}) the invoices on it and nothing else: bad ` + JSON.stringify(iBad.slice(0, 3)));
+    const rm = J.removedInvoices[0], gr = await S_(rm.inv); check(gr.k[0] === '—' && /not in the revenue/.test(gr.small[0]), `${tag}: the invoice not in the revenue says so: ` + JSON.stringify(gr.k));
+    const pBad = [];
+    for (const who of [...new Set(J.labourJournal.map(x => x.who))]) { const g = await S_(who), n_ = J.labourJournal.filter(x => x.who === who).length; if (g.lj.length !== n_ || !g.lj.every(r => r.startsWith(who)) || g.k[1] !== '—' || g.k[0] !== '—') pBad.push(['person', who, g.lj.length, n_, g.k]); }
+    const gk = await S_('Kyle'), gkW = J.labourJournal.filter(x => x.who.startsWith('Kyle'));
+    check(!pBad.length && gk.lj.length === gkW.length && gk.k[1] === '—', `${tag}: every person searched (full name or first name) gives their labour journal rows, and no cost figure that is not theirs: bad ` + JSON.stringify(pBad.slice(0, 3)));
+    const tBad = [];
+    for (const b of BRS) { const g = await S_(b.toLowerCase()), w = at('', b, ''); if (JSON.stringify(g.k) !== JSON.stringify(w) || !/is a branch/.test(g.note)) tBad.push(['branch', b, g.k, w]); }
+    for (const c of CATS) { const g = await S_(c.toLowerCase()), w = at(c, '', ''); if (JSON.stringify(g.k) !== JSON.stringify(w) || !/is a category/.test(g.note)) tBad.push(['category', c, g.k, w]); }
+    check(!tBad.length, `${tag}: a branch code or category name typed gives exactly what the Branch or Category choice gives (${BRS.length + CATS.length}): bad ` + JSON.stringify(tBad.slice(0, 3)));
+    const lowq = t => String(t == null ? '' : t).toLowerCase().replace(/[“”"‘’`]/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim();
     const lineText = l => lowq([l.supplier, l.branch, l.account, l.what, l.po, l.invoice, l.contract, l.status, l.basis, l.category].join(' '));
-    const want = q => { const ws = lowq(q).split(' ').filter(Boolean), has = t => ws.every(w => t.includes(w));
-      const li = J.lines.map((l, i) => has(lineText(l)) ? i : -1).filter(i => i >= 0), cost = F.filter(f => li.includes(f[0])).reduce((a, f) => a + f[3], 0);
-      const inv = RF.filter(x => { const v = J.invoices.find(y => y.inv === x[0]); return has(v ? lowq([v.inv, v.date, v.contract, v.customerPO, v.branch, v.pos].join(' ')) : lowq(x[0])); });
-      return {k: [inv.length ? f2(inv.reduce((a, x) => a + x[3], 0) / 100) : '—', f2(cost / 100), '—'], n: li.length, inv: inv.map(x => x[0]), lj: J.labourJournal.filter(x => has(lowq([x.who, x.type, x.home, x.branch, x.contract, x.journal].join(' ')))).map(x => x.who)}; };
-    const Q = ['4647508', '9961976', '25122628', 'Event Portables', 'Kyle', 'Daniel Gough', '4674224', 'P028604', 'zzzz nothing'];
-    const qBad = [];
-    for (const q of Q) { const g = await S_(q), w = want(q); if (JSON.stringify(g.k) !== JSON.stringify(w.k) || g.lines.length !== w.n || JSON.stringify(g.lj) !== JSON.stringify(w.lj) || JSON.stringify(g.inv) !== JSON.stringify(w.inv) || (!w.n && !w.lj.length && !w.inv.length) !== g.none) qBad.push({q, got: g, want: w}); }
-    check(!qBad.length, `${tag}: searches by PO, hire contract, invoice, supplier, person and V8s PO find exactly the lines, invoices and people that carry them, to the cent (${Q.length}): bad ` + JSON.stringify(qBad.slice(0, 2)));
-    const qa = await S_('4647508'); check(qa.lines.length === 1 && qa.lines[0] === J.lines[0].supplier && qa.k[1] === f2(J.lines[0].sep + J.lines[0].oct + J.lines[0].nov), `${tag}: PO 4647508 finds Advanced's line at its total: ` + JSON.stringify(qa));
+    const words_ = ['Event Portables', 'Advanced', 'accrue', 'water barriers'], wBad = [];
+    for (const w of words_) { const ws = lowq(w).split(' '), li = J.lines.map((l, i) => ws.every(x => lineText(l).includes(x)) ? i : -1).filter(i => i >= 0), cost = F.filter(f => li.includes(f[0])).reduce((a, f) => a + f[3], 0), g = await S_(w);
+      if (JSON.stringify(g.k) !== JSON.stringify(['—', f2(cost / 100), '—']) || g.lines.length !== li.length || !/that mention/.test(g.small[1]) || !/whole lines/.test(g.small[1])) wBad.push([w, g.k, f2(cost / 100), g.lines.length, li.length]); }
+    check(!wBad.length, `${tag}: other words find the cost lines that mention them, labelled as whole lines, to the cent: bad ` + JSON.stringify(wBad));
+    const gm = await S_('4658850', {'plx-mo': 'Oct'}), gi = await S_('25122628', {'plx-mo': 'Sep'}), gb = await S_('4658850', {'plx-br': 'KINP'});
+    check(gm.k[1] === '—' && /choose Job end/.test(gm.small[1]) && gi.k[0] === '0.00' && /dated October/.test(gi.small[0]) && gb.k[1] === '—' && /is on STPS/.test(gb.small[1]), `${tag}: a PO with a month, an invoice in September and a PO on another branch each say why, with no wrong figure: ` + JSON.stringify([gm.k, gm.small[1], gi.k, gi.small[0], gb.small[1]]));
+    const redraw = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); const q = g('plx-q'); q.focus(); q.value = '4658850'; q.dispatchEvent(new Event('input'));
+      go('today'); go('costs'); await new Promise(r => setTimeout(r, 1500));
+      return {q: g('plx-q').value, k: [...document.querySelectorAll('#plx-sum .plx-k b')].map(x => x.textContent.trim()), focus: document.activeElement && document.activeElement.id}; });
+    check(redraw.q === '4658850' && redraw.k[1] === f2(J.purchaseOrders.find(x => x.po === '4658850').amount), `${tag}: a redraw while typing keeps the typed search and its figure: ` + JSON.stringify(redraw));
     const qz = await S_('zzzz nothing'); check(qz.none && qz.k[1] === '0.00', `${tag}: a search that finds nothing says so`);
     // a category opens from the by-category table; Clear puts it all back; the choice survives the tab being drawn again
     const flow = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
