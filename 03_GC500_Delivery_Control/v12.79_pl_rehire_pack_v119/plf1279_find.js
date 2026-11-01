@@ -540,7 +540,7 @@ function xHelpers(s, G, lineFacts, CH) {
   H.stateOf = function (i) { return (J.lines[i] && J.lines[i].state) || 'Not classified'; };
   /* by state, from each line's own state; a line's November part is forecast whatever its state, so it goes to November forecast
      (o.__nov: how much of that came from lines in other states). The other states are then to 31 Oct: Accrued at 31 Oct is the accrual. */
-  H.NOVST = (J.states || []).filter(function (k) { return /^November/.test(k); })[0] || 'November forecast';
+  H.NOVST = (J.states || []).filter(function (k) { return k === 'November forecast'; })[0] || (J.states || []).filter(function (k) { return /^November forecast/.test(k); })[0] || 'November forecast';   /* the forecast state by its own name (another state also starts 'November') */
   H.stKey = function (f) { var k = H.stateOf(f[0]); return f[2] === 'Nov' ? H.NOVST : k; };
   H.byState = function (ok) { var o = {__nov: 0}; lineFacts(function (i) { return ok(i); }).forEach(function (f) { var k = H.stKey(f); o[k] = (o[k] || 0) + f[3]; if (k === H.NOVST && H.stateOf(f[0]) !== H.NOVST) o.__nov += f[3]; }); return o; };
   H.novOf = function (o) { return !o.__nov ? '' : o.__nov === o[H.NOVST] ? ' (the November part of lines in other states)' : ' (of which ' + BC(o.__nov) + ' is the November part of lines in other states)'; };
