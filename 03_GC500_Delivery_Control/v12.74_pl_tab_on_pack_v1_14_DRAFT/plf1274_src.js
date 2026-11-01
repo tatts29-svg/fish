@@ -10,7 +10,7 @@
    v12.73 - labour we charged the V8s, by branch (Andrew, 1 Nov 2026: "how much labour we charged each MEAD and NVAC and KINP and STPS
    if any so when we journal peoples cost into INSTALL we have a figure we know we are up against"; "yes to 5"): the pack's own figures, every
    line the invoices code LABOUR, with the labour hire already in Installs and what is left; every labour line in a fold.
-   v12.74 - the tab on pack v1.13: transport checked against Schedule 17 (1 Nov), every change with its Schedule 17 row, docket and
+   v12.74 - the tab on pack v1.14 (the two forklift POs in the costs): transport checked against Schedule 17 (1 Nov), every change with its Schedule 17 row, docket and
    hire contract, in a fold; the pack's figures, as above. */
 var PLF1272 = (function (W, D) {
 'use strict';

@@ -120,9 +120,18 @@ for po, sup, br, gl, what, d, amt in [('4655573', 'Bunnings', 'STPS', '201.STPS.
                                      ('4666720', 'BSF Mobile Cranes', 'KINP', '201.KINP.2144.0', 'Building unloads (completed order)', '15 Oct', 2896.00), ('4670270', 'Event Elec', 'NVAC', '201.NVAC.2144.0', 'Concert generator sync (completed order)', '23 Oct', 579.68),
                                      ('4670876', 'Bunnings', 'KINP', '201.KINP.2144.0', 'Hand soap', '24 Oct', 180.00), ('4669481', 'Bunnings', 'NVAC', '201.NVAC.2150.0', 'Siphon hose (completed order)', '26 Oct', 42.33)]:   # v1.13: 2 × 21.1650 in Coates' system (the printed PO rounds the unit cost to 21.17)
     add(sup, br, gl, what, po, 'PO ' + d, amt if 'Sep' in d else 0, 0 if 'Sep' in d else amt, 0, None, 'the PO date', 'check invoice')
+# v1.14: the two forklift POs in the hire notes on 9961976 are a cost to Coates (Andrew, 1 Nov 2026: "these are a cost to Coates"); their lines on 9961976 (L31, L34) are own use at 0.00.
+# Ex GST = qty x unit cost, from the screenshots of Coates' system (private: forklift_pos.json); each on the branch it is raised on; 4647983's lines each in the month they mostly fall in, in turn from the hire start (9961976 L31, 11 Sep).
+FPO = json.load(open(P2 / 'forklift_pos.json'))['pos']
+assert [l['unit_cost'] for l in FPO['4647983']['lines']] == [900.00, 1320.00, 600.00] and FPO['4647983']['ex_gst'] == 2820.00 and FPO['4647983']['branch'] == 'STPS', FPO['4647983']
+assert [l['unit_cost'] for l in FPO['4654789']['lines']] == [950.00] and FPO['4654789']['ex_gst'] == 950.00 and FPO['4654789']['branch'] == 'MEAD' and FPO['4654789']['fully_invoiced'], FPO['4654789']
+add('Queensland Forklifts', 'STPS', '2126', '5 t forklift re-hire (1.8 m tynes) for the fencing at Phillip Park, on 9961976 L31 at 0.00 (own use): 3 weeks 900.00 · 4 weeks 2 days 1,320.00 · 2 weeks 600.00', '4647983 (partly received)', 'PO 3 Sep; 900.00 received, nothing invoiced',
+    900.00, 1320.00, 600.00, None, 'each PO line in the month it mostly falls in, in turn from the hire start on 9961976 L31 (11 Sep): 3 weeks (September), 4 weeks 2 days (October), 2 weeks (November)', 'check invoice (estimate until invoiced)')
+add('Queensland Forklifts', 'MEAD', '2126', 'AT009 2.5 t RT forklift for Coates’ use, 17–18 Sep, on 9961976 L34 at 0.00 (own use)', '4654789 (completed)', 'PO 17 Sep; received and invoiced', 950.00, 0, 0, None, 'the hire dates', 'invoiced')
+FORK_PO = 3770.00
 tot = [r2(sum(r[i] for r in C)) for i in (6, 7, 8)]
-assert abs(sum(tot) - 548763.71) < 0.01, (tot, sum(tot))
-assert (tot[0], tot[1], tot[2]) == (147585.00, 378270.09, 22908.62), tot   # v1.13: Schedule 17 + 1,826.39 (September + 570.00, October + 1,256.39); PO 4669481 − 0.01   # v1.12: October − 894.52 (Alfie's 12–15 Oct nights off)   # v1.10: November + 6,105.20 (Daniel's two POs)   # Codex's bridge after F03, F04 and the F05 window   # the P&L's job costs (with the 750.00 November fencing forecast), at Job Connect's invoices and without Premiair line 15
+assert abs(sum(tot) - 552533.71) < 0.01, (tot, sum(tot))
+assert (tot[0], tot[1], tot[2]) == (149435.00, 379590.09, 23508.62), tot   # v1.14: the forklift POs + 3,770.00 (September + 1,850.00, October + 1,320.00, November + 600.00)   # v1.13: Schedule 17 + 1,826.39 (September + 570.00, October + 1,256.39); PO 4669481 − 0.01   # v1.12: October − 894.52 (Alfie's 12–15 Oct nights off)   # v1.10: November + 6,105.20 (Daniel's two POs)   # Codex's bridge after F03, F04 and the F05 window   # the P&L's job costs (with the 750.00 November fencing forecast), at Job Connect's invoices and without Premiair line 15
 acc_total = r2(sum(r[9] for r in C if r[9]))
 
 # ---------------- labour by month and branch (the running sheet, to 13 Nov)
@@ -378,6 +387,7 @@ def charged_on(r):
     if sup.startswith('Accommodation'): return ('his hours sit on ' + on('9961976') + '; ' + ACCOM_ETC) if what.startswith('Ludwig') else ACCOM_ETC
     if sup.startswith('Meals'): return 'no line of its own on the invoices'
     if sup.startswith('Salary'): return 'not a line on the invoices; the PM’s labour is charged on ' + on('9968862', '9968955') + ', 15.22 h each (L141 and L164; the invoices print 15)'
+    if sup.startswith('Queensland Forklifts'): return on('9961976') + (' L31' if po.startswith('4647983') else ' L34') + ', own use at 0.00 (not charged to the V8s)'   # v1.14
     if po in CONS_ON: return CONS_ON[po]
     raise ValueError(('no match-up for', r[:5]))
 CH = [charged_on(r) for r in C]
@@ -387,7 +397,9 @@ MU['9990776'] += [('Advanced: fencing weeks 6–1 and a partial collection', '46
                   ('Advanced: demob week 2', '4647523 (open)', 750.00, 'November forecast'), ('CCI Supplies: cable ties for the GC500 fencing', '4663216', 2538.64, 'PO; check invoice')]
 MU['9968955'] += [('Event Portables: toilet hire, servicing and transport (shared with 9994954)', 'none on the record', 101747.00, 'ESTIMATE, accrued; no invoice')]
 MU['9994954'] += [('Event Portables: L18 transport and L19 hire', 'none on the record', None, 'in the 101,747.00 under 9968955'), ('Event Elec: sync the concert generators (L13)', '4670270', 579.68, 'PO, completed')]
-MU['9961976'] += [('Ludwig Chee: 3 event nights, with his hours', 'none', 655.71, 'on the tracker')]
+MU['9961976'] += [('Ludwig Chee: 3 event nights, with his hours', 'none', 655.71, 'on the tracker'),
+                  ('Queensland Forklifts: 5 t forklift re-hire for the fencing at Phillip Park (L31, own use at 0.00)', '4647983', 2820.00, 'PO; 900.00 received, nothing invoiced (estimate until invoiced)'),
+                  ('Queensland Forklifts: AT009 2.5 t RT forklift, 17–18 Sep (L34, own use at 0.00)', '4654789', 950.00, 'PO, completed and invoiced')]   # v1.14
 MU['9961265'] += [('Premiair: eight sub-hired VMS boards (lines 13, 24–26, 28–31), at their cost lines in the system', 'none on the record', PREM_SYS, 'accrued; no invoice yet')]
 MU['10001927'] += [('Premiair: VMS11 467T (L1), 16–22 Oct, no cost line in the system: 7 days at 36.25', 'none on the record', PREM_V11, 'ESTIMATE, accrued; no invoice')]
 MU['9972648'] += [('Job Connect: Kyle Gover 8 h on the water barriers, 15 Oct', '4668970', 460.78, 'ESTIMATE, accrued with w/e 18 Oct')]
@@ -417,7 +429,7 @@ NT = [('Job Connect labour hire (supplier ' + JCS['code'] + '): KINP work (no co
       ('Bunnings: hand soap', '4670876', 180.00, 'contract not named on the PO (KINP GL)'),
       ('Bunnings: siphon hose', '4669481', 42.33, 'contract not named on the PO (NVAC GL)')]
 MU_TOT = r2(sum(x[2] or 0 for v in MU.values() for x in v)); NT_TOT = r2(sum(x[2] for x in NT))
-assert abs(MU_TOT + NT_TOT - 548763.71) < 0.005, (MU_TOT, NT_TOT, MU_TOT + NT_TOT)
+assert abs(MU_TOT + NT_TOT - 552533.71) < 0.005, (MU_TOT, NT_TOT, MU_TOT + NT_TOT)
 ORDER_C = sorted(INV_OF, key=lambda c: ({'KINP': 0, 'STPS': 1, 'NVAC': 2, 'MEAD': 3}.get(BR_OF[c], 9), c))
 def pos_of(c):
     ps = []
@@ -623,7 +635,7 @@ S17_NOTES = ['Schedule 17 has %d rows with a figure, %s. %d tie to the record’
 S17_HTML = ("<h2>2e · Transport checked against Schedule 17</h2><p class='s'>Schedule 17 (1 Nov) against every load on the record. The figures are the schedule’s (the carriers’ minimums), as with every load. Each change is one Schedule 17 row; its docket ties it to the hire contract (Baseplan (12)).</p>"
             + tbl(['Ref', 'Date', 'What', 'Hire contract · docket', 'Schedule 17', '#Figure', 'On the record before', '#Change', 'Branch'], _s17r)
             + "<ul>" + ''.join('<li>' + e(t) + '</li>' for t in S17_NOTES) + "</ul>")
-body = f"""<main><h1>GC500 P&amp;L, final · pack v1.13</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
+body = f"""<main><h1>GC500 P&amp;L, final · pack v1.14</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12727), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 18 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire with waiver by month: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with what to accrue</h2><p class='s'>Each line names its purchase order and the hire contract and V8s invoice it's charged on (section 3b groups them by contract). Orange rows: accrue at 31 Oct (they reverse on 1 Nov and the invoice lands against them). Red rows: the record carries no date; where they sit is said on the row.</p>
@@ -672,15 +684,17 @@ COST_B = {   # management view, job end; people's costs on KINP (29 Oct ruling) 
           ('Royal Wolf, refrigerated container (its cost line in the system; no PO on the record; charged on 9974042)', RW),
           ('Transport, carriers (no POs or carrier invoices on the record; by load' + tnote('STPS') + ')', TBR['STPS']),
           ('Labour hire on the water barriers: Kyle Gover 8 h on 15 Oct, PO 4668970, on 9972648 (journal from KINP)', 460.78),
-          ('Consumables: POs 4663216 cable ties for the fencing 2,538.64 (9990776) · 4655573 star pickets 100.00', 2638.64)],
+          ('Consumables: POs 4663216 cable ties for the fencing 2,538.64 (9990776) · 4655573 star pickets 100.00', 2638.64),
+          ('Forklift re-hire, Queensland Forklifts: 5 t forklift for the fencing at Phillip Park, PO 4647983 (900.00 received; estimate until invoiced; on 9961976 L31, own use at 0.00)', 2820.00)],
  'NVAC': [('Premiair, VMS24 (its cost line in the system, 201.NVAC.2126; charged on 9961265 L31)', PREM_BR['NVAC']),
           ('Transport, carriers (no POs or carrier invoices on the record; by load' + tnote('NVAC') + ')', TBR['NVAC']),
           ('Accommodation: Ludwig Chee’s three event nights, 23–25 Oct (with his hours on 9961976; journal from KINP)', 655.71),
           ('Consumables: POs 4669481 siphon hose 42.33 · 4670270 concert generator sync 579.68 (charged on 9994954 L13)', 622.01)],
- 'MEAD': [('Transport, carriers (no POs or carrier invoices on the record; by load' + tnote('MEAD') + ')', TBR['MEAD'])]}
+ 'MEAD': [('Transport, carriers (no POs or carrier invoices on the record; by load' + tnote('MEAD') + ')', TBR['MEAD']),
+          ('Forklift re-hire, Queensland Forklifts: AT009 2.5 t RT forklift for Coates’ use, 17–18 Sep, PO 4654789 (invoiced; on 9961976 L34, own use at 0.00)', 950.00)]}
 CB = {b: r2(sum(v for _, v in LL)) for b, LL in COST_B.items()}
-assert abs(sum(CB.values()) - 548763.71) < 0.005, CB
-assert CB == {'KINP': 220851.17, 'STPS': 315470.56, 'NVAC': 7877.14, 'MEAD': 4564.84}, CB   # v1.13 (v1.12: KINP 220,943.51 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20)
+assert abs(sum(CB.values()) - 552533.71) < 0.005, CB
+assert CB == {'KINP': 220851.17, 'STPS': 318290.56, 'NVAC': 7877.14, 'MEAD': 5514.84}, CB   # v1.14: the forklift POs, STPS + 2,820.00, MEAD + 950.00   # v1.13: {'KINP': 220851.17, 'STPS': 315470.56, 'NVAC': 7877.14, 'MEAD': 4564.84} (v1.12: KINP 220,943.51 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20)
 assert abs(sum(REV_B.values()) - 1001063.07) < 0.005, REV_B
 JOB_REV, JOB_COST = r2(sum(REV_B.values()) + sum(NOV_REV.values())), r2(sum(CB.values()))
 srow = ''
@@ -718,14 +732,14 @@ OPEN = [
  'Advanced: invoices for POs 4647522 and 4647523; possible extra 2,577.00 (36524, note 24479, the week 6 balance) not accrued. Relocation and removal are billed by the hour; those hours come with the demob dockets.',
  'Premiair and Royal Wolf: their invoices. VMS19 and VMS20 are billed to the V8s on 10001927 L7–L8 (their 9961265 lines are at 0.00) and VMS11 on 10001927 L1. The cost is the system’s sub-hire cost lines (36.25 a day; VMS24 26.00), not the 53.61 a day the V8s pay. VMS11 has no cost line in the system: it is estimated at 7 days × 36.25 and sits on KINP with the other Premiair boards; the site record has it going out on 30 Oct. Premiair’s invoice settles both.',
  '9974042: both containers are billed to the V8s from 28 Sep (Baseplan (12) L1–L2), but the delivery dockets have them going out on 12 Oct (the container) and 13 Oct (the refrigerated container): a possible query or credit. Royal Wolf’s cost line also runs from 28 Sep.',
- 'Job Connect (' + JC_LEGAL + ') invoices: PO 4665091 (w/e 11 Oct) 2,636.56; POs 4670882 and 4671825 (w/e 25 Oct) 6,069.48 and 5,244.91, together 11,314.39 against the running sheet’s 11,774.71; invoiced, so not accrued. Daniel Gough’s November POs, 4674224 (w/e 8 Nov) and 4674225 (w/e 15 Nov), 3,052.60 each, are carried at the PO amounts (the running sheet says 3,174.90 a week). Still needed: the w/e 18 Oct invoices on POs 4667755 and 4668970 (that week stays at the running sheet, accrued), the PO and invoice for w/e 1 Nov, Kyle Gover’s PO and invoice for w/e 8 Nov, and the invoices on 4674224 and 4674225. PO 4658653 (1,838.10) is also Job Connect’s: it is not on the record and matches no week on the running sheet, so it is not in the costs until its week is known. The running sheet was 178.15 over the three invoices to 4 Oct. Eric Lucian’s week (w/e 18 Oct) is 2,435.83 on Job Connect’s charge; he did not work the full week on GC500, so only his hours here (10.5 h on 14 Oct, 634.98 on the running sheet) are journaled to KINP, and his hours for the week give the exact share.',
+ 'Job Connect (' + JC_LEGAL + ') invoices: PO 4665091 (w/e 11 Oct) 2,636.56; POs 4670882 and 4671825 (w/e 25 Oct) 6,069.48 and 5,244.91, together 11,314.39 against the running sheet’s 11,774.71; invoiced, so not accrued. Daniel Gough’s November POs, 4674224 (w/e 8 Nov) and 4674225 (w/e 15 Nov), 3,052.60 each, are carried at the PO amounts (the running sheet says 3,174.90 a week). Carried at the running sheet until invoiced: w/e 18 Oct (POs 4667755 and 4668970, accrued), w/e 1 Nov (no PO, accrued) and Kyle Gover’s w/e 8 Nov (no PO); no further Job Connect paperwork is held. Every Job Connect week on the running sheet, w/e 20 Sep to w/e 15 Nov, is in the costs above. The running sheet was 178.15 over the three invoices to 4 Oct. Eric Lucian’s week (w/e 18 Oct) is 2,435.83 on Job Connect’s charge; he did not work the full week on GC500, so only his hours here (10.5 h on 14 Oct, 634.98 on the running sheet) are journaled to KINP, and his hours for the week give the exact share.',
  'Transport: the figures are the schedule’s (the carriers’ minimums), not carrier invoices, checked against Schedule 17 on 1 Nov (section 2e); ' + m(r2(sum(v for k, v in TR.items() if k[0] != 'rec'))) + ' is forecast (loads with no figure, and planned loads). The page also lists 36 planned movements needing a rate or scope and 17 unpriced demob movements; they are not in the costs.',
  'Schedule 17: the 15 and 17 Sep fencing loads (2 semis each) are listed with the dollar column blank; the costs keep 1,151.62 each, the 2-semi rate on 21 and 23 Sep, until the carrier invoices say otherwise. Two movements have no figure and no load on the record: the 20 Oct RT forklift delivery (26142467, 9961976) and the five forklift collections on 2 Nov.',
- 'Not accrued here: carrier loads to 31 Oct (%s: recorded %s, forecast %s and planned October loads %s; no carrier PO or invoice on the record) and the six consumables POs (6,336.65). In Coates’ system on 1 Nov, 4663216 (cable ties, 2,538.64) is received in full and not invoiced; 4666720, 4669481 and 4670270 are completed and invoiced; 4655573 and 4670876 have nothing received. Finance to confirm whether any needs a manual accrual.' % (
+ 'Not accrued here: carrier loads to 31 Oct (%s: recorded %s, forecast %s and planned October loads %s; no carrier PO or invoice on the record), the six consumables POs (6,336.65) and the two forklift POs (3,770.00). In Coates’ system on 1 Nov, 4663216 (cable ties, 2,538.64) is received in full and not invoiced; 4647983 (forklift re-hire, 2,820.00) has 900.00 received and nothing invoiced (its 4 weeks 2 days and 2 weeks lines, 1,920.00, are not received); 4666720, 4669481, 4670270 and 4654789 are completed and invoiced; 4655573 and 4670876 have nothing received. Finance to confirm whether any needs a manual accrual.' % (
      m(r2(sum(TR.get((k_, mo_), 0) for k_ in ('rec', 'fc', 'plan') for mo_ in ('Sep', 'Oct')))), m(r2(TR.get(('rec', 'Sep'), 0) + TR.get(('rec', 'Oct'), 0))), m(r2(TR.get(('fc', 'Sep'), 0) + TR.get(('fc', 'Oct'), 0))), m(r2(TR.get(('plan', 'Sep'), 0) + TR.get(('plan', 'Oct'), 0)))),
- 'Supplier side: estimates stay estimates until the invoices come; the consumables POs’ status is from Coates’ system (1 Nov), not the record; Coates wages are hours only (no pay rate applied).',
+ 'Supplier side: estimates stay estimates until the invoices come; the consumables and forklift POs’ status is from Coates’ system (1 Nov), not the record; Coates wages are hours only (no pay rate applied).',
  'Carriers to a contract: %s of the loads to date carry no docket that Baseplan (12) ties to a hire contract (the fencing loads, %s, among them). WC01’s 570.00 now ties to 9968955 by its own docket, 26102678, as Schedule 17 has it. The carrier invoices or the dockets will tie the rest.' % (m(r2(_nd + _nb)), m(FENCE_REC)),
- 'Two POs in the hire notes on 9961976 are not in the costs: 4647983, the 5 t forklift re-hire (asset 50004) for the fencing at Phillip Park, and 4654789, AT009, a 2.5 t RT forklift, 17–18 Sep. If either is a GC500 cost, it comes in at its amount.',
+ 'Forklift re-hire, Queensland Forklifts, a cost to Coates (own use; not charged to the V8s, 9961976 L31 and L34 at 0.00): 4647983, the 5 t forklift for the fencing at Phillip Park, at its three PO lines (2,820.00), an estimate until invoiced; 4654789, AT009, 17–18 Sep, 950.00, invoiced.',
  'Alfie Harris: his 5 Oct night has no shift for him on the record; confirm it against the hotel invoice. His 12–15 and 23–25 Oct nights were taken off on 1 Nov (he did not work then).',
  'On the page but on no invoice: the line-by-line list (KINP 5,268.23 · STPS 20,206.68 · NVAC 943.55 · MEAD 2,769.70): to chase or drop.',
  'Possible extra revenue: 9968955 L143 Cleaning & Restock Sewer Connect (Delivered from 18 Oct, 24 × 260.25 = 6,246.00; Baseplan (12) has it billed 0.00, and invoice 25122322 bills L141, L142 and L144–L146 beside it but has no line for L143); 10000523 L10 track-mat pick-up (quoted 150.00, not billed); WB02 to 3 Nov (about 1,500.00), WB03 (354.00); 9994954, invoiced to 26 Oct 07:00 on 25123999: hire after that for anything still on site; generator hire after 28 Oct and fuel; and a VMS credit if 10001927 and 9961265 carry the same boards (−1,072.20). The 350 kVA transport (1,200.00) is already billed: 9961976 L55, 2 × 600.00.']
@@ -773,13 +787,13 @@ def sheet(title, head, rows, money_cols=(), hour_cols=(), widths=None, first=Fal
                 cpl = max(1, int(cw * 1.05))
                 lines = max(lines, sum(max(1, -(-len(part) // cpl)) for part in c.value.split('\n')))
         if lines > 1: ws.row_dimensions[row[0].row].height = 15 * lines + 3
-    ws.oddHeader.left.text = 'GC500 P&&L pack v1.13 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
+    ws.oddHeader.left.text = 'GC500 P&&L pack v1.14 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12727'
     ws.oddFooter.left.text = 'Author: Andrew Fisher · private to the job team'; ws.oddFooter.right.text = 'Page &P of &N'
     return ws
 ws_sum = sheet('Summary', ['Branch', 'Invoiced (Oct)', 'November forecast', 'Revenue', 'Costs', 'Difference'],
       [[b, REV_B.get(b, 0), NOV_REV.get(b, 0), r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), CB[b], r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')]
       + [['The job', r2(sum(REV_B.values())), r2(sum(NOV_REV.values())), JOB_REV, JOB_COST, r2(JOB_REV - JOB_COST)], [],
-         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.13'],
+         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12727), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.14'],
          ['Revenue is booked in October, the invoice month; the November forecast is the 839.07 pick-up charge on 9961976 (L61, 29 Oct, NVAC), not invoiced yet. Costs are the management view at job end.']],
       money_cols=range(2, 7), widths=[14, 16, 18, 16, 16, 16], first=True)
 for r_ in (ws_sum.max_row - 1, ws_sum.max_row):
@@ -830,12 +844,12 @@ body = _re.sub(r"<div class='k'>.*?</div></div>\n", lambda _m: new_tiles, body, 
 body = body.replace("<h2>1 · Costs by supplier and month, with what to accrue</h2>", PACK_HTML.split('<h2>4 · Journals')[0] + "<h2>1 · Costs by supplier and month, with what to accrue</h2>")
 body = body.replace('</main>', '<h2>4 · Journals' + PACK_HTML.split('<h2>4 · Journals')[1] + '</main>')
 body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4 · Journals', '<h2>5 · Journals')   # one number per section
-(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L, final · pack v1.13</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
+(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L, final · pack v1.14</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 # v1.10: the final P&L as data for the page's P&L tab (v12.72): the same figures as the workbook, to the cent. Private, beside the pack, not committed.
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD'); _SUP = collections.OrderedDict()
 for r_ in C:
     v_ = _SUP.setdefault(r_[0], [0.0, 0.0, 0.0, 0.0]); v_[0] += r_[6]; v_[1] += r_[7]; v_[2] += r_[8]; v_[3] += (r_[9] or 0)
-PLF = {'pack': 'v1.13', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
+PLF = {'pack': 'v1.14', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
        'source': 'the live record (12727), the 18 invoices to V8 Supercars, the purchase orders and Schedule 17',
        'revenue': {'invoices': r2(sum(REV_B.values())), 'novForecast': r2(sum(NOV_REV.values())), 'total': JOB_REV},
        'costs': {'sep': tot[0], 'oct': tot[1], 'nov': tot[2], 'total': JOB_COST}, 'difference': r2(JOB_REV - JOB_COST), 'accrue': acc_total,
@@ -851,7 +865,7 @@ PLF = {'pack': 'v1.13', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex 
        'schedule17': {'changes': [dict(zip(('ref', 'date', 'what', 'contractDocket', 'row', 'figure', 'before', 'change', 'branch'), r_)) for r_ in S17_ROWS],
                       'added': S17_ADD, 'forecastsReplaced': S17_WAS, 'net': S17_NET, 'byBranch': S17_BR, 'forkliftsToMead': FORK_TOT, 'notes': S17_NOTES},
        'contractPOs': {c_: cpo(c_, True)[3:] for c_ in ORDER_C}}
-assert (PLF['revenue']['total'], PLF['costs']['total'], PLF['difference'], PLF['accrue']) == (1001902.14, 548763.71, 453138.43, 195076.18), PLF['revenue']
+assert (PLF['revenue']['total'], PLF['costs']['total'], PLF['difference'], PLF['accrue']) == (1001902.14, 552533.71, 449368.43, 195076.18), PLF['revenue']
 assert abs(sum(x['total'] for x in PLF['suppliers']) - PLF['costs']['total']) < 0.005 and abs(sum(x['costs'] for x in PLF['branches']) - PLF['costs']['total']) < 0.005
 assert abs(sum(x['accrue'] for x in PLF['suppliers']) - PLF['accrue']) < 0.005 and abs(sum(j['amount'] for j in PLF['journals']) - PLF['accrue']) < 0.005
 (OUT / 'GC500_PL_final.json').write_text(json.dumps(PLF, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

@@ -1,15 +1,16 @@
-"""Author: Andrew Fisher. v12.74 - the P&L tab on pack v1.13: transport checked against Schedule 17, in a fold.
+"""Author: Andrew Fisher. v12.74 - the P&L tab on pack v1.14: transport checked against Schedule 17, in a fold; the two forklift POs in the costs.
 
-Andrew, 1 Nov 2026 (this chat), on Schedule 17: "lets make sure we double check this for any transports costs in here we may of missed.
+Andrew, 1 Nov 2026 (this chat), on the forklift POs 4647983 and 4654789: "these are a cost to Coates"; on PO 4658653: "if not remove
+this one then"; on Schedule 17: "lets make sure we double check this for any transports costs in here we may of missed.
 obviously you know where things belong to VMS and Generators and forlifts etc belong to their brances".
 
 On the live v12.73 page (BASE is its verified SHA-256), this release:
-1. replaces the final P&L block (plf1272: its style and script, ids kept, so the tab's own face still finds it) with the pack v1.13
+1. replaces the final P&L block (plf1272: its style and script, ids kept, so the tab's own face still finds it) with the pack v1.14
    data and the v12.73 module plus one fold, "Transport checked against Schedule 17": the 12 changes, each with its Schedule 17 row,
    docket and hire contract, the forecasts they replace, and the notes;
 2. footer v12.73 -> v12.74.
 
-Every figure is the pack's own (GC500_PL_final.json, pack v1.13, record 12727; audit_pack.py 388/388). The file is private and never
+Every figure is the pack's own (GC500_PL_final.json, pack v1.14, record 12727; audit_pack.py 411/411). The file is private and never
 committed; this patch holds no figure. It reads PLF_JSON, refuses any file but the reviewed one (PLF_SHA256), checks it foots, and carries
 it into the page as it is. Nothing is typed; nothing is written to the record.
 
@@ -19,7 +20,7 @@ import hashlib, json, os, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '84a1b3cdd9983464394b7d0e67ee4915e7f1dc07d987e3b5449d734c4f312a50'        # live v12.73, uploaded 1 Nov 2026 10:12 AEST
-PLF_SHA256 = '687a6466a2609a6f2cae71c97d22694a45ccd7a0bce636d5da232b341515990f'  # pack v1.13, record 12727 (audit_pack.py 388/388)
+PLF_SHA256 = '0aa4987d81eb171d22f819e457fabf064098ae4f234922ce0819c6243df898a5'  # pack v1.14, record 12727 (audit_pack.py 411/411); v1.13 was 687a6466a260
 OLD_SHA = '82bf67510b351057fab517613fa6cd4dc3ac3ae0cd8f9fd03b423576afd14a53'     # pack v1.12, in the live v12.73 block
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 
@@ -79,4 +80,4 @@ def patch(text):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print('patch_v1274 applied: the final P&L on pack v1.13 (data %s) with Schedule 17 in a fold; footer v12.73 -> v12.74' % PLF_SHA256[:12])
+    print('patch_v1274 applied: the final P&L on pack v1.14 (data %s) with Schedule 17 in a fold; footer v12.73 -> v12.74' % PLF_SHA256[:12])

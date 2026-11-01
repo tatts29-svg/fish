@@ -37,6 +37,7 @@ originals); everything on the cost side below comes from the live record and the
 | Schedule 17 (v1.13) | Andrew's Schedule 17, 1 Nov 2026 (private, not committed; SHA-256 in the private `sched17_transport.json` beside the 12727 captures) | each row's TPORT COST figure and DD dockets, against `transport_loads.cjs` and `dated_all.cjs` | 12 loads changed, each by its Schedule 17 row and docket (`audit_pack.py` reads the workbook again) |
 | The V8s' PO on each contract (v1.13) | Andrew's screenshots of each contract's header, 1 Nov 2026 (private `contract_headers.json`; contacts, phones and emails left out) | Customer PO No. | shown as keyed on each contract and invoice |
 | Consumables POs in Coates' system (v1.13) | Andrew's screenshots of the six POs, 1 Nov 2026 (private `po_system.json`) | qty × unit cost (ex GST), status, received, invoiced | 4669481 at 42.33; the status in the open items |
+| Forklift POs in Coates' system (v1.14) | Andrew's screenshots of POs 4647983 and 4654789, 1 Nov 2026 (private `forklift_pos.json`; supplier code, ABN and contacts left out) | each line's qty × unit cost (ex GST), branch, status, received, invoiced; 9961976 L31 and L34 on Baseplan (12) | 2,820.00 on STPS by its three lines' months (Sep · Oct · Nov) and 950.00 on MEAD in September; own use, not charged to the V8s; not accrued (status in the open items) |
 
 Checks the pack asserts (v1.10):
 - costs by month = costs by branch = 547,831.85 (job end);

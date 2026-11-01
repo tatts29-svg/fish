@@ -493,3 +493,43 @@ keyed "P0 07.04" (and printed so on 25123999), 10000484 "P28607". P029416 is on 
 Result: 388 checks, 388 pass.
 
 **Printed:** the page is 12 pages and the workbook 26 (LibreOffice), no table overflow at landscape or portrait width.
+
+## Pack v1.14: the two forklift POs in the costs; PO 4658653 out; Job Connect carried as it stands (1 Nov)
+
+Andrew, 1 Nov 2026 (this chat), on POs 4647983 and 4654789 (screenshots of both in Coates' system): "these are a cost to Coates".
+On PO 4658653: "are we missing one ... if not remove this one then". On Job Connect: "no job connect paperwork i given you what i know".
+
+**The forklift POs (Queensland Forklifts), +3,770.00, ex GST = qty × unit cost.** Both forklifts are on 9961976 at 0.00 as Coates' own
+use (L31 and L34), so nothing is charged to the V8s for them. Each sits on the branch it is raised on.
+
+| PO | What | ex GST | Months | Branch | Status in Coates' system (1 Nov) |
+|---|---|---|---|---|---|
+| 4647983 | 5 t forklift re-hire (1.8 m tynes) for the fencing at Phillip Park, 9961976 L31: 3 weeks 900.00 · 4 weeks 2 days 1,320.00 · 2 weeks 600.00 | 2,820.00 | Sep 900.00 · Oct 1,320.00 · Nov 600.00 | STPS | partly received (900.00), nothing invoiced: an estimate until invoiced |
+| 4654789 | AT009 2.5 t RT forklift for Coates' use, 17–18 Sep, 9961976 L34 | 950.00 | Sep | MEAD | completed, received and invoiced |
+
+4647983's lines go in turn from the hire start on L31 (11 Sep), each in the month it mostly falls in (21, 30 and 14 days). Neither PO
+is accrued here: like the consumables, their status comes from Coates' system and Finance confirms any manual accrual (the Not
+accrued here item names 4647983's 1,920.00 not received).
+
+**PO 4658653 (Job Connect, 1,838.10) is out of the pack.** Every Job Connect week on the running sheet, w/e 20 Sep to w/e 15 Nov, already
+has its PO or invoice or is carried at the running sheet, and 1,838.10 matches none of them. It was never in the costs; only its note goes.
+
+**Job Connect, as it stands:** invoices where received; w/e 18 Oct and w/e 1 Nov at the running sheet (accrued); Daniel Gough's
+November weeks at his PO amounts; Kyle Gover's w/e 8 Nov at the running sheet. The open item now says so and asks for nothing more.
+
+**v1.14 figures:**
+- revenue 1,001,902.14 (unchanged);
+- costs 552,533.71 (Sep 149,435.00 · Oct 379,590.09 · Nov 23,508.62);
+- to accrue 195,076.18 (unchanged);
+- difference 449,368.43;
+- branch costs: KINP 220,851.17 · STPS 318,290.56 · NVAC 7,877.14 · MEAD 5,514.84.
+
+**`audit_pack.py`** now also checks, from the private PO file and Baseplan (12), independently of the builder:
+- each forklift PO at qty × unit cost, on the branch it is raised on, by month from its own lines' dates, and not accrued;
+- 9961976 L31 and L34 at 0.00 (price, rate, billed and prebill);
+- the match-up and Costs by branch;
+- every Job Connect week on the running sheet has its row;
+- PO 4658653 appears nowhere in the outputs;
+- the Job Connect open item asks for no further paperwork.
+
+Result: 411 checks, 411 pass.

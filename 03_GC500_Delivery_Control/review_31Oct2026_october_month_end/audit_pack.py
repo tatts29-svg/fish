@@ -291,6 +291,33 @@ else:
     check('the suppliers export (sub-hire cost lines) is beside the record captures', False)
 cbr = collections.defaultdict(float)
 for r in cb: cbr[(r[0], r[1])] += r[2]
+# ------------------------------------------------------------------ v1.14: the two forklift POs (Coates' system, 1 Nov, private), a cost to Coates; their hire lines on 9961976 are own use at 0.00
+FPO_ = json.load(open(NOW.parent / 'forklift_pos.json'))['pos'] if NOW and (NOW.parent / 'forklift_pos.json').exists() else {}
+check('the two forklift POs as Coates’ system has them are beside the record captures', sorted(FPO_) == ['4647983', '4654789'], sorted(FPO_))
+_days = lambda t: 7 * int(re.search(r'(\d+)\s*x\s*weeks', t).group(1)) + (int(re.search(r'\+(\d+)days', t).group(1)) if '+' in t else 0)
+for po_, ln_ in (('4647983', 31), ('4654789', 34)):
+    rr_ = [r for r in cs if str(r[4]).startswith(po_)]
+    check('forklift PO %s: one row in the costs' % po_, len(rr_) == 1, len(rr_))
+    if len(rr_) != 1 or po_ not in FPO_: continue
+    p_ = FPO_[po_]; ex_ = r2(sum(l['qty'] * l['unit_cost'] for l in p_['lines'])); l_ = [x for x in bp['9961976'] if x['Line'] == ln_][0]
+    eq('forklift PO %s at its amount in Coates’ system (qty × unit cost, ex GST)' % po_, sum((rr_[0][k] or 0) for k in (7, 8, 9)), ex_)
+    eq('forklift PO %s: the screen’s Ordered (GST inclusive) = the lines’ Price Incl' % po_, p_['ordered_inc'], r2(sum(l['price_inc'] for l in p_['lines'])))
+    check('forklift PO %s on %s, the branch it is raised on' % (po_, p_['branch']), rr_[0][1] == p_['branch'], (rr_[0][1], p_['branch']))
+    check('forklift PO %s is not in the accruals (its status is from Coates’ system)' % po_, not rr_[0][10], rr_[0][10])
+    check('9961976 L%d (%s) is own use at 0.00 on Baseplan (12): not charged to the V8s' % (ln_, l_['Description'][:34]), all((l_.get(k) or 0) == 0 for k in ('Price', 'Rate 1', 'Billed Amount', 'Prebill Amount')))
+    eq('forklift PO %s on Costs by branch (%s)' % (po_, p_['branch']), sum(v for (b, k), v in cbr.items() if b == p_['branch'] and k.startswith('Forklift re-hire') and po_ in k), ex_)
+    MB_ = collections.defaultdict(float)
+    if po_ == '4647983':   # each PO line in the month it mostly falls in, the lines in turn from the hire start on L31
+        d0 = dt.date.fromisoformat(l_['Start Date'][:10])
+        for li in p_['lines']:
+            n_ = _days(li['what']); days_ = [d0 + dt.timedelta(days=k) for k in range(n_)]; d0 += dt.timedelta(days=n_)
+            MB_[collections.Counter(x.strftime('%m') for x in days_).most_common(1)[0][0]] += li['qty'] * li['unit_cost']
+        check('4647983: the hire on 9961976 L31 starts 11 Sep and the lines run 21, 30 and 14 days', l_['Start Date'][:10] == '2026-09-11' and [_days(li['what']) for li in p_['lines']] == [21, 30, 14])
+    else:
+        check('4654789: AT009 on 9961976 L34, 17–18 Sep', l_['Start Date'][:10] == '2026-09-17' and l_['Expected Term Date'][:10] == '2026-09-18'); MB_['09'] += ex_
+    check('forklift PO %s by month = its lines’ dates (Sep %s · Oct %s · Nov %s)' % ((po_,) + tuple(fmt(MB_[k]) for k in ('09', '10', '11'))), all(abs((rr_[0][7 + j] or 0) - MB_[k]) < 0.005 for j, k in enumerate(('09', '10', '11'))), rr_[0][7:10])
+    mf_ = [r for r in mu if r[0] == '9961976' and str(r[7]) == po_]
+    check('match-up: PO %s against 9961976 at %s' % (po_, fmt(ex_)), len(mf_) == 1 and abs((mf_[0][8] or 0) - ex_) < 0.005, mf_)
 TLP = (NOW.parent / 'transport_loads.json') if NOW else None
 if TLP and TLP.exists():
     TLd = json.load(open(TLP))['loads']; amt_ = lambda l: (l['actual'] or 0) if l['actual'] else (l['f'] or 0)
@@ -351,9 +378,13 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.13', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.13', re.findall(r'<title>([^<]*)</title>', H))
+check('page title is pack v1.14', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.14', re.findall(r'<title>([^<]*)</title>', H))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
-check('open items name the invoices still to come on 4674224 and 4674225', any('the invoices on 4674224 and 4674225' in str(r[0]) for r in rows('Open items') if r))
+# v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
+check('open items: the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('Carried at the running sheet until invoiced: w/e 18 Oct' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
+_wk = lambda w: 'w/e %d %s' % (int(w[8:10]), {'09': 'Sep', '10': 'Oct', '11': 'Nov'}[w[5:7]])
+check('every Job Connect week on the running sheet has its row in the costs (w/e 20 Sep to w/e 15 Nov)', sorted(_wk(w) for w in LHW) == sorted(jc) and len(jc) == 9, (sorted(_wk(w) for w in LHW), sorted(jc)))
+check('PO 4658653 is not in the pack (no running-sheet week is without its PO or invoice)', not any('4658653' in t for t in texts) and '4658653' not in H)
 # v1.11: Job Connect's supplier in Coates' system (code and registered name, from the private PO file) on every Job Connect line, its accrual and its open item
 JCS_ = json.load(open(NOW.parent / 'jc_pos.json')).get('supplier', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
 _nm = ' '.join(w if '/' in w else w.capitalize() for w in str(JCS_.get('name', '')).split())
@@ -366,7 +397,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.13 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.13', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.14 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.14', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
