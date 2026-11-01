@@ -1,5 +1,5 @@
 """Author: Andrew Fisher. GC500 October month-end: every cost by supplier and month with its PO and invoice or receipt numbers and what to
-accrue; labour by month and branch to 13 Nov; the 18 invoices to the V8s, and their hire by month. Read only, from the live record (12739; v1.22: each branch's transport as deliveries and pick-ups, the fencing semis on STPS on their own, 2 Nov; v1.21: Alfie Harris's 5 Oct night taken off on 2 Nov, as he did not work or stay that day; Job Connect's account as coded on Baseplan, Installs – Temp Staff),
+accrue; labour by month and branch to 13 Nov; the 18 invoices to the V8s, and their hire by month. Read only, from the live record (12739; v1.23: each person's 1–13 Nov hours, worked and paid, beside October's in the data, 2 Nov; v1.22: each branch's transport as deliveries and pick-ups, the fencing semis on STPS on their own, 2 Nov; v1.21: Alfie Harris's 5 Oct night taken off on 2 Nov, as he did not work or stay that day; Job Connect's account as coded on Baseplan, Installs – Temp Staff),
 the invoices and the POs, 31 Oct 2026. Writes an HTML page and a CSV.
 
     python3 -I build_monthend.py <out_dir>
@@ -243,6 +243,10 @@ assert abs(sum(CON.get(('9961976', k), 0) for k in MO) - 108) < 0.01, 'NVAC cont
 # v1.16: November's hours (to 13 Nov) are counted in October, with the labour costs; the tables show September and October (with 1–13 Nov)
 NOVH = {t_: r2(sum(v for (t2, b, k), v in L.items() if t2 == t_ and k == 'Nov')) for t_ in ('Coates wages', 'Salary', 'Labour hire')}
 _hb = r2(sum(PH.values()))
+# v1.23 (Andrew, 2 Nov 2026: "can we show what november is made up of hrs too here"): each person's 1–13 Nov hours by branch, kept
+# before they fold into October, so the hours tables can show them beside October; the costs still carry them in October
+PHN = {(w_, b_): r2(v_) for (w_, k_, b_), v_ in PH.items() if k_ == 'Nov' and v_}
+assert all(abs(sum(v for (w, b), v in PHN.items() if HOME[w][1].startswith(t_)) - NOVH[t_]) < 0.005 for t_ in NOVH), (NOVH, PHN)
 def _fold(d, pos):
     for k_ in [k for k in list(d) if k[pos] == 'Nov']:
         v_ = d.pop(k_); k2 = k_[:pos] + ('Oct',) + k_[pos + 1:]; d[k2] = d.get(k2, 0) + v_
@@ -730,7 +734,7 @@ EST_HTML = ("<h2>2h · Transport estimate (1 Nov): trucks that ran with no figur
 S17_HTML = ("<h2>2e · Transport checked against Schedule 17</h2><p class='s'>Schedule 17 (1 Nov) against every load on the record. The figures are the schedule’s (the carriers’ minimums), as with every load. Each change is one Schedule 17 row; its docket ties it to the hire contract (Baseplan (12)).</p>"
             + tbl(['Ref', 'Date', 'What', 'Hire contract · docket', 'Schedule 17', '#Figure', 'On the record before', '#Change', 'Branch'], _s17r)
             + "<ul>" + ''.join('<li>' + e(t) + '</li>' for t in S17_NOTES) + "</ul>")
-body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.22</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12739), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
+body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.23</h1><p class='s'>As at 31 Oct 2026 · AUD ex GST · from the live record (12739), the 18 invoices to the V8s, the purchase orders and Schedule 17 · Author: Andrew Fisher</p>
 <div class='k'><div><span class='w'>To accrue at 31 Oct (costs for work done, not invoiced)</span><b>{m(acc_total)}</b></div><div><span class='w'>Costs by month of work</span><b>Sep {m(tot[0])}</b><span class='w'>Oct {m(tot[1])} · Nov {m(tot[2])}</span></div>
 <div><span class='w'>Invoiced to the V8s (all 18 in October)</span><b>{m(sum(r['ex'] for r in REV))}</b><span class='w'>hire with waiver by month: Sep {m(RT['Sep'])} · Oct {m(RT['Oct'])} · Nov {m(RT['Nov'])}; services {m(UND)}</span></div></div>
 <h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2><p class='s'>By month of work, except November’s labour (to 13 Nov: the salary allowance, Job Connect and the Coates wages hours), which is in October with October’s. Each line names its purchase order and the hire contract and V8s invoice it's charged on (section 3b groups them by contract). Orange rows: in the accruals through 31 Oct, the journals prepared for Finance (they reverse on 1 Nov and the invoice lands against them; September’s part of Event Portables’ water is in them as a catch-up). Red rows: the record carries no date; where they sit is said on the row.</p>
@@ -994,13 +998,13 @@ def sheet(title, head, rows, money_cols=(), hour_cols=(), widths=None, first=Fal
                 cpl = max(1, int(cw * 1.05))
                 lines = max(lines, sum(max(1, -(-len(part) // cpl)) for part in c.value.split('\n')))
         if lines > 1: ws.row_dimensions[row[0].row].height = 15 * lines + 3
-    ws.oddHeader.left.text = 'GC500 P&&L pack v1.22 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12739'
+    ws.oddHeader.left.text = 'GC500 P&&L pack v1.23 · ' + title; ws.oddHeader.right.text = 'As at 31 Oct 2026 · AUD, ex GST · record 12739'
     ws.oddFooter.left.text = 'Author: Andrew Fisher · private to the job team'; ws.oddFooter.right.text = 'Page &P of &N'
     return ws
 ws_sum = sheet('Summary', ['Branch', 'Invoiced (Oct)', 'November forecast', 'Revenue', 'Costs', 'Difference'],
       [[b, REV_B.get(b, 0), NOV_REV.get(b, 0), r2(REV_B.get(b, 0) + NOV_REV.get(b, 0)), CB[b], r2(REV_B.get(b, 0) + NOV_REV.get(b, 0) - CB[b])] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')]
       + [['The job', r2(sum(REV_B.values())), r2(sum(NOV_REV.values())), JOB_REV, JOB_COST, r2(JOB_REV - JOB_COST)], [],
-         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12739), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.22'],
+         ['As at 31 Oct 2026 · AUD, ex GST · from the live record (12739), the 18 invoices to V8 Supercars (25124396, to Gold Coast Helitours, is not GC500 revenue), the purchase orders, Baseplan (12) and Schedule 17 · pack v1.23'],
          ['Revenue: the 18 invoices, %s, booked in October, the invoice month; and the November forecast, %s, the pick-up charge on 9961976 (L61, 29 Oct, NVAC), not invoiced yet. Costs are the management view at job end, by month of work except November’s labour (to 13 Nov), which is in October; some are estimates until invoiced, and Coates wages are hours only, not yet costed, so the difference is not a margin yet.' % (m(r2(sum(REV_B.values()))), m(r2(sum(NOV_REV.values()))))]],
       money_cols=range(2, 7), widths=[14, 16, 18, 16, 16, 16], first=True)
 assert {r_.min_row for r_ in ws_sum.merged_cells.ranges} == {ws_sum.max_row - 1, ws_sum.max_row}   # v1.16: sheet() merges the two notes across the table, sized for the width
@@ -1059,6 +1063,7 @@ def _alloc(v100, w):   # v100 (hundredths) shared by weights w {branch: hours}: 
     for b in rem[:left]: base[b] += 1
     return base
 PAIDH = collections.defaultdict(lambda: [0, 0, 0, 0])   # (who, branch, month) -> hundredths [paid, ordinary, x1.5, x2]
+PAIDN = collections.defaultdict(int)   # v1.23: (who, branch) -> hundredths paid on 1–13 Nov (inside October's paid hours)
 for (who_, d_), x in sorted(_SH.items()):
     wk_, bh_ = _REG[(who_, d_)]
     assert abs(x['worked'] - wk_) < 0.005 and x['paid'] <= x['worked'] + 1e-9, (who_, d_, x['worked'], wk_, x['paid'])
@@ -1070,6 +1075,7 @@ for (who_, d_), x in sorted(_SH.items()):
     parts = [_alloc(v_, w_) for v_ in bands[1:]]
     for b in w_:
         o_, a_, t_ = parts[0][b], parts[1][b], parts[2][b]; P_ = PAIDH[(who_, b, mo_)]
+        if d_[5:7] == '11': PAIDN[(who_, b)] += o_ + a_ + t_
         P_[0] += o_ + a_ + t_; P_[1] += o_; P_[2] += a_; P_[3] += t_
 _cna = [v for (w, b, m), v in PAIDH.items() if HOME[w][1].startswith('Coates wages')]
 _CNA_TOT = [sum(v[i] for v in _cna) for i in range(4)]
@@ -1078,6 +1084,9 @@ assert all(sum(PAIDH.get((w, b, m2), [0])[0] for m2 in LMO) <= round(sum(PH.get(
 for r_ in lab_rows:
     w, b = r_[0], r_[3]; ps = PAIDH.get((w, b, 'Sep'), [0, 0, 0, 0]); po = PAIDH.get((w, b, 'Oct'), [0, 0, 0, 0])
     r_ += [ps[0] / 100, po[0] / 100, (ps[1] + po[1]) / 100, (ps[2] + po[2]) / 100, (ps[3] + po[3]) / 100]
+    r_ += [PHN.get((w, b), 0.0), PAIDN.get((w, b), 0) / 100]   # v1.23: [14] worked and [15] paid hours on 1–13 Nov, both inside October's
+    assert r_[14] <= r_[7] + 1e-9 and r_[15] <= r_[10] + 1e-9 and r_[15] <= r_[14] + 1e-9, (w, b, r_[7], r_[10], r_[14], r_[15])
+assert sorted((r_[0], r_[3]) for r_ in lab_rows if r_[14]) == sorted(PHN) and sum(PAIDN.values()) == round(sum(r_[15] for r_ in lab_rows) * 100), 'November hours not all on the journal rows'
 _ph = lambda r_: r_[9:14]
 PAID_NOTE = ('Paid hours are the journal basis: the hours payroll pays, worked out here from the running sheet (not payroll’s own figures). Each shift from start to finish less the unpaid break (as typed, else 30 minutes on a weekday; '
              'weekend breaks are paid; hours typed without times are taken as they are). Coates wages split by the running sheet’s rules: on a weekday 7.6 h normal, the next 2 h at ×1.5, '
@@ -1251,12 +1260,12 @@ body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4
 assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + GL_HTML + '<h2>2 · Labour by month and branch')   # v1.17
 assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + PAID_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge; v1.18: paid hours
 assert body.count(MATCH_HTML) == 1; body = body.replace(MATCH_HTML, MATCH_HTML + POREG_HTML)   # v1.15: 3c, every PO in the costs
-(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.22</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
+(OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.23</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
 # v1.10: the final P&L as data for the page's P&L tab (v12.72): the same figures as the workbook, to the cent. Private, beside the pack, not committed.
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD'); _SUP = collections.OrderedDict()
 for r_ in C:
     v_ = _SUP.setdefault(r_[0], [0.0, 0.0, 0.0, 0.0]); v_[0] += r_[6]; v_[1] += r_[7]; v_[2] += r_[8]; v_[3] += (r_[9] or 0)
-PLF = {'pack': 'v1.22', 'record': 12739, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
+PLF = {'pack': 'v1.23', 'record': 12739, 'asAt': '2026-10-31', 'basis': 'AUD ex GST',
        'source': 'the live record (12739), the 18 invoices to V8 Supercars, the purchase orders and Schedule 17',
        'revenue': {'invoices': r2(sum(REV_B.values())), 'novForecast': r2(sum(NOV_REV.values())), 'total': JOB_REV},
        'costs': {'sep': tot[0], 'oct': tot[1], 'nov': tot[2], 'total': JOB_COST}, 'difference': r2(JOB_REV - JOB_COST), 'accrue': acc_total,
@@ -1271,7 +1280,8 @@ PLF = {'pack': 'v1.22', 'record': 12739, 'asAt': '2026-10-31', 'basis': 'AUD ex 
        'revFacts': RFACT,
        'labourJournal': [{'who': x_[0], 'type': x_[1], 'home': x_[2], 'branch': x_[3], 'contract': x_[4], 'journal': x_[5], 'sep': x_[6], 'oct': x_[7], 'labourHire': x_[8],
                          'kind': 'Labour hire' if x_[1].startswith('Labour hire') else 'Salary' if x_[1].startswith('Salary') else 'Coates wages',
-                         'paidSep': x_[9], 'paidOct': x_[10], 'normal': x_[11], 'x15': x_[12], 'x2': x_[13]} for x_ in lab_rows],
+                         'paidSep': x_[9], 'paidOct': x_[10], 'normal': x_[11], 'x15': x_[12], 'x2': x_[13],
+                         'novInOct': x_[14], 'paidNovInOct': x_[15]} for x_ in lab_rows],   # v1.23: of October's hours, those on 1–13 Nov
        'paidNote': PAID_NOTE,
        'labourHireBridge': LH_BRIDGE,
        'transportEstimate': {'method': EST['method'], 'moved': [{'ref': m_['key'], 'from': m_['d'], 'to': m_['to'], 'amount': m_['amount']} for m_ in EST['moves']],
