@@ -84,7 +84,7 @@ open items, branch lines) with counts, totals only where the rows add, highlight
 
 ```
 PLF_JSON_OLD=<pack v1.18>/GC500_PL_final.json PLF_JSON=<pack v1.19>/GC500_PL_final.json \
-  toolchain/build.sh v12.79 v12.79_pl_rehire_pack_v119/patch_v1279.py
+  toolchain/build.sh v12.79 v12.79_pl_rehire_pack_v119_LIVE/patch_v1279.py
 ```
 
 `patch_v1279.py` refuses unless the live block is the v12.77 module on pack v1.18 byte for byte, the v1.19 data ties, and the

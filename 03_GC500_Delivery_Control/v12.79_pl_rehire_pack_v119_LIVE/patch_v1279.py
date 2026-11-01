@@ -20,7 +20,7 @@ This patch holds no figure. On the live v12.78 page (BASE pinned) it:
 - the release footer, v12.78 -> v12.79.
 
     PLF_JSON_OLD=<pack v1.18>/GC500_PL_final.json PLF_JSON=<pack v1.19>/GC500_PL_final.json \
-      toolchain/build.sh v12.79 v12.79_pl_rehire_pack_v119/patch_v1279.py
+      toolchain/build.sh v12.79 v12.79_pl_rehire_pack_v119_LIVE/patch_v1279.py
 """
 import hashlib, importlib.util, json, os, sys
 from pathlib import Path
