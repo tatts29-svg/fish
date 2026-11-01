@@ -60,3 +60,7 @@ __pycache__/
 # Working files, remade from the originals at will - the originals and previews are
 # what is kept; the crops are never in git.
 03_GC500_Delivery_Control/record_*/crops/
+
+# Whole-record backups taken before a record run hold the whole shared record. This repository is public:
+# they are kept privately and never committed (removed from the tree on Andrew's word, 1 Nov 2026).
+backup_state_*.json

@@ -79,18 +79,18 @@ accr = [r for r in cs if r[0].startswith('Accommodation')]
 k97 = [r for r in accr if r[3].startswith('97 ')][0]; lud = [r for r in accr if r[3].startswith('Ludwig')][0]; alf = [r for r in accr if r[3].startswith('Alfie')][0]
 eq('97 nights row Oct = tracker Oct less Ludwig 655.71', k97[8], A['2026-10'] - 655.71); eq('Ludwig row = 3 x 218.57', lud[8], 3 * 218.57)
 check('Ludwig row on NVAC', lud[1] == 'NVAC', lud[1])
-NINE = ('2026-10-05', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12')
-OFF3 = ('2026-10-23', '2026-10-24', '2026-10-25')   # taken off the record on 1 Nov (12685): he did not work then
+NINE = ('2026-10-05', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12')   # v1.12: Alfie's five priced nights (12–15 Oct off the record on 1 Nov, 12727)
+OFF3 = ('2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-23', '2026-10-24', '2026-10-25')   # taken off the record on 1 Nov (12685: 23–25 Oct; 12727: 12–15 Oct): he did not work then
 if ALF:
     al = json.load(open(ALF))['alfie']
     un = [x for x in al if x['d'] in NINE]   # unpriced to 12640, at 223.63 from 12676
-    check("Alfie's 9 nights carry 223.63 on the record (12685), as the pack says", len(un) == 9 and all(x['amt'] == 223.63 for x in un), [(x['d'], x['amt']) for x in un])
-    check("Alfie's 23-25 Oct nights are off the record (12685)", not [x for x in al if x['d'] in OFF3], [x['d'] for x in al if x['d'] in OFF3])
+    check("Alfie's 5 nights carry 223.63 on the record (12727), as the pack says", len(un) == 5 and all(x['amt'] == 223.63 for x in un), [(x['d'], x['amt']) for x in un])
+    check("Alfie's 12-15 and 23-25 Oct nights are off the record (12727)", not [x for x in al if x['d'] in OFF3], [x['d'] for x in al if x['d'] in OFF3])
     late = [x['amt'] for x in al if x['amt'] is not None and ('2026-10-26' <= x['d'] <= '2026-10-29' or '2026-11-02' <= x['d'] <= '2026-11-05')]
     check("Alfie's rate on 26-29 Oct and 2-5 Nov is 223.63 on all 8 nights", len(late) == 8 and set(late) == {223.63}, late)
     n_oct = sum(1 for x in un if x['d'][:7] == '2026-10'); n_nov = sum(1 for x in un if x['d'][:7] == '2026-11')
-    check('Alfie nights in the pack: 5 Oct, 4 Nov', (n_oct, n_nov) == (5, 4), (n_oct, n_nov))
-    eq('Alfie Oct = 5 x 223.63', alf[8], r2(n_oct * 223.63)); eq('Alfie Nov = 4 x 223.63', alf[9], r2(n_nov * 223.63)); eq('Alfie accrues October only', alf[10], r2(n_oct * 223.63))
+    check('Alfie nights in the pack: 1 Oct (5 Oct), 4 Nov', (n_oct, n_nov) == (1, 4), (n_oct, n_nov))
+    eq('Alfie Oct = 1 x 223.63', alf[8], r2(n_oct * 223.63)); eq('Alfie Nov = 4 x 223.63', alf[9], r2(n_nov * 223.63)); eq('Alfie accrues October only', alf[10], r2(n_oct * 223.63))
 DAN10 = ('2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-09', '2026-11-10', '2026-11-11', '2026-11-12', '2026-11-13')
 if NOW:   # the record as it now stands (12715): the 12640 lines less Alfie's three 23-25 Oct nights, his nine priced (12685); Daniel's ten November days back (12715)
     dn = json.load(open(NOW))
@@ -102,15 +102,15 @@ if NOW:   # the record as it now stands (12715): the 12640 lines less Alfie's th
     key = lambda x, blank: json.dumps({**{kk: vv for kk, vv in x.items() if kk not in ('who', 'id', 'keys')}, **({'amount': None} if blank else {})}, sort_keys=True)
     was_, now_ = collections.Counter(key(x, False) for x in dc['exp']), collections.Counter(key(x, is9(x)) for x in dn['exp'])
     gone = [json.loads(g) for g in (was_ - now_).elements()]; extra = list((now_ - was_).elements())
-    check('record now: the 12640 cost lines less three unpriced accommodation nights on 23-25 Oct, Alfie\'s nine priced', not extra and len(gone) == 3 and sorted(g['d'] for g in gone) == list(OFF3) and all(g['k'] == 'accommodation' and g['amount'] is None for g in gone), (gone, extra))
+    check('record now: the 12640 cost lines less seven unpriced accommodation nights (12-15 and 23-25 Oct), Alfie\'s five priced', not extra and len(gone) == 7 and sorted(g['d'] for g in gone) == list(OFF3) and all(g['k'] == 'accommodation' and g['amount'] is None for g in gone), (gone, extra))
     n9 = [x for x in dn['exp'] if is9(x)]
-    check('record now: Alfie\'s 9 nights at 223.63', len(n9) == 9 and all(x['amount'] == 223.63 for x in n9), [(x['d'], x['amount']) for x in n9])
-    check('record now: no Alfie night on 23-25 Oct', not [x for x in dn['exp'] if x['k'] == 'accommodation' and x.get('who') == 'Alfie Harris' and x['d'] in OFF3])
+    check('record now: Alfie\'s 5 nights at 223.63', len(n9) == 5 and all(x['amount'] == 223.63 for x in n9), [(x['d'], x['amount']) for x in n9])
+    check('record now: no Alfie night on 12-15 or 23-25 Oct', not [x for x in dn['exp'] if x['k'] == 'accommodation' and x.get('who') == 'Alfie Harris' and x['d'] in OFF3])
     accn = [x for x in dn['exp'] if x['k'] == 'accommodation']
-    check('record now: 109 accommodation lines, none unpriced', len(accn) == 109 and all(x['amount'] not in (None, '') for x in accn), len(accn))
+    check('record now: 105 accommodation lines, none unpriced', len(accn) == 105 and all(x['amount'] not in (None, '') for x in accn), len(accn))
     for j, m in enumerate(('2026-09', '2026-10', '2026-11')):
         eq('pack accommodation %s = the record now, to the cent' % m, sum((r[7 + j] or 0) for r in accr), r2(sum((x['amount'] or 0) for x in accn if x['d'][:7] == m)))
-    eq('pack accommodation total = the record now (24,036.63)', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in accr), 24036.63)
+    eq('pack accommodation total = the record now (23,142.11)', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in accr), 23142.11)
 meals = [x for x in dc['exp'] if x['k'] in ('meals', 'misc') and x['amount']]
 M = {m: r2(sum(x['amount'] for x in meals if x['d'][:7] == m)) for m in ('2026-09', '2026-10', '2026-11')}
 mr = [r for r in cs if r[0].startswith('Meals')]
@@ -268,7 +268,7 @@ if TLP and TLP.exists():
 alltext = ' '.join(texts)
 check('no invoice-line numbers in contract-line form (L82, L118, 9994954 L11)', not re.search(r'\bL82\b|\bL118\b|9994954[^.;]{0,40}\bL11\b', alltext))
 check('contract lines L140, L163 and L13 are named', all(x in HT for x in ('L140', 'L163', 'L13')))
-check('PM labour 15.22 h, not "15 h"', '15.22 h' in HT and not re.search(r'\b15 h\b', alltext))
+check('PM labour 15.22 h, not "15 h"', '15.22 h' in HT and not re.search(r'(?<![\d.,])15 h\b', alltext))   # v1.12: a decimal such as 27.15 h is not "15 h"
 check('Q6846 is water deliveries and a drinking-water tank', 'drinking-water tank' in HT and 'build toilets' not in alltext)
 check('page title names the pack', 'October month-end' not in re.findall(r'<title>([^<]*)</title>', H)[0])
 check('accommodation rows carry account 3520', all(r[2] == '3520' for r in accr), [r[2] for r in accr])
@@ -285,8 +285,8 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.11', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.11', re.findall(r'<title>([^<]*)</title>', H))
-check('the page names record 12715 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12715)', '4674224', '4674225')))
+check('page title is pack v1.12', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.12', re.findall(r'<title>([^<]*)</title>', H))
+check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 check('open items name the invoices still to come on 4674224 and 4674225', any('the invoices on 4674224 and 4674225' in str(r[0]) for r in rows('Open items') if r))
 # v1.11: Job Connect's supplier in Coates' system (code and registered name, from the private PO file) on every Job Connect line, its accrual and its open item
 JCS_ = json.load(open(NOW.parent / 'jc_pos.json')).get('supplier', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
@@ -300,7 +300,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.11 on record 12715, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.11', 12715, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.12 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.12', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -316,6 +316,28 @@ if JP.exists():
     check('final P&L data: facts only (no "your word", agent names)', not prov.search(json.dumps(J, ensure_ascii=False)), sorted({m.group(0) for m in prov.finditer(json.dumps(J, ensure_ascii=False))}))
 else:
     check('final P&L data (GC500_PL_final.json) is beside the pack', False)
+# ------------------------------------------------------------------ v1.12: labour charged by branch, worked out again from the invoices; the EP 7 units not mentioned
+LCA = collections.defaultdict(float); LCN = collections.Counter(); LCX = []
+for i in keep:
+    b = FIX.get(i['invoice'], i.get('bp_branch'))
+    for l in i['lines']:
+        if re.search(r'\bLABOUR\b', l.get('raw') or ''): LCA[b] += l['line_total']; LCN[b] += 1; LCX.append((b, i['invoice'], l['line_total']))
+LCA = {b: r2(LCA.get(b, 0)) for b in ('KINP', 'STPS', 'NVAC', 'MEAD')}
+check('labour charged, from the invoices: 26 lines coded LABOUR', sum(LCN.values()) == 26, dict(LCN))
+lcs = {r[0]: r for r in rows('Labour charged') if r and r[0] in ('KINP', 'STPS', 'NVAC', 'MEAD', 'Total, the job')}
+for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('labour charged %s (workbook) = the invoices\' LABOUR lines' % b, lcs[b][1], LCA[b])
+eq('labour charged, the job (workbook) = the invoices', lcs['Total, the job'][1], sum(LCA.values()))
+lhb = {b: r2(sum(v for (bb, k), v in cbr.items() if bb == b and k.startswith('Labour hire'))) for b in ('KINP', 'STPS', 'NVAC', 'MEAD')}
+for b in ('KINP', 'STPS', 'NVAC', 'MEAD'):
+    eq('labour hire already in Installs %s = Costs by branch' % b, lcs[b][3] or 0, lhb[b]); eq('left for people\'s cost %s = charged less labour hire' % b, lcs[b][4] or 0, r2(LCA[b] - lhb[b]))
+lls = [r for r in rows('Labour lines') if r and r[0] in ('KINP', 'STPS', 'NVAC', 'MEAD')]
+check('Labour lines sheet: every LABOUR line, amount for amount', sorted((r[0], str(r[1]), round(r[8], 2)) for r in lls) == sorted((b, str(iv), round(a, 2)) for b, iv, a in LCX), len(lls))
+if JP.exists():
+    LJ = J.get('labourCharged', {})
+    check('final P&L data: labour charged by branch = the invoices, and what is left = charged less labour hire', all(abs(x['charged'] - LCA[x['b']]) < 0.005 and abs(x['installLabourHire'] - lhb[x['b']]) < 0.005 and abs(x['left'] - r2(LCA[x['b']] - lhb[x['b']])) < 0.005 for x in LJ.get('branches', [])) and len(LJ.get('branches', [])) == 4)
+    check('final P&L data: the 26 labour lines', len(LJ.get('lines', [])) == 26 and abs(sum(x['amount'] for x in LJ['lines']) - sum(LCA.values())) < 0.005)
+check('the page has the labour-charged section and its total', '2d · Labour we charged the V8s, by branch' in HT and fmt(sum(LCA.values())) in HT)
+check('the Event Portables units at excluded references are not mentioned (Andrew, 1 Nov)', not any(('195 units' in t) or ('735.00' in t) for t in texts + [json.dumps(J, ensure_ascii=False) if JP.exists() else '']))
 print('AUDIT: %d checks, %d pass, %d fail' % (len(OK) + len(BAD), len(OK), len(BAD)))
 print('job cost %s · Sep %s · Oct %s · Nov %s · accruals %s · revenue %s · difference %s' % (fmt(JOB), fmt(SEP), fmt(OCT), fmt(NOV), fmt(ACC), fmt(summ['The job'][3]), fmt(summ['The job'][5])))
 for b in BAD: print('FAIL', b)

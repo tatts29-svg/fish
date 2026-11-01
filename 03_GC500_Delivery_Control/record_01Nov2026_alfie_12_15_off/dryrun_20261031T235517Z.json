@@ -1,0 +1,87 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T235517Z",
+ "mode": "dry",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261012",
+   "person": "Alfie Harris",
+   "date": "2026-10-12",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261012 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261013",
+   "person": "Alfie Harris",
+   "date": "2026-10-13",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261013 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261014",
+   "person": "Alfie Harris",
+   "date": "2026-10-14",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261014 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261015",
+   "person": "Alfie Harris",
+   "date": "2026-10-15",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261015 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "plan": [
+  "deleted/W-A-alfie-harris-20261012",
+  "deleted/W-A-alfie-harris-20261013",
+  "deleted/W-A-alfie-harris-20261014",
+  "deleted/W-A-alfie-harris-20261015",
+  "by/deleted~2f~W-A-alfie-harris-20261012",
+  "by/deleted~2f~W-A-alfie-harris-20261013",
+  "by/deleted~2f~W-A-alfie-harris-20261014",
+  "by/deleted~2f~W-A-alfie-harris-20261015",
+  "costs/W-A-alfie-harris-20261012",
+  "costs/W-A-alfie-harris-20261013",
+  "costs/W-A-alfie-harris-20261014",
+  "costs/W-A-alfie-harris-20261015"
+ ]
+}

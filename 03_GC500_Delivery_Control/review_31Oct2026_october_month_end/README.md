@@ -405,3 +405,43 @@ the accrual and the open item. Result: 250 checks, 250 pass.
 
 **The live P&L tab** stays on pack v1.10 (v12.72). Its figures are identical; it takes the supplier names with the next tab
 rebuild.
+
+## Pack v1.12: labour charged by branch; Alfie's 12–15 Oct nights off; the Event Portables 7 units not mentioned (1 Nov)
+
+Andrew, 1 Nov 2026 (this chat):
+- "alfie never worked 12–15";
+- "yes to 5" (the labour-charged table onto the P&L tab);
+- "the 7 if they are excluded we dont mention";
+- "4658653 is job connect".
+
+**Record change (`../record_01Nov2026_alfie_12_15_off/`).**
+- Alfie Harris's 12, 13, 14 and 15 Oct nights were taken off through the page's own `removeOurCost`, record 12715 → 12727.
+- The backup was kept private.
+- A fresh capture on 12727 differs from 12715 only in those four nights. Accommodation is 105 lines, 23,142.11.
+
+**What changed.**
+
+| Item | Change |
+|---|---|
+| Alfie Harris | 5 nights: 5 Oct (accrued, 223.63) and 9–12 Nov (forecast, 894.52). October and the accrual fall by 894.52. 5 Oct stays an open item (no shift for him that day; confirm against the hotel invoice). |
+| Labour charged by branch (new section 2d; workbook sheets "Labour charged" and "Labour lines") | Every line the 18 invoices code LABOUR, as invoiced, on the branch that invoices it: KINP 67,542.02 (16 lines), STPS 38,699.96 (5), NVAC 9,980.59 (5), MEAD nil; 116,222.57 in all. Beside each: the labour hire already coded to Installs in this pack (KINP 40,029.38, STPS 460.78), and what is left for people's cost journaled to Installs (KINP 27,512.64, STPS 38,239.18, NVAC 9,980.59). Notes: Advanced's installation (2142) on STPS is fencing subcontract labour and is not taken off; MEAD's scissor lift with an operator is a hire line; the fence relocation and ACCOM / ETC lines are not coded labour. |
+| Event Portables | The 7 units at references an earlier rule leaves out are no longer mentioned (open item removed); nothing in the costs changes, as the cost is their quotes. |
+| PO 4658653 | Job Connect's (1,838.10). It is not on the record and matches no week on the running sheet, so it is not in the costs until its week is known (Job Connect open item). |
+
+**v1.12 figures:**
+- revenue 1,001,902.14;
+- costs 546,937.33 (Sep 147,015.00 · Oct 377,013.71 · Nov 22,908.62);
+- to accrue 195,076.18;
+- difference 454,964.81;
+- branch costs: KINP 220,943.51 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20.
+
+**`audit_pack.py`** now also:
+- works the labour charged out again from the invoice lines and checks it against the workbook, the labour lines sheet and the tab's data, with what is left equal to charged less the labour hire on Costs by branch;
+- checks the Event Portables units are not mentioned;
+- has Alfie's checks at five nights on 12727.
+
+Result: 269 checks, 269 pass. Run on the 12715 reads it fails on exactly Alfie's four nights, as it should.
+
+**Printed:** the page is 11 pages and the workbook 20, with all 12 Open items and the four labour notes in full.
+
+Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12727>/alfie_nights.json <12727>/dated_costs.json`.
