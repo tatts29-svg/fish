@@ -239,7 +239,7 @@ check('match-up: 18 contracts', len({r[0] for r in mu if r[0] and r[0][0].isdigi
 jn = [r for r in rows('Journals') if r and r[0]]
 accr_j = [r for r in jn if str(r[0]).startswith('Accrual')]
 eq('journals = the accrue column', sum(r[5] for r in accr_j), ACC)
-check('journals total row', any(r[0] == 'Total accruals' and abs(r[5] - ACC) < 0.005 for r in jn))
+check('journals total row', any(r[0] == 'Total, accruals through 31 Oct (prepared for Finance)' and abs(r[5] - ACC) < 0.005 for r in jn))
 moves = [r for r in jn if str(r[0]).startswith('Branch move ·')]   # the two moves, not the header row above them
 check('branch moves net to zero (two legs each)', all(re.search(r'−([\d,.]+) · \w+ \+([\d,.]+)', r[4]) and re.search(r'−([\d,.]+)', r[4]).group(1) == re.search(r'\+([\d,.]+)', r[4]).group(1) for r in moves) and len(moves) == 2, [r[4] for r in moves])
 lp = [r for r in rows('Labour by person') if r and r[0]]
@@ -286,7 +286,7 @@ if SUPX and SUPX.exists():
     eq('Premiair on KINP (Costs by branch)', sum(v for (b, k), v in cbr.items() if b == 'KINP' and k.startswith('Premiair')), PRB['KINP'])
     eq('Premiair on NVAC: VMS24, its cost line 201.NVAC.2126', sum(v for (b, k), v in cbr.items() if b == 'NVAC' and k.startswith('Premiair')), PRB['NVAC'])
     rwl = subl('9974042'); rw = [r for r in cs if r[0].startswith('United Rentals')][0]
-    eq('Royal Wolf = its cost line on 9974042 (32 days at 42.63)', rw[8], r2(sum(x['GST Excl Price'] for x in rwl)))
+    eq('Royal Wolf = its cost line on 9974042 (its system line total, 32 days charged)', rw[8], r2(sum(x['GST Excl Price'] for x in rwl)))
 else:
     check('the suppliers export (sub-hire cost lines) is beside the record captures', False)
 cbr = collections.defaultdict(float)
@@ -378,7 +378,8 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.15', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.15', re.findall(r'<title>([^<]*)</title>', H))
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.16'
+check('page title and heading: the dated job position, pack v1.16 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
 check('open items: the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('Carried at the running sheet until invoiced: w/e 18 Oct' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
@@ -397,7 +398,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.15 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.15', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.16 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.16', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -497,6 +498,61 @@ _ep = json.load(open(PR / 'ep_detail.json'))
 _eps = json.dumps(_ep); _m = re.search(r'"description": "Toilet Block Cleaning", "card_line": "Sewer Connect Units Clean & Restock", "quantity": (\d+), "rate": (\d+)', _eps)
 check('Event Portables cleaned 51 blocks at 185.00 (Q6844) = 18 tank + 6 WC31 + 24 sewer-connected + 3 WC-TV', bool(_m) and int(_m.group(1)) == 51 == 18 + 6 + 24 + 3 and int(_m.group(2)) == 185, _m and _m.groups())
 check('the open items say how the 51 block cleans tie and what L143 is', any('WC09, WC15, WC16 and WC17' in str(r[0]) and 'T0243' in str(r[0]) for r in rows('Open items') if r) and any('the eight sewer-connected blocks WC09, WC15, WC16 and WC17' in str(r[0]) and '780.75' in str(r[0]) for r in rows('Open items') if r))
+# ------------------------------------------------------------------ v1.16: Codex's v1.15 recheck corrections (PACK_v115_RECHECK.md items 1-5 and 7; item 6 is the tab's print strip)
+_alltx = texts + ([json.dumps(J, ensure_ascii=False)] if JP.exists() else [])
+_fk = [r for r in cs if r[0].startswith('Queensland Forklifts') and str(r[4]).startswith('4647983')]
+check('item 1: the 4647983 forklift line says its months are estimated from the PO’s durations, not service dates', len(_fk) == 1 and 'months estimated' in str(_fk[0][11]) and 'not service dates' in str(_fk[0][11]) and 'months estimated' in str(_fk[0][12]), _fk and (_fk[0][11], _fk[0][12]))
+if JP.exists():
+    _fj = [l for l in J['lines'] if l['supplier'].startswith('Queensland Forklifts') and str(l['po']).startswith('4647983')]
+    check('item 1: the data carries the same qualification', len(_fj) == 1 and 'not service dates' in _fj[0]['basis'] and 'months estimated' in _fj[0]['status'])
+check('item 1: the open items and the PO register qualify the forklift months', any('months estimated from the PO’s approximate durations (not service dates)' in str(r[0]) for r in rows('Open items') if r) and any(r[0] == '4647983' and 'months estimated' in str(r[6]) for r in pre))
+check('item 2: Royal Wolf is described by its system line total (1,364.23 for 32 days; 42.63 a day is rounded)', '1,364.23 for 32 days' in HT and '32 × 42.63 is 1,364.16' in HT and not any('32 days at 42.63' in t for t in _alltx))
+_rwc = [r for r in cs if 'Royal Wolf' in r[0]]
+check('item 2: the Royal Wolf cost line’s basis names the line total and the rounded rate', len(_rwc) == 1 and '1,364.23 for 32 days' in str(_rwc[0][3]) and 'rounded' in str(_rwc[0][3]) and '32 × 42.63 is 1,364.16' in str(_rwc[0][3]), _rwc and _rwc[0][3])
+if JP.exists():
+    _fr = [x for x in J['labourCharged']['lines'] if x.get('hours') is not None and abs(float(x['hours']) - round(float(x['hours']))) > 1e-9]
+    _nw = {5: 'Five', 6: 'Six', 7: 'Seven'}.get(len(_fr))
+    check('item 3: the labour note’s count = the lines with part hours (%d)' % len(_fr), bool(_nw) and any(t.startswith(_nw + ' lines print whole hours but charge part hours') for t in J['labourCharged']['notes']) and not any('Five lines print' in t for t in _alltx if _nw != 'Five'), (len(_fr), [t[:40] for t in J['labourCharged']['notes']]))
+for t_ in ('Difference so far', 'not a margin yet', 'Accruals through 31 Oct (the journals prepared for Finance', 'carrier loads and the consumables and forklift POs are not in them: Finance to confirm',
+           'Coates wages are hours only, not yet costed', '1 · Costs by supplier and month, with the accruals through 31 Oct', '5 · Journals prepared for Finance, through 31 Oct', 'Accruals through 31 Oct, prepared for Finance (each reverses on 1 Nov'):
+    check('item 4: the page says “%s”' % t_, t_ in HT)
+check('item 4: no “To accrue”, “, final ·” or “Journals at 31 Oct” left on the page or in the workbook', not any(re.search(r'To accrue|, final ·|Journals at 31 Oct|Accrue 31 Oct|Accrue at 31 Oct', t) for t in texts), sorted({m_.group(0) for t in texts for m_ in re.finditer(r'To accrue|, final ·|Journals at 31 Oct|Accrue 31 Oct|Accrue at 31 Oct', t)}))
+check('item 4: the revenue tile shows the 18 invoices and the November forecast, each with its figure', ('the 18 invoices ' + fmt(REV_TOT)) in HT and 'the November forecast 839.07 (9961976 L61), not invoiced yet' in HT)
+check('item 4: the accrual column carries the same name (workbook and CSV)', wb['Costs by supplier'].cell(1, 11).value == 'Accruals through 31 Oct' == CS[1][10], (wb['Costs by supplier'].cell(1, 11).value, CS[1][10:11]))
+check('item 4: the Summary sheet note shows the invoices and the forecast, each with its figure, and says the difference is not a margin yet', any(isinstance(c, str) and ('the 18 invoices, ' + fmt(REV_TOT)) in c and 'the November forecast, 839.07' in c and 'not a margin yet' in c for row in wb['Summary'].iter_rows(values_only=True) for c in row))
+_wbm = openpyxl.load_workbook(PK / 'GC500_PL_final.xlsx')
+for sh_ in ('Schedule 17 transport', 'Labour charged', 'Summary'):
+    ws_ = _wbm[sh_]; nc_ = ws_.max_column; mr_ = {r.min_row: r for r in ws_.merged_cells.ranges}
+    notes_ = [c[0] for c in ws_.iter_rows(min_row=2) if isinstance(c[0].value, str) and len(c[0].value) > 40 and all(x.value in (None, '') for x in c[1:])]
+    tw_ = sum((ws_.column_dimensions[openpyxl.utils.get_column_letter(i_)].width or 10) for i_ in range(1, nc_ + 1))
+    ok_ = [c for c in notes_ if c.row in mr_ and (mr_[c.row].min_col, mr_[c.row].max_col, mr_[c.row].max_row) == (1, nc_, c.row) and c.alignment.wrap_text and (ws_.row_dimensions[c.row].height or 0) >= 15 * -(-len(c.value) // max(1, int(tw_ * 1.05))) - 0.01]
+    check('item 5: %s, every note row spans the table (A to %s) and is tall enough for its text (%d notes)' % (sh_, openpyxl.utils.get_column_letter(nc_), len(notes_)), len(notes_) > 0 and len(ok_) == len(notes_), [(c.row, c.value[:40]) for c in notes_ if c not in ok_])
+if S17: check('item 5: the Schedule 17 notes are in the merged rows, word for word', all(any(c.value == t for c in _wbm['Schedule 17 transport']['A']) for t in (J['schedule17']['notes'] if JP.exists() else [])))
+_pc = re.search(r'@media print\{(.*?)\}\s*</style>', H, re.S) or re.search(r'@media print\s*\{(.*)', H, re.S)
+check('item 7: the print styles set readable text (body 11px, tables 10px, headings 9.5px)', bool(_pc) and 'font-size:11px' in _pc.group(1) and 'table{min-width:0!important;width:100%!important;font-size:10px}' in _pc.group(1) and 'th{font-size:9.5px}' in _pc.group(1))
+# ------------------------------------------------------------------ v1.16: the elite check of live v12.75 (1 Nov 2026), the findings verified against the sources
+_PSY = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}
+_cons = {str(r[4]): r for r in cs if str(r[4]) in _PSY}
+check('elite pos-03: each consumables PO’s cost line says what Coates’ system says (%d)' % len(_cons), len(_cons) == 6 and all(str(r[12]) == ('invoiced (completed in Coates’ system)' if _PSY[k]['fully_invoiced'] else 'received in full, not invoiced: check invoice' if _PSY[k]['fully_received'] else 'nothing received yet: check invoice') for k, r in _cons.items()), {k: r[12] for k, r in _cons.items()})
+_advreg = {r[0]: r for r in pre if r[0] in ('4647508', '4647509', '4647515', '4647517', '4647519', '4647520', '4658850')}
+check('elite pos-05: Advanced’s seven orders are receipted, an Advanced invoice named only where the record has one (4647509 GC220926, 4658850 93920)', len(_advreg) == 7 and not any('and invoiced' in str(r[6]) for r in _advreg.values()) and 'Advanced invoice GC220926' in str(_advreg['4647509'][6]) and 'Advanced invoice 93920' in str(_advreg['4658850'][6]) and all('Advanced invoice' not in str(r[6]) for k, r in _advreg.items() if k not in ('4647509', '4658850')) and not any('invoiced and receipted' in t for t in texts), {k: r[6] for k, r in _advreg.items()})
+check('elite pos-06: 4658850 is described from the record’s note (a partial collection, Advanced INV 93920)', str(_advreg['4658850'][2]).startswith('partial collection (Advanced INV 93920)') and not any('no description on the PO' in str(r[2]) for r in pre), _advreg['4658850'][2])
+_epj = [r for r in jn if str(r[0]).startswith('Accrual · Event Portables, hire')]
+check('elite pos-07: the Event Portables 2126 journal names the water and the pit-lane trailer, and its parts add to it (42,175.00 + 14,450.00 + 3,350.00)', len(_epj) == 1 and 'water' in _epj[0][0] and 'Q6847 pit-lane trailer 3,350.00' in _epj[0][0] and abs(42175.00 + 14450.00 + 3350.00 - _epj[0][5]) < 0.005 and abs(4850.00 + 9600.00 - 14450.00) < 0.005, _epj and _epj[0][:1])
+_cnp = [r for r in prn if str(r[1]).startswith('Carriers')]
+check('elite pos-09: the carrier rows with no figure are called forecasts in the no-PO list', len(_cnp) == 3 and sum('forecast' in str(r[6]) for r in _cnp) == 2 and sum('the schedule’s figures' in str(r[6]) for r in _cnp) == 1, [r[6] for r in _cnp])
+_EPQ = json.load(open(PR / 'ep_detail.json'))['svc']['quotes']
+check('elite pos-10: the Event Portables quotes are unsigned with no PO, and the pack says so (no “approved”)', all(str(q.get('signed', '')).startswith('no') and not q.get('purchase_order_no') for q in _EPQ) and 'four quotes (unsigned; no PO on them)' in HT and not any('approved quotes' in t for t in texts))
+_EW = json.load(open(NOW.parent / 'jc_pos.json')).get('eric_week', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
+check('elite pos-11: Eric Lucian’s week is in the private Job Connect file with its source, and the open item uses it', _EW.get('amount') == 2435.83 and str(_EW.get('given', '')).startswith('Andrew Fisher, 31 Oct 2026') and any(('Eric Lucian’s week (w/e 18 Oct) is ' + fmt(_EW['amount'])) in str(r[0]) for r in rows('Open items') if r))
+_b9 = {x['Line']: x for x in bp['9994954']}
+check('elite revenue-06: on 9994954, Event Portables’ units are L19, L21 and L22; L18 is the transport of Coates’ WC09 blocks', _b9[18]['Description'] == 'Transport Charge Toilet Block' and 'Pee Panels' in _b9[19]['Description'] and 'FWF' in _b9[21]['Description'] and 'FWF' in _b9[22]['Description'] and any('Event Portables: L19 (6 pee panels), L21 (10 FWF at WC09) and L22 (3 FWF at WC10)' in str(r[6]) for r in mu if r and r[0] == '9994954') and not any('L18 transport and L19 hire' in t for t in texts))
+_b4 = {x['Line']: x for x in bp['9992300']}
+check('elite revenue-07: 9992300 L4 is a scissor lift “With Operator Protection”, not a line with an operator', 'With Operator Protection' in _b4[4]['Description'] and not any(re.search(r'the one line with an operator|Scissor Lift With Operator(?! Protection)', t) for t in texts + ([json.dumps(J, ensure_ascii=False)] if JP.exists() else [])) and any('none supplies an operator' in t for t in (J['labourCharged']['notes'] if JP.exists() else [])))
+_ih = [i for i, r in enumerate(CS) if r and r[0] == 'Invoice']
+_ir = [r for r in CS[_ih[0] + 1:] if r and re.fullmatch(r'\d{8}', r[0]) and r[3] != 'removed'] if _ih else []
+_rvpo = {str(r[0]): str(r[3]) for r in rv}
+check('elite revenue-08: the CSV’s invoice rows carry the V8s’ PO, as the workbook does (%d)' % len(_ir), bool(_ih) and CS[_ih[0]][-1] == 'V8s PO (on the contract)' and len(_ir) == 18 and all(r[-1] == _rvpo[r[0]] for r in _ir), _ir[:1])
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]
