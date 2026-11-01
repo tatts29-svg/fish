@@ -1,0 +1,114 @@
+--- a/03_GC500_Delivery_Control/v12.79_pl_rehire_pack_v119_LIVE/plf1279_find.js
++++ b/03_GC500_Delivery_Control/v12.79_pl_rehire_pack_v119_LIVE/plf1279_find.js
+@@ -312,0 +313,6 @@
++/* Labour follows the pack's accounting months: 1–13 Nov is already in October. Overtime bands have no monthly split. */
++function xHoursIn(x, mo, paid) { var a = C(x[paid ? 'paidSep' : 'sep']), b = C(x[paid ? 'paidOct' : 'oct']); return (mo === 'Sep' ? a : mo === 'Oct' ? b : mo === 'Nov' ? 0 : a + b) / 100; }
++function xLabourCat(x, cat) { return !cat || x.kind === KIND[cat]; }
++function xHoursPeriod(mo) { return mo === 'Oct' ? 'October (with 1–13 Nov)' : mo === 'Sep' ? 'September' : mo === 'Nov' ? 'November (hours carried in October)' : 'job end'; }
++function xHoursBasis(mo) { return mo === 'Nov' ? 'November’s hours, to 13 Nov, are counted in October: no hours are allocated separately to November.' : mo === 'Oct' ? 'October includes November’s hours, to 13 Nov.' : ''; }
++
+@@ -499 +505 @@
+-    ANS = xPersonAns(K.who, H);
++    ANS = xPersonAns(K.who, s, H);
+@@ -676,2 +682,2 @@
+-function xPersonAns(who, H) {
+-  var J = DATA, G = H.G, rows = (J.labourJournal || []).filter(function (x) { return who.indexOf(x.who) >= 0; }), a = [];
++function xPersonAns(who, s, H) {
++  var J = DATA, G = H.G, rows = (J.labourJournal || []).filter(function (x) { return who.indexOf(x.who) >= 0 && (!s.br || x.branch === s.br) && xLabourCat(x, s.cat); }), a = ['Labour hours for ' + xHoursPeriod(s.mo) + (s.br ? ', journaled to ' + s.br : '') + (s.cat ? ', ' + s.cat : '') + '. ' + xHoursBasis(s.mo)];
+@@ -680,2 +686,2 @@
+-    var wk = 0, pd = 0, lh = 0; r.forEach(function (x) { wk += Math.round((x.sep + x.oct) * 100); pd += Math.round((x.paidSep + x.paidOct) * 100); lh += C(x.labourHire); });
+-    a.push(whoName(r[0]) + ': ' + r[0].kind + ', home ' + r[0].home + ' → ' + r.map(function (x) { return x.branch; }).filter(function (v, i, aa) { return aa.indexOf(v) === i; }).join(', ') + ', ' + B_(hrs(wk / 100)) + ' worked h, ' + B_(hrs(pd / 100)) + ' paid h' + (lh ? '; running sheet ' + BC(lh) : '') + '.'); });
++    var wk = 0, pd = 0, lh = 0; r.forEach(function (x) { wk += C(xHoursIn(x, s.mo, false)); pd += C(xHoursIn(x, s.mo, true)); if (!s.mo) lh += C(x.labourHire); });
++    a.push(whoName(r[0]) + ': ' + r[0].kind + ', home ' + r[0].home + ' → ' + r.map(function (x) { return x.branch; }).filter(function (v, i, aa) { return aa.indexOf(v) === i; }).join(', ') + ', ' + B_(hh(wk / 100)) + ' worked h, ' + B_(hh(pd / 100)) + ' paid h' + (lh ? '; running sheet ' + BC(lh) : '') + '.'); });
+@@ -687 +693 @@
+-  if (po.length) a.push('POs naming them: ' + po.map(function (r) { return J.purchaseOrders[r.i].po + ' ' + BC(r.c) + (r.tag ? ' (' + r.tag + ')' : ''); }).join(' · ') + '.');
++  if (po.length) a.push('POs naming them (whole PO amounts, all work months, branches and categories): ' + po.map(function (r) { return J.purchaseOrders[r.i].po + ' ' + BC(r.c) + (r.tag ? ' (' + r.tag + ')' : ''); }).join(' · ') + '.');
+@@ -689,4 +695,4 @@
+-  a.push('No person total: costs are not split by person.');
+-  G('po', GLAB.po, po, {tot: null, why: 'some are shared; no person total'}); G('nopo', GLAB.nopo, np, {tot: null, why: 'some are shared; no person total'});
+-  G('lh', GLAB.lh, nm('lh'), {tot: null, why: 'whole weeks'}); G('jn', GLAB.jn, nm('jn'), {tot: null, why: 'whole journals'}); G('mv', GLAB.mv, nm('mv'), {tot: null, why: 'moves net to nil'});
+-  G('cc', GLAB.cc, nm('cc'), {tot: null, why: 'whole tied costs'}); G('open', GLAB.open, op, {tot: null, why: 'open items are not added'});
++  a.push('No person total: costs are not split by person. Related records below are whole references, for the job, not allocated to the month, branch or category choice.');
++  G('po', GLAB.po + ' · whole references, all months, branches and categories', po, {tot: null, why: 'some are shared; no person total'}); G('nopo', GLAB.nopo + ' · whole references, all months, branches and categories', np, {tot: null, why: 'some are shared; no person total'});
++  G('lh', GLAB.lh + ' · whole references, all months, branches and categories', nm('lh'), {tot: null, why: 'whole weeks'}); G('jn', GLAB.jn + ' · whole references, all months, branches and categories', nm('jn'), {tot: null, why: 'whole journals'}); G('mv', GLAB.mv + ' · whole references, all months, branches and categories', nm('mv'), {tot: null, why: 'moves net to nil'});
++  G('cc', GLAB.cc + ' · whole references, all months, branches and categories', nm('cc'), {tot: null, why: 'whole tied costs'}); G('open', GLAB.open + ' · whole references, all months, branches and categories', op, {tot: null, why: 'open items are not added'});
+@@ -997,9 +1003,9 @@
+-    var kinds = {}, ordK = [], ljr = [];
+-    (J.labourJournal || []).forEach(function (x, i) { if (s.br && x.branch !== s.br) return; var k = x.kind; if (!kinds[k]) { kinds[k] = {n: 0, a: 0, b: 0, p: 0}; ordK.push(k); }
+-      kinds[k].n += C(x.normal); kinds[k].a += C(x.x15); kinds[k].b += C(x.x2); kinds[k].p += C(x.paidSep) + C(x.paidOct);
+-      var r = H.recRow(H.recs('lj')[i]); r.h = s.mo === 'Sep' ? x.paidSep : s.mo === 'Oct' ? x.paidOct : Math.round((C(x.paidSep) + C(x.paidOct))) / 100; r.d = x.kind + ' · normal ' + hh(x.normal) + ' · ×1.5 ' + hh(x.x15) + ' · ×2 ' + hh(x.x2) + ' (job)'; ljr.push(r); });
+-    var kt = function (k) { var o = kinds[k]; return k === 'Salary' ? 'normal ' + B_(hh(o.n / 100)) : 'normal ' + B_(hh(o.n / 100)) + ' · ×1.5 ' + B_(hh(o.a / 100)) + ' · ×2 ' + B_(hh(o.b / 100)) + ' = ' + B_(hh(o.p / 100)) + ' paid'; };
+-    R.ans = 'Paid hours, the journal basis' + (s.br ? ', on ' + s.br : '') + ': ' + ordK.map(function (k) { return k + ' ' + kt(k); }).join('; ') + '. Hours only: Coates wages are not costed.';
+-    var pt = 0; ljr.forEach(function (r) { pt += Math.round(r.h * 100); });
+-    G('lj', 'Paid hours: normal, ×1.5 and ×2', ljr, {hours: true, tot: pt / 100, unit: 'row', fcol: s.mo ? s.mo + ' paid h' : 'Paid h'});
+-    G('kind', 'By kind', ordK.map(function (k) { var o = kinds[k]; return {t: k, d: 'normal ' + hh(o.n / 100) + ' · ×1.5 ' + hh(o.a / 100) + ' · ×2 ' + hh(o.b / 100), b: '', h: o.p / 100, fold: 'pl1267-fp-lj'}; }), {hours: true, tot: ordK.reduce(function (t, k) { return t + kinds[k].p; }, 0) / 100, unit: 'kind', fold: 'pl1267-fp-lj'});
++    var kinds = {}, ordK = [], ljr = [], period = xHoursPeriod(s.mo);
++    (J.labourJournal || []).forEach(function (x, i) { if ((s.br && x.branch !== s.br) || !xLabourCat(x, s.cat)) return; var hp = xHoursIn(x, s.mo, true); if (!hp) return;
++      var k = x.kind; if (!kinds[k]) { kinds[k] = {n: 0, a: 0, b: 0, p: 0}; ordK.push(k); }
++      kinds[k].n += C(x.normal); kinds[k].a += C(x.x15); kinds[k].b += C(x.x2); kinds[k].p += C(hp);
++      var r = H.recRow(H.recs('lj')[i]); r.h = hp; r.d = x.kind + ' · overtime bands for the job, not split by month: normal ' + hh(x.normal) + ' · ×1.5 ' + hh(x.x15) + ' · ×2 ' + hh(x.x2); ljr.push(r); });
++    var pt = 0; ljr.forEach(function (r) { pt += C(r.h); });
++    R.ans = 'Paid hours for ' + period + (s.br ? ', on ' + s.br : '') + (s.cat ? ', ' + s.cat : '') + ': ' + B_(hh(pt / 100)) + ' h. ' + xHoursBasis(s.mo) + ' Hours only: Coates wages are not costed. Overtime bands are for the job; the pack does not split them by month.';
++    G('lj', 'Paid hours · ' + period, ljr, {hours: true, tot: pt / 100, unit: 'row', fcol: 'Paid h · ' + period});
++    G('kind', 'Paid hours by kind · ' + period, ordK.map(function (k) { var o = kinds[k]; return {t: k, d: 'overtime bands for the job, not split by month: normal ' + hh(o.n / 100) + ' · ×1.5 ' + hh(o.a / 100) + ' · ×2 ' + hh(o.b / 100), b: '', h: o.p / 100, fold: 'pl1267-fp-lj'}; }), {hours: true, tot: pt / 100, unit: 'kind', fold: 'pl1267-fp-lj', fcol: 'Paid h · ' + period});
+@@ -1007,3 +1013,3 @@
+-    var W = (J.labourJournal || []).map(function (x, i) { return i; }).filter(function (i) { var x = J.labourJournal[i]; return x.kind === 'Coates wages' && (!s.br || x.branch === s.br); });
+-    var ws = 0, wo = 0, wp = 0, wb = {}, nm = [];
+-    W.forEach(function (i) { var x = J.labourJournal[i]; ws += Math.round(x.sep * 100); wo += Math.round(x.oct * 100); var p = C(x.paidSep) + C(x.paidOct); wp += p; wb[x.branch] = (wb[x.branch] || 0) + p; if (nm.indexOf(whoName(x)) < 0) nm.push(whoName(x)); });
++    var W = (J.labourJournal || []).map(function (x, i) { return i; }).filter(function (i) { var x = J.labourJournal[i]; return x.kind === 'Coates wages' && (!s.br || x.branch === s.br) && xLabourCat(x, s.cat) && (xHoursIn(x, s.mo, false) || xHoursIn(x, s.mo, true)); });
++    var ww = 0, wp = 0, wb = {}, nm = [], periodW = xHoursPeriod(s.mo);
++    W.forEach(function (i) { var x = J.labourJournal[i]; ww += C(xHoursIn(x, s.mo, false)); var p = C(xHoursIn(x, s.mo, true)); wp += p; wb[x.branch] = (wb[x.branch] || 0) + p; if (nm.indexOf(whoName(x)) < 0) nm.push(whoName(x)); });
+@@ -1011,3 +1017,3 @@
+-    R.ans = 'Coates wages' + (s.br ? ' on ' + s.br : '') + ': ' + n(W.length, 'row', 'rows') + ' (' + nm.join(', ') + '). Worked ' + B_(hh(ws / 100)) + ' h in September + ' + B_(hh(wo / 100)) + ' h in October (with 1–13 Nov) = ' + B_(hh((ws + wo) / 100)) + ' h; paid ' + B_(hh(wp / 100)) + ' h (' + BRS.filter(function (b) { return wb[b]; }).map(function (b) { return b + ' ' + B_(hh(wb[b] / 100)); }).join(' · ') + '). No dollars: no pay rate is applied.';
+-    G('lj', 'Coates wages: paid hours', W.map(function (i) { var r = H.recRow(H.recs('lj')[i]); r.d = 'worked Sep ' + hh(J.labourJournal[i].sep) + ' · Oct ' + hh(J.labourJournal[i].oct) + ' · ' + r.d; return r; }), {hours: true, tot: wp / 100, unit: 'row'});
+-    G('ljb', 'Paid hours by branch', BRS.filter(function (b) { return wb[b]; }).map(function (b) { return {t: BRN[b], d: 'the branch the hours are journaled to', b: b, h: wb[b] / 100, at: 'data-b', av: b, fold: 'pl1267-fp-lj'}; }), {hours: true, tot: wp / 100, unit: 'branch', units: 'branches', fold: 'pl1267-fp-lj'});
++    R.ans = 'Coates wages for ' + periodW + (s.br ? ' on ' + s.br : '') + ': ' + n(W.length, 'row', 'rows') + (nm.length ? ' (' + nm.join(', ') + ')' : '') + '. Worked ' + B_(hh(ww / 100)) + ' h; paid ' + B_(hh(wp / 100)) + ' h' + (wp ? ' (' + BRS.filter(function (b) { return wb[b]; }).map(function (b) { return b + ' ' + B_(hh(wb[b] / 100)); }).join(' · ') + ')' : '') + '. ' + xHoursBasis(s.mo) + (s.cat ? ' Coates wages are uncosted hours, not assigned to the selected cost category (' + s.cat + '); choose All categories to see them.' : '') + ' No dollars: no pay rate is applied.';
++    G('lj', 'Coates wages: paid hours · ' + periodW, W.map(function (i) { var x = J.labourJournal[i], r = H.recRow(H.recs('lj')[i]); r.h = xHoursIn(x, s.mo, true); r.d = 'worked ' + hh(xHoursIn(x, s.mo, false)) + ' h · ' + periodW + ' · ' + x.home + ' → ' + x.branch; return r; }), {hours: true, tot: wp / 100, unit: 'row', fcol: 'Paid h · ' + periodW});
++    G('ljb', 'Paid hours by branch · ' + periodW, BRS.filter(function (b) { return wb[b]; }).map(function (b) { return {t: BRN[b], d: 'the branch the hours are journaled to · ' + periodW, b: b, h: wb[b] / 100, at: 'data-b', av: b, fold: 'pl1267-fp-lj'}; }), {hours: true, tot: wp / 100, unit: 'branch', units: 'branches', fold: 'pl1267-fp-lj', fcol: 'Paid h · ' + periodW});
+@@ -1017 +1023 @@
+-    var ph = function (x) { return (C(x.paidSep) + C(x.paidOct)) / 100; };
++    var ph = function (x) { return xHoursIn(x, s.mo, true); }, hourOk = function (x) { return xLabourCat(x, s.cat) && ph(x); }, periodJ = xHoursPeriod(s.mo), registerScope = ' · prepared through 31 Oct, all work months and categories';
+@@ -1019 +1025 @@
+-      var into = LJ.filter(function (x) { return x.branch === s.br && x.home !== s.br; }), outo = LJ.filter(function (x) { return x.home === s.br && x.branch !== s.br; });
++      var into = LJ.filter(function (x) { return x.branch === s.br && x.home !== s.br && hourOk(x); }), outo = LJ.filter(function (x) { return x.home === s.br && x.branch !== s.br && hourOk(x); });
+@@ -1022,2 +1028,2 @@
+-      R.ans = 'Journaled to ' + s.br + ': ' + (into.map(function (x) { return whoName(x) + ' ' + x.home + '→' + x.branch + ' ' + B_(hh(ph(x))) + ' h'; }).join(' · ') || 'none') + '. Out of ' + s.br + ': ' + (outo.map(function (x) { return whoName(x) + ' →' + x.branch + ' ' + B_(hh(ph(x))) + ' h'; }).join(' · ') || 'none') + '. Cost moves: '
+-        + (mvs.map(function (o) { return B_(sg(o.c)) + ' (PO ' + o.j.po + ', ' + String(o.j.contract).split(' ')[0] + ')'; }).join(' · ') || 'none') + '. Accruals journaled to ' + s.br + ' ' + BC(jpt) + '.';
++      R.ans = 'Paid hours for ' + periodJ + (s.cat ? ', ' + s.cat : '') + ', journaled to ' + s.br + ': ' + (into.map(function (x) { return whoName(x) + ' ' + x.home + '→' + x.branch + ' ' + B_(hh(ph(x))) + ' h'; }).join(' · ') || 'none') + '. Out of ' + s.br + ': ' + (outo.map(function (x) { return whoName(x) + ' →' + x.branch + ' ' + B_(hh(ph(x))) + ' h'; }).join(' · ') || 'none') + '. Cost moves prepared through 31 Oct (all work months and categories): '
++        + (mvs.map(function (o) { return B_(sg(o.c)) + ' (PO ' + o.j.po + ', ' + String(o.j.contract).split(' ')[0] + ')'; }).join(' · ') || 'none') + '. Accruals prepared through 31 Oct (all work months and categories), journaled to ' + s.br + ' ' + BC(jpt) + '. ' + xHoursBasis(s.mo);
+@@ -1025,4 +1031,4 @@
+-      G('ljin', 'Labour journaled into ' + s.br, into.map(hr), {hours: true, tot: into.reduce(function (t, x) { return t + C(x.paidSep) + C(x.paidOct); }, 0) / 100, unit: 'row', fold: 'pl1267-fp-lj'});
+-      G('ljout', 'Labour from ' + s.br + ' journaled out', outo.map(hr), {hours: true, tot: outo.reduce(function (t, x) { return t + C(x.paidSep) + C(x.paidOct); }, 0) / 100, unit: 'row', fold: 'pl1267-fp-lj'});
+-      G('mv', 'Cost moves on ' + s.br, mvs.map(function (o) { return H.recRow(H.recs('mv')[o.i], o.c); }), {tot: mvs.reduce(function (t, o) { return t + o.c; }, 0), sign: true});
+-      G('jn', 'Accruals journaled to ' + s.br, jp.map(function (p) { var r = H.recRow(H.recs('jn')[p.i], p.c); if (p.part) r.tag = 'the ' + s.br + ' part'; return r; }), {tot: jpt});
++      G('ljin', 'Labour journaled into ' + s.br + ' · ' + periodJ, into.map(hr), {hours: true, tot: into.reduce(function (t, x) { return t + C(ph(x)); }, 0) / 100, unit: 'row', fold: 'pl1267-fp-lj'});
++      G('ljout', 'Labour from ' + s.br + ' journaled out · ' + periodJ, outo.map(hr), {hours: true, tot: outo.reduce(function (t, x) { return t + C(ph(x)); }, 0) / 100, unit: 'row', fold: 'pl1267-fp-lj'});
++      G('mv', 'Cost moves on ' + s.br + registerScope, mvs.map(function (o) { return H.recRow(H.recs('mv')[o.i], o.c); }), {tot: mvs.reduce(function (t, o) { return t + o.c; }, 0), sign: true});
++      G('jn', 'Accruals journaled to ' + s.br + registerScope, jp.map(function (p) { var r = H.recRow(H.recs('jn')[p.i], p.c); if (p.part) r.tag = 'the ' + s.br + ' part'; return r; }), {tot: jpt});
+@@ -1030,4 +1036,4 @@
+-      var aw = LJ.filter(function (x) { return x.journal !== 'stays'; });
+-      R.ans = n((J.moves || []).length, 'cost move', 'cost moves') + ' between branches (' + (J.moves || []).map(function (j) { return f2(j.amount) + ' ' + String(j.branch); }).join('; ') + '), no total: they net to nil; ' + n(aw.length, 'labour journal row', 'labour journal rows') + ' journaled away from home.';
+-      G('mv', GLAB.mv, H.recs('mv'), {tot: null, why: 'they net to nil'});
+-      G('lj', 'Labour journaled away from home', aw.map(function (x) { var r = H.recRow(H.recs('lj')[LJ.indexOf(x)]); r.h = ph(x); return r; }), {hours: true, tot: aw.reduce(function (t, x) { return t + C(x.paidSep) + C(x.paidOct); }, 0) / 100, unit: 'row'});
++      var aw = LJ.filter(function (x) { return x.journal !== 'stays' && hourOk(x); });
++      R.ans = n((J.moves || []).length, 'cost move', 'cost moves') + ' prepared through 31 Oct (all work months and categories) between branches (' + (J.moves || []).map(function (j) { return f2(j.amount) + ' ' + String(j.branch); }).join('; ') + '), no total: they net to nil; ' + n(aw.length, 'labour journal row', 'labour journal rows') + ' journaled away from home for ' + periodJ + (s.cat ? ', ' + s.cat : '') + '. ' + xHoursBasis(s.mo);
++      G('mv', GLAB.mv + registerScope, H.recs('mv'), {tot: null, why: 'they net to nil'});
++      G('lj', 'Labour journaled away from home · ' + periodJ, aw.map(function (x) { var r = H.recRow(H.recs('lj')[LJ.indexOf(x)]); r.h = ph(x); return r; }), {hours: true, tot: aw.reduce(function (t, x) { return t + C(ph(x)); }, 0) / 100, unit: 'row'});
+@@ -1224 +1230 @@
+-  if (has('home').length) { var code = has('home')[0].code, rows = (J.labourJournal || []).filter(function (x) { return x.home === code; });
++  if (has('home').length) { var code = has('home')[0].code, rows = (J.labourJournal || []).filter(function (x) { return x.home === code && (!s.br || x.branch === s.br) && xLabourCat(x, s.cat) && (xHoursIn(x, s.mo, true) || xHoursIn(x, s.mo, false)); });
+@@ -1226,2 +1232,2 @@
+-    R.ans = code + ' is a home branch on the labour journals: ' + rows.map(function (x) { return whoName(x) + ' → ' + x.branch + ' ' + B_(hh((C(x.paidSep) + C(x.paidOct)) / 100)) + ' paid h'; }).join(' · ') + '.';
+-    G('lj', GLAB.lj, rows.map(function (x) { var r = H.recRow(H.recs('lj')[J.labourJournal.indexOf(x)]); return r; }), {hours: true, tot: rows.reduce(function (t, x) { return t + C(x.paidSep) + C(x.paidOct); }, 0) / 100, unit: 'row'}); return; }
++    R.ans = code + ' is a home branch on the labour journals. Paid hours for ' + xHoursPeriod(s.mo) + (s.br ? ', journaled to ' + s.br : '') + (s.cat ? ', ' + s.cat : '') + ': ' + (rows.map(function (x) { return whoName(x) + ' → ' + x.branch + ' ' + B_(hh(xHoursIn(x, s.mo, true))) + ' paid h'; }).join(' · ') || 'none in the choice') + '. ' + xHoursBasis(s.mo);
++    G('lj', GLAB.lj + ' · ' + xHoursPeriod(s.mo), rows.map(function (x) { var r = H.recRow(H.recs('lj')[J.labourJournal.indexOf(x)]); r.h = xHoursIn(x, s.mo, true); return r; }), {hours: true, tot: rows.reduce(function (t, x) { return t + C(xHoursIn(x, s.mo, true)); }, 0) / 100, unit: 'row'}); return; }
+@@ -1289 +1295 @@
+-    + (jr.length ? ' Accrual journals on ' + code + (br ? ' on ' + br : '') + ': ' + BC(jt) + (s.cat ? ' (for the job, all categories: a journal is not split by category; not added to the cost)' : ' (the accruals on ' + code + ', not added to the cost)') + '.' : '') + (named.length ? ' ' + named.map(function (r) { return 'Journal ' + (r.i + 1) + ' names ' + code + (br || s.cat ? ' (for the job)' : '') + ': “' + seg(J.journals[r.i].journal).slice(0, 160) + '”'; }).join(' ') + '.' : '')
++    + (jr.length ? ' Accrual journals prepared through 31 Oct on ' + code + (br ? ' on ' + br : '') + ' (all work months and categories; no monthly/category split): ' + BC(jt) + (s.cat ? ' (for the job, all categories: a journal is not split by category; not added to the cost)' : ' (the accruals on ' + code + ', not added to the cost)') + '.' : '') + (named.length ? ' ' + named.map(function (r) { return 'Journal ' + (r.i + 1) + ' names ' + code + (br || s.cat ? ' (for the job)' : '') + ': “' + seg(J.journals[r.i].journal).slice(0, 160) + '”'; }).join(' ') + '.' : '')
+@@ -1293,3 +1299,3 @@
+-  G('jn', 'Accrual journals on ' + code + (s.cat ? ' · for the job, all categories' : ''), jr, {tot: jr.some(function (r) { return r.c === null; }) ? null : jt, why: 'a journal is split by branch'});
+-  G('jnx', 'Journals that name ' + code, named, {tot: null, why: 'named in the text', fold: 'pl1267-fp-journals'});
+-  if (ba) G('gl', 'In Costs by GL account', [{t: ba.code + (ba.name ? ' · ' + ba.name : ''), d: (ba.holds || []).map(function (h) { return h.category + ' ' + f2(h.amount); }).join(' · '), b: '', c: C(ba.total), fold: 'pl1267-fp-gl'}], {tot: null, why: 'for the job, all branches', fold: 'pl1267-fp-gl', unit: 'row'});
++  G('jn', 'Accrual journals on ' + code + ' · prepared through 31 Oct, all work months and categories', jr, {tot: jr.some(function (r) { return r.c === null; }) ? null : jt, why: 'a journal is split by branch'});
++  G('jnx', 'Journals that name ' + code + ' · prepared through 31 Oct, all work months and categories', named, {tot: null, why: 'named in the text', fold: 'pl1267-fp-journals'});
++  if (ba) G('gl', 'In Costs by GL account · job end, all branches and categories', [{t: ba.code + (ba.name ? ' · ' + ba.name : ''), d: (ba.holds || []).map(function (h) { return h.category + ' ' + f2(h.amount); }).join(' · '), b: '', c: C(ba.total), fold: 'pl1267-fp-gl'}], {tot: null, why: 'for the job, all branches', fold: 'pl1267-fp-gl', unit: 'row'});

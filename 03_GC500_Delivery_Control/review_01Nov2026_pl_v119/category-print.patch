@@ -1,0 +1,7 @@
+--- a/03_GC500_Delivery_Control/review_31Oct2026_october_month_end/build_monthend.py
++++ b/03_GC500_Delivery_Control/review_31Oct2026_october_month_end/build_monthend.py
+@@ -1189 +1189 @@
+-_cat_sheet = sheet('By category', ['Category', 'Branch', 'Sep', 'Oct', 'Nov', 'Job end'], _cat_rows, money_cols=[3, 4, 5, 6], widths=[30, 10, 14, 14, 14, 14])
++_cat_sheet = sheet('By category', ['Category', 'Branch', 'Sep', 'Oct', 'Nov', 'Job end'], _cat_rows, money_cols=[3, 4, 5, 6], widths=[65, 10, 14, 14, 14, 14])
+@@ -1194,0 +1195 @@
++_cat_sheet.page_setup.fitToHeight = 1  # keep the complete category summary and its totals on one readable landscape page
