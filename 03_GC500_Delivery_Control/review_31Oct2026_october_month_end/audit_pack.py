@@ -397,9 +397,9 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.19'
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.20'
 check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
-check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
+check('the page names record 12734 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12734)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
 check('open items: the Job Connect weeks without an invoice are carried at the running sheet, no further paperwork held', any('Carried at the running sheet until invoiced: w/e 18 Oct' in str(r[0]) and 'no further Job Connect paperwork is held' in str(r[0]) and 'Still needed' not in str(r[0]) for r in rows('Open items') if r))
 _wk = lambda w: 'w/e %d %s' % (int(w[8:10]), {'09': 'Sep', '10': 'Oct', '11': 'Nov'}[w[5:7]])
@@ -426,7 +426,7 @@ def _pg(s):
     return s
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.19 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.19', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.20 on record 12734, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.20', 12734, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -725,8 +725,19 @@ if JP.exists() and WPF and WPF.exists():
     check('paid hours: each person’s paid hours and normal / ×1.5 / ×2 in the data = the shifts worked out again, to 0.01 h (%d people)' % len(_pj), all(all(abs(_pj[w][i] - _per[w][i]) < 0.006 for i in range(4)) for w in _pj) and set(_pj) == set(_per), {w: ([round(v, 2) for v in _pj[w]], [round(v, 2) for v in _per[w]]) for w in _pj if any(abs(_pj[w][i] - _per[w][i]) >= 0.006 for i in range(4))})
     check('paid hours: on every journal row the bands add to the paid hours, and paid is never above worked', all(abs(x['normal'] + x['x15'] + x['x2'] - x['paidSep'] - x['paidOct']) < 0.006 and x['paidSep'] <= x['sep'] + 1e-9 and x['paidOct'] <= x['oct'] + 1e-9 for x in J['labourJournal']))
     _cw = [x for x in J['labourJournal'] if x['kind'] == 'Coates wages']
-    eq('paid hours: Coates wages paid hours, the job (from 14 Sep)', sum(x['paidSep'] + x['paidOct'] for x in _cw), 1018.50)
-    check('paid hours: Coates wages normal / ×1.5 / ×2 = 684.40 / 178.00 / 156.10 h (the two-method check of 1 Nov, less 7–11 Sep)', [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')] == [684.40, 178.00, 156.10], [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')])
+    eq('paid hours: Coates wages paid hours, the job (from 14 Sep)', sum(x['paidSep'] + x['paidOct'] for x in _cw), 1028.50)   # v1.20: + Alfie Harris's 5 Oct, 10 paid
+    check('paid hours: Coates wages normal / ×1.5 / ×2 = 692.00 / 180.00 / 156.50 h (the two-method check of 1 Nov, less 7–11 Sep, plus Alfie Harris’s 5 Oct: 7.6 / 2 / 0.4)', [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')] == [692.00, 180.00, 156.50], [round(sum(x[k] for x in _cw), 2) for k in ('normal', 'x15', 'x2')])
+    # v1.20: Alfie Harris on Mon 5 Oct 2026, 06:30-17:00 (on the record 2 Nov, 12729 -> 12734): the shift, its weekday split, his journal row, the open item
+    _a5 = [x for x in WPJ['shifts'] if x['id'] == 'W-L-alfie-harris-20261005']
+    check('v1.20: Alfie Harris on Mon 5 Oct is on the record (%s): 06:30-17:00, 10.5 worked, 10 paid, split 7.6 / 2 / 0.4 by the weekday rule, KINP in the note' % WPJ['record'],
+          WPJ['record'] == 12734 and len(_a5) == 1 and _a5[0]['usable'] and (_a5[0]['start'], _a5[0]['finish'], _a5[0]['worked'], _a5[0]['paid']) == ('06:30', '17:00', 10.5, 10)
+          and _a5[0]['split'] == {'ordinary': 7.6, 'at_1_5': 2, 'at_2': 0.4} and _a5[0]['note'].startswith('KINP labour, the rest of the day'), _a5)
+    _aj = [x for x in J['labourJournal'] if x['who'] == 'Alfie Harris' and x['branch'] == 'KINP']
+    check('v1.20: Alfie Harris at KINP in October: 261.0 worked, 248.63 paid (v1.19 250.5 and 238.63, plus 5 Oct)', len(_aj) == 1 and (_aj[0]['oct'], _aj[0]['paidOct']) == (261.0, 248.63), _aj)
+    _o15 = J['open'][14]
+    check('v1.20: open item 15 says the 5 Oct night has his shift, names the public holiday and that payroll is to confirm the rate',
+          _o15.startswith('Alfie Harris: his 5 Oct night now has his shift beside it') and 'King’s Birthday' in _o15 and 'payroll to confirm' in _o15 and 'no shift for him' not in json.dumps(J), _o15[:120])
+    check('v1.20: the labour sheet carries his 5 Oct row (KINP 10.5 h)', any(r[:3] == ['2026-10-05', 'October', 'Alfie Harris'] and r[6] == 'KINP 10.5 h' for r in LAB), [r for r in LAB if r[:1] == ['2026-10-05']][:3])
     _phs = [r for r in rows('Paid hours (journal basis)') if r and r[0]]
     _prs = [r for r in _phs if not str(r[0]).startswith(('Paid hours on', 'Coates wages, the job', 'All hours', 'Paid hours are'))]
     check('paid hours: the workbook sheet = the data, row for row, with each branch’s total and the job’s', len(_prs) == len(J['labourJournal']) and all((r[0], r[3], r[4], r[5], r[7], r[8], r[9]) == (x['who'], x['branch'], x['paidSep'], x['paidOct'], x['normal'], x['x15'], x['x2']) for r, x in zip(_prs, J['labourJournal']))
