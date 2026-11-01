@@ -571,5 +571,11 @@ line names a PO (or none) and a hire contract (or why none).
 - the register's totals and that every no-PO cost line is listed, supplier by supplier;
 - the tab's data against the Revenue, Match-up and Purchase orders sheets, line for line.
 
-Result: 460 checks, 460 pass (with every branch line and every journal naming its PO or none). **Printed:** the
+**The event-night block cleans tie (open items):** Event Portables' 51 = 18 on the six tank blocks + 6 on WC31's two 16-pan blocks (both
+billed on 9968955 L142, 24) + 24 on the eight sewer-connected blocks WC09, WC15, WC16 and WC17 (L143, 24 keyed at the card's 260.25,
+billed 0.00) + 3 on the WC-TV block T0243 (asset 1311144), which is on 9973977 with no cleaning line (3 × 260.25 = 780.75). L143's 24 is
+8 blocks × the 3 event nights, as keyed.
+
+Result: 465 checks, 465 pass (with every branch line and every journal naming its PO or none, and the block cleans tying to Baseplan (12)
+L142, L143 and 9973977 and to Event Portables' Q6844). **Printed:** the
 workbook is 31 pages (LibreOffice), with every open item and every PO number in full.

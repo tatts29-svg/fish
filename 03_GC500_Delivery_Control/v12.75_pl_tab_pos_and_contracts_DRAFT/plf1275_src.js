@@ -118,7 +118,7 @@ function html() {
   if (J.invoices) {
     rv = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1275-rev"><thead><tr><th>Invoice · date</th><th>Hire contract · branch</th><th>The V8s’ PO</th><th class="num">Ex GST</th></tr></thead><tbody>';
     J.invoices.forEach(function (x) {
-      rv += '<tr data-inv="' + e(x.inv) + '"><td><b>' + e(x.inv) + '</b> · ' + dmy(x.date) + '</td><td>' + e(x.contract) + ' · ' + e(x.branch) + '<small>our POs against it: ' + e(x.pos) + '</small></td><td>' + e(x.customerPO) + '</td><td class="num">' + c2(x.ex) + '</td></tr>';
+      rv += '<tr data-inv="' + e(x.inv) + '"><td><b>' + e(x.inv) + '</b> · ' + dmy(x.date) + '</td><td>' + e(x.contract) + ' · ' + e(x.branch) + '<small>our POs against it: ' + (/^no PO/.test(String(x.pos)) ? 'none on the record' : e(x.pos)) + '</small></td><td>' + e(x.customerPO) + '</td><td class="num">' + c2(x.ex) + '</td></tr>';
     });
     rv += '<tr class="pl1267-tot"><td>' + n(J.invoices.length, 'invoice', 'invoices') + '</td><td></td><td></td><td class="num">' + c2(R.invoices) + '</td></tr>';
     (J.novForecastLines || []).forEach(function (x) {

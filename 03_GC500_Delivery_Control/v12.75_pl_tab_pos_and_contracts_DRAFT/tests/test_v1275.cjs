@@ -95,7 +95,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     check(JSON.stringify(jAmt) === JSON.stringify(JW), `${tag}: the journals, the accruals total and the branch moves, to the cent: ` + JSON.stringify(jAmt));
     check(r.jn.filter(x => x.cells.length === 4).slice(0, J.journals.length).every((x, i) => x.cells[0].startsWith(J.journals[i].journal) && x.cells[1] === J.journals[i].po), `${tag}: each journal names its line and PO`);
     // v12.75: the 18 invoices, each with its hire contract, the V8s' PO and our POs against it; the forecast line; the total charged
-    const RV = J.invoices.map(x => [x.inv + ' · ' + dmy(x.date), x.contract + ' · ' + x.branch + 'our POs against it: ' + x.pos, x.customerPO, c2(x.ex)])
+    const RV = J.invoices.map(x => [x.inv + ' · ' + dmy(x.date), x.contract + ' · ' + x.branch + 'our POs against it: ' + (/^no PO/.test(x.pos) ? 'none on the record' : x.pos), x.customerPO, c2(x.ex)])
       .concat([[J.invoices.length + ' invoices', '', '', c2(J.revenue.invoices)]])
       .concat(J.novForecastLines.map(x => ['November forecast' + x.what, x.contract + ' ' + x.line + ' · ' + x.branch, J.contractPOs[x.contract] || '', c2(x.amount)]))
       .concat([['Charged to the V8s', '', '', c2(J.revenue.total)]]);

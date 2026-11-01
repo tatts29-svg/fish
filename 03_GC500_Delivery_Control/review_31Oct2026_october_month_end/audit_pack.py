@@ -488,6 +488,15 @@ if JP.exists():
     eq('final P&L data: costs not tied to one contract = the match-up sheet', sum(x['amount'] for x in J['notTied']), sum((r[8] or 0) for r in mu if r[0] == 'not tied to one contract'))
     eq('final P&L data: tied + not tied = the job cost', J['matchTotals']['tied'] + J['matchTotals']['notTied'], JOB)
     check('final P&L data: the PO register = the Purchase orders sheet, PO for PO', [(x['po'], x['amount']) for x in J['purchaseOrders']] == [(r[0], r[5]) for r in pre] and abs(J['poTotals']['total'] - JOB) < 0.005)
+# ------------------------------------------------------------------ v1.15: the event-night block cleans tie (Event Portables' 51 = L142 24 + L143 24 + the WC-TV block's 3)
+_l = {x['Line']: x for x in bp['9968955']}
+check('9968955 L142: 24 tank pump-outs at 624.60, billed 14,990.40', (_l[142]['Quantity'], _l[142]['Price'], round(_l[142]['Billed Amount'], 2)) == (24, 624.6, 14990.4), (_l[142]['Quantity'], _l[142]['Price'], _l[142]['Billed Amount']))
+check('9968955 L143: Cleaning & Restock Sewer Connect, 24 at 260.25, billed 0.00', (_l[143]['Item'], _l[143]['Quantity'], _l[143]['Price'], _l[143]['Billed Amount']) == ('CLEAN', 24, 260.25, 0), (_l[143]['Item'], _l[143]['Quantity'], _l[143]['Price'], _l[143]['Billed Amount']))
+check('9973977 (the WC-TV block) has no cleaning line', not any(re.search(r'clean', str(x.get('Description')) + str(x.get('Item')), re.I) for x in bp['9973977']))
+_ep = json.load(open(PR / 'ep_detail.json'))
+_eps = json.dumps(_ep); _m = re.search(r'"description": "Toilet Block Cleaning", "card_line": "Sewer Connect Units Clean & Restock", "quantity": (\d+), "rate": (\d+)', _eps)
+check('Event Portables cleaned 51 blocks at 185.00 (Q6844) = 18 tank + 6 WC31 + 24 sewer-connected + 3 WC-TV', bool(_m) and int(_m.group(1)) == 51 == 18 + 6 + 24 + 3 and int(_m.group(2)) == 185, _m and _m.groups())
+check('the open items say how the 51 block cleans tie and what L143 is', any('WC09, WC15, WC16 and WC17' in str(r[0]) and 'T0243' in str(r[0]) for r in rows('Open items') if r) and any('the eight sewer-connected blocks WC09, WC15, WC16 and WC17' in str(r[0]) and '780.75' in str(r[0]) for r in rows('Open items') if r))
 # ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
 if S17:
     s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]

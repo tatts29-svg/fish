@@ -11,7 +11,7 @@ On the live v12.74 page (BASE is its verified SHA-256), this release:
    - "Every purchase order in the costs": the 27 POs at their amounts in the P&L and every cost with no PO, adding to the job cost;
 2. footer v12.74 -> v12.75.
 
-No figure changes: pack v1.15 has v1.14's figures to the cent (audit_pack.py 460/460). The pack data is private and never committed;
+No figure changes: pack v1.15 has v1.14's figures to the cent (audit_pack.py 465/465). The pack data is private and never committed;
 this patch holds no figure. It reads PLF_JSON, refuses any file but the reviewed one (PLF_SHA256), checks it ties, and carries it into the
 page as it is. Nothing is typed; nothing is written to the record.
 
@@ -21,7 +21,7 @@ import hashlib, json, os, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '58695330689cd54cbb1bfa48b9b4a0489ca56398d6c08913a011daf1be635bc4'        # live v12.74, uploaded 1 Nov 2026 12:08 AEST
-PLF_SHA256 = '423ccfd86110a83a923ab86083dbc099a14efc3e622d8c4e7e50afde448e238b'  # pack v1.15, record 12727 (audit_pack.py 460/460)
+PLF_SHA256 = '31b9a283e41058556aab1c6c226a5c165ba66b6b28244f89f8ce5c12b6b64065'  # pack v1.15, record 12727 (audit_pack.py 465/465)
 OLD_SHA = '0aa4987d81eb171d22f819e457fabf064098ae4f234922ce0819c6243df898a5'     # pack v1.14, in the live v12.74 block
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 

@@ -6,7 +6,7 @@ ensure everything aligns." The tab follows the pack (`../review_31Oct2026_octobe
 
 Built on the live v12.74 (`58695330689cd54cbb1bfa48b9b4a0489ca56398d6c08913a011daf1be635bc4`, BASE pinned).
 
-Candidate: **`23d818f4ceb61bde6966ba2df80623b9a9f8dba87124db5c26a3bd3014f3bed0`**, 16,640,523 bytes.
+Candidate: **`0b32aebda051d1e48ef5e2319b589a2acd0afeff97418a05ff7c365606b891dc`**, 16,641,763 bytes.
 
 ```
 PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.75 v12.75_pl_tab_pos_and_contracts_DRAFT/patch_v1275.py
@@ -15,7 +15,7 @@ PLF_JSON=<pack dir>/GC500_PL_final.json toolchain/build.sh v12.75 v12.75_pl_tab_
 ## What changes on the Costs & P&L tab
 
 No figure changes: pack v1.15 has v1.14's figures to the cent. The patch holds no figure; the pack data is pinned by SHA-256
-(`423ccfd8…`) and refused if it doesn't tie.
+(`31b9a283…`) and refused if it doesn't tie.
 
 - **Every cost line** now names the hire contract it is charged on, beside its PO and invoice or receipt. Every line names a PO or says
   there is none, and so does every line under Costs by branch.
@@ -25,6 +25,9 @@ No figure changes: pack v1.15 has v1.14's figures to the cent. The patch holds n
   and its total; then the costs not tied to one contract; then the job (tied + not tied = the job cost).
 - **New fold, "Every purchase order in the costs":** the 27 POs at their amounts in the P&L, with supplier, what, status, hire contract
   and branch; then every cost with no PO on the record and why; with a PO + no PO = the job cost.
+- **The open items say how Event Portables' 51 block cleans tie:** 18 tank-block and 6 WC31 cleans on 9968955 L142; 24 on the eight
+  sewer-connected blocks (WC09, WC15, WC16, WC17), which is L143 as keyed (billed 0.00); 3 on the WC-TV block, on 9973977.
+- **On a phone,** the words in the detail tables keep a readable width and the figures scroll sideways inside the table.
 - **Footer:** v12.74 → v12.75.
 
 Nothing is typed; nothing is written to the record.
