@@ -679,3 +679,20 @@ and 16:46 (on v12.64), P&L identical both times (charge 1,012,101.16 after v12.6
 5 documents written (delivery/WC41, the two tombstones in `deleted`, their names in `by`), acknowledged 200, verified on the service
 including both tombstones, every other document unchanged in value. From here a copy of the page that still holds WC41's 28 Oct entry
 drops it the first time it loads v12.64 and saves the cleaned document; the P&L was never affected by the duplicate.
+
+## Run 96 — 1247787 (forklift, T0005) and 1276416 (generator, GN19) left site 2 Nov 08:15 (2 Nov 2026 08:19 AEST, record 12767 → 12769)
+
+Andrew, 2 Nov 2026 08:1x AEST: "1276416 and 1247787 picked up 8:15am". 1247787 is the Forklift 2.5T RT on T0005 (Coates; back out
+20 Oct on docket 26142467, 9961976 line 35; pick-up booked for 2 Nov 09:30). 1276416 is GN19's 60 kVA generator (Coates; ticked Ready
+30 Oct). Spec `spec96_t0005_gn19_2nov_0815.json`, report `report_20261101T221858Z.json`; the whole-record backup is kept privately
+outside the repo. Through the page's own Record departure form in Andrew's name, on the live v12.81 page (`3b17c3de…`).
+
+- **Dry run first** (every write aborted): T0005 holds two Forklift 2.5T RT, 1247787 and 1312577. Only 1247787 left, so T0005 stays on
+  site with one forklift still to leave. GN19's only unit is 1276416, so GN19 leaves in full. P&L identical (charge 1,012,101.16, known
+  cost 456,889.59, every branch unchanged); Today unchanged.
+- **Applied:** backup, page sha checked, 2 documents acknowledged 200 (delivery/T0005, delivery/GN19), record 12767 → 12769, every other
+  document unchanged in value, verified on the service.
+- **Read back** (`check_after.cjs`, fresh load of the live page): T0005 "1 left · 1 to leave", last 02/11/2026 08:15:00 AEST, 1 × Forklift
+  2.5T RT 1247787, light on site, still to leave 1 × Forklift 2.5T RT; GN19 "Left site" 02/11/2026 08:15:00 AEST, 1 × 60kva 1276416, light
+  in transit, nothing to leave; 97 of 186 demob references left in full; errors 0, writes 0.
+- Between v12.81's upload (record 12749) and this run the record moved to 12767 through other writes; this run changed only its 2 documents.

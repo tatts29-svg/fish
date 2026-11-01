@@ -1,0 +1,446 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T221858Z",
+ "finished": "2026-11-01T22:19:37.613Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 08:1x AEST: \"1276416 and 1247787 picked up 8:15am\". 1247787 is the Forklift 2.5T RT on T0005 (Coates; back out 20 Oct on docket 26142467, contract 9961976 line 35; pick-up booked 2 Nov 09:30); 1276416 is the generator unit on GN19 (Coates; ticked Ready 30 Oct). Both left site at 08:15 on 2 Nov, through the page's own Record departure form in his name. T0005 holds two Forklift 2.5T RT (1247787 and 1312577): only 1247787 left, so T0005 stays on site with 1312577 still to leave; GN19's only unit is 1276416, so GN19 leaves in full. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0005",
+    "at": "2026-11-02T08:15:00+10:00",
+    "nos": [
+     "1247787"
+    ],
+    "unnumbered": [],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "GN19",
+    "at": "2026-11-02T08:15:00+10:00",
+    "nos": [
+     "1276416"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12767,
+  "after": 12769
+ },
+ "updated": {
+  "before": "2026-11-01T22:10:54.767Z",
+  "after": "2026-11-01T22:19:36.634Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0005",
+   "at": "2026-11-02T08:15:00+10:00",
+   "nos": [
+    "1247787"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-11-02T08:15:00+10:00, recorded by Andrew Fisher: 1 x Forklift 2.5T RT 1247787 - still to leave: 1 x Forklift 2.5T RT"
+  },
+  {
+   "op": "depart",
+   "ref": "GN19",
+   "at": "2026-11-02T08:15:00+10:00",
+   "nos": [
+    "1276416"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T08:15:00+10:00, recorded by Andrew Fisher: 1 x 60kva 1276416 - GN19 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0005",
+   "status": 200
+  },
+  {
+   "key": "delivery/GN19",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0005": {
+    "state": "on site",
+    "set_at": "2026-09-13T23:30:00Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1247787": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:08:41.733Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes 1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1247787",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:08:41.733Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   },
+   "delivery/GN19": {
+    "state": "on site",
+    "set_at": "2026-10-19T04:28:49.497Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1276416": {
+      "on": true,
+      "at": "2026-10-30T04:16:33.093Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1276416": {
+      "at": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:23:55.780Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:28:49.497Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.030Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:28:49.497Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:28:49.497Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1276416",
+      "ready": true,
+      "at": "2026-10-30T04:16:33.093Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1276416",
+      "pickup": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:23:55.780Z"
+     }
+    ],
+    "_k": "GN19"
+   }
+  },
+  "after": {
+   "delivery/T0005": {
+    "state": "on site",
+    "set_at": "2026-09-13T23:30:00Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1247787": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:08:41.733Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes 1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-01T22:19:20.443Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d78ced75-1737-48f9-9557-bb0a3b481ee6",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T08:15:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-13T23:30:00Z",
+       "requiredKey": "[[\"forklift 2.5t rt\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T RT",
+         "n": 1,
+         "unitIds": [
+          "[\"T0005\",\"coates\",\"asset\",\"1247787\"]"
+         ],
+         "numbers": [
+          "1247787"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0005\",\"coates\",\"asset\",\"1247787\"]",
+           "number": "1247787",
+           "owner": "coates",
+           "item": "Forklift 2.5T RT"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1247787",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:08:41.733Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   },
+   "delivery/GN19": {
+    "state": "in transit",
+    "set_at": "2026-11-01T22:19:21.485Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1276416": {
+      "on": true,
+      "at": "2026-10-30T04:16:33.093Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1276416": {
+      "at": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:23:55.780Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-01T22:19:21.485Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.030Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:28:49.497Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-01T22:19:21.485Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b53c5b18-ebe2-4466-8469-b98a2b62a50d",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T08:15:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T04:28:49.497Z",
+       "requiredKey": "[[\"60kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "60kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN19\",\"coates\",\"asset\",\"1276416\"]"
+         ],
+         "numbers": [
+          "1276416"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN19\",\"coates\",\"asset\",\"1276416\"]",
+           "number": "1276416",
+           "owner": "coates",
+           "item": "60kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:28:49.497Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-01T22:19:21.485Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1276416",
+      "ready": true,
+      "at": "2026-10-30T04:16:33.093Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1276416",
+      "pickup": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:23:55.780Z"
+     }
+    ],
+    "_k": "GN19"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
