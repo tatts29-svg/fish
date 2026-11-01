@@ -165,8 +165,13 @@ function xRender() {
       + kpi('Difference so far', diff ? rev - cost : null, diff ? 'revenue less costs, job end · not a margin yet' : s.cat ? 'for the job or a branch, with no category' : 'at job end only: the revenue is booked in October, the invoice month', diff && rev - cost < 0);
     if (!s.cat) {   /* by category, for the branch and month chosen; each opens its lines */
       var tot = {}; MOS.forEach(function (m) { tot[m] = 0; }); facts.forEach(function (f) { tot[f[2]] += f[3]; });
+      var grp = J.categoryGroups || [];   /* v12.79: the rehire groups, each with what is inside it, and their subtotal (Rehire, all) from the same parts */
       var rows = (J.categories || []).map(function (c) { var by = {}, t = 0; facts.forEach(function (f) { if (J.lines[f[0]].category === c.name) { by[f[2]] = (by[f[2]] || 0) + f[3]; t += f[3]; } });
-        return t ? '<tr><td><button type="button" class="plx-pick" data-cat="' + e(c.name) + '">' + e(c.name) + '</button></td>' + cells(by) + '</tr>' : ''; }).join('');
+        var r = t ? '<tr><td><button type="button" class="plx-pick" data-cat="' + e(c.name) + '">' + e(c.name) + '</button>' + (c.note ? '<small>' + e(c.note) + '</small>' : '') + '</td>' + cells(by) + '</tr>' : '';
+        grp.forEach(function (g) { if (g.members[g.members.length - 1] !== c.name) return; var gb = {}, gt = 0;
+          facts.forEach(function (f) { if (g.members.indexOf(J.lines[f[0]].category) >= 0) { gb[f[2]] = (gb[f[2]] || 0) + f[3]; gt += f[3]; } });
+          if (gt) r += '<tr class="pl1267-tot plx-grp"><td>' + e(g.name) + '</td>' + cells(gb) + '</tr>'; });
+        return r; }).join('');
       out += '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-cats">' + head('Category' + (s.br ? ' · ' + e(s.br) : '')) + '<tbody>' + rows
         + '<tr class="pl1267-grand"><td>' + (s.br ? 'Costs, ' + e(BRN[s.br]) : 'Costs, the job') + '</td>' + cells(tot) + '</tr></tbody></table></div>';
     } else out += linesTable(facts);
@@ -417,6 +422,14 @@ function html() {
         + '<tr class="pl1267-grand"><td>' + n(BR.length, 'week', 'weeks') + '</td><td></td><td class="num">' + f2(bt.rs / 100) + '</td><td class="num">' + f2(bt.ct / 100) + '</td><td class="num">' + f2(bt.df / 100) + '</td></tr></tbody></table></div>';
     }
   }
+  var GA = J.byAccount, ga = '';
+  if (GA && GA.length) {   /* v12.79: costs by GL account, from the account on each cost line */
+    var gat = 0; GA.forEach(function (g) { gat += Math.round(g.total * 100); });
+    ga = '<p class="plf1272-note">From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record (the fencing weeks 6–1, 2126 or 2142; transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>'
+      + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-gl"><thead><tr><th>GL account</th><th>What is in it</th><th class="num">Job end</th></tr></thead><tbody>'
+      + GA.map(function (g) { return '<tr><td><b>' + e(g.code) + '</b>' + (g.name ? '<small>' + e(g.name) + '</small>' : (g.split ? '' : '<small>not split on the record</small>')) + '</td><td>' + g.holds.map(function (h) { return e(h.category) + ' ' + f2(h.amount); }).join('<br>') + '</td><td class="num">' + f2(g.total) + '</td></tr>'; }).join('')
+      + '<tr class="pl1267-grand"><td>Costs, the job</td><td></td><td class="num">' + f2(gat / 100) + '</td></tr></tbody></table></div>';
+  }
   var TE = J.transportEstimate, te = '';
   if (TE) {   /* v12.79: the transport estimate of 1 Nov, each leg (the pack's section 2h) */
     var tg = {oct_ran: 'Ran by 31 Oct', nov_on_site: 'Still on site'}, tsum = {oct_ran: 0, nov_on_site: 0};
@@ -445,6 +458,7 @@ function html() {
     + (LC ? folded('pl1267-fp-labour', 'Every labour line on the invoices', n(LC.lines.length, 'line', 'lines') + ' coded LABOUR, with its invoice, contract line, hours and rate', lcl) : '')
     + (LJ ? folded('pl1267-fp-lj', 'Labour journals: where everyone’s hours go', n(LJ.length, 'row', 'rows') + ': each person’s home branch and the branch the hours are journaled to, by month', lj) : '')
     + (S7 ? folded('pl1267-fp-s17', 'Transport checked against Schedule 17', n(S7.changes.length, 'load', 'loads') + ' changed, +' + f2(S7.net) + ', each with its Schedule 17 row, docket and hire contract', s7) : '')
+    + (ga ? folded('pl1267-fp-gl', 'Costs by GL account', n(GA.length, 'account', 'accounts') + ' as coded on the cost lines, adding to the job cost', ga) : '')
     + (TE ? folded('pl1267-fp-test', 'Transport estimate: trucks that ran with no figure, and pick-ups still to come', n(TE.legs.length, 'leg', 'legs') + ' · ' + f2(TE.ranBy31Oct) + ' ran by 31 Oct · ' + f2(TE.stillOnSite) + ' still on site · ESTIMATE, 1 Nov', te) : '')
     + folded('pl1267-fp-journals', 'Journals prepared for Finance, through ' + d, n(J.journals.length, 'accrual', 'accruals') + (J.moves && J.moves.length ? ' and ' + n(J.moves.length, 'branch move', 'branch moves') : ''), jr)
     + folded('pl1267-fp-open', 'Open items', n(J.open.length, 'item', 'items') + ': paperwork to come and calls still to make', op)

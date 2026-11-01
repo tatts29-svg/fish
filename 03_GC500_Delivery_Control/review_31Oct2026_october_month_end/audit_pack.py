@@ -608,9 +608,9 @@ check('elite pos-01: the open items say the consumables sold to the V8s carry no
 if JP.exists():
     _ci = lambda v: int(round(v * 100))
     F_ = J['facts']; LN_ = J['lines']
-    _CAT = lambda sup: ('Fencing' if sup.startswith('Advanced') else 'Toilets and water' if sup.startswith('Event Portables') else 'Rehire' if sup.startswith(('Premiair', 'United Rentals'))
+    _CAT = lambda sup: ('Rehire – fencing' if sup.startswith('Advanced') else 'Rehire – toilets and water' if sup.startswith('Event Portables') else 'Rehire – VMS, container and forklifts' if sup.startswith(('Premiair', 'United Rentals'))
                         else 'Transport' if sup.startswith('Carriers') else 'Labour hire' if sup.startswith('Job Connect') else 'Salary allowance' if sup.startswith('Salary') else 'Accommodation' if sup.startswith('Accommodation')
-                        else 'Meals and expenses' if sup.startswith('Meals') else 'Rehire' if sup.startswith('Queensland Forklifts') else 'Consumables and services (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
+                        else 'Meals and expenses' if sup.startswith('Meals') else 'Rehire – VMS, container and forklifts' if sup.startswith('Queensland Forklifts') else 'Consumables and services (POs)' if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec') else None)
     check('parts: every cost line has its category, as its supplier gives it (%d lines, %d categories)' % (len(LN_), len({l['category'] for l in LN_})), len(LN_) == len(cs) and all(l['category'] == _CAT(r[0]) and l['category'] for l, r in zip(LN_, cs)))
     eq('parts: they add to the job cost', sum(f[3] for f in F_) / 100, JOB)
     for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('parts: %s’s add to its costs on the Summary sheet' % b, sum(f[3] for f in F_ if f[1] == b) / 100, summ[b][4])
@@ -621,9 +621,9 @@ if JP.exists():
     check('parts: a line with one branch sits only on that branch (bar the one branch move)', not _sb, _sb)
     _mv = [f for f in F_ if f[4]]
     check('parts: the one branch move is Kyle Gover’s 8 h on the water barriers, KINP −460.78 · STPS +460.78 in October, on the Job Connect w/e 18 Oct line', sorted((f[1], f[2], f[3]) for f in _mv) == [('KINP', 'Oct', -46078), ('STPS', 'Oct', 46078)] and all(cs[f[0]][3] == 'Running sheet w/e 18 Oct' for f in _mv) and any(abs(r[5] - 460.78) < 0.005 for r in moves))
-    _CBL = lambda n: ('Toilets and water' if n.startswith('Event Portables') else 'Rehire' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
+    _CBL = lambda n: ('Rehire – toilets and water' if n.startswith('Event Portables') else 'Rehire – VMS, container and forklifts' if n.startswith(('Premiair', 'Royal Wolf')) else 'Transport' if n.startswith('Transport') else 'Labour hire' if n.startswith('Labour hire')
                       else 'Salary allowance' if n.startswith('Salary') else 'Accommodation' if n.startswith('Accommodation') else 'Meals and expenses' if n.startswith('Meals') else 'Consumables and services (POs)' if n.startswith('Consumables')
-                      else 'Fencing' if n.startswith('Fencing') else 'Rehire' if n.startswith('Forklift') else None)
+                      else 'Rehire – fencing' if n.startswith('Fencing') else 'Rehire – VMS, container and forklifts' if n.startswith('Forklift') else None)
     _want = collections.defaultdict(int)
     for r in cb: _want[(r[0], _CBL(r[1]))] += _ci(r[2])
     _got = collections.defaultdict(int)
@@ -633,7 +633,13 @@ if JP.exists():
     _cm = collections.defaultdict(int)
     for f in F_: _cm[(LN_[f[0]]['category'], f[1], f[2])] += f[3]
     _catok = all(abs(sum(_cm[(r[0], r[1], mo_)] for _ in [0]) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if not str(r[0]).startswith('Total') for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
-    _cattot = all(abs(sum(v for k, v in _cm.items() if k[0] == r[0][7:] and k[2] == mo_) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if str(r[0]).startswith('Total, ') and r[0] != 'Total, the job' for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
+    _GRP = {'Rehire, all': ('Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts')}   # v1.19: the rehire groups and their subtotal
+    _cnames = {c_['name'] for c_ in J['categories']}
+    _cname = lambda lbl: lbl[7:] if lbl[7:] in _cnames or lbl[7:] in _GRP else lbl[7:].split(' (')[0]
+    _cattot = all(abs(sum(v for k, v in _cm.items() if (k[0] in _GRP[_cname(r[0])] if _cname(r[0]) in _GRP else k[0] == _cname(r[0])) and k[2] == mo_) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if str(r[0]).startswith('Total, ') and r[0] != 'Total, the job' for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
+    check('rehire groups: the three rehire categories and their subtotal, Rehire, all, on the By category sheet and in the data', any(str(r[0]) == 'Total, Rehire, all' for r in _cat) and abs(sum(c_['total'] for c_ in J['categories'] if c_['name'].startswith('Rehire – ')) - J['categoryGroups'][0]['total']) < 0.005 and J['categoryGroups'][0]['members'] == list(_GRP['Rehire, all']), J.get('categoryGroups'))
+    _ba = J.get('byAccount') or []
+    check('by GL account: the rows add to the job cost, each from the accounts on the cost lines; lines naming two codes with no split sit under both, flagged', abs(sum(g_['total'] for g_ in _ba) - JOB) < 0.005 and all((' or ' in g_['code']) == (not g_['split']) for g_ in _ba) and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2126') - 109575.43) < 0.005 and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2126 or 2142') - 214225.00) < 0.005, [(g_['code'], g_['total']) for g_ in _ba])
     _job = [r for r in _cat if r[0] == 'Total, the job']
     check('parts: the By category sheet = the parts, category × branch × month, its category totals and the job (%d rows)' % len(_cat), _catok and _cattot and len(_job) == 1 and all(abs((_job[0][2 + j_] or 0) - tv_) < 0.005 for j_, tv_ in enumerate((SEP, OCT, NOV))) and abs(_job[0][5] - JOB) < 0.005)
     check('parts: the data’s category totals = the lines of each category, month by month', all(abs(c['total'] - sum(r2((l['sep'] or 0) + (l['oct'] or 0) + (l['nov'] or 0)) for l in LN_ if l['category'] == c['name'])) < 0.005 and all(abs(c[k] - sum(l[k] for l in LN_ if l['category'] == c['name'])) < 0.005 for k in ('sep', 'oct', 'nov')) for c in J['categories']) and abs(sum(c['total'] for c in J['categories']) - JOB) < 0.005)

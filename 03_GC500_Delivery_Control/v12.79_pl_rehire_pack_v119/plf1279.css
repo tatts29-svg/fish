@@ -91,3 +91,7 @@ body:has(#pane-costs.on) #ts1053-banner{display:none!important}
 @media print{.plx{display:none!important}}
 .plx-test{min-width:640px}
 .plx-test td small{display:block;color:#6b7681;font-size:11.5px}
+.plx-cats td small{display:block;color:#6b7681;font-size:11.5px;font-weight:400;margin-top:2px}
+.plx-cats tr.plx-grp td{font-weight:800}
+.plx-gl{min-width:520px}
+.plx-gl td small{display:block;color:#6b7681;font-size:11.5px}

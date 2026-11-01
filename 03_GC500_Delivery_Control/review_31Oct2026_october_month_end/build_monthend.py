@@ -1081,16 +1081,18 @@ sheet('Schedule 17 transport', ['Ref', 'Date', 'What', 'Hire contract · docket'
 # or by branch. Or by month have these options available. And its accurate to the cent"). Every cost is split to line × branch × month, in cents;
 # the parts must add to every total the pack prints (the job, each month, each branch, each line, each branch's lines in Costs by branch).
 _BRS = ('KINP', 'STPS', 'NVAC', 'MEAD')
-CATS = ['Fencing', 'Toilets and water', 'Rehire', 'Transport', 'Labour hire', 'Salary allowance', 'Accommodation', 'Meals and expenses', 'Consumables and services (POs)']   # v1.19: Queensland Forklifts' rehire is in Rehire (Andrew, 1 Nov: "Forklift rehire should that not go to rehire"; GL 2126 like the other rehire). Reporting categories, not GL coding (the recheck, 1 Nov: Coates says Rehire; the salary line is the allowance; the PO suppliers include services)
+CATS = ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts', 'Transport', 'Labour hire', 'Salary allowance', 'Accommodation', 'Meals and expenses', 'Consumables and services (POs)']   # v1.19 (Andrew, 1 Nov 2026: "Forklift r3hire should that not go to rehire"; "Or.do we.go toilets -rehire   fencing  -rehire"; on the two tweaks, what is inside in brackets and a Rehire, all subtotal: "1 and 2"). Reporting categories, not GL coding.
+CAT_NOTE = {'Rehire – fencing': 'Advanced: hire and installation (2126 rehire · 2142 installation)', 'Rehire – toilets and water': 'Event Portables: hire, transport and water (2126) · servicing (3325)', 'Rehire – VMS, container and forklifts': 'Premiair VMS boards, the Royal Wolf container, Queensland Forklifts (2126)'}
+CAT_GROUPS = [('Rehire, all', ['Rehire – fencing', 'Rehire – toilets and water', 'Rehire – VMS, container and forklifts'])]
 def cat_of(sup):
-    for pre_, c_ in (('Advanced', 'Fencing'), ('Event Portables', 'Toilets and water'), ('Premiair', 'Rehire'), ('United Rentals', 'Rehire'), ('Carriers', 'Transport'),
-                     ('Job Connect', 'Labour hire'), ('Salary', 'Salary allowance'), ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Queensland Forklifts', 'Rehire')):
+    for pre_, c_ in (('Advanced', 'Rehire – fencing'), ('Event Portables', 'Rehire – toilets and water'), ('Premiair', 'Rehire – VMS, container and forklifts'), ('United Rentals', 'Rehire – VMS, container and forklifts'), ('Carriers', 'Transport'),
+                     ('Job Connect', 'Labour hire'), ('Salary', 'Salary allowance'), ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Queensland Forklifts', 'Rehire – VMS, container and forklifts')):
         if sup.startswith(pre_): return c_
     if sup in ('Bunnings', 'CCI Supplies', 'BSF Mobile Cranes', 'Event Elec'): return 'Consumables and services (POs)'
     raise ValueError('no category for ' + sup)
 def cat_of_branch_line(n_):   # the same categories for the lines under Costs by branch
-    for pre_, c_ in (('Event Portables', 'Toilets and water'), ('Premiair', 'Rehire'), ('Royal Wolf', 'Rehire'), ('Transport', 'Transport'), ('Labour hire', 'Labour hire'), ('Salary', 'Salary allowance'),
-                     ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Consumables', 'Consumables and services (POs)'), ('Fencing', 'Fencing'), ('Forklift', 'Rehire')):
+    for pre_, c_ in (('Event Portables', 'Rehire – toilets and water'), ('Premiair', 'Rehire – VMS, container and forklifts'), ('Royal Wolf', 'Rehire – VMS, container and forklifts'), ('Transport', 'Transport'), ('Labour hire', 'Labour hire'), ('Salary', 'Salary allowance'),
+                     ('Accommodation', 'Accommodation'), ('Meals', 'Meals and expenses'), ('Consumables', 'Consumables and services (POs)'), ('Fencing', 'Rehire – fencing'), ('Forklift', 'Rehire – VMS, container and forklifts')):
         if n_.startswith(pre_): return c_
     raise ValueError('no category for ' + n_)
 _ci = lambda v: int(round(v * 100))
@@ -1137,20 +1139,54 @@ for c_ in CATS:
         v_ = [CATM[(c_, b_, k2_)] / 100 for k2_ in MO]
         if any(v_): _crow += "<tr><td>%s</td><td>%s</td>%s<td class='n'><b>%s</b></td></tr>" % (e(c_), b_, ''.join("<td class='n'>%s</td>" % m(x) for x in v_), m(r2(sum(v_))))
     _ct = [sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100 for k2_ in MO]
-    _crow += "<tr class='sub'><td>%s</td><td></td>%s<td class='n'>%s</td></tr>" % (e(c_), ''.join("<td class='n'>%s</td>" % m(x) for x in _ct), m(r2(sum(_ct))))
+    _crow += "<tr class='sub'><td>%s%s</td><td></td>%s<td class='n'>%s</td></tr>" % (e(c_), ("<br><span class='w'>" + e(CAT_NOTE[c_]) + "</span>") if c_ in CAT_NOTE else '', ''.join("<td class='n'>%s</td>" % m(x) for x in _ct), m(r2(sum(_ct))))
+    for gn_, gm_ in CAT_GROUPS:
+        if c_ == gm_[-1]:
+            _gt = [sum(CATM[(c2_, b_, k2_)] for c2_ in gm_ for b_ in _BRS) / 100 for k2_ in MO]
+            _crow += "<tr class='sub'><td>%s</td><td></td>%s<td class='n'>%s</td></tr>" % (e(gn_), ''.join("<td class='n'>%s</td>" % m(x) for x in _gt), m(r2(sum(_gt))))
 _crow += "<tr class='sub'><td>The job</td><td></td>%s<td class='n'>%s</td></tr>" % (''.join("<td class='n'>%s</td>" % m(t_) for t_ in tot), m(JOB_COST))
-CAT_HTML = ("<h2>1c · Costs by category, branch and month</h2><p class='s'>Every cost line in a reporting category, not a GL code (Fencing, Toilets and water, Rehire, Transport, Labour hire, Salary allowance, Accommodation, Meals and expenses, Consumables and services (POs); Rehire includes Queensland Forklifts' forklift rehire for Coates' own use, not charged to the V8s), "
+CAT_HTML = ("<h2>1c · Costs by category, branch and month</h2><p class='s'>Every cost line in a reporting category, not a GL code (the three rehire groups, with what is inside each and their subtotal, Rehire, all; then Transport, Labour hire, Salary allowance, Accommodation, Meals and expenses, Consumables and services (POs); Rehire includes Queensland Forklifts' forklift rehire for Coates' own use, not charged to the V8s), "
             "on the branch it sits on, by month (November’s labour in October). Each row is the sum of its parts, to the cent; the categories add to each branch’s costs, each month and the job. The P&L tab’s filters use the same parts.</p>"
             + tbl(['Category', 'Branch', '#Sep', '#Oct', '#Nov', '#Job end'], _crow))
+# v1.19: by GL account, from the account on each cost line (Finance codes against these). Where a line names two accounts with amounts, each takes its own;
+# where it names two with no split on the record, the line sits under both codes together, said so. The rows add to the job cost.
+GL_NAME = {'2126': 'Rehire', '2142': 'Installation', '3325': 'Toilet pump-outs'}   # the names the journals give
+def _gl_parts(acct_, tot_):
+    if acct_.startswith('201.'): return [(acct_.split('.')[2], tot_, True)]
+    pr_ = re.findall(r'(\d{4}) ([\d,]+\.\d\d)', acct_)
+    if pr_:
+        ps_ = [(c_, float(a_.replace(',', ''))) for c_, a_ in pr_]; assert abs(sum(a_ for _, a_ in ps_) - tot_) < 0.005, (acct_, tot_); return [(c_, a_, True) for c_, a_ in ps_]
+    cs_ = re.findall(r'\b(\d{4})\b', acct_)
+    if len(cs_) == 1: return [(cs_[0], tot_, True)]
+    if len(cs_) > 1: return [(' or '.join(cs_), tot_, False)]
+    return [(acct_, tot_, True)]
+_glr = collections.OrderedDict()
+for r_ in C:
+    t_ = r2(r_[6] + r_[7] + r_[8])
+    for c_, a_, ok_ in _gl_parts(r_[2], t_):
+        g_ = _glr.setdefault(c_, {'code': c_, 'name': GL_NAME.get(c_, ''), 'total': 0.0, 'split': ok_, 'holds': collections.OrderedDict()})
+        g_['total'] += a_; g_['holds'][cat_of(r_[0])] = r2(g_['holds'].get(cat_of(r_[0]), 0) + a_)
+BY_ACC = sorted(({'code': g_['code'], 'name': g_['name'], 'total': r2(g_['total']), 'split': g_['split'], 'holds': [{'category': k_, 'amount': v_} for k_, v_ in g_['holds'].items()]} for g_ in _glr.values()), key=lambda g_: (g_['code'][:4] if g_['code'][:1].isdigit() else 'zzzz', g_['code']))
+assert abs(sum(g_['total'] for g_ in BY_ACC) - JOB_COST) < 0.005, BY_ACC
+GL_HTML = ("<h2>1d · Costs by GL account</h2><p class='s'>From the account on each cost line. Where a line names two accounts with amounts, each takes its own; where it names two with no split on the record "
+           "(the fencing weeks 6–1, 2126 or 2142; transport, 2120 or 2140; meals and expenses, 3520 or 3501), the line sits under both codes together, so nothing is guessed. The rows add to the job cost.</p>"
+           + tbl(['GL account', 'What is in it', '#Job end'], ''.join("<tr><td><b>%s</b>%s</td><td>%s</td><td class='n'>%s</td></tr>" % (e(g_['code']), (' ' + e(g_['name'])) if g_['name'] else ('' if g_['split'] else " <span class='w'>not split on the record</span>"), e(' · '.join('%s %s' % (h_['category'], m(h_['amount'])) for h_ in g_['holds'])), m(g_['total'])) for g_ in BY_ACC)
+                 + "<tr class='sub'><td>The job</td><td></td><td class='n'>%s</td></tr>" % m(JOB_COST)))
 _cat_rows = []
 for c_ in CATS:
     for b_ in _BRS:
         v_ = [r2(CATM[(c_, b_, k2_)] / 100) for k2_ in MO]
         if any(v_): _cat_rows.append([c_, b_] + v_ + [r2(sum(v_))])
-    _ct = [r2(sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100) for k2_ in MO]; _cat_rows.append(['Total, ' + c_, ''] + _ct + [r2(sum(_ct))])
+    _ct = [r2(sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100) for k2_ in MO]; _cat_rows.append(['Total, ' + c_ + ((' (' + CAT_NOTE[c_] + ')') if c_ in CAT_NOTE else ''), ''] + _ct + [r2(sum(_ct))])
+    for gn_, gm_ in CAT_GROUPS:
+        if c_ == gm_[-1]:
+            _gt = [r2(sum(CATM[(c2_, b_, k2_)] for c2_ in gm_ for b_ in _BRS) / 100) for k2_ in MO]; _cat_rows.append(['Total, ' + gn_, ''] + _gt + [r2(sum(_gt))])
 _cat_rows.append(['Total, the job', ''] + list(tot) + [JOB_COST])
 _cat_rows += [[], ['By month of work, except November’s labour (to 13 Nov: the Coates wages hours, the salary allowance and Job Connect), which is in October with October’s; the rest of November is forecast. Reporting categories, not GL codes; each row is the sum of its parts, to the cent.']]   # the recheck, 1 Nov: the sheet carries the page’s reporting basis
 _cat_sheet = sheet('By category', ['Category', 'Branch', 'Sep', 'Oct', 'Nov', 'Job end'], _cat_rows, money_cols=[3, 4, 5, 6], widths=[30, 10, 14, 14, 14, 14])
+sheet('By GL account', ['GL account', 'Name (from the journals)', 'Split on the record', 'What is in it', 'Job end'],
+      [[g_['code'], g_['name'], 'yes' if g_['split'] else 'no: the line names both codes', ' · '.join('%s %s' % (h_['category'], m(h_['amount'])) for h_ in g_['holds']), g_['total']] for g_ in BY_ACC] + [['The job', '', '', '', JOB_COST]],
+      money_cols=[5], widths=[16, 20, 22, 70, 14])
 # Retain the full worksheet note; print its concise basis without a note-only extra page.
 _cat_sheet.print_area = 'A1:F%d' % (_cat_sheet.max_row - 2)
 _cat_sheet.oddHeader.left.text += ' · Oct includes 1–13 Nov labour; accruals through 31 Oct; Coates wages uncosted.'
@@ -1175,7 +1211,7 @@ body = _re.sub(r"<div class='k'>.*?</div></div>\n", lambda _m: new_tiles, body, 
 body = body.replace("<h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2>", PACK_HTML.split('<h2>4 · Journals')[0] + "<h2>1 · Costs by supplier and month, with the accruals through 31 Oct</h2>")
 body = body.replace('</main>', '<h2>4 · Journals' + PACK_HTML.split('<h2>4 · Journals')[1] + '</main>')
 body = body.replace('<h2>5 · Open items', '<h2>6 · Open items').replace('<h2>4 · Journals', '<h2>5 · Journals')   # one number per section
-assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + '<h2>2 · Labour by month and branch')   # v1.17
+assert body.count('<h2>2 · Labour by month and branch') == 1; body = body.replace('<h2>2 · Labour by month and branch', CAT_HTML + GL_HTML + '<h2>2 · Labour by month and branch')   # v1.17
 assert body.count('<h2>2c · Staff hours by contract') == 1; body = body.replace('<h2>2c · Staff hours by contract', BRIDGE_HTML + PAID_HTML + '<h2>2c · Staff hours by contract')   # v1.17: the labour hire bridge; v1.18: paid hours
 assert body.count(MATCH_HTML) == 1; body = body.replace(MATCH_HTML, MATCH_HTML + POREG_HTML)   # v1.15: 3c, every PO in the costs
 (OUT / 'GC500_PL_final.html').write_text('<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.19</title><style>' + css + '</style></head><body>' + body + '</body></html>', encoding='utf-8')
@@ -1191,7 +1227,9 @@ PLF = {'pack': 'v1.19', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex 
        'branchLines': {b: [[n_, r2(v_)] for n_, v_ in COST_B[b]] for b in _BRS},
        'suppliers': [{'name': k_, 'sep': r2(v_[0]), 'oct': r2(v_[1]), 'nov': r2(v_[2]), 'total': r2(v_[0] + v_[1] + v_[2]), 'accrue': r2(v_[3])} for k_, v_ in _SUP.items()],
        'lines': [{'supplier': r_[0], 'branch': r_[1], 'account': r_[2], 'what': r_[3], 'po': r_[4], 'invoice': r_[5], 'contract': ch_, 'sep': r2(r_[6]), 'oct': r2(r_[7]), 'nov': r2(r_[8]), 'accrue': (r2(r_[9]) if r_[9] else 0), 'basis': r_[10], 'status': r_[11], 'category': cat_of(r_[0])} for r_, ch_ in zip(C, CH)],
-       'categories': [{'name': c_, 'sep': r2(sum(CATM[(c_, b_, 'Sep')] for b_ in _BRS) / 100), 'oct': r2(sum(CATM[(c_, b_, 'Oct')] for b_ in _BRS) / 100), 'nov': r2(sum(CATM[(c_, b_, 'Nov')] for b_ in _BRS) / 100), 'total': r2(sum(v_ for k_, v_ in CATM.items() if k_[0] == c_) / 100)} for c_ in CATS],
+       'byAccount': BY_ACC,   # v1.19: costs by GL account
+       'categoryGroups': [{'name': gn_, 'members': gm_, 'sep': r2(sum(CATM[(c2_, b_, 'Sep')] for c2_ in gm_ for b_ in _BRS) / 100), 'oct': r2(sum(CATM[(c2_, b_, 'Oct')] for c2_ in gm_ for b_ in _BRS) / 100), 'nov': r2(sum(CATM[(c2_, b_, 'Nov')] for c2_ in gm_ for b_ in _BRS) / 100), 'total': r2(sum(v_ for k_, v_ in CATM.items() if k_[0] in gm_) / 100)} for gn_, gm_ in CAT_GROUPS],
+       'categories': [{'name': c_, 'note': CAT_NOTE.get(c_, ''), 'sep': r2(sum(CATM[(c_, b_, 'Sep')] for b_ in _BRS) / 100), 'oct': r2(sum(CATM[(c_, b_, 'Oct')] for b_ in _BRS) / 100), 'nov': r2(sum(CATM[(c_, b_, 'Nov')] for b_ in _BRS) / 100), 'total': r2(sum(v_ for k_, v_ in CATM.items() if k_[0] == c_) / 100)} for c_ in CATS],
        'facts': [[i_, b_, k2_, v_, mv_] for (i_, b_, k2_, mv_), v_ in sorted(FACT.items(), key=lambda x_: (x_[0][0], _BRS.index(x_[0][1]), MO.index(x_[0][2]), x_[0][3]))],
        'revFacts': RFACT,
        'labourJournal': [{'who': x_[0], 'type': x_[1], 'home': x_[2], 'branch': x_[3], 'contract': x_[4], 'journal': x_[5], 'sep': x_[6], 'oct': x_[7], 'labourHire': x_[8],
