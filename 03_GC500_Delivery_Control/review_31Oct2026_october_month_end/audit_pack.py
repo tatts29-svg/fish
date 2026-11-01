@@ -567,7 +567,7 @@ check('labour in October: the hours tables have September and October columns on
 _cwN = r2(sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][5:7] == '11' and r[3] == 'Coates wages'))
 check('labour in October: the open item for Finance names November’s labour (3,176.82 salary, 9,129.05 Job Connect, %s h of Coates wages) and keeps it out of the accruals' % fmt(_cwN), any(str(r[0]).startswith('November’s labour in October:') and 'is GC500 work (no other work in November carries it)' in str(r[0]) and '3,176.82' in str(r[0]) and '9,129.05' in str(r[0]) and (('{:,.2f}'.format(_cwN)).rstrip('0').rstrip('.') + ' h of Coates wages') in str(r[0]) and 'Finance to confirm whether to provision it' in str(r[0]) for r in rows('Open items') if r))
 eq('labour in October: the accruals are unchanged (work done to 31 Oct)', ACC, 195076.18)
-eq('labour in October: November’s labour moved = 12,305.87 (October up, November down by it; v1.19: less the transport moves, 1,788.02 to November and the 16,233.12 estimate)', r2(OCT - 379590.09 + 1788.02 - _eo), 12305.87)
+eq('labour in October: November’s labour moved = 12,305.87 (October up, November down by it; v1.19: less the transport moves: 1,788.02 to November, and the October estimate)', r2(OCT - 379590.09 + 1788.02 - _eo), 12305.87)
 # ------------------------------------------------------------------ v1.16: the elite check of live v12.75 (1 Nov 2026), the findings verified against the sources
 _PSY = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}
 _cons = {str(r[4]): r for r in cs if str(r[4]) in _PSY}

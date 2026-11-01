@@ -12,9 +12,9 @@ The categories go from ten to nine; Rehire becomes 3,886.73 + 3,770.00.
 
 Transport (Andrew, 1 Nov 2026: "The transport we work out by what ever had a transport pick up cost. And is still onsite. Thats the amount we
 move"; "What ever is left onsite is left onsite"; "What u think we do both ?"): the four October pick-ups still on site (WC60, GN18, P46,
-P51, 1,788.02) move to November, and two ESTIMATE rows come in: the trucks that ran by 31 Oct with no figure or row on the record (16,233.12,
+P51, 1,788.02) move to November, and two ESTIMATE rows come in: the trucks that ran by 31 Oct with no figure or row on the record (16,083.79,
 October, a manual accrual candidate) and the pick-ups still to come for Coates gear on site (19,847.89, November). Revenue and the accruals
-are unchanged; the costs and the difference change by 36,081.01. Each leg is in the pack's section 2h.
+are unchanged; the costs and the difference change by 35,931.68. Each leg is in the pack's section 2h.
 
 This patch holds no figure. On the live v12.78 page (BASE pinned) it replaces the P&L block (the module and its data):
 - it reads PLF_JSON_OLD (pack v1.18, pinned) and PLF_JSON (pack v1.19, pinned);
@@ -77,7 +77,7 @@ def patch(text):
     for k in ('revenue', 'accrue'):
         if new_J[k] != old_J[k]: raise ValueError('a total changed between v1.18 and v1.19: ' + k)
     c = lambda a, b: abs(round(a, 2) - round(b, 2)) < 0.005
-    est = (16233.12, 19847.89, 1788.02)   # the transport estimate's October and November rows, and the four pick-ups moved to November
+    est = (16083.79, 19847.89, 1788.02)   # the transport estimate's October and November rows, and the four pick-ups moved to November
     if not (c(new_J['costs']['total'], old_J['costs']['total'] + est[0] + est[1]) and c(new_J['costs']['sep'], old_J['costs']['sep'])
             and c(new_J['costs']['oct'], old_J['costs']['oct'] - est[2] + est[0]) and c(new_J['costs']['nov'], old_J['costs']['nov'] + est[2] + est[1])
             and c(new_J['difference'], old_J['difference'] - est[0] - est[1])):
