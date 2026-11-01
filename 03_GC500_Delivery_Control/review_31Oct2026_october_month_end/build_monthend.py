@@ -681,7 +681,7 @@ LCB = {b: r2(sum(x['amount'] for x in LCL if x['b'] == b)) for b in ('KINP', 'ST
 assert (LCB, LC_TOT, len(LCL)) == ({'KINP': 67542.02, 'STPS': 38699.96, 'NVAC': 9980.59, 'MEAD': 0.0}, 116222.57, 26), (LCB, LC_TOT, len(LCL))
 LCI = {'KINP': r2(JC_TOT - 460.78), 'STPS': 460.78, 'NVAC': 0.0, 'MEAD': 0.0}   # labour hire already coded to Installs in this pack (management view, job end)
 LCLEFT = {b: r2(LCB[b] - LCI[b]) for b in LCB}
-assert (LCI['KINP'], LCLEFT['KINP'], r2(sum(LCLEFT.values()))) == (40029.38, 27512.64, 75732.41), (LCI, LCLEFT)
+assert (LCI['KINP'], LCLEFT['KINP'], r2(sum(LCLEFT.values()))) == (37005.53, 30536.49, 78756.26), (LCI, LCLEFT)   # v1.25: KINP labour cost less Kyle Gover's w/e 8 Nov, 3,023.85
 LC_NOTES = ['STPS: Advanced’s installation (2142) on the event and demob weeks, %s accrued, is the fencing subcontract’s labour; it is not taken off here.' % m(37991.00),
             'MEAD: no line is coded labour and none supplies an operator; 9992300 L4 (%s) is the hire of a scissor lift “With Operator Protection”.' % m(1672.64),
             'Not counted, as the invoices do not code them labour: the fence relocation on 9990776 L4 (%s, a fencing hire line) and ACCOM / ETC 50%% on 9968862 and 9968955 (%s, travel expenses).' % (m(13148.00), m(27700.00)),
@@ -793,7 +793,7 @@ COST_B = {   # management view, job end; people's costs on KINP (29 Oct ruling) 
           ('Forklift rehire, Queensland Forklifts: AT009 2.5 t RT forklift for Coates’ use, 17–18 Sep, PO 4654789 (invoiced; on 9961976 L34, own use at 0.00)', 950.00)]}
 CB = {b: r2(sum(v for _, v in LL)) for b, LL in COST_B.items()}
 assert abs(sum(CB.values()) - 585217.91) < 0.005, CB   # v1.21: less Alfie Harris's 5 Oct night, 223.63 (October, KINP, accrued in v1.19; off the record 2 Nov)
-assert CB == {b_: r2(v_ + EST_BR['oct_ran'][b_] + EST_BR['nov_on_site'][b_]) for b_, v_ in {'KINP': 220627.54, 'STPS': 318290.56, 'NVAC': 7877.14, 'MEAD': 5514.84}.items()}, CB   # v1.21: less Alfie Harris's 5 Oct night, 223.63 (October, KINP, accrued in v1.19; off the record 2 Nov); v1.19: + the transport estimate by branch   # v1.14: the forklift POs, STPS + 2,820.00, MEAD + 950.00   # v1.13: {'KINP': 220851.17, 'STPS': 315470.56, 'NVAC': 7877.14, 'MEAD': 4564.84} (v1.12: KINP 220,943.51 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20)
+assert CB == {b_: r2(v_ + EST_BR['oct_ran'][b_] + EST_BR['nov_on_site'][b_]) for b_, v_ in {'KINP': 217603.69, 'STPS': 318290.56, 'NVAC': 7877.14, 'MEAD': 5514.84}.items()}, CB   # v1.25: KINP less Kyle Gover's w/e 8 Nov, 3,023.85   # v1.21: less Alfie Harris's 5 Oct night, 223.63 (October, KINP, accrued in v1.19; off the record 2 Nov); v1.19: + the transport estimate by branch   # v1.14: the forklift POs, STPS + 2,820.00, MEAD + 950.00   # v1.13: {'KINP': 220851.17, 'STPS': 315470.56, 'NVAC': 7877.14, 'MEAD': 4564.84} (v1.12: KINP 220,943.51 · STPS 315,081.00 · NVAC 8,510.62 · MEAD 2,402.20)
 assert abs(sum(REV_B.values()) - 1001063.07) < 0.005, REV_B
 JOB_REV, JOB_COST = r2(sum(REV_B.values()) + sum(NOV_REV.values())), r2(sum(CB.values()))
 srow = ''

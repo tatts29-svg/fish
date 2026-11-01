@@ -166,7 +166,8 @@ if NOW:   # the record as it now stands (12715): the 12640 lines less Alfie's th
         _ns = (lambda o: [{kk: vv for kk, vv in w.items() if kk != 'state'} for w in o]) if k == 'fencingWeeks' else (lambda o: o)   # v1.21: a fencing week's state (to come / in progress / done) follows today's date, not the record
         check('record now: %s unchanged since 12640%s' % (k, ' (each week\u2019s figures; its state follows the date)' if k == 'fencingWeeks' else ''), json.dumps(_ns(dn[k]), sort_keys=True) == json.dumps(_ns(dc[k]), sort_keys=True))
     la_, lb_ = collections.Counter((x['d'], x['c']) for x in dc['labour']), collections.Counter((x['d'], x['c']) for x in dn['labour'])
-    check("record now: labour hire = the 12640 shifts plus Daniel Gough's ten days 2-13 Nov at 634.98, nothing else", not (la_ - lb_) and sorted((lb_ - la_).elements()) == [(d, 634.98) for d in DAN10], (sorted((la_ - lb_).elements()), sorted((lb_ - la_).elements())))
+    KYLE5 = [(d, 604.77) for d in ('2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06')]   # v1.25: Kyle Gover's 2-6 Nov shifts, off the record on 2 Nov (12749)
+    check("record now: labour hire = the 12640 shifts less Kyle Gover's 2-6 Nov (604.77 a day, off on 2 Nov), plus Daniel Gough's ten days 2-13 Nov at 634.98, nothing else", sorted((la_ - lb_).elements()) == KYLE5 and sorted((lb_ - la_).elements()) == [(d, 634.98) for d in DAN10], (sorted((la_ - lb_).elements()), sorted((lb_ - la_).elements())))
     is9 = lambda x: x['k'] == 'accommodation' and x.get('who') == 'Alfie Harris' and x['d'] in NINE
     key = lambda x, blank: json.dumps({**{kk: vv for kk, vv in x.items() if kk not in ('who', 'id', 'keys')}, **({'amount': None} if blank else {})}, sort_keys=True)
     was_, now_ = collections.Counter(key(x, False) for x in dc['exp']), collections.Counter(key(x, is9(x)) for x in dn['exp'])

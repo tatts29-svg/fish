@@ -33,7 +33,7 @@ HERE = Path(__file__).resolve().parent
 LIVE1279 = HERE.parent / 'v12.79_pl_rehire_pack_v119_LIVE'
 BASE = '3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8'        # live v12.80, uploaded 2 Nov 2026 04:55 AEST
 OLD_SHA = '5029e24ce4ea151bf5a7f7abbaffcb617f15fa54faeabb8a585cfea927a9d9cc'     # pack v1.22, record 12739, in the live v12.80 block
-NEW_SHA = '__V125__'     # pack v1.25, record 12749
+NEW_SHA = 'c562b1d9da27f421f7f1a360aede5728212fceb5ea52825b16f0ef3e24dccebb'     # pack v1.25, record 12749 (audit_pack.py 596/596)
 W18 = 6198.75                                                                    # Job Connect w/e 18 Oct, invoiced, at the running sheet's hours and rates
 K8 = 3023.85                                                                     # Kyle Gover's w/e 8 Nov on the running sheet (off the record, 12749)
 FIND = ('plf1279_find.js', 'plf1279_find.css')
@@ -69,12 +69,17 @@ def check_delta(o, n):
         return obj
     # every money figure that moved (outside the journal rows' hours, the facts, the journals and the text) moved by exactly one of the two
     for x in d:
-        if x.endswith(' len') or x.startswith(('labourJournal', 'facts', 'journals', 'open', 'record', 'pack', 'source')): continue
+        if x.endswith(' len') or x.startswith(('labourJournal', 'facts', 'journals', 'open', 'record', 'pack', 'source', 'noPO')): continue   # noPO is checked by content below (one entry fewer)
         u, v = at(o, x), at(n, x)
         if isinstance(u, (int, float)) and isinstance(v, (int, float)) and not isinstance(u, bool):
             dv = abs(round(v - u, 2))
             if not any(abs(dv - k) < 0.005 for k in (W18, K8)): raise ValueError('%s moved by %s, not by the w/e 18 Oct accrual or Kyle Gover\'s week' % (x, round(v - u, 2)))
     if n['revenue'] != o['revenue']: raise ValueError('revenue moved')
+    np_o, np_n = [json.dumps(x, sort_keys=True) for x in o['noPO']], [json.dumps(x, sort_keys=True) for x in n['noPO']]
+    gone = [json.loads(x) for x in np_o if x not in np_n]
+    if len(np_n) != len(np_o) - 1 or [x for x in np_n if x not in np_o] or len(gone) != 1 or (gone[0]['what'], gone[0]['amount']) != ('Kyle Gover, w/e 8 Nov', K8):
+        raise ValueError('the no-PO list: only Kyle Gover\'s w/e 8 Nov (3,023.85) may go, and nothing else may change')
+    if [k for k in diffs(o, n) if k.endswith(' len') and k != 'noPO len']: raise ValueError('a list other than noPO changed length')
     if not (c(n['accrue'], o['accrue'] - W18) and c(n['costs']['total'], o['costs']['total'] - K8) and c(n['costs']['oct'], o['costs']['oct'] - K8)
             and n['costs']['sep'] == o['costs']['sep'] and n['costs']['nov'] == o['costs']['nov'] and c(n['difference'], o['difference'] + K8)):
         raise ValueError('the totals: accruals must fall by 6,198.75, the job and October by 3,023.85, the difference rise by 3,023.85')
