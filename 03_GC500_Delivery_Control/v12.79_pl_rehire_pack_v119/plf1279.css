@@ -1,0 +1,93 @@
+/* Author: Andrew Fisher. v12.72 - the final P&L at the head of the Costs & P&L tab; the live model folded under it. v12.73 - labour charged by branch. v12.74 - Schedule 17. v12.75 - every PO and hire contract */
+.plf1272{border-top:4px solid #1d7a46}
+.plf1272-h{margin:2px 0 12px;font-size:20px;line-height:1.25}
+.plf1272-h small{display:block;font-size:12.5px;font-weight:500;color:#6b7681;margin-top:3px}
+#pl1267-fp .plf1272-tiles{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:14px}
+.plf1272-sub{margin:16px 0 6px!important}
+.plf1272 .tblwrap{overflow:auto;-webkit-overflow-scrolling:touch}
+.plf1272-tbl{min-width:560px}
+.plf1272-bl,.plf1272-jn{min-width:480px}
+.plf1275-rev,.plf1275-con,.plf1275-po{min-width:560px}
+.plf1272-lines td small.plf1275-hc{color:#2d5f86}
+.plf1275-con tr.pl1267-grp td small{text-transform:none;letter-spacing:normal;font-weight:400;color:#4b5560}
+.plf1272 .tblwrap td:first-child,.plf1272 .tblwrap th:first-child{position:static;box-shadow:none}
+.plf1272-tbl td b{font-weight:700}
+.plf1272-note{font-size:12.5px;color:#4b5560;margin:8px 0 6px}
+.plf1272-more{margin-top:10px}
+.plf1272-more>summary{cursor:pointer;font-weight:700}
+.plf1272-more>summary small{font-weight:500;color:#6b7681;margin-left:8px}
+.plf1272-more[open]>summary{margin-bottom:6px}
+.plf1272-open{margin:6px 0 0;padding-left:22px}
+.plf1272-open li{margin:6px 0;font-size:13.5px;line-height:1.4}
+.plf1272-live>summary small{font-weight:500}
+.plf1272-lcnotes,.plf1272-s17notes{margin:4px 0 6px;padding-left:20px}.plf1272-lcnotes li,.plf1272-s17notes li{font-size:12.5px;color:#4b5560;margin:3px 0}
+@media (max-width:720px){
+  #pl1267-fp .plf1272-tiles{grid-template-columns:1fr}
+  /* v12.75: on a phone the words keep a readable width and the figures scroll sideways inside the table */
+  #pl1267-fp .plf1272-lines td:first-child,#pl1267-fp .plf1275-rev td:first-child,#pl1267-fp .plf1275-con td:first-child,#pl1267-fp .plf1275-po td:first-child{min-width:190px}
+  #pl1267-fp .plf1275-rev td:nth-child(2),#pl1267-fp .plf1275-con td:nth-child(2),#pl1267-fp .plf1275-po td:nth-child(2),#pl1267-fp .plf1272-lines td:last-child{min-width:120px}
+  .plf1272-h{font-size:18px}
+  .plf1272-more>summary small{display:block;margin:2px 0 0}
+}
+/* on paper (the tab's Print, A4 landscape): the final P&L in full, every fold in it open; the live model stays on the screen */
+@media print{
+  #pane-costs .plf1272{padding:3mm 4mm 2.5mm;margin-bottom:2.5mm;border-top-width:1.2mm;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .plf1272-h{font-size:12pt;margin:0 0 2mm}.plf1272-h small{font-size:7.5pt}
+  #pl1267-fp .plf1272-tiles{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .plf1272-tbl{min-width:0!important;width:100%}.plf1272 .tblwrap{overflow:visible}
+  .plf1272-sub{margin:3mm 0 1.5mm!important}
+  .plf1272-note{font-size:7.5pt;margin:1.5mm 0}
+  .plf1272-more{display:block}.plf1272-more>summary{font-size:9pt;margin:3mm 0 1mm;list-style:none}.plf1272-more>summary::-webkit-details-marker{display:none}
+  /* v12.74: each fold's heading prints above its table (the page's own print rule hides fold headings: .plfold765>summary) */
+  #pl1267-fp details.plf1272-more>summary{display:block!important;border:0!important;padding:0!important;background:none!important}
+  .plf1272-more>summary small{font-size:7pt}
+  .plf1272-open li{font-size:8pt;margin:1mm 0}
+  .plf1272-lcnotes li,.plf1272-s17notes li{font-size:7.5pt;margin:0.5mm 0}.plf1272-lc{break-inside:avoid;page-break-inside:avoid}
+  .plf1272-branch{break-inside:avoid;page-break-inside:avoid}
+  /* a heading stays with what follows it; a long table runs on across the page, its header repeated */
+  .plf1272-sub,.plf1272-more>summary{break-after:avoid;page-break-after:avoid}.plf1272-tbl thead{display:table-header-group}.plf1272-tbl tr{break-inside:avoid;page-break-inside:avoid}
+  .plf1272-live{display:none!important}
+}
+
+/* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): not on the Costs & P&L tab; every other tab keeps the banner */
+body:has(#pane-costs.on) #ts1053-banner{display:none!important}
+
+/* v12.77 - find in the P&L: one quiet panel under the tiles; three choices and a search on one line, the answer below in the tab's own tables */
+.plx{margin:4px 0 16px;padding:12px 14px 10px;border:1px solid #d9dfe4;border-radius:10px;background:#f7f9fa}
+.plx-top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:8px}
+.plx-top .fin745-eyebrow{margin:0!important}
+.plx-help{margin:0;font-size:12.5px;color:#5a6670}
+.plx-bar{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.25fr) minmax(0,1.15fr) minmax(0,1.6fr) auto;gap:8px 10px;align-items:end}
+.plx-f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.plx-f>span{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#5a6670}
+.plx-f select,.plx-f input{width:100%;min-width:0;box-sizing:border-box;height:36px;padding:0 10px;border:1px solid #c5ced5;border-radius:7px;background:#fff;font:inherit;font-size:14px;color:#1c252c}
+.plx-f select:focus,.plx-f input:focus{outline:2px solid #1d7a46;outline-offset:0;border-color:#1d7a46}
+.plx-clear{height:36px;white-space:nowrap}
+.plx-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 4px}
+.plx-k{padding:8px 10px;border-radius:8px;background:#fff;border:1px solid #e1e6ea}
+.plx-k>span{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#5a6670}
+.plx-k>b{display:block;font-size:19px;line-height:1.25;font-variant-numeric:tabular-nums;color:#1c252c}
+.plx-k>small{display:block;font-size:11.5px;color:#6b7681}
+.plx-k.pl1267-neg>b{color:#a32020}
+.plx-out .tblwrap{margin-top:6px}
+.plx-out td small{display:block}
+.plx-out td small.plx-cat,.plf1272-lines td small.plx-cat{color:#1d7a46;font-weight:600}
+.plx-pick{all:unset;cursor:pointer;color:#1d5f8a;font-weight:600;border-bottom:1px dotted #1d5f8a}
+.plx-pick:hover,.plx-pick:focus-visible{color:#0f3f61;border-bottom-style:solid}
+.plx-go{all:unset;cursor:pointer;display:inline-block;margin:2px 8px 2px 0;padding:3px 10px;border:1px solid #c5ced5;border-radius:6px;background:#fff;color:#1d5f8a;font-size:12.5px;font-weight:600}
+.plx-go:hover,.plx-go:focus-visible{border-color:#1d5f8a}
+.plx-note{grid-column:1 / -1;margin:0 0 2px;font-size:12.5px;color:#1d5f8a}
+.plx-none{margin:10px 2px 4px;font-size:13.5px;color:#5a6670}
+.plx-lines,.plx-lj,.plx-ljall,.plx-bridge,.plx-inv,.plx-po,.plx-con,.plx-paid{min-width:560px}
+.plx-lj th small,.plx-lj td.num small{display:block;font-weight:400;color:#6b7681}
+@media (max-width:900px){.plx-bar{grid-template-columns:repeat(3,minmax(0,1fr))}.plx-qf{grid-column:1 / 3}}
+@media (max-width:720px){
+  .plx{padding:10px}
+  .plx-bar{grid-template-columns:minmax(0,1fr)}.plx-qf,.plx-clear{grid-column:1 / -1}.plx-clear{width:100%}   /* one choice to a row: the full names (KINP · Brisbane Portables, Job end (Sep to Nov)) fit */
+  .plx-f select,.plx-f input{height:42px;font-size:16px}
+  .plx-sum{grid-template-columns:1fr}
+  #pl1267-fp .plx-lines td:first-child,#pl1267-fp .plx-lj td:first-child,#pl1267-fp .plx-ljall td:first-child,#pl1267-fp .plx-bridge td:nth-child(2){min-width:170px}
+}
+@media print{.plx{display:none!important}}
+.plx-test{min-width:640px}
+.plx-test td small{display:block;color:#6b7681;font-size:11.5px}

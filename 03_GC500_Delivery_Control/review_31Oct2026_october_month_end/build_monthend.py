@@ -1199,6 +1199,10 @@ PLF = {'pack': 'v1.19', 'record': 12727, 'asAt': '2026-10-31', 'basis': 'AUD ex 
                          'paidSep': x_[9], 'paidOct': x_[10], 'normal': x_[11], 'x15': x_[12], 'x2': x_[13]} for x_ in lab_rows],
        'paidNote': PAID_NOTE,
        'labourHireBridge': LH_BRIDGE,
+       'transportEstimate': {'method': EST['method'], 'moved': [{'ref': m_['key'], 'from': m_['d'], 'to': m_['to'], 'amount': m_['amount']} for m_ in EST['moves']],
+                             'legs': [{k_: l_[k_] for k_ in ('group', 'branch', 'ref', 'what', 'kind', 'date', 'loads', 'rate', 'rate_source', 'amount')} for l_ in _est_rows],
+                             'ranBy31Oct': EST_OCT, 'stillOnSite': EST_NOV, 'byBranch': {'ranBy31Oct': EST_BR['oct_ran'], 'stillOnSite': EST_BR['nov_on_site']},
+                             'notIn': [{'what': x_['what'], 'amount': x_['amount']} for x_ in EST['supplier_gear_open']]},   # v1.19: the tab shows each leg (section 2h)
        'journals': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in JOURNALS],
        'moves': [{'journal': a_, 'po': b_, 'contract': k_, 'account': c_, 'branch': d_, 'amount': r2(v_)} for a_, b_, k_, c_, d_, v_ in MOVES],
        'open': list(OPEN),
