@@ -5,8 +5,11 @@ anything that sets its pay changes afterwards. It took the whole S.runRules map,
 the same map (S.runRules.buildingsLock1049): every lock, unlock or open rewrote it and turned every confirmed row back to "changed",
 and so did a rule that does not touch the row (labour hire's normal hours on a Coates wages row).
 
-This release fingerprints only the pay rules that set that row's pay, and only where they differ from the standard figure:
-  Coates wages: cna_ord, ot_x15, sat_x15, wd_break · labour hire: lh_ord, ot_x15, sat_x15, wd_break · salary: wd_break (paid hours).
+This release fingerprints only the rules used by that row's calculation branch, and only where they differ from the standard figure:
+  Weekday Coates wages: cna_ord, ot_x15; weekday labour hire: lh_ord, ot_x15; Saturday wages/hire: sat_x15; Sunday: none.
+  wd_break applies only to a valid timed weekday shift without an explicit break; salary uses no split rules. Quoted crew use none.
+  This preserves standard-rule {} hashes and relevant non-default values. Legacy hashes with a nonempty irrelevant-rule map are
+  not migrated: saved review events are never rewritten or accepted from a reduced snapshot alone.
 With the standard rules this is {} - what the map held when the rows were confirmed - so a row whose shift and effective rules
 are unchanged reads confirmed again, and a rule change that does change its pay (labour hire's normal hours, 7.5 to 7.6 on the
 record) still reads "changed". The lock keeps its state where it is; nothing is moved, typed or written to the record.
@@ -18,12 +21,22 @@ import re, sys
 from pathlib import Path
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 OLD = "payRules: S.runRules || {}};"
-NEW = "payRules: fin745PayRules1278(type)};"
+NEW = "payRules: fin745PayRules1278(type, c)};"
 FN = """/* v12.78 - the pay rules in a Finance row's fingerprint: only those that set this row's pay, and only where they differ from the
    standard figure (Andrew, 1 Nov 2026: "Fix this"). The buildings lock keeps its state in the same map; it, and a rule that does not
    touch the row, no longer turn a confirmed row back to "changed". With the standard rules this is {}, as when the rows were confirmed. */
-function fin745PayRules1278(type) {
- const keys = type === 'hire' ? ['lh_ord', 'ot_x15', 'sat_x15', 'wd_break'] : type === 'salary' ? ['wd_break'] : ['cna_ord', 'ot_x15', 'sat_x15', 'wd_break'];
+function fin745PayRules1278(type, row) {
+ let keys = type === 'hire' ? ['lh_ord', 'ot_x15', 'sat_x15', 'wd_break'] : type === 'salary' ? ['wd_break'] : ['cna_ord', 'ot_x15', 'sat_x15', 'wd_break'];
+ if (row) {
+  /* Finance supplies the source row. Calls without it retain the conservative type-only diagnostic.
+     Quoted event-crew shifts use supplierHours/split and do not read the employee rules. */
+  const quoted = typeof Workforce1010 !== 'undefined' && Workforce1010.isShift(row);
+  const day = new Date(String(row.date) + 'T00:00:00').getDay();
+  const timed = !!(row.start && row.finish && shiftHours(row.start, row.finish, 0) != null);
+  const explicitBreak = row.break_min != null && String(row.break_min).trim() !== '' && Number.isFinite(Number(row.break_min));
+  keys = quoted ? [] : keys.filter(k => k === 'wd_break' ? timed && !explicitBreak && day !== 0 && day !== 6
+   : k === 'sat_x15' ? day === 6 : day !== 0 && day !== 6);
+ }
  const out = {}; keys.forEach(k => { const v = runRule(k); if (v !== RUN_DEF[k]) out[k] = v; }); return out;
 }
 function fin745Rows(asOf) {"""

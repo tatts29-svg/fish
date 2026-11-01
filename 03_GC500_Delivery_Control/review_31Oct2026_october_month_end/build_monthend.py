@@ -458,7 +458,7 @@ def pos_of(c):
 # ---------------- CSV
 with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8-sig') as f:
     w = csv.writer(f)
-    w.writerow(['Author: Andrew Fisher', 'GC500 October month-end: costs by supplier and month, accruals, labour, invoices', 'as at 31 Oct 2026', 'AUD ex GST', 'record 12727'])
+    w.writerow(['Author: Andrew Fisher', 'GC500 October month-end: costs by supplier and month, accruals, labour (worked hours, from 14 Sep), invoices', 'as at 31 Oct 2026', 'AUD ex GST', 'record 12727'])
     w.writerow(['Supplier', 'Branch', 'Account', 'What', 'PO', 'Invoice / receipt', 'Charged on (hire contract · V8s invoice)', 'September', 'October', 'November', 'Accruals through 31 Oct', 'How dated', 'Status'])
     for r, ch_ in zip(C, CH): w.writerow(list(r[:6]) + [ch_, '%.2f' % r[6], '%.2f' % r[7], '%.2f' % r[8], '' if r[9] is None else '%.2f' % r[9], r[10], r[11]])
     w.writerow(['Total', '', '', '', '', '', '', '%.2f' % tot[0], '%.2f' % tot[1], '%.2f' % tot[2], '%.2f' % acc_total, '', ''])
@@ -467,7 +467,7 @@ with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8
     w.writerow(['Total, 18 invoices', '', '', '', '%.2f' % sum(r['ex'] for r in REV), '%.2f' % sum(r['waiver'] for r in REV)] + ['%.2f' % RT[k] for k in MO] + ['%.2f' % UND, '', ''])
     w.writerow(['November forecast', '29 Oct', '9961976', 'NVAC', '839.07', '', '', '', '', '', 'Baseplan (12) 9961976 L61, pick-up charge, applied, not invoiced yet'])
     for i_ in REMOVED: w.writerow([i_['invoice'], i_['date'], i_['contract'], 'removed', '', '', '', '', '', '', 'invoiced to Gold Coast Helitours, not V8 Supercars (ex GST %.2f): not GC500 revenue' % i_['ex_gst']])
-    w.writerow([]); w.writerow(['Labour', 'Branch', 'September h', 'October h (with 1–13 Nov)'])
+    w.writerow([]); w.writerow(['Labour', 'Branch', 'September worked h', 'October worked h (with 1–13 Nov)'])
     for typ in ('Coates wages', 'Salary', 'Labour hire'):
         for b in ('KINP', 'STPS', 'NVAC'):
             vals = [L.get((typ, b, k), 0) for k in LMO]
@@ -475,16 +475,16 @@ with (OUT / 'GC500_October_month_end.csv').open('w', newline='', encoding='utf-8
     for b_ in ('KINP', 'STPS', 'NVAC', 'MEAD'):
         vals_ = [LHB.get((b_, k), 0) for k in LMO]
         if any(vals_): w.writerow(['Labour hire cost (running sheet basis; the P&L uses Job Connect’s invoices where received)', b_] + ['%.2f' % v for v in vals_])
-    w.writerow([]); w.writerow(['Staff hours by contract', 'Branch', 'What', 'How', 'September h', 'October h (with 1–13 Nov)'])
+    w.writerow([]); w.writerow(['Staff hours by contract', 'Branch', 'What', 'How', 'September worked h', 'October worked h (with 1–13 Nov)'])
     for c_ in ['KINP', '9972648', '9961976']:
         hs = [CON.get((c_, k), 0) for k in LMO]
         if any(hs): w.writerow([c_] + list(CLABEL[c_]) + ['%.2f' % v for v in hs])
-    w.writerow([]); w.writerow(['Person', 'Home branch', 'Contract', 'September h', 'October h (with 1–13 Nov)'])
+    w.writerow([]); w.writerow(['Person', 'Home branch', 'Contract', 'September worked h', 'October worked h (with 1–13 Nov)'])
     for who in sorted(HOME):
         for c_ in ['KINP', '9972648', '9961976']:
             hs = [CONP.get((who, c_, k), 0) for k in LMO]
             if any(hs): w.writerow([who, HOME[who][0], c_ if c_ != 'KINP' else 'KINP'] + ['%.2f' % v for v in hs])
-    w.writerow([]); w.writerow(['Person', 'Type', 'Home branch (record)', 'Journal', 'Receiving branch', 'September h', 'October h (with 1–13 Nov)', 'Labour hire $'])
+    w.writerow([]); w.writerow(['Person', 'Type', 'Home branch (record)', 'Journal', 'Receiving branch', 'September worked h', 'October worked h (with 1–13 Nov)', 'Labour hire $'])
     for who in sorted(HOME):
         home, typ = HOME[who]
         for b in ('KINP', 'STPS', 'NVAC'):
@@ -565,7 +565,7 @@ for who in sorted(HOME, key=lambda w: (HOME[w][1].startswith('Labour hire'), w))
         prow += "<tr%s><td><b>%s</b><br><span class='w'>%s</span></td><td>%s</td><td><b>%s</b></td>%s<td class='n'>%s</td><td class='n'>%s</td></tr>" % (
             "" if b == home else " class='acc'", e(who), e(typ), home, e(move), ''.join("<td class='n'>%s</td>" % (hd(v) if v else '—') for v in hs),
             hd(sum(hs)), m(sum(cs)) if sum(cs) else '')
-PERSON_HTML = tbl(['Person · type', 'Home branch', 'Journal', '#Sep h', '#Oct h (with 1–13 Nov)', '#Total h', '#Labour hire $'], prow)
+PERSON_HTML = tbl(['Person · type', 'Home branch', 'Journal', '#Sep worked h', '#Oct worked h (with 1–13 Nov)', '#Total worked h', '#Labour hire $'], prow)
 order_c = ['KINP', '9972648', '9961976']
 crow2 = ''
 for c_ in order_c:
@@ -574,14 +574,14 @@ for c_ in order_c:
     br_, what_, how_ = CLABEL[c_]
     crow2 += "<tr><td><b>%s</b> · %s<br><span class='w'>%s · %s</span></td>%s<td class='n'><b>%s</b></td></tr>" % (e(c_ if c_ != 'KINP' else 'KINP'), br_, e(what_), e(how_), ''.join("<td class='n'>%s</td>" % (hd(v) if v else '—') for v in hs), hd(sum(hs)))
 crow2 += "<tr class='sub'><td>All staff hours</td>%s<td class='n'>%s</td></tr>" % (''.join("<td class='n'>%s</td>" % hd(sum(CON.get((c_, k), 0) for c_ in order_c)) for k in LMO), hd(sum(CON.values())))
-CON_HTML = tbl(['Contract · branch', '#Sep h', '#Oct h (with 1–13 Nov)', '#Total h'], crow2)
+CON_HTML = tbl(['Contract · branch', '#Sep worked h', '#Oct worked h (with 1–13 Nov)', '#Total worked h'], crow2)
 prow2 = ''
 for who in sorted(HOME, key=lambda w: (HOME[w][1].startswith('Labour hire'), w)):
     for c_ in order_c:
         hs = [CONP.get((who, c_, k), 0) for k in LMO]
         if not any(hs): continue
         prow2 += "<tr><td>%s</td><td>%s</td><td>%s</td>%s<td class='n'>%s</td></tr>" % (e(who), HOME[who][0], e(c_ if c_ != 'KINP' else 'KINP (no contract number)'), ''.join("<td class='n'>%s</td>" % (hd(v) if v else '—') for v in hs), hd(sum(hs)))
-CONP_HTML = tbl(['Person', 'Home branch', 'Contract', '#Sep h', '#Oct h (with 1–13 Nov)', '#Total h'], prow2)
+CONP_HTML = tbl(['Person', 'Home branch', 'Contract', '#Sep worked h', '#Oct worked h (with 1–13 Nov)', '#Total worked h'], prow2)
 css = """:root{--ink:#1d2730;--mute:#6b7681;--line:#e3e7eb;--bg:#f7f8f6;--card:#fff;--accent:#9c470c;--sub:#f1f4f6;--acc:#fff4e5;--nd:#fdecea}
 @media (prefers-color-scheme:dark){:root{--ink:#e6eaee;--mute:#9aa5b0;--line:#2b343c;--bg:#14191e;--card:#1b2228;--accent:#f0a46a;--sub:#222b33;--acc:#33281a;--nd:#3a1f1c}}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}main{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
@@ -660,9 +660,9 @@ body = f"""<main><h1>GC500 P&amp;L · job position at 31 Oct 2026 · pack v1.18<
 {tbl(['Supplier · what', 'PO', 'Invoice / receipt', 'Charged on (hire contract · V8s invoice)', '#Sep', '#Oct', '#Nov', '#Accruals through 31 Oct', 'Status · how dated'], crow)}
 <h2>1b · Accruals beside what we charged the V8s</h2><p class='s'>Each accrued supplier next to what we charged the V8s for the same work. Where no supplier invoice has been seen, the cost is an estimate and says so; it is replaced when the invoice comes. Charges are before the damage waiver except the fencing, which shows its fencing lines with their waiver; WB13, a water barrier on the same invoice, is left out, as its row says.</p>
 """ + ACC_HTML + f"""
-<h2>2 · Labour by month and branch, 14 Sep to 13 Nov</h2><p class='s'>The job’s labour starts on 14 Sep: the register’s 7–11 Sep lines (Aaron Zelvis and Alfie Harris, Coates wages, and Andrew Fisher, salary; {hd(sum(float(r_[4] or 0) for r_ in PRE_START))} h, hours only, no cost) are not in it. The event weekend, 23–25 Oct, is the planned 12 h days (06:00–18:00). Hours from the running sheet, allocated by the job’s rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages and salary are hours only. November’s hours, to 13 Nov, are counted in October ({hd(NOVH['Coates wages'])} h of Coates wages, {hd(NOVH['Salary'])} h of salary and {hd(NOVH['Labour hire'])} h of labour hire); September’s stay in September. The labour hire cost rows are the running sheet’s ({m(41276.59)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received and the running sheet where not ({m(JC_TOT)}, section 1).</p>
-{tbl(['Type', 'Branch', '#September h', '#October h (with 1–13 Nov)', '#Total h'], lrow)}
-<h2>2b · Labour by person: home branch, and where the cost is journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: the job’s allocation rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician, on NVAC). Coates wages and salary are hours (finance applies the pay cost); labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
+<h2>2 · Labour by month and branch, 14 Sep to 13 Nov</h2><p class='s'>The job’s labour starts on 14 Sep: the register’s 7–11 Sep lines (Aaron Zelvis and Alfie Harris, Coates wages, and Andrew Fisher, salary; {hd(sum(float(r_[4] or 0) for r_ in PRE_START))} h, hours only, no cost) are not in it. The event weekend, 23–25 Oct, is the planned 12 h days (06:00–18:00). Worked hours (start to finish) from the running sheet, allocated by the job’s rules (KINP rule, the water barriers on STPS, the generators at 1.5 h in and out, the event weekend’s mechanic and electrician on NVAC). Coates wages aren’t costed yet (hours only); the salary allowance is in the costs. The paid hours, for the journals, are in 2f. November’s hours, to 13 Nov, are counted in October ({hd(NOVH['Coates wages'])} h of Coates wages, {hd(NOVH['Salary'])} h of salary and {hd(NOVH['Labour hire'])} h of labour hire); September’s stay in September. The labour hire cost rows are the running sheet’s ({m(41276.59)}), by the branch that received the hours; the P&L carries Job Connect’s invoices where received, the PO amount where there is one, and the running sheet where neither ({m(JC_TOT)}, section 1).</p>
+{tbl(['Type', 'Branch', '#September worked h', '#October worked h (with 1–13 Nov)', '#Total worked h'], lrow)}
+<h2>2b · Worked hours by person: home branch, and where the hours are journaled to</h2><p class='s'>Home branch from each person's row on the record. Journal to: the job’s allocation rules (the people's costs on KINP; water barriers on STPS; the generators at 1.5 h in and out on NVAC; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician, on NVAC). These are worked hours; the paid hours, for the journals, are in 2f. Coates wages aren’t costed yet (Finance applies the pay); the salary allowance is in the costs; labour hire is dollars at the record's rates. Branch names for NOIS, NTSP, BFIS and NSNA aren't on the record.</p>
 """ + PERSON_HTML + f"""
 <h2>2c · Staff hours by contract</h2><p class='s'>Outside KINP, the contract is named: the water barriers on 9972648 (STPS) and the generators on 9961976 (NVAC), from the hours on the running sheet's notes; Frank Devilles and Ludwig Chee, the event weekend’s mechanic and electrician (23–25 Oct, 36 h each), on 9961976. NVAC bills one Event Gen Tech, the event labour scope's one a day: 31.55 h, {m(4735.97)} on 25121022 (the invoice prints 31), and 4.5 h, {m(675.50)} on KINP's 25123999 (the invoice prints 4). Worked hours and billed hours are different facts. Everything else is KINP (no contract number). Labour hire costs are coded to Installs.</p>
 """ + CON_HTML + f"""
@@ -768,7 +768,7 @@ PACK_HTML = ("<h2>0 · The job by branch</h2><p class='s'>Revenue is the 18 invo
   + "<h3>Costs by branch</h3>" + tbl(['Cost', '#Amount'], crowB)
   + "<h2>4 · Journals prepared for Finance, through 31 Oct</h2>" + tbl(['Journal', 'PO', 'Hire contract (where charged)', 'Account', 'Branch', '#Amount'], jrow)
   + "<h3>Branch moves at 31 Oct (cost journals, not accruals)</h3>" + tbl(['Journal', 'PO', 'Hire contract', 'Account', 'Legs (zero net)', '#Amount'], mrow)
-  + "<p class='s'>Labour journals (hours; Coates wages and salary are hours only): see section 2b, each person from their home branch to the branch of the work, with the contract named outside KINP.</p>"
+  + "<p class='s'>Labour journals: the paid hours in section 2f, each person from their home branch to the branch of the work (section 2b), with the contract named outside KINP. Coates wages aren’t costed yet; the salary allowance is in the costs; labour hire goes at its costs (section 2d), not re-priced from the hours.</p>"
   + "<h2>5 · Open items</h2><ul>" + ''.join('<li>' + e(o) + '</li>' for o in OPEN) + "</ul>")
 
 # ---------------- Excel workbook
@@ -953,7 +953,7 @@ for who in sorted(HOME):
     for b in ('KINP', 'STPS', 'NVAC'):
         hs = [PH.get((who, k, b), 0) for k in LMO]
         if any(hs): lab_rows.append([who, typ, home, b, {'STPS': '9972648', 'NVAC': '9961976'}.get(b, ''), 'stays' if b == home else home + ' → ' + b] + [r2(x) for x in hs] + [r2(sum(PC.get((who, k, b), 0) for k in LMO))])
-sheet('Labour by person', ['Person', 'Type', 'Home branch', 'Branch of the work', 'Contract (outside KINP)', 'Journal', 'Sep h', 'Oct h (with 1–13 Nov)', 'Labour hire $ (running sheet)'],
+sheet('Labour by person', ['Person', 'Type', 'Home branch', 'Branch of the work', 'Contract (outside KINP)', 'Journal', 'Sep worked h', 'Oct worked h (with 1–13 Nov)', 'Labour hire $ (running sheet)'],
       lab_rows, money_cols=[9], hour_cols=[7, 8], widths=[16, 40, 12, 12, 14, 16, 9, 12, 16])
 # v1.18: paid hours, the journal basis (1 Nov 2026: journal what payroll pays): each shift's paid hours (start to finish less the unpaid
 # break: what is typed, else 30 minutes on a weekday, none at the weekend; hours typed without times as they are) and its normal / x1.5 / x2
@@ -1001,9 +1001,9 @@ for r_ in lab_rows:
     w, b = r_[0], r_[3]; ps = PAIDH.get((w, b, 'Sep'), [0, 0, 0, 0]); po = PAIDH.get((w, b, 'Oct'), [0, 0, 0, 0])
     r_ += [ps[0] / 100, po[0] / 100, (ps[1] + po[1]) / 100, (ps[2] + po[2]) / 100, (ps[3] + po[3]) / 100]
 _ph = lambda r_: r_[9:14]
-PAID_NOTE = ('Paid hours are the journal basis (what payroll pays): each shift from start to finish less the unpaid break (as typed, else 30 minutes on a weekday; '
+PAID_NOTE = ('Paid hours are the journal basis: the hours payroll pays, worked out here from the running sheet (not payroll’s own figures). Each shift from start to finish less the unpaid break (as typed, else 30 minutes on a weekday; '
              'weekend breaks are paid; hours typed without times are taken as they are). Coates wages split by the running sheet’s rules: on a weekday 7.6 h normal, the next 2 h at ×1.5, '
-             'the rest at ×2; Saturday 2 h at ×1.5, then ×2; Sunday all ×2. Salary is all normal. Labour hire is priced on the running sheet by the same rules (the $ column in 2b). '
+             'the rest at ×2; Saturday 2 h at ×1.5, then ×2; Sunday all ×2. Salary is all normal. Labour hire is priced on the running sheet by the same rules (the $ column in 2b); its journals use its costs (section 2d), not these hours re-priced. '
              'A day on more than one branch shares each band pro rata by the hours on each branch. The job’s labour starts on 14 Sep; October includes 1–13 Nov; the event weekend, 23–25 Oct, is the planned 12 h days.')
 _pt = lambda f: r2(sum(f(r_) for r_ in lab_rows))
 _bt = {b: [r2(sum(r_[9 + i] for r_ in lab_rows if r_[3] == b)) for i in range(5)] for b in ('KINP', 'STPS', 'NVAC')}
