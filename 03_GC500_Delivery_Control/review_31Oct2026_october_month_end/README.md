@@ -602,13 +602,25 @@ rest wait on its adversarial verification and, for the transport loads, on Andre
 record's loads).
 - Consumables POs: each cost line's status is what Coates' system says (4666720, 4669481, 4670270 invoiced; 4663216 received in full,
   not invoiced; 4655573, 4670876 nothing received), not "check invoice" for all.
-- Advanced's seven orders are "receipted" (the record holds receipt numbers); Advanced invoices are named only where the record has
-  them (GC220926 on 4647509, 93920 on 4658850). 4658850 is described from the record's note: a partial collection (Advanced INV 93920).
-- The Event Portables 2126 journal is "hire, transport and water": Q6845 toilet hire and transport 42,175.00 · water 14,450.00
-  (Q6846 4,850.00; Q6844 water truck and pre-fill 9,600.00) · Q6847 pit-lane trailer 3,350.00 = 59,975.00.
+- Advanced's seven orders stay "invoiced and receipted" (the verifier refuted the finding: Advanced's six construction-week invoices
+  were checked against the POs to the cent on 29 Oct, `../review_29Oct2026_advanced_invoices/`). Each order now names its invoice and
+  receipt: 4647508 GC090926, 4647509 GC220926, 4647515 GC071026, 4647517 GC290926, 4647519 GC141026, 4647520 GC121026, 4658850
+  INV 93920. 4658850 is described from the record's note: a partial collection (Advanced INV 93920).
+- The Event Portables 2126 journal is "hire, transport and water": Q6845 toilet hire and transport 42,175.00 · Q6846 water
+  deliveries and drinking-water tank 4,850.00 · Q6844 water truck and pre-fill 9,600.00 (Finance to confirm 2126 or 3325) · Q6847
+  pit-lane trailer 3,350.00 = 59,975.00.
 - The no-PO list calls the two forecast carrier rows forecasts (card rate, else the load average; planned loads).
-- The Event Portables quotes are described as unsigned, with no PO on them (all four carry an empty Signed block).
-- 9994954: Event Portables' units are L19 (6 pee panels), L21 and L22 (FWF); L18 is the transport of Coates' two WC09 blocks.
+- The Event Portables quotes: "four quotes, approved on 24 Sep (unsigned, with no PO on them)" (the verifier kept "approved": the
+  approval of all four on 24 Sep is on the record; all four also carry an empty Signed block and no PO).
+- 9994954: Event Portables' lines are L19 (6 pee panels) and L21–L22 (13 FWF) hire, L23 FWF labour and L24 FWF transport (26 × 47.50);
+  L18 is the transport of Coates' two WC09 blocks (L15, L16). The toilet-hire charge row names L19, L21–L22.
+- Open items, verified: 10000523 L8's 37 track mats were delivered 19 Oct but billed from 27 Oct (8 days, 1,429.68, possible extra
+  revenue); 9961976 bills transport for 12 of its 13 generator sets (24 legs; the two large sets need 4 at 600.00, L55 bills 2:
+  1,200.00 not billed), replacing "the 350 kVA transport is already billed"; WB03's unbilled stretch is 19–26 Oct, 247.80 (WB20
+  already bills 26–29 Oct), not 354.00; the consumables sold to the V8s (toilet paper and hand towels 6,724.40 on KINP, scrim
+  4,230.40 on STPS) carry no cost on the record, Finance to confirm.
+- Refuted by the verifier, so unchanged: 4669481 stays on NVAC (its GL on the record is 201.NVAC.2150.0); PG29 on 9968955 L154 and WC66
+  on L166 are charged as ruled on 29 Oct.
 - The scissor lift on 9992300 L4 is "With Operator Protection": no MEAD line supplies an operator.
 - The month-end CSV's invoice rows carry the V8s' PO, as the workbook and page do.
 
@@ -629,6 +641,6 @@ labour (12,305.87 and the Coates wages hours) at 31 Oct.
 (w/e 18 Oct), 2,435.83, is the total; he worked for the V8s on 14 Oct only (10.5 h, 634.98 on the running sheet), so only that day is
 in the costs (KINP, with Daniel Gough on PO 4667755). The figure is kept with its source in the private Job Connect file.
 
-`audit_pack.py`: 506 checks, 506 pass: v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
+`audit_pack.py`: 510 checks, 510 pass: v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
 rows, the print sizes, each elite fix against its source, and the labour move: no salary or Job Connect line in November, each person's
 October hours = the register's October and November, the accruals unchanged, the open item's figures).

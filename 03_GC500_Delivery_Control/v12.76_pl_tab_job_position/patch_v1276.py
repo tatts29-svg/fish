@@ -25,7 +25,7 @@ import hashlib, json, os, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '0b32aebda051d1e48ef5e2319b589a2acd0afeff97418a05ff7c365606b891dc'        # live v12.75, uploaded 1 Nov 2026 12:39 AEST
-PLF_SHA256 = '5b8732c55232331228f581cff18a71c61bcd443697bd8f5bbaea9d7fff9bcf8f'  # pack v1.16, record 12727 (audit_pack.py)
+PLF_SHA256 = 'c2150b5b99d3138a7d99728e1f4d23524c79797093dd68a581e60626dc5c5233'  # pack v1.16, record 12727 (audit_pack.py)
 OLD_SHA = '31b9a283e41058556aab1c6c226a5c165ba66b6b28244f89f8ce5c12b6b64065'     # pack v1.15, in the live v12.75 block
 STRIP_OLD = 'left:4mm;top:12mm;bottom:12mm;width:4mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1 Arial,sans-serif;color:#a00;text-align:center;z-index:2147483647;white-space:nowrap;overflow:hidden}'
 STRIP_NEW = ('left:1.5mm;top:auto;bottom:3mm;width:auto;max-width:14mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1.15 Arial,sans-serif;color:#a00;text-align:start;z-index:2147483647;white-space:normal;overflow:visible}'
