@@ -1,0 +1,46 @@
+--- a/03_GC500_Delivery_Control/v12.77_pl_tab_explorer/plf1277_src.js
++++ b/03_GC500_Delivery_Control/v12.77_pl_tab_explorer/plf1277_src.js
+@@ -57,6 +57,7 @@
+ var MOL = {Sep: 'September', Oct: 'October (with November’s labour)', Nov: 'November (forecast)'};
+ var XS = {cat: '', br: '', mo: '', q: '', f: 0};   /* the choice survives the tab being drawn again when the record syncs; f: the search box had the focus */
+ var LT = null, PT = null, IX = null;
++var XFOCUS = 0, XPOINTER = false, XSELECTION = null;
+ function cents(c) { return c ? f2(c / 100) : '<span class="pl1267-dash">—</span>'; }
+ /* words as typed: lower case, quotes dropped, a thousands comma in a number dropped, spaces collapsed */
+ function norm(s) { return String(s == null ? '' : s).toLowerCase().replace(/[“”"‘’`']/g, ' ').replace(/(\d),(?=\d{3}(?!\d))/g, '$1').replace(/\s+/g, ' ').trim(); }
+@@ -234,10 +235,31 @@
+   var read = function () { ['cat', 'br', 'mo'].forEach(function (k) { var el = D.getElementById(ids[k]); XS[k] = el ? el.value : ''; }); xRender(); };
+   ['plx-cat', 'plx-br', 'plx-mo'].forEach(function (id) { var el = D.getElementById(id); if (el) el.onchange = read; });
+   var q = D.getElementById('plx-q'), tq = 0;
+-  if (q) {   /* the typed words are kept at once, so a redraw while typing loses nothing; the figures follow a moment later */
+-    q.oninput = function () { XS.q = q.value; clearTimeout(tq); tq = setTimeout(xRender, 120); };
+-    q.onfocus = function () { XS.f = 1; }; q.onblur = function () { setTimeout(function () { if (q.isConnected) XS.f = 0; }, 0); };   /* a box removed by a redraw keeps the focus for the new one */
+-    if (XS.f) { try { q.focus(); var L = q.value.length; q.setSelectionRange(L, L); } catch (er) {} }
++  if (!XPOINTER) {   /* an intentional click away cancels a pending redraw restoration */
++    D.addEventListener('pointerdown', function (ev) { if (ev.target !== D.getElementById('plx-q')) { XS.f = 0; XFOCUS++; } }, true);
++    XPOINTER = true;
++  }
++  if (q) {   /* keep the query now; debounce only the figures, never typing or selection */
++    var remember = function () { XSELECTION = {value: q.value, start: q.selectionStart, end: q.selectionEnd, direction: q.selectionDirection}; };
++    var restore = function (field, selection) { try { field.focus({preventScroll: true}); if (selection && selection.value === field.value) field.setSelectionRange(selection.start, selection.end, selection.direction); } catch (er) {} };
++    q.oninput = function () { XS.q = q.value; remember(); clearTimeout(tq); tq = setTimeout(xRender, 120); };
++    q.onselect = q.onkeyup = q.onclick = remember;
++    q.onfocus = function () { XS.f = 1; XFOCUS++; };
++    q.onblur = function (ev) {
++      var hadFocus = XS.f; remember(); var selection = XSELECTION, ticket = ++XFOCUS; XS.f = 0;
++      if (!hadFocus || (ev && ev.relatedTarget)) return;
++      /* The page blurs the still-connected old input before replacing it. Recheck after that synchronous redraw.
++         Only a replaced field on the same active tab qualifies; another control or a deliberate click wins. */
++      setTimeout(function () {
++        var current = D.getElementById('plx-q'), pane = D.getElementById('pane-costs'), active = D.activeElement;
++        if (ticket !== XFOCUS || q.isConnected || !current || current === q || !current.isConnected || !pane || !pane.classList.contains('on')) return;
++        if (active && active !== D.body && active !== current) return;
++        if (D.hasFocus && !D.hasFocus()) return;
++        if (current.value !== selection.value || XS.q !== selection.value) return;
++        restore(current, selection);
++      }, 0);
++    };
++    if (XS.f) { var pane = D.getElementById('pane-costs'); if (pane && pane.classList.contains('on')) restore(q, XSELECTION); else XS.f = 0; }
+   }
+   var c = D.getElementById('plx-clear'); if (c) c.onclick = function () { XS = {cat: '', br: '', mo: '', q: '', f: 0}; Object.keys(ids).forEach(function (k) { var el = D.getElementById(ids[k]); if (el) el.value = ''; }); xRender(); };
+   box.addEventListener('click', function (ev) {
