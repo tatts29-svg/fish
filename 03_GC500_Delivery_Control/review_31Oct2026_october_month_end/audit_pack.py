@@ -42,17 +42,17 @@ keep = [i for i in inv if i['invoice'] not in OUT]
 REV_TOT = r2(sum(i['ex_gst'] for i in keep)); eq('18 invoices to V8 Supercars', REV_TOT, 1001063.07)
 REVB = collections.defaultdict(float)
 for i in keep: REVB[FIX.get(i['invoice'], i.get('bp_branch'))] += i['ex_gst']
-rv = [r for r in rows('Revenue by invoice') if r and r[0] and r[3] != 'removed' and not str(r[0]).startswith('Total')]
+rv = [r for r in rows('Revenue by invoice') if r and r[0] and r[4] != 'removed' and not str(r[0]).startswith('Total')]   # v1.13: column 4 is the V8s PO
 check('revenue sheet: 18 invoices', len(rv) == 18, len(rv))
 src = {i['invoice']: i for i in keep}
 for r in rv:
     i = src.get(r[0]); check('revenue sheet row is a source invoice: %s' % r[0], i is not None)
     if not i: continue
-    eq('ex GST matches the invoice: %s' % r[0], r[4], i['ex_gst'])
-    eq('months + services = ex GST: %s' % r[0], sum((r[k] or 0) for k in (6, 7, 8, 9)), r[4])
-    check('branch: %s' % r[0], r[3].split(' ')[0] == FIX.get(i['invoice'], i.get('bp_branch')), r[3])
-rem = [r for r in rows('Revenue by invoice') if r and r[3] == 'removed']
-check('25124396 shown as removed, with no amount', len(rem) == 1 and rem[0][0] == '25124396' and all(x is None for x in rem[0][4:10]), rem)
+    eq('ex GST matches the invoice: %s' % r[0], r[5], i['ex_gst'])
+    eq('months + services = ex GST: %s' % r[0], sum((r[k] or 0) for k in (7, 8, 9, 10)), r[5])
+    check('branch: %s' % r[0], r[4].split(' ')[0] == FIX.get(i['invoice'], i.get('bp_branch')), r[4])
+rem = [r for r in rows('Revenue by invoice') if r and r[4] == 'removed']
+check('25124396 shown as removed, with no amount', len(rem) == 1 and rem[0][0] == '25124396' and all(x is None for x in rem[0][5:11]), rem)
 summ = {r[0]: r for r in rows('Summary') if r and r[0] in ('KINP', 'STPS', 'NVAC', 'MEAD', 'The job')}
 for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('branch revenue %s' % b, summ[b][1], REVB[b])
 eq('revenue: invoices + November forecast', summ['The job'][3], REV_TOT + 839.07)
@@ -67,6 +67,56 @@ dc = json.load(open(PR / 'dated_costs.json'))
 T = collections.defaultdict(float)
 for t in dc['transport']:
     mo = (t['d'] or '')[:7]; T[('rec', mo)] += t.get('actual') or 0; T[('plan' if t.get('planned') else 'fc', mo)] += t.get('f') or 0
+# ------------------------------------------------------------------ v1.13: Schedule 17, read again from the workbook itself, against the record's loads
+S17P = (NOW.parent / 'sched17_transport.json') if NOW else None
+S17X = Path('/tmp/gc500-scratch/upload_sched17/schedule17.xlsx')
+TLP0 = (NOW.parent / 'transport_loads.json') if NOW else None
+S17 = json.load(open(S17P)) if S17P and S17P.exists() else None
+check('Schedule 17 corrections and the workbook are beside the record captures', bool(S17) and S17X.exists() and bool(TLP0) and TLP0.exists())
+if S17 and S17X.exists():
+    import hashlib, datetime as _dt
+    check('Schedule 17 workbook is the reviewed one (SHA-256)', hashlib.sha256(S17X.read_bytes()).hexdigest() == S17['sha256'])
+    _wb17 = openpyxl.load_workbook(S17X, read_only=True, data_only=True); R17 = []
+    for _ws in _wb17.worksheets:
+        if _ws.title in ('BOQ', 'Labour'): continue
+        _it = list(_ws.iter_rows(values_only=True))
+        if not _it: continue
+        _hd = [str(h).strip().lower() if h is not None else '' for h in _it[0]]; _ddc = _hd.index('dd') if 'dd' in _hd else None
+        for _n, _r in enumerate(_it[1:], start=2):
+            _cells = ['' if c is None else (c.date().isoformat() if isinstance(c, _dt.datetime) else str(c)) for c in (_r or ())]
+            _amts = sorted({float(x.replace(',', '')) for c in _cells for x in re.findall(r'\$\s*([\d,]+(?:\.\d+)?)', c)})
+            if not _amts: continue
+            check('Schedule 17 %s row %d: one figure' % (_ws.title, _n), len(_amts) == 1, _amts)
+            _d = _cells[0]; _mm = re.match(r'\w+day (\d+)\w* (\w+)', _d)
+            if _mm: _d = '2026-%02d-%02d' % ({'September': 9, 'October': 10}[_mm.group(2)], int(_mm.group(1)))
+            R17.append({'sheet': _ws.title, 'row': _n, 'date': _d, 'item': (_cells[2] if len(_cells) > 2 else '').strip().lower(), 'amt': _amts[0],
+                        'dds': set(re.findall(r'\b2\d{7}\b', _cells[_ddc] if _ddc is not None and _ddc < len(_cells) else ''))})
+    check('Schedule 17: 72 rows carry a figure, 35,186.85', len(R17) == 72 and abs(sum(x['amt'] for x in R17) - 35186.85) < 0.005, (len(R17), sum(x['amt'] for x in R17)))
+    TL0 = json.load(open(TLP0))['loads']
+    for l in TL0: l['_dd'] = set(re.findall(r'\b2\d{7}\b', l.get('dd') or ''))
+    CH17 = {(c['s17'][0], c['s17'][1]): c for c in S17['changes']}
+    for c in S17['changes']:
+        x = [r for r in R17 if (r['sheet'], r['row']) == tuple(c['s17'])]
+        check('Schedule 17 %s row %d has %s and docket %s (%s)' % (c['s17'][0], c['s17'][1], fmt(c['amount']), c['dd'], c['ref']), len(x) == 1 and abs(x[0]['amt'] - c['amount']) < 0.005 and set(re.findall(r'\b2\d{7}\b', c['dd'])) <= x[0]['dds'] | {d for d in re.findall(r'\b2\d{7}\b', c['dd']) if not x[0]['dds']}, x)
+        if c['kind'] == 'missing': check('%s: no load on the record carries its docket' % c['ref'], not [l for l in TL0 if l['_dd'] & set(re.findall(r'\b2\d{7}\b', c['dd']))])
+        else:
+            mt = c['match']; h = [l for l in TL0 if l['key'] == mt['key'] and l['d'] == mt['d'] and l['planned'] == mt['planned'] and (not mt.get('item') or l['item'] == mt['item'])]
+            check('%s: the record’s load is %s' % (c['ref'], 'a forecast of ' + fmt(c['was']) if c['kind'] == 'forecast' else 'at nil'), len(h) == 1 and not h[0]['actual'] and ((c['kind'] == 'forecast' and abs((h[0]['f'] or 0) - c['was']) < 0.005) or (c['kind'] == 'priced' and not h[0]['f'])), h)
+    OD = {('Week 3', 25): 'WC60', ('Week 3', 26): 'WC60', ('Week 3', 4): 'WC01'}   # the same money on another docket
+    eq('Schedule 17: WC60’s rows (290.00 + 580.00) = WC60’s 870.00 on the record', sum(r['amt'] for r in R17 if OD.get((r['sheet'], r['row'])) == 'WC60'), sum(l['actual'] or 0 for l in TL0 if l['key'] == 'WC60' and not l['planned']))
+    eq('Schedule 17: WC01’s 570.00 = the record’s', sum(r['amt'] for r in R17 if OD.get((r['sheet'], r['row'])) == 'WC01'), sum(l['actual'] or 0 for l in TL0 if l['key'] == 'WC01' and not l['planned']))
+    _used = set(); _tied = []
+    for r in sorted((r for r in R17 if (r['sheet'], r['row']) not in CH17 and (r['sheet'], r['row']) not in OD), key=lambda r: (not r['dds'])):
+        hit = [i for i, l in enumerate(TL0) if i not in _used and l['actual'] and abs(l['actual'] - r['amt']) < 0.005 and r['dds'] & l['_dd']]   # by docket, else by date and item
+        hit = hit or [i for i, l in enumerate(TL0) if i not in _used and l['actual'] and abs(l['actual'] - r['amt']) < 0.005 and l['d'] == r['date'] and (l['item'] or '').strip().lower() == r['item']]
+        if hit: _used.add(hit[0]); _tied.append(r)
+        else: check('Schedule 17 %s row %d (%s) ties to a load on the record' % (r['sheet'], r['row'], fmt(r['amt'])), False)
+    check('Schedule 17: 57 rows tie to the record’s loads to the cent, 29,406.85', len(_tied) == 57 and abs(sum(r['amt'] for r in _tied) - 29406.85) < 0.005, (len(_tied), sum(r['amt'] for r in _tied)))
+    _rest = [l for i, l in enumerate(TL0) if l['actual'] and i not in _used and l['key'] not in ('WC60', 'WC01')]
+    check('the record’s only figures Schedule 17 leaves blank: the 15 and 17 Sep fencing loads, 1,151.62 each', sorted((l['d'], l['actual']) for l in _rest) == [('2026-09-15', 1151.62), ('2026-09-17', 1151.62)], [(l['key'], l['d'], l['actual']) for l in _rest])
+    for c in S17['changes']:   # what the pack's carrier rows should carry: Schedule 17's figure in its month, the forecast it replaces out of the same month
+        mo = c['date'][:7]; T[('rec', mo)] += c['amount']
+        if c['kind'] == 'forecast': T[('fc', mo)] -= c['was']
 car = [r for r in cs if r[0].startswith('Carriers')]
 want = [(T[('rec', '2026-09')], T[('rec', '2026-10')], T[('rec', '2026-11')]), (T[('fc', '2026-09')], T[('fc', '2026-10')], T[('fc', '2026-11')]), (T[('plan', '2026-09')], T[('plan', '2026-10')], T[('plan', '2026-11')])]
 check('three carrier rows', len(car) == 3, len(car))
@@ -161,8 +211,13 @@ eq('Advanced invoiced POs = 214,225.00', sum(float(pos[p]['amount']) for p in ('
 adv = [r for r in cs if r[0].startswith('Advanced')]
 eq('Advanced invoiced row = the POs', sum((adv[0][k] or 0) for k in (7, 8, 9)), 214225.00)
 eq('Event Portables = the four quotes', sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in cs if r[0] == 'Event Portables'), 42175.00 + 51372.00 + 4850.00 + 3350.00)
+POSYS = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}   # v1.13: Coates' system, 1 Nov (private)
+check('the six consumables POs as Coates’ system has them are beside the record captures', len(POSYS) == 6, sorted(POSYS))
 for po in ('4655573', '4663216', '4666720', '4670270', '4670876', '4669481'):
-    row = [r for r in cs if r[4] == po][0]; eq('consumables PO %s at its amount' % po, (row[7] or 0) + (row[8] or 0) + (row[9] or 0), float(pos[po]['amount']))
+    row = [r for r in cs if r[4] == po][0]; amt_ = (row[7] or 0) + (row[8] or 0) + (row[9] or 0)
+    if po in POSYS: eq('consumables PO %s at its amount in Coates’ system (qty × unit cost, ex GST)' % po, amt_, r2(POSYS[po]['qty'] * POSYS[po]['unit_cost']))
+    if po == '4669481': eq('PO 4669481: the record still carries 42.34 (2 × 21.17 from the printed PO), one cent over the system’s 2 × 21.1650', float(pos[po]['amount']) - amt_, 0.01)
+    else: eq('consumables PO %s = the record' % po, amt_, float(pos[po]['amount']))
 check('every PO on the record is in the pack', all(any(p in str(r[4]) for r in cs) for p in pos), [p for p in pos if not any(p in str(r[4]) for r in cs)])
 
 # ------------------------------------------------------------------ the pack's own cross-foots
@@ -175,9 +230,9 @@ eq('summary job cost = costs by supplier', summ['The job'][4], JOB)
 eq('difference = revenue - costs', summ['The job'][5], summ['The job'][3] - JOB)
 mu = [r for r in rows('Match-up by contract') if r]
 job_row = [r for r in mu if r[0] == 'The job'][0]
-eq('match-up: tied + untied = job cost', job_row[7], JOB)
-eq('match-up: the costs listed add to the job cost', sum((r[7] or 0) for r in mu if r[0] != 'The job'), JOB)
-eq('match-up: invoices = 18-invoice revenue', job_row[3], REV_TOT)
+eq('match-up: tied + untied = job cost', job_row[8], JOB)   # v1.13: column 3 is the V8s PO
+eq('match-up: the costs listed add to the job cost', sum((r[8] or 0) for r in mu if r[0] != 'The job'), JOB)
+eq('match-up: invoices = 18-invoice revenue', job_row[4], REV_TOT)
 check('match-up: 18 contracts', len({r[0] for r in mu if r[0] and r[0][0].isdigit()}) == 18)
 jn = [r for r in rows('Journals') if r and r[0]]
 accr_j = [r for r in jn if str(r[0]).startswith('Accrual')]
@@ -237,11 +292,20 @@ for r in cb: cbr[(r[0], r[1])] += r[2]
 TLP = (NOW.parent / 'transport_loads.json') if NOW else None
 if TLP and TLP.exists():
     TLd = json.load(open(TLP))['loads']; amt_ = lambda l: (l['actual'] or 0) if l['actual'] else (l['f'] or 0)
+    if S17:   # v1.13: Schedule 17's figures on the loads they change; the loads it adds
+        for c in S17['changes']:
+            if c['kind'] == 'missing':
+                TLd.append({'key': c['ref'], 'd': c['date'], 'b': c['branch'], 'src': 'schedule17', 'item': c['item'], 'discipline': c['discipline'], 'actual': c['amount'], 'f': None, 'planned': False, 'dd': c['dd']}); continue
+            mt = c['match']
+            for l in TLd:
+                if l['key'] == mt['key'] and l['d'] == mt['d'] and l['planned'] == mt['planned'] and (not mt.get('item') or l['item'] == mt['item']): l.update(actual=c['amount'], f=None, dd=((l['dd'] or '') + ' ' + c['dd']).strip())
     TB2 = collections.defaultdict(float)
     for l in TLd:
         a_ = amt_(l)
         if not a_: continue
-        if l['b']: b_ = l['b']
+        if (l['discipline'] or '') == 'Generators': b_ = 'NVAC'          # v1.13, Andrew, 1 Nov: generators and forklifts belong to their branches
+        elif (l['discipline'] or '') == 'Access & plant': b_ = 'MEAD'
+        elif l['b']: b_ = l['b']
         elif l['src'] == 'fencing' or (l['discipline'] or '').lower() == 'fencing': b_ = 'STPS'
         else:
             it = (l['item'] or '').upper()
@@ -261,10 +325,10 @@ if TLP and TLP.exists():
         else: fnone += l['f']
     muf = collections.defaultdict(float)
     for r in mu:
-        if r[0] and r[0][0].isdigit() and str(r[5]).startswith('Carriers: forecast load'): muf[r[0]] += r[7] or 0
+        if r[0] and r[0][0].isdigit() and str(r[6]).startswith('Carriers: forecast load'): muf[r[0]] += r[8] or 0
     check('match-up: forecast loads tied by their docket = the loads', {k: r2(v) for k, v in muf.items()} == {k: r2(v) for k, v in FT.items()}, (dict(muf), dict(FT)))
-    eq('match-up: forecast loads with no docket', sum((r[7] or 0) for r in mu if r[0] == 'not tied to one contract' and str(r[5]).startswith('Carriers: forecast loads with no docket')), fnone)
-    eq('match-up: the forecast load with a docket not in Baseplan (12)', sum((r[7] or 0) for r in mu if r[0] == 'not tied to one contract' and str(r[5]).startswith('Carriers: a forecast load with a docket')), fmiss)
+    eq('match-up: forecast loads with no docket', sum((r[8] or 0) for r in mu if r[0] == 'not tied to one contract' and str(r[6]).startswith('Carriers: forecast loads with no docket')), fnone)
+    eq('match-up: the forecast load with a docket not in Baseplan (12)', sum((r[8] or 0) for r in mu if r[0] == 'not tied to one contract' and str(r[6]).startswith('Carriers: a forecast load with a docket')), fmiss)
 alltext = ' '.join(texts)
 check('no invoice-line numbers in contract-line form (L82, L118, 9994954 L11)', not re.search(r'\bL82\b|\bL118\b|9994954[^.;]{0,40}\bL11\b', alltext))
 check('contract lines L140, L163 and L13 are named', all(x in HT for x in ('L140', 'L163', 'L13')))
@@ -278,14 +342,14 @@ ct = [r for r in CS if r and r[0] == 'Total, 18 invoices']
 check('CSV: revenue total row = the 18 invoices', len(ct) == 1 and abs(float(ct[0][4]) - REV_TOT) < 0.005)
 check('CSV: the November forecast row and the removed 25124396 row', any(r and r[0] == 'November forecast' and r[4] == '839.07' for r in CS) and any(r and r[0] == '25124396' and r[3] == 'removed' for r in CS))
 rvt = [r for r in rows('Revenue by invoice') if r and str(r[0]).startswith('Total')]
-check('workbook: revenue total row = the 18 invoices', len(rvt) == 1 and abs(rvt[0][4] - REV_TOT) < 0.005)
+check('workbook: revenue total row = the 18 invoices', len(rvt) == 1 and abs(rvt[0][5] - REV_TOT) < 0.005)
 cst = [r for r in rows('Costs by supplier') if r and r[0] == 'Total']
 check('workbook: costs by supplier total row', len(cst) == 1 and all(abs(cst[0][7 + j] - v) < 0.005 for j, v in enumerate((SEP, OCT, NOV, ACC))))
 cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')]
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=9) for c in row if c.value is not None))
-check('page title is pack v1.12', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.12', re.findall(r'<title>([^<]*)</title>', H))
+check('page title is pack v1.13', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == 'GC500 P&L, final · pack v1.13', re.findall(r'<title>([^<]*)</title>', H))
 check('the page names record 12727 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12727)', '4674224', '4674225')))
 check('open items name the invoices still to come on 4674224 and 4674225', any('the invoices on 4674224 and 4674225' in str(r[0]) for r in rows('Open items') if r))
 # v1.11: Job Connect's supplier in Coates' system (code and registered name, from the private PO file) on every Job Connect line, its accrual and its open item
@@ -300,7 +364,7 @@ check('journals: Event Portables split 2126 hire / 3325 servicing = 101,747.00',
 JP = PK / 'GC500_PL_final.json'
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.12 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.12', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.13 on record 12727, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.13', 12727, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
     eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
@@ -338,6 +402,23 @@ if JP.exists():
     check('final P&L data: the 26 labour lines', len(LJ.get('lines', [])) == 26 and abs(sum(x['amount'] for x in LJ['lines']) - sum(LCA.values())) < 0.005)
 check('the page has the labour-charged section and its total', '2d · Labour we charged the V8s, by branch' in HT and fmt(sum(LCA.values())) in HT)
 check('the Event Portables units at excluded references are not mentioned (Andrew, 1 Nov)', not any(('195 units' in t) or ('735.00' in t) for t in texts + [json.dumps(J, ensure_ascii=False) if JP.exists() else '']))
+# ------------------------------------------------------------------ v1.13: section 2e on the page, the workbook and the data; the V8s' PO on every contract
+if S17:
+    s17w = [r for r in rows('Schedule 17 transport') if r and r[0] and r[0] in {c['ref'] for c in S17['changes']}]
+    check('workbook: Schedule 17 sheet, the 12 changes at their figures', len(s17w) == 12 and all(abs(r[5] - c['amount']) < 0.005 and abs(r[7] - (c['amount'] - (c.get('was') or 0))) < 0.005 for r, c in zip(s17w, S17['changes'])), len(s17w))
+    eq('Schedule 17: the 12 changes add 1,826.39 to the costs', sum(c['amount'] - (c.get('was') or 0) for c in S17['changes']), 1826.39)
+    check('the page has section 2e and its net change', '2e · Transport checked against Schedule 17' in HT and '+1,826.39' in HT)
+    if JP.exists(): check('final P&L data: Schedule 17, net 1,826.39, 12 changes', abs(J['schedule17']['net'] - 1826.39) < 0.005 and len(J['schedule17']['changes']) == 12)
+CHD = (NOW.parent / 'contract_headers.json') if NOW else None
+if CHD and CHD.exists():
+    CPO_ = {c: h['customer_po'] for c, h in json.load(open(CHD))['contracts'].items()}
+    check('contract headers: all 18 invoiced contracts', set(CPO_) == {i['contract'] for i in keep}, set(CPO_) ^ {i['contract'] for i in keep})
+    check('revenue sheet: each invoice carries its contract’s V8s PO', all(str(r[3]).startswith(CPO_[r[2]]) for r in rv), [(r[2], r[3]) for r in rv if not str(r[3]).startswith(CPO_.get(r[2], '?'))])
+    check('match-up sheet: each contract carries its V8s PO', all(str(r[2]).startswith(CPO_[r[0]]) for r in mu if r[0] in CPO_ and r[2]) and len({r[0] for r in mu if r[0] in CPO_ and r[2]}) == 18)
+    check('the page shows each contract’s PO', all(('PO ' + p_) in HT for p_ in set(CPO_.values())))
+    if JP.exists(): check('final P&L data: the contract POs', all(str(J['contractPOs'][c]).startswith(p_) for c, p_ in CPO_.items()))
+else:
+    check('contract headers (the V8s’ POs) are beside the record captures', False)
 print('AUDIT: %d checks, %d pass, %d fail' % (len(OK) + len(BAD), len(OK), len(BAD)))
 print('job cost %s · Sep %s · Oct %s · Nov %s · accruals %s · revenue %s · difference %s' % (fmt(JOB), fmt(SEP), fmt(OCT), fmt(NOV), fmt(ACC), fmt(summ['The job'][3]), fmt(summ['The job'][5])))
 for b in BAD: print('FAIL', b)

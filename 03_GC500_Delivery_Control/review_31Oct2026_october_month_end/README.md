@@ -445,3 +445,51 @@ Result: 269 checks, 269 pass. Run on the 12715 reads it fails on exactly Alfie's
 **Printed:** the page is 11 pages and the workbook 20, with all 12 Open items and the four labour notes in full.
 
 Run it: `python3 -I audit_pack.py <pack_dir> <progress_dir> <12727>/alfie_nights.json <12727>/dated_costs.json`.
+
+## Pack v1.13: transport checked against Schedule 17; generators on NVAC and forklifts on MEAD; PO 4669481 at 42.33; the V8s' PO on every contract (1 Nov)
+
+Andrew, 1 Nov 2026 (this chat), on Schedule 17: "lets make sure we double check this for any transports costs in here we may of missed.
+obviously you know where things belong to VMS and Generators and forlifts etc belong to their brances". He gave each contract's header
+("contract = PO") and the six consumables POs as Coates' system has them ("we alwasy talk in ex gst").
+
+**Schedule 17 against every load on the record (new section 2e; workbook sheet "Schedule 17 transport").**
+- 72 rows carry a figure (35,186.85). 57 tie to the record's loads to the cent (29,406.85). WC60 (870.00) and WC01 (570.00) carry the
+  same money on other dockets.
+- 12 change the costs: +4,340.00 of figures, less 2,513.61 of forecasts they replace, so +1,826.39 (September +570.00, October +1,256.39).
+  - Not counted before: GN20's 365 kVA delivery (570.00; its row was lost when GN20 was deleted on 20 Oct and re-added as GN20-A),
+    FL03 and FL04 (290.00 each), WC09 (580.00), WB04 and WB05 (290.00 each).
+  - A forecast replaced by the figure: GN26, the concert generators (580.00, was 651.56), GN13, P45 and P69 (290.00 each, were 300.39),
+    T0128 (290.00, was 480.44), T0109 (290.00, was 480.44).
+- Every change is one Schedule 17 row; its docket ties it to the hire contract in Baseplan (12). WC01's 570.00 now ties to 9968955 by
+  its own docket, 26102678, so the "docket not in Baseplan (12)" item is gone.
+- Kept: the 15 and 17 Sep fencing loads, listed on Schedule 17 with the dollar column blank (1,151.62 each, the 2-semi rate).
+
+**Transport by the equipment it moves.** The concert generators' delivery sits on NVAC (the record had KINP). The three September
+forklift deliveries on 9961976 (T0003–T0005, 1,773.08) sit on MEAD (the record had NVAC). Their hire stays where it is invoiced.
+
+**PO 4669481** (siphon hose) is 42.33, not 42.34: 2 × 21.1650 in Coates' system; the printed PO rounds the unit cost to 21.17. The
+record still says 42.34 until Andrew says to correct it there.
+
+**The V8s' PO on every contract and invoice**, as keyed (sections 3 and 3b; the Revenue by invoice and Match-up sheets). 9994954 is
+keyed "P0 07.04" (and printed so on 25123999), 10000484 "P28607". P029416 is on four contracts and P028613 on two.
+
+**Open items:** the consumables POs' status in Coates' system (4663216 is received in full and not invoiced); the L143 6,246.00 spelt out;
+9994954 invoiced to 26 Oct; POs 4647983 and 4654789, in the hire notes on 9961976 but not in the costs.
+
+**v1.13 figures:**
+- revenue 1,001,902.14 (unchanged);
+- costs 548,763.71 (Sep 147,585.00 · Oct 378,270.09 · Nov 22,908.62);
+- to accrue 195,076.18 (unchanged);
+- difference 453,138.43;
+- branch costs: KINP 220,851.17 · STPS 315,470.56 · NVAC 7,877.14 · MEAD 4,564.84.
+
+**`audit_pack.py`** now also:
+- reads Schedule 17 again from the workbook itself (SHA-256 pinned) and works out the 72 rows, the 57 ties, the 12 changes and what each
+  replaces on the record, independently of the builder;
+- puts generator transport on NVAC and forklift transport on MEAD by rule, and checks Costs by branch against it;
+- checks the six consumables POs against Coates' system, and that the record's 4669481 is exactly one cent over;
+- checks the V8s' PO on every contract on the page, both sheets and the tab's data.
+
+Result: 388 checks, 388 pass.
+
+**Printed:** the page is 12 pages and the workbook 26 (LibreOffice), no table overflow at landscape or portrait width.
