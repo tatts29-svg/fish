@@ -593,7 +593,7 @@ ul{margin:6px 0 0 18px}li{margin:3px 0}.k{display:grid;grid-template-columns:rep
 @media print{:root{--ink:#000;--mute:#3d4650;--line:#b9c0c6;--bg:#fff;--card:#fff;--accent:#7a3500;--sub:#eef1f3;--acc:#fff1dc;--nd:#fde5e2}
 html,body{background:#fff!important;color:#000;font-size:11px}main{max-width:none;padding:0}h1{font-size:18px}h2{font-size:14px;margin:12px 0 4px;break-after:avoid;page-break-after:avoid}h3{font-size:12px;break-after:avoid}
 .s,.w{font-size:10px}.wrap{overflow:visible!important}table{min-width:0!important;width:100%!important;font-size:10px}th,td{padding:2px 4px;overflow-wrap:anywhere}th{font-size:9.5px}
-thead{display:table-header-group}tr{break-inside:avoid;page-break-inside:avoid}.k{grid-template-columns:repeat(4,1fr)}.k b{font-size:16px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}"""
+table.cd td:nth-child(2),table.cd td:nth-child(3),table.cd th:nth-child(2),table.cd th:nth-child(3){white-space:nowrap}thead{display:table-header-group}tr{break-inside:avoid;page-break-inside:avoid}.k{grid-template-columns:repeat(4,1fr)}.k b{font-size:16px}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}"""
 # v1.12: the labour we charged the V8s, by branch. Andrew, 1 Nov 2026: "how much labour we charged each MEAD and NVAC and KINP and STPS if any so
 # when we journal peoples cost into INSTALL we have a figure we know we are up against". Every line the 18 invoices code LABOUR, as invoiced (ex GST;
 # the damage waiver sits with the hire, as in the revenue model above), on the branch that invoices it
@@ -1022,7 +1022,7 @@ PAID_HTML = ("<h2>2f · Paid hours, the journal basis: normal, ×1.5 and ×2</h2
                    + ''.join("<tr class='sub'><td>Paid hours on %s</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
                        b, _hh(_bt[b][0]), _hh(_bt[b][1]), _hh(r2(_bt[b][0] + _bt[b][1])), _hh(_bt[b][2]), _hh(_bt[b][3]), _hh(_bt[b][4]), _hh(r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[3] == b)))) for b in ('KINP', 'STPS', 'NVAC'))
                    + "<tr class='sub'><td>Coates wages, the job</td><td></td><td></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>" % (
-                       _hh(_ct[0]), _hh(_ct[1]), _hh(r2(_ct[0] + _ct[1])), _hh(_ct[2]), _hh(_ct[3]), _hh(_ct[4]), _hh(r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[1].startswith('Coates wages')))))))
+                       _hh(_ct[0]), _hh(_ct[1]), _hh(r2(_ct[0] + _ct[1])), _hh(_ct[2]), _hh(_ct[3]), _hh(_ct[4]), _hh(r2(sum(r_[6] + r_[7] for r_ in lab_rows if r_[1].startswith('Coates wages'))))), 'cd'))   # v1.18: the branch codes stay on one line in print
 sheet('Labour charged', ['Branch', 'Labour charged (lines coded LABOUR on the 18 invoices)', 'Lines', 'Labour hire already in Installs (this pack)', 'Left for people’s cost'],
       [[b, LCB[b], sum(1 for x in LCL if x['b'] == b), LCI[b], LCLEFT[b]] for b in ('KINP', 'STPS', 'NVAC', 'MEAD')] + [['Total, the job', LC_TOT, len(LCL), r2(sum(LCI.values())), r2(sum(LCLEFT.values()))], []] + [[t] for t in LC_NOTES],
       money_cols=[2, 4, 5], widths=[16, 30, 8, 30, 24])
