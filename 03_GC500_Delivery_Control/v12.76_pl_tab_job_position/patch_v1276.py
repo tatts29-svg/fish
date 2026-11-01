@@ -9,11 +9,10 @@ wording, not figures (item 4), and for the twin-steer rule down the edge of the 
    - "Accruals through 31 Oct": the journals prepared for Finance, not a record of what is posted, with September's part of a line
      in them as a catch-up named, and the classes not in them (carrier loads, the consumables and forklift POs) for Finance to confirm;
    - the invoices and the November forecast shown apart;
-2. gives the twin-steer strip room to print whole: it starts 3 mm above the bottom of the printable area (was a box 12 mm in from top
-   and bottom, which cut the end of the rule off: its last letter on the P&L print, more on the others) and runs up the edge, 1.5 mm in
-   from it (clear of the P&L print's frame); on the P&L print it stops 14 mm short of the top, clear of its first-page header. When
-   "Checked by" makes it longer than the edge, it wraps to a second line rather than cutting off. The rule's words, size and colour
-   are unchanged;
+2. the twin-steer strip: the P&L's print (the Costs & P&L tab) no longer carries it (Andrew, 1 Nov 2026: "I dont want the no twin
+   steer on here"); on the page's other prints it now prints whole: it starts 3 mm above the bottom of the printable area (was a box
+   12 mm in from top and bottom, which cut the end of the rule off) and runs up the edge, 1.5 mm in from it; when "Checked by" makes it
+   longer than the edge, it wraps to a second line rather than cutting off. The rule's words, size and colour are unchanged;
 3. footer v12.75 -> v12.76.
 
 No figure changes: pack v1.16 has v1.15's figures to the cent (audit_pack.py). The pack data is private and never committed; this patch
@@ -26,11 +25,11 @@ import hashlib, json, os, re, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '0b32aebda051d1e48ef5e2319b589a2acd0afeff97418a05ff7c365606b891dc'        # live v12.75, uploaded 1 Nov 2026 12:39 AEST
-PLF_SHA256 = 'e51b72b7604be8dbdce34e9c5d7f636977b1de94d278e72fc7ca5f3c4bd96eb1'  # pack v1.16, record 12727 (audit_pack.py)
+PLF_SHA256 = '5b8732c55232331228f581cff18a71c61bcd443697bd8f5bbaea9d7fff9bcf8f'  # pack v1.16, record 12727 (audit_pack.py)
 OLD_SHA = '31b9a283e41058556aab1c6c226a5c165ba66b6b28244f89f8ce5c12b6b64065'     # pack v1.15, in the live v12.75 block
 STRIP_OLD = 'left:4mm;top:12mm;bottom:12mm;width:4mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1 Arial,sans-serif;color:#a00;text-align:center;z-index:2147483647;white-space:nowrap;overflow:hidden}'
 STRIP_NEW = ('left:1.5mm;top:auto;bottom:3mm;width:auto;max-width:14mm;writing-mode:vertical-rl;transform:rotate(180deg);font:6.5pt/1.15 Arial,sans-serif;color:#a00;text-align:start;z-index:2147483647;white-space:normal;overflow:visible}'
-             'html.ts1053-armed:not(#ts1053x):not(#ts1053y):not(#ts1053z) body.printing-costs #ts1053-strip{max-height:181mm}')   # the costs print (A4 landscape, 6 mm margins: 198 mm tall): clear of its first-page header
+             'html.ts1053-armed:not(#ts1053x):not(#ts1053y):not(#ts1053z) body.printing-costs #ts1053-strip{display:none!important}')   # Andrew, 1 Nov 2026: "I dont want the no twin steer on here" (the P&L's print)
 FOOTER = re.compile(r"\+' · (v12\.\d+(?:\.\d+)?)'; /\* v8\.19 release922")
 
 
@@ -100,4 +99,4 @@ def patch(text):
 if __name__ == '__main__':
     p = Path(sys.argv[1]); t = p.read_text(encoding='utf-8')
     p.write_text(patch(t), encoding='utf-8')
-    print('patch_v1276 applied: the P&L job position on pack v1.16 (data %s); the twin-steer strip prints whole; footer v12.75 -> v12.76' % PLF_SHA256[:12])
+    print('patch_v1276 applied: the P&L job position on pack v1.16 (data %s); no twin-steer rule on the P&L print, whole on the others; footer v12.75 -> v12.76' % PLF_SHA256[:12])

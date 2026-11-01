@@ -19,7 +19,8 @@
    v12.76 - the wording of the independent recheck of pack v1.15 (1 Nov 2026, item 4), on pack v1.16: the dated job position, not a
    "final"; "Difference so far", not a margin yet; "Accruals through 31 Oct", the journals prepared for Finance, with what is in them
    (September's part of a line, as a catch-up) and the classes that are not, for Finance to confirm; the invoices and the November
-   forecast shown apart; Coates' own wages hours only and the estimates named. No figure changes. */
+   forecast shown apart; Coates' own wages hours only and the estimates named. All the labour in October, November's to 13 Nov
+   with it (Andrew, 1 Nov 2026); the P&L's print carries no twin-steer rule (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"). */
 var PLF1272 = (function (W, D) {
 'use strict';
 var DATA = __PLF1272_DATA__;
@@ -97,7 +98,7 @@ function html() {
   var cu = J.lines.filter(function (l) { return l.accrue > 0.004 && l.sep > 0.004; });
   var cuAmt = cu.reduce(function (a, l) { return a + l.sep; }, 0), cuWho = cu.map(function (l) { return l.supplier; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
   var note = '<p class="plf1272-note">Revenue is the invoices, booked in October, the invoice month, and the November forecast, a pick-up charge applied but not invoiced yet; the two are shown apart, above and in “Revenue by invoice”. '
-    + 'Costs are by month of work at job end; November is forecast. Some costs are estimates until invoiced (each line says so), and Coates’ own wages are hours only, not yet costed, so the difference so far is not a margin yet. '
+    + 'Costs are by month of work at job end, except the labour: all of it is in October, with November’s to 13 Nov (the Coates wages hours, the salary allowance and Job Connect), as the revenue for those days is invoiced in October; the rest of November is forecast. Some costs are estimates until invoiced (each line says so), and Coates’ own wages are hours only, not yet costed, so the difference so far is not a margin yet. '
     + 'Accruals through ' + e(d) + ' are the journals prepared for Finance, not a record of what is posted: work to ' + e(d) + ' with no invoice yet' + (cu.length ? ', including September’s part of ' + e(cuWho.join(' and ')) + ' (' + f2(cuAmt) + ') as a catch-up' : '') + '. Carrier loads to ' + e(d) + ' and the consumables and forklift POs are not in them: Finance to confirm (see the open items). '
     + 'Each line below names its purchase order, the hire contract it is charged on, and its invoice or receipt; the folds below tie the invoices, the hire contracts and every purchase order to these totals.</p>';
   var lines = '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plf1272-lines"><thead><tr><th>Supplier · what</th><th class="num">Sep</th><th class="num">Oct</th><th class="num">Nov</th><th class="num">Accruals</th><th>Status</th></tr></thead><tbody>';

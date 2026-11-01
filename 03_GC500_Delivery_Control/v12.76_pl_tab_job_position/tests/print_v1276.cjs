@@ -1,11 +1,11 @@
-// Author: Andrew Fisher. v12.76 - the P&L job position's Print, through to the PDF (v12.75's checks with the new headings, and the twin-steer rule printed whole on every page, plain and with "Checked by"). On the real tab, reading the live record, writing
+// Author: Andrew Fisher. v12.76 - the P&L job position's Print, through to the PDF (v12.75's checks with the new headings; no twin-steer rule on the P&L's paper, and the whole rule on the page's other prints, plain and with "Checked by"). On the real tab, reading the live record, writing
 // nothing. The browser's print is stood in for by a recorder installed before the page's own scripts (the twin-steer module wraps
 // it as it wraps the real one): the button's own code sets the page up for paper and calls print, and the PDF is made from the page
 // as it stands at that moment, the state a person's printer receives. Then the print closes (afterprint) and the page tidies.
 // Checks: Print reaches the browser's print with the flag, the costs page and the folds open, no question asked; the PDF is A4
 // landscape and carries every figure of the final P&L (tiles, branches, suppliers, every cost line, each branch's lines, the
 // journals and moves) and every open item; the live model stays on the screen (none of its face on the paper); not one word of the
-// refusal page; the twin-steer rule down the edge of every page; after the print the page tidies and the flag stays for the next.
+// refusal page; no twin-steer rule on the P&L's paper, the whole rule on the page's other prints; after the print the page tidies and the flag stays.
 //   PAGE=build/GC500_v12.76/GC500_Delivery_Control_hosted.html PLF_JSON=<pack dir>/GC500_PL_final.json [OUT=dir] node tests/print_v1276.cjs
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path'), os = require('node:os'), {execSync} = require('node:child_process');
 const {open} = require('../../toolchain/harness/open_page');
@@ -76,45 +76,25 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     check(low.includes('differencesofar') && low.includes('notamarginyet') && low.includes('accrualsthrough31oct') && low.includes('thejournalspreparedforfinance'), 'the tiles’ new names are on the paper');
     check(!tight.includes('WHATWECHARGETHEV8S') && !tight.includes('worksfromtherecordasitstands'), 'the live model stays on the screen: none of its face on the paper');
     check(!/Not printed|tick the twin-steer check/i.test(flat), 'not one word of the refusal page in the PDF');
-    const strip = execSync(`python3 -I - "${file}" <<'PY'
-import sys, pymupdf
-doc = pymupdf.open(sys.argv[1]); out = []
-for pg in doc:
-    hit = 0
-    for b in pg.get_text('dict')['blocks']:
-        for l in b.get('lines', []):
-            d = l.get('dir', (1, 0)); t = ''.join(sp['text'] for sp in l['spans'])
-            if 'TWIN-STEER' in t and abs(d[0]) < 0.01: hit += 1
-    out.append(hit)
-print(sum(1 for h in out if h > 0), len(doc))
-PY`, {encoding: 'utf-8'}).trim().split(' ').map(Number);
-    check(strip[1] === pages && strip[0] === pages, `the twin-steer rule runs down the edge of every page (${strip[0]} of ${pages})`);
-    /* v12.76 (the recheck, item 6): the whole rule, word for word, on every page; not only its opening words */
-    const want1 = at.strip.replace(/\s+/g, ' ').trim(), e1 = edge(file);
-    check(want1 === RULE && e1.length === pages && e1.every(x => x[0] === want1), `the complete twin-steer rule prints down the edge of every page (${e1.filter(x => x[0] === want1).length} of ${pages}): ` + JSON.stringify(e1.filter(x => x[0] !== want1).slice(0, 2)));
-    check(e1.every(x => x[1] === 1 && x[2] === 0), `the rule runs in one line and touches no text on any page: ` + JSON.stringify(e1.map((x, i) => [i + 1, x[1], x[2]]).filter(x => x[1] !== 1 || x[2])));
-    /* and with "Checked by" added (a checklist tick arms it with the name and time): longer than the edge, it wraps, never cut off */
-    await p.evaluate(() => window.dispatchEvent(new Event('afterprint'))); await p.waitForTimeout(800);
-    await p.evaluate(() => ts1053.arm('Andrew Fisher', 600000));
-    await p.click('#pl1267-fp-print');
-    await p.waitForFunction(() => window.__prints.length >= 2, null, {timeout: 10000});
-    const at2 = await p.evaluate(() => window.__prints[1]);
-    const file2 = path.join(out, 'print_final_pl_checked.pdf');
-    await p.pdf({path: file2, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true});
-    const pages2 = Number((execSync(`pdfinfo "${file2}"`, {encoding: 'utf-8'}).match(/Pages:\s+(\d+)/) || [])[1]);
-    const want2 = at2.strip.replace(/\s+/g, ' ').trim(), e2 = edge(file2);
-    check(want2.startsWith(RULE + ' · Checked by Andrew Fisher, ') && want2.length > RULE.length + 30 && e2.length === pages2 && e2.every(x => x[0] === want2 && x[2] === 0), `with “Checked by”, the complete rule and the stamp print on every page, touching no text (${e2.filter(x => x[0] === want2).length} of ${pages2}): ` + JSON.stringify(e2.filter(x => x[0] !== want2 || x[2]).slice(0, 2)));
-    /* and on the page's other prints (A4 landscape, 12 mm margins, no costs page): the whole rule in one line */
+    /* v12.76 (Andrew, 1 Nov 2026: "I dont want the no twin steer on here"): the P&L's print carries no twin-steer rule */
+    const e1 = edge(file);
+    check(at.strip.replace(/\s+/g, ' ').trim() === RULE && e1.length === pages && e1.every(x => x[0] === '') && !/TWIN-STEER/.test(text), `the P&L's paper carries no twin-steer rule on any page (${e1.filter(x => x[0] === '').length} of ${pages} pages clear), though the page keeps it for its other prints`);
+    /* the page's other prints (A4 landscape, 12 mm margins, no costs page) still carry the whole rule: in one line, plain; wrapped, never cut off, with "Checked by" */
     await p.evaluate(() => { window.dispatchEvent(new Event('afterprint')); }); await p.waitForTimeout(800);
-    await p.evaluate(() => ts1053.arm('', 600000)); await p.waitForTimeout(300);
     const file3 = path.join(out, 'print_general.pdf');
     const g = await p.evaluate(() => ({costPage: !!document.getElementById('costPage'), printing: document.body.classList.contains('printing-costs'), armed: document.documentElement.classList.contains('ts1053-armed'), strip: (document.getElementById('ts1053-strip') || {}).textContent || ''}));
     await p.pdf({path: file3, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true, pageRanges: '1-6'});
     const e3 = edge(file3);
     check(!g.costPage && !g.printing && g.armed && g.strip.replace(/\s+/g, ' ').trim() === RULE && e3.length >= 1 && e3.every(x => x[0] === RULE && x[1] === 1), `on the page's other prints the whole rule prints in one line (${e3.filter(x => x[0] === RULE && x[1] === 1).length} of ${e3.length} pages): ` + JSON.stringify({g: {costPage: g.costPage, printing: g.printing, armed: g.armed}, bad: e3.filter(x => x[0] !== RULE || x[1] !== 1).slice(0, 2)}));
+    await p.evaluate(() => ts1053.arm('Andrew Fisher', 600000)); await p.waitForTimeout(300);
+    const want4 = (await p.evaluate(() => (document.getElementById('ts1053-strip') || {}).textContent || '')).replace(/\s+/g, ' ').trim();
+    const file4 = path.join(out, 'print_general_checked.pdf');
+    await p.pdf({path: file4, format: 'A4', landscape: true, printBackground: true, preferCSSPageSize: true, pageRanges: '1-6'});
+    const e4 = edge(file4);
+    check(want4.startsWith(RULE + ' · Checked by Andrew Fisher, ') && e4.length >= 1 && e4.every(x => x[0] === want4), `with “Checked by”, the other prints carry the whole rule and the stamp on every page (${e4.filter(x => x[0] === want4).length} of ${e4.length}): ` + JSON.stringify(e4.filter(x => x[0] !== want4).slice(0, 2)));
     await p.evaluate(() => window.dispatchEvent(new Event('afterprint'))); await p.waitForTimeout(800);
     const after = await p.evaluate(() => ({armed: document.documentElement.classList.contains('ts1053-armed'), printing: document.body.classList.contains('printing-costs'), fp: !!document.getElementById('pl1267-fp'), live: !!document.getElementById('pl1267-live')}));
-    check(after.armed && !after.printing && after.fp && after.live, 'after the print the page tidies, keeps the flag, and the final P&L and the live model are still there: ' + JSON.stringify(after));
+    check(after.armed && !after.printing && after.fp && after.live, 'after the prints the page tidies, keeps the flag, and the final P&L and the live model are still there: ' + JSON.stringify(after));
     check(!cons.length && !s.errors.length && s.counts.blocked === 0, 'no console or page error, no write: ' + JSON.stringify({cons: cons.slice(0, 2), errors: s.errors.slice(0, 2), blocked: s.counts.blocked}));
     console.log(`PASS ${checks}/${checks} print · ${pages} pages A4 landscape · ${file}`);
   } catch (e) { console.error('FAIL print', e.message); process.exitCode = 1; } finally { await s.browser.close(); }

@@ -579,3 +579,56 @@ billed 0.00) + 3 on the WC-TV block T0243 (asset 1311144), which is on 9973977 w
 Result: 465 checks, 465 pass (with every branch line and every journal naming its PO or none, and the block cleans tying to Baseplan (12)
 L142, L143 and 9973977 and to Event Portables' Q6844). **Printed:** the page is 14 pages; the
 workbook is 31 pages (LibreOffice), with every open item and every PO number in full.
+
+## Pack v1.16: the independent recheck's corrections, the elite check's verified fixes, all the labour in October (1 Nov)
+
+The job's totals are v1.15's to the cent: revenue 1,001,902.14, job cost 552,533.71, difference 449,368.43, accruals through 31 Oct
+195,076.18, and every branch's costs. What moves is the month of November's labour (item C below).
+
+**A. The independent recheck of pack v1.15 / live v12.75** (`../review_31Oct2026_pl_independent/PACK_v115_RECHECK.md`), item by item:
+
+| Item | Fix in v1.16 |
+|---|---|
+| 1. Forklift monthly allocation | 4647983's basis and status say its months are estimated from the PO's approximate durations, not service dates; the invoice will settle them (cost line, PO register, open item). Retained: no service dates are on the record. |
+| 2. Royal Wolf rate wording | Described by its system line total, 1,364.23 for 32 days charged; the 42.63 a day the line shows is rounded (32 × 42.63 is 1,364.16). The amount is unchanged. |
+| 3. Labour note count | Worked out from the lines with part hours: "Six lines" (was "Five"). |
+| 4. Labels | The dated job position, not "final"; "Accruals through 31 Oct", the journals prepared for Finance, with the September catch-up in them (Event Portables' Q6846 water and tank, 17 of 42 days, 1,963.10) and the classes not in them (carrier loads, the consumables and forklift POs: Finance to confirm); "Difference so far", not a margin yet; the invoices and the November forecast shown apart; Coates wages hours only and the estimates named. Same words on the tab (v12.76). |
+| 5. Workbook narrative rows | Note rows (Summary, Labour charged, Schedule 17 transport) merge across the table and are sized for its width; every note prints whole (LibreOffice: 12 merged notes, all complete; 597 money cells all found). |
+| 6. Print-edge warning | Owner decision (Andrew, 1 Nov): the P&L's print carries no twin-steer rule. On the page's other prints the rule now prints whole (v12.76). |
+| 7. Print readability | Body 11 px, tables 10 px (7.5 pt), headings larger; the page prints on 22 pages (was 14), nothing under 7 pt, nothing off the page. |
+
+**B. The elite check of live v12.75** (multi-agent, 1 Nov): the findings below were checked against the source files and fixed. The
+rest wait on its adversarial verification and, for the transport loads, on Andrew's word to correct the record (they come from the
+record's loads).
+- Consumables POs: each cost line's status is what Coates' system says (4666720, 4669481, 4670270 invoiced; 4663216 received in full,
+  not invoiced; 4655573, 4670876 nothing received), not "check invoice" for all.
+- Advanced's seven orders are "receipted" (the record holds receipt numbers); Advanced invoices are named only where the record has
+  them (GC220926 on 4647509, 93920 on 4658850). 4658850 is described from the record's note: a partial collection (Advanced INV 93920).
+- The Event Portables 2126 journal is "hire, transport and water": Q6845 toilet hire and transport 42,175.00 · water 14,450.00
+  (Q6846 4,850.00; Q6844 water truck and pre-fill 9,600.00) · Q6847 pit-lane trailer 3,350.00 = 59,975.00.
+- The no-PO list calls the two forecast carrier rows forecasts (card rate, else the load average; planned loads).
+- The Event Portables quotes are described as unsigned, with no PO on them (all four carry an empty Signed block).
+- 9994954: Event Portables' units are L19 (6 pee panels), L21 and L22 (FWF); L18 is the transport of Coates' two WC09 blocks.
+- The scissor lift on 9992300 L4 is "With Operator Protection": no MEAD line supplies an operator.
+- The month-end CSV's invoice rows carry the V8s' PO, as the workbook and page do.
+
+**C. All the labour in October** (Andrew, 1 Nov 2026: "We want all labour costs. As in all hrs to all fall into october ... from
+november for. Coates wages. Salary. Job connect"). The 18 invoices are all dated October, including the hire for days in November, so
+the job's labour sits with that revenue:
+- the salary allowance's November share (110 of the window's 509 salaried hours), 3,176.82, is in October;
+- Job Connect's w/e 8 Nov (Daniel Gough's PO 4674224, 3,052.60, and Kyle Gover at the running sheet, 3,023.85) and w/e 15 Nov (PO
+  4674225, 3,052.60), 9,129.05, are in October, still estimates until invoiced and not accrued;
+- the hours tables (section 2, Labour by person, the month-end CSV) show September and October with November's hours to 13 Nov in it
+  (194 h of Coates wages, 110 h of salary and labour hire's November hours);
+- costs by month: September 149,435.00 · October 391,895.96 (was 379,590.09) · November 11,202.75 (was 23,508.62); the November column
+  now holds no labour, only the forecast hire, transport, accommodation and meals that fall in November.
+The accruals through 31 Oct stay 195,076.18: they are work done to 31 Oct. An open item asks Finance whether to provision November's
+labour (12,305.87 and the Coates wages hours) at 31 Oct.
+
+**D. Eric Lucian** (Andrew, 1 Nov: "that was a total invoice. He didnt work at v8s other days"): Job Connect's invoice for his week
+(w/e 18 Oct), 2,435.83, is the total; he worked for the V8s on 14 Oct only (10.5 h, 634.98 on the running sheet), so only that day is
+in the costs (KINP, with Daniel Gough on PO 4667755). The figure is kept with its source in the private Job Connect file.
+
+`audit_pack.py`: 506 checks, 506 pass: v1.15's, plus each correction above (the wording, the derived count, the merged and sized note
+rows, the print sizes, each elite fix against its source, and the labour move: no salary or Job Connect line in November, each person's
+October hours = the register's October and November, the accruals unchanged, the open item's figures).
