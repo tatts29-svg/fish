@@ -2,11 +2,10 @@
 
 Author: Andrew Fisher.
 
-**Candidate, not uploaded.** Upload only on Andrew's word. Built on the live v12.78
+**LIVE 2 Nov 2026, 02:03 AEST** on Andrew's word "Upload". The view link serves the build byte for byte (`cmp` identical). Built on the live v12.78
 `7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0` by `toolchain/build.sh` from commit `c7b5526c`:
 `build/GC500_v12.79/GC500_Delivery_Control_hosted.html`, **`73df88aeb79bd4c3dccdeafd01a9d23f72aa3d7d87257220919b0464cb6be95f`**,
 16,946,654 bytes, on pack v1.19 `fd38abeacaacf8983901a222427bdba01e5c96a8d153851a76e31c7889f482cc` (audit_pack.py 573/573).
-Before uploading: the build file's sha256 must be the one above, and `base_live.html` must still equal live.
 
 Andrew, 1 Nov 2026: "Please make sure the costs/p&l tab is very clean and organised. I have the finacial team is looking at it
 tommorrow"; "We want the search feature in here to be elite. Search anything. And bring up data and costs."
