@@ -65,4 +65,13 @@ PLF_JSON_OLD=<pack v1.19>/GC500_PL_final.json PLF_JSON=<pack v1.22>/GC500_PL_fin
 - the search's accommodation check accepts that nothing is accrued when no accommodation journal exists. Since v1.21 nothing is
   accrued; it still requires the journal's figure when there is one.
 
-Results are in `../STATUS.md`.
+Results on the build `3f31d69e…`, reading the live record (12739) with every write blocked:
+
+| Test | Desktop | Phone |
+|---|---|---|
+| `test_v1280.cjs` | 89/89 | 89/89 |
+| `test_v1280_find.cjs` | 155/155 | 156/156 |
+| `print_v1280.cjs` | 25/25 (40 pages, A4 landscape) | |
+| `../v12.78_finance_fingerprint_LIVE/tests/test_v1278.cjs` | 10/10 | |
+| caret (`../review_01Nov2026_pl_deeper/test_caret_focus.cjs`) | 9/9 | |
+| `toolchain/harness/sweep.js` | 27 tabs, 0 errors, 0 console, 0 writes | 27 tabs, 0 errors, 0 console, 0 writes |
