@@ -32,6 +32,8 @@
   .plf1272-sub{margin:3mm 0 1.5mm!important}
   .plf1272-note{font-size:7.5pt;margin:1.5mm 0}
   .plf1272-more{display:block}.plf1272-more>summary{font-size:9pt;margin:3mm 0 1mm;list-style:none}.plf1272-more>summary::-webkit-details-marker{display:none}
+  /* v12.74: each fold's heading prints above its table (the page's own print rule hides fold headings: .plfold765>summary) */
+  #pl1267-fp details.plf1272-more>summary{display:block!important;border:0!important;padding:0!important;background:none!important}
   .plf1272-more>summary small{font-size:7pt}
   .plf1272-open li{font-size:8pt;margin:1mm 0}
   .plf1272-lcnotes li,.plf1272-s17notes li{font-size:7.5pt;margin:0.5mm 0}.plf1272-lc{break-inside:avoid;page-break-inside:avoid}

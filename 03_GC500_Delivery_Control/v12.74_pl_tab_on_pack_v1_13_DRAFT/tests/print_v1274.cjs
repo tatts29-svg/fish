@@ -49,6 +49,8 @@ const f2 = v => (v < -0.004 ? '−' : '') + Math.abs(v).toFixed(2).split('.').ma
     check(tight.includes('LABOURWECHARGEDTHEV8S,BYBRANCH'), 'the labour-charged heading is on the paper');
     const s7Miss = J.schedule17.notes.filter(o => !tight.includes(o.slice(0, 40).replace(/\s+/g, '')) || !tight.includes(o.slice(-40).replace(/\s+/g, '')));
     check(!s7Miss.length && tight.includes('TransportcheckedagainstSchedule17') && J.schedule17.changes.every(x => tight.includes((x.contractDocket + '·' + x.row).replace(/\s+/g, ''))), `the Schedule 17 fold prints: heading, every row's docket and Schedule 17 row, and every note in full (${J.schedule17.notes.length}): ` + JSON.stringify(s7Miss.map(o => o.slice(0, 50))));
+    const heads = ['Everycostline', 'Costsbybranch,linebyline', 'Everylabourlineontheinvoices', 'TransportcheckedagainstSchedule17', 'Journalsat31Oct', 'Openitems'];
+    check(heads.every(h => tight.includes(h)), 'every section of the final P&L has its heading on the paper: missing ' + JSON.stringify(heads.filter(h => !tight.includes(h))));
     const openMiss = J.open.filter(o => !tight.includes(o.slice(0, 40).replace(/\s+/g, '')) || !tight.includes(o.slice(-40).replace(/\s+/g, '')));
     check(!openMiss.length, `every open item prints in full (${J.open.length}): ` + JSON.stringify(openMiss.map(o => o.slice(0, 50))));
     check(/THE P&L · FINAL/.test(flat.replace(/\s*·\s*/g, ' · ')) || tight.includes('THEP&L·FINAL'), 'the heading is on the paper');
