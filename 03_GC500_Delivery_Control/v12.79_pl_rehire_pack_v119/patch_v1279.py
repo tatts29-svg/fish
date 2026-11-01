@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""v12.79: the P&L tab on pack v1.19, with Forklift rehire under Rehire.
+"""v12.79: the P&L tab on pack v1.19: Forklift rehire under Rehire, and the transport estimate of 1 Nov.
 
 Author: Andrew Fisher.
 
@@ -8,7 +8,13 @@ Andrew, 1 Nov 2026: "Forklift r3hire should that not go to rehire". Queensland F
 not charged to the V8s. Pack v1.19 also corrects the transport open item's "36 planned movements ... and 17 unpriced demob
 movements": the 17 are part of the 36, and Schedule 17 prices two of them, so 34 are not in the costs.
 
-No cost, revenue, month or branch total changes. The categories go from ten to nine; Rehire becomes 3,886.73 + 3,770.00.
+The categories go from ten to nine; Rehire becomes 3,886.73 + 3,770.00.
+
+Transport (Andrew, 1 Nov 2026: "The transport we work out by what ever had a transport pick up cost. And is still onsite. Thats the amount we
+move"; "What ever is left onsite is left onsite"; "What u think we do both ?"): the four October pick-ups still on site (WC60, GN18, P46,
+P51, 1,788.02) move to November, and two ESTIMATE rows come in: the trucks that ran by 31 Oct with no figure or row on the record (16,233.12,
+October, a manual accrual candidate) and the pick-ups still to come for Coates gear on site (19,847.89, November). Revenue and the accruals
+are unchanged; the costs and the difference change by 36,081.01. Each leg is in the pack's section 2h.
 
 This patch holds no figure. On the live v12.78 page (BASE pinned) it swaps the P&L block's pack data for pack v1.19:
 - it reads PLF_JSON_OLD (pack v1.18, pinned) and PLF_JSON (pack v1.19, pinned);
@@ -26,7 +32,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = '7bf7904784fa7e150bc92c252e987d07cb7cdc96e79e22824d8dbcf3f2b69de0'        # live v12.78, uploaded 1 Nov 2026 18:07 AEST
 OLD_SHA = 'f896184a78c9c95ae665985a73980ce1231275acb0aca8b40b49c0eaf60b5f6d'     # pack v1.18, in the live v12.78 block
-NEW_SHA = 'b47d9e5b7a1cddd6dfe03fd57546a0e35d98c4119bde07ef32a52d2809a35162'     # pack v1.19, record 12727 (audit_pack.py 552/552)
+NEW_SHA = '3cdf64a240d46739b1bbe6395afaebf6bc62695e96f531b7351c199e7755c570'     # pack v1.19, record 12727 (audit_pack.py 563/563)
 
 spec = importlib.util.spec_from_file_location('p1277', HERE.parent / 'v12.77_pl_tab_explorer_LIVE' / 'patch_v1277.py')
 P1277 = importlib.util.module_from_spec(spec); spec.loader.exec_module(P1277)
@@ -55,8 +61,14 @@ def patch(text):
     if new_J.get('pack') != 'v1.19' or old_J.get('pack') != 'v1.18': raise ValueError('expected pack v1.18 -> v1.19')
     if [c['name'] for c in new_J['categories']].count('Forklift rehire') or not any(l['supplier'] == 'Queensland Forklifts' and l['category'] == 'Rehire' for l in new_J['lines']):
         raise ValueError('pack v1.19 should carry Queensland Forklifts under Rehire')
-    for k in ('revenue', 'costs', 'difference', 'accrue', 'branches'):
+    for k in ('revenue', 'accrue'):
         if new_J[k] != old_J[k]: raise ValueError('a total changed between v1.18 and v1.19: ' + k)
+    c = lambda a, b: abs(round(a, 2) - round(b, 2)) < 0.005
+    est = (16233.12, 19847.89, 1788.02)   # the transport estimate's October and November rows, and the four pick-ups moved to November
+    if not (c(new_J['costs']['total'], old_J['costs']['total'] + est[0] + est[1]) and c(new_J['costs']['sep'], old_J['costs']['sep'])
+            and c(new_J['costs']['oct'], old_J['costs']['oct'] - est[2] + est[0]) and c(new_J['costs']['nov'], old_J['costs']['nov'] + est[2] + est[1])
+            and c(new_J['difference'], old_J['difference'] - est[0] - est[1])):
+        raise ValueError('the costs did not move by exactly the transport estimate between v1.18 and v1.19')
     a = text.index('<script id="plf1272-script">'); b = text.index('</script>\n', a)
     block = text[a:b]
     old_d, new_d = 'var DATA = ' + page_data(old_J) + ';', 'var DATA = ' + page_data(new_J) + ';'
@@ -69,7 +81,7 @@ def patch(text):
     found = P1277.FOOTER.findall(text)
     if found != ['v12.78']: raise ValueError('release footer: expected one v12.78 footer, found ' + repr(found))
     text = P1277.FOOTER.sub(lambda m: m.group(0).replace(m.group(1), 'v12.79'), text, count=1)
-    print('patch_v1279 applied: the P&L on pack v1.19 (data %s; Forklift rehire under Rehire); footer v12.78 -> v12.79' % NEW_SHA[:12])
+    print('patch_v1279 applied: the P&L on pack v1.19 (data %s; Forklift rehire under Rehire; the transport estimate); footer v12.78 -> v12.79' % NEW_SHA[:12])
     return text
 
 

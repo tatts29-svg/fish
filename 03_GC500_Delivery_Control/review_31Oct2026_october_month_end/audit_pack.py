@@ -67,8 +67,15 @@ SEP, OCT, NOV, ACC = col(7), col(8), col(9), col(10)
 JOB = r2(SEP + OCT + NOV)
 dc = json.load(open(PR / 'dated_costs.json'))
 T = collections.defaultdict(float)
+# v1.19: the transport estimate of 1 Nov (private: transport_estimates_1nov.json): four October pick-ups still on site move to November, and two
+# ESTIMATE rows: the trucks that ran by 31 Oct with no figure or row, and the pick-ups still to come for gear on site
+EST = json.load(open(NOW.parent / 'transport_estimates_1nov.json')) if NOW else {'moves': [], 'legs': []}
+EMV = {(m_['key'], m_['d']): m_ for m_ in EST['moves']}; _emv = collections.Counter()
 for t in dc['transport']:
-    mo = (t['d'] or '')[:7]; T[('rec', mo)] += t.get('actual') or 0; T[('plan' if t.get('planned') else 'fc', mo)] += t.get('f') or 0
+    m_ = EMV.get((t.get('key'), t.get('d'))); d_ = t['d']
+    if m_ and t.get('planned') and abs((t.get('f') or 0) - m_['amount']) < 0.005: d_ = m_['to']; _emv[t['key']] += 1
+    mo = (d_ or '')[:7]; T[('rec', mo)] += t.get('actual') or 0; T[('plan' if t.get('planned') else 'fc', mo)] += t.get('f') or 0
+if NOW: check('transport estimate: the four October pick-ups still on site (WC60, GN18, P46, P51) are each found once and moved to November, 1,788.02', sorted(_emv) == ['GN18', 'P46', 'P51', 'WC60'] and set(_emv.values()) == {1} and r2(sum(m_['amount'] for m_ in EST['moves'])) == 1788.02 and all(m_['to'][:7] == '2026-11' and m_['d'][:7] == '2026-10' for m_ in EST['moves']), _emv)
 # ------------------------------------------------------------------ v1.13: Schedule 17, read again from the workbook itself, against the record's loads
 S17P = (NOW.parent / 'sched17_transport.json') if NOW else None
 S17X = Path('/tmp/gc500-scratch/upload_sched17/schedule17.xlsx')
@@ -121,7 +128,16 @@ if S17 and S17X.exists():
         if c['kind'] == 'forecast': T[('fc', mo)] -= c['was']
 car = [r for r in cs if r[0].startswith('Carriers')]
 want = [(T[('rec', '2026-09')], T[('rec', '2026-10')], T[('rec', '2026-11')]), (T[('fc', '2026-09')], T[('fc', '2026-10')], T[('fc', '2026-11')]), (T[('plan', '2026-09')], T[('plan', '2026-10')], T[('plan', '2026-11')])]
-check('three carrier rows', len(car) == 3, len(car))
+_eo = r2(sum(l_['amount'] for l_ in EST['legs'] if l_['group'] == 'oct_ran')); _en = r2(sum(l_['amount'] for l_ in EST['legs'] if l_['group'] == 'nov_on_site'))
+want += [(0, _eo, 0), (0, 0, _en)]
+check('five carrier rows (v1.19: + the two ESTIMATE rows of 1 Nov)', len(car) == 5 and str(car[3][3]).startswith('Loads that ran') and str(car[4][3]).startswith('Pick-ups still to come'), len(car))
+if NOW:
+    check('transport estimate: every leg is in its month (ran by 31 Oct in October, still on site in November) and on a branch (%d legs)' % len(EST['legs']), all(l_['date'][:7] == ('2026-10' if l_['group'] == 'oct_ran' else '2026-11') and l_['branch'] in ('KINP', 'STPS', 'NVAC', 'MEAD') for l_ in EST['legs']), None)
+    check('transport estimate: each leg is its loads × its rate, else a one-load figure named in its rate source', all(abs(l_['loads'] * l_['rate'] - l_['amount']) < 0.006 or (l_['loads'] > 1 and abs(l_['rate'] - l_['amount']) < 0.006) for l_ in EST['legs']), [l_['ref'] for l_ in EST['legs'] if not (abs(l_['loads'] * l_['rate'] - l_['amount']) < 0.006 or (l_['loads'] > 1 and abs(l_['rate'] - l_['amount']) < 0.006))])
+    _tlp = json.load(open(NOW.parent / 'transport_loads.json'))['loads']
+    _priced_rm = {l_['key'] for l_ in _tlp if l_['movement'] == 'remove' and ((l_['actual'] or 0) or (l_['f'] or 0))}
+    check('transport estimate: no estimated pick-up has a priced pick-up in the cost model already (no double count; T0005’s 2 Nov leg is extra to its 13 Nov leg)', not [l_['ref'] for l_ in EST['legs'] if l_['kind'] == 'pick-up' and l_['ref'] in _priced_rm and l_['ref'] != 'T0005'], [l_['ref'] for l_ in EST['legs'] if l_['kind'] == 'pick-up' and l_['ref'] in _priced_rm])
+    check('transport estimate: Coates gear only (no Event Portables leg; suppliers’ gear and team references left out)', not [l_ for l_ in EST['legs'] if l_['ref'] in ('T0024', 'T0176', 'T0266', 'T0103', 'Premiair') or 'Event Portables' in l_['what']], None)
 for k, (r, w) in enumerate(zip(car, want)):
     for j, mo in enumerate(('Sep', 'Oct', 'Nov')): eq('carriers row %d %s = the transport rows by date' % (k + 1, mo), r[7 + j], w[j])
 acc = [x for x in dc['exp'] if x['k'] == 'accommodation' and x['amount']]
@@ -343,6 +359,7 @@ if TLP and TLP.exists():
             b_ = 'MEAD' if it.startswith('FORKLIFT') else 'STPS' if it.startswith('VMS') else 'NVAC' if it.startswith('100KVA') else 'KINP' if it.startswith(('BUILDING', 'EVENT CONTAINER', 'FRIDGE')) else None
         if b_ is None: check('every transport load has a branch rule (%s %s)' % (l['d'], l['item']), False)
         else: TB2[b_] += a_
+    for l_ in EST['legs']: TB2[l_['branch']] += l_['amount']   # v1.19: the estimate's legs on their branches
     eq('transport loads = the carriers rows', sum(TB2.values()), sum((r[7] or 0) + (r[8] or 0) + (r[9] or 0) for r in car))
     for b in ('KINP', 'STPS', 'NVAC', 'MEAD'):
         eq('transport %s on Costs by branch = its loads (record branch, else what the load carries)' % b, sum(v for (bb, k), v in cbr.items() if bb == b and k.startswith('Transport')), r2(TB2[b]))
@@ -550,7 +567,7 @@ check('labour in October: the hours tables have September and October columns on
 _cwN = r2(sum(float(r[4] or 0) for r in LAB[2:] if r and r[0][5:7] == '11' and r[3] == 'Coates wages'))
 check('labour in October: the open item for Finance names November’s labour (3,176.82 salary, 9,129.05 Job Connect, %s h of Coates wages) and keeps it out of the accruals' % fmt(_cwN), any(str(r[0]).startswith('November’s labour in October:') and 'is GC500 work (no other work in November carries it)' in str(r[0]) and '3,176.82' in str(r[0]) and '9,129.05' in str(r[0]) and (('{:,.2f}'.format(_cwN)).rstrip('0').rstrip('.') + ' h of Coates wages') in str(r[0]) and 'Finance to confirm whether to provision it' in str(r[0]) for r in rows('Open items') if r))
 eq('labour in October: the accruals are unchanged (work done to 31 Oct)', ACC, 195076.18)
-eq('labour in October: November’s labour moved = 12,305.87 (October up, November down by it)', r2(OCT - 379590.09), 12305.87)
+eq('labour in October: November’s labour moved = 12,305.87 (October up, November down by it; v1.19: less the transport moves, 1,788.02 to November and the 16,233.12 estimate)', r2(OCT - 379590.09 + 1788.02 - _eo), 12305.87)
 # ------------------------------------------------------------------ v1.16: the elite check of live v12.75 (1 Nov 2026), the findings verified against the sources
 _PSY = json.load(open(NOW.parent / 'po_system.json'))['pos'] if NOW and (NOW.parent / 'po_system.json').exists() else {}
 _cons = {str(r[4]): r for r in cs if str(r[4]) in _PSY}
@@ -565,7 +582,7 @@ _q = {q['quote']: q for q in json.load(open(PR / 'ep_detail.json'))['svc']['quot
 _wt = sum(l['total_price'] for g in _q['Q6844']['groups'] for l in g['lines'] if 'Water Truck' in l['description'] or 'ater truck' in l['description'].lower())
 check('elite pos-07: the Event Portables 2126 journal names each part, and the parts add to it from the quotes (Q6845 %s + Q6846 %s + Q6844 water truck and pre-fill %s + Q6847 %s)' % (_q['Q6845']['costTotal1068'], _q['Q6846']['costTotal1068'], _wt, _q['Q6847']['costTotal1068']), len(_epj) == 1 and all(x in _epj[0][0] for x in ('Q6845 toilet hire and transport 42,175.00', 'Q6846 water deliveries and drinking-water tank 4,850.00', 'Q6844 water truck and pre-fill 9,600.00', 'Q6847 pit-lane trailer 3,350.00')) and abs(_q['Q6845']['costTotal1068'] + _q['Q6846']['costTotal1068'] + _wt + _q['Q6847']['costTotal1068'] - _epj[0][5]) < 0.005 and _wt == 9600, (_epj and _epj[0][:1], _wt))
 _cnp = [r for r in prn if str(r[1]).startswith('Carriers')]
-check('elite pos-09: the carrier rows with no figure are called forecasts in the no-PO list', len(_cnp) == 3 and sum('forecast' in str(r[6]) for r in _cnp) == 2 and sum('the schedule’s figures' in str(r[6]) for r in _cnp) == 1, [r[6] for r in _cnp])
+check('elite pos-09: the carrier rows with no figure are called forecasts (or ESTIMATE, v1.19) in the no-PO list', len(_cnp) == 5 and sum('forecast' in str(r[6]) for r in _cnp) == 2 and sum('the schedule’s figures' in str(r[6]) for r in _cnp) == 1 and sum('ESTIMATE (1 Nov' in str(r[6]) for r in _cnp) == 2, [r[6] for r in _cnp])
 _EPQ = json.load(open(PR / 'ep_detail.json'))['svc']['quotes']
 check('elite pos-10 (refuted, kept): the Event Portables quotes were approved on 24 Sep, and are unsigned with no PO; the pack says both', all(str(q.get('signed', '')).startswith('no') and not q.get('purchase_order_no') for q in _EPQ) and 'four quotes, approved on 24 Sep (unsigned, with no PO on them)' in HT)
 _EW = json.load(open(NOW.parent / 'jc_pos.json')).get('eric_week', {}) if NOW and (NOW.parent / 'jc_pos.json').exists() else {}
