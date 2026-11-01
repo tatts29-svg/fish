@@ -1032,6 +1032,7 @@ for c_ in CATS:
         if any(v_): _cat_rows.append([c_, b_] + v_ + [r2(sum(v_))])
     _ct = [r2(sum(CATM[(c_, b_, k2_)] for b_ in _BRS) / 100) for k2_ in MO]; _cat_rows.append(['Total, ' + c_, ''] + _ct + [r2(sum(_ct))])
 _cat_rows.append(['Total, the job', ''] + list(tot) + [JOB_COST])
+_cat_rows += [[], ['By month of work, except November’s labour (to 13 Nov: the Coates wages hours, the salary allowance and Job Connect), which is in October with October’s; the rest of November is forecast. Reporting categories, not GL codes; each row is the sum of its parts, to the cent.']]   # the recheck, 1 Nov: the sheet carries the page’s reporting basis
 sheet('By category', ['Category', 'Branch', 'Sep', 'Oct', 'Nov', 'Job end'], _cat_rows, money_cols=[3, 4, 5, 6], widths=[30, 10, 14, 14, 14, 14])
 # v1.17: the labour hire bridge (section 2d, the 'Labour hire bridge' sheet): the running sheet's dollars beside the cost the P&L carries, week by week
 _LHB_TOT = (r2(sum(x['runningSheet'] for x in LH_BRIDGE)), r2(sum(x['cost'] for x in LH_BRIDGE)), r2(sum(x['difference'] for x in LH_BRIDGE)))

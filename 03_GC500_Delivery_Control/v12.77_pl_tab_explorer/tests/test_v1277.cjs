@@ -215,7 +215,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
       g('plx-q').value = q; g('plx-q').dispatchEvent(new Event('input')); await new Promise(r => setTimeout(r, 300));
       const T = sel => [...document.querySelectorAll('#plx-out ' + sel + ' tbody tr:not(.pl1267-grand)')].map(tr => [...tr.children].map(td => td.textContent.trim()));
       return {k: [...document.querySelectorAll('#plx-sum .plx-k')].map(x => x.querySelector('b').textContent.trim()), small: [...document.querySelectorAll('#plx-sum .plx-k small')].map(x => x.textContent.trim()), note: (document.querySelector('#plx-sum .plx-note') || {}).textContent || '',
-        lines: T('table.plx-lines').map(r => r[0]), po: T('table.plx-po'), inv: T('table.plx-inv'), con: T('table.plx-con'), lj: T('table.plx-lj').map(r => r[0]), none: !!document.querySelector('#plx-out .plx-none'),
+        lines: T('table.plx-lines').map(r => r[0]), po: T('table.plx-po'), inv: T('table.plx-inv'), con: T('table.plx-con'), lj: T('table.plx-lj').map(r => r[0]), none: !!document.querySelector('#plx-out .plx-none'), scope: (document.querySelector('#plx-out .plx-scope') || {}).textContent || '',
         cats: T('table.plx-cats')}; }, [q, ch || null]);
     const sBad = [];
     for (const x of J.purchaseOrders) { const g = await S_(x.po); if (JSON.stringify(g.k) !== JSON.stringify(['—', f2(x.amount), '—']) || g.po.length !== 1 || g.po[0][3] !== f2(x.amount) || !g.po[0][0].startsWith(x.po + ' · ' + x.supplier)) sBad.push(['po', x.po, g.k, g.po]); }
@@ -253,7 +253,7 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     const p286 = J.invoices.filter(x => cpoK(x.customerPO) === 'p28607');
     const alfieLines = J.lines.filter(l => /\balfie\b/.test(lineText(l))).length;
     check(rv.nvacCon.k[1] === '—' && /not split by branch/.test(rv.nvacCon.small[1]) && rv.fenceCon.k[1] === '—' && /not split by category/.test(rv.fenceCon.small[1]) && rv.kinpMove.k[1] === '—' && /branch move/.test(rv.kinpMove.small[1])
-      && rv.stpsFork.k[1] === f2(2820) && rv.meadFork.k[1] === f2(950), `${tag}: a hire contract or PO under a branch or category gives only that branch's or category's own figure, else the reason: ` + JSON.stringify([rv.nvacCon.k, rv.fenceCon.k, rv.kinpMove.k, rv.stpsFork.k, rv.meadFork.k]));
+      && rv.stpsFork.k[1] === f2(2820) && rv.meadFork.k[1] === f2(950) && /whole hire contract, for the job: branch NVAC/.test(rv.nvacCon.scope) && /whole PO/.test(rv.kinpMove.scope), `${tag}: a hire contract or PO under a branch or category gives only that branch's or category's own figure, else the reason, and its table says it is the whole item: ` + JSON.stringify([rv.nvacCon.k, rv.fenceCon.k, rv.kinpMove.k, rv.stpsFork.k, rv.meadFork.k]));
     check(rv.meadCpo.k[0] === f2(meadP / 100) && rv.meadCpo.inv.some(r => r[0].startsWith('In the choice (MEAD)') && r[3] === f2(meadP / 100)) && rv.meadInv.k[0] === '0.00' && rv.meadInv.inv.some(r => r[0].startsWith('In the choice (MEAD)') && r[3] === '0.00'),
       `${tag}: invoices under a branch: the revenue is the branch's own, and the table says what is in the choice: ` + JSON.stringify([rv.meadCpo.k, rv.meadInv.k]));
     check(p286.length === 1 && rv.p028607.k[0] === f2(p286[0].ex) && /as keyed/.test(rv.p028607.small[0]), `${tag}: P028607 finds the invoice keyed P28607, and says how it is keyed: ` + JSON.stringify(rv.p028607.k));
@@ -272,14 +272,14 @@ const dmy = s => { const q = String(s).split('/'); return q.length === 3 ? Numbe
     // a category opens from the by-category table; Clear puts it all back; the choice survives the tab being drawn again
     const flow = await p.evaluate(async () => { const g = id => document.getElementById(id); g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
       const b = [...document.querySelectorAll('#plx-out .plx-pick')].find(x => x.dataset.cat === 'Transport'); b.click(); await new Promise(r => setTimeout(r, 100));
-      const picked = {cat: g('plx-cat').value, costs: document.querySelectorAll('#plx-sum .plx-k b')[1].textContent.trim(), lines: document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)').length};
+      const picked = {focus: document.activeElement && document.activeElement.id, cat: g('plx-cat').value, costs: document.querySelectorAll('#plx-sum .plx-k b')[1].textContent.trim(), lines: document.querySelectorAll('#plx-out table.plx-lines tbody tr:not(.pl1267-grand)').length};
       g('plx-br').value = 'STPS'; g('plx-br').dispatchEvent(new Event('change'));
       go('today'); await new Promise(r => setTimeout(r, 1500)); go('costs'); await new Promise(r => setTimeout(r, 2500));
       const kept = {cat: g('plx-cat') && g('plx-cat').value, br: g('plx-br') && g('plx-br').value, costs: document.querySelectorAll('#plx-sum .plx-k b')[1] && document.querySelectorAll('#plx-sum .plx-k b')[1].textContent.trim()};
       g('plx-clear').click(); await new Promise(r => setTimeout(r, 100));
       return {picked, kept, cleared: {cat: g('plx-cat').value, br: g('plx-br').value, mo: g('plx-mo').value, q: g('plx-q').value, rows: document.querySelectorAll('#plx-out table.plx-cats tbody tr:not(.pl1267-grand)').length}}; });
     const tr = J.categories.find(c => c.name === 'Transport'), trS = F.filter(f => J.lines[f[0]].category === 'Transport' && f[1] === 'STPS').reduce((a, f) => a + f[3], 0);
-    check(flow.picked.cat === 'Transport' && flow.picked.costs === f2(tr.total) && flow.picked.lines === J.lines.filter(l => l.category === 'Transport').length, `${tag}: a category in the by-category table opens its lines at its total: ` + JSON.stringify(flow.picked));
+    check(flow.picked.focus === 'plx-cat' && flow.picked.cat === 'Transport' && flow.picked.costs === f2(tr.total) && flow.picked.lines === J.lines.filter(l => l.category === 'Transport').length, `${tag}: a category in the by-category table opens its lines at its total: ` + JSON.stringify(flow.picked));
     check(flow.kept.cat === 'Transport' && flow.kept.br === 'STPS' && flow.kept.costs === f2(trS / 100), `${tag}: the choice survives the tab being drawn again: ` + JSON.stringify(flow.kept));
     check(!flow.cleared.cat && !flow.cleared.br && !flow.cleared.mo && !flow.cleared.q && flow.cleared.rows === J.categories.filter(c => Math.abs(c.total) >= 0.005).length, `${tag}: Clear puts everything back: ` + JSON.stringify(flow.cleared));
     // the labour journals in the finder: a branch gives the people whose hours are journaled to it, their hours to the hour

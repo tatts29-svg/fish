@@ -151,7 +151,7 @@ function xRender() {
       + (s.mo ? '' : '<th class="num">Total h</th><th class="num">Labour hire $ (running sheet)</th>') + '</tr></thead><tbody>' + jr
       + '<tr class="pl1267-grand"><td>' + n(lj.length, 'row', 'rows') + '</td><td></td><td></td>' + hm.map(function (m) { return '<td class="num">' + hrs(hs[m]) + '</td>'; }).join('') + (s.mo ? '' : '<td class="num">' + hrs(hs.Sep + hs.Oct) + '</td><td class="num">' + cents(lh) + '</td>') + '</tr></tbody></table></div>';
   };
-  var sum = '';
+  var sum = '', scope = (s.br || s.cat || s.mo) ? '<p class="plf1272-note plx-scope">The table below is the whole ' + '%s' + ', for the job: ' + [s.br ? 'branch ' + s.br : '', s.cat ? 'category ' + s.cat : '', s.mo ? MOL[s.mo] : ''].filter(Boolean).join(', ') + ' is applied in the figures above where the P&amp;L splits it, and not otherwise.</p>' : '';
   if (!K.kind) {   /* the choices alone: the parts in whole cents */
     var facts = lineFacts(function (i) { return !s.cat || J.lines[i].category === s.cat; }), cost = 0, nl = {}; facts.forEach(function (f) { cost += f[3]; nl[f[0]] = 1; });
     var rev = null, rf = [];
@@ -178,7 +178,7 @@ function xRender() {
     var cats = li.map(function (i) { return J.lines[i].category; }), off = brOff || ((s.cat && cats.indexOf(s.cat) < 0) ? 'this PO is ' + (cats[0] || 'in another category') : '');
     var amt = Math.round(x.amount * 100);
     sum = kpi('Revenue', null, 'a PO is a cost') + kpi('Costs', off || s.mo ? null : amt, off || jobOnly('a PO’s amount') || 'PO ' + x.po + ', as in Every purchase order in the costs') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="fin745-eyebrow plf1272-sub">PURCHASE ORDER ' + e(x.po) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-po"><thead><tr><th>PO · supplier</th><th>Hire contract</th><th>Branch</th><th class="num">AUD ex GST</th></tr></thead><tbody>'
+    out += '<p class="fin745-eyebrow plf1272-sub">PURCHASE ORDER ' + e(x.po) + '</p>' + scope.replace('%s', 'PO') + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-po"><thead><tr><th>PO · supplier</th><th>Hire contract</th><th>Branch</th><th class="num">AUD ex GST</th></tr></thead><tbody>'
       + '<tr><td><b>' + e(x.po) + ' · ' + e(x.supplier) + '</b><small>' + e(x.what) + '</small><small>' + e(x.status) + '</small></td><td>' + e(x.contract) + '</td><td>' + e(x.branch) + '</td><td class="num"><b>' + f2(x.amount) + '</b></td></tr></tbody></table></div>'
       + (li.length ? '<p class="plf1272-note">On the cost line' + (li.length > 1 ? 's' : '') + ' below. A line can carry more than one PO, so a line’s total is not the PO’s amount.</p>' + linesTable(lineFacts(function (i) { return li.indexOf(i) >= 0; })) : '');
   } else if (K.kind === 'contract') {   /* a hire contract: what we charged on it and the costs tied to it, as in By hire contract */
@@ -189,7 +189,7 @@ function xRender() {
     sum = kpi('Revenue', offc || s.mo || s.cat ? null : Math.round(c.revenue * 100), offc || jobOnly('a hire contract’s charge') || (s.cat ? 'not split by cost category' : n(inv.length, 'invoice', 'invoices') + ' on ' + c.contract + fcTxt))
       + kpi('Costs', costOff || s.mo ? null : Math.round(c.costTotal * 100), costOff || jobOnly('a hire contract’s costs') || n(c.costs.length, 'cost', 'costs') + ' tied to it, as in By hire contract')
       + kpi('Difference so far', null, 'not for one contract: some costs are tied to none');
-    out += '<p class="fin745-eyebrow plf1272-sub">HIRE CONTRACT ' + e(c.contract) + ' · ' + e(c.branch) + ' · THE V8S’ PO ' + e(c.customerPO) + '</p>'
+    out += '<p class="fin745-eyebrow plf1272-sub">HIRE CONTRACT ' + e(c.contract) + ' · ' + e(c.branch) + ' · THE V8S’ PO ' + e(c.customerPO) + '</p>' + scope.replace('%s', 'hire contract')
       + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>' + inv.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('')
       + '<tr class="pl1267-grand"><td>Charged on ' + e(c.contract) + '</td><td></td><td></td><td class="num">' + f2(c.revenue) + '</td></tr></tbody></table></div>'
       + fcl.map(function (x) { return '<p class="plf1272-note">Not in the charge above: the November forecast on ' + e(x.contract) + ' ' + e(x.line) + ' (' + e(x.branch) + '), ' + f2(x.amount) + ', ' + e(x.what) + '. It is in the revenue as the November forecast.</p>'; }).join('')
@@ -204,7 +204,7 @@ function xRender() {
       : (K.kind === 'invoice' ? 'invoice ' + L[0].inv + ' on ' + L[0].contract : n(offi.length, 'invoice', 'invoices') + (s.br ? ' on ' + s.br : '') + ' on the V8s’ PO ' + keyed.join(', ') + (keyed.join('').replace(/\s/g, '').toUpperCase() !== XS.q.replace(/\s/g, '').toUpperCase() ? ' (as keyed on the invoice)' : ''));
     var chosen = s.br || moOff, choiceWord = [s.br, moOff ? MOL[s.mo].split(' ')[0] : ''].filter(Boolean).join(', ');
     sum = kpi('Revenue', s.cat ? null : inChoice, why) + kpi('Costs', null, 'an invoice is revenue: its hire contract carries the costs tied to it') + kpi('Difference so far', null, 'for the job or a branch, with no search');
-    out += '<p class="fin745-eyebrow plf1272-sub">' + (K.kind === 'invoice' ? 'INVOICE ' + e(L[0].inv) : 'INVOICES ON THE V8S’ PO ' + e(keyed.join(', ').toUpperCase())) + '</p><div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>'
+    out += '<p class="fin745-eyebrow plf1272-sub">' + (K.kind === 'invoice' ? 'INVOICE ' + e(L[0].inv) : 'INVOICES ON THE V8S’ PO ' + e(keyed.join(', ').toUpperCase())) + '</p>' + scope.replace('%s', K.kind === 'invoice' ? 'invoice' : 'set of invoices') + '<div class="tblwrap"><table class="pl1267-tbl plf1272-tbl plx-inv">' + INV_HEAD + '<tbody>'
       + L.map(function (x) { return invRow(x, Math.round(x.ex * 100)); }).join('') + '<tr class="pl1267-grand"><td>' + (chosen ? 'All ' + n(L.length, 'invoice', 'invoices') + ', every branch and month' : n(L.length, 'invoice', 'invoices')) + '</td><td></td><td></td><td class="num">' + cents(L.reduce(function (a, x) { return a + Math.round(x.ex * 100); }, 0)) + '</td></tr>'
       + (chosen && !s.cat ? '<tr class="pl1267-tot"><td>In the choice (' + e(choiceWord) + ')</td><td></td><td></td><td class="num">' + f2(inChoice / 100) + '</td></tr>' : '') + '</tbody></table></div>'
       + '<p class="plf1272-note">' + L.map(function (x) { return '<button type="button" class="plx-go" data-q="' + e(x.contract) + '">Hire contract ' + e(x.contract) + '</button>'; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(' ') + '</p>';
@@ -242,8 +242,8 @@ function xBind() {
   var c = D.getElementById('plx-clear'); if (c) c.onclick = function () { XS = {cat: '', br: '', mo: '', q: '', f: 0}; Object.keys(ids).forEach(function (k) { var el = D.getElementById(ids[k]); if (el) el.value = ''; }); xRender(); };
   box.addEventListener('click', function (ev) {
     var t = ev.target && ev.target.closest ? ev.target : null; if (!t) return;
-    var b = t.closest('.plx-pick'); if (b) { XS.cat = b.getAttribute('data-cat') || ''; var el = D.getElementById('plx-cat'); if (el) el.value = XS.cat; xRender(); return; }
-    var g = t.closest('.plx-go'); if (g) { XS.q = g.getAttribute('data-q') || ''; var qi = D.getElementById('plx-q'); if (qi) qi.value = XS.q; xRender(); }
+    var b = t.closest('.plx-pick'); if (b) { XS.cat = b.getAttribute('data-cat') || ''; var el = D.getElementById('plx-cat'); if (el) el.value = XS.cat; xRender(); if (el) try { el.focus(); } catch (er) {} return; }
+    var g = t.closest('.plx-go'); if (g) { XS.q = g.getAttribute('data-q') || ''; var qi = D.getElementById('plx-q'); if (qi) qi.value = XS.q; xRender(); if (qi) try { qi.focus(); } catch (er) {} }
   });
   xRender();
 }
