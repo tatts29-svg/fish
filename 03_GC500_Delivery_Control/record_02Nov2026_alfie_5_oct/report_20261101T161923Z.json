@@ -1,0 +1,128 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T161923Z",
+ "finished": "2026-11-01T16:19:41.660Z",
+ "mode": "apply",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "labour_add",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "text": "KINP labour, the rest of the day · Mon 5 Oct, King's Birthday (Queensland public holiday) · Andrew Fisher, 2 Nov 2026",
+    "why": "Andrew Fisher, 2 Nov 2026, answering the open item on Alfie Harris's 5 Oct night (no shift for him on the record): \"Oct 5  6'30-17:00\""
+   }
+  ]
+ },
+ "pageSha256": "73df88aeb79bd4c3dccdeafd01a9d23f72aa3d7d87257220919b0464cb6be95f",
+ "version": {
+  "before": 12729,
+  "after": 12734
+ },
+ "updated": {
+  "before": "2026-11-01T00:57:07.533Z",
+  "after": "2026-11-01T16:19:40.730Z"
+ },
+ "stage": [
+  {
+   "op": "labour_add",
+   "id": "W-L-alfie-harris-20261005",
+   "person": "Alfie Harris",
+   "date": "2026-10-05",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "new row, 10.5 h, the earlier set-aside undone - W-L-alfie-harris-20261005 changed by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": null,
+    "status": "unconfirmed"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261005",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261005",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-alfie-harris-20261005": null,
+   "deleted/back~2f~W-L-alfie-harris-20261005": null,
+   "by/deleted~2f~back~2f~W-L-alfie-harris-20261005": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261005": null,
+   "costs/W-L-alfie-harris-20261005": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-alfie-harris-20261005": {
+    "_k": "ourcost/W-L-alfie-harris-20261005",
+    "v": "2026-11-01T16:19:37.847Z"
+   },
+   "deleted/back~2f~W-L-alfie-harris-20261005": {
+    "_k": "back/W-L-alfie-harris-20261005",
+    "v": "2026-11-01T16:19:37.847Z"
+   },
+   "by/deleted~2f~back~2f~W-L-alfie-harris-20261005": {
+    "_k": "deleted/back/W-L-alfie-harris-20261005",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261005": {
+    "_k": "ourcost/W-L-alfie-harris-20261005",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-alfie-harris-20261005": {
+    "id": "W-L-alfie-harris-20261005",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · Mon 5 Oct, King's Birthday (Queensland public holiday) · Andrew Fisher, 2 Nov 2026",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-01T16:19:37.847Z",
+    "at": "2026-11-01T16:19:37.847Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-11-01T16:19:37.847Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261005"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
