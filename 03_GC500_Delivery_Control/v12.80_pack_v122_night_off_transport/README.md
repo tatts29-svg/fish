@@ -2,7 +2,8 @@
 
 Author: Andrew Fisher.
 
-**Candidate, not live.** It goes up on Andrew's word "Upload". Built on the live v12.79
+**LIVE 2 Nov 2026 04:55 AEST** (1 Nov 18:55 UTC), on Andrew's word "Upload go live". A separate fetch of the view link matches the
+build byte for byte. Built on the live v12.79
 `73df88aeb79bd4c3dccdeafd01a9d23f72aa3d7d87257220919b0464cb6be95f` by `toolchain/build.sh`:
 `build/GC500_v12.80/GC500_Delivery_Control_hosted.html`, **`3f31d69e3de1966e9aee70d198a3f1faacf52faacd5c59abdcea0a1c080a45c8`**,
 16,947,679 bytes, on pack v1.22 `5029e24ce4ea151bf5a7f7abbaffcb617f15fa54faeabb8a585cfea927a9d9cc` (audit_pack.py 583/583).
