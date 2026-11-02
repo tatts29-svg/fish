@@ -1,0 +1,115 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T020343Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 2 Nov 2026 (this chat), with the three Event Portables PO screens: \"PO 4674399 for the Hydrostation / PO 4674402 for the toilet hires / PO 4674406 for the pump outs.\" and \"we dont want to ruin info that is already in the P&L\". Each PO goes on the record through the page's own setPo, stream 'toilets' (the form's 'Toilets — Rehire'), costed to KINP, at its ex-GST amount, its lines in the note. They are reference only: the P&L keeps Event Portables at the counted quantities (accrued 101,747.00) until Event Portables invoice; the P&L gate stops the run if any figure moves.",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4674402",
+    "patch": {
+     "supplier_name": "Event Portables",
+     "stream": "toilets",
+     "what": "Toilet hire: 222 FWF, 6 pee panels, 2 x 16-pan blocks (Q6845)",
+     "branch": "KINP",
+     "revenue_branch": "KINP",
+     "amount": 31510,
+     "confirmed": true,
+     "note": "Brenden Meek raised it 2 Nov 2026, KINP, open, nothing received. 34,661.00 inc GST. GL 201.KINP.2127.0 Re-hire Manual. Lines: FWF 222 x 105.00; Pee Panel 6 x 450.00; 16 Pan Toilet 2 x 2,750.00. The P&L carries the hire at the counted 195 FWF (28,675.00) until invoiced."
+    },
+    "why": "Andrew Fisher, 2 Nov 2026: \"PO 4674402 for the toilet hires\""
+   },
+   {
+    "op": "po_add",
+    "number": "4674406",
+    "patch": {
+     "supplier_name": "Event Portables",
+     "stream": "toilets",
+     "what": "Pump-outs: water truck, 780 FWF, 24 tanks, 51 block cleans (Q6844)",
+     "branch": "KINP",
+     "revenue_branch": "KINP",
+     "amount": 53345,
+     "confirmed": true,
+     "note": "Brenden Meek raised it 2 Nov 2026, KINP, open, nothing received. 58,679.50 inc GST. GL 201.KINP.3325.0 Toilet Pumpout. Lines: Water Truck 1 x 6,800.00; FWF pump outs 780 x 38.50; Waste Tank Pump outs 24 x 295.00; Toilet Block Clean 51 x 185.00. The P&L carries the counted 702 FWF, 18 tanks, 51 cleans (41,772.00) and the water truck with pre-fill (9,600.00) until invoiced."
+    },
+    "why": "Andrew Fisher, 2 Nov 2026: \"PO 4674406 for the pump outs\""
+   },
+   {
+    "op": "po_add",
+    "number": "4674399",
+    "patch": {
+     "supplier_name": "Event Portables",
+     "stream": "toilets",
+     "what": "Hydrostation: 6 water deliveries, drinking-water tank 6 weeks (Q6846)",
+     "branch": "KINP",
+     "revenue_branch": "KINP",
+     "amount": 4350,
+     "confirmed": true,
+     "note": "Brenden Meek raised it 2 Nov 2026, KINP, open, nothing received. 4,785.00 inc GST. Lines: Water Delivery 6 x 375.00 (GL 201.KINP.2144.0 Consumables); Weeka hire Hydrostation 6 x 350.00 (GL 201.KINP.2127.0 Re-hire Manual). The P&L carries 4,850.00 for the water until invoiced."
+    },
+    "why": "Andrew Fisher, 2 Nov 2026: \"PO 4674399 for the Hydrostation\""
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4674402",
+   "view": {
+    "supplier": "Event Portables",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 31510,
+    "stream": "toilets",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4674406",
+   "view": {
+    "supplier": "Event Portables",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 53345,
+    "stream": "toilets",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4674399",
+   "view": {
+    "supplier": "Event Portables",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "amount": 4350,
+    "stream": "toilets",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  }
+ ],
+ "plan": [
+  "stamps/po~2f~4674402",
+  "stamps/po~2f~4674406",
+  "stamps/po~2f~4674399",
+  "by/po~2f~4674402",
+  "by/po~2f~4674406",
+  "by/po~2f~4674399",
+  "purchaseOrders/4674399",
+  "purchaseOrders/4674402",
+  "purchaseOrders/4674406"
+ ]
+}
