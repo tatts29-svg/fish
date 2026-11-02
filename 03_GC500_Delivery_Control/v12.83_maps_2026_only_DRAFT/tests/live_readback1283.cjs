@@ -21,12 +21,13 @@ const pageUrl = host + '/v/Coates-GC500-2026';
   const browser = await chromium.launch({executablePath:process.env.CHROMIUM_PATH, args:['--no-sandbox']});
   try {
     const ctx = await browser.newContext({viewport:{width:390,height:844}, locale:'en-AU'});
-    const errors = [], consoleErrors = [], requests = [], writes = [];
+    const errors = [], consoleErrors = [], requests = [], writes = [], keyRequests = [];
     await ctx.addInitScript(() => { localStorage.setItem('gc500.map1188','sat'); localStorage.setItem('gc500.explorer.mode','3d'); });
     await ctx.route('**/*', async route => {
       const r = route.request(), url = r.url();
       if (/^(blob:|data:)/.test(url)) return route.continue();
       requests.push(url);
+      if (url === host + '/api/map-key') keyRequests.push({url,frame:r.frame().url()});
       if (r.method() !== 'GET') { writes.push({method:r.method(),url}); return route.abort(); }
       try { return await route.fulfill(await curlFetch(url,r.headers(),'GET')); } catch (_) { return route.abort(); }
     });
@@ -51,10 +52,13 @@ const pageUrl = host + '/v/Coates-GC500-2026';
     assert.equal(ui.sheet,'__explorer'); assert.equal(ui.view,'plan'); assert.equal(ui.mode,'original');
     assert.equal(ui.is3d,false); assert.equal(ui.issued,'2 Oct 2026'); assert.equal(ui.oldSurface,false);
     assert.deepEqual(ui.options,['plan']); assert.deepEqual(ui.modes,['original']); assert(ui.scrollWidth<=ui.width);
-    assert.deepEqual(requests.filter(u=>/tile\.googleapis|api\/map-key|mapbox\.satellite|arcgisonline|\/underlay\/|sheet-overview|poc3d\/index/.test(u)),[]);
+    assert.deepEqual(requests.filter(u=>/tile\.googleapis|mapbox\.satellite|arcgisonline|\/underlay\/|sheet-overview|poc3d\/index/.test(u)),[]);
+    // The unchanged dashboard boot reads shared map-key configuration. It is not imagery.
+    // The restricted Explorer must never request that configuration itself.
+    assert(keyRequests.every(r=>r.frame.startsWith(pageUrl)), 'No Explorer-frame map-key request');
     assert.deepEqual(errors,[]); assert.deepEqual(consoleErrors,[]); assert.deepEqual(writes,[]);
     await p.screenshot({path:path.join(out,'live-phone.png')});
-    fs.writeFileSync(path.join(out,'readback.json'),JSON.stringify({author:'Andrew Fisher',checkedAt:new Date().toISOString(),passed:true,pageSha256:hash(fetched.body),pageBytes:fetched.body.length,machineFiles:served,ui,errors,consoleErrors,recordWrites:writes.length,requestCount:requests.length},null,2));
+    fs.writeFileSync(path.join(out,'readback.json'),JSON.stringify({author:'Andrew Fisher',checkedAt:new Date().toISOString(),passed:true,pageSha256:hash(fetched.body),pageBytes:fetched.body.length,machineFiles:served,ui,errors,consoleErrors,recordWrites:writes.length,requestCount:requests.length,parentConfigurationRequests:keyRequests.length},null,2));
     console.log(JSON.stringify({passed:true,pageSha256:hash(fetched.body),pageBytes:fetched.body.length,servedFiles:Object.keys(served).length,errors,consoleErrors,recordWrites:writes.length}));
   } finally { await browser.close(); }
 })().catch(e=>{console.error('FAIL',e.message);process.exitCode=1;});
