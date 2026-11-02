@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 13:4x AEST: \"2 x waste tanks will be leaving today at 3:00pm you know the ones we took the toilets off\". WC20's two toilet blocks left 30 Oct 12:30 (run 90) and its two waste tanks stayed: Coates 1311341 (Set 1) and 1328982 (Set 2), WC20's only units still on site (ticked Emptied 30 Oct). Both leave at 15:00 on 2 Nov, so WC20 leaves in full, through the page's own Record departure form in his name. The runner refuses a departure still in the future, so this runs after 15:00. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC20",
+   "at": "2026-11-02T15:00:00+10:00",
+   "nos": [
+    "1311341",
+    "1328982"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
