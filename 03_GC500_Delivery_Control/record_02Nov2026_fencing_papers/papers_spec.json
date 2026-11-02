@@ -1,0 +1,54 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Advanced Temporary Fencing's papers photographed by Andrew on 2 Nov 2026 (\"Have some fencing dockets\"): red-book hire agreement 36784 (the S23 construction-zone fence, installed 30 Oct 2026) and blue-book collection forms 28603 (S11 construction zone) and 28604 (median strip north, including S14 construction zone), both removals on 30 Oct 2026. Every paper read twice at full size and by an independent reader working from the photographs alone. Recorded through the page's own forms: recordHireAgreement (charged at the 2026 card and costed at Advanced's sheet by the page's own rules) and recordCollection (counts only, no charge, credit or metres inferred).",
+ "ops": [
+  {
+   "op": "hire_agreement",
+   "docket_no": "36784",
+   "date": "2026-10-30",
+   "location": "S23 - C.Z.",
+   "map_ref": "",
+   "quantities": {
+    "clean": 60
+   },
+   "components": {
+    "mesh_panel": 24,
+    "base": 24,
+    "clamp": 23
+   },
+   "signed_by": "",
+   "note": "Mesh fence 60 m (24 panels), 24 bases, 23 clamps, installed 30 Oct 2026 at the S23 construction zone (site line 'S23. C.Z.'). No scrim or bracing written, so clean. Rates and amounts blank; no order number. Owner/site supervisor signed (OWNER_DATE); installer signed, dated 30/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28603",
+   "date": "2026-10-30",
+   "location": "S11 - C.Z.",
+   "collected": {
+    "mesh_panel": 17,
+    "base": 15,
+    "clamp": 15
+   },
+   "note": "Collected from the S11 construction zone (site line 'S11. C.Z.'): 17 mesh panels, 15 bases, 15 clamps. Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/25 (the year as written), installer 30/10/26. S11's fence went in on 36781 (28 Oct 2026: 45 m, 18 panels, 15 bases, 15 clamps); this form collects 17 panels.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28604",
+   "date": "2026-10-30",
+   "location": "Medium strip - North",
+   "collected": {
+    "mesh_panel": 250,
+    "cc_barrier": 174,
+    "base": 621,
+    "clamp": 610,
+    "brace": 191,
+    "wheels": 6
+   },
+   "note": "Collected from the median strip north (written 'MEDIUM STRIP - NORTH'): 250 mesh panels, 174 CC barriers, 621 bases, 610 clamps, 191 braces, 6 wheels. Comments: 'Included S14 C.Z.' (the S14 construction zone is in these counts). Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed (OWNER_DATE); installer signed, dated 30/10/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  }
+ ]
+}
