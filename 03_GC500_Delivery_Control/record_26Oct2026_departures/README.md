@@ -801,3 +801,16 @@ gate no longer holds any toilet's departure form shut. Spec `spec105_all_toilets
 - Applied 12:28 on the live v12.81 page (`3b17c3de…`): backup, page sha checked, 17 delivery documents acknowledged 200, record
   12809 → 12826, every other document unchanged in value, verified on the service. A fresh read shows all 17 emptied; WC09's history
   (its 30 Oct FWF and 2 Nov pee-panel departures) intact.
+
+## Run 106 — FL03, the broadcast 5 t forklift (1321364), left site 2 Nov 13:30, with its fork extensions (2 Nov 2026 13:37 AEST, record 12843 → 12844)
+
+Andrew, 2 Nov 2026 13:xx AEST: "The big forkift they used for broadcast has gone now. Do you know the number did it have tynes too",
+then "130pm and yes tynes went too". FL03 is Coates 1321364, Forklift Rough Terrain 5.0t 4WD Diesel (TV compound; contract 9992300
+line 1, MEAD, hired 17–27 Oct), its reference's only unit, so FL03 leaves in full. The 2.4 m fork extensions on the same contract
+(9992300 line 3, MISCITEM, 17–27 Oct) went with it; they are not a reference on the record, so nothing is departed for them.
+Spec `spec106_fl03_2nov_1330.json`, report `report_20261102T033718Z.json`; the whole-record backup is kept privately outside the repo.
+Through the page's own Record departure form in Andrew's name, on the live v12.81 page (`3b17c3de…`): dry run first (P&L identical:
+charge 1,012,101.16, known cost 456,889.59, every branch unchanged), backup, page sha checked, delivery/FL03 acknowledged 200, every
+other document unchanged in value, verified on the service. Read back (fresh load of the live page): FL03 "Left site" 02/11/2026
+13:30:00 AEST, 1 × Forklift 5T 1321364, light in transit; FL04 (the 2.5 t, 1298390) still on site; 104 of 186 demob references left in
+full; errors 0, writes 0.

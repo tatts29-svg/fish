@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 13:xx AEST: \"The big forkift they used for broadcast has gone now\", then \"130pm and yes tynes went too\". FL03 is the broadcast forklift, Coates 1321364, Forklift Rough Terrain 5.0t 4WD Diesel (contract 9992300 line 1, MEAD), its reference's only unit: it left in full at 13:30 on 2 Nov, through the page's own Record departure form in his name. The 2.4 m fork extensions (9992300 line 3) went with it; they are not a reference on the record, so there is nothing to depart for them. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "FL03",
+   "at": "2026-11-02T13:30:00+10:00",
+   "nos": [
+    "1321364"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

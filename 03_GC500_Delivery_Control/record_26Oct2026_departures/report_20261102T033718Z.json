@@ -1,0 +1,275 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T033718Z",
+ "finished": "2026-11-02T03:37:51.907Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 13:xx AEST: \"The big forkift they used for broadcast has gone now\", then \"130pm and yes tynes went too\". FL03 is the broadcast forklift, Coates 1321364, Forklift Rough Terrain 5.0t 4WD Diesel (contract 9992300 line 1, MEAD), its reference's only unit: it left in full at 13:30 on 2 Nov, through the page's own Record departure form in his name. The 2.4 m fork extensions (9992300 line 3) went with it; they are not a reference on the record, so there is nothing to depart for them. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "FL03",
+    "at": "2026-11-02T13:30:00+10:00",
+    "nos": [
+     "1321364"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12843,
+  "after": 12844
+ },
+ "updated": {
+  "before": "2026-11-02T02:34:49.375Z",
+  "after": "2026-11-02T03:37:50.329Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "FL03",
+   "at": "2026-11-02T13:30:00+10:00",
+   "nos": [
+    "1321364"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T13:30:00+10:00, recorded by Andrew Fisher: 1 x Forklift 5T 1321364 - FL03 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/FL03",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/FL03": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:01.297Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:00.879Z",
+    "ready1238_units": {
+     "coates|1321364": {
+      "on": true,
+      "at": "2026-10-30T04:21:21.189Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1321364": {
+      "at": "2026-11-02T08:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:01:26.371Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:55:52.014Z",
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:01.297Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:55:52.014Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1321364",
+      "ready": true,
+      "at": "2026-10-30T04:21:21.189Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1321364",
+      "pickup": "2026-11-02T08:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:01:26.371Z"
+     }
+    ],
+    "_k": "FL03"
+   }
+  },
+  "after": {
+   "delivery/FL03": {
+    "state": "in transit",
+    "set_at": "2026-11-02T03:37:36.742Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:00.879Z",
+    "ready1238_units": {
+     "coates|1321364": {
+      "on": true,
+      "at": "2026-10-30T04:21:21.189Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1321364": {
+      "at": "2026-11-02T08:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:01:26.371Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T03:37:36.742Z",
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:01.297Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T03:37:36.742Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "6cd154c8-cd97-432e-831c-6dfadad27040",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T13:30:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:40:01.297Z",
+       "requiredKey": "[[\"forklift 5t\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 5T",
+         "n": 1,
+         "unitIds": [
+          "[\"FL03\",\"coates\",\"asset\",\"1321364\"]"
+         ],
+         "numbers": [
+          "1321364"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"FL03\",\"coates\",\"asset\",\"1321364\"]",
+           "number": "1321364",
+           "owner": "coates",
+           "item": "Forklift 5T"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:55:52.014Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T03:37:36.742Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1321364",
+      "ready": true,
+      "at": "2026-10-30T04:21:21.189Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1321364",
+      "pickup": "2026-11-02T08:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:01:26.371Z"
+     }
+    ],
+    "_k": "FL03"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
