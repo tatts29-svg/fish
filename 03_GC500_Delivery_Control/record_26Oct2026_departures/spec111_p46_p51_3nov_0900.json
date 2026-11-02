@@ -1,0 +1,12 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 09:1x AEST: \"P56 left  p41  po8 left  9am\", then \"Sorry p46  p51..and p08\": the P56 in the first message is P46 and P51. P46 (Coates 1327215, contract 9968862 L100, KINP; its only unit, Ready; pick-up booked 3 Nov 09:30) and P51 (Coates 1322579, contract 9968862 L94, KINP; its only unit, Ready; pick-up booked 3 Nov 09:00) left site at 09:00 on 3 Nov: each leaves in full, through the page's own Record departure form in his name. P08 was recorded at 09:00 in run 109. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {"op": "depart", "ref": "P46", "at": "2026-11-03T09:00:00+10:00", "nos": ["1327215"], "unnumbered": [], "complete": true},
+  {"op": "depart", "ref": "P51", "at": "2026-11-03T09:00:00+10:00", "nos": ["1322579"], "unnumbered": [], "complete": true}
+ ]
+}
