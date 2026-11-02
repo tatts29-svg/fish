@@ -716,3 +716,14 @@ in Andrew's name, on the live v12.81 page (`3b17c3de…`).
 - **Read back** (`check_after.cjs`, fresh load of the live page): T0085 "Left site" 02/11/2026 07:30:00 AEST, 1 × 3.5T Forklift Std
   1272166, light in transit; EQ0005 "Left site" 02/11/2026 07:30:00 AEST, 1 × Fork Extensions 2.4m 1262224, light in transit; nothing
   still to leave on either; 99 of 186 demob references left in full; errors 0, writes 0.
+
+## Run 98 — EQ0001, the 43 ft scissor lift (1220903), left site 2 Nov 10:15 (2 Nov 2026 10:28 AEST, record 12782 → 12783)
+
+Andrew, 2 Nov 2026 10:2x AEST: "Scissor lift left at 1015am". The only scissor lift on the record is EQ0001, Scissor Lift With Operator
+Protection 43ft (13.0M) - Diesel, Coates 1220903 (contract 9992300 line 4; ticked Ready 30 Oct; pick-up booked for 2 Nov 09:00), its
+reference's only unit, so EQ0001 leaves in full. Spec `spec98_eq0001_scissor_2nov_1015.json`, report `report_20261102T002804Z.json`; the
+whole-record backup is kept privately outside the repo. Through the page's own Record departure form in Andrew's name, on the live v12.81
+page (`3b17c3de…`). Dry run first (P&L identical: charge 1,012,101.16, known cost 456,889.59, every branch unchanged); applied with the
+backup and page sha check; delivery/EQ0001 acknowledged 200; every other document unchanged in value; verified on the service. Read back
+(`check_after.cjs`, fresh load of the live page): EQ0001 "Left site" 02/11/2026 10:15:00 AEST, 1 × Scissor Lift … 1220903, light in
+transit, nothing still to leave; errors 0, writes 0.
