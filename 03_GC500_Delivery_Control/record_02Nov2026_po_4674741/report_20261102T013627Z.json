@@ -1,0 +1,108 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T013627Z",
+ "finished": "2026-11-02T01:36:44.368Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 2 Nov 2026 (this chat), asked whether Daniel had a PO for week ending 01/11/2026 (none on the record), then: \"4674741 W/E is this one for Daniel\" and \"P/O o gave you os for daniel\". Job Connect labour hire, Daniel Gough, week ending 1 Nov 2026, costed to KINP like his other weeks. No amount given, so none is entered (as his October POs on the record); the week stays at the running sheet in the P&L until invoiced. Applied only if the P&L does not move.",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4674741",
+    "patch": {
+     "supplier_name": "Job Connect",
+     "stream": "labour",
+     "what": "Daniel Gough - week ending 1 Nov 2026",
+     "period": "w/e 1 Nov 2026",
+     "branch": "KINP",
+     "revenue_branch": "KINP",
+     "confirmed": true
+    },
+    "why": "Andrew Fisher, 2 Nov 2026: \"P/O o gave you os for daniel\" (4674741, w/e 1 Nov)"
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12784,
+  "after": 12787
+ },
+ "updated": {
+  "before": "2026-11-02T01:15:18.710Z",
+  "after": "2026-11-02T01:36:43.387Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4674741",
+   "view": {
+    "supplier": "Job Connect",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "stream": "labour",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4674741",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4674741",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4674741",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4674741": null,
+   "by/po~2f~4674741": null,
+   "purchaseOrders/4674741": null
+  },
+  "after": {
+   "stamps/po~2f~4674741": {
+    "_k": "po/4674741",
+    "v": "2026-11-02T01:36:40.029Z"
+   },
+   "by/po~2f~4674741": {
+    "_k": "po/4674741",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4674741": {
+    "number": "4674741",
+    "by": "Andrew Fisher",
+    "at": "2026-11-02T01:36:40.029Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 1 Nov 2026",
+    "period": "w/e 1 Nov 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true,
+    "updated_at": "2026-11-02T01:36:40.029Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4674741"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
