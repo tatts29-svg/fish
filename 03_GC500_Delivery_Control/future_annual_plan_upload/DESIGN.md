@@ -32,7 +32,7 @@ Plan changes never overwrite asset allocation, branch or finance data, labour, c
 
 ## When a verified 2026 base is unavailable
 
-Show the approved selected-year plan on a neutral background with useful search, references and plan positions. Explain “Verified 2026 imagery unavailable” briefly. Offer the clearly labelled plan-derived 3D illustration only where geometry is supported. Do not show blank maps, an older/undated aerial substitute, or a later capture described as 2026. No supplier or future capture availability is assumed.
+Show the approved selected-year plan on a neutral background with useful search, references and plan positions. Explain “Verified 2026 imagery unavailable” briefly. Offer the clearly labelled plan-derived 3D illustration only where geometry is supported. Do not show blank maps or describe older, undated or later imagery as2026. Andrew subsequently authorised keeping the previous satellite and3D views available while the verified replacement is researched. Preserve those views during that transition; do not remove them before a replacement is reviewed. No supplier or future capture availability is assumed.
 
 ## Acceptance checks
 
@@ -44,3 +44,7 @@ Show the approved selected-year plan on a neutral background with useful search,
 - Rollback restores the preceding plan and derived views. Archive browsing does not change the active year.
 - Operational, finance, allocation, completion and confirmed-location records are identical before and after activation or rollback.
 - With imagery disabled or unavailable, desktop and phone still show usable plan/search views and clear source labels.
+
+## Clean base and transition — latest direction
+
+Andrew requires genuine2026 imagery of the normal site without temporary GC500 event setup already in the photograph. The event plan is a separate optional overlay. Capture date and off-event visual suitability must both be checked across the site; hiding the overlay cannot remove infrastructure photographed into the base. He explicitly instructed “Restore both while checking2026” after rejecting a plan-only result. Previous views remain available during this authorised transition, with no unsupported2026 claim.
