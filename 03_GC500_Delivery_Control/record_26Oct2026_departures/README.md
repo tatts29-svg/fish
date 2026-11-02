@@ -814,3 +814,15 @@ charge 1,012,101.16, known cost 456,889.59, every branch unchanged), backup, pag
 other document unchanged in value, verified on the service. Read back (fresh load of the live page): FL03 "Left site" 02/11/2026
 13:30:00 AEST, 1 × Forklift 5T 1321364, light in transit; FL04 (the 2.5 t, 1298390) still on site; 104 of 186 demob references left in
 full; errors 0, writes 0.
+
+## Run 107 — WC20's two waste tanks (1311341, 1328982) left site 2 Nov 15:00; WC20 left in full (2 Nov 2026 15:02 AEST, record 12844 → 12845)
+
+Andrew, 2 Nov 2026 13:4x AEST: "2 x waste tanks will be leaving today at 3:00pm you know the ones we took the toilets off". WC20's two
+toilet blocks (1327228, 1327225) left 30 Oct 12:30 (run 90) and its two waste tanks stayed: Coates 1311341 (Set 1) and 1328982 (Set 2),
+WC20's only units still on site (Emptied since 30 Oct). Spec `spec107_wc20_tanks_2nov_1500.json` (parked and committed at 13:51 while
+15:00 was still in the future), report `report_20261102T050213Z.json`; the whole-record backup is kept privately outside the repo.
+Through the page's own Record departure form in Andrew's name, on the live v12.81 page (`3b17c3de…`): dry run at 15:01 (P&L identical:
+charge 1,012,101.16, known cost 456,889.59, every branch unchanged), applied 15:02 with the backup and page sha check, delivery/WC20
+acknowledged 200, every other document unchanged in value, verified on the service. Read back (fresh load of the live page): WC20 "Left
+site" 02/11/2026 15:00:00 AEST — 2 × Toilet Block 6m (30 Oct) and 2 × Waste tank 1311341, 1328982 (2 Nov), light in transit, nothing still
+to leave; 105 of 186 demob references left in full; errors 0, writes 0.
