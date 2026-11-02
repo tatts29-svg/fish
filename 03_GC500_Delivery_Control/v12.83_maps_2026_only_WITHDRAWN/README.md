@@ -1,6 +1,10 @@
-# v12.83 — verified 2026 Map Explorer
+# v12.83 — withdrawn plan-only Map Explorer
 
 Author: Andrew Fisher.
+
+WITHDRAWN — published at 19:37 AEST on 2 Nov 2026, then rolled back at 20:00:54 AEST on Andrew's direction: “Restore both while checking 2026.” The exact previous v12.81 dashboard and map machine are restored. See `../rollback_02Nov2026_map_views/README.md` for the verified restoration. This folder preserves the tested source and historical release record; it is **not ready for another upload**. Retain satellite and 3D during the approved transition to a reviewed replacement. Later Google Earth investigation is separate and supersedes the initial absence of a verified aerial source; the plan-only design is not the requested outcome.
+
+## Historical implementation and readiness record
 
 READY TO UPLOAD — implementation, independent source review, focused checks and paired desktop/phone sweeps pass; publication and public read-back remain with the coordinating release owner. Andrew instructed on 2 November 2026: “I want map explorer to only contain 2026.” The first eligible source is the existing D001-26003-03 master plan issued 2 October 2026. Its transparent vector pyramid preserves labels, symbols and the registered positions without displaying the drawing’s undated aerial backdrop.
 

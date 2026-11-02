@@ -42,14 +42,16 @@ const safeError=e=>({name:String(e?.name||'Error'),message:String(e?.message||e)
    result.requests++;const u=new URL(url),session=request.method()==='POST'&&u.origin==='https://tile.googleapis.com'&&u.pathname==='/v1/createSession';
    if(request.method()!=='GET'&&!session){result.recordWrites++;return route.abort();}
    if(session)result.providerSessionPosts++;
-   try{return await route.fulfill(await curlFetch(url,request.headers(),request.method(),request.postData()));}catch(_){return route.abort();}
+   try{return await route.fulfill(await curlFetch(url,request.headers(),request.method(),request.postData()));}catch(_){try{return await route.abort();}catch(__){return;}}
   });
   const p=await ctx.newPage();p.on('pageerror',e=>result.errors.push(safeError(e)));p.on('console',m=>{if(m.type()==='error')result.consoleErrors.push(safeError(m.text()));});
   const started=Date.now(),budget=Number(process.env.UI_BUDGET_MS)||60000,remaining=max=>Math.max(1000,Math.min(max,budget-(Date.now()-started)));
   await p.goto(PUBLIC+'?restore-ui='+nonce+'#map',{waitUntil:'domcontentloaded',timeout:remaining(40000)});
   await p.waitForFunction(()=>typeof go==='function'&&typeof expFrame==='function',null,{timeout:remaining(25000)});
   await p.evaluate(()=>go('map'));
-  await p.waitForFunction(()=>{const f=document.getElementById('expFrame');return f?.contentWindow?.GC500Explorer&&f.contentWindow.__ready;},null,{timeout:remaining(20000)});
+  // explorer-merge starts on its separate 120 ms readiness loop after the core
+  // marks __ready. Wait for that module's API and real button before assertions.
+  await p.waitForFunction(()=>{const w=document.getElementById('expFrame')?.contentWindow;return w?.GC500Explorer&&w.__ready&&typeof w.GC500Explorer.mode3d==='function'&&typeof w.GC500Explorer.is3d==='function'&&w.document.querySelector('.modes [data-mode="3d"]');},null,{timeout:remaining(20000)});
   result.ui=await p.evaluate(()=>{const w=document.getElementById('expFrame').contentWindow,g=w.GC500Explorer;return{parentOptions:[...document.querySelectorAll('.map1188 select option')].map(x=>x.value),modes:[...w.document.querySelectorAll('.modes [data-mode]')].map(x=>x.dataset.mode),mode:g.state.mode,mode3dCallable:typeof g.mode3d==='function',setModeCallable:typeof g.setMode==='function',parent3dCallable:typeof expOpen3d==='function'};});
   for(const view of ['plan','sat'])assert(result.ui.parentOptions.includes(view),'Missing restored parent view '+view);
   for(const mode of ['original','hybrid','satellite','3d'])assert(result.ui.modes.includes(mode),'Missing restored control '+mode);
@@ -71,14 +73,19 @@ const safeError=e=>({name:String(e?.name||'Error'),message:String(e?.message||e)
   result.ui.threeDEntry=await child.evaluate(()=>{const f=document.getElementById('model3d');const u=new URL(f.src);return{path:u.pathname,originalEntry:u.pathname.endsWith('/poc3d/index.html'),shown:getComputedStyle(f).display!=='none'};});
   assert(result.ui.threeDEntry.originalEntry&&result.ui.threeDEntry.shown,'Restored 3D iframe is not the original visible entry');
   try{
-   await child.waitForFunction(()=>{const w=document.getElementById('model3d')?.contentWindow;return w?.GC500_3D?.state?.ready&&w.GC500_3D.state.perf?.tilesLoaded>0;},null,{timeout:remaining(20000)});
-   result.provider.threeD='ready with imagery tiles loaded';
+   await child.waitForFunction(()=>{const w=document.getElementById('model3d')?.contentWindow,s=w?.GC500_3D?.state;return s?.ready&&s.loaded&&s.perf?.firstFull>0&&s.perf?.tilesLoaded>0;},null,{timeout:remaining(25000)});
+   result.provider.threeD='ready with visible-view tiles loaded';
   }catch(_){result.provider.threeD='entry restored; provider/graphics not ready within the probe window';}
-  result.ui.threeD=await child.evaluate(()=>{const w=document.getElementById('model3d')?.contentWindow;return{ready:!!w?.GC500_3D?.state?.ready,bootError:w?.__bootError||null,tilesLoaded:w?.GC500_3D?.state?.perf?.tilesLoaded||0};});
+  result.ui.threeD=await child.evaluate(()=>{const w=document.getElementById('model3d')?.contentWindow,s=w?.GC500_3D?.state;return{ready:!!s?.ready,bootError:w?.__bootError||null,tilesLoaded:s?.perf?.tilesLoaded||0,firstFullMs:s?.perf?.firstFull||null,visibleViewLoaded:!!s?.loaded};});
   await p.screenshot({path:path.join(out,'restored-3d-phone.png'),timeout:10000});
+  const modelFrame=p.frames().find(f=>f.url().startsWith(MACHINE+'poc3d/'));
+  if(modelFrame){
+   const canvas=modelFrame.locator('#cesium canvas').first();
+   if(await canvas.count())await canvas.screenshot({path:path.join(out,'restored-3d-canvas.png'),timeout:10000});
+  }
   result.elapsedUiMs=Date.now()-started;
   assert.equal(result.recordWrites,0,'Operational write attempted');
-  result.passed=result.errors.length===0&&result.consoleErrors.length===0&&result.provider.satellite==='rendered'&&result.provider.threeD==='ready with imagery tiles loaded';
+  result.passed=result.errors.length===0&&result.consoleErrors.length===0&&result.provider.satellite==='rendered'&&result.provider.threeD==='ready with visible-view tiles loaded';
  }catch(e){result.failure=safeError(e);}
  finally{
   fs.writeFileSync(path.join(out,'live-restoration.json'),JSON.stringify(result,null,2)+'\n');

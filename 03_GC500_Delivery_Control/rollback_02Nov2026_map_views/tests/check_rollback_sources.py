@@ -72,7 +72,7 @@ def main():
     # Reproduce the rejected page from the historical parent using the bounded
     # map patch plus the same scrub. Exact equality accounts for the entire delta.
     delivery = Path(__file__).resolve().parents[2]
-    patchfile = delivery / 'v12.83_maps_2026_only_DRAFT/patch_v1283.py'
+    patchfile = delivery / 'v12.83_maps_2026_only_WITHDRAWN/patch_v1283.py'
     spec = importlib.util.spec_from_file_location('map_patch1283', patchfile)
     patch = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(patch)
