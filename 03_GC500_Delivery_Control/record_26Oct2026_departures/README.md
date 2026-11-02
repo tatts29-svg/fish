@@ -826,3 +826,15 @@ charge 1,012,101.16, known cost 456,889.59, every branch unchanged), applied 15:
 acknowledged 200, every other document unchanged in value, verified on the service. Read back (fresh load of the live page): WC20 "Left
 site" 02/11/2026 15:00:00 AEST — 2 × Toilet Block 6m (30 Oct) and 2 × Waste tank 1311341, 1328982 (2 Nov), light in transit, nothing still
 to leave; 105 of 186 demob references left in full; errors 0, writes 0.
+
+## Run 108 — GN?, the two 200 kVA concert generators (1316182, 1316183), left site 2 Nov 15:15; GN? left in full (2 Nov 2026 15:30 AEST, record 12845 → 12846)
+
+Andrew, 2 Nov 2026 15:2x AEST: "2 x 200kva generators leaving at 315pm". The two 200 kVA concert generators are reference GN?
+("Concert", 2 × 200kva & cables; contract 9994954, KINP): Coates 1316182 and 1316183, its only units, both ticked Ready on 2 Nov. Spec
+`spec108_concert_gens_2nov_1515.json`, report `report_20261102T052942Z.json`; the whole-record backup is kept privately outside the repo.
+GN? is stored on the record as `GN~3f~` (the "?" encoded), so `left_site.cjs` now lets the depart step take "GN?" (as the branch step
+already did) and reads its entry back under the encoded name. Through the page's own Record departure form in Andrew's name, on the live
+v12.81 page (`3b17c3de…`): dry run (P&L identical: charge 1,012,101.16, known cost 456,889.59, every branch unchanged), applied 15:30
+with the backup and page sha check, delivery/GN~3f~ acknowledged 200, every other document unchanged in value, verified on the service
+(version 12846, GN~3f~ in transit). Read back (fresh load of the live page): GN? "Left site" 02/11/2026 15:15:00 AEST — 2 × 200kva &
+cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 demob references left in full; errors 0, writes 0.
