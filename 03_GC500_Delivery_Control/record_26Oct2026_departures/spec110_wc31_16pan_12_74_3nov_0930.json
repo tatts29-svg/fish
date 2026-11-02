@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 09:1x AEST: \"Both 16 pan toilets leaving at 930am\". The two 16-pan blocks are Event Portables' sub-hired blocks 12 and 74 on WC31 (The Hill, entry point A47; contract 9968955, KINP); WC31 was ticked Emptied on 2 Nov. Both leave site at 09:30 on 3 Nov through the page's own Record departure form in his name, recorded after 09:30 (the form takes no future time). WC31's Coates accessible toilet 1317645 is not named, so it stays and WC31 stays on site. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC31",
+   "at": "2026-11-03T09:30:00+10:00",
+   "nos": [
+    "12",
+    "74"
+   ],
+   "unnumbered": [],
+   "complete": false
+  }
+ ]
+}
