@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 11:3x AEST: \"Leaving at 1145 / 1317644\". 1317644 is WC01's Accessible Toilet (Coates; WC01 also holds two FWF, 1211958 and 1211967, which stay). It left site at 11:45 on 2 Nov, through the page's own Record departure form in his name; WC01 stays on site with its two FWF still to leave. The runner refuses a departure still in the future, so this runs after 11:45. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC01",
+   "at": "2026-11-02T11:45:00+10:00",
+   "nos": [
+    "1317644"
+   ],
+   "unnumbered": [],
+   "complete": false
+  }
+ ]
+}
