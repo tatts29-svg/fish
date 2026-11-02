@@ -1,0 +1,112 @@
+{
+ "by": "Andrew Fisher",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "basis": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\". Every toilet and waste-tank reference still on site without the Emptied tick (17 of the 23; WC01, WC09, WC20, WC67, WC81 and T0024 already carry it) gets it through the page's own setEmptied816 in his name, so the page's emptied gate no longer holds their departure forms shut. Read from the live record 12802. Applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "WC02",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC04",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC05",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC06",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC07",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC100",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC11",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC12",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC15",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC16",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC17",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC21",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC27",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC31",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC50",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC60",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  },
+  {
+   "op": "emptied",
+   "ref": "T0243",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+  }
+ ]
+}

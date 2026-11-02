@@ -786,3 +786,18 @@ acknowledged 200, every other document unchanged in value, and verification on t
 - **Read back** (fresh load of the live page, every reference still to leave): WC51 and WC86 gone; WC09 still to leave 2 × Toilet Block 6m;
   T0024 still to leave 1 × FWF; WC01 still to leave 2 × FWF; 103 of 186 demob references left in full; errors 0, writes 0. One accessible
   toilet is still on site: WC31's (Coates 1317645).
+
+## Run 105 — every toilet still on site recorded as pumped out (2 Nov 2026 12:28 AEST, record 12809 → 12826)
+
+Andrew, 2 Nov 2026 12:xx AEST: "All Toilets are meant to be stated as Puimped out already" (after his 30 Oct word, "all toilets have been
+pumped out this was done on sunday night via servicing"). Read from the live record (12802): 23 toilet and waste-tank references still on
+site; six already carried the Emptied tick (WC01, WC09, WC20, WC67, WC81, T0024). The other 17 got it through the page's own setEmptied816
+in his name: WC02, WC04, WC05, WC06, WC07, WC100, WC11, WC12, WC15, WC16, WC17, WC21, WC27, WC31, WC50, WC60, T0243. The page's emptied
+gate no longer holds any toilet's departure form shut. Spec `spec105_all_toilets_emptied_2nov.json`, report
+`report_20261102T022802Z.json`; the whole-record backup is kept privately outside the repo.
+
+- Dry run: the first stopped before staging ("somebody is editing": WC09 changed on the record during the read); the retry passed —
+  17 Emptied ticks staged, P&L identical (charge 1,012,101.16, known cost 456,889.59, every branch unchanged), 17 documents planned.
+- Applied 12:28 on the live v12.81 page (`3b17c3de…`): backup, page sha checked, 17 delivery documents acknowledged 200, record
+  12809 → 12826, every other document unchanged in value, verified on the service. A fresh read shows all 17 emptied; WC09's history
+  (its 30 Oct FWF and 2 Nov pee-panel departures) intact.
