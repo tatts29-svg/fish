@@ -27,3 +27,11 @@ recorded on 36766 and 36768). Advanced's sheet bills the 2 braces as 5 m braced 
 paper in all; the bracing goes on with their approved sheet, as on 36632, 36644 and 36763.
 
 `originals/36641.jpg` is page 24 of their scan rendered at 200 dpi (the scan itself is not committed); `thumbs/` the preview.
+
+## Settled (3 Nov 2026)
+
+After the paper was recorded Andrew questioned it again (the signature looked different to him; our works programme has no Gate 1
+line on 21 Oct, though it has an unmatched 25 m "CCB – Gate 6 Ticket Box" the same day). Andrew Fisher, 3 Nov 2026 04:5x AEST:
+"36641 please add im not going to worry about 200 i approve the docket add in". 36641 stays on the record as recorded (F-AF-0082,
+record 12856, not set aside; checked on the service before this note), and its $207.00 on Advanced's event-week sheet is accepted.
+No record change was needed.
