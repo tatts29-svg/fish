@@ -1,0 +1,32 @@
+/* Author: Andrew Fisher. GET-only Explorer source-policy regression checks. */
+const {chromium}=require('playwright'),fs=require('fs'),path=require('path'),assert=require('assert');
+const {curlFetch}=require('../../toolchain/harness/curlfetch');
+const hash=b=>require('crypto').createHash('sha256').update(b).digest('hex');
+const machineFiles=Object.fromEntries(['explorer/index.html','explorer/explorer.js','explorer/explorer-merge.js','poc3d/index.html'].map(p=>[p,hash(fs.readFileSync(path.join(process.env.CANDIDATE,p)))]));
+const candidate=process.env.CANDIDATE, out=process.env.OUT;
+const host='https://gc500-production.up.railway.app',base=host+'/w/Coates-GC500-2026/';
+(async()=>{ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox']});
+try{const ctx=await browser.newContext({viewport:{width:1280,height:900},locale:'en-AU'}),requests=[],errors=[];
+await ctx.route('**/*',async route=>{const r=route.request(),u=r.url();if(u.startsWith('blob:')||u.startsWith('data:'))return route.continue();requests.push({url:u,method:r.method()});if(r.method()!=='GET')return route.abort();
+const rel=u.startsWith(base)?u.slice(base.length).split('?')[0]:'';const file=path.join(candidate,rel);
+if(rel&&fs.existsSync(file)&&fs.statSync(file).isFile())return route.fulfill({status:200,contentType:rel.endsWith('.js')?'text/javascript':'text/html',body:fs.readFileSync(file)});
+try{return await route.fulfill(await curlFetch(u,r.headers(),'GET'));}catch(e){return route.abort();}});
+await ctx.addInitScript(()=>localStorage.setItem('gc500.explorer.mode','satellite'));
+const page=await ctx.newPage();page.setDefaultTimeout(120000);page.on('pageerror',e=>errors.push(e.message));
+await page.goto(base+'explorer/index.html?mode=3d#satellite',{waitUntil:'domcontentloaded',timeout:120000});
+try{await page.waitForFunction(()=>window.GC500Explorer&&window.__ready,null,{timeout:90000});}catch(e){console.log(JSON.stringify({errors,debug:await page.evaluate(()=>({bootError:window.__bootError,load:document.getElementById('loadText')?.textContent,scripts:[...document.scripts].map(x=>x.src)})),requests:requests.map(x=>x.url)}));throw e;}
+await page.evaluate(()=>GC500Explorer.ready);await page.waitForTimeout(1500);
+const initial=await page.evaluate(()=>({mode:GC500Explorer.state.mode,ready:window.__ready,bootError:window.__bootError,vt:GC500Explorer.state.perf.vtRendered,buttons:[...document.querySelectorAll('[data-mode]')].map(x=>x.dataset.mode),images:[...document.images].map(x=>x.src.startsWith('data:')?'data:image':x.src),in3d:document.body.classList.contains('in3d'),tiles:GC500Explorer.state.tiles,meta:P.meta,under:UNDER.length}));
+assert.equal(initial.mode,'original');assert.deepEqual(initial.buttons,['original']);assert.equal(initial.under,0);assert.equal(initial.tiles,0);assert.equal(initial.meta.issued,'2 Oct 2026');
+await page.evaluate(()=>{GC500Explorer.setMode('satellite');GC500Explorer.mode3d(true);location.hash='3d';});await page.keyboard.press('4');await page.keyboard.press('2');await page.waitForTimeout(700);
+const guarded=await page.evaluate(()=>({mode:GC500Explorer.state.mode,is3d:GC500Explorer.is3d(),iframes:[...document.querySelectorAll('iframe')].map(x=>x.src)}));assert.equal(guarded.mode,'original');assert.equal(guarded.is3d,false);assert.equal(guarded.iframes.length,0);
+const find=await page.evaluate(async()=>({result:await GC500Explorer.find('P33'),state:GC500Explorer.state.mode}));assert.equal(find.state,'original');await page.waitForTimeout(500);
+const labels=await page.evaluate(async()=>{const itemCodes=new Set(ITEMS.map(x=>x.code)),counts=new Map();for(const r of P.labels)counts.set(norm(r[0]),(counts.get(norm(r[0]))||0)+1);const label=P.labels.find(r=>counts.get(norm(r[0]))===1&&!itemCodes.has(norm(r[0]))&&r[2]<1400);const result=label?await GC500Explorer.find(label[0]):null;const missing=await GC500Explorer.find('__NO_SUCH_2026_LABEL__');return {unique:result,missing};});assert.equal(labels.unique,true);assert.equal(labels.missing,false);
+await page.evaluate(()=>{panel813(false);GC500Explorer.fit();});await page.waitForFunction(()=>/Drawing sharp/.test(document.getElementById('qualText').textContent),null,{timeout:90000});
+const dl=page.waitForEvent('download',{timeout:90000});await page.locator('#exportBtn').click();const png=await dl;await png.saveAs(path.join(out,'plan-export.png'));assert(fs.statSync(path.join(out,'plan-export.png')).size>10000);
+await page.screenshot({path:path.join(out,'explorer-desktop.png')});
+await page.setViewportSize({width:390,height:844});await page.evaluate(()=>GC500Explorer.fit());await page.waitForTimeout(500);await page.screenshot({path:path.join(out,'explorer-phone.png')});
+const forbidden=requests.filter(x=>/tile\.googleapis|api\/map-key|mapbox\.satellite|arcgisonline|\/underlay\/|sheet-overview|NEVER_EXPECTED_1283/.test(x.url));assert.deepEqual(forbidden,[]);
+await page.goto(base+'poc3d/index.html?find=P33&back=v',{waitUntil:'domcontentloaded'});await page.waitForURL('**/explorer/index.html?find=P33&back=v#original');await page.waitForFunction(()=>window.GC500Explorer&&window.__ready);assert.equal(await page.evaluate(()=>GC500Explorer.state.mode),'original');
+assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'browser-result.json'),JSON.stringify({passed:true,machineFiles,recordWrites:requests.filter(r=>r.method!=='GET').length,initial,guarded,find,labels,requests:requests.map(x=>x.url),errors},null,2));console.log(JSON.stringify({pass:true,requests:requests.length,errors,initial,guarded}));
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1});
