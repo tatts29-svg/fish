@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-READY TO UPLOAD — all final candidate checks have passed. Guarded publication and independent live read-back are next. Implemented and tested by Codex with independent Codex-agent guard review; Claude has not reviewed this release.
+LIVE — 3 Nov 2026 03:10:18 AEST (2 Nov 2026 17:10:18.492 UTC), published from source `8344fc6cf332c5f272edb7dcc7765317cb4a229e` on `ccr-061f77e8-ivjhrv`. Guarded publication and fresh live verification are complete. Implemented and tested by Codex with independent Codex-agent guard review and public read-back; Claude has not reviewed this release.
 
 Andrew approved the Mapbox preview and asked for clearer imagery with fast loading, rendering and refresh. The Explorer previously waited for a Google 2D session before using its already-available Mapbox access, and could switch back to the unwanted background. This release uses the approved Mapbox background directly, keeps that source through retry, and retains the existing plan, search, registration and Google 3D views. The temporary image's capture date remains unverified; it is not labelled a 2026 capture.
 
@@ -48,8 +48,10 @@ The new resting image is visibly sharper at the same device pixel ratio. Request
 - Paired dashboard phone integration passes all four modes, visible satellite and full 3D ground/buildings, source retention, and retaining the iframe when navigating away and back. Both phone screenshots were inspected. No errors or record writes.
 - Final desktop and phone dashboard sweeps each pass 27 routes, seven deep links and Back, with no runtime errors, console errors or attempted writes. Routes match the restored predecessor.
 - The standard page uploader dry run confirms unchanged live base and edit access.
-- Authenticated machine preflight confirms the current base, edit access, server v5.94 and the complete retained inventory. No publication has occurred at this READY stage.
+- Authenticated machine preflight confirms the current base, edit access, server v5.94 and the complete retained inventory. Publication retained all 236 manifest paths and the exact protected server inventory.
 
-The owner must push this READY source and use `release/publish_machine1285.py` with source-bound evidence, exact dashboard candidate and distinct `explorer1285`/`dashboard1285` receipts. The helper rejects changed inputs or a changed live base, stages only the four reviewed map files, preserves the full inventory and verifies served bytes. Publish the paired dashboard with the standard guarded uploader, then independently read back the complete page, four map files and actual phone UI. No operational writes belong to this release.
+The guarded publisher staged only four reviewed map blobs, registered machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`, and verified every served map file. The standard page uploader then published dashboard `be38bdbeffbf82adbb6a6f51b03bba66a1184dd3618b3d0c5504fdb6f7ca196a` and proved complete byte identity. A separate reviewer freshly fetched the public page, manifest and all four files and independently confirmed their exact hashes.
+
+The fresh live phone run passes with the approved satellite background, all four map modes, full 3D ground/buildings (173 visible-view tiles), and the existing map frame retained after switching tabs. Screenshots were inspected. There are no runtime errors, console errors or record writes. The public-view state before and after publication is byte-identical. Private runtime samples, screenshots, originals and records remain outside Git. See `verification.json` for the public-safe technical check summary.
 
 P&L and operational records remain with their existing owner. Fencing v12.82 remains held. This release does not publish the Demob/building previews or implement annual-plan uploads.

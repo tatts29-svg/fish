@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "VERIFIED LIVE",
   "dashboardSha256": "be38bdbeffbf82adbb6a6f51b03bba66a1184dd3618b3d0c5504fdb6f7ca196a",
   "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
   "parentOnlyFooterChanged": true,
@@ -44,6 +44,22 @@
     "recordWrites": 0
   },
   "screenshotsInspected": true,
-  "publicationPerformed": false,
-  "claudeReviewClaimed": false
+  "publicationPerformed": true,
+  "claudeReviewClaimed": false,
+  "readySourceCommit": "8344fc6cf332c5f272edb7dcc7765317cb4a229e",
+  "publishedAtUtc": "2026-11-02T17:10:18.492Z",
+  "publicPageAndFourMapFilesExact": true,
+  "independentPublicReadbackPassed": true,
+  "retainedOtherMachineDescriptors": 232,
+  "protectedServerInventoryExact": true,
+  "livePhoneIntegration": {
+    "passed": true,
+    "satelliteRendered": true,
+    "threeDVisibleTiles": 173,
+    "mapFrameRetainedOnReturn": true,
+    "errors": 0,
+    "consoleErrors": 0,
+    "recordWrites": 0
+  },
+  "publicViewStateByteIdenticalBeforeAfter": true
 }
