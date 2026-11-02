@@ -25,7 +25,7 @@ let s;
   const bytes=process.env.PAGE?fs.readFileSync(process.env.PAGE):(await curlFetch(PUBLIC+'?map1286='+Date.now(),{'Cache-Control':'no-store'},'GET')).body;
   result.dashboardSha256=sha(bytes);
   if(process.env.EXPECTED_SHA)assert.equal(result.dashboardSha256,process.env.EXPECTED_SHA,'Wrong parent dashboard');
-  s=await open({pageFile:process.env.PAGE,hash:'#map',W:390,H:844,dpr:2,mobile:true,init:"localStorage.setItem('gc500.map1188','plan');localStorage.setItem('gc500.explorer.mode','original');"});
+  s=await open({pageFile:process.env.PAGE,hash:'#map',W:390,H:844,dpr:2,mobile:true,gl:true,init:"localStorage.setItem('gc500.map1188','plan');localStorage.setItem('gc500.explorer.mode','original');"});
   const p=s.page;p.on('console',m=>{if(m.type()==='error')result.consoleErrors.push(safe(m.text()));});
   await p.waitForFunction(()=>typeof go==='function'&&!!document.getElementById('expFrame'),null,{timeout:30000});
   await p.evaluate(()=>go('map'));
@@ -96,6 +96,30 @@ let s;
    const modes=[];for(const mode of ['hybrid','satellite','original']){GC500Explorer.setMode(mode);GC500MapCompletion1009.pull();modes.push({mode,shapes:!!GC500Shape1060,departures:!!GC500Departure1211,units:!!MapUnits1147});}return modes;
   });
   assert(result.modeChecks.every(x=>x.shapes&&x.departures&&x.units),'Mode switch lost an adapter');
+  // Open the unchanged native photographic 3D scene and focus one existing
+  // equipment record. This exercises retained geometry; no fixture models,
+  // coordinates, door state, records or photographic source are supplied.
+  await child.evaluate(()=>GC500Explorer.mode3d(true));
+  await p.waitForFunction(()=>{const w=document.getElementById('expFrame')?.contentWindow?.document.getElementById('model3d')?.contentWindow;return w?.GC500_3D?.state.ready&&w.GC500EquipmentView1027?.state.enabled;},null,{timeout:60000});
+  const scene=p.frames().find(f=>new URL(f.url()).pathname.endsWith('/poc3d/index.html'));assert(scene,'Retained 3D iframe missing');
+  result.threeD=await scene.evaluate(()=>{
+   const api=GC500EquipmentView1027,cat=parent.GC500EquipmentBridge1027.catalogue();
+   const row=cat.find(r=>r.location&&PINS.some(p=>p.k===r.ref));
+   return {ready:GC500_3D.state.ready,equipmentEnabled:api.state.enabled,nativeCatalogue:cat.length>0,focused:!!row&&GC500_3D.find(row.ref),googlePhotographicSource:!!tileset&&performance.getEntriesByType('resource').some(r=>r.name.startsWith('https://tile.googleapis.com/v1/3dtiles/root.json'))};
+  });
+  assert(Object.values(result.threeD).every(Boolean),'Retained 3D scene, native equipment or photographic source unavailable');
+  await scene.waitForFunction(()=>{
+   const api=GC500EquipmentView1027;api.refresh();
+   const row=api.state.models.find(m=>m.ref===api.state.active&&m.ready&&!m.failed&&api.samplingVisible(m.ref));
+   const model=row&&api.exclude().find(m=>m.id?._gc?.k===row.ref&&m.ready&&m.show);
+   if(!model||!model.boundingSphere)return false;
+   const camera=viewer.camera,volume=camera.frustum.computeCullingVolume(camera.positionWC,camera.directionWC,camera.upWC);
+   return volume.computeVisibility(model.boundingSphere)!==Cesium.Intersect.OUTSIDE;
+  },null,{timeout:45000});
+  result.threeD.nativeModelReadyAndVisible=true;
+  result.threeD.failedModels=await scene.evaluate(()=>GC500EquipmentView1027.state.models.filter(m=>m.failed).length);
+  assert.equal(result.threeD.failedModels,0,'Existing 3D equipment model failed');
+  await child.evaluate(()=>GC500Explorer.mode3d(false));
   const identity=await p.evaluate(()=>{window.__map1286Frame=document.getElementById('expFrame').contentWindow;go('today');return true;});
   assert(identity);await p.waitForTimeout(200);await p.evaluate(()=>go('map'));await p.waitForTimeout(600);
   result.returnChecks=await p.evaluate(()=>{const w=document.getElementById('expFrame').contentWindow;return {sameFrame:w===window.__map1286Frame,shapes:!!w.GC500Shape1060,departure:!!w.GC500Departure1211};});
@@ -108,6 +132,6 @@ let s;
   if(s){result.errors=s.errors.map(safe);result.recordWrites=s.counts.blocked;await s.browser.close();}
   fs.writeFileSync(path.join(out,'result.json'),JSON.stringify(result,null,2)+'\n');
  }
- console.log(JSON.stringify({passed:result.passed,sha256:result.dashboardSha256,mounts:result.mounts,departureChecks:result.departure?.checked,statusCases:result.statusBridge?.cases,doorGeometry:result.geometry?.available,errors:result.errors.length,consoleErrors:result.consoleErrors.length,recordWrites:result.recordWrites,failure:result.failure}));
+ console.log(JSON.stringify({passed:result.passed,sha256:result.dashboardSha256,mounts:result.mounts,departureChecks:result.departure?.checked,statusCases:result.statusBridge?.cases,doorGeometry:result.geometry?.available,threeD:result.threeD,errors:result.errors.length,consoleErrors:result.consoleErrors.length,recordWrites:result.recordWrites,failure:result.failure}));
  if(!result.passed)process.exitCode=1;
 })().catch(e=>{console.error(safe(e));process.exitCode=1;});

@@ -23,6 +23,8 @@ The original85 page fails the new native browser check because its shape, map-un
 
 Independent review executes both actual mount guards over 32 positive and negative cases. It confirms that mixed, unknown, reordered, additional and missing scripts are still rejected, as are foreign origins, wrong paths and incomplete frame prerequisites. Exact-base and repeat-application guards pass. No additional parent identity gate was missed; the existing three 3D equipment dependencies match their pinned hashes.
 
+Future map-script releases must verify these parent-to-frame adapters against the final paired files, including equipment/door rendering and departure status; tile rendering and navigation alone are insufficient. The new regression tests preserve that check.
+
 The shared build checks all 223 inline scripts. The standard uploader dry run confirms edit access and the unchanged base. Tests block operational writes; private screenshots, runtime results and records remain outside Git.
 
 ## Ownership and limits
