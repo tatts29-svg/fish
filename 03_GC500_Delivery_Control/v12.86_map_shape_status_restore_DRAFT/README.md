@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-DRAFT — the exact-base correction is built and focused browser checks pass. Final paired dashboard sweeps, source handover and guarded publication remain.
+READY TO UPLOAD — focused checks, both full dashboard sweeps, independent source review and upload preflight pass. Guarded publication and fresh live read-back are next.
 
 Andrew reported that map symbols no longer depicted equipment with door swings, and that collected items appeared not complete. v12.85 updated the Explorer scripts but left two parent adapter gates pinned to the previous script identities. The gates rejected the new files without a runtime error. As a result, the equipment-shape/map-unit layer and the departure/search/Demob layer did not mount. Earlier image-loading/navigation checks did not detect this regression.
 
@@ -24,6 +24,8 @@ The original85 page fails the new native browser check because its shape, map-un
 Independent review executes both actual mount guards over 32 positive and negative cases. It confirms that mixed, unknown, reordered, additional and missing scripts are still rejected, as are foreign origins, wrong paths and incomplete frame prerequisites. Exact-base and repeat-application guards pass. No additional parent identity gate was missed; the existing three 3D equipment dependencies match their pinned hashes.
 
 Future map-script releases must verify these parent-to-frame adapters against the final paired files, including equipment/door rendering and departure status; tile rendering and navigation alone are insufficient. The new regression tests preserve that check.
+
+Final desktop and phone sweeps each pass 27 routes, seven deep links and Back with no runtime or console errors and no attempted record writes. The focused check also opens the unchanged photographic 3D scene, enables existing equipment and verifies a native model is ready, shown and inside the camera frustum; no model failures occur. Phone equipment/door screenshots were inspected.
 
 The shared build checks all 223 inline scripts. The standard uploader dry run confirms edit access and the unchanged base. Tests block operational writes; private screenshots, runtime results and records remain outside Git.
 
