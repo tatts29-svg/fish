@@ -1,0 +1,268 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T015701Z",
+ "finished": "2026-11-02T01:57:36.320Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 11:5x AEST: \"0164 left at 9:30AM\". 0164 is Event Portables' FWF at the EVL toilet on T0024 (servicing tracker: area 3, EVL / Coates compound); T0024's other toilet, Coates FWF 1211968 (the Coates office toilet), stays, so T0024 stays on site. On Andrew's word of 30 Oct 2026, \"Really.. all toilets have been pumped out this was done on sunday night via servicing\", T0024 gets the Emptied tick through the page's own setEmptied816 if the page's emptied gate asks for it; then 0164 leaves at 09:30 through the Record departure form in his name. Applied only if the dry run shows the P&L unchanged. T0024's delivery document carries no light field on the record (the page reads it as on site), so the runner's check that a partial departure leaves the light 'on site' cannot pass; 'complete' is left out, which skips that check only — the departure is the same, and the read-back confirms 1 left and 1 still to leave.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "emptied",
+    "ref": "T0024",
+    "on": true,
+    "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; T0024 on the servicing tracker, area 3)"
+   },
+   {
+    "op": "depart",
+    "ref": "T0024",
+    "at": "2026-11-02T09:30:00+10:00",
+    "nos": [
+     "0164"
+    ],
+    "unnumbered": []
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12796,
+  "after": 12797
+ },
+ "updated": {
+  "before": "2026-11-02T01:55:58.727Z",
+  "after": "2026-11-02T01:57:35.504Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "emptied",
+   "ref": "T0024",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; T0024 on the servicing tracker, area 3)",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T01:57:19.937Z"
+  },
+  {
+   "op": "depart",
+   "ref": "T0024",
+   "at": "2026-11-02T09:30:00+10:00",
+   "nos": [
+    "0164"
+   ],
+   "unnumbered": [],
+   "result": "left site 2026-11-02T09:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0164 - still to leave: 1 x FWF"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0024",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0024": {
+    "ready1238_units": {
+     "event-portables|0164": {
+      "on": true,
+      "at": "2026-10-26T18:18:54.296Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-20T01:31:09.460Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-29T05:46:41.858Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-20T01:31:09.460Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0164",
+      "ready": true,
+      "at": "2026-10-26T10:26:29.054Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0164",
+      "ready": true,
+      "at": "2026-10-26T18:18:54.296Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "loading872": {
+     "u1211968": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:18.129Z"
+     }
+    },
+    "_k": "T0024"
+   }
+  },
+  "after": {
+   "delivery/T0024": {
+    "ready1238_units": {
+     "event-portables|0164": {
+      "on": true,
+      "at": "2026-10-26T18:18:54.296Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-20T01:31:09.460Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-29T05:46:41.858Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-20T01:31:09.460Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0164",
+      "ready": true,
+      "at": "2026-10-26T10:26:29.054Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0164",
+      "ready": true,
+      "at": "2026-10-26T18:18:54.296Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "loading872": {
+     "u1211968": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:18.129Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T01:57:19.937Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T01:57:19.937Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-11-02T01:57:20.935Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "a23fb21d-69f7-402c-9a0c-4a0cf2684bd1",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T09:30:00+10:00",
+       "programmeDate": "2026-10-30",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-26T00:00:00+10:00",
+       "requiredKey": "[[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"T0024\",\"event-portables\",\"asset\",\"0164\"]"
+         ],
+         "numbers": [
+          "0164"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0024\",\"event-portables\",\"asset\",\"0164\"]",
+           "number": "0164",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "_k": "T0024"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

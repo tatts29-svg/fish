@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 11:5x AEST: \"wc86 left at 1130AM\". WC86 holds one Accessible Toilet, Coates 1296899 (servicing tracker: Island north, by FREIGHT), its only unit: it left site at 11:30 on 2 Nov, so WC86 leaves in full, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged. The first dry run stopped at the page's emptied gate (\"the Record departure form did not open for WC86\": no Emptied tick). On Andrew's word of 30 Oct 2026 11:1x AEST, \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (as WC09 run 80, WC20 run 90, WC01 run 100), WC86 gets the Emptied tick through the page's own setEmptied816 first: WC86 (1 x Accessible Toilet 1296899) is on the servicing tracker (Island north, by FREIGHT), covered by the final-night pump-out of Sun 25 Oct.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "WC86",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; WC86 on the servicing tracker)"
+  },
+  {
+   "op": "depart",
+   "ref": "WC86",
+   "at": "2026-11-02T11:30:00+10:00",
+   "nos": [
+    "1296899"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

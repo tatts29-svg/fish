@@ -759,3 +759,30 @@ live v12.81 page (`3b17c3de…`), in Andrew's name.
 - **Read back** (`check_after.cjs`, fresh load of the live page): WC01 "1 left · 2 to leave", last 02/11/2026 11:45:00 AEST, 1 × Accessible
   Toilet 1317644, light on site, still to leave 2 × FWF; errors 0, writes 0.
 - Brenden Meek's booked pick-up on the record for 1317644 reads 2 Nov 01:00 (entered 2 Nov 09:45 AEST); left as it is.
+
+## Runs 101–104 — WC51 and WC86 accessible toilets, WC09's six pee panels, and 0164 off T0024 (2 Nov 2026 11:50–11:57 AEST, record 12788 → 12797)
+
+All through the page's own forms in Andrew's name, on the live v12.81 page (`3b17c3de…`), each with a dry run first (P&L identical:
+charge 1,012,101.16, known cost 456,889.59, every branch unchanged), a private whole-record backup, the page sha check, one document
+acknowledged 200, every other document unchanged in value, and verification on the service. Reports beside each spec.
+
+| Run | Andrew, 2 Nov | What left | Left site | After | Record |
+|---|---|---|---|---|---|
+| 101 | "wc51 accesable toilet picked up 11AM" | WC51's Accessible Toilet, Coates 1197174 (its only unit; WC51's six Event Portables FWF left 27 Oct) | 11:00 | WC51 left in full, in transit | 12788 → 12789 |
+| 102 | "wc86 left at 1130AM" | WC86's Accessible Toilet, Coates 1296899 (its only unit) | 11:30 | WC86 left in full, in transit | 12789 → 12790 |
+| 103 | "Event Portable 6 x pee Panels left at 9:30AM" | WC09's six Event Portables pee panels, PP01–PP06 | 09:30 | WC09 stays on site: 2 × Toilet Block 6m (Coates 1268858, 1311146) | 12792 → 12793 |
+| 104 | "0164 left at 9:30AM" | T0024's Event Portables FWF 0164 (the EVL toilet) | 09:30 | T0024 stays on site: Coates FWF 1211968 (the Coates office toilet) | 12796 → 12797 |
+
+- **Emptied gate.** WC86 and T0024 had no Emptied tick, so their departure forms would not open (first WC86 dry run: "the Record departure
+  form did not open for WC86"). Both got the tick first through the page's own setEmptied816, on Andrew's word of 30 Oct 11:1x AEST,
+  "Really.. all toilets have been pumped out this was done on sunday night via servicing" — as WC09 (run 80), WC20 (run 90) and WC01
+  (run 100). Both are on the servicing tracker (WC86: Island north, by FREIGHT; T0024: area 3, EVL / Coates compound). WC51 and WC09 were
+  already ticked (27 Oct and 30 Oct).
+- **Run 103's first apply stopped** with "the record changed before release - nothing sent" (another device saved to the record during the
+  run, 12790 → 12792); the apply was run again, re-staged and gated, and went through.
+- **Run 104:** T0024's delivery document carries no light field on the record (the page reads it as on site), so the runner's check that a
+  partial departure leaves the light "on site" could not pass; the spec leaves `complete` out, which skips only that check. The departure is
+  the same, and the read-back shows 1 left, 1 still to leave.
+- **Read back** (fresh load of the live page, every reference still to leave): WC51 and WC86 gone; WC09 still to leave 2 × Toilet Block 6m;
+  T0024 still to leave 1 × FWF; WC01 still to leave 2 × FWF; 103 of 186 demob references left in full; errors 0, writes 0. One accessible
+  toilet is still on site: WC31's (Coates 1317645).

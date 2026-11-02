@@ -1,0 +1,677 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T015038Z",
+ "finished": "2026-11-02T01:51:11.327Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 11:5x AEST: \"wc51 accesable toilet picked up 11AM\". WC51's Accessible Toilet is Coates 1197174, the only unit still on WC51 (its six Event Portables FWF left 27 Oct 13:30, run 24; WC51 was ticked Emptied then): it left site at 11:00 on 2 Nov, so WC51 leaves in full, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC51",
+    "at": "2026-11-02T11:00:00+10:00",
+    "nos": [
+     "1197174"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12788,
+  "after": 12789
+ },
+ "updated": {
+  "before": "2026-11-02T01:48:37.604Z",
+  "after": "2026-11-02T01:51:10.370Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC51",
+   "at": "2026-11-02T11:00:00+10:00",
+   "nos": [
+    "1197174"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T11:00:00+10:00, recorded by Andrew Fisher: 1 x Accessible Toilet 1197174 - WC51 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC51",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC51": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:34:45.431Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-27T03:31:22.157Z",
+    "ready1238_units": {
+     "event-portables|0028": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/60a3aaf0-ea91-437b-bd87-ad1454b4fb68"
+     },
+     "event-portables|0136": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5cb594cd-bc81-402e-bbbe-ec5361f84741"
+     },
+     "event-portables|0167": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/197773c1-4f04-4e85-a99f-543094cc1a8b"
+     },
+     "event-portables|0453": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5edadc39-624f-4556-a537-a6fbc5d0f22b"
+     },
+     "event-portables|0653": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/40349165-fa18-4dc5-8ce3-752607f7e76d"
+     },
+     "event-portables|0991": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/18a469b7-a965-4604-9b0f-1e8f42debbde"
+     },
+     "coates|1197174": {
+      "on": true,
+      "at": "2026-10-26T20:16:51.783Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/56393cd8-feab-4ffa-a54d-242459452fd5"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:34:45.431Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.424Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T03:31:23.069Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "232c1941-7e6b-422b-9c6e-86f7a0b2b810",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T13:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-14T22:34:45.431Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",6]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 6,
+         "unitIds": [
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:18a469b7-a965-4604-9b0f-1e8f42debbde\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:197773c1-4f04-4e85-a99f-543094cc1a8b\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:40349165-fa18-4dc5-8ce3-752607f7e76d\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:5cb594cd-bc81-402e-bbbe-ec5361f84741\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:5edadc39-624f-4556-a537-a6fbc5d0f22b\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:60a3aaf0-ea91-437b-bd87-ad1454b4fb68\"]"
+         ],
+         "numbers": [
+          "0991",
+          "0167",
+          "0653",
+          "0136",
+          "0453",
+          "0028"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:18a469b7-a965-4604-9b0f-1e8f42debbde\"]",
+           "number": "0991",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:197773c1-4f04-4e85-a99f-543094cc1a8b\"]",
+           "number": "0167",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:40349165-fa18-4dc5-8ce3-752607f7e76d\"]",
+           "number": "0653",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:5cb594cd-bc81-402e-bbbe-ec5361f84741\"]",
+           "number": "0136",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:5edadc39-624f-4556-a537-a6fbc5d0f22b\"]",
+           "number": "0453",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:60a3aaf0-ea91-437b-bd87-ad1454b4fb68\"]",
+           "number": "0028",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-27T03:31:22.157Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0028",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0136",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0167",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0453",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0653",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0991",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0028",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0136",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0167",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0453",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0653",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0991",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1197174",
+      "ready": true,
+      "at": "2026-10-26T20:16:51.783Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC51"
+   }
+  },
+  "after": {
+   "delivery/WC51": {
+    "state": "in transit",
+    "set_at": "2026-11-02T01:50:56.881Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-27T03:31:22.157Z",
+    "ready1238_units": {
+     "event-portables|0028": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/60a3aaf0-ea91-437b-bd87-ad1454b4fb68"
+     },
+     "event-portables|0136": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5cb594cd-bc81-402e-bbbe-ec5361f84741"
+     },
+     "event-portables|0167": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/197773c1-4f04-4e85-a99f-543094cc1a8b"
+     },
+     "event-portables|0453": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5edadc39-624f-4556-a537-a6fbc5d0f22b"
+     },
+     "event-portables|0653": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/40349165-fa18-4dc5-8ce3-752607f7e76d"
+     },
+     "event-portables|0991": {
+      "on": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/18a469b7-a965-4604-9b0f-1e8f42debbde"
+     },
+     "coates|1197174": {
+      "on": true,
+      "at": "2026-10-26T20:16:51.783Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/56393cd8-feab-4ffa-a54d-242459452fd5"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T01:50:56.881Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.424Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T03:31:23.069Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "232c1941-7e6b-422b-9c6e-86f7a0b2b810",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T13:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-14T22:34:45.431Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",6]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 6,
+         "unitIds": [
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:18a469b7-a965-4604-9b0f-1e8f42debbde\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:197773c1-4f04-4e85-a99f-543094cc1a8b\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:40349165-fa18-4dc5-8ce3-752607f7e76d\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:5cb594cd-bc81-402e-bbbe-ec5361f84741\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:5edadc39-624f-4556-a537-a6fbc5d0f22b\"]",
+          "[\"WC51\",\"event-portables\",\"native\",\"slot:60a3aaf0-ea91-437b-bd87-ad1454b4fb68\"]"
+         ],
+         "numbers": [
+          "0991",
+          "0167",
+          "0653",
+          "0136",
+          "0453",
+          "0028"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:18a469b7-a965-4604-9b0f-1e8f42debbde\"]",
+           "number": "0991",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:197773c1-4f04-4e85-a99f-543094cc1a8b\"]",
+           "number": "0167",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:40349165-fa18-4dc5-8ce3-752607f7e76d\"]",
+           "number": "0653",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:5cb594cd-bc81-402e-bbbe-ec5361f84741\"]",
+           "number": "0136",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:5edadc39-624f-4556-a537-a6fbc5d0f22b\"]",
+           "number": "0453",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC51\",\"event-portables\",\"native\",\"slot:60a3aaf0-ea91-437b-bd87-ad1454b4fb68\"]",
+           "number": "0028",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T01:50:56.881Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "e9e1aa01-138c-4e33-8360-7c51131b92fd",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T11:00:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-14T22:34:45.431Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",6]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Accessible Toilet",
+         "n": 1,
+         "unitIds": [
+          "[\"WC51\",\"coates\",\"native\",\"slot:56393cd8-feab-4ffa-a54d-242459452fd5\"]"
+         ],
+         "numbers": [
+          "1197174"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC51\",\"coates\",\"native\",\"slot:56393cd8-feab-4ffa-a54d-242459452fd5\"]",
+           "number": "1197174",
+           "owner": "coates",
+           "item": "Accessible Toilet"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:34:45.431Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T01:50:56.881Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-27T03:31:22.157Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0028",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0136",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0167",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0453",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0653",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0991",
+      "ready": true,
+      "at": "2026-10-26T10:27:23.655Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0028",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0136",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0167",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0453",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0653",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0991",
+      "ready": true,
+      "at": "2026-10-26T18:19:45.298Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1197174",
+      "ready": true,
+      "at": "2026-10-26T20:16:51.783Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC51"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
