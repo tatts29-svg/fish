@@ -740,3 +740,22 @@ load of the live page): GN18 "Left site" 02/11/2026 11:00:00 AEST, 1 × 50kva 12
 
 (Not recorded, 2 Nov: Andrew's "24 water barrier left at 800am" — not S08, and the record holds no other barriers on site; Andrew, later:
 "All good my mistake if s08 are only left thats ok". Nothing written.)
+
+## Run 100 — WC01's accessible toilet (1317644) left site 2 Nov 11:45; WC01's two FWF stay (2 Nov 2026 11:48 AEST, record 12787 → 12788)
+
+Andrew, 2 Nov 2026 11:3x AEST: "Leaving at 1145 / 1317644". 1317644 is WC01's Accessible Toilet (Coates); WC01 also holds two FWF,
+1211958 and 1211967, which stay, so WC01 stays on site. Spec `spec100_wc01_accessible_2nov_1145.json` (parked and committed at 11:38 while
+11:45 was still in the future), report `report_20261102T014803Z.json`; the whole-record backup is kept privately outside the repo. On the
+live v12.81 page (`3b17c3de…`), in Andrew's name.
+
+- **The emptied gate.** The 11:46 dry run stopped: "the Record departure form did not open for WC01" (no Emptied tick). WC01 got the tick
+  first through the page's own setEmptied816, on Andrew's word of 30 Oct 11:1x AEST, "Really.. all toilets have been pumped out this was
+  done on sunday night via servicing" — the word that carried WC09's tick (run 80) and WC20's (run 90). WC01 and all three of its units are
+  on the servicing tracker (area 4, Commodore Park & The Hill entry), covered by the final-night pump-out of Sun 25 Oct.
+- **Dry run** (11:47, every write aborted): Emptied, then 1 × Accessible Toilet 1317644 left 11:45, still to leave 2 × FWF; P&L identical
+  (charge 1,012,101.16, known cost 456,889.59, every branch unchanged).
+- **Applied** 11:48: backup, page sha checked, delivery/WC01 acknowledged 200, record 12787 → 12788, every other document unchanged in
+  value, verified on the service.
+- **Read back** (`check_after.cjs`, fresh load of the live page): WC01 "1 left · 2 to leave", last 02/11/2026 11:45:00 AEST, 1 × Accessible
+  Toilet 1317644, light on site, still to leave 2 × FWF; errors 0, writes 0.
+- Brenden Meek's booked pick-up on the record for 1317644 reads 2 Nov 01:00 (entered 2 Nov 09:45 AEST); left as it is.
