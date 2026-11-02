@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher.
 
-READY TO UPLOAD — focused checks, both full dashboard sweeps, independent source review and upload preflight pass. Guarded publication and fresh live read-back are next.
+VERIFIED LIVE — 3 Nov 2026 05:20:10 AEST (2 Nov 2026 19:20:10.539 UTC), source `1b1424d8d33edc089e28d65a1ed05673e088ce20` on `ccr-061f77e8-ivjhrv`. Guarded publication, fresh live UI and independent public read-back pass.
 
 Andrew reported that map symbols no longer depicted equipment with door swings, and that collected items appeared not complete. v12.85 updated the Explorer scripts but left two parent adapter gates pinned to the previous script identities. The gates rejected the new files without a runtime error. As a result, the equipment-shape/map-unit layer and the departure/search/Demob layer did not mount. Earlier image-loading/navigation checks did not detect this regression.
 
@@ -27,7 +27,9 @@ Future map-script releases must verify these parent-to-frame adapters against th
 
 Final desktop and phone sweeps each pass 27 routes, seven deep links and Back with no runtime or console errors and no attempted record writes. The focused check also opens the unchanged photographic 3D scene, enables existing equipment and verifies a native model is ready, shown and inside the camera frustum; no model failures occur. Phone equipment/door screenshots were inspected.
 
-The shared build checks all 223 inline scripts. The standard uploader dry run confirms edit access and the unchanged base. Tests block operational writes; private screenshots, runtime results and records remain outside Git.
+The shared build checks all 223 inline scripts. The standard uploader verified edit access, rejected-base protection and exact served bytes. A separate reviewer freshly fetched the public page and confirmed both corrected gates and complete byte identity; the entire active map-machine metadata remains unchanged. Tests block operational writes; private screenshots, runtime results and records remain outside Git.
+
+Fresh live browser verification repeats all seven adapter checks, native-record departure agreement, eight synthetic status cases, rendered equipment/door geometry, all map modes, retained 3D equipment visibility and return navigation. No runtime errors, console errors, model failures or record writes occur. Live screenshots were inspected. The public-view state is byte-identical before and after publication. `verification.json` records the public-safe result; private screenshots, record-derived checks and full source captures remain outside Git.
 
 ## Ownership and limits
 

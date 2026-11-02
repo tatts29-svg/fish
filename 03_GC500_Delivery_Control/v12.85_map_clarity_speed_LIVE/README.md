@@ -8,6 +8,10 @@ Andrew approved the Mapbox preview and asked for clearer imagery with fast loadi
 
 On an empty cache, up to four coarse tiles take priority so the map fills while sharp detail arrives. Resting views use native pixel density where available. Existing movement quality, bounded caches, concurrency, hidden-view pausing and plan geometry remain. A preconnection starts the imagery connection early. 3D starts its independent library and access requests together after the user opens 3D; failed or abandoned startup cancels the access request. Static 3D quality is unchanged.
 
+## Subsequent regression and correction
+
+Andrew subsequently identified missing equipment shapes/door swings and incorrect raw completion labels. The v12.85 tile/navigation checks missed two parent adapter gates still pinned to the previous map script identities. v12.86 corrects those exact gates and verifies actual equipment/door and departure layers in both the candidate and live UI. See `../v12.86_map_shape_status_restore_LIVE/`. The v12.85 statement that the existing map presentation was preserved did not account for this adapter regression.
+
 ## Exact release inputs
 
 - Base dashboard v12.81: `3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b`.
