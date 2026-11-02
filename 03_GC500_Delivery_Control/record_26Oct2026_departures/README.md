@@ -727,3 +727,16 @@ page (`3b17c3de…`). Dry run first (P&L identical: charge 1,012,101.16, known c
 backup and page sha check; delivery/EQ0001 acknowledged 200; every other document unchanged in value; verified on the service. Read back
 (`check_after.cjs`, fresh load of the live page): EQ0001 "Left site" 02/11/2026 10:15:00 AEST, 1 × Scissor Lift … 1220903, light in
 transit, nothing still to leave; errors 0, writes 0.
+
+## Run 99 — GN18, the 50 kVA generator (1261273), left site 2 Nov 11:00 (2 Nov 2026 11:14 AEST, record 12783 → 12784)
+
+Andrew, 2 Nov 2026 11:xx AEST: "Gn18 left at 11AM". GN18 is the 50 kVA generator, Coates 1261273, its reference's only unit, so GN18
+leaves in full. Spec `spec99_gn18_2nov_1100.json`, report `report_20261102T011447Z.json`; the whole-record backup is kept privately outside
+the repo. Through the page's own Record departure form in Andrew's name, on the live v12.81 page (`3b17c3de…`). Dry run first (P&L
+identical: charge 1,012,101.16, known cost 456,889.59, every branch unchanged); applied with the backup and page sha check;
+delivery/GN18 acknowledged 200; every other document unchanged in value; verified on the service. Read back (`check_after.cjs`, fresh
+load of the live page): GN18 "Left site" 02/11/2026 11:00:00 AEST, 1 × 50kva 1261273, light in transit, nothing still to leave; 101 of
+186 demob references left in full; errors 0, writes 0.
+
+(Not recorded, 2 Nov: Andrew's "24 water barrier left at 800am" — not S08, and the record holds no other barriers on site; Andrew, later:
+"All good my mistake if s08 are only left thats ok". Nothing written.)
