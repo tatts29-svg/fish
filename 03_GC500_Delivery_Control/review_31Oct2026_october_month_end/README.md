@@ -673,3 +673,21 @@ the cent.
 branch's costs and revenue, each branch × category against Costs by branch, the By category sheet, the one branch move), the labour
 journals against the Labour by person sheet and the labour register's hours, and the bridge: each week's running sheet from the labour
 register by week ending, each week's cost from its line on Costs by supplier, the totals, the sheet and section 2d.
+
+## Pack v1.26 — October as accrued, the new items in November (3 Nov 2026)
+
+Andrew, 3 Nov 2026: "The invoice we got yesterday goes into novemember now not october", "Everything we done in the P&L should be all
+covered for what we did. Anything now is invoiced or charged in November", "We can forecast fencing demob and add in november",
+"6,246.00 this goes into November charge", then "Go v 1.26". Same captures as v1.25 (record 12749) plus Advanced's event-week sheet.
+
+- October is exactly v1.25's: costs 402,944.25, accruals through 31 Oct 188,653.80, every v1.25 cost line unchanged.
+- Advanced, three November lines (STPS): their event-week sheet on PO 4647522 (received 2 Nov; 86,438.00 claimed, 80,762.00 with 36766
+  and 36768 at their papers, CC barrier 10 m + 50 m, not 60 installer hours) over the 71,159.70 accrued in October, 9,602.30 (2126
+  9,548.30 · 2142 54.00); 36784 (30 Oct, 60 m clean), 600.00; the demob week 1 forecast, 3,675.00 ESTIMATE (team leaders 2,000.00 on
+  2142; 36782 as 140 m, 1,400.00, and gate wheels, 275.00, on 2126). PO register: 4647522 80,762.00 · 4647523 13,050.00.
+- Revenue: 9968955 L143 (24 × 260.25 = 6,246.00) is November forecast on KINP; it is off the possible extra revenue item.
+- Job: revenue 1,008,148.14 · costs 599,095.21 (Sep 149,435.00 · Oct 402,944.25 · Nov 46,715.96) · difference 409,052.93.
+
+`audit_pack.py`: 604 checks, 604 pass (v1.25's 598 with the moved figures, plus Advanced's three November lines, the demob forecast's
+parts and split, STPS's costs, L143 on KINP, and October at month end unchanged). The page data's figures against v1.25 were diffed
+key by key: only the items above move.

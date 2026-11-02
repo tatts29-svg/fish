@@ -57,8 +57,9 @@ rem = [r for r in rows('Revenue by invoice') if r and r[4] == 'removed']
 check('25124396 shown as removed, with no amount', len(rem) == 1 and rem[0][0] == '25124396' and all(x is None for x in rem[0][5:11]), rem)
 summ = {r[0]: r for r in rows('Summary') if r and r[0] in ('KINP', 'STPS', 'NVAC', 'MEAD', 'The job')}
 for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('branch revenue %s' % b, summ[b][1], REVB[b])
-eq('revenue: invoices + November forecast', summ['The job'][3], REV_TOT + 839.07)
+eq('revenue: invoices + November forecast (v1.26: 839.07 + 6,246.00)', summ['The job'][3], REV_TOT + 839.07 + 6246.00)
 check('the 839.07 forecast sits on NVAC', abs(summ['NVAC'][2] - 839.07) < 0.005, summ['NVAC'][2])
+check('v1.26: the 6,246.00 forecast (9968955 L143) sits on KINP', abs(summ['KINP'][2] - 6246.00) < 0.005, summ['KINP'][2])
 
 # ------------------------------------------------------------------ costs, from the record's dated pieces
 cs = [r for r in rows('Costs by supplier') if r and r[0] and r[0] != 'Total']
@@ -390,7 +391,7 @@ ev = [r for r in LAB[2:] if r and r[0][:4] == '2026' and r[2] in ('Frank Deville
 check('labour sheet: the event pair on NVAC (6 rows, no KINP hours)', len(ev) == 6 and all(r[6].startswith('NVAC') and 'KINP' not in r[6] for r in ev), [r[6] for r in ev])
 ct = [r for r in CS if r and r[0] == 'Total, 18 invoices']
 check('CSV: revenue total row = the 18 invoices', len(ct) == 1 and abs(float(ct[0][4]) - REV_TOT) < 0.005)
-check('CSV: the November forecast row and the removed 25124396 row', any(r and r[0] == 'November forecast' and r[4] == '839.07' for r in CS) and any(r and r[0] == '25124396' and r[3] == 'removed' for r in CS))
+check('CSV: the November forecast rows (v1.26: 9961976 839.07 and 9968955 6,246.00) and the removed 25124396 row', any(r and r[0] == 'November forecast' and r[4] == '839.07' for r in CS) and any(r and r[0] == 'November forecast' and r[2] == '9968955' and r[3] == 'KINP' and r[4] == '6246.00' for r in CS) and any(r and r[0] == '25124396' and r[3] == 'removed' for r in CS))
 rvt = [r for r in rows('Revenue by invoice') if r and str(r[0]).startswith('Total')]
 check('workbook: revenue total row = the 18 invoices', len(rvt) == 1 and abs(rvt[0][5] - REV_TOT) < 0.005)
 cst = [r for r in rows('Costs by supplier') if r and r[0] == 'Total']
@@ -399,7 +400,7 @@ cbt = [r for r in rows('Costs by branch') if r and str(r[0]).startswith('Total')
 check('workbook: costs by branch totals (four branches and the job)', len(cbt) == 5 and abs([r for r in cbt if r[0] == 'Total, the job'][0][2] - JOB) < 0.005 and all(abs(r[2] - CBB[r[0][6:]]) < 0.005 for r in cbt if r[0] != 'Total, the job'))
 check('workbook: accruals vs charges, a total per supplier', len([r for r in rows('Accruals vs charges') if r and str(r[0]).startswith('Total, ')]) == 4)
 check('workbook: hours shown to two decimals', all(c.number_format == '#,##0.00' for row in wb['Labour by person'].iter_rows(min_row=2, min_col=7, max_col=8) for c in row if c.value is not None))
-TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.25'
+TITLE16 = 'GC500 P&L · job position at 31 Oct 2026 · pack v1.26'
 check('page title and heading: the dated job position, pack v1.17 (Codex v1.15 recheck item 4)', html.unescape(re.findall(r'<title>([^<]*)</title>', H)[0]) == TITLE16 == html.unescape(re.sub(r'<[^>]+>', '', re.findall(r'<h1>(.*?)</h1>', H)[0])), (re.findall(r'<title>([^<]*)</title>', H), re.findall(r'<h1>(.*?)</h1>', H)))
 check('the page names record 12749 and Daniel Gough’s POs 4674224 and 4674225', all(x in HT for x in ('record (12749)', '4674224', '4674225')))
 # v1.14: no further Job Connect paperwork is held (1 Nov); the weeks without an invoice are carried at the running sheet or the PO amounts, and every running-sheet week has its row
@@ -428,9 +429,9 @@ def _pg(s):
     return s
 if JP.exists():
     J = json.load(open(JP, encoding='utf-8'))
-    check('final P&L data: pack v1.25 on record 12749, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.25', 12749, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
+    check('final P&L data: pack v1.26 on record 12749, as at 31 Oct 2026', (J['pack'], J['record'], J['asAt']) == ('v1.26', 12749, '2026-10-31'), (J['pack'], J['record'], J['asAt']))
     eq('final P&L data: revenue = the summary', J['revenue']['total'], summ['The job'][3]); eq('final P&L data: 18 invoices', J['revenue']['invoices'], REV_TOT)
-    eq('final P&L data: November forecast 839.07', J['revenue']['novForecast'], 839.07)
+    eq('final P&L data: November forecast 7,085.07 (v1.26: 839.07 + 6,246.00)', J['revenue']['novForecast'], 7085.07)
     for k_, v_ in (('sep', SEP), ('oct', OCT), ('nov', NOV), ('total', JOB)): eq('final P&L data: costs %s = the costs by supplier' % k_, J['costs'][k_], v_)
     eq('final P&L data: to accrue = the journals', J['accrue'], ACC); eq('final P&L data: difference = the summary', J['difference'], summ['The job'][5])
     for bj in J['branches']:
@@ -491,8 +492,9 @@ check('PO register: every PO on the record is in it', set(pos) <= {r[0] for r in
 PA = {r[0]: r[5] for r in pre}
 for p_ in ('4647508', '4647509', '4647515', '4647517', '4647519', '4647520', '4658850', '4657010', '4660565', '4661783'):
     eq('PO register %s = its amount on the record' % p_, PA[p_], float(pos[p_]['amount']))
-eq('PO register 4647522 = the event-week accrual (Journals)', PA['4647522'], [r[5] for r in accr_j if r[1] == '4647522'][0])
-eq('PO register 4647523 = the demob week 1 accrual + the demob week 2 forecast', PA['4647523'], [r[5] for r in accr_j if r[1] == '4647523'][0] + sum((r[9] or 0) for r in cs if r[0].startswith('Advanced') and str(r[4]).startswith('4647523 (demob), open')))
+eq('PO register 4647522 = the event-week accrual (Journals) + Advanced’s November line on it (v1.26: their sheet, 80,762.00)', PA['4647522'], [r[5] for r in accr_j if r[1] == '4647522'][0] + sum((r[9] or 0) for r in cs if r[0].startswith('Advanced') and str(r[4]) == '4647522 (event week)'))
+eq('v1.26: PO register 4647522 = 80,762.00 (claim 86,438.00 less 36766/36768 billed as 60 installer hours, 6,000.00, plus their papers’ CC barrier, 324.00)', PA['4647522'], 86438.00 - 6000.00 + 324.00)
+eq('PO register 4647523 = the demob week 1 accrual + the November forecasts on it (v1.26: 36784 600.00, demob week 1 forecast 3,675.00, demob week 2 750.00)', PA['4647523'], [r[5] for r in accr_j if r[1] == '4647523'][0] + sum((r[9] or 0) for r in cs if r[0].startswith('Advanced') and str(r[4]).startswith('4647523 (demob), open')))
 for p_ in ('4665091', '4670882', '4671825'):
     if p_ in JCPO: eq('PO register %s = its Job Connect invoice' % p_, PA[p_], JCPO[p_])
 for p_ in ('4674224', '4674225'):
@@ -521,7 +523,7 @@ if JP.exists():
     check('final P&L data: the 18 invoices, each with its hire contract, the V8s’ PO, branch and amount, as on Revenue by invoice',
           len(J['invoices']) == 18 and all((x['inv'], x['contract'], x['customerPO'], x['branch']) == (r[0], r[2], r[3], r[4].split(' ')[0]) and abs(x['ex'] - r[5]) < 0.005 for x, r in zip(J['invoices'], rv)))
     eq('final P&L data: the invoices add to the 18-invoice revenue', sum(x['ex'] for x in J['invoices']), REV_TOT)
-    check('final P&L data: the November forecast line is 9961976 L61, 839.07 on NVAC', [(x['contract'], x['line'], x['branch'], x['amount']) for x in J['novForecastLines']] == [('9961976', 'L61', 'NVAC', 839.07)])
+    check('final P&L data: the November forecast lines are 9961976 L61, 839.07 on NVAC, and 9968955 L143, 6,246.00 on KINP (v1.26)', [(x['contract'], x['line'], x['branch'], x['amount']) for x in J['novForecastLines']] == [('9961976', 'L61', 'NVAC', 839.07), ('9968955', 'L143', 'KINP', 6246.00)])
     MUR = collections.defaultdict(float); MUI = {}
     for r in mu:
         if r[0] and r[0][0].isdigit(): MUR[r[0]] += r[8] or 0; MUI.setdefault(r[0], (r[2], r[3], r[4]))
@@ -538,7 +540,7 @@ check('9973977 (the WC-TV block) has no cleaning line', not any(re.search(r'clea
 _ep = json.load(open(PR / 'ep_detail.json'))
 _eps = json.dumps(_ep); _m = re.search(r'"description": "Toilet Block Cleaning", "card_line": "Sewer Connect Units Clean & Restock", "quantity": (\d+), "rate": (\d+)', _eps)
 check('Event Portables cleaned 51 blocks at 185.00 (Q6844) = 18 tank + 6 WC31 + 24 sewer-connected + 3 WC-TV', bool(_m) and int(_m.group(1)) == 51 == 18 + 6 + 24 + 3 and int(_m.group(2)) == 185, _m and _m.groups())
-check('the open items say how the 51 block cleans tie and what L143 is', any('WC09, WC15, WC16 and WC17' in str(r[0]) and 'T0243' in str(r[0]) for r in rows('Open items') if r) and any('the eight sewer-connected blocks WC09, WC15, WC16 and WC17' in str(r[0]) and '780.75' in str(r[0]) for r in rows('Open items') if r))
+check('the open items say how the 51 block cleans tie and what L143 is (v1.26: November revenue, off the possible extras)', any('WC09, WC15, WC16 and WC17' in str(r[0]) and 'T0243' in str(r[0]) and 'L143' in str(r[0]) and 'November revenue, 6,246.00, KINP' in str(r[0]) for r in rows('Open items') if r) and any(str(r[0]).startswith('Possible extra revenue') and '780.75' in str(r[0]) and 'L143' not in str(r[0]) for r in rows('Open items') if r))
 # ------------------------------------------------------------------ v1.16: Codex's v1.15 recheck corrections (PACK_v115_RECHECK.md items 1-5 and 7; item 6 is the tab's print strip)
 _alltx = texts + ([json.dumps(J, ensure_ascii=False)] if JP.exists() else [])
 _fk = [r for r in cs if r[0].startswith('Queensland Forklifts') and str(r[4]).startswith('4647983')]
@@ -558,9 +560,9 @@ for t_ in ('Difference so far', 'not a margin yet', 'Accruals through 31 Oct (th
            'Coates wages are hours only, not yet costed', '1 · Costs by supplier and month, with the accruals through 31 Oct', '5 · Journals prepared for Finance, through 31 Oct', 'Accruals through 31 Oct, prepared for Finance (each reverses on 1 Nov'):
     check('item 4: the page says “%s”' % t_, t_ in HT)
 check('item 4: no “To accrue”, “, final ·” or “Journals at 31 Oct” left on the page or in the workbook', not any(re.search(r'To accrue|, final ·|Journals at 31 Oct|Accrue 31 Oct|Accrue at 31 Oct', t) for t in texts), sorted({m_.group(0) for t in texts for m_ in re.finditer(r'To accrue|, final ·|Journals at 31 Oct|Accrue 31 Oct|Accrue at 31 Oct', t)}))
-check('item 4: the revenue tile shows the 18 invoices and the November forecast, each with its figure', ('the 18 invoices ' + fmt(REV_TOT)) in HT and 'the November forecast 839.07 (9961976 L61), not invoiced yet' in HT)
+check('item 4: the revenue tile shows the 18 invoices and the November forecast, each with its figure', ('the 18 invoices ' + fmt(REV_TOT)) in HT and 'the November forecast 7,085.07 (9961976 L61 and 9968955 L143), not invoiced yet' in HT)
 check('item 4: the accrual column carries the same name (workbook and CSV)', wb['Costs by supplier'].cell(1, 11).value == 'Accruals through 31 Oct' == CS[1][10], (wb['Costs by supplier'].cell(1, 11).value, CS[1][10:11]))
-check('item 4: the Summary sheet note shows the invoices and the forecast, each with its figure, and says the difference is not a margin yet', any(isinstance(c, str) and ('the 18 invoices, ' + fmt(REV_TOT)) in c and 'the November forecast, 839.07' in c and 'not a margin yet' in c for row in wb['Summary'].iter_rows(values_only=True) for c in row))
+check('item 4: the Summary sheet note shows the invoices and the forecast, each with its figure, and says the difference is not a margin yet', any(isinstance(c, str) and ('the 18 invoices, ' + fmt(REV_TOT)) in c and 'the November forecast, 7,085.07' in c and 'not a margin yet' in c for row in wb['Summary'].iter_rows(values_only=True) for c in row))
 _wbm = openpyxl.load_workbook(PK / 'GC500_PL_final.xlsx')
 for sh_ in ('Schedule 17 transport', 'Labour charged', 'Summary'):
     ws_ = _wbm[sh_]; nc_ = ws_.max_column; mr_ = {r.min_row: r for r in ws_.merged_cells.ranges}
@@ -661,14 +663,14 @@ if JP.exists():
     _cattot = all(abs(sum(v for k, v in _cm.items() if (k[0] in _GRP[_cname(r[0])] if _cname(r[0]) in _GRP else k[0] == _cname(r[0])) and k[2] == mo_) / 100 - (r[2 + j_] or 0)) < 0.005 for r in _cat if str(r[0]).startswith('Total, ') and r[0] != 'Total, the job' for j_, mo_ in enumerate(('Sep', 'Oct', 'Nov')))
     check('rehire groups: the three rehire categories and their subtotal, Rehire, all, on the By category sheet and in the data', any(str(r[0]) == 'Total, Rehire, all' for r in _cat) and abs(sum(c_['total'] for c_ in J['categories'] if c_['name'].startswith('Rehire – ')) - J['categoryGroups'][0]['total']) < 0.005 and J['categoryGroups'][0]['members'] == list(_GRP['Rehire, all']), J.get('categoryGroups'))
     _ba = J.get('byAccount') or []
-    check('by GL account: the rows add to the job cost, each from the accounts on the cost lines; lines naming two codes with no split sit under both, flagged', abs(sum(g_['total'] for g_ in _ba) - JOB) < 0.005 and all((' or ' in g_['code']) == (not g_['split']) for g_ in _ba) and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2126') - 323800.43) < 0.005 and not [g_ for g_ in _ba if g_['code'].startswith('2126 or')] and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2142') - 37991.00) < 0.005, [(g_['code'], g_['total']) for g_ in _ba])
+    check('by GL account: the rows add to the job cost, each from the accounts on the cost lines; lines naming two codes with no split sit under both, flagged', abs(sum(g_['total'] for g_ in _ba) - JOB) < 0.005 and all((' or ' in g_['code']) == (not g_['split']) for g_ in _ba) and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2126') - 335623.73) < 0.005 and not [g_ for g_ in _ba if g_['code'].startswith('2126 or')] and abs(sum(g_['total'] for g_ in _ba if g_['code'] == '2142') - 40045.00) < 0.005, [(g_['code'], g_['total']) for g_ in _ba])
     _job = [r for r in _cat if r[0] == 'Total, the job']
     check('parts: the By category sheet = the parts, category × branch × month, its category totals and the job (%d rows)' % len(_cat), _catok and _cattot and len(_job) == 1 and all(abs((_job[0][2 + j_] or 0) - tv_) < 0.005 for j_, tv_ in enumerate((SEP, OCT, NOV))) and abs(_job[0][5] - JOB) < 0.005)
     check('parts: the data’s category totals = the lines of each category, month by month', all(abs(c['total'] - sum(r2((l['sep'] or 0) + (l['oct'] or 0) + (l['nov'] or 0)) for l in LN_ if l['category'] == c['name'])) < 0.005 and all(abs(c[k] - sum(l[k] for l in LN_ if l['category'] == c['name'])) < 0.005 for k in ('sep', 'oct', 'nov')) for c in J['categories']) and abs(sum(c['total'] for c in J['categories']) - JOB) < 0.005)
     check('parts: the page has section 1c, costs by category, branch and month', '1c · Costs by category, branch and month' in HT)
     RF_ = J['revFacts']
-    check('revenue parts: the 18 invoices once each, at their amounts on Revenue by invoice, in October, on their branch; the November forecast 839.07 on NVAC in November',
-          sorted((x[0], x[1], x[3]) for x in RF_ if x[2] == 'Oct') == sorted((str(r[0]), r[4].split(' ')[0], _ci(r[5])) for r in rv) and [(x[1], x[2], x[3]) for x in RF_ if x[2] == 'Nov'] == [('NVAC', 'Nov', 83907)] and len(RF_) == 19)
+    check('revenue parts: the 18 invoices once each, at their amounts on Revenue by invoice, in October, on their branch; the November forecasts 839.07 on NVAC and 6,246.00 on KINP in November (v1.26)',
+          sorted((x[0], x[1], x[3]) for x in RF_ if x[2] == 'Oct') == sorted((str(r[0]), r[4].split(' ')[0], _ci(r[5])) for r in rv) and [(x[1], x[2], x[3]) for x in RF_ if x[2] == 'Nov'] == [('NVAC', 'Nov', 83907), ('KINP', 'Nov', 624600)] and len(RF_) == 20)
     for b in ('KINP', 'STPS', 'NVAC', 'MEAD'): eq('revenue parts: %s’s = its revenue on the Summary sheet' % b, sum(x[3] for x in RF_ if x[1] == b) / 100, summ[b][3])
     _lj = J['labourJournal']
     check('labour journals: the data = the Labour by person sheet, row for row (%d rows: who, type, home branch, branch of the work, contract, journal, hours, labour hire $)' % len(lp),
@@ -771,7 +773,14 @@ if JP.exists() and WPF and WPF.exists():
     _kn = [x for x in J['labourJournal'] if x['who'] == 'Kyle Gover']
     check('v1.25: Kyle Gover has no 1\u201313 Nov hours on the journal rows, worked or paid', _kn and all(x['novInOct'] == 0 and x['paidNovInOct'] == 0 for x in _kn), [(x['branch'], x['novInOct'], x['paidNovInOct']) for x in _kn])
     _lhc = [c for c in J['categories'] if c['name'] == 'Labour hire']
-    check('v1.25: the job 585,217.91, October 402,944.25, difference 416,684.23, labour hire 37,466.31; the accruals 188,653.80 unchanged', (J['costs']['total'], J['costs']['oct'], J['difference'], J['accrue'], _lhc[0]['total'] if _lhc else None) == (585217.91, 402944.25, 416684.23, 188653.8, 37466.31), (J['costs'], J['difference'], J['accrue']))
+    check('v1.26: the job 599,095.21, October 402,944.25 (unchanged), November 46,715.96, difference 409,052.93, labour hire 37,466.31; the accruals 188,653.80 unchanged', (J['costs']['total'], J['costs']['oct'], J['costs']['nov'], J['difference'], J['accrue'], _lhc[0]['total'] if _lhc else None) == (599095.21, 402944.25, 46715.96, 409052.93, 188653.8, 37466.31), (J['costs'], J['difference'], J['accrue']))
+    # v1.26 (3 Nov 2026): October stands as accrued and anything new is November: Advanced's event-week sheet over the October accrual, 36784 and the demob forecast; 9968955 L143 November revenue
+    _an = [l_ for l_ in J['lines'] if l_['supplier'].startswith('Advanced') and l_['what'].startswith(('Event week 19–25 Oct: their sheet', 'Demob: 36784', 'Demob week 1 forecast'))]
+    _ej = [j_['amount'] for j_ in J['journals'] if j_['po'] == '4647522']
+    check('v1.26: Advanced’s three November lines: their event-week sheet over the October accrual (80,762.00 less the journal), 36784 600.00, the demob week 1 forecast 3,675.00; no September, October or accrual on any', len(_an) == 3 and _ej == [71159.70] and [(round(l_['nov'], 2), l_['sep'], l_['oct'], l_['accrue'], l_['state']) for l_ in _an] == [(round(80762.00 - _ej[0], 2), 0, 0, 0, 'Invoiced'), (600.00, 0, 0, 0, 'November forecast'), (3675.00, 0, 0, 0, 'November forecast')], [(l_['what'][:40], l_['nov'], l_['state']) for l_ in _an])
+    check('v1.26: the demob week 1 forecast is its three parts at Advanced’s sheet rates (team leaders 2 × 5 × 200.00; 140 m × 10.00; 11 wheels × 50.00 less 27.5 m × 10.00), split 2126 1,675.00 · 2142 2,000.00', len(_an) == 3 and r2(2 * 5 * 200.00 + 140 * 10.00 + 11 * 50.00 - 27.5 * 10.00) == 3675.00 == _an[2]['nov'] and _an[2]['account'] == '2126 1,675.00 · 2142 2,000.00' and _an[0]['account'] == '2126 9,548.30 · 2142 54.00')
+    check('v1.26: STPS costs 342,798.30 (v1.25 328,921.00 + 13,877.30); KINP revenue carries L143 6,246.00 as November forecast', [b_['costs'] for b_ in J['branches'] if b_['b'] == 'STPS'] == [342798.30] and [b_['novForecast'] for b_ in J['branches'] if b_['b'] == 'KINP'] == [6246.00])
+    check('v1.26: October at month end unchanged (invoiced 139,428.20, accrued 186,690.70); the November lines carry nothing in October', (_mr.get('Invoiced'), _mr.get('Accrued at 31 Oct')) == (139428.2, 186690.7))
     # v1.25 independent check findings: no 'to confirm' left beside Job Connect's w/e 18 Oct anywhere; the section 2 sentence's running-sheet figure = the bridge total
     _blob = json.dumps(J, ensure_ascii=False) + HT
     check('v1.25: nothing beside Job Connect\u2019s w/e 18 Oct, 4667755 or 4668970 still says the amounts are to confirm (data, page)', not re.search(r'(w/e 18 Oct|4667755|4668970)[^.\"<]{0,160}to confirm|to confirm[^.\"<]{0,160}(w/e 18 Oct|4667755|4668970)', _blob), re.findall(r'.{60}to confirm.{60}', _blob)[:3])
