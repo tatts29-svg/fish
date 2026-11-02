@@ -27,6 +27,6 @@ The shared build checks all 223 inline scripts. The standard uploader dry run co
 
 ## Ownership and limits
 
-Codex owns implementation, testing and guarded publication. Claude retains P&L and operational records; fencing82 remains held. No Claude review of this correction is claimed.
+Codex owns implementation, testing and guarded publication. Claude retains P&L and operational records. His newer comment 6585732075 and source 4924f87b settle the prior fencing82 decision hold; that separate metadata work is not included in this map-only correction. No Claude review of this correction is claimed.
 
 The separate 3D-source mismatch is not corrected by these gates: photographic city ground and buildings still come from Google's mesh, whereas satellite uses the approved Mapbox aerial. A flat aerial is not a replacement photographic city model; no new imagery date or 2026 capture is claimed. Existing 3D remains available. A private raster-on-globe experiment did not produce a usable replacement and is not part of this release.
