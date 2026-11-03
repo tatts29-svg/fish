@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 07:5x AEST: \"P58 leaves today at 800am\". P58 (Coates 1273656, building 4.8-6 m, KINP) leaves site at 08:00 on 4 Nov: it leaves in full through the page's own Record departure form in his name, recorded after 08:00 (the form takes no future time). In the same message he repeated \"p44 left yesterday at 3pm\", already on the record (run 121). Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P58",
+   "at": "2026-11-04T08:00:00+10:00",
+   "nos": [
+    "1273656"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
