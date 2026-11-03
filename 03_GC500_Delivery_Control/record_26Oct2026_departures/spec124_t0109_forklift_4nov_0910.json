@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 09:1x AEST: \"1281615 leaving 910am\". Coates 1281615 is the rough-terrain forklift (2.5 t, 4WD, diesel; contract 9987005 L7, MEAD) on T0109. It leaves site at 09:10 on 4 Nov through the page's own Record departure form in his name, recorded after 09:10 (the form takes no future time). Applied only if the dry run shows the P&L unchanged and the unit is T0109's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0109",
+   "at": "2026-11-04T09:10:00+10:00",
+   "nos": [
+    "1281615"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

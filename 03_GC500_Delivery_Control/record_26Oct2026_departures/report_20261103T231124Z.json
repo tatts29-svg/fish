@@ -1,0 +1,243 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261103T231124Z",
+ "finished": "2026-11-03T23:11:54.268Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 4 Nov 2026 09:1x AEST: \"1281615 leaving 910am\". Coates 1281615 is the rough-terrain forklift (2.5 t, 4WD, diesel; contract 9987005 L7, MEAD) on T0109. It leaves site at 09:10 on 4 Nov through the page's own Record departure form in his name, recorded after 09:10 (the form takes no future time). Applied only if the dry run shows the P&L unchanged and the unit is T0109's.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0109",
+    "at": "2026-11-04T09:10:00+10:00",
+    "nos": [
+     "1281615"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "d6c557d3045c55f4d66bca2227f098f4951003bd4674ac83ba497aa16f7b8de0",
+ "version": {
+  "before": 12977,
+  "after": 12978
+ },
+ "updated": {
+  "before": "2026-11-03T22:05:13.241Z",
+  "after": "2026-11-03T23:11:53.441Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 521826.08,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 521826.08,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0109",
+   "at": "2026-11-04T09:10:00+10:00",
+   "nos": [
+    "1281615"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-04T09:10:00+10:00, recorded by Andrew Fisher: 1 x 2.5T Forklift STD 1281615 - T0109 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0109",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0109": {
+    "state": "on site",
+    "set_at": "2026-09-27T17:45:21.237Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1281615": {
+      "at": "2026-11-02T07:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:00:21.241Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-27T17:45:21.237Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-27T17:45:21.237Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:45:21.237Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1281615",
+      "pickup": "2026-11-02T07:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:00:21.241Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:43:01.023Z"
+    },
+    "_k": "T0109"
+   }
+  },
+  "after": {
+   "delivery/T0109": {
+    "state": "in transit",
+    "set_at": "2026-11-03T23:11:41.211Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1281615": {
+      "at": "2026-11-02T07:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:00:21.241Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-03T23:11:41.211Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-27T17:45:21.237Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-03T23:11:41.211Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d78c5e8d-f828-4421-ad23-849160bbc0fc",
+       "date": "2026-11-04",
+       "departedAt1211": "2026-11-04T09:10:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-27T17:45:21.237Z",
+       "requiredKey": "[[\"2.5t forklift std\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "2.5T Forklift STD",
+         "n": 1,
+         "unitIds": [
+          "[\"T0109\",\"coates\",\"asset\",\"1281615\"]"
+         ],
+         "numbers": [
+          "1281615"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0109\",\"coates\",\"asset\",\"1281615\"]",
+           "number": "1281615",
+           "owner": "coates",
+           "item": "2.5T Forklift STD"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:45:21.237Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-03T23:11:41.211Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1281615",
+      "pickup": "2026-11-02T07:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:00:21.241Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:43:01.023Z"
+    },
+    "_k": "T0109"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
