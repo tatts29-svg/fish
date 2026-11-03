@@ -43,15 +43,16 @@ async function capture(code){
   const projected=GC500Shape1060.projected1288(code),source=parent.gc500MapShapes1060().refs[code];
   if(!projected||!source)return {available:false};
   const calls=[],undo=[];
-  for(const cv of [document.getElementById('shape1060'),document.getElementById('offsite1225')].filter(Boolean)){
+  for(const cv of [document.getElementById('shape1060'),document.getElementById('offsite1225'),document.getElementById('marks')].filter(Boolean)){
    const g=cv.getContext('2d');let commands=[];
    const point=(x,y)=>{const m=g.getTransform();return [m.a*x+m.c*y+m.e,m.b*x+m.d*y+m.f];};
-   for(const name of ['beginPath','moveTo','lineTo','bezierCurveTo','closePath','stroke','fill']){
+   for(const name of ['beginPath','moveTo','lineTo','bezierCurveTo','closePath','arc','stroke','fill']){
     const old=g[name];undo.push(()=>g[name]=old);g[name]=function(...a){
      if(name==='beginPath')commands=[];
      else if(name==='moveTo'||name==='lineTo')commands.push([name==='moveTo'?'M':'L',...point(...a)]);
      else if(name==='bezierCurveTo')commands.push(['C',...point(a[0],a[1]),...point(a[2],a[3]),...point(a[4],a[5])]);
      else if(name==='closePath')commands.push(['Z']);
+     else if(name==='arc')commands.push(['A',...point(a[0],a[1]),a[2]]);
      else calls.push({canvas:cv.id,op:name,path:commands.map(p=>p.slice()),style:String(name==='stroke'?g.strokeStyle:g.fillStyle),dash:g.getLineDash(),alpha:g.globalAlpha});
      return old.apply(this,a);
     };
@@ -70,11 +71,15 @@ async function capture(code){
     if(calls.some(c=>c.op==='stroke'&&same(c.path,p)))paintedDoors++;
    }
   }
-  return {available:true,code,polygons,orangePolygons,doors,paintedDoors,sourceMatch:now.parts.length===source.comps.length&&now.parts.every((p,i)=>JSON.stringify(p.sourcePoly)===JSON.stringify(source.comps[i].poly)),sourceHasNoUnitMap:parent.MasterShapes926.shape(code)?.units.length===0,departureMarkers:GC500Departure1211.markers1288,strokes:[...new Set(calls.filter(c=>c.op==='stroke').map(c=>c.style))],shapeFailed:GC500Shape1060.state.failed};
+  const inside=(x,y,ps)=>{let hit=false;for(let i=0,j=ps.length-1;i<ps.length;j=i++){const a=ps[i],b=ps[j];if((a.y>y)!==(b.y>y)&&x<(b.x-a.x)*(y-a.y)/(b.y-a.y)+a.x)hit=!hit;}return hit;};
+  const main=(now.parts.find(p=>!p.tank)||now.parts[0]).points,xs=main.map(p=>p.x),ys=main.map(p=>p.y);let tap=null;
+  for(let i=1;i<5&&!tap;i++)for(let j=1;j<5&&!tap;j++){const x=Math.min(...xs)+(Math.max(...xs)-Math.min(...xs))*i/5,y=Math.min(...ys)+(Math.max(...ys)-Math.min(...ys))*j/5;if(inside(x,y,main)&&markAt(x,y)?.it?.code===code)tap={x,y};}
+  const visible=id=>{const e=document.getElementById(id);if(!e)return false;const s=getComputedStyle(e),b=e.getBoundingClientRect();return b.width>0&&b.height>0&&s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)>0;};
+  return {available:true,code,polygons,orangePolygons,doors,paintedDoors,tap,sourceMatch:now.parts.length===source.comps.length&&now.parts.every((p,i)=>JSON.stringify(p.sourcePoly)===JSON.stringify(source.comps[i].poly)),sourceHasNoUnitMap:parent.MasterShapes926.shape(code)?.units.length===0,departureMarkers:GC500Departure1211.markers1288,sourceCanvasVisible:visible('shape1060'),nativeCanvasVisible:visible('marks'),nativeCircleStrokes:calls.filter(c=>c.canvas==='marks'&&c.op==='stroke'&&c.path.some(p=>p[0]==='A'&&p[3]>=7*dpr&&p[3]<=32*dpr)).length,strokes:[...new Set(calls.filter(c=>c.op==='stroke').map(c=>c.style))],shapeFailed:GC500Shape1060.state.failed};
  },code);
 }
 
-async function shot(name){await session.page.waitForTimeout(200);await child.locator('#stage').screenshot({path:path.join(out,name+'-map.png'),timeout:15000});await session.page.screenshot({path:path.join(out,name+'-page.png'),timeout:15000});}
+async function shot(name){await session.page.waitForTimeout(900);await child.locator('#stage').screenshot({path:path.join(out,name+'-map.png'),timeout:15000});await session.page.screenshot({path:path.join(out,name+'-page.png'),timeout:15000});}
 
 (async()=>{
  try{
@@ -114,10 +119,14 @@ async function shot(name){await session.page.waitForTimeout(200);await child.loc
   result.paints=[];
   for(const [mode,rotation]of [['original',0],['hybrid',37],['satellite',90]]){
    await focus(chosen,mode,rotation,180);await waitPaint();const r=await capture(chosen);result.paints.push({mode,...r});
-   check(mode+': remaining equipment is painted orange using the source footprint',r.sourceMatch&&r.orangePolygons===r.polygons&&r.polygons>0);
+   check(mode+': remaining equipment is visibly painted orange using the source footprint',r.sourceCanvasVisible&&r.sourceMatch&&r.orangePolygons===r.polygons&&r.polygons>0);
    check(mode+': existing source doors remain visible',r.doors===r.paintedDoors);
    check(mode+': departed green markers are suppressed',r.departureMarkers.every(m=>m.kind==='onsite'||m.kind==='review'));
+   check(mode+': no unrelated native status circles are visible',!r.nativeCanvasVisible||r.nativeCircleStrokes===0);
+   check(mode+': highlighted source footprint is selectable',!!r.tap);
   }
+  await child.locator('#stage').tap({position:result.paints.at(-1).tap});await p.waitForTimeout(120);
+  check('Touch selects the highlighted source equipment footprint',await child.evaluate(code=>selected?.code===code,chosen));
   await shot('still-onsite-tablet');
   result.fallback=await child.evaluate(async()=>{
    const r=GC500StillOnSite1290.state.refs.find(r=>r.mapped&&r.codes.some(code=>!GC500Shape1060.projected1288(code)&&ITEMS.find(it=>it.code===code)?.location1210?.kind!=='vms'));
@@ -173,7 +182,8 @@ async function shot(name){await session.page.waitForTimeout(200);await child.loc
     await child.evaluate(()=>GC500StillOnSite1290.refresh());await waitPaint();const unavailable=await state();
     check('Unavailable shared model never claims a known empty result',!unavailable.ready&&unavailable.refs.length===0);
     await child.locator('#still-onsite-list1290').tap();
-    check('Unavailable state is explained in the accessible list',/not available|checking/i.test(await child.locator('#still-onsite-panel1290').innerText()));
+    const unavailableText=await child.locator('#still-onsite-panel1290').innerText();
+    check('Unavailable state is explained without a false zero result',/not available|checking/i.test(unavailableText)&&!/(?:\b0 references|no recorded arrivals remain)/i.test(unavailableText));
     await child.locator('#still-onsite-panel1290 [data-close]').tap();
    }finally{await p.evaluate(()=>{window.gc500MapStatus1009=window.__onsite1290Health;delete window.__onsite1290Health;});}
   }finally{
@@ -185,7 +195,7 @@ async function shot(name){await session.page.waitForTimeout(200);await child.loc
   result.selectionRestored=await child.evaluate(()=>({category:document.querySelector('#chips [data-cat][aria-pressed=true]')?.dataset.cat||null,marks:marks.map(m=>({code:m.it.code,c:m.c}))}));
   check('Toggle off restores the previous category and search marks',JSON.stringify(result.selectionRestored)===JSON.stringify(result.normalSelection));
   const gone=await child.evaluate(()=>ITEMS.find(it=>mapStatus1009(it)?.offsite1225&&GC500Shape1060.projected1288(it.code))?.code);
-  if(gone){await focus(gone,'original',0,180);await waitPaint();result.restored=await capture(gone);check('Turning off restores departed equipment markers',result.restored.departureMarkers.some(m=>m.code===gone));}
+  if(gone){await focus(gone,'original',0,180);await waitPaint();result.restored=await capture(gone);check('Turning off restores ordinary native canvas and departed equipment markers',result.restored.nativeCanvasVisible&&result.restored.sourceCanvasVisible&&result.restored.departureMarkers.some(m=>m.code===gone));}
   // A stale selected item must not leak into the filtered 3D view. Check actual
   // pin/model visibility and source geometry, not just the control's state.
   await child.evaluate(()=>GC500Explorer.mode3d(true));
@@ -205,6 +215,10 @@ async function shot(name){await session.page.waitForTimeout(200);await child.loc
   result.geometryActive=await child.evaluate(code=>GC500EquipmentBridge1027.snapshot([code]),chosen);
   const gb=result.geometryBefore.items?.find(r=>norm(r.ref)===norm(chosen)),ga=result.geometryActive.items?.find(r=>norm(r.ref)===norm(chosen));
   if(gb&&ga)check('3D filter preserves source quantity, components and completion meaning',gb.quantity===ga.quantity&&JSON.stringify(gb.components)===JSON.stringify(ga.components)&&gb.complete===ga.complete&&gb.completionLabel===ga.completionLabel);
+  await third.evaluate(code=>GC500_3D.find(code),chosen);
+  await third.waitForFunction(code=>GC500EquipmentView1027.state.models.some(m=>m.ref===code&&m.ready&&GC500EquipmentView1027.samplingVisible(code)),chosen,{timeout:45000});
+  result.threeFocused=await third.evaluate(code=>({code,active:GC500EquipmentView1027.state.active,models:GC500EquipmentView1027.state.models.filter(m=>GC500EquipmentView1027.samplingVisible(m.ref)),pins:window.__pinProbe().map(p=>p.k)}),chosen);
+  check('A real remaining equipment model is visible at close range in 3D',result.threeFocused.models.some(m=>m.ref===chosen&&m.ready)&&result.threeFocused.models.every(m=>allowed.has(norm(m.ref))));
   await button.tap();await waitPaint();await p.waitForTimeout(150);
   result.threeRestored=await third.evaluate(()=>window.__pendingPins.map(p=>({k:p.k,ll:p.ll,c:p.c,n:p.n})));
   check('Turning the filter off restores the original 3D pins, positions and colours',JSON.stringify(result.threeRestored)===JSON.stringify(result.threeBefore.pins));
@@ -216,10 +230,32 @@ async function shot(name){await session.page.waitForTimeout(200);await child.loc
    result.departedVms=await child.evaluate(code=>({code,symbols:[...document.querySelectorAll('#vmsicons1211 button')].filter(b=>b.offsetWidth&&b.offsetHeight).map(b=>b.textContent),markers:GC500Departure1211.markers1288.filter(m=>m.code===code)}),departedVms);
    check('A selected departed VMS cannot reintroduce its marker',!result.departedVms.symbols.some(t=>norm(t).includes(norm(departedVms)))&&!result.departedVms.markers.length);
   }
+  if(gone){
+   await child.evaluate(code=>{GC500Search1210.search(code);GC500Search1210.select(code);requestPaint();},gone);await waitPaint();
+   result.excludedSearch=await child.evaluate(code=>{const card=document.getElementById('xcard'),visible=card&&!card.hidden&&card.getBoundingClientRect().height>0;return {code,selected:selected?.code||null,cardVisible:!!visible,cardText:visible?card.innerText:''};},gone);
+   check('Searching an excluded reference cannot reopen its selection card',result.excludedSearch.selected!==gone&&(!result.excludedSearch.cardVisible||!norm(result.excludedSearch.cardText).includes(norm(gone))));
+  }
   await child.evaluate(()=>GC500StillOnSite1290.setActive(false));await waitPaint();
   await p.setViewportSize({width:390,height:844});await p.waitForTimeout(250);await button.tap();await waitPaint();
+  await p.waitForTimeout(1100);
+  result.phoneOverlays=await child.evaluate(()=>{
+   const visible=e=>!!(e&&e.getBoundingClientRect().width&&e.getBoundingClientRect().height&&getComputedStyle(e).visibility!=='hidden'&&getComputedStyle(e).display!=='none');
+   const icons=[...document.querySelectorAll('#vmsicons1211 button')].filter(visible).map(b=>({code:b.dataset.vms1211,text:b.innerText,departed:b.dataset.departed==='true'}));
+   const tags=GC500Departure1211.markers1288.filter(m=>m.tag.length);return {icons,tags,states:GC500StillOnSite1290.state,aliases:ITEMS.filter(i=>i.location1210?.kind==='vms'&&GC500StillOnSite1290.row(i)).map(i=>({code:i.code,native:mapStatus1009(i),on:GC500StillOnSite1290.row(i).key})),physicalBoards:parent.VmsEquipment1103.model().boards.map(b=>({key:b.key,delivery:b.delivery,on:b.on,departed:!!b.departure1211,positions:b.positions.map(p=>({pos:p.pos,label:parent.VMS1024.board(p.pos)?parent.VMS1024.label(parent.VMS1024.board(p.pos)):null}))}))};
+  });
+  check('Still-on-site VMS markers never claim left site',result.phoneOverlays.icons.every(i=>!i.departed&&!/left site/i.test(i.text)));
+  check('VMS positions have one marker rather than duplicate symbol and fallback label',result.phoneOverlays.icons.every(i=>!result.phoneOverlays.tags.some(t=>norm(t.code)===norm(i.code))));
   result.phone=await child.evaluate(()=>{const b=document.getElementById('still-onsite1290').getBoundingClientRect();return {button:{x:b.x,y:b.y,w:b.width,h:b.height},viewport:{w:innerWidth,h:innerHeight},bodyWidth:document.body.scrollWidth,documentWidth:document.documentElement.scrollWidth};});
   check('Phone control remains reachable with no horizontal page overflow',result.phone.button.w>=40&&result.phone.button.h>=40&&result.phone.button.x>=0&&result.phone.button.x+result.phone.button.w<=result.phone.viewport.w+1&&result.phone.bodyWidth<=result.phone.viewport.w+1&&result.phone.documentWidth<=result.phone.viewport.w+1);
+  result.paintPerformance=await child.evaluate(()=>{
+   const original=parent.Departure1211,times=[];let reads=0;
+   parent.Departure1211={...original,all:function(){reads++;return original.all.apply(original,arguments);}};
+   try{for(let i=0;i<12;i++){const t=performance.now();drawMarks(currentView());if(i>=2)times.push(performance.now()-t);}}
+   finally{parent.Departure1211=original;}
+   times.sort((a,b)=>a-b);return {samples:times.length,modelReads:reads,medianMs:times[Math.floor(times.length/2)],maxMs:times.at(-1),scope:'Synchronous map overlay paint only; deferred labels, network and frame scheduling are not included'};
+  });
+  check('Repeated map paints use cached collection results',result.paintPerformance.samples===10&&result.paintPerformance.modelReads===0);
+  await p.waitForTimeout(1800); // Let the earlier intentional excluded-search toast expire.
   await shot('still-onsite-phone');
   result.errors=session.errors.map(safe);result.recordWrites=session.counts.blocked;
   check('No page or console errors',!result.errors.length&&!result.consoleErrors.length);check('No attempted operational record writes',!result.recordWrites);
