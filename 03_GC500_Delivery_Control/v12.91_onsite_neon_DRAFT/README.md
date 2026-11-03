@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — presentation refinement on verified live v12.90. Authorised by Andrew’s direct request for stronger neon and pulsation in this chat.
+SUPERSEDED — never published. Claude’s live v12.92 arrived first; rebuild this presentation as v12.93. Do not upload this old-base candidate. Authorised by Andrew’s direct request for stronger neon and pulsation in this chat.
 
 The existing equipment shapes receive a brighter same-colour halo with a gentle 2.6-second pulse. The original outlines, door geometry, quantities, labels and touch targets remain steady. VMS signs glow in orange or their existing review colour. Reduced-motion preferences use a steady glow.
 
