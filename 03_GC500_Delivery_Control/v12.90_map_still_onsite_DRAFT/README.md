@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — all agreed checks are complete. Publication and independent live read-back are the next step.
+PUBLISHED at 13:31 AEST on 3 Nov 2026 from READY source `98b4847a03865f0a644ab7d198648d4cd5fbed4a`. Independent public bytes match the final candidate. Final live UI verification is completing; the release folder will be marked LIVE when its receipt is recorded.
 
 A visible Still on site button highlights equipment remaining to collect using the native departure projection. Partly collected groups retain their remaining quantities; missing quantities and review cases stay explicit. It preserves the source plan footprints and recorded door geometry introduced in v12.88. The toggle changes presentation only, with no operational or financial writes.
 
