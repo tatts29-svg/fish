@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 14:0x AEST: \"bothe toilet blocks from Wc09  left 2:00PM\". WC09's Record departure form holds exactly two units still to leave: Toilet Block 6m x 2, offered by number as Coates 1268858 and 1311146 (its FWF left 30 Oct and its pee panels 2 Nov). Both left site at 14:00 on 3 Nov, each ticked, through the page's own Record departure form in his name; WC09 was ticked Emptied on 30 Oct. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC09",
+   "at": "2026-11-03T14:00:00+10:00",
+   "nos": [
+    "1268858",
+    "1311146"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
