@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "candidateSha256": "d348e813db15b3ed3df125e14dd877597cbd8b410a4c13440c64244a86f85c37",
+  "bytes": 16955759,
+  "baseSha256": "92c1a3163ecf76e05e42d47ce4c94c78dea8d60e28d5b506b0cec560c7ce2865",
+  "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "inlineScripts": 223,
+  "focusedChecks": 43,
+  "retainedMapAnd3D": "PASS",
+  "desktopSweep": {
+    "tabs": 27,
+    "deepLinks": 7,
+    "back": true
+  },
+  "phoneSweep": {
+    "tabs": 27,
+    "deepLinks": 7,
+    "back": true
+  },
+  "runtimeErrors": 0,
+  "consoleErrors": 0,
+  "attemptedRecordWrites": 0,
+  "phoneAndTabletImagesInspected": true,
+  "limits": "Exact source geometry where uniquely assigned; explicit unassigned and catalogue labels. Timing is environment-specific; private stress and paced measurements both retained. No live claim before publication/read-back."
+}
