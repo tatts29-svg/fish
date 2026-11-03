@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 10:2x AEST: \"1105057 leaving at 1025   also hydration station leaving same time. With the last event portaloo  toilet\". Coates 1105057 is CP1 (6 m building; contract 9968862 L17, KINP; pick-up booked by Brenden Meek for 3 Nov 10:30). The last Event Portables toilet on site is WC81's FWF 0124 (Cypress carpark; sub-hired; ticked Emptied 26 Oct). Both left site at 10:25 on 3 Nov, each in full, through the page's own Record departure form in his name. The hydration station is on the record as an accessory of CP1 (\"Hydration station\", not numbered, with the chair, desk, sink, fridge 1116687 and urn 119810), so it leaves with CP1. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "CP1",
+   "at": "2026-11-03T10:25:00+10:00",
+   "nos": [
+    "1105057"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC81",
+   "at": "2026-11-03T10:25:00+10:00",
+   "nos": [
+    "0124"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
