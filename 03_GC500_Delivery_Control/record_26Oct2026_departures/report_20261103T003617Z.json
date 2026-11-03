@@ -1,0 +1,2214 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261103T003617Z",
+ "finished": "2026-11-03T00:36:52.154Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 3 Nov 2026 10:3x AEST: \"Left 1030 / 1200595 1083300 1211958 1002565 1211976\". Five Coates FWF toilets on contract 9968955 (KINP), each ticked Emptied: 1200595 and 1083300 on WC07 (L33, L41; pick-up booked by Brenden Meek for 3 Nov 10:00), 1211958 on WC01 (L46), 1002565 on WC12 (L17) and 1211976 on WC11 (L23). They left site at 10:30 on 3 Nov through the page's own Record departure form in his name; the other units on WC07, WC01, WC12 and WC11 stay, so each stays on site. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC07",
+    "at": "2026-11-03T10:30:00+10:00",
+    "nos": [
+     "1200595",
+     "1083300"
+    ],
+    "unnumbered": [],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "WC01",
+    "at": "2026-11-03T10:30:00+10:00",
+    "nos": [
+     "1211958"
+    ],
+    "unnumbered": [],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "WC12",
+    "at": "2026-11-03T10:30:00+10:00",
+    "nos": [
+     "1002565"
+    ],
+    "unnumbered": [],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "WC11",
+    "at": "2026-11-03T10:30:00+10:00",
+    "nos": [
+     "1211976"
+    ],
+    "unnumbered": [],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "92c1a3163ecf76e05e42d47ce4c94c78dea8d60e28d5b506b0cec560c7ce2865",
+ "version": {
+  "before": 12879,
+  "after": 12883
+ },
+ "updated": {
+  "before": "2026-11-03T00:32:59.372Z",
+  "after": "2026-11-03T00:36:49.959Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC07",
+   "at": "2026-11-03T10:30:00+10:00",
+   "nos": [
+    "1200595",
+    "1083300"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-11-03T10:30:00+10:00, recorded by Andrew Fisher: 2 x FWF 1083300, 1200595 - still to leave: 18 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "WC01",
+   "at": "2026-11-03T10:30:00+10:00",
+   "nos": [
+    "1211958"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-11-03T10:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 1211958 - still to leave: 1 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "WC12",
+   "at": "2026-11-03T10:30:00+10:00",
+   "nos": [
+    "1002565"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-11-03T10:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 1002565 - still to leave: 3 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "WC11",
+   "at": "2026-11-03T10:30:00+10:00",
+   "nos": [
+    "1211976"
+   ],
+   "unnumbered": [],
+   "complete": false,
+   "result": "left site 2026-11-03T10:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 1211976 - still to leave: 1 x FWF"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC12",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC11",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC07",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC12": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:10.801Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:27.502Z",
+    "ready1238_units": {
+     "coates|1002565": {
+      "on": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1200601": {
+      "on": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211961": {
+      "on": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211963": {
+      "on": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 4 of 4 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:56.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:10.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:27.502Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1002565",
+      "ready": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1200601",
+      "ready": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211961",
+      "ready": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211963",
+      "ready": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:50:23.056Z"
+    },
+    "loading872": {
+     "u1002565": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:04.629Z"
+     },
+     "u1200601": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:08.289Z"
+     },
+     "u1211961": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:11.214Z"
+     },
+     "u1211963": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:15.836Z"
+     }
+    },
+    "_k": "WC12"
+   },
+   "delivery/WC11": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:04.144Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-28T04:02:03.894Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:26.729Z",
+    "ready1238_units": {
+     "coates|1211969": {
+      "on": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T21:30:08.156Z",
+    "eta": "07:00",
+    "note": "Both here 12:00 · 2 of 2 asked for · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-17T21:30:08.156Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:54.080Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T21:35:00.764Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T04:02:03.894Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:26.729Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1211969",
+      "ready": true,
+      "at": "2026-11-02T02:26:48.551Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211969",
+      "ready": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:36.816Z"
+    },
+    "loading872": {
+     "u1211976": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:06.955Z"
+     },
+     "u1211969": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:11.331Z"
+     }
+    },
+    "_k": "WC11"
+   },
+   "delivery/WC07": {
+    "state": "on site",
+    "set_at": "2026-09-22T06:10:22.490Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.114Z",
+    "ready1238_units": {
+     "coates|1212552": {
+      "on": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317640": {
+      "on": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317632": {
+      "on": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317641": {
+      "on": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317643": {
+      "on": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317647": {
+      "on": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317648": {
+      "on": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317649": {
+      "on": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317652": {
+      "on": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317658": {
+      "on": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1212552": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317632": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317640": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317641": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317643": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317647": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002538": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002566": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002651": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002715": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1083300": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1181004": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1192643": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1200595": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1211959": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317626": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317648": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317649": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317652": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317658": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-22T06:10:22.490Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.114Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1212552",
+      "ready": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317640",
+      "ready": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317632",
+      "ready": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317641",
+      "ready": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317643",
+      "ready": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317647",
+      "ready": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317648",
+      "ready": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317649",
+      "ready": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317652",
+      "ready": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317658",
+      "ready": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1212552",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:19:46.092Z"
+     },
+     {
+      "unit": "coates|1317632",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:10.528Z"
+     },
+     {
+      "unit": "coates|1317640",
+      "pickup": "2026-11-03T10:50:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:22.691Z"
+     },
+     {
+      "unit": "coates|1317641",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:42.099Z"
+     },
+     {
+      "unit": "coates|1317643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:56.092Z"
+     },
+     {
+      "unit": "coates|1317647",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:18.759Z"
+     },
+     {
+      "unit": "coates|1002538",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002566",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002651",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002715",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1083300",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1181004",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1192643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1200595",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1211959",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1212552",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317626",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317632",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317640",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317641",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317647",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317648",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317649",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317652",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317658",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:36:02.178Z"
+    },
+    "loading872": {
+     "u1181004": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:40.045Z"
+     },
+     "u1002538": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:51.245Z"
+     },
+     "u1317647": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:06.084Z"
+     },
+     "u1212552": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:12.171Z"
+     },
+     "u1002566": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:18.906Z"
+     },
+     "u1083300": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:26.412Z"
+     },
+     "u1200595": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:30.941Z"
+     },
+     "u1317652": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:38.556Z"
+     },
+     "u1211959": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:10.552Z"
+     },
+     "u1002715": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:18.882Z"
+     },
+     "u1002651": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:24.146Z"
+     },
+     "u1317658": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:29.098Z"
+     },
+     "u1192643": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:36.426Z"
+     },
+     "u1317632": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:41.470Z"
+     },
+     "u1317649": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:49.152Z"
+     },
+     "u1317743": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:00.325Z"
+     },
+     "u1317641": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:09.349Z"
+     },
+     "u1317648": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:15.988Z"
+     },
+     "u1317626": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:22.056Z"
+     },
+     "u1317640": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:29.616Z"
+     }
+    },
+    "_k": "WC07"
+   },
+   "delivery/WC01": {
+    "state": "on site",
+    "set_at": "2026-09-28T05:08:44.417Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T01:48:21.897Z",
+    "pickup1238_units": {
+     "coates|1317644": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:45:41.791Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T05:08:44.417Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T05:08:44.417Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-02T01:48:22.784Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "5cdac875-26be-4b65-9a17-c9ed2c5fbfbd",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T11:45:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T05:08:44.417Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Accessible Toilet",
+         "n": 1,
+         "unitIds": [
+          "[\"WC01\",\"coates\",\"asset\",\"1317644\"]"
+         ],
+         "numbers": [
+          "1317644"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC01\",\"coates\",\"asset\",\"1317644\"]",
+           "number": "1317644",
+           "owner": "coates",
+           "item": "Accessible Toilet"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T05:08:44.417Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T01:48:21.897Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317644",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:45:41.791Z"
+     }
+    ],
+    "_k": "WC01"
+   }
+  },
+  "after": {
+   "delivery/WC12": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:10.801Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:27.502Z",
+    "ready1238_units": {
+     "coates|1002565": {
+      "on": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1200601": {
+      "on": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211961": {
+      "on": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211963": {
+      "on": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 4 of 4 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-03T00:36:35.434Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "53eb471e-b7f0-4313-8f69-8a4d1aa865b6",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T10:30:00+10:00",
+       "programmeDate": "2026-10-23",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T02:00:00Z",
+       "requiredKey": "[[\"fwf\",4]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC12\",\"coates\",\"asset\",\"1002565\"]"
+         ],
+         "numbers": [
+          "1002565"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC12\",\"coates\",\"asset\",\"1002565\"]",
+           "number": "1002565",
+           "owner": "coates",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:56.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:10.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:27.502Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1002565",
+      "ready": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1200601",
+      "ready": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211961",
+      "ready": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211963",
+      "ready": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:50:23.056Z"
+    },
+    "loading872": {
+     "u1002565": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:04.629Z"
+     },
+     "u1200601": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:08.289Z"
+     },
+     "u1211961": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:11.214Z"
+     },
+     "u1211963": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:15.836Z"
+     }
+    },
+    "_k": "WC12"
+   },
+   "delivery/WC11": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:04.144Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-28T04:02:03.894Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:26.729Z",
+    "ready1238_units": {
+     "coates|1211969": {
+      "on": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T21:30:08.156Z",
+    "eta": "07:00",
+    "note": "Both here 12:00 · 2 of 2 asked for · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-03T00:36:36.329Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "ab57f603-6b52-41cd-88d1-92a978d03ad8",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T10:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T02:00:00Z",
+       "requiredKey": "[[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC11\",\"coates\",\"asset\",\"1211976\"]"
+         ],
+         "numbers": [
+          "1211976"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC11\",\"coates\",\"asset\",\"1211976\"]",
+           "number": "1211976",
+           "owner": "coates",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-17T21:30:08.156Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:54.080Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T21:35:00.764Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T04:02:03.894Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:26.729Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1211969",
+      "ready": true,
+      "at": "2026-11-02T02:26:48.551Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211969",
+      "ready": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:36.816Z"
+    },
+    "loading872": {
+     "u1211976": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:06.955Z"
+     },
+     "u1211969": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:11.331Z"
+     }
+    },
+    "_k": "WC11"
+   },
+   "delivery/WC07": {
+    "state": "on site",
+    "set_at": "2026-09-22T06:10:22.490Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.114Z",
+    "ready1238_units": {
+     "coates|1212552": {
+      "on": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317640": {
+      "on": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317632": {
+      "on": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317641": {
+      "on": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317643": {
+      "on": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317647": {
+      "on": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317648": {
+      "on": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317649": {
+      "on": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317652": {
+      "on": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317658": {
+      "on": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1212552": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317632": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317640": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317641": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317643": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317647": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002538": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002566": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002651": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1002715": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1083300": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1181004": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1192643": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1200595": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1211959": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317626": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317648": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317649": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317652": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     },
+     "coates|1317658": {
+      "at": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-02T23:21:33.274Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-22T06:10:22.490Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-03T00:36:33.680Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1fd93e6b-82fd-4b3a-91f9-9785ddb065ee",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T10:30:00+10:00",
+       "programmeDate": "2026-11-04",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-22T06:10:22.490Z",
+       "requiredKey": "[[\"fwf\",20]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 2,
+         "unitIds": [
+          "[\"WC07\",\"coates\",\"asset\",\"1083300\"]",
+          "[\"WC07\",\"coates\",\"asset\",\"1200595\"]"
+         ],
+         "numbers": [
+          "1083300",
+          "1200595"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC07\",\"coates\",\"asset\",\"1083300\"]",
+           "number": "1083300",
+           "owner": "coates",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC07\",\"coates\",\"asset\",\"1200595\"]",
+           "number": "1200595",
+           "owner": "coates",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.114Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1212552",
+      "ready": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317640",
+      "ready": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317632",
+      "ready": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317641",
+      "ready": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317643",
+      "ready": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317647",
+      "ready": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317648",
+      "ready": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317649",
+      "ready": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317652",
+      "ready": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317658",
+      "ready": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1212552",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:19:46.092Z"
+     },
+     {
+      "unit": "coates|1317632",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:10.528Z"
+     },
+     {
+      "unit": "coates|1317640",
+      "pickup": "2026-11-03T10:50:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:22.691Z"
+     },
+     {
+      "unit": "coates|1317641",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:42.099Z"
+     },
+     {
+      "unit": "coates|1317643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:20:56.092Z"
+     },
+     {
+      "unit": "coates|1317647",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:18.759Z"
+     },
+     {
+      "unit": "coates|1002538",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002566",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002651",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1002715",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1083300",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1181004",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1192643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1200595",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1211959",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1212552",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317626",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317632",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317640",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317641",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317643",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317647",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317648",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317649",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317652",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     },
+     {
+      "unit": "coates|1317658",
+      "pickup": "2026-11-03T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-02T23:21:33.274Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:36:02.178Z"
+    },
+    "loading872": {
+     "u1181004": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:40.045Z"
+     },
+     "u1002538": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:51.245Z"
+     },
+     "u1317647": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:06.084Z"
+     },
+     "u1212552": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:12.171Z"
+     },
+     "u1002566": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:18.906Z"
+     },
+     "u1083300": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:26.412Z"
+     },
+     "u1200595": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:30.941Z"
+     },
+     "u1317652": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:38.556Z"
+     },
+     "u1211959": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:10.552Z"
+     },
+     "u1002715": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:18.882Z"
+     },
+     "u1002651": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:24.146Z"
+     },
+     "u1317658": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:29.098Z"
+     },
+     "u1192643": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:36.426Z"
+     },
+     "u1317632": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:41.470Z"
+     },
+     "u1317649": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:49.152Z"
+     },
+     "u1317743": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:00.325Z"
+     },
+     "u1317641": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:09.349Z"
+     },
+     "u1317648": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:15.988Z"
+     },
+     "u1317626": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:22.056Z"
+     },
+     "u1317640": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:29.616Z"
+     }
+    },
+    "_k": "WC07"
+   },
+   "delivery/WC01": {
+    "state": "on site",
+    "set_at": "2026-09-28T05:08:44.417Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T01:48:21.897Z",
+    "pickup1238_units": {
+     "coates|1317644": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:45:41.791Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T05:08:44.417Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T05:08:44.417Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-02T01:48:22.784Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "5cdac875-26be-4b65-9a17-c9ed2c5fbfbd",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T11:45:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T05:08:44.417Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Accessible Toilet",
+         "n": 1,
+         "unitIds": [
+          "[\"WC01\",\"coates\",\"asset\",\"1317644\"]"
+         ],
+         "numbers": [
+          "1317644"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC01\",\"coates\",\"asset\",\"1317644\"]",
+           "number": "1317644",
+           "owner": "coates",
+           "item": "Accessible Toilet"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-03T00:36:34.552Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "bc8f7eee-0ed1-4773-b544-6a64392cba0a",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T10:30:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T05:08:44.417Z",
+       "requiredKey": "[[\"accessible toilet\",1],[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC01\",\"coates\",\"asset\",\"1211958\"]"
+         ],
+         "numbers": [
+          "1211958"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC01\",\"coates\",\"asset\",\"1211958\"]",
+           "number": "1211958",
+           "owner": "coates",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T05:08:44.417Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T01:48:21.897Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317644",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:45:41.791Z"
+     }
+    ],
+    "_k": "WC01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
