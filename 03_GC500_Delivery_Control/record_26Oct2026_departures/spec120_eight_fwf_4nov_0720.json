@@ -1,0 +1,10 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 19:2x AEST: \"Leaving at 720am / 1211974 1317658 1317643 1317641 1317632 1211963 1200601 1317626 1317640\" (Wed 4 Nov 07:20). Eight of the nine are on site on the record: WC50 1211974 (its only FWF), WC12 1200601 and 1211963 (its last two), WC07 1317658, 1317643, 1317641, 1317626 and 1317640 (five of its last six). 1317632 is already recorded as left on 3 Nov 10:30 (run 118), and WC07's sixth unit on site is 1317647: held until Andrew says which number left on 3 Nov and which leaves on 4 Nov. Each reference ticked Emptied. Applied at or after the time only, and only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC50", "at": "2026-11-04T07:20:00+10:00", "nos": ["1211974"], "unnumbered": [], "complete": true},
+  {"op": "depart", "ref": "WC12", "at": "2026-11-04T07:20:00+10:00", "nos": ["1200601", "1211963"], "unnumbered": [], "complete": true},
+  {"op": "depart", "ref": "WC07", "at": "2026-11-04T07:20:00+10:00", "nos": ["1317658", "1317643", "1317641", "1317626", "1317640"], "unnumbered": [], "complete": false}
+ ]
+}
