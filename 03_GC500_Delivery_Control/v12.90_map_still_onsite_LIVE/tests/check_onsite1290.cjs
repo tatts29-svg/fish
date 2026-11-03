@@ -107,6 +107,16 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   });
   check('Restoration starts from actual nonempty search results',result.normalSelection.marks.length>0);
   const button=child.locator('#still-onsite1290');check('One-press control is visible',await button.isVisible());
+  await child.evaluate(()=>{
+   const b=document.getElementById('still-onsite1290'),original=b.onclick;
+   const snapshot=()=>({category:document.querySelector('#chips [data-cat][aria-pressed=true]')?.dataset.cat||null,marks:marks.map(m=>({code:m.it.code,c:m.c}))});
+   let expected=null,cycle=0;window.__onsite1290Transitions=[];
+   b.onclick=function(){const was=GC500StillOnSite1290.active,before=snapshot(),value=original.apply(this,arguments),now=GC500StillOnSite1290.active,after=snapshot();
+    if(!was&&now){expected=before;window.__onsite1290Transitions.push({type:'on',cycle:++cycle,before,after});}
+    if(was&&!now)window.__onsite1290Transitions.push({type:'off',cycle,expected,before,after});
+    return value;
+   };
+  });
   await button.tap();await waitPaint();await p.waitForTimeout(250);
   result.active=await state();check('One real tap enables Still on site',result.active.active&&await button.getAttribute('aria-pressed')==='true');
   const activeKeys=new Set(result.active.refs.map(r=>r.key));
@@ -115,10 +125,22 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   check('Reference count is not a fabricated unit count',result.active.references===new Set(result.active.refs.map(r=>r.key)).size);
   result.nativeVms=result.native.boards.filter(b=>b.on&&!b.departure).map(b=>({key:b.key,covered:activeKeys.has(b.key)||activeKeys.has(b.delivery)}));
   check('On-site physical VMS boards are represented',result.nativeVms.every(b=>b.covered));
-  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));
+  await button.tap();await waitPaint();
+  // A fresh native chip rebuild can legitimately clear the category between
+  // preparing the first search and the physical tap. Exercise a non-null
+  // category separately from search through its real click handler and the
+  // toggle's handler in one task, before an unrelated resize/rebuild can occur.
+  result.controlledCategory=await child.evaluate(()=>{
+   const cat=ITEMS.find(it=>it.cat?.host==='trade'&&it.places?.length)?.cat.id,chip=[...document.querySelectorAll('#chips [data-cat]')].find(b=>b.dataset.cat===cat);
+   if(!chip)return {available:false};if(chip.getAttribute('aria-pressed')!=='true')chip.click();stopCameraMotion813();panel813(false);
+   const category=document.querySelector('#chips [data-cat][aria-pressed=true]')?.dataset.cat||null,n=marks.length;document.getElementById('still-onsite1290').click();
+   return {available:true,category,marks:n,active:GC500StillOnSite1290.active};
+  });
+  check('A real category click and toggle exercise non-null restoration',result.controlledCategory.category&&result.controlledCategory.marks>0&&result.controlledCategory.active);
+  await waitPaint();await button.tap();await waitPaint();
   await p.setViewportSize({width:390,height:844});await p.waitForTimeout(250);await button.tap();await waitPaint();
   await shot('initial-phone');
-  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));
+  await button.tap();await waitPaint();
   await p.setViewportSize({width:1153,height:1280});await p.waitForTimeout(250);await button.tap();await waitPaint();
   const chosen=await child.evaluate(()=>GC500StillOnSite1290.state.refs.find(r=>r.mapped&&GC500Shape1060.projected1288(r.code)&&parent.gc500MapShapes1060().refs[r.code]?.comps.some(c=>c.doors.length))?.code||GC500StillOnSite1290.state.refs.find(r=>r.mapped&&GC500Shape1060.projected1288(r.code))?.code);
   check('An authoritative remaining reference has supplied geometry',!!chosen);
@@ -226,10 +248,15 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
    await p.evaluate(()=>{window.Departure1211=window.__onsite1290OriginalReaders.departure;window.VmsEquipment1103=window.__onsite1290OriginalReaders.vms;delete window.__onsite1290OriginalReaders;delete window.__onsite1290Rows;});
    await child.evaluate(()=>GC500StillOnSite1290.refresh());await waitPaint();
   }
-  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));await waitPaint();
+  await button.tap();await waitPaint();
   result.off=await state();check('Toggle off restores the ordinary map mode',!result.off.active&&await button.getAttribute('aria-pressed')==='false');
   result.selectionRestored=await child.evaluate(()=>({category:document.querySelector('#chips [data-cat][aria-pressed=true]')?.dataset.cat||null,marks:marks.map(m=>({code:m.it.code,c:m.c}))}));
-  check('Toggle off restores the previous category and search marks',JSON.stringify(result.selectionRestored)===JSON.stringify(result.normalSelection));
+  // Phone captures above contain separate off/resize/on cycles. Compare each
+  // restoration with that activation's immediate pre-click state, not the first
+  // activation's historical category before intervening viewport rebuilds.
+  result.restoreCycles=await child.evaluate(()=>window.__onsite1290Transitions.filter(t=>t.type==='off'));
+  check('Each toggle off exactly restores its own pre-activation category and search marks',result.restoreCycles.length>=3&&result.restoreCycles.every(t=>JSON.stringify(t.after)===JSON.stringify(t.expected)));
+  check('Category restoration includes a non-null selected category and nonempty search',result.restoreCycles.some(t=>t.expected.category&&t.expected.marks.length));
   const gone=await child.evaluate(()=>ITEMS.find(it=>mapStatus1009(it)?.offsite1225&&GC500Shape1060.projected1288(it.code))?.code);
   if(gone){await focus(gone,'original',0,180);await waitPaint();result.restored=await capture(gone);check('Turning off restores ordinary native canvas and departed equipment markers',result.restored.nativeCanvasVisible&&result.restored.sourceCanvasVisible&&result.restored.departureMarkers.some(m=>m.code===gone));}
   // A stale selected item must not leak into the filtered 3D view. Check actual
@@ -280,7 +307,7 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
    result.allowedAfterRefusal=await child.evaluate(()=>{const c=document.getElementById('xcard');return {selected:selected?.code,visible:!!c&&!c.hidden&&c.getBoundingClientRect().height>0};});
    check('An allowed reference card remains usable after an excluded search',result.allowedAfterRefusal.selected===chosen&&result.allowedAfterRefusal.visible);
   }
-  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));await waitPaint();
+  await button.tap();await waitPaint();
   await p.setViewportSize({width:390,height:844});await p.waitForTimeout(250);await button.tap();await waitPaint();
   await p.waitForTimeout(1100);
   result.phoneOverlays=await child.evaluate(()=>{
@@ -300,6 +327,8 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
    times.sort((a,b)=>a-b);return {samples:times.length,modelReads:reads,medianMs:times[Math.floor(times.length/2)],maxMs:times.at(-1),scope:'Synchronous map overlay paint only; deferred labels, network and frame scheduling are not included'};
   });
   check('Repeated map paints use cached collection results',result.paintPerformance.samples===10&&result.paintPerformance.modelReads===0);
+  result.allToggleTransitions=await child.evaluate(()=>window.__onsite1290Transitions);
+  check('Later 3D and search cycles also restore their matching pre-activation state',result.allToggleTransitions.filter(t=>t.type==='off').every(t=>JSON.stringify(t.after)===JSON.stringify(t.expected)));
   await p.waitForTimeout(1800); // Let the earlier intentional excluded-search toast expire.
   await shot('still-onsite-phone');
   result.errors=session.errors.map(safe);result.recordWrites=session.counts.blocked;

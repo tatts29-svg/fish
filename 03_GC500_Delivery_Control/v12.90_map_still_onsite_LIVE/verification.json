@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "LIVE",
   "base": {
     "version": "v12.89",
     "sha256": "89993cbd62c29f0a28b3dc5edc4365e8baab03a0af4858633441acc6faacab40",
@@ -41,5 +41,20 @@
   "consoleErrors": 0,
   "attemptedRecordWrites": 0,
   "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
-  "liveReadback": "PENDING"
+  "liveReadback": {
+    "independentPublicBytes": "PASS",
+    "sha256": "ec56ffe5ef53670d286db566bd968366dfc366ad25edf6f2aa753076b10fc3e8",
+    "bytes": 16979844,
+    "focusedBrowser": 66,
+    "noLocalPageSubstitution": true,
+    "matchedToggleCycles": 6,
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "attemptedRecordWrites": 0,
+    "machineUnchanged": true,
+    "sharedRecordUnchangedAcrossPublication": true,
+    "phoneAndTabletVisualReview": "PASS"
+  },
+  "publishedAt": "2026-11-03T03:31:06.138Z",
+  "readySourceCommit": "98b4847a03865f0a644ab7d198648d4cd5fbed4a"
 }

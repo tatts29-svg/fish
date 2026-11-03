@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-PUBLISHED at 13:31 AEST on 3 Nov 2026 from READY source `98b4847a03865f0a644ab7d198648d4cd5fbed4a`. Independent public bytes match the final candidate. Final live UI verification is completing; the release folder will be marked LIVE when its receipt is recorded.
+LIVE — 3 Nov 2026 at 13:31 AEST (`2026-11-03T03:31:06.138Z`), from READY source `98b4847a03865f0a644ab7d198648d4cd5fbed4a`. The guarded upload and independent public read-back match every final byte. Fresh live UI verification passes all 66 checks without a local page substitution.
 
 A visible Still on site button highlights equipment remaining to collect using the native departure projection. Partly collected groups retain their remaining quantities; missing quantities and review cases stay explicit. It preserves the source plan footprints and recorded door geometry introduced in v12.88. The toggle changes presentation only, with no operational or financial writes.
 
@@ -33,3 +33,9 @@ Final candidate: `ec56ffe5ef53670d286db566bd968366dfc366ad25edf6f2aa753076b10fc3
 The functional candidate also passes the existing 43-check departed-footprint regression, the retained-map/photographic-3D regression, and desktop/phone sweeps of 27 tabs, seven deep links and Back. All report zero runtime/console errors and zero attempted record writes. The final CSS-only change affects the active filter; those JavaScript and inactive-view checks remain applicable by the exact byte comparison above. The optional third page argument to `check_scope1290.py` verifies this comparison.
 
 Independent source and phone/tablet visual review are complete. Implementation, model review and independent review were split between separate reviewers; no review or receipt by the other publishing agent is assumed. Detailed operational evidence stays private. Shared records can advance during checks; no unchanged-record claim is made for the whole session.
+
+## Live verification and handover
+
+Independent public page: `ec56ffe5ef53670d286db566bd968366dfc366ad25edf6f2aa753076b10fc3e8`, 16,979,844 bytes. The machine hash remains unchanged. The shared record is identical in the immediate before/after-publication reads; no record writes were attempted by any test.
+
+Fresh public-view checks pass 66/66, including actual orange source footprints/doors, shared remaining quantities, VMS picks and refresh, visible 3D equipment, and six matched on/off cycles. Category-only and search-only interactions are checked separately, each against its own pre-activation state; runtime errors, console errors and attempted writes are zero. Actual live phone/tablet screenshots were reviewed. The release is complete; future work starts from these live bytes.
