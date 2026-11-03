@@ -43,6 +43,8 @@ def apply(text):
     ])
     src=(HERE/'still_onsite1290_src.js').read_text()
     script('spot1117-script', [
+      ("const label=q.code+' · '+count,sub=!q.shape?'Outline unassigned':q.provenance==='mixed'?'Includes catalogue':standard?'Catalogue outline':'';", "const label=q.code+' · '+(q.onsite&&small&&q.n!==null?q.n:count),sub=q.onsite&&small?'':!q.shape?'Outline unassigned':q.provenance==='mixed'?'Includes catalogue':standard?'Catalogue outline':'';",'compact reference labels at overview'),
+      ("q.code===selected?.code||!q.shape);", "q.code===selected?.code||!q.shape&&!(q.onsite&&small));",'avoid forcing overlapping overview tags'),
       ("function fitKnown(rect,label){const [x0,y0,x1,y1]=rect,rot=camera.rot||0,z=Math.max(.005,Math.min(MAX_Z,fitZoomFor(x1-x0,y1-y0,rot,150)));", "function fitKnown(rect,label,padding=150){const [x0,y0,x1,y1]=rect,rot=camera.rot||0,z=Math.max(.005,Math.min(MAX_Z,fitZoomFor(x1-x0,y1-y0,rot,padding)));",'optional fit padding preserves native search'),
       ("window.fitSearch1211=(rect,label)=>fitKnown(rect,label);", "window.fitSearch1211=(rect,label,padding)=>fitKnown(rect,label,padding);",'fit padding adapter'),
       ("departed:mapStatus1009(it)?.departure1211?.complete===true", "onsite:!!window.GC500StillOnSite1290?.active,onsiteReview:!!window.GC500StillOnSite1290?.row(it)?.review,onsiteUnknown:!!window.GC500StillOnSite1290?.row(it)?.unknown,departed:!window.GC500StillOnSite1290?.active&&mapStatus1009(it)?.departure1211?.complete===true",'VMS uses collection filter status'),

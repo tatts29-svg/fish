@@ -91,6 +91,7 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   await p.waitForFunction(()=>typeof go==='function'&&!!document.getElementById('expFrame'),null,{timeout:30000});await p.evaluate(()=>go('map'));
   await p.waitForFunction(()=>{const w=document.getElementById('expFrame')?.contentWindow;return w?.__ready&&w.GC500StillOnSite1290&&w.GC500Shape1060?.projected1288;},null,{timeout:45000});
   child=p.frames().find(f=>new URL(f.url()).pathname.endsWith('/explorer/index.html'));assert(child,'Explorer iframe missing');
+  result.explorerScripts=await child.evaluate(()=>[...document.scripts].filter(s=>s.src).map(s=>{const u=new URL(s.src);return {file:u.pathname.split('/').at(-1),version:u.searchParams.get('v')};}));
   await child.waitForFunction(()=>MapUnits1147.state.ready&&GC500Shape1060.state.available&&GC500StillOnSite1290.state.ready,null,{timeout:30000});
   await child.evaluate(()=>GC500StillOnSite1290.setActive(false));
   result.native=await child.evaluate(()=>{
@@ -114,6 +115,11 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   check('Reference count is not a fabricated unit count',result.active.references===new Set(result.active.refs.map(r=>r.key)).size);
   result.nativeVms=result.native.boards.filter(b=>b.on&&!b.departure).map(b=>({key:b.key,covered:activeKeys.has(b.key)||activeKeys.has(b.delivery)}));
   check('On-site physical VMS boards are represented',result.nativeVms.every(b=>b.covered));
+  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));
+  await p.setViewportSize({width:390,height:844});await p.waitForTimeout(250);await button.tap();await waitPaint();
+  await shot('initial-phone');
+  await child.evaluate(()=>GC500StillOnSite1290.setActive(false));
+  await p.setViewportSize({width:1153,height:1280});await p.waitForTimeout(250);await button.tap();await waitPaint();
   const chosen=await child.evaluate(()=>GC500StillOnSite1290.state.refs.find(r=>r.mapped&&GC500Shape1060.projected1288(r.code)&&parent.gc500MapShapes1060().refs[r.code]?.comps.some(c=>c.doors.length))?.code||GC500StillOnSite1290.state.refs.find(r=>r.mapped&&GC500Shape1060.projected1288(r.code))?.code);
   check('An authoritative remaining reference has supplied geometry',!!chosen);
   result.paints=[];
@@ -186,6 +192,36 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
     check('Unavailable state is explained without a false zero result',/not available|checking/i.test(unavailableText)&&!/(?:\b0 references|no recorded arrivals remain)/i.test(unavailableText));
     await child.locator('#still-onsite-panel1290 [data-close]').tap();
    }finally{await p.evaluate(()=>{window.gc500MapStatus1009=window.__onsite1290Health;delete window.__onsite1290Health;});}
+   const vmsPosition=await child.evaluate(()=>{
+    const p=parent.VMS1024.boards().find(p=>!p.session&&!p.moves_to&&ITEMS.some(it=>it.location1210?.kind==='vms'&&norm(it.code)===norm(parent.VMS1024.label(p))&&it.places.length));
+    return p?{pos:p.pos,code:ITEMS.find(it=>it.location1210?.kind==='vms'&&norm(it.code)===norm(parent.VMS1024.label(p))).code}:null;
+   });assert(vmsPosition,'Need one existing canonical VMS position for a read-only presentation fixture');
+   result.vmsFixtures=[];
+   for(const variant of ['review','unknown']){
+    await p.evaluate(({pos,variant})=>{
+     window.__onsite1290Rows=[{key:'VMS_READER_FIXTURE1290',arrival:true,collected:0,remaining:0,complete:false,unknown:variant==='unknown',issues:variant==='review'?['Synthetic quantity review']:[],items:[{type:'VMS',n:0}],label:'Synthetic presentation fixture'}];
+     window.VmsEquipment1103={...window.__onsite1290OriginalReaders.vms,model:()=>({boards:[{key:'BOARD_READER_FIXTURE1290',delivery:'VMS_READER_FIXTURE1290',on:true,departure1211:null,positions:[{pos}]}]})};
+    },{pos:vmsPosition.pos,variant});
+    await child.evaluate(code=>{
+     GC500StillOnSite1290.refresh();GC500Explorer.setMode('original');stopCameraMotion813();clearSelection813();
+     const it=ITEMS.find(x=>x.code===code&&x.location1210?.kind==='vms'&&x.places?.length);if(!it)throw new Error('VMS fixture target unavailable after refresh');const b=it.places[0],q=toGeo((b[0]+b[2])/2,(b[1]+b[3])/2);camera.cx=q.x;camera.cy=q.y;camera.rot=0;camera.z=Math.min(MAX_Z,2/fitScale);requestPaint();
+    },vmsPosition.code);await waitPaint();
+    const actual=await child.evaluate(code=>{const b=[...document.querySelectorAll('#vmsicons1211 button')].find(b=>b.dataset.vms1211===code),n=b?.querySelector('small');return {code,exists:!!b,visible:!!b?.getBoundingClientRect().height,note:n?.innerText||'',review:b?.dataset.onsiteReview,departed:b?.dataset.departed,noteBackground:n?getComputedStyle(n).backgroundColor:'',row:GC500StillOnSite1290.state.refs[0]};},vmsPosition.code);
+    result.vmsFixtures.push({variant,...actual});
+    check('VMS '+variant+' uses the visible review label and tint without inventing a zero quantity',actual.visible&&actual.review==='true'&&actual.departed!=='true'&&actual.note===(variant==='review'?'REVIEW':'QTY TO CONFIRM')&&actual.noteBackground==='rgb(255, 170, 163)'&&!/0.*collect|left site/i.test(actual.note));
+    if(variant==='review'){
+     const selector=await child.evaluate(code=>'#vmsicons1211 button[data-vms1211="'+CSS.escape(code)+'"]',vmsPosition.code);
+     await child.locator(selector).tap();await p.waitForTimeout(120);
+     const tapped=await child.evaluate(()=>{const c=document.getElementById('xcard');return {code:selected?.code,kind:selected?.location1210?.kind,placed:!!selected?.places?.length,cardVisible:!!c&&!c.hidden&&c.getBoundingClientRect().height>0};});
+     check('Touching a mapped VMS opens its location card despite legacy duplicate codes',tapped.code===vmsPosition.code&&tapped.kind==='vms'&&tapped.placed&&tapped.cardVisible);
+     await child.locator('#still-onsite-list1290').tap();
+     await child.locator('[data-onsite-ref="VMS_READER_FIXTURE1290"] [data-locate]').tap();await p.waitForTimeout(120);
+     const shown=await child.evaluate(()=>{const c=document.getElementById('xcard');return {code:selected?.code,kind:selected?.location1210?.kind,placed:!!selected?.places?.length,cardVisible:!!c&&!c.hidden&&c.getBoundingClientRect().height>0};});
+     check('The list Show action opens the same mapped VMS location card',shown.code===vmsPosition.code&&shown.kind==='vms'&&shown.placed&&shown.cardVisible);
+     const refreshedCard=await child.evaluate(()=>{const refreshed=GC500ExplorerRefreshCard897(),c=document.getElementById('xcard');return {refreshed,code:selected?.code,kind:selected?.location1210?.kind,placed:!!selected?.places?.length,visible:!!c&&!c.hidden&&c.getBoundingClientRect().height>0,text:c?.innerText||''};});
+     check('Native VMS card refresh retains the mapped location',refreshedCard.refreshed&&refreshedCard.code===vmsPosition.code&&refreshedCard.kind==='vms'&&refreshedCard.placed&&refreshedCard.visible&&!/no place on the master plan/i.test(refreshedCard.text));
+    }
+   }
   }finally{
    await p.evaluate(()=>{window.Departure1211=window.__onsite1290OriginalReaders.departure;window.VmsEquipment1103=window.__onsite1290OriginalReaders.vms;delete window.__onsite1290OriginalReaders;delete window.__onsite1290Rows;});
    await child.evaluate(()=>GC500StillOnSite1290.refresh());await waitPaint();
@@ -201,6 +237,7 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   await child.evaluate(()=>GC500Explorer.mode3d(true));
   await child.waitForFunction(()=>document.getElementById('model3d')?.contentWindow?.GC500_3D?.state?.ready&&GC500StillOnSite1290.state.three?.hooked,null,{timeout:90000});
   const third=p.frames().find(f=>new URL(f.url()).pathname.endsWith('/poc3d/index.html'));assert(third,'3D iframe missing');
+  result.threeScripts=await third.evaluate(()=>[...document.scripts].filter(s=>s.src).map(s=>{const u=new URL(s.src);return {file:u.pathname.split('/').at(-1),version:u.searchParams.get('v')};}));
   result.threeBefore=await third.evaluate(()=>({pins:window.__pendingPins.map(p=>({k:p.k,ll:p.ll,c:p.c,n:p.n})),state:GC500EquipmentView1027.state}));
   const priorGone=result.threeBefore.pins.some(p=>p.k===gone)?gone:result.threeBefore.pins.find(p=>!result.active.refs.some(r=>r.codes.includes(p.k)))?.k;
   if(priorGone)await third.evaluate(code=>GC500_3D.ring(code),priorGone);
@@ -221,7 +258,12 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
   check('A real remaining equipment model is visible at close range in 3D',result.threeFocused.models.some(m=>m.ref===chosen&&m.ready)&&result.threeFocused.models.every(m=>allowed.has(norm(m.ref))));
   await button.tap();await waitPaint();await p.waitForTimeout(150);
   result.threeRestored=await third.evaluate(()=>window.__pendingPins.map(p=>({k:p.k,ll:p.ll,c:p.c,n:p.n})));
-  check('Turning the filter off restores the original 3D pins, positions and colours',JSON.stringify(result.threeRestored)===JSON.stringify(result.threeBefore.pins));
+  // Native 3D setPins reuses objects by key: duplicate removal-spot aliases can
+  // already share the last description. Check the complete pin multiset and
+  // retain strict description checks for every unambiguous unique pin.
+  const keyCounts=new Map();result.threeBefore.pins.forEach(p=>keyCounts.set(p.k,(keyCounts.get(p.k)||0)+1));
+  const comparable=ps=>ps.map(p=>({k:p.k,ll:p.ll,c:p.c,...(keyCounts.get(p.k)===1?{n:p.n}:{})}));
+  check('Turning the filter off restores the original 3D pins, positions and colours',JSON.stringify(comparable(result.threeRestored))===JSON.stringify(comparable(result.threeBefore.pins)));
   await child.evaluate(()=>{GC500Explorer.mode3d(false);GC500Explorer.setMode('original');});
   await button.tap();await waitPaint();
   const departedVms=await child.evaluate(()=>ITEMS.find(it=>it.location1210?.kind==='vms'&&mapStatus1009(it)?.offsite1225&&!GC500StillOnSite1290.row(it))?.code);
@@ -234,6 +276,9 @@ async function shot(name){await session.page.waitForTimeout(900);await child.loc
    await child.evaluate(code=>{GC500Search1210.search(code);GC500Search1210.select(code);requestPaint();},gone);await waitPaint();
    result.excludedSearch=await child.evaluate(code=>{const card=document.getElementById('xcard'),visible=card&&!card.hidden&&card.getBoundingClientRect().height>0;return {code,selected:selected?.code||null,cardVisible:!!visible,cardText:visible?card.innerText:''};},gone);
    check('Searching an excluded reference cannot reopen its selection card',result.excludedSearch.selected!==gone&&(!result.excludedSearch.cardVisible||!norm(result.excludedSearch.cardText).includes(norm(gone))));
+   await child.evaluate(code=>{GC500Search1210.search(code);GC500Search1210.select(code);requestPaint();},chosen);await waitPaint();
+   result.allowedAfterRefusal=await child.evaluate(()=>{const c=document.getElementById('xcard');return {selected:selected?.code,visible:!!c&&!c.hidden&&c.getBoundingClientRect().height>0};});
+   check('An allowed reference card remains usable after an excluded search',result.allowedAfterRefusal.selected===chosen&&result.allowedAfterRefusal.visible);
   }
   await child.evaluate(()=>GC500StillOnSite1290.setActive(false));await waitPaint();
   await p.setViewportSize({width:390,height:844});await p.waitForTimeout(250);await button.tap();await waitPaint();

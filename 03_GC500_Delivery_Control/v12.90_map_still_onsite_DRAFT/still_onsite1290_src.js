@@ -71,7 +71,7 @@ function stillOnSite1290(){
   panel.querySelectorAll('[data-locate]').forEach(b=>b.onclick=()=>{const r=entries[Number(b.dataset.locate)],it=r?.items.find(x=>x.places?.length);if(!it)return;panel.hidden=true;window.GC500Explorer?.find?.(it.code);});
  }
  function showList(){if(!panel){panel=document.createElement('section');panel.id='still-onsite-panel1290';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-label','Equipment still on site');document.getElementById('stage').appendChild(panel);panel.addEventListener('keydown',ev=>{if(ev.key==='Escape'){ev.preventDefault();closeList();}if(ev.key==='Tab'){const bs=[...panel.querySelectorAll('button')],a=bs[0],z=bs.at(-1);if(ev.shiftKey&&document.activeElement===a){ev.preventDefault();z?.focus();}else if(!ev.shiftKey&&document.activeElement===z){ev.preventDefault();a?.focus();}}});}renderList();panel.hidden=false;panel.querySelector('[data-close]').focus();}
- function fitOnce(){const boxes=mappedItems().flatMap(it=>it.places.map(b=>geoRect(b)));if(!boxes.length)return;const x0=Math.min(...boxes.map(b=>b[0])),y0=Math.min(...boxes.map(b=>b[1])),x1=Math.max(...boxes.map(b=>b[2])),y1=Math.max(...boxes.map(b=>b[3])),m=Math.max(18,Math.max(x1-x0,y1-y0)*.05);window.fitSearch1211?.([x0-m,y0-m,x1+m,y1+m],'Still on site · '+entries.filter(r=>r.mapped).length+' references',56);}
+ function fitOnce(){const boxes=mappedItems().flatMap(it=>it.places.map(b=>geoRect(b)));if(!boxes.length)return;const x0=Math.min(...boxes.map(b=>b[0])),y0=Math.min(...boxes.map(b=>b[1])),x1=Math.max(...boxes.map(b=>b[2])),y1=Math.max(...boxes.map(b=>b[3])),m=Math.max(18,Math.max(x1-x0,y1-y0)*.05),w=x1-x0+2*m,h=y1-y0+2*m,turn=(camera.rot||0)+90;stopCameraMotion813();if(sh>sw*1.1&&fitZoomFor(w,h,turn,56)>fitZoomFor(w,h,camera.rot||0,56)*1.2)camera.rot=turn%360;window.fitSearch1211?.([x0-m,y0-m,x1+m,y1+m],'Still on site · '+entries.filter(r=>r.mapped).length+' references',56);}
  const clonePins=ps=>(ps||[]).map(p=>({...p,ll:Array.isArray(p.ll)?p.ll.slice():p.ll}));
  function install3d(){
   const bridge=window.GC500EquipmentBridge1027;
@@ -87,19 +87,50 @@ function stillOnSite1290(){
   window.GC500ExplorerRepin?.();return true;
  }
  function update3d(){install3d();three?.apply?.();}
- function refresh(force=false){const next=read();ready=!!next;if(!next){signature='';entries=[];cachedItems=[];byCode.clear();controls();update3d();requestPaint();return;}const sig=JSON.stringify(next.map(r=>[r.key,r.remaining,r.unknown,r.review,r.partial,r.locationReview,r.codes,r.items.map(it=>it.places)]));if(!force&&sig===signature)return;signature=sig;entries=next;cachedItems=[...new Map(entries.flatMap(r=>r.items).filter(it=>it.places?.length).map(it=>[N(it.code),it])).values()];byCode=new Map(entries.flatMap(r=>r.codes.map(c=>[N(c),r])));if(active&&selected&&!row(selected))clearSelection813();controls();update3d();requestPaint();}
+ function refresh(force=false){guardSelection();const next=read();ready=!!next;if(!next){signature='';entries=[];cachedItems=[];byCode.clear();controls();update3d();requestPaint();return;}const sig=JSON.stringify(next.map(r=>[r.key,r.remaining,r.unknown,r.review,r.partial,r.locationReview,r.codes,r.items.map(it=>it.places)]));if(!force&&sig===signature)return;signature=sig;entries=next;cachedItems=[...new Map(entries.flatMap(r=>r.items).filter(it=>it.places?.length).map(it=>[N(it.code),it])).values()];byCode=new Map(entries.flatMap(r=>r.codes.map(c=>[N(c),r])));if(active&&selected&&!row(selected))clearSelection813();controls();update3d();requestPaint();}
  function setActive(on){on=on===true;refresh();if(on===active||on&&!ready)return active;
   if(on){saved={marks:marks.map(m=>({code:m.it.code,c:m.c})),fencing:!!window.GC500FencingMap?.active,fenceRef:window.GC500FencingMap?.selected,category:document.querySelector('#chips [data-cat][aria-pressed=true]')?.dataset.cat||null};active=true;window.GC500FencingMap?.close?.();clearSelection813();window.GC500Explorer?.fencingAdapter?.clearSelection?.();document.querySelectorAll('#chips [data-cat]').forEach(b=>b.setAttribute('aria-pressed','false'));fitOnce();}
   else{active=false;clearSelection813();if(saved){showCategory(saved.category);document.querySelectorAll('#chips [data-cat]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.cat===saved.category)));marks=saved.marks.map(m=>({it:ITEMS.find(it=>it.code===m.code),c:m.c})).filter(m=>m.it);if(saved.fencing)window.GC500FencingMap?.open?.(saved.fenceRef);}saved=null;}
   controls();update3d();if(on&&window.GC500Explorer?.is3d?.())three?.api.fly('overhead',500);requestPaint();return active;
  }
- const draw=drawMarks;drawMarks=function(){if(!active)return draw.apply(this,arguments);const prior=marks;marks=mappedItems().map(it=>({it,c:row(it).review?REVIEW:ORANGE}));try{return draw.apply(this,arguments);}finally{marks=prior;}};
+ const draw=drawMarks;drawMarks=function(){guardSelection();if(!active)return draw.apply(this,arguments);const prior=marks;marks=mappedItems().map(it=>({it,c:row(it).review?REVIEW:ORANGE}));try{return draw.apply(this,arguments);}finally{marks=prior;}};
  toggle.onclick=()=>setActive(!active);list.onclick=showList;
  // Reuse the native on-screen record refresh; no model work or animation loop on paint.
- const choose=selectCode;selectCode=function(code){if(active&&!row(String(code))){clearSelection813();document.getElementById('toast')?.classList.remove('show');return false;}return choose.apply(this,arguments);};
+ let selectGuard=null,cardGuard=null;
+ function guardSelection(){
+  const refreshCard=window.GC500ExplorerRefreshCard897;
+  if(typeof refreshCard==='function'&&refreshCard!==cardGuard){
+   cardGuard=function(){
+    if(!active)return refreshCard.apply(this,arguments);
+    const r=row(selected?.code);if(!r){window.GC500Explorer?.clearPick813?.();const card=document.getElementById('xcard');if(card)card.hidden=true;return false;}
+    const targets=r.items.filter(it=>N(it.code)===N(selected?.code)&&it.places?.length);
+    if(targets.length!==1)return refreshCard.apply(this,arguments);
+    const prior=ITEMS,target=targets[0];ITEMS=[target,...prior.filter(it=>it!==target)];
+    try{return refreshCard.apply(this,arguments);}finally{ITEMS=prior;}
+   };
+   window.GC500ExplorerRefreshCard897=cardGuard;
+  }
+  if(selectCode===selectGuard)return;
+  const choose=selectCode;
+  selectGuard=function(code){
+   if(!active)return choose.apply(this,arguments);
+   const r=row(String(code));
+   if(!r){clearSelection813();window.GC500Explorer?.clearPick813?.();const card=document.getElementById('xcard');if(card)card.hidden=true;document.getElementById('toast')?.classList.remove('show');return false;}
+   const matches=r.items.filter(it=>N(it.code)===N(code)&&it.places?.length);
+   if(matches.length!==1)return choose.apply(this,arguments);
+   // Some physical VMS positions share a label with an unplaced register row.
+   // Resolve the already-validated mapped item for this synchronous native pick;
+   // restore the complete catalogue immediately, without changing its contents.
+   const prior=ITEMS,target=matches[0];ITEMS=[target,...prior.filter(it=>it!==target)];
+   try{return choose.apply(this,arguments);}finally{ITEMS=prior;}
+  };
+  if(choose.__merged)selectGuard.__merged=true;
+  selectCode=selectGuard;
+ }
+ guardSelection();
  const pull=complete897Pull;complete897Pull=function(){const result=pull.apply(this,arguments);refresh();return result;};
  for(const name of ['markAt','itemAt887']){const hit=window[name];window[name]=function(){if(!active)return hit.apply(this,arguments);const prior=marks;marks=mappedItems().map(it=>({it,c:row(it).review?REVIEW:ORANGE}));try{const value=hit.apply(this,arguments);return value?.it&&!row(value.it)?null:value;}finally{marks=prior;}};}
- let watched=null;const watch3d=()=>{const f=document.getElementById('model3d');if(f&&f!==watched){watched=f;f.addEventListener('load',()=>{install3d();if(active)three?.apply?.();});}install3d();};
+ let watched=null;const watch3d=()=>{guardSelection();const f=document.getElementById('model3d');if(f&&f!==watched){watched=f;f.addEventListener('load',()=>{install3d();if(active)three?.apply?.();});}install3d();};
  const mo=new MutationObserver(watch3d);mo.observe(document.getElementById('stage'),{childList:true});
  const ready3d=window.gc500Explorer3DReady813;if(typeof ready3d==='function')window.gc500Explorer3DReady813=function(){const result=ready3d.apply(this,arguments);watch3d();return result;};
  window.addEventListener('pagehide',e=>{if(!e.persisted){disposed=true;ro.disconnect();mo.disconnect();}});
