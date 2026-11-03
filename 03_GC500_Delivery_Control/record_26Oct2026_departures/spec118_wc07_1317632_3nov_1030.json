@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 11:0x AEST: \"Should of had 20 fwf go.today\", then, on 1317637 (on no reference; one digit from 1317632 and 1317647 on WC07): \"Must be the 632 number\". Coates FWF 1317632 on WC07 (contract 9968955, KINP; on Brenden Meek's 3 Nov 10:00 booking; WC07 ticked Emptied) left on the 10:30 truck: recorded through the page's own Record departure form in his name, the 20th FWF today. The count of 20 also settles 1002651 (sent as 1003651, run 116) as one of them. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC07", "at": "2026-11-03T10:30:00+10:00", "nos": ["1317632"], "unnumbered": [], "complete": false}
+ ]
+}
