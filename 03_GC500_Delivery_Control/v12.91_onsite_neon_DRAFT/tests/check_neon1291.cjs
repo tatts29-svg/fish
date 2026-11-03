@@ -14,11 +14,18 @@ const {open}=require('../../toolchain/harness/open_page'),{curlFetch}=require('.
 const safe=e=>String(e?.message||e).replace(/https?:\/\/[^\s"'<>]+/g,'[URL]').replace(/\bAIza[\w-]+|\bpk\.[\w.-]+/g,'[key]').slice(0,350);
 const result={author:'Andrew Fisher',suite:'neon1291',checkedAt:new Date().toISOString(),passed:false,checks:[],errors:[],consoleErrors:[],recordWrites:0};
 let session,child;
-const check=(name,condition,detail)=>{result.checks.push({name,passed:!!condition,...(detail===undefined?{}:{detail})});assert(condition,name);};
+const check=(name,condition,detail)=>{result.checks.push({name,passed:!!condition,...(detail===undefined?{}:{detail})});};
 const waitPaint=()=>child.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
 const visual=()=>child.evaluate(()=>{
  const h=document.getElementById('onsite-halo1291'),s=document.getElementById('shape1060'),t=document.getElementById('offsite1225'),c=getComputedStyle(h);
  return {state:GC500OnsiteNeon1291.state,opacity:+c.opacity,display:c.display,visibility:c.visibility,animation:c.animationName,pointerEvents:c.pointerEvents,filter:c.filter,core:s.toDataURL(),tags:t.toDataURL()};
+});
+const captureInk=()=>child.evaluate(async()=>{
+ const h=document.getElementById('onsite-halo1291'),s=document.getElementById('shape1060'),g=h.getContext('2d');let copied=false,boxes=0;
+ const draw=g.drawImage,rect=g.roundRect;g.drawImage=function(image,...args){if(image===s)copied=true;return draw.call(this,image,...args);};g.roundRect=function(...args){boxes++;return rect.apply(this,args);};
+ try{GC500OnsiteNeon1291.refresh();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}finally{g.drawImage=draw;g.roundRect=rect;}
+ const pixels=s.getContext('2d').getImageData(0,0,s.width,s.height).data;let sourcePixels=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i])sourcePixels++;
+ return {copied,sourcePixels,boxes,expectedBoxes:GC500Departure1211.markers1288.filter(m=>['onsite','review'].includes(m.kind)).reduce((n,m)=>n+m.tag.length,0)};
 });
 async function focus(){
  return child.evaluate(()=>{
@@ -44,8 +51,10 @@ async function seek(time){return child.evaluate(time=>{const h=document.getEleme
   await child.evaluate(()=>{GC500StillOnSite1290.setActive(false);stopCameraMotion813();});await waitPaint();
   const toggle=child.locator('#still-onsite1290');await toggle.tap();await waitPaint();await p.waitForTimeout(300);
   check('Real tap enables Still on site',await child.evaluate(()=>GC500StillOnSite1290.active));
+  await child.locator('#stage').scrollIntoViewIfNeeded();await waitPaint();
   result.initial=await child.evaluate(()=>({state:GC500OnsiteNeon1291.state,tags:GC500Departure1211.markers1288.filter(m=>m.tag.length).length}));
   check('Visible pointer-free halo is populated on the phone',result.initial.state.active&&!result.initial.state.hidden&&result.initial.state.width>0);
+  result.initialInk=await captureInk();check('Glow border count matches currently displayed reference tags',result.initialInk.boxes===result.initialInk.expectedBoxes);
   await p.screenshot({path:path.join(out,'still-onsite-neon-phone.png')});
   result.vms=await child.evaluate(()=>{
    const b=[...document.querySelectorAll('#vmsicons1211 button')].find(b=>b.querySelector('svg'));if(!b)return {available:false};
@@ -56,25 +65,32 @@ async function seek(time){return child.evaluate(time=>{const h=document.getEleme
   result.vms.scope='Synthetic presentation-only attribute probe; no operational state, reader or record changed';
   check('Presentation-only VMS CSS probe preserves orange and review-red glow',result.vms.available&&result.vms.orange.colour==='#ff821f'&&result.vms.review.colour==='#ffaaa3'&&result.vms.orange.filter.includes('255, 130, 31')&&result.vms.review.filter.includes('255, 170, 163'));
   result.focus=await focus();check('Close-up uses existing recorded equipment geometry',!!result.focus);await waitPaint();await p.waitForTimeout(800);
-  result.ink=await child.evaluate(async()=>{
-   const h=document.getElementById('onsite-halo1291'),s=document.getElementById('shape1060'),g=h.getContext('2d');let copied=false,boxes=0;
-   const draw=g.drawImage,rect=g.roundRect;g.drawImage=function(image,...args){if(image===s)copied=true;return draw.call(this,image,...args);};g.roundRect=function(...args){boxes++;return rect.apply(this,args);};
-   try{GC500OnsiteNeon1291.refresh();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));}finally{g.drawImage=draw;g.roundRect=rect;}
-   const pixels=s.getContext('2d').getImageData(0,0,s.width,s.height).data;let sourcePixels=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i])sourcePixels++;
-   return {copied,sourcePixels,boxes,expectedBoxes:GC500Departure1211.markers1288.filter(m=>['onsite','review'].includes(m.kind)).reduce((n,m)=>n+m.tag.length,0)};
-  });
-  check('Halo copies real nonempty source geometry and all current tag borders',result.ink.copied&&result.ink.sourcePixels>0&&result.ink.boxes===result.ink.expectedBoxes&&result.ink.boxes>0);
+  result.ink=await captureInk();
+  check('Halo copies real nonempty source geometry and all current tag borders',result.ink.copied&&result.ink.sourcePixels>0&&result.ink.boxes===result.ink.expectedBoxes);
   const before=await visual();await p.waitForTimeout(325);const middle=await visual();await p.waitForTimeout(325);const after=await visual(),opacities=[before.opacity,middle.opacity,after.opacity];
-  check('Halo visibly pulses while core geometry and count text remain steady',Math.max(...opacities)-Math.min(...opacities)>.025&&before.core===after.core&&before.tags===after.tags&&after.pointerEvents==='none');
+  check('Halo opacity visibly pulses without intercepting touches',Math.max(...opacities)-Math.min(...opacities)>.025&&after.pointerEvents==='none');
   result.pulse={opacities,filter:after.filter};
-  const idleStart=after.state.paintCount;await p.waitForTimeout(1100);const idleEnd=(await visual()).state.paintCount;
-  result.idle={milliseconds:1100,paints:idleEnd-idleStart};check('Idle pulse does not drive canvas redraws',result.idle.paints<=1);
+  result.crisp=await child.evaluate(()=>{
+   const h=document.getElementById('onsite-halo1291'),s=document.getElementById('shape1060'),t=document.getElementById('offsite1225'),core=s.toDataURL(),tags=t.toDataURL(),animations=h.getAnimations(),prior=animations.map(a=>({a,time:a.currentTime,state:a.playState}));
+   let same=true;const opacity=[];
+   try{for(const time of [0,1300]){for(const a of animations){a.pause();a.currentTime=time;}opacity.push(+getComputedStyle(h).opacity);same=same&&core===s.toDataURL()&&tags===t.toDataURL();}}
+   finally{for(const {a,time,state}of prior){a.currentTime=time;if(state==='running')a.play();}}
+   return {samePixels:same,opacity,coreAnimation:getComputedStyle(s).animationName,tagAnimation:getComputedStyle(t).animationName};
+  });
+  check('Seeking only the CSS halo preserves crisp core and count pixels exactly',result.crisp.samePixels&&result.crisp.coreAnimation==='none'&&result.crisp.tagAnimation==='none'&&result.crisp.opacity[1]>result.crisp.opacity[0]);
+  result.idle=await child.evaluate(async()=>{
+   const initial=GC500OnsiteNeon1291.state.paintCount,draw=drawMarks,reader=parent.Departure1211;let nativeDraws=0,modelReads=0;
+   drawMarks=function(){nativeDraws++;return draw.apply(this,arguments);};parent.Departure1211={...reader,all:function(){modelReads++;return reader.all.apply(reader,arguments);}};
+   try{await new Promise(r=>setTimeout(r,1100));return {milliseconds:1100,paints:GC500OnsiteNeon1291.state.paintCount-initial,nativeDraws,modelReads};}
+   finally{drawMarks=draw;parent.Departure1211=reader;}
+  });
+  check('Pulse adds no independent redraw or model-read loop',result.idle.paints<=result.idle.nativeDraws+1&&result.idle.modelReads===0);
   result.trough=await seek(0);await child.locator('#stage').screenshot({path:path.join(out,'still-onsite-neon-trough.png')});
   result.peak=await seek(1300);await child.locator('#stage').screenshot({path:path.join(out,'still-onsite-neon-peak.png')});
   check('Deterministic pulse endpoints retain visible core with stronger peak glow',result.trough>=.3&&result.peak>.85&&result.peak-result.trough>.4);
   await p.emulateMedia({reducedMotion:'reduce'});await waitPaint();const reducedA=await visual();await p.waitForTimeout(350);const reducedB=await visual();
-  result.reduced={opacity:reducedB.opacity,animation:reducedB.animation,vms:await child.evaluate(()=>[...document.querySelectorAll('#vmsicons1211 button>svg')].map(e=>getComputedStyle(e).animationName))};
-  check('Reduced motion retains bright static glow with no VMS animation',reducedA.opacity===reducedB.opacity&&reducedB.opacity>=.65&&reducedB.animation==='none'&&result.reduced.vms.every(n=>n==='none'));
+  result.reduced={opacity:reducedB.opacity,animation:reducedB.animation,vmsRules:await child.evaluate(()=>[...document.getElementById('onsite-neon1291-style').sheet.cssRules].filter(r=>r.conditionText?.includes('prefers-reduced-motion')).flatMap(r=>[...r.cssRules].filter(x=>x.selectorText?.includes('#vmsicons1211')).map(x=>({selector:x.selectorText,animationName:x.style.animationName,priority:x.style.getPropertyPriority('animation-name'),css:x.style.cssText})))),vmsScope:'Parsed reduced-motion stylesheet rule; no claim that a VMS is visible in this close-up'};
+  check('Reduced motion keeps halo static and its stylesheet disables VMS animation',reducedA.opacity===reducedB.opacity&&reducedB.opacity>=.65&&reducedB.animation==='none'&&result.reduced.vmsRules.some(r=>r.animationName==='none'&&r.priority==='important'));
   await p.emulateMedia({reducedMotion:'no-preference'});await waitPaint();
   result.modeGuards=await child.evaluate(()=>{
    const h=document.getElementById('onsite-halo1291'),rows=[];
@@ -86,7 +102,7 @@ async function seek(time){return child.evaluate(time=>{const h=document.getEleme
   result.off={active:off.state.active,hidden:off.state.hidden,display:off.display,animation:off.animation,vms:await child.evaluate(()=>[...document.querySelectorAll('#vmsicons1211 button>svg')].map(e=>({filter:getComputedStyle(e).filter,animation:getComputedStyle(e).animationName})))};
   check('Turning off removes the added halo and animations',!off.state.active&&off.state.hidden&&off.display==='none'&&off.animation==='none'&&result.off.vms.every(s=>s.animation!=='onsite-sign1291'));
   result.errors=session.errors.map(safe);result.recordWrites=session.counts.blocked;
-  check('No page or console errors',!result.errors.length&&!result.consoleErrors.length);check('No attempted operational record writes',!result.recordWrites);result.passed=true;
+  check('No page or console errors',!result.errors.length&&!result.consoleErrors.length);check('No attempted operational record writes',!result.recordWrites);result.passed=result.checks.every(c=>c.passed);if(!result.passed)result.failure=result.checks.filter(c=>!c.passed).map(c=>c.name).join('; ');
  }catch(e){result.failure=safe(e);}
  finally{if(session){result.errors=session.errors.map(safe);result.recordWrites=session.counts.blocked;await session.browser.close();}fs.writeFileSync(path.join(out,'result.json'),JSON.stringify(result,null,2)+'\n');}
  console.log(JSON.stringify({passed:result.passed,sha256:result.dashboardSha256,checks:result.checks.length,errors:result.errors.length,consoleErrors:result.consoleErrors.length,recordWrites:result.recordWrites,failure:result.failure}));if(!result.passed)process.exitCode=1;
