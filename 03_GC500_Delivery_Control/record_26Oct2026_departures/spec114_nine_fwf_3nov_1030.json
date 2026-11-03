@@ -1,0 +1,11 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 10:3x AEST: \"Left same time / 1002566 1211959 1002538 / Here is more 1181004 1003651 1211961 1058086 1212502 1002715 1212552\" (same time = 10:30, as his previous message). Nine Coates FWF on contract 9968955 (KINP), each reference ticked Emptied: WC07 1002566 (L24), 1211959 (L26), 1002538 (L35), 1181004 (L34), 1002715 (L40), 1212552 (L32); WC12 1211961 (L4); WC02 1058086 (L45, its only unit); WC04 1212502 (L44, its only unit). They left site at 10:30 on 3 Nov through the page's own Record departure form in his name. 1003651 is on no reference or contract line and is not recorded here (1002651, WC07 L43, is one digit away: asked Andrew). Applied only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC07", "at": "2026-11-03T10:30:00+10:00", "nos": ["1002566", "1211959", "1002538", "1181004", "1002715", "1212552"], "unnumbered": [], "complete": false},
+  {"op": "depart", "ref": "WC12", "at": "2026-11-03T10:30:00+10:00", "nos": ["1211961"], "unnumbered": [], "complete": false},
+  {"op": "depart", "ref": "WC02", "at": "2026-11-03T10:30:00+10:00", "nos": ["1058086"], "unnumbered": [], "complete": true},
+  {"op": "depart", "ref": "WC04", "at": "2026-11-03T10:30:00+10:00", "nos": ["1212502"], "unnumbered": [], "complete": true}
+ ]
+}
