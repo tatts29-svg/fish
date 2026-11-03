@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "status": "READY TO UPLOAD",
+  "status": "LIVE VERIFIED",
   "candidateSha256": "d348e813db15b3ed3df125e14dd877597cbd8b410a4c13440c64244a86f85c37",
   "bytes": 16955759,
   "baseSha256": "92c1a3163ecf76e05e42d47ce4c94c78dea8d60e28d5b506b0cec560c7ce2865",
@@ -22,5 +22,13 @@
   "consoleErrors": 0,
   "attemptedRecordWrites": 0,
   "phoneAndTabletImagesInspected": true,
-  "limits": "Exact source geometry where uniquely assigned; explicit unassigned and catalogue labels. Timing is environment-specific; private stress and paced measurements both retained. No live claim before publication/read-back."
+  "limits": "Exact source geometry where uniquely assigned; explicit unassigned and catalogue labels. Timing is environment-specific; private stress and paced measurements both retained. Main PNG composition and imagery sources are outside this correction.",
+  "readySourceCommit": "d58b34aea2a3473d4215ac71af2998c65fd1cc60",
+  "publishedAt": "2026-11-03T02:26:04.072Z",
+  "independentPublicBytesMatch": true,
+  "machineIdenticalAcrossPublication": true,
+  "sharedRecordIdenticalAcrossPublication": true,
+  "freshLiveFocusedChecks": 43,
+  "freshLiveRetainedMapAnd3D": "PASS",
+  "livePhoneAndTabletImagesInspected": true
 }

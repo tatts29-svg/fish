@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-READY TO UPLOAD — final candidate checked on 3 Nov 2026. Publication and fresh live read-back are still pending.
+LIVE — published 3 Nov 2026 12:26 AEST (02:26:04.072 UTC). Fresh public bytes and live browser checks are verified.
 
 Departed equipment previously received a separate round symbol at its reference location. Its traced plan footprint appeared only when selected or included in another equipment layer. This change makes eligible departed references use the existing plan geometry automatically, preserving the drawing's position, orientation and recorded door geometry.
 
@@ -32,6 +32,14 @@ Shared, moved and unassigned shapes retain explicit fallback labels; catalogue a
 
 ## Reproduce
 
-From `03_GC500_Delivery_Control`, use the shared `toolchain/build.sh v12.88 v12.88_departed_plan_footprints_DRAFT/patch_v1288.py`. Run `tests/check_scope1288.py` with the private exact base and candidate paths. The browser tests require `PAGE` and private `OUT`; set `BASELINE_PAGE` and `PACED=1` for the paced comparison. Run all browser work serially under `/tmp/gc500-browser.lock`. The preceding release's `tests/check_map1286.cjs` supplies the retained-map/3D regression; use the standard desktop and phone sweeps as required by AGENTS.md.
+From `03_GC500_Delivery_Control`, use the shared `toolchain/build.sh v12.88 v12.88_departed_plan_footprints_LIVE/patch_v1288.py`. Run `tests/check_scope1288.py` with the private exact base and candidate paths. The browser tests require `PAGE` and private `OUT`; set `BASELINE_PAGE` and `PACED=1` for the paced comparison. Run all browser work serially under `/tmp/gc500-browser.lock`. The preceding release's `tests/check_map1286.cjs` supplies the retained-map/3D regression; use the standard desktop and phone sweeps as required by AGENTS.md.
 
 Private screenshots, detailed record comparisons and performance evidence remain outside Git. All tests use the read-only harness. Publication uses the standard unchanged-live-base guard, followed by independent public-byte and browser read-back.
+
+## Publication and live read-back
+
+READY source: `d58b34aea2a3473d4215ac71af2998c65fd1cc60`. Standard uploader verified the unchanged v12.86 base and published at `2026-11-03T02:26:04.072Z`. A separate public fetch matches the candidate SHA-256 and all 16,955,759 bytes exactly. The machine manifest and shared record are identical immediately before and after publication.
+
+Fresh live browser runs with no local page override pass the same 43 focused footprint checks and the retained-map/3D regression, with no runtime/console errors or attempted record writes. The live phone/tablet screenshots were inspected. Live burst timing remains variable; this release does not claim all devices or network loads are instant.
+
+The concurrent fencing draft must be rebuilt and retested from these live bytes with a later coordinated version; its v12.86 fresh-base guard must not be bypassed.
