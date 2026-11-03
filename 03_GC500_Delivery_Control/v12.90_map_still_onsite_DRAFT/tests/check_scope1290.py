@@ -31,6 +31,11 @@ def mask(text):
     return text
 
 assert mask(base).replace("+' · v12.89';", "+' · v12.90';") == mask(candidate), 'Unexpected change outside map presentation and footer'
+if len(sys.argv) > 3:
+    functional = Path(sys.argv[3]).read_text()
+    assert hashlib.sha256(functional.encode()).hexdigest() == '89c8edb98f2e6f89ea95dcc90b2f4571d17f88692f3d1fd3c2976f61ef0482f7'
+    hud = ' body.onsite1290 .console,body.onsite1290 .hud,body.onsite1290 .rose{z-index:10}\n'
+    assert candidate.count(hud) == 1 and candidate.replace(hud, '') == functional, 'Functional checks cannot be reused after a JavaScript or inactive-view change'
 for name in ['SHAPE_NEW', 'SPOT_NEW']:
     # Exact positive/negative mount-guard checks belong to the preceding release;
     # this verifies their reviewed allowlists remain byte-identical here.

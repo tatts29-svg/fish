@@ -48,6 +48,7 @@ function stillOnSite1290(){
  const css=document.createElement('style');css.id='still-onsite1290-style';css.textContent=`
  body.onsite1290 #marks{visibility:hidden} /* Native circle/tick canvas; source shapes and reference tags have their own layers. */
  .app{grid-template-rows:auto minmax(0,1fr)}body.framed header,header{flex-wrap:wrap;row-gap:0;padding-top:5px;padding-bottom:4px;min-height:54px;box-sizing:border-box}
+ body.onsite1290 .console,body.onsite1290 .hud,body.onsite1290 .rose{z-index:10}
  #still-onsite-bar1290{flex:1 0 100%;display:flex;align-items:center;gap:8px;min-width:0;padding-top:4px;border-top:1px solid #ffffff19;margin-top:4px}
  #still-onsite-bar1290 button{min-height:44px;border:1px solid #b75d25;border-radius:7px;padding:7px 12px;background:#251b14;color:#ffd2ae;font:700 13px Inter,sans-serif;cursor:pointer;white-space:nowrap}
  #still-onsite1290[aria-pressed=true]{background:#ff821f;color:#1b1009;border-color:#ffad68;box-shadow:0 0 0 1px #ff821f44}

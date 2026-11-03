@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "base": {
+    "version": "v12.89",
+    "sha256": "89993cbd62c29f0a28b3dc5edc4365e8baab03a0af4858633441acc6faacab40",
+    "sourceCommit": "a46705013397cf92d634ab374a5ba8dfdf26a586"
+  },
+  "candidate": {
+    "version": "v12.90",
+    "sha256": "ec56ffe5ef53670d286db566bd968366dfc366ad25edf6f2aa753076b10fc3e8",
+    "bytes": 16979844
+  },
+  "functionalCandidateSha256": "89c8edb98f2e6f89ea95dcc90b2f4571d17f88692f3d1fd3c2976f61ef0482f7",
+  "functionalChecks": {
+    "modelFixtures": 15,
+    "focusedBrowser": 63,
+    "departedRegression": 43,
+    "retainedMapAndPhotographic3D": "PASS",
+    "desktop": {
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": "PASS"
+    },
+    "phone": {
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": "PASS"
+    }
+  },
+  "finalChecks": {
+    "inlineScripts": 224,
+    "exactBaseAndScope": "PASS",
+    "functionalByteEquivalenceExcept81ByteActiveHudCss": "PASS",
+    "phoneHud": {
+      "checks": 3,
+      "toolbarTouchCentres": 6
+    }
+  },
+  "runtimeErrors": 0,
+  "consoleErrors": 0,
+  "attemptedRecordWrites": 0,
+  "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "liveReadback": "PENDING"
+}
