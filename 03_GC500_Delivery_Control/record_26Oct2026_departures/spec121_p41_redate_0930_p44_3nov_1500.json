@@ -1,0 +1,27 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 07:2x AEST: \"P44 left yesterday at 3pm. P41 left yesterday at 930am\". P41 (Coates 1189412, building 4.8-6 m, contract 9968862 L63, KINP) is on the record as left 3 Nov 09:00 (run 109, read from \"P56 left p41 po8 left 9am\"); its true departure is 3 Nov 09:30, the time he first gave (\"1189412 leaving at 930am\"), so the entry the Record departure form wrote is re-dated. P44 (Coates 198481, building 4.8-6 m, KINP) left site at 15:00 on 3 Nov: it leaves in full through the page's own Record departure form in his name. This also settles his 3 Nov message \"P41 left at 3pm\": the 3pm building was P44. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "collection_redate",
+   "ref": "P41",
+   "no": "1189412",
+   "at": "2026-11-03T09:30:00+10:00",
+   "why": "Andrew Fisher, 4 Nov 2026: P41 left Tue 3 Nov at 09:30, not 09:00"
+  },
+  {
+   "op": "depart",
+   "ref": "P44",
+   "at": "2026-11-03T15:00:00+10:00",
+   "nos": [
+    "198481"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
