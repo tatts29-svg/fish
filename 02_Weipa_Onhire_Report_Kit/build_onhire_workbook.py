@@ -4152,6 +4152,7 @@ class _Pack(object):
                    italic=True, colour=P_MUTED)
             return
         plot_h = h - 26
+        head = 16                                # room for the legend and labels
         biggest = max([v for _n, vals, _c in series for v in vals] + [1])
         group_w = w / float(len(days))
         bar_w = max(3.0, (group_w - 10) / float(len(series)))
@@ -4161,7 +4162,7 @@ class _Pack(object):
             gx = x + gi * group_w + 5
             for si, (name, vals, colour) in enumerate(series):
                 v = vals[gi]
-                bh = plot_h * (v / float(biggest))
+                bh = (plot_h - head) * (v / float(biggest))
                 bx = gx + si * bar_w
                 if bh > 0:
                     d.rect(bx, base - bh, bar_w - 1.5, bh, fill=colour)
@@ -4448,14 +4449,14 @@ class _Pack(object):
         s = self.s
         d.text(self.x0, self.y + 10, s.header_line.upper(), size=8, bold=True,
                colour=P_ORANGE, tracking=1.6, max_w=self.cw)
-        d.text(self.x0, self.y + 44, "On-Hire Report", size=30, bold=True,
+        d.text(self.x0, self.y + 40, "On-Hire Report", size=28, bold=True,
                colour=P_INK)
-        d.text(self.x0, self.y + 62, "By company - a section for each company "
-               "holding Coates gear", size=12, colour=P_MUTED)
-        d.text(self.x0, self.y + 80, "{}  ·  as at {}".format(
+        d.text(self.x0, self.y + 56, "By company - a section for each company "
+               "holding Coates gear", size=11.5, colour=P_MUTED)
+        d.text(self.x0, self.y + 72, "{}  ·  as at {}".format(
             self.when.strftime("%A %d %B %Y"), self.asat.strftime("%H:%M")),
             size=10, bold=True, colour=P_INK)
-        self.y += 96
+        self.y += 86
         d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
         self.y += 14
 
@@ -4472,18 +4473,18 @@ class _Pack(object):
 
         #  The headline numbers, three across, two rows.
         tiles = parts["tiles"]
-        gap, h = 8, 50
+        gap, h = 8, 46
         w = (self.cw - gap * 2) / 3.0
         for start in range(0, len(tiles), 3):
             x = self.x0
             for label, value, sub in tiles[start:start + 3]:
                 d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
                 d.rect(x, self.y, w, 2.5, fill=P_ORANGE)
-                d.text(x + 10, self.y + 24, str(value), size=18, bold=True,
+                d.text(x + 10, self.y + 22, str(value), size=17, bold=True,
                        colour=P_INK)
-                d.text(x + 10, self.y + 35, label.upper(), size=6.4, bold=True,
+                d.text(x + 10, self.y + 32.5, label.upper(), size=6.3, bold=True,
                        colour=P_INK, tracking=0.4, max_w=w - 20)
-                d.text(x + 10, self.y + 44.5, sub, size=7, colour=P_MUTED,
+                d.text(x + 10, self.y + 41.5, sub, size=6.8, colour=P_MUTED,
                        max_w=w - 20)
                 x += w + gap
             self.y += h + gap
@@ -4530,7 +4531,7 @@ class _Pack(object):
         #  What needs attention - the same asks as the email, so the
         #  customer sees the actions on page one.
         acts = parts["actions"]
-        room = self.bottom - self.y - 34
+        room = self.bottom - self.y - 30
         pitch = 24
         shown = acts[:max(1, min(len(acts), int((room - 40) // pitch)))]
         if room >= 40 + pitch:
@@ -4552,16 +4553,14 @@ class _Pack(object):
             self.y += h + 10
         if quiet:
             self.y = d.paragraph(
-                self.x0, self.y + 6, "Moved gear or drew consumables this period "
-                "but have nothing on hire right now: {}.".format(", ".join(quiet)),
+                self.x0, self.y + 6, "Nothing on hire right now but active this "
+                "period: {}.".format(", ".join(quiet)),
                 size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5) + 2
         self.y = d.paragraph(
-            self.x0, self.y + 6, "On-hire dates are the start date of each item's "
-            "issue transaction in SiteIQ; the transactions export covers {}. "
-            "Items with no issue transaction inside that window are shown as "
-            "undated. No costs appear anywhere in this pack - it can go to anyone "
-            "on site. The costs are in the workbook.".format(
-                self.period or "the export period"),
+            self.x0, self.y + 6, "Dates are the start of each item's issue "
+            "transaction in SiteIQ; the export covers {}. Undated means no "
+            "transaction inside that window. No costs anywhere in this pack - "
+            "they are in the workbook.".format(self.period or "the export period"),
             size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5)
         self.doc.bookmark("Contents", 0, 60)
 
