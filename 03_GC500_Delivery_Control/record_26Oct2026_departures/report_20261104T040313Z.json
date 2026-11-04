@@ -1,0 +1,303 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261104T040313Z",
+ "finished": "2026-11-04T04:03:50.648Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 4 Nov 2026 13:5x AEST: \"P38 leaving at 2pm\". P38 is Coates 1327218 (Portable Building Shell 6.0 m x 3.0 m, cyclonic rated; contract 9994954 L1, KINP; the record's unit u1327218), with its air conditioner 1327934 and fridge 1272755. It leaves site at 14:00 on 4 Nov through the page's own Record departure form in his name, recorded after 14:00 (the form takes no future time). Applied only if the dry run shows the P&L unchanged and 1327218 is P38's.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P38",
+    "at": "2026-11-04T14:00:00+10:00",
+    "nos": [
+     "1327218"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "d6c557d3045c55f4d66bca2227f098f4951003bd4674ac83ba497aa16f7b8de0",
+ "version": {
+  "before": 12989,
+  "after": 12990
+ },
+ "updated": {
+  "before": "2026-11-04T02:34:18.145Z",
+  "after": "2026-11-04T04:03:49.645Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 521826.08,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 521826.08,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P38",
+   "at": "2026-11-04T14:00:00+10:00",
+   "nos": [
+    "1327218"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-04T14:00:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1327218 - P38 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P38",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P38": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:50:43.257Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-28T03:23:45.554Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T18:20:29.042Z",
+    "pickup1238_units": {
+     "coates|1327218": {
+      "at": "2026-11-04T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:54:46.956Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T03:23:44.594Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:43.257Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:23:44.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-28T03:23:45.554Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-28T03:23:46.545Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-14T18:20:29.042Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327218",
+      "pickup": "2026-11-04T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:54:46.956Z"
+     }
+    ],
+    "loading872": {
+     "u1327218": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:50.777Z"
+     }
+    },
+    "_k": "P38"
+   }
+  },
+  "after": {
+   "delivery/P38": {
+    "state": "in transit",
+    "set_at": "2026-11-04T04:03:31.188Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-04T04:03:31.188Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T18:20:29.042Z",
+    "pickup1238_units": {
+     "coates|1327218": {
+      "at": "2026-11-04T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:54:46.956Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-04T04:03:31.188Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:43.257Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-04T04:03:31.188Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "610a7785-0fce-451b-97df-76a1fb0eeb51",
+       "date": "2026-11-04",
+       "departedAt1211": "2026-11-04T14:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T02:50:43.257Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P38\",\"coates\",\"asset\",\"1327218\"]"
+         ],
+         "numbers": [
+          "1327218"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P38\",\"coates\",\"asset\",\"1327218\"]",
+           "number": "1327218",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:23:44.594Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-04T04:03:31.188Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-28T03:23:45.554Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-04T04:03:31.188Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-28T03:23:46.545Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-14T18:20:29.042Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1327218",
+      "pickup": "2026-11-04T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:54:46.956Z"
+     }
+    ],
+    "loading872": {
+     "u1327218": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:50.777Z"
+     }
+    },
+    "_k": "P38"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
