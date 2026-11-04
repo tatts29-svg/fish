@@ -1534,7 +1534,8 @@ def build(base=HERE, when=None):
             for b in blocks:
                 p = os.path.join(by_co_dir, "{} - On-Hire - {}.pdf".format(
                     _safe_name(b["company"], "Company"), when.strftime("%d %b %Y")))
-                build_company_pdf(p, s, when, asat, period, b)
+                build_company_pdf(p, s, when, asat, period, b,
+                                  sum(x["items"] for x in blocks))
                 n_single += 1
         except Exception as e:
             say("  WARN | The per-company PDFs didn't all write ({}). The "
@@ -3047,6 +3048,8 @@ def dashboard(wb, s, when, asat, parts):
 
     tidy_print(ws, NC, landscape=False, name="Dashboard")
     ws.print_title_rows = "1:1"
+    ws.print_area = "A1:L54"
+    ws.page_setup.fitToHeight = 1
     ws.sheet_properties.tabColor = ORANGE
     return ws
 
@@ -3450,8 +3453,8 @@ def _attached(parts):
     pages = parts.get("pack_pages") or 0
     if pages:
         cards.append(("PDF", "The company pack",
-                      "{} page{} - a section for each company, ready to "
-                      "forward to them as it is.".format(
+                      "{} page{} - the asks on the cover, charts on page 2, "
+                      "then a section for each company, ready to forward.".format(
                           _fmt(pages), "" if pages == 1 else "s")))
     out = [_kicker("Attached to this email", E_MUTED), _T, "<tr>"]
     cell = ("<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
@@ -4174,9 +4177,9 @@ class _Pack(object):
         for name, _vals, colour in reversed(series):
             tw = d.text_width(name, 6.8)
             d.text(lx, y - 3, name, size=6.8, colour=P_MUTED, align="right")
-            lx -= tw + 5
-            d.rect(lx - 8, y - 9, 7, 7, fill=colour, radius=1.5)
-            lx -= 17
+            lx -= tw + 6
+            d.rect(lx - 7, y - 9, 7, 7, fill=colour, radius=1.5)
+            lx -= 19
 
     def glance(self, parts):
         """One page of charts and gauges: the store today, drawn from the
@@ -4261,6 +4264,10 @@ class _Pack(object):
         rows = [(r[0], r[3], TONE.get(r[4], "slate")) for r in parts["hardest"][:7]]
         self.hbars(self.x0 + 12, top, half - 24, rows, label_w=138, pitch=16,
                    colours=tone_fill)
+        kx = self.x0 + 12
+        for word in ("High Demand", "Good Use"):
+            d.rect(kx, top + 7 * 16 + 4, 7, 7, fill=tone_fill[TONE[word]], radius=1.5)
+            kx += d.text(kx + 11, top + 7 * 16 + 10.5, word, size=6.8, colour=P_MUTED) + 22
         top = self.card(xr, self.y, half, H, "Consumables running down",
                         "Share of the position gone out - past the line, we order")
         rows = [(r[0], round(r[3] * 100), "red" if r[3] >= CONS_TIGHT else
@@ -4299,10 +4306,20 @@ class _Pack(object):
         d.rect(self.x0, self.y, 5, 44, fill=P_ORANGE)
         d.text(self.x0 + 16, self.y + 22, co, size=18, bold=True, colour=P_INK,
                max_w=self.cw - 160)
-        d.text(self.x0 + 16, self.y + 38,
-               "Everything on hire to {} as at {}".format(
-                   co, self.asat.strftime("%d %b %Y %H:%M")),
-               size=9, colour=P_MUTED, max_w=self.cw - 160)
+        n_people = len(b["people"])
+        share = (100.0 * b["items"] / float(self.total_onhire)
+                 if getattr(self, "total_onhire", 0) else None)
+        story = "{} item{} out with {} {}".format(
+            b["items"], "" if b["items"] == 1 else "s", n_people,
+            "person" if n_people == 1 else "people")
+        if share is not None:
+            story += " - {:.0f}% of everything on hire".format(share)
+        if b["oldest_days"] is not None:
+            story += ". Oldest issue {}".format(_days_text(b["oldest_days"]))
+        if b["undated"]:
+            story += ". {} undated".format(b["undated"])
+        d.text(self.x0 + 16, self.y + 38, story + ".", size=9, colour=P_MUTED,
+               max_w=self.cw - 160)
         if index and total:
             d.text(self.x1, self.y + 16, "SECTION {} OF {}".format(index, total),
                    size=7, bold=True, colour=P_ORANGE, tracking=1.2, align="right")
@@ -4312,7 +4329,6 @@ class _Pack(object):
         d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
         self.y += 12
 
-        n_people = len(b["people"])
         self.tiles([
             (b["items"], "Items on hire", "orange"),
             (n_people, "People", "orange"),
@@ -4456,22 +4472,22 @@ class _Pack(object):
 
         #  The headline numbers, three across, two rows.
         tiles = parts["tiles"]
-        gap, h = 8, 58
+        gap, h = 8, 50
         w = (self.cw - gap * 2) / 3.0
         for start in range(0, len(tiles), 3):
             x = self.x0
             for label, value, sub in tiles[start:start + 3]:
                 d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
                 d.rect(x, self.y, w, 2.5, fill=P_ORANGE)
-                d.text(x + 10, self.y + 27, str(value), size=19, bold=True,
+                d.text(x + 10, self.y + 24, str(value), size=18, bold=True,
                        colour=P_INK)
-                d.text(x + 10, self.y + 40, label.upper(), size=6.6, bold=True,
+                d.text(x + 10, self.y + 35, label.upper(), size=6.4, bold=True,
                        colour=P_INK, tracking=0.4, max_w=w - 20)
-                d.text(x + 10, self.y + 51, sub, size=7.4, colour=P_MUTED,
+                d.text(x + 10, self.y + 44.5, sub, size=7, colour=P_MUTED,
                        max_w=w - 20)
                 x += w + gap
             self.y += h + gap
-        self.y += 10
+        self.y += 6
 
         #  Contents - every company, and the page it starts on. Each row
         #  is a link, and each company is a bookmark down the side.
@@ -4491,38 +4507,62 @@ class _Pack(object):
         d.rect(self.x0, self.y + 18, self.cw, 1.5, fill=P_ORANGE)
         self.y += 21
         for k, b in enumerate(blocks):
-            h = 21
+            h = 19
             if k % 2:
                 d.rect(self.x0, self.y, self.cw, h, fill=P_ZEBRA)
-            d.text(self.x0 + 8, self.y + 14, b["company"], size=9.5, bold=True,
+            d.text(self.x0 + 8, self.y + 13, b["company"], size=9.2, bold=True,
                    colour=P_INK, max_w=270)
-            d.text(self.x0 + 300, self.y + 14, str(len(b["people"])), size=9,
+            d.text(self.x0 + 300, self.y + 13, str(len(b["people"])), size=8.8,
                    colour=P_INK, align="right")
-            d.text(self.x0 + 352, self.y + 14, str(b["items"]), size=9, bold=True,
+            d.text(self.x0 + 352, self.y + 13, str(b["items"]), size=8.8, bold=True,
                    colour=P_INK, align="right")
-            d.text(self.x0 + 404, self.y + 14, str(b["lines"]), size=9,
+            d.text(self.x0 + 404, self.y + 13, str(b["lines"]), size=8.8,
                    colour=P_INK, align="right")
-            self.chip(self.x0 + 478, self.y + 4, _days_text(b["oldest_days"]),
+            self.chip(self.x0 + 478, self.y + 3, _days_text(b["oldest_days"]),
                       day_tone(b["oldest_days"]))
-            d.text(self.x1 - 8, self.y + 14, str(starts[k] + 1), size=9.5,
+            d.text(self.x1 - 8, self.y + 13, str(starts[k] + 1), size=9.2,
                    bold=True, colour=P_ORANGE, align="right")
             d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
             d.link(self.x0, self.y, self.cw, h, starts[k])
             self.y += h
-        self.y += 12
+        self.y += 14
+
+        #  What needs attention - the same asks as the email, so the
+        #  customer sees the actions on page one.
+        acts = parts["actions"]
+        room = self.bottom - self.y - 34
+        pitch = 24
+        shown = acts[:max(1, min(len(acts), int((room - 40) // pitch)))]
+        if room >= 40 + pitch:
+            h = 40 + pitch * len(shown)
+            top = self.card(self.x0, self.y, self.cw, h, "What needs attention",
+                            "The asks, each with its own number - the same list as the email")
+            yy = top - 4
+            for k, (head, body) in enumerate(shown, 1):
+                d.rect(self.x0 + 12, yy - 1, 15, 15, fill=P_ORANGE, radius=3)
+                d.text(self.x0 + 19.5, yy + 10, str(k), size=8, bold=True,
+                       colour=P_WHITE, align="centre")
+                d.text(self.x0 + 34, yy + 7.5, head, size=9, bold=True, colour=P_INK)
+                d.text(self.x0 + 34, yy + 17.5, body, size=7.5, colour=P_MUTED,
+                       max_w=self.cw - 50)
+                yy += pitch
+            if len(shown) < len(acts):
+                d.text(self.x0 + 34, yy + 4, "and {} more in the email".format(
+                    len(acts) - len(shown)), size=7.5, italic=True, colour=P_MUTED)
+            self.y += h + 10
         if quiet:
             self.y = d.paragraph(
-                self.x0, self.y + 8, "Moved gear or drew consumables this period "
+                self.x0, self.y + 6, "Moved gear or drew consumables this period "
                 "but have nothing on hire right now: {}.".format(", ".join(quiet)),
-                size=8.5, max_w=self.cw, colour=P_MUTED, leading=12) + 4
+                size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5) + 2
         self.y = d.paragraph(
-            self.x0, self.y + 8, "On-hire dates are the start date of each item's "
+            self.x0, self.y + 6, "On-hire dates are the start date of each item's "
             "issue transaction in SiteIQ; the transactions export covers {}. "
             "Items with no issue transaction inside that window are shown as "
             "undated. No costs appear anywhere in this pack - it can go to anyone "
             "on site. The costs are in the workbook.".format(
                 self.period or "the export period"),
-            size=8.5, max_w=self.cw, colour=P_MUTED, leading=12)
+            size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5)
         self.doc.bookmark("Contents", 0, 60)
 
 
@@ -4532,6 +4572,7 @@ def build_company_pack(path, s, when, asat, period, parts, blocks, quiet):
     pk = _Pack(s, when, asat, period,
                "{} - On-Hire Report by Company - {}".format(
                    s.short or s.customer or "Shutdown", when.strftime("%d %b %Y")))
+    pk.total_onhire = sum(b["items"] for b in blocks)
     pk.page("On-Hire Report by Company")           # page 0 - the cover, drawn last
     pk.glance(parts)                               # page 1 - the charts
     starts = []
@@ -4545,11 +4586,12 @@ def build_company_pack(path, s, when, asat, period, parts, blocks, quiet):
     return pk.doc.page_count
 
 
-def build_company_pdf(path, s, when, asat, period, b):
+def build_company_pdf(path, s, when, asat, period, b, total_onhire=0):
     """One company's section on its own, for forwarding to them."""
     pk = _Pack(s, when, asat, period,
                "{} - On-Hire Report - {}".format(b["company"],
                                                  when.strftime("%d %b %Y")))
+    pk.total_onhire = total_onhire
     pk.section(b, right_title="On-Hire Report - {}".format(b["company"]))
     pk.footers()
     pk.doc.save(path)
