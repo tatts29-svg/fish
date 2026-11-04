@@ -38,3 +38,14 @@ __pycache__/
 01_Reporting_Suite/Photo_Hunt.html
 01_Reporting_Suite/Gear_Lookup/thumbs/
 01_Reporting_Suite/stocktake_log.json
+
+# Weipa on-hire kit (02_): site data, run output and the vendored library
+# travel in the delivery zip, never in git.
+02_Weipa_Onhire_Report_Kit/Data_SiteIQ/*.xlsx
+02_Weipa_Onhire_Report_Kit/Reports/
+02_Weipa_Onhire_Report_Kit/*_LATEST.xlsx
+02_Weipa_Onhire_Report_Kit/*.xlsm
+02_Weipa_Onhire_Report_Kit/LAPTOP_CHECK.txt
+02_Weipa_Onhire_Report_Kit/LAST_RUN_LOG.txt
+02_Weipa_Onhire_Report_Kit/_lib/
+02_Weipa_Onhire_Report_Kit/_python/

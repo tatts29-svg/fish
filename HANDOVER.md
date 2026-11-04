@@ -161,6 +161,31 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ---
 
+## The Weipa on-hire kit (Rio Tinto) — `02_Weipa_Onhire_Report_Kit/`
+
+A **standalone** kit, separate from the K2 suite: one folder, three
+buttons, nothing installed. It reads RENTAL_STOCK / SALES_STOCK /
+TRANSACTIONS and writes the on-hire **workbook**, the on-hire **email**
+(draft, no costs) and the **company pack PDF** (a section per company,
+attached to the email, plus one PDF per company in `By_Company\`).
+The PDF is drawn by `coates_pdf.py`, a standard-library PDF writer that
+travels in the kit — no browser, no Acrobat.
+
+Settled rules, 04 Nov 2026 makeover:
+
+- **Every on-hire item is dated from the START of its issue transaction**,
+  never from RENTAL_STOCK's ON_HIRE_DATE (that is what showed August for
+  gear issued this week). An item with no open transaction inside the
+  TRANSACTIONS export is shown **undated** and the report says how many
+  and why. Tell him to pull TRANSACTIONS from the shut start.
+- One palette across email, workbook and PDF: orange `#F26222`,
+  near-black `#1D1D1B`, charcoal `#2A313C`; red/amber/green only for
+  meaning. Email is tables + inline styles, no images (Outlook = Word).
+- Data tabs are value-identical to the previous builder; only the
+  presentation, the dating and the new columns changed.
+- `_lib` (vendored openpyxl) and all site data stay out of git; the
+  delivery zip carries `_lib`. Extract over the top of the live folder.
+
 ## Traps — real mistakes made on this job, don't repeat them
 
 **Don't guess his network topology.** It was got wrong four times in a

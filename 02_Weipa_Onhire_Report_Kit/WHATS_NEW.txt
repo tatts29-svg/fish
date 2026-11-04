@@ -1,0 +1,72 @@
+======================================================================
+ COATES | ON-HIRE REPORT KIT - WHAT'S NEW (makeover, 04 Nov 2026)
+ Author: Andrew Fisher | POWERED BY SITEIQ
+======================================================================
+
+ Extract this zip over the top of your existing Onhire_Report_Kit
+ folder and say Yes to replacing files. Your exports, your LATEST
+ workbook, your .xlsm and your Reports folder are not in the zip, so
+ nothing of yours is touched. Then press 2_MAKE_THE_REPORT.bat as
+ usual.
+
+ THE DATES - the one that matters
+ --------------------------------
+   Every on-hire item is now dated from the START of its issue
+   transaction in SiteIQ, never from the stock record's ON_HIRE_DATE.
+   That is what was putting August against gear that went out this
+   week. Where the stock record and the transaction agree (most
+   items) nothing changes; where they don't, the transaction wins.
+
+   An item with no issue transaction inside the TRANSACTIONS export
+   you pulled is shown as UNDATED - in the email, the pack and the
+   workbook - and the report says how many and why. Pull TRANSACTIONS
+   from the start of the shut and every item dates. The window the
+   export covers is printed in the email footer, on the Cover and in
+   the pack.
+
+ NEW - THE COMPANY PACK (PDF)
+ ----------------------------
+   Reports\<today>\<Job> On-Hire Report by Company - <date>.pdf
+   A cover with the position and a contents list that links to each
+   section, then one section per company: their people A-Z, their
+   gear longest-held first, item numbers, the day each item was
+   issued, days out, and the consumables they drew this period. Each
+   company is a bookmark in Acrobat. Attached to the email next to
+   the workbook. One PDF per company in Reports\<today>\By_Company\
+   as well, for forwarding a company just their page.
+
+   Built by coates_pdf.py, a small PDF writer that now travels in the
+   kit - nothing to install, no browser, no Acrobat needed to make it.
+
+ THE EMAIL - new layout
+ ----------------------
+   One white sheet on a grey page. Coates masthead, the position in
+   words, four flags that say their status in words as well as
+   colour, what is attached, then seven slim numbered sections with
+   cleaner tables (one bar per table, chips for anything that carries
+   a judgement), a lighter company roll, and what I need from you.
+   Still tables-and-inline-styles only, no images, so Outlook, Gmail
+   and a phone all draw it the same. Still no costs.
+
+ THE WORKBOOK - new look
+ -----------------------
+   Coates title band (COATES in orange on near-black, orange rule)
+   on every tab, charcoal heading rows, plain-English column headings,
+   faint zebra, TOTAL rows highlighted on Company Summary, and colour
+   that follows the value: ratings and recommendations tinted, On
+   Hire tinted, days on hire red past 21 / amber past 13, orange data
+   bars on the utilisation columns. Page header and footer on every
+   printed tab. Detailed Onhire gains Days on hire, the issue
+   transaction behind each date, and the SiteIQ stock date beside it
+   for checking. New Cover: facts, headline tiles, what's in each tab,
+   what fed it, the ratings legend in colour, what is typed by hand.
+   A cost headline that can't be read shows TBC, never $0.
+
+ EVERYTHING ELSE
+ ---------------
+   HOW_IT_WORKS.html rewritten in the same look, with the dating rule
+   and the pack explained. 0_START_HERE.txt updated. 1_CHECK_THIS_
+   LAPTOP knows about the PDF writer and checks the laptop can open a
+   PDF. Every number on every data tab is unchanged - checked cell for
+   cell against the previous builder on the same exports.
+======================================================================
