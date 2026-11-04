@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 12:3x AEST: \"1298390 leaving at 1230pm\". Coates 1298390 is the forklift on FL04 (Forklift Rough Terrain 2.5t 4WD Diesel; TV compound / broadcast; contract 9992300 L2, MEAD; ticked Ready 30 Oct). It leaves site at 12:30 on 4 Nov through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged and 1298390 is FL04's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "FL04",
+   "at": "2026-11-04T12:30:00+10:00",
+   "nos": [
+    "1298390"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
