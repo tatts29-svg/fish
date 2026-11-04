@@ -943,6 +943,14 @@ def transactions_window(path):
         return None
 
 
+def days_out(when, since):
+    """Days an item has been out, never negative: an issue stamped later
+    today than the report date is 'today', not '-1 days'."""
+    if not since:
+        return None
+    return max(0, days_out(when, since))
+
+
 def _who(name):
     """A hirer's name flattened for matching. RENTAL_STOCK writes
     'Benjamin - Casey'; TRANSACTIONS writes 'Benjamin Casey'."""
@@ -1066,6 +1074,19 @@ def build(base=HERE, when=None):
         return max(pool, key=lambda t: (_date(t.get("TRAN_START_DATE")),
                                         _s(t.get("TRAN_START_TIME"))))
 
+    #  A report dated before its own data is wrong on its face. If the
+    #  exports carry a movement dated after today's clock (an early pull
+    #  across midnight, a laptop clock behind the site), the report takes
+    #  the newest day in the data as its date and says so.
+    newest = max([_date(r.get("TRAN_START_DATE")) for r in tw
+                  if _date(r.get("TRAN_START_DATE"))] or [when])
+    if newest > when:
+        say("  NOTE | The exports carry movements dated {}, after today's clock "
+            "({}). The report is dated {}.".format(
+                newest.strftime("%d %b %Y"), when.strftime("%d %b %Y"),
+                newest.strftime("%d %b %Y")))
+        when = newest
+
     title = "{}  |  Shutdown Tool Store  |  On-Hire Report".format(
         s.short or s.customer or "Shutdown")
     _PRINT["job"] = s.header_line
@@ -1152,7 +1173,7 @@ def build(base=HERE, when=None):
                     _s(r.get("ITEM_NUMBER")), _s(r.get("ITEM_DESCRIPTION")),
                     _s(r.get("ITEM_STATUS")), since,
                     _s(t.get("TRAN_START_TIME")) if t else "",
-                    (when - since).days if since else None,
+                    days_out(when, since),
                     _s(t.get("TRANSACTION_ID")) if t else "Not in this export",
                     _date(r.get("ON_HIRE_DATE"))])
     det.sort(key=lambda x: (x[0], x[1], x[3]))
@@ -1600,15 +1621,15 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     dated = [r for r in det if r[5]]
     undated = [r for r in det if not r[5]]
     dated.sort(key=lambda r: r[5])
-    long_out = [r for r in dated if (when - r[5]).days >= LONG_OUT_DAYS]
+    long_out = [r for r in dated if days_out(when, r[5]) >= LONG_OUT_DAYS]
     idle_tool = [r for r in tu if r[11] == "No Use" and r[1] >= 2]
     idle_units = sum(r[1] for r in idle_tool)
 
-    oldest_days = max([(when - r[5]).days for r in dated] or [0])
+    oldest_days = max([days_out(when, r[5]) for r in dated] or [0])
     oldest_item = dated[0][3] if dated else ""
     co_oldest = {}
     for r in dated:
-        days = (when - r[5]).days
+        days = days_out(when, r[5])
         if days > co_oldest.get(r[0], -1):
             co_oldest[r[0]] = days
 
@@ -1747,7 +1768,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     #  Out the longest - oldest open issue transactions. The item NUMBER
     #  rides along, because four lines all saying "Rio Tinto DropMat Kit"
     #  are four different kits and somebody has to go and find them.
-    longest = [[r[3], r[2], r[0], r[1], r[5], (when - r[5]).days]
+    longest = [[r[3], r[2], r[0], r[1], r[5], days_out(when, r[5])]
                for r in dated[:12]]
 
     #  ---- everything on hire, company by company, person by person ----
@@ -1777,7 +1798,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                 "who": who,
                 "n": d["n"],
                 "since": d["oldest"],
-                "days": (when - d["oldest"]).days if d["oldest"] else None,
+                "days": days_out(when, d["oldest"]) if d["oldest"] else None,
                 "undated": d["undated"],
                 #  Most-held first, then alphabetical.
                 "gear": sorted(d["items"].items(),
@@ -3850,7 +3871,7 @@ def pack_blocks(det, ctx, tooling_tx, when):
             oldest = min(r[5] for r in dated) if dated else None
             people.append({
                 "who": who, "items": items, "since": oldest,
-                "days": (when - oldest).days if oldest else None,
+                "days": days_out(when, oldest) if oldest else None,
                 "undated": len(items) - len(dated)})
         all_items = [r for p in people for r in p["items"]]
         days = [r[7] for r in all_items if r[7] is not None]
