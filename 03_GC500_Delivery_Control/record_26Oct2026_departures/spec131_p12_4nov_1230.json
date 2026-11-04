@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 12:0x AEST: \"P13 left 1210pm   p12 leaves at 1230pm\". P12 is Coates 418665 (Portable Building Shell 4.8 m x 2.4 m; contract 9968862 L48, KINP; ticked Ready). It leaves site at 12:30 on 4 Nov through the page's own Record departure form in his name, recorded after 12:30 (the form takes no future time). Applied only if the dry run shows the P&L unchanged and 418665 is P12's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P12",
+   "at": "2026-11-04T12:30:00+10:00",
+   "nos": [
+    "418665"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
