@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 14:2x AEST: \"P37 left at 220pm\". P37 is Coates 1105053 (Portable Building Shell 6.0 m x 3.0 m; contract 9968862 L50, KINP); 1105035, keyed on P37 in error, was taken off on 17 Sep and 1105053 put back. It leaves site at 14:20 on 4 Nov through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged and 1105053 is P37's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P37",
+   "at": "2026-11-04T14:20:00+10:00",
+   "nos": [
+    "1105053"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
