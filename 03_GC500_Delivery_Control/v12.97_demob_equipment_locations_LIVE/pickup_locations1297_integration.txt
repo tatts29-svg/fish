@@ -126,7 +126,7 @@ the live point's cache entry. No current-plan geometry should move a saved point
 
 8. Pure verification:
 
-  node 03_GC500_Delivery_Control/v12.97_demob_equipment_locations_DRAFT/test_pickup_locations.cjs
+  node 03_GC500_Delivery_Control/v12.97_demob_equipment_locations_LIVE/test_pickup_locations.cjs
 
 The tests use synthetic identities and coordinates only. Native integration must
 also prove a pin changed after a recorded snapshot cannot move that pickup map,

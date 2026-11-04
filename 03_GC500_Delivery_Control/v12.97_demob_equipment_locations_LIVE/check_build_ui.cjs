@@ -19,10 +19,10 @@ const nativeMountIdentity=()=>{
 };
 
 (async()=>{
- assert(process.env.PAGE&&process.env.OUT,'PAGE and private OUT are required');
+ assert((process.env.PAGE||process.env.LIVE==='1')&&process.env.OUT,'PAGE or LIVE=1, and private OUT, are required');
  const out=process.env.OUT;fs.mkdirSync(out,{recursive:true});
  const mobile=process.env.MOBILE!=='0',W=mobile?390:1440,H=mobile?844:1000;
- const s=await open({pageFile:process.env.PAGE,hash:'#today',W,H,mobile,dpr:1});
+ const s=await open({pageFile:process.env.LIVE==='1'?undefined:process.env.PAGE,hash:'#today',W,H,mobile,dpr:1});
  try{
   const p=s.page;
   await p.waitForFunction(()=>window.BuildShapes1297?.prepare&&window.BuildCards1247&&window.DemobShapes1297);
