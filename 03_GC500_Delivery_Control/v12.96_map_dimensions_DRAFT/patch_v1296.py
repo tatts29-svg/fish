@@ -32,6 +32,43 @@ def apply(s):
  r(' const clonePins=ps=>', " function sizeSuffix1296(key){const t=row(key)?.dimension;return t?' · '+t:'';}\n const clonePins=ps=>",'3D size suffix')
  r("const sig=JSON.stringify(next.map(r=>[r.key", "parent.MapDimensions1296.batch(()=>{for(const r of next){const sizes=parent.MapDimensions1296.read(r.key,true);r.dimension=parent.MapDimensions1296.compact(sizes);r.dimensionToken=JSON.stringify(sizes);}});const sig=JSON.stringify(next.map(r=>[r.key",'cached remaining dimensions')
  r("r.items.map(it=>it.places)]));", "r.items.map(it=>it.places),r.dimensionToken]));",'dimension refresh fingerprint')
+ r(' let selectGuard=null,cardGuard=null;', ''' let sizeFitFrame1296=0,sizeFitObserver1296=null;
+ function fitSizeCard1296(){
+  sizeFitFrame1296=0;
+  const card=document.getElementById('xcard');if(!card||card.hidden||!card.querySelector('[data-size1296]'))return;
+  card.style.maxHeight='';card.style.overflowY='';delete card.dataset.sizeFit1296;
+  const limit=getComputedStyle(card).maxHeight,c=card.getBoundingClientRect(),l=document.getElementById('map1256-key')?.getBoundingClientRect();
+  const room=l?Math.floor(c.bottom-l.bottom-8):0;
+  if(l&&l.width&&l.height&&l.right>c.left&&l.left<c.right&&room>=100){
+   card.style.maxHeight=limit==='none'?room+'px':'min('+limit+', '+room+'px)';card.style.overflowY='auto';card.dataset.sizeFit1296='true';
+  }
+ }
+ function queueSizeFit1296(){
+  if(!sizeFitObserver1296&&typeof ResizeObserver==='function'){
+   sizeFitObserver1296=new ResizeObserver(queueSizeFit1296);
+   for(const el of [document.querySelector('.hud'),document.getElementById('stage')])if(el)sizeFitObserver1296.observe(el);
+  }
+  if(!sizeFitFrame1296)sizeFitFrame1296=requestAnimationFrame(fitSizeCard1296);
+ }
+ window.addEventListener('pagehide',e=>{if(!e.persisted){sizeFitObserver1296?.disconnect();if(sizeFitFrame1296)cancelAnimationFrame(sizeFitFrame1296);}});
+ function withSizeCard1296(fn,context,args){
+  const value=fn.apply(context,args),card=document.getElementById('xcard');
+  card?.querySelector('[data-size1296]')?.remove();
+  if(card?.dataset.sizeFit1296){card.style.maxHeight='';card.style.overflowY='';delete card.dataset.sizeFit1296;}
+  if(card&&!card.hidden&&selected){const key=selected.reg?.sourceRequest1017?selected.reg.sourceKey1017:selected.code;
+   const rows=parent.MapDimensions1296.read(key,active),text=parent.MapDimensions1296.compact(rows);
+   if(text){const note=document.createElement('small');note.dataset.size1296='';note.textContent='Dimensions per unit: '+text.replace(/ · each$/,'');note.style.cssText='display:block;padding:6px 0;color:#d4e7ed;overflow-wrap:anywhere';(card.querySelector('.map1010-quantities')||card.querySelector('.xc-m'))?.after(note);
+    queueSizeFit1296();
+   }
+  }return value;
+ }
+ let selectGuard=null,cardGuard=null;''','selected reference dimensions')
+ start=s.index(' function guardSelection(){');end=s.index('\n guardSelection();',start)
+ hooks=s[start:end]
+ for a,b,count in [('refreshCard.apply(this,arguments)','withSizeCard1296(refreshCard,this,arguments)',3),('choose.apply(this,arguments)','withSizeCard1296(choose,this,arguments)',3)]:
+  if hooks.count(a)!=count:raise ValueError('Unexpected selection hook count: '+a)
+  hooks=hooks.replace(a,b)
+ s=s[:start]+hooks+s[end:]
  r("+' · v12.95';", "+' · v12.96';",'footer')
  return s
 if __name__=='__main__':

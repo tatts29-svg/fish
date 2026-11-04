@@ -13,6 +13,21 @@ const {open}=require('../../toolchain/harness/open_page');
   });
   await f.locator('#still-onsite1290').tap();
   await f.evaluate(it=>GC500Search1210.select(it.code,0),item);
+  await f.waitForFunction(()=>document.querySelector('#xcard [data-size1296]'));
+  assert((await f.locator('#xcard [data-size1296]').innerText()).includes('Dimensions per unit:'));
+  assert(await f.locator('#xcard').evaluate(c=>c.querySelector('[data-size1296]').parentElement===c.querySelector('.xc-b')&&c.querySelector('.xc-b').getBoundingClientRect().width>c.clientWidth*.8&&c.scrollWidth<=c.clientWidth+1));
+  await f.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  // The native clear-selection control appears after selection and grows the HUD.
+  // Require the real close target to remain unobscured, including after a native record refresh.
+  await f.waitForFunction(()=>{const b=document.querySelector('#xcard [data-xclose]');if(!b)return false;const r=b.getBoundingClientRect();return b.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});
+  await f.evaluate(()=>GC500ExplorerRefreshCard897());
+  await f.waitForFunction(()=>{const b=document.querySelector('#xcard [data-xclose]');if(!b)return false;const r=b.getBoundingClientRect();return b.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});
+  fs.writeFileSync(out+'/card.json',JSON.stringify(await f.locator('#xcard').evaluate(c=>({style:c.getAttribute('style'),rect:c.getBoundingClientRect().toJSON(),legend:document.getElementById('map1256-key').getBoundingClientRect().toJSON(),computed:getComputedStyle(c).maxHeight}))));
+  await p.screenshot({path:out+'/selected-phone.png'});
+  await f.locator('#xcard [data-xclose]').tap();
+  // Native label collision rules suppress dense overviews; zoom to inspect a readable equipment label.
+  await f.locator('#zoomIn').tap();await f.locator('#zoomIn').tap();
+  await f.evaluate(()=>requestPaint());
   try{await f.waitForFunction(it=>GC500Departure1211.markers1288.some(q=>q.code===it.code&&q.dimension&&q.tag.length),item,{timeout:30000});}catch(e){fs.writeFileSync(out+'/diagnostic.json',JSON.stringify(await f.evaluate(it=>({item:it,points:GC500Departure1211.markers1288,row:GC500StillOnSite1290.row(it.code),expected:parent.MapDimensions1296.read(it.key,true)}),item)));await p.screenshot({path:out+'/diagnostic.png'});throw e;}
   await f.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   const labels=await f.evaluate(it=>{const q=GC500Departure1211.markers1288.find(q=>q.code===it.code);return {text:q.dimension,expected:parent.MapDimensions1296.compact(parent.MapDimensions1296.read(it.key,true)),tags:q.tag,width:innerWidth,sw,dpr,canvasWidth:canvas.width,overlayWidth:document.getElementById('offsite1225').width,fit:q.tag.every(t=>t.x>=0&&t.x+t.w<=innerWidth+1)};},item);
