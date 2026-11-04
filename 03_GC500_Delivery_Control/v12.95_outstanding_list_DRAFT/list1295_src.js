@@ -11,8 +11,8 @@
    const units=item.units||[],numbers=units.map(u=>String(u.number||u.assetNo||'').trim()).filter(Boolean);
    // The native pickup pool resolves remaining identities; never use historical reference numbers.
    const identitySafe=!r.review&&!r.unknown&&units.length<=item.n;
-   html+='<section class="onsite-item1295"><b>'+esc(item.type)+'</b><dl class="onsite-details1295">'+field('Qty remaining',Number.isFinite(item.n)?String(item.n):'To confirm')+field('Asset number',identitySafe&&numbers.length?numbers.join(', ')+(item.unidentified?' · '+item.unidentified+' to confirm':''):'To confirm')+'</dl>';
-   const groups=spec?.items?.find(x=>x.type===item.type)?.specs||[];
+   html+='<section class="onsite-item1295"><b>'+esc(item.type)+'</b><dl class="onsite-details1295">'+field('Qty remaining',Number.isFinite(item.n)?String(item.n)+(r.review?' · review':r.unknown?' known · total to confirm':''):'To confirm')+field('Asset number',identitySafe&&numbers.length?numbers.join(', ')+(item.unidentified?' · '+item.unidentified+' to confirm':''):'To confirm')+'</dl>';
+   const groups=identitySafe?(spec?.items?.find(x=>x.type===item.type)?.specs||[]):[];
    if(groups.length)for(const group of groups){html+='<small>'+esc(group.labels.join(', '))+'</small><div class="onsite-spec1295">'+group.lines.map(line=>'<small>'+esc(String(line).replace(/not recorded/g,'To confirm').replace(/\?/g,'To confirm'))+'</small>').join('')+'</div>';}
    else html+='<dl class="onsite-details1295">'+field('Size','To confirm')+field('Weight','To confirm')+'</dl>';
    html+='</section>';
