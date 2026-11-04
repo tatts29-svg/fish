@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "DRAFT \u2014 awaiting final whole-page regression sweeps",
+  "state": "READY TO UPLOAD",
   "baseSha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
   "candidateSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
   "candidateBytes": 17060912,
@@ -39,6 +39,29 @@
     "historicalFinancialRowsPreserved": true,
     "liveApplied": false
   },
-  "sweeps": null,
-  "publication": null
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": null,
+  "implementationSource": "a76798317a4bbd5fb8da1b0455c58ff9aeb8df43",
+  "wrongBaseAndRepeatRefused": true
 }

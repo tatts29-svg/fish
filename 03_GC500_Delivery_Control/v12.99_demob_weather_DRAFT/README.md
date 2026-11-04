@@ -14,7 +14,7 @@ The native Person form also gains an optional, clearable **Last day on site**. I
 
 ## Release state
 
-DRAFT — implementation and focused checks pass; final UI/regression checks and guarded publication are underway. Ownership is on the shared status board.
+READY TO UPLOAD — focused checks, native weather and phone/desktop layout checks, the private native correction rehearsal, and both 27-tab/seven-link/Back regression sweeps pass on the exact candidate. Guarded publication and fresh public verification remain. Ownership is on the shared status board.
 
 - Agreed source branch: `ccr-061f77e8-ivjhrv`.
 - Claim source: `859de6dda2e7e6ff6a05f74bdd29729aa4a1e0ac`.
