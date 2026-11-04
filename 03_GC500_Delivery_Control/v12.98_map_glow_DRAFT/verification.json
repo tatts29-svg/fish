@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "implementationSource": "abf34dbdddbd058628e23e6778218185f066dab3",
+  "baseSha256": "567b19b3b767b66a273d0956aced913b942808f98e8f0c1f6075114c17f87261",
+  "candidateSha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
+  "candidateBytes": 17042608,
+  "inlineScripts": 224,
+  "focusedNodeTests": 14,
+  "wrongBaseAndRepeatRefused": true,
+  "scopeGuardPassed": true,
+  "nativeUi": {
+    "desktop": {
+      "passed": true,
+      "coordinatesChecked": true,
+      "pulseChecked": true,
+      "reducedMotionChecked": true,
+      "hiddenAndOffscreenChecked": true,
+      "cachedReentryChecked": true,
+      "canvasDrawAndEncodeDelta": 0,
+      "imageRequestDelta": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    "phone": {
+      "passed": true,
+      "coordinatesChecked": true,
+      "pulseChecked": true,
+      "reducedMotionChecked": true,
+      "hiddenAndOffscreenChecked": true,
+      "cachedReentryChecked": true,
+      "canvasDrawAndEncodeDelta": 0,
+      "imageRequestDelta": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": null
+}

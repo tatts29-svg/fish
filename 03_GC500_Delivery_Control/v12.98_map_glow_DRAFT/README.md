@@ -12,12 +12,14 @@ The pulse uses CSS opacity/transform animation. It does not redraw, re-encode or
 
 ## Release state
 
-DRAFT. Codex owns implementation, checks and guarded publication. Claude retains his other existing scope and holds; no Claude receipt or review is claimed.
+READY TO UPLOAD. All focused, native phone/desktop and whole-page regression checks pass on the exact candidate below. Guarded publication and public read-back remain. Ownership and other work holds remain on the shared status board.
 
 - Agreed branch: `ccr-061f77e8-ivjhrv`.
 - Starting source: `9f3d2de3bc3357f1919278b090ed36eb311c0567`.
 - Required live base SHA-256: `567b19b3b767b66a273d0956aced913b942808f98e8f0c1f6075114c17f87261` (v12.97).
-- Final test and live read-back results will be recorded in `verification.json`.
+- Candidate SHA-256: `ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d`, 17042608 bytes.
+- Shared build: 224 scripts; 14 focused tests; exact scope and base guards; native phone/desktop alignment and motion checks; both 27-tab/seven-link/Back sweeps pass. Zero runtime/console errors or attempted record writes.
+- Verification is recorded in `verification.json`.
 - Detailed screenshots and native site evidence remain private.
 
 ## Reproduce
