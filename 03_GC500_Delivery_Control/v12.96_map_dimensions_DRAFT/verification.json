@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "testedSource": "814f3f5b860f8ea69080459e52ad0a06815bfb42",
+  "basePageSha256": "6f4f3a35ad52cc794bc0f8e696cae978cef23965d72e6bf53e45f1c017b0a35a",
+  "candidatePageSha256": "636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018",
+  "candidateBytes": 16997018,
+  "machineReleaseSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "buildInlineScripts": 224,
+  "unchangedInlineScripts": 222,
+  "syntheticChecks": 31,
+  "focusedPhone": {
+    "passed": true,
+    "mapDimensions": true,
+    "demobDimensions": true,
+    "phoneFit": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "selectedCardCloseBeforeAndAfterNativeRefresh": true,
+  "phoneScreenshotsInspected": true,
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "dryRunEditAuthorityAndUnchangedBase": true,
+  "recordWrites": 0,
+  "privateEvidenceCommitted": false
+}

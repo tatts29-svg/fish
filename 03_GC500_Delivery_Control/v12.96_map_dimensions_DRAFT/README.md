@@ -1,4 +1,4 @@
-# Map quantity dimensions — draft
+# Map quantity dimensions — ready to upload
 
 Author: Andrew Fisher.
 
@@ -10,4 +10,4 @@ Refresh batches and the existing native record-aware cache prepare labels. Paint
 
 Base: exact live v12.95 `6f4f3a35ad52cc794bc0f8e696cae978cef23965d72e6bf53e45f1c017b0a35a`. Patch rejects changed or already patched bases. Only demob1211-script, spot1117-script and release footer change; machine files stay unchanged.
 
-Candidate `636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018`, 16,997,018 bytes. Shared build (224 scripts), exact patch/base/scope guards (222 other scripts unchanged), 31 dimension/cache checks and focused native phone checks pass. Phone map labels, selected card and Demob selection visually reviewed. Native close works before/after card refresh. Final desktop/phone sweeps remain in progress; not ready to upload. Detailed screenshots and native record evidence remain private. No external agent review claimed.
+Candidate `636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018`, 16,997,018 bytes. Shared build (224 scripts), exact patch/base/scope guards (222 other scripts unchanged), 31 dimension/cache checks and focused native phone checks pass. Phone map labels, selected card and Demob selection visually reviewed. Native close works before/after card refresh. Final desktop and phone sweeps each pass 27 tabs, seven deep links and Back with unchanged routing, zero runtime/console errors and zero attempted writes. Guarded upload-access dry run passes. Tested source `814f3f5b860f8ea69080459e52ad0a06815bfb42`. READY TO UPLOAD; publication and live read-back still pending. Detailed screenshots and native record evidence remain private. No external agent review claimed.
