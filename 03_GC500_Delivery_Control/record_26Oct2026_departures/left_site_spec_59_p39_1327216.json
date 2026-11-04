@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (08:2x AEST): \"P39 leaves at 9am\". 1327216 is P39's only unit (Coates portable building; ticked Ready 4 Nov; Brenden Meek's booking for 4 Nov 12:30 did not happen; read 08:2x AEST, not already left), so P39 left in full at 09:00 AEST on Thu 5 Nov 2026. Its two air conditioners 1272737 and 1327936 and its fire extinguisher stay listed on P39 as gear that goes with it. Recorded after 09:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P39",
+   "at": "2026-11-05T09:00:00+10:00",
+   "nos": [
+    "1327216"
+   ],
+   "complete": true
+  }
+ ]
+}
