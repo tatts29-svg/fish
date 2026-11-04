@@ -1,0 +1,350 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261104T230706Z",
+ "finished": "2026-11-04T23:07:39.952Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 5 Nov 2026 (09:0x AEST): \"P17  leaving at 9am\". 1268887 is P17's only unit (Coates portable building; ticked Ready 3 Nov; Brenden Meek's booking for 5 Nov 10:00 on the record; read 09:06 AEST, not already left), so P17 left in full at 09:00 AEST on Thu 5 Nov 2026, an hour before that booking. Its fire extinguisher stays listed on P17 as gear that goes with it. Recorded after 09:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P17",
+    "at": "2026-11-05T09:00:00+10:00",
+    "nos": [
+     "1268887"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+ "version": {
+  "before": 13048,
+  "after": 13049
+ },
+ "updated": {
+  "before": "2026-11-04T23:04:03.671Z",
+  "after": "2026-11-04T23:07:38.954Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P17",
+   "at": "2026-11-05T09:00:00+10:00",
+   "nos": [
+    "1268887"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-05T09:00:00+10:00, recorded by Andrew Fisher: 1 x Building 9.6m 1268887 - P17 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P17",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P17": {
+    "state": "on site",
+    "set_at": "2026-09-16T07:16:41.813Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T07:16:43.032Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:31:31.559Z",
+    "ready1238_units": {
+     "coates|1268887": {
+      "on": true,
+      "at": "2026-11-03T03:21:58.513Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1268887": {
+      "at": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:58:17.311Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-16T07:16:41.813Z",
+    "eta": "10:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-16T07:16:41.813Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-16T07:16:41.813Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T07:16:43.032Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:31:31.559Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1268887",
+      "ready": true,
+      "at": "2026-11-03T03:21:58.513Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1268887",
+      "pickup": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:58:17.311Z"
+     }
+    ],
+    "loading872": {
+     "u1268887": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:51:36.780Z"
+     }
+    },
+    "_k": "P17"
+   }
+  },
+  "after": {
+   "delivery/P17": {
+    "state": "in transit",
+    "set_at": "2026-11-04T23:07:24.587Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-04T23:07:24.587Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-04T23:07:24.587Z",
+    "ready1238_units": {
+     "coates|1268887": {
+      "on": true,
+      "at": "2026-11-03T03:21:58.513Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1268887": {
+      "at": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:58:17.311Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-04T23:07:24.587Z",
+    "eta": "10:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-16T07:16:41.813Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-04T23:07:24.587Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "28ddfdc7-60bc-409c-a18c-3e01d841b421",
+       "date": "2026-11-05",
+       "departedAt1211": "2026-11-05T09:00:00+10:00",
+       "programmeDate": "2026-11-05",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-16T07:16:41.813Z",
+       "requiredKey": "[[\"building 9.6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 9.6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P17\",\"coates\",\"asset\",\"1268887\"]"
+         ],
+         "numbers": [
+          "1268887"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P17\",\"coates\",\"asset\",\"1268887\"]",
+           "number": "1268887",
+           "owner": "coates",
+           "item": "Building 9.6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P17",
+        "capturedAt": "2026-11-04T23:07:24.587Z",
+        "arrivalAt": "2026-09-16T07:16:41.813Z",
+        "reference": {
+         "lat": -27.984888,
+         "lon": 153.426979,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P17",
+         "tag": "P17",
+         "what": "Team Office BJR · Building 9.6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-16T07:16:41.813Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-04T23:07:24.587Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T07:16:43.032Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-04T23:07:24.587Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:31:31.559Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-04T23:07:24.587Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1268887",
+      "ready": true,
+      "at": "2026-11-03T03:21:58.513Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1268887",
+      "pickup": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:58:17.311Z"
+     }
+    ],
+    "loading872": {
+     "u1268887": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:51:36.780Z"
+     }
+    },
+    "_k": "P17"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
