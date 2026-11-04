@@ -948,7 +948,7 @@ def days_out(when, since):
     today than the report date is 'today', not '-1 days'."""
     if not since:
         return None
-    return max(0, days_out(when, since))
+    return max(0, (when - since).days)
 
 
 def _who(name):
