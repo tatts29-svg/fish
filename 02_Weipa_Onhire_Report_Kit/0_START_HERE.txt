@@ -202,11 +202,14 @@
    monitor, and on a phone at the gate.
 
 
- WHAT COMES OUT - twelve tabs
- ============================
+ WHAT COMES OUT - thirteen tabs
+ ==============================
 
    Cover                    what this is, what fed it, the headlines
                             as tiles, how many pages the pack ran to
+   Dashboard                the position as LIVE Excel charts: four
+                            gauges, who holds gear, ratings, movements
+                            by day, consumables running down
    Company Summary          per company: tooling, consumables, total
    Detailed Onhire          every item out right now, who has it, the
                             day it was issued, days on hire, and the
@@ -237,6 +240,12 @@
    any laptop with nothing installed - no Acrobat, no browser, no
    print driver. If it ever fails to build, the window says so in a
    band and the workbook and the email still go out without it.
+
+   Page 2 of the pack is AT A GLANCE - the store as pictures: four
+   dials, who is holding gear, ratings, movements by day, what is
+   working hardest and which consumables are running down. Every
+   company section has an Items-by-person bar chart. All drawn in the
+   Coates palette from the same numbers as the tables.
 
    Open HOW_IT_WORKS.html for what is on each page.
 

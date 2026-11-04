@@ -221,6 +221,86 @@ class Document(object):
             "h", paint]
         self._op(pre + " ".join(path))
 
+    # ---- shapes for charts ---------------------------------------------
+    #  Angles are degrees as you'd draw them on paper: 0 is three o'clock,
+    #  90 is twelve o'clock, counter-clockwise is positive.
+    def _arc_ops(self, cx, cy, r, a1, a2, move):
+        """Bezier segments for an arc, in PDF coordinates."""
+        import math
+        H = self.page.h
+        cy = H - cy
+        ops = []
+        total = a2 - a1
+        steps = max(1, int(abs(total) / 90.0 + 0.999))
+        step = total / float(steps)
+        for i in range(steps):
+            t1 = math.radians(a1 + step * i)
+            t2 = math.radians(a1 + step * (i + 1))
+            k = 4.0 / 3.0 * math.tan((t2 - t1) / 4.0)
+            p0 = (cx + r * math.cos(t1), cy + r * math.sin(t1))
+            p3 = (cx + r * math.cos(t2), cy + r * math.sin(t2))
+            p1 = (p0[0] - k * r * math.sin(t1), p0[1] + k * r * math.cos(t1))
+            p2 = (p3[0] + k * r * math.sin(t2), p3[1] - k * r * math.cos(t2))
+            if i == 0:
+                ops.append("{} {} {}".format(_n(p0[0]), _n(p0[1]), "m" if move else "l"))
+            ops.append("{} {} {} {} {} {} c".format(_n(p1[0]), _n(p1[1]), _n(p2[0]),
+                                                   _n(p2[1]), _n(p3[0]), _n(p3[1])))
+        return ops
+
+    def ring(self, cx, cy, r_out, r_in, a1, a2, fill):
+        """A slice of a ring (or of a disc when r_in is 0) from angle a1
+        to a2. Gauges and donuts are made of these."""
+        if abs(a2 - a1) < 0.01:
+            return
+        ops = [_rgb(fill) + " rg"]
+        ops += self._arc_ops(cx, cy, r_out, a1, a2, True)
+        if r_in > 0:
+            ops += self._arc_ops(cx, cy, r_in, a2, a1, False)
+        else:
+            import math
+            H = self.page.h
+            ops.append("{} {} l".format(_n(cx), _n(H - cy)))
+        ops.append("h f")
+        self._op(" ".join(ops))
+
+    def circle(self, cx, cy, r, fill=None, stroke=None, lw=0.6):
+        if fill is None and stroke is None:
+            return
+        pre = ""
+        if fill:
+            pre += _rgb(fill) + " rg "
+        if stroke:
+            pre += _rgb(stroke) + " RG " + _n(lw) + " w "
+        paint = "B" if (fill and stroke) else ("f" if fill else "S")
+        self._op(pre + " ".join(self._arc_ops(cx, cy, r, 0, 360, True)) + " h " + paint)
+
+    def polyline(self, points, colour="#000000", lw=1.0, dash=None, close=False,
+                 fill=None):
+        """A line through points [(x, y), ...] from the top-left; with
+        fill it becomes a filled shape."""
+        if len(points) < 2:
+            return
+        H = self.page.h
+        ops = []
+        if fill:
+            ops.append(_rgb(fill) + " rg")
+        if colour:
+            ops.append(_rgb(colour) + " RG " + _n(lw) + " w")
+        if dash:
+            ops.append("[{}] 0 d".format(" ".join(_n(d) for d in dash)))
+        ops.append("{} {} m".format(_n(points[0][0]), _n(H - points[0][1])))
+        for (x, y) in points[1:]:
+            ops.append("{} {} l".format(_n(x), _n(H - y)))
+        if fill and colour:
+            ops.append("h B")
+        elif fill:
+            ops.append("h f")
+        else:
+            ops.append("h S" if close else "S")
+        if dash:
+            ops.append("[] 0 d")
+        self._op(" ".join(ops))
+
     def line(self, x1, y1, x2, y2, colour="#000000", lw=0.5):
         H = self.page.h
         self._op("{} RG {} w {} {} m {} {} l S".format(

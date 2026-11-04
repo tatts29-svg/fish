@@ -7,7 +7,9 @@
 #  The shutdown on-hire workbook, rebuilt from the SiteIQ exports for
 #  whichever job this computer is running (57_SWITCH_JOB.bat).
 #
-#  Twelve tabs, and every one of them works:
+#  Thirteen tabs, and every one of them works:
+#
+#    Dashboard                the position as live charts and gauges
 #
 #    Cover                    what this is, what fed it, the headlines
 #    Company Summary          per company: tooling, consumables, total
@@ -929,6 +931,18 @@ def transactions_period(path):
     return raw
 
 
+def transactions_window(path):
+    """The TRANSACTIONS export's window as (first day, last day), or
+    None if the export doesn't say."""
+    text = transactions_period(path)
+    try:
+        a, b = text.split(" to ")
+        return (dt.datetime.strptime(a.strip(), "%d %b %Y %H:%M").date(),
+                dt.datetime.strptime(b.strip(), "%d %b %Y %H:%M").date())
+    except Exception:
+        return None
+
+
 def _who(name):
     """A hirer's name flattened for matching. RENTAL_STOCK writes
     'Benjamin - Casey'; TRANSACTIONS writes 'Benjamin Casey'."""
@@ -1324,6 +1338,7 @@ def build(base=HERE, when=None):
     carried, labour_total, cost_total = carry_over(wb, s, base, title)
     for name, n in carried:
         tabs.append((name, n, "Typed by hand - carried over untouched"))
+    tabs.insert(0, ("Dashboard", 8, "The position as live charts and gauges"))
 
     # ---- the email's numbers, and the company pack --------------------
     #  Worked out before the cover so the cover can say how many pages
@@ -1332,6 +1347,47 @@ def build(base=HERE, when=None):
     parts = email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                         tooling_tx, live_onhire, sources, when, period)
     blocks, quiet = pack_blocks(det, ctx, tooling_tx, when)
+
+    #  The numbers the charts and gauges are drawn from - the pack's
+    #  "At a glance" page and the workbook's Dashboard tab read these.
+    by_day = {}
+    for r in tooling_tx:
+        d0, d1 = _date(r.get("TRAN_START_DATE")), _date(r.get("TRAN_END_DATE"))
+        if d0:
+            by_day.setdefault(d0, [0, 0, 0])[0] += 1
+        if d1:
+            by_day.setdefault(d1, [0, 0, 0])[1] += 1
+    for r in ctx:
+        if r[4]:
+            by_day.setdefault(r[4], [0, 0, 0])[2] += 1
+    #  Only the days inside the transactions window - SALES_STOCK carries
+    #  every sale ever made, and a stray August sale is not a movement
+    #  worth charting next to this week's.
+    window = transactions_window(p_trans)
+    if window:
+        days_sorted = [dd for dd in sorted(by_day) if window[0] <= dd <= window[1]]
+    else:
+        days_sorted = sorted(by_day)[-7:]
+    tool_mix, cons_mix = {}, {}
+    for r in tu:
+        tool_mix[r[11]] = tool_mix.get(r[11], 0) + 1
+    for r in cu:
+        cons_mix[r[9]] = cons_mix.get(r[9], 0) + 1
+    dated_days = [r[7] for r in det if r[7] is not None]
+    parts["viz"] = {
+        "coates_total": len(coates_owned),
+        "coates_out": len([r for r in coates_owned
+                           if _s(r.get("ITEM_STATUS")) == "On Hire"]),
+        "onhire": len(det), "dated": len(det) - len(undated),
+        "undated": len(undated),
+        "cons_lines": len(ca),
+        "cons_tight": len([r for r in cu if r[4] >= CONS_TIGHT]),
+        "long_out": len([d for d in dated_days if d >= LONG_OUT_DAYS]),
+        "oldest_days": max(dated_days) if dated_days else 0,
+        "tool_mix": tool_mix, "cons_mix": cons_mix,
+        "by_day": [(dd, by_day[dd][0], by_day[dd][1], by_day[dd][2]) for dd in days_sorted],
+        "period": period,
+    }
 
     # ---- 12. Cover ----------------------------------------------------
     try:
@@ -1388,6 +1444,14 @@ def build(base=HERE, when=None):
               "Labour cost to date": labour_total,
               "Cost breakdown total": cost_total,
           }, pack=pack_info)
+    try:
+        dashboard(wb, s, when, asat, parts)
+        wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Dashboard"])))
+    except Exception as e:
+        say("  WARN | The Dashboard tab didn't build ({}). Everything else is "
+            "unaffected.".format(e))
+        import traceback
+        _LOG.append(traceback.format_exc())
     wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Cover"])))
 
     # ---- save ---------------------------------------------------------
@@ -1868,13 +1932,20 @@ def seed_costs(ws):
     the three totals and the grand total, as on Andrew's sheet."""
     for i, h in enumerate(["Day", "Type", "Shutdown", "Labour", "Site Services"], 1):
         ws.cell(row=2, column=i, value=h)
+    #  Labour is not typed twice. Each day's labour is the roster's own
+    #  total for that date, so the two tabs cannot drift apart - change a
+    #  shift on Coates Labour and this column follows.
+    first, last_r = 6, 5 + len(_WEIPA_ROSTER)
     r = 3
     for (day, kind, tooling, labour, site) in _WEIPA_COSTS:
         ws.cell(row=r, column=1, value=_d(day)).number_format = TYPED_DATE_FMT
         ws.cell(row=r, column=2, value=kind)
-        for col, v in ((3, tooling), (4, labour), (5, site)):
+        for col, v in ((3, tooling), (5, site)):
             if v is not None:
                 ws.cell(row=r, column=col, value=v).number_format = TYPED_MONEY_FMT
+        ws.cell(row=r, column=4, value="=SUMIF('Coates Labour'!$A${0}:$A${1},$A{2},"
+                "'Coates Labour'!$I${0}:$I${1})".format(first, last_r, r)
+                ).number_format = TYPED_MONEY_FMT
         r += 1
     last = r - 1
     for col, label in ((3, "Total Tooling Shutdown"), (4, "Total Labour Shutdown"),
@@ -1890,7 +1961,8 @@ def seed_costs(ws):
 
 
 # ---- a small formula evaluator, for totals only ----------------------
-_TOK = _re.compile(r"\s*(?:(\d+\.?\d*(?:[eE][-+]?\d+)?)|(\"[^\"]*\")|(\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?)"
+_TOK = _re.compile(r"\s*(?:(\d+\.?\d*(?:[eE][-+]?\d+)?)|(\"[^\"]*\")"
+                   r"|((?:(?:'[^']+'|[A-Za-z_][A-Za-z0-9_]*)!)?\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?)"
                    r"|([A-Za-z_][A-Za-z0-9_.]*)|(<>|<=|>=|[-+*/^=<>(),]))")
 
 
@@ -1906,7 +1978,11 @@ def _tokens(src):
         elif text is not None:
             out.append(("str", text[1:-1]))
         elif ref is not None:
-            out.append(("ref", ref.replace("$", "").upper()))
+            if "!" in ref:
+                sheet, addr = ref.rsplit("!", 1)
+                out.append(("ref", sheet + "!" + addr.replace("$", "").upper()))
+            else:
+                out.append(("ref", ref.replace("$", "").upper()))
         elif name is not None:
             out.append(("name", name.upper()))
         else:
@@ -1922,36 +1998,84 @@ class _Eval(object):
 
     def __init__(self, ws):
         self.ws = ws
+        self.wb = ws.parent
         self.cache = {}
         self.busy = set()
 
-    def cell(self, coord):
-        if coord in self.cache:
-            return self.cache[coord]
-        if coord in self.busy:
-            raise ValueError("circular reference at " + coord)
-        v = self.ws[coord].value
+    def _where(self, coord, sheet):
+        """A reference, with or without a sheet in front of it, as
+        (worksheet, address, key)."""
+        if "!" in coord:
+            sheet, coord = coord.rsplit("!", 1)
+            sheet = sheet.strip("'")
+        ws = self.wb[sheet] if sheet else self.ws
+        return ws, coord.replace("$", ""), (ws.title, coord.replace("$", ""))
+
+    def cell(self, coord, sheet=None):
+        ws, addr, key = self._where(coord, sheet)
+        if key in self.cache:
+            return self.cache[key]
+        if key in self.busy:
+            raise ValueError("circular reference at " + addr)
+        v = ws[addr].value
         if isinstance(v, str) and v.startswith("="):
-            self.busy.add(coord)
+            self.busy.add(key)
+            keep = self.ws
+            self.ws = ws                     # the formula's own sheet
             try:
                 v = self.formula(v)
             finally:
-                self.busy.discard(coord)
-        self.cache[coord] = v
+                self.ws = keep
+                self.busy.discard(key)
+        self.cache[key] = v
         return v
 
     def rng(self, text):
+        sheet = None
+        if "!" in text:
+            sheet, text = text.rsplit("!", 1)
+            sheet = sheet.strip("'")
         a, b = text.split(":")
         from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
-        ca, ra = coordinate_from_string(a)
-        cb, rb = coordinate_from_string(b)
+        ca, ra = coordinate_from_string(a.replace("$", ""))
+        cb, rb = coordinate_from_string(b.replace("$", ""))
         c1, c2 = sorted((column_index_from_string(ca), column_index_from_string(cb)))
         r1, r2 = sorted((ra, rb))
         out = []
         for r in range(r1, r2 + 1):
             for c in range(c1, c2 + 1):
-                out.append(self.cell("{}{}".format(get_column_letter(c), r)))
+                out.append(self.cell("{}{}".format(get_column_letter(c), r), sheet))
         return out
+
+    @staticmethod
+    def same(a, b):
+        """Excel-style equality for a SUMIF criterion."""
+        if isinstance(a, dt.datetime):
+            a = a.date()
+        if isinstance(b, dt.datetime):
+            b = b.date()
+        if isinstance(a, str) or isinstance(b, str):
+            return str(a if a is not None else "").strip().upper() == \
+                   str(b if b is not None else "").strip().upper()
+        if isinstance(a, dt.date) or isinstance(b, dt.date):
+            return a == b
+        try:
+            return _Eval.num(a) == _Eval.num(b)
+        except ValueError:
+            return a == b
+
+    def matches(self, value, crit):
+        if isinstance(crit, str):
+            m = _re.match(r"^(<>|<=|>=|<|>|=)(.*)$", crit.strip())
+            if m:
+                op, rest = m.group(1), m.group(2).strip()
+                try:
+                    a, b = self.num(value), float(rest)
+                except ValueError:
+                    a, b = str(value or "").upper(), rest.upper()
+                return {"=": a == b, "<>": a != b, "<": a < b, ">": a > b,
+                        "<=": a <= b, ">=": a >= b}[op]
+        return self.same(value, crit)
 
     def formula(self, src):
         #  A formula can refer to a cell that holds another formula, so
@@ -1989,8 +2113,10 @@ class _Eval(object):
             return float(v)
         if isinstance(v, dt.time):
             return (v.hour * 3600 + v.minute * 60 + v.second) / 86400.0
-        if isinstance(v, (dt.datetime, dt.date)):
-            return float((v - dt.datetime(1899, 12, 30).date()).days) if isinstance(v, dt.date) and not isinstance(v, dt.datetime) else float((v - dt.datetime(1899, 12, 30)).days)
+        if isinstance(v, dt.datetime):
+            return float((v - dt.datetime(1899, 12, 30)).days)
+        if isinstance(v, dt.date):
+            return float((v - dt.date(1899, 12, 30)).days)
         try:
             return float(str(v).replace(",", "").replace("$", ""))
         except ValueError:
@@ -2085,6 +2211,26 @@ class _Eval(object):
             if truth:
                 return args[1] if len(args) > 1 else True
             return args[2] if len(args) > 2 else False
+        if name in ("SUMIF", "SUMIFS"):
+            if name == "SUMIF":
+                where, crit = args[0], args[1]
+                what = args[2] if len(args) > 2 else args[0]
+                pairs = [(where, crit)]
+            else:
+                what = args[0]
+                pairs = list(zip(args[1::2], args[2::2]))
+            what = what if isinstance(what, list) else [what]
+            total = 0.0
+            for i, x in enumerate(what):
+                ok = True
+                for where, crit in pairs:
+                    where = where if isinstance(where, list) else [where]
+                    if i >= len(where) or not self.matches(where[i], crit):
+                        ok = False
+                        break
+                if ok and x not in (None, "") and not isinstance(x, str):
+                    total += self.num(x)
+            return total
         if name in ("ROUND",):
             return round(self.num(args[0]), int(self.num(args[1])) if len(args) > 1 else 0)
         if name in ("MIN", "MAX"):
@@ -2267,6 +2413,7 @@ def carry_over(wb, s, base, title):
 
     weipa = "weipa" in " ".join([s.short or "", s.job or "", s.customer or "",
                                  s.project_schedule or ""]).lower()
+    stale_roster = False
     for name in CARRIED_OVER:
         ws = wb.create_sheet(name)
         n = 0
@@ -2298,8 +2445,9 @@ def carry_over(wb, s, base, title):
             for k, dim in o.column_dimensions.items():
                 if dim.width:
                     ws.column_dimensions[k].width = dim.width
-        if (n and weipa and name == "Coates Labour" and any(
-                c.value == "Neon" for row in ws.iter_rows() for c in row)):
+        if n and weipa and ((name == "Coates Labour" and any(
+                c.value == "Neon" for row in ws.iter_rows() for c in row))
+                or (name == "Cost Breakdown" and stale_roster)):
             #  The roster that came across is the older copy - the one
             #  with the "Neon" placeholder and the day rate on every
             #  shift. Replace it with the roster as corrected with Andrew
@@ -2311,8 +2459,11 @@ def carry_over(wb, s, base, title):
                 for c in row:
                     c.value = None
             n = 0
-            say("  NOTE | Coates Labour still had the old 'Neon' roster, so it has "
-                "been replaced with the roster corrected on 04 Nov 2026.")
+            stale_roster = True
+            say("  NOTE | {} still had the old 'Neon' roster behind it, so it has "
+                "been replaced with the {} corrected on 04 Nov 2026.".format(
+                    name, "roster" if name == "Coates Labour"
+                    else "cost breakdown, labour now read off the roster"))
         if n == 0 and weipa:
             n = seed_labour(ws) if name == "Coates Labour" else seed_costs(ws)
             say("  NOTE | {} came through empty, so it is loaded with the "
@@ -2656,6 +2807,225 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None):
     tidy_print(ws, NC, landscape=False, name="Cover")
     ws.print_title_rows = "1:1"
     ws.print_area = "A1:F{}".format(r)
+    ws.sheet_properties.tabColor = ORANGE
+    return ws
+
+
+def dashboard(wb, s, when, asat, parts):
+    """A Dashboard tab: the headline tiles, four gauges, and four charts
+    drawn by Excel itself from small data tables lower on the same tab -
+    so they are live charts anyone can click, recolour or copy into a
+    deck, not pictures."""
+    from openpyxl.chart import BarChart, DoughnutChart, Reference
+    from openpyxl.chart.label import DataLabelList
+    from openpyxl.chart.series import DataPoint
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+
+    v = parts["viz"]
+    ws = wb.create_sheet("Dashboard")
+    ws.sheet_view.showGridLines = False
+    NC = 12
+    for i in range(1, NC + 1):
+        ws.column_dimensions[get_column_letter(i)].width = 11.5
+    band(ws, "{}  |  Shutdown Tool Store  |  Dashboard".format(
+        s.short or s.customer or "Shutdown"), NC)
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=NC)
+    c = ws.cell(row=2, column=1, value="POWERED BY SITEIQ     ·     Author: {}     "
+                "·     Charts are live - drawn by Excel from the tables at the foot "
+                "of this tab     ·     As at {}".format(
+                    s.author or "Andrew Fisher", asat.strftime("%d %b %Y %H:%M")))
+    c.font = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+    c.alignment = Alignment(vertical="center", indent=1)
+    for i in range(1, NC + 1):
+        ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
+    ws.row_dimensions[2].height = 18
+
+    LABEL = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+    BIG = Font(name="Calibri", size=20, bold=True, color=NEAR_BLACK)
+    line_side = Side(style="thin", color=argb(COATES_LINE))
+    tile_top = Side(style="medium", color=ORANGE)
+
+    # ---- tiles --------------------------------------------------------
+    r = 4
+    for k, (label, value, sub) in enumerate(parts["tiles"][:6]):
+        col = 1 + k * 2
+        ws.merge_cells(start_row=r, start_column=col, end_row=r, end_column=col + 1)
+        c = ws.cell(row=r, column=col, value=value)
+        c.font = BIG
+        c.alignment = Alignment(vertical="center", indent=1)
+        ws.merge_cells(start_row=r + 1, start_column=col, end_row=r + 1, end_column=col + 1)
+        c = ws.cell(row=r + 1, column=col, value=label.upper())
+        c.font = LABEL
+        c.alignment = Alignment(vertical="top", indent=1, wrap_text=True)
+        ws.cell(row=r, column=col).border = Border(top=tile_top, left=line_side)
+        ws.cell(row=r, column=col + 1).border = Border(top=tile_top, right=line_side)
+        ws.cell(row=r + 1, column=col).border = Border(bottom=line_side, left=line_side)
+        ws.cell(row=r + 1, column=col + 1).border = Border(bottom=line_side, right=line_side)
+    ws.row_dimensions[r].height = 32
+    ws.row_dimensions[r + 1].height = 26
+
+    # ---- the data the charts read -------------------------------------
+    #  Kept on the tab, below the charts, headed like every other table.
+    D0 = 58
+    def table(row, col, heads, rows_):
+        for i, h in enumerate(heads):
+            c = ws.cell(row=row, column=col + i, value=h)
+            c.font = HDR_FONT
+            c.fill = HDR_FILL
+            c.border = HDR_BORDER
+            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        ws.row_dimensions[row].height = 28
+        for j, rr in enumerate(rows_, start=1):
+            for i, val in enumerate(rr):
+                c = ws.cell(row=row + j, column=col + i, value=val)
+                c.font = BODY_FONT
+                c.border = CELL_BORDER
+                if j % 2 == 0:
+                    c.fill = BAND_FILL
+                if isinstance(val, (int, float)):
+                    c.alignment = Alignment(horizontal="right")
+                    c.number_format = "0%" if isinstance(val, float) and val <= 1 else INT_FMT
+        return row + len(rows_)
+
+    ws.cell(row=D0 - 2, column=1, value="CHART DATA").font = Font(
+        name="Calibri", size=10, bold=True, color=argb("A6410F"))
+    ws.cell(row=D0 - 1, column=1, value="These small tables feed the charts above. "
+            "Built from the same exports as every other tab.").font = NOTE_FONT
+
+    comp = [c for c in parts["companies"] if c[1]][:10]
+    end_a = table(D0, 1, ["Company", "On hire now", "Tooling issues", "Consumables"],
+                  [[c[0], c[1], c[2], c[3]] for c in comp])
+    order = ["High Demand", "Good Use", "Low Use", "No Use"]
+    end_b = table(D0, 6, ["Rating", "Tooling lines", "Consumable lines"],
+                  [[k, v["tool_mix"].get(k, 0), v["cons_mix"].get(k, 0)] for k in order])
+    days = v["by_day"]
+    end_c = table(end_a + 3, 1, ["Day", "Issued", "Returned", "Consumables issued"],
+                  [[dd.strftime("%a %d %b"), i, rr, cc] for dd, i, rr, cc in days] or
+                  [["(no dated movements)", 0, 0, 0]])
+    cons = parts["consumables"][:10]
+    end_d = table(end_b + 3, 6, ["Consumable line", "Share gone out"],
+                  [[c_[0], float(c_[3])] for c_ in cons] or [["(none)", 0.0]])
+    gauges = [
+        ("Coates fleet on hire", v["coates_out"], v["coates_total"]),
+        ("Dated from transactions", v["dated"], v["onhire"]),
+        ("Consumable lines past 80%", v["cons_tight"], v["cons_lines"]),
+        ("Items out over {} days".format(LONG_OUT_DAYS), v["long_out"], v["onhire"]),
+    ]
+    g0 = max(end_c, end_d) + 3
+    table(g0, 1, ["Dial", "Value", "Of", "Share", "Rest", "Hidden half"],
+          [[name, a, b, (a / float(b)) if b else 0.0,
+            (1 - a / float(b)) if b else 1.0, 1.0] for name, a, b in gauges])
+
+    def labels(chart, fmt=None):
+        chart.dataLabels = DataLabelList()
+        chart.dataLabels.showVal = True
+        chart.dataLabels.showSerName = False
+        chart.dataLabels.showCatName = False
+        chart.dataLabels.showLegendKey = False
+        chart.dataLabels.showPercent = False
+        chart.dataLabels.showLeaderLines = False
+        if fmt:
+            chart.dataLabels.numFmt = fmt
+
+    def paint(series, hex6):
+        series.graphicalProperties = GraphicalProperties(solidFill=hex6)
+        series.graphicalProperties.line = LineProperties(solidFill=hex6)
+
+    RAG_HEX = {"High Demand": RAG["red"][2], "Good Use": RAG["green"][2],
+               "Low Use": RAG["amber"][2], "No Use": RAG["slate"][2]}
+
+    # ---- gauges: half-donuts with the bottom half hidden -------------
+    for k, (name, a, b) in enumerate(gauges):
+        ch = DoughnutChart(holeSize=62)
+        ch.firstSliceAng = 270
+        data = Reference(ws, min_col=4, max_col=6, min_row=g0 + 1 + k, max_row=g0 + 1 + k)
+        ch.add_data(data, from_rows=True, titles_from_data=False)
+        srs = ch.series[0]
+        pct = (a / float(b)) if b else 0.0
+        tone = ("orange" if k == 0 else
+                ("green" if (k == 1 and not v["undated"]) or (k == 3 and not v["long_out"])
+                 else ("red" if (k == 2 and pct >= 0.25) or k == 3 else "amber")))
+        for i, hex6 in enumerate([RAG[tone][2], COATES_LINE, None]):
+            pt = DataPoint(idx=i)
+            if hex6:
+                pt.graphicalProperties = GraphicalProperties(solidFill=hex6)
+                pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
+            else:
+                pt.graphicalProperties = GraphicalProperties(noFill=True)
+                pt.graphicalProperties.line = LineProperties(noFill=True)
+            srs.dPt.append(pt)
+        ch.title = ["Fleet on hire {:.0f}%", "Dated {:.0f}%", "Lines past 80%: {:.0f}%",
+                    "Over {} days: {}".format(LONG_OUT_DAYS, a)][k].format(pct * 100)
+        ch.legend = None
+        ch.width, ch.height = 7.4, 5.2
+        ws.add_chart(ch, "{}8".format(get_column_letter(1 + k * 3)))
+
+    # ---- companies ----------------------------------------------------
+    bar = BarChart()
+    bar.type = "bar"
+    bar.style = 10
+    bar.title = "Who is holding gear - items on hire now"
+    bar.add_data(Reference(ws, min_col=2, min_row=D0, max_row=end_a), titles_from_data=True)
+    bar.set_categories(Reference(ws, min_col=1, min_row=D0 + 1, max_row=end_a))
+    paint(bar.series[0], COATES_ORANGE)
+    bar.legend = None
+    bar.y_axis.majorGridlines = None
+    bar.x_axis.scaling.orientation = "maxMin"
+    labels(bar)
+    bar.gapWidth = 60
+    bar.width, bar.height = 15.2, 8.2
+    ws.add_chart(bar, "A20")
+
+    # ---- ratings doughnut --------------------------------------------
+    dn = DoughnutChart(holeSize=58)
+    dn.title = "Tooling lines by rating"
+    dn.add_data(Reference(ws, min_col=7, min_row=D0, max_row=end_b), titles_from_data=True)
+    dn.set_categories(Reference(ws, min_col=6, min_row=D0 + 1, max_row=end_b))
+    for i, k in enumerate(order):
+        pt = DataPoint(idx=i)
+        pt.graphicalProperties = GraphicalProperties(solidFill=RAG_HEX[k])
+        pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
+        dn.series[0].dPt.append(pt)
+    labels(dn)
+    dn.width, dn.height = 14.6, 8.2
+    ws.add_chart(dn, "G20")
+
+    # ---- movements by day ---------------------------------------------
+    col = BarChart()
+    col.type = "col"
+    col.style = 10
+    col.title = "Movements by day"
+    col.add_data(Reference(ws, min_col=2, max_col=4, min_row=end_a + 3, max_row=end_c),
+                 titles_from_data=True)
+    col.set_categories(Reference(ws, min_col=1, min_row=end_a + 4, max_row=end_c))
+    for srs, hex6 in zip(col.series, (COATES_ORANGE, "98A0AA", "FCD3BE")):
+        paint(srs, hex6)
+    col.y_axis.majorGridlines = None
+    col.gapWidth = 80
+    col.width, col.height = 15.2, 8.2
+    ws.add_chart(col, "A37")
+
+    # ---- consumables running down -------------------------------------
+    cb = BarChart()
+    cb.type = "bar"
+    cb.style = 10
+    cb.title = "Consumables running down - share of position gone out"
+    cb.add_data(Reference(ws, min_col=7, min_row=end_b + 3, max_row=end_d), titles_from_data=True)
+    cb.set_categories(Reference(ws, min_col=6, min_row=end_b + 4, max_row=end_d))
+    paint(cb.series[0], RAG["red"][2])
+    cb.legend = None
+    cb.y_axis.majorGridlines = None
+    cb.y_axis.number_format = "0%"
+    cb.y_axis.scaling.max = 1.0
+    cb.x_axis.scaling.orientation = "maxMin"
+    labels(cb, "0%")
+    cb.gapWidth = 60
+    cb.width, cb.height = 14.6, 8.2
+    ws.add_chart(cb, "G37")
+
+    tidy_print(ws, NC, landscape=False, name="Dashboard")
+    ws.print_title_rows = "1:1"
     ws.sheet_properties.tabColor = ORANGE
     return ws
 
@@ -3054,8 +3424,8 @@ def _attached(parts):
     """What is on the paperclip, so nobody has to guess what the two
     attachments are before they open them."""
     cards = [("XLSX", "The workbook",
-              "Twelve tabs - every line behind these numbers. The costs "
-              "are in here and only in here.")]
+              "Thirteen tabs - a live dashboard, then every line behind "
+              "these numbers. The costs are in here and only in here.")]
     pages = parts.get("pack_pages") or 0
     if pages:
         cards.append(("PDF", "The company pack",
@@ -3440,6 +3810,7 @@ P_SOFT = "#" + COATES_SOFT
 P_TINT = "#" + COATES_TINT
 P_ZEBRA = "#F8F9FB"
 P_WHITE = "#FFFFFF"
+C_MUTED_LIGHT = "#9AA2AC"
 
 
 def pack_blocks(det, ctx, tooling_tx, when):
@@ -3659,6 +4030,242 @@ class _Pack(object):
         d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
         self.y += h
 
+
+    # ---- charts ------------------------------------------------------
+    #  Light Coates palette for the visuals: orange and two tints of it,
+    #  the greys, and red/amber/green only where a colour means something.
+    C_ORANGE = "#F26222"
+    C_ORANGE_2 = "#F7A072"
+    C_ORANGE_3 = "#FCD3BE"
+    C_SLATE = "#98A0AA"
+    C_TRACK = "#EEF0F3"
+
+    def card(self, x, y, w, h, title, sub=""):
+        d = self.doc
+        d.rect(x, y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
+        d.text(x + 12, y + 17, title, size=9.5, bold=True, colour=P_INK, max_w=w - 24)
+        if sub:
+            d.text(x + 12, y + 28, sub, size=7.3, colour=P_MUTED, max_w=w - 24)
+        return y + 38
+
+    def gauge(self, cx, cy, pct, colour, value, label, sub):
+        d = self.doc
+        pct = max(0.0, min(1.0, pct or 0.0))
+        d.ring(cx, cy, 40, 29, 180, 0, self.C_TRACK)
+        if pct > 0:
+            d.ring(cx, cy, 40, 29, 180, 180 - 180 * pct, colour)
+        d.text(cx, cy - 3, str(value), size=15, bold=True, colour=P_INK, align="centre")
+        d.text(cx, cy + 14, label.upper(), size=6.3, bold=True, colour=P_MUTED,
+               tracking=0.4, align="centre", max_w=118)
+        d.text(cx, cy + 25, sub, size=7, colour=P_MUTED, align="centre", max_w=118)
+
+    def hbars(self, x, y, w, rows, label_w=96, pitch=16, bar_h=10, colours=None,
+              fmt=None, threshold=None):
+        """Horizontal bars: rows of (label, value, [tone]). The biggest
+        value fills the track; a threshold draws a dashed red line."""
+        d = self.doc
+        if not rows:
+            d.text(x, y + 12, "Nothing to show", size=8, italic=True, colour=P_MUTED)
+            return y + pitch
+        biggest = max([r[1] for r in rows] + [0.0001])
+        if threshold is not None:
+            biggest = max(biggest, 100.0)
+        track_x = x + label_w
+        track_w = w - label_w - 40
+        for i, r in enumerate(rows):
+            label, value = r[0], r[1]
+            tone = r[2] if len(r) > 2 else None
+            yy = y + i * pitch
+            d.text(x, yy + 8.5, label, size=8, colour=P_INK, max_w=label_w - 8)
+            d.rect(track_x, yy, track_w, bar_h, fill=self.C_TRACK)
+            bw = track_w * (float(value) / biggest) if biggest else 0
+            colour = (colours or {}).get(tone, self.C_ORANGE) if tone else self.C_ORANGE
+            if bw > 0:
+                d.rect(track_x, yy, max(bw, 1.5), bar_h, fill=colour)
+            text = fmt(value) if fmt else "{:,}".format(int(value))
+            d.text(track_x + track_w + 36, yy + 8.5, text, size=8, bold=True,
+                   colour=P_INK, align="right")
+        if threshold is not None:
+            tx = track_x + track_w * (threshold / biggest)
+            d.polyline([(tx, y - 4), (tx, y + len(rows) * pitch - 4)],
+                       colour=E_RAG["red"][2], lw=0.8, dash=[2.5, 2])
+            d.text(tx, y - 7, "{}%".format(int(threshold)), size=6.5, bold=True,
+                   colour=E_RAG["red"][1], align="centre")
+        return y + len(rows) * pitch
+
+    def donut(self, cx, cy, r, parts, total_label):
+        """A donut of (label, value, colour) with the total in the middle."""
+        d = self.doc
+        total = float(sum(v for _l, v, _c in parts)) or 1.0
+        a = 90.0
+        for label, value, colour in parts:
+            sweep = 360.0 * value / total
+            if sweep > 0:
+                d.ring(cx, cy, r, r * 0.64, a, a - sweep, colour)
+            a -= sweep
+        d.circle(cx, cy, r * 0.64, fill=P_WHITE)
+        d.text(cx, cy + 2, "{:,}".format(int(total)), size=15, bold=True,
+               colour=P_INK, align="centre")
+        d.text(cx, cy + 13, total_label, size=6.5, bold=True, colour=P_MUTED,
+               tracking=0.4, align="centre")
+
+    def legend(self, x, y, x_right, parts, pitch=15):
+        d = self.doc
+        total = float(sum(v for _l, v, _c in parts)) or 1.0
+        for i, (label, value, colour) in enumerate(parts):
+            yy = y + i * pitch
+            d.rect(x, yy + 1, 8, 8, fill=colour, radius=1.5)
+            d.text(x + 14, yy + 8.5, label, size=8, colour=P_INK)
+            d.text(x_right, yy + 8.5, "{:,}  ({:.0f}%)".format(int(value),
+                                                               100.0 * value / total),
+                   size=8, bold=True, colour=P_INK, align="right")
+
+    def columns(self, x, y, w, h, days, series):
+        """Grouped columns per day. series = [(name, values, colour)]."""
+        d = self.doc
+        if not days:
+            d.text(x, y + 12, "No dated movements in this export", size=8,
+                   italic=True, colour=P_MUTED)
+            return
+        plot_h = h - 26
+        biggest = max([v for _n, vals, _c in series for v in vals] + [1])
+        group_w = w / float(len(days))
+        bar_w = max(3.0, (group_w - 10) / float(len(series)))
+        base = y + plot_h
+        d.line(x, base, x + w, base, colour=P_LINE, lw=0.6)
+        for gi, day in enumerate(days):
+            gx = x + gi * group_w + 5
+            for si, (name, vals, colour) in enumerate(series):
+                v = vals[gi]
+                bh = plot_h * (v / float(biggest))
+                bx = gx + si * bar_w
+                if bh > 0:
+                    d.rect(bx, base - bh, bar_w - 1.5, bh, fill=colour)
+                if v and bar_w >= 9:
+                    d.text(bx + (bar_w - 1.5) / 2.0, base - bh - 2.5, "{:,}".format(int(v)),
+                           size=6, colour=P_MUTED, align="centre")
+            d.text(x + gi * group_w + group_w / 2.0, base + 10, day.strftime("%a %d"),
+                   size=6.8, colour=P_MUTED, align="centre")
+            d.text(x + gi * group_w + group_w / 2.0, base + 18, day.strftime("%b"),
+                   size=6, colour=C_MUTED_LIGHT, align="centre")
+        #  Legend, top right of the plot.
+        lx = x + w
+        for name, _vals, colour in reversed(series):
+            tw = d.text_width(name, 6.8)
+            d.text(lx, y - 3, name, size=6.8, colour=P_MUTED, align="right")
+            lx -= tw + 5
+            d.rect(lx - 8, y - 9, 7, 7, fill=colour, radius=1.5)
+            lx -= 17
+
+    def glance(self, parts):
+        """One page of charts and gauges: the store today, drawn from the
+        same numbers as the tables, in the light Coates palette."""
+        d = self.doc
+        v = parts["viz"]
+        idx = self.page("On-Hire Report by Company")
+        self.doc.bookmark("At a glance", idx, 60)
+        d.text(self.x0, self.y + 16, "At a glance", size=18, bold=True, colour=P_INK)
+        d.text(self.x0, self.y + 31, "The store today as pictures, from the same "
+               "numbers as the tables.", size=9, colour=P_MUTED, max_w=self.cw - 170)
+        d.text(self.x1, self.y + 16, "AS AT {}".format(
+            self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
+            colour=P_ORANGE, tracking=1.2, align="right")
+        d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
+               colour=P_MUTED, align="right")
+        self.y += 44
+
+        # ---- gauges --------------------------------------------------------
+        top = self.card(self.x0, self.y, self.cw, 118, "The four dials",
+                        "How much of the fleet is working, how solid the dates are, "
+                        "where the consumables sit, and what is overdue")
+        slot = self.cw / 4.0
+        cy = top + 36
+        fleet = v["coates_out"] / float(v["coates_total"] or 1)
+        dated = v["dated"] / float(v["onhire"] or 1)
+        tight = v["cons_tight"] / float(v["cons_lines"] or 1)
+        over = v["long_out"] / float(v["onhire"] or 1)
+        red, amber, green = E_RAG["red"][2], E_RAG["amber"][2], E_RAG["green"][2]
+        self.gauge(self.x0 + slot * 0.5, cy, fleet, self.C_ORANGE,
+                   "{:.0f}%".format(fleet * 100), "Coates fleet on hire",
+                   "{:,} of {:,} items out now".format(v["coates_out"], v["coates_total"]))
+        self.gauge(self.x0 + slot * 1.5, cy, dated, green if not v["undated"] else amber,
+                   "{:.0f}%".format(dated * 100), "Dated from transactions",
+                   "{:,} undated".format(v["undated"]) if v["undated"] else "every item dated")
+        self.gauge(self.x0 + slot * 2.5, cy, tight,
+                   red if tight >= 0.25 else (amber if tight >= 0.10 else green),
+                   "{:.0f}%".format(tight * 100), "Consumable lines past 80%",
+                   "{:,} of {:,} lines".format(v["cons_tight"], v["cons_lines"]))
+        self.gauge(self.x0 + slot * 3.5, cy, over, red if v["long_out"] else green,
+                   "{:,}".format(v["long_out"]), "Items out over {} days".format(LONG_OUT_DAYS),
+                   "oldest {} days".format(v["oldest_days"]) if v["onhire"] else "nothing out")
+        self.y += 118 + 10
+
+        half = (self.cw - 10) / 2.0
+        xr = self.x0 + half + 10
+        H = 165
+        tone_fill = {"red": red, "amber": amber, "green": green, "slate": self.C_SLATE}
+
+        # ---- row 2: who holds gear | tooling ratings ------------------------
+        top = self.card(self.x0, self.y, half, H, "Who is holding gear",
+                        "Items on hire now, by company")
+        rows = [(c[0], c[1]) for c in parts["companies"] if c[1]][:7]
+        self.hbars(self.x0 + 12, top, half - 24, rows, label_w=100, pitch=16)
+        top = self.card(xr, self.y, half, H, "Tooling lines by rating",
+                        "Every item line on site, rated on turns")
+        mix = [(k, v["tool_mix"].get(k, 0), tone_fill[TONE[k]])
+               for k in ("High Demand", "Good Use", "Low Use", "No Use")]
+        self.donut(xr + 62, top + 60, 50, mix, "LINES")
+        self.legend(xr + 135, top + 28, xr + half - 12, mix)
+        self.y += H + 10
+
+        # ---- row 3: movements by day | consumable ratings -------------------
+        top = self.card(self.x0, self.y, half, H, "Movements by day",
+                        "Issues, returns and consumables issued, inside the export window")
+        days = [dd for dd, _i, _r, _c in v["by_day"]]
+        series = [("Issued", [i for _d, i, _r, _c in v["by_day"]], self.C_ORANGE),
+                  ("Returned", [r for _d, _i, r, _c in v["by_day"]], self.C_SLATE),
+                  ("Consumables", [c for _d, _i, _r, c in v["by_day"]], self.C_ORANGE_3)]
+        self.columns(self.x0 + 12, top + 8, half - 24, H - 54, days, series)
+        top = self.card(xr, self.y, half, H, "Consumable lines by rating",
+                        "Every line on the shelf, rated on share of position sold")
+        mix = [(k, v["cons_mix"].get(k, 0), tone_fill[TONE[k]])
+               for k in ("High Demand", "Good Use", "Low Use", "No Use")]
+        self.donut(xr + 62, top + 60, 50, mix, "LINES")
+        self.legend(xr + 135, top + 28, xr + half - 12, mix)
+        self.y += H + 10
+
+        # ---- row 4: working hardest | consumables running down --------------
+        top = self.card(self.x0, self.y, half, H, "Working hardest",
+                        "Times issued this period, best turns first")
+        rows = [(r[0], r[3], TONE.get(r[4], "slate")) for r in parts["hardest"][:7]]
+        self.hbars(self.x0 + 12, top, half - 24, rows, label_w=138, pitch=16,
+                   colours=tone_fill)
+        top = self.card(xr, self.y, half, H, "Consumables running down",
+                        "Share of the position gone out - past the line, we order")
+        rows = [(r[0], round(r[3] * 100), "red" if r[3] >= CONS_TIGHT else
+                 ("amber" if r[3] >= 0.6 else "green")) for r in parts["consumables"][:7]]
+        self.hbars(xr + 12, top + 6, half - 24, rows, label_w=124, pitch=16,
+                   colours=tone_fill, fmt=lambda x: "{:.0f}%".format(x),
+                   threshold=CONS_TIGHT * 100)
+        self.y += H
+        return idx
+
+    def people_bars(self, b):
+        """Inside a company section: who holds how much, as bars."""
+        d = self.doc
+        people = sorted(b["people"], key=lambda p: -len(p["items"]))
+        rows = [(p["who"], len(p["items"])) for p in people[:9]]
+        if len(people) > 9:
+            rows.append(("{} others".format(len(people) - 9),
+                         sum(len(p["items"]) for p in people[9:])))
+        h = 44 + 15 * len(rows)
+        self.need(h)
+        top = self.card(self.x0, self.y, self.cw, h, "Items by person",
+                        "Who is holding the most, longest-held items are in the table below")
+        self.hbars(self.x0 + 12, top - 2, self.cw - 24, rows, label_w=150, pitch=15,
+                   bar_h=9)
+        self.y += h + 10
+
     # ---- a company section --------------------------------------------
     def section(self, b, right_title=None, index=None, total=None):
         d = self.doc
@@ -3694,6 +4301,8 @@ class _Pack(object):
             (b["issues"], "Issues this period", "orange"),
         ])
         self.y += 12
+        if len(b["people"]) >= 2:
+            self.people_bars(b)
 
         if b["long_out"]:
             names = {}
@@ -3847,7 +4456,7 @@ class _Pack(object):
         #  is a link, and each company is a bookmark down the side.
         d.text(self.x0, self.y + 10, "In this pack", size=11, bold=True,
                colour=P_INK)
-        d.text(self.x1, self.y + 10, "{} compan{}  ·  {} pages".format(
+        d.text(self.x1, self.y + 10, "{} compan{}  ·  {} pages  -  charts on page 2".format(
             len(blocks), "y" if len(blocks) == 1 else "ies", self.doc.page_count),
             size=8.5, colour=P_MUTED, align="right")
         self.y += 18
@@ -3903,6 +4512,7 @@ def build_company_pack(path, s, when, asat, period, parts, blocks, quiet):
                "{} - On-Hire Report by Company - {}".format(
                    s.short or s.customer or "Shutdown", when.strftime("%d %b %Y")))
     pk.page("On-Hire Report by Company")           # page 0 - the cover, drawn last
+    pk.glance(parts)                               # page 1 - the charts
     starts = []
     for k, b in enumerate(blocks, 1):
         starts.append(pk.section(b, index=k, total=len(blocks)))
@@ -3958,7 +4568,7 @@ def email_text(s, when, parts):
     lines += ["", "WHAT I NEED FROM YOU", ""]
     for n, (head, bodytext) in enumerate(parts["actions"], 1):
         lines.append("  {}. {} - {}".format(n, head, bodytext))
-    attached = "The detail is in the attached workbook - twelve tabs"
+    attached = "The detail is in the attached workbook - thirteen tabs, dashboard first"
     if parts.get("pack_pages"):
         attached += (", and the attached company pack PDF has a section for "
                      "each company ({} pages)".format(parts["pack_pages"]))

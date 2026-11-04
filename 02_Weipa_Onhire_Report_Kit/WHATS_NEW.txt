@@ -62,6 +62,23 @@
    what fed it, the ratings legend in colour, what is typed by hand.
    A cost headline that can't be read shows TBC, never $0.
 
+ NEW - THE VISUALS
+ -----------------
+   Page 2 of the company pack is AT A GLANCE: four dials (Coates
+   fleet on hire, dated from transactions, consumable lines past 80%,
+   items out over 21 days), who is holding gear, tooling and
+   consumable lines by rating as donuts, movements by day inside the
+   export window, working hardest, and consumables running down
+   against the 80% line. Every company section now opens with an
+   Items-by-person bar chart. All drawn in the light Coates palette,
+   all from the same numbers as the tables.
+
+   The workbook gains a DASHBOARD tab, first after the Cover: six
+   tiles, four gauges and four charts drawn by Excel itself from small
+   tables at the foot of the tab - live charts you can click, recolour
+   or copy into a deck. (The gauges are half-doughnuts; they draw
+   properly in Excel, less so in other spreadsheet programs.)
+
  THE TWO HAND-TYPED TABS - same values, Coates look
  --------------------------------------------------
    Coates Labour and Cost Breakdown are still yours and still carried
