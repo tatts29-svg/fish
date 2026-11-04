@@ -1,0 +1,36 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 09:1x AEST: \"Also qty 22 track mats leaving same time as forklift\" (forklift 1281615 left 09:10, run 124); asked which 22, he answered 11:2x AEST: \"Take any 22 its a mix of all\". The record holds Trakmats on two references: T0025 (20, Trackmat Delivery - S18, on site since 15 Sep) and TM01 (10, TV compound / broadcast, contract 9992300 L6, on site since 16 Oct). Recorded as all 20 from T0025 and 2 from TM01, leaving 8 on TM01, through the page's own Record departure form in his name at 09:10. Trakmats carry no asset numbers, so they leave as counts. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0025",
+   "at": "2026-11-04T09:10:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Trakmat",
+     "n": 20
+    }
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "TM01",
+   "at": "2026-11-04T09:10:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Trakmat",
+     "n": 2
+    }
+   ],
+   "complete": false
+  }
+ ]
+}
