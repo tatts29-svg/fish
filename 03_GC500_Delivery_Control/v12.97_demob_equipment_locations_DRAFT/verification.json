@@ -1,0 +1,68 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.97",
+  "state": "READY",
+  "base_sha256": "636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018",
+  "candidate_sha256": "567b19b3b767b66a273d0956aced913b942808f98e8f0c1f6075114c17f87261",
+  "candidate_bytes": 17031757,
+  "inline_scripts": 224,
+  "checks": {
+    "demob_shapes": 47,
+    "build_shapes": 15,
+    "pickup_locations": 50,
+    "vms_identity": 9,
+    "native_roundtrip": 6,
+    "scope": true,
+    "demob_phone": true,
+    "build_phone": true,
+    "build_desktop": true,
+    "sweeps": {
+      "desktop": {
+        "passed": true,
+        "tabs": 27,
+        "deepLinks": 7,
+        "back": true,
+        "errors": 0,
+        "consoleErrors": 0,
+        "blockedWrites": 0,
+        "routingMatchesPreviousLive": true
+      },
+      "phone": {
+        "passed": true,
+        "tabs": 27,
+        "deepLinks": 7,
+        "back": true,
+        "errors": 0,
+        "consoleErrors": 0,
+        "blockedWrites": 0,
+        "routingMatchesPreviousLive": true
+      }
+    }
+  },
+  "changed_scripts": [
+    "footer version only",
+    "demob-weather996-source",
+    "find1178-script",
+    "demobmap1236-script",
+    "singles1238-script",
+    "buildcards1247-script",
+    "threemaps1261-script"
+  ],
+  "machine_sha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "source_inputs": {
+    "build_integration1297.py": "61f3c6e4ccb3b5b3333c2f8ea1e6fa8c6ce25817f33c32acf183797394f95c73",
+    "build_shapes1297_src.js": "024ad7560cd2d4a20a597c80012e25f7bba68f5d0caff079fbd608f9ccf9a11b",
+    "check_build_ui.cjs": "49b1cdd7927f2a0f10db7dd214b2fe56b8824debd5fe2002185c3ffb8c1f5004",
+    "check_scope.py": "b9d4ed69772ef9af060949bc1fd39adb2b483274e24087a894ad8965bc4c1ae0",
+    "check_ui.cjs": "134e17124febf8556579fa2467f920433d03b25d5dc2adeeeb4f6414bb5dd469",
+    "demob_shapes1297_src.js": "d006d99f83b1baf62bff542464069d5254800db027959cb99dbca9da3f38851f",
+    "patch_v1297.py": "48555c982244ddde213680862005e529fb751efb589546a0d5ddb2671fd5a863",
+    "pickup_locations1297_src.js": "6c3edcbdf0dc23e62e22b37155725708c9efec07e8b5f10c2c59d2ef5c9a777d",
+    "test_build_shapes.cjs": "0474b90050c07ff223f3f0e2ded903600123b682d284e51c93fe96bc5c81fc56",
+    "test_demob_shapes.cjs": "00b1d82dd3b720acb73311b1fc21cee84b464292e88c365c49e091d678315b6d",
+    "test_pickup_locations.cjs": "893c2292f95538d15e6932e13d8d7726afc4e0b4eaa7793d108219e1d6b0155b",
+    "test_pickup_roundtrip.cjs": "436f300260aaa262bdcbe05e9e33fc95b00f31bac59b3c8347f053cf6d65ff1d",
+    "test_vms_locations.cjs": "db696ddda1ba2c0fdba529e74a604dfb1eaa3384b485a5b5420aa380b825688b",
+    "vms_locations1297_src.js": "7659986964aa91758d8c905c248787968d6e1d24cec33ce1dec63d2faca039aa"
+  }
+}

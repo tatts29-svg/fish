@@ -1,0 +1,135 @@
+Author: Andrew Fisher.
+
+PickupLocations1297 integration notes — helper and pure tests only
+
+The helper performs no writes and does not read clocks, page globals, storage or DOM.
+It stores map coordinates and their source, not a measured pickup position or a
+historic footprint. Do not reconstruct historical shapes from the current plan.
+The page patch, native hooks, DOM integration and native checks belong to the
+release owner. No historical backfill is proposed.
+
+1. Load pickup_locations1297_src.js before the new hooks execute.
+
+2. Build the capture context from the same native snapshot as the pickup form:
+
+  const locations = PickupLocations1297.capture(key, {
+    capturedAt: new Date().toISOString(),
+    arrivalAt: reading.arrival && reading.arrival.at,
+    location: Find1176.locate({kind: 'asset', key}),
+    units: physical,
+    fixes: S.fixes,
+    unitLocations
+  });
+
+physical means gcUnits925(referenceAsset, {loading:false}) physical rows, before
+remainingModel removes departed rows. For reference fallback, location must be
+the canonical Find1176 location; do not feed another unit's already-selected pin.
+The helper matches unit fixes by explicit fix.ref and fix.unit (asset number),
+with a unique current physical ID/number/owner/type. It does not parse unit IDs.
+Do not pass entry/driver reporting points as equipment positions; the normalizer
+also excludes the native pit-lane reporting fallback.
+
+unitLocations is optional. For a VMS board whose physical identity resolves
+uniquely through the existing canonical model, populate an own property:
+
+  unitLocations[unit.id] = {
+    identity: {id: unit.id, number: unit.assetNo, owner: unit.owner, item: unit.item},
+    scope: 'board',
+    location: canonicalBoardLocation
+  };
+
+canonicalBoardLocation has numeric lat/lon, kind:'vms', and source/how/label/tag
+from the existing board resolver. Preserve plan/approximate wording. A board
+matched only by row order or ambiguous number must not receive this entry.
+Avoid introducing a circular model/snapshot call when producing board contexts.
+
+3. In DemobCollection996.snapshot(key), return locations as an additional optional
+pickupLocations1297 property and append the stable signature to the native token:
+
+  pickupLocations1297: locations,
+  token: JSON.stringify([
+    r.units, record, pools, identities,
+    PickupLocations1297.signature(locations)
+  ])
+
+The signature excludes capturedAt, since snapshot() runs again during validation.
+It includes arrival cycle, coordinates, physical identities and source details.
+Changing a relevant pin while the form is open therefore invokes the existing
+stale-record rejection. The source snapshot is freshly made during validate().
+
+4. In DemobCollection996.validate(key, request), AFTER native selection validation
+has produced selected and BEFORE c is returned, derive metadata from s alone:
+
+  const positions = PickupLocations1297.select(s.pickupLocations1297, selected);
+  const c = {
+    /* every existing collection field unchanged */
+    ...(positions ? {pickupLocations1297: positions} : {})
+  };
+
+Never accept request.pickupLocations1297 from the form. select() retains only
+selected typed physical IDs plus the qualified reference fallback. No usable map
+point means null metadata: a valid native pickup can still be recorded. The
+existing setLight()/partial() native save path writes the collection and optional
+metadata together. Do not add a separate write or backfill old events.
+
+5. Add a concise notice to the existing native pickup form:
+
+  "The current map position will be saved with this pickup record. It may be a
+  plan or reference location. The date and time below record when it left site."
+
+When no equipment point is available, say that no map position is available to
+save. Keep the pickup confirmation/date validation unchanged. capturedAt records
+when the map position was saved; departedAt1211 remains the actual departure time.
+
+6. In a map-only Singles1238 resolver, leave locOf(), navOf(), ptOf(), fillNear()
+and all load-planning/Navigate callers untouched. Use:
+
+  const view = PickupLocations1297.resolve(c, locOf(c), {
+    reading: Departure1211.read(c.key),
+    rows: gcUnits925(assetOf(c.key), {loading:false}),
+    fixes: S.fixes,
+    unitLocations,
+    capturedAt: new Date().toISOString()
+  });
+
+Departure1211.read is required. status is a display projection whose arrival is
+only a boolean; it is not the typed arrival-cycle evidence used here. reading
+holds the current arrival, validated collection events and issues. Keep unfiltered
+current physical rows so departed identities are still available for matching.
+
+view.location is the primary point. Each entry in view.locations has location,
+unitId, historical, capturedAt, eventId, departureAt, departureDate, label and note.
+view.hasHistory identifies any saved point. For a partial block/tank collection,
+the remaining member leads and the departed member retains its separate point.
+For partial group collections, each saved reference point remains an event entry.
+Render those additional entries or an explicit map-history affordance; reading
+only the primary point loses partial pickup history. Do not assign group points
+to unidentified individual units. Use departureAt/date for actual pickup labels;
+use capturedAt only for the saved-map timestamp. All times returned are ISO UTC,
+apart from the native YYYY-MM-DD departureDate; format through the page's AEST UI.
+
+The direct pure current(key,unit,context) API also returns the current unique unit
+fix/board point or canonical reference fallback. resolve uses it per member.
+location.scope distinguishes unit/board/reference; confidence and approximate
+retain source limitations. Returned values are recursively frozen clones; clone
+a location if the renderer needs marker or drawing fields added.
+
+Missing old metadata remains labelled "Current recorded/plan location", with
+"No map position was saved with this pickup". A valid new snapshot is labelled
+"Map position saved with pickup record", never "actual pickup position".
+Reference fallbacks explicitly say the individual unit position was not recorded.
+
+7. Retain picsHtml alongside stampHtml for gone cards. Existing pickup stamps,
+quantities, ready/emptied fields and departure controls stay native. Map cache IDs
+must include the selected unit/event/location; a historical point must not acquire
+the live point's cache entry. No current-plan geometry should move a saved point.
+
+8. Pure verification:
+
+  node 03_GC500_Delivery_Control/v12.97_demob_equipment_locations_DRAFT/test_pickup_locations.cjs
+
+The tests use synthetic identities and coordinates only. Native integration must
+also prove a pin changed after a recorded snapshot cannot move that pickup map,
+opening/cancelling the form saves nothing, no-location pickups still use the native
+save path, selected units alone are serialized, partial history remains reachable,
+and the unchanged load/Navigate resolvers and record/financial models remain equal.
