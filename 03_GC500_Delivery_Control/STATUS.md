@@ -20,6 +20,17 @@ CLOSED ~22:50 AEST, extra shade cloth. Andrew: "We already charged v8 for extra 
 - 9997710 (broadcast site, INV25122749) also carries shade cloth, 144 m.
 
 So 9990776's L15 stays at the billed 3,143 m, and the 8,588.13 extra cloth is not added; it would charge the cloth twice. Agreed figure still to charge on 9990776: 33,615.20 ex GST (3,361.52 GST, 36,976.72 inc). Still open with Andrew: collections before 19 Oct, and 36502 (Phillip Park compound, "Charged to Coates", 4,681.35). Author: Andrew Fisher.
+RULING ~23:10 AEST, Andrew: "Take off our scope". Two Coates compounds come off the V8s' quantities:
+- 36502: Phillip Park, Coates/Advanced fencing compound, week 6; 250 m clean + 3 vehicle gates = 257.5 m off L3.
+- 36520: "Coates compound / ABD compound", week 5; 62.5 m clean + 4 vehicle gates = 72.5 m off L3, and 40 m braced for scrim off L6.
+
+The other compound lines on Advanced's sheets are labour only, so none are in the customer lines. Collections before 19 Oct stay charged, as recommended.
+
+Final quantities on 9990776: L2 22, L3 9,310.5, L4 905, L5 102.5, L6 4,022.5, L7 2,220, L8 195, L9 5,030, L14 210.5, L15 3,143 (as invoiced).
+- Built total: 397,870.07.
+- Still to charge: 26,888.60 ex GST (GST 2,688.86, 29,577.46 inc) against 25122628's 370,981.47.
+
+The one-page client explainer was rebuilt on these figures (Word + PDF, private, not committed, no Coates costs) and sent to Andrew. The P&L stays under the 31 Oct ruling until Andrew says to raise the charge. Author: Andrew Fisher.
 
 VERIFIED LIVE — v12.96 map quantity dimensions (Codex), 4 Nov 2026 18:43 AEST; uploaded `2026-11-04T08:43:11.431Z` from READY source `840feef88eb0d9060806d5d88a9ff017ca5702ff`. Exact public page `636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018`, 16,997,018 bytes; machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a` unchanged. Existing map quantity labels, selected reference details and Demob pickup quantities now carry available dimensions per unit; verified transport and nominal dimensions remain distinct, unresolved/mixed sizes explicit. Shapes/doors/glow/list retained. Shared build224,31 dimension/cache tests, exact scope/base guards and both final27-tab/seven-link/Back sweeps pass. Guarded uploader plus independent public bytes and fresh live phone checks without page/media overrides verify the result; selected card refresh/close and map/Demob size/fit pass, screenshots inspected, zero runtime/console errors or attempted writes. Other222 scripts and shared record unchanged; no P&L or operational edits. Source/tests/evidence summary in `v12.96_map_dimensions_LIVE/`; detailed native screenshots remain private. Codex implementation complete; Claude retains P&L/records. Successors build on exact live96. No Claude review or receipt claimed. Author: Andrew Fisher.
 
