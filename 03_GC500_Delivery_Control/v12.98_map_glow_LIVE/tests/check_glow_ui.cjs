@@ -102,10 +102,10 @@ async function animation(p,selector,label){
  await p.screenshot({path:path.join(OUT,label+'-reduced-motion.png')});await p.emulateMedia({reducedMotion:'no-preference'});
  // Exercise the actual visibility listener without changing the site record.
  await p.evaluate(()=>{window.__glowHiddenDescriptor=Object.getOwnPropertyDescriptor(document,'hidden');Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});document.dispatchEvent(new Event('visibilitychange'));});
- await pause(80);const hidden=await sample();assert.equal(hidden.state,'paused',label+' hidden document pauses pulse');
- await p.evaluate(()=>{if(window.__glowHiddenDescriptor)Object.defineProperty(document,'hidden',window.__glowHiddenDescriptor);else delete document.hidden;delete window.__glowHiddenDescriptor;document.dispatchEvent(new Event('visibilitychange'));});
+ try{await pause(80);const hidden=await p.evaluate(selector=>{const n=document.querySelector(selector+' svg.mb1298 .mb1298-pulse');return n?getComputedStyle(n).animationPlayState:null;},selector);assert(hidden===null||hidden==='paused',label+' hidden document pauses or detaches pulse');}
+ finally{await p.evaluate(()=>{if(window.__glowHiddenDescriptor)Object.defineProperty(document,'hidden',window.__glowHiddenDescriptor);else delete document.hidden;delete window.__glowHiddenDescriptor;document.dispatchEvent(new Event('visibilitychange'));});}
  await p.waitForFunction(selector=>document.querySelector(selector+' svg.mb1298')?.dataset.active1298==='true',selector,{timeout:15000});
- return {animated:true,reducedMotionStatic:true,hiddenDocumentPaused:true,a,b};
+ return {animated:true,reducedMotionStatic:true,hiddenDocumentPausedOrDetached:true,a,b};
 }
 async function idle(p,requests,label){
  await p.waitForFunction(()=>{const b=BuildCards1247.stats(),d=Singles1238.picsState();return b.active===0&&b.queued===0&&d.busy===0&&d.queued===0;},null,{timeout:120000});

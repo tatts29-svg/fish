@@ -12,12 +12,14 @@ The pulse uses CSS opacity/transform animation. It does not redraw, re-encode or
 
 ## Release state
 
-DRAFT. Codex owns implementation, checks and guarded publication. Claude retains his other existing scope and holds; no Claude receipt or review is claimed.
+VERIFIED LIVE — uploaded 5 Nov 2026 03:18 AEST (`2026-11-04T17:18:07.321Z`) from READY source `4c511cd87cca72a1d85944630f436b7854a66281`. The guarded uploader and independent public read-back both match the exact release bytes. Fresh public phone checks pass without a candidate override. The machine release and shared record are unchanged across publication. Ownership and other work holds remain on the shared status board.
 
 - Agreed branch: `ccr-061f77e8-ivjhrv`.
 - Starting source: `9f3d2de3bc3357f1919278b090ed36eb311c0567`.
 - Required live base SHA-256: `567b19b3b767b66a273d0956aced913b942808f98e8f0c1f6075114c17f87261` (v12.97).
-- Final test and live read-back results will be recorded in `verification.json`.
+- Candidate SHA-256: `ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d`, 17042608 bytes.
+- Shared build: 224 scripts; 14 focused tests; exact scope and base guards; native phone/desktop alignment and motion checks; both 27-tab/seven-link/Back sweeps pass. Zero runtime/console errors or attempted record writes.
+- Verification is recorded in `verification.json`.
 - Detailed screenshots and native site evidence remain private.
 
 ## Reproduce
@@ -25,9 +27,9 @@ DRAFT. Codex owns implementation, checks and guarded publication. Claude retains
 Use the shared toolchain to build from the exact live base:
 
 ```sh
-bash 03_GC500_Delivery_Control/toolchain/build.sh v12.98 03_GC500_Delivery_Control/v12.98_map_glow_DRAFT/patch_v1298.py
-node --test 03_GC500_Delivery_Control/v12.98_map_glow_DRAFT/tests/*.test.js
-python3 03_GC500_Delivery_Control/v12.98_map_glow_DRAFT/check_scope.py BASE CANDIDATE
+bash 03_GC500_Delivery_Control/toolchain/build.sh v12.98 03_GC500_Delivery_Control/v12.98_map_glow_LIVE/patch_v1298.py
+node --test 03_GC500_Delivery_Control/v12.98_map_glow_LIVE/tests/*.test.js
+python3 03_GC500_Delivery_Control/v12.98_map_glow_LIVE/check_scope.py BASE CANDIDATE
 ```
 
 Run `tests/check_glow_ui.cjs` under `/tmp/gc500-browser.lock`, with `PAGE` set to the candidate and `OUT` set to private evidence storage. `LIVE=1` instead reads the unmodified public page. Both standard shared browser sweeps are also required. All checks use the read-only harness and must report zero attempted operational writes.
