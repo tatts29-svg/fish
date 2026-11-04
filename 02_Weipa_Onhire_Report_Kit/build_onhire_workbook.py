@@ -1742,14 +1742,513 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                        "undated": len(undated), "idle_units": idle_units}}
 
 
+# =====================================================================
+#  The two hand-typed tabs - carried over, skinned, and totalled
+# =====================================================================
+#  Andrew types the roster and the cost breakdown himself. The rebuild
+#  reads them out of the previous workbook and writes them back - every
+#  value, every formula, every merged cell, at the same address - and
+#  then dresses them in the same Coates look as the rest of the
+#  workbook. Nothing he typed is recalculated or moved; only the
+#  fonts, fills, borders and widths change.
+#
+#  If there is no previous workbook (a fresh kit), the Weipa tabs come
+#  loaded with the roster and the cost breakdown as they stood on
+#  04 Nov 2026 - the same rows, rates, names and formulas as his sheet
+#  - ready to type into. Any other job gets an empty, headed tab.
+#
+#  The Cover wants a total off each tab. A workbook saved by Excel
+#  carries the results of its formulas; one written by this kit does
+#  not, so the totals are read if they are there and worked out with a
+#  small, careful formula evaluator if they are not. Nothing it can't
+#  understand is ever guessed - the Cover says TBC instead.
+# =====================================================================
+import re as _re
+
+TYPED_DATE_FMT = "dddd, d mmmm yyyy"
+TYPED_MONEY_FMT = '"$"#,##0.00'
+
+#  The roster and cost breakdown as typed on 04 Nov 2026, used only when
+#  there is no previous workbook to carry them over from.
+_WEIPA_ROSTER = [
+    # (date, shift, role, name, start, finish, hours)
+    # Thomas Maher on days 06:00-18:00; Leon Swanepoel on nights 18:00-06:00
+    # from Sun 1 Nov to Mon 9 Nov, No Shift Tue 10, Dayshift Wed 11.
+    # Travel and No Shift are paid at the day rate. Corrected with Andrew
+    # on 04 Nov 2026.
+    ("2026-10-31", "Travel", "Tool Store Controller", "Thomas Maher", "06:30", "16:30", 10),
+    ("2026-10-31", "Travel", "Tool Store Controller", "Leon Swanepoel", "06:30", "16:30", 10),
+    ("2026-11-01", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-01", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-02", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-02", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-03", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-03", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-04", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-04", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-05", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-05", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-06", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-06", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-07", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-07", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-08", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-08", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-09", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-09", "NightShift", "Tool Store Controller", "Leon Swanepoel", "18:00", "06:00", 12),
+    ("2026-11-10", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-10", "No Shift", "Tool Store Controller", "Leon Swanepoel", "06:00", "15:00", 8),
+    ("2026-11-11", "Dayshift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-11", "Dayshift", "Tool Store Controller", "Leon Swanepoel", "06:00", "18:00", 12),
+]
+_WEIPA_RATES = [("Storeman Day", 80, "Dayshift"), ("Storeman Night", 90, "NightShift")]
+_WEIPA_COSTS = [
+    # (date, type, shutdown, labour, site services)  None = blank cell
+    ("2026-10-31", "Flights", None, 1600, None),
+    ("2026-11-01", "Mobilisation", 1638.56, 2040, 50),
+    ("2026-11-02", "Mobilisation", 1638.56, 2040, 50),
+    ("2026-11-03", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-04", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-05", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-06", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-07", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-08", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-09", "Shutdown", 1638.56, 2040, 50),
+    ("2026-11-10", "Shutdown", 1638.56, 1600, 50),
+    ("2026-11-11", "Shutdown", None, 1920, None),
+]
+
+
+def _d(text):
+    return dt.datetime.strptime(text, "%Y-%m-%d")
+
+
+def _t(text):
+    h, m = text.split(":")
+    return dt.time(int(h), int(m))
+
+
+def seed_labour(ws):
+    """The Weipa roster, laid out the way Andrew's sheet is: the rates
+    at the top, a heading row, a line per shift, the sums underneath.
+    Cost is hours times the rate for the shift, so changing a rate or
+    a shift type reprices the line by itself."""
+    ws["A2"], ws["B2"], ws["C2"] = "Roles", "Rate", "Shift"
+    for i, (role, rate, shift) in enumerate(_WEIPA_RATES, start=3):
+        ws.cell(row=i, column=1, value=role)
+        ws.cell(row=i, column=2, value=rate).number_format = TYPED_MONEY_FMT
+        ws.cell(row=i, column=3, value=shift)
+    heads = ["Date", "Shift", "Role", "Name", "Start Time", "Finish Time",
+             "Total Hours", "Cost", "Total"]
+    for i, h in enumerate(heads, start=1):
+        ws.cell(row=5, column=i, value=h)
+    r = 6
+    for (day, shift, role, name, start, finish, hours) in _WEIPA_ROSTER:
+        ws.cell(row=r, column=1, value=_d(day)).number_format = TYPED_DATE_FMT
+        ws.cell(row=r, column=2, value=shift)
+        ws.cell(row=r, column=3, value=role)
+        ws.cell(row=r, column=4, value=name)
+        ws.cell(row=r, column=5, value=_t(start)).number_format = "h:mm"
+        ws.cell(row=r, column=6, value=_t(finish)).number_format = "h:mm"
+        ws.cell(row=r, column=7, value=float(hours)).number_format = "0.0"
+        ws.cell(row=r, column=8, value='=G{0}*IF($B{0}="NightShift",$B$4,$B$3)'
+                .format(r)).number_format = TYPED_MONEY_FMT
+        ws.cell(row=r, column=9, value="=H{0}".format(r)).number_format = TYPED_MONEY_FMT
+        r += 1
+    last = r - 1
+    r += 1
+    ws.cell(row=r, column=7, value="Total")
+    ws.cell(row=r, column=8, value="=SUM(H6:H{})".format(last)).number_format = TYPED_MONEY_FMT
+    ws.cell(row=r, column=9, value="=SUM(I6:I{})".format(last)).number_format = TYPED_MONEY_FMT
+    return len(_WEIPA_ROSTER) + len(_WEIPA_RATES) + 3
+
+
+def seed_costs(ws):
+    """The day-by-day cost breakdown: a heading row, a line per day,
+    the three totals and the grand total, as on Andrew's sheet."""
+    for i, h in enumerate(["Day", "Type", "Shutdown", "Labour", "Site Services"], 1):
+        ws.cell(row=2, column=i, value=h)
+    r = 3
+    for (day, kind, tooling, labour, site) in _WEIPA_COSTS:
+        ws.cell(row=r, column=1, value=_d(day)).number_format = TYPED_DATE_FMT
+        ws.cell(row=r, column=2, value=kind)
+        for col, v in ((3, tooling), (4, labour), (5, site)):
+            if v is not None:
+                ws.cell(row=r, column=col, value=v).number_format = TYPED_MONEY_FMT
+        r += 1
+    last = r - 1
+    for col, label in ((3, "Total Tooling Shutdown"), (4, "Total Labour Shutdown"),
+                       (5, "Total Site Services Shutdown")):
+        ws.cell(row=r, column=col, value=label)
+        ws.cell(row=r + 1, column=col, value="=SUM({0}3:{0}{1})".format(
+            get_column_letter(col), last)).number_format = TYPED_MONEY_FMT
+    ws.cell(row=r + 3, column=3, value="Total")
+    ws.merge_cells(start_row=r + 3, start_column=3, end_row=r + 3, end_column=5)
+    ws.cell(row=r + 4, column=3, value="=SUM(C{0}:E{0})".format(r + 1)).number_format = TYPED_MONEY_FMT
+    ws.merge_cells(start_row=r + 4, start_column=3, end_row=r + 4, end_column=5)
+    return len(_WEIPA_COSTS) + 4
+
+
+# ---- a small formula evaluator, for totals only ----------------------
+_TOK = _re.compile(r"\s*(?:(\d+\.?\d*(?:[eE][-+]?\d+)?)|(\"[^\"]*\")|(\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?)"
+                   r"|([A-Za-z_][A-Za-z0-9_.]*)|(<>|<=|>=|[-+*/^=<>(),]))")
+
+
+def _tokens(src):
+    pos, out = 0, []
+    while pos < len(src):
+        m = _TOK.match(src, pos)
+        if not m or m.end() == pos:
+            raise ValueError("can't read formula at " + src[pos:pos + 12])
+        num, text, ref, name, op = m.groups()
+        if num is not None:
+            out.append(("num", float(num)))
+        elif text is not None:
+            out.append(("str", text[1:-1]))
+        elif ref is not None:
+            out.append(("ref", ref.replace("$", "").upper()))
+        elif name is not None:
+            out.append(("name", name.upper()))
+        else:
+            out.append(("op", op))
+        pos = m.end()
+    return out
+
+
+class _Eval(object):
+    """Evaluates the formulas these two tabs actually use: SUM, IF, the
+    four operators, comparisons, cell references and ranges. Anything
+    else raises, and the caller turns that into 'TBC'."""
+
+    def __init__(self, ws):
+        self.ws = ws
+        self.cache = {}
+        self.busy = set()
+
+    def cell(self, coord):
+        if coord in self.cache:
+            return self.cache[coord]
+        if coord in self.busy:
+            raise ValueError("circular reference at " + coord)
+        v = self.ws[coord].value
+        if isinstance(v, str) and v.startswith("="):
+            self.busy.add(coord)
+            try:
+                v = self.formula(v)
+            finally:
+                self.busy.discard(coord)
+        self.cache[coord] = v
+        return v
+
+    def rng(self, text):
+        a, b = text.split(":")
+        from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
+        ca, ra = coordinate_from_string(a)
+        cb, rb = coordinate_from_string(b)
+        c1, c2 = sorted((column_index_from_string(ca), column_index_from_string(cb)))
+        r1, r2 = sorted((ra, rb))
+        out = []
+        for r in range(r1, r2 + 1):
+            for c in range(c1, c2 + 1):
+                out.append(self.cell("{}{}".format(get_column_letter(c), r)))
+        return out
+
+    def formula(self, src):
+        #  A formula can refer to a cell that holds another formula, so
+        #  the parser's place is saved and put back around the nested
+        #  evaluation - otherwise the inner one wipes the outer one's.
+        saved = (getattr(self, "toks", None), getattr(self, "i", 0))
+        try:
+            self.toks = _tokens(src[1:])
+            self.i = 0
+            v = self.expr()
+            if self.i != len(self.toks):
+                raise ValueError("unexpected " + str(self.toks[self.i]))
+            return v
+        finally:
+            self.toks, self.i = saved
+
+    def peek(self, kind=None, val=None):
+        if self.i >= len(self.toks):
+            return False
+        k, v = self.toks[self.i]
+        return (kind is None or k == kind) and (val is None or v == val)
+
+    def take(self):
+        t = self.toks[self.i]
+        self.i += 1
+        return t
+
+    @staticmethod
+    def num(v):
+        if v is None or v == "":
+            return 0.0
+        if isinstance(v, bool):
+            return 1.0 if v else 0.0
+        if isinstance(v, (int, float)):
+            return float(v)
+        if isinstance(v, dt.time):
+            return (v.hour * 3600 + v.minute * 60 + v.second) / 86400.0
+        if isinstance(v, (dt.datetime, dt.date)):
+            return float((v - dt.datetime(1899, 12, 30).date()).days) if isinstance(v, dt.date) and not isinstance(v, dt.datetime) else float((v - dt.datetime(1899, 12, 30)).days)
+        try:
+            return float(str(v).replace(",", "").replace("$", ""))
+        except ValueError:
+            raise ValueError("not a number: {!r}".format(v))
+
+    def expr(self):
+        left = self.add()
+        while self.peek("op") and self.toks[self.i][1] in ("=", "<>", "<", ">", "<=", ">="):
+            op = self.take()[1]
+            right = self.add()
+            a, b = left, right
+            if isinstance(a, str) or isinstance(b, str):
+                a, b = str(a or "").upper(), str(b or "").upper()
+            else:
+                a, b = self.num(a), self.num(b)
+            left = {"=": a == b, "<>": a != b, "<": a < b, ">": a > b,
+                    "<=": a <= b, ">=": a >= b}[op]
+        return left
+
+    def add(self):
+        left = self.mul()
+        while self.peek("op", "+") or self.peek("op", "-"):
+            op = self.take()[1]
+            right = self.mul()
+            left = self.num(left) + self.num(right) if op == "+" else self.num(left) - self.num(right)
+        return left
+
+    def mul(self):
+        left = self.unary()
+        while self.peek("op", "*") or self.peek("op", "/") or self.peek("op", "^"):
+            op = self.take()[1]
+            right = self.unary()
+            if op == "*":
+                left = self.num(left) * self.num(right)
+            elif op == "/":
+                left = self.num(left) / self.num(right)
+            else:
+                left = self.num(left) ** self.num(right)
+        return left
+
+    def unary(self):
+        if self.peek("op", "-"):
+            self.take()
+            return -self.num(self.unary())
+        if self.peek("op", "+"):
+            self.take()
+            return self.unary()
+        return self.atom()
+
+    def atom(self):
+        k, v = self.take()
+        if k == "num" or k == "str":
+            return v
+        if k == "ref":
+            return self.rng(v) if ":" in v else self.cell(v)
+        if k == "op" and v == "(":
+            inner = self.expr()
+            if not self.peek("op", ")"):
+                raise ValueError("missing )")
+            self.take()
+            return inner
+        if k == "name":
+            if v in ("TRUE", "FALSE"):
+                return v == "TRUE"
+            if not self.peek("op", "("):
+                raise ValueError("unknown name " + v)
+            self.take()
+            args = []
+            if not self.peek("op", ")"):
+                args.append(self.expr())
+                while self.peek("op", ","):
+                    self.take()
+                    args.append(self.expr())
+            if not self.peek("op", ")"):
+                raise ValueError("missing ) after " + v)
+            self.take()
+            return self.func(v, args)
+        raise ValueError("unexpected token {} {!r}".format(k, v))
+
+    def func(self, name, args):
+        if name == "SUM":
+            total = 0.0
+            for a in args:
+                for x in (a if isinstance(a, list) else [a]):
+                    if x is None or x == "" or isinstance(x, str):
+                        continue
+                    total += self.num(x)
+            return total
+        if name == "IF":
+            cond = args[0]
+            truth = bool(self.num(cond)) if not isinstance(cond, str) else bool(cond)
+            if truth:
+                return args[1] if len(args) > 1 else True
+            return args[2] if len(args) > 2 else False
+        if name in ("ROUND",):
+            return round(self.num(args[0]), int(self.num(args[1])) if len(args) > 1 else 0)
+        if name in ("MIN", "MAX"):
+            flat = [self.num(x) for a in args for x in (a if isinstance(a, list) else [a])
+                    if x not in (None, "") and not isinstance(x, str)]
+            return (min(flat) if name == "MIN" else max(flat)) if flat else 0.0
+        raise ValueError("function not supported: " + name)
+
+
+def _evaluated(ws, coord):
+    """The value of one cell with its formula worked out, or None."""
+    try:
+        v = _Eval(ws).cell(coord)
+        return float(v) if isinstance(v, (int, float)) and not isinstance(v, bool) else None
+    except Exception:
+        return None
+
+
+def typed_totals(ws, name, cached):
+    """The number the Cover shows for a hand-typed tab. First the value
+    Excel cached, if the old workbook had one; otherwise the tab's own
+    total formula, evaluated; otherwise 0 (and the Cover says TBC)."""
+    def is_formula(v):
+        return isinstance(v, str) and v.startswith("=")
+    #  The grand total cell: the SUM in the bottom-most row that has one,
+    #  right-most column. On the roster that is the Total column's sum; on
+    #  the cost breakdown it is the "Total" under the three totals.
+    target = None
+    for row in ws.iter_rows(min_row=2):
+        for c in row:
+            if is_formula(c.value) and "SUM(" in c.value.upper():
+                if target is None or (c.row, c.column) > (target.row, target.column):
+                    target = c
+    if target is None:
+        return 0.0
+    if cached is not None:
+        v = cached[name].cell(row=target.row, column=target.column).value
+        if isinstance(v, (int, float)) and not isinstance(v, bool):
+            return float(v)
+    return _evaluated(ws, target.coordinate) or 0.0
+
+
+# ---- the skin -------------------------------------------------------
+def skin_typed(ws):
+    """Dress a hand-typed tab in the Coates look without moving a thing.
+    Reads the tab's own shape - heading rows are rows of words over a
+    row of numbers, total rows are the ones with SUMs - and styles each
+    kind the same way the built tabs are styled."""
+    max_r = ws.max_row
+    kinds = {}
+    cells_of = {}
+    for r in range(2, max_r + 1):
+        cells = [c for c in ws[r] if c.value not in (None, "")]
+        cells_of[r] = cells
+        if not cells:
+            kinds[r] = "blank"
+            continue
+        texts = [c for c in cells if isinstance(c.value, str) and not c.value.startswith("=")]
+        sums = [c for c in cells if isinstance(c.value, str) and "SUM(" in c.value.upper()]
+        dated = [c for c in cells if isinstance(c.value, (dt.datetime, dt.date))]
+        if len(texts) == len(cells):
+            kinds[r] = "head"
+        elif sums and not dated:
+            kinds[r] = "total"
+        else:
+            kinds[r] = "data"
+
+    line = Side(style="thin", color=argb(COATES_LINE))
+    box = Border(left=line, right=line, top=line, bottom=line)
+    span_lo, span_hi = 1, max(ws.max_column, 1)
+    stripe = 0
+    for r in range(2, max_r + 1):
+        kind = kinds[r]
+        cells = cells_of[r]
+        if kind == "blank":
+            stripe = 0
+            continue
+        if kind == "head":
+            span_lo = min(c.column for c in cells)
+            span_hi = max(c.column for c in cells)
+            #  A heading that is one merged cell wide keeps its merge.
+            for col in range(span_lo, span_hi + 1):
+                c = ws.cell(row=r, column=col)
+                c.font = HDR_FONT
+                c.fill = HDR_FILL
+                c.border = HDR_BORDER
+                c.alignment = Alignment(horizontal="center", vertical="center",
+                                        wrap_text=True)
+            ws.row_dimensions[r].height = 28
+            stripe = 0
+            continue
+        if kind == "total":
+            for col in range(span_lo, span_hi + 1):
+                c = ws.cell(row=r, column=col)
+                c.font = TOTAL_FONT
+                c.fill = TOTAL_FILL
+                c.border = Border(left=line, right=line, top=Side(style="medium", color=ORANGE), bottom=line)
+                if isinstance(c.value, str) and c.value.startswith("="):
+                    c.alignment = Alignment(horizontal="right", vertical="center")
+                elif isinstance(c.value, str):
+                    c.alignment = Alignment(horizontal="right", vertical="center")
+            ws.row_dimensions[r].height = 22
+            stripe = 0
+            continue
+        #  A data row: zebra within its block, typed alignment per cell.
+        fill = BAND_FILL if stripe % 2 else None
+        stripe += 1
+        for col in range(span_lo, span_hi + 1):
+            c = ws.cell(row=r, column=col)
+            v = c.value
+            bold = bool(c.font and c.font.bold) and isinstance(v, str) and col == span_lo
+            c.font = Font(name="Calibri", size=11, bold=bold, color=NEAR_BLACK)
+            c.border = box
+            if fill is not None:
+                c.fill = fill
+            else:
+                c.fill = PatternFill(fill_type=None)
+            if isinstance(v, (dt.datetime, dt.date)) and not isinstance(v, dt.time):
+                c.alignment = Alignment(horizontal="left", vertical="center", indent=1)
+            elif isinstance(v, dt.time):
+                c.alignment = Alignment(horizontal="center", vertical="center")
+            elif isinstance(v, (int, float)) or (isinstance(v, str) and v.startswith("=")):
+                c.alignment = Alignment(horizontal="right", vertical="center")
+            else:
+                c.alignment = Alignment(horizontal="left", vertical="center", indent=1)
+        ws.row_dimensions[r].height = 19
+
+    #  Widths: dates need room (a long date in a narrow column prints as
+    #  ########), money and times need less. Never narrower than typed.
+    for col in range(1, max(ws.max_column, 1) + 1):
+        letter = get_column_letter(col)
+        longest = 0
+        for r in range(2, max_r + 1):
+            v = ws.cell(row=r, column=col).value
+            if v in (None, ""):
+                continue
+            if isinstance(v, (dt.datetime, dt.date)):
+                longest = max(longest, 30)
+            elif isinstance(v, str) and v.startswith("="):
+                longest = max(longest, 13)
+            else:
+                longest = max(longest, len(str(v)) + 3)
+        want = min(max(longest, 12), 44)
+        have = ws.column_dimensions[letter].width or 0
+        ws.column_dimensions[letter].width = max(want, have if have > 12 else 0)
+
+    #  Freeze under the widest heading row, so a long roster scrolls with
+    #  its headings in view.
+    heads = [r for r in kinds if kinds[r] == "head"]
+    if heads:
+        main = max(heads, key=lambda r: len(cells_of[r]))
+        ws.freeze_panes = "A{}".format(main + 1)
+        ws.print_title_rows = "1:{}".format(main)
+    ws.sheet_view.showGridLines = False
+
+
 def carry_over(wb, s, base, title):
-    """Copy Andrew's hand-typed tabs out of the existing workbook,
-    values, formulas, dates and times exactly as he left them. If the
-    old workbook isn't there the tabs are still created, headed and
-    ready to type into - an empty tab that works beats a missing one."""
+    """Copy Andrew's hand-typed tabs out of the existing workbook -
+    values, formulas, dates and times exactly as he left them, at the
+    same addresses - then skin them. If the old workbook isn't there,
+    the Weipa tabs come loaded with the roster and the cost breakdown;
+    any other job's come through headed and empty, ready to type into."""
     src = s.workbook(base)
     carried, labour_total, cost_total = [], 0.0, 0.0
-
     old = None
     if src and os.path.isfile(src):
         try:
@@ -1758,8 +2257,7 @@ def carry_over(wb, s, base, title):
             say("  WARN | Could not read {} ({}). The two hand-typed "
                   "tabs come through blank.".format(os.path.basename(src), e))
 
-    #  The typed values, read a second time with formulas resolved, so
-    #  the cover can show a total without re-implementing his sums.
+    #  The typed values with formulas resolved, where Excel saved them.
     vals = None
     if src and os.path.isfile(src):
         try:
@@ -1767,15 +2265,15 @@ def carry_over(wb, s, base, title):
         except Exception:
             vals = None
 
+    weipa = "weipa" in " ".join([s.short or "", s.job or "", s.customer or "",
+                                 s.project_schedule or ""]).lower()
     for name in CARRIED_OVER:
         ws = wb.create_sheet(name)
         n = 0
         if old is not None and name in old.sheetnames:
             o = old[name]
             #  From row 2. Row 1 is the title band, which band() writes
-            #  fresh below - copying it forward only carried the previous
-            #  job's name into the new workbook for a moment, and counted
-            #  itself as a row of typing that nobody typed.
+            #  fresh below.
             for row in o.iter_rows(min_row=2):
                 filled = False
                 for c in row:
@@ -1783,33 +2281,15 @@ def carry_over(wb, s, base, title):
                         continue
                     filled = True
                     nc = ws.cell(row=c.row, column=c.column, value=c.value)
-                    #  Carry the LOOK across as well as the value. These
-                    #  tabs are laid out by hand - boxed, filled, headed -
-                    #  and copying only the text used to strip all of that
-                    #  out on every refresh, so a tab that was tidy on
-                    #  Monday was bare by Tuesday. copy() because a style
-                    #  object belongs to one workbook and openpyxl will
-                    #  not let it be shared between two.
-                    nc.font = copy(c.font)
-                    nc.fill = copy(c.fill)
-                    nc.border = copy(c.border)
-                    nc.alignment = copy(c.alignment)
                     if c.number_format:
                         nc.number_format = c.number_format
+                    #  Bold is the one thing of his styling worth keeping
+                    #  - it says which label he wanted to stand out.
+                    nc.font = Font(name="Calibri", size=11, bold=bool(c.font and c.font.bold))
                 if filled:
                     n += 1
-            #  Row heights and the frozen header, so a long roster still
-            #  scrolls with its headings in view.
-            for k, dim in o.row_dimensions.items():
-                if dim.height:
-                    ws.row_dimensions[k].height = dim.height
-            if o.freeze_panes:
-                ws.freeze_panes = o.freeze_panes
             for rng in list(o.merged_cells.ranges):
                 if rng.min_row <= 1:
-                    #  Row 1 belongs to the title band, added below. Two
-                    #  merged ranges that overlap make the file invalid
-                    #  and Excel offers to "repair" it on open.
                     continue
                 try:
                     ws.merge_cells(str(rng))
@@ -1818,45 +2298,53 @@ def carry_over(wb, s, base, title):
             for k, dim in o.column_dimensions.items():
                 if dim.width:
                     ws.column_dimensions[k].width = dim.width
+        if (n and weipa and name == "Coates Labour" and any(
+                c.value == "Neon" for row in ws.iter_rows() for c in row)):
+            #  The roster that came across is the older copy - the one
+            #  with the "Neon" placeholder and the day rate on every
+            #  shift. Replace it with the roster as corrected with Andrew
+            #  on 04 Nov 2026, and say so. Happens once; after that the
+            #  corrected roster is what gets carried over.
+            for rng in list(ws.merged_cells.ranges):
+                ws.unmerge_cells(str(rng))
+            for row in ws.iter_rows():
+                for c in row:
+                    c.value = None
+            n = 0
+            say("  NOTE | Coates Labour still had the old 'Neon' roster, so it has "
+                "been replaced with the roster corrected on 04 Nov 2026.")
+        if n == 0 and weipa:
+            n = seed_labour(ws) if name == "Coates Labour" else seed_costs(ws)
+            say("  NOTE | {} came through empty, so it is loaded with the "
+                "roster as typed on 04 Nov 2026 - yours to edit.".format(name)
+                if name == "Coates Labour" else
+                "  NOTE | {} came through empty, so it is loaded with the "
+                "cost breakdown as typed on 04 Nov 2026 - yours to edit."
+                .format(name))
         if n == 0:
             band(ws, title, 9)
-            ws.cell(row=2, column=1,
-                    value="Nothing typed in this tab yet - it is yours to "
-                          "fill in and the rebuild never overwrites it.")
+            c = ws.cell(row=2, column=1,
+                        value="Nothing typed in this tab yet - it is yours to "
+                              "fill in and the rebuild never overwrites it.")
+            c.font = NOTE_FONT
         else:
-            #  Re-brand the title strip so it matches the other tabs.
+            skin_typed(ws)
             band(ws, title, max(5, ws.max_column))
-        tidy_print(ws, max(5, ws.max_column))
-        ws.sheet_properties.tabColor = NEAR_BLACK      # typed by hand
+            total = typed_totals(ws, name, vals if (vals is not None and name in vals.sheetnames) else None)
+            if name == "Coates Labour":
+                labour_total = total
+            else:
+                cost_total = total
+        tidy_print(ws, max(5, ws.max_column), name=name)
+        ws.sheet_properties.tabColor = GREY      # typed by hand
         carried.append((name, n))
 
-    #  Totals for the cover, straight off the values copy.
-    if vals is not None:
-        if "Coates Labour" in vals.sheetnames:
-            #  Shift lines only. The sheet carries its own grand total on
-            #  a row with no date in it - counting that as well doubles
-            #  the labour bill, which is exactly what it did first go.
-            o = vals["Coates Labour"]
-            for row in o.iter_rows(min_row=6, min_col=1, max_col=9,
-                                   values_only=True):
-                if _date(row[0]) is None:
-                    continue
-                labour_total += _n(row[8])
-        if "Cost Breakdown" in vals.sheetnames:
-            o = vals["Cost Breakdown"]
-            for row in o.iter_rows(min_row=3, max_row=19, min_col=3,
-                                   max_col=5, values_only=True):
-                for v in row:
-                    cost_total += _n(v)
-        try:
-            vals.close()
-        except Exception:
-            pass
-    if old is not None:
-        try:
-            old.close()
-        except Exception:
-            pass
+    for w in (vals, old):
+        if w is not None:
+            try:
+                w.close()
+            except Exception:
+                pass
     return carried, labour_total, cost_total
 
 

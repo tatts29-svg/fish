@@ -62,6 +62,28 @@
    what fed it, the ratings legend in colour, what is typed by hand.
    A cost headline that can't be read shows TBC, never $0.
 
+ THE TWO HAND-TYPED TABS - same values, Coates look
+ --------------------------------------------------
+   Coates Labour and Cost Breakdown are still yours and still carried
+   over value for value, formula for formula. They now come through in
+   the same look as every other tab: the Coates band, charcoal heading
+   rows, light zebra, totals highlighted, dates wide enough to read
+   (no more ########), headings frozen, print-ready.
+
+   The roster has been corrected as agreed on 04 Nov 2026: Leon
+   Swanepoel on NightShift 18:00-06:00 from Sun 1 Nov to Mon 9 Nov,
+   No Shift Tue 10 Nov, Dayshift 06:00-18:00 Wed 11 Nov; Thomas Maher
+   on Dayshift 06:00-18:00 throughout. Cost is hours x the rate for the
+   shift type - NightShift at the night rate, everything else at the
+   day rate - so a changed shift reprices itself. Totals: $23,480
+   labour, $40,365.60 all up. The first run replaces the older 'Neon'
+   copy of the roster with this one and says so; after that whatever
+   you type is what carries over.
+
+   The Cover's labour and cost totals are now worked out from the tab's
+   own formulas when Excel has not cached them, so they no longer read
+   TBC on a freshly built workbook.
+
  EVERYTHING ELSE
  ---------------
    HOW_IT_WORKS.html rewritten in the same look, with the dating rule
