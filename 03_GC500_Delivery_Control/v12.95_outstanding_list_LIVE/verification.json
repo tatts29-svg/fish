@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "status": "LIVE VERIFIED",
+  "sourceCommit": "72ec3422487256759d65da1770cb198e467249ac",
+  "baseSha256": "d6c557d3045c55f4d66bca2227f098f4951003bd4674ac83ba497aa16f7b8de0",
+  "sha256": "6f4f3a35ad52cc794bc0f8e696cae978cef23965d72e6bf53e45f1c017b0a35a",
+  "bytes": 16990288,
+  "buildInlineScripts": 224,
+  "otherScriptsUnchanged": 223,
+  "focused": {
+    "passed": true,
+    "errors": 0,
+    "recordWrites": 0,
+    "phoneVisualReviewed": true
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "review": "Implemented and tested by Codex; no Claude implementation review claimed",
+  "privateSpecificationTableImported": false,
+  "readySourceCommit": "52f47af266f5dfa442340898cc821d53c89ede44",
+  "publishedAt": "2026-11-04T07:56:41.209Z",
+  "independentReadback": "6f4f3a35ad52cc794bc0f8e696cae978cef23965d72e6bf53e45f1c017b0a35a",
+  "recordUnchangedAcrossPublication": true,
+  "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "freshLive": {
+    "passed": true,
+    "candidateOverrides": false,
+    "freshCache": true,
+    "runtimeErrors": 0,
+    "recordWrites": 0
+  }
+}
