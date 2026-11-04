@@ -1,13 +1,68 @@
 {
   "author": "Andrew Fisher",
-  "state": "DRAFT \u2014 final checks running",
+  "state": "READY TO UPLOAD",
   "baseSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
   "candidateSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
   "candidateBytes": 17065377,
   "inlineScripts": 224,
   "focusedNodeTests": 16,
   "scopeGuardPassed": true,
-  "nativeChecks": null,
-  "sweeps": null,
-  "publication": null
+  "nativeChecks": {
+    "weatherContinuity": {
+      "passed": true,
+      "nodeIdentityAndPhase": true,
+      "realDayClickAndRender": true,
+      "changedNativeFactsAndForecast": true,
+      "pauseReducedMotionOffscreen": true
+    },
+    "phoneResize": {
+      "passed": true,
+      "demobAndBuild": true,
+      "heightOnlyScrollPreserved": true,
+      "realWidthRecentres": true
+    },
+    "observedAndForecastWeather": {
+      "passed": true,
+      "historyPartialAndCurrent": true,
+      "directEntry": true
+    },
+    "staffAndObservers": {
+      "passed": true,
+      "unchangedNodeAcrossRefreshAndPolling": true,
+      "changedFactsUpdate": true,
+      "openDraftPreserved": true,
+      "controlsTriggerNoEquipmentDecoration": true,
+      "equipmentAndMixedMutationsStillDecorate": true
+    },
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "attemptedRecordWrites": 0,
+    "screenshotsInspected": true
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": null,
+  "implementationSource": "bf367a3e43ac641e508dab4ebfcfa7836eb151c9",
+  "wrongBaseAndRepeatRefused": true,
+  "reproducesExactCandidate": true
 }

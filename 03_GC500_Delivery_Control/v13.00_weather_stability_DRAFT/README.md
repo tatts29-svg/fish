@@ -8,7 +8,7 @@ This draft preserves matching weather artwork and animation phase across native 
 
 A second source of stutter was the unchanged Available staff panel. Its raw HTML was compared with browser-serialized HTML, which expanded a bare attribute and made every comparison fail. Demob now compares the parsed structure before replacing the panel. Actual changed staffing still refreshes; open edit drafts retain the native protection. Weather Pause/Play label changes are excluded from the two equipment-decoration observers. Equipment calculations, geometry and record writers are unchanged.
 
-DRAFT — combined candidate built; all 224 inline scripts parse, the exact scope guard and 16 focused Node checks pass. Final native checks and both whole-page regression sweeps are running. Not ready for publication.
+READY TO UPLOAD — exact candidate passes all 224 inline-script checks, the scope/base guards, 16 focused Node checks, four native phone regression suites and both 27-tab/seven-link/Back sweeps. Runtime errors, console errors and attempted operational writes are zero. Screenshots reviewed. Implementation source: `bf367a3e43ac641e508dab4ebfcfa7836eb151c9`. Guarded publication and fresh public verification remain.
 
 - Source branch: `ccr-061f77e8-ivjhrv`.
 - Claim commit: `dda25eba`.
