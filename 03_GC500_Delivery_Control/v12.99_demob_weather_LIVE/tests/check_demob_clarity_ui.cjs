@@ -5,8 +5,8 @@
 'use strict';
 const fs=require('node:fs'),assert=require('node:assert/strict'),path=require('node:path'),crypto=require('node:crypto');
 const {open}=require('../../toolchain/harness/open_page');
-const OUT=process.env.OUT,BASELINE=process.env.BASELINE==='1';
-assert(OUT&&path.isAbsolute(OUT)&&process.env.PAGE,'PAGE and private absolute OUT required');
+const OUT=process.env.OUT,BASELINE=process.env.BASELINE==='1',LIVE=process.env.LIVE==='1';
+assert(OUT&&path.isAbsolute(OUT)&&(process.env.PAGE||LIVE),'PAGE or LIVE=1 and private absolute OUT required');
 assert(!path.resolve(OUT).startsWith(path.resolve(__dirname,'../../..')+path.sep),'Keep native evidence outside the repository');
 fs.mkdirSync(OUT,{recursive:true,mode:0o700});
 const write=(name,data)=>fs.writeFileSync(path.join(OUT,name),JSON.stringify(data,null,2));
@@ -67,10 +67,10 @@ async function equipment(p,mode){
  return {packed,glow};
 }
 (async()=>{
- const hash=crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),reports=[];
+ const hash=LIVE?null:crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),reports=[];
  console.log((BASELINE?'Baseline ':'Candidate ')+hash);
  for(const mode of (process.env.MOB==='1'?['phone']:process.env.MOB==='0'?['desktop']:['desktop','phone'])){
-  const s=await open({pageFile:process.env.PAGE,hash:'#today',W:mode==='phone'?390:1440,H:mode==='phone'?844:1000,mobile:mode==='phone',dpr:1}),p=s.page,consoleErrors=[];
+  const s=await open({pageFile:LIVE?undefined:process.env.PAGE,hash:'#today',W:mode==='phone'?390:1440,H:mode==='phone'?844:1000,mobile:mode==='phone',dpr:1}),p=s.page,consoleErrors=[];
   p.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text().slice(0,180));});
   try{
    await p.waitForFunction(()=>window.DemobCards996&&window.Singles1238&&SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:120000});
@@ -80,6 +80,6 @@ async function equipment(p,mode){
    const report={mode,days,...cards,errors:s.errors,consoleErrors,attemptedWrites:s.counts.blocked,writes};reports.push(report);write('report-'+mode+'.json',report);console.log('PASS '+mode+' native day/equipment layout '+(BASELINE?'baseline':'candidate'));
   }catch(error){await p.screenshot({path:path.join(OUT,mode+'-failure.png')}).catch(()=>{});throw error;}finally{await s.browser.close();}
  }
- assert.equal(crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),hash);
- write('report.json',{author:'Andrew Fisher',passed:true,baseline:BASELINE,hash,reports});
+ if(!LIVE)assert.equal(crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),hash);
+ write('report.json',{author:'Andrew Fisher',passed:true,live:LIVE,baseline:BASELINE,hash,reports});
 })().catch(error=>{write('failure.json',{message:error.message,stack:error.stack});console.error(error.stack);process.exitCode=1;});

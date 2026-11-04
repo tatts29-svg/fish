@@ -14,7 +14,9 @@ The native Person form also gains an optional, clearable **Last day on site**. I
 
 ## Release state
 
-READY TO UPLOAD — focused checks, native weather and phone/desktop layout checks, the private native correction rehearsal, and both 27-tab/seven-link/Back regression sweeps pass on the exact candidate. Guarded publication and fresh public verification remain. Ownership is on the shared status board.
+VERIFIED LIVE — uploaded 5 Nov 2026 at 03:43 AEST (`2026-11-04T17:43:02.636Z`) from READY source `490f98c010297f1888d623df13dff222af829366`. Guarded and independent exact public read-back passed, as did the fresh public weather and current/historical contact/roster checks. The separate authorised native availability correction was backed up, applied and independently verified; its facts and evidence remain private.
+
+Follow-up open: Andrew reports weather is still glitchy after publication. The controlled checks above establish their specific tested behaviour; they do not resolve his remaining observation. The next claimed release investigates scrolling, animation and refresh stability.
 
 - Agreed source branch: `ccr-061f77e8-ivjhrv`.
 - Claim source: `859de6dda2e7e6ff6a05f74bdd29729aa4a1e0ac`.
@@ -27,10 +29,10 @@ READY TO UPLOAD — focused checks, native weather and phone/desktop layout chec
 ## Reproduce
 
 ```sh
-bash 03_GC500_Delivery_Control/toolchain/build.sh v12.99 03_GC500_Delivery_Control/v12.99_demob_weather_DRAFT/patch_v1299.py
-node --test 03_GC500_Delivery_Control/v12.99_demob_weather_DRAFT/tests/*.test.js
-python3 03_GC500_Delivery_Control/v12.99_demob_weather_DRAFT/tests/test_weather_archive1299.py BASE
-python3 03_GC500_Delivery_Control/v12.99_demob_weather_DRAFT/check_scope.py BASE CANDIDATE
+bash 03_GC500_Delivery_Control/toolchain/build.sh v12.99 03_GC500_Delivery_Control/v12.99_demob_weather_LIVE/patch_v1299.py
+node --test 03_GC500_Delivery_Control/v12.99_demob_weather_LIVE/tests/*.test.js
+python3 03_GC500_Delivery_Control/v12.99_demob_weather_LIVE/tests/test_weather_archive1299.py BASE
+python3 03_GC500_Delivery_Control/v12.99_demob_weather_LIVE/check_scope.py BASE CANDIDATE
 ```
 
 Run `tests/check_weather_ui.cjs` and `tests/check_demob_clarity_ui.cjs` through the shared read-only browser harness under `/tmp/gc500-browser.lock`; set `PAGE` to the candidate and `OUT` to private evidence storage. Use `LIVE=1` for public read-back. Both whole-page regression sweeps remain required. The separate private operational correction must be backed up, rehearsed with all writes blocked, then applied only through the native page functions and independently read back.

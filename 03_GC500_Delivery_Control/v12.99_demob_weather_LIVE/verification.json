@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "VERIFIED LIVE \u2014 weather follow-up open",
   "baseSha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
   "candidateSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
   "candidateBytes": 17060912,
@@ -20,7 +20,8 @@
     "hiddenAndReducedMotion": true,
     "errors": 0,
     "consoleErrors": 0,
-    "attemptedWrites": 0
+    "attemptedWrites": 0,
+    "userReportedRemainingGlitch": true
   },
   "clarity": {
     "nativePhoneAndDesktopPassed": true,
@@ -37,7 +38,10 @@
     "rehearsalPassed": true,
     "allWritesBlocked": true,
     "historicalFinancialRowsPreserved": true,
-    "liveApplied": false
+    "liveApplied": true,
+    "backupAndNativeAcknowledgementVerified": true,
+    "independentReadbackVerified": true,
+    "currentAndHistoricalPublicUiPassed": true
   },
   "sweeps": {
     "desktop": {
@@ -61,7 +65,14 @@
       "routingMatchesPreviousLive": true
     }
   },
-  "publication": null,
+  "publication": {
+    "uploadedAt": "2026-11-04T17:43:02.636Z",
+    "exactPublicReadback": true,
+    "independentReadback": true,
+    "nativePublicWeatherCheckPassed": true,
+    "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a"
+  },
   "implementationSource": "a76798317a4bbd5fb8da1b0455c58ff9aeb8df43",
-  "wrongBaseAndRepeatRefused": true
+  "wrongBaseAndRepeatRefused": true,
+  "readySource": "490f98c010297f1888d623df13dff222af829366"
 }
