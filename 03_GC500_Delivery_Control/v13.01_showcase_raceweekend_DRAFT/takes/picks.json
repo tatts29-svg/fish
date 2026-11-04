@@ -1,0 +1,86 @@
+{
+ "2": {
+  "take": "a",
+  "why": "both takes carry every word and figure; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ },
+ "4": {
+  "take": "a",
+  "why": "both takes carry every word and figure (the transcriber hears Coates as coach in both); take 1",
+  "ratio": 0.977,
+  "other": 0.977
+ },
+ "20": {
+  "take": "a",
+  "why": "both takes carry every figure (the transcriber runs 'four sixties' into one number in both, as it did for the v11.65 line); take 1",
+  "ratio": 0.828,
+  "other": 0.828
+ },
+ "22": {
+  "take": "a",
+  "why": "take 1 says Macintosh Park cleanly; every figure and place in both",
+  "ratio": 0.925,
+  "other": 0.91
+ },
+ "24": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ },
+ "29": {
+  "take": "a",
+  "why": "both carry every figure; take 1",
+  "ratio": 0.96,
+  "other": 0.98
+ },
+ "30": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ },
+ "31": {
+  "take": "a",
+  "why": "both carry every figure (every one / everyone is the same sound); take 1",
+  "ratio": 0.921,
+  "other": 0.921
+ },
+ "32": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ },
+ "36": {
+  "take": "b",
+  "why": "take 2 word-perfect; take 1's 'one day' is not heard cleanly through the laugh",
+  "ratio": 1.0,
+  "other": 0.933
+ },
+ "37": {
+  "take": "b",
+  "why": "take 2 says 'coldest morning' cleanly (take 1 heard as 'cold this morning'); every figure in both",
+  "ratio": 0.98,
+  "other": 0.97
+ },
+ "39": {
+  "take": "a",
+  "why": "take 1 word-perfect (take 2 slurs 'walked round' and 'clearances')",
+  "ratio": 0.974,
+  "other": 0.886
+ },
+ "41": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ },
+ "43": {
+  "take": "a",
+  "why": "both word-perfect; take 1",
+  "ratio": 1.0,
+  "other": 1.0
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "schema": "gc500-broadcast-changes-v1",
+ "release": "v13.01",
+ "basis": "The record as at race weekend, Fri 23 Oct 2026 (Showcase accuracy audit, 5 Nov 2026). Every figure is the page's own at that day.",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "flow": "Qc1iMoJTLhlFZqKutDwx",
+ "turns": [
+  {
+   "slot": 2,
+   "scene": "countdown",
+   "old": "[rapid] Forty-seven days! From the first truck through the gate on the seventh of September — to race day, Friday the twenty-third of October! [fast] Seven hundred and twenty-seven pieces of equipment! More than twenty kilometres of fence and crowd control! [punchy] Sun, wind, and a LOT of rain — [shouting] and they got it DONE!",
+   "text": "[rapid] Forty-seven days! From the first truck through the gate on the seventh of September — to race day, Friday the twenty-third of October! [fast] Seven hundred and twenty-eight pieces of equipment on site! More than twenty kilometres of fence and crowd control! [punchy] Sun, wind, and a LOT of rain — [shouting] and they got it DONE!",
+   "why": "727 pieces -> 728 on site at 23 Oct (completionAsOf: 733 quantified, 728 on site, plan 726)"
+  },
+  {
+   "slot": 4,
+   "scene": "lead",
+   "old": "[race-caller, warm] Running the Coates show on site — the project manager! [fast] Thirty-four days on the ground, three hundred and sixty-one hours! [laughs] Every building, every toilet, every barrier ticked off on the record by the same thumb — [shouting] somebody get that man a new phone!",
+   "text": "[race-caller, warm] Running the Coates show on site — the project manager! [fast] Thirty-four days on the ground, three hundred and seventy-five hours! [laughs] Every building, every toilet, every barrier ticked off on the record by the same thumb — [shouting] somebody get that man a new phone!",
+   "why": "361 h -> 375.0 h to 23 Oct (34 days unchanged)"
+  },
+  {
+   "slot": 20,
+   "scene": "install_vms1090",
+   "old": "[driving] Fourteen generators! [rapid] Two two-hundred-kVA sets with cables, a one-fifty, four sixties, two fifties, a forty-five, two thirties, two twenties — [fast] in from the twenty-eighth of September, every one running by the nineteenth of October! [shouting] The POWER behind the whole precinct!",
+   "text": "[driving] Fifteen generators! [rapid] A three-hundred-and-fifty-kVA set, two two-hundred-kVA sets with cables, a one-fifty, four sixties, two fifties, a forty-five, two thirties, two twenties — [fast] in from the twenty-eighth of September, every one running by the nineteenth of October! [shouting] The POWER behind the whole precinct!",
+   "why": "14 -> 15 units: the 350 kVA set at S01 (GN20-A) is back on the record since 25 Oct"
+  },
+  {
+   "slot": 22,
+   "scene": "install_water1090",
+   "old": "[serious, driving] And the ones that keep people SAFE! [rapid] Three hundred and eleven crash-rated, water-filled Armorzone barriers — every one of them placed! [fast] The Gold Coast Highway — Tedder Avenue, Turn Two, the light rail at Main Beach — a hundred and fifty-four of them along the grandstands at Macintosh Park alone! [punchy] Main Beach Parade! Admiralty Drive! Helen Park! Commodore Park! The Turn Eleven run-off! The racing kerbs!",
+   "text": "[serious, driving] And the ones that keep people SAFE! [rapid] Three hundred and eleven crash-rated, water-filled Armorzone barriers — every one of them placed! [fast] The Gold Coast Highway — Turn Two, Turn Four, the light rail at Main Beach — a hundred and fifty-four of them along the grandstands at Macintosh Park alone! [punchy] Main Beach Parade! Admiralty Drive! Helen Park! Gate Two! The Turn Eleven run-off! The racing kerbs!",
+   "why": "no barrier run is at Tedder Avenue or Commodore Park; Turn 4 (WB14) and Gate 2 (WB16) are"
+  },
+  {
+   "slot": 24,
+   "scene": "delivery_context1090",
+   "old": "[rapid, commentating] And the TRUCKS! [fast] Seven hundred and twenty-seven pieces of equipment — a hundred and twenty-one Coates asset numbers on hire! [building] The biggest day, the sixteenth of October — twenty-five references landed in ONE day! [shouting] Every load tracked, every arrival on the record!",
+   "text": "[rapid, commentating] And the TRUCKS! [fast] Seven hundred and thirty-three pieces of equipment on the record — seven hundred and twenty-eight of them on site by race day! [building] The biggest day, the sixteenth of October — twenty-four references landed in ONE day! [shouting] Every load tracked, every arrival on the record!",
+   "why": "727 -> 733 quantified / 728 on site; the 121 asset numbers cannot be reproduced from the page and come out; 25 -> 24 references on 16 Oct"
+  },
+  {
+   "slot": 29,
+   "scene": "fence",
+   "old": "[rapid] A hundred and sixty-six signed hire agreements! Forty-two labour notes! Twenty-five collection forms! [fast] Thirty-two days of fencing, from the ninth of September to the twenty-third of October! [building] And in event week alone — forty-five dockets in five days! [shouting] Forty-five in five — that is FLYING!",
+   "text": "[rapid] A hundred and sixty-six signed hire agreements! Forty-three labour notes! Twenty-five collection forms! [fast] Thirty-one days of fencing, from the ninth of September to the twenty-third of October! [building] And in event week alone — forty-six dockets in five days! [shouting] Forty-six in five — that is FLYING!",
+   "why": "42 -> 43 labour notes; 32 -> 31 dates with hire agreements; 45 -> 46 dockets 19-23 Oct (4, 12, 11, 15, 4)"
+  },
+  {
+   "slot": 30,
+   "scene": "fence_panels1090",
+   "old": "[rapid-fire] Five thousand two hundred and twenty-three mesh panels! [fast] Eight thousand two hundred and thirty-five feet! [laughs] That's more feet than a centipede convention! [building] Every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "text": "[rapid-fire] Five thousand two hundred and twenty-three mesh panels! [fast] Eight thousand two hundred and thirty-nine feet! [laughs] That's more feet than a centipede convention! [building] Every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "why": "8,235 -> 8,239 feet"
+  },
+  {
+   "slot": 31,
+   "scene": "fence_fixings1090",
+   "old": "[fast] Seven thousand nine hundred and seventy-seven clamps! Fourteen hundred and twenty-six braces! [punchy] A hundred and thirty-three vehicle gates! Twenty-two pedestrian gates! Forty-one hoarding panels! [fast] Every gate hung, every wheel on, every one swinging — [shouting] the small pieces, the BIG effort!",
+   "text": "[fast] Seven thousand nine hundred and eighty-one clamps! Fourteen hundred and twenty-eight braces! [punchy] Two hundred and seventy-eight gate wheels! Twenty-two pedestrian gates! Forty-one hoarding panels! [fast] Every gate hung, every wheel on, every one swinging — [shouting] the small pieces, the BIG effort!",
+   "why": "7,977 -> 7,981 clamps; 1,426 -> 1,428 braces; the 133 vehicle gates cannot be reproduced (the papers carry 278 gate wheels) and the wheels are said instead"
+  },
+  {
+   "slot": 32,
+   "scene": "fence_ccb1090",
+   "old": "[driving] Then the crowd control! [rapid] Seven point three kilometres of crowd-control barrier — two thousand nine hundred and three barrier units! [fast] Two point two kilometres on the event lines, five point one of demarcation, and two hundred and seventy metres of flat feet where the ground said so! [shouting] Every section in — every section STANDING!",
+   "text": "[driving] Then the crowd control! [rapid] Seven point three kilometres of crowd-control barrier — two thousand nine hundred and thirteen barrier units! [fast] Two point two kilometres on the event lines, five point one of demarcation, and two hundred and seventy metres of flat feet where the ground said so! [shouting] Every section in — every section STANDING!",
+   "why": "2,903 -> 2,913 barrier units"
+  },
+  {
+   "slot": 36,
+   "scene": "weather_context1090",
+   "old": "[laughing] And the WEATHER! [fast] Beautiful one day, perfect the next — [laughs] said NOBODY in event week! [rapid] Ninety-four millimetres of rain in the last ten days — nine wet mornings out of ten! [building] Sixty-five millimetres in event week alone — [shouting] and the fence went up anyway!",
+   "text": "[laughing] And the WEATHER! [fast] Beautiful one day, perfect the next — [laughs] said NOBODY in event week! [rapid] Ninety-four millimetres of rain in the last ten days — ten wet mornings out of ten! [building] Sixty-five millimetres in event week alone — [shouting] and the fence went up anyway!",
+   "why": "nine of ten -> ten of ten (14 Oct 0.6 mm counts as a wet morning on the Bureau's record)"
+  },
+  {
+   "slot": 37,
+   "scene": "weather_context1090",
+   "old": "[fast, warm] The wind? Gusts over fifty kilometres an hour on fifteen days — six days straight in the middle of October! [rapid] The big one — sixty-three, on the seventh of October! [punchy] Coldest morning twelve point nine degrees — hottest day twenty-nine point nine! [shouting] And they built through ALL of it!",
+   "text": "[fast, warm] The wind? Gusts of fifty kilometres an hour or more on sixteen days — six days straight in the middle of October! [rapid] The big one — sixty-three, on the seventh of October! [punchy] Coldest morning twelve point nine degrees — hottest day twenty-nine point nine! [shouting] And they built through ALL of it!",
+   "why": "over 50 on 15 days -> 50 or more on 16 days (14-19 Oct six days at 50 or more)"
+  },
+  {
+   "slot": 39,
+   "scene": "effort",
+   "old": "[sincere, fast] Pre-starts every morning — fifty-eight of them on the record, Coates and fencing side by side! [rapid] Loads walked round, spotters called, clearances checked! [building] And not one breakdown on the record — [shouting] that is how you run a site!",
+   "text": "[sincere, fast] Pre-starts every morning — forty-eight of them filed on the record, Coates and fencing side by side! [rapid] Loads walked round, spotters called, clearances checked! [building] And not one breakdown on the record — [shouting] that is how you run a site!",
+   "why": "58 -> 48 pre-starts in the page's file store to 15 Oct (23 Coates, 25 fencing)"
+  },
+  {
+   "slot": 41,
+   "scene": "work_dates1090",
+   "old": "[fast] The dates that made it! [rapid] The seventh of September — the first truck! The fourteenth — the first buildings, the first toilets, the first barriers! The fifteenth of October — every building complete! The sixteenth — twenty-five references in one day! [building] The twentieth — every toilet! The twenty-second — every barrier! [shouting] And this weekend — RACE WEEKEND!",
+   "text": "[fast] The dates that made it! [rapid] The seventh of September — the first truck! The fourteenth — the first buildings, the first toilets, the first barriers! The fifteenth of October — every building complete! The sixteenth — twenty-four references in one day! [building] The twentieth — every toilet! The twenty-second — every barrier! [shouting] And this weekend — RACE WEEKEND!",
+   "why": "25 -> 24 references on 16 Oct"
+  },
+  {
+   "slot": 43,
+   "scene": "complete",
+   "old": "[building, awed] Seven hundred and twenty-seven pieces of equipment — every one booked for race weekend — ON SITE! [fast] Thirteen point three kilometres of fence! Seven point three of crowd control! Four point four of scrim! [building] Twenty point eight kilometres of fence and crowd control, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "text": "[building, awed] Seven hundred and twenty-eight pieces of equipment — ON SITE for race weekend! [fast] Thirteen point three kilometres of fence! Seven point three of crowd control! Four point four of scrim! [building] Twenty point eight kilometres of fence and crowd control, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "why": "727 'every one booked' -> 728 on site at 23 Oct (the plan asked for 726; four planned units were not recorded on site and six came early)"
+  }
+ ]
+}
