@@ -11,6 +11,13 @@ Codex's figures: principal 42,203.33 ex GST; extra shade cloth held, 33,615.20; 
 New question for Andrew: the week 6 sheet marks 36502 (Phillip Park, Coates/Advanced fencing compound, 250 m + 3 gates = 257.5 m) "Charged to Coates". If that compound is not the V8s' scope, the figure is 4,681.35 lower.
 
 The pack also holds the demob week 1 Sun–Tue and Wednesday plans and the updated demob week 2 Wed–Thu plan, for the map references. Demob week 2 Fri and week 3 are still not held. Author: Andrew Fisher.
+CLOSED ~22:50 AEST, extra shade cloth. Andrew: "We already charged v8 for extra cloth we have hire cobtract record we charge." From the record and the customer invoices:
+- 10000475 (INV25120652, 27 Oct 2026, order P028605): 28 scrim 50 m rolls, 2,296.28 ex GST.
+- 10000484 (INV25120689, 27 Oct 2026, order P28607): 12 + 10 scrim 50 m rolls plus transport, 2,084.12 ex GST.
+- Together that is 50 rolls (2,500 m).
+- 9997710 (broadcast site, INV25122749) also carries shade cloth, 144 m.
+
+So 9990776's L15 stays at the billed 3,143 m, and the 8,588.13 extra cloth is not added; it would charge the cloth twice. Agreed figure still to charge on 9990776: 33,615.20 ex GST (3,361.52 GST, 36,976.72 inc). Still open with Andrew: collections before 19 Oct, and 36502 (Phillip Park compound, "Charged to Coates", 4,681.35). Author: Andrew Fisher.
 
 VERIFIED LIVE — v12.96 map quantity dimensions (Codex), 4 Nov 2026 18:43 AEST; uploaded `2026-11-04T08:43:11.431Z` from READY source `840feef88eb0d9060806d5d88a9ff017ca5702ff`. Exact public page `636519966750489d9f2e8313ea016e8e3aad9bb2169aa6744dd6aa1002b31018`, 16,997,018 bytes; machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a` unchanged. Existing map quantity labels, selected reference details and Demob pickup quantities now carry available dimensions per unit; verified transport and nominal dimensions remain distinct, unresolved/mixed sizes explicit. Shapes/doors/glow/list retained. Shared build224,31 dimension/cache tests, exact scope/base guards and both final27-tab/seven-link/Back sweeps pass. Guarded uploader plus independent public bytes and fresh live phone checks without page/media overrides verify the result; selected card refresh/close and map/Demob size/fit pass, screenshots inspected, zero runtime/console errors or attempted writes. Other222 scripts and shared record unchanged; no P&L or operational edits. Source/tests/evidence summary in `v12.96_map_dimensions_LIVE/`; detailed native screenshots remain private. Codex implementation complete; Claude retains P&L/records. Successors build on exact live96. No Claude review or receipt claimed. Author: Andrew Fisher.
 
