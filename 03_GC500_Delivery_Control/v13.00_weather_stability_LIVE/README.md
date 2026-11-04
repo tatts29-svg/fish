@@ -4,11 +4,13 @@ Author: Andrew Fisher
 
 Andrew reports that weather still glitches after v12.99. A fresh public-phone check found that routine forecast repaint kept its nodes, but choosing a day or redrawing Demob still discarded all 15 weather scenes. Their animation restarted and waited for visibility observation again.
 
-This draft preserves matching weather artwork and animation phase across native Demob redraws while keeping all native record and day-information updates. Phone browser-height changes also retain the manually scrolled date strip; actual viewport-width changes still reveal the selected date through the original handlers. Both the shared and legacy Build resize listeners are guarded. Weather observations, forecast-source labels, maps, pickup history and the existing card design remain authoritative.
+This release preserves matching weather artwork and animation phase across native Demob redraws while keeping all native record and day-information updates. Phone browser-height changes also retain the manually scrolled date strip; actual viewport-width changes still reveal the selected date through the original handlers. Both the shared and legacy Build resize listeners are guarded. Weather observations, forecast-source labels, maps, pickup history and the existing card design remain authoritative.
 
 A second source of stutter was the unchanged Available staff panel. Its raw HTML was compared with browser-serialized HTML, which expanded a bare attribute and made every comparison fail. Demob now compares the parsed structure before replacing the panel. Actual changed staffing still refreshes; open edit drafts retain the native protection. Weather Pause/Play label changes are excluded from the two equipment-decoration observers. Equipment calculations, geometry and record writers are unchanged.
 
-READY TO UPLOAD — exact candidate passes all 224 inline-script checks, the scope/base guards, 16 focused Node checks, four native phone regression suites and both 27-tab/seven-link/Back sweeps. Runtime errors, console errors and attempted operational writes are zero. Screenshots reviewed. Implementation source: `bf367a3e43ac641e508dab4ebfcfa7836eb151c9`. Guarded publication and fresh public verification remain.
+VERIFIED LIVE — uploaded 5 Nov 2026 at 04:17 AEST (`2026-11-04T18:16:59.724Z`) from READY source `b9c15ce871ef81ed7a237829e5f0713b6b33066a`. Guarded and independent exact public byte read-back passed. Fresh public phone tests without candidate overrides verify weather continuity, both resize paths and staff/equipment observer behavior; screenshot reviewed. The shared record and machine release are unchanged across this publication.
+
+The exact candidate passes all 224 inline-script checks, scope/base guards, 16 focused Node checks, four native phone regression suites and both 27-tab/seven-link/Back sweeps. Runtime errors, console errors and attempted operational writes are zero. Implementation source: `bf367a3e43ac641e508dab4ebfcfa7836eb151c9`.
 
 - Source branch: `ccr-061f77e8-ivjhrv`.
 - Claim commit: `dda25eba`.
@@ -25,9 +27,9 @@ The change removes demonstrated animation restarts, unwanted scroll jumps and re
 ## Reproduce
 
 ```sh
-bash 03_GC500_Delivery_Control/toolchain/build.sh v13.00 03_GC500_Delivery_Control/v13.00_weather_stability_DRAFT/patch_v1300.py
-node --test 03_GC500_Delivery_Control/v13.00_weather_stability_DRAFT/tests/*.test.js
-python3 03_GC500_Delivery_Control/v13.00_weather_stability_DRAFT/check_scope.py BASE CANDIDATE
+bash 03_GC500_Delivery_Control/toolchain/build.sh v13.00 03_GC500_Delivery_Control/v13.00_weather_stability_LIVE/patch_v1300.py
+node --test 03_GC500_Delivery_Control/v13.00_weather_stability_LIVE/tests/*.test.js
+python3 03_GC500_Delivery_Control/v13.00_weather_stability_LIVE/check_scope.py BASE CANDIDATE
 ```
 
 Run the three native tests in `tests/` through the shared read-only harness with `PAGE` and private `OUT`. The resize check uses an output JSON filename; the other checks use an output directory. `LIVE=1` omits the candidate page override. Reuse the v12.99 historical/forecast UI check to verify prior weather behavior. Guarded publication uses the shared uploader and exact public byte read-back.
