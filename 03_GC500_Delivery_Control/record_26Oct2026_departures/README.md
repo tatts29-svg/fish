@@ -838,3 +838,9 @@ v12.81 page (`3b17c3de…`): dry run (P&L identical: charge 1,012,101.16, known 
 with the backup and page sha check, delivery/GN~3f~ acknowledged 200, every other document unchanged in value, verified on the service
 (version 12846, GN~3f~ in transit). Read back (fresh load of the live page): GN? "Left site" 02/11/2026 15:15:00 AEST — 2 × 200kva &
 cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 demob references left in full; errors 0, writes 0.
+
+## Run 109 — P39 Building 6m 1327216 left site 09:00 Thu 5 Nov; P39 left in full (5 Nov 2026 09:03 AEST, record 13047 → 13048)
+
+- **What:** Andrew, 5 Nov 2026 08:2x AEST: "P39 leaves at 9am". 1327216 is P39's only unit (Building 6m, Coates; ticked Ready 4 Nov; Brenden Meek's booking for 4 Nov 12:30 did not happen; read 08:24 AEST, not already left), so P39 left in full at 09:00 AEST. Its two air conditioners 1272737 and 1327936 and its fire extinguisher stay listed on P39 as gear that goes with it.
+- **Applied:** 09:03 AEST on Andrew's word, after 09:00 (a departure is only recorded once its time has come). Rehearsed at 08:24 on the live v13.00 page with a past time (dry run, nothing sent); at 09:02:54 the live page sha `6b57277f…` was checked, then a dry run (passed, nothing sent) and `left_site.cjs --spec left_site_spec_59_p39_1327216.json --apply`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 13047 → 13048. 1 document (delivery/P39) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261104T230331Z.json`.
