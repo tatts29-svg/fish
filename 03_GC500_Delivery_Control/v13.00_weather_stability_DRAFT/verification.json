@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "state": "DRAFT \u2014 final checks running",
+  "baseSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
+  "candidateSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+  "candidateBytes": 17065377,
+  "inlineScripts": 224,
+  "focusedNodeTests": 16,
+  "scopeGuardPassed": true,
+  "nativeChecks": null,
+  "sweeps": null,
+  "publication": null
+}

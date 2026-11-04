@@ -70,7 +70,8 @@
     "exactPublicReadback": true,
     "independentReadback": true,
     "nativePublicWeatherCheckPassed": true,
-    "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a"
+    "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+    "nativePublicPhoneLayoutPassed": true
   },
   "implementationSource": "a76798317a4bbd5fb8da1b0455c58ff9aeb8df43",
   "wrongBaseAndRepeatRefused": true,
