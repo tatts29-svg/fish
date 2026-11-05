@@ -1,9 +1,13 @@
-# v13.01 — the Showcase reads race weekend — READY TO UPLOAD
+# v13.01 — the Showcase reads race weekend — LIVE
 
-**READY 5 Nov 2026 ~05:50 AEST.** Built on the live v13.00 page `6b57277fbf7951133…` (17,065,377 bytes); candidate
-`2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b` (17,066,969 bytes); media manifest
-`0a745402f95479d2b796055852eb163cc9ce526cade6e532f3e1633f9e36229a` (1,986 files; the 14 new takes in `media_v1301/`, 3,919,617 bytes,
-326.2 s). Upload only on Andrew's word, media step first (`upload_media1301.py`), then the page with `toolchain/upload_page.py`.
+**LIVE 5 Nov 2026 16:08 AEST** on Andrew's word ("Showcase upload"). Built on the live v13.00 page `6b57277fbf7951133…` (17,065,377
+bytes, unchanged until the upload); public page `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b` (17,066,969 bytes),
+the view link serving the build byte for byte. Media step first: the 14 takes (3,919,617 bytes) each accepted 200 under its SHA-256
+name and the manifest `0a745402f95479d2b796055852eb163cc9ce526cade6e532f3e1633f9e36229a` (1,986 files) registered; then the page.
+On the live page: `tests/test_v1301.cjs` 41/41 desktop and 41/41 phone (every take served 200 audio/mpeg with its bytes, no 404s,
+no errors, no writes). No record change (record 13059 before and after).
+
+Ready 5 Nov 2026 ~05:50 AEST (candidate `2f6bc154…`, media manifest `0a745402…`, 42/42 on the build).
 
 Author: Andrew Fisher. Andrew, 5 Nov 2026: "As the job is complete can we ensure everything in the showcase is now 1000 % accurate
 with all date", "Look at everything. Must be accurate", then the go-ahead on the audit's recommendation (STATUS, AUDIT entry of
