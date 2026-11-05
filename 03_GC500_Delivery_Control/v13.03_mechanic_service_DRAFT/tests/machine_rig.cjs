@@ -39,7 +39,7 @@ async function openMachine({root, W = 1440, H = 900, dpr = 1, mobile = false, qu
   page.on('pageerror', e => errors.push('page: ' + String(e).slice(0, 300)));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 300)); });
   await page.goto(`http://127.0.0.1:${port}/index.html${query}`, {waitUntil: 'domcontentloaded', timeout: 240000});
-  return {page, errors, writes, port, close: async () => { await browser.close(); srv.close(); }};
+  return {page, errors, writes, port, close: async () => { await browser.close(); await new Promise(resolve=>srv.close(resolve)); }};
 }
 module.exports = {openMachine, serve};
 if (require.main === module) (async () => {

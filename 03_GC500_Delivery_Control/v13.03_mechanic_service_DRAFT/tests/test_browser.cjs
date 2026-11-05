@@ -1,7 +1,7 @@
 const {openMachine}=require('./machine_rig.cjs');
 // Author: Andrew Fisher. Read-only browser checks; no service writes.
 const fs=require('fs');const path=require('path');const crypto=require('crypto');const out=process.env.OUT||process.cwd();fs.mkdirSync(out,{recursive:true});const root=process.env.PREVIEW_ROOT||path.resolve(__dirname,'../build');
-(async()=>{const mobile=process.env.MOB==='1';const m=await openMachine({root,W:mobile?390:1440,H:mobile?844:960,dpr:1,mobile});m.page.on('console',msg=>{if(msg.type()==='error')console.error(msg.text());});m.page.on('pageerror',e=>console.error(String(e)));const checks=[];const check=(n,ok)=>{checks.push({name:n,pass:!!ok});console.log((ok?'PASS ':'FAIL ')+n);if(!ok)throw Error(n);};try{
+(async()=>{const mobile=process.env.MOB==='1';const m=await openMachine({root,W:mobile?390:1440,H:mobile?844:960,dpr:1,mobile});m.page.on('console',msg=>{if(msg.type()==='error')console.error(msg.text());});m.page.on('pageerror',e=>console.error(String(e)));const checks=[];let receipt;const check=(n,ok)=>{checks.push({name:n,pass:!!ok});console.log((ok?'PASS ':'FAIL ')+n);if(!ok)throw Error(n);};try{
  await m.page.waitForFunction(()=>window.__cw?.ready||window.__reviewFailed,{},{timeout:180000,polling:500});
  check('machine initialises',await m.page.evaluate(()=>!!window.__cw?.ready));await m.page.evaluate(()=>__cw.renderer.setAnimationLoop(null));
  check('workshop button present',await m.page.locator('#workshop-enter').isVisible());
@@ -121,5 +121,11 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'../candidate-manifest.json')));const digest=crypto.createHash('sha256').update(JSON.stringify(manifest)).digest('hex');
  const evidence=JSON.parse(fs.readFileSync(path.join(root,'../source-evidence.json')));
  const machineFiles=Object.fromEntries(['car-app.js','index.html','workshop-ui.js','engine-lift-preview.js','workshop-service.js','workshop-mechanic.js','workshop-lessons.js','workshop-showcase.js'].map(n=>[n,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,n))).digest('hex')]));
- fs.writeFileSync(out+'/'+(mobile?'phone':'desktop')+'-checks.json',JSON.stringify({author:'Andrew Fisher',suite:'machine1303',viewport:mobile?'phone':'desktop',passed:true,checks,poses,errors:m.errors,consoleErrors:[],recordWrites:m.writes.length,dashboardSha256:'2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b',machineManifestSha256:JSON.parse(fs.readFileSync(path.join(root,'../build.json'))).candidateManifestSha256,machineFiles},null,2));console.log(JSON.stringify({mobile,checks:checks.length,errors:m.errors}));
- }catch(e){console.error(JSON.stringify({checks,errors:m.errors}));throw e;}finally{await m.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
+ receipt={author:'Andrew Fisher',suite:'machine1303',viewport:mobile?'phone':'desktop',passed:true,checks,poses,errors:m.errors,consoleErrors:[],recordWrites:m.writes.length,dashboardSha256:'2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b',machineManifestSha256:JSON.parse(fs.readFileSync(path.join(root,'../build.json'))).candidateManifestSha256,machineFiles};
+ }catch(e){console.error(JSON.stringify({checks,errors:m.errors}));throw e;}finally{await m.close();}
+ check('no late browser errors after close',m.errors.length===0);
+ check('no late write attempts after close',m.writes.length===0);
+ receipt.errors=[...m.errors];receipt.recordWrites=m.writes.length;
+ fs.writeFileSync(out+'/'+(mobile?'phone':'desktop')+'-checks.json',JSON.stringify(receipt,null,2));
+ console.log(JSON.stringify({mobile,checks:checks.length,errors:m.errors}));
+ })().catch(e=>{console.error(e);process.exitCode=1;});
