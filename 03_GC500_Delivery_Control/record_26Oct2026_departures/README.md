@@ -850,3 +850,9 @@ cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 de
 - **What:** Andrew, 5 Nov 2026 09:0x AEST: "P17  leaving at 9am". 1268887 is P17's only unit (Building 9.6m, Coates; ticked Ready 3 Nov; Brenden Meek's booking for 5 Nov 10:00 on the record; read 09:06 AEST, not already left), so P17 left in full at 09:00 AEST, an hour before that booking. Its fire extinguisher stays listed on P17 as gear that goes with it.
 - **Applied:** 09:07 AEST on Andrew's word, after 09:00: the live page sha `6b57277f…` (v13.00) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_60_p17_1268887.json --apply`, through the page's own Record departure form, in Andrew's name. Light in transit.
 - **Record:** version 13048 → 13049. 1 document (delivery/P17) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261104T230706Z.json`.
+
+## Run 111 — AA Building 6m 142514 left site 10:00 Thu 5 Nov; AA left in full (5 Nov 2026 10:09 AEST, record 13050 → 13051)
+
+- **What:** Andrew, 5 Nov 2026 10:0x AEST: "Leaving at  10am  142514". 142514 is AA's only unit (Building 6m, Coates; ticked Ready 4 Nov; no booking on the record; read 10:08 AEST, not already left), so AA left in full at 10:00 AEST. Its fire extinguisher stays listed on AA as gear that goes with it.
+- **Applied:** 10:09 AEST on Andrew's word, after 10:00: the live page sha `6b57277f…` (v13.00) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_61_aa_142514.json --apply`, through the page's own Record departure form, in Andrew's name. Light in transit.
+- **Record:** version 13050 → 13051. 1 document (delivery/AA) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261105T000921Z.json`.

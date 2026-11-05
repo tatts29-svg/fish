@@ -1,0 +1,362 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261105T000921Z",
+ "finished": "2026-11-05T00:09:55.813Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 5 Nov 2026 (10:0x AEST): \"Leaving at  10am  142514\". 142514 is AA's only unit (Coates portable building; ticked Ready 4 Nov; no booking on the record; read 10:08 AEST, not already left), so AA left in full at 10:00 AEST on Thu 5 Nov 2026. Its fire extinguisher stays listed on AA as gear that goes with it. Recorded after 10:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "AA",
+    "at": "2026-11-05T10:00:00+10:00",
+    "nos": [
+     "142514"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+ "version": {
+  "before": 13050,
+  "after": 13051
+ },
+ "updated": {
+  "before": "2026-11-04T23:25:33.792Z",
+  "after": "2026-11-05T00:09:54.773Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "AA",
+   "at": "2026-11-05T10:00:00+10:00",
+   "nos": [
+    "142514"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-05T10:00:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 142514 - AA has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/AA",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/AA": {
+    "state": "on site",
+    "set_at": "2026-09-17T04:19:50.758Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:32:00.523Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:06.448Z",
+    "ready1238_units": {
+     "coates|142514": {
+      "on": true,
+      "at": "2026-11-04T12:51:51.073Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:45.072Z",
+    "eta": "11:00",
+    "note": "Tracked only, not charged on this job: Active Air pays for this building on its own contract HS 9968926. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T04:19:50.758Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:45.072Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:00.523Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:06.448Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|142514",
+      "ready": true,
+      "at": "2026-11-04T12:51:51.073Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:58:47.521Z"
+    },
+    "loading872": {
+     "u142514": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:55:27.318Z"
+     }
+    },
+    "pickup1238_units": {
+     "coates|142514": {
+      "at": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-04T23:25:30.483Z"
+     }
+    },
+    "pickup1238_history": [
+     {
+      "unit": "coates|142514",
+      "pickup": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-04T23:25:30.483Z"
+     }
+    ],
+    "_k": "AA"
+   }
+  },
+  "after": {
+   "delivery/AA": {
+    "state": "in transit",
+    "set_at": "2026-11-05T00:09:41.156Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-05T00:09:41.156Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-05T00:09:41.156Z",
+    "ready1238_units": {
+     "coates|142514": {
+      "on": true,
+      "at": "2026-11-04T12:51:51.073Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-05T00:09:41.156Z",
+    "eta": "11:00",
+    "note": "Tracked only, not charged on this job: Active Air pays for this building on its own contract HS 9968926. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T04:19:50.758Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-05T00:09:41.156Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "462f9d32-5430-4181-a87b-824b2ea6be12",
+       "date": "2026-11-05",
+       "departedAt1211": "2026-11-05T10:00:00+10:00",
+       "programmeDate": "2026-11-03",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-17T04:19:50.758Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"AA\",\"coates\",\"asset\",\"142514\"]"
+         ],
+         "numbers": [
+          "142514"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"AA\",\"coates\",\"asset\",\"142514\"]",
+           "number": "142514",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "AA",
+        "capturedAt": "2026-11-05T00:09:41.155Z",
+        "arrivalAt": "2026-09-17T04:19:50.758Z",
+        "reference": {
+         "lat": -27.986807,
+         "lon": 153.428251,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "AA",
+         "tag": "AA",
+         "what": "Active Air Crib Room · Building 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:45.072Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-05T00:09:41.156Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:00.523Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-05T00:09:41.156Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:06.448Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-05T00:09:41.156Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|142514",
+      "ready": true,
+      "at": "2026-11-04T12:51:51.073Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:58:47.521Z"
+    },
+    "loading872": {
+     "u142514": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:55:27.318Z"
+     }
+    },
+    "pickup1238_units": {
+     "coates|142514": {
+      "at": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-04T23:25:30.483Z"
+     }
+    },
+    "pickup1238_history": [
+     {
+      "unit": "coates|142514",
+      "pickup": "2026-11-05T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-04T23:25:30.483Z"
+     }
+    ],
+    "_k": "AA"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
