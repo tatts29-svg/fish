@@ -1743,6 +1743,13 @@ def build(base=HERE, when=None):
             "else is unaffected.".format(e))
     parts["story"]["progress"] = parts["progress"]
     parts["story"]["previous"] = parts["previous"]
+    c_ = parts["counts"]
+    parts["story"]["hero"] = (("{:,}".format(c_["onhire"]), "items on hire now",
+                               "{:,} compan{}  \u00b7  oldest {}".format(
+                                   c_["companies"], "y" if c_["companies"] == 1 else "ies",
+                                   _days_text(c_["oldest_days"])))
+                              if c_["onhire"] else
+                              ("All back", "nothing on hire", "every item issued has been scanned back in"))
     try:
         parts["viz"]["out_by_day"] = out_by_day(tooling_tx, [dd for dd, _i, _r, _c in parts["viz"]["by_day"]])
         parts["viz"]["age"] = age_bands(det)
@@ -4190,10 +4197,11 @@ def forecast_tab(wb, s, when, asat, fc):
         ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
     ws.row_dimensions[2].height = 18
 
-    LABEL = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
-    BIG = Font(name="Calibri", size=18, bold=True, color=NEAR_BLACK)
-    line_side = Side(style="thin", color=argb(COATES_LINE))
+    LABEL = Font(name="Calibri", size=8.5, bold=True, color=argb("F7A072"))
+    BIG = Font(name="Calibri", size=18, bold=True, color=WHITE)
+    line_side = Side(style="thin", color=argb("3E4651"))
     tile_top = Side(style="medium", color=ORANGE)
+    DARK = PatternFill("solid", fgColor=NEAR_BLACK)
 
     # ---- tiles --------------------------------------------------------
     tiles = [(m[0].upper(), m[1], m[2]) for m in fc["milestones"]
@@ -4217,6 +4225,9 @@ def forecast_tab(wb, s, when, asat, fc):
         ws.cell(row=r, column=col + 1).border = Border(top=tile_top, right=line_side)
         ws.cell(row=r + 1, column=col).border = Border(bottom=line_side, left=line_side)
         ws.cell(row=r + 1, column=col + 1).border = Border(bottom=line_side, right=line_side)
+    for rr_ in (r, r + 1):
+        for cc_ in range(1, NC + 1):
+            ws.cell(row=rr_, column=cc_).fill = DARK
     ws.row_dimensions[r].height = 30
     ws.row_dimensions[r + 1].height = 30
 
@@ -4467,10 +4478,11 @@ def dashboard(wb, s, when, asat, parts):
         ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
     ws.row_dimensions[2].height = 18
 
-    LABEL = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
-    BIG = Font(name="Calibri", size=20, bold=True, color=NEAR_BLACK)
-    line_side = Side(style="thin", color=argb(COATES_LINE))
+    LABEL = Font(name="Calibri", size=8.5, bold=True, color=argb("F7A072"))
+    BIG = Font(name="Calibri", size=20, bold=True, color=WHITE)
+    line_side = Side(style="thin", color=argb("3E4651"))
     tile_top = Side(style="medium", color=ORANGE)
+    DARK = PatternFill("solid", fgColor=NEAR_BLACK)
 
     # ---- tiles --------------------------------------------------------
     r = 4
@@ -4488,6 +4500,9 @@ def dashboard(wb, s, when, asat, parts):
         ws.cell(row=r, column=col + 1).border = Border(top=tile_top, right=line_side)
         ws.cell(row=r + 1, column=col).border = Border(bottom=line_side, left=line_side)
         ws.cell(row=r + 1, column=col + 1).border = Border(bottom=line_side, right=line_side)
+    for rr_ in (r, r + 1):
+        for cc_ in range(1, NC + 1):
+            ws.cell(row=rr_, column=cc_).fill = DARK
     ws.row_dimensions[r].height = 32
     ws.row_dimensions[r + 1].height = 26
 
@@ -4750,6 +4765,7 @@ def dashboard(wb, s, when, asat, parts):
 #  matter. Same palette as the workbook and the PDF pack.
 # =====================================================================
 E_ORANGE = "#" + COATES_ORANGE
+E_ORANGE_TEXT = "#C8511A"                 # small orange text on white reads better a shade deeper
 E_INK = "#" + COATES_INK
 E_SLATE = "#" + COATES_SLATE
 E_PAGE = "#" + COATES_PAGE
@@ -4896,6 +4912,7 @@ def _plain(text, align="left", muted=False):
 
 def _kicker(text, colour=None):
     """A small orange label in capitals - the eyebrow over a block."""
+    colour = colour or E_ORANGE_TEXT
     return ("<div style=\"font-family:{f};font-size:8pt;font-weight:700;"
             "color:{o};letter-spacing:1.4px;text-transform:uppercase;"
             "padding-bottom:6px\">{t}</div>".format(
@@ -5050,7 +5067,7 @@ def _masthead(s, when, asat, story=None):
           "color:#ffffff\">{hdr}</td>"
           "<td align='right' style=\"font-family:{f};font-size:9.5pt;"
           "color:#FFC9AE;white-space:nowrap\">As at {asat}{demob}</td>"
-          "</tr></table>{progress}</td></tr>"
+          "</tr></table>{progress}{hero}</td></tr>"
         + "<tr><td bgcolor=\"{soft}\" style=\"background:{soft};padding:9px 24px;"
           "border-bottom:1px solid {l};font-family:{f};font-size:8pt;"
           "font-weight:700;color:{m};letter-spacing:.8px;"
@@ -5063,7 +5080,26 @@ def _masthead(s, when, asat, story=None):
              hdr=_esc(s.header_line), asat=asat.strftime("%d %b %Y  %H:%M"),
              demob=demob, soft=E_SOFT, l=E_LINE, m=E_MUTED,
              who=_esc(s.author or "Andrew Fisher"),
-             progress=_progress_html(story.get("progress") if story else None))
+             progress=_progress_html(story.get("progress") if story else None),
+             hero=_hero_html(story.get("hero") if story else None))
+
+
+def _hero_html(hero):
+    """The one number that matters today, big and white in the masthead:
+    (value, label, words)."""
+    if not hero:
+        return ""
+    value, label, words = hero
+    return (_T + "<tr><td style=\"padding-top:14px\">" + _T + "<tr>"
+            "<td width='1' style=\"font-family:{f};font-size:30pt;font-weight:800;color:{v};"
+            "line-height:1;white-space:nowrap;padding-right:14px\">{val}</td>"
+            "<td valign='middle' style=\"font-family:{f}\">"
+            "<div style=\"font-size:8pt;font-weight:700;color:{o};letter-spacing:1px;"
+            "text-transform:uppercase\">{lb}</div>"
+            "<div style=\"font-size:9.5pt;color:#C9CFD7;padding-top:2px\">{w}</div></td>"
+            "</tr></table></td></tr></table>").format(
+                f=E_FONT, v=("#ffffff" if label != "nothing on hire" else E_RAG["green"][2]),
+                o=E_ORANGE, val=_esc(value), lb=_esc(label), w=_esc(words))
 
 
 def _progress_html(pr):
@@ -5813,6 +5849,8 @@ except ImportError:
 P_M = 36                                  # page margin, points
 P_INK = "#" + COATES_INK
 P_ORANGE = "#" + COATES_ORANGE
+P_ORANGE_TEXT = "#C8511A"                 # brand orange, deepened for small text on white
+P_SLATE = "#" + COATES_SLATE
 P_MUTED = "#" + COATES_MUTED
 P_LINE = "#" + COATES_LINE
 P_SOFT = "#" + COATES_SOFT
@@ -5940,22 +5978,23 @@ class _Pack(object):
         for i in range(n):
             self.doc.use_page(i)
             d = self.doc
-            d.line(self.x0, self.H - 40, self.x1, self.H - 40, colour=P_LINE, lw=0.6)
+            d.rect(0, self.H - 42, self.W, 42, fill=P_INK)
+            d.rect(0, self.H - 42, self.W, 2, fill=P_ORANGE)
             x = self.x0
-            x += d.text(x, self.H - 29, "COATES", size=7.5, bold=True,
-                        colour=P_INK, tracking=1)
-            x += d.text(x, self.H - 29, "   |   POWERED BY ", size=7, colour=P_MUTED)
-            x += d.text(x, self.H - 29, "SITEIQ", size=7, bold=True, colour=P_ORANGE)
-            d.text(x, self.H - 29, "   |   Author: {}".format(
-                self.s.author or "Andrew Fisher"), size=7, colour=P_MUTED)
-            d.text(self.x1, self.H - 29, "Page {} of {}".format(i + 1, n),
-                   size=7.5, bold=True, colour=P_INK, align="right")
-            d.text(self.x0, self.H - 18,
+            x += d.text(x, self.H - 26, "COATES", size=7.5, bold=True,
+                        colour=P_WHITE, tracking=1)
+            x += d.text(x, self.H - 26, "   |   POWERED BY ", size=7, colour="#9AA2AC")
+            x += d.text(x, self.H - 26, "SITEIQ", size=7, bold=True, colour=P_ORANGE)
+            d.text(x, self.H - 26, "   |   Author: {}".format(
+                self.s.author or "Andrew Fisher"), size=7, colour="#9AA2AC")
+            d.text(self.x1, self.H - 26, "Page {} of {}".format(i + 1, n),
+                   size=7.5, bold=True, colour=P_WHITE, align="right")
+            d.text(self.x0, self.H - 14,
                    "Tool store record as at {} - dated from each item's issue "
                    "transaction - no costs in this pack".format(
                        self.asat.strftime("%d %b %Y %H:%M")),
                    size=6.5, colour="#8B9099")
-            d.text(self.x1, self.H - 18, self.s.header_line, size=6.5,
+            d.text(self.x1, self.H - 14, self.s.header_line, size=6.5,
                    colour="#8B9099", align="right", max_w=240)
 
     def need(self, h):
@@ -6065,7 +6104,7 @@ class _Pack(object):
         d.text(cx, cy + r * 0.36, text, size=r * 0.95, bold=True, colour=ink or P_WHITE,
                align="centre")
 
-    def progress_bar(self, x, y, w, pr, h=9, label=True):
+    def progress_bar(self, x, y, w, pr, h=9, label=True, dark=False):
         """The shut as a strip of days: worked days in their phase colour,
         today in orange, days to come as a thin line of their colour."""
         d = self.doc
@@ -6079,13 +6118,19 @@ class _Pack(object):
             colour = PHASE_COLOUR.get(ph, self.C_TRACK)
             if ph == "off":
                 colour = "#D5D9DF"
+            if dark:
+                if ph == "night":
+                    colour = "#8A93A0"
+                past, track = "#DDE1E7", "#4A515C"
+            else:
+                past, track = colour, self.C_TRACK
             if d0 < today:
-                d.rect(cx0, y, cw_, h, fill=colour, radius=min(2, cw_ / 2.0))
+                d.rect(cx0, y, cw_, h, fill=past, radius=min(2, cw_ / 2.0))
             elif d0 == today:
                 d.rect(cx0, y - 1.5, cw_, h + 3, fill=P_ORANGE, radius=min(2.5, cw_ / 2.0))
                 d.circle(cx0 + cw_ / 2.0, y + h / 2.0, min(1.6, cw_ / 4.0), fill=P_WHITE)
             else:
-                d.rect(cx0, y, cw_, h, fill=self.C_TRACK, radius=min(2, cw_ / 2.0))
+                d.rect(cx0, y, cw_, h, fill=track, radius=min(2, cw_ / 2.0))
                 d.rect(cx0, y + h - 2.5, cw_, 2.5, fill=colour, radius=1)
         if label:
             d.text(x, y + h + 11, pr["label"].upper(), size=6.3, bold=True, colour=P_MUTED,
@@ -6095,7 +6140,7 @@ class _Pack(object):
                 size=6.3, colour=C_MUTED_LIGHT, align="right")
         return y + h + (16 if label else 0)
 
-    def age_strip(self, x, y, w, bands, h=10, caption=True):
+    def age_strip(self, x, y, w, bands, h=10, caption=True, dark=False):
         """How old what is out is, as one bar: a segment per age band in
         its colour, counts inside, the band names under."""
         d = self.doc
@@ -6107,6 +6152,8 @@ class _Pack(object):
         tone_fill = {"red": E_RAG["red"][2], "amber": E_RAG["amber"][2],
                      "green": E_RAG["green"][2], "slate": self.C_SLATE, "orange": P_ORANGE,
                      "ink": "#2A313C", "muted": "#5B6472"}
+        if dark:
+            tone_fill.update({"ink": "#F3F4F7", "muted": "#C9CFD7", "slate": "#8A93A0"})
         first = True
         for label, n, tone in bands:
             if not n:
@@ -6115,8 +6162,9 @@ class _Pack(object):
             d.rect(xx, y, bw, h, fill=tone_fill.get(tone, self.C_SLATE),
                    radius=h / 2.0 if (first or xx + bw >= x + w - 0.5) else 0)
             if bw >= 16:
+                light = dark and tone in ("ink", "muted")
                 d.text(xx + bw / 2.0, y + h / 2.0 + 2.6, "{:,}".format(n), size=6.8, bold=True,
-                       colour=P_WHITE, align="centre")
+                       colour=P_SLATE if light else P_WHITE, align="centre")
             if caption and bw >= 30:
                 d.text(xx + bw / 2.0, y + h + 9, label, size=6.2, colour=P_MUTED, align="centre")
             xx += bw
@@ -6235,42 +6283,53 @@ class _Pack(object):
     C_SLATE = "#98A0AA"
     C_TRACK = "#EEF0F3"
 
-    def card(self, x, y, w, h, title, sub=""):
+    def card(self, x, y, w, h, title, sub="", dark=False):
         d = self.doc
+        if dark:
+            d.rect(x, y, w, h, fill=P_SLATE, radius=4)
+            d.rect(x, y, w, 2.5, fill=P_ORANGE)
+            d.text(x + 12, y + 19, title, size=9.5, bold=True, colour=P_WHITE, max_w=w - 24)
+            if sub:
+                d.text(x + 12, y + 30, sub, size=7.3, colour="#C9CFD7", max_w=w - 24)
+            return y + 40
         d.rect(x, y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
         d.text(x + 12, y + 17, title, size=9.5, bold=True, colour=P_INK, max_w=w - 24)
         if sub:
             d.text(x + 12, y + 28, sub, size=7.3, colour=P_MUTED, max_w=w - 24)
         return y + 38
 
-    def gauge(self, cx, cy, pct, colour, value, label, sub):
+    def gauge(self, cx, cy, pct, colour, value, label, sub, dark=False):
         """A half dial with round ends and quarter ticks - vector, so it
-        is as crisp on a wall screen as on a phone."""
+        is as crisp on a wall screen as on a phone. On a dark card the
+        track goes charcoal and the type white."""
         import math
         d = self.doc
         pct = max(0.0, min(1.0, pct or 0.0))
         r_out, r_in = 41, 29.5
         rm, cap = (r_out + r_in) / 2.0, (r_out - r_in) / 2.0
+        track = "#3E4651" if dark else self.C_TRACK
+        tick = "#4A515C" if dark else P_LINE
+        ink, muted = (P_WHITE, "#C9CFD7") if dark else (P_INK, P_MUTED)
         for a in (0, 45, 90, 135, 180):
             t = math.radians(a)
             d.line(cx + (r_out + 2.5) * math.cos(t), cy - (r_out + 2.5) * math.sin(t),
                    cx + (r_out + 5.5) * math.cos(t), cy - (r_out + 5.5) * math.sin(t),
-                   colour=P_LINE, lw=0.8)
-        d.ring(cx, cy, r_out, r_in, 180, 0, self.C_TRACK)
-        d.circle(cx - rm, cy, cap, fill=self.C_TRACK)
-        d.circle(cx + rm, cy, cap, fill=self.C_TRACK)
+                   colour=tick, lw=0.8)
+        d.ring(cx, cy, r_out, r_in, 180, 0, track)
+        d.circle(cx - rm, cy, cap, fill=track)
+        d.circle(cx + rm, cy, cap, fill=track)
         if pct > 0:
             a_end = 180 - 180 * pct
             d.ring(cx, cy, r_out, r_in, 180, a_end, colour)
             d.circle(cx - rm, cy, cap, fill=colour)
             t = math.radians(a_end)
             d.circle(cx + rm * math.cos(t), cy - rm * math.sin(t), cap, fill=colour)
-        d.text(cx, cy - 2, str(value), size=16, bold=True, colour=P_INK, align="centre")
+        d.text(cx, cy - 2, str(value), size=16, bold=True, colour=ink, align="centre")
         lines = d.wrap(label.upper(), 6.3, 84, bold=True, max_lines=2)
         for i, ln in enumerate(lines):
-            d.text(cx, cy + 14 + 8 * i, ln, size=6.3, bold=True, colour=P_MUTED,
+            d.text(cx, cy + 14 + 8 * i, ln, size=6.3, bold=True, colour=muted,
                    tracking=0.4, align="centre")
-        d.text(cx, cy + 17 + 8 * len(lines), sub, size=7, colour=P_MUTED, align="centre",
+        d.text(cx, cy + 17 + 8 * len(lines), sub, size=7, colour=muted, align="centre",
                max_w=118)
 
     def hbars(self, x, y, w, rows, label_w=96, pitch=16, bar_h=10, colours=None,
@@ -6426,7 +6485,7 @@ class _Pack(object):
                "numbers as the tables.", size=9, colour=P_MUTED, max_w=self.cw - 170)
         d.text(self.x1, self.y + 16, "AS AT {}".format(
             self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
-            colour=P_ORANGE, tracking=1.2, align="right")
+            colour=P_ORANGE_TEXT, tracking=1.2, align="right")
         d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
                colour=P_MUTED, align="right")
         self.y += 44
@@ -6434,13 +6493,13 @@ class _Pack(object):
         # ---- gauges --------------------------------------------------------
         st_ = parts.get("story") or {}
         n_dials = 5 if st_.get("st_total") else 4
-        top = self.card(self.x0, self.y, self.cw, 118,
+        top = self.card(self.x0, self.y, self.cw, 122,
                         "The {} dials".format("five" if n_dials == 5 else "four"),
                         "How much of the fleet is working, how solid the dates are, "
                         "where the consumables sit, what is overdue"
-                        + (" and what was sighted" if n_dials == 5 else ""))
+                        + (" and what was sighted" if n_dials == 5 else ""), dark=True)
         slot = self.cw / float(n_dials)
-        cy = top + 36
+        cy = top + 34
         fleet = v["coates_out"] / float(v["coates_total"] or 1)
         dated = v["dated"] / float(v["onhire"] or 1)
         tight = v["cons_tight"] / float(v["cons_lines"] or 1)
@@ -6448,28 +6507,28 @@ class _Pack(object):
         red, amber, green = E_RAG["red"][2], E_RAG["amber"][2], E_RAG["green"][2]
         self.gauge(self.x0 + slot * 0.5, cy, fleet, self.C_ORANGE,
                    "{:.0f}%".format(fleet * 100), "Coates fleet on hire",
-                   "{:,} of {:,} items out now".format(v["coates_out"], v["coates_total"]))
+                   "{:,} of {:,} items out now".format(v["coates_out"], v["coates_total"]), dark=True)
         if v["onhire"]:
             self.gauge(self.x0 + slot * 1.5, cy, dated, green if not v["undated"] else amber,
                        "{:.0f}%".format(dated * 100), "Dated from transactions",
-                       "{:,} undated".format(v["undated"]) if v["undated"] else "every item dated")
+                       "{:,} undated".format(v["undated"]) if v["undated"] else "every item dated", dark=True)
         else:
             self.gauge(self.x0 + slot * 1.5, cy, 0, self.C_SLATE, "-",
-                       "Dated from transactions", "nothing on hire to date")
+                       "Dated from transactions", "nothing on hire to date", dark=True)
         self.gauge(self.x0 + slot * 2.5, cy, tight,
                    red if tight >= 0.25 else (amber if tight >= 0.10 else green),
                    "{:.0f}%".format(tight * 100), "Consumable lines past 80%",
-                   "{:,} of {:,} lines".format(v["cons_tight"], v["cons_lines"]))
+                   "{:,} of {:,} lines".format(v["cons_tight"], v["cons_lines"]), dark=True)
         self.gauge(self.x0 + slot * 3.5, cy, over, red if v["long_out"] else green,
                    "{:,}".format(v["long_out"]), "Items out over {} days".format(LONG_OUT_DAYS),
-                   "oldest {} days".format(v["oldest_days"]) if v["onhire"] else "nothing out")
+                   "oldest {} days".format(v["oldest_days"]) if v["onhire"] else "nothing out", dark=True)
         if n_dials == 5:
             pct = st_["st_pct"] or 0
             self.gauge(self.x0 + slot * 4.5, cy, pct,
                        green if pct >= 0.75 else (amber if pct >= 0.5 else red),
                        "{:.0f}%".format(pct * 100), "Sighted in last 3 days",
-                       "{:,} of {:,} items".format(st_["st_sighted"], st_["st_total"]))
-        self.y += 118 + 10
+                       "{:,} of {:,} items".format(st_["st_sighted"], st_["st_total"]), dark=True)
+        self.y += 122 + 6
 
         #  How old what is out is - one bar, every item on hire in it.
         age = v.get("age") or []
@@ -6590,7 +6649,7 @@ class _Pack(object):
                size=9, colour=P_MUTED)
         d.text(self.x1, self.y + 16, "AS AT {}".format(
             self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
-            colour=P_ORANGE, tracking=1.2, align="right")
+            colour=P_ORANGE_TEXT, tracking=1.2, align="right")
         d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
                colour=P_MUTED, align="right")
         self.y += 44
@@ -6654,7 +6713,7 @@ class _Pack(object):
         box_h = 34 + 13.5 * len(lines) + 6
         d.rect(self.x0, self.y, self.cw, box_h, fill=P_TINT)
         d.rect(self.x0, self.y, 4, box_h, fill=P_ORANGE)
-        d.text(self.x0 + 16, self.y + 20, "THE BRIEF", size=7.2, bold=True, colour=P_ORANGE,
+        d.text(self.x0 + 16, self.y + 20, "THE BRIEF", size=7.2, bold=True, colour=P_ORANGE_TEXT,
                tracking=1.2)
         d.paragraph(self.x0 + 16, self.y + 34, text, size=9.6, max_w=self.cw - 32,
                     colour=P_INK, leading=13.5)
@@ -6817,7 +6876,7 @@ class _Pack(object):
                    align="centre")
             if i == 0 or day.day == 1:
                 d.text(cx, y + 25.5, day.strftime("%b").upper(), size=5.4, bold=True,
-                       colour=P_ORANGE, tracking=.6, align="centre")
+                       colour=P_ORANGE_TEXT, tracking=.6, align="centre")
         yy = y + 31
         for name, hours, _done, _phs in people:
             d.text(x, yy + cell_h / 2.0 + 3, name, size=8.2, bold=True, colour=P_INK,
@@ -6844,7 +6903,7 @@ class _Pack(object):
         if today_in:
             i = (today - days[0]).days
             tx = x + label_w + col_w * i + col_w / 2.0
-            d.text(tx, yy + 3, "TODAY", size=5.4, bold=True, colour=P_ORANGE, tracking=.6,
+            d.text(tx, yy + 3, "TODAY", size=5.4, bold=True, colour=P_ORANGE_TEXT, tracking=.6,
                    align="centre")
             yy += 5
         lx = x
@@ -6908,7 +6967,7 @@ class _Pack(object):
                size=9, colour=P_MUTED, max_w=self.cw - 150)
         d.text(self.x1, self.y + 16, "AS AT {}".format(
             self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
-            colour=P_ORANGE, tracking=1.2, align="right")
+            colour=P_ORANGE_TEXT, tracking=1.2, align="right")
         d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
                colour=P_MUTED, align="right")
         self.y += 44
@@ -6919,7 +6978,7 @@ class _Pack(object):
         d.rect(self.x0, self.y, self.cw, box_h, fill=P_TINT)
         d.rect(self.x0, self.y, 4, box_h, fill=P_ORANGE)
         d.text(self.x0 + 16, self.y + 20, "THE SHUT AHEAD" if fc["state"] == "ahead"
-               else "THE REST OF THE SHUT", size=7.2, bold=True, colour=P_ORANGE, tracking=1.2)
+               else "THE REST OF THE SHUT", size=7.2, bold=True, colour=P_ORANGE_TEXT, tracking=1.2)
         d.paragraph(self.x0 + 16, self.y + 34, text, size=9.6, max_w=self.cw - 32,
                     colour=P_INK, leading=13.5)
         self.y += box_h + 10
@@ -7034,7 +7093,7 @@ class _Pack(object):
                "and what happens next.", size=9, colour=P_MUTED)
         d.text(self.x1, self.y + 16, "AS AT {}".format(
             self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
-            colour=P_ORANGE, tracking=1.2, align="right")
+            colour=P_ORANGE_TEXT, tracking=1.2, align="right")
         d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
                colour=P_MUTED, align="right")
         self.y += 44
@@ -7157,11 +7216,8 @@ class _Pack(object):
                           else "On-Hire Report by Company")
         self.doc.bookmark(co, start, 60)
 
-        #  The band: orange edge, the company's mark, its name, what this page is.
-        self.monogram(self.x0 + 30, self.y + 22, 14, co,
-                      fill=P_INK if b["items"] else self.C_SLATE)
-        d.text(self.x0 + 52, self.y + 22, co, size=18, bold=True, colour=P_INK,
-               max_w=self.cw - 250)
+        #  The band: charcoal, the company's mark in orange, its name in white,
+        #  what this page is - and how old its gear is, on the right.
         n_people = len(b["people"])
         share = (100.0 * b["items"] / float(self.total_onhire)
                  if getattr(self, "total_onhire", 0) else None)
@@ -7182,24 +7238,26 @@ class _Pack(object):
                          b["draws"], "" if b["draws"] == 1 else "s"))
             if b.get("own"):
                 story += ", {:,} own-gear movement{}".format(b["own"], "" if b["own"] == 1 else "s")
-        sub_lines = d.wrap(story + ".", 9, self.cw - 250, max_lines=2)
+        sub_lines = d.wrap(story + ".", 9, self.cw - 270, max_lines=2)
+        band_h = 60 + 11 * (len(sub_lines) - 1)
+        d.rect(self.x0, self.y, self.cw, band_h, fill=P_SLATE, radius=4)
+        d.rect(self.x0, self.y, 5, band_h, fill=P_ORANGE)
+        self.monogram(self.x0 + 34, self.y + band_h / 2.0, 15, co,
+                      fill=P_ORANGE if b["items"] else "#5B6472", ink=P_WHITE)
+        d.text(self.x0 + 60, self.y + 25, co, size=18, bold=True, colour=P_WHITE,
+               max_w=self.cw - 270)
         for k_, ln in enumerate(sub_lines):
-            d.text(self.x0 + 52, self.y + 38 + 11 * k_, ln, size=9, colour=P_MUTED)
-        extra = 11 * (len(sub_lines) - 1)
-        d.rect(self.x0, self.y, 5, 44 + extra, fill=P_ORANGE)
+            d.text(self.x0 + 60, self.y + 40 + 11 * k_, ln, size=9, colour="#C9CFD7")
         if index and total:
-            d.text(self.x1, self.y + 16, "SECTION {} OF {}".format(index, total),
+            d.text(self.x1 - 14, self.y + 18, "SECTION {} OF {}".format(index, total),
                    size=7, bold=True, colour=P_ORANGE, tracking=1.2, align="right")
-        d.text(self.x1, self.y + 30, self.when.strftime("%A %d %B %Y"), size=8.5,
-               colour=P_MUTED, align="right")
+        d.text(self.x1 - 14, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
+               colour="#C9CFD7", align="right")
         if b["items"] and b.get("age"):
-            d.text(self.x1, self.y + 42, "AGE OF WHAT IS OUT", size=5.8, bold=True,
-                   colour=P_MUTED, tracking=0.6, align="right")
-            self.age_strip(self.x1 - 170, self.y + 46, 170, b["age"], h=8, caption=False)
-            extra = max(extra, 6)
-        self.y += 54 + extra
-        d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
-        self.y += 12
+            d.text(self.x1 - 14, self.y + 43, "AGE OF WHAT IS OUT", size=5.8, bold=True,
+                   colour="#9AA2AC", tracking=0.6, align="right")
+            self.age_strip(self.x1 - 184, self.y + 47, 170, b["age"], h=8, caption=False, dark=True)
+        self.y += band_h + 10
 
         tiles = [
             (b["items"], "Items on hire", "orange" if b["items"] else "green"),
@@ -7298,7 +7356,7 @@ class _Pack(object):
                    colour=P_MUTED, tracking=0.6, align="right")
             self.y += 16
             d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
-            shown = lines[:14]
+            shown = lines[:12]
             biggest = max([v["qty"] for _k, v in shown] + [1])
             for k, (desc, v) in enumerate(shown):
                 self.need(16)
@@ -7374,69 +7432,77 @@ class _Pack(object):
         self.doc.use_page(0)
         self.y = 82
         s = self.s
-        d.text(self.x0, self.y + 10, s.header_line.upper(), size=8, bold=True,
-               colour=P_ORANGE, tracking=1.6, max_w=self.cw)
-        d.text(self.x0, self.y + 40, "On-Hire Report", size=28, bold=True,
-               colour=P_INK)
-        d.text(self.x0, self.y + 56, "By company - a section for each company "
-               "holding Coates gear", size=11.5, colour=P_MUTED)
+        #  The hero: a charcoal band under the header with the job, the
+        #  title, the date, the shut's progress - and the one number that
+        #  matters today, big, on the right.
+        pr = parts.get("progress")
+        prev = parts.get("previous")
+        c = parts["counts"]
+        hero_h = 150
+        hy = 57
+        d.rect(0, hy, self.W, hero_h, fill=P_SLATE)
+        d.text(self.x0, hy + 26, s.header_line.upper(), size=7.5, bold=True,
+               colour=P_ORANGE, tracking=1.6, max_w=self.cw - 230)
+        d.text(self.x0, hy + 62, "On-Hire Report", size=30, bold=True, colour=P_WHITE)
+        d.text(self.x0, hy + 80, "By company - a section for each company holding Coates gear",
+               size=9.5, colour="#B9C0C9", max_w=300)
         line = "{}  \u00b7  as at {}".format(
             self.when.strftime("%A %d %B %Y"), self.asat.strftime("%H:%M"))
         st_ = parts.get("story") or {}
-        if st_.get("demob"):
+        if st_.get("demob") and not pr:
             dd = st_["days_to_demob"]
             line += "  \u00b7  demob {} ({})".format(
                 st_["demob"].strftime("%d %b"),
                 "today" if dd == 0 else ("{} day{} to go".format(dd, "" if dd == 1 else "s")
                                          if dd > 0 else "done"))
-        d.text(self.x0, self.y + 72, line, size=10, bold=True, colour=P_INK)
-        self.y += 86
-        d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
-        self.y += 10
+        d.text(self.x0, hy + 100, line, size=9.5, bold=True, colour=P_WHITE, max_w=300)
+        if pr:
+            d.text(self.x0, hy + 120, pr["label"].upper(), size=6.3, bold=True,
+                   colour="#C9CFD7", tracking=0.8)
+            self.progress_bar(self.x0, hy + 126, 300, pr, h=7, label=False, dark=True)
+        #  the headline number
+        rx = self.x1
+        if c["onhire"]:
+            big = "{:,}".format(c["onhire"])
+            d.text(rx, hy + 78, big, size=54, bold=True, colour=P_WHITE, align="right")
+            d.text(rx, hy + 92, "ITEMS ON HIRE NOW", size=7, bold=True, colour=P_ORANGE,
+                   tracking=1.2, align="right")
+            d.text(rx, hy + 106, "{:,} compan{}  \u00b7  oldest {}".format(
+                c["companies"], "y" if c["companies"] == 1 else "ies",
+                _days_text(c["oldest_days"])), size=9, colour="#C9CFD7", align="right")
+        else:
+            d.text(rx, hy + 74, "All back", size=34, bold=True, colour=E_RAG["green"][2],
+                   align="right")
+            d.text(rx, hy + 90, "NOTHING ON HIRE", size=7, bold=True, colour=P_ORANGE,
+                   tracking=1.2, align="right")
+            d.text(rx, hy + 104, "every item issued has been scanned back in", size=9,
+                   colour="#C9CFD7", align="right")
+        if prev:
+            moves_now = parts["_tx_total"][0] + parts["_tx_total"][1]
+            bits = []
+            for now, was, what in ((c["onhire"], prev.get("onhire"), "on hire"),
+                                   (moves_now, ((prev.get("moves") or 0) + (prev.get("draws") or 0))
+                                    if prev.get("moves") is not None else None, "movements")):
+                if was is None:
+                    continue
+                diff = now - was
+                good = (diff <= 0) if what == "on hire" else True
+                bits.append(("{:+,} {}".format(diff, what) if diff else "{} level".format(what),
+                             (E_RAG["green"][2] if good else E_RAG["amber"][2]) if diff else "#9AA2AC"))
+            d.text(rx, hy + 122, "SINCE {}".format(prev["day"].strftime("%a %d %b").upper()),
+                   size=6.3, bold=True, colour="#C9CFD7", tracking=0.8, align="right")
+            xx = rx
+            for txt, col in reversed(bits):
+                w_ = d.text_width(txt, 9, bold=True)
+                d.text(xx, hy + 135, txt, size=9, bold=True, colour=col, align="right")
+                xx -= w_ + 12
+        self.y = hy + hero_h + 14
 
-        #  Where the shut is up to, and what moved since the last report.
-        pr = parts.get("progress")
-        prev = parts.get("previous")
-        if pr or prev:
-            band_h = 44
-            d.rect(self.x0, self.y, self.cw, band_h, fill=P_SOFT, radius=4)
-            bx = self.x0 + 14
-            bw_ = self.cw * (0.62 if prev else 1.0) - 28
-            if pr:
-                d.text(bx, self.y + 14, "THE SHUT" if pr["state"] == "ahead" else "SHUT PROGRESS",
-                       size=6.3, bold=True, colour=P_ORANGE, tracking=1.1)
-                self.progress_bar(bx, self.y + 20, bw_, pr, h=8)
-            if prev:
-                px = self.x0 + self.cw * 0.62 + 6
-                d.text(px, self.y + 14, "SINCE {}".format(
-                    prev["day"].strftime("%a %d %b").upper()), size=6.3, bold=True,
-                    colour=P_ORANGE, tracking=1.1)
-                c = parts["counts"]
-                moves_now = parts["_tx_total"][0] + parts["_tx_total"][1]
-                bits = []
-                for now, was, what in ((c["onhire"], prev.get("onhire"), "on hire"),
-                                       (moves_now, (prev.get("moves") or 0) + (prev.get("draws") or 0)
-                                        if prev.get("moves") is not None else None, "movements"),
-                                       (c["companies"], prev.get("companies"), "companies")):
-                    if was is None:
-                        continue
-                    diff = now - was
-                    bits.append(("{:+,} {}".format(diff, what) if diff else "{} level".format(what),
-                                 (E_RAG["green"][1] if (diff <= 0 if what == "on hire" else True)
-                                  else E_RAG["amber"][1]) if diff else P_MUTED))
-                xx = px
-                for k_, (txt, col) in enumerate(bits):
-                    tw = d.text_width(txt, 8.6, bold=True)
-                    if xx + tw > self.x1 - 10:
-                        break
-                    xx += d.text(xx, self.y + 31, txt, size=8.6, bold=True, colour=col) + 11
-            self.y += band_h + 8
-
-        #  Where we sit, in words.
+                #  Where we sit, in words.
         d.text(self.x0, self.y + 8, "WHERE WE SIT TODAY", size=7.2, bold=True,
-               colour=P_ORANGE, tracking=1.2)
+               colour=P_ORANGE_TEXT, tracking=1.2)
         yy = self.y + 24
-        call = [ln for ln in parts["call"] if "the last report" not in ln][:4]
+        call = [ln for ln in parts["call"] if "the last report" not in ln][:3]
         for i, line in enumerate(call):
             yy = d.paragraph(self.x0, yy, line, size=10.5 if i == 0 else 9.2,
                              max_w=self.cw, bold=(i == 0),
@@ -7446,7 +7512,7 @@ class _Pack(object):
 
         #  The headline numbers, three across, two rows.
         tiles = parts["tiles"]
-        gap, h = 8, 42
+        gap, h = 8, 40
         w = (self.cw - gap * 2) / 3.0
         for start in range(0, len(tiles), 3):
             x = self.x0
@@ -7463,11 +7529,11 @@ class _Pack(object):
                 if kind:
                     self.icon(kind, x + w - 20, self.y + 9, 9,
                               rule if (rule != P_ORANGE or ink == P_INK) else C_MUTED_LIGHT)
-                d.text(x + 10, self.y + 20, str(value), size=17, bold=True,
+                d.text(x + 10, self.y + 19, str(value), size=16, bold=True,
                        colour=ink)
-                d.text(x + 10, self.y + 29.5, label.upper(), size=6.3, bold=True,
+                d.text(x + 10, self.y + 28.5, label.upper(), size=6.3, bold=True,
                        colour=P_INK, tracking=0.4, max_w=w - 20)
-                d.text(x + 10, self.y + 37.5, sub, size=6.8, colour=P_MUTED,
+                d.text(x + 10, self.y + 36, sub, size=6.6, colour=P_MUTED,
                        max_w=w - 20)
                 x += w + gap
             self.y += h + gap
@@ -7494,7 +7560,7 @@ class _Pack(object):
         d.rect(self.x0, self.y + 18, self.cw, 1.5, fill=P_ORANGE)
         self.y += 21
         n_rows = len(blocks)
-        h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else (15 if n_rows <= 11 else 14.5))
+        h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else (15 if n_rows <= 11 else 14))
         fs = 9.2 if n_rows <= 8 else 8.6
         base_y = h - 6 if n_rows <= 8 else h - 4.5
         biggest_items = max([b["items"] for b in blocks] + [1])
@@ -7520,7 +7586,7 @@ class _Pack(object):
                       _days_text(b["oldest_days"]) if b["items"] else "nothing out",
                       day_tone(b["oldest_days"]) if b["items"] else "slate", size=7 if h < 19 else 7.5)
             d.text(self.x1 - 8, self.y + base_y, str(starts[k] + 1), size=fs,
-                   bold=True, colour=P_ORANGE, align="right")
+                   bold=True, colour=P_ORANGE_TEXT, align="right")
             d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
             d.link(self.x0, self.y, self.cw, h, starts[k])
             self.y += h
@@ -7530,7 +7596,7 @@ class _Pack(object):
         #  customer sees the actions on page one.
         acts = parts["actions"]
         room = self.bottom - self.y - 24
-        pitch = 24 if room >= 40 + 24 * min(len(acts), 3) else 19
+        pitch = 24 if room >= 40 + 24 * len(acts) else 19
         head_h = 40 if pitch == 24 else 30
         per_row = 1
         if pitch == 19 and len(acts) > int((room - head_h) // pitch) and len(acts) <= 6:

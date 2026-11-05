@@ -203,6 +203,15 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- High-contrast round (06 Nov): the cover hero, the dials card, each
+  section header and every footer are charcoal/near-black bands with white
+  type (`P_SLATE` #2A313C, `card(dark=)`, `gauge(dark=)`,
+  `progress_bar(dark=)`, `age_strip(dark=)`); the email masthead carries a
+  hero line (`_hero_html`, `story["hero"]`); Dashboard and Forecast tiles
+  are dark with white values. Small orange text on white is
+  `P_ORANGE_TEXT` / `E_ORANGE_TEXT` #C8511A (readable); wordmark, rules and
+  bars stay `P_ORANGE` #F26222. A quiet company's section still fits one
+  page (band 60pt, 12 consumable rows); MMG 17 pages, Rio 23.
 - The pack is set in Inter from `_fonts\` (OFL, subset-embedded by
   `coates_pdf.py`; Helvetica fallback). Item descriptions are tidied for
   display only (`item_name()`, `tidy_items: no` to turn off); transaction

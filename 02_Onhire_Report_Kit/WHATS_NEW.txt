@@ -109,6 +109,34 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE CONTRAST (06 Nov 2026)
+ -------------------------------
+   The pack now opens DARK. The cover's hero is a charcoal band with
+   the title in white, the shut-progress strip, and the one number
+   that matters - ITEMS ON HIRE NOW - set large in white with the
+   company count, the oldest item and what moved since the last
+   report beside it. "All back" reads green when the number is zero.
+   The dials on At a glance sit on the same charcoal, the four values
+   in white; every company section starts with a charcoal band - the
+   company's mark in orange, its name in white, the date, and the
+   age-of-what-is-out bar - and every page ends in a near-black
+   footer band with COATES, POWERED BY SITEIQ and the page number.
+   White tiles, white tables and white charts sit between the dark
+   bands, so the eye lands on the numbers first.
+
+   The email masthead carries the same hero line - the on-hire number
+   large, "items on hire now", the company count and the oldest item -
+   between the title and the progress strip. The workbook's Dashboard
+   and Forecast tiles are near-black with the value in white and the
+   label in a pale orange.
+
+   Colour is tuned for contrast: small orange text on white (kickers,
+   section labels, contents page numbers) is now a deeper orange that
+   passes the readability test, while the COATES wordmark, the rules
+   and the bars keep the brand orange. Everything is still vector and
+   still set in Inter, so it is as crisp on a 4K wall screen as on a
+   phone, and the pack still weighs about 150 KB.
+
  NEW - THE CHASE (05 Nov 2026, night)
  -----------------------------------
    ONE EMAIL PER COMPANY. Beside each company's PDF in Reports\<today>\
