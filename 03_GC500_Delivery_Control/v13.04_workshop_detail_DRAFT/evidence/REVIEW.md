@@ -32,3 +32,10 @@ pointer event, and native keyboard slider checks supplement the deterministic an
 checks. Final marker views of valve, sump and alternator are unobscured; these
 visuals use the identical final geometry/UI/lesson modules. No browser errors or
 record writes occurred in that visual review. Final acceptance remains pending.
+
+The exact candidate passes the normal desktop dashboard run (97 checks,
+27 routes, seven links and Back; zero errors or writes). The manual-frame
+fixture needs correction before final machine acceptance: native pointer actions
+stall after its synchronous drawing batch while the canvas bounds stay stable.
+Its resume hook now resets host timing; this test-only correction does not
+change candidate bytes. Phone and final machine receipts remain required.

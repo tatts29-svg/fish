@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad",
+  "suite": "machine1304",
+  "viewport": "desktop",
+  "passed": false,
+  "runtimeErrors": [],
+  "finding": "The native canvas scroll action exceeded its default30-second automation stability budget after the manual frame batch. Native slider focus, input and draw checks had passed.",
+  "correction": "Extending the native scroll budget to120seconds did not resolve the focused fixture. Eleven timed samples found an unchanged visible canvas but stalled native RAF after the manual frame batch. Native-loop and fixture scheduling comparisons are in progress; no production change justified by this alone.",
+  "productionChanged": false,
+  "publication": "Not published. Fresh final acceptance required."
+}
