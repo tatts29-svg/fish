@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "isolation-markers1304",
+  "checks": 2340,
+  "components": 16,
+  "rotations": 8,
+  "samples": [
+    {
+      "id": "crankshaft",
+      "maxExtent": 1.1190251314640043,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "piston-1",
+      "maxExtent": 0.15671607967260925,
+      "markerRadius": 0.001880592956071311
+    },
+    {
+      "id": "connecting-rod-1",
+      "maxExtent": 0.25714018194057076,
+      "markerRadius": 0.003085682183286849
+    },
+    {
+      "id": "camshaft-near",
+      "maxExtent": 1.013800003528595,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "intake-valve-1",
+      "maxExtent": 0.09811107758538395,
+      "markerRadius": 0.0011773329310246076
+    },
+    {
+      "id": "timing-belt",
+      "maxExtent": 0.7472192406654359,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "timing-tensioner",
+      "maxExtent": 0.10139666303992279,
+      "markerRadius": 0.0012167599564790734
+    },
+    {
+      "id": "oil-pan",
+      "maxExtent": 0.7547999858856205,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "oil-pump",
+      "maxExtent": 0.18499999999999983,
+      "markerRadius": 0.002219999999999998
+    },
+    {
+      "id": "oil-galleries",
+      "maxExtent": 1.002017397079617,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "distributor",
+      "maxExtent": 0.8584553080797197,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "accessory-belt",
+      "maxExtent": 0.5475999850034712,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "water-pump",
+      "maxExtent": 0.1516999945417048,
+      "markerRadius": 0.0018203999345004576
+    },
+    {
+      "id": "cooling-system",
+      "maxExtent": 0.793749543428421,
+      "markerRadius": 0.005
+    },
+    {
+      "id": "alternator",
+      "maxExtent": 0.19165999695658686,
+      "markerRadius": 0.0022999199634790423
+    },
+    {
+      "id": "starter-motor",
+      "maxExtent": 0.12949999710544957,
+      "markerRadius": 0.0015539999652653949
+    }
+  ]
+}

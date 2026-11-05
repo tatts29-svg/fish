@@ -1,0 +1,521 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "workshop-controls1304",
+  "checks": 1706,
+  "components": 16,
+  "profiles": 4,
+  "samples": [
+    {
+      "id": "crankshaft",
+      "viewport": "phone",
+      "distance": 4.048713106863606,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7825359287959089,
+      "verticalFill": 0.25863460129461663
+    },
+    {
+      "id": "crankshaft",
+      "viewport": "narrow phone",
+      "distance": 4.8717575046898505,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7908947330525551,
+      "verticalFill": 0.21442710844701185
+    },
+    {
+      "id": "crankshaft",
+      "viewport": "landscape",
+      "distance": 2.0933028377372693,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7377589593370197,
+      "verticalFill": 0.6197370309197482
+    },
+    {
+      "id": "crankshaft",
+      "viewport": "desktop",
+      "distance": 2.2208111430089112,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7429627933994161,
+      "verticalFill": 0.5310682585959007
+    },
+    {
+      "id": "piston-1",
+      "viewport": "phone",
+      "distance": 0.8203284188674655,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8022002369856546,
+      "verticalFill": 0.6137309732920725
+    },
+    {
+      "id": "piston-1",
+      "viewport": "narrow phone",
+      "distance": 0.988325579343641,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8075302833245008,
+      "verticalFill": 0.5078215460287325
+    },
+    {
+      "id": "piston-1",
+      "viewport": "landscape",
+      "distance": 0.8234853870332618,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.38376746751677193,
+      "verticalFill": 0.741315276114491
+    },
+    {
+      "id": "piston-1",
+      "viewport": "desktop",
+      "distance": 0.7597445588238055,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.44639958203568847,
+      "verticalFill": 0.7341775895473307
+    },
+    {
+      "id": "connecting-rod-1",
+      "viewport": "phone",
+      "distance": 0.850051453318102,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.6234823003991129,
+      "verticalFill": 0.7430426894462
+    },
+    {
+      "id": "connecting-rod-1",
+      "viewport": "narrow phone",
+      "distance": 0.8864252333697439,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7268287016074841,
+      "verticalFill": 0.7120051345830875
+    },
+    {
+      "id": "connecting-rod-1",
+      "viewport": "landscape",
+      "distance": 1.009683588591235,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.24971110202865282,
+      "verticalFill": 0.7564709975086331
+    },
+    {
+      "id": "connecting-rod-1",
+      "viewport": "desktop",
+      "distance": 0.9296786103736024,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.2915812774675279,
+      "verticalFill": 0.7502821926803377
+    },
+    {
+      "id": "camshaft-near",
+      "viewport": "phone",
+      "distance": 3.4262787209348167,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7648998843285273,
+      "verticalFill": 0.1556351745615613
+    },
+    {
+      "id": "camshaft-near",
+      "viewport": "narrow phone",
+      "distance": 4.109082119076543,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7757820524876133,
+      "verticalFill": 0.12950148862881977
+    },
+    {
+      "id": "camshaft-near",
+      "viewport": "landscape",
+      "distance": 1.8040566633556563,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7088591632015008,
+      "verticalFill": 0.3649878441264239
+    },
+    {
+      "id": "camshaft-near",
+      "viewport": "desktop",
+      "distance": 1.909838446647923,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7151888058740439,
+      "verticalFill": 0.31361898849969627
+    },
+    {
+      "id": "intake-valve-1",
+      "viewport": "phone",
+      "distance": 0.39729881956383184,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7189166980704944,
+      "verticalFill": 0.7451951110951953
+    },
+    {
+      "id": "intake-valve-1",
+      "viewport": "narrow phone",
+      "distance": 0.4502701285853609,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7689792608630646,
+      "verticalFill": 0.6562088718673034
+    },
+    {
+      "id": "intake-valve-1",
+      "viewport": "landscape",
+      "distance": 0.47216026823774937,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.2884666627953647,
+      "verticalFill": 0.7583590927966968
+    },
+    {
+      "id": "intake-valve-1",
+      "viewport": "desktop",
+      "distance": 0.4346409519656879,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.33656922682442036,
+      "verticalFill": 0.7522944502463912
+    },
+    {
+      "id": "timing-belt",
+      "viewport": "phone",
+      "distance": 1.9724250122144946,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.6921103611287815,
+      "verticalFill": 0.6982265597295018
+    },
+    {
+      "id": "timing-belt",
+      "viewport": "narrow phone",
+      "distance": 2.312243906485747,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7116687898606651,
+      "verticalFill": 0.5929996717441794
+    },
+    {
+      "id": "timing-belt",
+      "viewport": "landscape",
+      "distance": 2.270747979484937,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.285898721037032,
+      "verticalFill": 0.7325433323297857
+    },
+    {
+      "id": "timing-belt",
+      "viewport": "desktop",
+      "distance": 2.097439276148368,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.3331184098230675,
+      "verticalFill": 0.7248945018819559
+    },
+    {
+      "id": "timing-tensioner",
+      "viewport": "phone",
+      "distance": 0.37578644044598497,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7558618990327789,
+      "verticalFill": 0.5555496133385173
+    },
+    {
+      "id": "timing-tensioner",
+      "viewport": "narrow phone",
+      "distance": 0.44826124220142455,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7680360212899668,
+      "verticalFill": 0.46380479050861484
+    },
+    {
+      "id": "timing-tensioner",
+      "viewport": "landscape",
+      "distance": 0.35250964482552366,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.3879131930719071,
+      "verticalFill": 0.7195267433333097
+    },
+    {
+      "id": "timing-tensioner",
+      "viewport": "desktop",
+      "distance": 0.3261804725782497,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.45022435993827636,
+      "verticalFill": 0.7111693463556708
+    },
+    {
+      "id": "oil-pan",
+      "viewport": "phone",
+      "distance": 3.848552356080333,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8073953251607964,
+      "verticalFill": 0.24637656292172017
+    },
+    {
+      "id": "oil-pan",
+      "viewport": "narrow phone",
+      "distance": 4.6604710036921215,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8118532018485105,
+      "verticalFill": 0.20241956162751373
+    },
+    {
+      "id": "oil-pan",
+      "viewport": "landscape",
+      "distance": 1.9387692712648998,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7743062257359906,
+      "verticalFill": 0.6224748596664212
+    },
+    {
+      "id": "oil-pan",
+      "viewport": "desktop",
+      "distance": 2.0453596068440363,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.785207750495351,
+      "verticalFill": 0.5345769697015114
+    },
+    {
+      "id": "oil-pump",
+      "viewport": "phone",
+      "distance": 0.7626447352089372,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8128032848541935,
+      "verticalFill": 0.5060573308150198
+    },
+    {
+      "id": "oil-pump",
+      "viewport": "narrow phone",
+      "distance": 0.9218229700730142,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.816378705638733,
+      "verticalFill": 0.417586949274757
+    },
+    {
+      "id": "oil-pump",
+      "viewport": "landscape",
+      "distance": 0.6397425733621315,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.4674056045745062,
+      "verticalFill": 0.7340956110557018
+    },
+    {
+      "id": "oil-pump",
+      "viewport": "desktop",
+      "distance": 0.5907928428202973,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.5430674522603935,
+      "verticalFill": 0.7265352360605392
+    },
+    {
+      "id": "oil-galleries",
+      "viewport": "phone",
+      "distance": 4.3144685591965795,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8289715194079144,
+      "verticalFill": 0.38216042586556553
+    },
+    {
+      "id": "oil-galleries",
+      "viewport": "narrow phone",
+      "distance": 5.24108755543922,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8297504719729425,
+      "verticalFill": 0.3134032411062525
+    },
+    {
+      "id": "oil-galleries",
+      "viewport": "landscape",
+      "distance": 2.930318200121175,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.5898908389722871,
+      "verticalFill": 0.6918448215340423
+    },
+    {
+      "id": "oil-galleries",
+      "viewport": "desktop",
+      "distance": 2.721930529654027,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.6808819389392642,
+      "verticalFill": 0.6821703491790705
+    },
+    {
+      "id": "distributor",
+      "viewport": "phone",
+      "distance": 4.366164244118938,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8012490010229043,
+      "verticalFill": 0.4861617318654536
+    },
+    {
+      "id": "distributor",
+      "viewport": "narrow phone",
+      "distance": 5.26649265532087,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8067230129467893,
+      "verticalFill": 0.4015250638468523
+    },
+    {
+      "id": "distributor",
+      "viewport": "landscape",
+      "distance": 3.625743380088043,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.46542001483329776,
+      "verticalFill": 0.7138249817910979
+    },
+    {
+      "id": "distributor",
+      "viewport": "desktop",
+      "distance": 3.3575623725547725,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.5391700135735938,
+      "verticalFill": 0.705175551435384
+    },
+    {
+      "id": "accessory-belt",
+      "viewport": "phone",
+      "distance": 1.4605755120375552,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.6945460942834778,
+      "verticalFill": 0.6840567541529432
+    },
+    {
+      "id": "accessory-belt",
+      "viewport": "narrow phone",
+      "distance": 1.7135302563990447,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7138615812349951,
+      "verticalFill": 0.580494567868318
+    },
+    {
+      "id": "accessory-belt",
+      "viewport": "landscape",
+      "distance": 1.6522778443311177,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.29238812282764254,
+      "verticalFill": 0.7306663120519584
+    },
+    {
+      "id": "accessory-belt",
+      "viewport": "desktop",
+      "distance": 1.5265576827823895,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.34057750339651094,
+      "verticalFill": 0.7229116576392144
+    },
+    {
+      "id": "water-pump",
+      "viewport": "phone",
+      "distance": 0.7588945403961087,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8099300966138623,
+      "verticalFill": 0.563208049637789
+    },
+    {
+      "id": "water-pump",
+      "viewport": "narrow phone",
+      "distance": 0.9163453514964909,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8139879030674582,
+      "verticalFill": 0.4649174869825456
+    },
+    {
+      "id": "water-pump",
+      "viewport": "landscape",
+      "distance": 0.7079081159863057,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.4177743021135124,
+      "verticalFill": 0.7332866517704416
+    },
+    {
+      "id": "water-pump",
+      "viewport": "desktop",
+      "distance": 0.6538136693974794,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.48534498537634796,
+      "verticalFill": 0.7256800724170617
+    },
+    {
+      "id": "cooling-system",
+      "viewport": "phone",
+      "distance": 3.4927351667244273,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7822895756506196,
+      "verticalFill": 0.49605710922233376
+    },
+    {
+      "id": "cooling-system",
+      "viewport": "narrow phone",
+      "distance": 4.194668128589758,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7907087561490649,
+      "verticalFill": 0.41138210771376676
+    },
+    {
+      "id": "cooling-system",
+      "viewport": "landscape",
+      "distance": 2.9667119278872005,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.4442965431703789,
+      "verticalFill": 0.7118146462052697
+    },
+    {
+      "id": "cooling-system",
+      "viewport": "desktop",
+      "distance": 2.7480392473405253,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.5147303907410756,
+      "verticalFill": 0.7030648661784045
+    },
+    {
+      "id": "alternator",
+      "viewport": "phone",
+      "distance": 0.7349284695569325,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.7879909199995002,
+      "verticalFill": 0.7577261754619117
+    },
+    {
+      "id": "alternator",
+      "viewport": "narrow phone",
+      "distance": 0.8572032246115401,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8189202700921165,
+      "verticalFill": 0.6485199589184
+    },
+    {
+      "id": "alternator",
+      "viewport": "landscape",
+      "distance": 0.876093624812138,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.31554251591512494,
+      "verticalFill": 0.7692975336648695
+    },
+    {
+      "id": "alternator",
+      "viewport": "desktop",
+      "distance": 0.8053439906488328,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.3685125319833381,
+      "verticalFill": 0.7639786871596848
+    },
+    {
+      "id": "starter-motor",
+      "viewport": "phone",
+      "distance": 0.5298497952688961,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8069550916597112,
+      "verticalFill": 0.618961992860457
+    },
+    {
+      "id": "starter-motor",
+      "viewport": "narrow phone",
+      "distance": 0.6388065971041386,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.8115101960989379,
+      "verticalFill": 0.5123697506680557
+    },
+    {
+      "id": "starter-motor",
+      "viewport": "landscape",
+      "distance": 0.5248297032464685,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.39139260817382515,
+      "verticalFill": 0.7578409058940444
+    },
+    {
+      "id": "starter-motor",
+      "viewport": "desktop",
+      "distance": 0.48315754498878194,
+      "minDistance": 0.05399999999999999,
+      "horizontalFill": 0.4563667618524916,
+      "verticalFill": 0.7517420541861677
+    }
+  ]
+}

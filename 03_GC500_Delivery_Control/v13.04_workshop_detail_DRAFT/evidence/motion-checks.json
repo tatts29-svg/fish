@@ -1,0 +1,47 @@
+{
+  "result": "PASS",
+  "checks": 469,
+  "contactSamples": 107,
+  "toolContacts": 43,
+  "maxContact": 0.0010489262501904354,
+  "minFloor": 0,
+  "minObstacle": 0.07999999999999985,
+  "minLiftClearance": 2.4766778949923824,
+  "maxWalkingSpeed": 1.196023147931532,
+  "continuitySamples": 48,
+  "largestSocketStep": 8.46655774235891e-12,
+  "largestWristStep": 0.000017270542250295104,
+  "tourRuns": [
+    {
+      "dt": 0.1,
+      "frames": 2670,
+      "elapsedSeconds": 267,
+      "maxWalkingSpeed": 1.1999777743276496,
+      "shots": [
+        "mechanic",
+        "rig",
+        "lift",
+        "unhook",
+        "cycle",
+        "component",
+        "refit"
+      ]
+    },
+    {
+      "dt": 0.016,
+      "frames": 16687,
+      "elapsedSeconds": 266.992,
+      "maxWalkingSpeed": 1.1999996525250411,
+      "shots": [
+        "mechanic",
+        "rig",
+        "lift",
+        "unhook",
+        "cycle",
+        "component",
+        "refit"
+      ]
+    }
+  ],
+  "sourceCommit": "04b39247275b6b99475185560e43828f1c8fdcec"
+}

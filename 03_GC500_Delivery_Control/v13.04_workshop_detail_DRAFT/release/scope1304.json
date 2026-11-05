@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "confirmed": true,
+  "replacements": [
+    "car-app.js",
+    "index.html",
+    "workshop-finish.js",
+    "workshop-lessons.js",
+    "workshop-mechanic.js",
+    "workshop-service.js",
+    "workshop-showcase.js",
+    "workshop-ui.js"
+  ],
+  "additions": [
+    "workshop-render.js"
+  ]
+}

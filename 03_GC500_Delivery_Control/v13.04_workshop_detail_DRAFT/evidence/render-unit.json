@@ -1,0 +1,24 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "workshop-render1304",
+  "passed": true,
+  "checks": 107,
+  "idleMetrics": {
+    "active": true,
+    "idle": true,
+    "requested": 301,
+    "draws": 63,
+    "reused": 238,
+    "shadowUpdates": 1,
+    "pendingShadow": false,
+    "invalidations": 0,
+    "lastReason": "first frame",
+    "settleMs": 1000,
+    "refreshMs": 250,
+    "shadowMs": 66,
+    "idleReuse": true,
+    "disposed": false,
+    "maxRefreshGapMs": 266.6666666666679
+  },
+  "scope": "Pure draw/shadow scheduling; no physical-device frame-rate claim."
+}

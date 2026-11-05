@@ -18,3 +18,12 @@ Claude retains event Showcase/race narration and finance. No records or maps edi
 Next: independent detail, materials/rendering, movement and interaction review;
 bounded implementation with measured geometry/render cost and phone/desktop checks.
 No claim of perfect realism or physical-device performance without evidence.
+
+Implemented draft: distinct micro-surface finishes and seated detail hardware;
+continuous socket/wrist engagement; tour walking constrained by the service;
+actual-part close inspection and stable phone controls; proportional unobtrusive
+location annotations; final-pose shadows and conservative stationary-frame reuse.
+Candidate `09a50581a0259d45ad493e0bf2f28d825bb7e7ce433a975848ee43ff655a83d1`
+contains246 files, nine changed paths and237 exact retained files. Source/model
+checks and read-only publication preflight pass. Combined browser acceptance and
+final visual review are in progress. Evidence and review notes are in `evidence/`.

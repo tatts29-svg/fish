@@ -1,0 +1,33 @@
+test_authenticated_preflight_is_get_only (test_release1304.ReleaseTests.test_authenticated_preflight_is_get_only) ... ok
+test_base_race_during_staging_blocks_register (test_release1304.ReleaseTests.test_base_race_during_staging_blocks_register) ... ok
+test_candidate_metadata_mismatch_cannot_register (test_release1304.ReleaseTests.test_candidate_metadata_mismatch_cannot_register) ... ok
+test_changed_retained_map_blocks_before_network (test_release1304.ReleaseTests.test_changed_retained_map_blocks_before_network) ... ok
+test_changed_source_blocks_before_network (test_release1304.ReleaseTests.test_changed_source_blocks_before_network) ... ok
+test_dashboard_race_during_staging_blocks_register (test_release1304.ReleaseTests.test_dashboard_race_during_staging_blocks_register) ... ok
+test_default_preparation_is_get_only (test_release1304.ReleaseTests.test_default_preparation_is_get_only) ... ok
+test_every_replacement_including_lessons_is_required (test_release1304.ReleaseTests.test_every_replacement_including_lessons_is_required) ... ok
+test_evidence_mutation_during_staging_blocks_register (test_release1304.ReleaseTests.test_evidence_mutation_during_staging_blocks_register) ... ok
+test_inventory_race_during_staging_blocks_register (test_release1304.ReleaseTests.test_inventory_race_during_staging_blocks_register) ... ok
+test_missing_required_module_rejected (test_release1304.ReleaseTests.test_missing_required_module_rejected) ... ok
+test_missing_token_blocks_staging (test_release1304.ReleaseTests.test_missing_token_blocks_staging) ... ok
+test_no_edit_access_blocks_staging (test_release1304.ReleaseTests.test_no_edit_access_blocks_staging) ... ok
+test_original_lift_and_learning_must_stay_exact (test_release1304.ReleaseTests.test_original_lift_and_learning_must_stay_exact) ... ok
+test_other_scope_evidence_blocks_before_network (test_release1304.ReleaseTests.test_other_scope_evidence_blocks_before_network) ... ok
+test_preflight_and_public_errors_redact_secret (test_release1304.ReleaseTests.test_preflight_and_public_errors_redact_secret) ... ok
+test_protected_server_blob_missing_blocks_staging (test_release1304.ReleaseTests.test_protected_server_blob_missing_blocks_staging) ... ok
+test_publication_preserves_all_paths_and_reads_back_every_changed_file (test_release1304.ReleaseTests.test_publication_preserves_all_paths_and_reads_back_every_changed_file) ... ok
+test_receipts_must_identify_exact_manifest_and_all_suites (test_release1304.ReleaseTests.test_receipts_must_identify_exact_manifest_and_all_suites) ... ok
+test_removed_path_rejected_even_with_correct_new_digest (test_release1304.ReleaseTests.test_removed_path_rejected_even_with_correct_new_digest) ... ok
+test_secret_control_characters_rejected (test_release1304.ReleaseTests.test_secret_control_characters_rejected) ... ok
+test_server_change_during_staging_blocks_register (test_release1304.ReleaseTests.test_server_change_during_staging_blocks_register) ... ok
+test_stale_dashboard_blocks_before_staging (test_release1304.ReleaseTests.test_stale_dashboard_blocks_before_staging) ... ok
+test_stale_machine_blocks_before_staging (test_release1304.ReleaseTests.test_stale_machine_blocks_before_staging) ... ok
+test_unconfirmed_scope_blocks_before_network (test_release1304.ReleaseTests.test_unconfirmed_scope_blocks_before_network) ... ok
+test_unknown_addition_rejected (test_release1304.ReleaseTests.test_unknown_addition_rejected) ... ok
+test_unknown_inventory_blob_blocks_staging (test_release1304.ReleaseTests.test_unknown_inventory_blob_blocks_staging) ... ok
+test_wrong_public_readback_is_not_success (test_release1304.ReleaseTests.test_wrong_public_readback_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 2.472s
+
+OK
