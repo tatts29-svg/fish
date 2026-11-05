@@ -86,9 +86,19 @@ try {
     scene.traverse(object => { if (object.name === 'Engine sling') lengths.push(object.scale.y); });
     if (!step) slingLengths.push(...lengths);
     else check(lengths.every((value, i) => Math.abs(value - slingLengths[i]) < 1e-9), 'Slings retain length throughout lift');
+    const rig = scene.getObjectByName('Engine lifting beam and hook'), hoistLines = [];
+    scene.traverse(object => { if (object.name === 'Tensioned hoist rope') hoistLines.push(object); });
+    check(hoistLines.length === 2 && ropes.visible === false, 'Two tensioned lines replace the hidden straight-rope illustration');
+    for (let i = 0; i < 2; i++) {
+      const line = hoistLines[i], z = i ? .3 : -.3;
+      const upper = new T.Vector3(0, -.5, 0).applyMatrix4(line.matrixWorld);
+      const lower = new T.Vector3(0, .5, 0).applyMatrix4(line.matrixWorld);
+      check(upper.distanceTo(new T.Vector3(0, 9.1, z).applyMatrix4(trolley.matrixWorld)) < 1e-9, 'Hoist line meets its trolley anchor');
+      check(lower.distanceTo(new T.Vector3(0, .5, z).applyMatrix4(rig.matrixWorld)) < 1e-9, 'Hoist line meets the hook block');
+    }
     positions.push(api.diagnostics.loadWorld);
   }
-  check(api.stage === 'Engine supported on the cradle', 'Supported end stage');
+  check(api.stage === 'Engine supported on the service bench' && api.benchReady, 'Supported service-bench end stage');
   check(positions.slice(0, 13).every(p => p.every((v, i) => Math.abs(v - positions[0][i]) < 1e-9)), 'Prepared first stage holds still');
   check(positions.slice(0, 49).every(p => Math.abs(p[0] - positions[0][0]) < 1e-9 && Math.abs(p[2] - positions[0][2]) < 1e-9), 'Vertical clearance before traverse');
   const sump = engine.removable.find(part => part.id === 'oil-pan').group.children.find(child => child.name.startsWith('Cast sump'));
@@ -106,6 +116,42 @@ try {
     }
   });
   check(pads === 2 && feet === 6, 'Two load saddles and six grounded feet');
+  check(!!scene.getObjectByName('Workshop service tray') && !!scene.getObjectByName('Under-engine catch tray'), 'Supported inspection bench includes tool and catch trays');
+  check(!!scene.getObjectByName('Hex-head fasteners') && !!scene.getObjectByName('Weld bead seams'), 'Instanced mechanical hardware and weld details exist');
+  check(scene.getObjectByName('Lifting beam').geometry.type === 'ExtrudeGeometry', 'Coated steel edge bevels are actual geometry');
+  check(scene.getObjectByName('Lifting beam').castShadow && scene.getObjectByName('Cradle upright').castShadow, 'Main lifting and supporting structures cast shadows');
+  for (const name of ['Engine sling', 'Tensioned hoist rope', 'Cradle contact pad', 'Hex-head fasteners', 'Weld bead seams']) {
+    const detail = scene.getObjectByName(name); check(!detail.castShadow && detail.receiveShadow, `${name} keeps shading without a small extra shadow draw`);
+  }
+  const supported = api.diagnostics.loadWorld.slice();
+  for (let i = 0; i < 8; i++) api.update(.1);
+  check(api.diagnostics.loadWorld.every((value, i) => value === supported[i]), 'Supported bench stays still while paused');
+
+  // Reverse uses precisely the same geometric path, including travel response.
+  api.setDirection(-1);
+  for (let step = 100; step >= 0; step--) {
+    api.setProgress(step / 100);
+    check(api.diagnostics.loadWorld.every((value, i) => Math.abs(value - positions[step][i]) < 1e-10), 'Reverse retraces the same load path');
+  }
+  check(api.stage === 'Engine refitted in the bay' && !api.benchReady, 'Refit reaches the exact original engine position');
+  api.setDirection(1); api.setProgress(.6);
+  const withResponse = api.diagnostics.loadWorld.slice();
+  api.setReducedMotion(true); const reducedPose = api.diagnostics.loadWorld.slice();
+  check(api.reducedMotion && withResponse.some((value, i) => Math.abs(value - reducedPose[i]) > 1e-6), 'Reduced motion removes secondary sway');
+  for (let i = 0; i < 8; i++) api.update(.1);
+  check(api.diagnostics.loadWorld.every((value, i) => value === reducedPose[i]), 'Reduced-motion paused pose has no continuing motion');
+  api.setReducedMotion(false); check(api.diagnostics.loadWorld.every((value, i) => Math.abs(value - withResponse[i]) < 1e-10), 'Travel response is reproducible from progress');
+  api.setProgress(1);
+  check(api.refit() && api.direction === -1, 'Refit begins reverse playback without jumping');
+  check(api.progress === 1, 'Starting refit preserves terminal pose');
+  api.update(.1); check(api.progress < 1 && !api.benchReady, 'Bench inspection gate closes as refit starts');
+  for (let i = 0; i < 210; i++) api.update(.1);
+  check(api.progress === 0 && !api.playing && api.stage === 'Engine refitted in the bay', 'Refit playback returns all the way to the bay and stops');
+  check(!api.refit() && api.progress === 0, 'Refit at home does not teleport or start movement');
+  check(api.reverse() && api.direction === 1 && api.progress === 0, 'Reverse at home starts outward motion without a jump');
+  api.setPlaying(false); api.setProgress(1); api.setDirection(-1);
+  check(!api.reverse() && api.progress === 1, 'Direction reversal at far boundary does not teleport');
+  api.setDirection(1);
   api.setPlaying(true); check(api.progress === 0, 'Replay begins at start'); api.update(.1);
   check(Math.abs(api.progress - .005) < 1e-12, 'Play uses elapsed seconds');
   api.setPlaying(false); const paused = api.progress; api.update(.1); check(api.progress === paused, 'Pause holds exact pose');

@@ -1,15 +1,21 @@
-# Workshop preview validation
+# Workshop validation
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**DRAFT — REVIEWABLE. Not a release candidate.**
+**Approved implementation; final desktop/phone acceptance is in progress. Not yet published.**
 
-- The exact current machine app module is guarded before patching. JavaScript syntax and Python compilation checks pass.
-- The original fitted Three.js powertrain is exercised over 101 sampled lift positions. Its 101 original engine objects retain identity. Fixed car assemblies stay fixed; sling lengths, sump support, floor contact and finite transforms pass. Play/pause, scrubbing, reset, invalid entry, exit and repeat entry pass. Original parents, sibling order, positions, orientations, scale and visibility restore exactly. The crane in this test is a transform fixture.
-- Browser checks use the full original garage/crane and read-only asset requests: **24/24 desktop and 24/24 phone**, zero runtime/console errors. They verify entry/exit, the component set, engine locking, stage movement, paused state, clamping, competing keyboard controls, close inspection/overview, restored controls and no horizontal page overflow.
-- Final screenshots were inspected. The overview shows the hook, engine, car and receiving cradle above the controls; the close-up shows the original engine detail. An independent source/visual review concluded **DRAFT — REVIEWABLE**, with no remaining visual blocker to showing the preview.
-- Public read-back at the end remained v13.01 page `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b` and machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`. No publication or operational write was performed.
+Candidate machine `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7`, 241 files. Dashboard remains exact v13.01 `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`. All 234 retained files outside the machine entry/app and five new modules match their original descriptors and bytes.
 
-The browser uses software WebGL. Its phone viewport proves responsive layout and controls; it does **not** establish frame rate, thermal behaviour or loading speed on Andrew's phone. Full native-device performance, complete disconnection/refit choreography, all-path collision and long-running interaction checks remain before a live implementation. The prepared illustrative lift does not certify the model's lifting attachments or replace a maintenance procedure.
+Completed checks:
 
-Evidence is in `evidence/`. Candidate source hashes identify the exact reviewed code. No new page or machine release hash exists because nothing was published.
+- Lift: 31,386 assertions across 101 positions in both directions, original-object identity, constant slings, rope endpoints, support/contact, reduced motion, pause/refit/reset and exact restoration.
+- Finish: 178 recognised material refinements, ten instanced detail draws; car/cockpit/orange artwork preserved. The real browser caught cyclic floor texture provenance; fixed and regression-tested using a frozen cyclic CanvasTexture.
+- Crew: 75 checks, eight figures, zero extra draws, zero difference in original body/palm contact transforms, 16,384 added triangles in total.
+- Learning: 4,877 checks, 16 inspections, 24 hand-rotation poses, seven original oil routes, four actual coolant routes, two faults and exact reset.
+- Release controls: 24 fake-network tests; authenticated read-only preflight passed with no unknown inventory blobs.
+- Initial integrated desktop: 47 checks passed with no errors. Final captures and receipts are being regenerated with monotonic test-frame timestamps and explicit write-attempt counting.
+- Independent integration and visual review found no remaining source blocker after the texture, keyboard, focus and Guided tour fixes. Final phone/pose review remains pending.
+
+Earlier preview screenshots/check receipts in this folder are historical until replaced by final acceptance. A posted claim or a passing module test does not establish publication.
+
+Phone emulation verifies layout/controls; software WebGL does not prove physical phone frame rate or thermals. This prepared-engine illustration is not manufacturer servicing guidance or a certified lifting simulation. It does not animate every disconnection or invent a complete coolant circuit.

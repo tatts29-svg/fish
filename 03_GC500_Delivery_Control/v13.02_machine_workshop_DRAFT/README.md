@@ -1,51 +1,43 @@
-# Coates Way workshop preview
+# Coates Way engine workshop
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**DRAFT — reviewable mechanical/visual concept; not READY TO UPLOAD and not live.**
+**Approved implementation — final integration checks in progress. Not yet published.**
 
-Andrew asked to improve the machine's graphics and interaction, including a crane lifting the engine out. This first slice uses the existing Coates #26 car, original engine components, orange/dark appearance and workshop. It adds a controlled engine-removal preview: lift clear, traverse, lower onto an inspection cradle. The sequence can be played, paused, scrubbed, restarted and exited. The original machine remains the live experience.
+Andrew approved all proposed machine improvements: “Lwts go.approved.to.all”. The existing Coates #26 car now has an engine workshop, finer materials and mechanical details, improved lighting and more detailed crew. The original Coates orange, car artwork and normal machine controls are retained.
 
-The installed engine's 101 original component objects move together; the cockpit, suspension, gearbox, steering and rear driveline stay in place. The original garage crane drives the new hook/beam/slings. Original valve covers and airbox are visible on the removed engine. The bonnet rests on trestles. Existing object identity, part references, parent/sibling order, transforms and visibility are restored on exit. This does not replace the engine with a generated picture or a different model.
+Choose **Engine lift** to raise the original 101 engine components with the garage crane, move them to the cradle, inspect, pause or scrub the sequence and refit them. The driver moves clear of the car before the sequence; background crew hold their existing safe workshop positions. Hook ropes stay connected and engine slings keep their length. Secondary load motion stops when paused or when reduced motion is requested. Exit restores the original car assemblies and controls.
 
-The scene starts with an engine prepared for removal. It is an illustrative display, not factory CAD, a lifting calculation or a servicing procedure. It does not animate the complete disconnection process, release the hook, certify lifting points or claim real vehicle dimensions. These limits are part of the draft, not hidden behind a claim of engineering accuracy.
+Choose **Bench** to inspect 16 components, turn the crank by hand, reveal the cutaway, trace the modelled oil galleries and coolant hoses, or diagnose two visible interrupted connections. A fault must be identified before its Repair action becomes available. The same original engine objects and kinematics are used; the cockpit, suspension, transmission and rear driveline stay on the car. The engine remains isolated from the driving controls while on the bench.
 
-## Source and ownership
+Graphics include bevelled lifting steel, weld seams, fasteners and washers, lifting hardware, service trays, clamps, separate cast/machined/brushed finishes, a quieter workshop floor and neutral fill/rim light. All eight existing crew figures gain articulated glove fingers, smoother palms, boot and seam detail, and a shared cloth/leather normal texture. Existing body routes, palm contacts and car branding stay intact.
 
-- Starting shared source: `04b39247275b6b99475185560e43828f1c8fdcec`, branch `ccr-061f77e8-ivjhrv`.
-- Claim: `48010dfb`, isolated branch `codex/machine-engine-lift-1302`.
-- Read-back of v13.01 public page: `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`, 17,066,969 bytes.
-- Machine descriptor: `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`, 236 files.
+The sequence begins with an engine prepared for removal. It is an interactive mechanical illustration, not factory CAD, a lifting calculation or manufacturer servicing guidance. It does not simulate every disconnection or certify lifting points. Coolant tracing shows the existing radiator hoses and pump unions; missing pipe runs and internal jackets are not invented, and no circulating loop is claimed for the removed engine. No real pressure, temperature or service specifications are fabricated.
+
+## Source and release
+
+- Shared branch: `ccr-061f77e8-ivjhrv`; isolated implementation: `codex/machine-engine-lift-1302`.
+- Original source: `04b39247275b6b99475185560e43828f1c8fdcec`; approval claim: `0f72b49d`.
+- Required unchanged dashboard v13.01: `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`.
+- Retained machine: `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`, 236 files.
 - Exact base `car-app.js`: `d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8`.
 
-No public page, machine manifest, record, financial figure or map changed. Showcase and race narration remain under their existing ownership. Source review, implementation and independent review are recorded on STATUS/PR #1; a posted handover does not establish receipt by another session.
+This is a machine-only release. Five small modules are added; `car-app.js` and the machine entry HTML change. All 234 other files remain byte-for-byte, including map/explorer/3D dependencies. The machine entry versions its module URL to avoid an old cached app hiding the new controls. Dashboard, shared record and financial calculations are unchanged. Exact final release/read-back evidence belongs in `VALIDATION.md` and `evidence/` after completion.
 
-## Reproduce locally
+## Reproduce
 
-`prepare_preview.py <exact-base-folder> <private-build-folder>` requires the exact public `car-app.js`, `index.html` and `car.css`. It rejects a different app module and applies each integration replacement exactly once. The output has no publication manifest.
+`prepare_preview.py <exact-base-folder> <private-prepared-folder>` retains its historical filename. It now builds the approved candidate. It requires the exact original module SHA and one occurrence of every integration point. Then use `release/build1302.py` to assemble and verify the complete retained 241-file tree; see `release/README.md` for the frozen-candidate checks and guarded publication commands.
 
-The geometry tests need Node and this repository's Git objects, with no network or browser:
+Run the independent module checks with Node:
 
 ```sh
 node tests/test_engine_lift.mjs
+node tests/test_workshop_finish.mjs
+node tests/test_crew_polish.mjs
+node tests/test_workshop_learning.mjs
+python3 -m unittest discover -s release -p test_release1302.py
 ```
 
-The browser rig serves the candidate locally and fetches remaining public machine assets by GET only. It rejects writes. Set `PREVIEW_ROOT`, `OUT`, `GC500_CACHE`, `GC500_TOOLCHAIN`, `NODE_PATH` and `CHROMIUM_PATH` for the execution environment. Serialize browser sessions:
+Browser acceptance uses the full frozen candidate with `PREVIEW_ROOT`, `OUT`, `GC500_CACHE`, `GC500_TOOLCHAIN`, `NODE_PATH` and `CHROMIUM_PATH` set. Serialize Chromium sessions with `/tmp/gc500-browser.lock`. `tests/test_browser.cjs` exercises desktop and phone workshop controls and restoration; `tests/test_dashboard.cjs` checks the unchanged dashboard routes and embedded machine. All requests are read-only.
 
-```sh
-flock -x /tmp/gc500-browser.lock node tests/test_browser.cjs
-MOB=1 flock -x /tmp/gc500-browser.lock node tests/test_browser.cjs
-```
-
-Geometry checks build the original fitted powertrain and sample 101 lift positions. They cover the correct component set, fixed car assemblies, finite transforms, constant sling length, sump-to-saddle contact, feet on the floor, play/pause/reset/refusal and exact restoration/re-entry. The crane in that harness is a transform fixture; browser checks use the full real garage crane. Browser checks cover the mode controls, phase movement, competing keyboard paths, panel fit and exit with no runtime errors. See `VALIDATION.md` for the final run and its limits.
-
-## Next graphics and mechanical work
-
-1. Finish the connected workshop action: verified connection-release visuals, crew interaction, visible hook release, reverse refit and collision checks. Keep one shared task state for controls, movement, sound and labels.
-2. Refine the close-up rig: bevelled edges, distinct cast/machined metal, subtle roughness and contact shadows over the whole route. Use the existing Coates orange and original car/artwork.
-3. Add a selectable running-engine cutaway on the stand. Expose the existing crank, pistons, valves and timing drive with slow motion and anchored labels.
-4. Add selectable oil, coolant and power paths, visibly linked to their components. Any displayed values must be sourced or clearly labelled illustrative.
-5. Add short fault-finding and reassembly challenges: find the disconnected component, inspect it, reconnect and observe the consequence. Reuse the existing part connections rather than invent another mechanics model.
-6. Add a presentation tour with close-up shots and user-controlled pause/orbit. This is separate from the event Showcase narration.
-
-Graphics work should prioritise clarity around the engine, lighting and grounded contact. The existing machine already has PBR paint/metal, carbon detail, reflections, ambient occlusion, adaptive resolution and 4K capture. Adding those again is not an improvement. The preview reuses existing engine meshes/materials and adds no physics engine or large texture download. Native phone frame rate, thermal behaviour and long-running playback remain to be measured before a release claim.
+The added crew detail uses no extra draw calls; finish details use ten instanced draws and cull by distance/quality. Small lift details do not cast shadows. Existing adaptive resolution remains active. Browser phone emulation checks layout and functionality, not physical-phone frame rate or thermal behaviour. No instant-loading or hardware performance claim is made.
