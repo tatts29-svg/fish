@@ -193,6 +193,11 @@ Settled rules, 04–05 Nov 2026:
   meaning. Email is tables + inline styles, no images (Outlook = Word).
 - Amber means "order more"; red is kept for overdue (21+ days) and
   safety. A good zero (items on hire 0) reads green as "All back".
+- The cover and email masthead carry a shut-progress strip (from the
+  roster) and "since the last report" deltas read from the newest earlier
+  `Reports\<day>\` workbook; sections carry a company mark and an
+  age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
+  line (gear out at each day's end) and the age bar.
 - The pack is set in Inter from `_fonts\` (OFL, subset-embedded by
   `coates_pdf.py`; Helvetica fallback). Item descriptions are tidied for
   display only (`item_name()`, `tidy_items: no` to turn off); transaction

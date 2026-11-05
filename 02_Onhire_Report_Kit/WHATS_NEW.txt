@@ -109,6 +109,29 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE PUSH (05 Nov 2026, late)
+ ---------------------------------
+   The cover opens with the SHUT PROGRESS strip - a cell per day in its
+   phase colour, worked days filled, today in orange, days to come as a
+   thin line - "Day 7 of 12 - demob Wed 11 Nov", or "Starts Sun 22 Nov -
+   17 days away" before a shut. Beside it, SINCE THE LAST REPORT: the kit
+   reads the newest earlier report in the Reports folder and says what
+   moved - on hire, movements, companies. The same strip sits in the
+   email masthead, and the position tiles carry the change too
+   ("v 22 since 05 Nov").
+
+   Every company now has a MARK - a round badge with its initials - on
+   the contents list and at the top of its section, with a quiet data
+   bar behind its name on the contents for its share of what is out.
+   Each section header carries AGE OF WHAT IS OUT: one bar, a segment
+   per age band (today, 1-3, 4-7, 8-20, 21+ days, undated).
+
+   At a glance gains the same age bar for the whole store under the
+   dials, and the Movements by day chart carries a line for the gear
+   out at the end of each day - the on-hire curve across the shut.
+   The Dashboard tab gains both as live Excel charts, and the Cover tab
+   shows shut progress, since-last-report and the typeface.
+
  NEW - THE LOOK (05 Nov 2026, evening)
  ------------------------------------
    The pack is set in INTER, a proper typeface that travels in the
