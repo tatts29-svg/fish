@@ -1,0 +1,42 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 6 Nov 2026 (09:2x AEST): \"Any loose fridges at same time as the lunch room too\", after \"Coates 4.8 lunch room leaving at 10am\". The loose fridges are the fridges that are references of their own (not listed inside a building) and still on site on the record: P26 Fridge Delivery (Fridge Lge 1311992), P28 Fridge Delivery (Fridge Lge 1283996), FR01 Fridge at the TV compound (1129733) and FR02 Fridge at the TV compound (1157786). The OP42 fridge row T0265 is not an asset the page tracks (no unit, not in the demob plan), so it cannot be recorded through the form and is left out. Fridges listed inside buildings leave with their buildings and are not touched. They left in full at 10:00 AEST on Fri 6 Nov 2026, with the lunchroom T0022 (spec 69). Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P26",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1311992"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "P28",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1283996"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "FR01",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1129733"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "FR02",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1157786"
+   ],
+   "complete": true
+  }
+ ]
+}
