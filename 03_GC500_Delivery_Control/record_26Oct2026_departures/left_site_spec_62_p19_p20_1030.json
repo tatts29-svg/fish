@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (10:3x AEST): \"P20   and p19 leave at 1030am\". 1110619 is P19's only unit (Coates portable building; ticked Ready 3 Nov; Brenden Meek's booking for 5 Nov 11:00 on the record) and 1097339 is P20's only unit (Coates portable building; ticked Ready 4 Nov; booking for 5 Nov 12:00 on the record); read 10:34 AEST, neither already left, so P19 and P20 each left in full at 10:30 AEST on Thu 5 Nov 2026, ahead of their bookings. Their air conditioners (P19 1295810, P20 1180683) and fire extinguishers stay listed as gear that goes with them. Recorded after 10:30, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P19",
+   "at": "2026-11-05T10:30:00+10:00",
+   "nos": [
+    "1110619"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "P20",
+   "at": "2026-11-05T10:30:00+10:00",
+   "nos": [
+    "1097339"
+   ],
+   "complete": true
+  }
+ ]
+}
