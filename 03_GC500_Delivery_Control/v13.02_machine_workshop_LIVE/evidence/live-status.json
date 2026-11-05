@@ -1,0 +1,14 @@
+{
+  "observedAtUTC": "2026-11-05T11:39:16.266149+00:00",
+  "status": {
+    "ready": true,
+    "version": "v13.02-coates-workshop",
+    "label": "The Coates Way machine and GC500 Map explorer",
+    "built": null,
+    "entry": "index.html",
+    "files": 241,
+    "bytes": 169864854,
+    "registered": "2026-11-05T11:38:32.894Z",
+    "sha256": "b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7"
+  }
+}

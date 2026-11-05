@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**READY TO UPLOAD. All agreed implementation and available execution checks pass; publication/read-back is the remaining step.**
+**LIVE and verified. Registered 5 Nov 2026 21:38:32 AEST; exact public read-back and subsequent live phone-browser checks pass.**
 
 Exact candidate `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7`, 241 files. Required base machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`; unchanged dashboard v13.01 `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`. All 234 other files retain their exact descriptors and bytes.
 
@@ -18,3 +18,9 @@ Exact candidate `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc
 The initial integrated desktop run passed 47 checks. Final evidence supersedes it with monotonic rendered test frames, explicit write-attempt counting, keyboard/hidden-state checks and settled restoration captures. The committed receipts and screenshots are the final candidate's evidence.
 
 Phone emulation establishes layout and operation, not physical-phone frame rate, thermals or instant loading. This is a prepared-engine mechanical illustration, not factory CAD, a certified lifting simulation or complete manufacturer disconnection procedure. Modelled coolant hoses/unions are shown honestly without inventing a complete circulating circuit. The server has no proven atomic compare-and-swap: the named owner publishes alone under the immediate expected-base guard.
+
+## Publication and live read-back
+
+Published source `b6bb121914b5c73f7091f4e287d47729469ed9b1`. Seven immutable blobs staged, one manifest registration returned 200, all 234 other descriptors retained, eleven protected server blobs retained, two replaced old blobs pruned by the service. Manifest digest/count and every changed public file match the frozen candidate. Server v5.94 and complete post-registration inventory verified; dashboard hash unchanged; no operational writes.
+
+The independent fresh-cache live phone-browser run fetched and hashed 69 live files including every changed module, opened the real workshop, used the supported bench/45° hand crank and exited. It substituted no candidate response and passed with zero page/console errors or writes. `live-browser.json`, `live-status.json`, `publication.json` and final images record the evidence.

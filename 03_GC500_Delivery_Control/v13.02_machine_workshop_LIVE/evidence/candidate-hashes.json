@@ -16,5 +16,11 @@
   "retainedFiles": 234,
   "totalFiles": 241,
   "networkWrites": 0,
-  "browserChecksCompleted": false
+  "browserChecksCompleted": true,
+  "browserReceipts": {
+    "desktop-checks.json": "2256dea8e72f15eda7169509efff845273179ec16aa244d545b2ba6c220c498f",
+    "phone-checks.json": "c45d588ce15ac67f4f24d96ca11cc88fc8e78efd69b81a4972d1b6501d69730d",
+    "dashboard-desktop.json": "348a04f43898ab9b718cb99be03718d280a6ec01db223fb9955a8fb4db422829",
+    "dashboard-phone.json": "dca4acbe579718ab66f4300c7699589cefe7269649c6a271661c569ed05ad7bd"
+  }
 }

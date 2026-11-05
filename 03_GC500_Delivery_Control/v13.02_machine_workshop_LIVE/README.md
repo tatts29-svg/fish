@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**READY TO UPLOAD — final desktop/phone checks and independent source/visual reviews pass. Not yet published.**
+**LIVE — 5 Nov 2026 21:38:32 AEST. Public bytes and live phone-browser operation verified.**
 
 Andrew approved all proposed machine improvements: “Lwts go.approved.to.all”. The existing Coates #26 car now has an engine workshop, finer materials and mechanical details, improved lighting and more detailed crew. The original Coates orange, car artwork and normal machine controls are retained.
 
@@ -22,7 +22,7 @@ The sequence begins with an engine prepared for removal. It is an interactive me
 - Retained machine: `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`, 236 files.
 - Exact base `car-app.js`: `d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8`.
 
-This is a machine-only release. Five small modules are added; `car-app.js` and the machine entry HTML change. All 234 other files remain byte-for-byte, including map/explorer/3D dependencies. The machine entry versions its module URL to avoid an old cached app hiding the new controls. Dashboard, shared record and financial calculations are unchanged. Exact final release/read-back evidence belongs in `VALIDATION.md` and `evidence/` after completion.
+This is a machine-only release. Five small modules are added; `car-app.js` and the machine entry HTML change. All 234 other files remain byte-for-byte, including map/explorer/3D dependencies. The machine entry versions its module URL to avoid an old cached app hiding the new controls. Dashboard, shared record and financial calculations are unchanged. Exact release/read-back evidence is in `VALIDATION.md` and `evidence/`.
 
 ## Reproduce
 
@@ -41,3 +41,9 @@ python3 -m unittest discover -s release -p test_release1302.py
 Browser acceptance uses the full frozen candidate with `PREVIEW_ROOT`, `OUT`, `GC500_CACHE`, `GC500_TOOLCHAIN`, `NODE_PATH` and `CHROMIUM_PATH` set. Serialize Chromium sessions with `/tmp/gc500-browser.lock`. `tests/test_browser.cjs` exercises desktop and phone workshop controls and restoration; `tests/test_dashboard.cjs` checks the unchanged dashboard routes and embedded machine. All requests are read-only.
 
 The added crew detail uses no extra draw calls; finish details use ten instanced draws and cull by distance/quality. Small lift details do not cast shadows. Existing adaptive resolution remains active. Browser phone emulation checks layout and functionality, not physical-phone frame rate or thermal behaviour. No instant-loading or hardware performance claim is made.
+
+## Verified live release
+
+Published source: `b6bb121914b5c73f7091f4e287d47729469ed9b1`. Machine `v13.02-coates-workshop`, digest `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7`, 241 files, 169,864,854 bytes. The server registered it at 2026-11-05T11:38:32.894Z (21:38 AEST). All seven changed files read back byte-for-byte, the protected server inventory matched and the dashboard remained exact v13.01.
+
+Fresh-cache live phone-browser verification then matched 69 public files, exercised workshop/bench/hand crank/exit, and reported no errors or writes. No candidate bytes were substituted in that check. Future machine releases must retain this complete 241-file manifest; page-only work still starts from unchanged dashboard v13.01.
