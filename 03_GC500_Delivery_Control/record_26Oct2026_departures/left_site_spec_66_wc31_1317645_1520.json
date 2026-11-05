@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (15:2x AEST): \"Disabled toilet left at 320pm\". The record carries four accessible toilets (WC86 1296899, WC01 1317644, WC51 1197174, WC31 1317645); three left 2 Nov, so WC31's 1317645 is the only one still on site (ticked Ready; Brenden Meek's booking was 2 Nov 01:00). WC31's two 16-pan blocks left 3 Nov 09:30, so with 1317645 gone WC31 is left in full. 1317645 left at 15:20 AEST on Thu 5 Nov 2026. Recorded after 15:20, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC31",
+   "at": "2026-11-05T15:20:00+10:00",
+   "nos": [
+    "1317645"
+   ],
+   "complete": true
+  }
+ ]
+}
