@@ -202,6 +202,12 @@ def main():
               "Right-click the zip, Extract All, and use that folder.")
     else:
         check(OK, "All the kit's files are here")
+    if os.path.isfile(os.path.join(HERE, "_fonts", "Inter-Regular.ttf")):
+        check(OK, "The pack's typeface (Inter) is here in _fonts")
+    else:
+        check(WARN, "The _fonts folder is missing",
+              "The pack still builds, set in Helvetica instead of Inter.",
+              "Extract the whole zip again to get the folder back.")
 
     out()
     out(" ---- WHERE IT'S SITTING " + "-" * 43)

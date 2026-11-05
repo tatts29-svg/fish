@@ -210,11 +210,13 @@ RAG = {
 #  Ratings and recommendations carry their own colour, so the same
 #  word always looks the same in the workbook, the email and the PDF.
 TONE = {
-    "High Demand": "red", "Good Use": "green",
-    "Low Use": "amber", "No Use": "slate",
-    "Increase Stock": "red", "Monitor / Increase": "amber",
+    "High Demand": "amber", "Good Use": "green",
+    "Low Use": "slate", "No Use": "slate",
+    "Increase Stock": "amber", "Monitor / Increase": "amber",
     "Keep Stock": "green", "Review / Reduce": "slate",
 }
+#  Red is kept for what is overdue or unsafe. Ordering more is work to
+#  do, not an alarm, so it reads amber.
 
 #  The two thresholds the whole report turns on. Out longer than
 #  LONG_OUT_DAYS wants a phone call; past WATCH_DAYS it goes amber so
@@ -417,6 +419,11 @@ class LooseSite(object):
         return (self._d.get("tidy_names") or "").strip().lower() in ("yes", "y", "true", "1")
 
     @property
+    def tidy_items(self):
+        """Item descriptions shown readable (on unless tidy_items: no)."""
+        return (self._d.get("tidy_items") or "yes").strip().lower() not in ("no", "n", "false", "0")
+
+    @property
     def acronyms(self):
         raw = self._d.get("acronyms") or ""
         return {a.strip().upper() for a in raw.replace(";", ",").split(",") if a.strip()}
@@ -491,7 +498,7 @@ def read_aliases(base):
 
 #  Filled in by build() from JOB.txt and COMPANY_ALIASES.txt, then used
 #  by co_name() everywhere a company name is read off an export.
-_NAMES = {"aliases": {}, "tidy": False, "acronyms": set()}
+_NAMES = {"aliases": {}, "tidy": False, "acronyms": set(), "tidy_items": True, "tags": []}
 
 
 def co_name(raw):
@@ -513,6 +520,87 @@ def co_name(raw):
         else:
             words.append(w)
     return " ".join(words)
+
+
+#  SiteIQ shorthand worth spelling out in a report. Only the ones that
+#  turn up in the exports and read one way; anything else stays as typed.
+_ITEM_WORDS = {
+    "ABRSVE": "abrasive", "ABRASV": "abrasive", "NONRCHG": "non-rechargeable",
+    "DISP": "disposable", "WH": "white", "WHT": "white", "BLK": "black", "NAT": "natural",
+    "SZ": "size", "CLR": "clear", "SYN": "synthetic", "PWR": "power", "DRV": "drive",
+    "ALK": "alkaline", "GRIND": "grinding", "ASSY": "assembly", "STD": "standard",
+    "GALV": "galvanised", "YEL": "yellow", "YLW": "yellow", "BLU": "blue", "GRN": "green",
+    "ORG": "orange", "LGE": "large", "LRG": "large", "SML": "small", "MED": "medium",
+    "PR": "pair", "PK": "pack", "BTL": "bottle", "CTN": "carton", "RL": "roll",
+    "LTR": "litre", "HVY": "heavy", "W/": "with", "W/O": "without", "C/W": "c/w",
+    "NON-VEND": "non-vend", "NONVEND": "non-vend", "REUSBL": "reusable", "RECHG": "rechargeable",
+}
+#  Words that stay in capitals: units people read as capitals, sizes,
+#  the usual trade acronyms, and whatever JOB.txt lists.
+_ITEM_KEEP = {"PPE", "LED", "UV", "PVC", "HSS", "SDS", "AA", "AAA", "FR", "USB", "AC", "DC",
+              "GPO", "RCD", "HV", "LV", "MIG", "TIG", "CO2", "O2", "ID", "OD", "BSP", "NPT",
+              "UNC", "UNF", "SAE", "HT", "XL", "XXL", "XXXL", "XS", "S", "M", "L", "HD",
+              "SS", "MS", "AL", "QA", "QC", "ISO", "AS", "NZS", "RHS", "SHS", "CHS", "UB",
+              "UC", "PFC", "EA", "HEX", "GP", "LP", "HP", "PTO", "AWG", "TPI", "RPM"}
+
+
+#  How a unit reads after a number: 18V, 310ml, 20L, 6Ah, 2XL.
+_UNITS = {"MM": "mm", "CM": "cm", "M": "m", "ML": "ml", "L": "L", "LTR": "L", "KG": "kg",
+          "G": "g", "V": "V", "A": "A", "AH": "Ah", "MAH": "mAh", "W": "W", "KW": "kW",
+          "WH": "Wh", "HP": "hp", "XS": "XS", "XL": "XL", "XXL": "XXL", "XXXL": "XXXL",
+          "PK": "pk", "PC": "pc", "PCS": "pcs", "T": "T", "IN": "in", "FT": "ft",
+          "LB": "lb", "PR": "pr", "OZ": "oz", "MPA": "MPa", "KPA": "kPa", "PSI": "psi",
+          "BAR": "bar", "NM": "Nm", "RPM": "rpm", "MIN": "min", "HR": "hr", "DEG": "deg"}
+
+
+def _tidy_word(w, acronyms):
+    up = w.upper()
+    if up in acronyms or up in _ITEM_KEEP:
+        return up
+    if up in _ITEM_WORDS:
+        return _ITEM_WORDS[up]
+    if "-" in w and not w.startswith("-") and not w.endswith("-"):
+        chunks = w.split("-")
+        if len(chunks) <= 3 and all(chunks) and not any(ch.isdigit() for ch in chunks[0]):
+            joined = "-".join(_tidy_word(c, acronyms) for c in chunks)
+            return joined.replace("size-", "size ")
+    if any(ch.isdigit() for ch in w):
+        #  A measurement - 127X1X22MM, 310ML, 18V - reads in lower case
+        #  with x between the numbers and its unit cased the usual way;
+        #  a code - GFPR200, A24 - stays exactly as typed.
+        if w[0].isdigit():
+            m = _re.match(r"^([\d.,/]+(?:[xX][\d.,/]+)*)([A-Za-z]+)?$", w)
+            if m:
+                unit = (m.group(2) or "").upper()
+                return m.group(1).replace("X", "x") + _UNITS.get(unit, unit.lower())
+            return _re.sub(r"(?<=\d)X(?=\d)", "x", w).lower()
+        return w
+    return w.lower()
+
+
+def item_name(raw):
+    """An item description the way the report shows it - when JOB.txt
+    has not said tidy_items: no - the site tag SiteIQ appends stripped,
+    SHOUTING CAPS made readable, measurements, codes and acronyms left
+    alone. The transaction and stock tabs keep the raw text."""
+    text = _s(raw)
+    if not text or not _NAMES.get("tidy_items", True):
+        return text
+    letters = [c for c in text if c.isalpha()]
+    if not letters or sum(1 for c in letters if c.isupper()) / float(len(letters)) < 0.7:
+        return text                                  # typed in mixed case - leave it
+    for tag in _NAMES.get("tags") or []:
+        text = _re.sub(r"\s*\d*" + _re.escape(tag) + r"20\d\d\s*$", "", text)
+    text = _re.sub(r"\s+[A-Z]{2,6}20\d\d\s*$", "", text)
+    acronyms = _NAMES.get("acronyms") or set()
+    parts = [pt.strip() for pt in text.split(",") if pt.strip()]
+    out = []
+    for part in parts:
+        out.append(" ".join(_tidy_word(w, acronyms) for w in part.split()))
+    text = ", ".join(out).strip()
+    if not text:
+        return _s(raw)
+    return text[0].upper() + text[1:]
 
 
 def read_project_schedule(path):
@@ -1074,6 +1162,9 @@ def build(base=HERE, when=None):
     _NAMES["aliases"] = read_aliases(base)
     _NAMES["tidy"] = s.tidy_names
     _NAMES["acronyms"] = s.acronyms
+    _NAMES["tidy_items"] = s.tidy_items
+    _NAMES["tags"] = sorted({t.upper() for t in [s.short or ""] + (s.customer or "").split()
+                             + list(s.acronyms) if t and t.isalpha() and 2 <= len(t) <= 6})
     if _NAMES["aliases"]:
         say("  Names     {} alias{} applied from COMPANY_ALIASES.txt".format(
             len(_NAMES["aliases"]), "" if len(_NAMES["aliases"]) == 1 else "es"))
@@ -1263,6 +1354,16 @@ def build(base=HERE, when=None):
           widths={0: 30, 1: 15, 2: 14, 3: 10, 4: 13, 5: 15, 6: 15},
           formats={2: INT_FMT, 3: INT_FMT, 4: INT_FMT, 5: INT_FMT, 6: INT_FMT},
           emphasis=lambda row: row[1] == "TOTAL")
+    #  The tooling and consumables lines group under each company's
+    #  total, so the tab folds to one line per company at a click.
+    try:
+        ws_cs = wb["Company Summary"]
+        ws_cs.sheet_properties.outlinePr.summaryBelow = True
+        for r_ in range(3, ws_cs.max_row + 1):
+            if ws_cs.cell(row=r_, column=2).value != "TOTAL":
+                ws_cs.row_dimensions[r_].outlineLevel = 1
+    except Exception:
+        pass
     tabs.append(("Company Summary", len(summary_rows),
                  "Per company: what they took, what they still have"))
 
@@ -1652,6 +1753,13 @@ def build(base=HERE, when=None):
             "unaffected.")
     else:
         try:
+            faces = coates_pdf.load_fonts(os.path.join(base, "_fonts"))
+            if not faces:
+                say("  NOTE | No _fonts folder beside the kit, so the pack is set in "
+                    "Helvetica this run. Extract the zip again to get Inter back.")
+        except Exception:
+            pass
+        try:
             pages = build_company_pack(pack_path, s, when, asat, period, parts,
                                        blocks, quiet)
             pack_info = {"path": pack_path, "pages": pages,
@@ -1706,6 +1814,15 @@ def build(base=HERE, when=None):
             _LOG.append(traceback.format_exc())
     wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Cover"])))
     parts["n_tabs"] = len(wb.sheetnames)
+    #  Tab colours say what kind of tab it is: orange for the front
+    #  pages, charcoal for the data, grey for the two typed by hand.
+    for ws_ in wb.worksheets:
+        if ws_.title in ("Cover", "Dashboard", "Forecast"):
+            ws_.sheet_properties.tabColor = ORANGE
+        elif ws_.title in CARRIED_OVER:
+            ws_.sheet_properties.tabColor = GREY
+        else:
+            ws_.sheet_properties.tabColor = SLATE
 
     # ---- save ---------------------------------------------------------
     stem = "{} On-Hire Workbook - {}".format(label, when.strftime("%d %b %Y"))
@@ -1886,13 +2003,13 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     #  The three or four things worth knowing before the tables. Every
     #  number here is counted off the exports - nothing is estimated.
     flags = [
-        ("red" if hot else "green", "Order more",
+        ("amber" if hot else "green", "Order more",
          "{:,} tooling {}".format(len(hot),
                                   "line" if len(hot) == 1 else "lines")),
-        ("red" if tight else "green", "Consumables tight",
+        ("amber" if tight else "green", "Consumables tight",
          "{:,} {}".format(len(tight),
                           "line" if len(tight) == 1 else "lines")),
-        ("amber" if long_out else "green",
+        ("red" if long_out else "green",
          "Out over {} days".format(LONG_OUT_DAYS),
          "{:,} {}".format(len(long_out),
                           "item" if len(long_out) == 1 else "items")),
@@ -1993,21 +2110,21 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     #  Working hardest - the gear earning its keep, best turns first.
     hard = [r for r in tu if r[11] in ("High Demand", "Good Use")]
     hard.sort(key=lambda r: (-(r[5] / r[1] if r[1] else 0), -r[5]))
-    hardest = [[r[0], r[1], r[2], r[5], r[11], r[12]] for r in hard[:12]]
+    hardest = [[item_name(r[0]), r[1], r[2], r[5], r[11], r[12]] for r in hard[:12]]
 
     #  Not moving - biggest holdings that have not gone out at all.
     idle_tool.sort(key=lambda r: -r[1])
-    idle_rows = [[r[0], r[1], r[2], r[12]] for r in idle_tool[:12]]
+    idle_rows = [[item_name(r[0]), r[1], r[2], r[12]] for r in idle_tool[:12]]
 
     #  Consumables worth watching - the ones running down, tightest first.
     watch = [r for r in cu if r[9] in ("High Demand", "Good Use")]
     watch.sort(key=lambda r: -r[4])
-    cons = [[r[0], r[1], r[2], r[4], r[10]] for r in watch[:12]]
+    cons = [[item_name(r[0]), r[1], r[2], r[4], r[10]] for r in watch[:12]]
 
     #  Out the longest - oldest open issue transactions. The item NUMBER
     #  rides along, because four lines all saying "Rio Tinto DropMat Kit"
     #  are four different kits and somebody has to go and find them.
-    longest = [[r[3], r[2], r[0], r[1], r[5], days_out(when, r[5])]
+    longest = [[r[3], item_name(r[2]), r[0], r[1], r[5], days_out(when, r[5])]
                for r in dated[:12]]
 
     #  ---- everything on hire, company by company, person by person ----
@@ -2020,7 +2137,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         who = _s(r[1]) or "(nobody named on it)"
         p = roll.setdefault(co, {}).setdefault(
             who, {"items": {}, "oldest": None, "n": 0, "undated": 0})
-        desc = _s(r[3]) or "(no description)"
+        desc = item_name(r[3]) or "(no description)"
         p["items"][desc] = p["items"].get(desc, 0) + 1
         p["n"] += 1
         if r[5] and (p["oldest"] is None or r[5] < p["oldest"]):
@@ -3132,7 +3249,8 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
             h = _hour_of(r[5])
             if h is not None:
                 hour[h] += 1
-            qty[r[2]] = qty.get(r[2], 0.0) + (r[3] or 0.0)
+            nm = item_name(r[2])
+            qty[nm] = qty.get(nm, 0.0) + (r[3] or 0.0)
     for r in own or []:
         for dk, tk in (("TRAN_START_DATE", "TRAN_START_TIME"), ("TRAN_END_DATE", "TRAN_END_TIME")):
             if inwin(_date(r.get(dk))):
@@ -3885,6 +4003,13 @@ def forecast_tab(wb, s, when, asat, fc):
                 c.alignment = Alignment(horizontal="right")
             if day == fc["today"]:
                 c.font = Font(name="Calibri", size=11, bold=True, color=argb(COATES_ORANGE))
+        ph = _phase(phase_label)
+        fill, ink_ = {"travel": ("E9ECF0", "4A5361"), "mob": ("FDE7D9", "8A4A1F"),
+                      "day": ("FFF1EA", "A6410F"), "night": ("2A313C", "FFFFFF")}.get(ph, (None, None))
+        if fill:
+            pc = ws.cell(row=rr, column=2)
+            pc.fill = PatternFill("solid", fgColor=argb(fill))
+            pc.font = Font(name="Calibri", size=11, bold=(ph == "night"), color=argb(ink_))
     last_data = rr
     rr += 1
     c = ws.cell(row=rr, column=1, value="Total")
@@ -4124,8 +4249,11 @@ def dashboard(wb, s, when, asat, parts):
             "Built from the same exports as every other tab.").font = NOTE_FONT
 
     comp = [c for c in parts["companies"] if c[1]][:10]
+    gear_out = bool(comp)
+    if not gear_out:                      # nothing on hire: chart the movement instead
+        comp = sorted([c for c in parts["companies"] if c[2]], key=lambda c: -c[2])[:10]
     end_a = table(D0, 1, ["Company", "On hire now", "Tooling issues", "Consumables"],
-                  [[c[0], c[1], c[2], c[3]] for c in comp])
+                  [[c[0], c[1], c[2], c[3]] for c in comp] or [["(none)", 0, 0, 0]])
     order = ["High Demand", "Good Use", "Low Use", "No Use"]
     end_b = table(D0, 6, ["Rating", "Tooling lines", "Consumable lines"],
                   [[k, v["tool_mix"].get(k, 0), v["cons_mix"].get(k, 0)] for k in order])
@@ -4188,15 +4316,17 @@ def dashboard(wb, s, when, asat, parts):
         ch.title = ["Fleet on hire {:.0f}%", "Dated {:.0f}%", "Lines past 80%: {:.0f}%",
                     "Over {} days: {}".format(LONG_OUT_DAYS, a)][k].format(pct * 100)
         ch.legend = None
-        ch.width, ch.height = 7.4, 5.2
+        ch.width, ch.height = 6.6, 5.2
         ws.add_chart(ch, "{}8".format(get_column_letter(1 + k * 3)))
 
     # ---- companies ----------------------------------------------------
     bar = BarChart()
     bar.type = "bar"
     bar.style = 10
-    bar.title = "Who is holding gear - items on hire now"
-    bar.add_data(Reference(ws, min_col=2, min_row=D0, max_row=end_a), titles_from_data=True)
+    bar.title = ("Who is holding gear - items on hire now" if gear_out
+                 else "Who moved the most gear - tooling issues this period")
+    bar.add_data(Reference(ws, min_col=2 if gear_out else 3, min_row=D0, max_row=end_a),
+                 titles_from_data=True)
     bar.set_categories(Reference(ws, min_col=1, min_row=D0 + 1, max_row=end_a))
     paint(bar.series[0], COATES_ORANGE)
     bar.legend = None
@@ -4204,7 +4334,7 @@ def dashboard(wb, s, when, asat, parts):
     bar.x_axis.scaling.orientation = "maxMin"
     labels(bar)
     bar.gapWidth = 60
-    bar.width, bar.height = 15.2, 8.2
+    bar.width, bar.height = 13.2, 8.2
     ws.add_chart(bar, "A20")
 
     # ---- ratings doughnut --------------------------------------------
@@ -4218,7 +4348,8 @@ def dashboard(wb, s, when, asat, parts):
         pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
         dn.series[0].dPt.append(pt)
     labels(dn)
-    dn.width, dn.height = 14.6, 8.2
+    dn.legend.position = "b"
+    dn.width, dn.height = 13.4, 8.2
     ws.add_chart(dn, "G20")
 
     # ---- movements by day ---------------------------------------------
@@ -4232,8 +4363,9 @@ def dashboard(wb, s, when, asat, parts):
     for srs, hex6 in zip(col.series, (COATES_ORANGE, "98A0AA", "FCD3BE")):
         paint(srs, hex6)
     col.y_axis.majorGridlines = None
+    col.legend.position = "b"
     col.gapWidth = 80
-    col.width, col.height = 15.2, 8.2
+    col.width, col.height = 13.2, 8.2
     ws.add_chart(col, "A37")
 
     # ---- consumables running down -------------------------------------
@@ -4251,7 +4383,7 @@ def dashboard(wb, s, when, asat, parts):
     cb.x_axis.scaling.orientation = "maxMin"
     labels(cb, "0%")
     cb.gapWidth = 60
-    cb.width, cb.height = 14.6, 8.2
+    cb.width, cb.height = 13.4, 8.2
     ws.add_chart(cb, "G37")
 
     tidy_print(ws, NC, landscape=False, name="Dashboard")
@@ -4317,7 +4449,7 @@ E_WIDTH = 760
 #  with a # on the front for HTML.
 E_RAG = dict((k, tuple("#" + x for x in v)) for k, v in RAG.items())
 E_TONE = TONE
-E_STATUS = {"red": "Action needed", "amber": "Watch", "green": "On track",
+E_STATUS = {"red": "Action needed", "amber": "To order", "green": "On track",
             "slate": "For review"}
 
 E_TXT = ("font-family:{f};font-size:11pt;color:{i};line-height:1.55"
@@ -4719,9 +4851,9 @@ def _moving_strip(story):
     for i, (tone, label, value, sub) in enumerate(cells):
         bg, fg, bar = E_RAG.get(tone, E_RAG["slate"])
         if i:
-            out.append("<td width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
+            out.append("<td class='gap' width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
         out.append(
-            "<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
+            "<td class='tile' width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
             "background:{c};border:1px solid {l};border-bottom:3px solid {bar};"
             "padding:9px 11px\">"
             "<div style=\"font-family:{f};font-size:16pt;font-weight:800;"
@@ -4749,9 +4881,15 @@ def _tiles(tiles):
         out.append("<tr>")
         for i, (label, value, sub) in enumerate(chunk):
             if i:
-                out.append("<td width='9' style='width:9px;font-size:1px'>&nbsp;</td>")
+                out.append("<td class='gap' width='9' style='width:9px;font-size:1px'>&nbsp;</td>")
+            rule, ink = E_ORANGE, E_INK
+            if str(value) == "0" and label.lower().startswith("items on hire"):
+                rule, ink = E_RAG["green"][2], E_RAG["green"][1]
+                sub = "all back - every item scanned in"
+            elif str(value) == "0":
+                ink = E_MUTED
             out.append(
-                "<td width='33%' bgcolor=\"{c}\" valign='top' "
+                "<td class='tile' width='33%' bgcolor=\"{c}\" valign='top' "
                 "style=\"width:33%;background:{c};border:1px solid {l};"
                 "border-top:3px solid {o};padding:13px 15px\">"
                 "<div style=\"font-family:{f};font-size:24pt;font-weight:800;"
@@ -4761,7 +4899,7 @@ def _tiles(tiles):
                 "padding-top:7px\">{lb}</div>"
                 "<div style=\"font-family:{f};font-size:9pt;color:{m};"
                 "padding-top:2px\">{s}</div></td>".format(
-                    c=E_CARD, l=E_LINE, o=E_ORANGE, f=E_FONT, k=E_INK,
+                    c=E_CARD, l=E_LINE, o=rule, f=E_FONT, k=ink,
                     m=E_MUTED, v=_esc(value), lb=_esc(label), s=_esc(sub)))
         for _ in range(3 - len(chunk)):
             out.append("<td width='9' style='width:9px;font-size:1px'>&nbsp;</td>")
@@ -4780,9 +4918,9 @@ def _ahead_card(fc):
     each = int(100 / len(cells))
     for i, (label, value, sub) in enumerate(cells):
         if i:
-            out.append("<td width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
+            out.append("<td class='gap' width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
         out.append(
-            "<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
+            "<td class='tile' width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
             "background:{c};border:1px solid {l};border-top:3px solid {o};"
             "padding:9px 11px\">"
             "<div style=\"font-family:{f};font-size:12.5pt;font-weight:800;"
@@ -4798,6 +4936,14 @@ def _ahead_card(fc):
     out.append("<div style=\"{sm};padding-top:8px\">{a} {b}</div>".format(
         sm=E_SMALL, a=_esc(fc["brief"]), b=_esc(fc["ref_line"])))
     return "".join(out)
+
+
+def _more(n, where):
+    """' Another 6 lines are on the Tooling Utilisation tab.' or nothing."""
+    if n <= 0:
+        return ""
+    return " Another {:,} line{} {} on {} of the workbook.".format(
+        n, "" if n == 1 else "s", "is" if n == 1 else "are", where)
 
 
 def _actions_card(parts):
@@ -4906,71 +5052,101 @@ def email_html(s, when, asat, parts):
 
     #  ---- 2. who is holding gear --------------------------------------
     rows = parts["companies"]
-    mx = max([r[1] for r in rows] or [0])
     has_own = bool(story.get("own_total"))
-    inner.append(_section("2", "Who is holding gear",
-                          "Every company on site, biggest holding first"))
-    inner.append(_gap(10))
-    cols = ["Company", "On hire now", "Tooling issues", "Consumables"]
-    widths = {0: 32, 1: 19, 2: 13, 3: 13}
-    aligns = {1: "right", 2: "right", 3: "right"}
-    if has_own:
-        cols.append("Own gear")
-        widths = {0: 28, 1: 18, 2: 12, 3: 12, 4: 12, 5: 18}
-        aligns[4] = "right"
-        aligns[5] = "right"
-    else:
-        widths[4] = 23
-        aligns[4] = "right"
-    cols.append("Longest out")
-    body_rows = []
-    for r in rows:
-        cells = [_lead(r[0]),
-                 _metric(_fmt(r[1]), r[1], mx, "orange"),
-                 _num(_fmt(r[2]), muted=not r[2]),
-                 _num(_fmt(r[3]), muted=not r[3])]
+    anything_out = any(r[1] for r in rows)
+    if anything_out:
+        mx = max([r[1] for r in rows] or [0])
+        inner.append(_section("2", "Who is holding gear",
+                              "Every company on site, biggest holding first"))
+        inner.append(_gap(10))
+        cols = ["Company", "On hire now", "Tooling issues", "Consumables"]
+        widths = {0: 32, 1: 19, 2: 13, 3: 13}
+        aligns = {1: "right", 2: "right", 3: "right"}
         if has_own:
-            cells.append(_num(_fmt(r[5] if len(r) > 5 else 0),
-                              muted=not (r[5] if len(r) > 5 else 0)))
-        cells.append("<table cellpadding='0' cellspacing='0' border='0' align='right'>"
-                     "<tr><td>{}</td></tr></table>".format(
-                         _pill(_days_text(r[4]) if r[1] else "nothing out",
-                               day_tone(r[4]) if r[1] else "slate")))
-        body_rows.append(cells)
-    inner.append(_table(
-        cols, body_rows, widths=widths, aligns=aligns,
-        note="On hire now is what is out in their name right now. Tooling "
-             "issues and consumables are this period's movements"
-             + (", own gear is their own equipment logged through our counter"
-                if has_own else "")
-             + ". Longest out is the oldest issue transaction still open in "
-               "their name."))
+            cols.append("Own gear")
+            widths = {0: 28, 1: 18, 2: 12, 3: 12, 4: 12, 5: 18}
+            aligns[4] = "right"
+            aligns[5] = "right"
+        else:
+            widths[4] = 23
+            aligns[4] = "right"
+        cols.append("Longest out")
+        body_rows = []
+        for r in rows:
+            cells = [_lead(r[0]),
+                     _metric(_fmt(r[1]), r[1], mx, "orange"),
+                     _num(_fmt(r[2]), muted=not r[2]),
+                     _num(_fmt(r[3]), muted=not r[3])]
+            if has_own:
+                cells.append(_num(_fmt(r[5] if len(r) > 5 else 0),
+                                  muted=not (r[5] if len(r) > 5 else 0)))
+            cells.append("<table cellpadding='0' cellspacing='0' border='0' align='right'>"
+                         "<tr><td>{}</td></tr></table>".format(
+                             _pill(_days_text(r[4]) if r[1] else "nothing out",
+                                   day_tone(r[4]) if r[1] else "slate")))
+            body_rows.append(cells)
+        inner.append(_table(
+            cols, body_rows, widths=widths, aligns=aligns,
+            note="On hire now is what is out in their name right now. Tooling "
+                 "issues and consumables are this period's movements"
+                 + (", own gear is their own equipment logged through our counter"
+                    if has_own else "")
+                 + ". Longest out is the oldest issue transaction still open in "
+                   "their name."))
+    else:
+        #  Nothing out to anyone: the bar goes on the movement instead.
+        rows = sorted(rows, key=lambda r: (-(r[2] + r[3]), r[0].upper()))
+        mx = max([r[2] for r in rows] or [0])
+        inner.append(_section("2", "Who moved the most gear",
+                              "Nothing is on hire to anyone - this period's movements, busiest first"))
+        inner.append(_gap(10))
+        cols = ["Company", "Tooling issues", "Consumables"] + (["Own gear"] if has_own else [])
+        widths = ({0: 40, 1: 24, 2: 18, 3: 18} if has_own else {0: 46, 1: 30, 2: 24})
+        aligns = {1: "right", 2: "right", 3: "right"}
+        body_rows = []
+        for r in rows:
+            cells = [_lead(r[0]),
+                     _metric(_fmt(r[2]), r[2], mx, "orange"),
+                     _num(_fmt(r[3]), muted=not r[3])]
+            if has_own:
+                cells.append(_num(_fmt(r[5] if len(r) > 5 else 0),
+                                  muted=not (r[5] if len(r) > 5 else 0)))
+            body_rows.append(cells)
+        inner.append(_table(
+            cols, body_rows, widths=widths, aligns=aligns,
+            note="Every item issued has been scanned back in, so there is nothing to "
+                 "chase. Tooling issues and consumables are this period's movements"
+                 + (", own gear is their own equipment logged through our counter"
+                    if has_own else "") + "."))
     inner.append(_gap(24))
 
     #  ---- 3. working hardest ------------------------------------------
+    SHOW = 6
     rows = parts["hardest"]
-    mx = max([r[3] for r in rows] or [0])
+    shown = rows[:SHOW]
+    mx = max([r[3] for r in shown] or [0])
     inner.append(_section("3", "Working hardest",
                           "The gear earning its keep, most turns first"))
     inner.append(_gap(10))
     inner.append(_table(
-        ["Item", "On site", "Out now", "Times issued", "Rating", "Do"],
+        ["Item", "On site", "Out now", "Times issued", "Rating"],
         [[_lead(r[0]),
           _num(_fmt(r[1])),
           _num(_fmt(r[2]), muted=not r[2]),
           _metric(_fmt(r[3]), r[3], mx, E_TONE.get(r[4], "orange")),
-          _pill(r[4], E_TONE.get(r[4], "slate")),
-          _plain(r[5], "left", muted=True)] for r in rows],
-        widths={0: 33, 1: 9, 2: 9, 3: 16, 4: 15, 5: 18},
+          _pill(r[4], E_TONE.get(r[4], "slate"))] for r in shown],
+        widths={0: 44, 1: 10, 2: 10, 3: 18, 4: 18},
         aligns={1: "right", 2: "right", 3: "right"},
-        note="Rated on turns - times issued against how many we hold. "
-             "Anything on Increase Stock is going out faster than we can "
-             "turn it around, and the shift feels that before we do."))
+        note="Rated on turns - times issued against how many we hold. High "
+             "demand means it is going out faster than we can turn it around, "
+             "so more is worth ordering."
+             + _more(len(rows) - len(shown), "the Tooling Utilisation tab")))
     inner.append(_gap(24))
 
     #  ---- 4. not moving -----------------------------------------------
     rows = parts["idle"]
-    mx = max([r[1] for r in rows] or [0])
+    shown = rows[:SHOW]
+    mx = max([r[1] for r in shown] or [0])
     inner.append(_section("4", "Not moving",
                           "Biggest holdings that have not gone out once"))
     inner.append(_gap(10))
@@ -4979,33 +5155,35 @@ def email_html(s, when, asat, parts):
         [[_lead(r[0]),
           _metric(_fmt(r[1]), r[1], mx, "slate"),
           _num(_fmt(r[2]), muted=not r[2]),
-          _pill(r[3], E_TONE.get(r[3], "slate"))] for r in rows],
+          _pill(r[3], E_TONE.get(r[3], "slate"))] for r in shown],
         widths={0: 52, 1: 16, 2: 12, 3: 20},
         aligns={1: "right", 2: "right"},
         note="Every one of these is shelf space and hire we are carrying "
-             "for nothing. Say the word on any line and it goes home."))
+             "for nothing. Say the word on any line and it goes home."
+             + _more(len(rows) - len(shown), "the Tooling Utilisation tab")))
     inner.append(_gap(24))
 
     #  ---- 5. consumables to watch -------------------------------------
     rows = parts["consumables"]
+    shown = rows[:SHOW]
     tight = parts["cons_tight"]
     inner.append(_section("5", "Consumables to watch",
                           "The lines running down, tightest first"))
     inner.append(_gap(10))
     inner.append(_table(
-        ["Line", "On shelf", "Gone out", "Used", "Do"],
+        ["Line", "On shelf", "Gone out of the position", "Do"],
         [[_lead(r[0]),
           _num(_fmt(r[1]), muted=not r[1]),
-          _num(_fmt(r[2])),
-          _metric("{:.0f}%".format(round(r[3] * 100)), r[3] * 100, 100,
-                  "red" if r[3] >= tight else
-                  ("amber" if r[3] >= 0.6 else "green")),
-          _pill(r[4], E_TONE.get(r[4], "slate"))] for r in rows],
-        widths={0: 40, 1: 12, 2: 12, 3: 16, 4: 20},
-        aligns={1: "right", 2: "right", 3: "right"},
-        note="Used is what has gone out against the whole position. Past "
-             "{:.0f}% we order, because running a line dry mid-shift costs "
-             "more than the stock does.".format(tight * 100)))
+          _metric("{} of {}".format(_fmt(r[2]), _fmt(r[1] + r[2])), r[3] * 100, 100,
+                  "amber" if r[3] >= tight else "green"),
+          _pill("Order" if r[4] == "Increase Stock" else r[4],
+                E_TONE.get(r[4], "slate"))] for r in shown],
+        widths={0: 46, 1: 12, 2: 26, 3: 16},
+        aligns={1: "right", 2: "right"},
+        note="Gone out is this period's draws against the whole position - "
+             "shelf plus drawn. Past {:.0f}% we order, because running a line "
+             "dry mid-shift costs more than the stock does.".format(tight * 100)
+             + _more(len(rows) - len(shown), "the Consumable Utilisation tab")))
     inner.append(_gap(24))
 
     #  ---- 6. out the longest ------------------------------------------
@@ -5109,6 +5287,10 @@ def email_html(s, when, asat, parts):
     #  stretches the full width of a big monitor and looks like a
     #  spreadsheet somebody pasted in.
     return (
+        "<style type=\"text/css\">@media only screen and (max-width:620px){{"
+        ".tile{{display:block !important;width:100% !important;"
+        "box-sizing:border-box !important}}"
+        ".gap{{display:none !important}}}}</style>"
         "<div style=\"background:{p};margin:0;padding:0\">"
         "<table cellpadding='0' cellspacing='0' border='0' width='100%' "
         "bgcolor=\"{p}\" style=\"border-collapse:collapse;width:100%;"
@@ -5173,7 +5355,7 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None):
     for r in ctx:
         co = _s(r[0]) or "(not named)"
         line = cons.setdefault(co, {}).setdefault(
-            _s(r[2]) or "(no description)", {"qty": 0.0, "people": set()})
+            item_name(r[2]) or "(no description)", {"qty": 0.0, "people": set()})
         line["qty"] += float(r[3] or 0)
         if _s(r[1]):
             line["people"].add(_s(r[1]))
@@ -5182,7 +5364,7 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None):
     for r in (own or []):
         co = _s(r.get("EMPLOYER_NAME")) or "(not named)"
         own_by[co] = own_by.get(co, 0) + 1
-        k = _s(r.get("SKU/ITEM DESCRIPTION")) or "(no description)"
+        k = item_name(r.get("SKU/ITEM DESCRIPTION")) or "(no description)"
         d_ = own_lines_by.setdefault(co, {})
         d_[k] = d_.get(k, 0) + 1
 
@@ -5295,6 +5477,89 @@ class _Pack(object):
                 self.cont()
 
     # ---- pieces ----------------------------------------------------------
+    def icon(self, kind, x, y, s=9, colour=None):
+        """A small flat glyph in a box s wide at (x, y): plane, counter,
+        flag, clock, box, person, moves, bag, tag, shelf. Drawn, not an
+        image, so it stays sharp and needs nothing embedded."""
+        import math
+        d = self.doc
+        c = colour or P_ORANGE
+        u = s / 10.0
+        if kind in ("plane_in", "plane_out"):
+            up = kind == "plane_out"
+            x0, y0 = x + 1 * u, y + (2 * u if up else 8 * u)
+            x1, y1 = x + 9 * u, y + (8 * u if up else 2 * u)
+            d.polyline([(x0, y1), (x1, y0)], colour=c, lw=1.6 * u)
+            tip = (x1, y0)
+            back = -1 if up else 1
+            d.polyline([(tip[0] - 4.2 * u, tip[1] + 0.2 * u * back), tip,
+                        (tip[0] - 0.6 * u, tip[1] + 4.2 * u * back)],
+                       colour=c, lw=1.6 * u, fill=None)
+        elif kind == "counter":
+            d.rect(x, y + 5.5 * u, 10 * u, 4.5 * u, fill=c, radius=1 * u)
+            d.circle(x + 5 * u, y + 2.6 * u, 2 * u, fill=c)
+        elif kind == "flag":
+            d.rect(x + 1.5 * u, y, 1.3 * u, 10 * u, fill=c)
+            d.polyline([(x + 2.8 * u, y + 0.5 * u), (x + 9.5 * u, y + 2.8 * u),
+                        (x + 2.8 * u, y + 5.2 * u)], colour=None, fill=c)
+        elif kind == "clock":
+            d.circle(x + 5 * u, y + 5 * u, 4.4 * u, stroke=c, lw=1.4 * u)
+            d.polyline([(x + 5 * u, y + 2.4 * u), (x + 5 * u, y + 5.2 * u), (x + 7.2 * u, y + 6.4 * u)],
+                       colour=c, lw=1.3 * u)
+        elif kind == "box":
+            d.rect(x + 0.8 * u, y + 2 * u, 8.4 * u, 7.5 * u, stroke=c, lw=1.3 * u, radius=1 * u)
+            d.rect(x + 0.8 * u, y + 2 * u, 8.4 * u, 2.4 * u, fill=c, radius=0.8 * u)
+        elif kind == "person":
+            d.circle(x + 5 * u, y + 2.8 * u, 2.3 * u, fill=c)
+            d.ring(x + 5 * u, y + 10 * u, 4.6 * u, 0, 180, 0, c)
+        elif kind == "moves":
+            d.polyline([(x + 1 * u, y + 3 * u), (x + 9 * u, y + 3 * u)], colour=c, lw=1.4 * u)
+            d.polyline([(x + 6.5 * u, y + 0.8 * u), (x + 9 * u, y + 3 * u), (x + 6.5 * u, y + 5.2 * u)],
+                       colour=c, lw=1.4 * u)
+            d.polyline([(x + 9 * u, y + 7.2 * u), (x + 1 * u, y + 7.2 * u)], colour=c, lw=1.4 * u)
+            d.polyline([(x + 3.5 * u, y + 5 * u), (x + 1 * u, y + 7.2 * u), (x + 3.5 * u, y + 9.4 * u)],
+                       colour=c, lw=1.4 * u)
+        elif kind == "bag":
+            d.rect(x + 1 * u, y + 3.5 * u, 8 * u, 6.5 * u, fill=c, radius=1.2 * u)
+            d.ring(x + 5 * u, y + 3.6 * u, 3 * u, 1.8 * u, 180, 0, c)
+        elif kind == "tag":
+            d.polyline([(x + 1 * u, y + 1 * u), (x + 6 * u, y + 1 * u), (x + 9.5 * u, y + 5 * u),
+                        (x + 6 * u, y + 9 * u), (x + 1 * u, y + 9 * u)], colour=None, fill=c)
+            d.circle(x + 3.2 * u, y + 5 * u, 1.1 * u, fill=P_WHITE)
+        elif kind == "shelf":
+            for k in range(3):
+                d.rect(x + 0.5 * u, y + 1 * u + 3.2 * u * k, 9 * u, 1.6 * u, fill=c, radius=0.5 * u)
+        elif kind == "tick":
+            d.polyline([(x + 1.5 * u, y + 5.5 * u), (x + 4.2 * u, y + 8.2 * u), (x + 8.8 * u, y + 2 * u)],
+                       colour=c, lw=1.8 * u)
+
+    @staticmethod
+    def icon_for(label):
+        z = (label or "").lower()
+        if z.startswith("fly in"):
+            return "plane_in"
+        if z.startswith("fly out"):
+            return "plane_out"
+        if "counter" in z:
+            return "counter"
+        if "last shift" in z or z.startswith("starts"):
+            return "flag"
+        if "hour" in z or "longest" in z or "days" in z:
+            return "clock"
+        if "people" in z:
+            return "person"
+        if "move" in z or "issues" in z:
+            return "moves"
+        if "draw" in z or "consumables issued" in z:
+            return "bag"
+        if "own gear" in z or "coates items" in z:
+            return "tag"
+        if "shelf" in z:
+            return "shelf"
+        if "demob" in z or "items on hire" in z:
+            return "box"
+        return None
+
     def chip(self, x_right, y_top, text, tone, size=7.5):
         d = self.doc
         bg, fg, _bar = E_RAG.get(tone, E_RAG["slate"])
@@ -5311,11 +5576,22 @@ class _Pack(object):
         w = (self.cw - gap * (n - 1)) / float(n)
         x = self.x0
         for value, label, tone in tiles:
-            _bg, _fg, bar = E_RAG.get(tone or "orange", E_RAG["orange"])
+            _bg, fg, bar = E_RAG.get(tone or "orange", E_RAG["orange"])
+            zero = str(value) in ("0", "-")
+            ink = (fg if tone == "green" else P_INK) if not (zero and tone != "green") else P_MUTED
+            if tone == "green" and str(value) == "0":
+                value = "All back"
             d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
             d.rect(x, self.y, w, 2.5, fill=bar)
-            d.text(x + 10, self.y + 25, str(value), size=17, bold=True,
-                   colour=P_INK, max_w=w - 20)
+            all_back = str(value) == "All back"
+            kind = None if all_back else self.icon_for(label)
+            if kind:
+                self.icon(kind, x + w - 20, self.y + 9, 9, bar if not zero else C_MUTED_LIGHT)
+            size = 12 if all_back else 17
+            room_w = w - (20 if all_back else 32)
+            while size > 11 and d.text_width(str(value), size, bold=True) > room_w:
+                size -= 1
+            d.text(x + 10, self.y + 25, str(value), size=size, bold=True, colour=ink, max_w=room_w)
             d.text(x + 10, self.y + 39, label.upper(), size=6.6, bold=True,
                    colour=P_MUTED, tracking=0.4, max_w=w - 20)
             x += w + gap
@@ -5365,7 +5641,7 @@ class _Pack(object):
 
     def item_row(self, r, n):
         d = self.doc
-        desc_lines = d.wrap(_s(r[3]) or "(no description)", 9, 248, max_lines=2)
+        desc_lines = d.wrap(item_name(r[3]) or "(no description)", 9, 248, max_lines=2)
         h = 10 + 11.5 * len(desc_lines)
         self.need(h)
         if n % 2:
@@ -5427,9 +5703,12 @@ class _Pack(object):
             t = math.radians(a_end)
             d.circle(cx + rm * math.cos(t), cy - rm * math.sin(t), cap, fill=colour)
         d.text(cx, cy - 2, str(value), size=16, bold=True, colour=P_INK, align="centre")
-        d.text(cx, cy + 14, label.upper(), size=6.3, bold=True, colour=P_MUTED,
-               tracking=0.4, align="centre", max_w=118)
-        d.text(cx, cy + 25, sub, size=7, colour=P_MUTED, align="centre", max_w=118)
+        lines = d.wrap(label.upper(), 6.3, 84, bold=True, max_lines=2)
+        for i, ln in enumerate(lines):
+            d.text(cx, cy + 14 + 8 * i, ln, size=6.3, bold=True, colour=P_MUTED,
+                   tracking=0.4, align="centre")
+        d.text(cx, cy + 17 + 8 * len(lines), sub, size=7, colour=P_MUTED, align="centre",
+               max_w=118)
 
     def hbars(self, x, y, w, rows, label_w=96, pitch=16, bar_h=10, colours=None,
               fmt=None, threshold=None):
@@ -5988,6 +6267,10 @@ class _Pack(object):
         bw = (w - gap * (n - 1)) / float(n)
         base = y + h - 12
         plot_h = h - 12 - 10
+        for hh in busy:                       # the hour either side of a crunch
+            bx0 = x + max(0, hh - 1) * (bw + gap)
+            bx1 = x + min(24, hh + 2) * (bw + gap) - gap
+            d.rect(bx0 - 1, y - 2, bx1 - bx0 + 2, base - y + 2, fill=P_TINT, radius=2)
         d.line(x, base, x + w, base, colour=P_LINE, lw=0.6)
         for i, c in enumerate(counts):
             bh = plot_h * c / float(biggest)
@@ -6015,10 +6298,10 @@ class _Pack(object):
         self.doc.bookmark("Looking ahead", idx, 60)
         d.text(self.x0, self.y + 16, "Looking ahead", size=18, bold=True, colour=P_INK)
         d.text(self.x0, self.y + 31,
-               ("The shut ahead - the roster, the counter's rhythm last time, and what to "
-                "have ready." if fc["state"] == "ahead" else
-                "The rest of this shut - the roster, the counter's rhythm, and what to "
-                "have ready."), size=9, colour=P_MUTED, max_w=self.cw - 170)
+               ("The shut ahead - roster, the counter's rhythm last time, what to have ready."
+                if fc["state"] == "ahead" else
+                "The rest of this shut - roster, the counter's rhythm, what to have ready."),
+               size=9, colour=P_MUTED, max_w=self.cw - 150)
         d.text(self.x1, self.y + 16, "AS AT {}".format(
             self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
             colour=P_ORANGE, tracking=1.2, align="right")
@@ -6045,7 +6328,10 @@ class _Pack(object):
         for label, value, sub in tiles:
             d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
             d.rect(x, self.y, w, 2.5, fill=P_ORANGE)
-            d.text(x + 9, self.y + 20, value, size=12.5, bold=True, colour=P_INK, max_w=w - 16)
+            kind = self.icon_for(label)
+            if kind:
+                self.icon(kind, x + w - 15, self.y + 7, 7)
+            d.text(x + 9, self.y + 20, value, size=11, bold=True, colour=P_INK, max_w=w - 24)
             d.text(x + 9, self.y + 30.5, label.upper(), size=6, bold=True, colour=P_INK,
                    tracking=0.4, max_w=w - 16)
             d.text(x + 9, self.y + 39, sub, size=6.5, colour=P_MUTED, max_w=w - 16)
@@ -6195,7 +6481,7 @@ class _Pack(object):
         self.y += 12
 
         tiles = [
-            (b["items"], "Items on hire", "orange"),
+            (b["items"], "Items on hire", "orange" if b["items"] else "green"),
             (n_people, "People", "orange"),
             (b["issues"], "Tool moves", "orange"),
             (b.get("draws", 0), "Draws", "orange"),
@@ -6205,6 +6491,9 @@ class _Pack(object):
         tiles.append((_days_text(b["oldest_days"]) if b["oldest_days"] is not None
                       else ("undated" if b["undated"] else "-"), "Longest out",
                       day_tone(b["oldest_days"]) if b["items"] else "slate"))
+        #  The tiles with something in them lead; a quiet company's zeros
+        #  sit at the end, and "nothing on hire" reads as the good news it is.
+        tiles.sort(key=lambda t: str(t[0]) in ("0", "-"))
         self.tiles(tiles)
         self.y += 12
         if len(b["people"]) >= 2:
@@ -6289,10 +6578,15 @@ class _Pack(object):
             self.y += 16
             d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
             shown = lines[:14]
+            biggest = max([v["qty"] for _k, v in shown] + [1])
             for k, (desc, v) in enumerate(shown):
                 self.need(16)
                 d.text(self.x0 + 8, self.y + 11.5, desc, size=8.8, colour=P_INK,
-                       max_w=self.cw - 190)
+                       max_w=self.cw - 300)
+                d.rect(self.x1 - 210, self.y + 4.5, 100, 7, fill=self.C_TRACK, radius=3.5)
+                bw = 100 * v["qty"] / float(biggest)
+                if bw > 0:
+                    d.rect(self.x1 - 210, self.y + 4.5, max(bw, 7), 7, fill=self.C_ORANGE, radius=3.5)
                 d.text(self.x1 - 100, self.y + 11.5, "{:,}".format(int(v["qty"])),
                        size=9, bold=True, colour=P_INK, align="right")
                 np_ = len(v["people"])
@@ -6325,9 +6619,14 @@ class _Pack(object):
                    tracking=0.6, align="right")
             self.y += 16
             d.line(self.x0, self.y, self.x1, self.y, colour=P_LINE, lw=0.6)
+            biggest = max([nmv for _d_, nmv in own_lines[:10]] + [1])
             for desc, nmv in own_lines[:10]:
                 self.need(16)
-                d.text(self.x0 + 8, self.y + 11.5, desc, size=8.8, colour=P_INK, max_w=self.cw - 120)
+                d.text(self.x0 + 8, self.y + 11.5, desc, size=8.8, colour=P_INK, max_w=self.cw - 250)
+                d.rect(self.x1 - 150, self.y + 4.5, 100, 7, fill=self.C_TRACK, radius=3.5)
+                bw = 100 * nmv / float(biggest)
+                if bw > 0:
+                    d.rect(self.x1 - 150, self.y + 4.5, max(bw, 7), 7, fill=self.C_SLATE, radius=3.5)
                 d.text(self.x1 - 8, self.y + 11.5, "{:,}".format(nmv), size=9, bold=True,
                        colour=P_INK, align="right")
                 self.y += 16
@@ -6387,22 +6686,32 @@ class _Pack(object):
 
         #  The headline numbers, three across, two rows.
         tiles = parts["tiles"]
-        gap, h = 8, 46
+        gap, h = 8, 42
         w = (self.cw - gap * 2) / 3.0
         for start in range(0, len(tiles), 3):
             x = self.x0
             for label, value, sub in tiles[start:start + 3]:
+                rule, ink = P_ORANGE, P_INK
+                if str(value) == "0" and label.lower().startswith("items on hire"):
+                    rule, ink = E_RAG["green"][2], E_RAG["green"][1]
+                    sub = "all back - every item scanned in"
+                elif str(value) == "0":
+                    ink = P_MUTED
                 d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
-                d.rect(x, self.y, w, 2.5, fill=P_ORANGE)
-                d.text(x + 10, self.y + 22, str(value), size=17, bold=True,
-                       colour=P_INK)
-                d.text(x + 10, self.y + 32.5, label.upper(), size=6.3, bold=True,
+                d.rect(x, self.y, w, 2.5, fill=rule)
+                kind = "tick" if rule != P_ORANGE else self.icon_for(label)
+                if kind:
+                    self.icon(kind, x + w - 20, self.y + 9, 9,
+                              rule if (rule != P_ORANGE or ink == P_INK) else C_MUTED_LIGHT)
+                d.text(x + 10, self.y + 20, str(value), size=17, bold=True,
+                       colour=ink)
+                d.text(x + 10, self.y + 29.5, label.upper(), size=6.3, bold=True,
                        colour=P_INK, tracking=0.4, max_w=w - 20)
-                d.text(x + 10, self.y + 41.5, sub, size=6.8, colour=P_MUTED,
+                d.text(x + 10, self.y + 37.5, sub, size=6.8, colour=P_MUTED,
                        max_w=w - 20)
                 x += w + gap
             self.y += h + gap
-        self.y += 6
+        self.y += 2
 
         #  Contents - every company, and the page it starts on. Each row
         #  is a link, and each company is a bookmark down the side.
@@ -6424,48 +6733,78 @@ class _Pack(object):
                    tracking=0.6, align=align)
         d.rect(self.x0, self.y + 18, self.cw, 1.5, fill=P_ORANGE)
         self.y += 21
+        n_rows = len(blocks)
+        h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else 15)
+        fs = 9.2 if n_rows <= 8 else 8.6
+        base_y = h - 6 if n_rows <= 8 else h - 4.5
         for k, b in enumerate(blocks):
-            h = 19
             if k % 2:
                 d.rect(self.x0, self.y, self.cw, h, fill=P_ZEBRA)
-            d.text(self.x0 + 8, self.y + 13, b["company"], size=9.2, bold=True,
+            d.text(self.x0 + 8, self.y + base_y, b["company"], size=fs, bold=True,
                    colour=P_INK, max_w=200)
-            d.text(self.x0 + 230, self.y + 13, str(b["items"]), size=8.8, bold=True,
+            d.text(self.x0 + 230, self.y + base_y, str(b["items"]), size=fs - 0.4, bold=True,
                    colour=P_INK if b["items"] else P_MUTED, align="right")
-            d.text(self.x0 + 282, self.y + 13, str(len(b["people"])), size=8.8,
+            d.text(self.x0 + 282, self.y + base_y, str(len(b["people"])), size=fs - 0.4,
                    colour=P_INK if b["people"] else P_MUTED, align="right")
-            d.text(self.x0 + 340, self.y + 13, "{:,}".format(b["issues"] + b.get("draws", 0)),
-                   size=8.8, colour=P_INK, align="right")
-            d.text(self.x0 + 398, self.y + 13, "{:,}".format(b.get("own", 0)) if b.get("own") else "-",
-                   size=8.8, colour=P_INK if b.get("own") else P_MUTED, align="right")
-            self.chip(self.x0 + 478, self.y + 3,
+            d.text(self.x0 + 340, self.y + base_y, "{:,}".format(b["issues"] + b.get("draws", 0)),
+                   size=fs - 0.4, colour=P_INK, align="right")
+            d.text(self.x0 + 398, self.y + base_y, "{:,}".format(b.get("own", 0)) if b.get("own") else "-",
+                   size=fs - 0.4, colour=P_INK if b.get("own") else P_MUTED, align="right")
+            self.chip(self.x0 + 478, self.y + (h - 13) / 2.0,
                       _days_text(b["oldest_days"]) if b["items"] else "nothing out",
-                      day_tone(b["oldest_days"]) if b["items"] else "slate")
-            d.text(self.x1 - 8, self.y + 13, str(starts[k] + 1), size=9.2,
+                      day_tone(b["oldest_days"]) if b["items"] else "slate", size=7 if h < 19 else 7.5)
+            d.text(self.x1 - 8, self.y + base_y, str(starts[k] + 1), size=fs,
                    bold=True, colour=P_ORANGE, align="right")
             d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
             d.link(self.x0, self.y, self.cw, h, starts[k])
             self.y += h
-        self.y += 14
+        self.y += 8
 
         #  What needs attention - the same asks as the email, so the
         #  customer sees the actions on page one.
         acts = parts["actions"]
         room = self.bottom - self.y - 30
-        pitch = 24
-        shown = acts[:max(1, min(len(acts), int((room - 40) // pitch)))]
+        pitch = 24 if room >= 40 + 24 * min(len(acts), 3) else 19
+        per_row = 1
+        if pitch == 19 and len(acts) > int((room - 40) // pitch) and len(acts) <= 6:
+            rows_needed = (len(acts) + 1) // 2
+            if room >= 40 + 19 * rows_needed:
+                per_row = 2
+        if per_row == 2:
+            shown = acts
+        else:
+            shown = acts[:max(1, min(len(acts), int((room - 40) // pitch)))]
         if room >= 40 + pitch:
-            h = 40 + pitch * len(shown)
+            n_lines = (len(shown) + per_row - 1) // per_row
+            h = 40 + pitch * n_lines
             top = self.card(self.x0, self.y, self.cw, h, "What needs attention",
                             "The asks, each with its own number - the same list as the email")
             yy = top - 4
+            col_w = self.cw / float(per_row)
             for k, (head, body) in enumerate(shown, 1):
+                if per_row == 2:
+                    cx0 = self.x0 + ((k - 1) % 2) * col_w
+                    d.rect(cx0 + 12, yy - 1, 15, 15, fill=P_ORANGE, radius=3)
+                    d.text(cx0 + 19.5, yy + 10, str(k), size=8, bold=True,
+                           colour=P_WHITE, align="centre")
+                    hw = d.text(cx0 + 34, yy + 10, head, size=8.6, bold=True, colour=P_INK,
+                                max_w=col_w - 60)
+                    d.text(cx0 + 34 + hw + 6, yy + 10, body, size=7.2, colour=P_MUTED,
+                           max_w=col_w - 60 - hw)
+                    if k % 2 == 0:
+                        yy += pitch
+                    continue
                 d.rect(self.x0 + 12, yy - 1, 15, 15, fill=P_ORANGE, radius=3)
                 d.text(self.x0 + 19.5, yy + 10, str(k), size=8, bold=True,
                        colour=P_WHITE, align="centre")
-                d.text(self.x0 + 34, yy + 7.5, head, size=9, bold=True, colour=P_INK)
-                d.text(self.x0 + 34, yy + 17.5, body, size=7.5, colour=P_MUTED,
-                       max_w=self.cw - 50)
+                if pitch >= 24:
+                    d.text(self.x0 + 34, yy + 7.5, head, size=9, bold=True, colour=P_INK)
+                    d.text(self.x0 + 34, yy + 17.5, body, size=7.5, colour=P_MUTED,
+                           max_w=self.cw - 50)
+                else:
+                    hw = d.text(self.x0 + 34, yy + 10, head, size=8.8, bold=True, colour=P_INK)
+                    d.text(self.x0 + 34 + hw + 6, yy + 10, body, size=7.5, colour=P_MUTED,
+                           max_w=self.cw - 90 - hw)
                 yy += pitch
             if len(shown) < len(acts):
                 d.text(self.x0 + 34, yy + 4, "and {} more in the email".format(

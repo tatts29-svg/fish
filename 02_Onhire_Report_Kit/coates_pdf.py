@@ -11,11 +11,13 @@
 #  So this is a small, plain PDF writer, standard library only, that
 #  draws exactly what a Coates report needs and nothing it doesn't:
 #
-#     text in Helvetica (regular, bold, oblique - every PDF reader
-#     carries these, so nothing is embedded and the file stays small),
-#     filled boxes, rules, rounded chips, right- and centre-aligned
-#     text, word wrap, "Page 3 of 14", bookmarks down the side of
-#     Acrobat, and links from a contents page to its sections.
+#     text in Inter - the kit carries the typeface in _fonts\ and only
+#     the characters a pack uses are embedded, so the file stays small
+#     and looks the same on every machine (Helvetica if the folder is
+#     missing) - filled boxes, rules, rounded chips, right- and
+#     centre-aligned text, word wrap, "Page 3 of 14", bookmarks down
+#     the side of Acrobat, and links from a contents page to its
+#     sections.
 #
 #  HOW TO USE IT
 #     doc = Document(title="...", author="Andrew Fisher")
@@ -88,6 +90,380 @@ def _n(v):
     return s or "0"
 
 
+# ---- the typeface --------------------------------------------------
+#  Inter (SIL Open Font License) travels in the kit's _fonts folder:
+#  Regular, SemiBold (bold text), Bold (bold headings 14pt and up) and
+#  Italic. Only the glyphs a document uses are written into it.
+import os as _os
+import struct as _struct
+
+
+class _TrueType(object):
+    """Just enough of a TrueType font to measure text and to write a
+    subset of it into a PDF: the table directory, the character map,
+    the advance widths and the glyph outlines, with the parts a
+    composite glyph borrows from other glyphs."""
+
+    def __init__(self, path):
+        self.path = path
+        self.data = d = open(path, "rb").read()
+        tag, n = _struct.unpack(">IH", d[:6])
+        if tag not in (0x00010000, 0x74727565):
+            raise ValueError("not a TrueType font: " + path)
+        self.tables = {}
+        for i in range(n):
+            t, _cs, off, ln = _struct.unpack(">4sIII", d[12 + 16 * i:28 + 16 * i])
+            self.tables[t.decode("latin-1")] = (off, ln)
+        for need in ("head", "hhea", "hmtx", "maxp", "cmap", "loca", "glyf"):
+            if need not in self.tables:
+                raise ValueError("font lacks a {} table: {}".format(need, path))
+        head = self._t("head")
+        self.units = _struct.unpack(">H", head[18:20])[0] or 1000
+        self.bbox = _struct.unpack(">hhhh", head[36:44])
+        loca_long = _struct.unpack(">h", head[50:52])[0] == 1
+        hhea = self._t("hhea")
+        self.ascent, self.descent = _struct.unpack(">hh", hhea[4:8])
+        n_hm = _struct.unpack(">H", hhea[34:36])[0]
+        self.n_glyphs = _struct.unpack(">H", self._t("maxp")[4:6])[0]
+        hmtx = self._t("hmtx")
+        self.adv, self.lsb = [], []
+        for g in range(self.n_glyphs):
+            if g < n_hm:
+                a, l = _struct.unpack(">Hh", hmtx[4 * g:4 * g + 4])
+            else:
+                a = self.adv[-1]
+                k = 4 * n_hm + 2 * (g - n_hm)
+                l = _struct.unpack(">h", hmtx[k:k + 2])[0]
+            self.adv.append(a)
+            self.lsb.append(l)
+        loca = self._t("loca")
+        if loca_long:
+            self.loca = list(_struct.unpack(">%dI" % (self.n_glyphs + 1),
+                                            loca[:4 * (self.n_glyphs + 1)]))
+        else:
+            self.loca = [2 * v for v in _struct.unpack(">%dH" % (self.n_glyphs + 1),
+                                                       loca[:2 * (self.n_glyphs + 1)])]
+        self.cmap = self._read_cmap()
+        #  Tabular figures: numbers in columns line up when every digit
+        #  is the same width, so the digits are swapped for the font's
+        #  'tnum' alternates where it has them.
+        try:
+            tnum = self._single_subst("tnum")
+        except Exception:
+            tnum = {}
+        for ch in "0123456789":
+            g = self.cmap.get(ord(ch))
+            if g in tnum:
+                self.cmap[ord(ch)] = tnum[g]
+        os2 = self._t("OS/2") if "OS/2" in self.tables else b""
+        self.cap_height = (_struct.unpack(">h", os2[88:90])[0] if len(os2) >= 90
+                           else int(self.ascent * 0.72))
+        post = self._t("post") if "post" in self.tables else b""
+        self.italic_angle = (_struct.unpack(">i", post[4:8])[0] / 65536.0) if len(post) >= 8 else 0.0
+        #  Advance per Windows-1252 code in 1/1000 em - what measuring needs.
+        self.w1000 = [0] * 256
+        for code in range(32, 256):
+            try:
+                ch = bytes([code]).decode("cp1252")
+            except UnicodeDecodeError:
+                continue
+            g = self.cmap.get(ord(ch))
+            if g is not None and g < self.n_glyphs:
+                self.w1000[code] = int(round(self.adv[g] * 1000.0 / self.units))
+
+    def _t(self, tag):
+        off, ln = self.tables[tag]
+        return self.data[off:off + ln]
+
+    def _read_cmap(self):
+        cm = self._t("cmap")
+        n = _struct.unpack(">H", cm[2:4])[0]
+        best = None
+        for i in range(n):
+            pid, eid, off = _struct.unpack(">HHI", cm[4 + 8 * i:12 + 8 * i])
+            if off + 2 > len(cm):
+                continue
+            fmt = _struct.unpack(">H", cm[off:off + 2])[0]
+            score = {(3, 10): 4, (3, 1): 3, (0, 4): 2, (0, 3): 2, (0, 6): 1}.get((pid, eid), 0)
+            if fmt in (4, 12) and score and (best is None or score > best[0]):
+                best = (score, off, fmt)
+        out = {}
+        if best is None:
+            return out
+        _sc, off, fmt = best
+        if fmt == 4:
+            segx2 = _struct.unpack(">H", cm[off + 6:off + 8])[0]
+            seg = segx2 // 2
+            ends = _struct.unpack(">%dH" % seg, cm[off + 14:off + 14 + segx2])
+            starts = _struct.unpack(">%dH" % seg, cm[off + 16 + segx2:off + 16 + 2 * segx2])
+            deltas = _struct.unpack(">%dh" % seg, cm[off + 16 + 2 * segx2:off + 16 + 3 * segx2])
+            ro_at = off + 16 + 3 * segx2
+            ros = _struct.unpack(">%dH" % seg, cm[ro_at:ro_at + segx2])
+            for i in range(seg):
+                if starts[i] > ends[i]:
+                    continue
+                for c in range(starts[i], min(ends[i], 0xFFFE) + 1):
+                    if ros[i] == 0:
+                        g = (c + deltas[i]) & 0xFFFF
+                    else:
+                        p = ro_at + 2 * i + ros[i] + 2 * (c - starts[i])
+                        if p + 2 > len(cm):
+                            continue
+                        g = _struct.unpack(">H", cm[p:p + 2])[0]
+                        if g:
+                            g = (g + deltas[i]) & 0xFFFF
+                    if g and c not in out:
+                        out[c] = g
+        else:
+            ngroups = _struct.unpack(">I", cm[off + 12:off + 16])[0]
+            p = off + 16
+            for _k in range(ngroups):
+                s0, e0, g0 = _struct.unpack(">III", cm[p:p + 12])
+                p += 12
+                for c in range(s0, min(e0, 0xFFFF) + 1):
+                    if c not in out:
+                        out[c] = g0 + (c - s0)
+        return out
+
+    def _coverage(self, off):
+        d = self.data
+        fmt, n = _struct.unpack(">HH", d[off:off + 4])
+        out = []
+        if fmt == 1:
+            out = list(_struct.unpack(">%dH" % n, d[off + 4:off + 4 + 2 * n]))
+        elif fmt == 2:
+            p = off + 4
+            for _k in range(n):
+                a, b, _si = _struct.unpack(">HHH", d[p:p + 6])
+                p += 6
+                out.extend(range(a, b + 1))
+        return out
+
+    def _single_subst(self, feature):
+        """Glyph -> glyph for every single-substitution lookup a GSUB
+        feature (such as 'tnum') applies, or {} if the font has none."""
+        if "GSUB" not in self.tables:
+            return {}
+        d = self.data
+        base = self.tables["GSUB"][0]
+        _maj, _min, _script, feat_off, look_off = _struct.unpack(">HHHHH", d[base:base + 10])
+        feats = base + feat_off
+        n = _struct.unpack(">H", d[feats:feats + 2])[0]
+        lookups = []
+        for i in range(n):
+            tag, off = _struct.unpack(">4sH", d[feats + 2 + 6 * i:feats + 8 + 6 * i])
+            if tag.decode("latin-1") != feature:
+                continue
+            ft = feats + off
+            cnt = _struct.unpack(">H", d[ft + 2:ft + 4])[0]
+            lookups.extend(_struct.unpack(">%dH" % cnt, d[ft + 4:ft + 4 + 2 * cnt]))
+        out = {}
+        ll = base + look_off
+        n_l = _struct.unpack(">H", d[ll:ll + 2])[0]
+        for li in sorted(set(lookups)):
+            if li >= n_l:
+                continue
+            lo = ll + _struct.unpack(">H", d[ll + 2 + 2 * li:ll + 4 + 2 * li])[0]
+            ltype, _flag, sc = _struct.unpack(">HHH", d[lo:lo + 6])
+            for k in range(sc):
+                st = lo + _struct.unpack(">H", d[lo + 6 + 2 * k:lo + 8 + 2 * k])[0]
+                t = ltype
+                if t == 7:                                  # extension
+                    _f, t, ext = _struct.unpack(">HHI", d[st:st + 8])
+                    st = st + ext
+                if t != 1:
+                    continue
+                fmt, cov = _struct.unpack(">HH", d[st:st + 4])
+                covered = self._coverage(st + cov)
+                if fmt == 1:
+                    delta = _struct.unpack(">h", d[st + 4:st + 6])[0]
+                    for g in covered:
+                        out.setdefault(g, (g + delta) & 0xFFFF)
+                elif fmt == 2:
+                    cnt = _struct.unpack(">H", d[st + 4:st + 6])[0]
+                    subs = _struct.unpack(">%dH" % cnt, d[st + 6:st + 6 + 2 * cnt])
+                    for g, sg in zip(covered, subs):
+                        out.setdefault(g, sg)
+        return out
+
+    def glyph(self, g):
+        a, b = self.loca[g], self.loca[g + 1]
+        off = self.tables["glyf"][0]
+        return self.data[off + a:off + b]
+
+    @staticmethod
+    def _components(raw):
+        """(offset of the glyph index, glyph index) for each part of a
+        composite glyph, so a subset can renumber them in place."""
+        if len(raw) < 10 or _struct.unpack(">h", raw[:2])[0] >= 0:
+            return []
+        out, p = [], 10
+        while p + 4 <= len(raw):
+            flags, gi = _struct.unpack(">HH", raw[p:p + 4])
+            out.append((p + 2, gi))
+            p += 4
+            p += 4 if flags & 0x0001 else 2
+            if flags & 0x0008:
+                p += 2
+            elif flags & 0x0040:
+                p += 4
+            elif flags & 0x0080:
+                p += 8
+            if not flags & 0x0020:
+                break
+        return out
+
+    def subset(self, codes):
+        """A new TrueType file holding only the glyphs those Windows-1252
+        codes need - plus .notdef and the parts composites borrow - with
+        a character map from each character to its new glyph number."""
+        want = {0}
+        uni_to_old = {}
+        for code in codes:
+            try:
+                ch = bytes([code]).decode("cp1252")
+            except UnicodeDecodeError:
+                continue
+            g = self.cmap.get(ord(ch))
+            if g is not None and g < self.n_glyphs:
+                uni_to_old[ord(ch)] = g
+                want.add(g)
+        stack = list(want)
+        while stack:
+            g = stack.pop()
+            for _p, gi in self._components(self.glyph(g)):
+                if gi < self.n_glyphs and gi not in want:
+                    want.add(gi)
+                    stack.append(gi)
+        old = sorted(want)
+        new_of = dict((g, i) for i, g in enumerate(old))
+        glyf, loca = bytearray(), []
+        for g in old:
+            raw = bytearray(self.glyph(g))
+            for p, gi in self._components(raw):
+                _struct.pack_into(">H", raw, p, new_of.get(gi, 0))
+            loca.append(len(glyf))
+            glyf += raw
+            if len(glyf) % 4:
+                glyf += b"\0" * (4 - len(glyf) % 4)
+        loca.append(len(glyf))
+        n = len(old)
+        hmtx = b"".join(_struct.pack(">Hh", self.adv[g], self.lsb[g]) for g in old)
+        head = bytearray(self._t("head"))
+        _struct.pack_into(">I", head, 8, 0)
+        _struct.pack_into(">h", head, 50, 1)
+        hhea = bytearray(self._t("hhea"))
+        _struct.pack_into(">H", hhea, 34, n)
+        maxp = bytearray(self._t("maxp"))
+        _struct.pack_into(">H", maxp, 4, n)
+        post = bytearray((self._t("post") if "post" in self.tables else b"\0" * 32)[:32])
+        post += b"\0" * (32 - len(post))
+        _struct.pack_into(">I", post, 0, 0x00030000)
+        tables = {"head": bytes(head), "hhea": bytes(hhea), "maxp": bytes(maxp),
+                  "hmtx": hmtx, "cmap": self._cmap4(dict((u, new_of[g]) for u, g in uni_to_old.items())),
+                  "loca": _struct.pack(">%dI" % (n + 1), *loca), "glyf": bytes(glyf),
+                  "post": bytes(post)}
+        for tag in ("OS/2", "name", "cvt ", "fpgm", "prep"):
+            if tag in self.tables:
+                tables[tag] = self._t(tag)
+        return self._sfnt(tables)
+
+    @staticmethod
+    def _cmap4(mapping):
+        """A cmap table with one (3,1) format-4 subtable: a segment per
+        run of consecutive characters mapping to consecutive glyphs."""
+        import math
+        segs = []
+        for u, g in sorted(mapping.items()):
+            delta = (g - u) & 0xFFFF
+            if segs and u == segs[-1][1] + 1 and delta == segs[-1][2]:
+                segs[-1][1] = u
+            else:
+                segs.append([u, u, delta])
+        segs.append([0xFFFF, 0xFFFF, 1])
+        n = len(segs)
+        sr = 2 * (2 ** int(math.floor(math.log(n, 2))))
+        es = int(round(math.log(sr // 2, 2)))
+        body = _struct.pack(">HHHHHHH", 4, 16 + 8 * n, 0, 2 * n, sr, es, 2 * n - sr)
+        body += _struct.pack(">%dH" % n, *[sg[1] for sg in segs]) + b"\0\0"
+        body += _struct.pack(">%dH" % n, *[sg[0] for sg in segs])
+        body += _struct.pack(">%dH" % n, *[sg[2] for sg in segs])
+        body += _struct.pack(">%dH" % n, *([0] * n))
+        return _struct.pack(">HHHHI", 0, 1, 3, 1, 12) + body
+
+    @staticmethod
+    def _checksum(b):
+        total = 0
+        for i in range(0, len(b), 4):
+            total = (total + _struct.unpack(">I", b[i:i + 4])[0]) & 0xFFFFFFFF
+        return total
+
+    @staticmethod
+    def _sfnt(tables):
+        import math
+        tags = sorted(tables)
+        n = len(tags)
+        sr = 16 * (2 ** int(math.floor(math.log(n, 2))))
+        es = int(round(math.log(sr // 16, 2)))
+        head = bytearray(_struct.pack(">IHHHH", 0x00010000, n, sr, es, 16 * n - sr))
+        directory, body = bytearray(), bytearray()
+        start = 12 + 16 * n
+        for t in tags:
+            data = tables[t]
+            pad = (4 - len(data) % 4) % 4
+            padded = data + b"\0" * pad
+            directory += _struct.pack(">4sIII", t.encode("latin-1"),
+                                      _TrueType._checksum(padded), start + len(body), len(data))
+            body += padded
+        return bytes(head + directory + body)
+
+
+_FACES = {}
+_FACE_FILES = {"regular": "Inter-Regular.ttf", "bold": "Inter-SemiBold.ttf",
+               "heavy": "Inter-Bold.ttf", "italic": "Inter-Italic.ttf"}
+_FACE_NAMES = {"regular": "Inter-Regular", "bold": "Inter-SemiBold",
+               "heavy": "Inter-Bold", "italic": "Inter-Italic"}
+_FACE_TAGS = {"regular": "CTSREG", "bold": "CTSBLD", "heavy": "CTSHVY", "italic": "CTSITA"}
+_FACE_RES = {"regular": "/F1", "bold": "/F2", "italic": "/F3", "heavy": "/F4"}
+
+
+def load_fonts(folder):
+    """Load the kit's typeface from `folder`. Returns the faces found;
+    with none (or no Regular) every document falls back to Helvetica."""
+    _FACES.clear()
+    for key, name in _FACE_FILES.items():
+        path = _os.path.join(folder or "", name)
+        if _os.path.isfile(path):
+            try:
+                _FACES[key] = _TrueType(path)
+            except Exception:
+                pass
+    if "regular" not in _FACES:
+        _FACES.clear()
+    return sorted(_FACES)
+
+
+def typeface():
+    """The name of the typeface documents are set in right now."""
+    return "Inter" if _FACES else "Helvetica"
+
+
+def _face_key(bold, italic, size):
+    """Which face a run of text is set in: italic, bold headings 14pt
+    and up in Bold, other bold in SemiBold, the rest Regular."""
+    if not _FACES:
+        return None
+    if italic and "italic" in _FACES:
+        return "italic"
+    if bold:
+        if size >= 14 and "heavy" in _FACES:
+            return "heavy"
+        for k in ("bold", "heavy"):
+            if k in _FACES:
+                return k
+    return "regular"
+
+
 class _Page(object):
     def __init__(self, size):
         self.w, self.h = size
@@ -108,6 +484,7 @@ class Document(object):
         self.pages = []
         self.page = None
         self.outline = []       # (title, page_index, y_from_top, level)
+        self.used = {}          # face key -> set of character codes drawn
 
     # ---- pages ---------------------------------------------------------
     def new_page(self, size=None):
@@ -140,9 +517,9 @@ class Document(object):
         return self.page.h
 
     # ---- measuring -----------------------------------------------------
-    @staticmethod
-    def text_width(s, size, bold=False, tracking=0.0):
-        table = _W_BOLD if bold else _W_REG
+    def text_width(self, s, size, bold=False, tracking=0.0, italic=False):
+        key = _face_key(bold, italic, size)
+        table = _FACES[key].w1000 if key else (_W_BOLD if bold else _W_REG)
         b = _bytes(s)
         units = sum(table[c] for c in b)
         return units / 1000.0 * size + tracking * max(0, len(b) - 1)
@@ -315,12 +692,17 @@ class Document(object):
         s = str(s)
         if max_w is not None:
             s = self.fit(s, size, max_w, bold, tracking)
-        w = self.text_width(s, size, bold, tracking)
+        w = self.text_width(s, size, bold, tracking, italic)
         if align in ("right", "r"):
             x = x - w
         elif align in ("centre", "center", "c"):
             x = x - w / 2.0
-        font = "/F2" if bold else ("/F3" if italic else "/F1")
+        key = _face_key(bold, italic, size)
+        if key:
+            font = _FACE_RES[key]
+            self.used.setdefault(key, set()).update(_bytes(s))
+        else:
+            font = "/F2" if bold else ("/F3" if italic else "/F1")
         H = self.page.h
         op = (b"BT " + font.encode("latin-1") + b" " + _n(size).encode("latin-1")
               + b" Tf " + _n(tracking).encode("latin-1") + b" Tc "
@@ -355,15 +737,44 @@ class Document(object):
         """The finished file as bytes."""
         objs = {}                           # id -> bytes (without obj/endobj)
         n = len(self.pages)
-        FONT_IDS = (4, 5, 6)
-        first_page_id = 7
+        first_page_id = 8                   # 4..7 are the four faces
         page_id = lambda i: first_page_id + 2 * i
         content_id = lambda i: first_page_id + 2 * i + 1
         next_id = first_page_id + 2 * n
 
-        objs[4] = b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>"
-        objs[5] = b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>"
-        objs[6] = b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding >>"
+        #  The faces: Inter embedded as subsets when the kit carries it,
+        #  Helvetica otherwise. F1 regular, F2 bold, F3 italic, F4 heavy.
+        fallback = {4: b"Helvetica", 5: b"Helvetica-Bold", 6: b"Helvetica-Oblique",
+                    7: b"Helvetica-Bold"}
+        for key, fid in (("regular", 4), ("bold", 5), ("italic", 6), ("heavy", 7)):
+            face = _FACES.get(key)
+            if face is None:
+                objs[fid] = (b"<< /Type /Font /Subtype /Type1 /BaseFont /" + fallback[fid]
+                             + b" /Encoding /WinAnsiEncoding >>")
+                continue
+            used = set(self.used.get(key) or ()) | {32}
+            sub = face.subset(used)
+            desc_id, file_id = next_id, next_id + 1
+            next_id += 2
+            packed = zlib.compress(sub, 9)
+            objs[file_id] = (b"<< /Length " + str(len(packed)).encode("latin-1")
+                             + b" /Length1 " + str(len(sub)).encode("latin-1")
+                             + b" /Filter /FlateDecode >>\nstream\n" + packed + b"\nendstream")
+            k = 1000.0 / face.units
+            name = _FACE_TAGS[key] + "+" + _FACE_NAMES[key]
+            flags = 32 | (64 if key == "italic" else 0) | (262144 if key in ("bold", "heavy") else 0)
+            objs[desc_id] = (
+                "<< /Type /FontDescriptor /FontName /{} /Flags {} /FontBBox [{} {} {} {}] "
+                "/ItalicAngle {} /Ascent {} /Descent {} /CapHeight {} /StemV {} "
+                "/FontFile2 {} 0 R >>".format(
+                    name, flags, _n(face.bbox[0] * k), _n(face.bbox[1] * k),
+                    _n(face.bbox[2] * k), _n(face.bbox[3] * k), _n(face.italic_angle),
+                    _n(face.ascent * k), _n(face.descent * k), _n(face.cap_height * k),
+                    120 if key in ("bold", "heavy") else 80, file_id)).encode("latin-1")
+            objs[fid] = (
+                "<< /Type /Font /Subtype /TrueType /BaseFont /{} /FirstChar 32 /LastChar 255 "
+                "/Widths [{}] /Encoding /WinAnsiEncoding /FontDescriptor {} 0 R >>".format(
+                    name, " ".join(str(w) for w in face.w1000[32:256]), desc_id)).encode("latin-1")
 
         #  Link annotations, one object each.
         annots_of = {}
@@ -395,7 +806,7 @@ class Document(object):
                     "{} 0 R".format(a) for a in annots_of[i]) + "]"
             objs[page_id(i)] = (
                 "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 {} {}] "
-                "/Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R >> "
+                "/Resources << /Font << /F1 4 0 R /F2 5 0 R /F3 6 0 R /F4 7 0 R >> "
                 "/ProcSet [/PDF /Text] >> /Contents {} 0 R{} >>".format(
                     _n(p.w), _n(p.h), content_id(i), annots)).encode("latin-1")
 

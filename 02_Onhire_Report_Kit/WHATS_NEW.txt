@@ -109,6 +109,53 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE LOOK (05 Nov 2026, evening)
+ ------------------------------------
+   The pack is set in INTER, a proper typeface that travels in the
+   kit's _fonts folder (SIL Open Font License). Only the characters a
+   pack uses are embedded, so files stay small, numbers line up in
+   their columns (tabular figures), and headings get a real bold. If
+   the folder is missing the pack still builds, in Helvetica, and the
+   run window says so.
+
+   Item descriptions read like English everywhere they are displayed:
+   "GLOVES,CUT 3,GFPR200,NON-VEND,SZ-11 MMG2025" shows as "Gloves,
+   cut 3, GFPR200, non-vend, size 11". The site tag SiteIQ appends is
+   dropped, SHOUTING CAPS are made readable, measurements, codes and
+   acronyms are left alone (18V, 310ml, 20L, 2XL, GFPR200, LED). The
+   transaction and stock tabs keep the raw text for lookups. Put
+   tidy_items: no in JOB.txt to keep them exactly as SiteIQ writes them.
+
+   Calmer colour. Amber now means "order more" (High Demand, Increase
+   Stock, the two order flags); red is kept for gear out over 21 days
+   and safety. A zero that is good news - items on hire 0 - reads green
+   as "All back" instead of a big black nought, and other zeros sit
+   quietly in grey.
+
+   Email: sections 3 to 5 show their top six lines with "another N are
+   on the ... tab"; on a day with nothing on hire, section 2 becomes
+   "Who moved the most gear" with the bar on movement instead of twelve
+   empty bars and "nothing out" chips; the Do column is folded into the
+   rating chip; consumables read "61 of 61 gone" with the bar; phones
+   that honour it stack the tiles one above the other (Outlook ignores
+   the rule and loses nothing).
+
+   Pack: dial labels wrap instead of running into each other; the
+   cover's contents list tightens when there are many companies so the
+   asks always fit beneath it; small drawn icons on the cover,
+   milestone and section tiles; the two busiest hours are shaded on the
+   hour chart; a quiet company's zero tiles go to the end; inline bars
+   in every section's consumables and own-gear tables.
+
+   Workbook: Dashboard charts sized to their columns with legends
+   underneath (no more clipped "High Der"), and the gear chart shows
+   "who moved the most gear" when nothing is on hire; tab colours by
+   group - orange for Cover, Dashboard and Forecast, charcoal for data,
+   grey for the two typed by hand; the Forecast tab's Phase column
+   carries the roster strip's colours; Company Summary groups each
+   company's two lines under its total (the minus signs down the left
+   fold them).
+
  NEW - LOOKING AHEAD (05 Nov 2026)
  --------------------------------
    While a shut is ahead or under way, the pack gains a LOOKING AHEAD

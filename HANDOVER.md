@@ -191,6 +191,12 @@ Settled rules, 04–05 Nov 2026:
 - One palette across email, workbook and PDF: orange `#F26222`,
   near-black `#1D1D1B`, charcoal `#2A313C`; red/amber/green only for
   meaning. Email is tables + inline styles, no images (Outlook = Word).
+- Amber means "order more"; red is kept for overdue (21+ days) and
+  safety. A good zero (items on hire 0) reads green as "All back".
+- The pack is set in Inter from `_fonts\` (OFL, subset-embedded by
+  `coates_pdf.py`; Helvetica fallback). Item descriptions are tidied for
+  display only (`item_name()`, `tidy_items: no` to turn off); transaction
+  and stock tabs keep SiteIQ's raw text.
 - Hand-typed tabs (Coates Labour, Cost Breakdown) carry over value for
   value and are skinned; a fresh kit seeds them per job (Weipa roster
   04 Nov; MMG roster + cost breakdown 05 Nov, corrected the same day:

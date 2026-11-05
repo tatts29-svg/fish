@@ -250,7 +250,9 @@
  =======================================================
 
    The email tells everybody where the store sits. The pack is what
-   you hand ONE company. It is written by coates_pdf.py, a small PDF
+   you hand ONE company. It is set in Inter, a typeface that travels
+   in the _fonts folder (leave that folder where it is; without it the
+   pack is set in Helvetica). It is written by coates_pdf.py, a small PDF
    writer that travels in this folder, so it comes out the same on
    any laptop with nothing installed - no Acrobat, no browser, no
    print driver. If it ever fails to build, the window says so in a

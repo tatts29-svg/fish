@@ -24,4 +24,5 @@ shutdown_end: 02/12/2026
 
 # Make SHOUTING company names readable, leaving these acronyms alone.
 tidy_names: yes
+# tidy_items: no        (item descriptions are tidied for display unless you say no)
 acronyms: MMG, BLA, GMS, B&S, JLG, RKS

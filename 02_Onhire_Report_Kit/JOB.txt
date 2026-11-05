@@ -31,5 +31,6 @@ short:    Weipa
 # engagement: Fixed-rate tool store      the email and pack say so
 # shutdown_end: 11/07/2026               countdown + gear-return push from 4 days out
 # tidy_names: yes                        make SHOUTING company names readable
+# tidy_items: no                         keep item descriptions exactly as SiteIQ writes them
 # acronyms: MMG, BLA                     names left in capitals when tidying
 # Company spellings are folded with COMPANY_ALIASES.txt (FROM = TO per line).
