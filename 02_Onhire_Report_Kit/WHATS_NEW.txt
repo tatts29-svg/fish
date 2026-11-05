@@ -62,6 +62,40 @@
    what fed it, the ratings legend in colour, what is typed by hand.
    A cost headline that can't be read shows TBC, never $0.
 
+ ONE KIT, EVERY JOB (05 Nov 2026)
+ --------------------------------
+   The same kit now runs MMG and Weipa. JOB.txt carries the job's
+   settings: engagement (fixed rate), shutdown_end (demob countdown
+   and the gear-return push from four days out), tidy_names and
+   acronyms. COMPANY_ALIASES.txt folds the spellings SiteIQ uses for
+   one outfit - only what is written there, never a guess.
+
+   The pack gains THE STORY on page 2: the brief in plain words, the
+   team at the counter and their hours to date, how gear is moving
+   (same-day returns, kept longer, still out), stocktake discipline
+   (items sighted in the last three days, and by whom), customer-owned
+   gear logged through the counter, and the standards behind the
+   numbers. Every company that touched the counter gets a section,
+   holding gear or not - at the end of a shut the activity is the
+   story. A fifth dial on the charts page shows stocktake coverage
+   when a STOCKTAKE export is in.
+
+   The workbook gains a CUSTOMER GEAR tab - customer- and contractor-
+   owned gear logged through the counter (fourteen tabs now). The
+   email shows how gear is moving and an Own gear column, and says
+   when demob is.
+
+   4_MAKE_OUTLOOK_DRAFT.bat (optional) saves today's email as a NATIVE
+   Outlook draft, so the To field has the address book behind it.
+
+   A roster from a previous shutdown is recognised (its last day a
+   month or more behind the report) and replaced with the job's seeded
+   roster, with a note. MMG's roster and cost breakdown as sent on
+   05 Nov 2026 are seeded: fly in Sun 22 Nov, Thomas Maher on days,
+   Cody Mitchel on nights, fly out Wed 2 Dec; $90 day / $100 night;
+   tooling $1,847.81 and site services $50 a day from 24 Nov to 1 Dec,
+   flights $1,500 each way. Labour reads off the roster: $23,040.
+
  NEW - THE VISUALS
  -----------------
    Page 2 of the company pack is AT A GLANCE: four dials (Coates

@@ -82,7 +82,7 @@ folder, so there is nothing to install on a laptop that has never seen it.</p>
 to the same job, dates every on-hire item from its issue transaction, and builds the lot. About ten seconds.</div></div>
 <div class="arrow">&#9660;<span>your typed Labour and Cost tabs are lifted out of the old workbook and put straight back</span></div>
 <div class="three">
-<div class="fbox go"><div class="t">&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</div><div class="sub">Thirteen tabs - Dashboard first - ready to open or print. A dated copy is filed under <code>Reports\&lt;today&gt;\</code>.</div></div>
+<div class="fbox go"><div class="t">&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</div><div class="sub">Fourteen tabs - Dashboard first - ready to open or print. A dated copy is filed under <code>Reports\&lt;today&gt;\</code>.</div></div>
 <div class="fbox go"><div class="t">&lt;Job&gt; On-Hire Report by Company.pdf</div><div class="sub">The company pack: a cover, a contents page, then a section per company. One PDF per company in <code>By_Company\</code> too.</div></div>
 </div>
 <div class="arrow">&#9660;<span>and the same report laid out as an email, with the workbook and the pack attached</span></div>
@@ -96,7 +96,7 @@ Whole report in the body, workbook and pack on the paperclip, no costs anywhere 
 <div class="sub">RENTAL_STOCK, SALES_STOCK, TRANSACTIONS. STOCKTAKE too if you have it. Don't rename them &mdash; SiteIQ's own long names are fine, and the newest wins.</div></div></div>
 <div class="step"><div class="n">2</div><div class="t"><b>Double-click 2_MAKE_THE_REPORT.bat</b>
 <div class="sub">A black window counts the tabs out and says how many pages the pack ran to. When it stops, close it.</div></div></div>
-<div class="step"><div class="n">3</div><div class="t"><b>Open the three things it made &mdash; and open the .eml to send it</b>
+<div class="step"><div class="n">3</div><div class="t"><b>Open the three things it made &mdash; and open the .eml to send it (or press 4 for a native Outlook draft)</b>
 <div class="sub">The workbook keeps the same file name every day, so a desktop shortcut never goes stale. The .eml and the pack are in
 <code>Reports\&lt;today&gt;\</code> &mdash; double-click the .eml, address it, press Send.</div></div></div>
 
@@ -136,8 +136,9 @@ list &mdash; click a company and it jumps to their section; every company is als
 <table>
 <tr><th style="width:34%">Page</th><th>What's on it</th></tr>
 <tr><td class="k">Cover</td><td>The position in words, the six headline numbers, and the contents: every company, their people, items, lines, longest out, and the page they start on</td></tr>
-<tr><td class="k">At a glance (page 2)</td><td>The store as pictures, in the light Coates palette: four dials (fleet on hire, dated from transactions, consumable lines past 80%, items out over 21 days), who is holding gear, tooling and consumable lines by rating, movements by day inside the export window, working hardest, and consumables running down against the 80% line</td></tr>
-<tr><td class="k">One section per company</td><td>Starts on a new page. Five tiles, an Items-by-person bar chart, a flag if anything is out over 21 days or undated, then every person A&ndash;Z with their items longest-held first: item number, description, the day it was issued, days out. Long sections run on with <i>(continued)</i> and the headings repeated</td></tr>
+<tr><td class="k">The story (page 2)</td><td>What the store did this period in plain words: the brief, the team at the counter and their hours to date, how gear is moving (same-day returns, kept longer, still out), stocktake discipline (items sighted in the last three days), customer-owned gear logged through the counter, and the standards behind the numbers &mdash; double scan, dated from the transaction, Life Saving Rule 5, the fixed rate where it applies</td></tr>
+<tr><td class="k">At a glance (page 3)</td><td>The store as pictures, in the light Coates palette: four dials (fleet on hire, dated from transactions, consumable lines past 80%, items out over 21 days), who is holding gear, tooling and consumable lines by rating, movements by day inside the export window, working hardest, and consumables running down against the 80% line</td></tr>
+<tr><td class="k">One section per company</td><td>Every company that touched the counter this period, holding gear or not. Starts on a new page. Six tiles, an Items-by-person bar chart, a flag if anything is out over 21 days or undated, then every person A&ndash;Z with their items longest-held first: item number, description, the day it was issued, days out. Long sections run on with <i>(continued)</i> and the headings repeated</td></tr>
 <tr><td class="k">Consumables this period</td><td>At the foot of each section: the biggest lines the company has drawn and how many people drew them. The full list stays on the workbook's Consumable Transactions tab</td></tr>
 <tr><td class="k">By_Company\</td><td>The same section saved as its own PDF, one per company, for forwarding a company just their page</td></tr>
 </table>
@@ -145,7 +146,7 @@ list &mdash; click a company and it jumps to their section; every company is als
 nothing installed &mdash; no browser, no print driver, no Acrobat needed to make it. If the pack ever fails to build, the window says so
 in a band and the workbook and email still go out without it.</p>
 
-<h2><span class="n">6</span><span>The thirteen tabs<small>What each one tells you</small></span></h2>
+<h2><span class="n">6</span><span>The fourteen tabs<small>What each one tells you</small></span></h2>
 <table>
 <tr><th style="width:30%">Tab</th><th>What it tells you</th></tr>
 <tr><td class="k">Cover</td><td>What this workbook is, the headline numbers as tiles, which export files fed it and when they were pulled, how many pages the pack ran to, and how the ratings are worked out</td></tr>
@@ -158,6 +159,7 @@ in a band and the workbook and email still go out without it.</p>
 <tr><td class="k">Consumable Transactions</td><td>Every consumable issued &mdash; who took it, how many, when</td></tr>
 <tr><td class="k">Consumables Available</td><td>What's left on the shelf, by line</td></tr>
 <tr><td class="k">Coates Stock</td><td>The fleet again, with the day each on-hire item was issued &mdash; the one to sort when you're chasing age</td></tr>
+<tr><td class="k">Customer Gear</td><td>Customer- and contractor-owned gear logged through the Coates counter &mdash; tracked like the fleet, never counted as a Coates movement</td></tr>
 <tr><td class="k">Consumable Utilisation</td><td>Per line: sold against position as a bar, and a colour-coded rating and recommendation</td></tr>
 <tr><td class="k">Coates Labour</td><td><b class="o">Typed by hand.</b> The shift roster and what it costs</td></tr>
 <tr><td class="k">Cost Breakdown</td><td><b class="o">Typed by hand.</b> Day by day: shutdown, labour, site services</td></tr>
@@ -217,7 +219,9 @@ It will not quietly build a report off two jobs mixed together.</div>
 <tr><td class="k">3_GET_PYTHON_NO_ADMIN.bat</td><td>Only if step 1 says Python is missing. Puts a private copy in this folder</td></tr>
 <tr><td class="k">Data_SiteIQ\</td><td>Where the exports go</td></tr>
 <tr><td class="k">HOW_IT_WORKS.html</td><td>This page</td></tr>
-<tr><td class="k">JOB.txt</td><td>The job's names. Optional &mdash; leave it alone and it works them out</td></tr>
+<tr><td class="k">JOB.txt</td><td>The job's names and settings: <code>engagement</code> (fixed rate), <code>shutdown_end</code> (demob countdown and gear-return push), <code>tidy_names</code> and <code>acronyms</code>. Names can be left blank and are worked out from the exports</td></tr>
+<tr><td class="k">COMPANY_ALIASES.txt</td><td>Optional. One <code>FROM = TO</code> per line to fold the spellings SiteIQ uses for one outfit. Only what is written is folded</td></tr>
+<tr><td class="k">4_MAKE_OUTLOOK_DRAFT.bat</td><td>Optional. Saves today's email as a native Outlook draft (address-book search in the To field) with both attachments. Needs Outlook</td></tr>
 <tr><td class="k">build_onhire_workbook.py</td><td>The builder &mdash; the workbook, the email and the pack</td></tr>
 <tr><td class="k">coates_pdf.py</td><td>The PDF writer the pack is drawn with. Standard library only. Leave it alone</td></tr>
 <tr><td class="k">_RUN.bat</td><td>Finds Python on this machine and checks the folder is whole. Never press it directly</td></tr>

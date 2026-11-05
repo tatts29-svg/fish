@@ -104,6 +104,13 @@
 
    That's the whole job. There is no step 5.
 
+   OPTIONAL      4_MAKE_OUTLOOK_DRAFT.bat
+   --------
+            The .eml opens as a draft on its own. Press 4 instead
+            when you want the same email as a NATIVE Outlook draft -
+            the kind where the To field searches the address book.
+            Needs Outlook on the computer. Still nothing sends itself.
+
 
  IT DIDN'T WORK - FIND YOUR MESSAGE HERE
  =======================================
@@ -202,8 +209,8 @@
    monitor, and on a phone at the gate.
 
 
- WHAT COMES OUT - thirteen tabs
- ==============================
+ WHAT COMES OUT - fourteen tabs
+ =============================
 
    Cover                    what this is, what fed it, the headlines
                             as tiles, how many pages the pack ran to
@@ -220,6 +227,8 @@
    Consumable Transactions  every consumable issued
    Consumables Available    what's left on the shelf
    Coates Stock             the fleet with its on-hire dates
+   Customer Gear            customer- and contractor-owned gear logged
+                            through the counter
    Consumable Utilisation   per line: usage, rating, what to do
    Coates Labour            the shift roster       - TYPED BY HAND
    Cost Breakdown           the day-by-day cost    - TYPED BY HAND
@@ -241,7 +250,11 @@
    print driver. If it ever fails to build, the window says so in a
    band and the workbook and the email still go out without it.
 
-   Page 2 of the pack is AT A GLANCE - the store as pictures: four
+   Page 2 of the pack is THE STORY - what the store did this period
+   in plain words: the brief, the team at the counter and their hours,
+   how gear is moving (same-day returns), stocktake discipline, the
+   customer-owned gear logged through the counter, and the standards
+   behind the numbers. Page 3 is AT A GLANCE - the store as pictures: four
    dials, who is holding gear, ratings, movements by day, what is
    working hardest and which consumables are running down. Every
    company section has an Items-by-person bar chart. All drawn in the
@@ -281,6 +294,22 @@
 
    No .xlsm in the folder? Those two tabs come out empty with a note,
    ready to type into. Nothing breaks.
+
+
+ THE JOB'S SETTINGS - JOB.txt and COMPANY_ALIASES.txt
+ ===================================================
+
+   JOB.txt carries the names and, under them, the job's settings:
+
+      engagement: Fixed-rate tool store   the email and pack say so
+      shutdown_end: 02/12/2026            countdown, and the gear-return
+                                          push from four days out
+      tidy_names: yes                     SHOUTING names made readable
+      acronyms: MMG, BLA, GMS, B&S        left in capitals when tidying
+
+   COMPANY_ALIASES.txt folds the spellings SiteIQ uses for one outfit
+   (BELTECH = BELTEC, one per line). Only what is written there is
+   folded - the kit never guesses that two names are the same company.
 
 
  A DIFFERENT JOB

@@ -161,30 +161,44 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ---
 
-## The Weipa on-hire kit (Rio Tinto) — `02_Weipa_Onhire_Report_Kit/`
+## The on-hire report kit — `02_Onhire_Report_Kit/` (Weipa, MMG, any job)
 
-A **standalone** kit, separate from the K2 suite: one folder, three
+A **standalone** kit, separate from the K2 suite: one folder, four
 buttons, nothing installed. It reads RENTAL_STOCK / SALES_STOCK /
-TRANSACTIONS and writes the on-hire **workbook**, the on-hire **email**
-(draft, no costs) and the **company pack PDF** (a section per company,
-attached to the email, plus one PDF per company in `By_Company\`).
-The PDF is drawn by `coates_pdf.py`, a standard-library PDF writer that
-travels in the kit — no browser, no Acrobat.
+TRANSACTIONS (+ STOCKTAKE) and writes the on-hire **workbook** (14 tabs,
+Dashboard first), the on-hire **email** (draft, no costs) and the
+**company pack PDF** (cover with the asks, *The story*, *At a glance*
+charts, then a section per company that touched the counter), plus one
+PDF per company in `By_Company\`. `4_MAKE_OUTLOOK_DRAFT.bat` saves the
+email as a native Outlook draft. The PDF is drawn by `coates_pdf.py`, a
+standard-library PDF writer that travels in the kit.
 
-Settled rules, 04 Nov 2026 makeover:
+The job is set in `JOB.txt`: names, `engagement` (fixed rate),
+`shutdown_end` (demob countdown + gear-return push from 4 days out),
+`tidy_names`, `acronyms`; `COMPANY_ALIASES.txt` folds SiteIQ's spellings
+(only what is written). Per-job copies live under `jobs\`.
+
+Settled rules, 04–05 Nov 2026:
 
 - **Every on-hire item is dated from the START of its issue transaction**,
-  never from RENTAL_STOCK's ON_HIRE_DATE (that is what showed August for
-  gear issued this week). An item with no open transaction inside the
-  TRANSACTIONS export is shown **undated** and the report says how many
-  and why. Tell him to pull TRANSACTIONS from the shut start.
+  never from RENTAL_STOCK's ON_HIRE_DATE. No transaction in the export
+  window = **undated**, said so. Pull TRANSACTIONS from the shut start.
+- A report is never dated before its own data; day counts never negative.
 - One palette across email, workbook and PDF: orange `#F26222`,
   near-black `#1D1D1B`, charcoal `#2A313C`; red/amber/green only for
   meaning. Email is tables + inline styles, no images (Outlook = Word).
-- Data tabs are value-identical to the previous builder; only the
-  presentation, the dating and the new columns changed.
-- `_lib` (vendored openpyxl) and all site data stay out of git; the
-  delivery zip carries `_lib`. Extract over the top of the live folder.
+- Hand-typed tabs (Coates Labour, Cost Breakdown) carry over value for
+  value and are skinned; a fresh kit seeds them per job (Weipa roster
+  04 Nov; MMG roster + cost breakdown 05 Nov: fly in 22 Nov, Thomas
+  Maher days, Cody Mitchel nights, fly out 2 Dec, $90/$100, tooling
+  $1,847.81 + site services $50 a day 24 Nov–1 Dec, flights $1,500 each
+  way). The Cost Breakdown's Labour column is a SUMIF off the roster.
+  A roster from a previous shut (last day a month+ behind the report) is
+  replaced with the seed, with a note. Cover totals come from cached
+  values or a small formula evaluator; otherwise TBC, never $0.
+- MMG is a fixed-rate engagement: client packs never carry per-item
+  charges; the internal cost breakdown stays in the workbook.
+- `_lib` (vendored openpyxl) and all site data stay out of git.
 
 ## Traps — real mistakes made on this job, don't repeat them
 

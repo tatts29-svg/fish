@@ -1,0 +1,27 @@
+# =====================================================================
+#  WHICH JOB THIS FOLDER IS FOR
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  Leave the names blank and the report reads the job straight off the
+#  exports. Fill them in when the SiteIQ project name is not what you
+#  would put in front of a customer. The lines below the names are the
+#  job's settings - delete any you don't want.
+# =====================================================================
+
+customer: MMG
+job:      MMG Shutdown Nov 2026
+location: Dugald River QLD
+short:    MMG
+
+# Fixed-rate engagement: the email and the pack say so, and never carry
+# per-item charges (they never do anyway - costs live in the workbook).
+engagement: Fixed-rate tool store
+
+# The day the shut ends / everyone flies home. Shows a countdown on the
+# email and the pack, and from four days out adds the gear-return push.
+# Fly in Sun 22 Nov 2026, fly home Wed 2 Dec 2026.
+shutdown_end: 02/12/2026
+
+# Make SHOUTING company names readable, leaving these acronyms alone.
+tidy_names: yes
+acronyms: MMG, BLA, GMS, B&S, JLG, RKS
