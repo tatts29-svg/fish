@@ -104,6 +104,36 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - LOOKING AHEAD (05 Nov 2026)
+ --------------------------------
+   While a shut is ahead or under way, the pack gains a LOOKING AHEAD
+   page (page 3) built from the roster and the record: the brief, five
+   milestones (fly in, counter opens, last shift, fly out, rostered
+   hours), the roster as a day-by-day strip - travel, mobilisation,
+   day and night shifts, worked days outlined, today tinted - when the
+   counter is busiest by hour of day, what a day at the counter looked
+   like last time (movements a day, busiest day, same-day returns,
+   companies and people served), the tooling asked for most and the
+   consumables that go fastest. Dates, people and movements only -
+   never a dollar. The email carries the same milestones as a card
+   under the position, and the plain-text copy lists them too.
+
+   The workbook gains a FORECAST tab after the Dashboard, INTERNAL:
+   six tiles (fly in, counter opens, last shift, fly out, labour off
+   the roster, all up off the Cost Breakdown), live Excel charts of
+   cost by day with the running total over it and where the money
+   goes, then the day-by-day table - hours per person, each money
+   column, day total, running total - and the split. It is read off
+   the two typed tabs when the report is built, so a re-run after
+   editing either refreshes it. Fifteen tabs while the roster has days
+   to come, fourteen once the shut is done.
+
+   The dials now have round ends and quarter ticks, donuts a hairline
+   between slices, bars round ends, and the movements chart a quiet
+   scale of four round steps. Everything in the pack is drawn as
+   vectors - as crisp on a 4K wall screen as on a phone - and the
+   Dashboard and Forecast charts are Excel's own, so they scale too.
+
  NEW - THE VISUALS
  -----------------
    Page 2 of the company pack is AT A GLANCE: four dials (Coates

@@ -209,14 +209,20 @@
    monitor, and on a phone at the gate.
 
 
- WHAT COMES OUT - fourteen tabs
- =============================
+ WHAT COMES OUT - fifteen tabs
+ ============================
 
    Cover                    what this is, what fed it, the headlines
                             as tiles, how many pages the pack ran to
    Dashboard                the position as LIVE Excel charts: four
                             gauges, who holds gear, ratings, movements
                             by day, consumables running down
+   Forecast                 the shut ahead, INTERNAL: fly in to fly
+                            out, hours per person, cost by day with
+                            the running total, where the money goes -
+                            read off the two typed tabs when the
+                            report is built (only while the roster
+                            has days to come)
    Company Summary          per company: tooling, consumables, total
    Detailed Onhire          every item out right now, who has it, the
                             day it was issued, days on hire, and the
@@ -254,11 +260,17 @@
    in plain words: the brief, the team at the counter and their hours,
    how gear is moving (same-day returns), stocktake discipline, the
    customer-owned gear logged through the counter, and the standards
-   behind the numbers. Page 3 is AT A GLANCE - the store as pictures: four
-   dials, who is holding gear, ratings, movements by day, what is
-   working hardest and which consumables are running down. Every
-   company section has an Items-by-person bar chart. All drawn in the
-   Coates palette from the same numbers as the tables.
+   behind the numbers. Page 3 is LOOKING AHEAD while a shut is ahead
+   or under way - the roster day by day (travel, mobilisation, day
+   and night shifts), the milestones, when the counter is busiest by
+   hour of day, what a day at the counter looked like last time, the
+   tooling asked for most and the consumables that go fastest. Dates,
+   people and movements only - never a dollar. Then AT A GLANCE - the
+   store as pictures: the dials, who is holding gear, ratings,
+   movements by day, what is working hardest and which consumables
+   are running down. Every company section has an Items-by-person bar
+   chart. All drawn in the Coates palette from the same numbers as
+   the tables, as vectors - crisp at any size, on a phone or a wall.
 
    Open HOW_IT_WORKS.html for what is on each page.
 

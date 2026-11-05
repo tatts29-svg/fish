@@ -1610,6 +1610,25 @@ def build(base=HERE, when=None):
         "period": period,
     }
 
+    # ---- looking ahead ------------------------------------------------
+    #  The shut from the roster, the counter's rhythm from the record,
+    #  the cost curve from the typed tabs. The pack and the email get the
+    #  dates and the rhythm; only the workbook's Forecast tab gets dollars.
+    try:
+        parts["forecast"] = forecast_block(
+            s, when, roster, wb, tooling_tx, ctx, own, parts, period,
+            read_project_schedule(p_trans) if p_trans else None,
+            labour_total, cost_total)
+    except Exception as e:
+        parts["forecast"] = None
+        say("  WARN | The forecast didn't build ({}). Everything else is "
+            "unaffected.".format(e))
+        import traceback
+        _LOG.append(traceback.format_exc())
+    if parts.get("forecast"):
+        tabs.insert(1, ("Forecast", len(parts["forecast"]["days"]),
+                        "The shut ahead - roster, hours and the cost curve"))
+
     # ---- 12. Cover ----------------------------------------------------
     try:
         dirs = out_dirs(base, when, s)
@@ -1675,7 +1694,18 @@ def build(base=HERE, when=None):
             "unaffected.".format(e))
         import traceback
         _LOG.append(traceback.format_exc())
+    if parts.get("forecast"):
+        try:
+            forecast_tab(wb, s, when, asat, parts["forecast"])
+            at = 1 if "Dashboard" in wb.sheetnames else 0
+            wb._sheets.insert(at, wb._sheets.pop(wb._sheets.index(wb["Forecast"])))
+        except Exception as e:
+            say("  WARN | The Forecast tab didn't build ({}). Everything else is "
+                "unaffected.".format(e))
+            import traceback
+            _LOG.append(traceback.format_exc())
     wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Cover"])))
+    parts["n_tabs"] = len(wb.sheetnames)
 
     # ---- save ---------------------------------------------------------
     stem = "{} On-Hire Workbook - {}".format(label, when.strftime("%d %b %Y"))
@@ -2736,13 +2766,17 @@ def roster_hours(ws, when):
             head_row = r
             cols = {"date": labels.get("date"), "shift": labels.get("shift"),
                     "name": labels.get("name"),
-                    "hours": next(v for k, v in labels.items() if k.startswith("total hours"))}
+                    "hours": next(v for k, v in labels.items() if k.startswith("total hours")),
+                    "start": next((v for k, v in labels.items() if k.startswith("start")), None),
+                    "finish": next((v for k, v in labels.items() if k.startswith("finish")), None)}
             break
-    empty = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None}
+    empty = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None,
+             "rows": []}
     if head_row is None or not cols.get("name"):
         return empty
     people, total, rostered, current = {}, 0.0, 0.0, None
     first = last = None
+    rows = []                                    # (date, name, shift, hours, start, finish)
     for r in range(head_row + 1, ws.max_row + 1):
         d0 = _date(ws.cell(row=r, column=cols["date"]).value) if cols.get("date") else None
         if d0 is not None:
@@ -2753,6 +2787,9 @@ def roster_hours(ws, when):
         if not name or not hrs or current is None:
             continue
         p = people.setdefault(name, {"hours": 0.0, "rostered": 0.0, "shifts": []})
+        rows.append((current, name, shift, hrs,
+                     ws.cell(row=r, column=cols["start"]).value if cols.get("start") else None,
+                     ws.cell(row=r, column=cols["finish"]).value if cols.get("finish") else None))
         p["rostered"] += hrs
         rostered += hrs
         first = current if first is None else min(first, current)
@@ -2763,7 +2800,344 @@ def roster_hours(ws, when):
             total += hrs
             p["hours"] += hrs
     return {"hours": total, "people": people, "rostered": rostered,
-            "first": first, "last": last}
+            "first": first, "last": last, "rows": rows}
+
+
+# =====================================================================
+#  Looking ahead - the shut from the roster, the counter's rhythm from
+#  the record, the cost curve from the typed tabs (workbook only)
+# =====================================================================
+PHASES = (("travel", "Travel", "#98A0AA"), ("mob", "Mobilisation", "#F7A072"),
+          ("day", "Day shift", "#F26222"), ("night", "Night shift", "#2A313C"),
+          ("off", "No shift", "#EEF0F3"))
+PHASE_COLOUR = dict((k, c) for k, _l, c in PHASES)
+PHASE_LABEL = dict((k, l) for k, l, _c in PHASES)
+PHASE_ORDER = [k for k, _l, _c in PHASES]
+
+
+def _hour_of(v):
+    """The hour of day, 0-23, from a time the way SiteIQ writes it -
+    '06:57:58', '03:19 PM' or a time object - or None."""
+    if v is None or v == "":
+        return None
+    if isinstance(v, (dt.datetime, dt.time)):
+        return v.hour
+    t = str(v).strip().upper()
+    m = _re.match(r"^(\d{1,2})(?::(\d{2}))?(?::(\d{2}))?\s*(AM|PM)?$", t)
+    if not m:
+        return None
+    h = int(m.group(1))
+    ap = m.group(4)
+    if ap == "PM" and h < 12:
+        h += 12
+    if ap == "AM" and h == 12:
+        h = 0
+    return h if 0 <= h <= 23 else None
+
+
+def _hhmm(v):
+    """A time the way the roster shows it - 06:00 - whatever Excel
+    stored: text, a time, a datetime or a day fraction."""
+    if v is None or v == "":
+        return ""
+    if isinstance(v, (dt.datetime, dt.time)):
+        return v.strftime("%H:%M")
+    if isinstance(v, (int, float)) and not isinstance(v, bool):
+        mins = int(round(float(v) * 24 * 60)) % (24 * 60)
+        return "{:02d}:{:02d}".format(mins // 60, mins % 60)
+    t = str(v).strip()
+    h = _hour_of(t)
+    if h is None:
+        return t
+    m = _re.search(r":(\d{2})", t)
+    return "{:02d}:{}".format(h, m.group(1) if m else "00")
+
+
+def _phase(shift):
+    """What kind of day a roster line is, from however it was typed."""
+    z = (shift or "").strip().lower()
+    if not z:
+        return "off"
+    if "night" in z:
+        return "night"
+    if "no shift" in z or z in ("off", "rdo", "rest", "day off", "rest day"):
+        return "off"
+    if any(w in z for w in ("fly", "flight", "drive", "travel", "demob")):
+        return "travel"
+    if "mob" in z:
+        return "mob"
+    return "day"
+
+
+def _words(n):
+    return {10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen", 14: "fourteen",
+            15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen"}.get(n, str(n))
+
+
+def _nice_ceiling(v):
+    """A round number at or above v, for a chart's top gridline."""
+    import math
+    if v <= 0:
+        return 1
+    mag = 10 ** math.floor(math.log10(v))
+    for m in (1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10):
+        if m * mag >= v:
+            return m * mag
+    return 10 * mag
+
+
+def cost_profile(ws):
+    """The Cost Breakdown tab read day by day: which columns carry money,
+    what each day of the shut costs and the running total. Works off the
+    tab's own heading row - the one with Day or Date in it - so it
+    follows whatever has been typed. None if there is no such row."""
+    head_row, cols, date_col = None, {}, None
+    for r in range(1, min(ws.max_row, 8) + 1):
+        labels = {}
+        for c in ws[r]:
+            if isinstance(c.value, str) and c.value.strip():
+                labels[c.column] = c.value.strip()
+        date_cols = [k for k, v in labels.items() if v.lower() in ("day", "date", "dates")]
+        if date_cols and len(labels) >= 3:
+            head_row, cols, date_col = r, labels, date_cols[0]
+            break
+    if head_row is None:
+        return None
+    type_col = next((k for k, v in cols.items()
+                     if v.lower() in ("type", "status", "phase", "activity", "stage")), None)
+    money_cols = [(k, v) for k, v in sorted(cols.items()) if k not in (date_col, type_col)]
+    ev = _Eval(ws)
+    days = []
+    for r in range(head_row + 1, ws.max_row + 1):
+        cells = [c for c in ws[r] if c.value not in (None, "")]
+        if not cells:
+            continue
+        d0 = _date(ws.cell(row=r, column=date_col).value)
+        if d0 is None:
+            if any(isinstance(c.value, str) and "SUM(" in c.value.upper() for c in cells):
+                break                          # the totals - the day rows are done
+            continue
+        vals = {}
+        for k, name in money_cols:
+            c = ws.cell(row=r, column=k)
+            v = c.value
+            if isinstance(v, str) and v.startswith("="):
+                try:
+                    v = ev.cell(c.coordinate)
+                except Exception:
+                    v = None
+            vals[name] = (float(v) if isinstance(v, (int, float)) and not isinstance(v, bool)
+                          else 0.0)
+        label = _s(ws.cell(row=r, column=type_col).value) if type_col else ""
+        days.append((d0, label, vals))
+    if not days:
+        return None
+    names = [n for _k, n in money_cols]
+    totals = dict((n, sum(v.get(n, 0.0) for _d, _l, v in days)) for n in names)
+    names = [n for n in names if totals[n]]
+    if not names:
+        return None
+    out, run = [], 0.0
+    for d0, label, vals in days:
+        day_total = sum(vals.get(n, 0.0) for n in names)
+        run += day_total
+        out.append((d0, label, dict((n, vals.get(n, 0.0)) for n in names), day_total, run))
+    return {"columns": names, "days": out,
+            "totals": dict((n, totals[n]) for n in names), "total": run}
+
+
+def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
+                   ref_label, labour_total, cost_total):
+    """Everything the pack's Looking ahead page, the email's card and the
+    workbook's Forecast tab are drawn from. None when there is nothing
+    ahead - no roster, or one that finished before the report date."""
+    rows = [r for r in (roster or {}).get("rows") or [] if r[0] and r[1]]
+    if not rows:
+        return None
+    dates = sorted({r[0] for r in rows})
+    first, last = dates[0], dates[-1]
+    demob = s.shutdown_end
+    if demob and demob > last:
+        last = demob
+    if last < when:
+        return None                            # the shut is over
+    days = []
+    d0 = first
+    while d0 <= last:
+        days.append(d0)
+        d0 += dt.timedelta(days=1)
+
+    grid, order, hours_by, done_by, times = {}, [], {}, {}, {}
+    for d0, name, shift, hrs, t0, t1 in rows:
+        ph = _phase(shift)
+        g = grid.setdefault(name, {})
+        prev = g.get(d0)
+        if prev and prev[0] in ("day", "night") and ph not in ("day", "night"):
+            g[d0] = (prev[0], prev[1], prev[2] + hrs)
+        else:
+            g[d0] = (ph, shift, hrs + (prev[2] if prev else 0.0))
+        if name not in order:
+            order.append(name)
+        hours_by[name] = hours_by.get(name, 0.0) + hrs
+        if d0 <= when:
+            done_by[name] = done_by.get(name, 0.0) + hrs
+        a, b = _hhmm(t0), _hhmm(t1)
+        if a or b:
+            c = times.setdefault(ph, {})
+            c[(a, b)] = c.get((a, b), 0) + 1
+    phase_time = {}
+    for ph, c in times.items():
+        (a, b), _n = max(c.items(), key=lambda kv: kv[1])
+        phase_time[ph] = "{}-{}".format(a, b) if (a and b) else (a or b)
+    people = []
+    for name in order:
+        phs = sorted({cell[0] for cell in grid[name].values()}, key=PHASE_ORDER.index)
+        people.append((name, hours_by[name], done_by.get(name, 0.0), phs))
+    phases_used = sorted({cell[0] for g in grid.values() for cell in g.values()},
+                         key=PHASE_ORDER.index)
+    shift_days = sorted({d_ for d_, _n, sh, _h, _a, _b in rows if _phase(sh) in ("day", "night")})
+    open_day = shift_days[0] if shift_days else first
+    close_day = shift_days[-1] if shift_days else dates[-1]
+    nights = "night" in phases_used
+    hours = sum(hours_by.values())
+    hours_done = sum(done_by.values())
+    state = "ahead" if first > when else "underway"
+    first_travel = any(cell[0] == "travel" for g in grid.values() for cell in [g.get(first)] if cell)
+    last_travel = any(cell[0] == "travel" for g in grid.values() for cell in [g.get(dates[-1])] if cell)
+
+    def who():
+        bits = []
+        for name, _h, _d, phs in people:
+            if "day" in phs and "night" in phs:
+                bits.append("{} on days and nights".format(name))
+            elif "night" in phs:
+                bits.append("{} on nights".format(name))
+            elif "day" in phs:
+                bits.append("{} on days".format(name))
+            else:
+                bits.append(name)
+        if len(bits) <= 3:
+            return " and ".join([", ".join(bits[:-1]), bits[-1]]) if len(bits) > 1 else bits[0]
+        return "{} Coates people".format(len(bits))
+
+    # ---- last time: the counter's rhythm, off the exports -------------
+    v = parts.get("viz") or {}
+    bd = v.get("by_day") or []
+    ref_days = [dd for dd, _i, _r, _c in bd]
+    totals = [i + r + c for _d, i, r, c in bd]
+    moves = sum(totals)
+    n_ref = len(bd)
+    peak_k = max(range(len(totals)), key=lambda k: totals[k]) if totals else None
+    win = (ref_days[0], ref_days[-1]) if ref_days else None
+
+    def inwin(d_):
+        return win is None or (d_ is not None and win[0] <= d_ <= win[1])
+    hour = [0] * 24
+    for r in tooling_tx:
+        for dk, tk in (("TRAN_START_DATE", "TRAN_START_TIME"), ("TRAN_END_DATE", "TRAN_END_TIME")):
+            if inwin(_date(r.get(dk))):
+                h = _hour_of(r.get(tk))
+                if h is not None:
+                    hour[h] += 1
+    qty = {}
+    for r in ctx:
+        if inwin(r[4]):
+            h = _hour_of(r[5])
+            if h is not None:
+                hour[h] += 1
+            qty[r[2]] = qty.get(r[2], 0.0) + (r[3] or 0.0)
+    for r in own or []:
+        for dk, tk in (("TRAN_START_DATE", "TRAN_START_TIME"), ("TRAN_END_DATE", "TRAN_END_TIME")):
+            if inwin(_date(r.get(dk))):
+                h = _hour_of(r.get(tk))
+                if h is not None:
+                    hour[h] += 1
+    scans = sum(hour)
+    busy = sorted(range(24), key=lambda h: -hour[h])[:2] if scans else []
+    busy = sorted(busy)
+    busy_share = (sum(hour[h] for h in busy) / float(scans)) if scans else 0.0
+    st = parts.get("story") or {}
+    ret = (st.get("same_day") or 0) + (st.get("kept") or 0)
+    same_day_pct = (100.0 * st["same_day"] / ret) if ret else None
+    top_tools = [(r[0], r[3]) for r in (parts.get("hardest") or []) if r[3]][:7]
+    top_cons = sorted(qty.items(), key=lambda kv: (-kv[1], kv[0]))[:7]
+    newest = ref_days[-1] if ref_days else None
+    ref_previous = bool(newest and newest < first)
+    ref_span = ("{} to {}".format(ref_days[0].strftime("%d %b"), ref_days[-1].strftime("%d %b %Y"))
+                if ref_days else (period or ""))
+    ref = {"label": ref_label or s.project_schedule or "the last export", "span": ref_span,
+           "previous": ref_previous, "days": n_ref, "moves": moves,
+           "per_day": (moves / float(n_ref)) if n_ref else 0.0,
+           "peak": totals[peak_k] if peak_k is not None else 0,
+           "peak_day": ref_days[peak_k] if peak_k is not None else None,
+           "hour": hour, "busy": busy, "busy_share": busy_share, "scans": scans,
+           "same_day_pct": same_day_pct, "companies": st.get("companies_active") or 0,
+           "people": st.get("people") or 0, "own": len(own or []),
+           "top_tools": top_tools, "top_cons": top_cons}
+
+    # ---- the words everything shares ------------------------------------
+    job = s.job or s.header_line
+    n_people = len(people)
+    if state == "ahead":
+        brief = ("{} runs {} to {} - {} days on site, {} day{} from today. {} {} {}; "
+                 "the counter opens {} and is covered {} through {}{}. {:,.0f} rostered "
+                 "hours in all.".format(
+                     job, first.strftime("%A %d %B"), last.strftime("%A %d %B %Y"),
+                     len(days), (first - when).days, "" if (first - when).days == 1 else "s",
+                     who(), "fly in" if first_travel else "start", first.strftime("%a %d %b"),
+                     open_day.strftime("%a %d %b"),
+                     "day and night" if nights else "on day shift", close_day.strftime("%a %d %b"),
+                     (", {} {}".format("fly out" if last_travel else "demob",
+                                       last.strftime("%a %d %b"))),
+                     hours))
+    else:
+        left = (last - when).days
+        brief = ("{} is {} day{} in, with {} day{} to go to {}. {} - {:,.0f} of {:,.0f} "
+                 "rostered hours worked so far; {} cover continues through {}{}.".format(
+                     job, (when - first).days + 1, "" if (when - first).days + 1 == 1 else "s",
+                     left, "" if left == 1 else "s", last.strftime("%A %d %B"),
+                     who(), hours_done, hours,
+                     "day and night" if nights else "day shift", close_day.strftime("%a %d %b"),
+                     (", {} {}".format("fly out" if last_travel else "demob",
+                                       last.strftime("%a %d %b")) if last != close_day else "")))
+    if moves and n_ref:
+        lead = ("Last time ({}, {})".format(ref["label"], ref_span) if ref_previous
+                else "So far this shut ({})".format(ref_span))
+        ref_line = ("{}, the counter handled {:,} movements in {} day{} - about {:,.0f} a day, "
+                    "peaking at {:,} on {}{}.".format(
+                        lead, moves, n_ref, "" if n_ref == 1 else "s", ref["per_day"],
+                        ref["peak"], ref["peak_day"].strftime("%A %d %B"),
+                        (" - and was busiest at {} and {}, when the crews change over".format(
+                            "{:02d}:00".format(busy[0]), "{:02d}:00".format(busy[1]))
+                         if len(busy) == 2 else "")))
+    else:
+        ref_line = "No movements in the exports to set an expectation from."
+    milestones = [
+        ("Fly in" if first_travel else "Starts", first.strftime("%a %d %b"),
+         "{} Coates {}".format(n_people, "person" if n_people == 1 else "people")),
+        ("Counter opens", open_day.strftime("%a %d %b"),
+         "day and night" if nights else "day shift"),
+        ("Last shift", close_day.strftime("%a %d %b"),
+         "{} shift day{}".format(len(shift_days), "" if len(shift_days) == 1 else "s")),
+        ("Fly out" if last_travel else "Demob", last.strftime("%a %d %b"),
+         "{} days on site".format(len(days))),
+        ("Rostered hours", "{:,.0f}".format(hours),
+         ("{:,.0f} worked to date".format(hours_done) if state == "underway"
+          else "{} from {}".format("day and night" if nights else "days", open_day.strftime("%d %b")))),
+    ]
+    cost = None
+    if "Cost Breakdown" in wb.sheetnames:
+        try:
+            cost = cost_profile(wb["Cost Breakdown"])
+        except Exception:
+            cost = None
+    return {"job": job, "state": state, "today": when, "first": first, "last": last,
+            "days": days, "people": people, "grid": grid, "phases_used": phases_used,
+            "times": phase_time, "hours": hours, "hours_done": hours_done,
+            "open": open_day, "close": close_day, "shift_days": len(shift_days),
+            "nights": nights, "demob": demob, "brief": brief, "ref_line": ref_line,
+            "milestones": milestones, "ref": ref, "cost": cost,
+            "labour_total": labour_total, "cost_total": cost_total}
 
 
 def carry_over(wb, s, base, title, when=None):
@@ -2774,7 +3148,8 @@ def carry_over(wb, s, base, title, when=None):
     any other job's come through headed and empty, ready to type into."""
     src = s.workbook(base)
     carried, labour_total, cost_total = [], 0.0, 0.0
-    roster = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None}
+    roster = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None,
+              "rows": []}
     old = None
     if src and os.path.isfile(src):
         try:
@@ -3275,6 +3650,286 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None):
     ws.print_area = "A1:F{}".format(r)
     ws.sheet_properties.tabColor = ORANGE
     return ws
+
+
+def forecast_tab(wb, s, when, asat, fc):
+    """A Forecast tab: the shut ahead as tiles, a day-by-day table of
+    hours and money, where the money goes, and two live Excel charts -
+    cost by day with the running total over it, and the split. Read
+    off the Coates Labour and Cost Breakdown tabs at build time, so a
+    re-run after editing either refreshes it. Costs live here, never in
+    the email or the pack."""
+    from openpyxl.chart import BarChart, DoughnutChart, LineChart, Reference
+    from openpyxl.chart.label import DataLabelList
+    from openpyxl.chart.series import DataPoint
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+
+    ws = wb.create_sheet("Forecast")
+    ws.sheet_view.showGridLines = False
+    cost = fc.get("cost")
+    people = [p[0] for p in fc["people"]]
+    money_cols = cost["columns"] if cost else []
+    heads = ["Day", "Phase"] + ["{} (h)".format(n) for n in people] + money_cols
+    if cost:
+        heads += ["Day total", "Running total"]
+    NC = max(12, len(heads))
+    for i in range(1, NC + 5):
+        ws.column_dimensions[get_column_letter(i)].width = 13.5
+    ws.column_dimensions["A"].width = 16
+    ws.column_dimensions["B"].width = 22
+    band(ws, "{}  |  Shutdown Tool Store  |  Forecast - {}".format(
+        s.short or s.customer or "Shutdown", fc["job"]), NC)
+    ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=NC)
+    c = ws.cell(row=2, column=1, value=(
+        "POWERED BY SITEIQ     \u00b7     Author: {}     \u00b7     Roster off the Coates Labour "
+        "tab, money off the Cost Breakdown tab, both as at {} - re-run after editing either"
+        "     \u00b7     Internal: costs stay in this workbook".format(
+            s.author or "Andrew Fisher", asat.strftime("%d %b %Y %H:%M"))))
+    c.font = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+    c.alignment = Alignment(vertical="center", indent=1)
+    for i in range(1, NC + 1):
+        ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
+    ws.row_dimensions[2].height = 18
+
+    LABEL = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+    BIG = Font(name="Calibri", size=18, bold=True, color=NEAR_BLACK)
+    line_side = Side(style="thin", color=argb(COATES_LINE))
+    tile_top = Side(style="medium", color=ORANGE)
+
+    # ---- tiles --------------------------------------------------------
+    tiles = [(m[0].upper(), m[1], m[2]) for m in fc["milestones"]
+             if m[0].lower() != "rostered hours"][:4]
+    tiles.append(("LABOUR (ROSTER)", "${:,.2f}".format(fc["labour_total"] or 0),
+                  "{:,.0f} rostered hours, {} people".format(fc["hours"], len(fc["people"]))))
+    tiles.append(("ALL UP (SHUT TOTAL)", "${:,.2f}".format(fc["cost_total"] or 0),
+                  "off the Cost Breakdown tab"))
+    r = 4
+    for k, (label, value, sub) in enumerate(tiles[:6]):
+        col = 1 + k * 2
+        ws.merge_cells(start_row=r, start_column=col, end_row=r, end_column=col + 1)
+        c = ws.cell(row=r, column=col, value=value)
+        c.font = BIG
+        c.alignment = Alignment(vertical="center", indent=1)
+        ws.merge_cells(start_row=r + 1, start_column=col, end_row=r + 1, end_column=col + 1)
+        c = ws.cell(row=r + 1, column=col, value="{}  -  {}".format(label, sub))
+        c.font = LABEL
+        c.alignment = Alignment(vertical="top", indent=1, wrap_text=True)
+        ws.cell(row=r, column=col).border = Border(top=tile_top, left=line_side)
+        ws.cell(row=r, column=col + 1).border = Border(top=tile_top, right=line_side)
+        ws.cell(row=r + 1, column=col).border = Border(bottom=line_side, left=line_side)
+        ws.cell(row=r + 1, column=col + 1).border = Border(bottom=line_side, right=line_side)
+    ws.row_dimensions[r].height = 30
+    ws.row_dimensions[r + 1].height = 30
+
+    # ---- the day-by-day table -----------------------------------------
+    T0 = 31
+    ws.cell(row=T0 - 2, column=1, value="DAY BY DAY").font = Font(
+        name="Calibri", size=10, bold=True, color=argb("A6410F"))
+    ws.cell(row=T0 - 1, column=1, value=(
+        "Hours per person off the roster; money per day off the Cost Breakdown tab"
+        + ("" if cost else " (add a Day column to that tab to see the cost curve here)")
+        + ". The charts above are drawn from this table.")).font = NOTE_FONT
+    for i, h in enumerate(heads, start=1):
+        c = ws.cell(row=T0, column=i, value=h)
+        c.font = HDR_FONT
+        c.fill = HDR_FILL
+        c.border = HDR_BORDER
+        c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    ws.row_dimensions[T0].height = 30
+    cost_by_day = dict((d0, (label, vals, day_total, run)) for d0, label, vals, day_total, run
+                       in (cost["days"] if cost else []))
+    rr = T0
+    for day in fc["days"]:
+        rr += 1
+        phase_label = ""
+        for name in people:
+            cell = fc["grid"].get(name, {}).get(day)
+            if cell and cell[1]:
+                phase_label = cell[1]
+                break
+        cd = cost_by_day.get(day)
+        if cd and cd[0]:
+            phase_label = cd[0]
+        row = [day, phase_label]
+        for name in people:
+            cell = fc["grid"].get(name, {}).get(day)
+            row.append(cell[2] if cell and cell[2] else None)
+        for n in money_cols:
+            v = cd[1].get(n, 0.0) if cd else 0.0
+            row.append(v if v else None)
+        if cost:
+            row += [cd[2] if cd else 0.0, cd[3] if cd else (cost_by_day_run_before(cost_by_day, day))]
+        for i, val in enumerate(row, start=1):
+            c = ws.cell(row=rr, column=i, value=val)
+            c.font = BODY_FONT
+            c.border = CELL_BORDER
+            if (rr - T0) % 2 == 0:
+                c.fill = BAND_FILL
+            if i == 1:
+                c.number_format = "ddd dd mmm yyyy"
+            elif i > 2 + len(people):
+                c.number_format = MONEY_FMT
+                c.alignment = Alignment(horizontal="right")
+            elif i > 2:
+                c.number_format = "#,##0.##"
+                c.alignment = Alignment(horizontal="right")
+            if day == fc["today"]:
+                c.font = Font(name="Calibri", size=11, bold=True, color=argb(COATES_ORANGE))
+    last_data = rr
+    rr += 1
+    c = ws.cell(row=rr, column=1, value="Total")
+    for i in range(1, len(heads) + 1):
+        cc = ws.cell(row=rr, column=i)
+        cc.font = Font(name="Calibri", size=11, bold=True, color=NEAR_BLACK)
+        cc.fill = PatternFill("solid", fgColor=argb(COATES_TINT))
+        cc.border = CELL_BORDER
+        if 2 < i <= len(heads) - (1 if cost else 0):
+            col = get_column_letter(i)
+            cc.value = "=SUM({0}{1}:{0}{2})".format(col, T0 + 1, last_data)
+            cc.number_format = MONEY_FMT if i > 2 + len(people) else "#,##0.##"
+            cc.alignment = Alignment(horizontal="right")
+    ws.freeze_panes = None
+
+    # ---- where the money goes -----------------------------------------
+    S0 = T0
+    sc = len(heads) + 2
+    if cost:
+        ws.cell(row=S0 - 2, column=sc, value="WHERE THE MONEY GOES").font = Font(
+            name="Calibri", size=10, bold=True, color=argb("A6410F"))
+        for i, h in enumerate(["Component", "Total", "Share"]):
+            c = ws.cell(row=S0, column=sc + i, value=h)
+            c.font = HDR_FONT
+            c.fill = HDR_FILL
+            c.border = HDR_BORDER
+            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        total = cost["total"] or 1.0
+        for j, n in enumerate(money_cols, start=1):
+            vals = [n, cost["totals"][n], cost["totals"][n] / total]
+            for i, val in enumerate(vals):
+                c = ws.cell(row=S0 + j, column=sc + i, value=val)
+                c.font = BODY_FONT
+                c.border = CELL_BORDER
+                if j % 2 == 0:
+                    c.fill = BAND_FILL
+                if i == 1:
+                    c.number_format = MONEY_FMT
+                    c.alignment = Alignment(horizontal="right")
+                if i == 2:
+                    c.number_format = "0%"
+                    c.alignment = Alignment(horizontal="right")
+        ws.column_dimensions[get_column_letter(sc)].width = 18
+
+    def paint(series, hex6):
+        series.graphicalProperties = GraphicalProperties(solidFill=hex6)
+        series.graphicalProperties.line = LineProperties(solidFill=hex6)
+
+    PALETTE = [COATES_ORANGE, "2A313C", RAG["amber"][2], "98A0AA", RAG["green"][2],
+               "F7A072", RAG["red"][2]]
+
+    def palette_for(name):
+        z = name.lower()
+        if "labour" in z:
+            return "2A313C"
+        if "tool" in z or "shutdown" in z or "hire" in z:
+            return COATES_ORANGE
+        if "site" in z or "service" in z:
+            return RAG["amber"][2]
+        if "flight" in z or "travel" in z:
+            return "98A0AA"
+        return None
+
+    # ---- chart 1: cost by day, running total over it -------------------
+    if cost:
+        first_money = 3 + len(people)
+        bar = BarChart()
+        bar.type = "col"
+        bar.grouping = "stacked"
+        bar.overlap = 100
+        bar.gapWidth = 60
+        bar.title = "Cost by day, with the running total"
+        bar.style = 10
+        bar.add_data(Reference(ws, min_col=first_money, max_col=first_money + len(money_cols) - 1,
+                               min_row=T0, max_row=last_data), titles_from_data=True)
+        bar.set_categories(Reference(ws, min_col=1, min_row=T0 + 1, max_row=last_data))
+        for k, srs in enumerate(bar.series):
+            paint(srs, palette_for(money_cols[k]) or PALETTE[k % len(PALETTE)])
+        bar.y_axis.title = "$ per day"
+        bar.y_axis.numFmt = "$#,##0"
+        bar.y_axis.majorGridlines = None
+        bar.x_axis.number_format = "dd mmm"
+        bar.legend.position = "b"
+        line = LineChart()
+        run_col = len(heads)
+        line.add_data(Reference(ws, min_col=run_col, min_row=T0, max_row=last_data),
+                      titles_from_data=True)
+        line.set_categories(Reference(ws, min_col=1, min_row=T0 + 1, max_row=last_data))
+        ls = line.series[0]
+        ls.graphicalProperties = GraphicalProperties()
+        ls.graphicalProperties.line = LineProperties(solidFill=COATES_INK, w=28000)
+        ls.marker.symbol = "circle"
+        ls.marker.size = 6
+        ls.marker.graphicalProperties = GraphicalProperties(solidFill=COATES_INK)
+        ls.smooth = False
+        line.y_axis.axId = 200
+        line.y_axis.title = "Running total"
+        line.y_axis.numFmt = "$#,##0"
+        line.y_axis.crosses = "max"
+        line.y_axis.majorGridlines = None
+        bar += line
+        bar.width, bar.height = 24.5, 10.6
+        ws.add_chart(bar, "A7")
+
+        # ---- chart 2: the split ---------------------------------------
+        dn = DoughnutChart(holeSize=58)
+        dn.title = "Where the money goes"
+        dn.style = 10
+        dn.add_data(Reference(ws, min_col=sc + 1, min_row=S0, max_row=S0 + len(money_cols)),
+                    titles_from_data=True)
+        dn.set_categories(Reference(ws, min_col=sc, min_row=S0 + 1, max_row=S0 + len(money_cols)))
+        srs = dn.series[0]
+        for k, n in enumerate(money_cols):
+            pt = DataPoint(idx=k)
+            pt.graphicalProperties = GraphicalProperties(
+                solidFill=palette_for(n) or PALETTE[k % len(PALETTE)])
+            pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
+            srs.dPt.append(pt)
+        dn.dataLabels = DataLabelList()
+        dn.dataLabels.showPercent = True
+        dn.dataLabels.showVal = False
+        dn.dataLabels.showSerName = False
+        dn.dataLabels.showCatName = False
+        dn.dataLabels.showLegendKey = False
+        dn.legend.position = "b"
+        dn.width, dn.height = 11.5, 10.6
+        ws.add_chart(dn, "J7")
+    else:
+        hb = BarChart()
+        hb.type = "bar"
+        hb.title = "Rostered hours by person"
+        hb.style = 10
+        hb.add_data(Reference(ws, min_col=3, max_col=2 + len(people), min_row=T0,
+                              max_row=last_data), titles_from_data=True)
+        hb.set_categories(Reference(ws, min_col=1, min_row=T0 + 1, max_row=last_data))
+        for k, srs in enumerate(hb.series):
+            paint(srs, PALETTE[k % len(PALETTE)])
+        hb.grouping = "stacked"
+        hb.overlap = 100
+        hb.width, hb.height = 24.5, 10.6
+        ws.add_chart(hb, "A7")
+
+    try:
+        tidy_print(ws, NC, landscape=True, name="Forecast")
+    except Exception:
+        pass
+    return ws
+
+
+def cost_by_day_run_before(cost_by_day, day):
+    """The running total as it stood before a day the cost tab has no
+    row for - so the Running total column never dips to zero."""
+    before = [v for d0, v in cost_by_day.items() if d0 < day]
+    return max([v[3] for v in before] + [0.0])
 
 
 def dashboard(wb, s, when, asat, parts):
@@ -3899,15 +4554,21 @@ def _call_card(parts):
 def _attached(parts):
     """What is on the paperclip, so nobody has to guess what the two
     attachments are before they open them."""
+    n_tabs = parts.get("n_tabs") or 14
+    fc = parts.get("forecast")
     cards = [("XLSX", "The workbook",
-              "Fourteen tabs - a live dashboard, then every line behind "
-              "these numbers. The costs are in here and only in here.")]
+              "{} tabs - a live dashboard{}, then every line behind "
+              "these numbers. The costs are in here and only in here.".format(
+                  _words(n_tabs).capitalize(),
+                  " and the forecast" if fc else ""))]
     pages = parts.get("pack_pages") or 0
     if pages:
         cards.append(("PDF", "The company pack",
-                      "{} page{} - the asks on the cover, the story on page 2, "
-                      "charts on page 3, then a section per company.".format(
-                          _fmt(pages), "" if pages == 1 else "s")))
+                      "{} page{} - the asks on the cover, the story on page 2, {}"
+                      "then a section per company.".format(
+                          _fmt(pages), "" if pages == 1 else "s",
+                          "looking ahead on page 3, charts on page 4, " if fc
+                          else "charts on page 3, ")))
     out = [_kicker("Attached to this email", E_MUTED), _T, "<tr>"]
     cell = ("<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
             "background:{c};border:1px solid {l};padding:10px 12px\">"
@@ -3998,6 +4659,35 @@ def _tiles(tiles):
             out.append("<td width='33%' style=\"width:33%\">&nbsp;</td>")
         out.append("</tr>")
     out.append("</table>")
+    return "".join(out)
+
+
+def _ahead_card(fc):
+    """Looking ahead: the shut's dates off the roster, the people, and
+    what the counter can expect from last time. No costs - they stay in
+    the workbook."""
+    cells = fc["milestones"]
+    out = [_kicker("Looking ahead - {}".format(fc["job"]), E_MUTED), _T, "<tr>"]
+    each = int(100 / len(cells))
+    for i, (label, value, sub) in enumerate(cells):
+        if i:
+            out.append("<td width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
+        out.append(
+            "<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
+            "background:{c};border:1px solid {l};border-top:3px solid {o};"
+            "padding:9px 11px\">"
+            "<div style=\"font-family:{f};font-size:12.5pt;font-weight:800;"
+            "color:{k};line-height:1.15;white-space:nowrap\">{v}</div>"
+            "<div style=\"font-family:{f};font-size:7.5pt;font-weight:700;"
+            "color:{k};letter-spacing:.6px;text-transform:uppercase;"
+            "padding-top:4px\">{lb}</div>"
+            "<div style=\"font-family:{f};font-size:8pt;color:{m};"
+            "padding-top:2px\">{s}</div></td>".format(
+                pc=each, c=E_CARD, l=E_LINE, o=E_ORANGE, f=E_FONT, k=E_INK, m=E_MUTED,
+                v=_esc(value), lb=_esc(label), s=_esc(sub)))
+    out.append("</tr></table>")
+    out.append("<div style=\"{sm};padding-top:8px\">{a} {b}</div>".format(
+        sm=E_SMALL, a=_esc(fc["brief"]), b=_esc(fc["ref_line"])))
     return "".join(out)
 
 
@@ -4100,6 +4790,9 @@ def email_html(s, when, asat, parts):
     if story:
         inner.append(_gap(10))
         inner.append(_moving_strip(story))
+    if parts.get("forecast"):
+        inner.append(_gap(14))
+        inner.append(_ahead_card(parts["forecast"]))
     inner.append(_gap(24))
 
     #  ---- 2. who is holding gear --------------------------------------
@@ -4603,12 +5296,28 @@ class _Pack(object):
         return y + 38
 
     def gauge(self, cx, cy, pct, colour, value, label, sub):
+        """A half dial with round ends and quarter ticks - vector, so it
+        is as crisp on a wall screen as on a phone."""
+        import math
         d = self.doc
         pct = max(0.0, min(1.0, pct or 0.0))
-        d.ring(cx, cy, 40, 29, 180, 0, self.C_TRACK)
+        r_out, r_in = 41, 29.5
+        rm, cap = (r_out + r_in) / 2.0, (r_out - r_in) / 2.0
+        for a in (0, 45, 90, 135, 180):
+            t = math.radians(a)
+            d.line(cx + (r_out + 2.5) * math.cos(t), cy - (r_out + 2.5) * math.sin(t),
+                   cx + (r_out + 5.5) * math.cos(t), cy - (r_out + 5.5) * math.sin(t),
+                   colour=P_LINE, lw=0.8)
+        d.ring(cx, cy, r_out, r_in, 180, 0, self.C_TRACK)
+        d.circle(cx - rm, cy, cap, fill=self.C_TRACK)
+        d.circle(cx + rm, cy, cap, fill=self.C_TRACK)
         if pct > 0:
-            d.ring(cx, cy, 40, 29, 180, 180 - 180 * pct, colour)
-        d.text(cx, cy - 3, str(value), size=15, bold=True, colour=P_INK, align="centre")
+            a_end = 180 - 180 * pct
+            d.ring(cx, cy, r_out, r_in, 180, a_end, colour)
+            d.circle(cx - rm, cy, cap, fill=colour)
+            t = math.radians(a_end)
+            d.circle(cx + rm * math.cos(t), cy - rm * math.sin(t), cap, fill=colour)
+        d.text(cx, cy - 2, str(value), size=16, bold=True, colour=P_INK, align="centre")
         d.text(cx, cy + 14, label.upper(), size=6.3, bold=True, colour=P_MUTED,
                tracking=0.4, align="centre", max_w=118)
         d.text(cx, cy + 25, sub, size=7, colour=P_MUTED, align="centre", max_w=118)
@@ -4631,11 +5340,11 @@ class _Pack(object):
             tone = r[2] if len(r) > 2 else None
             yy = y + i * pitch
             d.text(x, yy + 8.5, label, size=8, colour=P_INK, max_w=label_w - 8)
-            d.rect(track_x, yy, track_w, bar_h, fill=self.C_TRACK)
+            d.rect(track_x, yy, track_w, bar_h, fill=self.C_TRACK, radius=bar_h / 2.0)
             bw = track_w * (float(value) / biggest) if biggest else 0
             colour = (colours or {}).get(tone, self.C_ORANGE) if tone else self.C_ORANGE
             if bw > 0:
-                d.rect(track_x, yy, max(bw, 1.5), bar_h, fill=colour)
+                d.rect(track_x, yy, max(bw, bar_h), bar_h, fill=colour, radius=bar_h / 2.0)
             text = fmt(value) if fmt else "{:,}".format(int(value))
             d.text(track_x + track_w + 36, yy + 8.5, text, size=8, bold=True,
                    colour=P_INK, align="right")
@@ -4658,6 +5367,18 @@ class _Pack(object):
                 d.ring(cx, cy, r, r * 0.64, a, a - sweep, colour)
             a -= sweep
         d.circle(cx, cy, r * 0.64, fill=P_WHITE)
+        #  A hairline of white between the slices, so each reads on its own.
+        if len([p for p in parts if p[1] > 0]) > 1:
+            import math
+            a = 90.0
+            for label, value, colour in parts:
+                sweep = 360.0 * value / total
+                if sweep > 0:
+                    t = math.radians(a)
+                    d.line(cx + (r * 0.64 - 1) * math.cos(t), cy - (r * 0.64 - 1) * math.sin(t),
+                           cx + (r + 1) * math.cos(t), cy - (r + 1) * math.sin(t),
+                           colour=P_WHITE, lw=1.6)
+                a -= sweep
         d.text(cx, cy + 2, "{:,}".format(int(total)), size=15, bold=True,
                colour=P_INK, align="centre")
         d.text(cx, cy + 13, total_label, size=6.5, bold=True, colour=P_MUTED,
@@ -4684,18 +5405,28 @@ class _Pack(object):
         plot_h = h - 26
         head = 16                                # room for the legend and labels
         biggest = max([v for _n, vals, _c in series for v in vals] + [1])
+        top = 4 * _nice_ceiling(biggest / 4.0)      # four round steps
+        #  A quiet scale down the left: four gridlines with their values.
+        ax_w = 22
+        x_all = x
+        x, w = x + ax_w, w - ax_w
+        base = y + plot_h
+        for k in range(1, 5):
+            gy = base - (plot_h - head) * (k / 4.0)
+            d.line(x, gy, x + w, gy, colour=P_LINE, lw=0.4)
+            d.text(x - 4, gy + 2.2, "{:,}".format(int(round(top * k / 4.0))), size=5.8,
+                   colour=C_MUTED_LIGHT, align="right")
         group_w = w / float(len(days))
         bar_w = max(3.0, (group_w - 10) / float(len(series)))
-        base = y + plot_h
         d.line(x, base, x + w, base, colour=P_LINE, lw=0.6)
         for gi, day in enumerate(days):
             gx = x + gi * group_w + 5
             for si, (name, vals, colour) in enumerate(series):
                 v = vals[gi]
-                bh = (plot_h - head) * (v / float(biggest))
+                bh = (plot_h - head) * (v / float(top))
                 bx = gx + si * bar_w
                 if bh > 0:
-                    d.rect(bx, base - bh, bar_w - 1.5, bh, fill=colour)
+                    d.rect(bx, base - bh, bar_w - 1.5, bh, fill=colour, radius=1)
                 if v and bar_w >= 9:
                     d.text(bx + (bar_w - 1.5) / 2.0, base - bh - 2.5, "{:,}".format(int(v)),
                            size=6, colour=P_MUTED, align="centre")
@@ -4733,11 +5464,13 @@ class _Pack(object):
         self.y += 44
 
         # ---- gauges --------------------------------------------------------
-        top = self.card(self.x0, self.y, self.cw, 118, "The four dials",
-                        "How much of the fleet is working, how solid the dates are, "
-                        "where the consumables sit, and what is overdue")
         st_ = parts.get("story") or {}
         n_dials = 5 if st_.get("st_total") else 4
+        top = self.card(self.x0, self.y, self.cw, 118,
+                        "The {} dials".format("five" if n_dials == 5 else "four"),
+                        "How much of the fleet is working, how solid the dates are, "
+                        "where the consumables sit, what is overdue"
+                        + (" and what was sighted" if n_dials == 5 else ""))
         slot = self.cw / float(n_dials)
         cy = top + 36
         fleet = v["coates_out"] / float(v["coates_total"] or 1)
@@ -5067,6 +5800,229 @@ class _Pack(object):
         self.y += h
         return idx
 
+    # ---- looking ahead ----------------------------------------------------
+    def timeline(self, x, y, w, fc):
+        """The roster as a strip: a column per day, a row per person,
+        each cell coloured by what that day is - travel, mobilisation,
+        day shift, night shift. Days already worked are outlined, days
+        to come are filled. Returns the y below it."""
+        d = self.doc
+        days, people, today = fc["days"], fc["people"][:6], fc["today"]
+        label_w = 104
+        n = len(days)
+        col_w = (w - label_w) / float(max(n, 1))
+        pitch, cell_h = 22, 16
+        today_in = days[0] <= today <= days[-1]
+        if today_in:                              # a tinted column behind today
+            i = (today - days[0]).days
+            d.rect(x + label_w + col_w * i - 0.5, y - 2, col_w + 1,
+                   33 + pitch * len(people) + 1, fill=P_TINT, radius=4)
+        for i, day in enumerate(days):
+            cx = x + label_w + col_w * i + col_w / 2.0
+            d.text(cx, y + 8, day.strftime("%a") if col_w >= 24 else day.strftime("%a")[0],
+                   size=6.2, bold=True, colour=P_MUTED, align="centre")
+            d.text(cx, y + 18, day.strftime("%d"), size=8, bold=True, colour=P_INK,
+                   align="centre")
+            if i == 0 or day.day == 1:
+                d.text(cx, y + 25.5, day.strftime("%b").upper(), size=5.4, bold=True,
+                       colour=P_ORANGE, tracking=.6, align="centre")
+        yy = y + 31
+        for name, hours, _done, _phs in people:
+            d.text(x, yy + cell_h / 2.0 + 3, name, size=8.2, bold=True, colour=P_INK,
+                   max_w=label_w - 10)
+            g = fc["grid"].get(name, {})
+            for i, day in enumerate(days):
+                cx0 = x + label_w + col_w * i + 1.5
+                cw_ = col_w - 3
+                cell = g.get(day)
+                ph = cell[0] if cell else "off"
+                colour = PHASE_COLOUR[ph]
+                done = day < today
+                if ph == "off":
+                    d.rect(cx0, yy, cw_, cell_h, fill=self.C_TRACK, radius=3)
+                elif done:
+                    d.rect(cx0, yy, cw_, cell_h, fill=P_WHITE, stroke=colour, lw=0.9, radius=3)
+                else:
+                    d.rect(cx0, yy, cw_, cell_h, fill=colour, radius=3)
+                if cell and cell[2] and cw_ >= 15 and ph != "off":
+                    d.text(cx0 + cw_ / 2.0, yy + cell_h / 2.0 + 2.4, "{:g}".format(cell[2]),
+                           size=6.5, bold=True, colour=colour if done else P_WHITE,
+                           align="centre")
+            yy += pitch
+        if today_in:
+            i = (today - days[0]).days
+            tx = x + label_w + col_w * i + col_w / 2.0
+            d.text(tx, yy + 3, "TODAY", size=5.4, bold=True, colour=P_ORANGE, tracking=.6,
+                   align="centre")
+            yy += 5
+        lx = x
+        for key, label, colour in PHASES:
+            if key not in fc["phases_used"] or key == "off":
+                continue
+            text = label + (" " + fc["times"][key] if fc["times"].get(key) else "")
+            d.rect(lx, yy + 4.5, 9, 9, fill=colour, radius=2)
+            lx += 13
+            lx += d.text(lx, yy + 12, text, size=6.8, colour=P_MUTED) + 14
+        if any(day < today for day in days):
+            d.rect(lx, yy + 4.5, 9, 9, fill=P_WHITE, stroke=P_MUTED, lw=0.8, radius=2)
+            lx += 13
+            d.text(lx, yy + 12, "worked", size=6.8, colour=P_MUTED)
+        return yy + 20
+
+    def hour_profile(self, x, y, w, h, counts, busy):
+        """Scans at the counter by hour of day - 24 bars, the two busiest
+        hours in full orange and labelled."""
+        d = self.doc
+        n = 24
+        biggest = max(counts + [1])
+        gap = 1.6
+        bw = (w - gap * (n - 1)) / float(n)
+        base = y + h - 12
+        plot_h = h - 12 - 10
+        d.line(x, base, x + w, base, colour=P_LINE, lw=0.6)
+        for i, c in enumerate(counts):
+            bh = plot_h * c / float(biggest)
+            bx = x + i * (bw + gap)
+            colour = (self.C_ORANGE if i in busy else
+                      (self.C_ORANGE_2 if c >= 0.5 * biggest else self.C_ORANGE_3))
+            if bh > 0:
+                d.rect(bx, base - bh, bw, bh, fill=colour, radius=min(1.5, bw / 2.0))
+            if i in busy and c:
+                d.text(bx + bw / 2.0, base - bh - 3, "{:,}".format(c), size=6, bold=True,
+                       colour=P_INK, align="centre")
+        for hh in (0, 6, 12, 18):
+            d.text(x + hh * (bw + gap), base + 9, "{:02d}:00".format(hh), size=6.2,
+                   colour=P_MUTED)
+        d.text(x + w, base + 9, "24:00", size=6.2, colour=P_MUTED, align="right")
+
+    def ahead(self, parts):
+        """Page three: the shut ahead. The roster as a timeline, the
+        milestones, the counter's rhythm last time and what to have
+        ready - dates, people and movements only, never a dollar."""
+        d = self.doc
+        fc = parts["forecast"]
+        ref = fc["ref"]
+        idx = self.page("On-Hire Report by Company")
+        self.doc.bookmark("Looking ahead", idx, 60)
+        d.text(self.x0, self.y + 16, "Looking ahead", size=18, bold=True, colour=P_INK)
+        d.text(self.x0, self.y + 31,
+               ("The shut ahead - the roster, the counter's rhythm last time, and what to "
+                "have ready." if fc["state"] == "ahead" else
+                "The rest of this shut - the roster, the counter's rhythm, and what to "
+                "have ready."), size=9, colour=P_MUTED, max_w=self.cw - 170)
+        d.text(self.x1, self.y + 16, "AS AT {}".format(
+            self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
+            colour=P_ORANGE, tracking=1.2, align="right")
+        d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
+               colour=P_MUTED, align="right")
+        self.y += 44
+
+        text = fc["brief"] + " " + fc["ref_line"]
+        lines = d.wrap(text, 9.6, self.cw - 32)
+        box_h = 34 + 13.5 * len(lines) + 6
+        d.rect(self.x0, self.y, self.cw, box_h, fill=P_TINT)
+        d.rect(self.x0, self.y, 4, box_h, fill=P_ORANGE)
+        d.text(self.x0 + 16, self.y + 20, "THE SHUT AHEAD" if fc["state"] == "ahead"
+               else "THE REST OF THE SHUT", size=7.2, bold=True, colour=P_ORANGE, tracking=1.2)
+        d.paragraph(self.x0 + 16, self.y + 34, text, size=9.6, max_w=self.cw - 32,
+                    colour=P_INK, leading=13.5)
+        self.y += box_h + 10
+
+        #  Milestones, five across.
+        tiles = fc["milestones"]
+        gap, h = 8, 44
+        w = (self.cw - gap * (len(tiles) - 1)) / float(len(tiles))
+        x = self.x0
+        for label, value, sub in tiles:
+            d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
+            d.rect(x, self.y, w, 2.5, fill=P_ORANGE)
+            d.text(x + 9, self.y + 20, value, size=12.5, bold=True, colour=P_INK, max_w=w - 16)
+            d.text(x + 9, self.y + 30.5, label.upper(), size=6, bold=True, colour=P_INK,
+                   tracking=0.4, max_w=w - 16)
+            d.text(x + 9, self.y + 39, sub, size=6.5, colour=P_MUTED, max_w=w - 16)
+            x += w + gap
+        self.y += h + 10
+
+        #  The roster, day by day.
+        n_people = min(len(fc["people"]), 6)
+        tl_h = 38 + 31 + 22 * n_people + 26 + (5 if fc["days"][0] <= fc["today"] <= fc["days"][-1] else 0)
+        top = self.card(self.x0, self.y, self.cw, tl_h, "The roster, day by day",
+                        "Who is on the counter each day{}".format(
+                            " - the Coates Labour tab as typed" if n_people else ""))
+        self.timeline(self.x0 + 12, top - 6, self.cw - 24, fc)
+        self.y += tl_h + 10
+
+        half = (self.cw - 10) / 2.0
+        xr = self.x0 + half + 10
+        room = self.bottom - self.y - 30
+        H2 = 150
+        n_rows = max(2, min(7, int((room - H2 - 10 - 52) // 16)))
+        H3 = 52 + 16 * n_rows
+
+        #  Row: when the counter is busiest | a day at the counter.
+        top = self.card(self.x0, self.y, half, H2, "When the counter is busiest",
+                        "Scans by hour of day{} - every issue, return and draw".format(
+                            ", last time" if ref["previous"] else ""))
+        if ref["scans"]:
+            self.hour_profile(self.x0 + 12, top + 2, half - 24, H2 - 80, ref["hour"], ref["busy"])
+            if len(ref["busy"]) == 2:
+                d.paragraph(self.x0 + 12, top + H2 - 66,
+                            "Shift change is the crunch: {:02d}:00 and {:02d}:00 carry {:.0f}% of "
+                            "the day's scans between them. Two people on the counter then, and "
+                            "returns pre-staged, keeps the queue short.".format(
+                                ref["busy"][0], ref["busy"][1], ref["busy_share"] * 100),
+                            size=7.4, max_w=half - 24, colour=P_MUTED, leading=10)
+        else:
+            d.text(self.x0 + 12, top + 14, "No timed movements in this export.", size=8.5,
+                   italic=True, colour=P_MUTED)
+        top = self.card(xr, self.y, half, H2, "A day at the counter" +
+                        (", last time" if ref["previous"] else ", so far"),
+                        "{} - {}".format(ref["label"], ref["span"]) if ref["moves"] else "")
+        if ref["moves"]:
+            stats = [("{:,.0f}".format(ref["per_day"]), "movements a day",
+                      "{:,} over {} days".format(ref["moves"], ref["days"])),
+                     ("{:,}".format(ref["peak"]), "on the busiest day",
+                      ref["peak_day"].strftime("%A %d %b") if ref["peak_day"] else ""),
+                     (("{:.0f}%".format(ref["same_day_pct"]) if ref["same_day_pct"] is not None
+                       else "-"), "returned same day", "crews bringing gear straight back"),
+                     ("{:,}".format(ref["companies"]), "companies served",
+                      "{:,} people through the counter".format(ref["people"]))]
+            cw2 = (half - 24) / 2.0
+            for k, (val, lab, sub) in enumerate(stats):
+                sx = xr + 12 + (k % 2) * cw2
+                sy = top + 4 + (k // 2) * 46
+                d.text(sx, sy + 18, val, size=16, bold=True, colour=P_INK)
+                d.text(sx, sy + 28, lab.upper(), size=6, bold=True, colour=P_MUTED, tracking=.4,
+                       max_w=cw2 - 8)
+                d.text(sx, sy + 37, sub, size=6.5, colour=P_MUTED, max_w=cw2 - 8)
+        else:
+            d.text(xr + 12, top + 14, "No movements in this export to set an expectation from.",
+                   size=8.5, italic=True, colour=P_MUTED)
+        self.y += H2 + 10
+
+        #  Row: have these ready | consumables that go fastest.
+        top = self.card(self.x0, self.y, half, H3, "Have these ready",
+                        "The tooling asked for most{} - times issued".format(
+                            " last time" if ref["previous"] else ""))
+        self.hbars(self.x0 + 12, top + 2, half - 24, ref["top_tools"][:n_rows], label_w=138, pitch=16)
+        top = self.card(xr, self.y, half, H3, "Consumables that go fastest",
+                        "Quantity drawn{} - stock the shelf for it".format(
+                            " last time" if ref["previous"] else " so far"))
+        self.hbars(xr + 12, top + 2, half - 24,
+                   [(a, b) for a, b in ref["top_cons"][:n_rows]], label_w=138, pitch=16,
+                   fmt=lambda v: "{:,.0f}".format(v))
+        self.y += H3 + 8
+        if self.y + 22 <= self.bottom:
+            d.paragraph(self.x0, self.y + 8,
+                        "Expectations come from the record of {} ({}){} - a guide, not a promise. "
+                        "Roster and dates are the Coates Labour tab as at {}. No costs anywhere "
+                        "in this pack.".format(
+                            ref["label"], ref["span"],
+                            ", the last shut on this site" if ref["previous"] else "",
+                            self.when.strftime("%d %b %Y")),
+                        size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5)
+        return idx
+
     def people_bars(self, b):
         """Inside a company section: who holds how much, as bars."""
         d = self.doc
@@ -5343,8 +6299,10 @@ class _Pack(object):
         #  is a link, and each company is a bookmark down the side.
         d.text(self.x0, self.y + 10, "In this pack", size=11, bold=True,
                colour=P_INK)
-        d.text(self.x1, self.y + 10, "{} compan{}  ·  {} pages  -  the story on page 2, charts on page 3".format(
-            len(blocks), "y" if len(blocks) == 1 else "ies", self.doc.page_count),
+        d.text(self.x1, self.y + 10, "{} compan{}  \u00b7  {} pages  -  the story on page 2, {}".format(
+            len(blocks), "y" if len(blocks) == 1 else "ies", self.doc.page_count,
+            "looking ahead on page 3, charts on page 4" if parts.get("forecast")
+            else "charts on page 3"),
             size=8.5, colour=P_MUTED, align="right")
         self.y += 18
         cols = ((self.x0 + 8, "COMPANY", "left"), (self.x0 + 230, "ITEMS", "right"),
@@ -5427,7 +6385,9 @@ def build_company_pack(path, s, when, asat, period, parts, blocks, quiet):
     pk.total_onhire = sum(b["items"] for b in blocks)
     pk.page("On-Hire Report by Company")           # page 0 - the cover, drawn last
     pk.story(parts)                                # page 1 - the story
-    pk.glance(parts)                               # page 2 - the charts
+    if parts.get("forecast"):
+        pk.ahead(parts)                            # the shut ahead, when there is one
+    pk.glance(parts)                               # the charts
     starts = []
     for k, b in enumerate(blocks, 1):
         starts.append(pk.section(b, index=k, total=len(blocks)))
@@ -5466,6 +6426,12 @@ def email_text(s, when, parts):
     lines += ["", "THE POSITION", ""]
     for label, value, sub in parts["tiles"]:
         lines.append("  {:<28} {:>7}   {}".format(label, value, sub))
+    fc = parts.get("forecast")
+    if fc:
+        lines += ["", "LOOKING AHEAD - {}".format(fc["job"].upper()), ""]
+        for label, value, sub in fc["milestones"]:
+            lines.append("  {:<16} {:>10}   {}".format(label, value, sub))
+        lines += ["", "  " + fc["brief"], "  " + fc["ref_line"]]
     lines += ["", "EVERYTHING ON HIRE - COMPANY BY COMPANY", ""]
     for block in parts["roll"]:
         lines.append("  {}  ({} items, {} people)".format(
@@ -5484,7 +6450,8 @@ def email_text(s, when, parts):
     lines += ["", "WHAT I NEED FROM YOU", ""]
     for n, (head, bodytext) in enumerate(parts["actions"], 1):
         lines.append("  {}. {} - {}".format(n, head, bodytext))
-    attached = "The detail is in the attached workbook - fourteen tabs, dashboard first"
+    attached = "The detail is in the attached workbook - {} tabs, dashboard first".format(
+        _words(parts.get("n_tabs") or 14))
     if parts.get("pack_pages"):
         attached += (", and the attached company pack PDF has a section for "
                      "each company ({} pages)".format(parts["pack_pages"]))

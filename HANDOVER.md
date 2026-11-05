@@ -166,10 +166,14 @@ and waits. `26_`/`27_` turn draft creation off and on.
 A **standalone** kit, separate from the K2 suite: one folder, four
 buttons, nothing installed. It reads RENTAL_STOCK / SALES_STOCK /
 TRANSACTIONS (+ STOCKTAKE) and writes the on-hire **workbook** (14 tabs,
-Dashboard first), the on-hire **email** (draft, no costs) and the
-**company pack PDF** (cover with the asks, *The story*, *At a glance*
-charts, then a section per company that touched the counter), plus one
-PDF per company in `By_Company\`. `4_MAKE_OUTLOOK_DRAFT.bat` saves the
+Dashboard first; 15 with the internal *Forecast* tab while the roster has
+days to come), the on-hire **email** (draft, no costs) and the
+**company pack PDF** (cover with the asks, *The story*, *Looking ahead*
+while a shut is ahead or under way, *At a glance* charts, then a section
+per company that touched the counter), plus one PDF per company in
+`By_Company\`. *Looking ahead* and the email card carry dates, people
+and movements only; dollars (cost by day, running total, split) live on
+the Forecast tab, read off the two typed tabs at build time. `4_MAKE_OUTLOOK_DRAFT.bat` saves the
 email as a native Outlook draft. The PDF is drawn by `coates_pdf.py`, a
 standard-library PDF writer that travels in the kit.
 
