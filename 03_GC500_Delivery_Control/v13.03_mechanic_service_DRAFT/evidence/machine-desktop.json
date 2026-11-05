@@ -1,0 +1,521 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "machine1303",
+  "viewport": "desktop",
+  "passed": true,
+  "checks": [
+    {
+      "name": "machine initialises",
+      "pass": true
+    },
+    {
+      "name": "workshop button present",
+      "pass": true
+    },
+    {
+      "name": "enter",
+      "pass": true
+    },
+    {
+      "name": "actual engine assembly",
+      "pass": true
+    },
+    {
+      "name": "drive locked",
+      "pass": true
+    },
+    {
+      "name": "no cockpit or suspension lifted",
+      "pass": true
+    },
+    {
+      "name": "existing dock kept out of preview",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.075",
+      "pass": true
+    },
+    {
+      "name": "tool reaches original hose clamp",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.53",
+      "pass": true
+    },
+    {
+      "name": "mechanic stays clear of moving load",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.86",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.5304",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.5304",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.66",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.66",
+      "pass": true
+    },
+    {
+      "name": "finite pose 1",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 1",
+      "pass": true
+    },
+    {
+      "name": "close inspection available",
+      "pass": true
+    },
+    {
+      "name": "overview restored",
+      "pass": true
+    },
+    {
+      "name": "engine lifts vertically",
+      "pass": true
+    },
+    {
+      "name": "engine traverses",
+      "pass": true
+    },
+    {
+      "name": "engine lowers to cradle",
+      "pass": true
+    },
+    {
+      "name": "play advances",
+      "pass": true
+    },
+    {
+      "name": "pause holds",
+      "pass": true
+    },
+    {
+      "name": "clamps progress",
+      "pass": true
+    },
+    {
+      "name": "conflicting keyboard paths blocked",
+      "pass": true
+    },
+    {
+      "name": "no horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "panel within viewport",
+      "pass": true
+    },
+    {
+      "name": "exit releases drive lock",
+      "pass": true
+    },
+    {
+      "name": "original dock restored",
+      "pass": true
+    },
+    {
+      "name": "crew upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "finish upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "bench opens supported engine",
+      "pass": true
+    },
+    {
+      "name": "fault buttons hidden until challenge",
+      "pass": true
+    },
+    {
+      "name": "bench controls enabled",
+      "pass": true
+    },
+    {
+      "name": "all 16 components available",
+      "pass": true
+    },
+    {
+      "name": "manual crank turns 45 degrees",
+      "pass": true
+    },
+    {
+      "name": "oil route shown",
+      "pass": true
+    },
+    {
+      "name": "flow summary key preserves bench",
+      "pass": true
+    },
+    {
+      "name": "coolant limitation clear",
+      "pass": true
+    },
+    {
+      "name": "timing-belt fault starts",
+      "pass": true
+    },
+    {
+      "name": "timing-belt cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "timing-belt inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "timing-belt repaired",
+      "pass": true
+    },
+    {
+      "name": "oil-pump fault starts",
+      "pass": true
+    },
+    {
+      "name": "oil-pump cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "oil-pump inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "oil-pump repaired",
+      "pass": true
+    },
+    {
+      "name": "bench no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "four-stroke lesson active",
+      "pass": true
+    },
+    {
+      "name": "actual phase intake",
+      "pass": true
+    },
+    {
+      "name": "actual phase compression",
+      "pass": true
+    },
+    {
+      "name": "actual phase power",
+      "pass": true
+    },
+    {
+      "name": "actual phase exhaust",
+      "pass": true
+    },
+    {
+      "name": "cycle play explicitly advances",
+      "pass": true
+    },
+    {
+      "name": "isolated original-model component rotates",
+      "pass": true
+    },
+    {
+      "name": "connection reference visible",
+      "pass": true
+    },
+    {
+      "name": "wide component fits above controls",
+      "pass": true
+    },
+    {
+      "name": "refit closes bench first",
+      "pass": true
+    },
+    {
+      "name": "refit moves towards car",
+      "pass": true
+    },
+    {
+      "name": "tour starts explicitly",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.1",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.35",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.57",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.7",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.82",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.98",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.12",
+      "pass": true
+    },
+    {
+      "name": "tour resume advances",
+      "pass": true
+    },
+    {
+      "name": "orbit pauses tour",
+      "pass": true
+    },
+    {
+      "name": "manual lesson takes over tour without losing mode",
+      "pass": true
+    },
+    {
+      "name": "manual isolation takes over tour",
+      "pass": true
+    },
+    {
+      "name": "refit direction survives tour handoff",
+      "pass": true
+    },
+    {
+      "name": "exit tour keeps workshop under manual control",
+      "pass": true
+    },
+    {
+      "name": "reduced motion preference applied",
+      "pass": true
+    },
+    {
+      "name": "fault exit restores engine and releases lock",
+      "pass": true
+    },
+    {
+      "name": "cockpit view still works",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    },
+    {
+      "name": "no write attempts",
+      "pass": true
+    },
+    {
+      "name": "no late browser errors after close",
+      "pass": true
+    },
+    {
+      "name": "no late write attempts after close",
+      "pass": true
+    }
+  ],
+  "poses": [
+    {
+      "active": true,
+      "progress": 0,
+      "direction": 1,
+      "stage": "Rigging aligned over the engine",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        0,
+        0,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 1.651952935984055,
+        "hook": 2.7906400012791157
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        0.47952000130116945,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.809359998720884,
+        5.809359998720884
+      ],
+      "rigging": {
+        "attached": 0,
+        "clear": 1,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.4799999999999999,
+      "direction": 1,
+      "stage": "Lift clear of the bay",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        0,
+        1.9594594594594597,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 0.0019529359840550486,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        1.9295200013011695,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.289359998720884,
+        5.289359998720884
+      ],
+      "rigging": {
+        "attached": 1,
+        "clear": 0,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.75,
+      "direction": 1,
+      "stage": "Lower onto the service bench",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        1.9594594594594597,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 2.851952935984055,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.9295200013011695,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.289359998720884,
+        5.289359998720884
+      ],
+      "rigging": {
+        "attached": 1,
+        "clear": 0,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 1,
+      "direction": 1,
+      "stage": "Engine supported on the service bench",
+      "benchReady": true,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        0.8848648635237607,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 4.501952935984055,
+        "hook": 3.4454400002866987
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.1343200003087524,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.154559999713301,
+        5.154559999713301
+      ],
+      "rigging": {
+        "attached": 0,
+        "clear": 1,
+        "handles": false,
+        "handleIndex": 2
+      },
+      "driveLocked": true
+    }
+  ],
+  "errors": [],
+  "consoleErrors": [],
+  "recordWrites": 0,
+  "dashboardSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "machineManifestSha256": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98",
+  "machineFiles": {
+    "car-app.js": "585deb2b5eea6ccc2d9464cbb60cdc7a29afdd1e9c02cd0ad62bd26a2930c3f2",
+    "index.html": "83bc23b84c2cb2c215f464502093af4267a39d99e8c988af2905395048225c09",
+    "workshop-ui.js": "3b9f7fdef33e2537afea0c5bee5137227d32daa32fc57f1055b468b3b22a4a74",
+    "engine-lift-preview.js": "e7bf404d54f1bc7122e32e4b1be581c96b040149ebe9adc8abd9253a8a1bcc4a",
+    "workshop-service.js": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",
+    "workshop-mechanic.js": "5b6540c9298ea63fc54a9614f7376e3b656da1c44260b8ffaf06ed2d560789d7",
+    "workshop-lessons.js": "5eea0fa89248b6eec23056ec492278a5f699898236a78c2e779d88357e8836a6",
+    "workshop-showcase.js": "f21572ad60df42c8851fa0d7b47a091984d0cc450647e8bbeee949f0d862c953"
+  }
+}

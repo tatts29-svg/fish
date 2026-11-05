@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-DRAFT — source frozen; final browser acceptance in progress. Not yet live.
+READY TO UPLOAD — all final acceptance checks pass. Not yet live.
 
 Frozen candidate: `380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98`.
 Original-model checks pass: service 6,556; mechanic 360; lessons 3,976;
@@ -69,3 +69,8 @@ Phone viewport checks establish layout and interaction, not physical-phone frame
 rate or thermal performance. Source and visual reviews are recorded with the final
 acceptance results. The machine release owner publishes only after the final
 candidate passes the guards and all four bound receipts.
+
+Final acceptance: machine desktop 84/84 and phone 86/86, dashboard 97/97 each
+(27 routes, seven links and Back), no errors or writes. Machine receipts were
+saved only after browser/server closure. Independent source, geometry, visual and
+release reviews pass. See `evidence/REVIEW.md` and the four bound JSON receipts.

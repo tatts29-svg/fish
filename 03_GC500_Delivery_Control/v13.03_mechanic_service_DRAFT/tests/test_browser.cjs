@@ -1,7 +1,7 @@
 const {openMachine}=require('./machine_rig.cjs');
 // Author: Andrew Fisher. Read-only browser checks; no service writes.
 const fs=require('fs');const path=require('path');const crypto=require('crypto');const out=process.env.OUT||process.cwd();fs.mkdirSync(out,{recursive:true});const root=process.env.PREVIEW_ROOT||path.resolve(__dirname,'../build');
-(async()=>{const mobile=process.env.MOB==='1';const m=await openMachine({root,W:mobile?390:1440,H:mobile?844:960,dpr:1,mobile});m.page.on('console',msg=>{if(msg.type()==='error')console.error(msg.text());});m.page.on('pageerror',e=>console.error(String(e)));const checks=[];let receipt;const check=(n,ok)=>{checks.push({name:n,pass:!!ok});console.log((ok?'PASS ':'FAIL ')+n);if(!ok)throw Error(n);};try{
+(async()=>{const mobile=process.env.MOB==='1';const m=await openMachine({root,W:mobile?390:1440,H:mobile?844:960,dpr:1,mobile});m.page.on('console',msg=>{if(msg.type()==='error')console.error(msg.text());});m.page.on('pageerror',e=>console.error(String(e)));const capture=async options=>{await m.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>{__reviewFrame(performance.now()+100);resolve();}))));return m.page.screenshot(options);};const checks=[];let receipt;const check=(n,ok)=>{checks.push({name:n,pass:!!ok});console.log((ok?'PASS ':'FAIL ')+n);if(!ok)throw Error(n);};try{
  await m.page.waitForFunction(()=>window.__cw?.ready||window.__reviewFailed,{},{timeout:180000,polling:500});
  check('machine initialises',await m.page.evaluate(()=>!!window.__cw?.ready));await m.page.evaluate(()=>__cw.renderer.setAnimationLoop(null));
  check('workshop button present',await m.page.locator('#workshop-enter').isVisible());
@@ -12,16 +12,16 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
   const mechanic=await m.page.evaluate(p=>{__workshop.service.setProgress(p);__reviewFrame(performance.now()+100);return __workshop.mechanic.diagnostics();},progress);
   check('original mechanic posed '+progress,mechanic.active&&mechanic.originalRig&&mechanic.bodyBoneCount>10&&mechanic.fingerBoneCount>0&&mechanic.root.every(Number.isFinite));
   if(progress===.53)check('mechanic stays clear of moving load',mechanic.readyForLift&&mechanic.loadClearance>0);
-  if(progress===.075){check('tool reaches original hose clamp',mechanic.contact>.99&&mechanic.socketError!==null&&mechanic.socketError<.01);await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-mechanic-tool.png',timeout:120000});}
+  if(progress===.075){check('tool reaches original hose clamp',mechanic.contact>.99&&mechanic.socketError!==null&&mechanic.socketError<.01);await capture({path:out+'/'+(mobile?'phone':'desktop')+'-mechanic-tool.png',timeout:120000});}
  }
  const poses=[];
  for(const p of [0,.5304,.66,1]){
    const d=await m.page.evaluate(p=>{__workshop.service.setProgress(p);__workshop.shadowDirty=true;window.__reviewFrame(performance.now()+100);return __workshop.lift.diagnostics;},p);poses.push(d);check('finite pose '+p,d.loadWorld.every(Number.isFinite));check('rendered stage '+p,await m.page.locator('#workshop-percent').textContent()===Math.round(p*100)+'%');
-   if((!mobile&&[.5304,1].includes(p))||(mobile&&p===.5304))await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-lift-'+Math.round(p*100)+'.png',timeout:120000});
+   if((!mobile&&[.5304,1].includes(p))||(mobile&&p===.5304))await capture({path:out+'/'+(mobile?'phone':'desktop')+'-lift-'+Math.round(p*100)+'.png',timeout:120000});
  }
  await m.page.evaluate(()=>{__workshop.service.setProgress(.5304);__workshop.update(0);document.getElementById('workshop-inspect').click();window.__reviewFrame(performance.now()+100);});
  check('close inspection available',await m.page.locator('#workshop-inspect').textContent()==='Overview');
- await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-engine-inspection.png',timeout:120000});
+ await capture({path:out+'/'+(mobile?'phone':'desktop')+'-engine-inspection.png',timeout:120000});
  await m.page.evaluate(()=>document.getElementById('workshop-inspect').click());
  check('overview restored',await m.page.locator('#workshop-inspect').textContent()==='Inspect');
  check('engine lifts vertically',poses[1].loadWorld[1]>poses[0].loadWorld[1]+1.4);check('engine traverses',poses[2].loadWorld[2]>poses[1].loadWorld[2]+2.8);check('engine lowers to cradle',poses[3].loadWorld[1]<poses[2].loadWorld[1]);
@@ -58,8 +58,8 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
   check(id+' repaired',await m.page.evaluate(()=>__workshop.learning.state.challenge.status==='repaired'));
  }
  await m.page.evaluate(()=>{document.getElementById('bench-restart').click();document.querySelector('[data-bench-mode=inspect]').click();document.getElementById('bench-focus').click();__reviewFrame(performance.now()+100);});
- await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-bench-inspection.png',timeout:120000});
- if(mobile){await m.page.locator('#workshop-bench').scrollIntoViewIfNeeded();await m.page.screenshot({path:out+'/phone-bench-controls.png',timeout:120000});}
+ await capture({path:out+'/'+(mobile?'phone':'desktop')+'-bench-inspection.png',timeout:120000});
+ if(mobile){await m.page.locator('#workshop-bench').scrollIntoViewIfNeeded();await capture({path:out+'/phone-bench-controls.png',timeout:120000});}
  check('bench no horizontal overflow',await m.page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth));
  // New lessons operate on the same supported engine and restore original ownership.
  await m.page.evaluate(()=>{document.querySelector('[data-bench-mode=cycle]').click();__reviewFrame(performance.now()+100);});
@@ -68,13 +68,13 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
   await m.page.evaluate(angle=>{document.querySelector(`[data-cycle-phase="${angle}"]`).click();__reviewFrame(performance.now()+100);},angle);
   check('actual phase '+phase,await m.page.evaluate(phase=>__workshop.lessons.state.phase.id===phase,phase));
  }
- await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-cycle.png',timeout:120000});
+ await capture({path:out+'/'+(mobile?'phone':'desktop')+'-cycle.png',timeout:120000});
  await m.page.evaluate(()=>{document.getElementById('lesson-play').click();__workshop.update(.1);});
  check('cycle play explicitly advances',await m.page.evaluate(()=>__workshop.lessons.state.playing&&__workshop.lessons.state.angleDegrees>540));
  await m.page.evaluate(()=>{document.querySelector('[data-bench-mode=isolate]').click();document.getElementById('lesson-right').click();__reviewFrame(performance.now()+100);});
  check('isolated original-model component rotates',await m.page.evaluate(()=>__workshop.lessons.state.kind==='isolate'&&Math.abs(__workshop.lessons.state.rotation-Math.PI/4)<.001));
  check('connection reference visible',await m.page.evaluate(()=>document.getElementById('bench-connection').textContent.includes(__workshop.lessons.state.selectedPart.reference)));
- await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-isolate.png',timeout:120000});
+ await capture({path:out+'/'+(mobile?'phone':'desktop')+'-isolate.png',timeout:120000});
  await m.page.selectOption('#bench-part','cooling-system');
  await m.page.evaluate(()=>{document.getElementById('bench-focus').click();__reviewFrame(performance.now()+100);});
  const componentFits=()=>m.page.evaluate(()=>{const box=__workshop.lessons.bounds,camera=__cw.camera,v=document.getElementById('viewport').getBoundingClientRect(),dock=document.getElementById('workshop-panel').getBoundingClientRect();return [box.min.x,box.max.x].every(x=>[box.min.y,box.max.y].every(y=>[box.min.z,box.max.z].every(z=>{const p=box.min.clone().set(x,y,z).project(camera);return p.x>=-1.01&&p.x<=1.01&&p.y<=1.01&&v.top+(1-p.y)*v.height/2<=dock.top+2;})));});
@@ -95,7 +95,7 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
  for(const progress of [.1,.35,.57,.70,.82,.98,.12]){
   await m.page.evaluate(p=>{__workshop.showcase.seek(p);__reviewFrame(performance.now()+100);},progress);
   check('tour seeks '+progress,await m.page.evaluate(p=>Math.abs(__workshop.showcase.progress-p)<.001&&!__workshop.showcase.playing&&__cw.camera.position.toArray().every(Number.isFinite),progress));
-  if([.35,.70,.82].includes(progress))await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-tour-'+Math.round(progress*100)+'.png',timeout:120000});
+  if([.35,.70,.82].includes(progress))await capture({path:out+'/'+(mobile?'phone':'desktop')+'-tour-'+Math.round(progress*100)+'.png',timeout:120000});
  }
  await m.page.evaluate(()=>{__workshop.showcase.resume();__workshop.update(.1);});
  check('tour resume advances',await m.page.evaluate(()=>__workshop.showcase.playing&&__workshop.showcase.progress>.12));
@@ -116,7 +116,7 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
  check('cockpit view still works',await m.page.evaluate(()=>__cw.view==='cockpit'));
  await m.page.evaluate(()=>{__cw.setView('car');__reviewFrame(performance.now()+100);__reviewFrame(performance.now()+5000);});
  await m.page.locator('#canvas').scrollIntoViewIfNeeded();
- await m.page.screenshot({path:out+'/'+(mobile?'phone':'desktop')+'-restored-car.png',timeout:120000});
+ await capture({path:out+'/'+(mobile?'phone':'desktop')+'-restored-car.png',timeout:120000});
  check('no page errors',m.errors.length===0);check('no write attempts',m.writes.length===0);
  const manifest=JSON.parse(fs.readFileSync(path.join(root,'../candidate-manifest.json')));const digest=crypto.createHash('sha256').update(JSON.stringify(manifest)).digest('hex');
  const evidence=JSON.parse(fs.readFileSync(path.join(root,'../source-evidence.json')));

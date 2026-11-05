@@ -1,0 +1,798 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "dashboard1303",
+  "viewport": "phone",
+  "passed": true,
+  "errors": [],
+  "consoleErrors": [],
+  "recordWrites": 0,
+  "blockedRequests": [],
+  "routeFailures": [],
+  "checks": [
+    {
+      "name": "live machine HTML security policy present",
+      "passed": true
+    },
+    {
+      "name": "dashboard remains view only",
+      "passed": true
+    },
+    {
+      "name": "native embedded machine is ready",
+      "passed": true
+    },
+    {
+      "name": "candidate workshop modules served",
+      "passed": true
+    },
+    {
+      "name": "candidate version reaches dashboard frame",
+      "passed": true
+    },
+    {
+      "name": "service controller starts at the assembled stage",
+      "passed": true
+    },
+    {
+      "name": "workshop opens through native iframe controls",
+      "passed": true
+    },
+    {
+      "name": "workshop fits embedded viewport",
+      "passed": true
+    },
+    {
+      "name": "native workshop exit restores machine controls",
+      "passed": true
+    },
+    {
+      "name": "machine close restores dashboard",
+      "passed": true
+    },
+    {
+      "name": "machine close restores opener focus",
+      "passed": true
+    },
+    {
+      "name": "parent navigation and finance functions unchanged",
+      "passed": true
+    },
+    {
+      "name": "today opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "today uses expected address",
+      "passed": true
+    },
+    {
+      "name": "progress opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "progress uses expected address",
+      "passed": true
+    },
+    {
+      "name": "map opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "map uses expected address",
+      "passed": true
+    },
+    {
+      "name": "docs opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "docs uses expected address",
+      "passed": true
+    },
+    {
+      "name": "register opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "register uses expected address",
+      "passed": true
+    },
+    {
+      "name": "plant opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "plant uses expected address",
+      "passed": true
+    },
+    {
+      "name": "demob opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "demob uses expected address",
+      "passed": true
+    },
+    {
+      "name": "fencing opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "fencing uses expected address",
+      "passed": true
+    },
+    {
+      "name": "prestarts opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "prestarts uses expected address",
+      "passed": true
+    },
+    {
+      "name": "coatesway opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "coatesway uses expected address",
+      "passed": true
+    },
+    {
+      "name": "journal opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "journal uses expected address",
+      "passed": true
+    },
+    {
+      "name": "breakdowns opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "breakdowns uses expected address",
+      "passed": true
+    },
+    {
+      "name": "variances opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "variances uses expected address",
+      "passed": true
+    },
+    {
+      "name": "costs opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "costs uses expected address",
+      "passed": true
+    },
+    {
+      "name": "costs selects its finance view",
+      "passed": true
+    },
+    {
+      "name": "edit opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "edit uses expected address",
+      "passed": true
+    },
+    {
+      "name": "change opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "change uses expected address",
+      "passed": true
+    },
+    {
+      "name": "add opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "add uses expected address",
+      "passed": true
+    },
+    {
+      "name": "pricing opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "pricing uses expected address",
+      "passed": true
+    },
+    {
+      "name": "pricing selects its finance view",
+      "passed": true
+    },
+    {
+      "name": "timeline opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "timeline uses expected address",
+      "passed": true
+    },
+    {
+      "name": "subhired opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "subhired uses expected address",
+      "passed": true
+    },
+    {
+      "name": "nights opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "nights uses expected address",
+      "passed": true
+    },
+    {
+      "name": "vmsoff opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "vmsoff uses expected address",
+      "passed": true
+    },
+    {
+      "name": "fenceclose opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "fenceclose uses expected address",
+      "passed": true
+    },
+    {
+      "name": "servicing opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "servicing uses expected address",
+      "passed": true
+    },
+    {
+      "name": "vms opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "vms uses expected address",
+      "passed": true
+    },
+    {
+      "name": "questions opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "questions uses expected address",
+      "passed": true
+    },
+    {
+      "name": "about opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "about uses expected address",
+      "passed": true
+    },
+    {
+      "name": "#timeline opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#timeline retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#timeline has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#day/2026-09-28 opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#day/2026-09-28 retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#day/2026-09-28 has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#change/2026-09-28 opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#change/2026-09-28 retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#change/2026-09-28 has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#print/drivers/2026-09-28 opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#print/drivers/2026-09-28 retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#print/drivers/2026-09-28 has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#sheet/__satellite3d opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#sheet/__satellite3d retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#sheet/__satellite3d has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#plant opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#plant retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#plant has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "#today opens canonical pane",
+      "passed": true
+    },
+    {
+      "name": "#today retains supported address",
+      "passed": true
+    },
+    {
+      "name": "#today has correct print toolbar state",
+      "passed": true
+    },
+    {
+      "name": "browser Back restores Equipment",
+      "passed": true
+    },
+    {
+      "name": "retained explorer was served from frozen candidate",
+      "passed": true
+    },
+    {
+      "name": "all27 routes completed",
+      "passed": true
+    },
+    {
+      "name": "all7 deep links completed",
+      "passed": true
+    },
+    {
+      "name": "no runtime errors",
+      "passed": true
+    },
+    {
+      "name": "no console errors",
+      "passed": true
+    },
+    {
+      "name": "no blocked write attempts",
+      "passed": true
+    },
+    {
+      "name": "no local asset or network failures",
+      "passed": true
+    }
+  ],
+  "tabs": {
+    "today": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "progress": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "map": {
+      "hash": "#sheet/__explorer",
+      "pane": "pane-map",
+      "visiblePanes": [
+        "pane-map"
+      ],
+      "bar": false
+    },
+    "docs": {
+      "hash": "#docs",
+      "pane": "pane-docs",
+      "visiblePanes": [
+        "pane-docs"
+      ],
+      "bar": false
+    },
+    "register": {
+      "hash": "#plant",
+      "pane": "pane-plant",
+      "visiblePanes": [
+        "pane-plant"
+      ],
+      "bar": false
+    },
+    "plant": {
+      "hash": "#plant",
+      "pane": "pane-plant",
+      "visiblePanes": [
+        "pane-plant"
+      ],
+      "bar": false
+    },
+    "demob": {
+      "hash": "#demob",
+      "pane": "pane-demob",
+      "visiblePanes": [
+        "pane-demob"
+      ],
+      "bar": false
+    },
+    "fencing": {
+      "hash": "#fencing",
+      "pane": "pane-fencing",
+      "visiblePanes": [
+        "pane-fencing"
+      ],
+      "bar": false
+    },
+    "prestarts": {
+      "hash": "#prestarts",
+      "pane": "pane-prestarts",
+      "visiblePanes": [
+        "pane-prestarts"
+      ],
+      "bar": false
+    },
+    "coatesway": {
+      "hash": "#coatesway",
+      "pane": "pane-coatesway",
+      "visiblePanes": [
+        "pane-coatesway"
+      ],
+      "bar": false
+    },
+    "journal": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "breakdowns": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "variances": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "costs": {
+      "hash": "#costs",
+      "pane": "pane-costs",
+      "visiblePanes": [
+        "pane-costs"
+      ],
+      "bar": false
+    },
+    "edit": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "change": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "add": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "pricing": {
+      "hash": "#costs",
+      "pane": "pane-costs",
+      "visiblePanes": [
+        "pane-costs"
+      ],
+      "bar": false
+    },
+    "timeline": {
+      "hash": "#day/2026-10-22",
+      "pane": "pane-timeline",
+      "visiblePanes": [
+        "pane-timeline"
+      ],
+      "bar": false
+    },
+    "subhired": {
+      "hash": "#subhired",
+      "pane": "pane-subhired",
+      "visiblePanes": [
+        "pane-subhired"
+      ],
+      "bar": false
+    },
+    "nights": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "vmsoff": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "fenceclose": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "servicing": {
+      "hash": "#servicing",
+      "pane": "pane-servicing",
+      "visiblePanes": [
+        "pane-servicing"
+      ],
+      "bar": false
+    },
+    "vms": {
+      "hash": "#vms",
+      "pane": "pane-vms",
+      "visiblePanes": [
+        "pane-vms"
+      ],
+      "bar": false
+    },
+    "questions": {
+      "hash": "#questions",
+      "pane": "pane-questions",
+      "visiblePanes": [
+        "pane-questions"
+      ],
+      "bar": false
+    },
+    "about": {
+      "hash": "#about",
+      "pane": "pane-about",
+      "visiblePanes": [
+        "pane-about"
+      ],
+      "bar": false
+    }
+  },
+  "links": {
+    "#timeline": {
+      "hash": "#timeline",
+      "pane": "pane-timeline",
+      "visiblePanes": [
+        "pane-timeline"
+      ],
+      "bar": false
+    },
+    "#day/2026-09-28": {
+      "hash": "#day/2026-09-28",
+      "pane": "pane-timeline",
+      "visiblePanes": [
+        "pane-timeline"
+      ],
+      "bar": false
+    },
+    "#change/2026-09-28": {
+      "hash": "#change/2026-09-28",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    },
+    "#print/drivers/2026-09-28": {
+      "hash": "#print/drivers/2026-09-28",
+      "pane": "pane-timeline",
+      "visiblePanes": [
+        "pane-timeline"
+      ],
+      "bar": true
+    },
+    "#sheet/__satellite3d": {
+      "hash": "#sheet/__satellite3d",
+      "pane": "pane-map",
+      "visiblePanes": [
+        "pane-map"
+      ],
+      "bar": false
+    },
+    "#plant": {
+      "hash": "#plant",
+      "pane": "pane-plant",
+      "visiblePanes": [
+        "pane-plant"
+      ],
+      "bar": false
+    },
+    "#today": {
+      "hash": "#today",
+      "pane": "pane-today",
+      "visiblePanes": [
+        "pane-today"
+      ],
+      "bar": false
+    }
+  },
+  "back": {
+    "hash": "#plant",
+    "pane": "pane-plant",
+    "visiblePanes": [
+      "pane-plant"
+    ],
+    "bar": false
+  },
+  "candidateStatusOverride": true,
+  "dashboardSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "machineManifestSha256": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98",
+  "machineFiles": {
+    "car-app.js": "585deb2b5eea6ccc2d9464cbb60cdc7a29afdd1e9c02cd0ad62bd26a2930c3f2",
+    "engine-lift-preview.js": "e7bf404d54f1bc7122e32e4b1be581c96b040149ebe9adc8abd9253a8a1bcc4a",
+    "index.html": "83bc23b84c2cb2c215f464502093af4267a39d99e8c988af2905395048225c09",
+    "workshop-lessons.js": "5eea0fa89248b6eec23056ec492278a5f699898236a78c2e779d88357e8836a6",
+    "workshop-mechanic.js": "5b6540c9298ea63fc54a9614f7376e3b656da1c44260b8ffaf06ed2d560789d7",
+    "workshop-service.js": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",
+    "workshop-showcase.js": "f21572ad60df42c8851fa0d7b47a091984d0cc450647e8bbeee949f0d862c953",
+    "workshop-ui.js": "3b9f7fdef33e2537afea0c5bee5137227d32daa32fc57f1055b468b3b22a4a74"
+  },
+  "loadedMachineFiles": [
+    "assets/coates-logo.png",
+    "assets/gc500/cutaway-preview.png",
+    "assets/gc500/original-car.js",
+    "assets/machine/coates-23.glb.gz.bin",
+    "assets/machine/studio.hdr.gz.bin",
+    "car-app.js",
+    "car-body.js",
+    "car-cockpit.js",
+    "car-driver.js",
+    "car-fit.js",
+    "car-gc500.js",
+    "car-motion.js",
+    "car-powertrain.js",
+    "car-references.js",
+    "car-scene.js",
+    "car.css",
+    "cockpit-surfaces.js",
+    "cog-meanings.js",
+    "content.js",
+    "crew-polish.js",
+    "crew.js",
+    "drive.js",
+    "engine-accessories.js",
+    "engine-kinematics.js",
+    "engine-lift-preview.js",
+    "engine-systems.js",
+    "exhaust-fx.js",
+    "explorer/assets/georeferencing.json",
+    "explorer/assets/plan_items.json",
+    "explorer/assets/register.json",
+    "explorer/assets/sheet-overview.webp",
+    "explorer/assets/source-labels.json",
+    "explorer/assets/underlay/manifest.json",
+    "explorer/assets/vt/Llow-84e7872ac157.bin",
+    "explorer/assets/vt/manifest.json",
+    "explorer/explorer-fix864.css",
+    "explorer/explorer-fix864.js",
+    "explorer/explorer-fix887.css",
+    "explorer/explorer-fix887.js",
+    "explorer/explorer-merge.js",
+    "explorer/explorer.js",
+    "explorer/fencing-map-core.js",
+    "explorer/fencing-map-explorer.js",
+    "explorer/fencing-map.css",
+    "explorer/index.html",
+    "front-drive.js",
+    "fx-quality.js",
+    "gear-math.js",
+    "index.html",
+    "mech-brakes.js",
+    "mech-driveline.js",
+    "mech-oil.js",
+    "mech-register.js",
+    "mechanics.js",
+    "model.js",
+    "part-connections.js",
+    "parts.js",
+    "people-atlas.js",
+    "people-figure.js",
+    "pit-garage.js",
+    "pit-machinery.js",
+    "poc3d/equipment_geometry1027.js",
+    "poc3d/equipment_layout1027.js",
+    "poc3d/equipment_viewer1027.js",
+    "poc3d/index.html",
+    "poses.js",
+    "service-parts.js",
+    "timing-drive.js",
+    "v8-audio.js",
+    "vendor/OrbitControls.js",
+    "vendor/addons/math/SimplexNoise.js",
+    "vendor/addons/objects/Reflector.js",
+    "vendor/addons/postprocessing/EffectComposer.js",
+    "vendor/addons/postprocessing/GTAOPass.js",
+    "vendor/addons/postprocessing/MaskPass.js",
+    "vendor/addons/postprocessing/OutputPass.js",
+    "vendor/addons/postprocessing/Pass.js",
+    "vendor/addons/postprocessing/RenderPass.js",
+    "vendor/addons/postprocessing/ShaderPass.js",
+    "vendor/addons/shaders/CopyShader.js",
+    "vendor/addons/shaders/GTAOShader.js",
+    "vendor/addons/shaders/OutputShader.js",
+    "vendor/addons/shaders/PoissonDenoiseShader.js",
+    "vendor/addons/utils/BufferGeometryUtils.js",
+    "vendor/meshopt_decoder.module.js",
+    "vendor/three.module.js",
+    "view-fx.js",
+    "workshop-finish.js",
+    "workshop-learning.js",
+    "workshop-lessons.js",
+    "workshop-mechanic.js",
+    "workshop-service.js",
+    "workshop-showcase.js",
+    "workshop-ui.js"
+  ],
+  "machineRequests": 96,
+  "liveGETs": 336,
+  "harnessSha256": "72cbc2a1876a75fa6d2d5eb2f9202fe8d251d6d2594187ebec9f4aaf7c3570d8",
+  "sharedVerifierSha256": "7dd5e36db02222a9d028d03ee3721aa508f1e9252664d8cb6dfa122c8af5d67c"
+}
