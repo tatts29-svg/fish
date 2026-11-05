@@ -35,8 +35,8 @@ Offline checks verified all 245 files in
 `/workspace/gc500-machine-1304-private/base-manifest.json`, including its canonical
 digest, and verified the pinned shared helper. The 28 fake-network guard tests pass;
 both JavaScript harnesses parse. This preparation did not run browsers, network
-requests or publication. Fresh live-base, authenticated server/inventory preflight
-and final candidate acceptance remain with the root release owner.
+requests or publication. Authenticated server/inventory preflight and all four final-candidate receipts now
+pass. Root remains the sole guarded publisher and will verify the public result.
 
 To capture every current public base file into a fresh private directory, from the
 release's parent directory:
@@ -63,7 +63,7 @@ python3 release/build1304.py \
 The builder checks the exact live machine and dashboard before and after its work.
 Every output directory must be fresh and private, outside the checkout. Output is
 `machine/`, `retained-manifest.json`, `candidate-manifest.json`,
-`source-evidence.json` and `build.json`. Browser acceptance remains incomplete.
+`source-evidence.json` and `build.json`. Final acceptance receipts are recorded under `../evidence/`.
 
 ## Actual browser receipts
 
