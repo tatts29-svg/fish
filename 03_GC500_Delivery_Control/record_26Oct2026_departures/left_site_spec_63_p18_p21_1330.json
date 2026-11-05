@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (13:4x AEST): \"P18.and p21 left 130pm\". 1097343 is P18's only unit (Coates portable building; ticked Ready 3 Nov; Brenden Meek's booking for 5 Nov 11:30 on the record) and 1327220 is P21's only unit (Coates portable building; ticked Ready 4 Nov; booking for 5 Nov 10:30 on the record); read 13:44 AEST, neither already left, so P18 and P21 each left in full at 13:30 AEST on Thu 5 Nov 2026. P18's fridge and fire extinguisher and P21's fire extinguisher stay listed as gear that goes with them.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P18",
+   "at": "2026-11-05T13:30:00+10:00",
+   "nos": [
+    "1097343"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "P21",
+   "at": "2026-11-05T13:30:00+10:00",
+   "nos": [
+    "1327220"
+   ],
+   "complete": true
+  }
+ ]
+}
