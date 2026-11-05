@@ -7149,7 +7149,7 @@ class _Pack(object):
         d.rect(self.x0, self.y + 18, self.cw, 1.5, fill=P_ORANGE)
         self.y += 21
         n_rows = len(blocks)
-        h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else 15)
+        h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else (15 if n_rows <= 11 else 14.5))
         fs = 9.2 if n_rows <= 8 else 8.6
         base_y = h - 6 if n_rows <= 8 else h - 4.5
         biggest_items = max([b["items"] for b in blocks] + [1])
@@ -7184,7 +7184,7 @@ class _Pack(object):
         #  What needs attention - the same asks as the email, so the
         #  customer sees the actions on page one.
         acts = parts["actions"]
-        room = self.bottom - self.y - 30
+        room = self.bottom - self.y - 24
         pitch = 24 if room >= 40 + 24 * min(len(acts), 3) else 19
         head_h = 40 if pitch == 24 else 30
         per_row = 1
