@@ -1,21 +1,20 @@
-# Workshop validation
+# Workshop acceptance
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**Approved implementation; final desktop/phone acceptance is in progress. Not yet published.**
+**READY TO UPLOAD. All agreed implementation and available execution checks pass; publication/read-back is the remaining step.**
 
-Candidate machine `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7`, 241 files. Dashboard remains exact v13.01 `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`. All 234 retained files outside the machine entry/app and five new modules match their original descriptors and bytes.
+Exact candidate `b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7`, 241 files. Required base machine `674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a`; unchanged dashboard v13.01 `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b`. All 234 other files retain their exact descriptors and bytes.
 
-Completed checks:
+- Machine browser: **54/54 desktop and 54/54 phone**, zero runtime/console errors or attempted writes. Covers original component set, driver isolation, lift/play/pause/scrub/refit, matching rendered stages, supported bench, 16 inspections, hand crank, oil/coolant presentation, both fault/inspection/repair sequences, reduced motion, keyboard behaviour, responsive controls and restoration of original car/cockpit.
+- Dashboard browser: **96/96 desktop and 96/96 phone**, each covering 27 routes, seven deep links, Back, native embedded machine opening/closing/focus, maps and finance navigation. Zero errors, write attempts or asset/network failures. The current security headers and exact candidate machine bytes were used.
+- Lift: 31,386 geometry/lifecycle assertions over 101 positions in both directions, original identity, support contact, constant slings, connected ropes, paused/reduced-motion stability and exact restoration.
+- Finish: 178 recognised mesh refinements; ten instanced detail draws and 91 hardware instances. Original car/cockpit/orange artwork retained. A real-browser floor-texture cyclic-provenance failure was corrected and regression-tested using a frozen cyclic CanvasTexture.
+- Crew: 75 assertions; eight figures, zero extra draws, 16,384 additional triangles; zero difference in original body/palm contact transforms.
+- Learning: 4,877 assertions; 16 components, 24 crank poses, seven original oil paths, four actual coolant routes, two fault examples and full reset.
+- Publication controls: 24 fake-network tests and authenticated read-only preflight pass. The publisher requires four final receipts bound to this candidate and every changed source hash, rechecks the base and protected inventory, and verifies public bytes after registration.
+- Independent source/integration and final desktop/phone visual review found no remaining blocking issue. Final images show coherent rigging and support contact, readable bench controls and complete restoration. These are independent subagent checks, not a claimed review or acknowledgement by Claude.
 
-- Lift: 31,386 assertions across 101 positions in both directions, original-object identity, constant slings, rope endpoints, support/contact, reduced motion, pause/refit/reset and exact restoration.
-- Finish: 178 recognised material refinements, ten instanced detail draws; car/cockpit/orange artwork preserved. The real browser caught cyclic floor texture provenance; fixed and regression-tested using a frozen cyclic CanvasTexture.
-- Crew: 75 checks, eight figures, zero extra draws, zero difference in original body/palm contact transforms, 16,384 added triangles in total.
-- Learning: 4,877 checks, 16 inspections, 24 hand-rotation poses, seven original oil routes, four actual coolant routes, two faults and exact reset.
-- Release controls: 24 fake-network tests; authenticated read-only preflight passed with no unknown inventory blobs.
-- Initial integrated desktop: 47 checks passed with no errors. Final captures and receipts are being regenerated with monotonic test-frame timestamps and explicit write-attempt counting.
-- Independent integration and visual review found no remaining source blocker after the texture, keyboard, focus and Guided tour fixes. Final phone/pose review remains pending.
+The initial integrated desktop run passed 47 checks. Final evidence supersedes it with monotonic rendered test frames, explicit write-attempt counting, keyboard/hidden-state checks and settled restoration captures. The committed receipts and screenshots are the final candidate's evidence.
 
-Earlier preview screenshots/check receipts in this folder are historical until replaced by final acceptance. A posted claim or a passing module test does not establish publication.
-
-Phone emulation verifies layout/controls; software WebGL does not prove physical phone frame rate or thermals. This prepared-engine illustration is not manufacturer servicing guidance or a certified lifting simulation. It does not animate every disconnection or invent a complete coolant circuit.
+Phone emulation establishes layout and operation, not physical-phone frame rate, thermals or instant loading. This is a prepared-engine mechanical illustration, not factory CAD, a certified lifting simulation or complete manufacturer disconnection procedure. Modelled coolant hoses/unions are shown honestly without inventing a complete circulating circuit. The server has no proven atomic compare-and-swap: the named owner publishes alone under the immediate expected-base guard.

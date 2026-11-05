@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-**Approved implementation — final integration checks in progress. Not yet published.**
+**READY TO UPLOAD — final desktop/phone checks and independent source/visual reviews pass. Not yet published.**
 
 Andrew approved all proposed machine improvements: “Lwts go.approved.to.all”. The existing Coates #26 car now has an engine workshop, finer materials and mechanical details, improved lighting and more detailed crew. The original Coates orange, car artwork and normal machine controls are retained.
 
