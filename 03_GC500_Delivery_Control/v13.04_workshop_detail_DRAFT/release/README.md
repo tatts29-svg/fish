@@ -158,10 +158,14 @@ The cache must be empty and `OUT` must not exist. Remove candidate media overrid
 The harness validates the canonical 246-file manifest, active service version/hash
 and unchanged dashboard. Fresh public GETs verify all nine changed source hashes;
 every loaded machine response is also hashed. It substitutes no candidate bytes.
-Native phone checks cover service play/pause, bounded idle-frame reuse at unchanged
-DPR, native bench wake and new draws, supported bench, hand crank, cycle slider,
+Native phone checks cover service play/pause, real idle state with at least two
+further requested frames, coherent draw/reuse counts and unchanged DPR, native
+bench wake and new draws, supported bench, hand crank, cycle slider,
 component rotation and exit restoration. The idle and wake checks each wait at most
 120 seconds, polling every 500 ms; diagnostic counters are compared with their own
-actual pre-action samples. Public identity is checked again
+actual pre-action samples. Reuse is recorded as observed, not required: native
+SwiftShader ticks slower than the 250 ms refresh interval legitimately draw every
+requested frame. These checks do not establish hardware or frame-rate savings.
+Public identity is checked again
 and pending handlers are drained before recording `live-browser.json`. This public
 smoke test supplements the full final-candidate suites.
