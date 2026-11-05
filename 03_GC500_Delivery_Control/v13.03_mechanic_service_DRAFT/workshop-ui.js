@@ -28,7 +28,7 @@ export function mountWorkshop({T,scene,engine,body,studioRoot,drive,camera,contr
     .workshop-active .scene-bottom{bottom:12px}.workshop-active .scene-title{max-width:70%}.workshop-active #connection-progress{visibility:hidden}
     .workshop-active .connections,.workshop-active .connection-summary{display:none}.workshop-active .intro h1{font-size:2rem}.workshop-bench{grid-column:1/-1;margin-top:20px;border-top:2px solid #ff6a13;padding-top:16px}.workshop-bench[hidden],.workshop-bench [hidden]{display:none!important}.workshop-bench h2{font-size:20px;margin:0 0 8px}.workshop-bench p{font-size:13px;line-height:1.55;color:#c2cdd2;margin:8px 0}.bench-modes,.bench-actions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}.bench-modes button,.bench-actions button{min-height:44px;border:1px solid #46535b;border-radius:6px;padding:8px 10px}.bench-modes [aria-pressed=true]{border-color:#ff6a13;color:#ffa268;background:#ff6a1318}.workshop-bench label{display:block;font-size:12px;margin-top:14px;color:#cad3d8}.workshop-bench select{width:100%;min-height:44px;margin-top:6px;padding:8px;background:#1c282e;color:#fff;border:1px solid #56646b;border-radius:6px}.workshop-bench button:disabled{opacity:.4}.bench-copy{border-left:2px solid #ff6a13;padding-left:10px}#bench-focus{color:#ffa268}#bench-feedback{min-height:36px}#bench-steps{padding-left:18px;font-size:12px;line-height:1.5;color:#c2cdd2}.workshop-bench small{font-size:11px;color:#93a5ae;line-height:1.5;display:block}.workshop-bench summary{cursor:pointer;font-size:13px;color:#ffab73;padding:10px 0}
     .workshop-foot{display:flex;align-items:center;gap:12px;margin-top:6px}.workshop-foot #workshop-note{flex:1;margin:0}#workshop-tour{min-height:44px;white-space:nowrap;border:1px solid #ff6a1366;color:#ffa268}.lesson-controls{padding:10px 0;border-top:1px solid #ffffff21}.lesson-controls input[type=range]{width:100%;min-height:36px}.cycle-phases{display:grid;grid-template-columns:1fr 1fr;gap:5px}.cycle-phases button{min-height:44px;font-size:12px;border:1px solid #46535b}.cycle-phases [aria-pressed=true]{background:#ff6a1322;border-color:#ff6a13;color:#ffa268}#lesson-instruction{border-left:2px solid #ff6a13;padding-left:10px}
-    @media(max-width:700px){.masthead{gap:0 6px;padding:10px 10px 0}.brand{gap:8px}.brand .wordmark{width:75px}.brand>.brand-name{font-size:14px;padding-left:8px}.workshop-active .header-actions #tour{display:none}.masthead nav{gap:0;justify-content:space-between;height:44px}.masthead nav button{font-size:11px;padding:8px 5px;white-space:nowrap}#workshop-panel{bottom:32px;left:10px;right:10px;padding:12px}.workshop-head strong{font-size:15px}.workshop-actions{gap:8px}#workshop-enter{padding:8px 6px}.workshop-active .scene-title{display:none}#workshop-note{line-height:1.4}}
+    @media(max-width:700px){.masthead{gap:0 6px;padding:10px 10px 0}.brand{gap:8px}.brand .wordmark{width:75px}.brand>.brand-name{font-size:14px;padding-left:8px}.workshop-active .header-actions #tour{display:none}.masthead nav{gap:0;justify-content:space-between;height:44px}.masthead nav button{font-size:11px;padding:8px 5px;white-space:nowrap}#workshop-panel{bottom:32px;left:10px;right:10px;padding:12px}.workshop-head strong{font-size:15px;line-height:1.2;min-height:3.6em}.workshop-actions{gap:8px}#workshop-enter{padding:8px 6px}.workshop-active .scene-title{display:none}#workshop-note{line-height:1.4}}
   `;
   document.head.append(css);
   const entry=document.createElement('button');entry.id='workshop-enter';entry.textContent='Engine lift';entry.setAttribute('aria-pressed','false');
@@ -86,9 +86,11 @@ export function mountWorkshop({T,scene,engine,body,studioRoot,drive,camera,contr
     const focused=componentFocus;lessons.reset();learning.reset();componentFocus=false;bench.hidden=true;benchSignature='';
     if(reframe&&focused&&service.active)frameWorkshop();
   }
+  let projectionKey='';
   function projection(){
     const viewport=el('viewport').getBoundingClientRect(),panelRect=panel.getBoundingClientRect();
     const reserve=Math.max(0,viewport.bottom-panelRect.top)+20,usable=Math.max(.35,1-reserve/viewport.height);
+    projectionKey=[viewport.width,viewport.height,reserve].map(n=>Math.round(n*10)).join(':');
     camera.fov=viewport.width<700?35:28;camera.aspect=viewport.width/viewport.height;
     camera.setViewOffset(viewport.width,viewport.height,0,reserve/2,viewport.width,viewport.height);camera.updateProjectionMatrix();return usable;
   }
@@ -121,14 +123,31 @@ export function mountWorkshop({T,scene,engine,body,studioRoot,drive,camera,contr
     service.setProgress(progress);service.setPlaying(playing);learning.update(0);lessons.update(0);
     fitBounds(box,new T.Vector3(-.68,.30,.81));
   }
-  const observer=new ResizeObserver(()=>{if(service.active)requestAnimationFrame(()=>{
+  function refreshFraming(){
+    if(!service.active)return;
+    const viewport=el('viewport').getBoundingClientRect(),panelRect=panel.getBoundingClientRect();
+    const key=[viewport.width,viewport.height,Math.max(0,viewport.bottom-panelRect.top)+20].map(n=>Math.round(n*10)).join(':');
+    if(key===projectionKey)return;
     if(showcase.active){projection();const running=showcase.playing;showcase.seek(showcase.progress);if(running)showcase.resume();}
     else if(componentFocus)focusComponent(false);else frameWorkshop();
-  });});observer.observe(el('viewport'));
+  }
+  const observer=new ResizeObserver(refreshFraming);observer.observe(el('viewport'));observer.observe(panel);
   function sync(){
     if(service.active){text('scene-kicker','04 / IN THE WORKSHOP');text('scene-description','Coates #26 · Engine workshop');text('count','Workshop · engine isolated');}
     const touring=showcase.active,phase=typeof service.stage==='string'?service.stage:service.stage?.label||'Engine service';
-    text('workshop-stage',touring?showcase.label:phase);
+    const compact={
+      'Mechanic disconnects modelled hoses and fasteners':'Disconnect engine connections',
+      'Reconnect modelled hoses and fasteners':'Reconnect engine connections',
+      'Attach the lifting rigging':'Attach lifting gear',
+      'Remove the unloaded rigging':'Remove lifting gear',
+      'Lift the engine onto its supports':'Lift engine to the bench',
+      'Refit the engine in the bay':'Refit the engine',
+      'Unhook the supported engine and clear the rig':'Release lifting gear',
+      'Reattach the rigging on the supported engine':'Reconnect lifting gear',
+      'Engine supported, rig clear — service bench':'Engine ready for service',
+      'Engine refitted and modelled connections restored':'Engine refitted'
+    };
+    text('workshop-stage',touring?showcase.label:compact[phase]||phase);
     const progress=touring?showcase.progress:service.progress;
     el('workshop-progress').value=Math.round(progress*1000);text('workshop-percent',Math.round(progress*100)+'%');
     el('workshop-progress').setAttribute('aria-label',touring?'Workshop showcase position':'Service sequence position');
@@ -208,7 +227,7 @@ export function mountWorkshop({T,scene,engine,body,studioRoot,drive,camera,contr
     get motionKey(){const l=lessons.state;return [service.progress,l.angleDegrees,l.rotation,showcase.progress].join('|');},
     get shadowDirty(){return shadowDirty;},set shadowDirty(v){shadowDirty=v;},get active(){return service.active;},
     update(dt){if(service.active){
-      service.update(dt);learning.update(dt);lessons.update(dt);showcase.update(dt);
+      refreshFraming();service.update(dt);learning.update(dt);lessons.update(dt);showcase.update(dt);
       if(inspecting&&!showcase.active){const next=new T.Vector3().fromArray(lift.diagnostics.loadWorld),delta=next.clone().sub(lastLoad);camera.position.add(delta);controls.target.add(delta);lastLoad.copy(next);}
       sync();
     }},

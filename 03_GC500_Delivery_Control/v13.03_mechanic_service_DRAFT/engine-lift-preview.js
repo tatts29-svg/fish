@@ -122,6 +122,7 @@ export function installEngineLiftPreview({T, scene, engine, body, studioRoot, dr
   const latch = box(rig, .018, .13, .018, brushed, 'Hook safety latch', .078, -.1, 0); latch.rotation.z = -.35;
   box(rig, 1.08, .09, .16, orange, 'Lifting beam', 0, -.48, 0);
   for (const x of [-.52, .52]) box(rig, .025, .12, .19, dark, 'Beam end plate', x, -.48, 0);
+  for(const x of[-.49,.49])for(const z of[-.09,.09])mesh(rig,new T.TorusGeometry(.035,.008,6,16),steel,'Sling return keeper',x,-.565,z);
   box(rig, .16, .14, .055, orange, 'Central lifting lug', 0, -.39, 0);
   for (const x of [-.49, .49]) {
     const end = mesh(rig, barGeometry, steel, 'Beam bridle');
@@ -276,19 +277,19 @@ export function installEngineLiftPreview({T, scene, engine, body, studioRoot, dr
       const nominalTop = nominalHook.clone().add(new T.Vector3(x, -.48, 0)), length = nominalTop.distanceTo(eye);
       const legRelease = ease(clamp(release * 4 - [2, 0, 3, 1][i]));
       const top = new T.Vector3(x, -.48, 0).applyMatrix4(rig.matrixWorld);
-      const clip = new T.Vector3(x, -.65, side * .09).applyMatrix4(rig.matrixWorld);
+      const clip = new T.Vector3(x, -.60, side * .09).applyMatrix4(rig.matrixWorld);
       const end = eye.clone().lerp(clip, legRelease);
       if (legRelease < 1e-8 && release < 1e-8) {
         segment(slingEnds[i], top, end); slingReturns[i].visible = false;
       } else {
         const run = end.clone().sub(top), d = Math.min(length, run.length()), unit = run.clone().normalize();
-        let outward = new T.Vector3(0, 0, side).addScaledVector(unit, -side * unit.z);
-        if (outward.lengthSq() < 1e-8) outward.set(0, -1, 0); else outward.normalize();
+        let outward = new T.Vector3(0,-1,0).addScaledVector(unit,unit.y);
+        if(outward.lengthSq()<1e-8)outward.set(0,0,side);else outward.normalize();
         const bend = top.clone().add(end).multiplyScalar(.5).addScaledVector(outward, Math.sqrt(Math.max(0, length * length - d * d)) * .5);
         segment(slingEnds[i], top, bend); segment(slingReturns[i], bend, end);
       }
       slingHooks[i].position.copy(end); slingHooks[i].visible = true;
-      const grip = end.clone(); grip.y = Math.max(.82, end.y + .04); grip.z = Math.max(targetCenter.z + .78, end.z + .50);
+      const grip = end.clone(); grip.y = Math.min(1.65,Math.max(.82,end.y+.04)); grip.z = Math.max(targetCenter.z + .78, end.z + .50);
       segment(handlingLines[i], end, grip);
       handlingLines[i].visible = !!rigging.handles && rigging.handleIndex === i && rigging.clear < .001;
       riggingPoints.push({index: i, eye: eye.toArray(), hook: end.toArray(), grip: grip.toArray(), attached: legRelease < 1e-6, release: legRelease});

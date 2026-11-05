@@ -54,6 +54,7 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
   });
   const scratch = new T.Vector3(), matrix = new T.Matrix4(), quaternion = new T.Quaternion(), scale = new T.Vector3();
   const boltHomes = [], boltTargets = [], boltWorld = [];
+  const finishClamps=[];
   let lastBoltProgress=NaN,tubeUpdates=0,fastenerUpdates=0;
   let snapshot = null, active = false, playing = false, progress = 0, direction = 1;
   let phase = 'disconnect', phaseProgress = 0, stage = 'Mechanic approaches the car', targets = null;
@@ -76,7 +77,8 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
     position.needsUpdate = normals.needsUpdate = true; hose.tube.geometry.computeBoundingSphere();
   }
   function describePhase() {
-    const entry = PHASES.find(([,a,b]) => progress >= a && (progress < b || b === 1)) || PHASES[4];
+    const probe=clamp(progress+direction*1e-10);
+    const entry = PHASES.find(([,a,b]) => probe >= a && (probe < b || b === 1)) || PHASES[4];
     phase = entry[0]; phaseProgress = windowed(progress, entry[1], entry[2]);
   }
   function connectionPose() {
@@ -93,9 +95,18 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
         hose.collar.position.copy(end);hose.collar.quaternion.setFromUnitVectors(new T.Vector3(0,0,1),hose.normal);hose.collar.rotateZ(amount*Math.PI*2);hose.lastAmount=amount;
       }
       const normal=hose.normal,end=hose.freeEnd;
-      const portWorld = hose.host.localToWorld(hose.portLocal.clone());
-      hose.port.position.copy(portWorld); hose.port.quaternion.setFromUnitVectors(new T.Vector3(0,1,0), normal);
-      hose.cap.position.copy(end).addScaledVector(normal, .007); hose.cap.quaternion.copy(hose.port.quaternion); hose.cap.visible = amount > .98;
+      const portWorld=hose.host.localToWorld(hose.portLocal.clone()),portNormal=hose.portAxis.clone().transformDirection(hose.host.matrixWorld);
+      hose.port.position.copy(portWorld);hose.port.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),portNormal);
+      hose.cap.position.copy(end).addScaledVector(normal,.007);hose.cap.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),normal);hose.cap.visible=amount>.98;
+      hose.collar.visible=finishClamps.length===0;
+      if(amount!==hose.finishAmount){
+        const rotation=new T.Quaternion().setFromUnitVectors(hose.initialNormal,normal);
+        for(const entry of finishClamps){
+          const source=entry.ends[index],p=source.position.clone().sub(hose.worldPoints.at(-1)).applyQuaternion(rotation).add(end),q=rotation.clone().multiply(source.quaternion);
+          if(amount===0)matrix.fromArray(entry.original,(index?3:1)*16);else{matrix.compose(p,q,source.scale);matrix.premultiply(entry.object.matrixWorld.clone().invert());}entry.object.setMatrixAt(index?3:1,matrix);entry.object.instanceMatrix.needsUpdate=true;entry.object.computeBoundingSphere();
+        }
+        hose.finishAmount=amount;
+      }
     }
     const boltProgress = windowed(d, .62, .90);
     if(boltProgress===lastBoltProgress)return;
@@ -129,33 +140,34 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
   }
   function cue() {
     const engineBox = lift.engineBounds, bench = lift.diagnostics.cradleWorld.slice(), hook = lift.diagnostics.crane;
+    const timing=PHASES.find(entry=>entry[0]===phase),range=(a,b)=>[timing[1]+a*(timing[2]-timing[1]),timing[1]+b*(timing[2]-timing[1])],choose=clamp(phaseProgress+direction*1e-9);
     const base = {task:'hold',work:pickup.slice(),grip:pickup.slice(),toolPoint:pickup.slice(),normal:[-1,0,0],tool:null,stroke:0,clear:clear.slice(),stand:bayStand.slice(),previousStand:bayStand.slice(),taskIndex:0,taskCount:1,
-      engineBox:{min:engineBox.min.toArray(),max:engineBox.max.toArray()},hook:[hook.x,hook.hook,hook.z],bench};
+      engineBox:{min:engineBox.min.toArray(),max:engineBox.max.toArray()},hook:[hook.x,hook.hook,hook.z],bench,range:range(0,1)};
     if (phase === 'disconnect') {
       const d = phaseProgress;
-      if (d < .26) { base.task='approach'; base.stroke=windowed(d,0,.26); base.stand=bayStand.slice(); }
-      else if (d < .34) { base.task='pickup'; base.stroke=windowed(d,.26,.34); base.work=pickup.slice(); base.grip=pickup.slice(); base.tool='ratchet'; }
-      else if (d < .62) {
-        const index=d<.48?0:1, hose=hoses[index]; base.task=hose.id; base.stroke=windowed(d,index?.48:.34,index?.62:.48);
+      if (choose < .26) { base.task='approach'; base.stroke=windowed(d,0,.26); base.stand=bayStand.slice();base.range=range(0,.26); }
+      else if (choose < .34) { base.task='pickup'; base.stroke=windowed(d,.26,.34); base.work=pickup.slice(); base.grip=pickup.slice(); base.tool='ratchet';base.range=range(.26,.34); }
+      else if (choose < .62) {
+        const index=choose<.48?0:1, hose=hoses[index]; base.task=hose.id; base.stroke=windowed(d,index?.48:.34,index?.62:.48);base.range=range(index?.48:.34,index?.62:.48);
         base.toolPoint=hose.freeEnd.toArray();const grip=hose.freeEnd.clone().add(new T.Vector3(0,.02,.65*(1-hose.amount)));grip.y=Math.max(.82,grip.y);grip.z=Math.max(.80,grip.z);base.grip=grip.toArray();base.work=base.grip.slice();base.tool='ratchet';base.stand=[grip.x-.15,0,1.45];base.previousStand=index?[hoses[0].freeEnd.x-.15,0,1.45]:bayStand.slice();base.taskIndex=index;base.taskCount=2;
-      } else if (d < .90) {
-        const u=windowed(d,.62,.90)*boltHomes.length, i=Math.min(boltHomes.length-1,Math.floor(u)); base.task=`bellhousing-fastener-${i+1}`; base.stroke=clamp(u-i);
+      } else if (choose < .90) {
+        const u=windowed(d,.62,.90)*boltHomes.length, i=Math.max(0,Math.min(boltHomes.length-1,Math.floor(u+direction*1e-9))); base.task=`bellhousing-fastener-${i+1}`; base.stroke=clamp(u-i);base.range=range(.62+i*.28/boltHomes.length,.62+(i+1)*.28/boltHomes.length);
         base.toolPoint=boltWorld[i].toArray();base.tool='ratchet';const grip=boltWorld[i].clone().add(new T.Vector3(0,.45,.65));grip.x=-.2;grip.y=Math.max(.82,grip.y);grip.lerp(new T.Vector3(0,.82,1.9),smooth(windowed(workStroke(base.stroke),.3,1)));grip.z=Math.max(.80,grip.z);base.grip=grip.toArray();base.work=base.grip.slice();base.stand=[-.2,0,1.45];base.previousStand=i?base.stand.slice():[hoses[1].freeEnd.x-.15,0,1.45];base.taskIndex=i;base.taskCount=boltHomes.length;
-      } else { base.task='stow';base.stroke=windowed(d,.90,1);base.previousStand=[-.2,0,1.45];base.stand=bayStand.slice(); }
+      } else { base.task='stow';base.stroke=windowed(d,.90,1);base.previousStand=[-.2,0,1.45];base.stand=bayStand.slice();base.range=range(.90,1); }
     } else if (phase === 'rig') {
-      if (phaseProgress < .25) { base.task='rig-approach'; base.stroke=windowed(phaseProgress,0,.25); }
-      else if (phaseProgress < .75) {
-        const u=windowed(phaseProgress,.25,.75)*4, n=Math.min(3,Math.floor(u)), index=[2,0,3,1][n], point=lift.riggingTargets[index];
-        base.task=`rig-eye-${index}`;base.stroke=clamp(u-n);base.work=base.grip=point.grip.slice();base.toolPoint=point.hook.slice();base.tool='hands';base.stand=[point.grip[0],0,1.45];base.previousStand=n?[lift.riggingTargets[[2,0,3,1][n-1]].grip[0],0,1.45]:bayStand.slice();base.taskIndex=n;base.taskCount=4;
-      } else {base.task='stand-clear';base.stroke=windowed(phaseProgress,.75,1);base.previousStand=[lift.riggingTargets[1].grip[0],0,1.45];base.stand=clear.slice();}
+      if (choose < .25) { base.task='rig-approach'; base.stroke=windowed(phaseProgress,0,.25);base.range=range(0,.25); }
+      else if (choose < .75) {
+        const u=windowed(phaseProgress,.25,.75)*4, n=Math.max(0,Math.min(3,Math.floor(u+direction*1e-9))), index=[2,0,3,1][n], point=lift.riggingTargets[index];
+        base.task=`rig-eye-${index}`;base.stroke=clamp(u-n);base.work=base.grip=point.grip.slice();base.toolPoint=point.hook.slice();base.tool='hands';base.stand=[point.eye[0],0,1.45];base.previousStand=n?[lift.riggingTargets[[2,0,3,1][n-1]].eye[0],0,1.45]:bayStand.slice();base.taskIndex=n;base.taskCount=4;base.range=range(.25+n*.125,.25+(n+1)*.125);
+      } else {base.task='stand-clear';base.stroke=windowed(phaseProgress,.75,1);base.previousStand=[lift.riggingTargets[1].eye[0],0,1.45];base.stand=clear.slice();base.range=range(.75,1);}
     } else if (phase === 'lift') { base.task='stand-clear'; base.stroke=1; base.stand=clear.slice(); base.previousStand=clear.slice(); base.work=lift.diagnostics.loadWorld.slice(); }
     else if (phase === 'unhook') {
       const stand=[bench[0],0,bench[2]+1.1];
-      if (phaseProgress < .22) { base.task='approach-bench'; base.stroke=windowed(phaseProgress,0,.22); base.previousStand=clear.slice(); base.stand=stand; }
-      else if (phaseProgress < .78) {
-        const u=windowed(phaseProgress,.22,.78)*4, n=Math.min(3,Math.floor(u)), index=[1,3,0,2][n], point=lift.riggingTargets[index];
-        base.task=`unhook-eye-${index}`;base.stroke=clamp(u-n);base.work=base.grip=point.grip.slice();base.toolPoint=point.hook.slice();base.tool='hands';base.stand=[point.grip[0],0,stand[2]];base.previousStand=n?[lift.riggingTargets[[1,3,0,2][n-1]].grip[0],0,stand[2]]:stand;base.taskIndex=n;base.taskCount=4;
-      } else {base.task='stand-clear';base.stroke=windowed(phaseProgress,.78,1);base.previousStand=[lift.riggingTargets[2].grip[0],0,stand[2]];base.stand=clear.slice();}
+      if (choose < .22) { base.task='approach-bench'; base.stroke=windowed(phaseProgress,0,.22); base.previousStand=clear.slice(); base.stand=stand;base.range=range(0,.22); }
+      else if (choose < .78) {
+        const u=windowed(phaseProgress,.22,.78)*4, n=Math.max(0,Math.min(3,Math.floor(u+direction*1e-9))), index=[1,3,0,2][n], point=lift.riggingTargets[index];
+        base.task=`unhook-eye-${index}`;base.stroke=clamp(u-n);base.work=base.grip=point.grip.slice();base.toolPoint=point.hook.slice();base.tool='hands';base.stand=[point.eye[0],0,stand[2]];base.previousStand=n?[lift.riggingTargets[[1,3,0,2][n-1]].eye[0],0,stand[2]]:stand;base.taskIndex=n;base.taskCount=4;base.range=range(.22+n*.14,.22+(n+1)*.14);
+      } else {base.task='stand-clear';base.stroke=windowed(phaseProgress,.78,1);base.previousStand=[lift.riggingTargets[2].eye[0],0,stand[2]];base.stand=clear.slice();base.range=range(.78,1);}
     } else { base.task='bench'; base.stand=clear.slice(); base.previousStand=clear.slice(); base.work=lift.diagnostics.loadWorld.slice(); }
     return base;
   }
@@ -171,6 +183,11 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
     const result=lift.enter(); if (!result?.ok) return result;
     scene.updateMatrixWorld(true);
     snapshot={hoseVisible:originalHoses.visible,coolingVisible:cooling.visible,fanVisibility:['radiator-fan-left','radiator-fan-right'].map(id=>[byId(id),byId(id)?.visible]),fasteners:new Float32Array(fasteners.instanceMatrix.array)};
+    finishClamps.length=0;const finish=cooling.getObjectByName('Workshop detail · cooling-system');
+    if(finish)for(const object of finish.children)if(object.isInstancedMesh&&object.count===4){
+      const ends=[1,3].map(index=>{object.getMatrixAt(index,matrix);matrix.premultiply(object.matrixWorld);matrix.decompose(scratch,quaternion,scale);return{position:scratch.clone(),quaternion:quaternion.clone(),scale:scale.clone()};});
+      finishClamps.push({object,original:new Float32Array(object.instanceMatrix.array),ends});
+    }
     boltHomes.length=boltTargets.length=0;
     for(let i=0;i<fasteners.count;i++) {
       fasteners.getMatrixAt(i,matrix); matrix.decompose(scratch,quaternion,scale);
@@ -180,7 +197,7 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
       boltTargets.push(tray.localToWorld(new T.Vector3(-.17+(i%5)*.085,.7775+home.world.y-boltBox.min.y+.0005,-.07+Math.floor(i/5)*.14)));
     }
     lastBoltProgress=NaN;
-    for(const hose of hoses) { hose.lastAmount=NaN;hose.worldPoints=hose.points.map(p=>cooling.localToWorld(new T.Vector3(...p))); hose.portLocal=hose.host.worldToLocal(hose.worldPoints.at(-1).clone()); }
+    for(const hose of hoses){hose.lastAmount=hose.finishAmount=NaN;hose.worldPoints=hose.points.map(p=>cooling.localToWorld(new T.Vector3(...p)));hose.portLocal=hose.host.worldToLocal(hose.worldPoints.at(-1).clone());hose.initialNormal=hose.worldPoints.at(-1).clone().sub(hose.worldPoints.at(-2)).normalize();hose.portAxis=hose.initialNormal.clone().transformDirection(hose.host.matrixWorld.clone().invert());}
     active=true;playing=false;progress=0;direction=1;mechanic?.enter?.();pose();return{ok:true};
   }
   function exit() {
@@ -189,6 +206,7 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
     originalHoses.visible=snapshot.hoseVisible;cooling.visible=snapshot.coolingVisible;
     for(const [fan,visible]of snapshot.fanVisibility)if(fan)fan.visible=visible;
     fasteners.instanceMatrix.array.set(snapshot.fasteners);fasteners.instanceMatrix.needsUpdate=true;fasteners.computeBoundingSphere();
+    for(const entry of finishClamps){entry.object.instanceMatrix.array.set(entry.original);entry.object.instanceMatrix.needsUpdate=true;entry.object.computeBoundingSphere();}finishClamps.length=0;
     lift.exit();snapshot=null;scene.updateMatrixWorld(true);
   }
   function update(dt=0) {
@@ -197,10 +215,11 @@ export function installWorkshopService({T, scene, engine, body, studioRoot, lift
       let seconds=Math.max(0,Math.min(.1,Number(dt)||0));const approachEnd=.18*.26;
       while(seconds>1e-10){
         const approaching=direction>0?progress<approachEnd:progress<=approachEnd;
-        const rate=approaching?.0018:1/duration,boundary=direction>0?(approaching?approachEnd:1):(approaching?0:approachEnd);
+        const walkRate=Number(mechanic?.state?.maxProgressPerSecond),baseRate=approaching?.0018:1/duration,rate=walkRate>0?Math.min(baseRate,walkRate):baseRate;
+        const boundary=targets?.range?(direction>0?targets.range[1]:targets.range[0]):(direction>0?1:0);
         const toBoundary=Math.abs(boundary-progress)/rate,used=Math.min(seconds,toBoundary);
         progress=clamp(progress+direction*rate*used);seconds-=used;
-        if(used===toBoundary)progress=boundary;
+        if(used===toBoundary){progress=boundary;pose();}
         if(direction>0?progress>=1:progress<=0){playing=false;break;}
         if(used<1e-12&&seconds>0)break;
       }

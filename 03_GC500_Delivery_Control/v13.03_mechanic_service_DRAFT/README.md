@@ -2,7 +2,11 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-DRAFT — integration and browser acceptance in progress. Not yet live.
+DRAFT — source frozen; final browser acceptance in progress. Not yet live.
+
+Frozen candidate: `380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98`.
+Original-model checks pass: service 6,556; mechanic 360; lessons 3,976;
+showcase 416; release guards 26. Exact results are in `evidence/`.
 
 Andrew approved the working mechanic, complete modelled lift/refit, four-stroke
 explanation, component inspection and controllable workshop tour in the current

@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98",
+  "checks": {
+    "service": {
+      "passed": true,
+      "checks": 6556,
+      "originalSource": "04b39247275b6b99475185560e43828f1c8fdcec",
+      "progressSamples": 201,
+      "originalFasteners": 10,
+      "originalEngineParts": 101,
+      "craneAndCrew": "Transform fixtures; rendered integration checked separately"
+    },
+    "mechanic": {
+      "result": "PASS",
+      "checks": 360,
+      "contactSamples": 107,
+      "toolContacts": 43,
+      "maxContact": 0.0010489262501904354,
+      "minFloor": 0,
+      "minObstacle": 0.07999999999999985,
+      "minLiftClearance": 2.4766778949923824,
+      "maxWalkingSpeed": 1.196023147931532,
+      "sourceCommit": "04b39247275b6b99475185560e43828f1c8fdcec"
+    },
+    "lessons": {
+      "passed": true,
+      "checks": 3976,
+      "originalSource": "04b39247275b6b99475185560e43828f1c8fdcec",
+      "workshopSource": "d45e5162573c8f227c93f07f1326382794ed358e",
+      "cycleSamples": 4,
+      "isolatedComponents": 16,
+      "cyclicProvenance": "preserved without cloning"
+    },
+    "showcase": {
+      "ok": true,
+      "checks": 416,
+      "shots": 7,
+      "durationSeconds": 126,
+      "source": "04b39247275b6b99475185560e43828f1c8fdcec"
+    }
+  },
+  "releaseGuards": {
+    "passed": true,
+    "tests": 26
+  },
+  "files": {
+    "workshop-lessons.js": "5eea0fa89248b6eec23056ec492278a5f699898236a78c2e779d88357e8836a6",
+    "workshop-service.js": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",
+    "workshop-showcase.js": "f21572ad60df42c8851fa0d7b47a091984d0cc450647e8bbeee949f0d862c953",
+    "engine-lift-preview.js": "e7bf404d54f1bc7122e32e4b1be581c96b040149ebe9adc8abd9253a8a1bcc4a",
+    "workshop-mechanic.js": "5b6540c9298ea63fc54a9614f7376e3b656da1c44260b8ffaf06ed2d560789d7",
+    "workshop-ui.js": "3b9f7fdef33e2537afea0c5bee5137227d32daa32fc57f1055b468b3b22a4a74"
+  }
+}

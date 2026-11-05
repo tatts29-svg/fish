@@ -41,10 +41,21 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
   const head = mesh(new T.CylinderGeometry(.029, .029, .024, 12), materials[0], 'Ratchet head', tool);
   const toolGrip = new T.Object3D(); toolGrip.name = 'Ratchet palm contact'; tool.add(toolGrip);
   const socketContact = new T.Object3D(); socketContact.name = 'Ratchet socket contact'; tool.add(socketContact);
+  const shadowPixels = new Uint8Array(32 * 32 * 4);
+  for (let y=0;y<32;y++) for (let x=0;x<32;x++) {
+    const i=(y*32+x)*4, r=Math.hypot((x-15.5)/15.5,(y-15.5)/15.5);
+    shadowPixels[i]=shadowPixels[i+1]=shadowPixels[i+2]=255; shadowPixels[i+3]=Math.round(255*Math.max(0,1-r)**1.8);
+  }
+  const shadowTexture = new T.DataTexture(shadowPixels,32,32); shadowTexture.needsUpdate=true;
+  const footShadows = [0,1].map(i => {
+    const material=new T.MeshBasicMaterial({map:shadowTexture,color:0x000000,transparent:true,opacity:.36,depthWrite:false}); materials.push(material);
+    const shadow=mesh(new T.PlaneGeometry(.30,.46),material,'Working mechanic boot contact '+i); shadow.castShadow=shadow.receiveShadow=false; shadow.renderOrder=2; return shadow;
+  });
+  const originalShadow = crew.root.getObjectByName('Crew drawn shadows');
   const up = new T.Vector3(0, 1, 0), scratch = new T.Vector3(), matrix = new T.Matrix4();
   const own = {active: false, disposed: false, phase: 'disconnect', progress: 0, direction: 1, task: 'approach',
     walking: false, readyForLift: false, handErrors: [0, 0], palmErrors: [0, 0], socketError: null,
-    tool: 'rack', contact: 0, pathLength: 0, floorClearance: 0, obstacleClearance: 0, loadClearance: null};
+    tool: 'rack', contact: 0, pathLength: 0, maxProgressPerSecond: null, floorClearance: 0, obstacleClearance: 0, loadClearance: null};
   let saved = null, lastTargets = {}, pathCache = new Map();
   const fig = man.fig;
   const originalBoneNames = Object.keys(fig.bones);
@@ -92,14 +103,21 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
   }
   /* Alternating fixed landings on the original routed aisle. During each half
    * stride the planted foot stays at its landing point, including on reverse. */
-  function walk(from, to, alpha, bench, finalYaw = Math.PI) {
+  function walk(from, to, alpha, bench, finalYaw = Math.PI, taskFraction = 1, initialYaw = Math.PI) {
     const path = pathFor(from, to, bench), a = clamp(alpha), move = Math.min(1, a / .88);
     const distance = path.length * smooth(move), steps = Math.max(1, Math.ceil(path.length / .29)), step = path.length / steps;
     const n = Math.min(steps - 1, Math.floor(distance / Math.max(step, 1e-9))), u = clamp((distance - n * step) / Math.max(step, 1e-9));
     man.pos.copy(pointOn(path, distance));
     const pathYaw = path.length > .01 ? path.yawAt(distance) : finalYaw;
-    const turn = smooth((a - .86) / .14); man.yaw = pathYaw + wrap(finalYaw - pathYaw) * turn;
+    const turnIn = smooth(a / .12), turn = smooth((a - .86) / .14);
+    const facing = initialYaw + wrap(pathYaw - initialYaw) * turnIn;
+    man.yaw = facing + wrap(finalYaw - facing) * turn;
     own.walking = a > 0 && a < 1 && path.length > .02; own.pathLength = path.length;
+    // Keep the bound for this whole routed task. On reverse playback the next
+    // frame can enter its walking interval from the settled end of the action.
+    if (path.length > .02 && lastTargets.range?.length === 2) {
+      own.maxProgressPerSecond = (lastTargets.range[1] - lastTargets.range[0]) * taskFraction * .88 * 1.2 / (1.5 * path.length);
+    }
     man.ch['armL.pitch'] = Math.sin(distance / .58 * Math.PI * 2) * .23 * (1 - turn);
     man.ch['armR.pitch'] = -man.ch['armL.pitch'];
     for (let i = 0; i < 2; i++) {
@@ -109,6 +127,11 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
       f.ankle.copy(start.p).lerp(end.p, active ? smooth(u) : 0);
       if (active) f.ankle.y += .075 * man.d.s * Math.sin(Math.PI * u);
       f.yaw = start.yaw + wrap(end.yaw - start.yaw) * (active ? smooth(u) : 0);
+      if (a < .12) {
+        const initial = from.clone().add(new T.Vector3(Math.cos(initialYaw),0,-Math.sin(initialYaw)).multiplyScalar(f.side * man.d.track / 2));
+        initial.y = man.floor(initial.x,initial.z) + man.d.ankleH;
+        f.ankle.lerpVectors(initial,f.ankle.clone(),turnIn); f.yaw = initialYaw + wrap(f.yaw-initialYaw)*turnIn;
+      }
       if (a > .88) {
         const settle = smooth((a - .88) / .12), final = to.clone().add(new T.Vector3(Math.cos(finalYaw),0,-Math.sin(finalYaw)).multiplyScalar(f.side * man.d.track / 2));
         final.y = man.floor(final.x, final.z) + man.d.ankleH;
@@ -117,6 +140,8 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
       }
       f.pitch = 0; f.planted = !active || u >= .999 || a >= 1; f.step = null; man.toeFromAnkle(f);
     }
+    if (a <= 1e-12) stand(from,initialYaw);
+    else if (a >= 1-1e-12) stand(to,finalYaw);
   }
   function stand(position, yaw = Math.PI) {
     man.pos.copy(position); man.yaw = yaw; own.walking = false;
@@ -189,7 +214,10 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     if (own.disposed) return {ok: false, reason: 'Mechanic has been disposed'};
     if (own.active) return {ok: true};
     saved = {fields: new Map(controlled.map(key => [key, man[key]])), poses: [poseSnapshot(fig.root), ...fig.skeleton.bones.map(poseSnapshot)],
-      polish: crewPolish?.info?.().workshop || false, from: man.pos.clone(), rootYaw: man.yaw};
+      polish: crewPolish?.info?.().workshop || false, from: man.pos.clone(), rootYaw: man.yaw, shadow: null};
+    // This source's fifth crew blob belongs to the mechanic. Move only his
+    // contact shadow with him; keep the other six workers' original shadows.
+    if(originalShadow?.isInstancedMesh && originalShadow.count>4){saved.shadow=new T.Matrix4();originalShadow.getMatrixAt(4,saved.shadow);originalShadow.setMatrixAt(4,new T.Matrix4().makeScale(0,0,0));originalShadow.instanceMatrix.needsUpdate=true;}
     for (const key of controlled) man[key] = copyValue(man[key]);
     crewPolish?.setWorkshopMode?.(true); fig.root.visible = true; root.visible = true; own.active = true; pathCache = new Map();
     return {ok: true};
@@ -198,7 +226,7 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     if (!own.active && !enter().ok) return;
     lastTargets = targets; const t = clamp(phaseProgress), stroke = clamp(targets.stroke ?? t);
     Object.assign(own, {phase, progress: clamp(progress), direction: direction < 0 ? -1 : 1, task: targets.task || phase, readyForLift: false,
-      contact: 0, handErrors: [0,0], palmErrors: [0,0], socketError: null});
+      contact: 0, maxProgressPerSecond: null, handErrors: [0,0], palmErrors: [0,0], socketError: null});
     const bench = vector(targets.bench, [-2.44, .788, 2.85]), clearAt = vector(targets.clear, clear.toArray());
     const work = vector(targets.grip || targets.work, [-1, .82, .75]);
     const workAt = vector(targets.stand, [work.x, 0, phase === 'unhook' ? bench.z + 1.1 : 1.45]); workAt.y = 0;
@@ -208,22 +236,25 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     const clearTask = task === 'stand-clear' || phase === 'lift' || phase === 'bench';
     neutral(); let contact = 0, carrying = phase === 'disconnect' && !approach;
     let toolHeld = carrying ? 'hand' : 'belt';
-    if (approach) { walk(saved.from, bay, stroke, bench, 0); toolHeld = 'rack'; }
-    else if (toBench) walk(clearAt, workAt, stroke, bench);
-    else if (stow) walk(previous, workAt, clamp(stroke / .55), bench);
+    if (approach) { walk(saved.from, bay, stroke, bench, 0, 1, saved.rootYaw); toolHeld = 'rack'; }
+    else if (toBench) walk(clearAt, workAt, stroke, bench, Math.PI, 1, Math.atan2(-1-clearAt.x,-clearAt.z));
+    else if (stow) walk(previous, workAt, clamp(stroke / .55), bench, Math.PI, .55);
     else if (hold) { stand(workAt); toolHeld = 'belt'; }
     else if (clearTask) {
       if (phase === 'lift' || phase === 'bench') stand(clearAt, Math.atan2(-1 - clearAt.x, -clearAt.z));
       else walk(previous, clearAt, stroke, bench, Math.atan2(-1 - clearAt.x, -clearAt.z));
       own.readyForLift = phase === 'lift' || phase === 'bench' || stroke >= .999;
     } else {
-      if (previous.distanceTo(workAt) > .025 && !pickup) walk(previous, workAt, clamp(stroke / .19), bench);
+      if (previous.distanceTo(workAt) > .025 && !pickup) walk(previous, workAt, clamp(stroke / .19), bench, Math.PI, .19);
       else stand(pickup ? bay : workAt, pickup ? Math.PI * smooth((stroke - .78) / .22) : Math.PI);
       contact = smooth(stroke / .20) * (1 - smooth((stroke - .80) / .20));
       if (pickup) contact = smooth(stroke / .30) * (1 - smooth((stroke - .60) / .40));
       const q = palmQuaternion(targets.tool === 'ratchet' || pickup ? 'R' : 'L', toolPoint.clone().sub(work), 0, work.y);
       const requests = [{i: targets.tool === 'ratchet' || pickup ? 1 : 0, point: pickup ? rackGrip : work, q}];
-      if ((phase === 'rig' || phase === 'unhook') && !pickup) requests.push({i: 1, point: work, q: palmQuaternion('R', toolPoint.clone().sub(work), 0, work.y)});
+      if ((phase === 'rig' || phase === 'unhook') && !pickup) {
+        const along = toolPoint.clone().sub(work); if (along.length() > .06) along.setLength(.05);
+        requests.push({i: 1, point: work.clone().add(along), q: palmQuaternion('R', toolPoint.clone().sub(work), 0, work.y)});
+      }
       workingPosture(requests, contact);
       man.ch['head.pitch'] = clamp((1.45 - work.y) * .4, -.25, .3) * contact;
     }
@@ -235,21 +266,20 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     if (pickup) {
       const pick = rackGrip.clone();
       if (stroke > .55) pick.lerp(neutralPalms[1], smooth((stroke - .55) / .45));
-      const target = neutralPalms[1].clone().lerp(pick, smooth(stroke / .4));
-      contacts.push(reach(1, target, palmQuaternion('R', new T.Vector3(0,0,-1))));
+      const weight = smooth(stroke / .4) * (1-smooth((stroke-.55)/.45));
+      if(weight>1e-10)contacts.push(reach(1, pick, palmQuaternion('R', new T.Vector3(0,0,-1)),weight));
       toolHeld = stroke < .42 ? 'rack' : 'hand'; carrying = stroke >= .42;
     } else if (stow) {
       const belt = beltPoint();
       const a = smooth((stroke - .55) / .23) * (1 - smooth((stroke - .85) / .15));
-      contacts.push(reach(1, neutralPalms[1].clone().lerp(belt, a), palmQuaternion('R', new T.Vector3(0,0,-1))));
+      if(a>1e-10)contacts.push(reach(1,belt,palmQuaternion('R',new T.Vector3(0,0,-1)),a));
       toolHeld = stroke < .82 ? 'hand' : 'belt';
     } else if (contact > 0 && !clearTask && !toBench && !approach && !hold) {
       const hand = targets.tool === 'ratchet' ? 1 : 0, q = hand ? qR : qL;
-      const target = neutralPalms[hand].clone().lerp(work, contact);
-      contacts.push(reach(hand, target, q));
+      contacts.push(reach(hand,work,q,contact));
       if (targets.tool !== 'ratchet' && (phase === 'rig' || phase === 'unhook')) {
         const along = toolPoint.clone().sub(work); if (along.length() > .06) along.setLength(.05);
-        contacts.push(reach(1, neutralPalms[1].clone().lerp(work.clone().add(along), contact), qR));
+        contacts.push(reach(1,work.clone().add(along),qR,contact));
       }
     }
     man.pose(0); own.contact = contact;
@@ -267,6 +297,11 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     const tip = placeTool(grip, toward, sourceContact ? toolPoint : null, normal, toolHeld, turn);
     if (sourceContact) own.socketError = tip.distanceTo(toolPoint);
     own.floorClearance = Math.min(...man.feet.map(f => f.ankle.y - man.d.ankleH - man.floor(f.ankle.x, f.ankle.z)));
+    man.feet.forEach((f,i)=>{
+      const floor=man.floor(f.ankle.x,f.ankle.z),shadow=footShadows[i];
+      shadow.position.set(f.ankle.x+Math.sin(f.yaw)*.06,floor+.002,f.ankle.z+Math.cos(f.yaw)*.06);
+      shadow.rotation.set(-Math.PI/2,0,-f.yaw);shadow.material.opacity=.36*(1-.65*clamp((f.ankle.y-man.d.ankleH-floor)/.12));
+    });
     own.obstacleClearance = Math.min(...OBSTACLES.map(([x0,z0,x1,z1]) => Math.hypot(Math.max(x0-man.pos.x,0,man.pos.x-x1),Math.max(z0-man.pos.z,0,man.pos.z-z1)))) - .25;
     own.loadClearance = null;
     if (targets.engineBox?.min && targets.engineBox?.max) {
@@ -283,11 +318,12 @@ export function installWorkshopMechanic({T, scene, crew, crewPolish, engine, bod
     if (!own.active) return;
     for (const [key, value] of saved.fields) man[key] = value;
     saved.poses.forEach(restorePose); fig.root.updateMatrixWorld(true);
+    if(saved.shadow){originalShadow.setMatrixAt(4,saved.shadow);originalShadow.instanceMatrix.needsUpdate=true;}
     crewPolish?.setWorkshopMode?.(saved.polish); saved = null; root.visible = false; own.active = false; pathCache.clear();
   }
   function diagnostics() { return {...own, root: man.pos.toArray(), palms: ['L','R'].map(side => fig.markers['grip'+side].getWorldPosition(new T.Vector3()).toArray()),
     toolGrip: toolGrip.getWorldPosition(new T.Vector3()).toArray(), socket: socketContact.getWorldPosition(new T.Vector3()).toArray(),
     originalRig: true, bodyBoneCount: originalBoneNames.length, fingerBoneCount: fingerBones.length, targets: {task: lastTargets.task, tool: lastTargets.tool}}; }
   return {enter, pose, exit, diagnostics, get state() { return {...own}; }, get root() { return root; },
-    dispose() { if (own.disposed) return; exit(); root.removeFromParent(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); own.disposed = true; }};
+    dispose() { if (own.disposed) return; exit(); root.removeFromParent(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); shadowTexture.dispose(); own.disposed = true; }};
 }

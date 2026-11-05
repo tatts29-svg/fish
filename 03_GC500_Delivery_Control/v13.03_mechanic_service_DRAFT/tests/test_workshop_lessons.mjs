@@ -82,18 +82,37 @@ try {
   rigging = {attached: 1, clear: 0}; check(!api.setMode('cycle').ok, 'Supported engine still rigged cannot start lesson');
   rigging = {attached: 0, clear: .5}; check(!api.setMode('isolate').ok, 'Unhooked rig must clear before inspection');
   rigging = {attached: 0, clear: 1};
+  const brackets = new Map();
+  engine.root.traverse(object => {
+    if (object.position.z > 0 && ['Illustrated lifting eye', 'Illustrated lifting bracket', 'Illustrated bracket foot on cylinder head'].includes(object.name)) brackets.set(object, object.visible);
+  });
   check(api.setMode('cycle').ok && !api.state.playing, 'Cycle opens paused');
+  check(api.diagnostics.cycleHiddenParts === 7 && brackets.size === 6, 'Teaching cutaway is bounded to one head and its six bracket pieces');
   check(api.state.selectedPart.id === 'piston-1' && api.state.selectedPart.reference === CAR_REFERENCES['piston-1'], 'Cycle names actual cylinder1 register reference');
   const samples = [[135, 'power', 'down', false, false], [315, 'exhaust', 'up', false, true], [495, 'intake', 'down', true, false], [675, 'compression', 'up', false, false]];
   const pistonMotion = engine.pistonMotions.find(item => item.id === 'piston-1');
+  const sightline = new T.Vector3(.25, .20, 1).normalize(), ray = new T.Raycaster();
+  const visible = object => { for (let current = object; current; current = current.parent) if (!current.visible) return false; return true; };
+  const componentId = object => { for (let current = object; current; current = current.parent) if (current.userData.partId) return current.userData.partId; return object.name; };
   for (const [degrees, phase, direction, intakeOpen, exhaustOpen] of samples) {
     const radians = degrees * Math.PI / 180, expected = cylinderCycle(radians);
     api.setCycleAngle(expected.angle);
+    check(!byId('cylinder-head-near').visible && byId('cylinder-head-far').visible, 'Teaching cutaway hides only the near head');
+    check([...brackets.keys()].every(object => !object.visible), 'Head-mounted brackets do not obscure valve motion');
+    scene.updateMatrixWorld(true);
+    const crownTarget = pistonMotion.piston.localToWorld(new T.Vector3(0, .02, 0));
+    ray.set(crownTarget.clone().addScaledVector(sightline, 4), sightline.clone().negate());
+    const first = ray.intersectObject(engine.root, true).find(hit => visible(hit.object));
+    check(first && componentId(first.object) === 'piston-1', `${phase} camera ray reaches actual piston first; got ${first ? componentId(first.object) : 'no hit'}`);
     check(api.state.phase.id === phase && api.state.phase.direction === direction, `${phase} agrees with original crank phase`);
     check(api.state.valves.intake === (intakeOpen ? 'open' : 'closed') && api.state.valves.exhaust === (exhaustOpen ? 'open' : 'closed'), `${phase} indicators follow actual valves`);
     for (const kind of ['intake', 'exhaust']) {
       const motion = engine.valveMotions.find(item => item.id === `${kind}-valve-1`);
       near(motion.movingValve.position.length(), valveLift(learning.state.crankAngle, 1, kind, 1, 0), 'Lesson follows original cam profile');
+      const valveTarget = motion.movingValve.localToWorld(new T.Vector3(0, .427, 0));
+      ray.set(valveTarget.clone().addScaledVector(sightline, 4), sightline.clone().negate());
+      const firstValve = ray.intersectObject(engine.root, true).find(hit => visible(hit.object));
+      check(firstValve && componentId(firstValve.object) === motion.id, `${phase} camera ray reaches actual ${kind} valve; got ${firstValve ? componentId(firstValve.object) : 'no hit'}`);
     }
     const beforeY = pistonMotion.piston.position.y; learning.turnCrank(.001); api.update(0);
     check(direction === 'down' ? pistonMotion.piston.position.y < beforeY : pistonMotion.piston.position.y > beforeY, 'Phase direction agrees with actual piston travel');
@@ -168,6 +187,12 @@ try {
   near(api.state.rotation, .4, 'Immediate rotation after part change is retained');
   check(api.setCycleAngle(Math.PI * 4).ok && api.state.kind === 'isolate', 'Tour can set deterministic crank pose while isolated');
   api.setMode('cycle'); check(byId('timing-belt').visible && api.diagnostics.displayNodes === 0, 'Switch to cycle restores isolated component');
+  check(!byId('cylinder-head-near').visible, 'Re-entered cycle reapplies teaching cutaway');
+  api.setMode('isolate'); check(byId('cylinder-head-near').visible, 'Switch to isolation restores original head visibility');
+  check([...brackets].every(([object, shown]) => object.visible === shown), 'Switch restores exact bracket visibility');
+  api.reset(); byId('cylinder-head-near').visible = false; api.setMode('cycle'); api.reset();
+  check(!byId('cylinder-head-near').visible, 'Cycle reset preserves a pre-existing hidden head');
+  byId('cylinder-head-near').visible = true;
   api.reset(); learning.reset(); lift.exit(); verify(initial);
   check(!originalGeometryDisposals && !originalMaterialDisposals, 'No source resource disposed by inspection switches');
 

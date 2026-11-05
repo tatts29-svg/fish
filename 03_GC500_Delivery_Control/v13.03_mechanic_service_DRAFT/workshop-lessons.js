@@ -142,10 +142,17 @@ export function installWorkshopLessons({T, scene, engine, lift, learning, reduce
     cycle = cylinderCycle(learning.state.crankAngle, cylinder);
     // This existing full-bank slab covers cylinder 1's crown and valve seats.
     // Hide it only for this teaching cutaway, preserving every moving original.
-    if (teachingHead) {
-      if (!cycleVisibility.has(teachingHead)) cycleVisibility.set(teachingHead, teachingHead.visible);
-      teachingHead.visible = false;
+    // The head-mounted near-bank lifting brackets cover the same valve seats.
+    // They are display attachments, not moving internals; the opposite bank and
+    // all timing components remain visible. Discover after lift entry, when its
+    // actual carrier is attached to the original engine root.
+    if (!cycleVisibility.size) {
+      if (teachingHead) cycleVisibility.set(teachingHead, teachingHead.visible);
+      engine.root.traverse(object => {
+        if (object.position.z > 0 && ['Illustrated lifting eye', 'Illustrated lifting bracket', 'Illustrated bracket foot on cylinder head'].includes(object.name)) cycleVisibility.set(object, object.visible);
+      });
     }
+    for (const object of cycleVisibility.keys()) object.visible = false;
     pistonPart.group.updateWorldMatrix(true, true); cycleRoot.matrix.copy(pistonPart.group.matrixWorld); cycleRoot.updateWorldMatrix(true, false);
     // .409 is the original valve sealing-face height; .0525 is the crown's
     // highest point in the original piston geometry. The tint occupies only
@@ -245,7 +252,7 @@ export function installWorkshopLessons({T, scene, engine, lift, learning, reduce
         angleDegrees: kind === 'cycle' ? cycle.degrees : null, crankAngle: learning.state.crankAngle,
         valves: kind === 'cycle' ? {...valveStates} : null, rotation, rotationDegrees: rotation * 180 / Math.PI, playing,
         reducedMotion: motionReduced(), notice: NOTICE,
-        instruction: kind === 'cycle' ? `${cycle.instruction} The near cylinder head is hidden for this teaching cutaway. Valve dots show actual cam-driven motion: green open, grey closed. Overlap is shown at changeover.` : kind === 'isolate' ? 'Virtual inspection view. Rotate this component; the outline and orange line retain its fitted location. The original connections have not been operated.' : 'Choose a four-stroke explanation or component inspection at the supported engine.'};
+        instruction: kind === 'cycle' ? `${cycle.instruction} The near cylinder head and its lifting brackets are hidden for this teaching cutaway. Valve dots show actual cam-driven motion: green open, grey closed. Overlap is shown at changeover.` : kind === 'isolate' ? 'Virtual inspection view. Rotate this component; the outline and orange line retain its fitted location. The original connections have not been operated.' : 'Choose a four-stroke explanation or component inspection at the supported engine.'};
     }, get focus() { return focus.clone(); }, get bounds() { return bounds.clone(); },
     get diagnostics() { return {sourceId: isolated?.id || null, displayNodes: pairs.length, originalVisible: isolated?.group.visible ?? null,
       chamberHeight: chamber.scale.y, cycleHiddenParts: cycleVisibility.size, sourceWorld: isolated?.group.matrixWorld.toArray() || null}; }};
