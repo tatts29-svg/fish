@@ -2173,10 +2173,9 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                             LONG_OUT_DAYS)))
     if undated:
         actions.append(("Date the undated", "{:,} on-hire {} no issue "
-                        "transaction in this export. A TRANSACTIONS pull from "
-                        "the start of the shut dates every one of them - or "
-                        "tell me which have quietly come back and I'll book "
-                        "them in.".format(
+                        "transaction in this export. Pull TRANSACTIONS from "
+                        "the start of the shut. Or tell me which came back "
+                        "and I'll book them in.".format(
                             len(undated),
                             "item has" if len(undated) == 1 else "items have")))
     if idle_tool:
@@ -5937,6 +5936,22 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None):
     return blocks, quiet
 
 
+def _fit_sentences(d, body, size, max_w):
+    """The longest run of whole sentences from the start of body that fits
+    in max_w at size. Falls back to the body itself (the caller then trims
+    it with an ellipsis) when even the first sentence is too long."""
+    if d.text_width(body, size) <= max_w:
+        return body
+    parts = [p_ for p_ in body.replace(". ", ".\x00").split("\x00") if p_]
+    out = ""
+    for p_ in parts:
+        cand = (out + " " + p_).strip() if out else p_
+        if d.text_width(cand, size) > max_w:
+            break
+        out = cand
+    return out or body
+
+
 class _Pack(object):
     """Draws the pack. Owns the document, the running y and the page
     breaks, so every section is written the same way."""
@@ -7637,8 +7652,9 @@ class _Pack(object):
                            max_w=self.cw - 50)
                 else:
                     hw = d.text(self.x0 + 34, yy + 10, head, size=8.8, bold=True, colour=P_INK)
-                    d.text(self.x0 + 34 + hw + 6, yy + 10, body, size=7.5, colour=P_MUTED,
-                           max_w=self.cw - 90 - hw)
+                    d.text(self.x0 + 34 + hw + 6, yy + 10,
+                           _fit_sentences(d, body, 7.5, self.cw - 44 - hw),
+                           size=7.5, colour=P_MUTED, max_w=self.cw - 44 - hw)
                 yy += pitch
             if len(shown) < len(acts):
                 d.text(self.x0 + 34, yy + 4, "and {} more in the email".format(

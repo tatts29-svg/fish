@@ -137,6 +137,12 @@
    still set in Inter, so it is as crisp on a 4K wall screen as on a
    phone, and the pack still weighs about 150 KB.
 
+   The cover's asks card now shows whole sentences: a long ask is cut
+   at a full stop, never mid-sentence, and the body runs the full width
+   of the card. "Date the undated" is three short sentences - problem,
+   action, alternative - so the cover carries the first two and the
+   email and closing page carry all three.
+
  NEW - THE CHASE (05 Nov 2026, night)
  -----------------------------------
    ONE EMAIL PER COMPANY. Beside each company's PDF in Reports\<today>\
