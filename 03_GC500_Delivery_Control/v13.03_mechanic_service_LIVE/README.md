@@ -2,9 +2,10 @@
 
 Author: Andrew Fisher · 5 Nov 2026
 
-READY TO UPLOAD — all final acceptance checks pass. Not yet live.
+LIVE — registered 5 Nov 2026 at 23:43:34 AEST. Guarded publication, exact public
+read-back and the fresh live phone browser check are complete.
 
-Frozen candidate: `380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98`.
+Published manifest: `380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98`.
 Original-model checks pass: service 6,556; mechanic 360; lessons 3,976;
 showcase 416; release guards 26. Exact results are in `evidence/`.
 
@@ -74,3 +75,37 @@ Final acceptance: machine desktop 84/84 and phone 86/86, dashboard 97/97 each
 (27 routes, seven links and Back), no errors or writes. Machine receipts were
 saved only after browser/server closure. Independent source, geometry, visual and
 release reviews pass. See `evidence/REVIEW.md` and the four bound JSON receipts.
+
+## Publication and live verification
+
+Published from `a051db095677d2b3631e2e687fc817a9ca35baa1`; implementation and
+acceptance evidence were frozen at `f34a21a76e45ef9d9514f33f6db3841244f8ae1b`.
+The server registration timestamp is `2026-11-05T13:43:34.001Z`.
+Machine `v13.03-mechanic-service`: 245 files, 169,957,572 bytes.
+
+The guard uploaded eight changed blobs, retained 237 exact file descriptors and
+verified all eight public files byte-for-byte after registration. The dashboard
+hash and all eleven protected unlisted blobs remain unchanged. No operational
+record writes occurred. Receipts: `evidence/publication.json` and
+`evidence/live-status.json`.
+
+The fresh live phone browser passed 12/12 checks with an empty request cache,
+continuous production rendering and no candidate substitution. It verified all
+eight changed files, 73 loaded public machine files, native service play/pause,
+supported/rig-clear bench, hand crank, four-stroke selection, component rotation,
+exit/restoration and final manifest/dashboard identity. Zero runtime/console
+errors and zero record writes. The two live screenshots were visually reviewed.
+
+The initial live run reached its 30-second native action timeout at Start service.
+Its receipt is retained as `evidence/live-browser-initial.json`. The successful
+recheck increased only the harness action budget to 120 seconds, retained native
+visibility/stability/hit-target checks, and used no forced click or render-loop
+modification. No production files changed between these attempts. This verifies
+live behaviour, not physical-phone frame rate or loading speed.
+
+Future machine changes start from published manifest
+`380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98`.
+Page-only work still starts from dashboard v13.01 hash above. Claude retains event
+Showcase/race narration and finance. This was implemented and published by Codex
+with independent Codex source/geometry/visual/release reviews; Claude receipt or
+review is not claimed.

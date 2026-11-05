@@ -1,0 +1,11 @@
+{
+  "ready": true,
+  "version": "v13.03-mechanic-service",
+  "label": "The Coates Way machine and GC500 Map explorer",
+  "built": null,
+  "entry": "index.html",
+  "files": 245,
+  "bytes": 169957572,
+  "registered": "2026-11-05T13:43:34.001Z",
+  "sha256": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98"
+}

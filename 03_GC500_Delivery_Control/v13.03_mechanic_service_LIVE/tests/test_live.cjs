@@ -54,7 +54,7 @@ async function main() {
     verifiedFiles: {}, verifiedChangedFiles: {}, machineManifestSha256: manifest.sha256,
     dashboardSha256: PAGE_SHA, candidateResponses: 0, emptyCacheRequired: true,
     harnessSha256: sha(fs.readFileSync(__filename))};
-  const check = (name, ok) => { result.checks.push({name, passed: !!ok}); assert.ok(ok, name); };
+  const check = (name, ok) => { result.checks.push({name, passed: !!ok}); console.log(JSON.stringify({check:name,passed:!!ok})); assert.ok(ok, name); };
   let browser, completed = false, closing = false, stage = 'public status';
   const pending = new Set();
 
@@ -97,6 +97,9 @@ async function main() {
       args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
     const context = await browser.newContext({viewport: {width: 390, height: 844}, deviceScaleFactor: 1,
       isMobile: true, hasTouch: true, locale: 'en-AU', timezoneId: 'Australia/Brisbane', serviceWorkers: 'block'});
+    // A cold SwiftShader compile can exceed Playwright's 30-second action budget.
+    // Keep native visibility, stability and hit-target checks; never force the click.
+    context.setDefaultTimeout(120000);
     await context.route('**/*', route => {
       const work = (async () => {
         const request = route.request(), url = new URL(request.url());
@@ -138,6 +141,13 @@ async function main() {
     await page.locator('#workshop-enter').click();
     await page.waitForFunction(() => __workshop.active && __workshop.service.active && __cw.drive.locked);
     check('service starts assembled and drive locked', await page.evaluate(() => __workshop.service.progress === 0 && __cw.drive.locked));
+    result.startButton = await page.locator('#workshop-play').evaluate(element => {
+      const rect = element.getBoundingClientRect(), style = getComputedStyle(element);
+      return {disabled:element.disabled,display:style.display,visibility:style.visibility,
+        rect:{x:rect.x,y:rect.y,width:rect.width,height:rect.height},
+        hit:document.elementFromPoint(rect.x+rect.width/2,rect.y+rect.height/2)?.id};
+    });
+    console.log(JSON.stringify({startButton:result.startButton}));
     await page.locator('#workshop-play').click();
     await page.waitForFunction(() => __workshop.service.progress > 0, null, {timeout: 30000});
     await page.locator('#workshop-play').click();
