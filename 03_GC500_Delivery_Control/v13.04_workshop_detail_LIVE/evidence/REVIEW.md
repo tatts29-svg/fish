@@ -3,7 +3,7 @@
 Author: Andrew Fisher
 
 Current candidate: `f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad`.
-Final candidate acceptance is complete; guarded publication and public verification remain.
+Final candidate acceptance, guarded publication and fresh public browser verification pass.
 
 Independent source/model review passed finish ownership/disposal, original geometry,
 fastener seating and service-clamp tracking; 1,706 projection checks across sixteen
@@ -47,3 +47,12 @@ exact nine changed file hashes and have zero runtime/console errors or attempted
 record writes. Neither these receipts nor scheduling counters establish physical-device
 frame-rate gains. Root and an independent reviewer inspected final desktop/phone
 images: no material clipping, unreadable controls or annotation obstruction found.
+
+Publication was independently checked against the frozen source evidence: one
+successful registration, all nine changed hashes, 237 retained descriptors, eleven
+protected blobs and unchanged dashboard agree. Root ran the fresh actual-live phone
+check: 18/18, 74 loaded public files hash-verified, all nine changed files exact,
+zero errors/console errors/writes and no candidate substitutions. Native controls
+and exit pass; root reviewed live screenshots. Observed idle accounting was three
+requested frames, two draws and one reuse at unchanged DPR; this is a correctness
+observation, not a physical-device performance benchmark.

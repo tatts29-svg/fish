@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-ACCEPTANCE COMPLETE — v13.04. The existing Coates Way machine/workshop now has
+LIVE — v13.04, 6 Nov 2026 06:54:43 AEST. The existing Coates Way machine/workshop now has
 clearer surface finishes, seated mechanical hardware, continuous tool engagement,
 closer component inspection and steadier phone controls. The orange Coates identity
 and existing features remain. Andrew requested sharper, cleaner detail and movement
@@ -48,4 +48,20 @@ no unresolved blocker. A camera-rounding defect found during acceptance was fixe
 The separate failed mixed manual/native test fixture is retained as diagnostic-only
 history; it is not a release receipt. See `evidence/REVIEW.md`.
 
-Guarded publication and fresh public read-back are next. Not yet a live claim.
+Published source: `c263b82a42c31bb86a3e9ccfd5dc7f5b1000b1e5`;
+tested implementation/acceptance: `d1b004e23b787a30e8d913ac086b93ca48ae1e93`.
+Guarded publication registered once and verified all nine changed public assets,
+237 retained descriptors, the complete 246-file set and eleven protected unlisted
+blobs. Dashboard stayed exact; no operational record writes.
+
+Fresh actual-live phone verification passes 18 checks with 74 loaded files and all
+nine changed public files hash-verified, no candidate substitutions, zero runtime
+or console errors and zero attempted record writes. Native play/pause, idle,
+bench/current draw, hand crank, keyboard cycle adjustment, component rotation and
+exit/restoration pass. Live service and cycle screenshots were reviewed. Evidence
+is under `evidence/`; browser emulation does not measure physical-phone performance.
+
+[Open The Coates Way](https://gc500-production.up.railway.app/w/Coates-GC500-2026/).
+Future machine work starts from the full 246-file manifest above. Dashboard-only
+work keeps the unchanged page base. Shared source, release details and ownership
+are recorded on the board and PR #1; no other session's receipt is implied.
