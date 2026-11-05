@@ -1,0 +1,211 @@
+{
+  "checks": [
+    {
+      "name": "preview button present",
+      "pass": true
+    },
+    {
+      "name": "enter",
+      "pass": true
+    },
+    {
+      "name": "actual engine assembly",
+      "pass": true
+    },
+    {
+      "name": "drive locked",
+      "pass": true
+    },
+    {
+      "name": "no cockpit or suspension lifted",
+      "pass": true
+    },
+    {
+      "name": "existing dock kept out of preview",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.48",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.75",
+      "pass": true
+    },
+    {
+      "name": "finite pose 1",
+      "pass": true
+    },
+    {
+      "name": "close inspection available",
+      "pass": true
+    },
+    {
+      "name": "overview restored",
+      "pass": true
+    },
+    {
+      "name": "engine lifts vertically",
+      "pass": true
+    },
+    {
+      "name": "engine traverses",
+      "pass": true
+    },
+    {
+      "name": "engine lowers to cradle",
+      "pass": true
+    },
+    {
+      "name": "play advances",
+      "pass": true
+    },
+    {
+      "name": "pause holds",
+      "pass": true
+    },
+    {
+      "name": "clamps progress",
+      "pass": true
+    },
+    {
+      "name": "conflicting keyboard paths blocked",
+      "pass": true
+    },
+    {
+      "name": "no horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "panel within viewport",
+      "pass": true
+    },
+    {
+      "name": "exit releases drive lock",
+      "pass": true
+    },
+    {
+      "name": "original dock restored",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    }
+  ],
+  "poses": [
+    {
+      "active": true,
+      "progress": 0,
+      "stage": "Rigging aligned over the engine",
+      "partCount": 101,
+      "lift": [
+        0,
+        0,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 0.0019529359840550486,
+        "hook": 1.8606400012791158
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        0.47952000130116945,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.48,
+      "stage": "Traverse to the cradle",
+      "partCount": 101,
+      "lift": [
+        0,
+        1.9594594594594597,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 0.0019529359840550486,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        1.9295200013011695,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.75,
+      "stage": "Lower onto the cradle",
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        1.9594594594594597,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 2.851952935984055,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.9295200013011695,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 1,
+      "stage": "Engine supported on the cradle",
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        0.8848648635237607,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 2.851952935984055,
+        "hook": 2.5154400002866986
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.1343200003087524,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "driveLocked": true
+    }
+  ],
+  "errors": []
+}
