@@ -1664,8 +1664,8 @@ def build(base=HERE, when=None):
               "Customer-owned gear logged": len(own),
               "Same-day returns this period": parts["story"]["same_day"],
               "Items counted at last stocktake": len(stocktake),
-              "Labour cost to date": labour_total,
-              "Cost breakdown total": cost_total,
+              "Labour cost (roster)": labour_total,
+              "Cost breakdown (shut total)": cost_total,
           }, pack=pack_info)
     try:
         dashboard(wb, s, when, asat, parts)
@@ -2738,9 +2738,11 @@ def roster_hours(ws, when):
                     "name": labels.get("name"),
                     "hours": next(v for k, v in labels.items() if k.startswith("total hours"))}
             break
+    empty = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None}
     if head_row is None or not cols.get("name"):
-        return {"hours": 0.0, "people": {}}
-    people, total, current = {}, 0.0, None
+        return empty
+    people, total, rostered, current = {}, 0.0, 0.0, None
+    first = last = None
     for r in range(head_row + 1, ws.max_row + 1):
         d0 = _date(ws.cell(row=r, column=cols["date"]).value) if cols.get("date") else None
         if d0 is not None:
@@ -2748,14 +2750,20 @@ def roster_hours(ws, when):
         name = _s(ws.cell(row=r, column=cols["name"]).value)
         hrs = _n(ws.cell(row=r, column=cols["hours"]).value)
         shift = _s(ws.cell(row=r, column=cols["shift"]).value) if cols.get("shift") else ""
-        if not name or not hrs or current is None or current > when:
+        if not name or not hrs or current is None:
             continue
-        total += hrs
-        p = people.setdefault(name, {"hours": 0.0, "shifts": []})
-        p["hours"] += hrs
+        p = people.setdefault(name, {"hours": 0.0, "rostered": 0.0, "shifts": []})
+        p["rostered"] += hrs
+        rostered += hrs
+        first = current if first is None else min(first, current)
+        last = current if last is None else max(last, current)
         if shift and shift not in p["shifts"]:
             p["shifts"].append(shift)
-    return {"hours": total, "people": people}
+        if current <= when:
+            total += hrs
+            p["hours"] += hrs
+    return {"hours": total, "people": people, "rostered": rostered,
+            "first": first, "last": last}
 
 
 def carry_over(wb, s, base, title, when=None):
@@ -2766,7 +2774,7 @@ def carry_over(wb, s, base, title, when=None):
     any other job's come through headed and empty, ready to type into."""
     src = s.workbook(base)
     carried, labour_total, cost_total = [], 0.0, 0.0
-    roster = {"hours": 0.0, "people": {}}
+    roster = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None}
     old = None
     if src and os.path.isfile(src):
         try:
@@ -2786,9 +2794,21 @@ def carry_over(wb, s, base, title, when=None):
     seed = job_seed(s)
     weipa = seed is not None
     stale_roster = False
+    use_latest = False
+    #  The kit's own LATEST workbook, if the .xlsm is not the source.
+    latest_path = os.path.join(base, latest_workbook_name(
+        s.short or s.customer or "Shutdown"))
+    latest_wb = None
+    if src and os.path.isfile(latest_path) and \
+            os.path.normcase(os.path.abspath(latest_path)) != os.path.normcase(os.path.abspath(src)):
+        try:
+            latest_wb = openpyxl.load_workbook(latest_path, data_only=False)
+        except Exception:
+            latest_wb = None
     for name in CARRIED_OVER:
         ws = wb.create_sheet(name)
         n = 0
+        vals_for_totals = vals if (vals is not None and name in vals.sheetnames) else None
         if old is not None and name in old.sheetnames:
             o = old[name]
             #  From row 2. Row 1 is the title band, which band() writes
@@ -2835,6 +2855,54 @@ def carry_over(wb, s, base, title, when=None):
                 #  report date AND the seeded roster is the newer one.
                 if newest < today - dt.timedelta(days=30) and seed_first > newest:
                     old_roster = True
+        if n and weipa and old_roster and name == "Coates Labour" and latest_wb is not None \
+                and "Coates Labour" in latest_wb.sheetnames:
+            #  The .xlsm carries last shut's roster, but the kit's own LATEST
+            #  workbook has a current one (seeded or typed since). Carry
+            #  that instead, so what Andrew types into it keeps coming
+            #  across, and say so once.
+            l_dates = [c.value for row in latest_wb["Coates Labour"].iter_rows() for c in row
+                       if isinstance(c.value, (dt.datetime, dt.date))]
+            l_new = max((d_.date() if isinstance(d_, dt.datetime) else d_ for d_ in l_dates),
+                        default=None)
+            if l_new and l_new >= (when or dt.date.today()) - dt.timedelta(days=30):
+                use_latest = True
+                old_roster = False
+                say("  NOTE | {} carries a previous shutdown's roster, so the two typed "
+                    "tabs are carried from {} instead.".format(
+                        os.path.basename(src), os.path.basename(latest_path)))
+        if use_latest:
+            #  Unmerge first: a merged cell's value cannot be cleared.
+            for rng in list(ws.merged_cells.ranges):
+                ws.unmerge_cells(str(rng))
+            for row in ws.iter_rows(min_row=2):
+                for c in row:
+                    c.value = None
+            n = 0
+            lsrc = latest_wb[name] if name in latest_wb.sheetnames else None
+            if lsrc is not None:
+                for row in lsrc.iter_rows(min_row=2):
+                    filled = False
+                    for c in row:
+                        if c.value is None:
+                            continue
+                        filled = True
+                        nc = ws.cell(row=c.row, column=c.column, value=c.value)
+                        if c.number_format:
+                            nc.number_format = c.number_format
+                        nc.font = Font(name="Calibri", size=11, bold=bool(c.font and c.font.bold))
+                    if filled:
+                        n += 1
+                for rng in list(lsrc.merged_cells.ranges):
+                    if rng.min_row > 1:
+                        try:
+                            ws.merge_cells(str(rng))
+                        except ValueError:
+                            pass
+                for k, dim in lsrc.column_dimensions.items():
+                    if dim.width:
+                        ws.column_dimensions[k].width = dim.width
+            vals_for_totals = None
         if n and weipa and (old_roster or (name == "Cost Breakdown" and stale_roster)):
             #  The roster that came across is the older copy - the one
             #  with the "Neon" placeholder and the day rate on every
@@ -2848,11 +2916,13 @@ def carry_over(wb, s, base, title, when=None):
                     c.value = None
             n = 0
             stale_roster = True
+            vals_for_totals = None
             say("  NOTE | {} carried a previous shutdown's roster, so it has been "
                 "replaced with the {} as at {}.".format(
                     name, "roster" if name == "Coates Labour"
                     else "cost breakdown, labour read off the roster", seed["stamp"]))
         if n == 0 and weipa:
+            vals_for_totals = None
             n = seed_labour(ws, seed) if name == "Coates Labour" else seed_costs(ws, seed)
             say("  NOTE | {} came through empty, so it is loaded with the {} as at "
                 "{} - yours to edit.".format(
@@ -2869,20 +2939,21 @@ def carry_over(wb, s, base, title, when=None):
         else:
             skin_typed(ws)
             band(ws, title, max(5, ws.max_column))
-            total = typed_totals(ws, name, vals if (vals is not None and name in vals.sheetnames) else None)
+            total = typed_totals(ws, name, vals_for_totals)
             if name == "Coates Labour":
                 labour_total = total
                 try:
                     roster = roster_hours(ws, when or dt.date.today())
                 except Exception:
-                    roster = {"hours": 0.0, "people": {}}
+                    roster = {"hours": 0.0, "people": {}, "rostered": 0.0,
+                              "first": None, "last": None}
             else:
                 cost_total = total
         tidy_print(ws, max(5, ws.max_column), name=name)
         ws.sheet_properties.tabColor = GREY      # typed by hand
         carried.append((name, n))
 
-    for w in (vals, old):
+    for w in (vals, old, latest_wb):
         if w is not None:
             try:
                 w.close()
@@ -4831,11 +4902,22 @@ class _Pack(object):
                          "three days ({:.0f}%) by {} counter{}.".format(
                              st["st_sighted"], st["st_total"], 100 * st["st_pct"],
                              len(st["st_counters"]), "" if len(st["st_counters"]) == 1 else "s"))
-        if lab.get("people"):
+        if lab.get("people") and lab.get("hours"):
             brief.append("Behind it, the store has run on {:,.0f} staffed hours so far "
                          "{}- day and night coverage, so there is always a Coates person "
                          "at the counter.".format(
                              lab["hours"], "under the fixed rate " if st["fixed_rate"] else ""))
+        elif lab.get("people"):
+            names = sorted(lab["people"])
+            brief.append("The counter is rostered for {:,.0f} staffed hours{} - {} - "
+                         "day and night coverage{}, so there is always a Coates person "
+                         "at the counter.".format(
+                             lab.get("rostered", 0),
+                             (" from {}".format(lab["first"].strftime("%a %d %b"))
+                              if lab.get("first") else ""),
+                             " and ".join(names) if len(names) <= 3 else
+                             "{} people".format(len(names)),
+                             " under the fixed rate" if st["fixed_rate"] else ""))
         if c.get("undated"):
             brief.append("{:,} on-hire item{} no issue transaction inside the export "
                          "window and {} shown as undated.".format(
@@ -4862,10 +4944,12 @@ class _Pack(object):
                         "Coates people and hours to date, from the roster" +
                         (" - under the fixed rate" if st["fixed_rate"] else ""))
         if lab.get("people"):
+            started = bool(lab.get("hours"))
+            key = "hours" if started else "rostered"
             yy = top
             d.text(self.x0 + 12, yy + 6, "NAME", size=6.6, bold=True, colour=P_MUTED, tracking=.5)
-            d.text(xr - 22, yy + 6, "HOURS", size=6.6, bold=True, colour=P_MUTED, tracking=.5,
-                   align="right")
+            d.text(xr - 22, yy + 6, "HOURS" if started else "ROSTERED", size=6.6, bold=True,
+                   colour=P_MUTED, tracking=.5, align="right")
             yy += 12
             for name, pp in sorted(lab["people"].items())[:3]:
                 d.line(self.x0 + 12, yy, xr - 22, yy, colour=P_LINE, lw=0.4)
@@ -4873,13 +4957,20 @@ class _Pack(object):
                 shifts = ", ".join(sorted(pp["shifts"],
                                           key=lambda z: (not z.lower().endswith("shift"), z)))
                 d.text(self.x0 + 12, yy + 22, shifts, size=7, colour=P_MUTED, max_w=half - 90)
-                d.text(xr - 22, yy + 14, "{:,.0f}".format(pp["hours"]), size=11, bold=True,
+                d.text(xr - 22, yy + 14, "{:,.0f}".format(pp.get(key, 0)), size=11, bold=True,
                        colour=P_INK, align="right")
                 yy += 26
             d.line(self.x0 + 12, yy, xr - 22, yy, colour=P_INK, lw=0.8)
-            d.text(self.x0 + 12, yy + 13, "Staffed hours to date", size=8, bold=True, colour=P_INK)
-            d.text(xr - 22, yy + 13, "{:,.0f}".format(lab["hours"]), size=11, bold=True,
-                   colour=P_ORANGE, align="right")
+            if started:
+                d.text(self.x0 + 12, yy + 13, "Staffed hours to date", size=8, bold=True, colour=P_INK)
+                d.text(xr - 22, yy + 13, "{:,.0f}".format(lab["hours"]), size=11, bold=True,
+                       colour=P_ORANGE, align="right")
+            else:
+                d.text(self.x0 + 12, yy + 13, "Rostered hours{}".format(
+                    " from {}".format(lab["first"].strftime("%d %b")) if lab.get("first") else ""),
+                    size=8, bold=True, colour=P_INK)
+                d.text(xr - 22, yy + 13, "{:,.0f}".format(lab.get("rostered", 0)), size=11,
+                       bold=True, colour=P_ORANGE, align="right")
         else:
             d.text(self.x0 + 12, top + 14, "No roster rows up to this date on the Coates Labour tab.",
                    size=8.5, italic=True, colour=P_MUTED)

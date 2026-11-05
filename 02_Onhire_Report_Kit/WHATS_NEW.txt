@@ -94,7 +94,15 @@
    05 Nov 2026 are seeded: fly in Sun 22 Nov, Thomas Maher on days,
    Cody Mitchel on nights, fly out Wed 2 Dec; $90 day / $100 night;
    tooling $1,847.81 and site services $50 a day from 24 Nov to 1 Dec,
-   flights $1,500 each way. Labour reads off the roster: $23,040.
+   flights $1,500 each way. Labour reads off the roster: $23,040 and
+   $41,222.48 all up, and the Cover shows both.
+
+   From then on the two typed tabs carry over from the kit's own
+   LATEST workbook while the .xlsm still holds the old roster, so
+   whatever you type into LATEST is what comes across each day (one
+   NOTE says so). Before the shut starts, the story page shows the
+   team as ROSTERED hours from the fly-in day rather than hours to
+   date, so it never reads as zero people.
 
  NEW - THE VISUALS
  -----------------
