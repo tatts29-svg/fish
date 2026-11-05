@@ -515,6 +515,8 @@ def co_name(raw):
     for w in name.split():
         if w.upper() in _NAMES["acronyms"] or any(ch.isdigit() for ch in w) or "&" in w:
             words.append(w.upper() if w.upper() in _NAMES["acronyms"] else w)
+        elif words and w.lower() in ("and", "of", "the", "for", "at", "on"):
+            words.append(w.lower())                  # Hussy and Co, not Hussy And Co
         elif w.isupper() or w.islower():
             words.append(w.capitalize())
         else:
@@ -5975,6 +5977,7 @@ class _Pack(object):
             d.rect(lx, ly - 7, 8, 8, fill=colour, radius=1.5)
             lx += 12
             lx += d.text(lx, ly, text, size=7.5, colour=P_MUTED) + 14
+        return ly + 4
 
     def story(self, parts):
         """Page two: what the store did this period, in plain words and a
@@ -6101,13 +6104,14 @@ class _Pack(object):
                   ("Kept longer, returned", st["kept"], amber),
                   ("Still on hire", st["still_out"], red if st["still_out"] else self.C_SLATE)]
         if sum(x[1] for x in moving):
-            self.stacked(xr + 12, top + 10, half - 24, 22, moving, legend_y=top + 50)
+            end_y = self.stacked(xr + 12, top + 10, half - 24, 22, moving, legend_y=top + 50)
             ret = st["same_day"] + st["kept"]
             pct = (100.0 * st["same_day"] / ret) if ret else 0
-            d.paragraph(xr + 12, top + 72, "{:.0f}% of returns came back the same day they went "
-                        "out. Same-day returns keep records clean and gear available for the "
-                        "next crew - if it is not in use, bring it back.".format(pct),
-                        size=8, max_w=half - 24, colour=P_MUTED, leading=11)
+            d.paragraph(xr + 12, max(top + 72, end_y + 10),
+                        "{:.0f}% of returns came back the same day they went out. Same-day "
+                        "returns keep records clean and gear available for the next crew - if "
+                        "it is not in use, bring it back.".format(pct),
+                        size=8, max_w=half - 24, colour=P_MUTED, leading=11, max_lines=3)
         else:
             d.text(xr + 12, top + 14, "No tooling movements in this export.", size=8.5,
                    italic=True, colour=P_MUTED)
@@ -6119,16 +6123,14 @@ class _Pack(object):
         if st.get("st_total"):
             pct = st["st_pct"]
             tone = green if pct >= 0.75 else (amber if pct >= 0.5 else red)
-            self.gauge(self.x0 + 70, top + 52, pct, tone, "{:.0f}%".format(pct * 100),
+            self.gauge(self.x0 + 62, top + 52, pct, tone, "{:.0f}%".format(pct * 100),
                        "Sighted in 3 days", "{:,} of {:,} items".format(st["st_sighted"], st["st_total"]))
-            d.paragraph(self.x0 + 140, top + 12,
-                        "Stock takes are done daily, with nothing in the store going more "
-                        "than 30 days unscanned. {} counter{} did the sighting: {}. The count "
-                        "doubles as the on-hire verification - anything in the store still "
-                        "showing as on hire is corrected the same day.".format(
-                            len(st["st_counters"]), "" if len(st["st_counters"]) == 1 else "s",
-                            ", ".join(st["st_counters"]) or "-"),
-                        size=7.8, max_w=half - 152, colour=P_MUTED, leading=10.5)
+            d.paragraph(self.x0 + 122, top + 10,
+                        "Daily stock takes - nothing in the store goes more than 30 days "
+                        "unscanned. Sighted by {}. The count doubles as the on-hire check: "
+                        "anything in the store still showing as on hire is corrected the "
+                        "same day.".format(", ".join(st["st_counters"]) or "the counter"),
+                        size=7.6, max_w=half - 134, colour=P_MUTED, leading=10, max_lines=8)
         else:
             d.text(self.x0 + 12, top + 14, "No STOCKTAKE export in this run.", size=8.5,
                    italic=True, colour=P_MUTED)
