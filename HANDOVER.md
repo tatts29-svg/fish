@@ -193,9 +193,10 @@ Settled rules, 04–05 Nov 2026:
   meaning. Email is tables + inline styles, no images (Outlook = Word).
 - Hand-typed tabs (Coates Labour, Cost Breakdown) carry over value for
   value and are skinned; a fresh kit seeds them per job (Weipa roster
-  04 Nov; MMG roster + cost breakdown 05 Nov: fly in 22 Nov, Thomas
-  Maher days, Cody Mitchel nights, fly out 2 Dec, $90/$100, tooling
-  $1,847.81 + site services $50 a day 24 Nov–1 Dec, flights $1,500 each
+  04 Nov; MMG roster + cost breakdown 05 Nov, corrected the same day:
+  fly in Sun 22 Nov, mobilisation Mon 23–Tue 24, shutdown from Wed 25 Nov,
+  Thomas Maher days, Cody Mitchel nights, fly out Wed 2 Dec, $90/$100,
+  tooling $1,847.81 + site services $50 a day 25 Nov–1 Dec, flights $1,500 each
   way). The Cost Breakdown's Labour column is a SUMIF off the roster.
   A roster from a previous shut (last day a month+ behind the report) is
   replaced with the seed, with a note. Cover totals come from cached

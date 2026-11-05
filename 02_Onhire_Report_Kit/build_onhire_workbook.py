@@ -2133,7 +2133,9 @@ _WEIPA_RATES = [("Storeman Day", 80, "Dayshift"), ("Storeman Night", 90, "NightS
 #  rate. Day rate $90, night rate $100. Total $23,040.
 #  Mon 30 Nov for Cody was labelled DayShift on the sheet but runs
 #  18:00-06:00 at the night rate, so it is entered as NightShift.
-_MMG_ROSTER = [
+#  As first sent on 05 Nov 2026 - kept so an untouched copy of it can be
+#  recognised and updated to the corrected version below.
+_MMG_ROSTER_0511 = [
     ("2026-11-22", "Fly In", "Tool Store Controller", "Thomas Maher", "14:00", "18:00", 4),
     ("2026-11-22", "Fly In", "Tool Store Controller", "Cody Mitchel", "14:00", "18:00", 4),
     ("2026-11-23", "Drive to Site (Mobilisation)", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
@@ -2161,7 +2163,7 @@ _MMG_RATES = [("Storeman Day", 90, "DayShift"), ("Storeman Night", 100, "NightSh
 
 #  The MMG cost breakdown as typed for this shut; the labour column is
 #  never typed - it reads off the roster day by day.
-_MMG_COSTS = [
+_MMG_COSTS_0511 = [
     # (day, status, shutdown/tooling, labour (always off the roster), site services, flights)
     # As sent 05 Nov 2026: tooling $1,847.81 and site services $50 a day from
     # Tue 24 Nov to Tue 1 Dec, flights $1,500 on the way in and out.
@@ -2169,6 +2171,52 @@ _MMG_COSTS = [
     ("2026-11-23", "Drive to Site Mobilisation", None, None, None, None),
     ("2026-11-24", "Mobilisation", 1847.81, None, 50, None),
     ("2026-11-25", "Mobilisation", 1847.81, None, 50, None),
+    ("2026-11-26", "Shutdown", 1847.81, None, 50, None),
+    ("2026-11-27", "Shutdown", 1847.81, None, 50, None),
+    ("2026-11-28", "Shutdown", 1847.81, None, 50, None),
+    ("2026-11-29", "Shutdown", 1847.81, None, 50, None),
+    ("2026-11-30", "Shutdown", 1847.81, None, 50, None),
+    ("2026-12-01", "Shutdown", 1847.81, None, 50, None),
+    ("2026-12-02", "Drive Off Site & Flight Out", None, None, None, 1500),
+]
+
+#  Corrected with Andrew on 05 Nov 2026: mobilisation Mon 23 and Tue 24
+#  Nov, the shutdown - and day/night shifts - from Wed 25 Nov.
+_MMG_ROSTER = [
+    ("2026-11-22", "Fly In", "Tool Store Controller", "Thomas Maher", "14:00", "18:00", 4),
+    ("2026-11-22", "Fly In", "Tool Store Controller", "Cody Mitchel", "14:00", "18:00", 4),
+    ("2026-11-23", "Drive to Site (Mobilisation)", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-23", "Drive to Site (Mobilisation)", "Tool Store Controller", "Cody Mitchel", "06:00", "18:00", 12),
+    ("2026-11-24", "Mobilisation Days", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-24", "Mobilisation Days", "Tool Store Controller", "Cody Mitchel", "06:00", "18:00", 12),
+    ("2026-11-25", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-25", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-11-26", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-26", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-11-27", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-27", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-11-28", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-28", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-11-29", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-29", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-11-30", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-11-30", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-12-01", "DayShift", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-12-01", "NightShift", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+    ("2026-12-02", "Fly Out", "Tool Store Controller", "Thomas Maher", "06:00", "18:00", 12),
+    ("2026-12-02", "Fly Out", "Tool Store Controller", "Cody Mitchel", "18:00", "06:00", 12),
+]
+
+#  The MMG cost breakdown, corrected 05 Nov 2026: the shutdown charges -
+#  tooling $1,847.81 and site services $50 a day - run from Wed 25 Nov to
+#  Tue 1 Dec; the two mobilisation days carry labour only; flights $1,500
+#  each way. Labour is never typed - it reads off the roster day by day.
+_MMG_COSTS = [
+    # (day, status, shutdown/tooling, labour (always off the roster), site services, flights)
+    ("2026-11-22", "Flight In", None, None, None, 1500),
+    ("2026-11-23", "Drive to Site Mobilisation", None, None, None, None),
+    ("2026-11-24", "Mobilisation", None, None, None, None),
+    ("2026-11-25", "Shutdown", 1847.81, None, 50, None),
     ("2026-11-26", "Shutdown", 1847.81, None, 50, None),
     ("2026-11-27", "Shutdown", 1847.81, None, 50, None),
     ("2026-11-28", "Shutdown", 1847.81, None, 50, None),
@@ -2206,7 +2254,15 @@ JOB_SEEDS = {
     "weipa": {"roster": _WEIPA_ROSTER, "rates": _WEIPA_RATES, "costs": _WEIPA_COSTS,
               "flights": False, "stamp": "04 Nov 2026"},
     "mmg": {"roster": _MMG_ROSTER, "rates": _MMG_RATES, "costs": _MMG_COSTS,
-            "flights": True, "stamp": "05 Nov 2026"},
+            "flights": True, "stamp": "05 Nov 2026 (corrected)",
+            #  Earlier versions of this seed. A carried tab that is still
+            #  exactly one of these - nothing typed since - is updated to
+            #  the current seed, with a note. Anything edited is left alone.
+            "previous": [{"roster": _MMG_ROSTER_0511, "rates": _MMG_RATES,
+                          "costs": _MMG_COSTS_0511, "flights": True,
+                          "stamp": "05 Nov 2026",
+                          "what": "mobilisation Mon 23 and Tue 24 Nov, the shutdown and "
+                                  "its charges from Wed 25 Nov"}]},
 }
 
 
@@ -2253,6 +2309,37 @@ def seed_labour(ws, seed):
     ws.cell(row=r, column=8, value="=SUM(H6:H{})".format(last)).number_format = TYPED_MONEY_FMT
     ws.cell(row=r, column=9, value="=SUM(I6:I{})".format(last)).number_format = TYPED_MONEY_FMT
     return len(roster) + len(rates) + 3
+
+
+def _same_as_seed(ws, name, prev):
+    """True when a carried tab is, value for value, exactly what the kit
+    seeded from `prev` - nothing typed since - so a corrected seed may
+    replace it without losing anyone's work."""
+    tmp = openpyxl.Workbook()
+    t = tmp.active
+    try:
+        (seed_labour if name == "Coates Labour" else seed_costs)(t, prev)
+    except Exception:
+        return False
+
+    def cells(w):
+        out = {}
+        for row in w.iter_rows(min_row=2):
+            for c in row:
+                v = c.value
+                if v is None or v == "":
+                    continue
+                if isinstance(v, dt.datetime):
+                    v = v.date()
+                if isinstance(v, float) and v.is_integer():
+                    v = int(v)
+                if isinstance(v, str):
+                    v = v.strip()
+                out[(c.row, c.column)] = v
+        return out
+    same = cells(ws) == cells(t)
+    tmp.close()
+    return same
 
 
 def seed_costs(ws, seed):
@@ -3296,15 +3383,37 @@ def carry_over(wb, s, base, title, when=None):
                 "replaced with the {} as at {}.".format(
                     name, "roster" if name == "Coates Labour"
                     else "cost breakdown, labour read off the roster", seed["stamp"]))
+        updated_seed = False
+        if n and weipa and seed.get("previous"):
+            #  The tab is exactly an earlier version of this job's seed,
+            #  untouched: update it to the corrected one and say so. A
+            #  tab anybody has typed into never matches, and is kept.
+            for prev in seed["previous"]:
+                if _same_as_seed(ws, name, prev):
+                    for rng in list(ws.merged_cells.ranges):
+                        ws.unmerge_cells(str(rng))
+                    for row in ws.iter_rows(min_row=2):
+                        for c in row:
+                            c.value = None
+                    n = 0
+                    vals_for_totals = None
+                    updated_seed = True
+                    say("  NOTE | {} was still exactly the {} seeded on {}, nothing typed "
+                        "since, so it has been updated to the version corrected on {} - {}."
+                        .format(name, "roster" if name == "Coates Labour" else "cost breakdown",
+                                prev["stamp"], seed["stamp"].replace(" (corrected)", ""),
+                                prev["what"]))
+                    break
         if n == 0 and weipa:
             vals_for_totals = None
             n = seed_labour(ws, seed) if name == "Coates Labour" else seed_costs(ws, seed)
-            say("  NOTE | {} came through empty, so it is loaded with the {} as at "
-                "{} - yours to edit.".format(
-                    name, "roster" if name == "Coates Labour" else
-                    ("cost breakdown, labour off the roster" if seed.get("costs") else
-                     "shutdown days, labour off the roster, the rest yours to type"),
-                    seed["stamp"]))
+            if not updated_seed:
+                say("  NOTE | {} came through empty, so it is loaded with the {} as at "
+                    "{} - yours to edit.".format(
+                        name, "roster" if name == "Coates Labour" else
+                        ("cost breakdown, labour off the roster" if seed.get("costs") else
+                         "shutdown days, labour off the roster, the rest yours to type"),
+                        seed["stamp"]))
         if n == 0:
             band(ws, title, 9)
             c = ws.cell(row=2, column=1,
