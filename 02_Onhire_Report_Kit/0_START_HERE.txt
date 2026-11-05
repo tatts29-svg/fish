@@ -274,6 +274,13 @@
    chart. All drawn in the Coates palette from the same numbers as
    the tables, as vectors - crisp at any size, on a phone or a wall.
 
+   Beside each company's PDF in By_Company sits a ready-to-send chase
+   email (.eml) with that page attached - their position, their people,
+   the ask. Double-click one to open it as a draft, or press
+   5_MAKE_COMPANY_DRAFTS.bat to put all of them in Outlook > Drafts.
+   The pack ends with HOW TO READ THIS PACK: the chips, bands and
+   ratings explained, the asks in full, your sign-off.
+
    Open HOW_IT_WORKS.html for what is on each page.
 
 

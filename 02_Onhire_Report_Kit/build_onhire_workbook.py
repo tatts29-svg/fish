@@ -1925,6 +1925,7 @@ def build(base=HERE, when=None):
     #  One PDF per company as well, for forwarding a company its own page.
     by_co_dir = os.path.join(dirs["day"], "By_Company")
     n_single = 0
+    n_mail = 0
     if pack_info and coates_pdf is not None:
         try:
             os.makedirs(by_co_dir, exist_ok=True)
@@ -1934,6 +1935,12 @@ def build(base=HERE, when=None):
                 build_company_pdf(p, s, when, asat, period, b,
                                   sum(x["items"] for x in blocks))
                 n_single += 1
+                try:
+                    write_company_email(by_co_dir, s, when, asat, parts, b, p)
+                    n_mail += 1
+                except Exception as e:
+                    say("  WARN | {}'s email draft didn't write ({}). Its PDF is fine."
+                        .format(b["company"], e))
         except Exception as e:
             say("  WARN | The per-company PDFs didn't all write ({}). The "
                 "pack itself is fine.".format(e))
@@ -1978,8 +1985,12 @@ def build(base=HERE, when=None):
         say("            {} pages - a section for each of {} companies".format(
             pack_info["pages"], pack_info["companies"]))
     if n_single:
-        say("  Per co.   {}  ({} PDFs, one per company)".format(
-            os.path.relpath(by_co_dir, base), n_single))
+        say("  Per co.   {}  ({} PDFs{}, one per company)".format(
+            os.path.relpath(by_co_dir, base), n_single,
+            " and {} email drafts".format(n_mail) if n_mail else ""))
+        if n_mail:
+            say("            each .eml opens as a draft with that company's page attached;")
+            say("            5_MAKE_COMPANY_DRAFTS.bat puts them all in Outlook > Drafts.")
     if eml_path:
         say("  Email     {}".format(os.path.relpath(eml_path, base)))
         say("            double-click it - it opens as a DRAFT with the workbook")
@@ -1987,6 +1998,33 @@ def build(base=HERE, when=None):
         say("            Send yourself.")
     if html_path:
         say("  Web page  {}".format(os.path.relpath(html_path, base)))
+    #  The kit checks its own work before it says it is done.
+    checks = [("workbook saved", os.path.isfile(out)),
+              ("pack built", bool(pack_info) and pack_info["pages"] >= 3),
+              ("a PDF for every company", n_single == len(blocks)),
+              ("typeface embedded", coates_pdf is None or coates_pdf.typeface() == "Inter")]
+    if html_path:
+        try:
+            h_ = open(html_path, encoding="utf-8").read()
+            plain = _re.sub(r"<[^>]+>", " ", h_)
+            checks.append(("email has no gaps", not _re.search(r"\{[a-z_]+\}|\bNone\b|\bnan\b", plain)))
+            checks.append(("no costs in the email", "$" not in plain))
+        except Exception:
+            pass
+    if parts.get("forecast") and cost_total:
+        checks.append(("cover and forecast agree",
+                       abs((parts["forecast"].get("cost_total") or 0) - cost_total) < 0.01))
+    passed = sum(1 for _n, ok in checks if ok)
+    say("  Checks    {} of {} passed{}".format(
+        passed, len(checks), "" if passed == len(checks) else
+        " - LOOK AT: " + ", ".join(n for n, ok in checks if not ok)))
+    try:
+        write_history(base, s, when, {
+            "onhire": len(det), "companies": parts["counts"]["companies"],
+            "moves": len(tooling_tx), "draws": len(ctx), "undated": len(undated),
+            "long_out": parts["counts"]["long_out"], "same_day": parts["story"]["same_day"]})
+    except Exception:
+        pass
     say("=" * 66)
     return 0
 
@@ -3266,10 +3304,61 @@ def shut_progress(fc, when):
             "state": fc["state"], "label": label, "first": first, "last": last}
 
 
+HISTORY_COLS = ("date", "onhire", "companies", "moves", "draws", "undated", "long_out", "same_day")
+
+
+def history_path(base, s):
+    return os.path.join(base, s.reports_dirname, "history.csv")
+
+
+def read_history(base, s):
+    """Every report day's headline counts, oldest first."""
+    import csv
+    p = history_path(base, s)
+    out = []
+    if not os.path.isfile(p):
+        return out
+    with open(p, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            try:
+                d0 = dt.datetime.strptime(row["date"], "%Y-%m-%d").date()
+            except Exception:
+                continue
+            rec = {"day": d0}
+            for k in HISTORY_COLS[1:]:
+                v = (row.get(k) or "").strip()
+                rec[k] = int(float(v)) if v not in ("", "None") else None
+            out.append(rec)
+    out.sort(key=lambda r: r["day"])
+    return out
+
+
+def write_history(base, s, when, counts):
+    """Add (or replace) today's line in Reports\\history.csv."""
+    import csv
+    rows = [r for r in read_history(base, s) if r["day"] != when]
+    rec = {"day": when}
+    rec.update(counts)
+    rows.append(rec)
+    rows.sort(key=lambda r: r["day"])
+    p = history_path(base, s)
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(HISTORY_COLS)
+        for r in rows:
+            w.writerow([r["day"].strftime("%Y-%m-%d")] + [r.get(k, "") if r.get(k) is not None else ""
+                                                         for k in HISTORY_COLS[1:]])
+
+
 def previous_report(base, s, when):
-    """The newest earlier report in the Reports folder, read back for
-    its headline counts, so today's numbers can say what moved. None
-    when there is no earlier day to compare with."""
+    """The newest earlier report, read back for its headline counts so
+    today's numbers can say what moved: from Reports\\history.csv when
+    it has one, else from the earlier day's workbook. None when there is
+    no earlier day to compare with."""
+    earlier = [r for r in read_history(base, s) if r["day"] < when and r.get("onhire") is not None]
+    if earlier:
+        return earlier[-1]
     root = os.path.join(base, s.reports_dirname)
     if not os.path.isdir(root):
         return None
@@ -3921,7 +4010,11 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         fill = BAND_FILL if n_ % 2 else None
         merge(r, 1, 2)
         put(r, 1, name, Font(name="Calibri", size=10.5, bold=True,
-                             color=NEAR_BLACK), align=Alignment(indent=1))
+                             color=NEAR_BLACK, underline="single"), align=Alignment(indent=1))
+        try:
+            ws.cell(row=r, column=1).hyperlink = "#'{}'!A1".format(name.replace("'", "''"))
+        except Exception:
+            pass
         put(r, 3, n, Font(name="Calibri", size=10.5, color=NEAR_BLACK),
             fmt=INT_FMT, align=Alignment(horizontal="right", indent=1))
         merge(r, 4, 6)
@@ -5234,7 +5327,7 @@ def _actions_card(parts):
     return "".join(out)
 
 
-def _footer(s, asat, parts):
+def _footer(s, asat, parts, workbook=True):
     return (
         _T + _rule(3, E_ORANGE) +
         "<tr><td bgcolor=\"{k}\" style=\"background:{k};padding:14px 24px;"
@@ -5243,8 +5336,7 @@ def _footer(s, asat, parts):
         "date of each item's issue transaction; the transactions export covers "
         "{period}. Figures are the tool store's own record as at {asat}, not a "
         "live feed.<br>"
-        "Costs are in the attached workbook - not in this email and not in the "
-        "company pack.{fixed}<br>"
+        "{costs}{fixed}<br>"
         "<span style=\"color:#ffffff;font-weight:700\">POWERED BY "
         "<span style=\"color:{o}\">SITEIQ</span></span>"
         " &nbsp;|&nbsp; Author: {who} &nbsp;|&nbsp; Shutdown Tool Store"
@@ -5252,6 +5344,10 @@ def _footer(s, asat, parts):
             k=E_INK, f=E_FONT, o=E_ORANGE, src=_esc(parts["source_stamp"]),
             period=_esc(parts.get("period") or "the period of the export"),
             asat=asat.strftime("%d %b %Y %H:%M"),
+            costs=("Costs are in the attached workbook - not in this email and not in the "
+                   "company pack." if workbook else
+                   "No costs appear in this email or on the attached page - they are "
+                   "in the workbook."),
             fixed=(" Fixed-rate engagement: no per-item charges appear in any of "
                    "it - commercials are per the agreement."
                    if (parts.get("story") or {}).get("fixed_rate") else ""),
@@ -5534,12 +5630,14 @@ def email_html(s, when, asat, parts):
                     c=E_CARD, i="".join(inner)))
     body.append(_footer(s, asat, parts))
 
-    sheet = "".join(body)
+    return _wrap_sheet("".join(body))
 
-    #  Word ignores max-width, so Outlook gets a fixed-width table of its
-    #  own and everybody else gets the fluid one. Without this the report
-    #  stretches the full width of a big monitor and looks like a
-    #  spreadsheet somebody pasted in.
+
+def _wrap_sheet(sheet):
+    """The white sheet on the grey page. Word ignores max-width, so
+    Outlook gets a fixed-width table of its own and everybody else gets
+    the fluid one. Without this the report stretches the full width of a
+    big monitor and looks like a spreadsheet somebody pasted in."""
     return (
         "<style type=\"text/css\">@media only screen and (max-width:620px){{"
         ".tile{{display:block !important;width:100% !important;"
@@ -5558,6 +5656,142 @@ def email_html(s, when, asat, parts):
         "<!--[if mso]></td></tr></table><![endif]-->"
         "</td></tr></table></div>".format(p=E_PAGE, c=E_CARD, l=E_LINE,
                                           w=E_WIDTH, inner=sheet))
+
+
+def company_email_html(s, when, asat, parts, b):
+    """One company's chase email: their position, their people and what
+    each holds, the ask, their page of the pack on the paperclip. Same
+    sheet, same masthead, no costs."""
+    co = b["company"]
+    story = parts.get("story") or {}
+    body = [_masthead(s, when, asat, story)]
+    inner = []
+    if b["items"]:
+        oldest = b["oldest_days"]
+        line = ("As at {}, {} has {:,} item{} of Coates gear on hire with {} {}{}.".format(
+            when.strftime("%d %B %Y"), co, b["items"], "" if b["items"] == 1 else "s",
+            len(b["people"]), "person" if len(b["people"]) == 1 else "people",
+            (", the oldest issue {}".format(_days_text(oldest)) if oldest is not None else "")))
+        if b["undated"]:
+            line += (" {} item{} no issue transaction inside the export window and {} "
+                     "shown as undated.".format(b["undated"], " has" if b["undated"] == 1 else "s have",
+                                                "is" if b["undated"] == 1 else "are"))
+        ask = ("If any of it is finished with, bring it back to the counter and it comes off "
+               "your name the same day - two scans and it is done. Anything you are still "
+               "using, no action needed.")
+    else:
+        line = ("As at {}, {} has nothing on hire - every item issued to you has been "
+                "scanned back in. Thank you.".format(when.strftime("%d %B %Y"), co))
+        ask = ("This period the counter logged {:,} tooling movement{} and {:,} consumable "
+               "draw{} for you{}.".format(
+                   b["issues"], "" if b["issues"] == 1 else "s", b["draws"],
+                   "" if b["draws"] == 1 else "s",
+                   (", plus {:,} movement{} of your own gear".format(b["own"], "" if b["own"] == 1 else "s")
+                    if b.get("own") else "")))
+    inner.append(_T + "<tr><td style=\"{x}\">"
+                 "<div style=\"{x};padding-bottom:10px\">Hi {co} team,</div>"
+                 "<div style=\"{x};padding-bottom:10px\">{line}</div>"
+                 "<div style=\"{x}\">{ask}</div>"
+                 "</td></tr></table>".format(x=E_TXT, co=_esc(co), line=_esc(line), ask=_esc(ask)))
+    inner.append(_gap(18))
+    if b["people"]:
+        inner.append(_kicker("Who is holding what"))
+        rows = []
+        for pp in b["people"]:
+            gear = {}
+            for r in pp["items"]:
+                k = item_name(r[3]) or "(no description)"
+                gear[k] = gear.get(k, 0) + 1
+            top = sorted(gear.items(), key=lambda kv: (-kv[1], kv[0]))
+            listed = ", ".join("{} x {}".format(q, g) if q > 1 else g for g, q in top[:4])
+            if len(top) > 4:
+                listed += ", and {} more".format(len(top) - 4)
+            rows.append([_lead(pp["who"], listed),
+                         _num(_fmt(len(pp["items"]))),
+                         _plain(pp["since"].strftime("%d %b %Y") if pp["since"] else "not in export",
+                                "left", muted=True),
+                         "<table cellpadding='0' cellspacing='0' border='0' align='right'>"
+                         "<tr><td>{}</td></tr></table>".format(
+                             _pill(_days_text(pp["days"]) if pp["days"] is not None else "undated",
+                                   day_tone(pp["days"]) if pp["days"] is not None else "amber"))])
+        inner.append(_table(["Person", "Items", "Oldest issue", "Out"], rows,
+                            widths={0: 56, 1: 10, 2: 18, 3: 16}, aligns={1: "right"},
+                            note="Dates are the start of each item's issue transaction in SiteIQ. "
+                                 "Every item is listed on the attached page."))
+        inner.append(_gap(18))
+    if b.get("consumables"):
+        top3 = ", ".join("{} ({:,})".format(k, int(v["qty"])) for k, v in b["consumables"][:3])
+        inner.append("<div style=\"{sm}\">Consumables drawn this period: {:,} units across {} line{}"
+                     " - most of it {}.</div>".format(
+                         b["cons_qty"], len(b["consumables"]), "" if len(b["consumables"]) == 1 else "s",
+                         _esc(top3), sm=E_SMALL))
+        inner.append(_gap(14))
+    inner.append("<div style=\"{x}\">Attached is your page of today's pack. Reply to this email "
+                 "with anything you want chased or corrected.</div>".format(x=E_TXT))
+    inner.append(_gap(16))
+    inner.append("<div style=\"{x};font-weight:700\">{who}</div>"
+                 "<div style=\"{sm}\">Shutdown Tool Store &nbsp;|&nbsp; Coates</div>".format(
+                     x=E_TXT, sm=E_SMALL, who=_esc(s.author or "Andrew Fisher")))
+    body.append("<table cellpadding='0' cellspacing='0' border='0' width='100%' "
+                "style='border-collapse:collapse'><tr><td style='padding:22px 24px 26px'>"
+                + "".join(inner) + "</td></tr></table>")
+    body.append(_footer(s, asat, parts, workbook=False))
+    return _wrap_sheet("".join(body))
+
+
+def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
+    """One company's chase email as an .eml draft (their PDF attached),
+    the same page as .html, and a .draft.json for the Outlook button.
+    Nothing sends - the To field is yours to fill."""
+    import email.message
+    import email.policy
+    import json
+    co = b["company"]
+    stem = "{} - On-Hire - {}".format(_safe_name(co, "Company"), when.strftime("%d %b %Y"))
+    html = company_email_html(s, when, asat, parts, b)
+    html_path = os.path.join(out_dir, stem + ".html")
+    with open(html_path, "w", encoding="utf-8") as f:
+        f.write("<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>"
+                "<meta name='viewport' content='width=device-width,initial-scale=1'>"
+                "<title>{}</title></head><body style=\"margin:0;padding:0;background:{}\">{}"
+                "</body></html>".format(_esc(stem), E_PAGE, html))
+    if b["items"]:
+        subject = "{} | Coates gear on hire | {}: {:,} item{} out{}".format(
+            co, when.strftime("%a %d %b"), b["items"], "" if b["items"] == 1 else "s",
+            (", oldest {}".format(_days_text(b["oldest_days"])) if b["oldest_days"] is not None else ""))
+    else:
+        subject = "{} | Coates gear on hire | {}: all back".format(co, when.strftime("%a %d %b"))
+    msg = email.message.EmailMessage(policy=email.policy.SMTP)
+    msg["Subject"] = subject
+    msg["X-Unsent"] = "1"
+    text = ["Hi {} team,".format(co), "",
+            ("{} has {:,} item{} of Coates gear on hire with {} people as at {}.".format(
+                co, b["items"], "" if b["items"] == 1 else "s", len(b["people"]),
+                when.strftime("%d %b %Y")) if b["items"] else
+             "{} has nothing on hire as at {} - every item is back. Thank you.".format(
+                 co, when.strftime("%d %b %Y"))), ""]
+    for pp in b["people"]:
+        text.append("  {} - {} item{}, oldest issued {}".format(
+            pp["who"], len(pp["items"]), "" if len(pp["items"]) == 1 else "s",
+            pp["since"].strftime("%d %b %Y") if pp["since"] else "not in export"))
+    text += ["", "Your page of today's pack is attached. Reply with anything to chase or correct.",
+             "", s.author or "Andrew Fisher", "Shutdown Tool Store | Coates"]
+    msg.set_content("\n".join(text))
+    msg.add_alternative(html, subtype="html")
+    if pdf_path and os.path.isfile(pdf_path):
+        with open(pdf_path, "rb") as f:
+            msg.add_attachment(f.read(), maintype="application", subtype="pdf",
+                               filename=os.path.basename(pdf_path))
+    with open(os.path.join(out_dir, stem + ".eml"), "wb") as f:
+        f.write(msg.as_bytes())
+    with open(os.path.join(out_dir, stem + ".draft.json"), "w", encoding="utf-8") as f:
+        json.dump({"subject": subject, "body": os.path.basename(html_path),
+                   "attachments": [os.path.basename(pdf_path)] if pdf_path else []}, f, indent=1)
+    return stem
+
+
+# =====================================================================
+#  THE COMPANY PACK - a PDF with a section for every company
 
 
 # =====================================================================
@@ -6788,6 +7022,117 @@ class _Pack(object):
                         size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5)
         return idx
 
+    def closing(self, parts, blocks):
+        """The last page: how to read the pack - what the chips, bands and
+        ratings mean - the asks in full, where the numbers come from, and
+        the sign-off. A pack should finish, not just stop."""
+        d = self.doc
+        idx = self.page("On-Hire Report by Company")
+        self.doc.bookmark("How to read this pack", idx, 60)
+        d.text(self.x0, self.y + 16, "How to read this pack", size=18, bold=True, colour=P_INK)
+        d.text(self.x0, self.y + 31, "What the colours mean, where the numbers come from, "
+               "and what happens next.", size=9, colour=P_MUTED)
+        d.text(self.x1, self.y + 16, "AS AT {}".format(
+            self.asat.strftime("%d %b %Y %H:%M").upper()), size=7, bold=True,
+            colour=P_ORANGE, tracking=1.2, align="right")
+        d.text(self.x1, self.y + 31, self.when.strftime("%A %d %B %Y"), size=8.5,
+               colour=P_MUTED, align="right")
+        self.y += 44
+        half = (self.cw - 10) / 2.0
+        xr = self.x0 + half + 10
+
+        # ---- the key -------------------------------------------------------
+        H = 150
+        top = self.card(self.x0, self.y, half, H, "Days out",
+                        "The chip beside every item and person")
+        yy = top + 2
+        for text, tone, meaning in (("today", day_tone(0), "issued today"),
+                                    ("3 days", day_tone(3), "out this week - normal"),
+                                    ("12 days", day_tone(12), "worth a look"),
+                                    ("21+ days", day_tone(21), "overdue - please return or confirm"),
+                                    ("undated", "amber", "no issue transaction in the export window")):
+            self.chip(self.x0 + 70, yy, text, tone)
+            d.text(self.x0 + 80, yy + 9.5, meaning, size=8, colour=P_INK)
+            yy += 19
+        top = self.card(xr, self.y, half, H, "Age of what is out",
+                        "The bar under the dials and in every section")
+        yy = top + 2
+        fills = {"ink": "#2A313C", "muted": "#5B6472", "slate": self.C_SLATE,
+                 "amber": E_RAG["amber"][2], "red": E_RAG["red"][2]}
+        for label, lo, hi in AGE_BANDS:
+            d.rect(xr + 12, yy + 1, 14, 9, fill=fills[AGE_TONES[label]], radius=2)
+            d.text(xr + 32, yy + 9.5, label, size=8, bold=True, colour=P_INK)
+            d.text(xr + 92, yy + 9.5, {"today": "issued today", "1-3 days": "the normal turn",
+                                       "4-7 days": "a week out", "8-20 days": "watch",
+                                       "21+ days": "overdue"}[label], size=8, colour=P_MUTED)
+            yy += 15
+        d.rect(xr + 12, yy + 1, 14, 9, fill=E_RAG["amber"][2], radius=2)
+        d.text(xr + 32, yy + 9.5, "undated", size=8, bold=True, colour=P_INK)
+        d.text(xr + 92, yy + 9.5, "no issue transaction in the window", size=8, colour=P_MUTED)
+        self.y += H + 10
+
+        H = 96
+        top = self.card(self.x0, self.y, half, H, "Ratings",
+                        "On the charts page and in the workbook")
+        yy = top + 2
+        for word, meaning in (("High Demand", "out faster than we turn it - order more"),
+                              ("Good Use", "earning its keep"),
+                              ("Low Use", "little call for it"),
+                              ("No Use", "has not gone out - review, send home")):
+            self.chip(self.x0 + 76, yy, word, TONE.get(word, "slate"))
+            d.text(self.x0 + 86, yy + 9.5, meaning, size=8, colour=P_INK, max_w=half - 100)
+            yy += 15
+        top = self.card(xr, self.y, half, H, "Where the numbers come from",
+                        "Nothing in this pack is estimated")
+        d.paragraph(xr + 12, top + 10,
+                    "Every figure is counted off the SiteIQ exports of the day: RENTAL_STOCK, "
+                    "SALES_STOCK, TRANSACTIONS{}. On-hire dates are the start of each item's "
+                    "issue transaction; the export covers {}. No costs appear anywhere in "
+                    "this pack.".format(
+                        " and STOCKTAKE" if (parts.get("story") or {}).get("st_total") else "",
+                        self.period or "the stated period"),
+                    size=7.8, max_w=half - 24, colour=P_MUTED, leading=10.5, max_lines=5)
+        self.y += H + 10
+
+        # ---- the asks, in full -------------------------------------------------
+        acts = parts.get("actions") or []
+        if acts:
+            lines_ = [(head, d.wrap(body, 8, self.cw - 60, max_lines=2)) for head, body in acts]
+            h = 44 + sum(16 + 10.5 * len(ls) for _h, ls in lines_)
+            top = self.card(self.x0, self.y, self.cw, h, "What needs attention",
+                            "The asks, in full - the same list as the email")
+            yy = top - 2
+            for k, (head, ls) in enumerate(lines_, 1):
+                d.rect(self.x0 + 12, yy - 1, 15, 15, fill=P_ORANGE, radius=3)
+                d.text(self.x0 + 19.5, yy + 10, str(k), size=8, bold=True, colour=P_WHITE,
+                       align="centre")
+                d.text(self.x0 + 34, yy + 10, head, size=9, bold=True, colour=P_INK)
+                for j, ln in enumerate(ls):
+                    d.text(self.x0 + 34, yy + 21 + 10.5 * j, ln, size=8, colour=P_MUTED)
+                yy += 16 + 10.5 * len(ls)
+            self.y += h + 10
+
+        # ---- sign-off ------------------------------------------------------------
+        h = 78
+        if self.y + h <= self.bottom:
+            d.rect(self.x0, self.y, self.cw, h, fill=P_INK, radius=4)
+            d.rect(self.x0, self.y, 4, h, fill=P_ORANGE)
+            d.text(self.x0 + 18, self.y + 22, "Prepared by {}".format(self.s.author or "Andrew Fisher"),
+                   size=11, bold=True, colour=P_WHITE)
+            d.text(self.x0 + 18, self.y + 36, "Shutdown Tool Store  \u00b7  Coates  \u00b7  {}".format(
+                self.s.header_line), size=8.5, colour="#B9C0C9", max_w=self.cw - 150)
+            d.paragraph(self.x0 + 18, self.y + 51, "Questions, corrections or a chase: reply to the "
+                        "report email. The counter is the fastest way to get an item off your name.",
+                        size=7.8, colour="#B9C0C9", max_w=self.cw - 150, leading=10, max_lines=2)
+            d.text(self.x1 - 16, self.y + 26, "COATES", size=15, bold=True, colour=P_ORANGE,
+                   tracking=3, align="right")
+            d.text(self.x1 - 16, self.y + 38, "EQUIPPED FOR ANYTHING", size=5.8, bold=True,
+                   colour="#9AA2AC", tracking=1.5, align="right")
+            d.text(self.x1 - 16, self.y + 54, "POWERED BY SITEIQ", size=6.5, bold=True,
+                   colour="#9AA2AC", tracking=1.2, align="right")
+            self.y += h
+        return idx
+
     def people_bars(self, b):
         """Inside a company section: who holds how much, as bars."""
         d = self.doc
@@ -7268,6 +7613,7 @@ def build_company_pack(path, s, when, asat, period, parts, blocks, quiet):
     starts = []
     for k, b in enumerate(blocks, 1):
         starts.append(pk.section(b, index=k, total=len(blocks)))
+    pk.closing(parts, blocks)                      # how to read this pack, sign-off
     #  Bookmarks were added as sections were drawn; the cover's goes first.
     pk.cover(parts, blocks, quiet, starts)
     pk.doc.outline.sort(key=lambda o: o[1])
@@ -7371,8 +7717,13 @@ def write_email(base, s, when, asat, parts, attachments, out_dir):
                 "</body></html>".format(_esc(stem), E_PAGE, body))
 
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
-    msg["Subject"] = "{} | On-Hire Report | {}".format(
-        s.customer or label, when.strftime("%d %B %Y"))
+    c_ = parts["counts"]
+    position = ("{:,} item{} out to {:,} compan{}, oldest {}".format(
+        c_["onhire"], "" if c_["onhire"] == 1 else "s", c_["companies"],
+        "y" if c_["companies"] == 1 else "ies", _days_text(c_["oldest_days"]))
+        if c_["onhire"] else "all back")
+    msg["Subject"] = "{} | On-Hire Report | {}: {}".format(
+        s.customer or label, when.strftime("%a %d %b"), position)
     #  X-Unsent is what makes Outlook open it as a draft you press Send
     #  on yourself, rather than something already gone.
     msg["X-Unsent"] = "1"

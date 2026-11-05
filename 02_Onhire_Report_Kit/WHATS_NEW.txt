@@ -109,6 +109,31 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE CHASE (05 Nov 2026, night)
+ -----------------------------------
+   ONE EMAIL PER COMPANY. Beside each company's PDF in Reports\<today>\
+   By_Company there is now a ready-to-send chase email (.eml) with that
+   page attached: their position, who is holding what, the ask, your
+   sign-off. Each opens as a draft with the To field blank. The new
+   5_MAKE_COMPANY_DRAFTS.bat puts all of them into Outlook > Drafts in
+   one go, where the address book works. Nothing sends by itself.
+
+   SUBJECT LINES carry the position: "Rio Tinto | On-Hire Report | Fri
+   06 Nov: 56 items out to 7 companies, oldest 5 days", and for a
+   company "Goodline | Coates gear on hire | Fri 06 Nov: 17 items out,
+   oldest 4 days" - or "all back".
+
+   The pack finishes with HOW TO READ THIS PACK: what the day chips, the
+   age bands and the ratings mean, where the numbers come from, the asks
+   in full and the sign-off. The workbook Cover's tab list links to each
+   tab. Reports\history.csv keeps one line of headline counts per
+   report day; since-last-report reads it first.
+
+   The run ends with CHECKS - the kit checks its own work (workbook
+   saved, pack built, a PDF for every company, typeface embedded, no
+   gaps or costs in the email, cover and forecast agree) and says
+   "Checks 7 of 7 passed" or names what to look at.
+
  NEW - THE PUSH (05 Nov 2026, late)
  ---------------------------------
    The cover opens with the SHUT PROGRESS strip - a cell per day in its

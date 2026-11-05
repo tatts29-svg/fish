@@ -7,10 +7,11 @@
 #  book search and autocomplete (an .eml opened on its own does not).
 #  Reads the .draft.json that 2_MAKE_THE_REPORT.bat writes next to the .eml.
 #
-#  Usage:  double-click 4_MAKE_OUTLOOK_DRAFT.bat
-#          powershell -File MAKE_OUTLOOK_DRAFT.ps1 [-Date yyyy-MM-dd]
+#  Usage:  double-click 4_MAKE_OUTLOOK_DRAFT.bat      (the report email)
+#          double-click 5_MAKE_COMPANY_DRAFTS.bat    (one draft per company)
+#          powershell -File MAKE_OUTLOOK_DRAFT.ps1 [-Date yyyy-MM-dd] [-Companies]
 # ==========================================================================
-param([string]$Date = "")
+param([string]$Date = "", [switch]$Companies)
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $reports = Join-Path $here 'Reports'
@@ -27,7 +28,9 @@ if (-not $day) {
     Write-Output "No report folder found for $Date under Reports."
     exit 1
 }
-$manifests = Get-ChildItem $day.FullName -Filter '*.draft.json' -ErrorAction SilentlyContinue
+$folder = $day.FullName
+if ($Companies) { $folder = Join-Path $day.FullName 'By_Company' }
+$manifests = Get-ChildItem $folder -Filter '*.draft.json' -ErrorAction SilentlyContinue
 if (-not $manifests -or $manifests.Count -eq 0) {
     Write-Output ("No report email found in " + $day.Name + ". Press 2_MAKE_THE_REPORT.bat first.")
     exit 1
