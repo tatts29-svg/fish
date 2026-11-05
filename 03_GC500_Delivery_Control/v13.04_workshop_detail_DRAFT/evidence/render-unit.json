@@ -2,7 +2,7 @@
   "author": "Andrew Fisher",
   "suite": "workshop-render1304",
   "passed": true,
-  "checks": 107,
+  "checks": 112,
   "idleMetrics": {
     "active": true,
     "idle": true,

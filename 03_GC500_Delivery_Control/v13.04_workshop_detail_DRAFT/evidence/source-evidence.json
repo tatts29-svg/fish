@@ -31,8 +31,8 @@
     },
     "workshop-render.js": {
       "base": null,
-      "sha256": "097aec2dda83c3918a3fef9076ef4f685c0f28dff5872c08d418852d1f79a879",
-      "bytes": 6832
+      "sha256": "b3261db78f89718c22dc6cfc5f41484b9a4d5cd20d7c98ec57515d0d803cf33a",
+      "bytes": 7695
     },
     "workshop-service.js": {
       "base": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",

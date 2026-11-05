@@ -54,6 +54,21 @@ module.exports=async function controls1304Checks({page,check,mobile}){
     const slider=document.getElementById('lesson-angle');slider.value='450';slider.dispatchEvent(new Event('input',{bubbles:true}));__reviewFrame(performance.now()+100);
   });
   check('cycle slider announces phase and angle',await page.locator('#lesson-angle').getAttribute('aria-valuetext')==='450 degrees · Power');
+  const slider=page.locator('#lesson-angle');
+  await slider.focus({timeout:120000});
+  const before=await slider.evaluate(element=>({value:Number(element.value),step:Number(element.step),max:Number(element.max),
+    focused:document.activeElement===element,angle:__workshop.lessons.state.angleDegrees,draws:__workshopRender.diagnostics.draws}));
+  check('native cycle slider receives keyboard focus',before.focused&&Number.isFinite(before.step)&&before.step>0&&before.value+before.step<=before.max);
+  await page.keyboard.press('ArrowRight');
+  const expected=before.value+before.step;
+  await page.waitForFunction(value=>Math.abs(__workshop.lessons.state.angleDegrees-value)<.01,
+    expected,{timeout:120000,polling:500});
+  const input=await slider.evaluate(element=>({value:Number(element.value),angle:__workshop.lessons.state.angleDegrees,draws:__workshopRender.diagnostics.draws}));
+  check('native cycle ArrowRight changes the actual lesson angle',input.value===expected&&input.angle>before.angle&&Math.abs(input.angle-expected)<.01);
+  await frame();
+  const drawn=await page.evaluate(()=>({angle:__workshop.lessons.state.angleDegrees,draws:__workshopRender.diagnostics.draws}));
+  check('native cycle keyboard change is drawn',drawn.draws>input.draws&&Math.abs(drawn.angle-expected)<.01);
+  const nativeSlider={before,input,drawn};
   await page.evaluate(()=>{__workshop.exit();__reviewFrame(performance.now()+100);});
-  return {actions,valve};
+  return {actions,valve,nativeSlider};
 };

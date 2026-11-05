@@ -5,6 +5,13 @@
  * It never changes quality, pixel ratio, geometry, materials or animation clocks.
  */
 const same = (a, b) => a.length === b.length && a.every((value, i) => Object.is(value, b[i]));
+// OrbitControls can alternate the last binary digit of an unchanged camera.
+// This tolerance applies only to camera/projection scalars, never model state,
+// pixel ratio or viewport dimensions. At the nearest permitted view it is far
+// below a visible pixel; neither the camera nor its matrices are changed.
+const CAMERA_EPSILON = 1e-12;
+const sameFrame = (a, b, cameraStart) => a.length === b.length && a.every((value, i) =>
+  Object.is(value, b[i]) || i >= cameraStart && Number.isFinite(value) && Number.isFinite(b[i]) && Math.abs(value - b[i]) <= CAMERA_EPSILON);
 const inputEvents = ['pointerdown', 'pointerup', 'pointercancel', 'wheel', 'click', 'input', 'change', 'keydown', 'keyup'];
 
 export function createWorkshopRenderControl({
@@ -50,12 +57,13 @@ export function createWorkshopRenderControl({
     ];
     const frame = shadow.slice();
     frame.push(service?.playing, lesson?.playing, showcase?.playing, quality, detailKey, revision,
-      renderer?.domElement?.width, renderer?.domElement?.height, renderer?.getPixelRatio?.(),
-      camera?.position?.x, camera?.position?.y, camera?.position?.z,
+      renderer?.domElement?.width, renderer?.domElement?.height, renderer?.getPixelRatio?.());
+    const cameraStart = frame.length;
+    frame.push(camera?.position?.x, camera?.position?.y, camera?.position?.z,
       camera?.quaternion?.x, camera?.quaternion?.y, camera?.quaternion?.z, camera?.quaternion?.w,
       camera?.zoom, camera?.near, camera?.far, camera?.fov, camera?.aspect);
     for (const number of camera?.projectionMatrix?.elements || []) frame.push(number);
-    return {shadow, frame, complete: !!(service && learning && lesson && showcase && camera && renderer),
+    return {shadow, frame, cameraStart, complete: !!(service && learning && lesson && showcase && camera && renderer),
       moving: !!(service?.playing || lesson?.playing || showcase?.playing)};
   }
 
@@ -73,11 +81,14 @@ export function createWorkshopRenderControl({
     if (now < lastNow) { reset(); invalidate('clock reset'); }
     lastNow = now;
     const entering = !active; active = true;
-    const {shadow, frame, complete, moving} = signatures({workshop, camera, renderer, quality, detailKey});
+    const {shadow, frame, cameraStart, complete, moving} = signatures({workshop, camera, renderer, quality, detailKey});
     const forced = entering || observedRevision !== revision;
-    const changed = !same(observed, frame);
+    const changed = !sameFrame(observed, frame, cameraStart);
     if (forced || changed || moving || externalMotion) lastChange = now;
-    observed = frame; observedRevision = revision;
+    // Keep the comparison anchored until a meaningful change: a sequence of
+    // individually tiny camera moves must accumulate and eventually wake up.
+    if (forced || changed) observed = frame;
+    observedRevision = revision;
     const animated = moving || !!externalMotion;
     pendingShadow = !same(shadowDrawn, shadow);
     // Compare with the pose actually shadow-rendered, not merely with the pose
@@ -86,7 +97,7 @@ export function createWorkshopRenderControl({
     const needsShadow = !!shadowDirty || !!workshop.shadowDirty ||
       pendingShadow && (entering || !animated || now - lastShadow >= shadowMs);
     idle = !!idleReuse && complete && !animated && !forced && !changed && !needsShadow && now - lastChange >= settleMs;
-    const draw = !idle || !same(drawn, frame) || now - lastDraw >= refreshMs;
+    const draw = !idle || !sameFrame(drawn, frame, cameraStart) || now - lastDraw >= refreshMs;
     const token = ++sequence; awaiting = token;
     if (!draw) reused++;
     return {draw, shadow: needsShadow, idle, resetTiming: wasIdle !== idle, token, active: true,

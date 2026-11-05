@@ -1457,9 +1457,9 @@
    "type": "text/javascript; charset=utf-8"
   },
   {
-   "bytes": 6832,
+   "bytes": 7695,
    "path": "workshop-render.js",
-   "sha256": "097aec2dda83c3918a3fef9076ef4f685c0f28dff5872c08d418852d1f79a879",
+   "sha256": "b3261db78f89718c22dc6cfc5f41484b9a4d5cd20d7c98ec57515d0d803cf33a",
    "type": "text/javascript; charset=utf-8"
   },
   {
@@ -1481,5 +1481,5 @@
    "type": "text/javascript; charset=utf-8"
   }
  ],
- "sha256": "09a50581a0259d45ad493e0bf2f28d825bb7e7ce433a975848ee43ff655a83d1"
+ "sha256": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad"
 }

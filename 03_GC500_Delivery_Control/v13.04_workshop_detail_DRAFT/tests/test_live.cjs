@@ -188,7 +188,25 @@ async function main() {
     check('cycle slider moves actual lesson to the power stroke', await page.evaluate(() =>
       __workshop.lessons.state.phase.id === 'power' && Math.abs(__workshop.lessons.state.angleDegrees - 450) < .01));
     check('four-stroke controls are visible', await page.locator('#lesson-cycle').isVisible());
+    stage = 'native cycle slider keyboard input';
+    const cycleSlider = page.locator('#lesson-angle');
+    await cycleSlider.focus({timeout: 120000});
+    const sliderBefore = await cycleSlider.evaluate(element => ({value: Number(element.value), step: Number(element.step), max: Number(element.max),
+      focused: document.activeElement === element, angle: __workshop.lessons.state.angleDegrees, draws: __workshopRender.diagnostics.draws}));
+    check('native cycle slider receives keyboard focus', sliderBefore.focused && Number.isFinite(sliderBefore.step) && sliderBefore.step > 0 && sliderBefore.value + sliderBefore.step <= sliderBefore.max);
+    await page.keyboard.press('ArrowRight');
+    const sliderExpected = sliderBefore.value + sliderBefore.step;
+    await page.waitForFunction(value => Math.abs(__workshop.lessons.state.angleDegrees - value) < .01,
+      sliderExpected, {timeout: 120000, polling: 500});
+    const sliderInput = await cycleSlider.evaluate(element => ({value: Number(element.value), angle: __workshop.lessons.state.angleDegrees, draws: __workshopRender.diagnostics.draws}));
+    check('native cycle ArrowRight changes the actual lesson angle', sliderInput.value === sliderExpected && sliderInput.angle > sliderBefore.angle && Math.abs(sliderInput.angle - sliderExpected) < .01);
+    await page.waitForFunction(previous => __workshopRender.diagnostics.draws > previous,
+      sliderInput.draws, {timeout: 120000, polling: 500});
+    const sliderDrawn = await page.evaluate(() => ({angle: __workshop.lessons.state.angleDegrees, draws: __workshopRender.diagnostics.draws}));
+    result.nativeCycleSlider = {before: sliderBefore, input: sliderInput, drawn: sliderDrawn};
+    check('native cycle keyboard change reaches a later actual draw', sliderDrawn.draws > sliderInput.draws && Math.abs(sliderDrawn.angle - sliderExpected) < .01);
     await page.screenshot({path: path.join(out, 'live-phone-cycle.png'), timeout: 120000});
+    stage = 'component lesson rotation';
     await page.locator('[data-bench-mode="isolate"]').click();
     await page.waitForFunction(() => __workshop.lessons.state.active && __workshop.lessons.state.kind === 'isolate');
     await page.locator('#lesson-right').click();

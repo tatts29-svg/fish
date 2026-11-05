@@ -11,10 +11,25 @@ module.exports=async function render1304Checks({page,check}){
     const starting=snapshot();for(let i=0;i<5;i++)tick();const moving=snapshot();
     document.getElementById('lesson-play').click();tick();const stopped=snapshot();
     document.querySelector('[data-bench-mode="isolate"]').click();document.getElementById('lesson-right').click();tick();const rotated=snapshot();
-    const oldDraws=rotated.draws;document.getElementById('canvas').dispatchEvent(new Event('pointerdown',{bubbles:true}));tick();const input=snapshot();
-    __workshop.exit();tick();const exit=snapshot();
-    return {before,paused,crank,starting,moving,stopped,rotated,input,exit,oldDraws};
+    return {before,paused,crank,starting,moving,stopped,rotated,oldDraws:rotated.draws};
   });
+  // OrbitControls captures an actual browser pointer. A synthetic bare Event
+  // has no active pointer id and throws in setPointerCapture before this test
+  // can measure input invalidation. Use the same mouse path as a real user.
+  await page.locator('#canvas').scrollIntoViewIfNeeded();
+  const point=await page.evaluate(()=>{
+    const canvas=document.getElementById('canvas'),rect=canvas.getBoundingClientRect();
+    for(const x of [.6,.4,.8,.2])for(const y of [.25,.4,.15]){
+      const px=rect.left+rect.width*x,py=rect.top+rect.height*y;
+      if(document.elementFromPoint(px,py)===canvas)return {x:px,y:py};
+    }
+    throw Error('No unobstructed canvas hit point for native pointer check');
+  });
+  await page.mouse.move(point.x,point.y);
+  await page.mouse.down();
+  try {result.input=await page.evaluate(()=>{__reviewFrame(performance.now()+101);return {...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()};});}
+  finally {await page.mouse.up();}
+  result.exit=await page.evaluate(()=>{__workshop.exit();__reviewFrame(performance.now()+101);return {...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()};});
   check('actual stationary workshop reuses duplicate final draws',result.paused.idle&&result.paused.reused>result.before.reused&&result.paused.draws-result.before.draws<15);
   check('stationary reuse preserves drawing resolution',result.paused.dpr===result.before.dpr);
   check('hand crank wakes the actual paused picture',result.crank.draws>result.paused.draws&&!result.crank.pendingShadow);

@@ -26,7 +26,7 @@ still draws immediately. A refresh occurs at least every 250 ms plus one host ti
 to include asynchronous print/texture updates. All model/UI/input ticks still run.
 No quality tier, device pixel ratio or clock is increased or bypassed.
 
-The pure controller tests pass 107 checks. On a 10-second 30 Hz stationary schedule,
+The pure controller tests pass 112 checks. On a 10-second 30 Hz stationary schedule,
 63 of 301 final draws remain and 238 duplicates are reused; the maximum refresh gap
 is 266.67 ms. This is a scheduling count, not measured phone performance.
 
@@ -145,3 +145,20 @@ Use the final candidate and verify:
 
 The candidate visual/actual browser checks belong to the application owner. The
 pure test does not establish real device loading time, graphics memory or frame rate.
+
+## Actual browser correction
+
+The first candidate's focused browser diagnostic kept drawing all 70 stationary
+frames. There was no external motion or pending shadow, but OrbitControls
+alternated the camera z coordinate by `8.88e-16` and quaternion components by
+`2–5e-17`. Exact camera equality therefore never settled.
+
+The corrected coordinator compares only camera/projection scalar values with an
+absolute tolerance of `1e-12`. It does not modify the actual camera or matrices.
+All mechanical state, viewport dimensions, pixel ratio, quality and input revision
+comparisons remain exact. The observation is anchored until a meaningful change,
+so individually tiny real camera movements accumulate and still wake the picture.
+Regression checks use the actual recorded values, verify accumulated motion and
+require even a `1e-14` mechanical-progress change to redraw and update shadows.
+The final pure suite passes 112 checks. A fresh final-candidate browser run remains
+required before claiming actual stationary draw reuse.

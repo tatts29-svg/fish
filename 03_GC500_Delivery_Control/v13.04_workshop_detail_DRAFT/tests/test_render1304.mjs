@@ -75,6 +75,43 @@ let idleMetrics;
   f.control.dispose();
 }
 
+// Actual candidate1 browser regression: a stationary OrbitControls camera
+// alternated these two adjacent floating-point representations indefinitely.
+// Only camera comparisons tolerate that round-off; genuine slow movement still
+// accumulates against a fixed observation and all mechanical state stays exact.
+{
+  const f = fixture();
+  f.camera.position.z = 4.6308715596615375;
+  f.camera.quaternion.x = -0.13546074063834185;
+  f.camera.quaternion.y = -0.28550011243922574;
+  f.camera.quaternion.z = -0.04080060828737462;
+  f.step(0);
+  for (let i = 1; i <= 45; i++) {
+    f.camera.position.z = i % 2 ? 4.630871559661538 : 4.6308715596615375;
+    f.camera.quaternion.x = i % 2 ? -0.13546074063834182 : -0.13546074063834185;
+    f.camera.quaternion.y = i % 2 ? -0.2855001124392257 : -0.28550011243922574;
+    f.camera.quaternion.z = i % 2 ? -0.0408006082873746 : -0.04080060828737462;
+    f.step(i * 101);
+  }
+  check(f.control.idle && f.control.diagnostics.reused > 15, 'Recorded OrbitControls round-off does not prevent stationary reuse');
+  check(f.camera.position.z === 4.630871559661538, 'Camera numerical values themselves remain unchanged');
+  f.control.dispose();
+}
+{
+  const f = fixture(); f.step(0); f.step(1000); f.step(1010);
+  const x = f.camera.position.x, decisions = [];
+  for (let i = 1; i <= 8; i++) { f.camera.position.x = x + i * 2e-13; decisions.push(f.step(1010 + i * 10)); }
+  check(decisions.slice(0, 4).every(d => d.idle), 'Sub-roundoff camera changes do not churn the settling window');
+  check(decisions.some(d => !d.idle && d.draw), 'Accumulated slow camera movement crosses the anchored tolerance and wakes');
+  f.control.dispose();
+}
+{
+  const f = fixture(); f.step(0); f.step(1000); f.step(1010); f.workshop.service.progress = 1e-14;
+  const decision = f.step(1020);
+  check(decision.draw && decision.shadow && !decision.idle, 'Even a tiny mechanical state change remains exact and redraws');
+  f.control.dispose();
+}
+
 // Every visual dependency represented by the current workshop wakes a settled
 // picture in the same update, including a camera change made by the showcase.
 const mutations = [

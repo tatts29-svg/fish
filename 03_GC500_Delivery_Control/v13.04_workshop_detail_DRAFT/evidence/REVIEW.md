@@ -2,13 +2,13 @@
 
 Author: Andrew Fisher
 
-Current candidate: `09a50581a0259d45ad493e0bf2f28d825bb7e7ce433a975848ee43ff655a83d1`.
+Current candidate: `f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad`.
 This is a draft under combined browser acceptance, not a live claim.
 
 Independent source/model review passed finish ownership/disposal, original geometry,
 fastener seating and service-clamp tracking; 1,706 projection checks across sixteen
 components and four viewports; 469 real-model motion and 416 director checks; and
-107 render-policy checks. Full tours complete/refit and respect the same walking
+112 render-policy checks. Full tours complete/refit and respect the same walking
 limit at both tested frame intervals. No unresolved source blocker was found.
 
 Rendered review identified oversized existing annotation dots obscuring the newly
@@ -24,3 +24,11 @@ The source render coordinator is conservative and preserves actual quality limit
 Pure scheduling counters do not establish browser savings: final browser checks
 must verify real idle/reuse, immediate wake, final shadows and phone layout before
 this draft can be marked ready. No physical-device frame rate is claimed.
+
+Actual-browser diagnosis found stationary OrbitControls rounding jitter. The
+reviewed camera-only tolerance retains anchored cumulative-motion detection; all
+non-camera state stays exact. Native pointer stimulus replaces an invalid synthetic
+pointer event, and native keyboard slider checks supplement the deterministic angle
+checks. Final marker views of valve, sump and alternator are unobscured; these
+visuals use the identical final geometry/UI/lesson modules. No browser errors or
+record writes occurred in that visual review. Final acceptance remains pending.

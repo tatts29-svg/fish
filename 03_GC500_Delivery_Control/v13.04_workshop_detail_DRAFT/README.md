@@ -23,7 +23,12 @@ Implemented draft: distinct micro-surface finishes and seated detail hardware;
 continuous socket/wrist engagement; tour walking constrained by the service;
 actual-part close inspection and stable phone controls; proportional unobtrusive
 location annotations; final-pose shadows and conservative stationary-frame reuse.
-Candidate `09a50581a0259d45ad493e0bf2f28d825bb7e7ce433a975848ee43ff655a83d1`
+Candidate `f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad`
 contains246 files, nine changed paths and237 exact retained files. Source/model
 checks and read-only publication preflight pass. Combined browser acceptance and
 final visual review are in progress. Evidence and review notes are in `evidence/`.
+
+The first browser pass exposed stationary-camera rounding jitter. The final
+coordinator ignores only camera/projection differences below 1e-12 while retaining
+exact mechanical and quality changes. Independent review and 112 policy checks
+pass. The final assembled candidate is under desktop/phone acceptance.
