@@ -22,7 +22,7 @@ server/inventory preflight passes. No operational record writes were made.
 
 The source render coordinator is conservative and preserves actual quality limits.
 Pure scheduling counters do not establish browser savings: final browser checks
-must verify real idle/reuse, immediate wake, final shadows and phone layout before
+must verify real idle, native wake, final shadows and phone layout before
 this draft can be marked ready. No physical-device frame rate is claimed.
 
 Actual-browser diagnosis found stationary OrbitControls rounding jitter. The
@@ -33,9 +33,15 @@ checks. Final marker views of valve, sump and alternator are unobscured; these
 visuals use the identical final geometry/UI/lesson modules. No browser errors or
 record writes occurred in that visual review. Final acceptance remains pending.
 
-The exact candidate passes the normal desktop dashboard run (97 checks,
-27 routes, seven links and Back; zero errors or writes). The manual-frame
-fixture needs correction before final machine acceptance: native pointer actions
-stall after its synchronous drawing batch while the canvas bounds stay stable.
-Its resume hook now resets host timing; this test-only correction does not
-change candidate bytes. Phone and final machine receipts remain required.
+The exact candidate passes desktop and phone dashboard acceptance (97 checks
+per viewport, 27 routes, seven links and Back; zero errors or writes). A fresh,
+uninterrupted native-loop probe passes idle, real pointer wake/draw, crank/shadow,
+rotation/shadow and exit. No production change was needed for these checks.
+
+The synthetic 41-tick batch passed six scheduling assertions, then its transition
+to native interaction stalled in headless Chromium despite stable canvas bounds.
+It remains diagnostic-only, not a passing release receipt. Final machine acceptance
+runs the five native checks before any manual review frame, retaining all baseline,
+controls and 320px phone checks. The 112 pure policy checks retain deterministic
+scheduling coverage. Final machine receipts remain pending; neither the native
+probe nor scheduling counters establish physical-device frame-rate gains.

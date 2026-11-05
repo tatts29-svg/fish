@@ -1,9 +1,15 @@
+// DIAGNOSTIC ONLY — not imported by release acceptance.
+// This artificial synchronous batch passed six scheduling assertions, then its
+// manual-to-native transition stalled in headless Chromium. It is retained for
+// diagnosis, not represented as a passing release test. Native acceptance uses
+// native_render1304_checks.cjs before any manual review frame.
 // Author: Andrew Fisher. Final-draw behaviour against the actual browser scene.
 module.exports=async function render1304Checks({page,check}){
   const result=await page.evaluate(()=>{
     if(!__workshop.active)__workshop.enter();
     __workshop.service.setPlaying(false);document.getElementById('workshop-bench-open').click();
-    const tick=()=>__reviewFrame(performance.now()+101),snapshot=()=>({...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()});
+    let tickNow=performance.now();
+    const tick=()=>__reviewFrame(tickNow+=101),snapshot=()=>({...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()});
     for(let i=0;i<18;i++)tick();
     const before=snapshot();for(let i=0;i<15;i++)tick();const paused=snapshot();
     document.getElementById('bench-crank').click();tick();const crank=snapshot();
@@ -22,6 +28,9 @@ module.exports=async function render1304Checks({page,check}){
   // OrbitControls captures an actual browser pointer. A synthetic bare Event
   // has no active pointer id and throws in setPointerCapture before this test
   // can measure input invalidation. Use the same mouse path as a real user.
+  // Exact scheduling assertions above use manual logical time. Restore the
+  // normal clock/animation loop before testing genuine browser interaction.
+  await page.evaluate(()=>__reviewResume());
   await page.locator('#canvas').scrollIntoViewIfNeeded({timeout:120000});
   const point=await page.evaluate(()=>{
     const canvas=document.getElementById('canvas'),rect=canvas.getBoundingClientRect();
@@ -32,11 +41,20 @@ module.exports=async function render1304Checks({page,check}){
     throw Error('No unobstructed canvas hit point for native pointer check');
   });
   await page.mouse.move(point.x,point.y);
+  result.beforeInput=await page.evaluate(()=>({...__workshopRender.diagnostics}));
   await page.mouse.down();
-  try {result.input=await page.evaluate(()=>{__reviewFrame(performance.now()+101);return {...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()};});}
-  finally {await page.mouse.up();}
-  result.exit=await page.evaluate(()=>{__workshop.exit();__reviewFrame(performance.now()+101);return {...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()};});
-  check('input invalidation requests an immediate actual draw',result.input.draws>result.oldDraws);
+  try {
+    result.afterPointer=await page.evaluate(()=>({...__workshopRender.diagnostics}));
+    await page.waitForFunction(after=>__workshopRender.diagnostics.draws>after.draws,
+      result.afterPointer,{timeout:120000,polling:100});
+    result.input=await page.evaluate(()=>({...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()}));
+  } finally {await page.mouse.up();}
+  await page.evaluate(()=>__workshop.exit());
+  await page.waitForFunction(()=>!__workshopRender.diagnostics.active&&!__workshopRender.diagnostics.idle,
+    null,{timeout:120000,polling:100});
+  result.exit=await page.evaluate(()=>({...__workshopRender.diagnostics,dpr:__cw.renderer.getPixelRatio()}));
+  check('native input invalidation is followed by an actual draw',
+    result.afterPointer.invalidations>result.beforeInput.invalidations&&result.input.draws>result.afterPointer.draws);
   check('exit restores normal drawing mode',!result.exit.active&&!result.exit.idle&&!result.exit.pendingShadow);
   return result;
 };

@@ -3,7 +3,10 @@ const {openMachine}=require('./machine_rig.cjs');
 const fs=require('fs');const path=require('path');const crypto=require('crypto');const out=process.env.OUT||process.cwd();fs.mkdirSync(out,{recursive:true});const root=process.env.PREVIEW_ROOT||path.resolve(__dirname,'../build');
 (async()=>{const mobile=process.env.MOB==='1';const m=await openMachine({root,W:mobile?390:1440,H:mobile?844:960,dpr:1,mobile});m.page.on('console',msg=>{if(msg.type()==='error')console.error(msg.text());});m.page.on('pageerror',e=>console.error(String(e)));const capture=async options=>{await m.page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>{__reviewFrame(performance.now()+100);resolve();}))));return m.page.screenshot(options);};const checks=[];let receipt;const check=(n,ok)=>{checks.push({name:n,pass:!!ok});console.log((ok?'PASS ':'FAIL ')+n);if(!ok)throw Error(n);};try{
  await m.page.waitForFunction(()=>window.__cw?.ready||window.__reviewFailed,{},{timeout:180000,polling:500});
- check('machine initialises',await m.page.evaluate(()=>!!window.__cw?.ready));await m.page.evaluate(()=>__cw.renderer.setAnimationLoop(null));
+ check('machine initialises',await m.page.evaluate(()=>!!window.__cw?.ready));
+ // Exercise the normal animation/input path before deterministic pose review.
+ const render1304=await require('./native_render1304_checks.cjs')({page:m.page,check});
+ await m.page.evaluate(()=>__cw.renderer.setAnimationLoop(null));
  check('workshop button present',await m.page.locator('#workshop-enter').isVisible());
  check('enter', (await m.page.evaluate(()=>__workshop.enter())).ok);
  let s=await m.page.evaluate(()=>({active:__workshop.active,locked:__cw.drive.locked,count:__workshop.lift.partIds.length,ids:__workshop.lift.partIds,dock:getComputedStyle(document.querySelector('.dock')).display}));
@@ -118,7 +121,6 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
  await m.page.locator('#canvas').scrollIntoViewIfNeeded();
  await capture({path:out+'/'+(mobile?'phone':'desktop')+'-restored-car.png',timeout:120000});
  const controls1304=await require('./controls1304_checks.cjs')({page:m.page,check,mobile});
- const render1304=await require('./render1304_checks.cjs')({page:m.page,check});
  if(mobile){
   await m.page.setViewportSize({width:320,height:844});
   await m.page.evaluate(()=>{__workshop.enter();__workshop.service.setProgress(.53);__reviewFrame(performance.now()+101);});

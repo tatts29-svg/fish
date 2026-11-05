@@ -32,3 +32,10 @@ The first browser pass exposed stationary-camera rounding jitter. The final
 coordinator ignores only camera/projection differences below 1e-12 while retaining
 exact mechanical and quality changes. Independent review and 112 policy checks
 pass. The final assembled candidate is under desktop/phone acceptance.
+
+Final machine acceptance runs five native idle/input/shadow/exit checks on the
+uninterrupted animation loop before deterministic pose review. The 112 render-policy
+checks cover the scheduling contract. The old mixed manual/native batch is retained
+as diagnostic-only evidence; its six assertions are not a passing release receipt.
+Desktop and phone dashboard acceptance each pass 97 checks. Final machine receipts
+remain pending; no physical-device speed improvement is claimed.

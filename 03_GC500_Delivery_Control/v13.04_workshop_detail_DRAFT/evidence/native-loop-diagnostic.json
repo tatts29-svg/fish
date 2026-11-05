@@ -1,0 +1,318 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad",
+  "scope": "Fresh native-loop diagnostic; manual frame hook not called and animation loop not paused. Supplemental evidence, not one of the required release receipts.",
+  "probeSha256": "e38c8c4727578199d785f843fd84d4d6b5dc8d26919b2ac76325336c70bc158f",
+  "result": {
+    "steps": [
+      {
+        "label": "ready start",
+        "t": 1793909378304,
+        "data": {}
+      },
+      {
+        "label": "ready done",
+        "t": 1793909433902,
+        "data": true
+      },
+      {
+        "label": "enter start",
+        "t": 1793909433905,
+        "data": {}
+      },
+      {
+        "label": "enter done",
+        "t": 1793909459672
+      },
+      {
+        "label": "open bench start",
+        "t": 1793909459673,
+        "data": {}
+      },
+      {
+        "label": "open bench done",
+        "t": 1793909477795
+      },
+      {
+        "label": "stationary native loop start",
+        "t": 1793909477795,
+        "data": {}
+      },
+      {
+        "label": "stationary native loop done",
+        "t": 1793909509614,
+        "data": true
+      },
+      {
+        "label": "idle evidence start",
+        "t": 1793909509640,
+        "data": {}
+      },
+      {
+        "label": "idle evidence done",
+        "t": 1793909509657,
+        "data": {
+          "render": {
+            "active": true,
+            "idle": true,
+            "requested": 5,
+            "draws": 5,
+            "reused": 0,
+            "shadowUpdates": 2,
+            "pendingShadow": false,
+            "invalidations": 10,
+            "lastReason": "input",
+            "settleMs": 1000,
+            "refreshMs": 250,
+            "shadowMs": 66,
+            "idleReuse": true,
+            "disposed": false
+          },
+          "dpr": 0.85,
+          "t": 137496.19999999925
+        }
+      },
+      {
+        "label": "check",
+        "t": 1793909509658,
+        "data": {
+          "name": "normal animation loop reaches paused workshop idle",
+          "pass": true
+        }
+      },
+      {
+        "label": "visible hit point start",
+        "t": 1793909509661,
+        "data": {}
+      },
+      {
+        "label": "visible hit point done",
+        "t": 1793909509666,
+        "data": {
+          "x": 988,
+          "y": 279.5
+        }
+      },
+      {
+        "label": "pointer move start",
+        "t": 1793909509667,
+        "data": {}
+      },
+      {
+        "label": "pointer move done",
+        "t": 1793909514676
+      },
+      {
+        "label": "pointer down start",
+        "t": 1793909514687,
+        "data": {}
+      },
+      {
+        "label": "pointer down done",
+        "t": 1793909514695
+      },
+      {
+        "label": "pointer redraw start",
+        "t": 1793909514697,
+        "data": {}
+      },
+      {
+        "label": "pointer redraw done",
+        "t": 1793909519343,
+        "data": true
+      },
+      {
+        "label": "pointer up start",
+        "t": 1793909519360,
+        "data": {}
+      },
+      {
+        "label": "pointer up done",
+        "t": 1793909519373
+      },
+      {
+        "label": "check",
+        "t": 1793909519373,
+        "data": {
+          "name": "native pointer wakes and draws the actual idle picture",
+          "pass": true
+        }
+      },
+      {
+        "label": "native crank start",
+        "t": 1793909519377,
+        "data": {}
+      },
+      {
+        "label": "native crank done",
+        "t": 1793909538561
+      },
+      {
+        "label": "crank draw start",
+        "t": 1793909538561,
+        "data": {}
+      },
+      {
+        "label": "crank draw done",
+        "t": 1793909548717,
+        "data": true
+      },
+      {
+        "label": "check",
+        "t": 1793909548718,
+        "data": {
+          "name": "native crank draws the new pose and shadow",
+          "pass": true
+        }
+      },
+      {
+        "label": "native isolation start",
+        "t": 1793909548721,
+        "data": {}
+      },
+      {
+        "label": "native isolation done",
+        "t": 1793909568412
+      },
+      {
+        "label": "native rotation start",
+        "t": 1793909568416,
+        "data": {}
+      },
+      {
+        "label": "native rotation done",
+        "t": 1793909588736
+      },
+      {
+        "label": "rotation draw start",
+        "t": 1793909588739,
+        "data": {}
+      },
+      {
+        "label": "rotation draw done",
+        "t": 1793909588748,
+        "data": true
+      },
+      {
+        "label": "check",
+        "t": 1793909588748,
+        "data": {
+          "name": "native rotation draws the new pose and shadow",
+          "pass": true
+        }
+      },
+      {
+        "label": "native exit start",
+        "t": 1793909588750,
+        "data": {}
+      },
+      {
+        "label": "native exit done",
+        "t": 1793909611076
+      },
+      {
+        "label": "native exit draw start",
+        "t": 1793909611079,
+        "data": {}
+      },
+      {
+        "label": "native exit draw done",
+        "t": 1793909628750,
+        "data": true
+      },
+      {
+        "label": "check",
+        "t": 1793909628769,
+        "data": {
+          "name": "native exit restores normal drawing mode",
+          "pass": true
+        }
+      },
+      {
+        "label": "close start",
+        "t": 1793909628770,
+        "data": {}
+      },
+      {
+        "label": "close done",
+        "t": 1793909639409
+      }
+    ],
+    "checks": [
+      {
+        "name": "normal animation loop reaches paused workshop idle",
+        "pass": true
+      },
+      {
+        "name": "native pointer wakes and draws the actual idle picture",
+        "pass": true
+      },
+      {
+        "name": "native crank draws the new pose and shadow",
+        "pass": true
+      },
+      {
+        "name": "native rotation draws the new pose and shadow",
+        "pass": true
+      },
+      {
+        "name": "native exit restores normal drawing mode",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "writes": [],
+    "before": {
+      "render": {
+        "active": true,
+        "idle": true,
+        "requested": 5,
+        "draws": 5,
+        "reused": 0,
+        "shadowUpdates": 2,
+        "pendingShadow": false,
+        "invalidations": 10,
+        "lastReason": "input",
+        "settleMs": 1000,
+        "refreshMs": 250,
+        "shadowMs": 66,
+        "idleReuse": true,
+        "disposed": false
+      },
+      "dpr": 0.85,
+      "t": 137496.19999999925
+    },
+    "input": {
+      "active": true,
+      "idle": false,
+      "requested": 6,
+      "draws": 6,
+      "reused": 0,
+      "shadowUpdates": 2,
+      "pendingShadow": false,
+      "invalidations": 11,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false
+    },
+    "exit": {
+      "active": false,
+      "idle": false,
+      "requested": 15,
+      "draws": 15,
+      "reused": 0,
+      "shadowUpdates": 5,
+      "pendingShadow": false,
+      "invalidations": 25,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false
+    }
+  }
+}
