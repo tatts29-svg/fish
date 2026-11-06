@@ -203,6 +203,32 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Once-over round (06 Nov, five parallel reviewers: customer eye, workbook
+  auditor, MMG first-time user, Windows/robustness tester, figure auditor;
+  reports under scratchpad/qa2/ at the time): customer-owned gear is split
+  out of every Coates figure (`_coates_gear()` on each transaction row via
+  CUSTOMER_CONTRACTOR_EQUIP ids / ITEM_OWNER / RENTAL_STOCK OWNER; `tooling_tx`
+  Coates-only, `cust_tx` the rest; Tooling Utilisation from `coates_owned`;
+  Weipa regression vs the original builder now differs by exactly the 9
+  customer-owned transactions and 5 Rio-owned lines, deliberately); undated
+  items with old stock dates are called long out; items whose stock date is
+  on or after the TRANSACTIONS window end are "late" (evening pull) with a
+  WARN, an advisory check and a reworded ask; one basis per figure (scans vs
+  movements, consumables since project start, honest "another N" captions,
+  "not moving" excludes anything on hire and says it counts lines of two or
+  more); `person_name()` for display; `_greeting()`, `_short_co()`; item
+  numbers shrink before wrapping; alias targets typed in mixed case are kept
+  as typed, caps targets are tidied; `_phase()` tests mobilisation before
+  travel words; one NOTE per typed tab; "exports current", "transactions
+  window reaches the stock pull" and "LATEST workbook refreshed" are
+  advisory checks; a fatal STOP removes the main email draft; launchers:
+  `3_GET` version probe via a temp file, `_RUN.bat` apostrophe-safe,
+  buttons 4/5 explain a failure, `check_this_laptop` only claims the file it
+  wrote, PS1 names Constrained Language Mode. New: `pull_siteiq_exports.py`
+  + `6_PULL_EXPORTS_AND_MAKE_REPORT.bat` (Downloads -> Data_SiteIQ by data
+  sheet and PROJECT SCHEDULE, newest by REQUESTED_DATE/TIME, old files to
+  Data_SiteIQ\previous, then builds). The main email attaches the workbook,
+  which carries costs: for a customer send the pack alone (documented).
 - Third-opinion round (06 Nov): OpenAI Codex pushed four commits on the
   same branch (tests under `02_Onhire_Report_Kit/tests`, CI workflow
   `.github/workflows/onhire-kit.yml`, draws windowed to the exact minute,

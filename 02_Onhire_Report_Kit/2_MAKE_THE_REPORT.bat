@@ -14,7 +14,7 @@ rem  Nothing sends by itself. The email opens as a DRAFT and waits.
 rem
 rem  Full instructions: 0_START_HERE.txt or HOW_IT_WORKS.html
 rem =====================================================================
-cd /d "%~dp0"
+cd /d "%~dp0" 2>nul
 if not exist "%~dp0_RUN.bat" (
     echo.
     echo ==================================================================

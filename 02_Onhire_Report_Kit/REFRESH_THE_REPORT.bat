@@ -10,7 +10,7 @@ rem  This file stays behind so an existing desktop shortcut, or anybody
 rem  who already knows the old name, still lands in the right place.
 rem  Nothing is duplicated - it just calls the real button.
 rem =====================================================================
-cd /d "%~dp0"
+cd /d "%~dp0" 2>nul
 if not exist "%~dp0_RUN.bat" (
     echo.
     echo ==================================================================

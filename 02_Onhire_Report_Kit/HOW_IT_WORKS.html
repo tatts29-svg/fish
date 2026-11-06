@@ -111,7 +111,7 @@ company by company &mdash; and finishes with <b>what I need from you</b>, each a
 <div class="tile"><div class="v">$0</div><div class="l">Costs shown</div><div class="s">deliberately none, it can go to anyone</div></div>
 </div>
 <div class="note"><b>No costs in the email or the pack. None.</b> Not the labour, not the cost breakdown, not a rate and not a dollar sign.
-The email is the operational picture and it can go to anyone on site. The money stays in the workbook &mdash; on the Cover headlines and the two hand-typed tabs.</div>
+The email body is the operational picture and it can go to anyone on site. The money stays in the workbook &mdash; on the Cover headlines, the two hand-typed tabs and the Forecast tab &mdash; and the workbook is attached to the email draft. So: the email with the workbook is for Coates people; for a customer, send the pack alone or take the workbook off the draft before it goes.</div>
 
 <h2><span class="n">4</span><span>How things are dated<small>The transaction wins, every time</small></span></h2>
 <p>Every on-hire item is dated from the <b>start of its issue transaction</b> in SiteIQ &mdash; the day it actually went over the counter.
@@ -177,9 +177,7 @@ Excel's own conditional formatting, so the colour follows the value if anybody s
 <p><b>Coates Labour</b> and <b>Cost Breakdown</b> are not built from the exports. Somebody sits down and types them, and there is no way
 to rebuild that from SiteIQ. So the refresh <span class="hl">never touches them</span>. It reads them out of the previous workbook &mdash;
 values, formulas, dates, times, exactly as they were &mdash; and writes them back. Your original <code>.xlsm</code> is never written to.</p>
-<div class="note"><b>Keep your working .xlsm in this folder.</b> That's where those two tabs are read from. If there isn't one, they come
-through empty with a note on them, ready to type into. If their totals can't be read (a workbook saved without cached results), the Cover
-says <b>TBC</b> rather than printing $0.</div>
+<div class="note"><b>Type into <code>&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</code>.</b> That is where the two hand-typed tabs are read from on every refresh and written straight back. An old .xlsm in the folder is read only on the very first run, before a LATEST exists; a roster from a previous shut is replaced once, with a note, by the job&rsquo;s seed. Weipa and MMG start seeded; any other job starts the two tabs empty, headed and ready to type into.</div>
 
 <h2><span class="n">7</span><span>How the usage ratings are worked out<small>Printed on the Cover of every workbook, so nothing is taken on trust</small></span></h2>
 <p><b>Tooling is rated on TURNS</b> &mdash; transactions divided by how many of that item are on site. One item that went out five times
@@ -234,6 +232,12 @@ It will not quietly build a report off two jobs mixed together.</div>
 <tr><td class="k">check_this_laptop.py</td><td>What button 1 runs</td></tr>
 <tr><td class="k">LAPTOP_CHECK.txt / LAST_RUN_LOG.txt</td><td>Appear after button 1 and button 2 &mdash; the health check and the last run, in writing. Email these to Andrew if you are stuck</td></tr>
 <tr><td class="k">Reports\</td><td>Appears on the first run &mdash; a dated folder per day with the workbook, the pack, <code>By_Company\</code> and the email draft</td></tr>
+<tr><td class="k">6_PULL_EXPORTS_AND_MAKE_REPORT.bat</td><td>Optional. Pulls the newest SiteIQ exports for this job out of Downloads (it opens each file and checks the project; another job&rsquo;s file is left alone), files them into <code>Data_SiteIQ\</code> with the right names, keeps the old ones in <code>Data_SiteIQ\previous\</code>, then makes the report. Drag a different Downloads folder onto it if yours lives elsewhere</td></tr>
+<tr><td class="k">5_MAKE_COMPANY_DRAFTS.bat</td><td>Optional. Puts every company&rsquo;s chase email into Outlook &gt; Drafts in one go (classic Outlook)</td></tr>
+<tr><td class="k">MAKE_OUTLOOK_DRAFT.ps1 / pull_siteiq_exports.py</td><td>What buttons 4, 5 and 6 run</td></tr>
+<tr><td class="k">_fonts\</td><td>The Inter typeface the pack is set in (SIL Open Font Licence). Without it the pack still builds, in Helvetica</td></tr>
+<tr><td class="k">READ_ME_FIRST.txt / WHATS_NEW.txt / REVIEW_BRIEF.txt</td><td>What this delivery is, what changed (newest first), and a one-page brief for anyone checking the kit independently</td></tr>
+<tr><td class="k">Reports\history.csv / DATA_SOURCES.txt</td><td>One line of headline counts per report day (what &ldquo;since the last report&rdquo; reads), and which exports a day&rsquo;s report was built from and when SiteIQ produced them</td></tr>
 </table>
 
 </div>

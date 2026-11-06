@@ -3,11 +3,11 @@
  Author: Andrew Fisher | POWERED BY SITEIQ
 ======================================================================
 
- Extract this zip over the top of your existing Onhire_Report_Kit
- folder and say Yes to replacing files. Your exports, your LATEST
- workbook, your .xlsm and your Reports folder are not in the zip, so
- nothing of yours is touched. Then press 2_MAKE_THE_REPORT.bat as
- usual.
+ Extract this zip into a NEW folder and carry across your JOB.txt,
+ COMPANY_ALIASES.txt, Data_SiteIQ, Reports and <Job>_Onhire_Workbook_
+ LATEST.xlsx if the zip did not already come with them. Keep the old
+ folder until the new one has run. Then press 2_MAKE_THE_REPORT.bat as
+ usual. Newest changes first.
 
  THE DATES - the one that matters
  --------------------------------
@@ -109,6 +109,63 @@
    NOTE says so). Before the shut starts, the story page shows the
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
+
+ NEW - THE ONCE-OVER (06 Nov 2026)
+ --------------------------------
+   Five more independent reviewers went over the Rio and MMG kits: a
+   reader at the customer's end, a workbook auditor, a first-time MMG
+   user, a Windows and robustness tester, and an auditor who recounted
+   every figure from the raw exports. No blockers. What changed:
+
+   - Customer-owned gear is never a Coates movement. Rio's life jackets
+     and drop mats, MMG's radios: they go through the counter and are
+     tracked on the Customer Gear tab, but they are out of the tooling
+     counts, the ratings, the "top these up" and "send it home" asks
+     and the "have these ready" list. The chase emails now say "owned by
+     the customer and managed through the counter", not "your own".
+   - The three undated Rio items have SiteIQ stock dates in August. The
+     position sentence now says so and asks for them to be treated as
+     long out, instead of leaving "nobody over 21 days" to stand alone.
+   - One basis per figure: "scans" on the looking-ahead page (issues,
+     returns and draws), "movements" on the cover (issues and draws);
+     the consumables rule says it counts every sale since the project
+     began; the "another N lines" captions count the real lists; the
+     "not moving" list leaves out anything with an item out and says it
+     counts lines holding two or more.
+   - People's names as people write them (Samuel Greenland, not "samuel
+     - greenland"); item numbers shrink rather than wrap mid-number;
+     the dial caption breaks where it should; a sign rather than a
+     spaced arrow on the tiles; "Afternoon," after midday; "Hi Goodline
+     team", not "Hi Hussy and Co Pty team".
+   - MMG: Monday 23 Nov reads as mobilisation, one note per typed tab
+     on the first run, and "exports current" is a check in its own
+     right, so stale exports show in the Checks line.
+   - Windows: button 3 no longer reports failure after a successful
+     download; paths with an apostrophe or brackets are safe everywhere;
+     buttons 4 and 5 say what to do when PowerShell or Outlook is locked
+     down; a stopped run takes its email draft back out of the folder.
+   - NEW BUTTON 6 - PULL EXPORTS AND MAKE REPORT. Looks in Downloads for
+     the newest SiteIQ exports, opens each and checks it is this job's,
+     files them into Data_SiteIQ with the right names (old ones kept in
+     Data_SiteIQ\previous), then builds the report.
+
+ NEW - THE QUALITY PASS (06 Nov 2026)
+ -----------------------------------
+   The cover now measures and wraps every action sentence. Charts rank the
+   largest holdings first. Reorder warnings use amber consistently. Story
+   cards, customer-owned gear bars, footers and printed workbook navigation
+   have room to read clearly. Empty charts display zero.
+
+   Bug fixes protect hand-typed tabs after a job rename, align consumable
+   counts with the precise export window, keep company filenames distinct,
+   and show each company's own headline in its email. Missing required output
+   files now fail the run. Outlook refuses drafts with missing attachments;
+   kit paths with apostrophes or brackets are handled literally. Corrupt
+   exports fail the laptop check. Embedded fonts have valid checksums.
+
+   Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
+   and LibreOffice output are useful checks; native Outlook and Excel review
+   remains part of delivery testing.
 
  NEW - THE THIRD OPINION (06 Nov 2026)
  ------------------------------------
@@ -407,7 +464,7 @@
    or copy into a deck. (The gauges are half-doughnuts; they draw
    properly in Excel, less so in other spreadsheet programs.)
 
- THE TWO HAND-TYPED TABS - same values, Coates look
+ THE TWO HAND-TYPED TABS - same values, Coates look (Weipa, 04 Nov)
  --------------------------------------------------
    Coates Labour and Cost Breakdown are still yours and still carried
    over value for value, formula for formula. They now come through in
@@ -437,21 +494,3 @@
    PDF. Every number on every data tab is unchanged - checked cell for
    cell against the previous builder on the same exports.
 ======================================================================
-
-QUALITY PASS - 06 Nov 2026
---------------------------
-The cover now measures and wraps every action sentence. Charts rank the
-largest holdings first. Reorder warnings use amber consistently. Story
-cards, customer-owned gear bars, footers and printed workbook navigation
-have room to read clearly. Empty charts display zero.
-
-Bug fixes protect hand-typed tabs after a job rename, align consumable
-counts with the precise export window, keep company filenames distinct,
-and show each company's own headline in its email. Missing required output
-files now fail the run. Outlook refuses drafts with missing attachments;
-kit paths with apostrophes or brackets are handled literally. Corrupt
-exports fail the laptop check. Embedded fonts have valid checksums.
-
-Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
-and LibreOffice output are useful checks; native Outlook and Excel review
-remains part of delivery testing.

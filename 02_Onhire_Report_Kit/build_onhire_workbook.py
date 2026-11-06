@@ -509,7 +509,11 @@ def co_name(raw):
     name = _s(raw)
     if not name:
         return ""
-    name = _NAMES["aliases"].get(name.upper(), name)
+    if name.upper() in _NAMES["aliases"]:
+        target = _NAMES["aliases"][name.upper()]
+        if any(ch.islower() for ch in target):
+            return target                           # typed with care in COMPANY_ALIASES.txt: keep it
+        name = target                               # a caps target is tidied like any other name
     if not _NAMES["tidy"]:
         return name
     words = []
@@ -1259,6 +1263,18 @@ def n_companies_out(det):
     return len({_s(r[0]) for r in det if _s(r[0])})
 
 
+def person_name(raw):
+    """'samuel - greenland' or 'CALAM JOHNSON' as a person would write it:
+    'Samuel Greenland'. Display only; matching uses _who()."""
+    parts_ = [w for w in _re.split(r"\s*-\s*|\s+", _s(raw)) if w]
+    if not parts_:
+        return _s(raw)
+    out = []
+    for w in parts_:
+        out.append(w if (w.isupper() and len(w) <= 3) else w.title())
+    return " ".join(out)
+
+
 def _who(name):
     """A hirer's name flattened for matching. RENTAL_STOCK writes
     'Benjamin - Casey'; TRANSACTIONS writes 'Benjamin Casey'."""
@@ -1481,8 +1497,24 @@ def _build(base=HERE, when=None):
     onhire = [r for r in rental if _s(r.get("ITEM_STATUS")) == "On Hire"]
     coates_owned = [r for r in rental
                     if "COATES" in _s(r.get("OWNER")).upper()]
+    #  Customer- and contractor-owned gear goes through the same counter,
+    #  and SiteIQ lists those transactions on CUSTOMER_CONTRACTOR_EQUIP as
+    #  well. They live on the Customer Gear tab and are never counted as a
+    #  Coates movement, so they come out of the tooling list here.
+    own_ids = {_s(r.get("TRANSACTION_ID")) for r in own if _s(r.get("TRANSACTION_ID"))}
+    fleet_owner = dict((_s(r.get("ITEM_NUMBER")), _s(r.get("OWNER"))) for r in rental)
+
+    def _coates_gear(r):
+        if _s(r.get("TRANSACTION_ID")) in own_ids:
+            return False
+        o = _s(r.get("ITEM_OWNER")) or fleet_owner.get(_s(r.get("SKU/ITEM_NUMBER")), "")
+        return (not o) or "COATES" in o.upper()
     tooling_tx = [r for r in tw
-                  if _s(r.get("PRODUCT_CATEGORY")).lower() != "consumable"]
+                  if _s(r.get("PRODUCT_CATEGORY")).lower() != "consumable" and _coates_gear(r)]
+    cust_tx = [r for r in tw
+               if _s(r.get("PRODUCT_CATEGORY")).lower() != "consumable" and not _coates_gear(r)]
+    if not own and cust_tx:
+        own = cust_tx          # no CUSTOMER_CONTRACTOR_EQUIP sheet: the owner column says it
     consumable_tx = [r for r in sales if _n(r.get("SALES_QUANTITY")) > 0]
     sales_bounds = transactions_datetime_window(p_trans)
     _PRINT["draws_basis"] = "window_time" if sales_bounds else "all_sales"
@@ -1553,7 +1585,7 @@ def _build(base=HERE, when=None):
 
     sheet(wb, "Company Summary", title,
           ["Company", "Type", "Transactions", "Qty", "Item types",
-           "On hire now", "Not returned"],
+           "On hire now", "Open issues"],
           summary_rows,
           widths={0: 30, 1: 15, 2: 14, 3: 10, 4: 13, 5: 15, 6: 15},
           formats={2: INT_FMT, 3: INT_FMT, 4: INT_FMT, 5: INT_FMT, 6: INT_FMT},
@@ -1618,7 +1650,7 @@ def _build(base=HERE, when=None):
 
     # ---- 4. Tooling Utilisation ---------------------------------------
     fleet = {}
-    for r in rental:
+    for r in coates_owned:
         d = fleet.setdefault(_s(r.get("ITEM_DESCRIPTION")),
                              {"total": 0, "onhire": 0, "avail": 0})
         d["total"] += 1
@@ -1686,7 +1718,7 @@ def _build(base=HERE, when=None):
     sheet(wb, "Consumable Transactions", title,
           ["Company", "Hirer", "Line", "Qty", "Date", "Time"],
           ctx, widths={0: 24, 1: 24, 2: 50, 3: 10, 4: 13, 5: 11},
-          formats={3: "#,##0.00", 4: DATE_FMT})
+          formats={3: "#,##0", 4: DATE_FMT})
     tabs.append(("Consumable Transactions", len(ctx),
                  "All sales rows; headlines use the report window"))
     #  "This period" means the transactions window. SALES_STOCK carries
@@ -1845,8 +1877,8 @@ def _build(base=HERE, when=None):
         d0 = _date(r.get("LAST_SIGHTED_DATE_TIME"))
         if d0 and 0 <= (when - d0).days <= 3:
             st_sighted += 1
-        if _s(r.get("LAST_SIGHTED_BY")):
-            st_counters.add(_s(r.get("LAST_SIGHTED_BY")))
+            if _s(r.get("LAST_SIGHTED_BY")):
+                st_counters.add(_s(r.get("LAST_SIGHTED_BY")))
     people_served = {_s(r.get("HIRER_NAME")) for r in tooling_tx if _s(r.get("HIRER_NAME"))}
     people_served |= {r[1] for r in ctx if r[1]}
     people_served |= {_s(r.get("HIRER_NAME")) for r in own if _s(r.get("HIRER_NAME"))}
@@ -1936,6 +1968,8 @@ def _build(base=HERE, when=None):
     for r in cu:
         cons_mix[r[9]] = cons_mix.get(r[9], 0) + 1
     dated_days = [r[7] for r in det if r[7] is not None]
+    undated_old_v = [r for r in det if not r[5] and len(r) > 9 and r[9]
+                     and days_out(when, r[9]) >= LONG_OUT_DAYS]
     parts["viz"] = {
         "coates_total": len(coates_owned),
         "coates_out": len([r for r in coates_owned
@@ -1943,6 +1977,8 @@ def _build(base=HERE, when=None):
         "onhire": len(det), "dated": len(det) - len(undated),
         "undated": len(undated),
         "cons_lines": len(cu),
+        "undated_old": len(undated_old_v),
+        "undated_since": (min(r[9] for r in undated_old_v).strftime("%b %Y") if undated_old_v else ""),
         "cons_tight": len([r for r in cu if r[4] >= CONS_TIGHT]),
         "long_out": len([d for d in dated_days if d >= LONG_OUT_DAYS]),
         "oldest_days": max(dated_days) if dated_days else 0,
@@ -2095,7 +2131,9 @@ def _build(base=HERE, when=None):
                      "consumable draws in SALES_STOCK", "sales rows")
                   if _PRINT.get("draws_note") else "all in SALES_STOCK"),
                  ("Export age", "{} days before the report date - check the exports".format(
-                     _PRINT["stale_days"]) if _PRINT.get("stale_days") else "current")])
+                     _PRINT["stale_days"]) if _PRINT.get("stale_days") else "current"),
+                 ("Stocktake export", "pulled {}".format(export_requested(p_stock).strftime("%d %b %Y %H:%M"))
+                  if p_stock else "not supplied - the sighted-in-3-days figures are left out")])
     try:
         dashboard(wb, s, when, asat, parts)
         wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Dashboard"])))
@@ -2285,7 +2323,10 @@ def _build(base=HERE, when=None):
               ("main email complete", bool(html_path and eml_path)
                and os.path.isfile(html_path) and os.path.isfile(eml_path)),
               ("typeface embedded", coates_pdf is not None
-               and coates_pdf.typeface() == "Inter")]
+               and coates_pdf.typeface() == "Inter"),
+              ("exports current", not _PRINT.get("stale_days")),
+              ("transactions window reaches the stock pull", not _PRINT.get("undated_late")),
+              ("LATEST workbook refreshed", latest is not None)]
     #  The first five are fatal: without them the report is not complete.
     #  The rest are advisory sweeps - they say "look at this" and never
     #  hide a finished report behind an exit code.
@@ -2325,6 +2366,14 @@ def _build(base=HERE, when=None):
         say("  STOP | The report is incomplete: {}. Review the message".format(
             ", ".join(fatal_failed)))
         say("         above, then run again.")
+        #  nothing half-built may sit there looking ready to send
+        for p_ in (html_path, eml_path, (html_path[:-5] + ".draft.json") if html_path else None):
+            try:
+                if p_ and os.path.isfile(p_):
+                    os.remove(p_)
+            except OSError:
+                pass
+        say("         The email draft has been taken back out of the folder.")
         say("=" * 66)
         return 1
     if advisory_failed:
@@ -2371,7 +2420,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     undated = [r for r in det if not r[5]]
     dated.sort(key=lambda r: r[5])
     long_out = [r for r in dated if days_out(when, r[5]) >= LONG_OUT_DAYS]
-    idle_tool = [r for r in tu if r[11] == "No Use" and r[1] >= 2]
+    idle_tool = [r for r in tu if r[11] == "No Use" and r[1] >= 2 and not r[2]]
     idle_units = sum(r[1] for r in idle_tool)
 
     oldest_days = max([days_out(when, r[5]) for r in dated] or [0])
@@ -2456,16 +2505,48 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         call.append("{:,} {} been out longer than {} days.".format(
             len(long_out), "item has" if len(long_out) == 1 else "items have",
             LONG_OUT_DAYS))
+    undated_old = [r for r in undated if len(r) > 9 and r[9]
+                   and days_out(when, r[9]) >= LONG_OUT_DAYS]
+    #  Items whose SiteIQ stock date is AFTER the transactions window ended
+    #  went out today, after the export's cut-off (an evening pull against
+    #  a window that ends at 04:59). Not undated gear - a short export.
+    _w_end = (_PRINT.get("window") or (None, None))[1]
+    undated_late = [r for r in undated if len(r) > 9 and r[9] and _w_end and r[9] >= _w_end]
+    _PRINT["undated_late"] = len(undated_late)
+    if undated_late:
+        say("  WARN | {:,} item{} on hire went out after the TRANSACTIONS window ended ({} 04:59), "
+            "so they cannot be dated from it. Pull TRANSACTIONS with the period running to now "
+            "and run again.".format(len(undated_late), "" if len(undated_late) == 1 else "s",
+                                    _w_end.strftime("%d %b")))
     if undated:
         call.append("{:,} {} on hire with no issue transaction inside the "
                     "transactions export{}, so {} shown as undated rather "
-                    "than guessed.".format(
+                    "than guessed.{}".format(
                         len(undated),
                         "item is" if len(undated) == 1 else "items are",
                         " ({})".format(period) if period else "",
-                        "it is" if len(undated) == 1 else "they are"))
+                        "it is" if len(undated) == 1 else "they are",
+                        (" {} SiteIQ stock date{} back to {}, so treat {} as long out.".format(
+                            "Its" if len(undated_old) == 1 else "Their",
+                            " goes" if len(undated_old) == 1 else "s go",
+                            min(r[9] for r in undated_old).strftime("%d %b %Y"),
+                            "it" if len(undated_old) == 1 else "them")
+                         if undated_old and len(undated_old) == len(undated) else
+                         (" {:,} of them {} SiteIQ stock date{} back to {}, so treat {} as long out.".format(
+                             len(undated_old), "has a" if len(undated_old) == 1 else "have",
+                             "" if len(undated_old) == 1 else "s",
+                             min(r[9] for r in undated_old).strftime("%d %b %Y"),
+                             "it" if len(undated_old) == 1 else "those")
+                          if undated_old else ""))))
+        if undated_late:
+            call.append("{:,} of the undated {} out AFTER the transactions export's window ended "
+                        "({} 04:59): the stock export was pulled later in the day than the "
+                        "transactions one. Pull TRANSACTIONS with the period running to now "
+                        "and run again, and they date.".format(
+                            len(undated_late), "item went" if len(undated_late) == 1 else "items went",
+                            _w_end.strftime("%d %b")))
     if idle_tool:
-        call.append("The other way, {:,} units across {:,} lines haven't gone "
+        call.append("The other way, {:,} units across {:,} lines holding two or more haven't gone "
                     "out once - shelf space and hire we're carrying for "
                     "nothing.".format(idle_units, len(idle_tool)))
     #  The story lines (movements, own gear, demob) are added by build()
@@ -2492,7 +2573,18 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                             len(long_out),
                             "item" if len(long_out) == 1 else "items",
                             LONG_OUT_DAYS)))
-    if undated:
+    if undated and undated_late:
+        rest = len(undated) - len(undated_late)
+        actions.append(("Date the undated", "{:,} on-hire item{} went out after the transactions "
+                        "export's window ended ({} 04:59). Pull TRANSACTIONS with the period running "
+                        "to now and run again; they date.{}".format(
+                            len(undated_late), "" if len(undated_late) == 1 else "s",
+                            _w_end.strftime("%d %b"),
+                            (" The other {:,} {} no issue transaction at all - tell me which came "
+                             "back and I'll book {} in.".format(
+                                 rest, "has" if rest == 1 else "have", "it" if rest == 1 else "them"))
+                            if rest else "")))
+    elif undated:
         stock_dates = sorted(r[9] for r in undated if len(r) > 9 and r[9])
         w0 = (_PRINT.get("window") or (None, None))[0]
         if stock_dates and w0 and stock_dates[-1] < w0:
@@ -2516,7 +2608,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                                 len(undated),
                                 "item has" if len(undated) == 1 else "items have")))
     if idle_tool:
-        actions.append(("Or send it home", "{:,} units across {:,} lines "
+        actions.append(("Or send it home", "{:,} units across {:,} lines holding two or more "
                         "haven't moved at all. Nod and I'll off-hire them."
                         .format(idle_units, len(idle_tool))))
     if not actions:
@@ -2528,8 +2620,8 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     for row in summary_rows:
         by_co.setdefault(row[0], {})[row[1]] = row
     companies = []
-    for co in sorted(by_co, key=lambda c: -(by_co[c].get("TOTAL",
-                                                         [0] * 7)[2])):
+    for co in sorted(by_co, key=lambda c: (-(by_co[c].get("TOOLING", [0] * 7)[5] or 0),
+                                          -(by_co[c].get("TOTAL", [0] * 7)[2]))):
         t = by_co[co].get("TOOLING", [co, "", 0, 0, 0, 0, 0])
         c = by_co[co].get("CONSUMABLES", [co, "", 0, 0, 0, 0, 0])
         if not (t[2] or c[2] or t[5]):
@@ -2563,7 +2655,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     roll = {}
     for r in det:
         co = _s(r[0]) or "(no company named)"
-        who = _s(r[1]) or "(nobody named on it)"
+        who = person_name(r[1]) or "(nobody named on it)"
         p = roll.setdefault(co, {}).setdefault(
             who, {"items": {}, "oldest": None, "n": 0, "undated": 0})
         desc = item_name(r[3]) or "(no description)"
@@ -2602,12 +2694,12 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         for p in sources})) or when.strftime("%d %b %Y")
 
     return {"tiles": tiles, "flags": flags, "call": call, "actions": actions,
-            "owner_note": owner_note.strip(),
+            "owner_note": owner_note.strip(), "idle_total": len(idle_tool), "tight_total": len(tight),
             "companies": companies, "hardest": hardest, "idle": idle_rows,
             "consumables": cons, "longest": longest, "source_stamp": stamp,
             "roll": on_hire_roll, "period": period, "pack_pages": 0,
             "long_out_days": LONG_OUT_DAYS, "cons_tight": CONS_TIGHT,
-            "counts": {"onhire": len(det), "cust_owned": len(cust_items), "companies": n_companies,
+            "counts": {"onhire": len(det), "cust_owned": len(cust_items), "undated_old": len(undated_old), "companies": n_companies,
                        "oldest_days": oldest_days, "hot": len(hot),
                        "tight": len(tight), "long_out": len(long_out),
                        "undated": len(undated), "idle_units": idle_units}}
@@ -3512,10 +3604,10 @@ def _phase(shift):
         return "night"
     if "no shift" in z or z in ("off", "rdo", "rest", "day off", "rest day"):
         return "off"
-    if any(w in z for w in ("fly", "flight", "drive", "travel", "demob")):
-        return "travel"
     if "mob" in z:
         return "mob"
+    if any(w in z for w in ("fly", "flight", "drive", "travel", "demob")):
+        return "travel"
     return "day"
 
 
@@ -3849,6 +3941,8 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
     open_day = shift_days[0] if shift_days else first
     close_day = shift_days[-1] if shift_days else dates[-1]
     nights = "night" in phases_used
+    night_days = [d_ for d_, _n, sh, _h, _a, _b in rows if _phase(sh) == "night"]
+    last_night = max(night_days) if night_days else None
     hours = sum(hours_by.values())
     hours_done = sum(done_by.values())
     state = "ahead" if first > when else "underway"
@@ -3897,12 +3991,8 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
                 hour[h] += 1
             nm = item_name(r[2])
             qty[nm] = qty.get(nm, 0.0) + (r[3] or 0.0)
-    for r in own or []:
-        for dk, tk in (("TRAN_START_DATE", "TRAN_START_TIME"), ("TRAN_END_DATE", "TRAN_END_TIME")):
-            if inwin(_date(r.get(dk))):
-                h = _hour_of(r.get(tk))
-                if h is not None:
-                    hour[h] += 1
+    #  (customer-owned gear is not in this count: the hour profile covers
+    #  the same scans as the day totals - Coates issues, returns and draws)
     scans = sum(hour)
     busy = sorted((h for h in range(24) if hour[h] > 0), key=lambda h: -hour[h])[:2]
     busy = sorted(busy)
@@ -3954,14 +4044,18 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
                      job, (when - first).days + 1, "" if (when - first).days + 1 == 1 else "s",
                      left, "" if left == 1 else "s", last.strftime("%A %d %B"),
                      who(), hours_done, hours,
-                     "day and night" if nights else "day shift", close_day.strftime("%a %d %b"),
-                     (", {} {}".format("fly out" if last_travel else "demob",
-                                       last.strftime("%a %d %b")) if last != close_day else "")))
+                     ("day and night" if (nights and last_night and last_night >= close_day)
+                      else "day-shift"),
+                     close_day.strftime("%a %d %b"),
+                     ((" (nights ended {})".format(last_night.strftime("%a %d %b"))
+                       if nights and last_night and last_night < close_day else "")
+                      + (", {} {}".format("fly out" if last_travel else "demob",
+                                          last.strftime("%a %d %b")) if last != close_day else ""))))
     if moves and n_ref:
         lead = ("Last time ({}, {})".format(ref["label"], ref_span) if ref_previous
                 else "So far this shut ({})".format(ref_span))
         peak_hours = " and ".join("{:02d}:00".format(h) for h in busy)
-        ref_line = ("{}, the counter handled {:,} movement{} in {} day{} - about {:,.0f} a day, "
+        ref_line = ("{}, the counter handled {:,} scan{} (issues, returns and draws) in {} day{} - about {:,.0f} a day, "
                     "peaking at {:,} on {}{}.".format(
                         lead, moves, "" if moves == 1 else "s", n_ref, "" if n_ref == 1 else "s", ref["per_day"],
                         ref["peak"], ref["peak_day"].strftime("%A %d %B"),
@@ -3979,7 +4073,7 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
          "{} day{} on site".format(len(days), "" if len(days) == 1 else "s")),
         ("Rostered hours", "{:,.0f}".format(hours),
          ("{:,.0f} worked to date".format(hours_done) if state == "underway"
-          else "{} from {}".format("day and night" if nights else "days", open_day.strftime("%d %b")))),
+          else "from {}{}".format(open_day.strftime("%d %b"), " \u00b7 nights" if nights else ""))),
     ]
     cost = None
     if "Cost Breakdown" in wb.sheetnames:
@@ -4036,7 +4130,7 @@ def carry_over(wb, s, base, title, when=None):
     if not os.path.isfile(latest_path):
         #  The job was renamed in JOB.txt mid-shut, so the LATEST workbook
         #  carries the old name. One candidate is unambiguous; take it.
-        others = sorted(glob.glob(os.path.join(base, "*_Onhire_Workbook_LATEST.xlsx")))
+        others = sorted(glob.glob(os.path.join(glob.escape(base), "*_Onhire_Workbook_LATEST.xlsx")))
         if len(others) == 1:
             latest_path = others[0]
             try:
@@ -4044,6 +4138,10 @@ def carry_over(wb, s, base, title, when=None):
                     "has changed).".format(os.path.basename(latest_path)))
             except Exception:
                 pass
+        elif len(others) > 1:
+            say("  NOTE | More than one LATEST workbook is in this folder ({}) and none matches "
+                "the job's name, so the typed tabs start from the seed. Keep the one you type "
+                "into and move the others out.".format(", ".join(os.path.basename(o) for o in others)))
     latest_wb = None
     if src and os.path.isfile(latest_path) and \
             os.path.normcase(os.path.abspath(latest_path)) != os.path.normcase(os.path.abspath(src)):
@@ -4191,7 +4289,7 @@ def carry_over(wb, s, base, title, when=None):
         if n == 0 and weipa:
             vals_for_totals = None
             n = seed_labour(ws, seed) if name == "Coates Labour" else seed_costs(ws, seed)
-            if not updated_seed:
+            if not updated_seed and not stale_roster:
                 say("  NOTE | {} came through empty, so it is loaded with the {} as at "
                     "{} - yours to edit.".format(
                         name, "roster" if name == "Coates Labour" else
@@ -4340,7 +4438,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ("Company pack", ("{} pages, {} companies".format(
             pack["pages"], pack["companies"]) if pack else "not built")),
         ("Engagement", "Fixed rate - no per-item charges" if s.fixed_rate else
-         ("Standard hire" if (s._d.get("engagement") or "").strip() else "not set in JOB.txt")),
+         ("Standard hire" if (s._d.get("engagement") or "").strip() else "Standard hire (default)")),
         ("Shutdown ends", (s.shutdown_end or shut_end).strftime("%d %b %Y")
          if (s.shutdown_end or shut_end) else "-"),
         ("Transactions cover", _PRINT.get("period") or "-"),
@@ -4539,7 +4637,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     ])
     ws.row_dimensions[r].height = 8
     r += 1
-    r = legend(r, "Consumables - share of position sold", [
+    r = legend(r, "Consumables - share of position sold (all sales since the project began)", [
         ("Nothing sold", "No Use", "Review / Reduce"),
         ("Under 40%", "Low Use", "Keep Stock"),
         ("40% to 80%", "Good Use", "Keep Stock"),
@@ -5759,6 +5857,17 @@ def _ahead_card(fc):
     return "".join(out)
 
 
+def _greeting(now=None):
+    """Morning, Afternoon or Evening by the clock the email is written on."""
+    h = (now or dt.datetime.now()).hour
+    return "Morning" if h < 12 else ("Afternoon" if h < 17 else "Evening")
+
+
+def _short_co(co):
+    """A company name as you would say it: no Pty Ltd in a greeting."""
+    return _re.sub(r"\s+(Pty\.?\s*Ltd\.?|Pty\.?|Ltd\.?|Limited|Pty Limited)$", "", _s(co), flags=_re.I).strip() or _s(co)
+
+
 def _more(n, where):
     """' Another 6 lines are on the Tooling Utilisation tab.' or nothing."""
     if n <= 0:
@@ -5887,7 +5996,7 @@ def email_html(s, when, asat, parts):
         widths = {0: 32, 1: 19, 2: 13, 3: 13}
         aligns = {1: "right", 2: "right", 3: "right"}
         if has_own:
-            cols.append("Own gear")
+            cols.append("Customer gear")
             widths = {0: 28, 1: 18, 2: 12, 3: 12, 4: 12, 5: 18}
             aligns[4] = "right"
             aligns[5] = "right"
@@ -5913,7 +6022,7 @@ def email_html(s, when, asat, parts):
             cols, body_rows, phone_hide=({2, 4} if has_own else {2}), widths=widths, aligns=aligns,
             note="On hire now is what is out in their name right now. Tooling "
                  "issues and consumables are this period's movements"
-                 + (", own gear is their own equipment logged through our counter"
+                 + (", customer gear is customer- or contractor-owned equipment logged through our counter"
                     if has_own else "")
                  + ". Longest out is the oldest issue transaction still open in "
                    "their name."))
@@ -5924,7 +6033,7 @@ def email_html(s, when, asat, parts):
         inner.append(_section("2", "Who moved the most gear",
                               "Nothing is on hire to anyone - this period's movements, busiest first"))
         inner.append(_gap(10))
-        cols = ["Company", "Tooling issues", "Consumables"] + (["Own gear"] if has_own else [])
+        cols = ["Company", "Tooling issues", "Consumables"] + (["Customer gear"] if has_own else [])
         widths = ({0: 40, 1: 24, 2: 18, 3: 18} if has_own else {0: 46, 1: 30, 2: 24})
         aligns = {1: "right", 2: "right", 3: "right"}
         body_rows = []
@@ -5940,7 +6049,7 @@ def email_html(s, when, asat, parts):
             cols, body_rows, widths=widths, aligns=aligns,
             note="No items are recorded on hire in this export. "
                  "Tooling issues and consumables are this period's movements"
-                 + (", own gear is their own equipment logged through our counter"
+                 + (", customer gear is customer- or contractor-owned equipment logged through our counter"
                     if has_own else "") + "."))
     inner.append(_gap(24))
 
@@ -5963,8 +6072,8 @@ def email_html(s, when, asat, parts):
         aligns={1: "right", 2: "right", 3: "right"},
         note="Rated on turns - times issued against how many we hold. High "
              "demand means it is going out faster than we can turn it around, "
-             "so more is worth ordering."
-             + _more(len(rows) - len(shown), "the Tooling Utilisation tab")))
+             "so more is worth ordering. The full ranking is on the Tooling "
+             "Utilisation tab of the workbook."))
     inner.append(_gap(24))
 
     #  ---- 4. not moving -----------------------------------------------
@@ -5984,7 +6093,7 @@ def email_html(s, when, asat, parts):
         aligns={1: "right", 2: "right"},
         note="Every one of these is shelf space and hire we are carrying "
              "for nothing. Say the word on any line and it goes home."
-             + _more(len(rows) - len(shown), "the Tooling Utilisation tab")))
+             + _more(parts.get("idle_total", len(rows)) - len(shown), "the Tooling Utilisation tab")))
     inner.append(_gap(24))
 
     #  ---- 5. consumables to watch -------------------------------------
@@ -6004,10 +6113,10 @@ def email_html(s, when, asat, parts):
                 E_TONE.get(r[4], "slate"))] for r in shown],
         widths={0: 46, 1: 12, 2: 26, 3: 16},
         aligns={1: "right", 2: "right"},
-        note="Gone out is this period's draws against the whole position - "
-             "shelf plus drawn. Past {:.0f}% we order, because running a line "
+        note="Gone out is every sale since the project began against the whole "
+             "position - shelf plus sold. Past {:.0f}% we order, because running a line "
              "dry mid-shift costs more than the stock does.".format(tight * 100)
-             + _more(len(rows) - len(shown), "the Consumable Utilisation tab")))
+             + _more(parts.get("tight_total", len(rows)) - len(shown), "the Consumable Utilisation tab")))
     inner.append(_gap(24))
 
     #  ---- 6. out the longest ------------------------------------------
@@ -6159,9 +6268,9 @@ def company_email_html(s, when, asat, parts, b):
             len(b["people"]), "person" if len(b["people"]) == 1 else "people",
             (", the oldest issue {}".format(_days_text(oldest)) if oldest is not None else "")))
         if b.get("cust_owned"):
-            line += (" {:,} of {} your own item{} managed through the counter.".format(
+            line += (" {:,} of {} owned by {} and managed through the counter.".format(
                 b["cust_owned"], "them is" if b["cust_owned"] == 1 else "them are",
-                "" if b["cust_owned"] == 1 else "s"))
+                b.get("cust_owner") or "the customer"))
         if b["undated"]:
             line += (" {} item{} no issue transaction inside the export window and {} "
                      "shown as undated.".format(b["undated"], " has" if b["undated"] == 1 else "s have",
@@ -6176,13 +6285,13 @@ def company_email_html(s, when, asat, parts, b):
                "draw{} for you{}.".format(
                    b["issues"], "" if b["issues"] == 1 else "s", b["draws"],
                    "" if b["draws"] == 1 else "s",
-                   (", plus {:,} movement{} of your own gear".format(b["own"], "" if b["own"] == 1 else "s")
+                   (", plus {:,} movement{} of {}-owned gear through the counter".format(b["own"], "" if b["own"] == 1 else "s", b.get("own_owner") or "customer")
                     if b.get("own") else "")))
     inner.append(_T + "<tr><td style=\"{x}\">"
                  "<div style=\"{x};padding-bottom:10px\">Hi {co} team,</div>"
                  "<div style=\"{x};padding-bottom:10px\">{line}</div>"
                  "<div style=\"{x}\">{ask}</div>"
-                 "</td></tr></table>".format(x=E_TXT, co=_esc(co), line=_esc(line), ask=_esc(ask)))
+                 "</td></tr></table>".format(x=E_TXT, co=_esc(_short_co(co)), line=_esc(line), ask=_esc(ask)))
     inner.append(_gap(18))
     if b["people"]:
         inner.append(_kicker("Who is holding what"))
@@ -6253,11 +6362,11 @@ def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
     msg["Subject"] = subject
     msg["X-Unsent"] = "1"
-    text = ["Hi {} team,".format(co), "",
+    text = ["Hi {} team,".format(_short_co(co)), "",
             ("{} has {:,} item{} on hire from the Coates tool store with {} {} as at {}{}.".format(
                 co, b["items"], "" if b["items"] == 1 else "s", len(b["people"]),
                 "person" if len(b["people"]) == 1 else "people", when.strftime("%d %b %Y"),
-                (" ({:,} of them your own gear)".format(b["cust_owned"]) if b.get("cust_owned") else ""))
+                (" ({:,} of them owned by {})".format(b["cust_owned"], b.get("cust_owner") or "the customer") if b.get("cust_owned") else ""))
              if b["items"] else
              "{} has no items recorded on hire as at {}.".format(
                  co, when.strftime("%d %b %Y"))), ""]
@@ -6324,7 +6433,7 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
     roll = {}
     for r in det:
         co = _s(r[0]) or "(no company named)"
-        who = _s(r[1]) or "(nobody named on it)"
+        who = person_name(r[1]) or "(nobody named on it)"
         roll.setdefault(co, {}).setdefault(who, []).append(r)
 
     issues = {}
@@ -6341,10 +6450,13 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
         if _s(r[1]):
             line["people"].add(_s(r[1]))
 
-    own_by, own_lines_by = {}, {}
+    own_by, own_lines_by, own_owner_by = {}, {}, {}
     for r in (own or []):
         co = _s(r.get("EMPLOYER_NAME")) or "(not named)"
         own_by[co] = own_by.get(co, 0) + 1
+        o_ = co_name(r.get("ITEM_OWNER"))
+        if o_:
+            own_owner_by.setdefault(co, {})[o_] = own_owner_by.setdefault(co, {}).get(o_, 0) + 1
         k = item_name(r.get("SKU/ITEM DESCRIPTION")) or "(no description)"
         d_ = own_lines_by.setdefault(co, {})
         d_[k] = d_.get(k, 0) + 1
@@ -6387,6 +6499,11 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
             "cust_owned": sum(1 for r in all_items
                               if (owner_of or {}).get(_s(r[2])) and
                               "COATES" not in (owner_of or {}).get(_s(r[2]), "").upper()),
+            "cust_owner": (lambda ow: max(ow, key=ow.get) if ow else "")(
+                dict((co_name(o_), sum(1 for r in all_items if (owner_of or {}).get(_s(r[2])) == o_))
+                     for o_ in {(owner_of or {}).get(_s(r[2])) for r in all_items}
+                     if o_ and "COATES" not in o_.upper())),
+            "own_owner": (lambda ow: max(ow, key=ow.get) if ow else "")(own_owner_by.get(co, {})),
             "draws": sum(1 for r in ctx if (_s(r[0]) or "(not named)") == co),
             "own": own_by.get(co, 0),
             "own_lines": sorted(own_lines_by.get(co, {}).items(), key=lambda kv: (-kv[1], kv[0])),
@@ -6658,6 +6775,8 @@ class _Pack(object):
         return w
 
     def tiles(self, tiles, h=50, gap=8):
+        tiles = [(a_, b_, (c_ or "").replace("\u25b2 ", "+").replace("\u25bc ", "-"))
+                 for a_, b_, c_ in tiles]
         """A row of stat tiles: (value, label, tone)."""
         d = self.doc
         n = len(tiles)
@@ -6727,7 +6846,13 @@ class _Pack(object):
         self.y += 20
 
     def item_layout(self, row):
-        codes = self.doc.wrap(_s(row[2]) or "-", 8.2, 108)
+        code = _s(row[2]) or "-"
+        #  an item number is one token: shrink it a little before wrapping
+        #  it mid-identifier
+        self._code_size = next((sz for sz in (8.2, 7.6, 7.0, 6.4)
+                                if self.doc.text_width(code, sz) <= 108), None)
+        codes = [code] if self._code_size else self.doc.wrap(code, 8.2, 108)
+        self._code_size = self._code_size or 8.2
         descriptions = self.doc.wrap(item_name(row[3]) or "(no description)", 9, 248)
         return codes, descriptions, 10 + 11.5 * max(len(codes), len(descriptions))
 
@@ -6738,7 +6863,8 @@ class _Pack(object):
         if n % 2:
             d.rect(self.x0, self.y, self.cw, h, fill=P_ZEBRA)
         for i, line in enumerate(codes):
-            d.text(self.x0 + 8, self.y + 14 + 11.5 * i, line, size=8.2, colour=P_INK)
+            d.text(self.x0 + 8, self.y + 14 + 11.5 * i, line,
+                   size=getattr(self, "_code_size", 8.2), colour=P_INK)
         for i, line in enumerate(desc_lines):
             d.text(self.x0 + 124, self.y + 14 + 11.5 * i, line, size=9, colour=P_INK)
         if r[5]:
@@ -6803,7 +6929,8 @@ class _Pack(object):
             t = math.radians(a_end)
             d.circle(cx + rm * math.cos(t), cy - rm * math.sin(t), cap, fill=colour)
         d.text(cx, cy - 2, str(value), size=16, bold=True, colour=ink, align="centre")
-        lines = d.wrap(label.upper(), 6.3, 84, bold=True, max_lines=2)
+        lines = ([p_.strip() for p_ in label.upper().split("|") if p_.strip()] if "|" in label
+                 else d.wrap(label.upper(), 6.3, 84, bold=True, max_lines=2))
         for i, ln in enumerate(lines):
             d.text(cx, cy + 14 + 8 * i, ln, size=6.3, bold=True, colour=muted,
                    tracking=0.4, align="centre")
@@ -7011,7 +7138,7 @@ class _Pack(object):
                        "Dated from transactions", "nothing on hire to date", dark=True)
         self.gauge(self.x0 + slot * 2.5, cy, tight,
                    amber if v["cons_tight"] else green,
-                   "{:.0f}%".format(tight * 100), "Consumable lines past 80%",
+                   "{:.0f}%".format(tight * 100), "Consumable lines|past 80%",
                    "{:,} of {:,} lines".format(v["cons_tight"], v["cons_lines"]), dark=True)
         self.gauge(self.x0 + slot * 3.5, cy, over, red if v["long_out"] else green,
                    "{:,}".format(v["long_out"]), "Items out over {} days".format(LONG_OUT_DAYS),
@@ -7200,7 +7327,7 @@ class _Pack(object):
         prev = st.get("previous")
         if prev and prev.get("onhire") is not None:
             diff = c["onhire"] - prev["onhire"]
-            brief.append("That is {} the last report on {}.".format(
+            brief.append("Items on hire are {} the last report on {}.".format(
                 "{:,} {} than".format(abs(diff), "more" if diff > 0 else "fewer") if diff
                 else "level with", prev["day"].strftime("%d %b")))
         if c.get("undated"):
@@ -7227,7 +7354,7 @@ class _Pack(object):
         # ---- row: the team | how gear is moving ----------------------------
         top = self.card(self.x0, self.y, half, H, "The team at the counter",
                         "Coates people and hours to date, from the roster" +
-                        (" - under the fixed rate" if st["fixed_rate"] else ""))
+                        "")
         if lab.get("people"):
             started = bool(lab.get("hours"))
             key = "hours" if started else "rostered"
@@ -7272,7 +7399,8 @@ class _Pack(object):
             ret = st["same_day"] + st["kept"]
             pct = (100.0 * st["same_day"] / ret) if ret else 0
             d.paragraph(xr + 12, max(top + 72, end_y + 10),
-                        ("{:.0f}% of dated returns were issued and returned on the same date.".format(pct)
+                        ("Of the {:,} returns recorded, {:.0f}% came back the same day they went out.".format(
+                            st["same_day"] + st["kept"], pct)
                          if ret else "No completed returns with valid issue and return dates."),
                         size=8, max_w=half - 24, colour=P_MUTED, leading=11, max_lines=3)
         else:
@@ -7299,7 +7427,7 @@ class _Pack(object):
             d.text(self.x0 + 12, top + 14, "No STOCKTAKE export in this run.", size=8.5,
                    italic=True, colour=P_MUTED)
         top = self.card(xr, self.y, half, H, "Customer-owned gear through the counter",
-                        "Their equipment, logged and scanned like the fleet")
+                        "Customer- and contractor-owned equipment, logged and scanned like the fleet")
         if st["own_total"]:
             d.text(xr + 12, top + 13, "{:,}".format(st["own_total"]), size=18, bold=True,
                    colour=P_INK)
@@ -7527,7 +7655,7 @@ class _Pack(object):
                         (", last time" if ref["previous"] else ", so far"),
                         "{} - {}".format(ref["label"], ref["span"]) if ref["moves"] else "")
         if ref["moves"]:
-            stats = [("{:,.0f}".format(ref["per_day"]), "movements a day",
+            stats = [("{:,.0f}".format(ref["per_day"]), "scans a day",
                       "{:,} over {} days".format(ref["moves"], ref["days"])),
                      ("{:,}".format(ref["peak"]), "on the busiest day",
                       ref["peak_day"].strftime("%A %d %b") if ref["peak_day"] else ""),
@@ -7597,7 +7725,7 @@ class _Pack(object):
         yy = top + 2
         for text, tone, meaning in (("today", day_tone(0), "issued today"),
                                     ("3 days", day_tone(3), "out this week - normal"),
-                                    ("12 days", day_tone(12), "worth a look"),
+                                    ("{} days".format(WATCH_DAYS), day_tone(WATCH_DAYS), "worth a look"),
                                     ("21+ days", day_tone(21), "overdue - please return or confirm"),
                                     ("undated", "amber", "no issue transaction in the export window")):
             self.chip(self.x0 + 70, yy, text, tone)
@@ -7714,7 +7842,7 @@ class _Pack(object):
                          b["issues"], "" if b["issues"] == 1 else "s",
                          b["draws"], "" if b["draws"] == 1 else "s"))
             if b.get("own"):
-                story += ", {:,} own-gear movement{}".format(b["own"], "" if b["own"] == 1 else "s")
+                story += ", {:,} customer-gear movement{}".format(b["own"], "" if b["own"] == 1 else "s")
         text_ = story + "."
         while len(d.wrap(text_, 9, self.cw - 270)) > 2 and ". " in text_:
             text_ = text_.rsplit(". ", 1)[0] + "."     # whole sentences only
@@ -7752,7 +7880,7 @@ class _Pack(object):
             (b.get("draws", 0), "Draws", "orange"),
         ]
         if b.get("own"):
-            tiles.append((b["own"], "Own gear", "orange"))
+            tiles.append((b["own"], "Cust. gear", "orange"))
         tiles.append((_days_text(b["oldest_days"]) if b["oldest_days"] is not None
                       else ("undated" if b["undated"] else "-"), "Longest out",
                       day_tone(b["oldest_days"]) if b["items"] else "slate"))
@@ -7873,13 +8001,13 @@ class _Pack(object):
             self.cont = lambda: None
             self.y += 16
             self.need(60)
-            d.text(self.x0, self.y + 10, "Own gear through the counter - {}".format(co),
+            d.text(self.x0, self.y + 10, "{} gear through the counter - {}".format((b.get("own_owner") or "Customer") + "-owned", co),
                    size=10.5, bold=True, colour=P_INK, max_w=self.cw - 150)
             d.text(self.x1, self.y + 10, "{:,} movement{} logged".format(
                 b["own"], "" if b["own"] == 1 else "s"), size=8.5, colour=P_MUTED, align="right")
             self.y += 16
             d.rect(self.x0, self.y, self.cw, 16, fill=P_SOFT)
-            d.text(self.x0 + 8, self.y + 11, "THEIR ITEM", size=6.8, bold=True, colour=P_MUTED, tracking=0.6)
+            d.text(self.x0 + 8, self.y + 11, "CUSTOMER-OWNED ITEM", size=6.8, bold=True, colour=P_MUTED, tracking=0.6)
             d.text(self.x1 - 8, self.y + 11, "MOVEMENTS", size=6.8, bold=True, colour=P_MUTED,
                    tracking=0.6, align="right")
             self.y += 16
@@ -8112,7 +8240,7 @@ class _Pack(object):
         self.y += 18
         cols = ((self.x0 + 8, "COMPANY", "left"), (self.x0 + 230, "ITEMS", "right"),
                 (self.x0 + 282, "PEOPLE", "right"), (self.x0 + 340, "MOVES", "right"),
-                (self.x0 + 398, "OWN GEAR", "right"),
+                (self.x0 + 398, "CUST. GEAR", "right"),
                 (self.x0 + 478, "LONGEST OUT", "right"), (self.x1 - 8, "PAGE", "right"))
         d.rect(self.x0, self.y, self.cw, 18, fill=P_INK)
         for x, label, align in cols:
@@ -8253,7 +8381,7 @@ def email_text(s, when, parts):
              "POWERED BY SITEIQ | Author: {}".format(
                  s.author or "Andrew Fisher"),
              "",
-             "Morning,",
+             _greeting() + ",",
              ""]
     lines += [t for t in parts["call"]]
     lines += ["", "THE POSITION", ""]
