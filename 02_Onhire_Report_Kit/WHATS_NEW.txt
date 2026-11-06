@@ -134,8 +134,10 @@
      note, not last year's people and dollars.
    - The Dashboard's rating colours now follow the one palette (High
      Demand amber, Low Use slate), the same as the pack's donut.
-   - The exports are parsed once per run instead of about ten times, so
-     a run that took a minute or two now takes seconds.
+   - The exports are parsed once per run instead of about ten times.
+     Measured on today's exports the saving is under a second of a five
+     to nine second run - housekeeping that matters more as the
+     TRANSACTIONS export grows across a shut.
    - 1_CHECK_THIS_LAPTOP runs even when the kit is half unpacked - that
      is the case it exists to diagnose.
    - On a very big shut the cover's contents list tightens, then stops

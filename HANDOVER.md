@@ -211,8 +211,9 @@ Settled rules, 04–05 Nov 2026:
   total with `cost_profile()["total"]`; the manifest's LATEST copy is
   refreshed every run; `job_seed(s, when)` applies a seed only within 45
   days of its own dates; Dashboard rating colours read `TONE`; exports are
-  parsed once via `_open_ro()` (read-only cache, closed at exit; runs went
-  from minutes to seconds); `_RUN.bat` lets `check_this_laptop.py` run on
+  parsed once via `_open_ro()` (read-only cache, closed at exit; measured
+  saving under 1 s on today's exports, so a tidy-up rather than a speed-up
+  until exports grow); `_RUN.bat` lets `check_this_laptop.py` run on
   a half-unpacked kit; the cover contents list tightens to 12pt rows and
   then truncates with "and N more companies" so the asks card always fits.
 - High-contrast round (06 Nov): the cover hero, the dials card, each
