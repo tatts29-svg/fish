@@ -1493,11 +1493,11 @@
    "type": "text/javascript; charset=utf-8"
   },
   {
-   "bytes": 37052,
+   "bytes": 37465,
    "path": "workshop-ui.js",
-   "sha256": "84d87057ecf27272cfbf7e3ccd47efa2394847a0eb1f8439ac8712b768239fb5",
+   "sha256": "88bfbeb876d51036c8e8b1b1f72ab320451d1d998402946299d23e8a39c3c1b9",
    "type": "text/javascript; charset=utf-8"
   }
  ],
- "sha256": "469c81a7b7ff01a154a1bdbad3b178be91de56a08a0fc72704614b5d68d118f6"
+ "sha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2"
 }

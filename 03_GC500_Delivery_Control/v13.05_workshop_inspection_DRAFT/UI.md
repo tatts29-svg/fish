@@ -36,3 +36,5 @@ serialised browser harness before deterministic pose review. It covers actual be
 crank, cycle keyboard, isolated rotation, 320 px, landscape, reduced motion and exit
 layout restoration. Syntax checks pass. Browser and visual acceptance remain with
 root; no browser or live publication was performed by this implementation task.
+
+Phone landscape header regression: a DOM-only reproduction with the actual candidate HTML and CSS measured the masthead minimum content width at 848.70 px, overflowing an 844 px document. The compact landscape bench now reuses the existing 75 px phone wordmark and reduces spare header spacing. All navigation/action buttons retain their original dimensions and remain visible; no overflow clipping is introduced. The same native Chromium layout diagnostic passes 801, 812, 844, 800, 896 and 932 px widths with document width equal to viewport width. Full native scene acceptance remains the release harness responsibility.

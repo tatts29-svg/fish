@@ -36,8 +36,8 @@
     },
     "workshop-ui.js": {
       "base": "f16a46418e99856757ba1cf8d5750c2a5ac5351bf59e289a7b7d321240c79797",
-      "sha256": "84d87057ecf27272cfbf7e3ccd47efa2394847a0eb1f8439ac8712b768239fb5",
-      "bytes": 37052
+      "sha256": "88bfbeb876d51036c8e8b1b1f72ab320451d1d998402946299d23e8a39c3c1b9",
+      "bytes": 37465
     }
   }
 }
