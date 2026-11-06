@@ -1677,7 +1677,7 @@ def _build(base=HERE, when=None):
           ctx, widths={0: 24, 1: 24, 2: 50, 3: 10, 4: 13, 5: 11},
           formats={3: "#,##0.00", 4: DATE_FMT})
     tabs.append(("Consumable Transactions", len(ctx),
-                 "Every consumable issued this period"))
+                 "All sales rows; headlines use the report window"))
     #  "This period" means the transactions window. SALES_STOCK carries
     #  every sale the project has ever made, so the draws counted in the
     #  headline, the tiles, the pack, the charts and history are the ones
@@ -1805,14 +1805,19 @@ def _build(base=HERE, when=None):
                         tooling_tx, live_onhire, sources, when, period)
 
     #  ---- the story numbers: how gear moved, what the store verified ----
-    same_day = kept = 0
+    same_day = kept = open_transactions = uncertain_transactions = 0
     for r in tooling_tx:
         a, b = _date(r.get("TRAN_START_DATE")), _date(r.get("TRAN_END_DATE"))
-        if a and b:
-            if a == b:
-                same_day += 1
-            else:
-                kept += 1
+        if not _s(r.get("TRAN_END_DATE")):
+            open_transactions += 1
+        elif a and b and a == b:
+            same_day += 1
+        elif a and b and b > a:
+            kept += 1
+        else:
+            # A missing/invalid issue date, invalid return date, or return
+            # preceding issue cannot establish how long this transaction lasted.
+            uncertain_transactions += 1
     own_by_co, own_lines = {}, {}
     for r in own:
         co = _s(r.get("EMPLOYER_NAME")) or "(not named)"
@@ -1842,6 +1847,8 @@ def _build(base=HERE, when=None):
                                     _PRINT["stale_newest"].strftime("%d %b %Y"), _PRINT["stale_days"]))
     parts["story"] = {
         "same_day": same_day, "kept": kept, "still_out": len(det),
+        "open_transactions": open_transactions,
+        "uncertain_transactions": uncertain_transactions,
         "own_total": len(own), "own_by_co": own_by_co,
         "own_lines": sorted(own_lines.items(), key=lambda kv: (-kv[1], kv[0]))[:10],
         "own_companies": len(own_by_co),
@@ -4221,10 +4228,10 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     line_side = Side(style="thin", color=argb(COATES_LINE))
     tile_top = Side(style="medium", color=ORANGE)
 
-    def fact_height(value):
+    def fact_height(value, width=32):
         # Excel does not autofit merged cells. Reserve complete wrapped lines
         # for each two-column fact, including long project names and dates.
-        lines = sum(max(1, len(textwrap.wrap(part, width=32)))
+        lines = sum(max(1, len(textwrap.wrap(part, width=width)))
                     for part in str(value).split("\n"))
         return max(20, 15 * lines + 5)
 
@@ -4256,7 +4263,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ws.row_dimensions[row].height = 22
         return row + 1
 
-    def wrapped(row, text, font=None, fill=None, indent=1, chars=118):
+    def wrapped(row, text, font=None, fill=None, indent=1, chars=145):
         """A block of wrapped text across the page, tall enough to show
         all of it (Excel never autofits a merged cell)."""
         merge(row, 1, NC)
@@ -4412,6 +4419,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
                 cell.fill = fill
         ws.row_dimensions[r].height = 18
         r += 1
+    ws.row_dimensions[r].height = 6
     r += 1
 
     # ---- where the numbers came from ----------------------------------
@@ -4435,21 +4443,25 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         merge(r, 1, 2)
         put(r, 1, stem, Font(name="Calibri", size=10.5, bold=True,
                              color=NEAR_BLACK),
-            align=Alignment(wrap_text=True, vertical="top", indent=1))
+            align=Alignment(wrap_text=True, vertical="center", indent=1))
         merge(r, 3, 4)
         put(r, 3, export_requested(p),
             Font(name="Calibri", size=10.5, color=NEAR_BLACK),
-            fmt="dd mmm yyyy  hh:mm", align=Alignment(indent=1))
+            fmt="dd mmm yyyy  hh:mm", align=Alignment(vertical="center", indent=1))
         merge(r, 5, 6)
         put(r, 5, USED.get(key, ""), Font(name="Calibri", size=10.5, color=MUTED),
-            align=Alignment(wrap_text=True, vertical="top", indent=1))
+            align=Alignment(wrap_text=True, vertical="center", indent=1))
         for cc in range(1, NC + 1):
             cell = ws.cell(row=r, column=cc)
             cell.border = Border(bottom=line_side)
             if n_ % 2:
                 cell.fill = BAND_FILL
-        ws.row_dimensions[r].height = max(fact_height(stem), fact_height(USED.get(key, "")))
+        # These regular-weight source labels fit more characters than the
+        # bold metadata facts above; reserve extra lines only when needed.
+        ws.row_dimensions[r].height = max(fact_height(stem, 44),
+                                           fact_height(USED.get(key, ""), 44))
         r += 1
+    ws.row_dimensions[r].height = 6
     r += 1
 
     # ---- how the ratings are worked out -------------------------------
@@ -4507,6 +4519,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ("40% to 80%", "Good Use", "Keep Stock"),
         ("Over 80%", "High Demand", "Increase Stock"),
     ])
+    ws.row_dimensions[r].height = 6
     r += 1
 
     # ---- what is typed by hand ----------------------------------------
@@ -4520,11 +4533,13 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
                    "two tabs and Forecast; the email and the PDF company pack carry "
                    "none.",
                 fill=PatternFill("solid", fgColor=argb(COATES_TINT)))
+    ws.row_dimensions[r].height = 6
     r += 1
     r = wrapped(r, "Figures are the tool store's own record as at {}, not a "
                    "live feed. POWERED BY SITEIQ  ·  Author: {}".format(
                        asat.strftime("%d %b %Y %H:%M"),
                        s.author or "Andrew Fisher"), SMALL)
+    ws.row_dimensions[r].height = 6
 
     #  The cover is the page people print and put on the wall, so it
     #  goes portrait while the data tabs go landscape.
@@ -5614,9 +5629,9 @@ def _moving_strip(story):
     customer-owned gear logged - the four numbers behind "the store is
     working". Each cell carries its own meaning in words."""
     cells = [("green", "Returned same day", story["same_day"],
-              "back before the shift ended"),
+              "issued and returned on same date"),
              ("amber", "Kept longer, returned", story["kept"],
-              "out more than a day, now back"),
+              "returned on a later date"),
              ("red" if story["still_out"] else "green", "Still on hire",
               story["still_out"], "itemised in section 7")]
     if story.get("own_total"):
@@ -7176,7 +7191,7 @@ class _Pack(object):
 
         half = (self.cw - 10) / 2.0
         xr = self.x0 + half + 10
-        H = 160
+        H = 172 if st.get("uncertain_transactions") else 160
         red, amber, green = E_RAG["red"][2], E_RAG["amber"][2], E_RAG["green"][2]
 
         # ---- row: the team | how gear is moving ----------------------------
@@ -7215,18 +7230,20 @@ class _Pack(object):
             d.text(self.x0 + 12, top + 14, "No roster entries for this report date.",
                    size=8.5, italic=True, colour=P_MUTED)
         top = self.card(xr, self.y, half, H, "How gear is moving",
-                        "Every tooling issue this period, and what happened next")
-        moving = [("Returned same day", st["same_day"], green),
-                  ("Kept longer, returned", st["kept"], amber),
-                  ("Still on hire", st["still_out"], red if st["still_out"] else self.C_SLATE)]
+                        "Every tooling transaction in this export")
+        open_count = st.get("open_transactions", 0)
+        moving = [("Returned same date", st["same_day"], green),
+                  ("Returned later", st["kept"], amber),
+                  ("No return recorded", open_count, red if open_count else self.C_SLATE)]
+        if st.get("uncertain_transactions"):
+            moving.append(("Dates need review", st["uncertain_transactions"], self.C_SLATE))
         if sum(x[1] for x in moving):
             end_y = self.stacked(xr + 12, top + 10, half - 24, 22, moving, legend_y=top + 50)
             ret = st["same_day"] + st["kept"]
             pct = (100.0 * st["same_day"] / ret) if ret else 0
             d.paragraph(xr + 12, max(top + 72, end_y + 10),
-                        "{:.0f}% of returns came back the same day they went out. Same-day "
-                        "returns keep records clean and gear available for the next crew - if "
-                        "it is not in use, bring it back.".format(pct),
+                        ("{:.0f}% of dated returns were issued and returned on the same date.".format(pct)
+                         if ret else "No completed returns with valid issue and return dates."),
                         size=8, max_w=half - 24, colour=P_MUTED, leading=11, max_lines=3)
         else:
             d.text(xr + 12, top + 14, "No tooling movements in this export.", size=8.5,
@@ -7234,6 +7251,7 @@ class _Pack(object):
         self.y += H + 10
 
         # ---- row: stocktake discipline | customer-owned gear ---------------
+        H = 160
         top = self.card(self.x0, self.y, half, H, "Stocktake discipline",
                         "Items physically sighted in the last three days")
         if st.get("st_total"):

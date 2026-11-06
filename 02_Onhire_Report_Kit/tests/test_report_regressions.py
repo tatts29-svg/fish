@@ -368,5 +368,46 @@ class ReportRegressions(unittest.TestCase):
                 self.assertNotIn(unsupported, rendered)
 
 
+    def test_transaction_story_buckets_do_not_include_outside_window_holdings(self):
+        with temporary_site() as base:
+            fixture(base, company_names=('A', 'B', 'C', 'D', 'E'))
+            transactions = []
+            for index, (started, returned) in enumerate([
+                    ('03/11/2026', '03/11/2026'),
+                    ('03/11/2026', '04/11/2026'),
+                    ('03/11/2026', ''),
+                    ('', '04/11/2026')]):
+                transactions.append({'TRANSACTION_ID': f'TX{index}', 'SKU/ITEM_NUMBER': f'T{index}',
+                    'SKU/ITEM DESCRIPTION': 'WRENCH', 'PRODUCT_CATEGORY': 'Tooling',
+                    'EMPLOYER_NAME': chr(65 + index), 'HIRER_NAME': f'Worker {index}',
+                    'TRAN_START_DATE': started, 'TRAN_END_DATE': returned,
+                    'TRAN_START_TIME': '08:00', 'QUANTITY': 1})
+            export(Path(base) / 'Data_SiteIQ' / 'TRANSACTIONS.xlsx',
+                   {'TRANSACTION_WITHOUT_CHARGES': transactions})
+            charts = []
+            original_stacked = report._Pack.stacked
+            def capture(pack, x, y, width, height, buckets, *args, **kwargs):
+                charts.append(buckets)
+                return original_stacked(pack, x, y, width, height, buckets, *args, **kwargs)
+            with mock.patch.object(report, 'build_company_pack', wraps=report.build_company_pack) as pack:
+                with mock.patch.object(report._Pack, 'stacked', autospec=True, side_effect=capture):
+                    run(base)
+            parts = pack.call_args.args[5]
+            story = parts['story']
+            self.assertEqual(parts['counts']['onhire'], 5)
+            self.assertEqual(story['still_out'], 5)
+            self.assertEqual([story[k] for k in ['same_day', 'kept', 'open_transactions',
+                                                'uncertain_transactions']], [1, 1, 1, 1])
+            breakdown = next(b for b in charts if any(label == 'No return recorded' for label, _, _ in b))
+            self.assertEqual(sum(value for _, value, _ in breakdown), len(transactions))
+            self.assertTrue(any(label == 'Dates need review' for label, _, _ in breakdown))
+            self.assertFalse(any(label == 'Still on hire' for label, _, _ in breakdown))
+            html = report._moving_strip(story)
+            self.assertIn('issued and returned on same date', html)
+            self.assertIn('returned on a later date', html)
+            self.assertNotIn('before the shift ended', html)
+            self.assertNotIn('more than a day', html)
+
+
 if __name__ == '__main__':
     unittest.main()
