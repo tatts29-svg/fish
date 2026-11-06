@@ -1,3 +1,4 @@
+test_entire_protected_blob_table_matches_verified_v1304 (test_release1305.ProtectionHandoverTests.test_entire_protected_blob_table_matches_verified_v1304) ... ok
 test_authenticated_preflight_is_get_only (test_release1305.ReleaseTests.test_authenticated_preflight_is_get_only) ... ok
 test_base_race_during_staging_blocks_register (test_release1305.ReleaseTests.test_base_race_during_staging_blocks_register) ... ok
 test_candidate_metadata_mismatch_cannot_register (test_release1305.ReleaseTests.test_candidate_metadata_mismatch_cannot_register) ... ok
@@ -33,6 +34,6 @@ test_stale_ui_and_learning_queries_are_rejected (test_release1305.SourceBoundary
 test_unreachable_new_module_is_rejected (test_release1305.SourceBoundaryTests.test_unreachable_new_module_is_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 33 tests in 1.312s
+Ran 34 tests in 1.455s
 
 OK
