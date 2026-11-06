@@ -225,14 +225,15 @@
    check the draft in your Outlook version before sending it.
 
 
- WHAT COMES OUT - fifteen tabs (fourteen after demob)
- ====================================================
+ WHAT COMES OUT - sixteen tabs (fifteen after demob)
+ ===================================================
 
    Cover                    what this is, what fed it, the headlines
                             as tiles, how many pages the pack ran to
-   Dashboard                the position as LIVE Excel charts: four
-                            gauges, who holds gear, ratings, movements
-                            by day, consumables running down
+   Dashboard                six tiles, four dials and six LIVE Excel
+                            charts: who holds gear, ratings, movements
+                            by day, consumables running down, gear out
+                            day by day, age of what is out
    Forecast                 the shut ahead, INTERNAL: fly in to fly
                             out, hours per person, cost by day with
                             the running total, where the money goes -
@@ -254,6 +255,8 @@
    Consumable Utilisation   per line: usage, rating, what to do
    Coates Labour            the shift roster       - TYPED BY HAND
    Cost Breakdown           the day-by-day cost    - TYPED BY HAND
+   Chart Data               the small tables the Dashboard charts are
+                            drawn from (nothing to type)
 
    Every tab carries the Coates title band, a filter, frozen
    headings, colour on the ratings, statuses and day counts, and

@@ -1838,7 +1838,7 @@ def _build(base=HERE, when=None):
     carried, labour_total, cost_total, roster = carry_over(wb, s, base, title, when)
     for name, n in carried:
         tabs.append((name, n, "Typed by hand - carried over untouched"))
-    tabs.insert(0, ("Dashboard", 8, "The position as live charts and gauges"))
+    tabs.insert(0, ("Dashboard", "-", "Six headline tiles, four dials and six live charts"))
 
     # ---- the email's numbers, and the company pack --------------------
     #  Worked out before the cover so the cover can say how many pages
@@ -2099,6 +2099,20 @@ def _build(base=HERE, when=None):
             _LOG.append(traceback.format_exc())
             pack_info = None
 
+    try:
+        dashboard(wb, s, when, asat, parts)
+        wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Dashboard"])))
+        tabs.append(("Chart Data", max(0, wb["Chart Data"].max_row - 3),
+                     "The small tables the Dashboard charts are drawn from"))
+    except Exception as e:
+        say("  WARN | The Dashboard tab didn't build ({}). Everything else is "
+            "unaffected.".format(e))
+        import traceback
+        _LOG.append(traceback.format_exc())
+        for nm_ in ("Dashboard", "Chart Data"):
+            if nm_ in wb.sheetnames:
+                wb.remove(wb[nm_])
+
     cover(wb, s, when, asat, tabs, sources, base,
           headline={
               "Items on hire now": len(onhire),
@@ -2134,14 +2148,6 @@ def _build(base=HERE, when=None):
                      _PRINT["stale_days"]) if _PRINT.get("stale_days") else "current"),
                  ("Stocktake export", "pulled {}".format(export_requested(p_stock).strftime("%d %b %Y %H:%M"))
                   if p_stock else "not supplied - the sighted-in-3-days figures are left out")])
-    try:
-        dashboard(wb, s, when, asat, parts)
-        wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Dashboard"])))
-    except Exception as e:
-        say("  WARN | The Dashboard tab didn't build ({}). Everything else is "
-            "unaffected.".format(e))
-        import traceback
-        _LOG.append(traceback.format_exc())
     if parts.get("forecast"):
         try:
             forecast_tab(wb, s, when, asat, parts["forecast"])
@@ -2159,7 +2165,7 @@ def _build(base=HERE, when=None):
     for ws_ in wb.worksheets:
         if ws_.title in ("Cover", "Dashboard", "Forecast"):
             ws_.sheet_properties.tabColor = ORANGE
-        elif ws_.title in CARRIED_OVER:
+        elif ws_.title in CARRIED_OVER or ws_.title == "Chart Data":
             ws_.sheet_properties.tabColor = GREY
         else:
             ws_.sheet_properties.tabColor = SLATE
@@ -2277,7 +2283,7 @@ def _build(base=HERE, when=None):
     say(" COATES | ON-HIRE REPORT - {}".format(s.header_line))
     say("=" * 66)
     for name, n, _why in tabs:
-        say("  {:<26} {:>6} rows".format(name, n))
+        say("  {:<26} {:>6} {}".format(name, n, "rows" if isinstance(n, int) else ""))
     say("-" * 66)
     say("  Dates     from each item's issue transaction. Transactions export")
     say("            covers {}.".format(period or "an unstated period"))
@@ -4328,36 +4334,79 @@ def carry_over(wb, s, base, title, when=None):
     return carried, labour_total, cost_total, roster
 
 
+def chart_finish(chart, title=None, legend=None, border=True):
+    """The same chrome on every chart in the workbook: a 12pt charcoal
+    title, axes Excel is told to draw (openpyxl leaves the choice open
+    and newer Excel then hides them), a hairline border so the chart
+    sits like a card, and the legend where asked - None for no legend,
+    or "b" / "r" for a position."""
+    from openpyxl.chart.shapes import GraphicalProperties
+    from openpyxl.drawing.line import LineProperties
+    from openpyxl.drawing.text import ParagraphProperties, CharacterProperties
+    if title is not None:
+        chart.title = title
+    try:
+        rich = chart.title.tx.rich
+        for p in rich.p:
+            p.pPr = ParagraphProperties(defRPr=CharacterProperties(
+                sz=1200, b=True, solidFill=COATES_SLATE))
+            for run in (p.r or []):
+                run.rPr = CharacterProperties(sz=1200, b=True, solidFill=COATES_SLATE)
+        chart.title.overlay = False
+    except Exception:
+        pass
+    for ax in ("x_axis", "y_axis"):
+        a = getattr(chart, ax, None)
+        if a is not None:
+            try:
+                a.delete = False
+            except Exception:
+                pass
+    if legend is None:
+        chart.legend = None
+    elif chart.legend is not None:
+        chart.legend.position = legend
+    try:
+        chart.graphical_properties = GraphicalProperties(
+            ln=(LineProperties(solidFill=COATES_LINE) if border
+                else LineProperties(noFill=True)))
+    except Exception:
+        pass
+    return chart
+
+
 def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=None,
           shut_end=None):
-    """The front page. Says what this workbook is, what fed it, the
-    headline numbers as tiles, what is in each tab, how the two ratings
-    are worked out, and which tabs are typed by hand - so nobody has to
-    take a recommendation on trust or go hunting for where a number
-    came from. Laid out to print on one or two portrait A4 pages and go
-    on the wall."""
-    import math
+    """The front page, kept calm: who and when, nine facts, the headline
+    numbers as one grid of tiles, what each tab holds (click a name to
+    go there), where the numbers came from, the two rating scales side
+    by side, and which tabs are typed by hand. Everything sits on one
+    grid of twelve narrow columns with uniform row heights, so nothing
+    looks pasted in, and it prints on two portrait A4 pages."""
     import textwrap
+    from openpyxl.worksheet.pagebreak import Break
     ws = wb.create_sheet("Cover")
     ws.sheet_view.showGridLines = False
-    NC = 6
-    for col in "ABCDEF":
-        ws.column_dimensions[col].width = 19.5
+    ws.sheet_view.showRowColHeaders = False
+    ws.sheet_view.zoomScale = 100
+    NC = 12
+    for i in range(1, NC + 1):
+        ws.column_dimensions[get_column_letter(i)].width = 10.2
 
-    LABEL = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+    LABEL = Font(name="Calibri", size=8, bold=True, color=MUTED)
     VALUE = Font(name="Calibri", size=11, bold=True, color=NEAR_BLACK)
     BIG = Font(name="Calibri", size=20, bold=True, color=NEAR_BLACK)
     SMALL = Font(name="Calibri", size=9, color=MUTED)
     TXT = Font(name="Calibri", size=10.5, color=argb("33383F"))
-    line_side = Side(style="thin", color=argb(COATES_LINE))
-    tile_top = Side(style="medium", color=ORANGE)
-
-    def fact_height(value, width=32):
-        # Excel does not autofit merged cells. Reserve complete wrapped lines
-        # for each two-column fact, including long project names and dates.
-        lines = sum(max(1, len(textwrap.wrap(part, width=width)))
-                    for part in str(value).split("\n"))
-        return max(20, 15 * lines + 5)
+    BODY = Font(name="Calibri", size=10.5, color=NEAR_BLACK)
+    HEAD = Font(name="Calibri", size=10, bold=True, color=NEAR_BLACK)
+    LINK = Font(name="Calibri", size=10.5, bold=True, color=NEAR_BLACK,
+                underline="single")
+    BURNT = argb("A6410F")
+    hair = Side(style="thin", color=argb(COATES_LINE))
+    accent = Side(style="medium", color=ORANGE)
+    SOFT = PatternFill("solid", fgColor=argb(COATES_SOFT))
+    TINT = PatternFill("solid", fgColor=argb(COATES_TINT))
 
     def put(row, col, value, font=None, fmt=None, align=None, fill=None):
         c = ws.cell(row=row, column=col, value=value)
@@ -4374,31 +4423,54 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ws.merge_cells(start_row=row, start_column=c1,
                        end_row=row2 or row, end_column=c2)
 
-    def heading(row, text):
-        """A charcoal section rule with an orange tab on the left."""
-        merge(row, 1, NC)
-        c = put(row, 1, text.upper(), Font(name="Calibri", size=10, bold=True,
-                                            color=WHITE),
-                align=Alignment(vertical="center", indent=1))
-        for i in range(1, NC + 1):
-            ws.cell(row=row, column=i).fill = HDR_FILL
-        ws.cell(row=row, column=1).border = Border(
-            left=Side(style="thick", color=ORANGE))
-        ws.row_dimensions[row].height = 22
+    def paint_row(row, c1, c2, fill=None, border=None):
+        for cc in range(c1, c2 + 1):
+            cell = ws.cell(row=row, column=cc)
+            if fill is not None:
+                cell.fill = fill
+            if border is not None:
+                cell.border = border
+
+    def lines_needed(text, chars):
+        #  Excel never autofits a merged cell, so every wrapped block is
+        #  given the room its text needs, measured here.
+        return sum(max(1, len(textwrap.wrap(part, width=chars))) if part else 1
+                   for part in str(text).split("\n"))
+
+    def gap(row, h=8):
+        ws.row_dimensions[row].height = h
         return row + 1
 
-    def wrapped(row, text, font=None, fill=None, indent=1, chars=145):
-        """A block of wrapped text across the page, tall enough to show
-        all of it (Excel never autofits a merged cell)."""
+    def heading(row, text):
+        """A section heading: capitals in charcoal, an orange rule under
+        the first two columns and a hairline under the rest."""
+        put(row, 1, text.upper(), HEAD, align=Alignment(vertical="bottom"))
+        for cc in range(1, NC + 1):
+            ws.cell(row=row, column=cc).border = Border(
+                bottom=accent if cc <= 2 else hair)
+        ws.row_dimensions[row].height = 24
+        return row + 1
+
+    def table_head(row, cols, c0=1):
+        """cols: (text, span, horizontal alignment) left to right."""
+        c1 = c0
+        for text, span, al in cols:
+            if span > 1:
+                merge(row, c1, c1 + span - 1)
+            put(row, c1, text, HDR_FONT,
+                align=Alignment(vertical="center", horizontal=al, indent=1))
+            paint_row(row, c1, c1 + span - 1, fill=HDR_FILL, border=HDR_BORDER)
+            c1 += span
+        ws.row_dimensions[row].height = 20
+        return row + 1
+
+    def wrapped(row, text, font=None, fill=None, chars=138):
         merge(row, 1, NC)
-        c = put(row, 1, text, font or TXT, fill=fill,
-                align=Alignment(wrap_text=True, vertical="top", indent=indent))
-        if fill:
-            for i in range(2, NC + 1):
-                ws.cell(row=row, column=i).fill = fill
-        lines = sum(max(1, int(math.ceil(len(part) / float(chars))))
-                    for part in text.split("\n"))
-        ws.row_dimensions[row].height = 15 * lines + 8
+        put(row, 1, text, font or TXT, fill=fill,
+            align=Alignment(wrap_text=True, vertical="top", indent=1))
+        if fill is not None:
+            paint_row(row, 2, NC, fill=fill)
+        ws.row_dimensions[row].height = 15 * lines_needed(text, chars) + 8
         return row + 1
 
     # ---- the band, the strip under it, the title block -----------------
@@ -4410,141 +4482,149 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
               "SiteIQ exports".format(s.author or "Andrew Fisher"),
         Font(name="Calibri", size=8.5, bold=True, color=MUTED),
         align=Alignment(vertical="center", indent=1))
-    for i in range(1, NC + 1):
-        ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
-        ws.cell(row=2, column=i).border = Border(bottom=line_side)
+    paint_row(2, 1, NC, fill=SOFT, border=Border(bottom=hair))
     ws.row_dimensions[2].height = 18
+    ws.row_dimensions[3].height = 10
 
     r = 4
+    merge(r, 1, NC)
     put(r, 1, s.customer or s.job, Font(name="Calibri", size=24, bold=True,
-                                        color=NEAR_BLACK))
+                                        color=NEAR_BLACK),
+        align=Alignment(vertical="center"))
     ws.row_dimensions[r].height = 34
     r += 1
+    merge(r, 1, NC)
     put(r, 1, " · ".join(b for b in (s.job, s.location) if b) or
-        "Shutdown tool store", Font(name="Calibri", size=12.5, color=MUTED))
+        "Shutdown tool store", Font(name="Calibri", size=12, color=MUTED),
+        align=Alignment(vertical="center"))
     ws.row_dimensions[r].height = 20
     r += 1
+    merge(r, 1, NC)
     put(r, 1, "On-Hire Report  ·  {}".format(when.strftime("%A %d %B %Y")),
-        Font(name="Calibri", size=11, bold=True, color=argb("A6410F")))
-    r += 2
+        Font(name="Calibri", size=11, bold=True, color=BURNT),
+        align=Alignment(vertical="center"))
+    ws.row_dimensions[r].height = 18
+    r += 1
+    r = gap(r, 10)
 
-    # ---- the facts, three pairs across --------------------------------
+    # ---- the facts: nine, three across, uniform rows ------------------
+    #  The secondary facts (export age, draws counted, the stocktake
+    #  pull, the engagement, the typeface) go under the sources table
+    #  as notes, where they belong - the hero stays readable.
+    PRIMARY = ("Shut progress", "Since last report")
+    extra = list(extra or [])
+    by = dict(extra)
+    end = (s.shutdown_end or shut_end)
     facts = [
         ("As at", asat.strftime("%d %b %Y  %H:%M")),
         ("Report date", when.strftime("%d %b %Y")),
         ("Prepared by", s.author or "Andrew Fisher"),
         ("SiteIQ project", s.project_schedule or "-"),
-        ("Exports read", "{} files".format(len(sources))),
+        ("Shutdown ends", end.strftime("%d %b %Y") if end else "-"),
+        ("Shut progress", by.get("Shut progress") or "-"),
+        ("Transactions cover", _PRINT.get("period") or "-"),
+        ("Since last report", by.get("Since last report") or "-"),
         ("Company pack", ("{} pages, {} companies".format(
             pack["pages"], pack["companies"]) if pack else "not built")),
-        ("Engagement", "Fixed rate - no per-item charges" if s.fixed_rate else
-         ("Standard hire" if (s._d.get("engagement") or "").strip() else "Standard hire (default)")),
-        ("Shutdown ends", (s.shutdown_end or shut_end).strftime("%d %b %Y")
-         if (s.shutdown_end or shut_end) else "-"),
-        ("Transactions cover", _PRINT.get("period") or "-"),
-    ] + list(extra or [])
-    for start in range(0, len(facts), 3):
-        value_height = 20
-        for k, (label, value) in enumerate(facts[start:start + 3]):
-            col = 1 + k * 2
-            merge(r, col, col + 1)
-            put(r, col, label.upper(), LABEL,
-                align=Alignment(vertical="bottom", indent=1))
-            merge(r + 1, col, col + 1)
-            put(r + 1, col, value, VALUE,
-                align=Alignment(wrap_text=True, vertical="top", indent=1))
-            value_height = max(value_height, fact_height(value))
-            for cc in (col, col + 1):
-                ws.cell(row=r + 1, column=cc).border = Border(bottom=line_side)
-        ws.row_dimensions[r].height = 14
-        ws.row_dimensions[r + 1].height = value_height
-        r += 2
-        if start + 3 < len(facts):
-            ws.row_dimensions[r].height = 6
-            r += 1
-    r += 1
+    ]
+    engagement = ("Fixed rate - no per-item charges" if s.fixed_rate else
+                  ("Standard hire" if (s._d.get("engagement") or "").strip()
+                   else "Standard hire (default)"))
+    notes = ([("Engagement", engagement),
+              ("Exports read", "{} files".format(len(sources)))]
+             + [f for f in extra if f[0] not in PRIMARY])
 
-    # ---- the headlines, as tiles --------------------------------------
+    r = heading(r, "Key facts")
+    r = gap(r, 4)
+    SPAN = NC // 3
+    value_h = max([22] + [15 * lines_needed(v, 36) + 7 for _l, v in facts])
+    for start in range(0, len(facts), 3):
+        for k, (label, value) in enumerate(facts[start:start + 3]):
+            c1 = 1 + k * SPAN
+            c2 = c1 + SPAN - 1
+            merge(r, c1, c2)
+            put(r, c1, label.upper(), LABEL,
+                align=Alignment(vertical="bottom", indent=1))
+            merge(r + 1, c1, c2)
+            put(r + 1, c1, value, VALUE,
+                align=Alignment(wrap_text=True, vertical="top", indent=1))
+            paint_row(r + 1, c1, c2, border=Border(bottom=hair))
+        ws.row_dimensions[r].height = 13
+        ws.row_dimensions[r + 1].height = value_h
+        r += 2
+        r = gap(r, 5)
+    r = gap(r, 6)
+
+    # ---- the headlines, as one grid of tiles --------------------------
     r = heading(r, "The headlines")
-    ws.row_dimensions[r].height = 8
-    r += 1
+    r = gap(r, 6)
     items = list(headline.items())
-    for start in range(0, len(items), 3):
-        chunk = items[start:start + 3]
-        for k, (label, value) in enumerate(chunk):
-            col = 1 + k * 2
+    PER = 4
+    span = NC // PER
+    for start in range(0, len(items), PER):
+        for k, (label, value) in enumerate(items[start:start + PER]):
+            c1 = 1 + k * span
+            c2 = c1 + span - 1
             money = "cost" in label.lower()
-            merge(r, col, col + 1)
+            merge(r, c1, c2)
             if money and not value:
                 #  Blank is not zero. The hand-typed tabs carry formulas,
                 #  and a workbook saved without cached results reads as
                 #  nothing - so say TBC and point at the tab, never $0.
-                put(r, col, "TBC", Font(name="Calibri", size=16, bold=True,
-                                        color=MUTED),
+                put(r, c1, "TBC", Font(name="Calibri", size=16, bold=True,
+                                       color=MUTED),
                     align=Alignment(vertical="center", horizontal="left",
                                     indent=1))
             else:
-                put(r, col, round(value, 2) if money else int(value), BIG,
+                put(r, c1, round(value, 2) if money else int(value), BIG,
                     fmt=MONEY_FMT if money else INT_FMT,
                     align=Alignment(vertical="center", horizontal="left",
                                     indent=1))
-            merge(r + 1, col, col + 1)
-            put(r + 1, col, label.upper(), LABEL,
+            merge(r + 1, c1, c2)
+            put(r + 1, c1, label.upper(), LABEL,
                 align=Alignment(vertical="top", indent=1))
-            #  Tile edges: orange rule on top, hairline round the rest.
-            ws.cell(row=r, column=col).border = Border(top=tile_top, left=line_side)
-            ws.cell(row=r, column=col + 1).border = Border(top=tile_top, right=line_side)
-            ws.cell(row=r + 1, column=col).border = Border(bottom=line_side, left=line_side)
-            ws.cell(row=r + 1, column=col + 1).border = Border(bottom=line_side, right=line_side)
-        ws.row_dimensions[r].height = 34
-        ws.row_dimensions[r + 1].height = 20
+            for cc in range(c1, c2 + 1):
+                ws.cell(row=r, column=cc).border = Border(
+                    top=accent, left=hair if cc == c1 else None,
+                    right=hair if cc == c2 else None)
+                ws.cell(row=r + 1, column=cc).border = Border(
+                    bottom=hair, left=hair if cc == c1 else None,
+                    right=hair if cc == c2 else None)
+        ws.row_dimensions[r].height = 32
+        ws.row_dimensions[r + 1].height = 18
         r += 2
-        ws.row_dimensions[r].height = 8
-        r += 1
-    r += 1
-
-    # Keep the navigation directory together on its own printed page.
-    from openpyxl.worksheet.pagebreak import Break
-    ws.row_breaks.append(Break(id=r - 1))
+        r = gap(r, 6)
+    r = gap(r, 4)
 
     # ---- what is in the workbook --------------------------------------
     r = heading(r, "What's in this workbook")
-    for col, text, span in ((1, "Tab", 2), (3, "Rows", 1), (4, "What it tells you", 3)):
-        if span > 1:
-            merge(r, col, col + span - 1)
-        c = put(r, col, text, HDR_FONT, align=Alignment(
-            vertical="center", horizontal="right" if text == "Rows" else "left",
-            indent=1))
-        for cc in range(col, col + span):
-            ws.cell(row=r, column=cc).fill = HDR_FILL
-            ws.cell(row=r, column=cc).border = HDR_BORDER
-    ws.row_dimensions[r].height = 20
-    r += 1
+    r = table_head(r, [("Tab", 3, "left"), ("Rows", 1, "right"),
+                       ("What it tells you", 8, "left")])
     for n_, (name, n, why) in enumerate(tabs):
         typed = name in CARRIED_OVER
         fill = BAND_FILL if n_ % 2 else None
-        merge(r, 1, 2)
-        put(r, 1, name, Font(name="Calibri", size=10.5, bold=True,
-                             color=NEAR_BLACK, underline="single"), align=Alignment(indent=1))
+        merge(r, 1, 3)
+        c = put(r, 1, name, LINK, align=Alignment(vertical="center", indent=1))
         try:
-            ws.cell(row=r, column=1).hyperlink = "#'{}'!A1".format(name.replace("'", "''"))
+            c.hyperlink = "#'{}'!A1".format(name.replace("'", "''"))
+            c.font = LINK
         except Exception:
             pass
-        put(r, 3, n, Font(name="Calibri", size=10.5, color=NEAR_BLACK),
-            fmt=INT_FMT, align=Alignment(horizontal="right", indent=1))
-        merge(r, 4, 6)
-        put(r, 4, why, Font(name="Calibri", size=10.5, bold=typed,
-                            color=argb("A6410F") if typed else MUTED),
-            align=Alignment(indent=1))
-        for cc in range(1, NC + 1):
-            cell = ws.cell(row=r, column=cc)
-            cell.border = Border(bottom=line_side)
-            if fill:
-                cell.fill = fill
-        ws.row_dimensions[r].height = 18
+        put(r, 4, n if isinstance(n, (int, float)) else (n or "-"), BODY,
+            fmt=INT_FMT, align=Alignment(horizontal="right", vertical="center",
+                                         indent=1))
+        merge(r, 5, NC)
+        put(r, 5, why, Font(name="Calibri", size=10.5, bold=typed,
+                            color=BURNT if typed else MUTED),
+            align=Alignment(vertical="center", indent=1))
+        paint_row(r, 1, NC, fill=fill, border=Border(bottom=hair))
+        ws.row_dimensions[r].height = 17
         r += 1
-    ws.row_dimensions[r].height = 6
-    r += 1
+    r = gap(r, 8)
+
+    # Page one: title, facts, headlines and the directory. Page two: the
+    # sources, the rating scales and the notes.
+    ws.row_breaks.append(Break(id=r - 1))
 
     # ---- where the numbers came from ----------------------------------
     r = heading(r, "Where the numbers came from")
@@ -4552,127 +4632,114 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
             "SALES_STOCK": "Consumables - on the shelf and gone out",
             "TRANSACTIONS": "Every issue and return this period",
             "STOCKTAKE": "The last count"}
-    for col, text, span in ((1, "Export", 2), (3, "Pulled from SiteIQ", 2),
-                            (5, "Used for", 2)):
-        merge(r, col, col + span - 1)
-        put(r, col, text, HDR_FONT, align=Alignment(vertical="center", indent=1))
-        for cc in range(col, col + span):
-            ws.cell(row=r, column=cc).fill = HDR_FILL
-            ws.cell(row=r, column=cc).border = HDR_BORDER
-    ws.row_dimensions[r].height = 20
-    r += 1
+    r = table_head(r, [("Export", 3, "left"), ("Pulled from SiteIQ", 3, "left"),
+                       ("Used for", 6, "left")])
     for n_, p in enumerate(sources):
         stem = os.path.basename(p)
         key = next((k for k in USED if stem.upper().startswith(k)), "")
-        merge(r, 1, 2)
-        put(r, 1, stem, Font(name="Calibri", size=10.5, bold=True,
-                             color=NEAR_BLACK),
-            align=Alignment(wrap_text=True, vertical="center", indent=1))
-        merge(r, 3, 4)
-        put(r, 3, export_requested(p),
-            Font(name="Calibri", size=10.5, color=NEAR_BLACK),
-            fmt="dd mmm yyyy  hh:mm", align=Alignment(vertical="center", indent=1))
-        merge(r, 5, 6)
-        put(r, 5, USED.get(key, ""), Font(name="Calibri", size=10.5, color=MUTED),
-            align=Alignment(wrap_text=True, vertical="center", indent=1))
-        for cc in range(1, NC + 1):
-            cell = ws.cell(row=r, column=cc)
-            cell.border = Border(bottom=line_side)
-            if n_ % 2:
-                cell.fill = BAND_FILL
-        # These regular-weight source labels fit more characters than the
-        # bold metadata facts above; reserve extra lines only when needed.
-        ws.row_dimensions[r].height = max(fact_height(stem, 44),
-                                           fact_height(USED.get(key, ""), 44))
+        merge(r, 1, 3)
+        put(r, 1, stem, Font(name="Calibri", size=10.5, bold=True, color=NEAR_BLACK),
+            align=Alignment(vertical="center", indent=1))
+        merge(r, 4, 6)
+        put(r, 4, export_requested(p), BODY, fmt="dd mmm yyyy  hh:mm",
+            align=Alignment(vertical="center", horizontal="left", indent=1))
+        merge(r, 7, NC)
+        put(r, 7, USED.get(key, ""), Font(name="Calibri", size=10.5, color=MUTED),
+            align=Alignment(vertical="center", indent=1))
+        paint_row(r, 1, NC, fill=BAND_FILL if n_ % 2 else None,
+                  border=Border(bottom=hair))
+        ws.row_dimensions[r].height = 18
         r += 1
-    ws.row_dimensions[r].height = 6
-    r += 1
+    for label, value in notes:
+        merge(r, 1, 3)
+        put(r, 1, label.upper(), LABEL, align=Alignment(vertical="center", indent=1))
+        merge(r, 4, NC)
+        put(r, 4, value, BODY,
+            align=Alignment(vertical="center", indent=1, wrap_text=True))
+        paint_row(r, 1, NC, border=Border(bottom=hair))
+        ws.row_dimensions[r].height = max(17, 15 * lines_needed(value, 86) + 4)
+        r += 1
+    r = gap(r, 8)
 
-    # ---- how the ratings are worked out -------------------------------
+    # ---- how the ratings are worked out: the two scales side by side ---
     r = heading(r, "How the ratings are worked out")
-    r = wrapped(r, "Tooling is rated on TURNS - transactions divided by how "
-                   "many of that item are on site. One item that went out five "
-                   "times is working; five items that went out once each are "
-                   "sitting there. Consumables are rated on how much of the "
-                   "position has gone out - sales divided by sales plus what "
-                   "is left on the shelf. Both are printed here so a "
-                   "recommendation never has to be taken on trust.")
-    ws.row_dimensions[r].height = 6
-    r += 1
+    r = wrapped(r, "Tooling is rated on turns - transactions divided by how many "
+                   "of that item are on site, so one item that went out five "
+                   "times is working and five that went out once each are "
+                   "sitting there. Consumables are rated on the share of the "
+                   "position that has gone out - sales divided by sales plus "
+                   "what is left on the shelf.")
+    r = gap(r, 4)
 
-    def legend(row, head, lines):
-        for col, text, span in ((1, head, 2), (3, "Rating", 2),
-                                (5, "Recommendation", 2)):
-            merge(row, col, col + span - 1)
-            put(row, col, text, HDR_FONT, align=Alignment(vertical="center", indent=1))
-            for cc in range(col, col + span):
-                ws.cell(row=row, column=cc).fill = HDR_FILL
-                ws.cell(row=row, column=cc).border = HDR_BORDER
+    def legend(row, c0, head, lines):
+        c = c0
+        for text, span in ((head, 2), ("Rating", 2), ("Recommendation", 2)):
+            merge(row, c, c + span - 1)
+            put(row, c, text, HDR_FONT, align=Alignment(vertical="center", indent=1))
+            paint_row(row, c, c + span - 1, fill=HDR_FILL, border=HDR_BORDER)
+            c += span
         ws.row_dimensions[row].height = 20
         row += 1
         for rule_, rating, rec in lines:
-            merge(row, 1, 2)
-            put(row, 1, rule_, Font(name="Calibri", size=10.5, color=NEAR_BLACK),
-                align=Alignment(wrap_text=True, vertical="top", indent=1))
-            for col, word in ((3, rating), (5, rec)):
-                fill, text, _bar = RAG[TONE.get(word.split("  ")[0], "slate")]
-                merge(row, col, col + 1)
-                put(row, col, word, Font(name="Calibri", size=10.5, bold=True,
-                                         color=argb(text)),
-                    fill=PatternFill("solid", fgColor=argb(fill)),
-                    align=Alignment(wrap_text=True, vertical="top", indent=1))
-                ws.cell(row=row, column=col + 1).fill = PatternFill(
-                    "solid", fgColor=argb(fill))
-            for cc in range(1, NC + 1):
-                ws.cell(row=row, column=cc).border = Border(bottom=line_side)
-            ws.row_dimensions[row].height = max(fact_height(rule_), fact_height(rating), fact_height(rec))
+            merge(row, c0, c0 + 1)
+            put(row, c0, rule_, BODY, align=Alignment(vertical="center", indent=1))
+            for off, word in ((2, rating), (4, rec)):
+                fill, text, _bar = RAG[TONE.get(word.rstrip("*"), "slate")]
+                tint = PatternFill("solid", fgColor=argb(fill))
+                merge(row, c0 + off, c0 + off + 1)
+                put(row, c0 + off, word, Font(name="Calibri", size=10.5, bold=True,
+                                              color=argb(text)),
+                    fill=tint, align=Alignment(vertical="center", indent=1))
+                ws.cell(row=row, column=c0 + off + 1).fill = tint
+            paint_row(row, c0, c0 + 5, border=Border(bottom=hair))
+            ws.row_dimensions[row].height = 18
             row += 1
         return row
 
-    r = legend(r, "Tooling - turns", [
-        ("No turns", "No Use", "Review / Reduce"),
-        ("Under 1 turn", "Low Use", "Keep Stock"),
-        ("1 to 2 turns", "Good Use", "Keep Stock  (Monitor / Increase if 80%+ out now)"),
+    top = r
+    legend(top, 1, "Tooling - turns", [
         ("2 turns or more", "High Demand", "Increase Stock"),
+        ("1 to 2 turns", "Good Use", "Keep Stock*"),
+        ("Under 1 turn", "Low Use", "Keep Stock"),
+        ("No turns", "No Use", "Review / Reduce"),
     ])
-    ws.row_dimensions[r].height = 8
-    r += 1
-    r = legend(r, "Consumables - share of position sold (all sales since the project began)", [
-        ("Nothing sold", "No Use", "Review / Reduce"),
-        ("Under 40%", "Low Use", "Keep Stock"),
-        ("40% to 80%", "Good Use", "Keep Stock"),
+    r = legend(top, 7, "Consumables - share sold", [
         ("Over 80%", "High Demand", "Increase Stock"),
+        ("40% to 80%", "Good Use", "Keep Stock"),
+        ("Under 40%", "Low Use", "Keep Stock"),
+        ("Nothing sold", "No Use", "Review / Reduce"),
     ])
-    ws.row_dimensions[r].height = 6
+    merge(r, 1, NC)
+    put(r, 1, "* Monitor / Increase when 80% or more of that item is out right "
+              "now.  Consumable shares count all sales since the project began.",
+        SMALL, align=Alignment(vertical="center", indent=1))
+    ws.row_dimensions[r].height = 16
     r += 1
+    r = gap(r, 8)
 
     # ---- what is typed by hand ----------------------------------------
     r = heading(r, "What is typed by hand")
-    r = wrapped(r, "Coates Labour and Cost Breakdown are yours. The rebuild "
-                   "reads them out of the previous workbook and writes them "
-                   "straight back - it never recalculates them and never "
-                   "overwrites your typing. Everything on every other tab is "
-                   "built from the SiteIQ exports listed above, so a fresh pull "
-                   "refreshes the lot. Costs appear on this cover and on those "
-                   "two tabs and Forecast; the email and the PDF company pack carry "
-                   "none.",
-                fill=PatternFill("solid", fgColor=argb(COATES_TINT)))
-    ws.row_dimensions[r].height = 6
-    r += 1
-    r = wrapped(r, "Figures are the tool store's own record as at {}, not a "
-                   "live feed. POWERED BY SITEIQ  ·  Author: {}".format(
+    r = gap(r, 4)
+    r = wrapped(r, "Coates Labour and Cost Breakdown are yours: the rebuild reads "
+                   "them out of the previous workbook and writes them straight "
+                   "back, never recalculated and never overwritten. Every other "
+                   "tab is rebuilt from the SiteIQ exports above, so a fresh pull "
+                   "refreshes the lot. Costs appear on this cover, on those two "
+                   "tabs and on Forecast - the email and the PDF company pack "
+                   "carry none.", fill=TINT)
+    r = gap(r, 6)
+    r = wrapped(r, "Figures are the tool store's own record as at {}, not a live "
+                   "feed.   POWERED BY SITEIQ  ·  Author: {}".format(
                        asat.strftime("%d %b %Y %H:%M"),
                        s.author or "Andrew Fisher"), SMALL)
-    ws.row_dimensions[r].height = 6
 
     #  The cover is the page people print and put on the wall, so it
     #  goes portrait while the data tabs go landscape.
     tidy_print(ws, NC, landscape=False, name="Cover")
     ws.print_title_rows = "1:1"
-    ws.print_area = "A1:F{}".format(r)
+    ws.print_area = "A1:{}{}".format(get_column_letter(NC), r)
     ws.sheet_properties.tabColor = ORANGE
     return ws
-
 
 def forecast_tab(wb, s, when, asat, fc):
     """A Forecast tab: the shut ahead as tiles, a day-by-day table of
@@ -4689,6 +4756,8 @@ def forecast_tab(wb, s, when, asat, fc):
 
     ws = wb.create_sheet("Forecast")
     ws.sheet_view.showGridLines = False
+    ws.sheet_view.showRowColHeaders = False
+    ws.sheet_view.zoomScale = 100
     cost = fc.get("cost")
     people = [p[0] for p in fc["people"]]
     money_cols = cost["columns"] if cost else []
@@ -4794,6 +4863,7 @@ def forecast_tab(wb, s, when, asat, fc):
                 c.fill = BAND_FILL
             if i == 1:
                 c.number_format = "ddd dd mmm yyyy"
+                c.alignment = Alignment(horizontal="left", indent=1)
             elif i > 2 + len(people):
                 c.number_format = MONEY_FMT
                 c.alignment = Alignment(horizontal="right")
@@ -4909,7 +4979,10 @@ def forecast_tab(wb, s, when, asat, fc):
         line.y_axis.numFmt = "$#,##0"
         line.y_axis.crosses = "max"
         line.y_axis.majorGridlines = None
+        line.y_axis.delete = False
+        line.x_axis.delete = False
         bar += line
+        chart_finish(bar, legend="b")
         bar.width, bar.height = 24.5, 10.6
         ws.add_chart(bar, "A7")
 
@@ -4933,7 +5006,7 @@ def forecast_tab(wb, s, when, asat, fc):
         dn.dataLabels.showSerName = False
         dn.dataLabels.showCatName = False
         dn.dataLabels.showLegendKey = False
-        dn.legend.position = "b"
+        chart_finish(dn, legend="b")
         dn.width, dn.height = 11.5, 10.6
         ws.add_chart(dn, "J7")
     else:
@@ -4948,6 +5021,7 @@ def forecast_tab(wb, s, when, asat, fc):
             paint(srs, PALETTE[k % len(PALETTE)])
         hb.grouping = "stacked"
         hb.overlap = 100
+        chart_finish(hb, legend="b")
         hb.width, hb.height = 24.5, 10.6
         ws.add_chart(hb, "A7")
 
@@ -4966,40 +5040,49 @@ def cost_by_day_run_before(cost_by_day, day):
 
 
 def dashboard(wb, s, when, asat, parts):
-    """A Dashboard tab: the headline tiles, four gauges, and four charts
-    drawn by Excel itself from small data tables lower on the same tab -
-    so they are live charts anyone can click, recolour or copy into a
-    deck, not pictures."""
+    """A Dashboard tab that reads like a page: six headline tiles, four
+    dials, and six live Excel charts in a two-by-three grid - nothing
+    else. The small tables the charts are drawn from sit on their own
+    Chart Data tab at the back, in full width, where they can be read
+    without cluttering the picture. Charts are Excel's own, so anyone
+    can click, recolour or copy them into a deck."""
     from openpyxl.chart import BarChart, DoughnutChart, LineChart, Reference
     from openpyxl.chart.label import DataLabelList
     from openpyxl.chart.series import DataPoint
     from openpyxl.chart.shapes import GraphicalProperties
     from openpyxl.drawing.line import LineProperties
+    from openpyxl.formatting.rule import DataBarRule
 
     v = parts["viz"]
+    short = s.short or s.customer or "Shutdown"
     ws = wb.create_sheet("Dashboard")
     ws.sheet_view.showGridLines = False
+    ws.sheet_view.showRowColHeaders = False
+    ws.sheet_view.zoomScale = 100
     NC = 12
     for i in range(1, NC + 1):
         ws.column_dimensions[get_column_letter(i)].width = 11.5
-    band(ws, "{}  |  Shutdown Tool Store  |  Dashboard".format(
-        s.short or s.customer or "Shutdown"), NC)
+    band(ws, "{}  |  Shutdown Tool Store  |  Dashboard".format(short), NC)
     ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=NC)
     c = ws.cell(row=2, column=1, value="POWERED BY SITEIQ     ·     Author: {}     "
-                "·     Charts are live - drawn by Excel from the tables at the foot "
-                "of this tab     ·     As at {}".format(
+                "·     Charts are live - Excel draws them from the Chart Data tab at "
+                "the back     ·     As at {}".format(
                     s.author or "Andrew Fisher", asat.strftime("%d %b %Y %H:%M")))
     c.font = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
     c.alignment = Alignment(vertical="center", indent=1)
     for i in range(1, NC + 1):
         ws.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
     ws.row_dimensions[2].height = 18
+    ws.row_dimensions[3].height = 10
 
     LABEL = Font(name="Calibri", size=8.5, bold=True, color=argb("F7A072"))
     BIG = Font(name="Calibri", size=20, bold=True, color=WHITE)
     line_side = Side(style="thin", color=argb("3E4651"))
+    hair = Side(style="thin", color=argb(COATES_LINE))
     tile_top = Side(style="medium", color=ORANGE)
     DARK = PatternFill("solid", fgColor=NEAR_BLACK)
+    TRACK = PatternFill("solid", fgColor=argb("E6E9EE"))
+    BURNT = argb("A6410F")
 
     # ---- tiles --------------------------------------------------------
     r = 4
@@ -5022,63 +5105,149 @@ def dashboard(wb, s, when, asat, parts):
             ws.cell(row=rr_, column=cc_).fill = DARK
     ws.row_dimensions[r].height = 32
     ws.row_dimensions[r + 1].height = 26
+    ws.row_dimensions[6].height = 12
 
-    # ---- the data the charts read -------------------------------------
-    #  Kept on the tab, below the charts, headed like every other table.
-    D0 = 76
-    def table(row, col, heads, rows_):
-        for i, h in enumerate(heads):
-            c = ws.cell(row=row, column=col + i, value=h)
+    # ---- the Chart Data tab: the tables the charts read ---------------
+    cd = wb.create_sheet("Chart Data")
+    cd.sheet_view.showGridLines = False
+    CDC = 6
+    band(cd, "{}  |  Shutdown Tool Store  |  Chart Data".format(short), CDC)
+    cd.merge_cells(start_row=2, start_column=1, end_row=2, end_column=CDC)
+    c = cd.cell(row=2, column=1, value=(
+        "The small tables the Dashboard charts are drawn from - built from the "
+        "same exports as every other tab. Nothing to type here; a rebuild writes "
+        "it fresh."))
+    c.font = NOTE_FONT
+    c.alignment = Alignment(vertical="center", indent=1)
+    for i in range(1, CDC + 1):
+        cd.cell(row=2, column=i).fill = PatternFill("solid", fgColor=argb(COATES_SOFT))
+    cd.row_dimensions[2].height = 18
+    cd.column_dimensions["A"].width = 46
+    for i in range(2, CDC + 1):
+        cd.column_dimensions[get_column_letter(i)].width = 19
+    cursor = [4]
+
+    def table(title, heads, rows_):
+        d = cursor[0]
+        t = cd.cell(row=d, column=1, value=title.upper())
+        t.font = Font(name="Calibri", size=9, bold=True, color=BURNT)
+        t.alignment = Alignment(vertical="bottom")
+        cd.row_dimensions[d].height = 18
+        d += 1
+        head = d
+        for i, h in enumerate(heads, start=1):
+            c = cd.cell(row=d, column=i, value=h)
             c.font = HDR_FONT
             c.fill = HDR_FILL
             c.border = HDR_BORDER
-            c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-        ws.row_dimensions[row].height = 28
+            c.alignment = Alignment(horizontal="left" if i == 1 else "right",
+                                    vertical="center", indent=1)
+        cd.row_dimensions[d].height = 20
         for j, rr in enumerate(rows_, start=1):
-            for i, val in enumerate(rr):
-                c = ws.cell(row=row + j, column=col + i, value=val)
+            for i, val in enumerate(rr, start=1):
+                c = cd.cell(row=d + j, column=i, value=val)
                 c.font = BODY_FONT
                 c.border = CELL_BORDER
                 if j % 2 == 0:
                     c.fill = BAND_FILL
                 if isinstance(val, (int, float)):
-                    c.alignment = Alignment(horizontal="right")
-                    c.number_format = "0%" if isinstance(val, float) and val <= 1 else INT_FMT
-        return row + len(rows_)
-
-    ws.cell(row=D0 - 2, column=1, value="CHART DATA").font = Font(
-        name="Calibri", size=10, bold=True, color=argb("A6410F"))
-    ws.cell(row=D0 - 1, column=1, value="These small tables feed the charts above. "
-            "Built from the same exports as every other tab.").font = NOTE_FONT
+                    c.alignment = Alignment(horizontal="right", vertical="center")
+                    c.number_format = ("0%" if isinstance(val, float) and val <= 1
+                                       else INT_FMT)
+                else:
+                    c.alignment = Alignment(vertical="center", indent=1)
+        last = d + len(rows_)
+        cursor[0] = last + 2
+        return head, last
 
     comp = sorted([c for c in parts["companies"] if c[1]],
                   key=lambda c: (-c[1], c[0].casefold()))[:6]
     gear_out = bool(comp)
     if not gear_out:                      # nothing on hire: chart the movement instead
         comp = sorted([c for c in parts["companies"] if c[2]], key=lambda c: -c[2])[:6]
-    end_a = table(D0, 1, ["Company", "On hire now", "Tooling issues", "Consumables"],
-                  [[c[0], c[1], c[2], c[3]] for c in comp] or [["(none)", 0, 0, 0]])
+    hA, eA = table("Companies - the six largest",
+                   ["Company", "On hire now", "Tooling issues", "Consumables"],
+                   [[c[0], c[1], c[2], c[3]] for c in comp] or [["(none)", 0, 0, 0]])
     order = ["High Demand", "Good Use", "Low Use", "No Use"]
-    end_b = table(D0, 6, ["Rating", "Tooling lines", "Consumable lines"],
-                  [[k, v["tool_mix"].get(k, 0), v["cons_mix"].get(k, 0)] for k in order])
+    hB, eB = table("Lines by rating", ["Rating", "Tooling lines", "Consumable lines"],
+                   [[k, v["tool_mix"].get(k, 0), v["cons_mix"].get(k, 0)] for k in order])
     days = v["by_day"]
-    end_c = table(end_a + 3, 1, ["Day", "Issued", "Returned", "Consumables issued"],
-                  [[dd.strftime("%a %d %b"), i, rr, cc] for dd, i, rr, cc in days] or
-                  [["(no dated movements)", 0, 0, 0]])
+    hC, eC = table("Movements by day", ["Day", "Issued", "Returned", "Consumables issued"],
+                   [[dd.strftime("%a %d %b"), i, rr, cc] for dd, i, rr, cc in days] or
+                   [["(no dated movements)", 0, 0, 0]])
     cons = parts["consumables"][:10]
-    end_d = table(end_b + 3, 6, ["Consumable line", "Share gone out"],
-                  [[c_[0], float(c_[3])] for c_ in cons] or [["(none)", 0.0]])
+    hD, eD = table("Consumables running down", ["Consumable line", "Share gone out"],
+                   [[c_[0], float(c_[3])] for c_ in cons] or [["(none)", 0.0]])
+    obd = v.get("out_by_day") or []
+    age = v.get("age") or []
+    hE, eE = table("Gear out at the end of each day", ["Day", "Out at day's end"],
+                   [[dd.strftime("%a %d %b"), n] for dd, n in obd] or
+                   [["(no dated movements)", 0]])
+    hF, eF = table("Age of what is out", ["Age band", "Items on hire"],
+                   [[lab, n] for lab, n, _t in age] or [["(nothing out)", 0]])
     gauges = [
-        ("Coates fleet on hire", v["coates_out"], v["coates_total"]),
-        ("Dated from transactions", v["dated"], v["onhire"]),
-        ("Consumable lines past 80%", v["cons_tight"], v["cons_lines"]),
-        ("Items out over {} days".format(LONG_OUT_DAYS), v["long_out"], v["onhire"]),
+        ("Coates fleet on hire", v["coates_out"], v["coates_total"], "Coates items"),
+        ("Dated from transactions", v["dated"], v["onhire"], "on hire"),
+        ("Consumable lines past 80%", v["cons_tight"], v["cons_lines"], "lines"),
+        ("Items out over {} days".format(LONG_OUT_DAYS), v["long_out"], v["onhire"], "on hire"),
     ]
-    g0 = max(end_c, end_d) + 3
-    table(g0, 1, ["Dial", "Value", "Of", "Share", "Rest", "Hidden half"],
-          [[name, a, b, (a / float(b)) if b else 0.0,
-            (1 - a / float(b)) if b else 1.0, 1.0] for name, a, b in gauges])
+    table("The dials", ["Dial", "Value", "Of", "Share"],
+          [[name, a, b, (a / float(b)) if b else 0.0] for name, a, b, _u in gauges])
+    tidy_print(cd, CDC, name="Chart Data")
+    cd.sheet_properties.tabColor = GREY
 
+    # ---- the dials: a big figure, what it is of, and a bar ------------
+    r = 7
+    ws.merge_cells(start_row=r, start_column=1, end_row=r, end_column=NC)
+    c = ws.cell(row=r, column=1, value="THE DIALS")
+    c.font = Font(name="Calibri", size=9, bold=True, color=BURNT)
+    c.alignment = Alignment(vertical="bottom", indent=1)
+    ws.row_dimensions[r].height = 18
+    for k, (name, a, b, unit) in enumerate(gauges):
+        c1 = 1 + k * 3
+        c2 = c1 + 2
+        share = (a / float(b)) if b else 0.0
+        tone = ("orange" if k == 0 else
+                ("green" if (k == 1 and not v["undated"]) or (k == 2 and not v["cons_tight"])
+                 or (k == 3 and not v["long_out"])
+                 else ("red" if k == 3 else "amber")))
+        fill_hex, text_hex, bar_hex = RAG[tone]
+        ws.merge_cells(start_row=r + 1, start_column=c1, end_row=r + 1, end_column=c2)
+        big = ws.cell(row=r + 1, column=c1, value=(a if k == 3 else share))
+        big.number_format = INT_FMT if k == 3 else "0%"
+        big.font = Font(name="Calibri", size=22, bold=True, color=argb(text_hex))
+        big.alignment = Alignment(vertical="center", horizontal="left", indent=1)
+        ws.merge_cells(start_row=r + 2, start_column=c1, end_row=r + 2, end_column=c2)
+        lab = ws.cell(row=r + 2, column=c1, value=name.upper())
+        lab.font = Font(name="Calibri", size=8.5, bold=True, color=MUTED)
+        lab.alignment = Alignment(vertical="top", indent=1)
+        ws.merge_cells(start_row=r + 3, start_column=c1, end_row=r + 3, end_column=c2)
+        sub = ws.cell(row=r + 3, column=c1, value="{:,} of {:,} {}".format(a, b, unit))
+        sub.font = Font(name="Calibri", size=9, color=MUTED)
+        sub.alignment = Alignment(vertical="top", indent=1)
+        ws.merge_cells(start_row=r + 4, start_column=c1, end_row=r + 4, end_column=c2)
+        bar = ws.cell(row=r + 4, column=c1, value=share)
+        bar.number_format = ";;;"               # the bar shows, the number doesn't
+        for cc in range(c1, c2 + 1):
+            ws.cell(row=r + 4, column=cc).fill = TRACK
+        ws.conditional_formatting.add(
+            "{0}{2}:{1}{2}".format(get_column_letter(c1), get_column_letter(c2), r + 4),
+            DataBarRule(start_type="num", start_value=0, end_type="num", end_value=1,
+                        color=bar_hex, showValue=False))
+        for rr in range(r + 1, r + 5):
+            for cc in range(c1, c2 + 1):
+                ws.cell(row=rr, column=cc).border = Border(
+                    top=tile_top if rr == r + 1 else None,
+                    bottom=hair if rr == r + 4 else None,
+                    left=hair if cc == c1 else None,
+                    right=hair if cc == c2 else None)
+    ws.row_dimensions[r + 1].height = 34
+    ws.row_dimensions[r + 2].height = 14
+    ws.row_dimensions[r + 3].height = 16
+    ws.row_dimensions[r + 4].height = 12
+    ws.row_dimensions[r + 5].height = 12
+
+    # ---- the charts: two across, three down, all the same size --------
     def labels(chart, fmt=None):
         chart.dataLabels = DataLabelList()
         chart.dataLabels.showVal = True
@@ -5094,95 +5263,68 @@ def dashboard(wb, s, when, asat, parts):
         series.graphicalProperties = GraphicalProperties(solidFill=hex6)
         series.graphicalProperties.line = LineProperties(solidFill=hex6)
 
+    def place(chart, col, row):
+        chart.width, chart.height = 13.3, 8.2
+        ws.add_chart(chart, "{}{}".format(get_column_letter(col), row))
+
+    R1, R2, R3 = 14, 31, 48
+
     #  The same word always looks the same: the pack's donut and this one
     #  both read the shared TONE table.
     RAG_HEX = dict((k, RAG[TONE[k]][2])
                    for k in ("High Demand", "Good Use", "Low Use", "No Use"))
 
-    # ---- gauges: half-donuts with the bottom half hidden -------------
-    for k, (name, a, b) in enumerate(gauges):
-        ch = DoughnutChart(holeSize=62)
-        ch.firstSliceAng = 270
-        data = Reference(ws, min_col=4, max_col=6, min_row=g0 + 1 + k, max_row=g0 + 1 + k)
-        ch.add_data(data, from_rows=True, titles_from_data=False)
-        srs = ch.series[0]
-        pct = (a / float(b)) if b else 0.0
-        tone = ("orange" if k == 0 else
-                ("green" if (k == 1 and not v["undated"]) or (k == 3 and not v["long_out"]) or (k == 2 and not v["cons_tight"])
-                 else ("red" if k == 3 else "amber")))
-        for i, hex6 in enumerate([RAG[tone][2], COATES_LINE, None]):
-            pt = DataPoint(idx=i)
-            if hex6:
-                pt.graphicalProperties = GraphicalProperties(solidFill=hex6)
-                pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
-            else:
-                pt.graphicalProperties = GraphicalProperties(noFill=True)
-                pt.graphicalProperties.line = LineProperties(noFill=True)
-            srs.dPt.append(pt)
-        ch.title = ["Fleet on hire {:.0f}%", "Dated {:.0f}%", "Lines past 80%: {:.0f}%",
-                    "Over {} days: {}".format(LONG_OUT_DAYS, a)][k].format(pct * 100)
-        ch.legend = None
-        ch.width, ch.height = 6.6, 5.2
-        ws.add_chart(ch, "{}8".format(get_column_letter(1 + k * 3)))
-
     # ---- companies ----------------------------------------------------
     bar = BarChart()
     bar.type = "bar"
     bar.style = 10
-    bar.title = ("Six largest holdings - items on hire now" if gear_out
-                 else "Who moved the most gear - tooling issues this period")
-    bar.add_data(Reference(ws, min_col=2 if gear_out else 3, min_row=D0, max_row=end_a),
+    bar.add_data(Reference(cd, min_col=2 if gear_out else 3, min_row=hA, max_row=eA),
                  titles_from_data=True)
-    bar.set_categories(Reference(ws, min_col=1, min_row=D0 + 1, max_row=end_a))
+    bar.set_categories(Reference(cd, min_col=1, min_row=hA + 1, max_row=eA))
     paint(bar.series[0], COATES_ORANGE)
-    bar.legend = None
     bar.y_axis.majorGridlines = None
     bar.x_axis.tickLblSkip = 1
     bar.x_axis.tickMarkSkip = 1
     bar.x_axis.scaling.orientation = "maxMin"
     labels(bar)
     bar.gapWidth = 60
-    bar.width, bar.height = 13.2, 8.2
-    ws.add_chart(bar, "A20")
+    chart_finish(bar, ("Six largest holdings - items on hire now" if gear_out
+                       else "Who moved the most gear - tooling issues this period"))
+    place(bar, 1, R1)
 
     # ---- ratings doughnut --------------------------------------------
     dn = DoughnutChart(holeSize=58)
-    dn.title = "Tooling lines by rating"
-    dn.add_data(Reference(ws, min_col=7, min_row=D0, max_row=end_b), titles_from_data=True)
-    dn.set_categories(Reference(ws, min_col=6, min_row=D0 + 1, max_row=end_b))
+    dn.add_data(Reference(cd, min_col=2, min_row=hB, max_row=eB), titles_from_data=True)
+    dn.set_categories(Reference(cd, min_col=1, min_row=hB + 1, max_row=eB))
     for i, k in enumerate(order):
         pt = DataPoint(idx=i)
         pt.graphicalProperties = GraphicalProperties(solidFill=RAG_HEX[k])
         pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
         dn.series[0].dPt.append(pt)
     labels(dn)
-    dn.legend.position = "b"
-    dn.width, dn.height = 13.4, 8.2
-    ws.add_chart(dn, "G20")
+    chart_finish(dn, "Tooling lines by rating", legend="b")
+    place(dn, 7, R1)
 
     # ---- movements by day ---------------------------------------------
     col = BarChart()
     col.type = "col"
     col.style = 10
-    col.title = "Movements by day"
-    col.add_data(Reference(ws, min_col=2, max_col=4, min_row=end_a + 3, max_row=end_c),
+    col.add_data(Reference(cd, min_col=2, max_col=4, min_row=hC, max_row=eC),
                  titles_from_data=True)
-    col.set_categories(Reference(ws, min_col=1, min_row=end_a + 4, max_row=end_c))
+    col.set_categories(Reference(cd, min_col=1, min_row=hC + 1, max_row=eC))
     for srs, hex6 in zip(col.series, (COATES_ORANGE, "98A0AA", "FCD3BE")):
         paint(srs, hex6)
     col.y_axis.majorGridlines = None
-    col.legend.position = "b"
     col.gapWidth = 80
-    col.width, col.height = 13.2, 8.2
-    ws.add_chart(col, "A37")
+    chart_finish(col, "Movements by day", legend="b")
+    place(col, 1, R2)
 
     # ---- consumables running down -------------------------------------
     cb = BarChart()
     cb.type = "bar"
     cb.style = 10
-    cb.title = "Consumables running down - share of position gone out"
-    cb.add_data(Reference(ws, min_col=7, min_row=end_b + 3, max_row=end_d), titles_from_data=True)
-    cb.set_categories(Reference(ws, min_col=6, min_row=end_b + 4, max_row=end_d))
+    cb.add_data(Reference(cd, min_col=2, min_row=hD, max_row=eD), titles_from_data=True)
+    cb.set_categories(Reference(cd, min_col=1, min_row=hD + 1, max_row=eD))
     paint(cb.series[0], RAG["amber"][2])
     for i, row in enumerate(cons):
         point = DataPoint(idx=i)
@@ -5190,29 +5332,23 @@ def dashboard(wb, s, when, asat, parts):
         point.graphicalProperties = GraphicalProperties(solidFill=colour)
         point.graphicalProperties.line = LineProperties(solidFill=colour)
         cb.series[0].dPt.append(point)
-    cb.legend = None
     cb.y_axis.majorGridlines = None
     cb.y_axis.number_format = "0%"
+    cb.y_axis.scaling.min = 0.0
     cb.y_axis.scaling.max = 1.0
     cb.x_axis.scaling.orientation = "maxMin"
+    cb.x_axis.tickLblSkip = 1
+    cb.x_axis.tickMarkSkip = 1
     labels(cb, "0%")
     cb.gapWidth = 60
-    cb.width, cb.height = 13.4, 8.2
-    ws.add_chart(cb, "G37")
+    chart_finish(cb, "Consumables running down - share of position gone out")
+    place(cb, 7, R2)
 
     # ---- gear out, day by day | age of what is out ---------------------
-    obd = v.get("out_by_day") or []
-    age = v.get("age") or []
-    g1 = max(end_c, end_d, g0 + 5) + 3
-    end_e = table(g1, 1, ["Day", "Out at day's end"],
-                  [[dd.strftime("%a %d %b"), n] for dd, n in obd] or [["(no dated movements)", 0]])
-    end_f = table(g1, 6, ["Age band", "Items on hire"],
-                  [[lab, n] for lab, n, _t in age] or [["(nothing out)", 0]])
     ln = LineChart()
-    ln.title = "Gear out, day by day"
     ln.style = 10
-    ln.add_data(Reference(ws, min_col=2, min_row=g1, max_row=end_e), titles_from_data=True)
-    ln.set_categories(Reference(ws, min_col=1, min_row=g1 + 1, max_row=end_e))
+    ln.add_data(Reference(cd, min_col=2, min_row=hE, max_row=eE), titles_from_data=True)
+    ln.set_categories(Reference(cd, min_col=1, min_row=hE + 1, max_row=eE))
     srs = ln.series[0]
     srs.graphicalProperties = GraphicalProperties()
     srs.graphicalProperties.line = LineProperties(solidFill=COATES_INK, w=28000)
@@ -5221,17 +5357,16 @@ def dashboard(wb, s, when, asat, parts):
     srs.marker.graphicalProperties = GraphicalProperties(solidFill=COATES_ORANGE)
     srs.marker.graphicalProperties.line = LineProperties(solidFill=COATES_ORANGE)
     srs.smooth = False
-    ln.legend = None
     ln.y_axis.majorGridlines = None
     labels(ln)
-    ln.width, ln.height = 13.2, 8.2
-    ws.add_chart(ln, "A54")
+    chart_finish(ln, "Gear out, day by day")
+    place(ln, 1, R3)
+
     ab = BarChart()
     ab.type = "bar"
     ab.style = 10
-    ab.title = "Age of what is out"
-    ab.add_data(Reference(ws, min_col=7, min_row=g1, max_row=end_f), titles_from_data=True)
-    ab.set_categories(Reference(ws, min_col=6, min_row=g1 + 1, max_row=end_f))
+    ab.add_data(Reference(cd, min_col=2, min_row=hF, max_row=eF), titles_from_data=True)
+    ab.set_categories(Reference(cd, min_col=1, min_row=hF + 1, max_row=eF))
     tone_hex = {"ink": "2A313C", "muted": "5B6472", "slate": "98A0AA",
                 "amber": RAG["amber"][2], "red": RAG["red"][2]}
     for i, (lab, n, tone) in enumerate(age):
@@ -5239,17 +5374,18 @@ def dashboard(wb, s, when, asat, parts):
         pt.graphicalProperties = GraphicalProperties(solidFill=tone_hex.get(tone, "98A0AA"))
         pt.graphicalProperties.line = LineProperties(solidFill="FFFFFF")
         ab.series[0].dPt.append(pt)
-    ab.legend = None
     ab.y_axis.majorGridlines = None
     ab.x_axis.scaling.orientation = "maxMin"
+    ab.x_axis.tickLblSkip = 1
+    ab.x_axis.tickMarkSkip = 1
     labels(ab)
     ab.gapWidth = 50
-    ab.width, ab.height = 13.4, 8.2
-    ws.add_chart(ab, "G54")
+    chart_finish(ab, "Age of what is out")
+    place(ab, 7, R3)
 
     tidy_print(ws, NC, landscape=False, name="Dashboard")
     ws.print_title_rows = "1:1"
-    ws.print_area = "A1:L71"
+    ws.print_area = "A1:L65"
     ws.page_setup.fitToHeight = 1
     ws.sheet_properties.tabColor = ORANGE
     return ws

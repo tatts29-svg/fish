@@ -110,6 +110,48 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE TIDIER WORKBOOK (06 Nov 2026)
+ --------------------------------------
+   The Excel workbook looked busy, so the front of it has been laid
+   out again on one calm grid. Nothing in the data tabs changed - the
+   same rows, the same columns, the same colours; this is the Cover,
+   the Dashboard and the Forecast only.
+
+   COVER - twelve narrow columns so every block lines up, uniform row
+   heights, and less on the page: nine key facts (as at, report date,
+   prepared by, SiteIQ project, shutdown ends, shut progress,
+   transactions cover, since last report, company pack), the twelve
+   headline numbers as one grid of tiles, the clickable list of tabs,
+   the four exports with the time each was pulled, and the two rating
+   scales side by side. The secondary facts (engagement, export age,
+   draws counted, the stocktake pull, the typeface) sit as notes under
+   the sources table instead of crowding the top. Row and column
+   headers are hidden so it reads like a page. It prints on two
+   portrait pages: title, facts, headlines and contents on page one;
+   sources, ratings and notes on page two.
+
+   DASHBOARD - one page: the six dark tiles, four DIALS built from
+   cells (a big figure, what it is of, and a bar - Coates fleet on
+   hire, dated from transactions, consumable lines past 80%, items out
+   over 21 days; the half-doughnut gauges are gone), then six live
+   charts in a two-by-three grid, all the same size, with 12pt titles
+   and a hairline border. Every bar on the consumables chart is
+   labelled and its axis runs from zero, not from 88%.
+
+   CHART DATA - a new sixteenth tab at the back (grey). The small
+   tables the Dashboard charts read now live there in full width, so
+   company and consumable names are no longer cut off and the
+   Dashboard itself carries no tables at all. Nothing to type there.
+
+   CHART AXES - every chart in the workbook (Dashboard and Forecast)
+   now tells Excel to draw its axes. The library the kit uses leaves
+   that choice open, and newer Excel then hides the axis labels, which
+   is why day names and scales could be missing on the laptop while
+   they showed elsewhere.
+
+   The Forecast day column reads from the left, and the Forecast and
+   Dashboard open at 100% with gridlines and headers hidden.
+
  NEW - THE ONCE-OVER (06 Nov 2026)
  --------------------------------
    Five more independent reviewers went over the Rio and MMG kits: a

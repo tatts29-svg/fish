@@ -203,6 +203,19 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Workbook tidy (06 Nov, Andrew: "the excel looks very messy"): `cover()`
+  rebuilt on a 12-column grid with uniform row heights and a lighter
+  section heading (orange rule under the first two columns); nine primary
+  facts, secondary facts as notes under the sources table; two rating
+  legends side by side; page break after the directory. `dashboard()` now
+  tiles + four cell-built dials (big figure, "a of b", data-bar row with
+  `;;;` number format) + six charts in a 2x3 grid via `chart_finish()`
+  (12pt title, `axis.delete = False` - without it Excel 365 hides axes on
+  openpyxl 3.1 charts - hairline border); the chart tables moved to a new
+  grey `Chart Data` tab at the back, and the Dashboard is built before the
+  Cover so the Cover can list it. Data tabs byte-identical before/after on
+  Rio and MMG (checked with openpyxl). `showRowColHeaders = False` on the
+  three front tabs.
 - Once-over round (06 Nov, five parallel reviewers: customer eye, workbook
   auditor, MMG first-time user, Windows/robustness tester, figure auditor;
   reports under scratchpad/qa2/ at the time): customer-owned gear is split
