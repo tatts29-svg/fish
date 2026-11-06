@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "reviewedAtUTC": "2026-11-06T05:41:42.341307+00:00",
+  "reviewMode": "Offline publication receipt, accepted receipt and committed source consistency review",
+  "passed": true,
+  "sourceCommit": "8bb27046aa89ca585f7d7ef04db84e5d7e9fa042",
+  "baseManifestSha256": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad",
+  "candidateManifestSha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "dashboardSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "publicationReceiptSha256": "97dfcb8e51f56ddb4647e8dac3cd56e64e6781617adf7e272219754a118836aa",
+  "publicationAttemptSha256": "db98a8e04c0685a26183c996f69599521d947fcc3454b713dc129f51309b98a0",
+  "publishedManifestMatchesAcceptedCandidate": true,
+  "committedSevenSourceFilesMatch": true,
+  "acceptedReceipts": [
+    {
+      "suite": "machine1305",
+      "viewport": "desktop",
+      "checks": 127,
+      "sha256": "442d659651724a466bd904e4b7ece2602ad15fc2213a350bd19ec759fd1acbd2"
+    },
+    {
+      "suite": "machine1305",
+      "viewport": "phone",
+      "checks": 147,
+      "sha256": "7c7e6451c7e40da578b3c7a6c9fb5ad2e26a132d7a83dfb63d2f1d36cb2a94a9"
+    },
+    {
+      "suite": "dashboard1305",
+      "viewport": "desktop",
+      "checks": 99,
+      "sha256": "487ad4456c7bde0ad1bddb39b1e34a9f2c1b790ced22d2a2b74bc84c341efe72"
+    },
+    {
+      "suite": "dashboard1305",
+      "viewport": "phone",
+      "checks": 100,
+      "sha256": "e529833751ee7573c7f6878b23c2c807bd2604ac4b69c9d3a0c6b8f2ae59893b"
+    }
+  ],
+  "publisherRecorded": {
+    "registrationHTTPStatus": 200,
+    "publicAssetsExact": true,
+    "totalFiles": 249,
+    "changedFiles": 7,
+    "retainedFiles": 242,
+    "protectedUnlistedBlobs": 11,
+    "postRegistrationInventoryExact": true,
+    "dashboardUnchanged": true,
+    "recordWrites": 0
+  },
+  "independentNetworkVerificationPerformed": false,
+  "independentLiveBrowserCheckPerformed": false,
+  "liveBrowserStatus": "pending",
+  "limitation": "This review checks publisher evidence and local accepted bytes. Root is running the fresh public phone browser check separately; no live browser pass is asserted here."
+}

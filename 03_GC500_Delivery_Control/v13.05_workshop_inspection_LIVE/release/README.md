@@ -2,7 +2,9 @@
 
 Author: Andrew Fisher · 6 Nov 2026
 
-This release changes only the Coates Way machine. Its exact live base is the
+**Published and verified live on 6 Nov 2026 at 15:39:50 AEST. Do not rerun publication.** The current machine is the 249-file manifest `b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2`. The commands below document how this release was built and published from its historical base. Future work must start from the current manifest.
+
+This release changes only the Coates Way machine. Its historical starting base was the
 246-file v13.04 set, manifest
 `f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad`.
 The dashboard remains v13.01,
