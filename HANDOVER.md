@@ -203,6 +203,18 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Second-opinion round (06 Nov, after an independent code review and an
+  independent rebuild-and-break test): Company Summary includes companies
+  holding gear with no movement in the window; transaction de-dup keys on
+  the whole line (`TRANSACTION_ID` + item + barcode + description + start
+  + qty); the cover/forecast self-check compares the typed Cost Breakdown
+  total with `cost_profile()["total"]`; the manifest's LATEST copy is
+  refreshed every run; `job_seed(s, when)` applies a seed only within 45
+  days of its own dates; Dashboard rating colours read `TONE`; exports are
+  parsed once via `_open_ro()` (read-only cache, closed at exit; runs went
+  from minutes to seconds); `_RUN.bat` lets `check_this_laptop.py` run on
+  a half-unpacked kit; the cover contents list tightens to 12pt rows and
+  then truncates with "and N more companies" so the asks card always fits.
 - High-contrast round (06 Nov): the cover hero, the dials card, each
   section header and every footer are charcoal/near-black bands with white
   type (`P_SLATE` #2A313C, `card(dark=)`, `gauge(dark=)`,

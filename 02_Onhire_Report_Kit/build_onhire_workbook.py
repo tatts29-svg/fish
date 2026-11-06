@@ -611,7 +611,7 @@ def read_project_schedule(path):
     if site_config is not None:
         return site_config.export_project_schedule(path)
     try:
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        wb = _open_ro(path)
     except Exception:
         return ""
     try:
@@ -629,7 +629,7 @@ def read_project_schedule(path):
         return ""
     finally:
         try:
-            wb.close()
+            _release_ro(wb)
         except Exception:
             pass
 
@@ -695,6 +695,44 @@ def wrong_job(path, base, s):
 # =====================================================================
 #  Reading the exports
 # =====================================================================
+_RO_CACHE = {}
+
+
+def _open_ro(path):
+    """A read-only, values-only view of a workbook, parsed once per run.
+    The same TRANSACTIONS export is read by a dozen callers; without this
+    each one re-parsed the whole file. Closed when the run ends."""
+    key = os.path.abspath(path)
+    try:
+        st = os.stat(key)
+        key = (key, st.st_mtime, st.st_size)
+    except OSError:
+        pass
+    wb = _RO_CACHE.get(key)
+    if wb is None:
+        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        _RO_CACHE[key] = wb
+    return wb
+
+
+def _release_ro(wb):
+    """Cached workbooks stay open for the run; closing happens at exit."""
+    return None
+
+
+def _close_ro_all():
+    for wb in list(_RO_CACHE.values()):
+        try:
+            wb.close()
+        except Exception:
+            pass
+    _RO_CACHE.clear()
+
+
+import atexit as _atexit
+_atexit.register(_close_ro_all)
+
+
 def _rows(path, sheet, must_have=False):
     """A sheet as a list of dicts, keyed on its header row. Blank rows
     dropped - SiteIQ pads its exports out with them.
@@ -708,7 +746,7 @@ def _rows(path, sheet, must_have=False):
     if not path or not os.path.isfile(path):
         return []
     try:
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        wb = _open_ro(path)
     except Exception as e:
         #  Half-downloaded from SiteIQ, saved as .xls or CSV with an
         #  .xlsx name, quarantined by antivirus, or a OneDrive placeholder
@@ -756,7 +794,7 @@ def _rows(path, sheet, must_have=False):
         return out
     finally:
         try:
-            wb.close()
+            _release_ro(wb)
         except Exception:
             pass
 
@@ -1057,7 +1095,7 @@ def transactions_period(path):
     sheet, as words: '31 Oct 2026 05:00 to 05 Nov 2026 04:59'. Empty if
     the export doesn't say."""
     try:
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        wb = _open_ro(path)
     except Exception:
         return ""
     try:
@@ -1075,7 +1113,7 @@ def transactions_period(path):
         return ""
     finally:
         try:
-            wb.close()
+            _release_ro(wb)
         except Exception:
             pass
     if not raw:
@@ -1190,10 +1228,18 @@ def build(base=HERE, when=None):
     for sheet_name in ("TRANSACTION_CHARGES", "TRANSACTION_WITHOUT_CHARGES"):
         for r in _rows(p_trans, sheet_name):
             tid = _s(r.get("TRANSACTION_ID"))
-            if tid and tid in seen:
+            #  The same line on both sheets is one movement. Several lines
+            #  under one transaction number (a crew member taking three
+            #  tools in one go) are three movements, so the key is the
+            #  whole line, not the number alone.
+            key = (tid, _s(r.get("SKU/ITEM_NUMBER") or r.get("ITEM_NUMBER")),
+                   _s(r.get("LATEST_BARCODE") or r.get("BARCODE")),
+                   _s(r.get("SKU/ITEM DESCRIPTION")), _s(r.get("TRAN_START_DATE")),
+                   _s(r.get("TRAN_START_TIME")), _s(r.get("QUANTITY")))
+            if tid and key in seen:
                 continue
             if tid:
-                seen.add(tid)
+                seen.add(key)
             r["EMPLOYER_NAME"] = co_name(r.get("EMPLOYER_NAME"))
             tw.append(r)
 
@@ -1328,6 +1374,14 @@ def build(base=HERE, when=None):
     for r in onhire:
         live_onhire[_s(r.get("COMPANY_NAME"))] = \
             live_onhire.get(_s(r.get("COMPANY_NAME")), 0) + 1
+    #  A company still holding gear but with no movement inside the
+    #  export window is not in the transactions at all. It belongs on the
+    #  summary with zero movements - that is exactly the company to chase.
+    for co in sorted(live_onhire):
+        if co and co not in companies:
+            companies[co] = {
+                "TOOLING": {"tx": 0, "qty": 0.0, "types": set(), "open": 0},
+                "CONSUMABLES": {"tx": 0, "qty": 0.0, "types": set(), "open": 0}}
 
     summary_rows = []
     for co in sorted(companies):
@@ -2018,9 +2072,10 @@ def build(base=HERE, when=None):
             checks.append(("no costs in the email", "$" not in plain))
         except Exception:
             pass
-    if parts.get("forecast") and cost_total:
+    prof_total = ((parts.get("forecast") or {}).get("cost") or {}).get("total")
+    if parts.get("forecast") and cost_total and prof_total:
         checks.append(("cover and forecast agree",
-                       abs((parts["forecast"].get("cost_total") or 0) - cost_total) < 0.01))
+                       abs(float(prof_total) - float(cost_total)) < 0.01))
     passed = sum(1 for _n, ok in checks if ok)
     say("  Checks    {} of {} passed{}".format(
         passed, len(checks), "" if passed == len(checks) else
@@ -2435,12 +2490,28 @@ _MMG_COSTS = [
     ("2026-12-02", "Drive Off Site & Flight Out", None, None, None, 1500),
 ]
 
-def job_seed(s):
+def job_seed(s, when=None):
+    """The typed roster and cost breakdown for this job, or None. A seed
+    is tied to the shut it was typed for: if the job's demob date (or,
+    failing that, the report date) is more than 45 days outside the
+    seed's own dates, it is last time's roster and does not apply."""
     tag = " ".join([s.short or "", s.job or "", s.customer or "",
                     s.project_schedule or ""]).lower()
     for key, seed in JOB_SEEDS.items():
-        if key in tag:
-            return seed
+        if key not in tag:
+            continue
+        days = []
+        for row in seed.get("roster") or []:
+            try:
+                days.append(dt.datetime.strptime(str(row[0]), "%Y-%m-%d").date())
+            except (ValueError, TypeError, IndexError):
+                pass
+        anchor = s.shutdown_end or when
+        if days and anchor:
+            slack = dt.timedelta(days=45)
+            if anchor < min(days) - slack or anchor > max(days) + slack:
+                return None
+        return seed
     return None
 _WEIPA_COSTS = [
     # (date, type, shutdown, labour, site services)  None = blank cell
@@ -3644,7 +3715,7 @@ def carry_over(wb, s, base, title, when=None):
         except Exception:
             vals = None
 
-    seed = job_seed(s)
+    seed = job_seed(s, when)
     weipa = seed is not None
     stale_roster = False
     use_latest = False
@@ -4575,8 +4646,10 @@ def dashboard(wb, s, when, asat, parts):
         series.graphicalProperties = GraphicalProperties(solidFill=hex6)
         series.graphicalProperties.line = LineProperties(solidFill=hex6)
 
-    RAG_HEX = {"High Demand": RAG["red"][2], "Good Use": RAG["green"][2],
-               "Low Use": RAG["amber"][2], "No Use": RAG["slate"][2]}
+    #  The same word always looks the same: the pack's donut and this one
+    #  both read the shared TONE table.
+    RAG_HEX = dict((k, RAG[TONE[k]][2])
+                   for k in ("High Demand", "Good Use", "Low Use", "No Use"))
 
     # ---- gauges: half-donuts with the bottom half hidden -------------
     for k, (name, a, b) in enumerate(gauges):
@@ -7591,8 +7664,24 @@ class _Pack(object):
         h = 19 if n_rows <= 8 else (16.5 if n_rows <= 10 else (15 if n_rows <= 11 else 14))
         fs = 9.2 if n_rows <= 8 else 8.6
         base_y = h - 6 if n_rows <= 8 else h - 4.5
+        #  Room must stay for a compact asks card beneath the list. On a
+        #  big shut the rows tighten first; past that the list stops and
+        #  says how many more companies have sections and bookmarks.
+        #  (a two-up asks card is 30 + 19 * 2, plus the trailer row, the gaps
+        #  and the card's top margin)
+        reserve = 30 + 19 * 2 + 12 + 8 + 24 + 8
+        avail = self.bottom - self.y - reserve
+        listed = blocks
+        if n_rows * h > avail:
+            for h_try in (13, 12):
+                if n_rows * h_try <= avail:
+                    h, fs, base_y = h_try, 7.8, h_try - 3.8
+                    break
+            if n_rows * h > avail:
+                h, fs, base_y = 12, 7.8, 8.2
+                listed = blocks[:max(1, int(avail // h) - 1)]
         biggest_items = max([b["items"] for b in blocks] + [1])
-        for k, b in enumerate(blocks):
+        for k, b in enumerate(listed):
             if k % 2:
                 d.rect(self.x0, self.y, self.cw, h, fill=P_ZEBRA)
             if b["items"]:
@@ -7617,6 +7706,12 @@ class _Pack(object):
                    bold=True, colour=P_ORANGE_TEXT, align="right")
             d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
             d.link(self.x0, self.y, self.cw, h, starts[k])
+            self.y += h
+        if len(listed) < n_rows:
+            d.text(self.x0 + 24, self.y + h - 3.8,
+                   "and {} more compan{} - each has its own section and bookmark".format(
+                       n_rows - len(listed), "y" if n_rows - len(listed) == 1 else "ies"),
+                   size=7.8, italic=True, colour=P_MUTED)
             self.y += h
         self.y += 8
 
@@ -7862,8 +7957,8 @@ def write_email(base, s, when, asat, parts, attachments, out_dir):
                 #  An attachment living outside today's folder (the LATEST
                 #  workbook) is copied in so the manifest is self-contained.
                 target = os.path.join(out_dir, os.path.basename(a))
-                if not os.path.isfile(target):
-                    shutil.copyfile(a, target)
+                if os.path.abspath(a) != os.path.abspath(target):
+                    shutil.copyfile(a, target)      # refreshed every run
         with open(os.path.join(out_dir, stem + ".draft.json"), "w",
                   encoding="utf-8") as f:
             json.dump(manifest, f, indent=1)

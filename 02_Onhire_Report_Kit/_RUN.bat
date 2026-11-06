@@ -76,9 +76,14 @@ if not errorlevel 1 goto :from_inside_zip
 echo "%KIT%" | find /i "\Temporary Internet Files\" >nul
 if not errorlevel 1 goto :from_inside_zip
 if "%KIT:~0,2%"=="\\" goto :network_path
-if not exist "%KIT%_lib\openpyxl\__init__.py" goto :half_unpacked
 if not exist "%KIT%%SCRIPT%" goto :half_unpacked
+rem  The laptop check needs nothing but Python and is the script that
+rem  diagnoses a half-unpacked kit, so it is the one script allowed to run
+rem  when _lib or the PDF writer is missing.
+if /i "%SCRIPT%"=="check_this_laptop.py" goto :kit_checked
+if not exist "%KIT%_lib\openpyxl\__init__.py" goto :half_unpacked
 if not exist "%KIT%coates_pdf.py" goto :half_unpacked
+:kit_checked
 
 rem  A script in a sub-kit runs from its own folder.
 for %%F in ("%KIT%%SCRIPT%") do (

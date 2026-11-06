@@ -109,6 +109,39 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE SECOND OPINION (06 Nov 2026)
+ -------------------------------------
+   Two independent reviewers went over the kit - one read every line of
+   the code, one rebuilt the kits from scratch and tried to break the
+   outputs. What they found, and what changed:
+
+   - A company still holding gear with no movement inside the export
+     window was missing from Company Summary and from the "who is
+     holding gear" tables, while the tiles and the pack still counted
+     it. It now appears with zero movements - that is exactly the
+     company to chase.
+   - Two lines under one transaction number (a crew member taking three
+     tools in one go) were counted once. The de-duplication now keys on
+     the whole line, so a line that sits on both transaction sheets is
+     still one movement and three tools are three.
+   - The "cover and forecast agree" self-check compared a number with
+     itself and could never fail. It now compares the typed Cost
+     Breakdown total with the day-by-day profile the Forecast draws.
+   - Running the kit twice on the same day left the morning's workbook
+     as the Outlook draft's attachment. The copy is refreshed every run.
+   - A typed roster only seeds a kit for the shut it was typed for.
+     Next year's Weipa or MMG kit starts with blank typed tabs and a
+     note, not last year's people and dollars.
+   - The Dashboard's rating colours now follow the one palette (High
+     Demand amber, Low Use slate), the same as the pack's donut.
+   - The exports are parsed once per run instead of about ten times, so
+     a run that took a minute or two now takes seconds.
+   - 1_CHECK_THIS_LAPTOP runs even when the kit is half unpacked - that
+     is the case it exists to diagnose.
+   - On a very big shut the cover's contents list tightens, then stops
+     before the footer and says how many more companies have sections,
+     so the asks beneath it are never squeezed off page one.
+
  NEW - THE CONTRAST (06 Nov 2026)
  -------------------------------
    The pack now opens DARK. The cover's hero is a charcoal band with
