@@ -97,6 +97,7 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Recently done
 
+- **Ampol suite v2.0 (06 Nov 2026):** one look across every report, an Excel twin beside every PDF, the client copy (`REPORT_OPTIONS.txt`), the non-return trend pages (gas first, then radios and tooling). Truth table identical to the pristine v1.14 run. See the Ampol section below.
 - **Elite improvements pass (28 Jul 2026, this repo's branch):**
   - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
     the `K2_UPDATE_*.zip` → double-click 46. Finds the zip itself, backs
@@ -311,6 +312,79 @@ Settled rules, 04–05 Nov 2026:
 - MMG is a fixed-rate engagement: client packs never carry per-item
   charges; the internal cost breakdown stays in the workbook.
 - `_lib` (vendored openpyxl) and all site data stay out of git.
+
+## The Ampol reporting suite — `03_Ampol_Reporting_Suite/` (Lytton Refinery, permanent tool store)
+
+The **permanent** tool-store suite, separate from K2 and from the on-hire
+kit. Andrew runs it from his OneDrive folder `Ampol Report 2026\
+02_Ampol_Reporting_Suite` (pin it "Always keep on this device"). Eighteen
+numbered buttons; `00_RUN_EVERYTHING` is the morning. Six report
+families — gas monitors (PDF + email + the executive dashboard email),
+radios, tooling (`--everything` = executive summary, on-hire register,
+quarterlies, utilisation, compliance), stocktake, calibration, rigging —
+plus the one-page daily position. Every figure is counted from the three
+SiteIQ exports in `Data\SiteIQ` (`RENTAL_STOCK`, `TRANSACTIONS`,
+`STOCKTAKE`) and the editable lookups in `Data\Editable`; button 13 recounts
+the key figures from scratch and fails red on a mismatch.
+
+**v2.0 (06 Nov 2026)** — the makeover Andrew asked for after the Rio/MMG
+packs, plus the client's three asks:
+
+- **One look.** `k2style.css` is the one stylesheet: white page, dark
+  COATES masthead and footer on every page, orange rule, dark hero cover,
+  Inter embedded from `assets\fonts`. `k2shell.py` draws the fixed pages
+  and the PNG/SVG charts, `k2flow.py` the flowing documents (tooling,
+  radios) with `position:fixed` bars and `@page` margin boxes for the
+  page number. The gas dashboard email (`generate_v18_...`) and the radio
+  email frame moved to the same masthead.
+- **The Excel twin.** `coates_xlsx.py` (the same writer the on-hire kit
+  uses) + `ampol_xlsx_reports.py`: one `.xlsx` beside every PDF, attached
+  to the draft — Cover, Dashboard with native charts, every table a tab.
+  Built from the builder's own model, never from the PDF text.
+- **The client copy.** `Data\Editable\REPORT_OPTIONS.txt` (`hide_company:`
+  lines, `client_copy: yes`). `client_pass.py` runs each builder twice —
+  the second time with `AMPOL_CLIENT_VIEW=1`; every loader asks
+  `ampol_options.is_hidden()` as it reads rows, `ampol_names.report_stem()`
+  adds ` - Client` to every file name, the data page carries
+  `ampol_options.disclosure()`, `report_history.record()` is a no-op in
+  client view and `VERIFY_NUMBERS` reads one set at a time. Every button
+  and `PICK_REPORT.py` call the wrapper. `Docs\CLIENT_COPY.md` is the guide.
+- **The non-return trend.** `gas_trends.py` (daily out / overdue / 30+,
+  weekly return speed, ageing bands, companies by month with a
+  worse/better/level word, repeat people) feeds a PDF page, an email
+  section and five Trend tabs. `txn_insights.open_series()` gives the
+  radio report "still out at each week's end"; `nonreturn_trend()` in
+  the tooling builder does the same for tooling (hires open, past 30,
+  past 90, by company, week by week) in the executive summary and the
+  on-hire report.
+- **Accuracy.** A pristine v1.14 copy and the v2.0 copy were both run on
+  the same 06 Sep 2026 exports; the truth table passes on both with every
+  checked figure identical.
+
+**Not in git:** `Data\` (site exports and registers), `Reports\`,
+`History\`, `assets\fonts` (the Inter TTFs — they travel in the update
+zip), the Coates Way deck and the SOP PDFs under `Docs\`. The update zip
+Andrew drops over his folder is the complete code; the repo copy is for
+history.
+
+Traps met on 06 Nov 2026:
+
+- In the cloud container, Chromium's command-line `--print-to-pdf` hangs
+  (the `google-chrome` on PATH is a wrapper for the same Playwright
+  Chromium). Printing through Playwright's `page.pdf()` works in under a
+  second, so builds there use a stand-in named `msedge` on PATH
+  (`pwchrome.js`, not shipped). On Andrew's laptop Edge prints as before;
+  `AMPOL_BROWSER` names one browser when a machine misbehaves.
+- The client view must change the **file names**, not just the figures —
+  the first test overwrote the internal set. `report_stem()` is the one
+  place names are made; keep it that way.
+- The fixed-page layout check finds the footer by its text; the position
+  page's author line also says POWERED BY SITEIQ, so the footer must be
+  picked from the bottom 15% of the page.
+- The image viewer in the session showed two PDF covers "wrong" that were
+  right when measured pixel by pixel. Measure before you fix.
+
+---
 
 ## Traps — real mistakes made on this job, don't repeat them
 

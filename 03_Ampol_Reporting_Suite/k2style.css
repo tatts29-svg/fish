@@ -1,0 +1,541 @@
+/* =====================================================================
+   COATES REPORT DESIGN SYSTEM - print stylesheet (v2.0, 06 Nov 2026)
+   Author: Andrew Fisher  -  POWERED BY SITEIQ
+   One look for every Coates report: the same page the Rio and MMG
+   company packs and workbooks use. White page, the dark COATES masthead
+   with an orange rule, Inter, orange-topped tiles, charcoal table heads,
+   chips, light bars, a dark footer bar. Every selector the suite's
+   builders use is kept; only the look behind it changes.
+   A4 portrait. Self-contained - the typeface ships in assets\fonts.
+   ===================================================================== */
+
+/* ---------- the house face, embedded ---------------------------------
+   Inter (SIL OFL 1.1) ships in assets\fonts so every PDF looks the same
+   on every machine. URLs are relative to the report page's own folder
+   (Reports\<day>\<family>\), which is where every builder writes it. */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400;
+             src: url("../../../assets/fonts/Inter-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-style: italic; font-weight: 400;
+             src: url("../../../assets/fonts/Inter-Italic.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600;
+             src: url("../../../assets/fonts/Inter-SemiBold.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 700;
+             src: url("../../../assets/fonts/Inter-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 900;
+             src: url("../../../assets/fonts/Inter-Bold.ttf") format("truetype"); }
+
+@page { size: A4 portrait; margin: 0; }
+
+html, body { margin: 0; padding: 0; }
+
+/* Chromium strips background colours in print unless told not to. */
+html, body, * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", "Calibri", "Carlito", "Liberation Sans", sans-serif;
+  color: #1D1D1B;
+}
+
+/* ---------- the palette, in one place -------------------------------
+   ink #1D1D1B   slate #2A313C   muted #5B6472   line #DDE1E7
+   zebra #F6F7F9 soft #F3F4F7    tint #FFF1EA    orange #F26222
+   orange on white #C8511A       RAG: red #D0342C / #FBE7E6 / #A32015,
+   amber #E08A24 / #FDF1DC / #8A5300, green #409A55 / #E8F3E9 / #1E6B32,
+   slate #98A0AA / #E9ECF0 / #4A5361 */
+
+/* ---------- fixed A4 page ------------------------------------------ */
+
+.page {
+  position: relative;
+  width: 210mm;
+  height: 296.9mm;           /* 0.1mm short of A4: Chromium's rounding never spills a blank sheet */
+  page-break-after: always;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+.page:last-child { page-break-after: auto; }
+
+/* the frame is the page itself now: no border, the masthead across the
+   top and the footer bar across the bottom, content between them */
+.frame {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  padding: 19.5mm 9mm 0 9mm;
+}
+
+/* ---------- the masthead (every page) ------------------------------- */
+.mast {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 15mm;
+  background: #1D1D1B;
+  border-bottom: 3px solid #F26222;
+  color: #FFFFFF;
+}
+.mast .wm { position: absolute; left: 9mm; top: 4.1mm; font-size: 13pt; font-weight: 700;
+            letter-spacing: 4pt; line-height: 1; }
+.mast .tag { position: absolute; left: 9mm; top: 10.3mm; font-size: 4.9pt; font-weight: 600;
+             letter-spacing: 2pt; color: #9AA2AC; line-height: 1; }
+.mast .mt { position: absolute; right: 9mm; top: 4mm; text-align: right; font-size: 9pt;
+            font-weight: 700; line-height: 1.2; white-space: nowrap; }
+.mast .ms { position: absolute; right: 9mm; top: 9.2mm; text-align: right; font-size: 6.8pt;
+            color: #9AA2AC; line-height: 1.3; white-space: nowrap; }
+.mast .ms b { color: #FFFFFF; font-weight: 600; }
+
+/* ---------- the footer bar (every page) ----------------------------- */
+.foot {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 9.5mm;
+  background: #1D1D1B;
+  border-top: 2px solid #F26222;
+  color: #9AA2AC;
+}
+.foot-h { display: none; }
+.foot-l { font-size: 6.4px; color: #9AA2AC; line-height: 1.5; }
+.foot-l b { color: #FFFFFF; font-weight: 600; }
+.foot-l .sh { color: #F26222; font-weight: 700; }
+.foot-t { position: absolute; left: 9mm; right: 9mm; top: 2.2mm; width: auto; border-collapse: collapse; }
+.foot-t td { vertical-align: top; padding: 0; }
+.foot-t .fl { width: 58%; }
+.foot-t .fl .fwm { font-size: 7.2pt; font-weight: 700; letter-spacing: 2pt; color: #FFFFFF; line-height: 1.2; }
+.foot-t .fl .fwm .sep { color: #5B6472; font-weight: 400; letter-spacing: 0; margin: 0 5px; }
+.foot-t .fl .fwm .pw { font-size: 6.4pt; letter-spacing: 0.6pt; color: #9AA2AC; font-weight: 600; }
+.foot-t .fl .fwm .pw .q { color: #F26222; }
+.foot-t .fl .fwm .au { font-size: 6.4pt; letter-spacing: 0; color: #9AA2AC; font-weight: 400; }
+.foot-t .fc { text-align: left; font-size: 6.2pt; color: #9AA2AC; padding-top: 0.6mm; }
+.foot-t .fc b { color: #9AA2AC; font-weight: 400; }
+.foot-t .fr { width: 22%; text-align: right; font-size: 7.2pt; font-weight: 700; color: #FFFFFF;
+              white-space: nowrap; }
+.foot-t .fr .job { display: block; font-size: 6.2pt; font-weight: 400; color: #9AA2AC; margin-top: 1.1mm; }
+
+/* content area stops above the footer bar */
+.body { padding-bottom: 12mm; }
+
+/* ---------- page 1 title block (was the dark hero) ------------------ */
+.hero {
+  background: #FFFFFF;
+  border-radius: 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #DDE1E7;
+}
+.hero-grid { width: 100%; }
+.hero-grid td { vertical-align: top; }
+.kicker {
+  color: #C8511A;
+  font-size: 7.2px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 6px 0 0 0;
+  color: #1D1D1B;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.12;
+}
+.hero .sub { margin-top: 6px; color: #5B6472; font-size: 10.6px; }
+.hero .meta { margin-top: 8px; color: #5B6472; font-size: 8.6px; line-height: 1.6; }
+.hero .meta b { color: #1D1D1B; font-weight: 600; }
+.siteiq {
+  text-align: right;
+  color: #1D1D1B;
+  font-size: 7.6px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  white-space: nowrap;
+}
+.siteiq .q { color: #F26222; }
+.tagline { text-align: right; color: #5B6472; font-size: 9px; margin-top: 4px; white-space: nowrap; }
+.hero .asat-big { text-align: right; color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 1.8px; margin-top: 8px; }
+.hero .asat-day { text-align: right; color: #5B6472; font-size: 9px; margin-top: 3px; }
+
+/* ---------- continuation header (pages 2+): a slim title row -------- */
+.chead { width: 100%; border-bottom: 1px solid #DDE1E7; padding-bottom: 6px; }
+.chead td { vertical-align: top; }
+.chead h2 { margin: 3px 0 0 0; color: #1D1D1B; font-size: 13px; font-weight: 700; }
+.chead .siteiq { color: #1D1D1B; }
+.asat { text-align: right; color: #5B6472; font-size: 8.4px; margin-top: 4px; white-space: nowrap; }
+.asat b { color: #1D1D1B; font-weight: 600; }
+.pageno { text-align: right; color: #98A0AA; font-size: 8.4px; margin-top: 2px; letter-spacing: 0.4px; }
+
+/* ---------- KEY strip --------------------------------------------- */
+.key { margin-top: 8px; font-size: 8.4px; line-height: 1.8; color: #5B6472; }
+.key .kl { color: #1D1D1B; font-weight: 700; letter-spacing: 1.6px; margin-right: 6px; }
+.key .dot { font-size: 8.5px; }
+.key b { font-weight: 700; color: #1D1D1B; }
+.key .blue  { color: #2F7FD0; }
+.key .amber { color: #8A5300; }
+.key .orange{ color: #C8511A; }
+.key .green { color: #1E6B32; }
+
+/* the rule under the head: a thin hairline now (the masthead carries the orange) */
+.grule { height: 1px; margin-top: 6px; background: #DDE1E7; }
+.page1 .grule { margin-top: 8px; }
+.p1no { text-align: right; color: #98A0AA; font-size: 8.4px; margin-top: 6px; letter-spacing: 0.4px; }
+
+/* ---------- callout (the pack's tinted note, orange rule) ---------- */
+.callout {
+  background: #FFF1EA;
+  border-left: 4px solid #F26222;
+  border-radius: 0;
+  padding: 13px 18px;
+  margin-top: 14px;
+  font-size: 11.6px;
+  line-height: 1.75;
+  color: #1D1D1B;
+}
+.callout.tight { font-size: 10.8px; line-height: 1.7; padding: 12px 16px; }
+.callout b { font-weight: 700; }
+.callout .o { color: #C8511A; font-weight: 700; }
+.callout .lead {
+  display: block;
+  color: #C8511A;
+  font-weight: 700;
+  font-size: 7.6px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+/* ---------- section header: title with an orange rule underneath ----- */
+.sect {
+  background: transparent;
+  border-left: 0;
+  border-radius: 0;
+  padding: 0 0 6px 0;
+  margin-top: 18px;
+  border-bottom: 2px solid #1D1D1B;
+  position: relative;
+}
+.sect::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 42px; height: 2px; background: #F26222; }
+.sect h3 { margin: 0; color: #1D1D1B; font-size: 13px; font-weight: 700; }
+
+.sub-h { margin: 16px 0 8px 0; color: #1D1D1B; font-size: 11.6px; font-weight: 700; }
+.sub-h .thin { color: #5B6472; font-weight: 400; }
+
+.note { font-size: 8.8px; color: #5B6472; line-height: 1.7; margin-top: 8px; }
+.note b { color: #1D1D1B; font-weight: 600; }
+.note .o { color: #C8511A; font-weight: 700; }
+
+/* ---------- KPI tiles (white, orange top rule, figure on the left) --- */
+.tiles { width: 100%; table-layout: fixed; border-spacing: 7px 7px; margin: 10px -7px 0 -7px; }
+.tiles td {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #DDE1E7;
+  border-top: 3px solid #F26222;
+  border-radius: 0;
+  padding: 10px 10px 9px 11px;
+  text-align: left;
+  vertical-align: top;
+}
+.t-ico { position: absolute; right: 9px; top: 8px; line-height: 1; margin: 0; }
+.t-ico svg { width: 13px; height: 13px; }
+.t-num { color: #1D1D1B; font-size: 21px; font-weight: 700; line-height: 1.05; letter-spacing: -0.4px; }
+.t-num.sm { font-size: 16px; }
+.t-lab {
+  color: #5B6472;
+  font-size: 6.9px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+.t-note { font-size: 7.8px; font-weight: 600; margin-top: 4px; line-height: 1.4; color: #5B6472; }
+.t-note.red   { color: #A32015; }
+.t-note.green { color: #1E6B32; }
+.t-note.amber { color: #8A5300; }
+.t-note.grey  { color: #5B6472; }
+
+/* ---------- donut ------------------------------------------------- */
+.donut-wrap { text-align: center; padding-top: 2px; }
+.donut-cap { color: #5B6472; font-size: 8.4px; line-height: 1.5; margin-top: 6px; }
+
+/* ---------- score bars ------------------------------------------- */
+.scores { border-spacing: 0; margin-top: 2px; }
+.scores td { padding: 0; vertical-align: middle; }
+.sc-tick { color: #409A55; font-size: 10px; width: 16px; font-family: "DejaVu Sans", "Segoe UI Symbol", sans-serif; }
+.sc-lab  { color: #1D1D1B; font-size: 10.6px; width: 132px; padding-right: 12px; line-height: 1.3; }
+.sc-bar  { width: 236px; }
+.sc-val  { color: #1D1D1B; font-size: 10.6px; font-weight: 700; white-space: nowrap; padding-left: 12px; }
+.sc-form { color: #5B6472; font-size: 8.2px; line-height: 1.5; padding: 2px 0 12px 0 !important; }
+
+.track  { background: #E6E9EE; border-radius: 999px; height: 9px; }
+.trackl { background: #E6E9EE; border-radius: 999px; height: 8px; }
+.fill   { height: 9px; border-radius: 999px; }
+.trackl .fill { height: 8px; }
+.f-green { background: #409A55; }
+.f-amber { background: #E08A24; }
+.f-red   { background: #D0342C; }
+.f-orange{ background: #F26222; }
+.f-blue  { background: #3D8BD4; }
+
+.prog { width: 100%; table-layout: fixed; border-spacing: 0; margin-top: 10px; }
+.prog td { padding: 0 0 9px 0; vertical-align: middle; }
+.pr-lab { color: #5B6472; font-size: 9px; width: 158px; padding-right: 14px; line-height: 1.3; }
+.pr-bar { }
+.pr-val { color: #1D1D1B; font-size: 9px; font-weight: 700; text-align: right; white-space: nowrap; width: 64px; padding-left: 14px; }
+
+/* ---------- alerts panel (a white card now) ----------------------- */
+.alerts {
+  background: #FFFFFF;
+  border: 1px solid #DDE1E7;
+  border-radius: 0;
+  padding: 12px 16px 5px 16px;
+  margin-top: 13px;
+}
+.alerts .ah {
+  color: #C8511A;
+  font-size: 7.6px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 9px;
+}
+.al { width: 100%; border-spacing: 0; }
+.al td { vertical-align: top; padding-bottom: 9px; }
+.al-dot { width: 13px; font-size: 10px; line-height: 1.3; }
+.al-t { color: #1D1D1B; font-size: 10px; font-weight: 700; line-height: 1.4; }
+.al-s { color: #5B6472; font-size: 8.8px; line-height: 1.55; margin-top: 2px; }
+.al-b { color: #1D1D1B; font-size: 9px; line-height: 1.55; }
+.d-red { color: #D0342C; } .d-amber { color: #E08A24; }
+.d-blue { color: #3D8BD4; } .d-green { color: #409A55; }
+
+/* ---------- tables: charcoal head, hairlines, zebra --------------- */
+table.dt { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 10px; }
+table.dt th {
+  background: #2A313C;
+  color: #FFFFFF;
+  font-size: 7.3px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 8px;
+  line-height: 1.35;
+}
+table.dt th:first-child { border-top-left-radius: 0; padding-left: 11px; }
+table.dt th:last-child  { border-top-right-radius: 0; padding-right: 11px; }
+table.dt th.r, table.dt td.r { text-align: right; }
+table.dt th.c, table.dt td.c { text-align: center; }
+table.dt td {
+  font-size: 9.4px;
+  color: #1D1D1B;
+  padding: 7px 8px;
+  border-bottom: 1px solid #DDE1E7;
+  line-height: 1.4;
+}
+table.dt td:first-child { padding-left: 11px; }
+table.dt td:last-child  { padding-right: 11px; }
+table.dt tr.z td { background: #F6F7F9; }
+table.dt td .s2 { display: block; color: #5B6472; font-size: 7.8px; margin-top: 2px; }
+table.dt td.big { font-size: 16px; font-weight: 700; color: #1D1D1B; text-align: center; padding: 13px 8px; }
+table.dt td.big + td.big { border-left: 1px solid #DDE1E7; }
+table.dt th.c + th.c { border-left: 1px solid #3E4651; }
+.g { color: #1E6B32; font-weight: 700; }
+.a { color: #8A5300; font-weight: 700; }
+.rd { color: #A32015; font-weight: 700; }
+.or { color: #C8511A; font-weight: 700; }
+.tbc { color: #98A0AA; }
+
+.totrow { width: 100%; border-collapse: collapse; margin-top: 0; }
+.totrow td { font-size: 10.6px; font-weight: 700; color: #1D1D1B; padding: 10px 11px; border-bottom: 1px solid #DDE1E7; background: #FFF1EA; }
+.totrow td.v { text-align: right; }
+.hl { background: #FFF1EA; color: #C8511A; padding: 2px 6px; border-radius: 2px; font-weight: 700; }
+
+/* ---------- info cards --------------------------------------------- */
+.cards { width: 100%; table-layout: fixed; border-spacing: 8px 8px; margin: 8px -8px 0 -8px; }
+.cards td {
+  background: #FFFFFF;
+  border: 1px solid #DDE1E7;
+  border-left: 4px solid #F26222;
+  border-radius: 0;
+  padding: 11px 14px;
+  vertical-align: top;
+}
+.cd-h { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 6px; }
+.cd-b { color: #1D1D1B; font-size: 9.2px; line-height: 1.65; }
+.cd-b b { color: #1D1D1B; font-weight: 700; }
+
+/* ---------- focus cards (white, orange top) ----------------------- */
+.focus { width: 100%; table-layout: fixed; border-spacing: 7px 0; margin: 10px -7px 0 -7px; }
+.focus td {
+  background: #FFFFFF;
+  border: 1px solid #DDE1E7;
+  border-top: 3px solid #F26222;
+  border-radius: 0;
+  padding: 12px 13px 11px 13px;
+  vertical-align: top;
+}
+.fc-co { color: #1D1D1B; font-size: 11px; font-weight: 700; line-height: 1.3; }
+.fc-n  { color: #C8511A; font-size: 8.8px; font-weight: 700; margin-top: 4px; }
+.fc-s  { color: #5B6472; font-size: 8.2px; line-height: 1.6; margin-top: 4px; }
+
+/* ---------- team cards ------------------------------------------- */
+.team { width: 100%; border-spacing: 8px 0; margin: 11px -8px 0 -8px; }
+.team td {
+  background: #FFFFFF;
+  border: 1px solid #DDE1E7;
+  border-top: 3px solid #F26222;
+  border-radius: 0;
+  padding: 13px 9px 12px 9px;
+  text-align: center;
+  vertical-align: top;
+}
+.av {
+  width: 38px; height: 38px; border-radius: 999px;
+  background: #2A313C; color: #FFFFFF;
+  font-size: 12px; font-weight: 700;
+  text-align: center; line-height: 38px;
+  margin: 0 auto 8px auto;
+}
+.av.lead { background: #F26222; }
+.tm-n { color: #1D1D1B; font-size: 10.6px; font-weight: 700; line-height: 1.3; }
+.tm-r { color: #C8511A; font-size: 7.6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px; margin-top: 4px; line-height: 1.4; }
+.tm-e { color: #5B6472; font-size: 8px; margin-top: 4px; line-height: 1.4; }
+.tm-d { color: #5B6472; font-size: 7.8px; margin-top: 5px; line-height: 1.5; }
+
+/* ---------- misc -------------------------------------------------- */
+.two { width: 100%; border-spacing: 0; }
+.two td { vertical-align: top; }
+.chartpanel { background: #FFFFFF; border: 1px solid #DDE1E7; border-radius: 0; padding: 12px 14px; margin-top: 10px; }
+.chart-cap { color: #5B6472; font-size: 8.6px; line-height: 1.65; margin-top: 7px; }
+.chart-cap b { color: #1D1D1B; }
+
+/* ---------- compact tables + tags -------------------------------- */
+table.dt.cp th { padding: 6px 7px; font-size: 6.9px; letter-spacing: 0.9px; }
+table.dt.cp td { padding: 4.5px 7px; font-size: 8.6px; line-height: 1.3; }
+table.dt.cp td:first-child { padding-left: 10px; }
+table.dt.cp td:last-child  { padding-right: 10px; }
+table.dt.cp td .s2 { font-size: 7.4px; margin-top: 1px; }
+
+.tag {
+  display: inline-block; font-size: 6.6px; font-weight: 700; letter-spacing: 0.7px;
+  text-transform: uppercase; padding: 1.5px 6px; border-radius: 3px;
+  margin-left: 6px; vertical-align: middle; line-height: 1.5;
+}
+.tag.red   { background: #FBE7E6; color: #A32015; }
+.tag.amber { background: #FDF1DC; color: #8A5300; }
+.tag.grey  { background: #E9ECF0; color: #4A5361; }
+.tag.green { background: #E8F3E9; color: #1E6B32; }
+.tag.orange{ background: #FFF1EA; color: #A6410F; }
+
+table.dt td.dim { color: #98A0AA; }
+table.dt th.nw, table.dt td.nw { white-space: nowrap; }
+table.dt th.w { white-space: nowrap; }
+
+.rules { width: 100%; border-spacing: 0; margin-top: 8px; }
+.rules td { vertical-align: top; padding: 5px 0; border-bottom: 1px solid #DDE1E7; font-size: 8.8px; line-height: 1.55; color: #1D1D1B; }
+.rules td.k { width: 118px; color: #1D1D1B; font-weight: 700; padding-right: 12px; }
+
+/* ---------- movement, RAG band, cover, heat grid ------------------ */
+.spark { display: block; margin: 5px 0 0 0; }
+.t-spark { margin-top: 5px; line-height: 0; }
+
+.ragband { display: table; width: 100%; border-collapse: separate; border-spacing: 0;
+           margin-top: 11px; border-radius: 0; overflow: hidden;
+           background: #F6F7F9; border-left: 4px solid #98A0AA; }
+.ragband.g  { background: #E8F3E9; border-left-color: #409A55; }
+.ragband.a  { background: #FDF1DC; border-left-color: #E08A24; }
+.ragband.rd { background: #FBE7E6; border-left-color: #D0342C; }
+.ragband.tight { margin-top: 5px; }
+.ragband.tight .pill { font-size: 8px; padding: 4px 8px; }
+.ragband.tight .rb { padding: 7px 12px 6px 12px; }
+.ragband.tight .rh { font-size: 10.4px; line-height: 1.4; }
+.ragband.tight .rg { margin-top: 4px; }
+.ragband.tight .rv { font-size: 8px; line-height: 1.45; }
+.ragband .pill { display: table-cell; width: 60px; vertical-align: top; text-align: left;
+                 padding: 12px 0 0 12px; }
+.ragband .pill span, .ragband .pill { color: #FFFFFF; font-weight: 700; font-size: 7.6px; letter-spacing: 1.6px;
+                 text-transform: uppercase; }
+.ragband .pill { background: transparent; }
+.ragband.g .pill  { color: #1E6B32; }
+.ragband.a .pill  { color: #8A5300; }
+.ragband.rd .pill { color: #A32015; }
+.ragband .rb { display: table-cell; vertical-align: top; padding: 10px 14px 9px 4px; }
+.ragband .rh { color: #1D1D1B; font-size: 11px; font-weight: 700; line-height: 1.45; }
+.ragband .rh .o { color: #C8511A; }
+.ragband .rg { width: 100%; border-spacing: 0; margin-top: 6px; }
+.ragband .rg td { padding: 0 12px 0 0; vertical-align: top; width: 33%; }
+.ragband .rk { color: #5B6472; font-size: 6.8px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+.ragband .rv { color: #1D1D1B; font-size: 8.6px; line-height: 1.5; margin-top: 2px; }
+.ragband .rv b { color: #1D1D1B; }
+
+/* ---------- the cover: dark hero on top, white below ----------------- */
+.page.cover .frame { background: #FFFFFF; padding: 0; }
+.page.cover .mast { display: none; }
+.page.cover .cover-in { height: 296.9mm; }
+.cover-in { position: relative; padding: 0; color: #1D1D1B; }
+.cover-hero { background: #1D1D1B; color: #FFFFFF; padding: 20mm 11mm 12mm 11mm; min-height: 96mm;
+              border-bottom: 3px solid #F26222; position: relative; }
+.cover-hero .kicker { color: #F26222; font-size: 8.4px; letter-spacing: 3px; }
+.cover-hero h1 { margin: 10px 0 0 0; font-size: 36px; font-weight: 700; line-height: 1.08; letter-spacing: -0.6px; color: #FFFFFF; max-width: 118mm; }
+.cover-hero .sub { margin-top: 8px; color: #9AA2AC; font-size: 12.5px; max-width: 118mm; }
+.cover-hero .date { margin-top: 12px; color: #FFFFFF; font-size: 11px; font-weight: 600; }
+.cover-hero .date .asat { display: inline; color: #9AA2AC; font-weight: 400; text-align: left; margin: 0; font-size: 11px; }
+.cover-hero .bigbox { position: absolute; right: 11mm; top: 20mm; text-align: right; width: 62mm; }
+.cover-hero .big { font-size: 84px; font-weight: 700; line-height: 0.95; letter-spacing: -3px; color: #F26222; }
+.cover-hero .big.sm { font-size: 54px; letter-spacing: -1.5px; }
+.cover-hero .biglab { margin-top: 6px; color: #F26222; font-size: 7.4px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; }
+.cover-hero .fresh { margin-top: 10px; color: #9AA2AC; font-size: 8.8px; }
+.cover-hero .fresh b { color: #FFFFFF; font-weight: 600; }
+.cover-hero .cover-status { position: absolute; right: 11mm; bottom: 12mm; font-size: 7.6px; font-weight: 700;
+                            letter-spacing: 2px; padding: 4px 10px; border-radius: 3px; }
+.cover-wm { position: absolute; left: 11mm; top: 9mm; font-size: 12pt; font-weight: 700; letter-spacing: 4pt; color: #FFFFFF; }
+.cover-wm .tag { display: block; font-size: 4.9pt; letter-spacing: 2pt; color: #9AA2AC; margin-top: 3px; font-weight: 600; }
+.cover-body { padding: 10mm 11mm 0 11mm; }
+.cover-body .lk { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.cover-body .lines { margin-top: 6px; color: #1D1D1B; font-size: 11.4px; line-height: 1.8; }
+.cover-body .lines b { color: #1D1D1B; font-weight: 700; }
+.cover-body .meta { margin-top: 12px; color: #5B6472; font-size: 9px; line-height: 1.7; }
+.cover-body .meta b { color: #1D1D1B; font-weight: 600; }
+.cover-stripe { display: none; }
+.cover-cog { position: absolute; right: 11mm; bottom: 14mm; width: 92px; opacity: 0.95; }
+.cover-siteiq { position: absolute; left: 11mm; bottom: 15mm; color: #1D1D1B; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; }
+.cover-siteiq .q { color: #F26222; }
+.cover-siteiq .tag { display: block; color: #5B6472; font-weight: 400; letter-spacing: 0; font-size: 8.6px; margin-top: 3px; }
+
+.cway { display: table; width: 100%; margin-top: 10px; background: #FFFFFF; border: 1px solid #DDE1E7; border-left: 4px solid #F26222; border-radius: 0; }
+.cway .img { display: table-cell; width: 104px; vertical-align: middle; padding: 7px 0 7px 10px; }
+.cway .img img { width: 90px; display: block; }
+.cway .txt { display: table-cell; vertical-align: middle; padding: 7px 14px 7px 10px; }
+.cway .h { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.cway .p { color: #1D1D1B; font-size: 11px; font-weight: 700; margin-top: 3px; line-height: 1.3; }
+.cway .v { color: #5B6472; font-size: 8.2px; margin-top: 4px; line-height: 1.45; }
+.cway .v b { color: #1D1D1B; }
+.cway .v .d { color: #5B6472; }
+.cway .k { color: #C8511A; font-size: 7px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; margin-right: 3px; }
+.cway .fit { color: #1D1D1B; font-size: 8.2px; margin-top: 3px; line-height: 1.45; }
+.cway .fit b { color: #1D1D1B; }
+.cway .src { color: #5B6472; font-size: 7.4px; margin-top: 3px; line-height: 1.4; }
+
+/* ---------- three things: the pack's numbered asks ----------------- */
+.three { margin: 8px 0 6px 0; border: 1px solid #DDE1E7; border-radius: 0; background: #FFFFFF;
+         padding: 7px 12px 5px 12px; break-inside: avoid; page-break-inside: avoid; }
+.three .t3h { font-size: 7.6px; letter-spacing: 2px; color: #C8511A; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+.three .t3 { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; border-top: 1px solid #EEF0F3; }
+.three .t3:first-of-type { border-top: 0; }
+.three .n { flex: 0 0 20px; height: 20px; border-radius: 0; background: #F26222; color: #FFFFFF;
+            font-weight: 700; font-size: 10px; text-align: center; line-height: 20px; }
+.three .w { flex: 1 1 auto; font-size: 10px; line-height: 1.45; color: #1D1D1B; }
+.three .w b { display: block; font-size: 10.4px; }
+.three .w .why { color: #5B6472; }
+.three .who { flex: 0 0 150px; font-size: 8.6px; color: #5B6472; line-height: 1.4; text-align: right; }
+.three .who::before { content: "OWNER / BY"; display: block; font-size: 6.4px; letter-spacing: 1.4px; color: #98A0AA; font-weight: 700; }
+
+/* ---------- "What's inside" on the cover: the pack's contents table --- */
+.cover-toc { margin-top: 14px; width: 100%; color: #1D1D1B; }
+.cover-toc .h { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+.cover-toc table { border-collapse: collapse; width: 100%; }
+.cover-toc td { padding: 4px 0; font-size: 9.4px; border-bottom: 1px solid #DDE1E7; }
+.cover-toc td.ct { color: #1D1D1B; font-weight: 600; }
+.cover-toc td.cp { text-align: right; color: #C8511A; width: 28px; font-weight: 700; }
+
+/* bordered blocks never grow past their column */
+.callout, .sect, .alerts, .chartpanel, .cway, .three, .ragband, .cover-toc, .focus td, .cards td, .team td, .tiles td, .k2mast, .k2foot, .mast, .foot { box-sizing: border-box; }
