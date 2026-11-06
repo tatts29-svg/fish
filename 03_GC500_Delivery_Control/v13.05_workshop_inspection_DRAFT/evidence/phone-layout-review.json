@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Codex inspection UI agent",
+  "reviewed_at_utc": "2026-11-06T04:42:43.966373+00:00",
+  "candidate_manifest_sha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "workshop_ui_sha256": "88bfbeb876d51036c8e8b1b1f72ab320451d1d998402946299d23e8a39c3c1b9",
+  "scope": "Independent read-only visual inspection of two native phone orientation screenshots and their recorded layout metrics. No browser rerun or source changes.",
+  "result": "PASS for this layout review only",
+  "screenshots": {
+    "inspection-layout-320.png": "3de0fe1b3484b422a65c11e60fb4dc4e1e119177a7f51c2bad572339fb48c6e0",
+    "inspection-layout-844.png": "c0360e0d4eb0595d9dc439debf31b71f46ab471fb67c4b5f9889f12e20f85ed9"
+  },
+  "observations": [
+    "At 320 x 700 the actual engine remains visible above a separate orange-bordered bench tray. Cycle phase buttons, the focused range slider, Overview, Lift and Exit remain legible. Additional tray controls use internal scrolling.",
+    "At 844 x 390 the actual engine remains visible to the left of the bench tray. Header navigation and action controls fit inside the viewport. The focused range control has a clear inset orange outline without obscuring its label.",
+    "Both screenshots preserve the Coates orange and dark workshop appearance. Model and tray do not overlap.",
+    "Native metrics record document width equal to client width in both orientations, no horizontal overflow, and page scrollY zero."
+  ],
+  "measurements": {
+    "320": {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "layout": {
+        "viewport": {
+          "x": 0,
+          "y": 110.78125,
+          "right": 320,
+          "bottom": 369.796875,
+          "width": 320,
+          "height": 259.015625
+        },
+        "panel": {
+          "x": 8,
+          "y": 379.796875,
+          "right": 312,
+          "bottom": 615.75,
+          "width": 304,
+          "height": 235.953125
+        },
+        "sceneVisible": true,
+        "compact": true,
+        "canSelect": false,
+        "scrollY": 0,
+        "documentWidth": 320,
+        "windowWidth": 320,
+        "innerWidth": 320,
+        "trayParent": "workshop-panel",
+        "separated": true,
+        "trayScroll": 151
+      }
+    },
+    "844": {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "layout": {
+        "viewport": {
+          "x": 0,
+          "y": 73.78125,
+          "right": 516,
+          "bottom": 341,
+          "width": 516,
+          "height": 267.21875
+        },
+        "panel": {
+          "x": 526,
+          "y": 81.78125,
+          "right": 836,
+          "bottom": 333,
+          "width": 310,
+          "height": 251.21875
+        },
+        "sceneVisible": true,
+        "compact": true,
+        "canSelect": false,
+        "scrollY": 0,
+        "documentWidth": 844,
+        "windowWidth": 844,
+        "innerWidth": 844,
+        "trayParent": "workshop-panel",
+        "separated": true,
+        "trayScroll": 151
+      }
+    }
+  },
+  "limitations": [
+    "The full native acceptance suite was still ongoing when this review was written; this report is not a full-suite or publication verdict.",
+    "Images were captured with headless Chromium software rendering (SwiftShader). Displayed frame-rate readings are not physical-device performance evidence.",
+    "This review confirms layout and control visibility. It does not claim production deployment or independent live read-back."
+  ]
+}

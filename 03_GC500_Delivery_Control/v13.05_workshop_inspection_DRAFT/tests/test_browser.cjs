@@ -114,6 +114,9 @@ const fs=require('fs');const path=require('path');const crypto=require('crypto')
  check('refit direction survives tour handoff',await m.page.evaluate(()=>__workshop.service.direction===-1));
  check('exit tour keeps workshop under manual control',await m.page.evaluate(()=>!__workshop.showcase.active&&__workshop.service.active&&!__workshop.lessons.state.active));
  await m.page.emulateMedia({reducedMotion:'reduce'});
+ // CDP acknowledges the setting before the browser delivers MediaQueryList.change.
+ // Wait for the real preference and listener state; do not synthesize the event.
+ await m.page.waitForFunction(()=>matchMedia('(prefers-reduced-motion: reduce)').matches&&__workshop.lift.reducedMotion,null,{timeout:120000,polling:100});
  check('reduced motion preference applied',await m.page.evaluate(()=>__workshop.lift.reducedMotion));
  await m.page.evaluate(()=>{document.getElementById('workshop-bench-open').click();document.getElementById('bench-start').click();__workshop.exit();__reviewFrame(performance.now()+100);});
  check('fault exit restores engine and releases lock',await m.page.evaluate(()=>!__workshop.learning.active&&!__cw.drive.locked&&__workshop.learning.diagnostics.originalBeltGeometry));

@@ -1,0 +1,513 @@
+{
+  "checks": [
+    {
+      "name": "machine initialises",
+      "pass": true
+    },
+    {
+      "name": "bench opens supported engine with selection enabled",
+      "pass": true
+    },
+    {
+      "name": "Space in bench controls does not start the hidden refit action",
+      "pass": true
+    },
+    {
+      "name": "phone bench controls share the scene panel",
+      "pass": true
+    },
+    {
+      "name": "phone bench reserves visible model space beside controls",
+      "pass": true
+    },
+    {
+      "name": "phone inspection does not overflow page width",
+      "pass": true
+    },
+    {
+      "name": "phone mode strip permits horizontal touch scrolling",
+      "pass": true
+    },
+    {
+      "name": "last phone bench mode can scroll fully into the tray",
+      "pass": true
+    },
+    {
+      "name": "component selector reaches the registered alternator",
+      "pass": true
+    },
+    {
+      "name": "compact hand crank changes actual engine angle",
+      "pass": true
+    },
+    {
+      "name": "cycle retains its fixed component and rejects picking",
+      "pass": true
+    },
+    {
+      "name": "cycle keyboard input still drives the actual lesson",
+      "pass": true
+    },
+    {
+      "name": "scrolling to cycle controls keeps the model on screen",
+      "pass": true
+    },
+    {
+      "name": "slider focus stays clear of its label with a full touch target",
+      "pass": true
+    },
+    {
+      "name": "inspection scene and tray fit 320 by 700",
+      "pass": true
+    },
+    {
+      "name": "cycle slider retains a 44 px touch target at 320",
+      "pass": true
+    },
+    {
+      "name": "inspection scene and tray fit 844 by 390",
+      "pass": true
+    },
+    {
+      "name": "cycle slider retains a 44 px touch target at 844",
+      "pass": true
+    },
+    {
+      "name": "isolated component selection remains available",
+      "pass": true
+    },
+    {
+      "name": "rotation controls retain the actual isolated part",
+      "pass": true
+    },
+    {
+      "name": "rotation controls leave selected component viewport visible",
+      "pass": true
+    },
+    {
+      "name": "reduced motion settles manual inspection without flight",
+      "pass": true
+    },
+    {
+      "name": "workshop Home remains enabled",
+      "pass": true
+    },
+    {
+      "name": "native Home returns to workshop overview without changing service position",
+      "pass": true
+    },
+    {
+      "name": "Lift returns from the bench without changing service position",
+      "pass": true
+    },
+    {
+      "name": "Lift restores the actual refit control",
+      "pass": true
+    },
+    {
+      "name": "native refit starts reverse service motion",
+      "pass": true
+    },
+    {
+      "name": "native refit can be paused before exit",
+      "pass": true
+    },
+    {
+      "name": "exit restores layout and cancels inspection flight",
+      "pass": true
+    },
+    {
+      "name": "inspection native suite starts outside the workshop",
+      "pass": true
+    },
+    {
+      "name": "manual Inspect starts an actual camera transition",
+      "pass": true
+    },
+    {
+      "name": "manual inspection camera settles at a new finite view",
+      "pass": true
+    },
+    {
+      "name": "inspection lighting reuses original lights and quality settings",
+      "pass": true
+    },
+    {
+      "name": "Bench controls keep the phone model visible",
+      "pass": true
+    },
+    {
+      "name": "tap fixture leaves a different selection under the native close view",
+      "pass": true
+    },
+    {
+      "name": "visible registered component has a real canvas tap target",
+      "pass": true
+    },
+    {
+      "name": "native tap selects the actual registered component",
+      "pass": true
+    },
+    {
+      "name": "selection follows depth-tested component geometry",
+      "pass": true
+    },
+    {
+      "name": "native orbit drag never selects another component",
+      "pass": true
+    },
+    {
+      "name": "Cycle controls keep the phone model visible",
+      "pass": true
+    },
+    {
+      "name": "native exit restores original lights and exposure exactly",
+      "pass": true
+    },
+    {
+      "name": "inspection suite restores the original machine controls",
+      "pass": true
+    },
+    {
+      "name": "normal animation loop reaches paused workshop idle",
+      "pass": true
+    },
+    {
+      "name": "native input invalidation is followed by an actual draw",
+      "pass": true
+    },
+    {
+      "name": "native crank draws the new pose and shadow",
+      "pass": true
+    },
+    {
+      "name": "native rotation draws the new pose and shadow",
+      "pass": true
+    },
+    {
+      "name": "native exit restores normal drawing mode",
+      "pass": true
+    },
+    {
+      "name": "workshop button present",
+      "pass": true
+    },
+    {
+      "name": "enter",
+      "pass": true
+    },
+    {
+      "name": "actual engine assembly",
+      "pass": true
+    },
+    {
+      "name": "drive locked",
+      "pass": true
+    },
+    {
+      "name": "no cockpit or suspension lifted",
+      "pass": true
+    },
+    {
+      "name": "existing dock kept out of preview",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.075",
+      "pass": true
+    },
+    {
+      "name": "tool reaches original hose clamp",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.53",
+      "pass": true
+    },
+    {
+      "name": "mechanic stays clear of moving load",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.86",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.5304",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.5304",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.66",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.66",
+      "pass": true
+    },
+    {
+      "name": "finite pose 1",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 1",
+      "pass": true
+    },
+    {
+      "name": "close inspection available",
+      "pass": true
+    },
+    {
+      "name": "overview restored",
+      "pass": true
+    },
+    {
+      "name": "engine lifts vertically",
+      "pass": true
+    },
+    {
+      "name": "engine traverses",
+      "pass": true
+    },
+    {
+      "name": "engine lowers to cradle",
+      "pass": true
+    },
+    {
+      "name": "play advances",
+      "pass": true
+    },
+    {
+      "name": "pause holds",
+      "pass": true
+    },
+    {
+      "name": "clamps progress",
+      "pass": true
+    },
+    {
+      "name": "conflicting keyboard paths blocked",
+      "pass": true
+    },
+    {
+      "name": "no horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "panel within viewport",
+      "pass": true
+    },
+    {
+      "name": "exit releases drive lock",
+      "pass": true
+    },
+    {
+      "name": "original dock restored",
+      "pass": true
+    },
+    {
+      "name": "crew upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "finish upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "bench opens supported engine",
+      "pass": true
+    },
+    {
+      "name": "fault buttons hidden until challenge",
+      "pass": true
+    },
+    {
+      "name": "bench controls enabled",
+      "pass": true
+    },
+    {
+      "name": "all 16 components available",
+      "pass": true
+    },
+    {
+      "name": "manual crank turns 45 degrees",
+      "pass": true
+    },
+    {
+      "name": "oil route shown",
+      "pass": true
+    },
+    {
+      "name": "flow summary key preserves bench",
+      "pass": true
+    },
+    {
+      "name": "coolant limitation clear",
+      "pass": true
+    },
+    {
+      "name": "timing-belt fault starts",
+      "pass": true
+    },
+    {
+      "name": "timing-belt cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "timing-belt inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "timing-belt repaired",
+      "pass": true
+    },
+    {
+      "name": "oil-pump fault starts",
+      "pass": true
+    },
+    {
+      "name": "oil-pump cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "oil-pump inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "oil-pump repaired",
+      "pass": true
+    },
+    {
+      "name": "bench no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "four-stroke lesson active",
+      "pass": true
+    },
+    {
+      "name": "actual phase intake",
+      "pass": true
+    },
+    {
+      "name": "actual phase compression",
+      "pass": true
+    },
+    {
+      "name": "actual phase power",
+      "pass": true
+    },
+    {
+      "name": "actual phase exhaust",
+      "pass": true
+    },
+    {
+      "name": "cycle play explicitly advances",
+      "pass": true
+    },
+    {
+      "name": "isolated original-model component rotates",
+      "pass": true
+    },
+    {
+      "name": "connection reference visible",
+      "pass": true
+    },
+    {
+      "name": "wide component fits above controls",
+      "pass": true
+    },
+    {
+      "name": "isolated component refits on orientation change",
+      "pass": true
+    },
+    {
+      "name": "portrait component fits after return",
+      "pass": true
+    },
+    {
+      "name": "refit closes bench first",
+      "pass": true
+    },
+    {
+      "name": "refit moves towards car",
+      "pass": true
+    },
+    {
+      "name": "tour starts explicitly",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.1",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.35",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.57",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.7",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.82",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.98",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.12",
+      "pass": true
+    },
+    {
+      "name": "tour resume advances",
+      "pass": true
+    },
+    {
+      "name": "orbit pauses tour",
+      "pass": true
+    },
+    {
+      "name": "manual lesson takes over tour without losing mode",
+      "pass": true
+    },
+    {
+      "name": "manual isolation takes over tour",
+      "pass": true
+    },
+    {
+      "name": "refit direction survives tour handoff",
+      "pass": true
+    },
+    {
+      "name": "exit tour keeps workshop under manual control",
+      "pass": true
+    },
+    {
+      "name": "reduced motion preference applied",
+      "pass": false
+    }
+  ],
+  "errors": [],
+  "author": "Andrew Fisher",
+  "passed": false,
+  "candidateManifestSha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "diagnosis": "Immediate legacy media-preference assertion ran before native change event delivery. Test now waits for actual matchMedia and lift state, retaining the assertion and timeout; no application source changed. Fresh full acceptance required."
+}
