@@ -1433,8 +1433,19 @@ def _build(base=HERE, when=None):
     #  the newest day in the data as its date and says so.
     movement_dates = [_date(r.get(field)) for r in tw + own
                       for field in ("TRAN_START_DATE", "TRAN_END_DATE")]
-    movement_dates += [_date(r.get("SALES_DATE")) for r in sales
-                       if _n(r.get("SALES_QUANTITY")) > 0]
+    #  SALES_STOCK is not windowed by SiteIQ. A sale stamped after the
+    #  TRANSACTIONS window ends means the two exports were not pulled
+    #  together; it is noted, but it does not re-date the report.
+    _win_end = (transactions_window(p_trans) or (None, None))[1]
+    _sale_days = [_date(r.get("SALES_DATE")) for r in sales if _n(r.get("SALES_QUANTITY")) > 0]
+    _late_sales = [d_ for d_ in _sale_days if d_ and _win_end and d_ > _win_end]
+    movement_dates += [d_ for d_ in _sale_days if d_ and not (_win_end and d_ > _win_end)]
+    if _late_sales:
+        say("  NOTE | SALES_STOCK carries {:,} sale{} dated after the TRANSACTIONS window "
+            "ends (latest {}). Pull the exports together; those sales are not "
+            "counted this period.".format(
+                len(_late_sales), "" if len(_late_sales) == 1 else "s",
+                max(_late_sales).strftime("%d %b %Y")))
     newest = max([day for day in movement_dates if day] or [when])
     _PRINT["stale_days"] = 0
     _PRINT.pop("stale_newest", None)
@@ -2273,8 +2284,13 @@ def _build(base=HERE, when=None):
                        for suffix in (".html", ".eml", ".draft.json"))),
               ("main email complete", bool(html_path and eml_path)
                and os.path.isfile(html_path) and os.path.isfile(eml_path)),
-              ("typeface ready", coates_pdf is not None
-               and coates_pdf.typeface() in ("Inter", "Helvetica"))]
+              ("typeface embedded", coates_pdf is not None
+               and coates_pdf.typeface() == "Inter")]
+    #  The first five are fatal: without them the report is not complete.
+    #  The rest are advisory sweeps - they say "look at this" and never
+    #  hide a finished report behind an exit code.
+    fatal_names = {"workbook saved", "pack built", "a PDF for every company",
+                   "company drafts complete", "main email complete"}
     if html_path:
         try:
             with open(html_path, encoding="utf-8") as check_file:
@@ -2303,12 +2319,18 @@ def _build(base=HERE, when=None):
     say("  Checks    {} of {} passed{}".format(
         passed, len(checks), "" if passed == len(checks) else
         " - LOOK AT: " + ", ".join(n for n, ok in checks if not ok)))
-    complete = passed == len(checks)
-    if not complete:
-        say("  STOP | The report is incomplete or a check failed. Review the named")
-        say("         checks above before using these outputs, then run again.")
+    fatal_failed = [n for n, ok in checks if not ok and n in fatal_names]
+    advisory_failed = [n for n, ok in checks if not ok and n not in fatal_names]
+    if fatal_failed:
+        say("  STOP | The report is incomplete: {}. Review the message".format(
+            ", ".join(fatal_failed)))
+        say("         above, then run again.")
         say("=" * 66)
         return 1
+    if advisory_failed:
+        say("  NOTE | The outputs are complete. The check{} named above {} advisory:".format(
+            "" if len(advisory_failed) == 1 else "s", "is" if len(advisory_failed) == 1 else "are"))
+        say("         read that output before sending it.")
     try:
         write_history(base, s, when, {
             "onhire": len(det), "companies": parts["counts"]["companies"],
@@ -2396,6 +2418,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     ]
 
     #  The position, in the words you'd use on the phone.
+    cust_items, owner_note = [], ""
     if det:
         call = ["{:,} item{} on hire to {:,} compan{}, and the oldest dated "
                 "issue has been out {}.".format(
@@ -2406,12 +2429,14 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         #  47 on the dials reconcile.
         coates_nums = {_s(r.get("ITEM_NUMBER")) for r in coates_owned}
         cust = [r for r in det if _s(r[2]) and _s(r[2]) not in coates_nums]
+        cust_items = cust
         if cust and len(cust) < len(det):
-            call[0] += (" {:,} of them {} customer-owned item{} managed through the "
-                        "counter; {:,} {} Coates fleet.".format(
-                            len(cust), "is a" if len(cust) == 1 else "are",
-                            "" if len(cust) == 1 else "s", len(det) - len(cust),
-                            "is" if len(det) - len(cust) == 1 else "are"))
+            owner_note = (" {:,} of them {} customer-owned item{} managed through the "
+                          "counter; {:,} {} Coates fleet.".format(
+                              len(cust), "is a" if len(cust) == 1 else "are",
+                              "" if len(cust) == 1 else "s", len(det) - len(cust),
+                              "is" if len(det) - len(cust) == 1 else "are"))
+            call[0] += owner_note
     else:
         call = ["No items are recorded on hire in this export."]
     if hot or tight:
@@ -2577,11 +2602,12 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         for p in sources})) or when.strftime("%d %b %Y")
 
     return {"tiles": tiles, "flags": flags, "call": call, "actions": actions,
+            "owner_note": owner_note.strip(),
             "companies": companies, "hardest": hardest, "idle": idle_rows,
             "consumables": cons, "longest": longest, "source_stamp": stamp,
             "roll": on_hire_roll, "period": period, "pack_pages": 0,
             "long_out_days": LONG_OUT_DAYS, "cons_tight": CONS_TIGHT,
-            "counts": {"onhire": len(det), "companies": n_companies,
+            "counts": {"onhire": len(det), "cust_owned": len(cust_items), "companies": n_companies,
                        "oldest_days": oldest_days, "hot": len(hot),
                        "tight": len(tight), "long_out": len(long_out),
                        "undated": len(undated), "idle_units": idle_units}}
@@ -5628,12 +5654,16 @@ def _moving_strip(story):
     """How gear is moving: same day / kept longer / still out, and the
     customer-owned gear logged - the four numbers behind "the store is
     working". Each cell carries its own meaning in words."""
-    cells = [("green", "Returned same day", story["same_day"],
-              "issued and returned on same date"),
-             ("amber", "Kept longer, returned", story["kept"],
+    open_tx = story.get("open_transactions", story["still_out"])
+    cells = [("green", "Returned same date", story["same_day"],
+              "issued and returned on the same date"),
+             ("amber", "Returned later", story["kept"],
               "returned on a later date"),
-             ("red" if story["still_out"] else "green", "Still on hire",
-              story["still_out"], "itemised in section 7")]
+             ("red" if open_tx else "green", "No return recorded",
+              open_tx, "issues still open in this export")]
+    if story.get("uncertain_transactions"):
+        cells.append(("slate", "Uncertain dates", story["uncertain_transactions"],
+                      "issue or return not dated"))
     if story.get("own_total"):
         cells.append(("orange", "Customer-owned gear logged", story["own_total"],
                       "through the same counter"))
@@ -7895,8 +7925,38 @@ class _Pack(object):
             rows.append((cells, height))
         return col_w, rows, 40 + sum(height for _cells, height in rows)
 
+    def action_layout_compact(self, actions):
+        """One line per ask - the heading, then as many whole sentences as
+        fit beside it. The full wording is on the closing page and in the
+        email; this keeps every company on the cover's contents list."""
+        d = self.doc
+        rows = []
+        for head, body in actions:
+            hw = d.text_width(head, 8.8, bold=True)
+            avail = self.cw - 24 - 23 - hw - 16
+            rows.append(((head, _fit_sentences(d, body, 7.5, avail), hw), 18))
+        return self.cw - 24, rows, 30 + 18 * len(rows) + 6, "compact"
+
     def action_card(self, actions, layout=None):
-        col_w, rows, height = layout or self.action_layout(actions)
+        layout = layout or self.action_layout(actions)
+        if len(layout) == 4:
+            col_w, rows, height, _kind = layout
+            self.need(height)
+            d = self.doc
+            top = self.card(self.x0, self.y, self.cw, height, "What needs attention", "")
+            yy = top - 12
+            for k, ((head, body, hw), row_h) in enumerate(rows, 1):
+                xx = self.x0 + 12
+                d.rect(xx, yy - 1, 15, 15, fill=P_ORANGE, radius=3)
+                d.text(xx + 7.5, yy + 10, str(k), size=8, bold=True, colour=P_WHITE,
+                       align="centre")
+                d.text(xx + 23, yy + 10, head, size=8.8, bold=True, colour=P_INK)
+                d.text(xx + 23 + hw + 6, yy + 10, body, size=7.5, colour=P_MUTED,
+                       max_w=self.cw - 24 - 23 - hw - 16)
+                yy += row_h
+            self.y += height + 10
+            return
+        col_w, rows, height = layout
         self.need(height)
         d = self.doc
         top = self.card(self.x0, self.y, self.cw, height, "What needs attention",
@@ -7956,6 +8016,7 @@ class _Pack(object):
             self.progress_bar(self.x0, hy + 126, 300, pr, h=7, label=False, dark=True)
         #  the headline number
         rx = self.x1
+        since_y = 0
         if c["onhire"]:
             big = "{:,}".format(c["onhire"])
             d.text(rx, hy + 78, big, size=54, bold=True, colour=P_WHITE, align="right")
@@ -7964,6 +8025,13 @@ class _Pack(object):
             d.text(rx, hy + 106, "{:,} compan{}  \u00b7  oldest {}".format(
                 c["companies"], "y" if c["companies"] == 1 else "ies",
                 _days_text(c["oldest_days"])), size=9, colour="#C9CFD7", align="right")
+            if c.get("cust_owned"):
+                #  the split the dials need: what is Coates fleet, what is the
+                #  customer's own gear managed through the counter
+                d.text(rx, hy + 118, "{:,} Coates fleet  \u00b7  {:,} customer-owned".format(
+                    c["onhire"] - c["cust_owned"], c["cust_owned"]), size=8.5,
+                    colour="#C9CFD7", align="right")
+                since_y = 13
         else:
             d.text(rx, hy + 74, "0", size=54, bold=True, colour=E_RAG["green"][2],
                    align="right")
@@ -7982,12 +8050,12 @@ class _Pack(object):
                 good = (diff <= 0) if what == "on hire" else True
                 bits.append(("{:+,} {}".format(diff, what) if diff else "{} level".format(what),
                              (E_RAG["green"][2] if good else E_RAG["amber"][2]) if diff else "#9AA2AC"))
-            d.text(rx, hy + 122, "SINCE {}".format(prev["day"].strftime("%a %d %b").upper()),
+            d.text(rx, hy + 122 + since_y, "SINCE {}".format(prev["day"].strftime("%a %d %b").upper()),
                    size=6.3, bold=True, colour="#C9CFD7", tracking=0.8, align="right")
             xx = rx
             for txt, col in reversed(bits):
                 w_ = d.text_width(txt, 9, bold=True)
-                d.text(xx, hy + 135, txt, size=9, bold=True, colour=col, align="right")
+                d.text(xx, hy + 135 + since_y, txt, size=9, bold=True, colour=col, align="right")
                 xx -= w_ + 12
         self.y = hy + hero_h + 14
 
@@ -7996,6 +8064,8 @@ class _Pack(object):
                colour=P_ORANGE_TEXT, tracking=1.2)
         yy = self.y + 24
         call = [ln for ln in parts["call"] if "the last report" not in ln][:3]
+        if call and parts.get("owner_note") and parts["owner_note"] in call[0]:
+            call[0] = call[0].replace(" " + parts["owner_note"], "")   # it is in the hero
         for i, line in enumerate(call):
             yy = d.paragraph(self.x0, yy, line, size=10.5 if i == 0 else 9.2,
                              max_w=self.cw, bold=(i == 0),
@@ -8059,25 +8129,38 @@ class _Pack(object):
         #  says how many more companies have sections and bookmarks.
         #  (a two-up asks card is 30 + 19 * 2, plus the trailer row, the gaps
         #  and the card's top margin)
-        actions_layout = self.action_layout(parts.get("actions") or [])
-        reserve_full = actions_layout[2] + 44
-        reserve = reserve_full + 14
+        actions = parts.get("actions") or []
+        full_layout = self.action_layout(actions) if actions else (0, [], 0)
+        compact_layout = self.action_layout_compact(actions) if actions else None
+        reserve_full = full_layout[2] + 44
         listed = blocks
+        chosen = full_layout
+
+        def fits(hh, avail):
+            return n_rows * hh <= avail
+        #  1. every company, every ask in full
         avail_full = self.bottom - self.y - reserve_full
-        if n_rows * h > avail_full:
+        if not fits(h, avail_full):
             for h_try in (13, 12):
-                if n_rows * h_try <= avail_full:
+                if fits(h_try, avail_full):
                     h, fs, base_y = h_try, 7.8, h_try - 3.8
                     break
-        avail = self.bottom - self.y - reserve
-        if n_rows * h > avail:
-            for h_try in (13, 12):
-                if n_rows * h_try <= avail:
-                    h, fs, base_y = h_try, 7.8, h_try - 3.8
+        #  2. every company, the asks one line each (whole sentences) -
+        #     the full wording is on the closing page and in the email
+        if not fits(h, avail_full) and compact_layout:
+            avail_c = self.bottom - self.y - (compact_layout[2] + 44)
+            for h_try in (h, 13, 12):
+                if fits(h_try, avail_c):
+                    if h_try != h:
+                        h, fs, base_y = h_try, 7.8, h_try - 3.8
+                    chosen = compact_layout
                     break
-            if n_rows * h > avail:
-                h, fs, base_y = 12, 7.8, 8.2
-                listed = blocks[:max(1, int(avail // h) - 1)]
+        #  3. a very big shut: a shorter list, and the asks in full
+        if not fits(h, self.bottom - self.y - (chosen[2] + 44)):
+            chosen = full_layout
+            avail = self.bottom - self.y - reserve_full - 14
+            h, fs, base_y = 12, 7.8, 8.2
+            listed = blocks[:max(1, int(avail // h) - 1)]
         biggest_items = max([b["items"] for b in blocks] + [1])
         for k, b in enumerate(listed):
             if k % 2:
@@ -8113,9 +8196,8 @@ class _Pack(object):
             self.y += h
         self.y += 8
 
-        # All action sentences remain readable, including crowded covers.
-        if parts.get("actions"):
-            self.action_card(parts["actions"], actions_layout)
+        if actions:
+            self.action_card(actions, chosen)
         if self.y + 28 <= self.bottom:
             self.y = d.paragraph(
                 self.x0, self.y + 6, "Dates are the start of each item's issue "

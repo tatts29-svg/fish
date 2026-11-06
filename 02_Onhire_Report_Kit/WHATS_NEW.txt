@@ -110,6 +110,41 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ NEW - THE THIRD OPINION (06 Nov 2026)
+ ------------------------------------
+   A third reviewer (OpenAI Codex, working on the same branch) added 28
+   automated tests and a Windows/Linux check that runs them on every
+   change, and fixed real things: consumable draws are now counted to
+   the exact minute of the transactions window; the "customer-owned gear
+   through the counter" figure counts gear only (Rio's sheet held 386
+   rows, 370 of them consumable sales already counted - 16 are gear);
+   two companies whose names differ only in case or punctuation can no
+   longer overwrite each other's files; the Outlook draft script checks
+   every attachment exists before it saves; the embedded fonts carry a
+   correct checksum; a missing output fails the run instead of printing
+   a tidy summary.
+
+   On top of that, after an independent read of its changes:
+   - The checks line is honest again. Five checks are fatal (workbook,
+     pack, a PDF and a draft per company, the main email); the rest -
+     typeface embedded, no gaps, no costs, cover and forecast agree -
+     are advisory. An advisory miss says NOTE and names the output; it
+     never hides a finished report behind "IT DID NOT FINISH".
+   - A sale in SALES_STOCK stamped after the transactions window ends
+     no longer re-dates the whole report; it is noted as a mismatched
+     pull and left out of this period.
+   - The email's "how gear is moving" strip shows the same three numbers
+     as the pack's chart (returned same date, returned later, no return
+     recorded), with uncertain dates as a fourth when there are any.
+   - The cover keeps every company on its contents list. If the asks
+     card in full would push companies off, the asks go to one line each
+     (whole sentences); only on a very big shut does the list shorten.
+     The Coates fleet / customer-owned split sits in the hero beside the
+     big number.
+   - A zero on hire reads "Nothing on hire", not "All back": the export
+     shows nothing out, which is not the same as having seen it all come
+     back.
+
  NEW - THE SECOND OPINION (06 Nov 2026)
  -------------------------------------
    Two independent reviewers went over the kit - one read every line of
@@ -197,7 +232,7 @@
    the title in white, the shut-progress strip, and the one number
    that matters - ITEMS ON HIRE NOW - set large in white with the
    company count, the oldest item and what moved since the last
-   report beside it. "All back" reads green when the number is zero.
+   report beside it. "Nothing on hire" reads green when the number is zero.
    The dials on At a glance sit on the same charcoal, the four values
    in white; every company section starts with a charcoal band - the
    company's mark in orange, its name in white, the date, and the
@@ -298,7 +333,7 @@
    Calmer colour. Amber now means "order more" (High Demand, Increase
    Stock, the two order flags); red is kept for gear out over 21 days
    and safety. A zero that is good news - items on hire 0 - reads green
-   as "All back" instead of a big black nought, and other zeros sit
+   as "Nothing on hire" instead of a big black nought, and other zeros sit
    quietly in grey.
 
    Email: sections 3 to 5 show their top six lines with "another N are

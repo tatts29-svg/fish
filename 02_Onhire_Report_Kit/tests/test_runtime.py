@@ -25,7 +25,7 @@ class RuntimeTests(unittest.TestCase):
     def test_installer_library_probe_accepts_apostrophes_and_spaces(self):
         # Execute the actual embedded Python probe, using a stand-in library
         # that is available only in this simulated kit path.
-        script = (KIT / "3_GET_PYTHON_NO_ADMIN.bat").read_text()
+        script = (KIT / "3_GET_PYTHON_NO_ADMIN.bat").read_text(encoding='utf-8')
         probe = re.search(r'"%KIT%_python\\python.exe" -c "([^"\n]*import openpyxl)"', script).group(1)
         with tempfile.TemporaryDirectory(prefix="Coates O'Brien [QA] ") as folder:
             library = Path(folder) / "_lib"

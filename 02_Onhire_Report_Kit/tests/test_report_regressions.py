@@ -168,7 +168,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(len(list(out.glob('*.pdf'))), 2)
             self.assertEqual(len(list(out.glob('*.eml'))), 2)
             for manifest_path in out.glob('*.draft.json'):
-                manifest = json.loads(manifest_path.read_text())
+                manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
                 self.assertTrue((out / manifest['body']).is_file())
                 self.assertTrue(all((out / name).is_file() for name in manifest['attachments']))
                 eml = email.message_from_bytes(manifest_path.with_suffix('').with_suffix('.eml').read_bytes(),
@@ -237,7 +237,12 @@ class ReportRegressions(unittest.TestCase):
                 book.close()
                 with contextlib.redirect_stdout(io.StringIO()):
                     self.assertEqual(report.build(base, DAY), 0)
-                self.assertTrue((Path(base) / 'Reports' / '2026-11-07').is_dir())
+                if sheet_name == 'SALES_STOCK':
+                    # SALES_STOCK is not windowed: a sale stamped after the
+                    # transactions window ends is noted, never used to re-date
+                    self.assertFalse((Path(base) / 'Reports' / '2026-11-07').is_dir())
+                else:
+                    self.assertTrue((Path(base) / 'Reports' / '2026-11-07').is_dir())
                 self.assertEqual(report._PRINT['stale_days'], 0)
                 report._close_ro_all()
 
@@ -278,7 +283,7 @@ class ReportRegressions(unittest.TestCase):
         with temporary_site() as base:
             fixture(base)
             out = run(base)
-            html = next(out.glob('*.html')).read_text()
+            html = next(out.glob('*.html')).read_text(encoding='utf-8')
             self.assertIn('1 movement went through', html)
             self.assertIn('1 tooling transaction', html)
             self.assertIn('across 1 item type<', html)
@@ -403,7 +408,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertTrue(any(label == 'Dates need review' for label, _, _ in breakdown))
             self.assertFalse(any(label == 'Still on hire' for label, _, _ in breakdown))
             html = report._moving_strip(story)
-            self.assertIn('issued and returned on same date', html)
+            self.assertIn('issued and returned on the same date', html)
             self.assertIn('returned on a later date', html)
             self.assertNotIn('before the shift ended', html)
             self.assertNotIn('more than a day', html)

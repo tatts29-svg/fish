@@ -203,6 +203,19 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Third-opinion round (06 Nov): OpenAI Codex pushed four commits on the
+  same branch (tests under `02_Onhire_Report_Kit/tests`, CI workflow
+  `.github/workflows/onhire-kit.yml`, draws windowed to the exact minute,
+  consumables excluded from CUSTOMER_CONTRACTOR_EQUIP own-gear counts,
+  transaction-outcome partition, collision-safe filenames, font checksum).
+  Verified here on the real exports; then fixed on top: fatal vs advisory
+  self-checks (`fatal_names`), an honest "typeface embedded" check, a sale
+  after the TRANSACTIONS window no longer re-dates the report, the email
+  moving strip matches the pack partition, and the cover keeps every
+  company on the list (`action_layout_compact`, three-step fit) with the
+  fleet/customer-owned split in the hero. Run the suite with
+  `python -m unittest discover -s 02_Onhire_Report_Kit/tests` (openpyxl on
+  the path). A zero on hire now reads "Nothing on hire", not "All back".
 - Tester round (06 Nov, after an independent rebuild-and-break test; report
   kept at the time under scratchpad/qa/QA_REPORT.md): "this period" draws =
   SALES_STOCK rows inside `transactions_window()` (`ctx`; the tab keeps all
