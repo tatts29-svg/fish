@@ -45,7 +45,8 @@ WHAT HAS BEEN VERIFIED ALREADY (Linux, not Windows)
   against the original builder's output, text sweeps for placeholders and
   dollars, PDF font embedding, Playwright renders of the email, LibreOffice
   renders of the workbook, an independent code review (ten findings, eight
-  fixed, see WHATS_NEW.txt "THE SECOND OPINION").
+  fixed) and an independent rebuild-and-break test (no blockers; its
+  majors and minors fixed - see WHATS_NEW.txt "THE SECOND OPINION").
 
 WHAT HAS NOT BEEN VERIFIED - the valuable places to look
   - Outlook desktop rendering of the .html / .eml.

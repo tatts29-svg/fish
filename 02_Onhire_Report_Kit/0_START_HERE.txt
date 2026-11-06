@@ -111,6 +111,12 @@
             the kind where the To field searches the address book.
             Needs Outlook on the computer. Still nothing sends itself.
 
+            CLASSIC OUTLOOK ONLY. The .eml-as-draft trick and buttons
+            4 and 5 need the classic desktop Outlook. In the "new
+            Outlook" an .eml opens read-only and there is no
+            automation: open the .html instead, Ctrl+A, Ctrl+C, and
+            paste it into a new message. Same report, same look.
+
 
  IT DIDN'T WORK - FIND YOUR MESSAGE HERE
  =======================================

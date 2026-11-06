@@ -81,7 +81,8 @@
    when a STOCKTAKE export is in.
 
    The workbook gains a CUSTOMER GEAR tab - customer- and contractor-
-   owned gear logged through the counter (fourteen tabs now). The
+   owned gear logged through the counter (fifteen tabs while a shut
+   is ahead or under way, fourteen after). The
    email shows how gear is moving and an Own gear column, and says
    when demob is.
 
@@ -143,6 +144,52 @@
    - On a very big shut the cover's contents list tightens, then stops
      before the footer and says how many more companies have sections,
      so the asks beneath it are never squeezed off page one.
+
+   The second reviewer rebuilt the kits from scratch and tried to break
+   the outputs. No blockers. What it found, and what changed:
+
+   - "This period" consumable draws now mean the transactions window.
+     SALES_STOCK carries every sale the project has ever made, so the
+     headline said 1,307 draws for a seven-day shut when 370 fell inside
+     the window. The counted figure is the window's; the Consumable
+     Transactions tab keeps every row; the Cover and DATA_SOURCES say
+     how many were counted.
+   - Customer-owned items (life jackets, drop mats) are on hire too but
+     they are not Coates gear. The position sentence now reconciles
+     "56 on hire" with "47 Coates fleet"; the company chase email says
+     "on hire from the Coates tool store" and names how many are the
+     customer's own.
+   - Reports\<day>\By_Company is regenerated whole each run, so a
+     company renamed by an alias cannot leave yesterday's PDF and draft
+     beside today's; the self-check counts the files present.
+   - The email attaches the dated workbook, not the undated LATEST, so
+     saving the attachment daily never overwrites yesterday's.
+   - One count of consumable lines (the utilisation lines the ratings
+     are built on) on the tile, the dial and the donut.
+   - Cover: the demob date comes from the roster when JOB.txt is silent,
+     and "Engagement" says "not set in JOB.txt" rather than asserting.
+   - Exports more than three days older than the report date are said
+     in the email, on the cover and on the workbook Cover, not only on
+     the console.
+   - The undated ask fits the facts: when the undated items' stock dates
+     are before the shut, it no longer asks for a pull that cannot date
+     them.
+   - Export times on the Cover and in DATA_SOURCES are SiteIQ's own
+     request time, not the file's copy time. Phone layout lets every
+     cell wrap. Plain-text email pluralises. The last age band is
+     captioned. The section band keeps whole sentences. Button 4 picks
+     today's folder, not the alphabetically newest. 3_GET_PYTHON copes
+     with an apostrophe in the path. Only Windows' real Temp folders
+     trip the "inside the zip" guard. A renamed job still finds its
+     LATEST workbook.
+   - Classic Outlook only: the .eml-as-draft and buttons 4 and 5 need
+     the classic desktop Outlook; the .html is the fallback in the
+     new Outlook. 0_START_HERE says so now.
+
+   ONE THING TO EXPECT on the first run after this update: "since the
+   last report" compares tooling moves only, and says "tooling moves",
+   because the previous report counted every sale in SALES_STOCK as a
+   draw. From the next report the full movements comparison returns.
 
  NEW - THE CONTRAST (06 Nov 2026)
  -------------------------------

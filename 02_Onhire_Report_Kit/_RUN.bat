@@ -71,7 +71,9 @@ rem  Is this folder the real thing, or one file Windows unpacked out of a
 rem  zip into a temporary folder? Check that before anything else,
 rem  because everything downstream fails confusingly if it isn't.
 rem ---------------------------------------------------------------------
-echo "%KIT%" | find /i "\Temp\" >nul
+echo "%KIT%" | find /i "\AppData\Local\Temp\" >nul
+if not errorlevel 1 goto :from_inside_zip
+echo "%KIT%" | find /i "\Windows\Temp\" >nul
 if not errorlevel 1 goto :from_inside_zip
 echo "%KIT%" | find /i "\Temporary Internet Files\" >nul
 if not errorlevel 1 goto :from_inside_zip

@@ -203,6 +203,23 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Tester round (06 Nov, after an independent rebuild-and-break test; report
+  kept at the time under scratchpad/qa/QA_REPORT.md): "this period" draws =
+  SALES_STOCK rows inside `transactions_window()` (`ctx`; the tab keeps all
+  rows as `ctx_all`; `_PRINT["draws_note"]` on the Cover and DATA_SOURCES);
+  customer-owned items counted via `owner_of` (RENTAL_STOCK OWNER) and named
+  in the position sentence and chase emails ("on hire from the Coates tool
+  store"); `By_Company` cleared each run and the check counts files present;
+  the email attaches the dated workbook; one consumable-line count (`len(cu)`);
+  Cover demob from `progress["last"]`, engagement not asserted; stale exports
+  (`_PRINT["stale_days"]`) surfaced in call lines and Cover; undated ask
+  checks stock dates against the window; `export_requested()` reads
+  REQUESTED_DATE/TIME; history.csv gained `basis=window` and `_moves_delta()`
+  compares tooling moves only against an old-basis previous report; phone
+  media rules (`.mh` stacked masthead, `.hp` hidden columns, wrapping);
+  `_RUN.bat`/`check_this_laptop.py` Temp guard narrowed; PS1 prefers today's
+  folder and names classic Outlook; 3_GET_PYTHON uses `$env:` not quoted
+  paths; a renamed job falls back to the one LATEST in the folder.
 - Second-opinion round (06 Nov, after an independent code review and an
   independent rebuild-and-break test): Company Summary includes companies
   holding gear with no movement in the window; transaction de-dup keys on

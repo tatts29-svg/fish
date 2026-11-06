@@ -20,7 +20,12 @@ if (-not (Test-Path $reports)) {
     exit 1
 }
 if ($Date -eq "") {
-    $day = Get-ChildItem $reports -Directory | Sort-Object Name | Select-Object -Last 1
+    $todayName = Get-Date -Format "yyyy-MM-dd"
+    $day = Get-ChildItem $reports -Directory | Where-Object { $_.Name -eq $todayName } | Select-Object -First 1
+    if (-not $day) {
+        $day = Get-ChildItem $reports -Directory | Where-Object { $_.Name -match '^\d{4}-\d{2}-\d{2}$' } | Sort-Object Name | Select-Object -Last 1
+        if ($day) { Write-Output ("No report folder for today ($todayName) - using the newest, " + $day.Name + ".") }
+    }
 } else {
     $day = Get-Item (Join-Path $reports $Date) -ErrorAction SilentlyContinue
 }
@@ -38,7 +43,7 @@ if (-not $manifests -or $manifests.Count -eq 0) {
 try {
     $ol = New-Object -ComObject Outlook.Application
 } catch {
-    Write-Output "Couldn't reach Outlook. Open Outlook once, then run this again."
+    Write-Output "Couldn't reach Outlook. This needs classic Outlook (the desktop app); the new Outlook has no automation and some locked-down laptops block it. Open classic Outlook once and run this again - or open the .html, select all, copy, and paste it into a new message."
     exit 1
 }
 $made = 0

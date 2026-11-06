@@ -214,7 +214,8 @@ def main():
 
     # ---- 4. the folder itself --------------------------------------
     low = HERE.lower()
-    if os.sep + "temp" + os.sep in low or low.endswith(os.sep + "temp"):
+    if (os.sep + "appdata" + os.sep + "local" + os.sep + "temp" + os.sep) in low or \
+            (os.sep + "windows" + os.sep + "temp" + os.sep) in low:
         check(STOP, "This folder is inside Windows' Temp folder",
               "That means the kit was run from inside the zip. Windows "
               "unpacks one file at a time into Temp and throws it away.",

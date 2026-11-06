@@ -53,8 +53,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command ^
  "$ErrorActionPreference='Stop';" ^
  "try {" ^
  "  [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;" ^
- "  Invoke-WebRequest -Uri '%URL%' -OutFile '%ZIP%' -UseBasicParsing;" ^
- "  Expand-Archive -LiteralPath '%ZIP%' -DestinationPath '%KIT%_python' -Force;" ^
+ "  Invoke-WebRequest -Uri $env:URL -OutFile $env:ZIP -UseBasicParsing;" ^
+ "  Expand-Archive -LiteralPath $env:ZIP -DestinationPath ($env:KIT + '_python') -Force;" ^
  "  exit 0" ^
  "} catch { Write-Host $_.Exception.Message; exit 1 }"
 
@@ -70,7 +70,7 @@ rem  but spelling it out here as well means anything else in the kit
 rem  works too, and it is one less trap for the next person.
 rem ---------------------------------------------------------------------
 for %%F in ("%KIT%_python\python*._pth") do (
-    findstr /c:"..\\_lib" "%%F" >nul 2>nul || (
+    findstr /c:"..\_lib" "%%F" >nul 2>nul || (
         echo ..\_lib>>"%%F"
         echo import site>>"%%F"
     )

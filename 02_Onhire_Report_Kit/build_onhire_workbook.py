@@ -7,7 +7,8 @@
 #  The shutdown on-hire workbook, rebuilt from the SiteIQ exports for
 #  whichever job this computer is running (57_SWITCH_JOB.bat).
 #
-#  Fourteen tabs, and every one of them works:
+#  Fifteen tabs while a shut is ahead or under way (fourteen after demob),
+#  and every one of them works:
 #
 #    Dashboard                the position as live charts and gauges
 #
@@ -668,9 +669,11 @@ def note_sources(folder, entries):
              "Generated " + dt.datetime.now().strftime("%d %b %Y - %H:%M"),
              "-" * 60]
     for p in entries:
-        stamp = dt.datetime.fromtimestamp(os.path.getmtime(p))
-        lines.append("{:<52} refreshed {}".format(
+        stamp = export_requested(p)
+        lines.append("{:<52} pulled {}".format(
             os.path.basename(p), stamp.strftime("%d %b %Y - %H:%M")))
+    if _PRINT.get("draws_note"):
+        lines += ["", _PRINT["draws_note"] + "."]
     out = os.path.join(folder, "DATA_SOURCES.txt")
     with open(out, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
@@ -731,6 +734,32 @@ def _close_ro_all():
 
 import atexit as _atexit
 _atexit.register(_close_ro_all)
+
+
+def export_requested(path):
+    """When SiteIQ produced an export: REQUESTED_DATE/TIME on its
+    REFERENCE_INFO sheet, which survives copying. Falls back to the
+    file's modification time when the sheet does not carry one."""
+    try:
+        wb = _open_ro(path)
+        if "REFERENCE_INFO" in wb.sheetnames:
+            rows = list(wb["REFERENCE_INFO"].iter_rows(min_row=1, max_row=2, values_only=True))
+            if len(rows) >= 2:
+                head = [str(c or "").strip().upper() for c in rows[0]]
+                for i, h in enumerate(head):
+                    if h.startswith("REQUESTED_DATE") and i < len(rows[1]):
+                        v = rows[1][i]
+                        if isinstance(v, dt.datetime):
+                            return v
+                        for fmt in ("%d/%m/%Y %I:%M %p", "%d/%m/%Y %H:%M", "%d/%m/%Y %I:%M:%S %p",
+                                    "%d/%m/%Y %H:%M:%S", "%Y-%m-%d %H:%M:%S", "%d %b %Y %H:%M"):
+                            try:
+                                return dt.datetime.strptime(str(v).strip(), fmt)
+                            except ValueError:
+                                pass
+    except Exception:
+        pass
+    return dt.datetime.fromtimestamp(os.path.getmtime(path))
 
 
 def _rows(path, sheet, must_have=False):
@@ -1328,6 +1357,10 @@ def build(base=HERE, when=None):
         say("  WARN | The newest movement in the exports is {} - {} days before "
             "this report's date. Are these today's exports?".format(
                 newest.strftime("%d %b %Y"), (when - newest).days))
+        _PRINT["stale_days"] = (when - newest).days
+        _PRINT["stale_newest"] = newest
+    else:
+        _PRINT["stale_days"] = 0
 
     title = "{}  |  Shutdown Tool Store  |  On-Hire Report".format(
         s.short or s.customer or "Shutdown")
@@ -1541,6 +1574,21 @@ def build(base=HERE, when=None):
           formats={3: "#,##0.00", 4: DATE_FMT})
     tabs.append(("Consumable Transactions", len(ctx),
                  "Every consumable issued this period"))
+    #  "This period" means the transactions window. SALES_STOCK carries
+    #  every sale the project has ever made, so the draws counted in the
+    #  headline, the tiles, the pack, the charts and history are the ones
+    #  inside the window the TRANSACTIONS export covers. The tab above
+    #  keeps them all, and the Cover and DATA_SOURCES say how many were
+    #  counted.
+    ctx_all = ctx
+    _win = transactions_window(p_trans)
+    _PRINT["window"] = _win
+    if _win:
+        ctx = [r for r in ctx if not r[4] or _win[0] <= r[4] <= _win[1]]
+    _PRINT["draws_note"] = (
+        "{:,} of the {:,} consumable draws in SALES_STOCK fall inside the transactions "
+        "window and are the ones counted as this period".format(len(ctx), len(ctx_all))
+        if _win and len(ctx) != len(ctx_all) else "")
 
     # ---- 7. Consumables Available -------------------------------------
     ca = sorted(([_s(r.get("SKU_NUMBER")), _s(r.get("SKU_DESCRIPTION")),
@@ -1678,6 +1726,10 @@ def build(base=HERE, when=None):
     people_served |= {_s(r.get("HIRER_NAME")) for r in own if _s(r.get("HIRER_NAME"))}
     demob = s.shutdown_end
     parts["_tx_total"] = (len(tooling_tx), len(ctx))
+    if _PRINT.get("stale_days"):
+        parts["call"].insert(1, "Check the exports: the newest movement in them is {}, {} days "
+                                "before this report's date.".format(
+                                    _PRINT["stale_newest"].strftime("%d %b %Y"), _PRINT["stale_days"]))
     parts["story"] = {
         "same_day": same_day, "kept": kept, "still_out": len(det),
         "own_total": len(own), "own_by_co": own_by_co,
@@ -1724,7 +1776,8 @@ def build(base=HERE, when=None):
             .format(len(det), "" if len(det) == 1 else "s", n_companies_out(det),
                     "y" if n_companies_out(det) == 1 else "ies", st_["days_to_demob"],
                     "" if st_["days_to_demob"] == 1 else "s")))
-    blocks, quiet = pack_blocks(det, ctx, tooling_tx, when, own)
+    owner_of = dict((_s(r.get("ITEM_NUMBER")), _s(r.get("OWNER"))) for r in onhire)
+    blocks, quiet = pack_blocks(det, ctx, tooling_tx, when, own, owner_of=owner_of)
 
     #  The numbers the charts and gauges are drawn from - the pack's
     #  "At a glance" page and the workbook's Dashboard tab read these.
@@ -1758,7 +1811,7 @@ def build(base=HERE, when=None):
                            if _s(r.get("ITEM_STATUS")) == "On Hire"]),
         "onhire": len(det), "dated": len(det) - len(undated),
         "undated": len(undated),
-        "cons_lines": len(ca),
+        "cons_lines": len(cu),
         "cons_tight": len([r for r in cu if r[4] >= CONS_TIGHT]),
         "long_out": len([d for d in dated_days if d >= LONG_OUT_DAYS]),
         "oldest_days": max(dated_days) if dated_days else 0,
@@ -1811,13 +1864,14 @@ def build(base=HERE, when=None):
         parts["viz"]["out_by_day"], parts["viz"]["age"] = [], []
     prev = parts["previous"]
     if prev:
-        say("  Since     the last report ({}): on hire {:+,}, movements {:+,}.".format(
-            prev["day"].strftime("%d %b"), len(det) - prev["onhire"],
-            (len(tooling_tx) + len(ctx)) - ((prev.get("moves") or 0) + (prev.get("draws") or 0))))
+        mv, what = _moves_delta(prev, len(tooling_tx), len(ctx))
+        say("  Since     the last report ({}): on hire {:+,}, {} {:+,}.".format(
+            prev["day"].strftime("%d %b"), len(det) - prev["onhire"], what or "movements", mv or 0))
         now_by = {"Items on hire now": len(det), "Tooling issues & returns": len(tooling_tx),
                   "Consumables issued": len(ctx)}
         was_by = {"Items on hire now": prev.get("onhire"), "Tooling issues & returns": prev.get("moves"),
-                  "Consumables issued": prev.get("draws")}
+                  #  draws compare only with a report that counted them the same way
+                  "Consumables issued": prev.get("draws") if prev.get("basis") == "window" else None}
         tiles_ = []
         for label, value, sub in parts["tiles"]:
             dtext = delta_text(now_by.get(label, 0), was_by.get(label), prev["day"]) if label in now_by else ""
@@ -1886,23 +1940,30 @@ def build(base=HERE, when=None):
               "Coates items on site": len(coates_owned),
               "Tooling transactions": len(tooling_tx),
               "Consumable issues": len(ctx),
-              "Consumable lines on shelf": len(ca),
+              "Consumable lines on shelf": len(cu),
               "Customer-owned gear logged": len(own),
               "Same-day returns this period": parts["story"]["same_day"],
               "Items counted at last stocktake": len(stocktake),
               "Labour cost (roster)": labour_total,
               "Cost breakdown (shut total)": cost_total,
           }, pack=pack_info,
+          shut_end=((parts.get("progress") or {}).get("last")
+                    if hasattr((parts.get("progress") or {}).get("last"), "strftime") else None),
           extra=[("Shut progress", parts["progress"]["label"].replace("\u00b7", "-")
                   if parts.get("progress") else "-"),
-                 ("Since last report", ("{}: on hire {:+,}, movements {:+,}".format(
+                 ("Since last report", ("{}: on hire {:+,}, {} {:+,}".format(
                      parts["previous"]["day"].strftime("%d %b"),
                      len(det) - parts["previous"]["onhire"],
-                     (len(tooling_tx) + len(ctx)) - ((parts["previous"].get("moves") or 0)
-                                                     + (parts["previous"].get("draws") or 0)))
+                     _moves_delta(parts["previous"], len(tooling_tx), len(ctx))[1] or "movements",
+                     _moves_delta(parts["previous"], len(tooling_tx), len(ctx))[0] or 0)
                   if parts.get("previous") else "first report in this folder")),
                  ("Typeface", "Inter (embedded)" if coates_pdf is not None and
-                  coates_pdf.typeface() == "Inter" else "Helvetica")])
+                  coates_pdf.typeface() == "Inter" else "Helvetica"),
+                 ("Draws counted", _PRINT.get("draws_note").split(" fall ")[0].replace(
+                     "consumable draws in SALES_STOCK", "in SALES_STOCK") + " inside the window"
+                  if _PRINT.get("draws_note") else "all in SALES_STOCK"),
+                 ("Export age", "{} days before the report date - check the exports".format(
+                     _PRINT["stale_days"]) if _PRINT.get("stale_days") else "current")])
     try:
         dashboard(wb, s, when, asat, parts)
         wb._sheets.insert(0, wb._sheets.pop(wb._sheets.index(wb["Dashboard"])))
@@ -1990,6 +2051,16 @@ def build(base=HERE, when=None):
     if pack_info and coates_pdf is not None:
         try:
             os.makedirs(by_co_dir, exist_ok=True)
+            #  The folder is this run's, whole: a company renamed by an
+            #  alias or tidied name must not leave yesterday's file - and
+            #  its draft - beside today's.
+            for old in os.listdir(by_co_dir):
+                if old.lower().endswith((".pdf", ".eml", ".html", ".draft.json")) and \
+                        " - On-Hire - " in old:
+                    try:
+                        os.remove(os.path.join(by_co_dir, old))
+                    except OSError:
+                        pass
             for b in blocks:
                 p = os.path.join(by_co_dir, "{} - On-Hire - {}.pdf".format(
                     _safe_name(b["company"], "Company"), when.strftime("%d %b %Y")))
@@ -2007,7 +2078,7 @@ def build(base=HERE, when=None):
                 "pack itself is fine.".format(e))
 
     # ---- the email -----------------------------------------------------
-    attachments = [latest or out]
+    attachments = [out if os.path.isfile(out) else latest]   # the dated workbook
     if pack_info:
         attachments.append(pack_info["path"])
     try:
@@ -2062,7 +2133,9 @@ def build(base=HERE, when=None):
     #  The kit checks its own work before it says it is done.
     checks = [("workbook saved", os.path.isfile(out)),
               ("pack built", bool(pack_info) and pack_info["pages"] >= 3),
-              ("a PDF for every company", n_single == len(blocks)),
+              ("a PDF for every company", n_single == len(blocks) and (
+                  not os.path.isdir(by_co_dir) or
+                  len([f for f in os.listdir(by_co_dir) if f.lower().endswith(".pdf")]) == len(blocks))),
               ("typeface embedded", coates_pdf is None or coates_pdf.typeface() == "Inter")]
     if html_path:
         try:
@@ -2072,6 +2145,15 @@ def build(base=HERE, when=None):
             checks.append(("no costs in the email", "$" not in plain))
         except Exception:
             pass
+    try:
+        co_html = [os.path.join(by_co_dir, f) for f in os.listdir(by_co_dir)
+                   if f.lower().endswith(".html")] if os.path.isdir(by_co_dir) else []
+        if co_html:
+            checks.append(("no costs in the company emails", all(
+                "$" not in _re.sub(r"<[^>]+>", " ", open(f, encoding="utf-8").read())
+                for f in co_html)))
+    except Exception:
+        pass
     prof_total = ((parts.get("forecast") or {}).get("cost") or {}).get("total")
     if parts.get("forecast") and cost_total and prof_total:
         checks.append(("cover and forecast agree",
@@ -2083,7 +2165,7 @@ def build(base=HERE, when=None):
     try:
         write_history(base, s, when, {
             "onhire": len(det), "companies": parts["counts"]["companies"],
-            "moves": len(tooling_tx), "draws": len(ctx), "undated": len(undated),
+            "moves": len(tooling_tx), "draws": len(ctx), "undated": len(undated), "basis": "window",
             "long_out": parts["counts"]["long_out"], "same_day": parts["story"]["same_day"]})
     except Exception:
         pass
@@ -2144,7 +2226,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
              len({_s(r.get("SKU/ITEM DESCRIPTION")) for r in tooling_tx}))),
         ("Consumables issued", "{:,}".format(len(ctx)),
          "across {:,} lines".format(len({r[2] for r in ctx}))),
-        ("Consumable lines on shelf", "{:,}".format(len(ca)),
+        ("Consumable lines on shelf", "{:,}".format(len(cu)),
          "{:,} at {:.0f}% or more".format(len(tight), CONS_TIGHT * 100)),
     ]
 
@@ -2171,6 +2253,17 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                 "issue has been out {}.".format(
                     len(det), " is" if len(det) == 1 else "s are", n_companies,
                     "y" if n_companies == 1 else "ies", _days_text(oldest_days))]
+        #  Customer-owned items managed through the counter are on hire
+        #  too, but they are not Coates fleet - say so, so the 56 and the
+        #  47 on the dials reconcile.
+        coates_nums = {_s(r.get("ITEM_NUMBER")) for r in coates_owned}
+        cust = [r for r in det if _s(r[2]) and _s(r[2]) not in coates_nums]
+        if cust and len(cust) < len(det):
+            call[0] += (" {:,} of them {} customer-owned item{} managed through the "
+                        "counter; {:,} {} Coates fleet.".format(
+                            len(cust), "is a" if len(cust) == 1 else "are",
+                            "" if len(cust) == 1 else "s", len(det) - len(cust),
+                            "is" if len(det) - len(cust) == 1 else "are"))
     else:
         call = ["Nothing is on hire - every item issued has been scanned back in."]
     if hot or tight:
@@ -2227,12 +2320,28 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                             "item" if len(long_out) == 1 else "items",
                             LONG_OUT_DAYS)))
     if undated:
-        actions.append(("Date the undated", "{:,} on-hire {} no issue "
-                        "transaction in this export. Pull TRANSACTIONS from "
-                        "the start of the shut. Or tell me which came back "
-                        "and I'll book them in.".format(
-                            len(undated),
-                            "item has" if len(undated) == 1 else "items have")))
+        stock_dates = sorted(r[9] for r in undated if len(r) > 9 and r[9])
+        w0 = (_PRINT.get("window") or (None, None))[0]
+        if stock_dates and w0 and stock_dates[-1] < w0:
+            #  Their stock dates are before the shut: no pull will date
+            #  them, so the only useful ask is the second one.
+            span = (stock_dates[0].strftime("%d %b %Y") if stock_dates[0] == stock_dates[-1]
+                    else "{} to {}".format(stock_dates[0].strftime("%d %b"),
+                                           stock_dates[-1].strftime("%d %b %Y")))
+            actions.append(("Date the undated", "{:,} on-hire {} no issue transaction in "
+                            "this export. {} SiteIQ stock date{} before the shut ({}). "
+                            "Tell me which came back and I'll book them in; the rest "
+                            "stay undated.".format(
+                                len(undated), "item has" if len(undated) == 1 else "items have",
+                                "Its" if len(undated) == 1 else "Their",
+                                " is" if len(undated) == 1 else "s are", span)))
+        else:
+            actions.append(("Date the undated", "{:,} on-hire {} no issue "
+                            "transaction in this export. Pull TRANSACTIONS from "
+                            "the start of the shut. Or tell me which came back "
+                            "and I'll book them in.".format(
+                                len(undated),
+                                "item has" if len(undated) == 1 else "items have")))
     if idle_tool:
         actions.append(("Or send it home", "{:,} units across {:,} lines "
                         "haven't moved at all. Nod and I'll off-hire them."
@@ -2316,7 +2425,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         })
 
     stamp = ", ".join(sorted({
-        dt.datetime.fromtimestamp(os.path.getmtime(p)).strftime("%d %b %Y")
+        export_requested(p).strftime("%d %b %Y")
         for p in sources})) or when.strftime("%d %b %Y")
 
     return {"tiles": tiles, "flags": flags, "call": call, "actions": actions,
@@ -3381,7 +3490,22 @@ def shut_progress(fc, when):
             "state": fc["state"], "label": label, "first": first, "last": last}
 
 
-HISTORY_COLS = ("date", "onhire", "companies", "moves", "draws", "undated", "long_out", "same_day")
+HISTORY_COLS = ("date", "onhire", "companies", "moves", "draws", "undated", "long_out", "same_day",
+                "basis")
+
+
+def _moves_delta(prev, moves_now, draws_now):
+    """(delta, what) for 'since the last report'. A previous report that
+    counted draws the old way - every sale SALES_STOCK has ever carried -
+    cannot be compared on draws, so against one of those the delta is
+    tooling moves only, and says so. From the next report on, history
+    carries basis=window and the full comparison returns."""
+    if not prev or prev.get("moves") is None:
+        return None, None
+    if prev.get("basis") == "window":
+        return ((moves_now + draws_now)
+                - ((prev.get("moves") or 0) + (prev.get("draws") or 0)), "movements")
+    return moves_now - (prev.get("moves") or 0), "tooling moves"
 
 
 def history_path(base, s):
@@ -3404,7 +3528,10 @@ def read_history(base, s):
             rec = {"day": d0}
             for k in HISTORY_COLS[1:]:
                 v = (row.get(k) or "").strip()
-                rec[k] = int(float(v)) if v not in ("", "None") else None
+                if k == "basis":
+                    rec[k] = v or None
+                else:
+                    rec[k] = int(float(v)) if v not in ("", "None") else None
             out.append(rec)
     out.sort(key=lambda r: r["day"])
     return out
@@ -3722,6 +3849,17 @@ def carry_over(wb, s, base, title, when=None):
     #  The kit's own LATEST workbook, if the .xlsm is not the source.
     latest_path = os.path.join(base, latest_workbook_name(
         s.short or s.customer or "Shutdown"))
+    if not os.path.isfile(latest_path):
+        #  The job was renamed in JOB.txt mid-shut, so the LATEST workbook
+        #  carries the old name. One candidate is unambiguous; take it.
+        others = sorted(glob.glob(os.path.join(base, "*_Onhire_Workbook_LATEST.xlsx")))
+        if len(others) == 1:
+            latest_path = others[0]
+            try:
+                say("  NOTE | Carrying the typed tabs from {} (the job's name in JOB.txt "
+                    "has changed).".format(os.path.basename(latest_path)))
+            except Exception:
+                pass
     latest_wb = None
     if src and os.path.isfile(latest_path) and \
             os.path.normcase(os.path.abspath(latest_path)) != os.path.normcase(os.path.abspath(src)):
@@ -3908,7 +4046,8 @@ def carry_over(wb, s, base, title, when=None):
     return carried, labour_total, cost_total, roster
 
 
-def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=None):
+def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=None,
+          shut_end=None):
     """The front page. Says what this workbook is, what fed it, the
     headline numbers as tiles, what is in each tab, how the two ratings
     are worked out, and which tabs are typed by hand - so nobody has to
@@ -4008,8 +4147,10 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ("Exports read", "{} files".format(len(sources))),
         ("Company pack", ("{} pages, {} companies".format(
             pack["pages"], pack["companies"]) if pack else "not built")),
-        ("Engagement", "Fixed rate - no per-item charges" if s.fixed_rate else "Standard hire"),
-        ("Shutdown ends", s.shutdown_end.strftime("%d %b %Y") if s.shutdown_end else "-"),
+        ("Engagement", "Fixed rate - no per-item charges" if s.fixed_rate else
+         ("Standard hire" if (s._d.get("engagement") or "").strip() else "not set in JOB.txt")),
+        ("Shutdown ends", (s.shutdown_end or shut_end).strftime("%d %b %Y")
+         if (s.shutdown_end or shut_end) else "-"),
         ("Transactions cover", _PRINT.get("period") or "-"),
     ] + list(extra or [])
     for start in range(0, len(facts), 3):
@@ -4129,7 +4270,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         put(r, 1, stem, Font(name="Calibri", size=10.5, bold=True,
                              color=NEAR_BLACK), align=Alignment(indent=1))
         merge(r, 3, 4)
-        put(r, 3, dt.datetime.fromtimestamp(os.path.getmtime(p)),
+        put(r, 3, export_requested(p),
             Font(name="Calibri", size=10.5, color=NEAR_BLACK),
             fmt="dd mmm yyyy  hh:mm", align=Alignment(indent=1))
         merge(r, 5, 6)
@@ -5051,7 +5192,7 @@ def _gear_list(gear):
 
 
 def _table(cols, rows, widths=None, aligns=None, note="", valign=None,
-           head="dark"):
+           head="dark", phone_hide=None):
     """One data table. Dark heading row with an orange rule under it
     (or a light one inside the company roll), faint zebra, hairline
     between rows, and every cell carrying its own styling because Word
@@ -5065,18 +5206,22 @@ def _table(cols, rows, widths=None, aligns=None, note="", valign=None,
                                             m=E_MUTED))
     widths = widths or {}
     aligns = aligns or {}
+    #  Columns a phone can do without: hidden by the media rule, which
+    #  Outlook desktop ignores, so the full table always prints there.
+    phone_hide = set(phone_hide or ())
     ncols = len(cols)
     dark = (head == "dark")
     out = [_T, "<tr>"]
     for i, c in enumerate(cols):
         w = (" width='{}%'".format(widths[i])) if i in widths else ""
         ws = ("width:{}%;".format(widths[i])) if i in widths else ""
+        hp = " class=\"hp\"" if i in phone_hide else ""
         out.append(
-            "<th{w} bgcolor=\"{k}\" style=\"{ws}background:{k};padding:8px 10px;"
+            "<th{w}{hp} bgcolor=\"{k}\" style=\"{ws}background:{k};padding:8px 10px;"
             "font-family:{f};font-size:8pt;font-weight:700;color:{c};"
             "letter-spacing:.7px;text-transform:uppercase;text-align:{a};"
             "vertical-align:bottom\">{t}</th>".format(
-                w=w, ws=ws, k=E_INK if dark else E_SOFT, f=E_FONT,
+                w=w, ws=ws, hp=hp, k=E_INK if dark else E_SOFT, f=E_FONT,
                 c="#ffffff" if dark else E_MUTED, a=aligns.get(i, "left"),
                 t=_esc(c)))
     out.append("</tr>")
@@ -5087,10 +5232,10 @@ def _table(cols, rows, widths=None, aligns=None, note="", valign=None,
         out.append("<tr>")
         for i, cell in enumerate(row):
             out.append(
-                "<td bgcolor=\"{b}\" style=\"background:{b};padding:8px 10px;"
+                "<td{hp} bgcolor=\"{b}\" style=\"background:{b};padding:8px 10px;"
                 "border-bottom:1px solid {l};vertical-align:{v}\">{c}</td>"
-                .format(b=bg, l=E_LINE, c=cell,
-                        v=valign or ("middle" if i else "top")))
+                .format(hp=" class=\"hp\"" if i in phone_hide else "", b=bg, l=E_LINE,
+                        c=cell, v=valign or ("middle" if i else "top")))
         out.append("</tr>")
     out.append("</table>")
     if note:
@@ -5119,13 +5264,13 @@ def _masthead(s, when, asat, story=None):
         _T + _rule(5, E_ORANGE)
         + "<tr><td bgcolor=\"{k}\" style=\"background:{k};padding:22px 24px 16px\">"
           + _T + "<tr>"
-          "<td valign='top' style=\"font-family:{f}\">"
+          "<td valign='top' class=\"mh\" style=\"font-family:{f}\">"
           "<div style=\"font-family:{f};font-size:24pt;font-weight:800;"
           "color:{o};letter-spacing:5px;line-height:1\">COATES</div>"
           "<div style=\"font-family:{f};font-size:7.5pt;font-weight:700;"
           "color:#9AA2AC;letter-spacing:2.4px;text-transform:uppercase;"
           "padding-top:7px\">Equipped for anything</div></td>"
-          "<td valign='top' align='right' style=\"font-family:{f}\">"
+          "<td valign='top' align='right' class=\"mh\" style=\"font-family:{f}\">"
           "<div style=\"font-family:{f};font-size:17pt;font-weight:700;"
           "color:#ffffff;line-height:1.15\">On-Hire Report</div>"
           "<div style=\"font-family:{f};font-size:10pt;color:#B9C0C9;"
@@ -5135,9 +5280,9 @@ def _masthead(s, when, asat, story=None):
           + divider + "</td></tr>"
         + "<tr><td bgcolor=\"{k}\" style=\"background:{k};padding:12px 24px 18px\">"
           + _T + "<tr>"
-          "<td style=\"font-family:{f};font-size:10.5pt;font-weight:600;"
+          "<td class=\"mh\" style=\"font-family:{f};font-size:10.5pt;font-weight:600;"
           "color:#ffffff\">{hdr}</td>"
-          "<td align='right' style=\"font-family:{f};font-size:9.5pt;"
+          "<td align='right' class=\"mh\" style=\"font-family:{f};font-size:9.5pt;"
           "color:#FFC9AE;white-space:nowrap\">As at {asat}{demob}</td>"
           "</tr></table>{progress}{hero}</td></tr>"
         + "<tr><td bgcolor=\"{soft}\" style=\"background:{soft};padding:9px 24px;"
@@ -5544,7 +5689,7 @@ def email_html(s, when, asat, parts):
                                    day_tone(r[4]) if r[1] else "slate")))
             body_rows.append(cells)
         inner.append(_table(
-            cols, body_rows, widths=widths, aligns=aligns,
+            cols, body_rows, phone_hide=({2, 4} if has_own else {2}), widths=widths, aligns=aligns,
             note="On hire now is what is out in their name right now. Tooling "
                  "issues and consumables are this period's movements"
                  + (", own gear is their own equipment logged through our counter"
@@ -5659,7 +5804,7 @@ def email_html(s, when, asat, parts):
           _metric(_fmt(r[5]), r[5], mx, day_tone(r[5]))]
          for r in rows],
         widths={0: 30, 1: 20, 2: 20, 3: 15, 4: 15},
-        aligns={4: "right"},
+        aligns={4: "right"}, phone_hide={1, 3},
         note="Dated from the start of each item's issue transaction, not the "
              "stock record. Anything past {} days is flagged red, past {} "
              "amber. Most of the time it is still on the job and fine - but "
@@ -5748,6 +5893,10 @@ def _wrap_sheet(sheet):
     big monitor and looks like a spreadsheet somebody pasted in."""
     return (
         "<style type=\"text/css\">@media only screen and (max-width:620px){{"
+        "td,div,span{{white-space:normal !important}}"
+        ".mh{{display:block !important;width:100% !important;text-align:left !important;"
+        "padding-top:6px !important}}.hp{{display:none !important}}"
+        "th,td{{padding-left:6px !important;padding-right:6px !important}}"
         ".tile{{display:block !important;width:100% !important;"
         "box-sizing:border-box !important}}"
         ".gap{{display:none !important}}}}</style>"
@@ -5776,10 +5925,14 @@ def company_email_html(s, when, asat, parts, b):
     inner = []
     if b["items"]:
         oldest = b["oldest_days"]
-        line = ("As at {}, {} has {:,} item{} of Coates gear on hire with {} {}{}.".format(
+        line = ("As at {}, {} has {:,} item{} on hire from the Coates tool store with {} {}{}.".format(
             when.strftime("%d %B %Y"), co, b["items"], "" if b["items"] == 1 else "s",
             len(b["people"]), "person" if len(b["people"]) == 1 else "people",
             (", the oldest issue {}".format(_days_text(oldest)) if oldest is not None else "")))
+        if b.get("cust_owned"):
+            line += (" {:,} of {} your own item{} managed through the counter.".format(
+                b["cust_owned"], "them is" if b["cust_owned"] == 1 else "them are",
+                "" if b["cust_owned"] == 1 else "s"))
         if b["undated"]:
             line += (" {} item{} no issue transaction inside the export window and {} "
                      "shown as undated.".format(b["undated"], " has" if b["undated"] == 1 else "s have",
@@ -5864,18 +6017,20 @@ def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
                 "<title>{}</title></head><body style=\"margin:0;padding:0;background:{}\">{}"
                 "</body></html>".format(_esc(stem), E_PAGE, html))
     if b["items"]:
-        subject = "{} | Coates gear on hire | {}: {:,} item{} out{}".format(
+        subject = "{} | Coates tool store | {}: {:,} item{} on hire{}".format(
             co, when.strftime("%a %d %b"), b["items"], "" if b["items"] == 1 else "s",
             (", oldest {}".format(_days_text(b["oldest_days"])) if b["oldest_days"] is not None else ""))
     else:
-        subject = "{} | Coates gear on hire | {}: all back".format(co, when.strftime("%a %d %b"))
+        subject = "{} | Coates tool store | {}: all back".format(co, when.strftime("%a %d %b"))
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
     msg["Subject"] = subject
     msg["X-Unsent"] = "1"
     text = ["Hi {} team,".format(co), "",
-            ("{} has {:,} item{} of Coates gear on hire with {} people as at {}.".format(
+            ("{} has {:,} item{} on hire from the Coates tool store with {} {} as at {}{}.".format(
                 co, b["items"], "" if b["items"] == 1 else "s", len(b["people"]),
-                when.strftime("%d %b %Y")) if b["items"] else
+                "person" if len(b["people"]) == 1 else "people", when.strftime("%d %b %Y"),
+                (" ({:,} of them your own gear)".format(b["cust_owned"]) if b.get("cust_owned") else ""))
+             if b["items"] else
              "{} has nothing on hire as at {} - every item is back. Thank you.".format(
                  co, when.strftime("%d %b %Y"))), ""]
     for pp in b["people"]:
@@ -5932,7 +6087,7 @@ P_WHITE = "#FFFFFF"
 C_MUTED_LIGHT = "#9AA2AC"
 
 
-def pack_blocks(det, ctx, tooling_tx, when, own=None):
+def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
     """Everything on hire, company by company, person by person. The
     one ordering rule, same as the email and the board: companies A-Z,
     people inside a company A-Z, a person's items longest-held first
@@ -5999,6 +6154,11 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None):
             "long_out": len([d for d in days if d >= LONG_OUT_DAYS]),
             "undated": len(all_items) - len(days),
             "issues": issues.get(co, 0),
+            #  items on hire that the customer owns (life jackets, drop mats)
+            #  - managed through the counter, but not Coates gear
+            "cust_owned": sum(1 for r in all_items
+                              if (owner_of or {}).get(_s(r[2])) and
+                              "COATES" not in (owner_of or {}).get(_s(r[2]), "").upper()),
             "draws": sum(1 for r in ctx if (_s(r[0]) or "(not named)") == co),
             "own": own_by.get(co, 0),
             "own_lines": sorted(own_lines_by.get(co, {}).items(), key=lambda kv: (-kv[1], kv[0])),
@@ -6255,6 +6415,8 @@ class _Pack(object):
                        colour=P_SLATE if light else P_WHITE, align="centre")
             if caption and bw >= 30:
                 d.text(xx + bw / 2.0, y + h + 9, label, size=6.2, colour=P_MUTED, align="centre")
+            elif caption and label == bands[-1][0]:
+                d.text(xx + bw, y + h + 9, label, size=6.2, colour=P_MUTED, align="right")
             xx += bw
             first = False
         return y + h + (12 if caption else 0)
@@ -7339,7 +7501,10 @@ class _Pack(object):
                          b["draws"], "" if b["draws"] == 1 else "s"))
             if b.get("own"):
                 story += ", {:,} own-gear movement{}".format(b["own"], "" if b["own"] == 1 else "s")
-        sub_lines = d.wrap(story + ".", 9, self.cw - 270, max_lines=2)
+        text_ = story + "."
+        while len(d.wrap(text_, 9, self.cw - 270)) > 2 and ". " in text_:
+            text_ = text_.rsplit(". ", 1)[0] + "."     # whole sentences only
+        sub_lines = d.wrap(text_, 9, self.cw - 270, max_lines=2)
         band_h = 60 + 11 * (len(sub_lines) - 1)
         d.rect(self.x0, self.y, self.cw, band_h, fill=P_SLATE, radius=4)
         d.rect(self.x0, self.y, 5, band_h, fill=P_ORANGE)
@@ -7579,11 +7744,10 @@ class _Pack(object):
             d.text(rx, hy + 104, "every item issued has been scanned back in", size=9,
                    colour="#C9CFD7", align="right")
         if prev:
-            moves_now = parts["_tx_total"][0] + parts["_tx_total"][1]
+            mv_, what_ = _moves_delta(prev, parts["_tx_total"][0], parts["_tx_total"][1])
             bits = []
             for now, was, what in ((c["onhire"], prev.get("onhire"), "on hire"),
-                                   (moves_now, ((prev.get("moves") or 0) + (prev.get("draws") or 0))
-                                    if prev.get("moves") is not None else None, "movements")):
+                                   (mv_, 0 if mv_ is not None else None, what_ or "movements")):
                 if was is None:
                     continue
                 diff = now - was
@@ -7669,9 +7833,17 @@ class _Pack(object):
         #  says how many more companies have sections and bookmarks.
         #  (a two-up asks card is 30 + 19 * 2, plus the trailer row, the gaps
         #  and the card's top margin)
-        reserve = 30 + 19 * 2 + 12 + 8 + 24 + 8
-        avail = self.bottom - self.y - reserve
+        acts_n = len(parts.get("actions") or [])
+        reserve_full = 30 + 19 * max(1, min(acts_n, 6)) + 8 + 24 + 8   # one column, every ask whole
+        reserve = 30 + 19 * 2 + 12 + 8 + 24 + 8                        # two-up card under a trailer
         listed = blocks
+        avail_full = self.bottom - self.y - reserve_full
+        if n_rows * h > avail_full:
+            for h_try in (13, 12):
+                if n_rows * h_try <= avail_full:
+                    h, fs, base_y = h_try, 7.8, h_try - 3.8
+                    break
+        avail = self.bottom - self.y - reserve
         if n_rows * h > avail:
             for h_try in (13, 12):
                 if n_rows * h_try <= avail:
@@ -7847,15 +8019,16 @@ def email_text(s, when, parts):
         lines += ["", "  " + fc["brief"], "  " + fc["ref_line"]]
     lines += ["", "EVERYTHING ON HIRE - COMPANY BY COMPANY", ""]
     for block in parts["roll"]:
-        lines.append("  {}  ({} items, {} people)".format(
-            block["company"], block["items"], len(block["people"])))
+        lines.append("  {}  ({} item{}, {} {})".format(
+            block["company"], block["items"], "" if block["items"] == 1 else "s",
+            len(block["people"]), "person" if len(block["people"]) == 1 else "people"))
         for p in block["people"]:
             when_txt = ("oldest issued {} ({})".format(
                 p["since"].strftime("%d %b %Y"), _days_text(p["days"]))
                 if p["days"] is not None else
                 "no issue transaction in this export")
-            lines.append("    {} - {} items, {}".format(
-                p["who"], p["n"], when_txt))
+            lines.append("    {} - {} item{}, {}".format(
+                p["who"], p["n"], "" if p["n"] == 1 else "s", when_txt))
             for desc, qty in p["gear"]:
                 lines.append("        {} x {}".format(qty, desc))
         lines.append("")
