@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Codex root",
+  "candidateManifestSha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "passed": true,
+  "acceptanceRuns": [
+    "desktop1",
+    "phone4"
+  ],
+  "images": [
+    "desktop-isolate.png",
+    "phone-portrait.png",
+    "phone-landscape.png"
+  ],
+  "observations": [
+    "Selected geometry remains visible with usable controls in phone portrait and landscape",
+    "Phone header fits without horizontal overflow; original Coates identity retained",
+    "Desktop retains sidebar and readable component information"
+  ],
+  "physicalDevicePerformanceMeasured": false
+}

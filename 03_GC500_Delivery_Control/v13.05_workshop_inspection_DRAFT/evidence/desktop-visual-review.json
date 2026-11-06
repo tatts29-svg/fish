@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Codex root",
+  "candidateManifestSha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "passed": true,
+  "imagesReviewed": [
+    "desktop-isolate.png",
+    "desktop-engine-inspection.png"
+  ],
+  "observations": [
+    "Existing orange Coates identity and sidebar retained",
+    "Selected piston geometry outline follows its rings and crown; fitted-location reference remains distinct",
+    "Lift assembly and inspection controls are visible without overlap",
+    "Original service controls and explanatory details remain readable"
+  ],
+  "scope": "Visual layout and content review; software-rendered capture is not a physical-device frame-rate measurement"
+}

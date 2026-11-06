@@ -2,7 +2,7 @@
 
 Author: Andrew Fisher
 
-Review recorded 6 November 2026. **Source and offline checks complete; final candidate browser acceptance and publication remain pending.** This record combines the independent integration review with the separate camera and release-guard reviews. It does not claim an independently verified live release.
+Review recorded 6 November 2026. **Source, offline and final candidate browser acceptance complete. Publication and fresh live verification remain pending.** This record combines the independent integration review with the separate camera and release-guard reviews. It does not claim an independently verified live release.
 
 Candidate 5 manifest: `b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2`. The approved scope contains four replacements and three additions, with 242 files retained unchanged and 249 files total. Dashboard, operational records, maps and finance are outside this change.
 
@@ -31,3 +31,7 @@ The [lighting receipt](evidence/lighting-unit.json) records **33 passing checks*
 The earlier [phone preview review](evidence/preview1-review.json) showed the model and controls visible with no reported browser errors or record writes, but used a previous candidate. Candidate 3 desktop dashboard diagnostics also passed 99 checks with no errors or writes. These are diagnostic results, not acceptance of candidate 5. Candidate 5 phone checking is in progress at this review. Acceptance still requires desktop and phone machine checks plus desktop and phone dashboard checks on this exact frozen candidate, guarded publication, and exact live content read-back. No physical-device performance measurement or live-release verification is asserted here.
 
 The candidate 5 phone run completed 125 checks, including every new native interaction and the orientation regression, before an immediate legacy reduced-motion assertion ran ahead of the native media-query change event. Independent review approved a bounded wait for the actual media query and adopted lift preference; no synthetic event, application change or relaxed assertion. The failure is preserved in `evidence/phone3-failure.json`. Fresh full machine acceptance is running; the partial run is not a passing acceptance receipt.
+
+## Final candidate acceptance
+
+Candidate 5 passes 127 desktop and 147 phone machine checks, plus 99 desktop and 100 phone dashboard checks. All four exact-candidate receipts report zero runtime/console errors and zero record writes; dashboard checks cover 27 routes and seven deep links each. The existing release validator accepted all four receipts and rehashed the complete 249-file tree. See `evidence/acceptance-validation.json`. Root reviewed final desktop and phone screenshots; independent phone layout review also passed. Source remains frozen at the seven hashes above. Publication and fresh actual-live verification are still pending at this acceptance stage.
