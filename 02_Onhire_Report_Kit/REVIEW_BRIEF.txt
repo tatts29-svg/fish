@@ -1,0 +1,87 @@
+COATES | ON-HIRE REPORT KIT - BRIEF FOR AN INDEPENDENT REVIEWER
+Author: Andrew Fisher | POWERED BY SITEIQ
+
+WHAT THIS IS
+  An offline Python kit. It turns the SiteIQ exports in Data_SiteIQ\
+  (RENTAL_STOCK, SALES_STOCK, STOCKTAKE, TRANSACTIONS) into a daily
+  on-hire report for a shutdown tool store: an Excel workbook, an
+  HTML/.eml email, a PDF company pack (one section per company), one
+  PDF and one chase email per company. It must run on a Windows laptop
+  with nothing installed: Python only, openpyxl vendored in _lib\,
+  the Inter typeface in _fonts\, its own PDF writer (coates_pdf.py).
+
+HOW TO RUN IT
+  Windows:  press 2_MAKE_THE_REPORT.bat (first time: 1_CHECK_THIS_LAPTOP.bat).
+  Anywhere: python build_onhire_workbook.py            (dated today)
+            python build_onhire_workbook.py 2026-11-06 (dated that day)
+  Output lands in Reports\<date>\. The run ends with a self-check line,
+  "Checks N of N passed", or names what to look at.
+
+WHAT IT PROMISES (test these)
+  1. Every on-hire item is dated from the START of its issue transaction
+     in TRANSACTIONS, never from the stock record's ON_HIRE_DATE. An item
+     with no issue transaction inside the export window is shown as
+     undated everywhere, never given a guessed date. No negative days.
+  2. The same numbers everywhere: items on hire, companies, oldest days
+     out, undated, movements, consumable draws must agree across the
+     pack cover, the email, the workbook Cover and Dashboard, and the
+     per-company PDFs and emails.
+  3. No costs in the email or the pack. Costs live only in the workbook
+     (Coates Labour, Cost Breakdown, Forecast, Cover totals).
+  4. Nothing sends by itself. Emails are drafts (.eml with X-Unsent: 1,
+     To left blank). Button 4/5 put them in Outlook > Drafts.
+  5. Email uses tables and inline styles, with responsive rules for phones.
+     Check native Outlook separately; browser rendering does not prove
+     identical rendering in Outlook's Word engine.
+  6. The two hand-typed tabs (Coates Labour, Cost Breakdown) carry over
+     value for value from <Job>_Onhire_Workbook_LATEST.xlsx. A previous
+     shut's roster in the old .xlsm is replaced once, then LATEST wins.
+  7. Deterministic: two runs on the same data give the same data tabs,
+     page count and email body (timestamps aside).
+  8. Reports\history.csv keeps one line per report day; "since the last
+     report" reads it first.
+
+WHAT HAS BEEN VERIFIED ALREADY
+  Builds, self-checks, page counts, a regression of the eleven data tabs
+  against the original builder's output, text sweeps for placeholders and
+  dollars, PDF font embedding, Playwright renders of the email, LibreOffice
+  renders of the workbook, an independent code review (ten findings, eight
+  fixed) and an independent rebuild-and-break test (no blockers; its
+  majors and minors fixed - see WHATS_NEW.txt "THE SECOND OPINION").
+
+  The supplied Rio delivery ZIP has also been rebuilt with its actual
+  exports, typed workbook, vendored libraries and all four Inter fonts.
+  Independent checks reconcile the source figures, preserve the typed
+  sheets, compare two successive builds and verify every email attachment.
+  SiteIQ repeats consumable sales in CUSTOMER_CONTRACTOR_EQUIP: those
+  rows are excluded from customer-owned rental movements. Chart rankings
+  now use their stated metric, and zero holdings do not imply a return.
+  Long identifiers, company names and workbook metadata wrap completely.
+
+  The GitHub Actions workflow runs the regression suite on Linux and
+  Windows. This checks Python behaviour, not native Office rendering.
+
+WHAT HAS NOT BEEN VERIFIED - the valuable places to look
+  - Outlook desktop rendering of the .html / .eml.
+  - 4_MAKE_OUTLOOK_DRAFT.bat / 5_MAKE_COMPANY_DRAFTS.bat and
+    MAKE_OUTLOOK_DRAFT.ps1 on a real Windows laptop (execution policy,
+    Outlook COM, paths with spaces, OneDrive paths).
+  - The Dashboard and Forecast charts in real Excel (openpyxl charts).
+  - A first run on brand-new exports for a job with no LATEST workbook.
+  - Exports much larger than these (a full shut's TRANSACTIONS).
+
+A GOOD REPORT NAMES: the file, the exact value or text seen, how to
+reproduce it, and a severity (Blocker / Major / Minor / Note).
+
+REPEATABLE REGRESSION CHECKS
+  python -m unittest discover -s 02_Onhire_Report_Kit/tests -v
+  Run from the repository root with openpyxl 3.1.5 installed.
+  Fixtures contain invented companies and people; no site exports required.
+  Tests cover saved typed tabs, window boundaries, cross-output counts,
+  isolated company files/emails, failed-output detection, crowded cover
+  actions, empty charts, damaged exports, path quoting and font checksums.
+
+  The supplied MMG ZIP contains no exports or workbook, so its setup and
+  missing-input handling have been checked; live figures remain untested.
+  Delivery review still needs current MMG exports and a native Windows
+  run in classic Outlook and Excel.

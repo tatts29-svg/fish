@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How the On-Hire Report Works</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--o:#F26222;--ink:#1D1D1B;--slate:#2A313C;--muted:#5B6472;--line:#DDE1E7;--soft:#F3F4F7;--tint:#FFF1EA;--zebra:#F6F7F9}
+body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#EEF0F3;color:var(--ink);font-size:11pt;line-height:1.55;padding:18px 12px}
+.sheet{max-width:210mm;margin:0 auto;background:#fff;border:1px solid var(--line)}
+.rule{height:5px;background:var(--o)}
+.mast{background:var(--ink);color:#fff;padding:22px 26px 18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.mast .wm{color:var(--o);font-weight:800;font-size:24pt;letter-spacing:5px;line-height:1}
+.mast .tag{color:#9AA2AC;font-size:7.5pt;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;margin-top:7px}
+.mast .r{text-align:right}
+.mast .r h1{font-size:17pt;font-weight:700;line-height:1.15}
+.mast .r p{color:#B9C0C9;font-size:10pt;margin-top:4px}
+.strip{background:var(--soft);border-bottom:1px solid var(--line);padding:9px 26px;font-size:8pt;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase}
+.strip b{color:var(--o)}
+.body{padding:22px 26px 28px}
+.lead{font-size:11.5pt}
+h2{display:flex;align-items:center;gap:12px;margin:26px 0 10px;padding-bottom:8px;border-bottom:2px solid var(--ink);font-size:13.5pt}
+h2 .n{flex:none;width:30px;height:30px;background:var(--o);color:#fff;font-weight:800;font-size:12pt;display:flex;align-items:center;justify-content:center}
+h2 small{display:block;font-size:9pt;color:var(--muted);font-weight:400}
+h3{font-size:11pt;margin:14px 0 6px;color:var(--ink)}
+p{margin:6px 0}
+.flow{margin:10px 0}
+.fbox{border:1px solid var(--line);border-left:4px solid var(--ink);padding:10px 14px;background:#fff}
+.fbox .t{font-weight:700;font-size:11pt}
+.fbox .sub{font-size:9.5pt;color:var(--muted);margin-top:2px}
+.fbox.orange{border-left-color:var(--o);background:var(--tint)}
+.fbox.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.fbox.dark .sub{color:#C9CFD8}
+.fbox.go{border-left-color:#409A55;background:#F2FAF3}
+.arrow{color:var(--o);font-weight:800;font-size:12pt;line-height:1.2;padding:3px 0 3px 16px}
+.arrow span{color:var(--muted);font-weight:400;font-size:9pt;padding-left:8px}
+.three{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.three>div{flex:1;min-width:170px}
+.step{display:flex;gap:12px;margin:12px 0;align-items:flex-start}
+.step .n{flex:none;width:30px;height:30px;background:var(--o);color:#fff;font-weight:800;font-size:12pt;display:flex;align-items:center;justify-content:center}
+.step .t b{font-size:11.5pt}
+.step .t .sub{color:var(--muted);font-size:10pt}
+.hl{background:var(--tint);color:#A6410F;font-weight:800;padding:0 5px}
+.note{background:var(--soft);border-left:4px solid var(--o);padding:10px 14px;font-size:10pt;margin:12px 0}
+.note.amber{border-left-color:#E08A24;background:#FDF8EE}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:10pt}
+td,th{border-bottom:1px solid var(--line);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:#fff;font-size:8pt;letter-spacing:.7px;text-transform:uppercase;border-bottom:2px solid var(--o)}
+tr:nth-child(even) td{background:var(--zebra)}
+td.k{white-space:nowrap;font-weight:700}
+.chip{display:inline-block;padding:1px 8px;font-size:8.5pt;font-weight:700;border-radius:3px;white-space:nowrap}
+.red{background:#FBE7E6;color:#A32015}.amb{background:#FDF1DC;color:#8A5300}.grn{background:#E8F3E9;color:#1E6B32}.sla{background:#E9ECF0;color:#4A5361}
+.tiles{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.tile{flex:1;min-width:150px;border:1px solid var(--line);border-top:3px solid var(--o);padding:10px 12px}
+.tile .v{font-size:16pt;font-weight:800;line-height:1.1}
+.tile .l{font-size:8pt;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-top:5px}
+.tile .s{font-size:9pt;color:var(--muted)}
+.ft{background:var(--ink);color:#9AA2AC;font-size:9pt;padding:12px 26px;border-top:3px solid var(--o);line-height:1.6}
+.ft b{color:#fff}.ft b i{color:var(--o);font-style:normal}
+b.o{color:var(--o)}
+code{background:var(--soft);border:1px solid var(--line);border-radius:3px;padding:1px 5px;font-size:9.5pt}
+@media print{body{background:#fff;padding:0}.sheet{border:none;max-width:none}.pb{page-break-before:always}h2{page-break-after:avoid}.fbox,.step,.note,.tile,tr{page-break-inside:avoid}}
+@page{size:A4;margin:10mm}
+</style></head><body>
+<div class="sheet">
+<div class="rule"></div>
+<div class="mast">
+  <div><div class="wm">COATES</div><div class="tag">Equipped for anything</div></div>
+  <div class="r"><h1>How the on-hire report works</h1><p>One page. Three exports in &mdash; a workbook, an email and a company pack out.</p></div>
+</div>
+<div class="strip">Powered by <b>SiteIQ</b> &nbsp;&middot;&nbsp; Author: Andrew Fisher &nbsp;&middot;&nbsp; Shutdown Tool Store &nbsp;&middot;&nbsp; Nothing sends by itself</div>
+<div class="body">
+
+<p class="lead">This folder is a tool, not a system. It reads the SiteIQ exports you put in front of it and writes
+<b>one Excel workbook</b>, <b>one email draft</b> and <b>one PDF company pack</b>. It sends nothing, changes nothing on
+site, and <b>never needs the internet</b> &mdash; the Excel library and the PDF writer it runs on both travel inside this
+folder, so there is nothing to install on a laptop that has never seen it.</p>
+
+<h2><span class="n">1</span><span>The flow<small>Where the data goes, start to finish</small></span></h2>
+<div class="flow">
+<div class="fbox"><div class="t">SiteIQ</div><div class="sub">You export three files &mdash; they land in Downloads.
+<b>RENTAL_STOCK</b> what we own and where it is &nbsp;&middot;&nbsp; <b>SALES_STOCK</b> consumables on the shelf and what's gone out
+&nbsp;&middot;&nbsp; <b>TRANSACTIONS</b> every issue and return. <b>Pull TRANSACTIONS from the start of the shut</b> &mdash; see section 4.</div></div>
+<div class="arrow">&#9660;<span>you drag them into <code>Data_SiteIQ\</code>, over the top of yesterday's</span></div>
+<div class="fbox orange"><div class="t">2_MAKE_THE_REPORT.bat</div><div class="sub">Reads the newest of each, checks they all belong
+to the same job, dates every on-hire item from its issue transaction, and builds the lot. About ten seconds.</div></div>
+<div class="arrow">&#9660;<span>your typed Labour and Cost tabs are lifted out of the old workbook and put straight back</span></div>
+<div class="three">
+<div class="fbox go"><div class="t">&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</div><div class="sub">Fifteen tabs while a shut is ahead or under way (Forecast sits after the Dashboard), fourteen once it is done - ready to open or print. A dated copy is filed under <code>Reports\&lt;today&gt;\</code>.</div></div>
+<div class="fbox go"><div class="t">&lt;Job&gt; On-Hire Report by Company.pdf</div><div class="sub">The company pack: the cover with the asks, the story, looking ahead, at a glance, then a section per company. One PDF per company in <code>By_Company\</code> too, each with a ready-to-send chase email (.eml) beside it; <code>5_MAKE_COMPANY_DRAFTS.bat</code> puts them all in Outlook &gt; Drafts.</div></div>
+</div>
+<div class="arrow">&#9660;<span>and the same report laid out as an email, with the workbook and the pack attached</span></div>
+<div class="fbox dark"><div class="t">&lt;Job&gt; On-Hire Report &mdash; &lt;date&gt;.eml</div><div class="sub">Opens in Outlook as a <b>draft</b>.
+Whole report in the body, workbook and pack on the paperclip, no costs anywhere in it. Put the addresses on, read it, press Send.
+<b>Nothing sends by itself.</b></div></div>
+</div>
+
+<h2><span class="n">2</span><span>What you actually do<small>Three steps, every day</small></span></h2>
+<div class="step"><div class="n">1</div><div class="t"><b>Exports into Data_SiteIQ</b>
+<div class="sub">RENTAL_STOCK, SALES_STOCK, TRANSACTIONS. STOCKTAKE too if you have it. Don't rename them &mdash; SiteIQ's own long names are fine, and the newest wins.</div></div></div>
+<div class="step"><div class="n">2</div><div class="t"><b>Double-click 2_MAKE_THE_REPORT.bat</b>
+<div class="sub">A black window counts the tabs out and says how many pages the pack ran to. When it stops, close it.</div></div></div>
+<div class="step"><div class="n">3</div><div class="t"><b>Open the three things it made &mdash; and open the .eml to send it (or press 4 for a native Outlook draft)</b>
+<div class="sub">The workbook keeps the same file name every day, so a desktop shortcut never goes stale. The .eml and the pack are in
+<code>Reports\&lt;today&gt;\</code> &mdash; double-click the .eml, address it, press Send.</div></div></div>
+
+<h2><span class="n">3</span><span>The email<small>The position first, then the detail behind it</small></span></h2>
+<p>One white sheet, laid out to be read on a phone at the gate or a big monitor in the office. It carries <b>where we sit today</b>
+in two lines, four flags that say their status in words as well as colour, what is attached, then seven numbered sections:
+the position, who is holding gear, working hardest, not moving, consumables to watch, out the longest, and every item on hire
+company by company &mdash; and finishes with <b>what I need from you</b>, each ask with its own number.</p>
+<div class="tiles">
+<div class="tile"><div class="v">7</div><div class="l">Sections</div><div class="s">numbered, scroll to any of them</div></div>
+<div class="tile"><div class="v">0</div><div class="l">Images</div><div class="s">nothing to download, no red X</div></div>
+<div class="tile"><div class="v">$0</div><div class="l">Costs shown</div><div class="s">deliberately none, it can go to anyone</div></div>
+</div>
+<div class="note"><b>No costs in the email or the pack. None.</b> Not the labour, not the cost breakdown, not a rate and not a dollar sign.
+The email is the operational picture and it can go to anyone on site. The money stays in the workbook &mdash; on the Cover headlines and the two hand-typed tabs.</div>
+
+<h2><span class="n">4</span><span>How things are dated<small>The transaction wins, every time</small></span></h2>
+<p>Every on-hire item is dated from the <b>start of its issue transaction</b> in SiteIQ &mdash; the day it actually went over the counter.
+It is never dated from the stock record's ON_HIRE_DATE. For most items the two agree to the day; where they don't, the stock record is
+the one that is stale, and it is what used to put &ldquo;92 days&rdquo; against gear that went out on Monday.</p>
+<div class="note amber"><b>Pull TRANSACTIONS from the start of the shutdown.</b> The export only carries transactions inside the date range
+you ask SiteIQ for. An item whose issue transaction is outside that window cannot be dated, so the report shows it as
+<span class="chip sla">undated</span>, says why, and lists the SiteIQ stock date beside it on the Detailed Onhire tab for checking.
+A transactions export pulled from the shut start dates every item &mdash; and the window it covers is printed on the cover, the email footer and the pack.</div>
+<table>
+<tr><th style="width:28%">Days out</th><th>Shows as</th><th>What it means</th></tr>
+<tr><td class="k">21 or more</td><td><span class="chip red">24 days</span></td><td>Worth a phone call before it turns into a demob problem. Counted in the email's <i>Out over 21 days</i> flag.</td></tr>
+<tr><td class="k">13 to 20</td><td><span class="chip amb">15 days</span></td><td>Seen coming. On the list, not yet a problem.</td></tr>
+<tr><td class="k">under 13</td><td><span class="chip sla">3 days</span></td><td>Normal. Still on the job.</td></tr>
+<tr><td class="k">no transaction in the export</td><td><span class="chip sla">undated</span></td><td>Pull a wider TRANSACTIONS export, or tell Andrew it has quietly come back and he'll book it in.</td></tr>
+</table>
+
+<h2 class="pb"><span class="n">5</span><span>The company pack<small>One PDF, a section for each company</small></span></h2>
+<p>The email tells everybody where the store sits. The pack is what you hand <b>one company</b>: their people, their gear, the day
+each item was issued, and the consumables they have drawn this period. It opens on a cover with the headlines and a contents
+list &mdash; click a company and it jumps to their section; every company is also a bookmark down the side of Acrobat.</p>
+<table>
+<tr><th style="width:34%">Page</th><th>What's on it</th></tr>
+<tr><td class="k">Cover</td><td>A charcoal hero band: the title, the shut-progress strip (a cell per day, today in orange), and the one number that matters &mdash; items on hire now, set large in white &mdash; with the company count, the oldest item and what moved since the last report in the Reports folder beside it (a zero reads green as nothing on hire when it is zero); then the position in words, the six headline numbers with their change since last time, and the contents: every company, their people, items, lines, longest out, and the page they start on &mdash; then the asks, the same list as the email. Item descriptions across the pack and the email are tidied for reading (site tag dropped, capitals made readable, measurements and codes left alone); the workbook's transaction tabs keep SiteIQ's raw text, and <code>tidy_items: no</code> in JOB.txt turns the tidying off</td></tr>
+<tr><td class="k">The story (page 2)</td><td>What the store did this period in plain words: the brief, the team at the counter and their hours to date, how gear is moving (same-day returns, kept longer, still out), stocktake discipline (items sighted in the last three days), customer-owned gear logged through the counter, and the standards behind the numbers &mdash; double scan, dated from the transaction, Life Saving Rule 5, the fixed rate where it applies</td></tr>
+<tr><td class="k">Looking ahead (page 3, while a shut is ahead or under way)</td><td>The shut from the roster: the brief, five milestones (fly in, counter opens, last shift, fly out, rostered hours), the roster as a day-by-day strip (travel, mobilisation, day shift, night shift; worked days outlined, today tinted), when the counter is busiest by hour of day, a day at the counter last time (movements a day, busiest day, same-day returns, companies and people), the tooling asked for most and the consumables that go fastest. Dates, people and movements only &mdash; never a dollar</td></tr>
+<tr><td class="k">At a glance (page 4, or 3 when nothing is ahead)</td><td>The store as pictures, in the light Coates palette: four dials (fleet on hire, dated from transactions, consumable lines past 80%, items out over 21 days), who is holding gear, tooling and consumable lines by rating, movements by day inside the export window, working hardest, and consumables running down against the 80% line</td></tr>
+<tr><td class="k">One section per company</td><td>Every company that touched the counter this period, holding gear or not. Starts on a new page with the company's mark (its initials in a round badge) and an age-of-what-is-out bar. Six tiles, an Items-by-person bar chart, a flag if anything is out over 21 days or undated, then every person A&ndash;Z with their items longest-held first: item number, description, the day it was issued, days out. Long sections run on with <i>(continued)</i> and the headings repeated</td></tr>
+<tr><td class="k">How to read this pack (last page)</td><td>What the day chips, the age bands and the ratings mean, where the numbers come from, the asks in full, and the sign-off</td></tr>
+<tr><td class="k">Consumables this period</td><td>At the foot of each section: the biggest lines the company has drawn and how many people drew them. The full list stays on the workbook's Consumable Transactions tab</td></tr>
+<tr><td class="k">By_Company\</td><td>The same section saved as its own PDF, one per company, for forwarding a company just their page</td></tr>
+</table>
+<p>It is written by <code>coates_pdf.py</code>, a small PDF writer that travels in the kit, so it comes out identical on any laptop with
+nothing installed &mdash; no browser, no print driver, no Acrobat needed to make it. It is set in <b>Inter</b>, a typeface that travels in
+the kit's <code>_fonts</code> folder; only the characters a pack uses are embedded, so files stay small and every chart is a vector,
+as sharp on a wall screen as on a phone. The dark bands &mdash; the cover hero, the dials card, each company&rsquo;s section header and the footer on every page &mdash; are Coates charcoal and near-black with white type, so the numbers land first; small orange text on white uses a deeper orange that stays readable, while the wordmark, rules and bars keep the brand orange. Without the folder the pack still builds, in Helvetica. If the pack ever fails to build, the window says so
+in a band and the workbook and email still go out without it.</p>
+
+<h2><span class="n">6</span><span>The fifteen tabs<small>What each one tells you</small></span></h2>
+<table>
+<tr><th style="width:30%">Tab</th><th>What it tells you</th></tr>
+<tr><td class="k">Cover</td><td>What this workbook is, the headline numbers as tiles, which export files fed it and when they were pulled, how many pages the pack ran to, and how the ratings are worked out</td></tr>
+<tr><td class="k">Dashboard</td><td>The position as <b>live Excel charts</b> drawn from small tables at the foot of the tab: six tiles, four gauges, who is holding gear, tooling lines by rating, movements by day, consumables running down. Click, recolour or copy any of them into a deck</td></tr>
+<tr><td class="k">Forecast</td><td>The shut ahead, <b>internal</b>: six tiles (fly in, counter opens, last shift, fly out, labour off the roster, all up off the Cost Breakdown), <b>live Excel charts</b> of cost by day with the running total over it and where the money goes, then the day-by-day table &mdash; hours per person, each money column, day total, running total &mdash; and the split. Read off the Coates Labour and Cost Breakdown tabs when the report is built, so a re-run after editing either refreshes it. Only there while the roster has days to come</td></tr>
+<tr><td class="k">Company Summary</td><td>Per company: transactions, quantity, item types, what they still have out, what hasn't come back &mdash; split tooling / consumables / total, totals highlighted. A company still holding gear with no movement inside the export window is listed too, with zero movements &mdash; that is the one to chase</td></tr>
+<tr><td class="k">Detailed Onhire</td><td>Every item out right now, the company and person holding it, the day it was issued, days on hire, the issue transaction behind the date, and the SiteIQ stock date beside it for checking</td></tr>
+<tr><td class="k">Tooling Transactions</td><td>Every tooling issue and return in the period, with transaction numbers</td></tr>
+<tr><td class="k">Tooling Utilisation</td><td>Per item type: how many we have, how many are out, a utilisation bar, turns, and a colour-coded rating and recommendation</td></tr>
+<tr><td class="k">Coates Tooling</td><td>The Coates-owned fleet on site and each item's status</td></tr>
+<tr><td class="k">Consumable Transactions</td><td>Every consumable issued &mdash; who took it, how many, when</td></tr>
+<tr><td class="k">Consumables Available</td><td>What's left on the shelf, by line</td></tr>
+<tr><td class="k">Coates Stock</td><td>The fleet again, with the day each on-hire item was issued &mdash; the one to sort when you're chasing age</td></tr>
+<tr><td class="k">Customer Gear</td><td>Customer- and contractor-owned gear logged through the Coates counter &mdash; tracked like the fleet, never counted as a Coates movement</td></tr>
+<tr><td class="k">Consumable Utilisation</td><td>Per line: sold against position as a bar, and a colour-coded rating and recommendation</td></tr>
+<tr><td class="k">Coates Labour</td><td><b class="o">Typed by hand.</b> The shift roster and what it costs</td></tr>
+<tr><td class="k">Cost Breakdown</td><td><b class="o">Typed by hand.</b> Day by day: shutdown, labour, site services</td></tr>
+</table>
+<p>Every tab carries the Coates title band, a filter, frozen headings, and prints landscape on A4 with the headings repeated,
+the job and as-at time in the page header, and the page number down the bottom. Ratings, statuses and day counts are coloured by
+Excel's own conditional formatting, so the colour follows the value if anybody sorts or retypes a cell.</p>
+
+<h3>The two tabs nobody should overwrite</h3>
+<p><b>Coates Labour</b> and <b>Cost Breakdown</b> are not built from the exports. Somebody sits down and types them, and there is no way
+to rebuild that from SiteIQ. So the refresh <span class="hl">never touches them</span>. It reads them out of the previous workbook &mdash;
+values, formulas, dates, times, exactly as they were &mdash; and writes them back. Your original <code>.xlsm</code> is never written to.</p>
+<div class="note"><b>Keep your working .xlsm in this folder.</b> That's where those two tabs are read from. If there isn't one, they come
+through empty with a note on them, ready to type into. If their totals can't be read (a workbook saved without cached results), the Cover
+says <b>TBC</b> rather than printing $0.</div>
+
+<h2><span class="n">7</span><span>How the usage ratings are worked out<small>Printed on the Cover of every workbook, so nothing is taken on trust</small></span></h2>
+<p><b>Tooling is rated on TURNS</b> &mdash; transactions divided by how many of that item are on site. One item that went out five times
+is working. Five items that went out once each are sitting there. Utilisation on its own cannot tell those two apart.</p>
+<table>
+<tr><th>Turns</th><th>Rating</th><th>Recommendation</th></tr>
+<tr><td class="k">none</td><td><span class="chip sla">No Use</span></td><td>Review / Reduce</td></tr>
+<tr><td class="k">under 1</td><td><span class="chip amb">Low Use</span></td><td>Keep Stock</td></tr>
+<tr><td class="k">1 to 2</td><td><span class="chip grn">Good Use</span></td><td>Keep Stock &mdash; or Monitor / Increase if 80% or more are out right now</td></tr>
+<tr><td class="k">2 or more</td><td><span class="chip red">High Demand</span></td><td>Increase Stock</td></tr>
+</table>
+<p><b>Consumables are rated on share of position sold</b> &mdash; sales divided by sales plus what's left on the shelf.</p>
+<table>
+<tr><th>Sold</th><th>Rating</th><th>Recommendation</th></tr>
+<tr><td class="k">nothing</td><td><span class="chip sla">No Use</span></td><td>Review / Reduce</td></tr>
+<tr><td class="k">under 40%</td><td><span class="chip amb">Low Use</span></td><td>Keep Stock</td></tr>
+<tr><td class="k">40% to 80%</td><td><span class="chip grn">Good Use</span></td><td>Keep Stock</td></tr>
+<tr><td class="k">over 80%</td><td><span class="chip red">High Demand</span></td><td>Increase Stock</td></tr>
+</table>
+
+<h2 class="pb"><span class="n">8</span><span>Another computer, or another job<small>Copy the folder. All of it.</small></span></h2>
+<p><b>Another computer:</b> copy the whole folder across &mdash; <span class="hl">all of it, not just the button</span>. Then press
+<b>1_CHECK_THIS_LAPTOP.bat</b> once. It changes nothing; it just tells you whether that laptop will run the report, and if it won't, the one thing to fix.</p>
+<p>There is <b>nothing to install</b>. The Excel library and the PDF writer travel inside the folder, so no pip, no internet, no company
+proxy to argue with and no IT ticket. The only thing the laptop supplies is <b>Python 3</b>, and if it hasn't got one,
+<b>3_GET_PYTHON_NO_ADMIN.bat</b> puts a private copy inside this folder without admin rights. Excel and Acrobat are only needed to
+<i>open</i> what comes out, never to build it.</p>
+<div class="note"><b>If you send this kit to somebody else, send the whole zip and tell them to right-click it and choose &ldquo;Extract All&rdquo; first.</b>
+Double-clicking a button while it is still inside the zip window is the number one reason somebody reports back that it doesn't work.
+The kit spots that and says so, rather than failing silently.</div>
+<p><b>Another job:</b> copy the folder, empty <code>Data_SiteIQ\</code>, put the new job's exports in, press the button. Every SiteIQ export
+carries the project it came from, so the report names itself correctly with nothing set up. <code>JOB.txt</code> is only there if you want to tidy up the names it uses.</p>
+<div class="note"><b>One job's exports at a time.</b> If a Gladstone export ends up in a Weipa folder, the refresh stops and names the odd file out.
+It will not quietly build a report off two jobs mixed together.</div>
+
+<h2><span class="n">9</span><span>What's in the folder<small>And what each file is for</small></span></h2>
+<table>
+<tr><th style="width:34%">File</th><th>What it's for</th></tr>
+<tr><td class="k">0_START_HERE.txt</td><td>The steps, in writing. Read this one first</td></tr>
+<tr><td class="k">1_CHECK_THIS_LAPTOP.bat</td><td>Press this on a laptop that has never run it, or any time somebody says it doesn't work. Changes nothing</td></tr>
+<tr><td class="k">2_MAKE_THE_REPORT.bat</td><td><b class="o">The button.</b> This is the one you press every day</td></tr>
+<tr><td class="k">3_GET_PYTHON_NO_ADMIN.bat</td><td>Only if step 1 says Python is missing. Puts a private copy in this folder</td></tr>
+<tr><td class="k">Data_SiteIQ\</td><td>Where the exports go</td></tr>
+<tr><td class="k">HOW_IT_WORKS.html</td><td>This page</td></tr>
+<tr><td class="k">JOB.txt</td><td>The job's names and settings: <code>engagement</code> (fixed rate), <code>shutdown_end</code> (demob countdown and gear-return push), <code>tidy_names</code> and <code>acronyms</code>. Names can be left blank and are worked out from the exports</td></tr>
+<tr><td class="k">COMPANY_ALIASES.txt</td><td>Optional. One <code>FROM = TO</code> per line to fold the spellings SiteIQ uses for one outfit. Only what is written is folded</td></tr>
+<tr><td class="k">4_MAKE_OUTLOOK_DRAFT.bat</td><td>Optional. Saves today's email as a native Outlook draft (address-book search in the To field) with both attachments. Needs Outlook</td></tr>
+<tr><td class="k">build_onhire_workbook.py</td><td>The builder &mdash; the workbook, the email and the pack</td></tr>
+<tr><td class="k">coates_pdf.py</td><td>The PDF writer the pack is drawn with. Standard library only. Leave it alone</td></tr>
+<tr><td class="k">_RUN.bat</td><td>Finds Python on this machine and checks the folder is whole. Never press it directly</td></tr>
+<tr><td class="k">_lib\</td><td>The Excel library, travelling with the kit. This is why nothing has to be installed. Leave it alone</td></tr>
+<tr><td class="k">check_this_laptop.py</td><td>What button 1 runs</td></tr>
+<tr><td class="k">LAPTOP_CHECK.txt / LAST_RUN_LOG.txt</td><td>Appear after button 1 and button 2 &mdash; the health check and the last run, in writing. Email these to Andrew if you are stuck</td></tr>
+<tr><td class="k">Reports\</td><td>Appears on the first run &mdash; a dated folder per day with the workbook, the pack, <code>By_Company\</code> and the email draft</td></tr>
+</table>
+
+</div>
+<div class="ft"><b>COATES</b> &nbsp;|&nbsp; <b>POWERED BY <i>SITEIQ</i></b> &nbsp;|&nbsp; Author: Andrew Fisher &nbsp;|&nbsp; Shutdown Tool Store &nbsp;&middot;&nbsp; Dates come from issue transactions &nbsp;&middot;&nbsp; Nothing sends by itself</div>
+</div>
+</body></html>

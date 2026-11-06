@@ -1,0 +1,36 @@
+# =====================================================================
+#  WHICH JOB THIS FOLDER IS FOR
+#  Author: Andrew Fisher | POWERED BY SITEIQ
+#
+#  YOU DO NOT HAVE TO FILL THIS IN.
+#
+#  Leave it blank and the report reads the job straight off the
+#  exports you drop in - every SiteIQ export carries the project it
+#  came from. It will name itself correctly with nothing set up.
+#
+#  Fill it in only when the SiteIQ project name is not what you would
+#  put in front of a customer. Anything left blank is worked out.
+#
+#  Example, for the Weipa job:
+#
+#      customer: Rio Tinto
+#      job:      Weipa May26 Shutdown
+#      location: Weipa QLD
+#      short:    Weipa
+#
+#  Moving this folder to a different job? Blank the four lines below,
+#  empty Data_SiteIQ, drop the new exports in, press the button.
+# =====================================================================
+
+customer: Rio Tinto
+job:      Weipa May26 Shutdown
+location: Weipa QLD
+short:    Weipa
+
+# ---- optional settings (delete any you don't want) -------------------
+# engagement: Fixed-rate tool store      the email and pack say so
+# shutdown_end: 11/07/2026               countdown + gear-return push from 4 days out
+# tidy_names: yes                        make SHOUTING company names readable
+# tidy_items: no                         keep item descriptions exactly as SiteIQ writes them
+# acronyms: MMG, BLA                     names left in capitals when tidying
+# Company spellings are folded with COMPANY_ALIASES.txt (FROM = TO per line).

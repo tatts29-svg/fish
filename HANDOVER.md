@@ -161,6 +161,118 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ---
 
+## The on-hire report kit — `02_Onhire_Report_Kit/` (Weipa, MMG, any job)
+
+A **standalone** kit, separate from the K2 suite: one folder, four
+buttons, nothing installed. It reads RENTAL_STOCK / SALES_STOCK /
+TRANSACTIONS (+ STOCKTAKE) and writes the on-hire **workbook** (14 tabs,
+Dashboard first; 15 with the internal *Forecast* tab while the roster has
+days to come), the on-hire **email** (draft, no costs) and the
+**company pack PDF** (cover with the asks, *The story*, *Looking ahead*
+while a shut is ahead or under way, *At a glance* charts, then a section
+per company that touched the counter), plus one PDF per company in
+`By_Company\`. *Looking ahead* and the email card carry dates, people
+and movements only; dollars (cost by day, running total, split) live on
+the Forecast tab, read off the two typed tabs at build time. `4_MAKE_OUTLOOK_DRAFT.bat` saves the
+email as a native Outlook draft. The PDF is drawn by `coates_pdf.py`, a
+standard-library PDF writer that travels in the kit.
+
+The job is set in `JOB.txt`: names, `engagement` (fixed rate),
+`shutdown_end` (demob countdown + gear-return push from 4 days out),
+`tidy_names`, `acronyms`; `COMPANY_ALIASES.txt` folds SiteIQ's spellings
+(only what is written). Per-job copies live under `jobs\`.
+
+Settled rules, 04–05 Nov 2026:
+
+- **Every on-hire item is dated from the START of its issue transaction**,
+  never from RENTAL_STOCK's ON_HIRE_DATE. No transaction in the export
+  window = **undated**, said so. Pull TRANSACTIONS from the shut start.
+- A report is never dated before its own data; day counts never negative.
+- One palette across email, workbook and PDF: orange `#F26222`,
+  near-black `#1D1D1B`, charcoal `#2A313C`; red/amber/green only for
+  meaning. Email is tables + inline styles, no images (Outlook = Word).
+- Amber means "order more"; red is kept for overdue (21+ days) and
+  safety. A good zero (items on hire 0) reads green as "All back".
+- One chase email (.eml + .draft.json) per company beside its PDF in
+  `By_Company\`; `5_MAKE_COMPANY_DRAFTS.bat` makes them native Outlook
+  drafts. Subjects carry the position. The pack ends with a "How to read
+  this pack" page. `Reports\history.csv` holds one line per report day.
+  The run ends with a self-check line ("Checks 7 of 7 passed").
+- The cover and email masthead carry a shut-progress strip (from the
+  roster) and "since the last report" deltas read from the newest earlier
+  `Reports\<day>\` workbook; sections carry a company mark and an
+  age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
+  line (gear out at each day's end) and the age bar.
+- Third-opinion round (06 Nov): OpenAI Codex pushed four commits on the
+  same branch (tests under `02_Onhire_Report_Kit/tests`, CI workflow
+  `.github/workflows/onhire-kit.yml`, draws windowed to the exact minute,
+  consumables excluded from CUSTOMER_CONTRACTOR_EQUIP own-gear counts,
+  transaction-outcome partition, collision-safe filenames, font checksum).
+  Verified here on the real exports; then fixed on top: fatal vs advisory
+  self-checks (`fatal_names`), an honest "typeface embedded" check, a sale
+  after the TRANSACTIONS window no longer re-dates the report, the email
+  moving strip matches the pack partition, and the cover keeps every
+  company on the list (`action_layout_compact`, three-step fit) with the
+  fleet/customer-owned split in the hero. Run the suite with
+  `python -m unittest discover -s 02_Onhire_Report_Kit/tests` (openpyxl on
+  the path). A zero on hire now reads "Nothing on hire", not "All back".
+- Tester round (06 Nov, after an independent rebuild-and-break test; report
+  kept at the time under scratchpad/qa/QA_REPORT.md): "this period" draws =
+  SALES_STOCK rows inside `transactions_window()` (`ctx`; the tab keeps all
+  rows as `ctx_all`; `_PRINT["draws_note"]` on the Cover and DATA_SOURCES);
+  customer-owned items counted via `owner_of` (RENTAL_STOCK OWNER) and named
+  in the position sentence and chase emails ("on hire from the Coates tool
+  store"); `By_Company` cleared each run and the check counts files present;
+  the email attaches the dated workbook; one consumable-line count (`len(cu)`);
+  Cover demob from `progress["last"]`, engagement not asserted; stale exports
+  (`_PRINT["stale_days"]`) surfaced in call lines and Cover; undated ask
+  checks stock dates against the window; `export_requested()` reads
+  REQUESTED_DATE/TIME; history.csv gained `basis=window` and `_moves_delta()`
+  compares tooling moves only against an old-basis previous report; phone
+  media rules (`.mh` stacked masthead, `.hp` hidden columns, wrapping);
+  `_RUN.bat`/`check_this_laptop.py` Temp guard narrowed; PS1 prefers today's
+  folder and names classic Outlook; 3_GET_PYTHON uses `$env:` not quoted
+  paths; a renamed job falls back to the one LATEST in the folder.
+- Second-opinion round (06 Nov, after an independent code review and an
+  independent rebuild-and-break test): Company Summary includes companies
+  holding gear with no movement in the window; transaction de-dup keys on
+  the whole line (`TRANSACTION_ID` + item + barcode + description + start
+  + qty); the cover/forecast self-check compares the typed Cost Breakdown
+  total with `cost_profile()["total"]`; the manifest's LATEST copy is
+  refreshed every run; `job_seed(s, when)` applies a seed only within 45
+  days of its own dates; Dashboard rating colours read `TONE`; exports are
+  parsed once via `_open_ro()` (read-only cache, closed at exit; measured
+  saving under 1 s on today's exports, so a tidy-up rather than a speed-up
+  until exports grow); `_RUN.bat` lets `check_this_laptop.py` run on
+  a half-unpacked kit; the cover contents list tightens to 12pt rows and
+  then truncates with "and N more companies" so the asks card always fits.
+- High-contrast round (06 Nov): the cover hero, the dials card, each
+  section header and every footer are charcoal/near-black bands with white
+  type (`P_SLATE` #2A313C, `card(dark=)`, `gauge(dark=)`,
+  `progress_bar(dark=)`, `age_strip(dark=)`); the email masthead carries a
+  hero line (`_hero_html`, `story["hero"]`); Dashboard and Forecast tiles
+  are dark with white values. Small orange text on white is
+  `P_ORANGE_TEXT` / `E_ORANGE_TEXT` #C8511A (readable); wordmark, rules and
+  bars stay `P_ORANGE` #F26222. A quiet company's section still fits one
+  page (band 60pt, 12 consumable rows); MMG 17 pages, Rio 23.
+- The pack is set in Inter from `_fonts\` (OFL, subset-embedded by
+  `coates_pdf.py`; Helvetica fallback). Item descriptions are tidied for
+  display only (`item_name()`, `tidy_items: no` to turn off); transaction
+  and stock tabs keep SiteIQ's raw text.
+- Hand-typed tabs (Coates Labour, Cost Breakdown) carry over value for
+  value and are skinned; a fresh kit seeds them per job (Weipa roster
+  04 Nov; MMG roster + cost breakdown 05 Nov, corrected the same day:
+  fly in Sun 22 Nov, mobilisation Mon 23–Tue 24, shutdown from Wed 25 Nov,
+  Thomas Maher days, Cody Mitchel nights, fly out Wed 2 Dec, $90/$100,
+  tooling $1,847.81 + site services $50 a day 25 Nov–1 Dec, flights $1,500 each
+  way). The Cost Breakdown's Labour column is a SUMIF off the roster.
+  A roster from a previous shut (last day a month+ behind the report) is
+  replaced with the seed, with a note. Cover totals come from cached
+  values or a small formula evaluator; otherwise TBC, never $0.
+- MMG is a fixed-rate engagement: client packs never carry per-item
+  charges; the internal cost breakdown stays in the workbook.
+- `_lib` (vendored openpyxl) and all site data stay out of git.
+
 ## Traps — real mistakes made on this job, don't repeat them
 
 **Don't guess his network topology.** It was got wrong four times in a

@@ -1,0 +1,457 @@
+======================================================================
+ COATES | ON-HIRE REPORT KIT - WHAT'S NEW (makeover, 04 Nov 2026)
+ Author: Andrew Fisher | POWERED BY SITEIQ
+======================================================================
+
+ Extract this zip over the top of your existing Onhire_Report_Kit
+ folder and say Yes to replacing files. Your exports, your LATEST
+ workbook, your .xlsm and your Reports folder are not in the zip, so
+ nothing of yours is touched. Then press 2_MAKE_THE_REPORT.bat as
+ usual.
+
+ THE DATES - the one that matters
+ --------------------------------
+   Every on-hire item is now dated from the START of its issue
+   transaction in SiteIQ, never from the stock record's ON_HIRE_DATE.
+   That is what was putting August against gear that went out this
+   week. Where the stock record and the transaction agree (most
+   items) nothing changes; where they don't, the transaction wins.
+
+   An item with no issue transaction inside the TRANSACTIONS export
+   you pulled is shown as UNDATED - in the email, the pack and the
+   workbook - and the report says how many and why. Pull TRANSACTIONS
+   from the start of the shut and every item dates. The window the
+   export covers is printed in the email footer, on the Cover and in
+   the pack.
+
+ NEW - THE COMPANY PACK (PDF)
+ ----------------------------
+   Reports\<today>\<Job> On-Hire Report by Company - <date>.pdf
+   A cover with the position and a contents list that links to each
+   section, then one section per company: their people A-Z, their
+   gear longest-held first, item numbers, the day each item was
+   issued, days out, and the consumables they drew this period. Each
+   company is a bookmark in Acrobat. Attached to the email next to
+   the workbook. One PDF per company in Reports\<today>\By_Company\
+   as well, for forwarding a company just their page.
+
+   Built by coates_pdf.py, a small PDF writer that now travels in the
+   kit - nothing to install, no browser, no Acrobat needed to make it.
+
+ THE EMAIL - new layout
+ ----------------------
+   One white sheet on a grey page. Coates masthead, the position in
+   words, four flags that say their status in words as well as
+   colour, what is attached, then seven slim numbered sections with
+   cleaner tables (one bar per table, chips for anything that carries
+   a judgement), a lighter company roll, and what I need from you.
+   Still tables-and-inline-styles only, no images, so Outlook, Gmail
+   and a phone all draw it the same. Still no costs.
+
+ THE WORKBOOK - new look
+ -----------------------
+   Coates title band (COATES in orange on near-black, orange rule)
+   on every tab, charcoal heading rows, plain-English column headings,
+   faint zebra, TOTAL rows highlighted on Company Summary, and colour
+   that follows the value: ratings and recommendations tinted, On
+   Hire tinted, days on hire red past 21 / amber past 13, orange data
+   bars on the utilisation columns. Page header and footer on every
+   printed tab. Detailed Onhire gains Days on hire, the issue
+   transaction behind each date, and the SiteIQ stock date beside it
+   for checking. New Cover: facts, headline tiles, what's in each tab,
+   what fed it, the ratings legend in colour, what is typed by hand.
+   A cost headline that can't be read shows TBC, never $0.
+
+ ONE KIT, EVERY JOB (05 Nov 2026)
+ --------------------------------
+   The same kit now runs MMG and Weipa. JOB.txt carries the job's
+   settings: engagement (fixed rate), shutdown_end (demob countdown
+   and the gear-return push from four days out), tidy_names and
+   acronyms. COMPANY_ALIASES.txt folds the spellings SiteIQ uses for
+   one outfit - only what is written there, never a guess.
+
+   The pack gains THE STORY on page 2: the brief in plain words, the
+   team at the counter and their hours to date, how gear is moving
+   (same-day returns, kept longer, still out), stocktake discipline
+   (items sighted in the last three days, and by whom), customer-owned
+   gear logged through the counter, and the standards behind the
+   numbers. Every company that touched the counter gets a section,
+   holding gear or not - at the end of a shut the activity is the
+   story. A fifth dial on the charts page shows stocktake coverage
+   when a STOCKTAKE export is in.
+
+   The workbook gains a CUSTOMER GEAR tab - customer- and contractor-
+   owned gear logged through the counter (fifteen tabs while a shut
+   is ahead or under way, fourteen after). The
+   email shows how gear is moving and an Own gear column, and says
+   when demob is.
+
+   4_MAKE_OUTLOOK_DRAFT.bat (optional) saves today's email as a NATIVE
+   Outlook draft, so the To field has the address book behind it.
+
+   A roster from a previous shutdown is recognised (its last day a
+   month or more behind the report) and replaced with the job's seeded
+   roster, with a note. MMG's roster and cost breakdown as sent on
+   05 Nov 2026 are seeded, as corrected that day: fly in Sun 22 Nov,
+   mobilisation Mon 23 and Tue 24 Nov, the shutdown from Wed 25 Nov -
+   Thomas Maher on days, Cody Mitchel on nights - fly out Wed 2 Dec;
+   $90 day / $100 night; tooling $1,847.81 and site services $50 a day
+   from Wed 25 Nov to Tue 1 Dec, flights $1,500 each way. Labour reads
+   off the roster: $23,160, and $39,444.67 all up; the Cover shows both.
+
+   A tab that is still exactly an earlier version of the seed - nothing
+   typed since - is updated to the corrected one, with a NOTE. A tab
+   anybody has typed into never matches, so it is kept as typed.
+
+   From then on the two typed tabs carry over from the kit's own
+   LATEST workbook while the .xlsm still holds the old roster, so
+   whatever you type into LATEST is what comes across each day (one
+   NOTE says so). Before the shut starts, the story page shows the
+   team as ROSTERED hours from the fly-in day rather than hours to
+   date, so it never reads as zero people.
+
+ NEW - THE THIRD OPINION (06 Nov 2026)
+ ------------------------------------
+   A third reviewer (OpenAI Codex, working on the same branch) added 28
+   automated tests and a Windows/Linux check that runs them on every
+   change, and fixed real things: consumable draws are now counted to
+   the exact minute of the transactions window; the "customer-owned gear
+   through the counter" figure counts gear only (Rio's sheet held 386
+   rows, 370 of them consumable sales already counted - 16 are gear);
+   two companies whose names differ only in case or punctuation can no
+   longer overwrite each other's files; the Outlook draft script checks
+   every attachment exists before it saves; the embedded fonts carry a
+   correct checksum; a missing output fails the run instead of printing
+   a tidy summary.
+
+   On top of that, after an independent read of its changes:
+   - The checks line is honest again. Five checks are fatal (workbook,
+     pack, a PDF and a draft per company, the main email); the rest -
+     typeface embedded, no gaps, no costs, cover and forecast agree -
+     are advisory. An advisory miss says NOTE and names the output; it
+     never hides a finished report behind "IT DID NOT FINISH".
+   - A sale in SALES_STOCK stamped after the transactions window ends
+     no longer re-dates the whole report; it is noted as a mismatched
+     pull and left out of this period.
+   - The email's "how gear is moving" strip shows the same three numbers
+     as the pack's chart (returned same date, returned later, no return
+     recorded), with uncertain dates as a fourth when there are any.
+   - The cover keeps every company on its contents list. If the asks
+     card in full would push companies off, the asks go to one line each
+     (whole sentences); only on a very big shut does the list shorten.
+     The Coates fleet / customer-owned split sits in the hero beside the
+     big number.
+   - A zero on hire reads "Nothing on hire", not "All back": the export
+     shows nothing out, which is not the same as having seen it all come
+     back.
+
+ NEW - THE SECOND OPINION (06 Nov 2026)
+ -------------------------------------
+   Two independent reviewers went over the kit - one read every line of
+   the code, one rebuilt the kits from scratch and tried to break the
+   outputs. What they found, and what changed:
+
+   - A company still holding gear with no movement inside the export
+     window was missing from Company Summary and from the "who is
+     holding gear" tables, while the tiles and the pack still counted
+     it. It now appears with zero movements - that is exactly the
+     company to chase.
+   - Two lines under one transaction number (a crew member taking three
+     tools in one go) were counted once. The de-duplication now keys on
+     the whole line, so a line that sits on both transaction sheets is
+     still one movement and three tools are three.
+   - The "cover and forecast agree" self-check compared a number with
+     itself and could never fail. It now compares the typed Cost
+     Breakdown total with the day-by-day profile the Forecast draws.
+   - Running the kit twice on the same day left the morning's workbook
+     as the Outlook draft's attachment. The copy is refreshed every run.
+   - A typed roster only seeds a kit for the shut it was typed for.
+     Next year's Weipa or MMG kit starts with blank typed tabs and a
+     note, not last year's people and dollars.
+   - The Dashboard's rating colours now follow the one palette (High
+     Demand amber, Low Use slate), the same as the pack's donut.
+   - The exports are parsed once per run instead of about ten times.
+     Measured on today's exports the saving is under a second of a five
+     to nine second run - housekeeping that matters more as the
+     TRANSACTIONS export grows across a shut.
+   - 1_CHECK_THIS_LAPTOP runs even when the kit is half unpacked - that
+     is the case it exists to diagnose.
+   - On a very big shut the cover's contents list tightens, then stops
+     before the footer and says how many more companies have sections,
+     so the asks beneath it are never squeezed off page one.
+
+   The second reviewer rebuilt the kits from scratch and tried to break
+   the outputs. No blockers. What it found, and what changed:
+
+   - "This period" consumable draws now mean the transactions window.
+     SALES_STOCK carries every sale the project has ever made, so the
+     headline said 1,307 draws for a seven-day shut when 370 fell inside
+     the window. The counted figure is the window's; the Consumable
+     Transactions tab keeps every row; the Cover and DATA_SOURCES say
+     how many were counted.
+   - Customer-owned items (life jackets, drop mats) are on hire too but
+     they are not Coates gear. The position sentence now reconciles
+     "56 on hire" with "47 Coates fleet"; the company chase email says
+     "on hire from the Coates tool store" and names how many are the
+     customer's own.
+   - Reports\<day>\By_Company is regenerated whole each run, so a
+     company renamed by an alias cannot leave yesterday's PDF and draft
+     beside today's; the self-check counts the files present.
+   - The email attaches the dated workbook, not the undated LATEST, so
+     saving the attachment daily never overwrites yesterday's.
+   - One count of consumable lines (the utilisation lines the ratings
+     are built on) on the tile, the dial and the donut.
+   - Cover: the demob date comes from the roster when JOB.txt is silent,
+     and "Engagement" says "not set in JOB.txt" rather than asserting.
+   - Exports more than three days older than the report date are said
+     in the email, on the cover and on the workbook Cover, not only on
+     the console.
+   - The undated ask fits the facts: when the undated items' stock dates
+     are before the shut, it no longer asks for a pull that cannot date
+     them.
+   - Export times on the Cover and in DATA_SOURCES are SiteIQ's own
+     request time, not the file's copy time. Phone layout lets every
+     cell wrap. Plain-text email pluralises. The last age band is
+     captioned. The section band keeps whole sentences. Button 4 picks
+     today's folder, not the alphabetically newest. 3_GET_PYTHON copes
+     with an apostrophe in the path. Only Windows' real Temp folders
+     trip the "inside the zip" guard. A renamed job still finds its
+     LATEST workbook.
+   - Classic Outlook only: the .eml-as-draft and buttons 4 and 5 need
+     the classic desktop Outlook; the .html is the fallback in the
+     new Outlook. 0_START_HERE says so now.
+
+   ONE THING TO EXPECT on the first run after this update: "since the
+   last report" compares tooling moves only, and says "tooling moves",
+   because the previous report counted every sale in SALES_STOCK as a
+   draw. From the next report the full movements comparison returns.
+
+ NEW - THE CONTRAST (06 Nov 2026)
+ -------------------------------
+   The pack now opens DARK. The cover's hero is a charcoal band with
+   the title in white, the shut-progress strip, and the one number
+   that matters - ITEMS ON HIRE NOW - set large in white with the
+   company count, the oldest item and what moved since the last
+   report beside it. "Nothing on hire" reads green when the number is zero.
+   The dials on At a glance sit on the same charcoal, the four values
+   in white; every company section starts with a charcoal band - the
+   company's mark in orange, its name in white, the date, and the
+   age-of-what-is-out bar - and every page ends in a near-black
+   footer band with COATES, POWERED BY SITEIQ and the page number.
+   White tiles, white tables and white charts sit between the dark
+   bands, so the eye lands on the numbers first.
+
+   The email masthead carries the same hero line - the on-hire number
+   large, "items on hire now", the company count and the oldest item -
+   between the title and the progress strip. The workbook's Dashboard
+   and Forecast tiles are near-black with the value in white and the
+   label in a pale orange.
+
+   Colour is tuned for contrast: small orange text on white (kickers,
+   section labels, contents page numbers) is now a deeper orange that
+   passes the readability test, while the COATES wordmark, the rules
+   and the bars keep the brand orange. Everything is still vector and
+   still set in Inter, so it is as crisp on a 4K wall screen as on a
+   phone, and the pack still weighs about 150 KB.
+
+   The cover's asks card now shows whole sentences: a long ask is cut
+   at a full stop, never mid-sentence, and the body runs the full width
+   of the card. "Date the undated" is three short sentences - problem,
+   action, alternative - so the cover carries the first two and the
+   email and closing page carry all three.
+
+   On At a glance, the five dials' small lines now sit on one baseline
+   whether the caption above took one line or two, and a long name in
+   Working hardest or Consumables running down shrinks a touch and then
+   wraps to two lines instead of ending in three dots.
+
+ NEW - THE CHASE (05 Nov 2026, night)
+ -----------------------------------
+   ONE EMAIL PER COMPANY. Beside each company's PDF in Reports\<today>\
+   By_Company there is now a ready-to-send chase email (.eml) with that
+   page attached: their position, who is holding what, the ask, your
+   sign-off. Each opens as a draft with the To field blank. The new
+   5_MAKE_COMPANY_DRAFTS.bat puts all of them into Outlook > Drafts in
+   one go, where the address book works. Nothing sends by itself.
+
+   SUBJECT LINES carry the position: "Rio Tinto | On-Hire Report | Fri
+   06 Nov: 56 items out to 7 companies, oldest 5 days", and for a
+   company "Goodline | Coates gear on hire | Fri 06 Nov: 17 items out,
+   oldest 4 days" - or "all back".
+
+   The pack finishes with HOW TO READ THIS PACK: what the day chips, the
+   age bands and the ratings mean, where the numbers come from, the asks
+   in full and the sign-off. The workbook Cover's tab list links to each
+   tab. Reports\history.csv keeps one line of headline counts per
+   report day; since-last-report reads it first.
+
+   The run ends with CHECKS - the kit checks its own work (workbook
+   saved, pack built, a PDF for every company, typeface embedded, no
+   gaps or costs in the email, cover and forecast agree) and says
+   "Checks N of N passed" or names what to look at.
+
+ NEW - THE PUSH (05 Nov 2026, late)
+ ---------------------------------
+   The cover opens with the SHUT PROGRESS strip - a cell per day in its
+   phase colour, worked days filled, today in orange, days to come as a
+   thin line - "Day 7 of 12 - demob Wed 11 Nov", or "Starts Sun 22 Nov -
+   17 days away" before a shut. Beside it, SINCE THE LAST REPORT: the kit
+   reads the newest earlier report in the Reports folder and says what
+   moved - on hire, movements, companies. The same strip sits in the
+   email masthead, and the position tiles carry the change too
+   ("v 22 since 05 Nov").
+
+   Every company now has a MARK - a round badge with its initials - on
+   the contents list and at the top of its section, with a quiet data
+   bar behind its name on the contents for its share of what is out.
+   Each section header carries AGE OF WHAT IS OUT: one bar, a segment
+   per age band (today, 1-3, 4-7, 8-20, 21+ days, undated).
+
+   At a glance gains the same age bar for the whole store under the
+   dials, and the Movements by day chart carries a line for the gear
+   out at the end of each day - the on-hire curve across the shut.
+   The Dashboard tab gains both as live Excel charts, and the Cover tab
+   shows shut progress, since-last-report and the typeface.
+
+ NEW - THE LOOK (05 Nov 2026, evening)
+ ------------------------------------
+   The pack is set in INTER, a proper typeface that travels in the
+   kit's _fonts folder (SIL Open Font License). Only the characters a
+   pack uses are embedded, so files stay small, numbers line up in
+   their columns (tabular figures), and headings get a real bold. If
+   the folder is missing the pack still builds, in Helvetica, and the
+   run window says so.
+
+   Item descriptions read like English everywhere they are displayed:
+   "GLOVES,CUT 3,GFPR200,NON-VEND,SZ-11 MMG2025" shows as "Gloves,
+   cut 3, GFPR200, non-vend, size 11". The site tag SiteIQ appends is
+   dropped, SHOUTING CAPS are made readable, measurements, codes and
+   acronyms are left alone (18V, 310ml, 20L, 2XL, GFPR200, LED). The
+   transaction and stock tabs keep the raw text for lookups. Put
+   tidy_items: no in JOB.txt to keep them exactly as SiteIQ writes them.
+
+   Calmer colour. Amber now means "order more" (High Demand, Increase
+   Stock, the two order flags); red is kept for gear out over 21 days
+   and safety. A zero that is good news - items on hire 0 - reads green
+   as "Nothing on hire" instead of a big black nought, and other zeros sit
+   quietly in grey.
+
+   Email: sections 3 to 5 show their top six lines with "another N are
+   on the ... tab"; on a day with nothing on hire, section 2 becomes
+   "Who moved the most gear" with the bar on movement instead of twelve
+   empty bars and "nothing out" chips; the Do column is folded into the
+   rating chip; consumables read "61 of 61 gone" with the bar; phones
+   that honour it stack the tiles one above the other (Outlook ignores
+   the rule and loses nothing).
+
+   Pack: dial labels wrap instead of running into each other; the
+   cover's contents list tightens when there are many companies so the
+   asks always fit beneath it; small drawn icons on the cover,
+   milestone and section tiles; the two busiest hours are shaded on the
+   hour chart; a quiet company's zero tiles go to the end; inline bars
+   in every section's consumables and own-gear tables.
+
+   Workbook: Dashboard charts sized to their columns with legends
+   underneath (no more clipped "High Der"), and the gear chart shows
+   "who moved the most gear" when nothing is on hire; tab colours by
+   group - orange for Cover, Dashboard and Forecast, charcoal for data,
+   grey for the two typed by hand; the Forecast tab's Phase column
+   carries the roster strip's colours; Company Summary groups each
+   company's two lines under its total (the minus signs down the left
+   fold them).
+
+ NEW - LOOKING AHEAD (05 Nov 2026)
+ --------------------------------
+   While a shut is ahead or under way, the pack gains a LOOKING AHEAD
+   page (page 3) built from the roster and the record: the brief, five
+   milestones (fly in, counter opens, last shift, fly out, rostered
+   hours), the roster as a day-by-day strip - travel, mobilisation,
+   day and night shifts, worked days outlined, today tinted - when the
+   counter is busiest by hour of day, what a day at the counter looked
+   like last time (movements a day, busiest day, same-day returns,
+   companies and people served), the tooling asked for most and the
+   consumables that go fastest. Dates, people and movements only -
+   never a dollar. The email carries the same milestones as a card
+   under the position, and the plain-text copy lists them too.
+
+   The workbook gains a FORECAST tab after the Dashboard, INTERNAL:
+   six tiles (fly in, counter opens, last shift, fly out, labour off
+   the roster, all up off the Cost Breakdown), live Excel charts of
+   cost by day with the running total over it and where the money
+   goes, then the day-by-day table - hours per person, each money
+   column, day total, running total - and the split. It is read off
+   the two typed tabs when the report is built, so a re-run after
+   editing either refreshes it. Fifteen tabs while the roster has days
+   to come, fourteen once the shut is done.
+
+   The dials now have round ends and quarter ticks, donuts a hairline
+   between slices, bars round ends, and the movements chart a quiet
+   scale of four round steps. Everything in the pack is drawn as
+   vectors - as crisp on a 4K wall screen as on a phone - and the
+   Dashboard and Forecast charts are Excel's own, so they scale too.
+
+ NEW - THE VISUALS
+ -----------------
+   Page 2 of the company pack is AT A GLANCE: four dials (Coates
+   fleet on hire, dated from transactions, consumable lines past 80%,
+   items out over 21 days), who is holding gear, tooling and
+   consumable lines by rating as donuts, movements by day inside the
+   export window, working hardest, and consumables running down
+   against the 80% line. Every company section now opens with an
+   Items-by-person bar chart. All drawn in the light Coates palette,
+   all from the same numbers as the tables.
+
+   The workbook gains a DASHBOARD tab, first after the Cover: six
+   tiles, four gauges and four charts drawn by Excel itself from small
+   tables at the foot of the tab - live charts you can click, recolour
+   or copy into a deck. (The gauges are half-doughnuts; they draw
+   properly in Excel, less so in other spreadsheet programs.)
+
+ THE TWO HAND-TYPED TABS - same values, Coates look
+ --------------------------------------------------
+   Coates Labour and Cost Breakdown are still yours and still carried
+   over value for value, formula for formula. They now come through in
+   the same look as every other tab: the Coates band, charcoal heading
+   rows, light zebra, totals highlighted, dates wide enough to read
+   (no more ########), headings frozen, print-ready.
+
+   The roster has been corrected as agreed on 04 Nov 2026: Leon
+   Swanepoel on NightShift 18:00-06:00 from Sun 1 Nov to Mon 9 Nov,
+   No Shift Tue 10 Nov, Dayshift 06:00-18:00 Wed 11 Nov; Thomas Maher
+   on Dayshift 06:00-18:00 throughout. Cost is hours x the rate for the
+   shift type - NightShift at the night rate, everything else at the
+   day rate - so a changed shift reprices itself. Totals: $23,480
+   labour, $40,365.60 all up. The first run replaces the older 'Neon'
+   copy of the roster with this one and says so; after that whatever
+   you type is what carries over.
+
+   The Cover's labour and cost totals are now worked out from the tab's
+   own formulas when Excel has not cached them, so they no longer read
+   TBC on a freshly built workbook.
+
+ EVERYTHING ELSE
+ ---------------
+   HOW_IT_WORKS.html rewritten in the same look, with the dating rule
+   and the pack explained. 0_START_HERE.txt updated. 1_CHECK_THIS_
+   LAPTOP knows about the PDF writer and checks the laptop can open a
+   PDF. Every number on every data tab is unchanged - checked cell for
+   cell against the previous builder on the same exports.
+======================================================================
+
+QUALITY PASS - 06 Nov 2026
+--------------------------
+The cover now measures and wraps every action sentence. Charts rank the
+largest holdings first. Reorder warnings use amber consistently. Story
+cards, customer-owned gear bars, footers and printed workbook navigation
+have room to read clearly. Empty charts display zero.
+
+Bug fixes protect hand-typed tabs after a job rename, align consumable
+counts with the precise export window, keep company filenames distinct,
+and show each company's own headline in its email. Missing required output
+files now fail the run. Outlook refuses drafts with missing attachments;
+kit paths with apostrophes or brackets are handled literally. Corrupt
+exports fail the laptop check. Embedded fonts have valid checksums.
+
+Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
+and LibreOffice output are useful checks; native Outlook and Excel review
+remains part of delivery testing.

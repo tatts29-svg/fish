@@ -1,0 +1,6 @@
+# One per line: how SiteIQ spells it = how the report shows it.
+# Only the aliases written here are folded - the kit never guesses.
+BELTECH = BELTEC
+DAWSONS ENGINEERING = DAWSONS
+DAWSONS RELINERS = DAWSONS
+MMG AUSTRALIA LIMITED = MMG
