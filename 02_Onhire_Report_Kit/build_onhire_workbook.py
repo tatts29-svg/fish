@@ -4016,7 +4016,13 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
     ref_previous = bool(newest and newest < first)
     ref_span = ("{} to {}".format(ref_days[0].strftime("%d %b"), ref_days[-1].strftime("%d %b %Y"))
                 if ref_days else (period or ""))
-    ref = {"label": ref_label or s.project_schedule or "the last export", "span": ref_span,
+    ref_name = ref_label or s.project_schedule or "the last export"
+    if not ref_previous:
+        #  This shut's own record is named after the job as the reader
+        #  knows it. The SiteIQ schedule behind it can be an old one reused
+        #  (Weipa's November shut runs under a schedule named for May).
+        ref_name = s.job or ref_name
+    ref = {"label": ref_name, "span": ref_span,
            "previous": ref_previous, "days": n_ref, "moves": moves,
            "per_day": (moves / float(n_ref)) if n_ref else 0.0,
            "peak": totals[peak_k] if peak_k is not None else 0,
@@ -4511,7 +4517,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     #  The secondary facts (export age, draws counted, the stocktake
     #  pull, the engagement, the typeface) go under the sources table
     #  as notes, where they belong - the hero stays readable.
-    PRIMARY = ("Shut progress", "Since last report")
+    PRIMARY = ("Shut progress", "Since last report", "Export age")
     extra = list(extra or [])
     by = dict(extra)
     end = (s.shutdown_end or shut_end)
@@ -4519,9 +4525,9 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ("As at", asat.strftime("%d %b %Y  %H:%M")),
         ("Report date", when.strftime("%d %b %Y")),
         ("Prepared by", s.author or "Andrew Fisher"),
-        ("SiteIQ project", s.project_schedule or "-"),
         ("Shutdown ends", end.strftime("%d %b %Y") if end else "-"),
         ("Shut progress", by.get("Shut progress") or "-"),
+        ("Export age", by.get("Export age") or "-"),
         ("Transactions cover", _PRINT.get("period") or "-"),
         ("Since last report", by.get("Since last report") or "-"),
         ("Company pack", ("{} pages, {} companies".format(
@@ -4530,7 +4536,9 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     engagement = ("Fixed rate - no per-item charges" if s.fixed_rate else
                   ("Standard hire" if (s._d.get("engagement") or "").strip()
                    else "Standard hire (default)"))
-    notes = ([("Engagement", engagement),
+    notes = ([("SiteIQ schedule", "{} - the name the exports are matched on".format(
+                  s.project_schedule) if s.project_schedule else "-"),
+              ("Engagement", engagement),
               ("Exports read", "{} files".format(len(sources)))]
              + [f for f in extra if f[0] not in PRIMARY])
 

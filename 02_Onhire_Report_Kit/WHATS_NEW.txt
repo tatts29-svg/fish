@@ -110,6 +110,25 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ THE JOB NAME (06 Nov 2026)
+ -------------------------
+   The Weipa reports said "Weipa May26 Shutdown" because the SiteIQ
+   schedule behind them is an old one reused for this November shut.
+   JOB.txt now says "Weipa Shutdown", and that is what the pack, the
+   email, the workbook and the Forecast show. Change the job line in
+   JOB.txt if you want it worded differently - the reports follow it.
+
+   The record this shut draws on ("A day at the counter, so far" and
+   the "Expectations come from the record of ..." line in the pack) is
+   now named after the job too, never after the SiteIQ schedule. A
+   previous shut's record (MMG's July exports) keeps its own name,
+   because that is what the past shut was called.
+
+   The SiteIQ schedule name itself is still in the workbook, once, as
+   a note under the sources table on the Cover ("SiteIQ schedule"),
+   because it is the name the kit matches the exports on. It is no
+   longer a headline fact; "Export age" takes that spot.
+
  NEW - THE TIDIER WORKBOOK (06 Nov 2026)
  --------------------------------------
    The Excel workbook looked busy, so the front of it has been laid

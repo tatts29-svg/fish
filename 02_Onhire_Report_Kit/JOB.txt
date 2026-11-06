@@ -14,7 +14,12 @@
 #  Example, for the Weipa job:
 #
 #      customer: Rio Tinto
-#      job:      Weipa May26 Shutdown
+#      job:      Weipa Shutdown
+#
+#  (SiteIQ's schedule for that shut is still named "Rio Tinto Weipa
+#  May26 Shut" - an old schedule reused in November - so the job
+#  line is what the reports show instead. The schedule name itself
+#  is only used to match the exports to this folder.)
 #      location: Weipa QLD
 #      short:    Weipa
 #
@@ -23,7 +28,7 @@
 # =====================================================================
 
 customer: Rio Tinto
-job:      Weipa May26 Shutdown
+job:      Weipa Shutdown
 location: Weipa QLD
 short:    Weipa
 
