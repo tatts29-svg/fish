@@ -719,7 +719,7 @@ def _open_ro(path):
 
 
 def _release_ro(wb):
-    """Cached workbooks stay open for the run; closing happens at exit."""
+    """Cached workbooks stay open until build() completes."""
     return None
 
 
@@ -1269,6 +1269,15 @@ def _who(name):
 #  The tabs
 # =====================================================================
 def build(base=HERE, when=None):
+    """Build once and release export handles on success, failure or exception."""
+    _close_ro_all()
+    try:
+        return _build(base, when)
+    finally:
+        _close_ro_all()
+
+
+def _build(base=HERE, when=None):
     s = the_site(base)
     when = when or dt.date.today()
     asat = dt.datetime.now()

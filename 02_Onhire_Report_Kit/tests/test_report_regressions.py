@@ -19,6 +19,17 @@ import build_onhire_workbook as report
 DAY = dt.date(2026, 11, 6)
 
 
+@contextlib.contextmanager
+def temporary_site():
+    # Some inspections call LooseSite after the build and reopen exports.
+    # Release those handles before Windows removes the temporary directory.
+    with tempfile.TemporaryDirectory() as base:
+        try:
+            yield base
+        finally:
+            report._close_ro_all()
+
+
 def export(path, sheets, period='01/11/2026 05:00:00 - 06/11/2026 04:59:00'):
     book = openpyxl.Workbook()
     book.remove(book.active)
@@ -67,8 +78,23 @@ class ReportRegressions(unittest.TestCase):
     def tearDown(self):
         report._close_ro_all()
 
+    def test_build_releases_exports_after_success_and_failure(self):
+        with temporary_site() as base:
+            fixture(base)
+            run(base)
+            self.assertFalse(report._RO_CACHE)
+            with mock.patch.object(report, 'write_email', side_effect=OSError('locked email')):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(report.build(base, DAY), 1)
+            self.assertFalse(report._RO_CACHE)
+            with mock.patch.object(report, 'email_parts', side_effect=RuntimeError('interrupted')):
+                with contextlib.redirect_stdout(io.StringIO()):
+                    with self.assertRaises(RuntimeError):
+                        report.build(base, DAY)
+            self.assertFalse(report._RO_CACHE)
+
     def test_renamed_job_preserves_typed_tabs(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             (Path(base) / 'JOB.txt').write_text('short: New name\njob: QA\n')
             old = openpyxl.Workbook()
             old.active.title = 'Coates Labour'
@@ -82,7 +108,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(new['Cost Breakdown']['C8'].value, 1234.5)
 
     def test_company_email_uses_its_own_hero(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             site = report.LooseSite(base)
             blocks, _ = report.pack_blocks(
                 [['Example', 'Worker', 'T1', 'Wrench', 'On Hire', DAY, '08:00', 0, 'TX1', None]],
@@ -95,7 +121,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(parts['story']['hero'][0], '9,999', 'Rendering must not mutate whole-site parts')
 
     def test_sales_draws_agree_with_company_summary(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             sale = dict(COMPANY_NAME='Consumables Only', HIRER='Worker A',
                         SKU_DESCRIPTION='GLOVES', SALES_QUANTITY=2,
                         SALES_DATE='04/11/2026', SALES_TIME='09:00')
@@ -109,7 +135,7 @@ class ReportRegressions(unittest.TestCase):
             book.close()
 
     def test_window_uses_time_boundaries_and_excludes_undated_sales(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             def sale(day, time):
                 return dict(COMPANY_NAME='Example Engineering', HIRER='Worker',
                             SKU_DESCRIPTION='GLOVES', SALES_QUANTITY=1,
@@ -126,7 +152,7 @@ class ReportRegressions(unittest.TestCase):
             book.close()
 
     def test_company_filenames_cannot_overwrite_each_other(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             fixture(base, company_names=('A/B Engineering', 'A:B Engineering'))
             out = run(base) / 'By_Company'
             self.assertEqual(len(list(out.glob('*.pdf'))), 2)
@@ -143,7 +169,7 @@ class ReportRegressions(unittest.TestCase):
 
 
     def test_missing_main_email_fails_the_run(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             fixture(base)
             with mock.patch.object(report, 'write_email', side_effect=OSError('locked email')):
                 with contextlib.redirect_stdout(io.StringIO()) as log:
@@ -153,7 +179,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertFalse((Path(base) / 'Reports' / 'history.csv').exists())
 
     def test_missing_company_draft_fails_the_run(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             fixture(base)
             with mock.patch.object(report, 'write_company_email', side_effect=OSError('locked draft')):
                 with contextlib.redirect_stdout(io.StringIO()) as log:
@@ -215,14 +241,14 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(report._moves_delta(previous, 12, 200), (2, 'tooling moves'))
 
     def test_new_history_marks_time_window_basis(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             fixture(base)
             run(base)
             self.assertEqual(report.read_history(base, report.LooseSite(base))[-1]['basis'], 'window_time')
 
 
     def test_single_timed_scan_has_one_peak_hour(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             site = report.LooseSite(base)
             future = DAY + dt.timedelta(days=1)
             roster = {'rows': [(future, 'Worker', 'Day', 8, '08:00', '16:00')]}
@@ -239,7 +265,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertIn('1 day on site', forecast['brief'])
 
     def test_single_item_email_uses_singular_counts(self):
-        with tempfile.TemporaryDirectory() as base:
+        with temporary_site() as base:
             fixture(base)
             out = run(base)
             html = next(out.glob('*.html')).read_text()
