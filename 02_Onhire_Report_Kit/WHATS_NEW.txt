@@ -143,6 +143,11 @@
    action, alternative - so the cover carries the first two and the
    email and closing page carry all three.
 
+   On At a glance, the five dials' small lines now sit on one baseline
+   whether the caption above took one line or two, and a long name in
+   Working hardest or Consumables running down shrinks a touch and then
+   wraps to two lines instead of ending in three dots.
+
  NEW - THE CHASE (05 Nov 2026, night)
  -----------------------------------
    ONE EMAIL PER COMPANY. Beside each company's PDF in Reports\<today>\

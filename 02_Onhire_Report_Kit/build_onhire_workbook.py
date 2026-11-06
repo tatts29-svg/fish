@@ -6344,8 +6344,9 @@ class _Pack(object):
         for i, ln in enumerate(lines):
             d.text(cx, cy + 14 + 8 * i, ln, size=6.3, bold=True, colour=muted,
                    tracking=0.4, align="centre")
-        d.text(cx, cy + 17 + 8 * len(lines), sub, size=7, colour=muted, align="centre",
-               max_w=118)
+        #  the small line sits on one baseline across the row, so the dials
+        #  read as a set whether the label above took one line or two
+        d.text(cx, cy + 33, sub, size=7, colour=muted, align="centre", max_w=118)
 
     def hbars(self, x, y, w, rows, label_w=96, pitch=16, bar_h=10, colours=None,
               fmt=None, threshold=None):
@@ -6364,7 +6365,19 @@ class _Pack(object):
             label, value = r[0], r[1]
             tone = r[2] if len(r) > 2 else None
             yy = y + i * pitch
-            d.text(x, yy + 8.5, label, size=8, colour=P_INK, max_w=label_w - 8)
+            lab_w = label_w - 8
+            size = 8.0
+            while size > 7.0 and d.text_width(label, size) > lab_w:
+                size -= 0.2
+            if d.text_width(label, size) <= lab_w:
+                d.text(x, yy + 8.5, label, size=size, colour=P_INK)
+            else:
+                two = d.wrap(label, 6.8, lab_w, max_lines=2)
+                if len(two) == 1:
+                    d.text(x, yy + 8.5, two[0], size=6.8, colour=P_INK, max_w=lab_w)
+                else:
+                    d.text(x, yy + 5.2, two[0], size=6.8, colour=P_INK, max_w=lab_w)
+                    d.text(x, yy + 12.6, two[1], size=6.8, colour=P_INK, max_w=lab_w)
             d.rect(track_x, yy, track_w, bar_h, fill=self.C_TRACK, radius=bar_h / 2.0)
             bw = track_w * (float(value) / biggest) if biggest else 0
             colour = (colours or {}).get(tone, self.C_ORANGE) if tone else self.C_ORANGE
