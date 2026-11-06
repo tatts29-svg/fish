@@ -66,7 +66,8 @@
             stops, close it.
 
             If something is wrong it tells you in plain words what
-            to fix. It never builds half a report.
+            to fix. Read the final Checks line before using the output.
+            A failed check names the output that needs attention.
 
 
    STEP 4   Open the three things it just made
@@ -115,7 +116,7 @@
             4 and 5 need the classic desktop Outlook. In the "new
             Outlook" an .eml opens read-only and there is no
             automation: open the .html instead, Ctrl+A, Ctrl+C, and
-            paste it into a new message. Same report, same look.
+            paste it into a new message and attach the report files.
 
 
  IT DIDN'T WORK - FIND YOUR MESSAGE HERE
@@ -210,9 +211,8 @@
    the export covers is printed in the email footer, on the Cover
    and in the pack, so nobody has to guess.
 
-   There are no pictures in the email and nothing it downloads, so
-   it looks the same on the store laptop, in Outlook on a big
-   monitor, and on a phone at the gate.
+   There are no pictures to download. The layout adapts to a phone;
+   check the draft in your Outlook version before sending it.
 
 
  WHAT COMES OUT - fifteen tabs

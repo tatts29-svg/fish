@@ -253,7 +253,7 @@
    The run ends with CHECKS - the kit checks its own work (workbook
    saved, pack built, a PDF for every company, typeface embedded, no
    gaps or costs in the email, cover and forecast agree) and says
-   "Checks 7 of 7 passed" or names what to look at.
+   "Checks N of N passed" or names what to look at.
 
  NEW - THE PUSH (05 Nov 2026, late)
  ---------------------------------
@@ -402,3 +402,21 @@
    PDF. Every number on every data tab is unchanged - checked cell for
    cell against the previous builder on the same exports.
 ======================================================================
+
+QUALITY PASS - 06 Nov 2026
+--------------------------
+The cover now measures and wraps every action sentence. Charts rank the
+largest holdings first. Reorder warnings use amber consistently. Story
+cards, customer-owned gear bars, footers and printed workbook navigation
+have room to read clearly. Empty charts display zero.
+
+Bug fixes protect hand-typed tabs after a job rename, align consumable
+counts with the precise export window, keep company filenames distinct,
+and show each company's own headline in its email. Missing required output
+files now fail the run. Outlook refuses drafts with missing attachments;
+kit paths with apostrophes or brackets are handled literally. Corrupt
+exports fail the laptop check. Embedded fonts have valid checksums.
+
+Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
+and LibreOffice output are useful checks; native Outlook and Excel review
+remains part of delivery testing.

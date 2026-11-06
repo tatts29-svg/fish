@@ -79,7 +79,7 @@ for %%F in ("%KIT%_python\python*._pth") do (
 for /f "usebackq delims=" %%V in (`"%KIT%_python\python.exe" -c "import sys;print(sys.version.split()[0])" 2^>nul`) do set "GOT=%%V"
 if not defined GOT goto :failed
 
-"%KIT%_python\python.exe" -c "import sys;sys.path.insert(0,r'%KIT%_lib');import openpyxl" >nul 2>nul
+"%KIT%_python\python.exe" -c "import os,sys;sys.path.insert(0,os.path.join(os.environ['KIT'],'_lib'));import openpyxl" >nul 2>nul
 if errorlevel 1 goto :lib_problem
 
 del "%ZIP%" >nul 2>nul

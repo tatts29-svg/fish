@@ -416,7 +416,16 @@ class _TrueType(object):
             directory += _struct.pack(">4sIII", t.encode("latin-1"),
                                       _TrueType._checksum(padded), start + len(body), len(data))
             body += padded
-        return bytes(head + directory + body)
+        font = bytearray(head + directory + body)
+        # TrueType requires the checksum of the entire font to equal this
+        # magic value. The head table's directory checksum is calculated
+        # with checkSumAdjustment zero, then the adjustment is written last.
+        if "head" in tables:
+            entry = 12 + 16 * tags.index("head")
+            head_offset = _struct.unpack(">I", font[entry + 8:entry + 12])[0]
+            adjustment = (0xB1B0AFBA - _TrueType._checksum(font)) & 0xFFFFFFFF
+            _struct.pack_into(">I", font, head_offset + 8, adjustment)
+        return bytes(font)
 
 
 _FACES = {}

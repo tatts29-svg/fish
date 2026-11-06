@@ -15,19 +15,19 @@ param([string]$Date = "", [switch]$Companies)
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $reports = Join-Path $here 'Reports'
-if (-not (Test-Path $reports)) {
+if (-not (Test-Path -LiteralPath $reports)) {
     Write-Output "No Reports folder yet. Press 2_MAKE_THE_REPORT.bat first."
     exit 1
 }
 if ($Date -eq "") {
     $todayName = Get-Date -Format "yyyy-MM-dd"
-    $day = Get-ChildItem $reports -Directory | Where-Object { $_.Name -eq $todayName } | Select-Object -First 1
+    $day = Get-ChildItem -LiteralPath $reports -Directory | Where-Object { $_.Name -eq $todayName } | Select-Object -First 1
     if (-not $day) {
-        $day = Get-ChildItem $reports -Directory | Where-Object { $_.Name -match '^\d{4}-\d{2}-\d{2}$' } | Sort-Object Name | Select-Object -Last 1
+        $day = Get-ChildItem -LiteralPath $reports -Directory | Where-Object { $_.Name -match '^\d{4}-\d{2}-\d{2}$' } | Sort-Object Name | Select-Object -Last 1
         if ($day) { Write-Output ("No report folder for today ($todayName) - using the newest, " + $day.Name + ".") }
     }
 } else {
-    $day = Get-Item (Join-Path $reports $Date) -ErrorAction SilentlyContinue
+    $day = Get-Item -LiteralPath (Join-Path $reports $Date) -ErrorAction SilentlyContinue
 }
 if (-not $day) {
     Write-Output "No report folder found for $Date under Reports."
@@ -35,7 +35,7 @@ if (-not $day) {
 }
 $folder = $day.FullName
 if ($Companies) { $folder = Join-Path $day.FullName 'By_Company' }
-$manifests = Get-ChildItem $folder -Filter '*.draft.json' -ErrorAction SilentlyContinue
+$manifests = Get-ChildItem -LiteralPath $folder -Filter '*.draft.json' -ErrorAction SilentlyContinue
 if (-not $manifests -or $manifests.Count -eq 0) {
     Write-Output ("No report email found in " + $day.Name + ". Press 2_MAKE_THE_REPORT.bat first.")
     exit 1
@@ -47,21 +47,34 @@ try {
     exit 1
 }
 $made = 0
+$failed = 0
 foreach ($mf in $manifests) {
     try {
-        $j = Get-Content $mf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j = Get-Content -LiteralPath $mf.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
         $dir = $mf.DirectoryName
-        $mail = $ol.CreateItem(0)
-        $mail.Subject = [string]$j.subject
-        $mail.HTMLBody = (Get-Content (Join-Path $dir $j.body) -Raw -Encoding UTF8)
+        # Validate the complete report before creating a draft. A missing
+        # attachment must not leave a convincing but incomplete email in Drafts.
+        $bodyPath = Join-Path $dir ([string]$j.body)
+        $html = Get-Content -LiteralPath $bodyPath -Raw -Encoding UTF8
+        $attachmentPaths = @()
         foreach ($a in @($j.attachments)) {
             $p = Join-Path $dir ([string]$a)
-            if (Test-Path $p) { [void]$mail.Attachments.Add($p) }
+            if (-not (Test-Path -LiteralPath $p -PathType Leaf)) {
+                throw "Missing attachment: $a. Build the report again before creating drafts."
+            }
+            $attachmentPaths += $p
+        }
+        $mail = $ol.CreateItem(0)
+        $mail.Subject = [string]$j.subject
+        $mail.HTMLBody = $html
+        foreach ($p in $attachmentPaths) {
+            [void]$mail.Attachments.Add($p)
         }
         [void]$mail.Save()
         $made++
         Write-Output ("  DRAFT: " + $j.subject)
     } catch {
+        $failed++
         Write-Output ("  SKIPPED " + $mf.Name + ": " + $_.Exception.Message)
     }
 }
@@ -69,3 +82,9 @@ Write-Output ""
 Write-Output ("$made draft(s) saved to your Outlook Drafts folder - " + $day.Name + ".")
 Write-Output "Open Outlook > Drafts, add the addresses (the address book works -"
 Write-Output "it is a real Outlook message), read it, press Send."
+
+if ($failed -gt 0) {
+    Write-Output ("$failed draft(s) could not be created. Fix the skipped reports above and run this button again.")
+    exit 1
+}
+exit 0

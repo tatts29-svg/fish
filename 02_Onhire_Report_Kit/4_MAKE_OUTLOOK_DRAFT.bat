@@ -19,5 +19,7 @@ if not exist "%~dp0MAKE_OUTLOOK_DRAFT.ps1" (
     exit /b 2
 )
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0MAKE_OUTLOOK_DRAFT.ps1" %*
+set "RC=%errorlevel%"
 echo.
 pause
+exit /b %RC%

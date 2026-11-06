@@ -15,7 +15,7 @@ HOW TO RUN IT
   Anywhere: python build_onhire_workbook.py            (dated today)
             python build_onhire_workbook.py 2026-11-06 (dated that day)
   Output lands in Reports\<date>\. The run ends with a self-check line,
-  "Checks 7 of 7 passed", or names what to look at.
+  "Checks N of N passed", or names what to look at.
 
 WHAT IT PROMISES (test these)
   1. Every on-hire item is dated from the START of its issue transaction
@@ -30,8 +30,9 @@ WHAT IT PROMISES (test these)
      (Coates Labour, Cost Breakdown, Forecast, Cover totals).
   4. Nothing sends by itself. Emails are drafts (.eml with X-Unsent: 1,
      To left blank). Button 4/5 put them in Outlook > Drafts.
-  5. Email is tables + inline styles only, no images, so Outlook desktop
-     (Word engine), Gmail and a phone draw it the same.
+  5. Email uses tables and inline styles, with responsive rules for phones.
+     Check native Outlook separately; browser rendering does not prove
+     identical rendering in Outlook's Word engine.
   6. The two hand-typed tabs (Coates Labour, Cost Breakdown) carry over
      value for value from <Job>_Onhire_Workbook_LATEST.xlsx. A previous
      shut's roster in the old .xlsm is replaced once, then LATEST wins.
@@ -59,3 +60,14 @@ WHAT HAS NOT BEEN VERIFIED - the valuable places to look
 
 A GOOD REPORT NAMES: the file, the exact value or text seen, how to
 reproduce it, and a severity (Blocker / Major / Minor / Note).
+
+REPEATABLE REGRESSION CHECKS
+  python -m unittest discover -s 02_Onhire_Report_Kit/tests -v
+  Run from the repository root with openpyxl 3.1.5 installed.
+  Fixtures contain invented companies and people; no site exports required.
+  Tests cover saved typed tabs, window boundaries, cross-output counts,
+  isolated company files/emails, failed-output detection, crowded cover
+  actions, empty charts, damaged exports, path quoting and font checksums.
+
+  Delivery review still needs the packaged Inter fonts, current Weipa/MMG
+  exports, and a native Windows run in classic Outlook and Excel.

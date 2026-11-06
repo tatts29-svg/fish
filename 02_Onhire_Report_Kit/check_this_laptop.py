@@ -314,7 +314,12 @@ def main():
             else:
                 check(OK, "{} is here".format(stem), note)
             job = project_of(p)
-            if job:
+            if job is None:
+                check(STOP, "{} cannot be read as an Excel export".format(stem),
+                      os.path.basename(p),
+                      "Pull this export from SiteIQ again and save it into "
+                      "Data_SiteIQ. If the Excel library failed above, fix that first.")
+            elif job:
                 jobs[stem] = job
 
         if locked:
