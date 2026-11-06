@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "candidate": "e07a0527d4ab434747df141572701bffd76e4f66ecd617e694b093da415a6340",
+  "purpose": "diagnostic visual review, not final acceptance",
+  "views": [
+    "phone bench",
+    "phone cycle",
+    "phone landscape"
+  ],
+  "errors": [],
+  "recordWrites": 0,
+  "review": "Model and controls remain visible; clear orange Coates styling. Focus outline crossed slider label; compact focus offset corrected in subsequent source. Touch access, Home and focused-region Space corrections require final acceptance.",
+  "imagesPrivate": true
+}
