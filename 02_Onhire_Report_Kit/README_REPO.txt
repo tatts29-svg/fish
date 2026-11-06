@@ -16,5 +16,13 @@ Only CODE and docs live in git. Deliberately not here:
   site data      Data_SiteIQ exports, the LATEST workbook, the .xlsm,
                  Reports\, LAPTOP_CHECK.txt, LAST_RUN_LOG.txt
 
-Delivery zips are this folder plus _lib and _fonts, with the job's JOB.txt and
-COMPANY_ALIASES.txt at the root. Extract over the top of the live folder.
+Delivery zips add _lib and _fonts, with the job's JOB.txt and optional
+COMPANY_ALIASES.txt at the root. Include the upstream library notices and
+Inter's OFL notice. Use a job-specific READ_ME_FIRST.txt in each delivery;
+this repository note describes the code checkout, not the delivered files.
+
+Back up the live kit and extract updates into a new folder first. Carry
+forward current JOB.txt, aliases, Data_SiteIQ, Reports history, source .xlsm
+and *_Onhire_Workbook_LATEST.xlsx (the hand-typed labour and cost tabs).
+Keep the new code, _lib and _fonts. Never replace newer site data or typed
+workbooks with older copies from a delivery snapshot.

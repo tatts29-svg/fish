@@ -1359,6 +1359,10 @@ def _build(base=HERE, when=None):
     #  never counted as a Coates movement. Its own value story.
     own = []
     for r in _rows(p_trans, "CUSTOMER_CONTRACTOR_EQUIP"):
+        # SiteIQ repeats consumable sales on this sheet. They are already
+        # counted from SALES_STOCK and are not customer-owned rental gear.
+        if _s(r.get("PRODUCT_CATEGORY")).lower() == "consumable":
+            continue
         r["EMPLOYER_NAME"] = co_name(r.get("EMPLOYER_NAME"))
         own.append(r)
 
@@ -1965,7 +1969,7 @@ def _build(base=HERE, when=None):
                                    c_["companies"], "y" if c_["companies"] == 1 else "ies",
                                    _days_text(c_["oldest_days"])))
                               if c_["onhire"] else
-                              ("All back", "nothing on hire", "every item issued has been scanned back in"))
+                              ("0", "nothing on hire", "no items recorded on hire in this export"))
     try:
         parts["viz"]["out_by_day"] = out_by_day(tooling_tx, [dd for dd, _i, _r, _c in parts["viz"]["by_day"]])
         parts["viz"]["age"] = age_bands(det)
@@ -2070,7 +2074,7 @@ def _build(base=HERE, when=None):
                  ("Typeface", "Inter (embedded)" if coates_pdf is not None and
                   coates_pdf.typeface() == "Inter" else "Helvetica"),
                  ("Draws counted", _PRINT.get("draws_note").split(" fall ")[0].replace(
-                     "consumable draws in SALES_STOCK", "in SALES_STOCK") + " inside the window"
+                     "consumable draws in SALES_STOCK", "sales rows")
                   if _PRINT.get("draws_note") else "all in SALES_STOCK"),
                  ("Export age", "{} days before the report date - check the exports".format(
                      _PRINT["stale_days"]) if _PRINT.get("stale_days") else "current")])
@@ -2145,6 +2149,13 @@ def _build(base=HERE, when=None):
         say("  WARN | Couldn't refresh the LATEST copy ({}). The dated "
               "one above is fine - it's probably open in Excel.".format(e))
         latest = None
+
+    legacy_latest = os.path.join(dirs["day"], latest_workbook_name(label))
+    if os.path.isfile(legacy_latest):
+        try:
+            shutil.copyfile(out, legacy_latest)
+        except OSError as error:
+            say("  WARN | Could not refresh the older LATEST copy in today's report folder ({})".format(error))
 
     #  From here on the workbook is safely on disk. Nothing below is worth
     #  throwing that away for, so each step warns and carries on instead
@@ -2395,7 +2406,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                             "" if len(cust) == 1 else "s", len(det) - len(cust),
                             "is" if len(det) - len(cust) == 1 else "are"))
     else:
-        call = ["Nothing is on hire - every item issued has been scanned back in."]
+        call = ["No items are recorded on hire in this export."]
     if hot or tight:
         bits = []
         if hot:
@@ -3866,7 +3877,11 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
     st = parts.get("story") or {}
     ret = (st.get("same_day") or 0) + (st.get("kept") or 0)
     same_day_pct = (100.0 * st["same_day"] / ret) if ret else None
-    top_tools = [(r[0], r[3]) for r in (parts.get("hardest") or []) if r[3]][:7]
+    tool_issues = {}
+    for row in tooling_tx:
+        description = item_name(row.get("SKU/ITEM DESCRIPTION")) or "(no description)"
+        tool_issues[description] = tool_issues.get(description, 0) + 1
+    top_tools = sorted(tool_issues.items(), key=lambda kv: (-kv[1], kv[0].upper()))[:7]
     top_cons = sorted(qty.items(), key=lambda kv: (-kv[1], kv[0]))[:7]
     newest = ref_days[-1] if ref_days else None
     ref_previous = bool(newest and newest < first)
@@ -4191,6 +4206,7 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     came from. Laid out to print on one or two portrait A4 pages and go
     on the wall."""
     import math
+    import textwrap
     ws = wb.create_sheet("Cover")
     ws.sheet_view.showGridLines = False
     NC = 6
@@ -4204,6 +4220,13 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
     TXT = Font(name="Calibri", size=10.5, color=argb("33383F"))
     line_side = Side(style="thin", color=argb(COATES_LINE))
     tile_top = Side(style="medium", color=ORANGE)
+
+    def fact_height(value):
+        # Excel does not autofit merged cells. Reserve complete wrapped lines
+        # for each two-column fact, including long project names and dates.
+        lines = sum(max(1, len(textwrap.wrap(part, width=32)))
+                    for part in str(value).split("\n"))
+        return max(20, 15 * lines + 5)
 
     def put(row, col, value, font=None, fmt=None, align=None, fill=None):
         c = ws.cell(row=row, column=col, value=value)
@@ -4290,17 +4313,20 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         ("Transactions cover", _PRINT.get("period") or "-"),
     ] + list(extra or [])
     for start in range(0, len(facts), 3):
+        value_height = 20
         for k, (label, value) in enumerate(facts[start:start + 3]):
             col = 1 + k * 2
             merge(r, col, col + 1)
             put(r, col, label.upper(), LABEL,
                 align=Alignment(vertical="bottom", indent=1))
             merge(r + 1, col, col + 1)
-            put(r + 1, col, value, VALUE, align=Alignment(vertical="top", indent=1))
+            put(r + 1, col, value, VALUE,
+                align=Alignment(wrap_text=True, vertical="top", indent=1))
+            value_height = max(value_height, fact_height(value))
             for cc in (col, col + 1):
                 ws.cell(row=r + 1, column=cc).border = Border(bottom=line_side)
         ws.row_dimensions[r].height = 14
-        ws.row_dimensions[r + 1].height = 20
+        ws.row_dimensions[r + 1].height = value_height
         r += 2
         if start + 3 < len(facts):
             ws.row_dimensions[r].height = 6
@@ -4408,20 +4434,21 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         key = next((k for k in USED if stem.upper().startswith(k)), "")
         merge(r, 1, 2)
         put(r, 1, stem, Font(name="Calibri", size=10.5, bold=True,
-                             color=NEAR_BLACK), align=Alignment(indent=1))
+                             color=NEAR_BLACK),
+            align=Alignment(wrap_text=True, vertical="top", indent=1))
         merge(r, 3, 4)
         put(r, 3, export_requested(p),
             Font(name="Calibri", size=10.5, color=NEAR_BLACK),
             fmt="dd mmm yyyy  hh:mm", align=Alignment(indent=1))
         merge(r, 5, 6)
         put(r, 5, USED.get(key, ""), Font(name="Calibri", size=10.5, color=MUTED),
-            align=Alignment(indent=1))
+            align=Alignment(wrap_text=True, vertical="top", indent=1))
         for cc in range(1, NC + 1):
             cell = ws.cell(row=r, column=cc)
             cell.border = Border(bottom=line_side)
             if n_ % 2:
                 cell.fill = BAND_FILL
-        ws.row_dimensions[r].height = 18
+        ws.row_dimensions[r].height = max(fact_height(stem), fact_height(USED.get(key, "")))
         r += 1
     r += 1
 
@@ -4450,19 +4477,19 @@ def cover(wb, s, when, asat, tabs, sources, base, headline, pack=None, extra=Non
         for rule_, rating, rec in lines:
             merge(row, 1, 2)
             put(row, 1, rule_, Font(name="Calibri", size=10.5, color=NEAR_BLACK),
-                align=Alignment(indent=1))
+                align=Alignment(wrap_text=True, vertical="top", indent=1))
             for col, word in ((3, rating), (5, rec)):
                 fill, text, _bar = RAG[TONE.get(word.split("  ")[0], "slate")]
                 merge(row, col, col + 1)
                 put(row, col, word, Font(name="Calibri", size=10.5, bold=True,
                                          color=argb(text)),
                     fill=PatternFill("solid", fgColor=argb(fill)),
-                    align=Alignment(indent=1))
+                    align=Alignment(wrap_text=True, vertical="top", indent=1))
                 ws.cell(row=row, column=col + 1).fill = PatternFill(
                     "solid", fgColor=argb(fill))
             for cc in range(1, NC + 1):
                 ws.cell(row=row, column=cc).border = Border(bottom=line_side)
-            ws.row_dimensions[row].height = 18
+            ws.row_dimensions[row].height = max(fact_height(rule_), fact_height(rating), fact_height(rec))
             row += 1
         return row
 
@@ -5204,7 +5231,7 @@ def _pill(text, tone, size="8.5pt"):
     bg, fg, _bar = E_RAG.get(tone, E_RAG["slate"])
     return ("<table cellpadding='0' cellspacing='0' border='0' "
             "style='border-collapse:collapse'><tr>"
-            "<td bgcolor=\"{bg}\" style=\"background:{bg};border-radius:3px;"
+            "<td class=\"nowrap pill\" bgcolor=\"{bg}\" style=\"background:{bg};border-radius:3px;"
             "padding:3px 8px;font-family:{f};font-size:{z};"
             "font-weight:700;color:{fg};white-space:nowrap\">{t}</td>"
             "</tr></table>".format(bg=bg, fg=fg, f=E_FONT, z=size,
@@ -5238,7 +5265,7 @@ def _bar(value, biggest, tone="orange"):
 def _metric(text, value, biggest, tone="orange"):
     """The number, and under it the bar that says how big it is next to
     everything else in the column. A whole column of these is a chart."""
-    return ("<div style=\"font-family:{f};font-size:11pt;font-weight:700;"
+    return ("<div class=\"nowrap\" style=\"font-family:{f};font-size:11pt;font-weight:700;"
             "color:{i};text-align:right;line-height:1.2\">{t}</div>"
             "<div style=\"font-size:1px;line-height:5px\">&nbsp;</div>{b}"
             .format(f=E_FONT, i=E_INK, t=_esc(text),
@@ -5247,7 +5274,7 @@ def _metric(text, value, biggest, tone="orange"):
 
 def _num(text, muted=False):
     """A plain right-aligned figure."""
-    return ("<div style=\"font-family:{f};font-size:10.5pt;font-weight:{w};"
+    return ("<div class=\"nowrap\" style=\"font-family:{f};font-size:10.5pt;font-weight:{w};"
             "color:{c};text-align:right;line-height:1.3\">{t}</div>".format(
                 f=E_FONT, w="400" if muted else "600",
                 c=E_MUTED if muted else E_INK, t=_esc(text)))
@@ -5313,10 +5340,10 @@ def _company_band(name, items, people, lines, undated=0):
              .format(a=E_RAG["amber"][1], u=_fmt(undated)))
     return (
         _T + "<tr>"
-        "<td bgcolor=\"{t}\" style=\"background:{t};border-left:4px solid {o};"
+        "<td class=\"mh\" bgcolor=\"{t}\" style=\"background:{t};border-left:4px solid {o};"
         "padding:10px 14px;font-family:{f};font-size:12pt;font-weight:700;"
         "color:{k}\">{n}</td>"
-        "<td bgcolor=\"{t}\" align='right' style=\"background:{t};"
+        "<td class=\"mh\" bgcolor=\"{t}\" align='right' style=\"background:{t};"
         "padding:10px 14px;font-family:{f};font-size:9pt;color:{m};"
         "white-space:nowrap\">{i} item{s} &nbsp;&middot;&nbsp; {l} line{ls}"
         " &nbsp;&middot;&nbsp; {p} {pw}{x}</td>"
@@ -5360,7 +5387,7 @@ def _table(cols, rows, widths=None, aligns=None, note="", valign=None,
     phone_hide = set(phone_hide or ())
     ncols = len(cols)
     dark = (head == "dark")
-    out = [_T, "<tr>"]
+    out = [_T.replace("<table ", "<table class='data-table' ", 1), "<tr>"]
     for i, c in enumerate(cols):
         w = (" width='{}%'".format(widths[i])) if i in widths else ""
         ws = ("width:{}%;".format(widths[i])) if i in widths else ""
@@ -5457,7 +5484,7 @@ def _hero_html(hero):
         return ""
     value, label, words = hero
     return (_T + "<tr><td style=\"padding-top:14px\">" + _T + "<tr>"
-            "<td width='1' style=\"font-family:{f};font-size:30pt;font-weight:800;color:{v};"
+            "<td class=\"nowrap hero-value\" width='1' style=\"font-family:{f};font-size:30pt;font-weight:800;color:{v};"
             "line-height:1;white-space:nowrap;padding-right:14px\">{val}</td>"
             "<td valign='middle' style=\"font-family:{f}\">"
             "<div style=\"font-size:8pt;font-weight:700;color:{o};letter-spacing:1px;"
@@ -5523,9 +5550,9 @@ def _call_card(parts):
     for i, (tone, label, value) in enumerate(flags):
         bg, fg, bar = E_RAG.get(tone, E_RAG["slate"])
         if i:
-            out.append("<td width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
+            out.append("<td class='gap' width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
         out.append(
-            "<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
+            "<td class='tile' width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
             "background:{c};border:1px solid {l};border-left:4px solid {bar};"
             "padding:9px 11px\">"
             "<div style=\"font-family:{f};font-size:7.5pt;font-weight:700;"
@@ -5560,7 +5587,7 @@ def _attached(parts):
                           "looking ahead on page 3, charts on page 4, " if fc
                           else "charts on page 3, ")))
     out = [_kicker("Attached to this email", E_MUTED), _T, "<tr>"]
-    cell = ("<td width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
+    cell = ("<td class='tile' width='{pc}%' bgcolor=\"{c}\" valign='top' style=\"width:{pc}%;"
             "background:{c};border:1px solid {l};padding:10px 12px\">"
             + _T +
             "<tr><td width='46' valign='top' style=\"width:46px\">{pill}</td>"
@@ -5572,7 +5599,7 @@ def _attached(parts):
             "</td>")
     for i, (kind, title, sub) in enumerate(cards):
         if i:
-            out.append("<td width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
+            out.append("<td class='gap' width='8' style='width:8px;font-size:1px'>&nbsp;</td>")
         out.append(cell.format(pc=int(100 / len(cards)), c=E_CARD, l=E_LINE,
                                f=E_FONT, k=E_INK, m=E_MUTED,
                                pill=_pill(kind, "orange", "8pt"), t=_esc(title),
@@ -5634,7 +5661,7 @@ def _tiles(tiles):
             rule, ink = E_ORANGE, E_INK
             if str(value) == "0" and label.lower().startswith("items on hire"):
                 rule, ink = E_RAG["green"][2], E_RAG["green"][1]
-                sub = "all back - every item scanned in"
+                sub = "no items recorded on hire"
             elif str(value) == "0":
                 ink = E_MUTED
             out.append(
@@ -5866,8 +5893,8 @@ def email_html(s, when, asat, parts):
             body_rows.append(cells)
         inner.append(_table(
             cols, body_rows, widths=widths, aligns=aligns,
-            note="Every item issued has been scanned back in, so there is nothing to "
-                 "chase. Tooling issues and consumables are this period's movements"
+            note="No items are recorded on hire in this export. "
+                 "Tooling issues and consumables are this period's movements"
                  + (", own gear is their own equipment logged through our counter"
                     if has_own else "") + "."))
     inner.append(_gap(24))
@@ -6044,6 +6071,10 @@ def _wrap_sheet(sheet):
         "<style type=\"text/css\">@media only screen and (max-width:620px){{"
         "td,div,span{{white-space:normal !important}}"
         "td,th,div,span{{overflow-wrap:anywhere !important;word-break:break-word !important}}"
+        "th{{overflow-wrap:normal !important;word-break:normal !important;letter-spacing:0 !important}}"
+        ".nowrap{{white-space:nowrap !important;overflow-wrap:normal !important;word-break:normal !important}}"
+        ".data-table>tbody>tr>td,.data-table>tbody>tr>th{{padding-left:4px !important;padding-right:4px !important}}"
+        ".pill{{padding-left:4px !important;padding-right:4px !important}}"
         ".progress-strip td{{padding:0 !important}}"
         ".mh{{display:block !important;width:100% !important;text-align:left !important;"
         "padding-top:6px !important}}.hp{{display:none !important}}"
@@ -6073,7 +6104,7 @@ def company_email_html(s, when, asat, parts, b):
     co = b["company"]
     story = dict(parts.get("story") or {})
     story["hero"] = (("{:,}".format(b["items"]), "items on hire now", co)
-                     if b["items"] else ("All back", "nothing on hire", co))
+                     if b["items"] else ("0", "nothing on hire", co))
     body = [_masthead(s, when, asat, story)]
     inner = []
     if b["items"]:
@@ -6094,8 +6125,8 @@ def company_email_html(s, when, asat, parts, b):
                "your name the same day - two scans and it is done. Anything you are still "
                "using, no action needed.")
     else:
-        line = ("As at {}, {} has nothing on hire - every item issued to you has been "
-                "scanned back in. Thank you.".format(when.strftime("%d %B %Y"), co))
+        line = ("As at {}, {} has no items recorded on hire in this export."
+                .format(when.strftime("%d %B %Y"), co))
         ask = ("This period the counter logged {:,} tooling movement{} and {:,} consumable "
                "draw{} for you{}.".format(
                    b["issues"], "" if b["issues"] == 1 else "s", b["draws"],
@@ -6124,12 +6155,10 @@ def company_email_html(s, when, asat, parts, b):
                          _num(_fmt(len(pp["items"]))),
                          _plain(pp["since"].strftime("%d %b %Y") if pp["since"] else "not in export",
                                 "left", muted=True),
-                         "<table cellpadding='0' cellspacing='0' border='0' align='right'>"
-                         "<tr><td>{}</td></tr></table>".format(
-                             _pill(_days_text(pp["days"]) if pp["days"] is not None else "undated",
-                                   day_tone(pp["days"]) if pp["days"] is not None else "amber"))])
+                         _pill(_days_text(pp["days"]) if pp["days"] is not None else "undated",
+                               day_tone(pp["days"]) if pp["days"] is not None else "amber")])
         inner.append(_table(["Person", "Items", "Oldest issue", "Out"], rows,
-                            widths={0: 56, 1: 10, 2: 18, 3: 16}, aligns={1: "right"},
+                            widths={0: 46, 1: 12, 2: 23, 3: 19}, aligns={1: "right"},
                             note="Dates are the start of each item's issue transaction in SiteIQ. "
                                  "Every item is listed on the attached page."))
         inner.append(_gap(18))
@@ -6175,7 +6204,7 @@ def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
             co, when.strftime("%a %d %b"), b["items"], "" if b["items"] == 1 else "s",
             (", oldest {}".format(_days_text(b["oldest_days"])) if b["oldest_days"] is not None else ""))
     else:
-        subject = "{} | Coates tool store | {}: all back".format(co, when.strftime("%a %d %b"))
+        subject = "{} | Coates tool store | {}: nothing on hire".format(co, when.strftime("%a %d %b"))
     msg = email.message.EmailMessage(policy=email.policy.SMTP)
     msg["Subject"] = subject
     msg["X-Unsent"] = "1"
@@ -6185,7 +6214,7 @@ def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
                 "person" if len(b["people"]) == 1 else "people", when.strftime("%d %b %Y"),
                 (" ({:,} of them your own gear)".format(b["cust_owned"]) if b.get("cust_owned") else ""))
              if b["items"] else
-             "{} has nothing on hire as at {} - every item is back. Thank you.".format(
+             "{} has no items recorded on hire as at {}.".format(
                  co, when.strftime("%d %b %Y"))), ""]
     for pp in b["people"]:
         text.append("  {} - {} item{}, oldest issued {}".format(
@@ -6593,16 +6622,13 @@ class _Pack(object):
             _bg, fg, bar = E_RAG.get(tone or "orange", E_RAG["orange"])
             zero = str(value) in ("0", "-")
             ink = (fg if tone == "green" else P_INK) if not (zero and tone != "green") else P_MUTED
-            if tone == "green" and str(value) == "0":
-                value = "All back"
             d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
             d.rect(x, self.y, w, 2.5, fill=bar)
-            all_back = str(value) == "All back"
-            kind = None if all_back else self.icon_for(label)
+            kind = self.icon_for(label)
             if kind:
                 self.icon(kind, x + w - 20, self.y + 9, 9, bar if not zero else C_MUTED_LIGHT)
-            size = 12 if all_back else 17
-            room_w = w - (20 if all_back else 32)
+            size = 17
+            room_w = w - 32
             while size > 11 and d.text_width(str(value), size, bold=True) > room_w:
                 size -= 1
             d.text(x + 10, self.y + 25, str(value), size=size, bold=True, colour=ink, max_w=room_w)
@@ -6639,7 +6665,7 @@ class _Pack(object):
 
     def person_row(self, p):
         d = self.doc
-        self.need(20 + 24)                   # the row plus at least one item
+        self.need(20 + (self.item_layout(p["items"][0])[2] if p["items"] else 24))
         d.rect(self.x0, self.y, self.cw, 20, fill=P_SOFT)
         n = len(p["items"])
         bits = ["{} item{}".format(n, "" if n == 1 else "s")]
@@ -6655,19 +6681,21 @@ class _Pack(object):
                colour=P_MUTED, align="right")
         self.y += 20
 
+    def item_layout(self, row):
+        codes = self.doc.wrap(_s(row[2]) or "-", 8.2, 108)
+        descriptions = self.doc.wrap(item_name(row[3]) or "(no description)", 9, 248)
+        return codes, descriptions, 10 + 11.5 * max(len(codes), len(descriptions))
+
     def item_row(self, r, n):
         d = self.doc
-        desc_lines = d.wrap(item_name(r[3]) or "(no description)", 9, 248, max_lines=2)
-        h = 10 + 11.5 * len(desc_lines)
+        codes, desc_lines, h = self.item_layout(r)
         self.need(h)
         if n % 2:
             d.rect(self.x0, self.y, self.cw, h, fill=P_ZEBRA)
-        d.text(self.x0 + 8, self.y + 14, _s(r[2]) or "-", size=8.2, colour=P_INK,
-               max_w=108)
-        yy = self.y + 14
-        for ln in desc_lines:
-            d.text(self.x0 + 124, yy, ln, size=9, colour=P_INK)
-            yy += 11.5
+        for i, line in enumerate(codes):
+            d.text(self.x0 + 8, self.y + 14 + 11.5 * i, line, size=8.2, colour=P_INK)
+        for i, line in enumerate(desc_lines):
+            d.text(self.x0 + 124, self.y + 14 + 11.5 * i, line, size=9, colour=P_INK)
         if r[5]:
             d.text(self.x0 + 380, self.y + 14, r[5].strftime("%d %b %Y"),
                    size=8.5, colour=P_MUTED)
@@ -6957,12 +6985,12 @@ class _Pack(object):
         top = self.card(self.x0, self.y, self.cw, 60, "Age of what is out",
                         ("{:,} item{} on hire - by how long each has been out".format(
                             n_out, "" if n_out == 1 else "s") if n_out
-                         else "Nothing on hire right now - every item issued has been scanned back in"))
+                         else "No items are recorded on hire in this export"))
         if n_out:
             self.age_strip(self.x0 + 12, top - 2, self.cw - 24, age, h=11)
         else:
             d.rect(self.x0 + 12, top - 2, self.cw - 24, 11, fill=E_RAG["green"][0], radius=5.5)
-            d.text(self.x0 + self.cw / 2.0, top + 6.5, "ALL BACK", size=6.3, bold=True,
+            d.text(self.x0 + self.cw / 2.0, top + 6.5, "NONE OUT", size=6.3, bold=True,
                    colour=E_RAG["green"][1], tracking=1, align="centre")
         self.y += 60 + 10
 
@@ -7012,10 +7040,11 @@ class _Pack(object):
 
         # ---- row 4: working hardest | consumables running down --------------
         top = self.card(self.x0, self.y, half, H, "Working hardest",
-                        "Times issued this period, best turns first")
-        rows = [(r[0], r[3], TONE.get(r[4], "slate")) for r in parts["hardest"][:6]]
+                        "Issues per item on site - highest turns first")
+        rows = [(r[0], r[3] / float(r[1]) if r[1] else 0,
+                 TONE.get(r[4], "slate")) for r in parts["hardest"][:6]]
         self.hbars(self.x0 + 12, top, half - 24, rows, label_w=138, pitch=16,
-                   colours=tone_fill)
+                   colours=tone_fill, fmt=lambda value: "{:.1f}x".format(value))
         kx = self.x0 + 12
         for word in ("High Demand", "Good Use"):
             d.rect(kx, top + 6 * 16 + 4, 7, 7, fill=tone_fill[TONE[word]], radius=1.5)
@@ -7238,30 +7267,18 @@ class _Pack(object):
 
         # ---- the standards ---------------------------------------------------
         notes = [
-            ("Double scan - two scans, two looks, one standard.",
-             "Every issue and every return goes through the counter: scan, look. Scan, "
-             "look. The scan is not complete until we have looked - so the figures in "
-             "this pack are evidence, not estimates. Right first time. Every item. Every time."),
+            ("Double scan - check at issue and return.",
+             "Scan and visually check every item when it leaves the counter and when it comes back."),
             ("Dated from the transaction.",
-             "Every on-hire item is dated from the start of its issue transaction in "
-             "SiteIQ, never from the stock record. The transactions export covers {}."
-             .format(self.period or "the stated period")),
+             "Issue dates come from transaction starts. No matching transaction means undated."),
             ("Life Saving Rule 5 - Tools and Equipment (SEQ-GL-009).",
-             "Only tools and equipment that are fit for purpose are issued; damaged or "
-             "defective equipment is tagged out and removed from service, never reissued. "
-             "The tool store is an active safety control, not a shed."),
+             "Issue fit-for-purpose gear only. Tag out damaged or defective equipment and remove it from service."),
         ]
         if st["fixed_rate"]:
             notes.append(("Fixed-rate engagement.",
-                          "One rate covers the managed fleet, the store, the systems and "
-                          "Coates people on the counter day and night. No per-item charges "
-                          "appear anywhere in this pack; commercials are per the agreement."))
-        wrapped_notes = [(head, d.wrap(body, 7.4, self.cw - 44, max_lines=2)) for head, body in notes]
+                          "The agreed fixed rate applies. Commercials stay in the workbook; this pack carries no costs."))
+        wrapped_notes = [(head, d.wrap(body, 7.8, self.cw - 44)) for head, body in notes]
         h = 42 + sum(14 + 10 * len(lines) for _h, lines in wrapped_notes)
-        if self.y + h > self.bottom:
-            wrapped_notes = [(head, d.wrap(body, 7.4, self.cw - 44, max_lines=1))
-                             for head, body in notes]
-            h = 42 + sum(14 + 10 * len(lines) for _h, lines in wrapped_notes)
         self.need(h)
         top = self.card(self.x0, self.y, self.cw, h, "The standards behind the numbers")
         yy = top - 6
@@ -7269,7 +7286,7 @@ class _Pack(object):
             d.rect(self.x0 + 12, yy + 1, 3, 6 + 10 * len(lines), fill=P_ORANGE)
             d.text(self.x0 + 22, yy + 7, head, size=8.6, bold=True, colour=P_INK)
             for k_, ln in enumerate(lines):
-                d.text(self.x0 + 22, yy + 17.5 + 10 * k_, ln, size=7.4, colour=P_MUTED)
+                d.text(self.x0 + 22, yy + 17.5 + 10 * k_, ln, size=7.8, colour=P_MUTED)
             yy += 14 + 10 * len(lines)
         self.y += h
         return idx
@@ -7644,7 +7661,7 @@ class _Pack(object):
             if b["undated"]:
                 story += ". {} undated".format(b["undated"])
         else:
-            story = ("Nothing on hire right now - everything has come back. This period: "
+            story = ("Nothing on hire right now. This period: "
                      "{:,} tooling movement{}, {:,} consumable draw{}".format(
                          b["issues"], "" if b["issues"] == 1 else "s",
                          b["draws"], "" if b["draws"] == 1 else "s"))
@@ -7654,15 +7671,21 @@ class _Pack(object):
         while len(d.wrap(text_, 9, self.cw - 270)) > 2 and ". " in text_:
             text_ = text_.rsplit(". ", 1)[0] + "."     # whole sentences only
         sub_lines = d.wrap(text_, 9, self.cw - 270, max_lines=2)
-        band_h = 60 + 11 * (len(sub_lines) - 1)
+        name_size = 18
+        while name_size > 13 and d.text_width(co, name_size, bold=True) > self.cw - 270:
+            name_size -= 0.5
+        name_lines = d.wrap(co, name_size, self.cw - 270, bold=True)
+        name_extra = (len(name_lines) - 1) * (name_size + 2)
+        band_h = 60 + name_extra + 11 * (len(sub_lines) - 1)
         d.rect(self.x0, self.y, self.cw, band_h, fill=P_SLATE, radius=4)
         d.rect(self.x0, self.y, 5, band_h, fill=P_ORANGE)
         self.monogram(self.x0 + 34, self.y + band_h / 2.0, 15, co,
                       fill=P_ORANGE if b["items"] else "#5B6472", ink=P_WHITE)
-        d.text(self.x0 + 60, self.y + 25, co, size=18, bold=True, colour=P_WHITE,
-               max_w=self.cw - 270)
+        for i, line in enumerate(name_lines):
+            d.text(self.x0 + 60, self.y + 25 + i * (name_size + 2), line,
+                   size=name_size, bold=True, colour=P_WHITE)
         for k_, ln in enumerate(sub_lines):
-            d.text(self.x0 + 60, self.y + 40 + 11 * k_, ln, size=9, colour="#C9CFD7")
+            d.text(self.x0 + 60, self.y + 40 + name_extra + 11 * k_, ln, size=9, colour="#C9CFD7")
         if index and total:
             d.text(self.x1 - 14, self.y + 18, "SECTION {} OF {}".format(index, total),
                    size=7, bold=True, colour=P_ORANGE, tracking=1.2, align="right")
@@ -7744,8 +7767,8 @@ class _Pack(object):
             self.need(30)
             d.rect(self.x0, self.y, self.cw, 26, fill=P_SOFT)
             d.rect(self.x0, self.y, 4, 26, fill=E_RAG["green"][2])
-            d.text(self.x0 + 14, self.y + 16.5, "Nothing on hire to {} right now - every item "
-                   "issued to them has been scanned back in.".format(co), size=8.8,
+            d.text(self.x0 + 14, self.y + 16.5,
+                   "No items are recorded on hire in this export.", size=8.8,
                    colour=P_INK, max_w=self.cw - 28)
             self.y += 26
 
@@ -7924,11 +7947,11 @@ class _Pack(object):
                 c["companies"], "y" if c["companies"] == 1 else "ies",
                 _days_text(c["oldest_days"])), size=9, colour="#C9CFD7", align="right")
         else:
-            d.text(rx, hy + 74, "All back", size=34, bold=True, colour=E_RAG["green"][2],
+            d.text(rx, hy + 74, "0", size=54, bold=True, colour=E_RAG["green"][2],
                    align="right")
             d.text(rx, hy + 90, "NOTHING ON HIRE", size=7, bold=True, colour=P_ORANGE,
                    tracking=1.2, align="right")
-            d.text(rx, hy + 104, "every item issued has been scanned back in", size=9,
+            d.text(rx, hy + 104, "No items are recorded on hire in this export", size=8,
                    colour="#C9CFD7", align="right")
         if prev:
             mv_, what_ = _moves_delta(prev, parts["_tx_total"][0], parts["_tx_total"][1])
@@ -7972,7 +7995,7 @@ class _Pack(object):
                 rule, ink = P_ORANGE, P_INK
                 if str(value) == "0" and label.lower().startswith("items on hire"):
                     rule, ink = E_RAG["green"][2], E_RAG["green"][1]
-                    sub = "all back - every item scanned in"
+                    sub = "no items recorded on hire"
                 elif str(value) == "0":
                     ink = P_MUTED
                 d.rect(x, self.y, w, h, fill=P_WHITE, stroke=P_LINE, lw=0.6)
@@ -8209,7 +8232,7 @@ def write_email(base, s, when, asat, parts, attachments, out_dir):
     position = ("{:,} item{} out to {:,} compan{}, oldest {}".format(
         c_["onhire"], "" if c_["onhire"] == 1 else "s", c_["companies"],
         "y" if c_["companies"] == 1 else "ies", _days_text(c_["oldest_days"]))
-        if c_["onhire"] else "all back")
+        if c_["onhire"] else "nothing on hire")
     msg["Subject"] = "{} | On-Hire Report | {}: {}".format(
         s.customer or label, when.strftime("%a %d %b"), position)
     #  X-Unsent is what makes Outlook open it as a draft you press Send

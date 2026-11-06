@@ -132,6 +132,16 @@ class ReportRegressions(unittest.TestCase):
             matching = [r for r in rows if r[0] == 'Consumables Only' and r[1] == 'CONSUMABLES']
             self.assertTrue(matching, 'A company that only drew sales stock must be included')
             self.assertEqual(matching[0][2], 1)
+            cover = book['Cover']
+            window_label = next(cell for row in cover.iter_rows() for cell in row
+                                if cell.value == 'TRANSACTIONS COVER')
+            window_value = cover.cell(window_label.row + 1, window_label.column)
+            self.assertIn('01 Nov 2026', window_value.value)
+            self.assertIn('06 Nov 2026', window_value.value)
+            self.assertTrue(window_value.alignment.wrap_text,
+                            'The complete export window must wrap inside its merged metadata cell')
+            self.assertGreater(cover.row_dimensions[window_value.row].height, 20,
+                               'Merged metadata rows need explicit room for multiple lines')
             book.close()
 
     def test_window_uses_time_boundaries_and_excludes_undated_sales(self):
@@ -274,6 +284,88 @@ class ReportRegressions(unittest.TestCase):
             self.assertIn('across 1 item type<', html)
             self.assertNotIn('1 movements', html)
             self.assertNotIn('1 item types', html)
+
+
+    def test_consumable_on_customer_equipment_sheet_is_counted_once(self):
+        with tempfile.TemporaryDirectory() as base:
+            sale = dict(COMPANY_NAME='Example Engineering', HIRER='Worker',
+                        SKU_DESCRIPTION='GLOVES', SALES_QUANTITY=2,
+                        SALES_DATE='04/11/2026', SALES_TIME='09:00')
+            fixture(base, sales=[sale])
+            path = Path(base) / 'Data_SiteIQ' / 'TRANSACTIONS.xlsx'
+            book = openpyxl.load_workbook(path)
+            sheet = book.create_sheet('CUSTOMER_CONTRACTOR_EQUIP')
+            sheet.append(['TRANSACTION_ID', 'SKU/ITEM_NUMBER', 'SKU/ITEM DESCRIPTION',
+                          'PRODUCT_CATEGORY', 'EMPLOYER_NAME', 'HIRER_NAME',
+                          'TRAN_START_DATE', 'TRAN_START_TIME', 'QUANTITY'])
+            sheet.append(['SALE1', 'GLOVES', 'GLOVES', 'Consumable', 'Example Engineering',
+                          'Worker', '04/11/2026', '09:00', 2])
+            sheet.append(['RENT1', 'MAT1', 'CUSTOMER MAT', 'Rental', 'Example Engineering',
+                          'Worker', '04/11/2026', '10:00', 1])
+            book.save(path)
+            book.close()
+            with mock.patch.object(report, 'build_company_pack', wraps=report.build_company_pack) as pack:
+                out = run(base)
+            parts = pack.call_args.args[5]
+            blocks = pack.call_args.args[6]
+            self.assertEqual(parts['story']['own_total'], 1)
+            self.assertEqual(parts['_tx_total'], (1, 1))
+            self.assertEqual(blocks[0]['own'], 1)
+            self.assertEqual(blocks[0]['draws'], 1)
+            generated = openpyxl.load_workbook(next(out.glob('*.xlsx')), data_only=True)
+            self.assertEqual(generated['Customer Gear'].max_row - 2, 1)
+            self.assertEqual(generated['Customer Gear']['D3'].value, 'CUSTOMER MAT')
+            generated.close()
+
+
+    def test_forecast_top_tools_rank_issue_count_not_fleet_turnover(self):
+        with tempfile.TemporaryDirectory() as base:
+            site = report.LooseSite(base)
+            future = DAY + dt.timedelta(days=1)
+            roster = {'rows': [(future, 'Worker', 'Day', 8, '08:00', '16:00')]}
+            # One small fleet line turns more often, but the larger fleet line
+            # still receives more requests and must lead 'asked for most'.
+            transactions = [dict(TRAN_START_DATE=DAY, TRAN_START_TIME='08:00',
+                                 **{'SKU/ITEM DESCRIPTION': name})
+                            for name in ['Small fleet wrench'] * 3 + ['Large fleet drill'] * 7]
+            parts = {'viz': {'by_day': [(DAY, 10, 0, 0)]},
+                     'hardest': [['Small fleet wrench', 1, 1, 3, 'Good Use', 'Keep'],
+                                 ['Large fleet drill', 10, 1, 7, 'Low Use', 'Keep']]}
+            forecast = report.forecast_block(site, DAY, roster, openpyxl.Workbook(),
+                                             transactions, [], [], parts, '', 'QA', 0, 0)
+            self.assertEqual(forecast['ref']['top_tools'], [('Large fleet drill', 7), ('Small fleet wrench', 3)])
+
+
+    def test_existing_dated_latest_copy_is_refreshed(self):
+        with tempfile.TemporaryDirectory() as base:
+            fixture(base)
+            day_folder = Path(base) / 'Reports' / DAY.isoformat()
+            day_folder.mkdir(parents=True)
+            legacy = day_folder / 'QA_Onhire_Workbook_LATEST.xlsx'
+            legacy.write_bytes(b'stale copy from an older delivery')
+            run(base)
+            current = Path(base) / 'QA_Onhire_Workbook_LATEST.xlsx'
+            self.assertEqual(legacy.read_bytes(), current.read_bytes())
+
+
+    def test_consumable_only_company_pdf_makes_no_unverified_return_claim(self):
+        with tempfile.TemporaryDirectory() as base:
+            site = report.LooseSite(base)
+            blocks, _ = report.pack_blocks([], [['Consumables Only', 'Worker', 'Gloves', 2, DAY, '08:00']],
+                                            [], DAY)
+            text = []
+            original_text = report.coates_pdf.Document.text
+            def capture(document, x, y, value, *args, **kwargs):
+                text.append(str(value))
+                return original_text(document, x, y, value, *args, **kwargs)
+            with mock.patch.object(report.coates_pdf.Document, 'text', autospec=True, side_effect=capture):
+                report.build_company_pdf(str(Path(base) / 'company.pdf'), site, DAY,
+                                         dt.datetime(2026, 11, 6), '', blocks[0])
+            rendered = ' '.join(text)
+            self.assertIn('Nothing on hire right now.', rendered)
+            self.assertIn('No items are recorded on hire in this export.', rendered)
+            for unsupported in ('everything has come back', 'scanned back in', 'All back'):
+                self.assertNotIn(unsupported, rendered)
 
 
 if __name__ == '__main__':

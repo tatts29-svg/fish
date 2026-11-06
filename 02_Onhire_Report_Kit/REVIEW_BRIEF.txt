@@ -41,13 +41,25 @@ WHAT IT PROMISES (test these)
   8. Reports\history.csv keeps one line per report day; "since the last
      report" reads it first.
 
-WHAT HAS BEEN VERIFIED ALREADY (Linux, not Windows)
+WHAT HAS BEEN VERIFIED ALREADY
   Builds, self-checks, page counts, a regression of the eleven data tabs
   against the original builder's output, text sweeps for placeholders and
   dollars, PDF font embedding, Playwright renders of the email, LibreOffice
   renders of the workbook, an independent code review (ten findings, eight
   fixed) and an independent rebuild-and-break test (no blockers; its
   majors and minors fixed - see WHATS_NEW.txt "THE SECOND OPINION").
+
+  The supplied Rio delivery ZIP has also been rebuilt with its actual
+  exports, typed workbook, vendored libraries and all four Inter fonts.
+  Independent checks reconcile the source figures, preserve the typed
+  sheets, compare two successive builds and verify every email attachment.
+  SiteIQ repeats consumable sales in CUSTOMER_CONTRACTOR_EQUIP: those
+  rows are excluded from customer-owned rental movements. Chart rankings
+  now use their stated metric, and zero holdings do not imply a return.
+  Long identifiers, company names and workbook metadata wrap completely.
+
+  The GitHub Actions workflow runs the regression suite on Linux and
+  Windows. This checks Python behaviour, not native Office rendering.
 
 WHAT HAS NOT BEEN VERIFIED - the valuable places to look
   - Outlook desktop rendering of the .html / .eml.
@@ -69,5 +81,7 @@ REPEATABLE REGRESSION CHECKS
   isolated company files/emails, failed-output detection, crowded cover
   actions, empty charts, damaged exports, path quoting and font checksums.
 
-  Delivery review still needs the packaged Inter fonts, current Weipa/MMG
-  exports, and a native Windows run in classic Outlook and Excel.
+  The supplied MMG ZIP contains no exports or workbook, so its setup and
+  missing-input handling have been checked; live figures remain untested.
+  Delivery review still needs current MMG exports and a native Windows
+  run in classic Outlook and Excel.
