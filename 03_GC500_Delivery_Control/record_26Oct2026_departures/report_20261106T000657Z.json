@@ -1,0 +1,319 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261106T000657Z",
+ "finished": "2026-11-06T00:07:28.590Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 6 Nov 2026 (09:1x AEST): \"Coates 4.8 lunch room leaving at 10am\". T0022 is the Lunchroom 4.8x3, a Coates Building 4.8m, asset 960634, its reference's only building, complete on the record (the other 4.8 m is T0021, the Office 4.8x3, 960639, which stays). Its fire extinguisher and two fridges (1272753, 1254399) are listed with it. It left in full at 10:00 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0022",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [
+     "960634"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13061,
+  "after": 13062
+ },
+ "updated": {
+  "before": "2026-11-05T23:09:33.500Z",
+  "after": "2026-11-06T00:07:27.591Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0022",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "960634"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 1 x Building 4.8m 960634 - T0022 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0022",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0022": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:13:51.872Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-15T16:33:22.856Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:30:56.522Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:18:31.366Z",
+    "eta": "14:30",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:13:51.872Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:31.366Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-15T16:33:22.856Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:30:56.522Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:38:48.264Z"
+    },
+    "loading872": {
+     "u960634": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:04.437Z"
+     }
+    },
+    "_k": "T0022"
+   }
+  },
+  "after": {
+   "delivery/T0022": {
+    "state": "in transit",
+    "set_at": "2026-11-06T00:07:14.655Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-06T00:07:14.655Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-06T00:07:14.655Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-06T00:07:14.655Z",
+    "eta": "14:30",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:13:51.872Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-06T00:07:14.655Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "a9df5a25-911c-4a5d-95d2-7187e62bb847",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:13:51.872Z",
+       "requiredKey": "[[\"building 4.8m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 4.8m",
+         "n": 1,
+         "unitIds": [
+          "[\"T0022\",\"coates\",\"asset\",\"960634\"]"
+         ],
+         "numbers": [
+          "960634"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0022\",\"coates\",\"asset\",\"960634\"]",
+           "number": "960634",
+           "owner": "coates",
+           "item": "Building 4.8m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "T0022",
+        "capturedAt": "2026-11-06T00:07:14.655Z",
+        "arrivalAt": "2026-09-15T07:13:51.872Z",
+        "reference": {
+         "lat": -27.9832377,
+         "lon": 153.4264908,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "reference",
+         "approximate": false,
+         "label": "T0022",
+         "tag": "T0022",
+         "what": "Building 4.8m · Lunchroom 4.8x3 · Building 4.8m",
+         "how": "position: pinned on site, within 5 m",
+         "warn": "",
+         "source": "position: pinned on site, within 5 m"
+        },
+        "units": {
+         "[\"T0022\",\"coates\",\"asset\",\"960634\"]": {
+          "identity": {
+           "id": "[\"T0022\",\"coates\",\"asset\",\"960634\"]",
+           "number": "960634",
+           "owner": "coates",
+           "item": "Building 4.8m"
+          },
+          "location": {
+           "lat": -27.9831313,
+           "lon": 153.4264274,
+           "kind": "unit-pin",
+           "scope": "unit",
+           "confidence": "unit-recorded",
+           "approximate": false,
+           "label": "T0022",
+           "tag": "T0022",
+           "what": "Building 4.8m",
+           "how": "Recorded unit GPS pin",
+           "warn": "",
+           "source": "Recorded unit GPS pin",
+           "accuracyM": 4.9,
+           "positionAt": "2026-09-21T03:34:53.853Z"
+          }
+         }
+        }
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:31.366Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-06T00:07:14.655Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-15T16:33:22.856Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-06T00:07:14.655Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:30:56.522Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-06T00:07:14.655Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:38:48.264Z"
+    },
+    "loading872": {
+     "u960634": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:04.437Z"
+     }
+    },
+    "_k": "T0022"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

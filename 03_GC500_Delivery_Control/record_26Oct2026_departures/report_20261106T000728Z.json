@@ -1,0 +1,688 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261106T000728Z",
+ "finished": "2026-11-06T00:08:03.135Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 6 Nov 2026 (09:2x AEST): \"Any loose fridges at same time as the lunch room too\", after \"Coates 4.8 lunch room leaving at 10am\". The loose fridges are the fridges that are references of their own (not listed inside a building) and still on site on the record: P26 Fridge Delivery (Fridge Lge 1311992), P28 Fridge Delivery (Fridge Lge 1283996), FR01 Fridge at the TV compound (1129733) and FR02 Fridge at the TV compound (1157786). The OP42 fridge row T0265 is not an asset the page tracks (no unit, not in the demob plan), so it cannot be recorded through the form and is left out. Fridges listed inside buildings leave with their buildings and are not touched. They left in full at 10:00 AEST on Fri 6 Nov 2026, with the lunchroom T0022 (spec 69). Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P26",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [
+     "1311992"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "P28",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [
+     "1283996"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "FR01",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [
+     "1129733"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "FR02",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [
+     "1157786"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13062,
+  "after": 13066
+ },
+ "updated": {
+  "before": "2026-11-06T00:07:27.591Z",
+  "after": "2026-11-06T00:08:01.826Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P26",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1311992"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 1 x Fridge Lge 1311992 - P26 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "P28",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1283996"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 1 x Fridge Lge 1283996 - P28 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "FR01",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1129733"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 1 x Fridge 1129733 - FR01 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "FR02",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "1157786"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 1 x Fridge 1157786 - FR02 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P26",
+   "status": 200
+  },
+  {
+   "key": "delivery/P28",
+   "status": 200
+  },
+  {
+   "key": "delivery/FR01",
+   "status": 200
+  },
+  {
+   "key": "delivery/FR02",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P26": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:36.418Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1311992": {
+      "on": true,
+      "at": "2026-11-04T12:55:45.212Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:36.558Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:36.418Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1311992",
+      "ready": true,
+      "at": "2026-11-04T12:55:45.212Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:38.184Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1283996": {
+      "on": true,
+      "at": "2026-11-04T12:56:05.372Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.279Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:38.184Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1283996",
+      "ready": true,
+      "at": "2026-11-04T12:56:05.372Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P28"
+   },
+   "delivery/FR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:35.106Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:34.791Z",
+    "ready1238_units": {
+     "coates|1129733": {
+      "on": true,
+      "at": "2026-11-04T12:55:56.838Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1129733 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1129733 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1318501, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:35.106Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1129733",
+      "ready": true,
+      "at": "2026-11-04T12:55:56.838Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "FR01"
+   },
+   "delivery/FR02": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:36.658Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:35.345Z",
+    "ready1238_units": {
+     "coates|1157786": {
+      "on": true,
+      "at": "2026-11-04T12:55:50.881Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1157786 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1157786 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1260164, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:36.658Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1157786",
+      "ready": true,
+      "at": "2026-11-04T12:55:50.881Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "FR02"
+   }
+  },
+  "after": {
+   "delivery/P26": {
+    "state": "in transit",
+    "set_at": "2026-11-06T00:07:45.552Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1311992": {
+      "on": true,
+      "at": "2026-11-04T12:55:45.212Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.034Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:36.558Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:36.418Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-06T00:07:45.552Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "9116f092-4eab-40c6-868c-976840777aad",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-17T02:13:36.418Z",
+       "requiredKey": "[[\"fridge lge\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Fridge Lge",
+         "n": 1,
+         "unitIds": [
+          "[\"P26\",\"coates\",\"asset\",\"1311992\"]"
+         ],
+         "numbers": [
+          "1311992"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P26\",\"coates\",\"asset\",\"1311992\"]",
+           "number": "1311992",
+           "owner": "coates",
+           "item": "Fridge Lge"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P26",
+        "capturedAt": "2026-11-06T00:07:45.551Z",
+        "arrivalAt": "2026-10-17T02:13:36.418Z",
+        "reference": {
+         "lat": -27.984736,
+         "lon": 153.426507,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P26",
+         "tag": "P26",
+         "what": "Fridge · Police 2-storey building · Fridge Lge",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1311992",
+      "ready": true,
+      "at": "2026-11-04T12:55:45.212Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P26"
+   },
+   "delivery/P28": {
+    "state": "in transit",
+    "set_at": "2026-11-06T00:07:46.658Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1283996": {
+      "on": true,
+      "at": "2026-11-04T12:56:05.372Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.191Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.279Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:38.184Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-06T00:07:46.658Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b89b5f7d-23c5-4b19-9e37-f92157d37b2a",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-17T02:13:38.184Z",
+       "requiredKey": "[[\"fridge lge\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Fridge Lge",
+         "n": 1,
+         "unitIds": [
+          "[\"P28\",\"coates\",\"asset\",\"1283996\"]"
+         ],
+         "numbers": [
+          "1283996"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P28\",\"coates\",\"asset\",\"1283996\"]",
+           "number": "1283996",
+           "owner": "coates",
+           "item": "Fridge Lge"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P28",
+        "capturedAt": "2026-11-06T00:07:46.658Z",
+        "arrivalAt": "2026-10-17T02:13:38.184Z",
+        "reference": {
+         "lat": -27.984763,
+         "lon": 153.426511,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P28",
+         "tag": "P28",
+         "what": "Fridge · Police 2-storey building · Fridge Lge",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1283996",
+      "ready": true,
+      "at": "2026-11-04T12:56:05.372Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P28"
+   },
+   "delivery/FR01": {
+    "state": "in transit",
+    "set_at": "2026-11-06T00:07:47.718Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:34.791Z",
+    "ready1238_units": {
+     "coates|1129733": {
+      "on": true,
+      "at": "2026-11-04T12:55:56.838Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1129733 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1129733 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1318501, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:35.106Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-06T00:07:47.718Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "6108900b-f6aa-4425-ab48-5f6d7f57da8f",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T22:48:35.106Z",
+       "requiredKey": "[[\"fridge\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Fridge",
+         "n": 1,
+         "unitIds": [
+          "[\"FR01\",\"coates\",\"asset\",\"1129733\"]"
+         ],
+         "numbers": [
+          "1129733"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"FR01\",\"coates\",\"asset\",\"1129733\"]",
+           "number": "1129733",
+           "owner": "coates",
+           "item": "Fridge"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1129733",
+      "ready": true,
+      "at": "2026-11-04T12:55:56.838Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "FR01"
+   },
+   "delivery/FR02": {
+    "state": "in transit",
+    "set_at": "2026-11-06T00:07:48.781Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:35.345Z",
+    "ready1238_units": {
+     "coates|1157786": {
+      "on": true,
+      "at": "2026-11-04T12:55:50.881Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "note": "Fridge 1157786 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1157786 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1260164, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:36.658Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-06T00:07:48.781Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "3f0396b7-9ca2-4a76-b42b-5bded24a0957",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T22:48:36.658Z",
+       "requiredKey": "[[\"fridge\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Fridge",
+         "n": 1,
+         "unitIds": [
+          "[\"FR02\",\"coates\",\"asset\",\"1157786\"]"
+         ],
+         "numbers": [
+          "1157786"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"FR02\",\"coates\",\"asset\",\"1157786\"]",
+           "number": "1157786",
+           "owner": "coates",
+           "item": "Fridge"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1157786",
+      "ready": true,
+      "at": "2026-11-04T12:55:50.881Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "FR02"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
