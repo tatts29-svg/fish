@@ -1,0 +1,3320 @@
+{
+ "rows": [
+  {
+   "ref": "PG01",
+   "name": "Toilet (Pit Garage)",
+   "loc": "PG01 - Toilet (Pit Garage)",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0285",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "PG03",
+   "name": "Toilet (Pit Garage)",
+   "loc": "PG03 - Toilet (Pit Garage)",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0100",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "PG05",
+   "name": "Toilet (Pit Garage)",
+   "loc": "PG05 - Toilet (Pit Garage)",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0438",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "PG29",
+   "name": "Toilet (Pit Garage)",
+   "loc": "PG29 - Toilet (Pit Garage)",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0573",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC01",
+   "name": "Toilets",
+   "loc": "WC01 - Toilets",
+   "state": "on site",
+   "fwfUnits": 3,
+   "lines": [
+    "fwf 3 $655.83"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1211958",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "coates"
+    },
+    {
+     "no": "1211967",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "coates"
+    },
+    {
+     "no": "1317644",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC02",
+   "name": "Toilet",
+   "loc": "WC02 - Toilet",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1058086",
+     "item": "FWF",
+     "label": "Toilet",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC04",
+   "name": "Toilet - QAS",
+   "loc": "WC04 - Toilet - QAS",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1212502",
+     "item": "FWF",
+     "label": "Toilet - QAS",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC06",
+   "name": "Toilets - Race Admin",
+   "loc": "WC06 - Toilets - Race Admin",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1195658",
+     "item": "FWF",
+     "label": "Toilets - Race Admin",
+     "owner": "coates"
+    },
+    {
+     "no": "1212523",
+     "item": "FWF",
+     "label": "Toilets - Race Admin",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC07",
+   "name": "Toilets - Merch Area",
+   "loc": "WC07 - Toilets - Merch Area",
+   "state": "on site",
+   "fwfUnits": 20,
+   "lines": [
+    "fwf 20 $4372.2"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1181004",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1002538",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1212552",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1002566",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1083300",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1200595",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1211959",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1002715",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1192643",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1002651",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317649",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317658",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317632",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317743",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317641",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317640",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317626",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317648",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317652",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    },
+    {
+     "no": "1317647",
+     "item": "FWF",
+     "label": "Toilets - Merch Area",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC09",
+   "name": "Toilets",
+   "loc": "WC09 - Toilets",
+   "state": "on site",
+   "fwfUnits": 10,
+   "lines": [
+    "fwf 10 $2186.1",
+    "sewer 2 $1561.5"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0085",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0551",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0450",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0585",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0993",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0553",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0140",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0089",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0584",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0081",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC10",
+   "name": "Toilets",
+   "loc": "WC10 - Toilets",
+   "state": "on site",
+   "fwfUnits": 3,
+   "lines": [
+    "fwf 3 $655.83"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0488",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0677",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0119",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC100",
+   "name": "",
+   "loc": "1288823 at The Spit · 1248439 at S18",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1248439",
+     "item": "FWF Trailer",
+     "label": "Coates unit",
+     "owner": "coates"
+    },
+    {
+     "no": "1288823",
+     "item": "FWF Trailer",
+     "label": "Coates unit",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC11",
+   "name": "Toilets",
+   "loc": "WC11 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1211969",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211976",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC12",
+   "name": "Toilets",
+   "loc": "WC12 - Toilets",
+   "state": "on site",
+   "fwfUnits": 4,
+   "lines": [
+    "fwf 4 $874.44"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1002565",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1200601",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211961",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211963",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC13",
+   "name": "Toilets",
+   "loc": "WC13 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0036",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0444",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC19",
+   "name": "Toilets",
+   "loc": "WC19 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0435",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC21",
+   "name": "Toilets",
+   "loc": "WC21 - Toilets",
+   "state": "on site",
+   "fwfUnits": 6,
+   "lines": [
+    "fwf 6 $1311.66"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1002747",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1103497",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211964",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211971",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1211977",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    },
+    {
+     "no": "1212172",
+     "item": "FWF",
+     "label": "Toilets",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC23",
+   "name": "Toilets",
+   "loc": "WC23 - Toilets",
+   "state": "on site",
+   "fwfUnits": 5,
+   "lines": [
+    "fwf 5 $1093.05"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0992",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0968",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0960",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0107",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0969",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC24",
+   "name": "Toilets",
+   "loc": "WC24 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0489",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC25",
+   "name": "Toilets",
+   "loc": "WC25 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0472",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC26",
+   "name": "Toilets",
+   "loc": "WC26 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0075",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC28",
+   "name": "Toilets",
+   "loc": "WC28 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0102",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC29",
+   "name": "Toilets",
+   "loc": "WC29 - Toilets",
+   "state": "on site",
+   "fwfUnits": 7,
+   "lines": [
+    "fwf 7 $1530.27"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0079",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0546",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0707",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0564",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0044",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0441",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0598",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC30",
+   "name": "Toilets",
+   "loc": "WC30 - Toilets",
+   "state": "on site",
+   "fwfUnits": 8,
+   "lines": [
+    "fwf 8 $1748.88"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0428",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0440",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0963",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0681",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0043",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0419",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0545",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0024",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC31",
+   "name": "Toilets",
+   "loc": "WC31 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61",
+    "sewer 2 $1561.5"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1317645",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC33",
+   "name": "Toilets",
+   "loc": "WC33 - Toilets",
+   "state": "on site",
+   "fwfUnits": 17,
+   "lines": [
+    "fwf 17 $3716.37"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0634",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0582",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0548",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0782",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0657",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0912",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0554",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0920",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0971",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0586",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0487",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0790",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0297",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0456",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0012",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0938",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0597",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC34",
+   "name": "Toilets",
+   "loc": "WC34 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0526",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC35",
+   "name": "Toilets",
+   "loc": "WC35 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0284",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC38",
+   "name": "Toilet",
+   "loc": "WC38 - Toilet",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0183",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC39",
+   "name": "Toilets",
+   "loc": "WC39 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0188",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0637",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC40",
+   "name": "Toilets",
+   "loc": "WC40 - Toilets",
+   "state": "on site",
+   "fwfUnits": 5,
+   "lines": [
+    "fwf 5 $1093.05"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0626",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0541",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0965",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0433",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0648",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC41",
+   "name": "Toilets",
+   "loc": "WC41 - Toilets",
+   "state": "on site",
+   "fwfUnits": 10,
+   "lines": [
+    "fwf 10 $2186.1"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0521",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0996",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0191",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0669",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0643",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0517",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0682",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0651",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0065",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0518",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC42",
+   "name": "Toilets",
+   "loc": "WC42 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0141",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC43",
+   "name": "Toilets",
+   "loc": "WC43 - Toilets",
+   "state": "on site",
+   "fwfUnits": 10,
+   "lines": [
+    "fwf 10 $2186.1"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0723",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0056",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0161",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0182",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0528",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0696",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0420",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0961",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0646",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0581",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC44",
+   "name": "Toilets",
+   "loc": "WC44 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0146",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0037",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC45",
+   "name": "Toilets",
+   "loc": "WC45 - Toilets",
+   "state": "on site",
+   "fwfUnits": 8,
+   "lines": [
+    "fwf 8 $1748.88"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0542",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0086",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0947",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0544",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0632",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0562",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0549",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0673",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC46",
+   "name": "Toilets",
+   "loc": "WC46 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0525",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC47",
+   "name": "Toilets",
+   "loc": "WC47 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0949",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC48",
+   "name": "Toilets",
+   "loc": "WC48 - Toilets",
+   "state": "on site",
+   "fwfUnits": 4,
+   "lines": [
+    "fwf 4 $874.44"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0050",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0471",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0289",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0486",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC49",
+   "name": "Toilets",
+   "loc": "WC49 - Toilets",
+   "state": "on site",
+   "fwfUnits": 3,
+   "lines": [
+    "fwf 3 $655.83"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0919",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0907",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0084",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC50",
+   "name": "Toilet",
+   "loc": "WC50 - Toilet",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1211974",
+     "item": "FWF",
+     "label": "Toilet",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "WC51",
+   "name": "Toilets",
+   "loc": "WC51 - Toilets",
+   "state": "on site",
+   "fwfUnits": 7,
+   "lines": [
+    "fwf 7 $1530.27"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0991",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0167",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0653",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "1197174",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet",
+     "owner": "coates"
+    },
+    {
+     "no": "0136",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0453",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0028",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC53",
+   "name": "Toilets",
+   "loc": "WC53 - Toilets",
+   "state": "on site",
+   "fwfUnits": 3,
+   "lines": [
+    "fwf 3 $655.83"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0952",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0951",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0074",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC54",
+   "name": "Toilets",
+   "loc": "WC54 - Toilets",
+   "state": "on site",
+   "fwfUnits": 6,
+   "lines": [
+    "fwf 6 $1311.66"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0186",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0619",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0071",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0295",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0007",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0087",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC55",
+   "name": "Toilets",
+   "loc": "WC55 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0650",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC56",
+   "name": "Toilets",
+   "loc": "WC56 - Toilets",
+   "state": "on site",
+   "fwfUnits": 12,
+   "lines": [
+    "fwf 12 $2623.32"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0721",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0491",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0190",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0294",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0970",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0974",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0004",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0003",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0445",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0088",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0442",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0009",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC57",
+   "name": "Toilets",
+   "loc": "WC57 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0915",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0008",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC59",
+   "name": "Toilets",
+   "loc": "WC59 - Toilets",
+   "state": "on site",
+   "fwfUnits": 7,
+   "lines": [
+    "fwf 7 $1530.27"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0492",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0935",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0497",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0633",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0064",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0066",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0533",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC61",
+   "name": "Toilets",
+   "loc": "WC61 - Toilets",
+   "state": "on site",
+   "fwfUnits": 8,
+   "lines": [
+    "fwf 8 $1748.88"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0645",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0105",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0945",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0977",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0547",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0290",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0038",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0015",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC62",
+   "name": "Toilets",
+   "loc": "WC62 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0976",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0103",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC65",
+   "name": "Toilets",
+   "loc": "WC65 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0033",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC67",
+   "name": "Toilets",
+   "loc": "WC67 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0793",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0769",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC68",
+   "name": "Toilets",
+   "loc": "WC68 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0426",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC69",
+   "name": "Toilets",
+   "loc": "WC69 - Toilets",
+   "state": "on site",
+   "fwfUnits": 12,
+   "lines": [
+    "fwf 12 $2623.32"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0152",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0078",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0010",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0070",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0958",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0647",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0622",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0123",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0432",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0692",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0679",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0592",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC70",
+   "name": "Toilet",
+   "loc": "WC70 - Toilet",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0423",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC71",
+   "name": "Toilets",
+   "loc": "WC71 - Toilets",
+   "state": "on site",
+   "fwfUnits": 8,
+   "lines": [
+    "fwf 8 $1748.88"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0280",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0116",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0279",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0293",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0531",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0644",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0552",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0490",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC72",
+   "name": "Toilets",
+   "loc": "WC72 - Toilets",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0699",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC73",
+   "name": "Toilets",
+   "loc": "WC73 - Toilets",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0765",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0192",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC81",
+   "name": "Toilet (Cypress)",
+   "loc": "WC81 - Toilet (Cypress)",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0124",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC85",
+   "name": "Toilets",
+   "loc": "Coates compound",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0135",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "WC86",
+   "name": "Toilet",
+   "loc": "WC86 - Toilet",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "1296899",
+     "item": "Accessible Toilet",
+     "label": "Toilet",
+     "owner": "coates"
+    }
+   ]
+  },
+  {
+   "ref": "T0162",
+   "name": "FWF · Blanchard Race",
+   "loc": "Blanchard Race",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0990",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "T0176",
+   "name": "FWF × 2 · Redbull",
+   "loc": "Redbull",
+   "state": "on site",
+   "fwfUnits": 2,
+   "lines": [
+    "fwf 2 $437.22"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0994",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    },
+    {
+     "no": "0576",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "BJR01",
+   "name": "Brad Jones Racing",
+   "loc": "Brad Jones Racing",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0941",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  },
+  {
+   "ref": "SVP01",
+   "name": "Shell V-Power",
+   "loc": "Shell V-Power",
+   "state": "on site",
+   "fwfUnits": 1,
+   "lines": [
+    "fwf 1 $218.61"
+   ],
+   "nights": [
+    {
+     "date": "2026-10-23",
+     "day": "Fri",
+     "label": "Friday 23 Oct night"
+    },
+    {
+     "date": "2026-10-24",
+     "day": "Sat",
+     "label": "Saturday 24 Oct night"
+    },
+    {
+     "date": "2026-10-25",
+     "day": "Sun",
+     "label": "Sunday 25 Oct night"
+    }
+   ],
+   "units": [
+    {
+     "no": "0939",
+     "item": "FWF",
+     "label": "FWF",
+     "owner": "event-portables"
+    }
+   ]
+  }
+ ],
+ "sample": "{\"ref\":\"PG01\",\"nights\":[{\"date\":\"2026-10-23\",\"day\":\"Fri\",\"label\":\"Friday 23 Oct night\"},{\"date\":\"2026-10-24\",\"day\":\"Sat\",\"label\":\"Saturday 24 Oct night\"},{\"date\":\"2026-10-25\",\"day\":\"Sun\",\"label\":\"Sunday 25 Oct night\"}],\"lines\":[{\"kind\":\"fwf\",\"card_line\":\"FWF Pump out & Clean & Restock\",\"unit\":\"FWF\",\"units\":1,\"rate\":72.87,\"per_night\":72.87,\"nights\":[{\"date\":\"2026-10-23\",\"day\":\"Fri\",\"label\":\"Friday 23 Oct night\",\"amount\":72.87},{\"date\":\"2026-10-24\",\"day\":\"Sat\",\"label\":\"Saturday 24 Oct night\",\"amount\":72.87},{\"date\":\"2026-10-25\",\"day\":\"Sun\",\"label\":\"Sunday 25 Oct night\",\"amount\":72.87}],\"total\":218.61}],\"per_night\":72.87,\"total\":218.61}"
+}

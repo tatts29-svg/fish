@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_bytes": 8682665,
+  "candidate_sha256": "35e4b00b150e081425e70a642945799d4dbab822bdbc7939c888c0503e5c26ef",
+  "ui": {
+    "desktop": {
+      "passed": 25,
+      "total": 25,
+      "page_errors": 0,
+      "production_messaging_writes": 0
+    },
+    "phone": {
+      "passed": 25,
+      "total": 25,
+      "page_errors": 0,
+      "production_messaging_writes": 0
+    }
+  },
+  "fresh_after_save": {
+    "desktop": {
+      "passed": 11,
+      "total": 11,
+      "page_errors": 0
+    },
+    "phone": {
+      "passed": 11,
+      "total": 11,
+      "page_errors": 0
+    },
+    "last_exercised_page_sha256": "577c69b20fbe1b89cb2e270755a5e19aadd836b074a69ff784bcb5870a29d87d",
+    "scope": "The v7.75 code is unchanged in this correction, confirmed by both agents; these focused checks are retained from that page."
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs_visited": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "test_policy": "All SMS/MMS calls mocked with synthetic fixtures. Shared browser harness blocks production record writes. No test sends.",
+  "phone_visual_review": "Passed: escaped provider status and explanation wrap within a 390 by 844 emulated phone viewport; no horizontal overflow; controls remain readable. Screenshots private.",
+  "pure_helpers": {
+    "passed": 12,
+    "total": 12,
+    "network_calls": 0,
+    "record_writes": 0,
+    "messaging_writes": 0
+  },
+  "review": {
+    "codex": "complete",
+    "claude": "complete",
+    "coordination": "https://github.com/tatts29-svg/fish/pull/1#issuecomment-5929668833",
+    "handover": "READY TO UPLOAD",
+    "published": false
+  }
+}

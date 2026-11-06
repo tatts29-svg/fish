@@ -1,0 +1,62 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T021353Z",
+ "finished": "2026-10-16T02:14:04.096Z",
+ "mode": "apply",
+ "spec": {
+  "ref": "WC09",
+  "by": "Andrew Fisher",
+  "symbols": [],
+  "restamp": [
+   {
+    "disc": "Toilets & amenities",
+    "item": "FWF",
+    "line": "install"
+   }
+  ]
+ },
+ "pageSha256": "fa44b754a6ab55bed9723a54998edd3d14ea8efaa5945a435de898733066e7a5",
+ "version": {
+  "before": 7333,
+  "after": 7334
+ },
+ "updated": {
+  "before": "2026-10-16T02:09:45.187Z",
+  "after": "2026-10-16T02:14:03.381Z"
+ },
+ "stage": [
+  {
+   "k": "FWF install",
+   "ticked": true,
+   "now": "re-saved"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC09~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC09~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC09|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T00:48:37.422Z"
+   }
+  },
+  "after": {
+   "stamps/labour~2f~WC09~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC09|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T02:14:00.117Z"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

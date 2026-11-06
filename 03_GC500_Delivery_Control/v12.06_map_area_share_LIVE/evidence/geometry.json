@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "square includes all four edges and corners",
+      "ok": true
+    },
+    {
+      "name": "square excludes points immediately beyond either axis",
+      "ok": true
+    },
+    {
+      "name": "long run crossing area is included when endpoints are outside",
+      "ok": true
+    },
+    {
+      "name": "nearby run outside the square is excluded",
+      "ok": true
+    },
+    {
+      "name": "footprint surrounding square is included",
+      "ok": true
+    },
+    {
+      "name": "footprint whose edge crosses square is included",
+      "ok": true
+    },
+    {
+      "name": "remote diagonal footprint is excluded",
+      "ok": true
+    },
+    {
+      "name": "polyline does not claim the empty interior of an unclosed loop",
+      "ok": true
+    },
+    {
+      "name": "single point at centre is included",
+      "ok": true
+    },
+    {
+      "name": "invalid point cannot enter selection",
+      "ok": true
+    },
+    {
+      "name": "geographic centre is exactly the square centre",
+      "ok": true
+    },
+    {
+      "name": "all four square sides measure 50 metres",
+      "ok": true
+    },
+    {
+      "name": "same width at north and south latitudes",
+      "ok": true
+    },
+    {
+      "name": "door directions follow north-up coordinates",
+      "ok": true
+    },
+    {
+      "name": "same door direction away from the origin",
+      "ok": true
+    },
+    {
+      "name": "plan chevron edge produces outward door normal",
+      "ok": true
+    },
+    {
+      "name": "reversed footprint winding keeps outward door normal",
+      "ok": true
+    },
+    {
+      "name": "missing or invalid chevron edge never invents a door",
+      "ok": true
+    }
+  ],
+  "passed": 18
+}

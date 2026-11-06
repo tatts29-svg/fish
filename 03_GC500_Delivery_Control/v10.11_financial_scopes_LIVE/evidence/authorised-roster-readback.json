@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "scope": "eric",
+  "beforeVersion": 5806,
+  "afterVersion": 5813,
+  "writes": 7,
+  "allOtherSharedFieldsUnchanged": true,
+  "checks": {
+    "todayAEST": true,
+    "person": true,
+    "labourHire": true,
+    "homeNOIS": true,
+    "rateCopied": true,
+    "noInventedEmployer": true,
+    "shift": true,
+    "noInventedHours": true,
+    "onceAvailable": true,
+    "othersPreserved": true,
+    "correctCount": true,
+    "allocationKINP": true,
+    "sourceUnchanged": true,
+    "dailyVisible": true,
+    "missingHoursExplicit": true,
+    "noInventedFinanceActual": true,
+    "noFinancialPostings": true
+  },
+  "unchangedFinancialTotals": true,
+  "noInventedHoursOrFinancialActual": true,
+  "privateBackup": "/workspace/private-eric1010/record_14Oct2026_eric_2026-10-13T18-26-35-631Z"
+}

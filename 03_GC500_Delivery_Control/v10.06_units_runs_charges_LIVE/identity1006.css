@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Legible asset entry fields on the existing dark drawer. */
+.units925 .units925-form input,.units925 .units925-form select,.units925 .units925-form select option{background:#102630!important;color:#f4f7f8!important;border-color:#829ba5!important;-webkit-text-fill-color:#f4f7f8!important;color-scheme:dark}
+.units925 .units925-form input::placeholder{color:#b9cbd1!important;opacity:1}
+.units925 .units925-form :is(input,select):focus-visible{outline:2px solid #ff7a24;outline-offset:2px;box-shadow:0 0 12px #ff7a2466}
+.units925 .units925-form>button[type=submit]{margin-top:10px;min-height:44px}
+.units925 [data-unit925-result]:not(:empty){color:#f4f7f8!important;background:#183038;padding:8px 10px;border-left:3px solid #ff8c3a}
+.units925 .units925-save-status:not(:empty){padding:9px 12px;border-left:3px solid #ff8c3a;background:#183038;color:#f4f7f8;font-weight:650}
+.units925 .units925-save-status[data-saved1006=shared]{border-color:#70dc96}
+.units925 .units925-save-status[data-saved1006=failed]{border-color:#ff7474}

@@ -1,0 +1,116 @@
+{
+  "author": "Andrew Fisher",
+  "kind": "CPU ownership and extracted real timing logic; no GPU/FPS measurement",
+  "cycles": [
+    {
+      "cycle": 1,
+      "events": {
+        "gtaoNoiseTexture": 0,
+        "pdNoiseTexture": 0,
+        "normalRenderTarget": 0,
+        "gtaoRenderTarget": 0,
+        "pdRenderTarget": 0,
+        "gtaoMaterial": 0,
+        "normalMaterial": 0,
+        "pdMaterial": 0,
+        "copyMaterial": 0,
+        "depthRenderMaterial": 0,
+        "blendMaterial": 0,
+        "outputMaterial": 0,
+        "composerTarget1": 1,
+        "composerTarget2": 1
+      },
+      "reset": true
+    },
+    {
+      "cycle": 2,
+      "events": {
+        "gtaoNoiseTexture": 0,
+        "pdNoiseTexture": 0,
+        "normalRenderTarget": 0,
+        "gtaoRenderTarget": 0,
+        "pdRenderTarget": 0,
+        "gtaoMaterial": 0,
+        "normalMaterial": 0,
+        "pdMaterial": 0,
+        "copyMaterial": 0,
+        "depthRenderMaterial": 0,
+        "blendMaterial": 0,
+        "outputMaterial": 0,
+        "composerTarget1": 1,
+        "composerTarget2": 1
+      },
+      "reset": true
+    },
+    {
+      "cycle": 3,
+      "events": {
+        "gtaoNoiseTexture": 0,
+        "pdNoiseTexture": 0,
+        "normalRenderTarget": 0,
+        "gtaoRenderTarget": 0,
+        "pdRenderTarget": 0,
+        "gtaoMaterial": 0,
+        "normalMaterial": 0,
+        "pdMaterial": 0,
+        "copyMaterial": 0,
+        "depthRenderMaterial": 0,
+        "blendMaterial": 0,
+        "outputMaterial": 0,
+        "composerTarget1": 1,
+        "composerTarget2": 1
+      },
+      "reset": true
+    },
+    {
+      "cycle": 4,
+      "events": {
+        "gtaoNoiseTexture": 0,
+        "pdNoiseTexture": 0,
+        "normalRenderTarget": 0,
+        "gtaoRenderTarget": 0,
+        "pdRenderTarget": 0,
+        "gtaoMaterial": 0,
+        "normalMaterial": 0,
+        "pdMaterial": 0,
+        "copyMaterial": 0,
+        "depthRenderMaterial": 0,
+        "blendMaterial": 0,
+        "outputMaterial": 0,
+        "composerTarget1": 1,
+        "composerTarget2": 1
+      },
+      "reset": true
+    },
+    {
+      "cycle": 5,
+      "events": {
+        "gtaoNoiseTexture": 0,
+        "pdNoiseTexture": 0,
+        "normalRenderTarget": 0,
+        "gtaoRenderTarget": 0,
+        "pdRenderTarget": 0,
+        "gtaoMaterial": 0,
+        "normalMaterial": 0,
+        "pdMaterial": 0,
+        "copyMaterial": 0,
+        "depthRenderMaterial": 0,
+        "blendMaterial": 0,
+        "outputMaterial": 0,
+        "composerTarget1": 1,
+        "composerTarget2": 1
+      },
+      "reset": true
+    }
+  ],
+  "detachedDisposed": 0,
+  "resume": {
+    "quality": "laptop",
+    "qualityChecked": true,
+    "fps": 0,
+    "frameEma": 40,
+    "lastRender": 1800,
+    "accumulator": 0
+  },
+  "pass": false
+}

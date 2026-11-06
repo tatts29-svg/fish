@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 08:2x AEST: \"1262224 and  1272166 left at 730am\". The T0085 half of spec97: 1272166 (the page lists it as 3.5T Forklift Std; contract 9987005 line 1, MEAD), T0085's only unit, left site at 07:30 on 2 Nov; T0085 leaves in full. EQ0005 (1262224) was recorded in spec97's first apply. Through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0085",
+   "at": "2026-11-02T07:30:00+10:00",
+   "nos": [
+    "1272166"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,3239 @@
+{
+  "author": "Andrew Fisher",
+  "candidate": "8aa55ec6fda92560c75e2fce90fb6b77ea0c51be617e76825dd9dc18d8a386d0",
+  "checks": [
+    {
+      "name": "desktop: new viewers get Circuit tour and visible route progress",
+      "pass": true,
+      "detail": {
+        "view": "tour",
+        "selected": "tour",
+        "options": [
+          "tour",
+          "hero",
+          "auto",
+          "onboard",
+          "chase",
+          "heli",
+          "top",
+          "wide",
+          "detail",
+          "frontdetail"
+        ],
+        "map": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "desktop: tour section 0 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.11283012536048745,
+          "y": -0.3009627566853902
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -9.644674392331261,
+          139.11624949661083,
+          6.144865653279087
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: tour section 1 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 2,
+        "lapFraction": 0.10885234949585602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.002949046024419621,
+          "y": -5.907120075057945
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          22.10378048373694,
+          0.2576819375934576,
+          -15.907591911461815
+        ],
+        "target": [
+          29.139323030434632,
+          0.2155770458298208,
+          -17.978854203856603
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 155,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 2 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 3,
+        "lapFraction": 0.18605948310594844,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.097803578911105,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.11639274490087213,
+          "y": -0.5916017729551494
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          54.68653193656891,
+          8.192866811424592,
+          -24.645573231411
+        ],
+        "target": [
+          61.61023970731325,
+          0.19873508912436602,
+          -23.732660323232405
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 14,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 3 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 4,
+        "lapFraction": 0.263723463186429,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 17.528204141264652,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.04452984470318791,
+          "y": -0.2327614032557421
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          91.67370393887306,
+          1.0060118793070993,
+          -35.05305107742821
+        ],
+        "target": [
+          94.36834993635831,
+          0.1831562791718204,
+          -37.45025406414931
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 15,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 4 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 5,
+        "lapFraction": 0.35896606829211286,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.00007030146640465657,
+          "y": -5.907090871959605
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          51.41752177604882,
+          0.2576819375934576,
+          -44.2382110947675
+        ],
+        "target": [
+          44.08358286191776,
+          0.2155770458298208,
+          -44.16779439216269
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 406,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 5 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 6,
+        "lapFraction": 0.4421292476450461,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.10370754285875936,
+          "y": -0.7180302467910088
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          14.918948127960597,
+          8.638426727080024,
+          -49.33345285225945
+        ],
+        "target": [
+          7.7489969825322405,
+          0.19873508912436602,
+          -47.615528199608065
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 12,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 6 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 7,
+        "lapFraction": 0.5194385278829711,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 25.040731044189148,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.022197477596068372,
+          "y": -0.2504628672025374
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -23.64793494848939,
+          1.0934426880058128,
+          -47.51755348156928
+        ],
+        "target": [
+          -27.574983375507138,
+          0.1831562791718204,
+          -46.29519630051541
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 193,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 7 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 8,
+        "lapFraction": 0.6090720054076757,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.04863555625411481,
+          "y": -0.2909336158869717
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -66.6868910437849,
+          1.1082007512189225,
+          -36.73774886986506
+        ],
+        "target": [
+          -69.72352771808127,
+          0.17936683891309307,
+          -35.41604644254356
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 80,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 8 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 9,
+        "lapFraction": 0.6831713993063906,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.53652248234747,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.10721596201174588,
+          "y": -0.6091761924998128
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -95.98686716244207,
+          8.207801275885236,
+          -25.05735346551025
+        ],
+        "target": [
+          -94.01158106565617,
+          0.19873508912436602,
+          -18.386906787233464
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 11,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 9 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 10,
+        "lapFraction": 0.7658430592135127,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 34.21725070596149,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.038977348577741204,
+          "y": -5.887903242495244
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -83.97343313537901,
+          0.2576819375934578,
+          14.000101796101733
+        ],
+        "target": [
+          -84.84167860463403,
+          0.2155770458298208,
+          19.69670313414207
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 78,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 10 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 11,
+        "lapFraction": 0.8483637139367793,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 22.63343955191201,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.026119850137889,
+          "y": -0.2509849944803437
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -90.15202441538842,
+          1.0637014377689744,
+          47.2307954637853
+        ],
+        "target": [
+          -86.25349861439794,
+          0.1831562791718204,
+          47.9095990337091
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 177,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: tour section 11 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 12,
+        "lapFraction": 0.9422509854404602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.33241709676148806,
+          "y": -0.32441321710792514
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          19.790194170582765,
+          99.87580884224072,
+          96.69223036865957
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: tour section 12 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.006988186191395595,
+          "y": -0.24263554008638907
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.403019847002625,
+          1.1458612377408421,
+          1.1581516470448938
+        ],
+        "target": [
+          -14.848219207918874,
+          0.1831562791718204,
+          -1.1881595420155546
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 241,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: rendered every twelfth of the complete lap",
+      "pass": true
+    },
+    {
+      "name": "desktop: paused top selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "top",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.02440530750706725,
+          "y": -0.2439715602535094
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -9.644674392331261,
+          139.11624949661083,
+          6.144865653279087
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: top contains the complete route",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "top",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.02440530750706725,
+          "y": -0.2439715602535094
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -9.644674392331261,
+          139.11624949661083,
+          6.144865653279087
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: paused wide selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "wide",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.02480165068720816,
+          "y": -0.1626162053100454
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          19.790194170582765,
+          99.87580884224072,
+          96.69223036865957
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: wide contains the complete route",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "wide",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.02480165068720816,
+          "y": -0.1626162053100454
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          19.790194170582765,
+          99.87580884224072,
+          96.69223036865957
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "desktop: paused chase selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "chase",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.007210499813916549,
+          "y": -0.24269574721875764
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.408645815802185,
+          1.1458612377408421,
+          1.1490442338198037
+        ],
+        "target": [
+          -14.846463743441085,
+          0.1831562791718204,
+          -1.1856851251931062
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 241,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: paused onboard selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "onboard",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.013122341064892462,
+          "y": -5.907614657946055
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -15.543816303905373,
+          0.2576819375934576,
+          -0.760045640629617
+        ],
+        "target": [
+          -9.209253722707523,
+          0.2155770458298208,
+          -4.4557886386992624
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 239,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: paused hero selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "hero",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.050538065049733454,
+          "y": -0.2861451978808104
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -17.366923623009402,
+          1.1082007512189225,
+          1.23253774648623
+        ],
+        "target": [
+          -14.975808214464916,
+          0.17936683891309307,
+          -1.1065925373536074
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 250,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: paused heli selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "heli",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.0945020389055716,
+          "y": -0.7278451510935539
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -19.871168775346455,
+          8.638426727080024,
+          -0.4541835278350337
+        ],
+        "target": [
+          -12.787574107789624,
+          0.19873508912436602,
+          -2.273829514618301
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 12,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "desktop: Day/Night retains lap camera and pause, releases old graphics",
+      "pass": true,
+      "detail": {
+        "newScene": true,
+        "retained": true,
+        "paused": true,
+        "night": true,
+        "disposed": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "desktop: graphics recovery preserves paused lap and camera once",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "paused": true,
+        "canvases": 1,
+        "gl": 0
+      }
+    },
+    {
+      "name": "desktop: close releases graphics and hides orientation map",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "map": true,
+        "disposed": true
+      }
+    },
+    {
+      "name": "phone: new viewers get Circuit tour and visible route progress",
+      "pass": true,
+      "detail": {
+        "view": "tour",
+        "selected": "tour",
+        "options": [
+          "tour",
+          "hero",
+          "auto",
+          "onboard",
+          "chase",
+          "heli",
+          "top",
+          "wide",
+          "detail",
+          "frontdetail"
+        ],
+        "map": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "phone: tour section 0 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.18652022106789104,
+          "y": -0.11158151295084882
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -68.21438246262494,
+          339.7334464776291,
+          1.7844734287849526
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: tour section 1 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 2,
+        "lapFraction": 0.10885234949585602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.0046757867073093946,
+          "y": -2.5005878075225043
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          22.10378048373694,
+          0.2576819375934576,
+          -15.907591911461815
+        ],
+        "target": [
+          29.139323030434632,
+          0.2155770458298208,
+          -17.978854203856603
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 146,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 2 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 3,
+        "lapFraction": 0.18605948310594844,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.097803578911105,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.17900502342862942,
+          "y": -0.2429192570236684
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          54.68653193656891,
+          8.192866811424592,
+          -24.645573231411
+        ],
+        "target": [
+          61.61023970731325,
+          0.19873508912436602,
+          -23.732660323232405
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 51,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 3 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 4,
+        "lapFraction": 0.263723463186429,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 17.528204141264652,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.07613883114257188,
+          "y": -0.10625739399299645
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          91.67370393887306,
+          1.0060118793070993,
+          -35.05305107742821
+        ],
+        "target": [
+          94.36834993635831,
+          0.1831562791718204,
+          -37.45025406414931
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 14,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 4 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 5,
+        "lapFraction": 0.35896606829211286,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.00011146474466567303,
+          "y": -2.500575445337426
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          51.41752177604882,
+          0.2576819375934576,
+          -44.2382110947675
+        ],
+        "target": [
+          44.08358286191776,
+          0.2155770458298208,
+          -44.16779439216269
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 291,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 5 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 6,
+        "lapFraction": 0.4421292476450461,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.15949594757790364,
+          "y": -0.2948324059269115
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          14.918948127960597,
+          8.638426727080024,
+          -49.33345285225945
+        ],
+        "target": [
+          7.7489969825322405,
+          0.19873508912436602,
+          -47.615528199608065
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 64,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 6 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 7,
+        "lapFraction": 0.5194385278829711,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 25.040731044189148,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.037954095949431374,
+          "y": -0.11433825019397423
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -23.64793494848939,
+          1.0934426880058128,
+          -47.51755348156928
+        ],
+        "target": [
+          -27.574983375507138,
+          0.1831562791718204,
+          -46.29519630051541
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 135,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 7 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 8,
+        "lapFraction": 0.6090720054076757,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 75.25154852207532,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.08137280473349928,
+          "y": -0.12996082856153662
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -66.6868910437849,
+          1.1082007512189225,
+          -36.73774886986506
+        ],
+        "target": [
+          -69.72352771808127,
+          0.17936683891309307,
+          -35.41604644254356
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 65,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 8 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 9,
+        "lapFraction": 0.6831713993063906,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.53652248234747,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.16489168468516638,
+          "y": -0.25013553853865894
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -95.98686716244207,
+          8.207801275885236,
+          -25.05735346551025
+        ],
+        "target": [
+          -94.01158106565617,
+          0.19873508912436602,
+          -18.386906787233464
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 62,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 9 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 10,
+        "lapFraction": 0.7658430592135127,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 34.21725070596149,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.0617995673369778,
+          "y": -2.4924529843608103
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -83.97343313537901,
+          0.2576819375934578,
+          14.000101796101733
+        ],
+        "target": [
+          -84.84167860463403,
+          0.2155770458298208,
+          19.69670313414207
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 72,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 10 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 11,
+        "lapFraction": 0.8483637139367793,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 22.63343955191201,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.04466071849955586,
+          "y": -0.11457660536410269
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -90.15202441538842,
+          1.0637014377689744,
+          47.2307954637853
+        ],
+        "target": [
+          -86.25349861439794,
+          0.1831562791718204,
+          47.9095990337091
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 19,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: tour section 11 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 12,
+        "lapFraction": 0.9422509854404602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.40924547545548745,
+          "y": -0.28785868813585486
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -220.39751261390552,
+          182.2488225432975,
+          51.25571367499491
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: tour section 12 renders a finite clear camera",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.01194866795440296,
+          "y": -0.11076501438400273
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.403019847002625,
+          1.1458612377408421,
+          1.1581516470448938
+        ],
+        "target": [
+          -14.848219207918874,
+          0.1831562791718204,
+          -1.1881595420155546
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 227,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: rendered every twelfth of the complete lap",
+      "pass": true
+    },
+    {
+      "name": "phone: paused top selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "top",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.15089644863110122,
+          "y": -0.024086744673141768
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -68.21438246262494,
+          339.7334464776291,
+          1.7844734287849526
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: top contains the complete route",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "top",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.15089644863110122,
+          "y": -0.024086744673141768
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -68.21438246262494,
+          339.7334464776291,
+          1.7844734287849526
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: paused wide selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "wide",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.19569090589420676,
+          "y": -0.02048792853081019
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -220.39751261390552,
+          182.2488225432975,
+          51.25571367499491
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: wide contains the complete route",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "wide",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.19569090589420676,
+          "y": -0.02048792853081019
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -220.39751261390552,
+          182.2488225432975,
+          51.25571367499491
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      }
+    },
+    {
+      "name": "phone: paused chase selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "chase",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.012328788286702357,
+          "y": -0.11079249940899308
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.408645815802185,
+          1.1458612377408421,
+          1.1490442338198037
+        ],
+        "target": [
+          -14.846463743441085,
+          0.1831562791718204,
+          -1.1856851251931062
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 227,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: paused onboard selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "onboard",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.020805802083770336,
+          "y": -2.5007971731565366
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -15.543816303905373,
+          0.2576819375934576,
+          -0.760045640629617
+        ],
+        "target": [
+          -9.209253722707523,
+          0.2155770458298208,
+          -4.4557886386992624
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 226,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: paused hero selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "hero",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 75.25154852207532,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.08455591784360261,
+          "y": -0.12782182936172784
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -17.366923623009402,
+          1.1082007512189225,
+          1.23253774648623
+        ],
+        "target": [
+          -14.975808214464916,
+          0.17936683891309307,
+          -1.1065925373536074
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 196,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: paused heli selection settles without driving",
+      "pass": true,
+      "detail": {
+        "enabled": true,
+        "view": "heli",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.14533843756973153,
+          "y": -0.2988625312070015
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -19.871168775346455,
+          8.638426727080024,
+          -0.4541835278350337
+        ],
+        "target": [
+          -12.787574107789624,
+          0.19873508912436602,
+          -2.273829514618301
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 55,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      }
+    },
+    {
+      "name": "phone: camera controls leave most of the screen for the circuit",
+      "pass": true,
+      "detail": {
+        "height": 590.3125,
+        "viewport": 844,
+        "options": "flex",
+        "overflow": false
+      }
+    },
+    {
+      "name": "phone: Options reveals backdrop and figures controls",
+      "pass": true
+    },
+    {
+      "name": "phone: Day/Night retains lap camera and pause, releases old graphics",
+      "pass": true,
+      "detail": {
+        "newScene": true,
+        "retained": true,
+        "paused": true,
+        "night": true,
+        "disposed": true,
+        "gl": 0
+      }
+    },
+    {
+      "name": "phone: graphics recovery preserves paused lap and camera once",
+      "pass": true,
+      "detail": {
+        "same": true,
+        "paused": true,
+        "canvases": 1,
+        "gl": 0
+      }
+    },
+    {
+      "name": "phone: close releases graphics and hides orientation map",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "map": true,
+        "disposed": true
+      }
+    },
+    {
+      "name": "no page errors or record writes",
+      "pass": true
+    }
+  ],
+  "views": [
+    {
+      "device": "desktop",
+      "section": 0,
+      "distanceM": 0,
+      "progress": 0,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.11283012536048745,
+          "y": -0.3009627566853902
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -9.644674392331261,
+          139.11624949661083,
+          6.144865653279087
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 1,
+      "distanceM": 316.77216553242334,
+      "progress": 0.10885234949585613,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 2,
+        "lapFraction": 0.10885234949585602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.002949046024419621,
+          "y": -5.907120075057945
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          22.10378048373694,
+          0.2576819375934576,
+          -15.907591911461815
+        ],
+        "target": [
+          29.139323030434632,
+          0.2155770458298208,
+          -17.978854203856603
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 155,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 2,
+      "distanceM": 541.4533140927595,
+      "progress": 0.18605948310594844,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 3,
+        "lapFraction": 0.18605948310594844,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.097803578911105,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.11639274490087213,
+          "y": -0.5916017729551494
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          54.68653193656891,
+          8.192866811424592,
+          -24.645573231411
+        ],
+        "target": [
+          61.61023970731325,
+          0.19873508912436602,
+          -23.732660323232405
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 14,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 3,
+      "distanceM": 767.4639355253944,
+      "progress": 0.263723463186429,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 4,
+        "lapFraction": 0.263723463186429,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 17.528204141264652,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.04452984470318791,
+          "y": -0.2327614032557421
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          91.67370393887306,
+          1.0060118793070993,
+          -35.05305107742821
+        ],
+        "target": [
+          94.36834993635831,
+          0.1831562791718204,
+          -37.45025406414931
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 15,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 4,
+      "distanceM": 1044.6302659721753,
+      "progress": 0.35896606829211286,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 5,
+        "lapFraction": 0.35896606829211286,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.00007030146640465657,
+          "y": -5.907090871959605
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          51.41752177604882,
+          0.2576819375934576,
+          -44.2382110947675
+        ],
+        "target": [
+          44.08358286191776,
+          0.2155770458298208,
+          -44.16779439216269
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 406,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 5,
+      "distanceM": 1286.644154861113,
+      "progress": 0.4421292476450461,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 6,
+        "lapFraction": 0.4421292476450461,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.10370754285875936,
+          "y": -0.7180302467910088
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          14.918948127960597,
+          8.638426727080024,
+          -49.33345285225945
+        ],
+        "target": [
+          7.7489969825322405,
+          0.19873508912436602,
+          -47.615528199608065
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 12,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 6,
+      "distanceM": 1511.622561208261,
+      "progress": 0.5194385278829711,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 7,
+        "lapFraction": 0.5194385278829711,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 25.040731044189148,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.022197477596068372,
+          "y": -0.2504628672025374
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -23.64793494848939,
+          1.0934426880058128,
+          -47.51755348156928
+        ],
+        "target": [
+          -27.574983375507138,
+          0.1831562791718204,
+          -46.29519630051541
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 193,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 7,
+      "distanceM": 1772.465720875507,
+      "progress": 0.6090720054076757,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 8,
+        "lapFraction": 0.6090720054076757,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.04863555625411481,
+          "y": -0.2909336158869717
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -66.6868910437849,
+          1.1082007512189225,
+          -36.73774886986506
+        ],
+        "target": [
+          -69.72352771808127,
+          0.17936683891309307,
+          -35.41604644254356
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 80,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 8,
+      "distanceM": 1988.1030091715168,
+      "progress": 0.6831713993063906,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 9,
+        "lapFraction": 0.6831713993063906,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.53652248234747,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.10721596201174588,
+          "y": -0.6091761924998128
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -95.98686716244207,
+          8.207801275885236,
+          -25.05735346551025
+        ],
+        "target": [
+          -94.01158106565617,
+          0.19873508912436602,
+          -18.386906787233464
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 11,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 9,
+      "distanceM": 2228.686523061918,
+      "progress": 0.7658430592135127,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 10,
+        "lapFraction": 0.7658430592135127,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 34.21725070596149,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 44.46880447331253,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.038977348577741204,
+          "y": -5.887903242495244
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -83.97343313537901,
+          0.2576819375934578,
+          14.000101796101733
+        ],
+        "target": [
+          -84.84167860463403,
+          0.2155770458298208,
+          19.69670313414207
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 78,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 10,
+      "distanceM": 2468.8305954582397,
+      "progress": 0.8483637139367793,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 11,
+        "lapFraction": 0.8483637139367793,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 22.63343955191201,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.026119850137889,
+          "y": -0.2509849944803437
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -90.15202441538842,
+          1.0637014377689744,
+          47.2307954637853
+        ],
+        "target": [
+          -86.25349861439794,
+          0.1831562791718204,
+          47.9095990337091
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 177,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 11,
+      "distanceM": 2742.052757845132,
+      "progress": 0.9422509854404602,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 12,
+        "lapFraction": 0.9422509854404602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.33241709676148806,
+          "y": -0.32441321710792514
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          19.790194170582765,
+          99.87580884224072,
+          96.69223036865957
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "desktop",
+      "section": 12,
+      "distanceM": 2985.015720808144,
+      "progress": 1,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 2.4758220502901356,
+        "fov": 38,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.006988186191395595,
+          "y": -0.24263554008638907
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.403019847002625,
+          1.1458612377408421,
+          1.1581516470448938
+        ],
+        "target": [
+          -14.848219207918874,
+          0.1831562791718204,
+          -1.1881595420155546
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 241,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 0,
+      "distanceM": 0,
+      "progress": 0,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "top",
+        "requestedShot": "top",
+        "lapSection": 1,
+        "lapFraction": 0,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 44,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.18652022106789104,
+          "y": -0.11158151295084882
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -68.21438246262494,
+          339.7334464776291,
+          1.7844734287849526
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 1,
+      "distanceM": 316.77216553242334,
+      "progress": 0.10885234949585613,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 2,
+        "lapFraction": 0.10885234949585602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.0046757867073093946,
+          "y": -2.5005878075225043
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          22.10378048373694,
+          0.2576819375934576,
+          -15.907591911461815
+        ],
+        "target": [
+          29.139323030434632,
+          0.2155770458298208,
+          -17.978854203856603
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 146,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 2,
+      "distanceM": 541.4533140927595,
+      "progress": 0.18605948310594844,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 3,
+        "lapFraction": 0.18605948310594844,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.097803578911105,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.17900502342862942,
+          "y": -0.2429192570236684
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          54.68653193656891,
+          8.192866811424592,
+          -24.645573231411
+        ],
+        "target": [
+          61.61023970731325,
+          0.19873508912436602,
+          -23.732660323232405
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 51,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 3,
+      "distanceM": 767.4639355253944,
+      "progress": 0.263723463186429,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 4,
+        "lapFraction": 0.263723463186429,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 17.528204141264652,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.07613883114257188,
+          "y": -0.10625739399299645
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          91.67370393887306,
+          1.0060118793070993,
+          -35.05305107742821
+        ],
+        "target": [
+          94.36834993635831,
+          0.1831562791718204,
+          -37.45025406414931
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 14,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 4,
+      "distanceM": 1044.6302659721753,
+      "progress": 0.35896606829211286,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 5,
+        "lapFraction": 0.35896606829211286,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 43,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.00011146474466567303,
+          "y": -2.500575445337426
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          51.41752177604882,
+          0.2576819375934576,
+          -44.2382110947675
+        ],
+        "target": [
+          44.08358286191776,
+          0.2155770458298208,
+          -44.16779439216269
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 291,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 5,
+      "distanceM": 1286.644154861113,
+      "progress": 0.4421292476450461,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 6,
+        "lapFraction": 0.4421292476450461,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 75.55555555555556,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.15949594757790364,
+          "y": -0.2948324059269115
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          14.918948127960597,
+          8.638426727080024,
+          -49.33345285225945
+        ],
+        "target": [
+          7.7489969825322405,
+          0.19873508912436602,
+          -47.615528199608065
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 64,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 6,
+      "distanceM": 1511.622561208261,
+      "progress": 0.5194385278829711,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 7,
+        "lapFraction": 0.5194385278829711,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 25.040731044189148,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.037954095949431374,
+          "y": -0.11433825019397423
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -23.64793494848939,
+          1.0934426880058128,
+          -47.51755348156928
+        ],
+        "target": [
+          -27.574983375507138,
+          0.1831562791718204,
+          -46.29519630051541
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 135,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 7,
+      "distanceM": 1772.465720875507,
+      "progress": 0.6090720054076757,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "hero",
+        "requestedShot": "hero",
+        "lapSection": 8,
+        "lapFraction": 0.6090720054076757,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 75.25154852207532,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.08137280473349928,
+          "y": -0.12996082856153662
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -66.6868910437849,
+          1.1082007512189225,
+          -36.73774886986506
+        ],
+        "target": [
+          -69.72352771808127,
+          0.17936683891309307,
+          -35.41604644254356
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 65,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 8,
+      "distanceM": 1988.1030091715168,
+      "progress": 0.6831713993063906,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "heli",
+        "requestedShot": "heli",
+        "lapSection": 9,
+        "lapFraction": 0.6831713993063906,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 63.53652248234747,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 79.96438257800997,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.16489168468516638,
+          "y": -0.25013553853865894
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -95.98686716244207,
+          8.207801275885236,
+          -25.05735346551025
+        ],
+        "target": [
+          -94.01158106565617,
+          0.19873508912436602,
+          -18.386906787233464
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 62,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 9,
+      "distanceM": 2228.686523061918,
+      "progress": 0.7658430592135127,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "onboard",
+        "requestedShot": "onboard",
+        "lapSection": 10,
+        "lapFraction": 0.7658430592135127,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 34.21725070596149,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 88,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": false,
+        "carScreen": {
+          "x": -0.0617995673369778,
+          "y": -2.4924529843608103
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -83.97343313537901,
+          0.2576819375934578,
+          14.000101796101733
+        ],
+        "target": [
+          -84.84167860463403,
+          0.2155770458298208,
+          19.69670313414207
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 72,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 10,
+      "distanceM": 2468.8305954582397,
+      "progress": 0.8483637139367793,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 11,
+        "lapFraction": 0.8483637139367793,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 22.63343955191201,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.04466071849955586,
+          "y": -0.11457660536410269
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -90.15202441538842,
+          1.0637014377689744,
+          47.2307954637853
+        ],
+        "target": [
+          -86.25349861439794,
+          0.1831562791718204,
+          47.9095990337091
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 19,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 11,
+      "distanceM": 2742.052757845132,
+      "progress": 0.9422509854404602,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "wide",
+        "requestedShot": "wide",
+        "lapSection": 12,
+        "lapFraction": 0.9422509854404602,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 0,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 42,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": 0.40924547545548745,
+          "y": -0.28785868813585486
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -220.39751261390552,
+          182.2488225432975,
+          51.25571367499491
+        ],
+        "target": [
+          -16.524472907668432,
+          0.030315522069818544,
+          -15.018728945592017
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 546,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": true
+      },
+      "gl": 0,
+      "finite": true
+    },
+    {
+      "device": "phone",
+      "section": 12,
+      "distanceM": 2985.015720808144,
+      "progress": 1,
+      "view": {
+        "enabled": true,
+        "view": "tour",
+        "shot": "chase",
+        "requestedShot": "chase",
+        "lapSection": 1,
+        "lapFraction": 0.02574029490850295,
+        "circuitLengthM": 2910.1086655413205,
+        "lookAheadM": 28,
+        "transitionActive": false,
+        "transitionRemainingSeconds": 0,
+        "aspect": 0.6610169491525424,
+        "fov": 74.05190691590605,
+        "transitionKind": null,
+        "transitionOpacity": 1,
+        "carInFrame": true,
+        "carScreen": {
+          "x": -0.01194866795440296,
+          "y": -0.11076501438400273
+        },
+        "obstructionClear": true,
+        "obstructionAdjusted": false,
+        "fallback": null,
+        "eye": [
+          -18.403019847002625,
+          1.1458612377408421,
+          1.1581516470448938
+        ],
+        "target": [
+          -14.848219207918874,
+          0.1831562791718204,
+          -1.1881595420155546
+        ],
+        "physicsEdited": false,
+        "placementRngCalls": 0,
+        "glResources": 0,
+        "visibleRouteVertices": 227,
+        "routeVertices": 546,
+        "wholeCircuitInFrame": false
+      },
+      "gl": 0,
+      "finite": true
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0,
+  "complete": true
+}

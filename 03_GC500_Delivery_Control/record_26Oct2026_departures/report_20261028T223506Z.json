@@ -1,0 +1,139 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T223506Z",
+ "finished": "2026-10-28T22:35:33.305Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 11:00 AEST: \"and this will be Kyle Week Ending 25/10/2026 4671825\" (one purchase order per person per week; Kyle's week on the record: 19-22 Oct days, 23-25 Oct nights, 78.78 h)",
+  "ops": [
+   {
+    "op": "po",
+    "number": "4671825",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 25 Oct 2026",
+    "period": "w/e 25 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true
+   }
+  ]
+ },
+ "pageSha256": "69bf04e72a45e084f0ba5227b4a26cf95ffe4078429044946af473120d4e7bb2",
+ "version": {
+  "before": 11940,
+  "after": 11943
+ },
+ "updated": {
+  "before": "2026-10-28T22:34:29.827Z",
+  "after": "2026-10-28T22:35:32.397Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "po",
+   "number": "4671825",
+   "supplier_name": "Job Connect",
+   "stream": "labour",
+   "what": "Kyle Gover - week ending 25 Oct 2026",
+   "period": "w/e 25 Oct 2026",
+   "branch": "KINP",
+   "revenue_branch": "KINP",
+   "confirmed": true,
+   "result": "recorded 4671825 Kyle Gover - week ending 25 Oct 2026"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4671825",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4671825",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4671825",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4671825": null,
+   "by/po~2f~4671825": null,
+   "purchaseOrders/4671825": null
+  },
+  "after": {
+   "stamps/po~2f~4671825": {
+    "_k": "po/4671825",
+    "v": "2026-10-28T22:35:20.967Z"
+   },
+   "by/po~2f~4671825": {
+    "_k": "po/4671825",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4671825": {
+    "number": "4671825",
+    "by": "Andrew Fisher",
+    "at": "2026-10-28T22:35:20.967Z",
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Kyle Gover - week ending 25 Oct 2026",
+    "period": "w/e 25 Oct 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true,
+    "updated_at": "2026-10-28T22:35:20.967Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4671825"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

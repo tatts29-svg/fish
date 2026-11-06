@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 10,
+  "failed": 0,
+  "base_sha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+  "candidate_sha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+  "allowed_existing_script_index": 4,
+  "added_script_id": "svc1067-script",
+  "added_style_id": "svc1067-style",
+  "checked_at_utc": "2026-10-18T01:09:36.961070+00:00",
+  "candidate_bytes": 18465214,
+  "checks": [
+    "candidate is the exact output of the current guarded patch",
+    "repeat application is refused",
+    "wrong predecessor application is refused",
+    "exactly one servicing script is added; existing script order is preserved",
+    "only the native main script changes; every other script is byte-identical",
+    "embedded operational/source DATA is byte-identical",
+    "existing styles are byte-identical with one scoped servicing addition",
+    "embedded template contains no fixture contact or token",
+    "decoded crew template and data exactly match the current card builder",
+    "standard publisher attribution scrub leaves the exact candidate unchanged"
+  ],
+  "base_is_pinned": true,
+  "publication": false
+}

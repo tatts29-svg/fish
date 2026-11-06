@@ -1,0 +1,307 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T230818Z",
+ "finished": "2026-10-26T23:08:55.172Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026: \"Picked up 900AM   asset no 1015699\". 1015699 is P60's only unit (Gate 5 Ticket Box 4.8m, Coates portable building, ticked Ready by Andrew; read 09:07 AEST, the only place the number is on the record, not already left), so P60 left in full at 09:00 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P60",
+    "at": "2026-10-27T09:00:00+10:00",
+    "nos": [
+     "1015699"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "c83f1a27a3995852437afe4890bf4dd43d253aecb3128baa52b12a61d9b704ba",
+ "version": {
+  "before": 11538,
+  "after": 11539
+ },
+ "updated": {
+  "before": "2026-10-26T22:59:46.093Z",
+  "after": "2026-10-26T23:08:54.224Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P60",
+   "at": "2026-10-27T09:00:00+10:00",
+   "nos": [
+    "1015699"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T09:00:00+10:00, recorded by Andrew Fisher: 1 x Ticket Box 4.8m 1015699 - P60 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P60",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P60": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:56:37.938Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T23:00:13.653Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:12.571Z",
+    "ready1238_units": {
+     "coates|1015699": {
+      "on": true,
+      "at": "2026-10-26T20:16:37.974Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:56:37.938Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.458Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T23:00:13.653Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T23:00:09.628Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:12.571Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1015699",
+      "ready": true,
+      "at": "2026-10-26T20:16:37.974Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "loading872": {
+     "u1015699": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:04.384Z"
+     }
+    },
+    "_k": "P60"
+   }
+  },
+  "after": {
+   "delivery/P60": {
+    "state": "in transit",
+    "set_at": "2026-10-26T23:08:38.070Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-26T23:08:38.070Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:12.571Z",
+    "ready1238_units": {
+     "coates|1015699": {
+      "on": true,
+      "at": "2026-10-26T20:16:37.974Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T23:08:38.070Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.458Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T23:08:38.070Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "55789367-2087-4c2f-9d65-593041d022ae",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T09:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-14T22:56:37.938Z",
+       "requiredKey": "[[\"ticket box 4.8m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Ticket Box 4.8m",
+         "n": 1,
+         "unitIds": [
+          "[\"P60\",\"coates\",\"asset\",\"1015699\"]"
+         ],
+         "numbers": [
+          "1015699"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P60\",\"coates\",\"asset\",\"1015699\"]",
+           "number": "1015699",
+           "owner": "coates",
+           "item": "Ticket Box 4.8m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T23:08:38.070Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T23:00:13.653Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-26T23:08:38.070Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T23:00:09.628Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:12.571Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1015699",
+      "ready": true,
+      "at": "2026-10-26T20:16:37.974Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "loading872": {
+     "u1015699": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:04.384Z"
+     }
+    },
+    "_k": "P60"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

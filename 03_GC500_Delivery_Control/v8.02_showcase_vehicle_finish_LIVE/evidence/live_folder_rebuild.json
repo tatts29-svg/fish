@@ -1,0 +1,7 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Published folder renames and import path references only; replay from the preserved build base and scrub reproduces the exact live runtime",
+  "sha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+  "bytes": 9070571,
+  "exactMatch": true
+}

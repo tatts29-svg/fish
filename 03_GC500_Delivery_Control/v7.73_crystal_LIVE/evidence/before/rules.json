@@ -1,0 +1,1650 @@
+{
+ "fencing": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 43,
+   "color": "rgb(255, 106, 19)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 2.86,
+   "size": 13,
+   "weight": 700,
+   "text": "36501",
+   "chain": "b < a.dkno < td < tr < tbody < table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 43,
+   "color": "rgb(255, 106, 19)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 2.86,
+   "size": 12,
+   "weight": 400,
+   "text": "Signed paper",
+   "chain": "a < span.dpaperone < div.dpaper < td < tr < tbody",
+   "colorRules": [
+    {
+     "sel": "a",
+     "v": "var(--orange)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The boundary that makes race week possible",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 54,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.64,
+   "size": 12,
+   "weight": 800,
+   "text": "✓ Complete",
+   "chain": "span.tick < div.lcell < td < tr.complete < tbody < table",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 15,
+   "color": "rgb(95, 106, 117)",
+   "bg": "rgb(228,224,220)",
+   "ratio": 4.17,
+   "size": 11,
+   "weight": 700,
+   "text": "Wed",
+   "chain": "span.dow < button.day < div.daystrip < div.card.has-table",
+   "colorRules": [
+    {
+     "sel": ".day .dow",
+     "v": "var(--slate)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".day .dow",
+     "v": "11px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 4,
+   "color": "rgb(95, 106, 117)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 5.47,
+   "size": 8.75,
+   "weight": 700,
+   "text": "ex GST",
+   "chain": "small < th.num < tr < thead < table < div.tblwrap",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "prestarts": [
+  {
+   "n": 16,
+   "color": "rgb(255, 106, 19)",
+   "bg": "rgb(252,251,250)",
+   "ratio": 2.77,
+   "size": 13,
+   "weight": 400,
+   "text": "Pre-start — Coates Installs — Fri 25 Sep 2026",
+   "chain": "a < span.pretitle < li.prerow < ul.prelist < div#pre-coates.card",
+   "colorRules": [
+    {
+     "sel": "a",
+     "v": "var(--orange)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "docs": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 79,
+   "color": "rgb(255, 106, 19)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 2.87,
+   "size": 15,
+   "weight": 800,
+   "text": "//",
+   "chain": "span.slash.doc < span.face < div.cut.doccard.swms < div.docgrid < div#docsec-swms.docsec",
+   "colorRules": [
+    {
+     "sel": ".slash",
+     "v": "var(--rule)",
+     "media": ""
+    },
+    {
+     "sel": ".doccard .slash.doc",
+     "v": "var(--orange)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".slash",
+     "v": "13px",
+     "media": ""
+    },
+    {
+     "sel": ".doccard .slash.doc",
+     "v": "15px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The plans behind the build",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  }
+ ],
+ "costs": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The resources behind the result",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(100, 109, 119)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 3.84,
+   "size": 12,
+   "weight": 500,
+   "text": "nothing recorded",
+   "chain": "span.todo < span.pc-amt < div.paycat.none < div.paycats < div#costCats.card < details.plfold765",
+   "colorRules": [
+    {
+     "sel": ".todo",
+     "v": "var(--mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".paycat .pc-amt .todo",
+     "v": "12px",
+     "media": ""
+    },
+    {
+     "sel": "#pane-costs .paycat .pc-amt small, #pane-costs .paycat .pc-amt .todo",
+     "v": "6.5px",
+     "media": "@media print"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(95, 106, 117)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 4,
+   "size": 11.5,
+   "weight": 400,
+   "text": "the crew's installation hours are under internal l",
+   "chain": "span.pc-sub < div.paycat.none < div.paycats < div#costCats.card < details.plfold765",
+   "colorRules": [
+    {
+     "sel": ".paycat .pc-sub",
+     "v": "var(--slate)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".paycat .pc-sub",
+     "v": "11.5px",
+     "media": ""
+    },
+    {
+     "sel": "#pane-costs .paycat .pc-sub",
+     "v": "6px",
+     "media": "@media print"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 3,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(240,242,244)",
+   "ratio": 4.13,
+   "size": 9.5,
+   "weight": 700,
+   "text": "not priced",
+   "chain": "i.pl-tag.none < span.pl-tg < div.pl-ln.faint < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 .pl-tag.none",
+     "v": "rgb(107, 118, 129)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 20,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.3,
+   "size": 11,
+   "weight": 500,
+   "text": "charged to the V8s · all hire is revenue",
+   "chain": "small < h4 < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 h4 small",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.3,
+   "size": 13.5,
+   "weight": 400,
+   "text": "Contract lines with no rate and no card line — wha",
+   "chain": "span.pl-lb < div.pl-ln.faint < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.3,
+   "size": 13.5,
+   "weight": 600,
+   "text": "1,702.5 h",
+   "chain": "span.pl-amt < div.pl-ln.faint < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.3,
+   "size": 13.5,
+   "weight": 500,
+   "text": "nothing recorded",
+   "chain": "span.pl-todo < span.pl-amt < div.pl-ln.faint < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 .pl-todo",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.3,
+   "size": 11.5,
+   "weight": 400,
+   "text": "Charged windows: forklifts, VMS and water barriers",
+   "chain": "p.pl-note < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 .pl-note",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".pl752 .pl-note",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 3,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(247,248,249)",
+   "ratio": 4.36,
+   "size": 11,
+   "weight": 400,
+   "text": "Author: Andrew Fisher · Events Project Manager",
+   "chain": "span < footer.pl-foot < section#pl752.card.pl752.has-table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(247,248,249)",
+   "ratio": 4.36,
+   "size": 11,
+   "weight": 700,
+   "text": "Are we making money?",
+   "chain": "b < span < footer.pl-foot < section#pl752.card.pl752.has-table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 3,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(247,249,250)",
+   "ratio": 4.39,
+   "size": 11.6667,
+   "weight": 500,
+   "text": "what Coates pays, line by line, and where a line i",
+   "chain": "small < summary < details.plfold765",
+   "colorRules": [
+    {
+     "sel": ".plfold765 > summary small",
+     "v": "rgb(107, 118, 129)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(252,251,250)",
+   "ratio": 4.48,
+   "size": 9.5,
+   "weight": 700,
+   "text": "Branch",
+   "chain": "th < tr < thead < table.pl-tbl.pl760 < div.tblwrap < div.pl-wide",
+   "colorRules": [
+    {
+     "sel": "th",
+     "v": "var(--slate)",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": "th",
+     "v": "10.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": "@media (max-width: 640px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 4,
+   "color": "rgb(180, 80, 15)",
+   "bg": "rgb(255,241,230)",
+   "ratio": 4.63,
+   "size": 9.5,
+   "weight": 700,
+   "text": "priced by us · the card",
+   "chain": "i.pl-tag.est < span.pl-tg < div.pl-ln < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 .pl-tag.est",
+     "v": "rgb(180, 80, 15)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 9,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 4.63,
+   "size": 9.5,
+   "weight": 700,
+   "text": "Lines",
+   "chain": "th.num < tr < thead < table.pl-tbl.pl760 < div.tblwrap < div.pl-wide",
+   "colorRules": [
+    {
+     "sel": "th",
+     "v": "var(--slate)",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": "th",
+     "v": "10.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": "@media (max-width: 640px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(107, 118, 129)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 4.63,
+   "size": 9.5,
+   "weight": 700,
+   "text": "Rehire cost",
+   "chain": "th.num.pl-cost < tr < thead < table.pl-tbl.pl760 < div.tblwrap < div.pl-wide",
+   "colorRules": [
+    {
+     "sel": "th",
+     "v": "var(--slate)",
+     "media": ""
+    },
+    {
+     "sel": ".pl-tbl .pl-cost",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "var(--pl-mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": "th",
+     "v": "10.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": ""
+    },
+    {
+     "sel": ".pl752 .pl-tbl th",
+     "v": "9.5px",
+     "media": "@media (max-width: 640px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 4,
+   "color": "rgb(29, 122, 58)",
+   "bg": "rgb(231,244,234)",
+   "ratio": 4.75,
+   "size": 9.5,
+   "weight": 700,
+   "text": "on the contracts",
+   "chain": "i.pl-tag.ok < span.pl-tg < div.pl-ln < div.pl-col < div.pl-cols < section#pl752.card.pl752.has-table",
+   "colorRules": [
+    {
+     "sel": ".pl752 .pl-tag.ok",
+     "v": "rgb(29, 122, 58)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "today": [
+  {
+   "n": 1,
+   "color": "rgb(210, 216, 210)",
+   "bg": "rgb(241,238,236)",
+   "ratio": 1.25,
+   "size": 12,
+   "weight": 700,
+   "text": "Today · 01 Oct",
+   "chain": "span.plab < div.prail < div.pgm < div.card.hubcard.racecard < div.inst",
+   "colorRules": [
+    {
+     "sel": ".prail .plab",
+     "v": "var(--orange-ink)",
+     "media": ""
+    },
+    {
+     "sel": ".card.island.racecard .pgm, .card.island.racecard .pgm *",
+     "v": "rgb(210, 216, 210)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".prail .plab",
+     "v": "12px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(228, 224, 220)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.31,
+   "size": 13,
+   "weight": 800,
+   "text": "//",
+   "chain": "span.slash < span.face < div.cut.dbdel.fin < div.dbdels < section.dbrief < div.todaycols",
+   "colorRules": [
+    {
+     "sel": ".slash",
+     "v": "var(--rule)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".slash",
+     "v": "13px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.65,
+   "size": 12,
+   "weight": 800,
+   "text": "✓ Complete",
+   "chain": "span.tick < span.dbda < span.face < div.cut.dbdel.fin < div.dbdels < section.dbrief",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.65,
+   "size": 11,
+   "weight": 800,
+   "text": "✓ 8",
+   "chain": "span.tick.sm < div.hubbig < div.card.hubcard.advicecard < div.hub",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    },
+    {
+     "sel": ".tick.sm",
+     "v": "11px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(100, 109, 119)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.88,
+   "size": 9,
+   "weight": 600,
+   "text": "asset no.",
+   "chain": "small < span.anos < span.w < li.hubrow < ul.hublist < div.card.hubcard",
+   "colorRules": [
+    {
+     "sel": ".hublist .hubrow .anos small",
+     "v": "var(--mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".hublist .hubrow .anos small",
+     "v": "9px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(29, 95, 196)",
+   "bg": "rgb(227,237,251)",
+   "ratio": 5.1,
+   "size": 9.5,
+   "weight": 800,
+   "text": "master plan",
+   "chain": "span.navpinned < a.btn.navbtn.sm < span.dbda < span.face < div.cut.dbdel.fin < div.dbdels",
+   "colorRules": [
+    {
+     "sel": ".navbtn .navpinned, .btn .navpinned",
+     "v": "rgb(29, 95, 196)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".navbtn .navpinned, .btn .navpinned",
+     "v": "9.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 5,
+   "color": "rgb(100, 109, 119)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 5.26,
+   "size": 9.58333,
+   "weight": 400,
+   "text": "asset no.",
+   "chain": "small < span < span.dbdn < span.face < div.cut.dbdel.fin < div.dbdels",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "timeline": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The next milestone on the pit straight",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 108,
+   "color": "rgb(100, 109, 119)",
+   "bg": "rgb(248,246,244)",
+   "ratio": 4.88,
+   "size": 8.5,
+   "weight": 800,
+   "text": "Due in",
+   "chain": "em < span.din < span.dfig < span.dpan < span.dface < button.day",
+   "colorRules": [
+    {
+     "sel": ".dfig em",
+     "v": "var(--mute)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".dfig em",
+     "v": "10px",
+     "media": ""
+    },
+    {
+     "sel": ".day .dfig em",
+     "v": "8.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(168, 67, 10)",
+   "bg": "rgb(255,246,239)",
+   "ratio": 5.67,
+   "size": 9.5,
+   "weight": 800,
+   "text": "TODAY",
+   "chain": "span.dtoday < span.dhr < span.dhead < span.dface < button.day.today.on < div.daystrip",
+   "colorRules": [
+    {
+     "sel": ".dtoday",
+     "v": "var(--orange-ink)",
+     "media": ""
+    },
+    {
+     "sel": ".dtoday",
+     "v": "var(--orange)",
+     "media": "@media (prefers-color-scheme: dark)"
+    },
+    {
+     "sel": ".day.on .dtoday",
+     "v": "rgb(168, 67, 10)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".dtoday",
+     "v": "9.5px",
+     "media": ""
+    },
+    {
+     "sel": ".dtoday",
+     "v": "9px",
+     "media": "@media (max-width: 360px)"
+    },
+    {
+     "sel": ".dtoday",
+     "v": "8.5px",
+     "media": "@media (max-width: 470px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgba(27, 18, 7, 0.68)",
+   "bg": "rgb(253,246,239)",
+   "ratio": 6.23,
+   "size": 8.5,
+   "weight": 800,
+   "text": "Due in",
+   "chain": "em < span.din < span.dfig < span.dpan < span.dface < button.day.today.on",
+   "colorRules": [
+    {
+     "sel": ".dfig em",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".day.on .dfig em",
+     "v": "rgba(27, 18, 7, 0.68)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".dfig em",
+     "v": "10px",
+     "media": ""
+    },
+    {
+     "sel": ".day .dfig em",
+     "v": "8.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgba(27, 18, 7, 0.7)",
+   "bg": "rgb(253,246,239)",
+   "ratio": 6.68,
+   "size": 9,
+   "weight": 800,
+   "text": "On site",
+   "chain": "em < span.dprog < span.dpan < span.dface < button.day.today.on < div.daystrip",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "progress": [
+  {
+   "n": 2,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1,
+   "size": 51.84,
+   "weight": 800,
+   "text": "5,450",
+   "chain": "p.wn < div < div.wmod.wz.wz2 < div.wright < div.wgrid < section.wip.enter",
+   "colorRules": [
+    {
+     "sel": ".wn",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    },
+    {
+     "sel": ".wn",
+     "v": "rgb(17, 17, 17)",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".wn",
+     "v": "clamp(34px, 3.6vw, 52px)",
+     "media": ""
+    },
+    {
+     "sel": ".wn",
+     "v": "32px",
+     "media": "@media (max-width: 620px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 9,
+   "color": "rgb(245, 247, 248)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.07,
+   "size": 11,
+   "weight": 600,
+   "text": "25",
+   "chain": "text < g < svg < div.wg < div.wgwrap < div.wz.wz1",
+   "colorRules": [],
+   "sizeRules": [
+    {
+     "sel": ".wtl",
+     "v": "11px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 3,
+   "color": "rgb(245, 247, 248)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.07,
+   "size": 64,
+   "weight": 800,
+   "text": "100",
+   "chain": "tspan < text < g < svg < div.wg < div.wgwrap",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(245, 247, 248)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.07,
+   "size": 14,
+   "weight": 400,
+   "text": "Delivery against plan: 100 per cent. 246 of 246 du",
+   "chain": "p#wgsay.vh < div.wz.wz1 < div.wgrid < section.wip.enter < div.chero < div.head",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 3,
+   "color": "rgb(245, 247, 248)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.07,
+   "size": 15,
+   "weight": 600,
+   "text": "View delivery details",
+   "chain": "button.wact < div.wacts < div.wz.wz1 < div.wgrid < section.wip.enter < div.chero",
+   "colorRules": [
+    {
+     "sel": "button, input, select, textarea",
+     "v": "inherit",
+     "media": ""
+    },
+    {
+     "sel": ".wact",
+     "v": "var(--wtx)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": "button, input, select, textarea",
+     "v": "inherit",
+     "media": ""
+    },
+    {
+     "sel": ".wact",
+     "v": "15px",
+     "media": ""
+    },
+    {
+     "sel": ".wact",
+     "v": "14.5px",
+     "media": "@media (max-width: 620px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(211, 218, 221)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.41,
+   "size": 14.5,
+   "weight": 400,
+   "text": "Recorded fence work · to 01 Oct",
+   "chain": "p.ws < div < div.wmod.wz.wz2 < div.wright < div.wgrid < section.wip.enter",
+   "colorRules": [
+    {
+     "sel": ".ws",
+     "v": "rgb(211, 218, 221)",
+     "media": ""
+    },
+    {
+     "sel": ".wk, .ws",
+     "v": "rgb(68, 68, 68)",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".ws",
+     "v": "14.5px",
+     "media": ""
+    },
+    {
+     "sel": ".ws",
+     "v": "13.5px",
+     "media": "@media (max-width: 620px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(207, 214, 217)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.47,
+   "size": 21.7728,
+   "weight": 700,
+   "text": "ex GST",
+   "chain": "small < p.wn < div < div.wmod.wz.wz3 < div.wright < div.wgrid",
+   "colorRules": [
+    {
+     "sel": ".wn small",
+     "v": "rgb(207, 214, 217)",
+     "media": ""
+    },
+    {
+     "sel": ".wn small",
+     "v": "rgb(68, 68, 68)",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".wn small",
+     "v": "0.42em",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 2,
+   "color": "rgb(186, 194, 198)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.81,
+   "size": 12.5,
+   "weight": 700,
+   "text": "Fencing records",
+   "chain": "p.wk < div < div.wmod.wz.wz2 < div.wright < div.wgrid < section.wip.enter",
+   "colorRules": [
+    {
+     "sel": ".wk",
+     "v": "var(--wt2)",
+     "media": ""
+    },
+    {
+     "sel": ".wk, .ws",
+     "v": "rgb(68, 68, 68)",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".wk",
+     "v": "12.5px",
+     "media": ""
+    },
+    {
+     "sel": ".wk",
+     "v": "11.5px",
+     "media": "@media (max-width: 620px)"
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(183, 192, 196)",
+   "bg": "rgb(255,255,255)",
+   "ratio": 1.85,
+   "size": 13,
+   "weight": 400,
+   "text": "View only · last confirmed 17:43",
+   "chain": "span#wipStat < div.wfoot < section.wip.enter < div.chero < div.head < div.dsn",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "Progress through the chicane",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 17,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.65,
+   "size": 11,
+   "weight": 800,
+   "text": "✓ complete",
+   "chain": "span.tick.sm < td < tr < tbody < table.progtbl < div.tblwrap",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    },
+    {
+     "sel": ".tick.sm",
+     "v": "11px",
+     "media": ""
+    },
+    {
+     "sel": "#pane-progress .chip, #pane-progress .tick",
+     "v": "7.5px",
+     "media": "@media print"
+    }
+   ],
+   "opRules": []
+  }
+ ],
+ "plant": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The equipment behind race week",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 78,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.65,
+   "size": 12,
+   "weight": 800,
+   "text": "✓ Complete",
+   "chain": "span.tick < div.lcell < td < tr.complete < tbody < table",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 4,
+   "color": "rgb(214, 40, 28)",
+   "bg": "rgb(234,244,238)",
+   "ratio": 4.47,
+   "size": 12,
+   "weight": 900,
+   "text": "cancelled",
+   "chain": "b < span.nomark < div.lcell < td < tr.complete < tbody",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  },
+  {
+   "n": 12,
+   "color": "rgb(20, 24, 29)",
+   "bg": "rgb(234,244,238)",
+   "ratio": 15.85,
+   "size": 9.58333,
+   "weight": 400,
+   "text": "Rehire · Event Portables · asset no.",
+   "chain": "small < span.suppliernos744 < td.mono < tr.complete < tbody < table",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": []
+  }
+ ],
+ "change": [
+  {
+   "n": 1,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(255,106,19)",
+   "ratio": 2.87,
+   "size": 12.5,
+   "weight": 700,
+   "text": "Toilets & amenities",
+   "chain": "button.chip.invdisc.on < div.invchips < div#invCard.card.invcard.nosfold",
+   "colorRules": [
+    {
+     "sel": "button, input, select, textarea",
+     "v": "inherit",
+     "media": ""
+    },
+    {
+     "sel": ".chip",
+     "v": "var(--slate)",
+     "media": ""
+    },
+    {
+     "sel": ".invchips .chip.on",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": "button, input, select, textarea",
+     "v": "inherit",
+     "media": ""
+    },
+    {
+     "sel": ".chip",
+     "v": "10.5px",
+     "media": ""
+    },
+    {
+     "sel": ".invchips .chip",
+     "v": "12.5px",
+     "media": ""
+    },
+    {
+     "sel": ".invchips .chip",
+     "v": "11px",
+     "media": "@media (max-width: 700px)"
+    }
+   ],
+   "opRules": []
+  }
+ ],
+ "about": [
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 2.64,
+   "size": 11.5,
+   "weight": 600,
+   "text": "· illustrative scene, not a drawing or a record",
+   "chain": "span < figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [],
+   "sizeRules": [],
+   "opRules": [
+    {
+     "sel": ".rbcap span",
+     "v": "0.78",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap span",
+     "v": "0.86",
+     "media": ""
+    }
+   ]
+  },
+  {
+   "n": 1,
+   "color": "rgb(246, 241, 236)",
+   "bg": "rgb(142,139,137)",
+   "ratio": 3.01,
+   "size": 11.5,
+   "weight": 700,
+   "text": "The people behind the delivery",
+   "chain": "figcaption.rbcap < figure.rbhero.pgban",
+   "colorRules": [
+    {
+     "sel": ".rbcap",
+     "v": "var(--mute)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "rgb(246, 241, 236)",
+     "media": ""
+    },
+    {
+     "sel": ".pgban .rbcap",
+     "v": "inherit",
+     "media": "@media print"
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".rbcap",
+     "v": "11.5px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  },
+  {
+   "n": 1,
+   "color": "rgb(255, 255, 255)",
+   "bg": "rgb(23,154,71)",
+   "ratio": 3.65,
+   "size": 12,
+   "weight": 800,
+   "text": "✓ Complete",
+   "chain": "span.tick < td < tr < tbody < table < div.tblwrap",
+   "colorRules": [
+    {
+     "sel": ".tick",
+     "v": "rgb(255, 255, 255)",
+     "media": ""
+    }
+   ],
+   "sizeRules": [
+    {
+     "sel": ".tick",
+     "v": "12px",
+     "media": ""
+    }
+   ],
+   "opRules": []
+  }
+ ]
+}

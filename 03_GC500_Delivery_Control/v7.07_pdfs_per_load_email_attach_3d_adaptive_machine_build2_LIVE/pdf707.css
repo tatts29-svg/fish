@@ -1,0 +1,104 @@
+/* v7.07 - the day's documents: the v7.06 plate, every tile a drop-down; the PDF panel below */
+.dplate{--pl-ink:#f4f1ec;--pl-mute:#aab3ba;--pl-edge:#2d353b;--pl-or:#ff6a13;
+ position:relative;z-index:20;margin:0 0 14px;padding:10px 12px 10px 20px;border-radius:12px;color:var(--pl-ink);
+ display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:10px;align-items:stretch;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 5px),linear-gradient(160deg,#222a2f,#121517 72%);
+ border:1px solid var(--pl-edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 20px rgba(0,0,0,.16)}
+.dplate::before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,#ff8a3d,var(--pl-or))}
+.dplate-k{display:flex;flex-direction:column;justify-content:center;padding-right:4px;font:700 10px/1.1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.18em;text-transform:uppercase;color:var(--pl-or)}
+.dplate-k b{display:block;margin-top:5px;font:800 22px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.04em;color:var(--pl-ink)}
+.dpt{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:2px;align-items:center;width:100%;height:100%;text-align:left;
+ padding:8px 10px;border-radius:9px;min-height:56px;cursor:pointer;font:inherit;color:var(--pl-ink);
+ background:linear-gradient(180deg,#252c31,#1a1f23);border:1px solid #353e45;border-top:3px solid var(--pl-or);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .12s,background .12s}
+.dpt:hover{border-color:#4b565e;border-top-color:#ff8a3d;background:linear-gradient(180deg,#2a3238,#1c2226)}
+.dpt:focus-visible{outline:2px solid var(--pl-or);outline-offset:2px}
+.dpt-i{grid-row:1 / span 2;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:rgba(255,106,19,.15);color:var(--pl-or)}
+.dpt-i svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.dpt-w{font:800 19px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.05em;text-transform:uppercase;align-self:end;white-space:nowrap}
+.dpt-s{font-size:11.5px;line-height:1.2;color:var(--pl-mute);align-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dpt.dp-off{opacity:.55;cursor:not-allowed;border-top-color:#5b656d}
+.dpt.dp-off .dpt-i{background:rgba(255,255,255,.06);color:#8f99a1}
+.dplate details{display:block;position:relative;min-width:0}
+.dplate details > summary.dpt{display:grid;list-style:none;user-select:none}
+.dplate details > summary.dpt::-webkit-details-marker{display:none}
+.dplate details[open] > summary.dpt{border-color:var(--pl-or)}
+.dplate .dpmail-m{left:0;right:auto;min-width:260px;max-height:min(60vh,460px);overflow:auto}
+.dpm-r{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:1px;width:100%;font:inherit;text-align:left;cursor:pointer;background:none;border:0;color:inherit;border-radius:8px;padding:8px 10px}
+.dpm-r + .dpm-r{border-top:1px solid var(--rule)}
+.dpm-r:hover,.dpm-r:focus-visible{background:rgba(255,106,19,.12);outline:none}
+.dpm-r b{font-weight:800;white-space:nowrap}
+.dpm-r span{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dpm-r em{grid-column:2;font-style:normal;font-size:12px;color:var(--mute)}
+.dpm-all b{color:var(--orange-ink,#c2570c)}
+/* the row under the day strip holds the same controls: while the plate is on the page it is their one home */
+#pane-timeline.has-dplate .dprow.tlday-ctl{display:none !important}
+/* the preview on a phone: scaled to the screen, on screen only */
+@media screen{ body.dpbar-on.printing-day #dayprint{zoom:var(--dpz,1)} }
+@media (max-width:760px){
+ .dplate{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px 9px 9px 16px;margin-bottom:12px}
+ .dplate-k{grid-column:1 / -1;flex-direction:row;align-items:baseline;gap:8px;padding:0}
+ .dplate-k b{margin:0;font-size:17px}
+ .dpt{min-height:52px;padding:7px 8px;column-gap:8px}
+ .dpt-i{width:28px;height:28px}.dpt-i svg{width:17px;height:17px}
+ .dpt-w{font-size:17px}
+ .dplate .dpmail-m{min-width:0;width:min(92vw,340px)}
+}
+/* v7.07 - the sheets are laid out off screen while their PDFs are made; the page stays as it is */
+body.pdf7-make #dayprint{display:block!important;position:fixed!important;left:-12000px!important;top:0!important;max-width:none!important;zoom:1!important}
+/* the PDF panel: a sheet over the page, big buttons, phone first */
+.pdf7{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(12,14,16,.55);
+ font:14px/1.35 Inter,var(--sans,system-ui,sans-serif);color:#15181a}
+.pdf7-card{width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:14px;border-top:5px solid #ff6a13;
+ box-shadow:0 18px 50px rgba(0,0,0,.35);padding:16px 18px 14px;display:flex;flex-direction:column;gap:12px}
+.pdf7-hd{display:flex;align-items:flex-start;gap:10px}
+.pdf7-ht{flex:1 1 auto;min-width:0}
+.pdf7-k{display:block;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c2570c}
+.pdf7-hd h2{margin:3px 0 0;font:800 24px/1.05 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.02em;text-transform:uppercase;color:#15181a;overflow-wrap:anywhere}
+.pdf7-x{flex:0 0 auto;width:44px;height:44px;border-radius:10px;border:1px solid #d7dbde;background:#f4f5f6;font-size:26px;line-height:1;cursor:pointer;color:#15181a}
+.pdf7-prog{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+.pdf7-bar{height:10px;border-radius:6px;background:#eceef0;overflow:hidden}
+.pdf7-bar i{display:block;height:100%;width:2%;background:linear-gradient(90deg,#ff8a3d,#ff6a13);border-radius:6px;transition:width .25s}
+.pdf7-say{margin:0;font-size:17px;font-weight:700}
+.pdf7-go{display:flex;flex-direction:column;gap:10px}
+.pdf7-go[hidden],.pdf7-prog[hidden],.pdf7-msg[hidden],.pdf7-more[hidden]{display:none}
+.pdf7-done{margin:0;font-weight:800;font-size:15px;color:#256b3a}
+.pdf7-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pdf7-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:58px;padding:8px 10px;border-radius:10px;
+ border:1px solid #c9ced2;background:#f4f5f6;color:#15181a;font:800 16px/1.15 Inter,var(--sans,system-ui,sans-serif);text-align:center;text-decoration:none;cursor:pointer}
+.pdf7-btn small{font-size:11.5px;font-weight:600;color:#5d6468}
+.pdf7-btn.pdf7-pri{background:#ff6a13;border-color:#e0580a;color:#fff}
+.pdf7-btn.pdf7-pri small{color:#fff3ea}
+.pdf7-btn:focus-visible,.pdf7-a:focus-visible,.pdf7-x:focus-visible,.pdf7-web:focus-visible{outline:3px solid #15181a;outline-offset:2px}
+.pdf7-btn.pdf7-sm{min-height:44px;font-size:14px}
+.pdf7-more{display:flex;flex-direction:column;gap:6px}
+.pdf7-more p{margin:0;font-size:13px}
+.pdf7-tip{margin:0;font-size:12.5px;color:#5d6468}
+.pdf7-msg{margin:0;padding:8px 10px;border-radius:8px;background:#f1f7f2;border:1px solid #cfe3d4;font-size:13.5px}
+.pdf7-msg.pdf7-bad{background:#fff5f3;border-color:#f0c4bd;color:#8a1c12}
+.pdf7-files{list-style:none;margin:0;padding:0;border-top:1px solid #e3e6e8;max-height:38vh;overflow:auto}
+.pdf7-files li{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #e3e6e8}
+.pdf7-fi{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px}
+.pdf7-fi b{font-size:14px}
+.pdf7-fi span{font-size:11.5px;color:#5d6468;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdf7-fi em{font-style:normal;font-size:11.5px;color:#5d6468}
+.pdf7-a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:8px;border:1px solid #c9ced2;background:#fff;color:#15181a;font-weight:700;text-decoration:none}
+.pdf7-ft{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid #e3e6e8;padding-top:10px}
+.pdf7-web{background:none;border:0;padding:8px 0;font:inherit;font-size:13px;color:#5d6468;text-decoration:underline;cursor:pointer}
+.pdf7-ft .pdf7-btn{min-height:44px;padding:0 18px}
+body.pdf7-on{overflow:hidden}
+@media (max-width:600px){
+ .pdf7{align-items:flex-end;padding:0}
+ .pdf7-card{width:100%;max-height:92vh;border-radius:16px 16px 0 0;padding:14px 14px 12px}
+ .pdf7-hd h2{font-size:21px}
+ .pdf7-acts{grid-template-columns:1fr}
+ .pdf7-btn{flex-direction:row;justify-content:space-between;min-height:56px;padding:8px 14px;text-align:left}
+ .pdf7-btn small{text-align:right}
+}
+@media print{.dplate,.pdf7{display:none !important}}
+/* v7.07 - every QR code on the sheets large enough to read from a plain print (about two dots a square at 150 dpi):
+   the document codes 19.5 mm; the navigate codes in a several-reference table 12.5 mm, never shrunk, drawn by
+   dpNavQrT (low error correction, 37 squares). */
+#dayprint .dp-wtbl .dp-qc{width:14.5mm}
+#dayprint .dp-wtbl .dp-qr{width:12.5mm}
+#dayprint .dp-doc .dp-qr{width:19.5mm}

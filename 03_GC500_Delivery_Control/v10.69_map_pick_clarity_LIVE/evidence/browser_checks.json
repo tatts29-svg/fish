@@ -1,0 +1,135 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Focused map proof passed; final release checks/publication remain with release owner",
+  "checked_utc": "2026-10-18T02:35:45.643237+00:00",
+  "base_sha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0",
+  "candidate_sha256": "07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d",
+  "machine_sha256": "8256bce609ce48d30fd319ac56bce74729cfe8a980ad051228379d09b06a15e6",
+  "manifest_file_sha256": "8af790ed7a875c468feaf59db4ca5339b2d0a16c1b66762200a5f6a3c5872417",
+  "mode": "Original master plan; no hybrid/satellite-network claim",
+  "method": "Frozen API9704; canonical genuine asset GET/cache verified against machine manifest; exact Content-Range slices of verified original bundles; content-addressed reference media checked against filename SHA256. Browser lock held per run. Real pointer/touch picks Done shape.",
+  "visual_inspection": "Original master aerial and sharp vector tiles visible on phone and desktop. Before/after overlap screenshots inspected. No placeholders.",
+  "test_sha256": {
+    "tests/test_browser1069.cjs": "0682dcff23baf2a0010bf7342fb553014e21b1438f6000231e8ff396b57db17e",
+    "tests/frozen1069.cjs": "3922c8099317f2ac15ea9e8d50163700944784366650800aeb056f613b6371df"
+  },
+  "runs": [
+    {
+      "phase": "baseline",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "checks_passed": 13,
+      "cases": 48,
+      "misdirected_samples": 12,
+      "label_overlaps": 4,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "verified_machine_assets": 86,
+      "verified_original_media": 0,
+      "missing_assets": 0,
+      "bad_assets": 0,
+      "snapshot_version": 9704,
+      "screenshot_sha256": {
+        "desktop-P52-done-z4-rot180.png": "b057ebd2e59dfcd67d2a7a9d2198fd126e11f40799e57ad806b8cb9bced848c7",
+        "desktop-P55-active-z4-rot0.png": "bc9ee1b603f2c645a822c14f652cf58baa857e30dde5cb3741b0070df462e39e",
+        "desktop-P55-done-z4-rot0.png": "bc9ee1b603f2c645a822c14f652cf58baa857e30dde5cb3741b0070df462e39e",
+        "desktop-WC16-active-z2-rot0.png": "b2afe5b5dbc5ed80b5b828e6278534111295759569b2a8528c3b265271f627e0",
+        "desktop-WC16-done-z2-rot0.png": "b2afe5b5dbc5ed80b5b828e6278534111295759569b2a8528c3b265271f627e0",
+        "desktop-WC16-done-z4-rot180.png": "e08d3678cda9eefec935d98b545d8552bdb508dcadca51dd65f558dac15abe02"
+      }
+    },
+    {
+      "phase": "candidate",
+      "viewport": {
+        "width": 1440,
+        "height": 900,
+        "dpr": 1
+      },
+      "checks_passed": 109,
+      "cases": 48,
+      "misdirected_samples": 0,
+      "label_overlaps": 0,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "verified_machine_assets": 87,
+      "verified_original_media": 1,
+      "missing_assets": 0,
+      "bad_assets": 0,
+      "snapshot_version": 9704,
+      "screenshot_sha256": {
+        "desktop-P52-done-z4-rot180.png": "fd250523e92651a1d38ae657c18149c022cc18359e5d7539a1a53a62b330d8eb",
+        "desktop-P55-active-z4-rot0.png": "bc9ee1b603f2c645a822c14f652cf58baa857e30dde5cb3741b0070df462e39e",
+        "desktop-P55-done-z4-rot0.png": "bc9ee1b603f2c645a822c14f652cf58baa857e30dde5cb3741b0070df462e39e",
+        "desktop-WC16-active-z2-rot0.png": "b2afe5b5dbc5ed80b5b828e6278534111295759569b2a8528c3b265271f627e0",
+        "desktop-WC16-done-z2-rot0.png": "b2afe5b5dbc5ed80b5b828e6278534111295759569b2a8528c3b265271f627e0",
+        "desktop-WC16-done-z4-rot180.png": "e08d3678cda9eefec935d98b545d8552bdb508dcadca51dd65f558dac15abe02"
+      }
+    },
+    {
+      "phase": "baseline",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 2
+      },
+      "checks_passed": 13,
+      "cases": 48,
+      "misdirected_samples": 34,
+      "label_overlaps": 4,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "verified_machine_assets": 86,
+      "verified_original_media": 0,
+      "missing_assets": 0,
+      "bad_assets": 0,
+      "snapshot_version": 9704,
+      "screenshot_sha256": {
+        "phone-P52-done-z4-rot180.png": "065e2a32dba33c19d3a948ef00d893fd31d677ba371bb12bb056ace0fbaaaab7",
+        "phone-P55-active-z4-rot0.png": "1bcb9d84cabbf417c57a43b802d617423dd7dd358ea318bb938bd2a1a6f2db3f",
+        "phone-P55-done-z4-rot0.png": "1bcb9d84cabbf417c57a43b802d617423dd7dd358ea318bb938bd2a1a6f2db3f",
+        "phone-WC16-active-z2-rot0.png": "a9cf39054814996934fdb97db31b242f6d29ce0de779051e406b55160278177b",
+        "phone-WC16-done-z2-rot0.png": "a9cf39054814996934fdb97db31b242f6d29ce0de779051e406b55160278177b",
+        "phone-WC16-done-z4-rot180.png": "41a77a18092c1e05a5ef48bf4007b65b316fafb12669e8cee139e7201b625ee8"
+      }
+    },
+    {
+      "phase": "candidate",
+      "viewport": {
+        "width": 390,
+        "height": 844,
+        "dpr": 2
+      },
+      "checks_passed": 109,
+      "cases": 48,
+      "misdirected_samples": 0,
+      "label_overlaps": 0,
+      "page_errors": 0,
+      "console_errors": 0,
+      "writes": 0,
+      "verified_machine_assets": 87,
+      "verified_original_media": 1,
+      "missing_assets": 0,
+      "bad_assets": 0,
+      "snapshot_version": 9704,
+      "screenshot_sha256": {
+        "phone-P52-done-z4-rot180.png": "f427513cddcda309903b704c7feb92179e1816746523c3329c83088d55e4be66",
+        "phone-P55-active-z4-rot0.png": "1bcb9d84cabbf417c57a43b802d617423dd7dd358ea318bb938bd2a1a6f2db3f",
+        "phone-P55-done-z4-rot0.png": "1bcb9d84cabbf417c57a43b802d617423dd7dd358ea318bb938bd2a1a6f2db3f",
+        "phone-WC16-active-z2-rot0.png": "a9cf39054814996934fdb97db31b242f6d29ce0de779051e406b55160278177b",
+        "phone-WC16-done-z2-rot0.png": "a9cf39054814996934fdb97db31b242f6d29ce0de779051e406b55160278177b",
+        "phone-WC16-done-z4-rot180.png": "532245353fcde1b79440551c86cd4da1834cb9ce61451a0991250c1a2264e577"
+      }
+    }
+  ],
+  "limitations": [
+    "Simulated phone Chromium, not a physical handset.",
+    "Earlier attempts were invalidated by missing cached originals, incomplete Range handling or full /tmp; final runs use verified originals and a dedicated TMPDIR.",
+    "Final predecessor/live bytes and standing release gates remain the release owner responsibility."
+  ]
+}

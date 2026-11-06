@@ -1,0 +1,7 @@
+const fs = require('fs'); const vs = ['base', 'sub', 'cand']; const pres = (process.argv[2] || 'd_,t_').split(',');
+const med = a => { a = a.filter(x => x != null).sort((x, y) => x - y); const m = a.length >> 1; return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
+const D = {}; for (const v of vs) D[v] = pres.flatMap(pre => fs.readdirSync('runs').filter(f => f.startsWith(pre + v + '_') && /_\d+\.json$/.test(f)).map(f => JSON.parse(fs.readFileSync('runs/' + f))));
+const M = {'load LT total': o => o.loadLT.total, 'load LT>=200 first 90s': o => o.loadLTlist.filter(x => x[0] < 90000).reduce((t, x) => t + x[1], 0), 'load JS busy': o => o.loadProf.busyMs,
+  'load metadata925+unitEvidence incl': o => (o.loadProf.targets.metadata925 || 0) + (o.loadProf.targets.unitEvidence || 0), 'load buildAllAssets incl': o => o.loadProf.targets.buildAllAssets || 0, 'load syncFooter incl': o => o.loadProf.targets.syncFooter || 0,
+  'DCL': o => o.marks.dcl, 'load event': o => o.marks.load, 'end of last LT>=1s': o => { const l = o.loadLTlist.filter(x => x[1] >= 1000); return l.length ? Math.max(...l.map(x => x[0] + x[1])) : 0; }};
+for (const [k, f] of Object.entries(M)) { const m = vs.map(v => med(D[v].map(f))); console.log(k.padEnd(38), vs.map((v, i) => v + '=' + Math.round(m[i])).join('  '), ' n=' + D.base.length + '/' + D.sub.length + '/' + D.cand.length, ' sub-base=' + Math.round(m[1] - m[0]), ' cand-base=' + Math.round(m[2] - m[0])); }

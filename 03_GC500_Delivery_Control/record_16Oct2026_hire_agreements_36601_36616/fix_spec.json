@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "what": "36611 Surfers Paradise Light Rail: the paper says only CC Barrier 130 m. The 2026 fencing programme's CON WK1 row 46, 'CCB - Hi Surf (West) to Ocean Ave', 15 Oct 2026, is 115 m of CCB Event at the same place and day; rows 45 and 47 are its fence (70 + 100 m clean against the paper's 165 m). So the 130 m moves from demarcation, where it was recorded this morning 'to confirm', to the event line the programme names.",
+ "ops": [
+  {
+   "op": "docket_fix",
+   "docket_no": "36611",
+   "quantities": {
+    "clean": 165,
+    "ccb_event": 130
+   },
+   "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  }
+ ]
+}

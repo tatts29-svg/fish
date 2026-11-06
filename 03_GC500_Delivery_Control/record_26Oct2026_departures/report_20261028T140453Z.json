@@ -1,0 +1,170 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T140453Z",
+ "finished": "2026-10-28T14:05:28.394Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026: the Questions tab reads EQ0002 and EQ0003 as short (0 of 1). Both booms turned up on 21 Oct 2026 and left on 26 Oct with Record departure entries; the quantity records never took a receipt. What turned up is recorded as 1 each.",
+  "ops": [
+   {
+    "op": "supplied",
+    "ref": "EQ0002",
+    "item": "Knuckle Boom 61ft (18.6M) - Diesel",
+    "qty": 1
+   },
+   {
+    "op": "supplied",
+    "ref": "EQ0003",
+    "item": "Straight Boom 60ft - Diesel",
+    "qty": 1
+   }
+  ]
+ },
+ "pageSha256": "1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff",
+ "version": {
+  "before": 11727,
+  "after": 11733
+ },
+ "updated": {
+  "before": "2026-10-28T14:04:52.171Z",
+  "after": "2026-10-28T14:05:27.314Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "supplied",
+   "ref": "EQ0002",
+   "item": "Knuckle Boom 61ft (18.6M) - Diesel",
+   "qty": 1,
+   "result": "Knuckle Boom 61ft (18.6M) - Diesel supplied 1"
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0003",
+   "item": "Straight Boom 60ft - Diesel",
+   "qty": 1,
+   "result": "Straight Boom 60ft - Diesel supplied 1"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel",
+   "status": 200
+  },
+  {
+   "key": "supplied/EQ0002",
+   "status": 200
+  },
+  {
+   "key": "supplied/EQ0003",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel": null,
+   "stamps/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel": null,
+   "supplied/EQ0002": null,
+   "supplied/EQ0003": null,
+   "by/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel": null,
+   "by/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel": null
+  },
+  "after": {
+   "stamps/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel": {
+    "_k": "supplied/EQ0002/Knuckle Boom 61ft (18.6M) - Diesel",
+    "v": "2026-10-28T14:05:12.504Z"
+   },
+   "stamps/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel": {
+    "_k": "supplied/EQ0003/Straight Boom 60ft - Diesel",
+    "v": "2026-10-28T14:05:12.711Z"
+   },
+   "supplied/EQ0002": {
+    "items": [
+     {
+      "asked": "Knuckle Boom 61ft (18.6M) - Diesel",
+      "supplied": "Knuckle Boom 61ft (18.6M) - Diesel",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "EQ0002"
+   },
+   "supplied/EQ0003": {
+    "items": [
+     {
+      "asked": "Straight Boom 60ft - Diesel",
+      "supplied": "Straight Boom 60ft - Diesel",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "EQ0003"
+   },
+   "by/supplied~2f~EQ0002~2f~Knuckle~20~Boom~20~61ft~20~~28~18.6M~29~~20~-~20~Diesel": {
+    "_k": "supplied/EQ0002/Knuckle Boom 61ft (18.6M) - Diesel",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~EQ0003~2f~Straight~20~Boom~20~60ft~20~-~20~Diesel": {
+    "_k": "supplied/EQ0003/Straight Boom 60ft - Diesel",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

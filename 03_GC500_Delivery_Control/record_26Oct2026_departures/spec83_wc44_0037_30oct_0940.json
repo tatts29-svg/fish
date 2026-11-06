@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:2x AEST: \"0031 looks like it should of been 0037\" - the one number of his 09:40 list that matched nothing on the record. 0037 is WC44's other Event Portables FWF (0146 left at 09:40, run 77), so 0037 left in the same 09:40 load and WC44 leaves in full. Today's load becomes 24. Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "depart", "ref": "WC44", "at": "2026-10-30T09:40:00+10:00", "nos": ["0037"], "unnumbered": [], "complete": true}
+  ]
+}

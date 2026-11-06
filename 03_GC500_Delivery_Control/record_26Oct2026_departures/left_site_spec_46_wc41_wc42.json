@@ -1,0 +1,45 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: \"Wc42 wc41 all picked up 12:15pm\". Every FWF still on site at both: WC42 0141; WC41 0521, 0996, 0191, 0669, 0643, 0517, 0682, 0651, 0065, 0518 (the units each departure form offered). Both leave in full. Left site 28 Oct 2026 12:15 AEST. Then: \"Picked up.1215pm too . These have been picked up\" with the list 0626, 0648, 0433, 0541 - the last four FWF at WC40 (0965 left 11:15, run 45), so WC40 leaves in full at 12:15.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC42",
+   "at": "2026-10-28T12:15:00+10:00",
+   "nos": [
+    "0141"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC41",
+   "at": "2026-10-28T12:15:00+10:00",
+   "nos": [
+    "0521",
+    "0996",
+    "0191",
+    "0669",
+    "0643",
+    "0517",
+    "0682",
+    "0651",
+    "0065",
+    "0518"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC40",
+   "at": "2026-10-28T12:15:00+10:00",
+   "nos": [
+    "0626",
+    "0648",
+    "0433",
+    "0541"
+   ],
+   "complete": true
+  }
+ ]
+}

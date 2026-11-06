@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026: \"Picked up 927am 0079 0564 0546 0441\". The four numbers are Event Portables FWF, each only on WC29 (read 09:28 AEST: seven FWF 0044, 0079, 0441, 0546, 0564, 0598, 0707, every one Ready, the location Emptied, none already left). 0079, 0564, 0546 and 0441 left at 09:27 AEST; 0044, 0598 and 0707 stay, so WC29 stays on site.",
+  "ops": [
+    {"op": "depart", "ref": "WC29", "at": "2026-10-27T09:27:00+10:00", "nos": ["0079", "0564", "0546", "0441"], "complete": false}
+  ]
+}

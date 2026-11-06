@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "68a8da20f7576dc58357757efdb54471967c67deb49df68265ee4bf1ed1dc895",
+  "candidate_sha256": "8e371c70200d6b6566d59e7c078f70e5f4737654470a3d812b7fda9159166933",
+  "checks": [
+    {
+      "name": "exactly one helper script added",
+      "ok": true
+    },
+    {
+      "name": "all other page bytes are identical",
+      "ok": true
+    },
+    {
+      "name": "existing spot gesture and coordinate conversion unchanged",
+      "ok": true
+    },
+    {
+      "name": "no operational write or automatic messaging endpoint added",
+      "ok": true
+    },
+    {
+      "name": "export is freshly drawn at 3840 pixels",
+      "ok": true
+    },
+    {
+      "name": "unknown doors stay explicit",
+      "ok": true
+    },
+    {
+      "name": "guarded existing explorer build retained",
+      "ok": true
+    },
+    {
+      "name": "native share cancellation remains non-delivery",
+      "ok": true
+    }
+  ],
+  "passed": 8
+}

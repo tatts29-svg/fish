@@ -1,0 +1,145 @@
+v8.09 interface tests · v8.09_coates_way_machine_DRAFT/work · desktop 1440×900 @1
+PASS  no sideways scroll on the page  — 1440 wide on 1440
+PASS  the whole dock is on the first screen  — dock 732–813 of 900
+PASS  nothing is open at rest
+PASS  dock words a readable size on this screen  — Start V8 at 14.0 px
+PASS  quiet status: "Ready to run" still read by a screen reader (visually hidden, not display:none)  — {"quiet":true,"text":"Ready to run","display":"block","visibility":"visible","w":1,"h":1}
+  survey: 1118 points · 231 on garage exhibits (4 different) · 350 on parts · 537 on nothing
+PASS  tap 1 at 324,134 (exhibit: The dyno console): at most one card or dialog open  — 1 open (exhibit)
+PASS  tap 1 at 324,134 (exhibit: The dyno console): ✕ is 44 px or more  — 44×44
+PASS  tap 1 at 324,134 (exhibit: The dyno console): ✕ inside the screen  — [670,211]
+PASS  tap 1 at 324,134 (exhibit: The dyno console): ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  tap 1 at 324,134 (exhibit: The dyno console): card clear of the dock  — card 196–493, dock from 732
+PASS  tap 1 at 324,134 (exhibit: The dyno console): card clear of the view tabs
+PASS  tap 1 at 324,134 (exhibit: The dyno console): card inside the screen  — [335,196,725,493]
+PASS  tap 1 at 324,134 (exhibit: The dyno console): card not over the centre of the scene
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): at most one card or dialog open  — 1 open (exhibit)
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): ✕ is 44 px or more  — 44×44
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): ✕ inside the screen  — [670,211]
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): card clear of the dock  — card 196–493, dock from 732
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): card clear of the view tabs
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): card inside the screen  — [335,196,725,493]
+PASS  tap 2 at 1020,134 (exhibit: The overhead crane): card not over the centre of the scene
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): at most one card or dialog open  — 1 open (exhibit)
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): ✕ is 44 px or more  — 44×44
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): ✕ inside the screen  — [670,211]
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): card clear of the dock  — card 196–514, dock from 732
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): card clear of the view tabs
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): card inside the screen  — [335,196,725,514]
+PASS  tap 3 at 1356,446 (exhibit: The tie-downs): card not over the centre of the scene
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): at most one card or dialog open  — 1 open (exhibit)
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): ✕ is 44 px or more  — 44×44
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): ✕ inside the screen  — [670,211]
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): card clear of the dock  — card 196–535, dock from 732
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): card clear of the view tabs
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): card inside the screen  — [335,196,725,535]
+PASS  tap 4 at 972,518 (exhibit: The chassis dyno): card not over the centre of the scene
+PASS  tap 5 at 780,302 (part: Original GC500 cockpit and safety cage): at most one card or dialog open  — 0 open (none)
+PASS  tap 6 at 948,302 (part: GC500 roof, pillars and windscreens): at most one card or dialog open  — 0 open (none)
+PASS  six taps on the scene: never more than one card  — most open at once: 1
+PASS  a tap on a garage exhibit opens its card  — The dyno console
+PASS  closes with ✕
+PASS  closes with Escape
+PASS  closes with a tap on empty scene (none)
+PASS  starting the tour closes the card (the tour card takes its place)  — tour-panel
+PASS  tour card: at most one card or dialog open  — 1 open (tour-panel)
+PASS  tour card: ✕ is 44 px or more  — 44×44
+PASS  tour card: ✕ inside the screen  — [670,211]
+PASS  tour card: ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  tour card: card clear of the dock  — card 196–456, dock from 732
+PASS  tour card: card clear of the view tabs
+PASS  tour card: card inside the screen  — [335,196,725,456]
+PASS  tour card: card not over the centre of the scene
+PASS  starting the tour moves focus to its title  — tour-title
+PASS  Escape ends the tour
+PASS  ending the tour puts focus back on Guided tour  — tour
+PASS  switching view closes the card
+PASS  a drag (orbit) starting on an exhibit opens nothing
+PASS  a drag that comes back to where it began opens nothing
+PASS  a long press (0.9 s) opens nothing
+PASS  a quick tap on an exhibit (after all that) does open it  — The dyno console
+PASS  pressing and scrolling the card keeps it open
+PASS  the card stays until it is closed (no timer)
+PASS  Controls ?: at most one card or dialog open  — 1 open (exhibit)
+PASS  Controls ?: ✕ is 44 px or more  — 44×44
+PASS  Controls ?: ✕ inside the screen  — [670,211]
+PASS  Controls ?: ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  Controls ?: card clear of the dock  — card 196–722, dock from 732
+PASS  Controls ?: card clear of the view tabs
+PASS  Controls ?: card inside the screen  — [335,196,725,722]
+PASS  Controls ?: card not over the centre of the scene
+PASS  Controls ? opens in the card  — Explore the car
+PASS  opening a card moves focus to its title (a dialog named by that title)  — {"focus":"exhibit-name","role":"dialog","named":"exhibit-name","tab":"-1"}
+PASS  Controls ? scrolled to the end: at most one card or dialog open  — 1 open (exhibit)
+PASS  Controls ? scrolled to the end: ✕ is 44 px or more  — 44×44
+PASS  Controls ? scrolled to the end: ✕ inside the screen  — [670,211]
+PASS  Controls ? scrolled to the end: ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  Controls ? scrolled to the end: card clear of the dock  — card 196–722, dock from 732
+PASS  Controls ? scrolled to the end: card clear of the view tabs
+PASS  Controls ? scrolled to the end: card inside the screen  — [335,196,725,722]
+PASS  Controls ? scrolled to the end: card not over the centre of the scene
+PASS  a long card scrolls inside itself, its ✕ stays put in the header  — {"scrolls":true,"top":1049}
+PASS  Original cog: at most one card or dialog open  — 1 open (exhibit)
+PASS  Original cog: ✕ is 44 px or more  — 44×44
+PASS  Original cog: ✕ inside the screen  — [670,211]
+PASS  Original cog: ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  Original cog: card clear of the dock  — card 196–714, dock from 732
+PASS  Original cog: card clear of the view tabs
+PASS  Original cog: card inside the screen  — [335,196,725,714]
+PASS  Original cog: card not over the centre of the scene
+PASS  Original cog replaces it (still one card)  — The original Coates Way
+PASS  closing the card puts focus back on what opened it (Original cog)  — {"focus":"original","role":"dialog","named":"exhibit-name","tab":"-1"}
+PASS  Read more: at most one card or dialog open  — 1 open (exhibit)
+PASS  Read more: ✕ is 44 px or more  — 44×44
+PASS  Read more: ✕ inside the screen  — [670,211]
+PASS  Read more: ✕ not covered (elementFromPoint at its centre is the ✕)
+PASS  Read more: card clear of the dock  — card 196–722, dock from 732
+PASS  Read more: card clear of the view tabs
+PASS  Read more: card inside the screen  — [335,196,725,722]
+PASS  Read more: card not over the centre of the scene
+PASS  Read more opens in the card  — Performance pillars
+PASS  Find a part opens the register, nothing else
+PASS  register ✕ is 44 px or more  — 44×44
+PASS  Find a part during the guided tour: the register is the only thing open (the tour ends)  — register
+PASS  …and closing the register leaves nothing open (the tour does not come back)  — none
+PASS  Guided tour and the part-details toggle have explicit names  — {"tour":"Guided tour","inspect":"Toggle selected part details","controls":"inspect-content"}
+PASS  a toast shows for a gear change
+PASS  the toast covers no control
+PASS  the toast is inside the screen  — [726,959]
+PASS  a toast with a card open covers neither  — {"toast":[204,250],"card":[196,722]}
+PASS  tab: engine
+PASS  tab: cog
+PASS  tab: car
+PASS  Guided tour starts
+PASS  tour: Next
+PASS  tour: End tour
+PASS  Sound answers  — Sound off → Sound on
+PASS  Full screen answers  — entered
+PASS  Find a part: search  — 12 physical components
+PASS  Find a part: picking a row selects it and closes the register  — Piston 2 crown, skirt & rings
+PASS  part list (rings) selects
+PASS  Start V8
+PASS  throttle
+PASS  brake
+PASS  steer  — 60°
+PASS  Stop V8
+PASS  gears up and down  — N → 1 → N
+PASS  Explode powertrain answers (the driver gets out first)  — "exiting"
+PASS  Reset
+PASS  Service: first step  — isolated
+PASS  cutaway toggles
+PASS  slow motion
+PASS  power path
+PASS  camera: zoom-in
+PASS  camera: zoom-out
+PASS  camera: home
+PASS  Quality cycles (and comes round again)  — Quality: Laptop → Quality: Balanced → Quality: High → Quality: Ultra → Quality: Laptop
+PASS  4K capture saves a picture  — Coates_V8_Connected_4K.png
+PASS  Original cog
+PASS  Controls
+PASS  no page errors
+
+141/141 passed · v8.09_coates_way_machine_DRAFT/work · desktop

@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 6,
+  "actual_public_page": true,
+  "checks": [
+    {
+      "name": "actual public page contains the released scene",
+      "ok": true
+    },
+    {
+      "name": "public fifth-lap scene renders with both wordmarks",
+      "ok": true
+    },
+    {
+      "name": "loaded fencing truck and clarity remain present",
+      "ok": true
+    },
+    {
+      "name": "public scene closes cleanly",
+      "ok": true
+    },
+    {
+      "name": "shared record unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors and attempted writes",
+      "ok": true
+    }
+  ]
+}

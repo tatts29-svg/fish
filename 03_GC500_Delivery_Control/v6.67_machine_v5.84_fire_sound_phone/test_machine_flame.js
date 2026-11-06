@@ -1,0 +1,13 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+  const page = await (await browser.newContext({viewport: {width: 1280, height: 800}})).newPage(); const logs = [];
+  page.on('pageerror', e => logs.push(String(e).slice(0, 200)));
+  await page.goto(process.argv[2], {waitUntil: 'load', timeout: 180000});
+  await page.waitForFunction(() => window.__cw && window.__cw.ready, null, {timeout: 400000, polling: 2000});
+  await page.evaluate(() => { const b = [...document.querySelectorAll('[data-view]')].find(x => x.dataset.view === 'engine'); b && b.click(); }); await page.waitForTimeout(4000);
+  await page.click('#start'); await page.evaluate(() => __cw.advance(3, 1 / 30, () => __cw.drive.running));
+  await page.evaluate(() => { const t = document.querySelector('#throttle'); t.value = 100; t.dispatchEvent(new Event('input', {bubbles: true})); __cw.advance(14, 1 / 30); });
+  await page.evaluate(() => { __cw.exhaust.pop(1.4, 30); window.__dbg = null; });
+  await page.waitForTimeout(300); await page.screenshot({path: 'machine_qa/v584_flame_close.png', timeout: 180000});
+  console.log(JSON.stringify(await page.evaluate(() => ({dbg: window.__dbg, cam: __cw.camera.position.toArray().map(v => +v.toFixed(2)), flaming: __cw.exhaust.flaming, heat: +__cw.exhaust.heat.toFixed(2)}))), logs);
+  await browser.close(); })();

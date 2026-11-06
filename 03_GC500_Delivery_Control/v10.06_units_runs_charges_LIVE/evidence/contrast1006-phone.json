@@ -1,0 +1,147 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T08:15:47.713Z",
+  "checks": [
+    {
+      "name": "light WC72 has actual drawer and cost fields",
+      "pass": true
+    },
+    {
+      "name": "light WC72 text contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "light WC72 placeholders contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "light P25 has actual drawer and cost fields",
+      "pass": true
+    },
+    {
+      "name": "light P25 text contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "light P25 placeholders contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "dark WC72 has actual drawer and cost fields",
+      "pass": true
+    },
+    {
+      "name": "dark WC72 text contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "dark WC72 placeholders contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "dark P25 has actual drawer and cost fields",
+      "pass": true
+    },
+    {
+      "name": "dark P25 text contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "dark P25 placeholders contrast at least 4.5:1",
+      "pass": true
+    },
+    {
+      "name": "Acknowledged recorded changes say saved",
+      "pass": true
+    },
+    {
+      "name": "Queued change is not called saved",
+      "pass": true
+    },
+    {
+      "name": "Existing badge updates without replacing input",
+      "pass": true
+    },
+    {
+      "name": "One save badge, no duplicate panel",
+      "pass": true
+    },
+    {
+      "name": "In-flight write is not called saved",
+      "pass": true
+    },
+    {
+      "name": "Offline pending change is waiting to sync",
+      "pass": true
+    },
+    {
+      "name": "Local persistence failure says not saved",
+      "pass": true
+    },
+    {
+      "name": "Partial hydration is not called saved",
+      "pass": true
+    },
+    {
+      "name": "No acknowledgement timestamp is not called saved",
+      "pass": true
+    },
+    {
+      "name": "Read-only link says view only",
+      "pass": true
+    },
+    {
+      "name": "Local copy is not called shared-saved",
+      "pass": true
+    },
+    {
+      "name": "Native operational data unchanged",
+      "pass": true
+    },
+    {
+      "name": "Focused supplied field remains readable",
+      "pass": true
+    },
+    {
+      "name": "No page errors or attempted operational writes",
+      "pass": true
+    }
+  ],
+  "readings": [
+    {
+      "scheme": "light",
+      "ref": "WC72",
+      "count": 13,
+      "minContrast": 17.82471053894714
+    },
+    {
+      "scheme": "light",
+      "ref": "P25",
+      "count": 13,
+      "minContrast": 17.82471053894714
+    },
+    {
+      "scheme": "dark",
+      "ref": "WC72",
+      "count": 13,
+      "minContrast": 15.848798484588857
+    },
+    {
+      "scheme": "dark",
+      "ref": "P25",
+      "count": 13,
+      "minContrast": 15.848798484588857
+    }
+  ],
+  "focused": {
+    "background": "rgb(26, 22, 20)",
+    "color": "rgb(238, 241, 244)",
+    "contrast": 15.848798484588857
+  },
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 69,
+    "blocked": 0
+  }
+}

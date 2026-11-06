@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 09:0x AEST: \"1189412 leaving at 930am\", then 09:1x AEST: \"P56 left  p41  po8 left  9am\". P41 (Coates 1189412, building 4.8-6 m, contract 9968862 L63, KINP; its only unit, Ready 27 Oct) and P08 (Coates 421138, contract 9968862 L126/L128, KINP; its only unit, Ready 30 Oct; pick-up booked by Brenden Meek for 3 Nov 08:30) left site at 09:00 on 3 Nov: each leaves in full, through the page's own Record departure form in his name. P56 is not in this run: it is on the record as left 30 Oct 11:15 (run 86, on Andrew's word that day). Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P41",
+   "at": "2026-11-03T09:00:00+10:00",
+   "nos": [
+    "1189412"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "P08",
+   "at": "2026-11-03T09:00:00+10:00",
+   "nos": [
+    "421138"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

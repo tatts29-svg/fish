@@ -1,0 +1,20 @@
+{
+ "at": "2026-10-22T07:54:08.585Z",
+ "mode": "test",
+ "status": "TEST tracker saved and read back. Complete the rehearsal checks before creating the event tracker.",
+ "contact": "Andrew Fisher, site PM, 0429 352 788 · Kyle, nightshift supervisor",
+ "dialogs": [
+  "Create the TEST practice tracker with this confirmed contact and reference list?"
+ ],
+ "cards": 1,
+ "blocked": [
+  "POST /v1/createSession"
+ ],
+ "errors": [],
+ "view": {
+  "title": "TEST GC500 Servicing",
+  "bars": "Everything · Thursday 22 0% 0 of 75 references · 0 of 510 jobs 510 jobs to go · 75 references left 0% Water checked · 0 of 242 · refilled 0 (FWF 0, accessible 0) not in the completion %",
+  "waters": 16,
+  "small": 15
+ }
+}

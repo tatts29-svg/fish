@@ -1,0 +1,21 @@
+/* Author: Andrew Fisher. Shared day roster, matching the existing operational panels. */
+.staff988{margin:14px 0;padding:18px!important;min-width:0}
+.staff988-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.staff988-heading h3{margin:0 0 4px;font-size:16px}
+.staff988-heading span{font-size:12px;color:var(--mute,#536c75)}
+.staff988-heading strong{font-size:20px;white-space:nowrap}
+.staff988-names{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px 18px}
+.staff988-names li{font-size:14px;padding:8px 0;border-top:1px solid var(--rule,#d8dfe1);overflow-wrap:anywhere}
+.staff988-unnamed,.staff988-empty{color:var(--mute,#536c75);font-size:13px}
+.staff988>details{margin-top:12px;padding-top:10px;border-top:1px solid var(--rule,#d8dfe1)}
+.staff988 summary{cursor:pointer;font-size:13px}
+.staff988-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:14px 0}
+.staff988-choices label{display:flex;align-items:center;gap:9px;min-height:40px;margin:0;cursor:pointer}
+.staff988-choices input{width:18px;height:18px;flex:0 0 18px;accent-color:#ff883b}
+.staff988-extra{display:flex;align-items:center;gap:12px;font-size:13px;margin:12px 0}
+.staff988-extra input{width:80px}
+.staff988-other textarea{display:block;width:100%;margin:8px 0;box-sizing:border-box}
+.staff988-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.staff988 [data-staff988-result]:empty{display:none}
+.staff988 [data-staff988-result]{font-size:13px;margin:10px 0 0}
+@media(max-width:600px){.staff988{padding:14px!important}.staff988-heading strong{font-size:17px}.staff988-names{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}.staff988-names li{font-size:12px}.staff988-choices{grid-template-columns:1fr}.staff988-extra{flex-wrap:wrap}}

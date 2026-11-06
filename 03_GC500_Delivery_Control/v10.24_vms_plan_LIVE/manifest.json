@@ -1,0 +1,11 @@
+[
+  {
+    "file": "pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "title": "VMS plan pack · 28 board sheets · 2026-10-15 · Issued",
+    "note": "One A4 sheet per VMS position on iEDM's VMS001-26003-01 plan (construction and event, the relocations, the five end-of-session boards, VMS 20's two messages): pin, four satellite views (exact spot, close-up, the area, the way in), the plan's map crop and photo, QR navigation, board, asset number, number plate, notes; issued by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the live sheets are on the page's VMS boards tab",
+    "kind": "pack",
+    "day": "2026-10-15",
+    "crew": "vms",
+    "replaces": []
+  }
+]

@@ -1,0 +1,153 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261022T015100Z",
+ "finished": "2026-10-22T01:51:22.290Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026: \"P60. P62 p63 can we remove steps these dont have steps\" (applied to the drawer's Steps tick at 09:03, record 10491 -> 10494), and \"we charge for the works we do we cant charge for things that have not been done\". The Costs tab's labour tick for Steps on the same three buildings was still on, so the page still priced steps for them at $156.15 each. These three labour ticks come off through the page's own labour control, as an editor unticking them on the Costs tab. Nothing else changes.",
+  "ops": [
+   {
+    "op": "labour_off",
+    "ref": "P60",
+    "disc": "Portable buildings",
+    "item": "Ticket Box 4.8m",
+    "line": "steps"
+   },
+   {
+    "op": "labour_off",
+    "ref": "P62",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "steps"
+   },
+   {
+    "op": "labour_off",
+    "ref": "P63",
+    "disc": "Portable buildings",
+    "item": "Building 6m",
+    "line": "steps"
+   }
+  ],
+  "allowRemove": [
+   "labour/P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps",
+   "labour/P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "labour/P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps"
+  ],
+  "allowRemoveWhy": "a labour tick taken off is a document removed, exactly as the Costs tab does when an editor unticks it; these three are the steps ticks Andrew asked to remove"
+ },
+ "pageSha256": "8a19fcce4625eb204c2d5628bc5a885c2a4e799f11e8235ffa0b7c90cc1102ae",
+ "version": {
+  "before": 10499,
+  "after": 10505
+ },
+ "updated": {
+  "before": "2026-10-22T01:08:31.903Z",
+  "after": "2026-10-22T01:51:21.516Z"
+ },
+ "stage": [
+  {
+   "op": "labour_off",
+   "ref": "P60",
+   "disc": "Portable buildings",
+   "item": "Ticket Box 4.8m",
+   "line": "steps",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "P62",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps",
+   "result": "taken off"
+  },
+  {
+   "op": "labour_off",
+   "ref": "P63",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps",
+   "result": "taken off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps",
+   "status": 200
+  },
+  {
+   "key": "labour/P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/P62|Portable buildings|Building 6m|steps",
+    "v": "2026-10-14T22:42:47.250Z"
+   },
+   "stamps/labour~2f~P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps": {
+    "_k": "labour/P60|Portable buildings|Ticket Box 4.8m|steps",
+    "v": "2026-10-16T03:44:08.476Z"
+   },
+   "stamps/labour~2f~P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/P63|Portable buildings|Building 6m|steps",
+    "v": "2026-10-16T03:44:09.810Z"
+   },
+   "labour/P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "P62|Portable buildings|Building 6m|steps",
+    "v": true
+   },
+   "labour/P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps": {
+    "_k": "P60|Portable buildings|Ticket Box 4.8m|steps",
+    "v": true
+   },
+   "labour/P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "P63|Portable buildings|Building 6m|steps",
+    "v": true
+   }
+  },
+  "after": {
+   "stamps/labour~2f~P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/P62|Portable buildings|Building 6m|steps",
+    "v": "2026-10-22T01:51:09.252Z"
+   },
+   "stamps/labour~2f~P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps": {
+    "_k": "labour/P60|Portable buildings|Ticket Box 4.8m|steps",
+    "v": "2026-10-22T01:51:08.400Z"
+   },
+   "stamps/labour~2f~P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": {
+    "_k": "labour/P63|Portable buildings|Building 6m|steps",
+    "v": "2026-10-22T01:51:09.973Z"
+   },
+   "labour/P62~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": null,
+   "labour/P60~7c~Portable~20~buildings~7c~Ticket~20~Box~20~4.8m~7c~steps": null,
+   "labour/P63~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

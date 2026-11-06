@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed": "2026-10-12",
+  "basis": "Original9October native-operation code and success results; current12October read-only snapshot",
+  "findings": [
+    {
+      "reference": "WC40",
+      "movedNumbers": [
+        "0152",
+        "0078",
+        "0010",
+        "0070",
+        "0958"
+      ],
+      "destination": "WC69",
+      "additionalNumberAtDestination": "0647",
+      "operation": "unitRemove then subhireUnmark at WC40; unitAdd at WC69",
+      "arrivalChanged": false,
+      "quantityChanged": false,
+      "cancellationCreated": false
+    },
+    {
+      "reference": "WC40",
+      "currentScheduledFWF": 5,
+      "currentDeliveryDate": "2026-10-13",
+      "dateBasis": "Explicit9October rollover record"
+    }
+  ],
+  "conclusion": "The six transferred/added identities do not establish a six-unit demand reduction. No evidence links the unallocated6 balance of confirmed194 to a cancelled WC40 requirement. Confirmed scope retained unchanged; balance remains unallocated."
+}

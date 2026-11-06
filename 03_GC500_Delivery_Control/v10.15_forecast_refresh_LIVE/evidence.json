@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67",
+  "checks": {
+    "exact_source_guard": 9,
+    "delayed_evidence_and_deferred_redraw": 15,
+    "persisted_native_correction": 23,
+    "independent_fresh_native": 21
+  },
+  "sweeps": {
+    "v1015-desktop": {
+      "routes": 22,
+      "links": 7,
+      "errors": 0,
+      "navigation_errors": 0,
+      "unexpected_console": 0,
+      "blocked_map_console": 1,
+      "rejected_non_get": {
+        "blocked": 1,
+        "unexpected": 0
+      },
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pass": true
+    },
+    "v1015-phone": {
+      "routes": 22,
+      "links": 7,
+      "errors": 0,
+      "navigation_errors": 0,
+      "unexpected_console": 0,
+      "blocked_map_console": 1,
+      "rejected_non_get": {
+        "blocked": 1,
+        "unexpected": 0
+      },
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pass": true
+    }
+  },
+  "phone_visual": "Settled supplier P/O card inspected",
+  "upload_dry_run": "Passed; no upload",
+  "independent_review": "Scoped source and fresh-native verification; external assistants have not reviewed",
+  "live": {
+    "aest": "14 Oct 2026 15:14",
+    "public_sha256": "bc7885b1bed08bafd75353ec3666ca9a4c52a59d17ad3bb0eb5896f011586f67",
+    "bytes": 15220215,
+    "native_version": 6075,
+    "fresh_native_checks": 24,
+    "fresh_public_ui_and_source_checks": 18,
+    "application_errors": 0,
+    "operational_writes": 0,
+    "page_substitution": 0
+  }
+}

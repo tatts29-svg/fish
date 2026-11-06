@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b",
+  "candidateSha256": "0ed900c790e1cf21686d4b24566d0919e920032c25e66da205fbe4c68494468b",
+  "bytes": 14912834,
+  "inlineScripts": 90,
+  "reproducesExactly": true,
+  "refusesWrongAndRepeatBase": true,
+  "unchanged": [
+    "DATA",
+    "MASTER_LOC"
+  ]
+}

@@ -1,0 +1,291 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261023T060042Z",
+ "finished": "2026-10-23T06:01:02.951Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 23 Oct 2026, on the forecast's \"3 labour records missing hours (Kyle Gover)\": \"You should know this\". Kyle Gover's three shift records without times take his own recorded pattern: the build weekdays 20 and 21 Oct as his other build weekdays (06:30-17:00, as 22 Oct and every September day), the event night of 25 Oct as the two event nights already typed by Andrew on 15 Oct (23 Oct 18:06-06:00, 24 Oct 18:00-06:00): 18:00-06:00. Through the running sheet's own control (runSetShift). Nothing else changes.",
+  "ops": [
+   {
+    "op": "shift_times",
+    "person": "Kyle Gover",
+    "date": "2026-10-20",
+    "start": "06:30",
+    "finish": "17:00",
+    "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)"
+   },
+   {
+    "op": "shift_times",
+    "person": "Kyle Gover",
+    "date": "2026-10-21",
+    "start": "06:30",
+    "finish": "17:00",
+    "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)"
+   },
+   {
+    "op": "shift_times",
+    "person": "Kyle Gover",
+    "date": "2026-10-25",
+    "start": "18:00",
+    "finish": "06:00",
+    "why": "the event night as typed for 24 Oct (18:00-06:00) and 23 Oct (18:06-06:00)"
+   }
+  ]
+ },
+ "pageSha256": "50ae2d0ff89b57cf83ed3f896adecb2d6b66d4f3760a3e78d232201d6e9786a7",
+ "version": {
+  "before": 10566,
+  "after": 10575
+ },
+ "updated": {
+  "before": "2026-10-23T04:48:50.948Z",
+  "after": "2026-10-23T06:01:02.166Z"
+ },
+ "stage": [
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-20",
+   "start": "06:30",
+   "finish": "17:00",
+   "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)",
+   "result": "set 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261020"
+  },
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-21",
+   "start": "06:30",
+   "finish": "17:00",
+   "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)",
+   "result": "set 06:30-17:00 (10.5 h)",
+   "id": "W-L-kyle-gover-20261021"
+  },
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-25",
+   "start": "18:00",
+   "finish": "06:00",
+   "why": "the event night as typed for 24 Oct (18:00-06:00) and 23 Oct (18:06-06:00)",
+   "result": "set 18:00-06:00 (12 h)",
+   "id": "W-L-kyle-gover-20261025"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261021",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261025",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-kyle-gover-20261020",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261020",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261025",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-kyle-gover-20261021",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261021",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261025",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261020",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20261021": {
+    "_k": "ourcost/W-L-kyle-gover-20261021",
+    "v": "2026-10-13T08:53:10.025Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261025": {
+    "_k": "ourcost/W-L-kyle-gover-20261025",
+    "v": "2026-10-13T08:53:10.040Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261020": {
+    "_k": "ourcost/W-L-kyle-gover-20261020",
+    "v": "2026-10-13T08:53:10.020Z"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261020": {
+    "_k": "ourcost/W-L-kyle-gover-20261020",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261025": {
+    "_k": "ourcost/W-L-kyle-gover-20261025",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261021": {
+    "_k": "ourcost/W-L-kyle-gover-20261021",
+    "v": "Andrew Fisher via Codex"
+   },
+   "costs/W-L-kyle-gover-20261021": {
+    "id": "W-L-kyle-gover-20261021",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-21",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": null,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.025Z",
+    "at": "2026-10-13T08:53:10.025Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-13T08:53:10.025Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "_k": "W-L-kyle-gover-20261021"
+   },
+   "costs/W-L-kyle-gover-20261025": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20261025",
+    "person": "Kyle Gover",
+    "date": "2026-10-25",
+    "start": null,
+    "finish": null,
+    "break_min": null,
+    "hours": null,
+    "note": "Night shift confirmed by Andrew Fisher, 13 Oct 2026. Start, finish and paid hours have not been supplied.",
+    "updated_at": "2026-10-13T08:53:10.040Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "_k": "W-L-kyle-gover-20261025"
+   },
+   "costs/W-L-kyle-gover-20261020": {
+    "id": "W-L-kyle-gover-20261020",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-20",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": null,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.020Z",
+    "at": "2026-10-13T08:53:10.020Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-13T08:53:10.020Z",
+    "updated_by": "Andrew Fisher via Codex",
+    "_k": "W-L-kyle-gover-20261020"
+   }
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-kyle-gover-20261021": {
+    "_k": "ourcost/W-L-kyle-gover-20261021",
+    "v": "2026-10-23T06:00:50.052Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261025": {
+    "_k": "ourcost/W-L-kyle-gover-20261025",
+    "v": "2026-10-23T06:00:50.781Z"
+   },
+   "stamps/ourcost~2f~W-L-kyle-gover-20261020": {
+    "_k": "ourcost/W-L-kyle-gover-20261020",
+    "v": "2026-10-23T06:00:49.193Z"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261020": {
+    "_k": "ourcost/W-L-kyle-gover-20261020",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261025": {
+    "_k": "ourcost/W-L-kyle-gover-20261025",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-kyle-gover-20261021": {
+    "_k": "ourcost/W-L-kyle-gover-20261021",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-kyle-gover-20261021": {
+    "id": "W-L-kyle-gover-20261021",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-21",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.025Z",
+    "at": "2026-10-13T08:53:10.025Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-23T06:00:50.052Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261021"
+   },
+   "costs/W-L-kyle-gover-20261025": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-kyle-gover-20261025",
+    "person": "Kyle Gover",
+    "date": "2026-10-25",
+    "start": "18:00",
+    "finish": "06:00",
+    "break_min": null,
+    "hours": 12,
+    "note": "Night shift confirmed by Andrew Fisher, 13 Oct 2026. Start, finish and paid hours have not been supplied.",
+    "updated_at": "2026-10-23T06:00:50.781Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261025"
+   },
+   "costs/W-L-kyle-gover-20261020": {
+    "id": "W-L-kyle-gover-20261020",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-20",
+    "note": "Returned 12 Oct 2026; available for the remaining build weekdays. Confirmed by Andrew Fisher, 13 Oct 2026.",
+    "hours": 10.5,
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-13T08:53:10.020Z",
+    "at": "2026-10-13T08:53:10.020Z",
+    "by": "Andrew Fisher via Codex",
+    "updated_at": "2026-10-23T06:00:49.193Z",
+    "updated_by": "Andrew Fisher",
+    "start": "06:30",
+    "finish": "17:00",
+    "_k": "W-L-kyle-gover-20261020"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

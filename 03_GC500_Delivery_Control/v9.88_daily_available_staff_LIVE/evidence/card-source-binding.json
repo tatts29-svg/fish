@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "baseSha256": "c75e490a51474628d0c2e7c12267cc1bce30cc3a045e365cc85951ef63bb6357",
+  "finalSha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "onlyChangedFunction": "mountToday",
+  "cardSuiteUnchanged": true,
+  "wholeBuildProgressUnchanged": true,
+  "loadReceiptsUnchanged": true,
+  "dailyWorkUnchanged": true,
+  "dailyStaffModelUnchanged": true,
+  "baseDesktopCardChecks": 148,
+  "basePhoneCardChecks": 147,
+  "baseNativePhoneEntryChecks": 3,
+  "oldTodayMount": "function mountToday(){const pane=document.getElementById('pane-today');mount(pane,todayIso(),pane?.querySelector('.grid')||pane?.querySelector('.hubcard')||pane?.querySelector('.card'));}\n",
+  "newTodayMount": "function mountToday(){\n const pane=document.getElementById('pane-today');\n // Daily availability belongs in the main view, outside the folded programme.\n const before=pane?.querySelector(':scope > #where885')||pane?.querySelector(':scope > #gc500-work-board840')||pane?.querySelector(':scope > .hub');\n mount(pane,todayIso(),before);\n}\n",
+  "scriptElements": 75
+}

@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "lighting1305",
+  "passed": true,
+  "checks": 33,
+  "additionalLights": 0,
+  "additionalShadowCasters": 0,
+  "additionalRenderPasses": 0,
+  "physicalDevicePerformanceMeasured": false
+}

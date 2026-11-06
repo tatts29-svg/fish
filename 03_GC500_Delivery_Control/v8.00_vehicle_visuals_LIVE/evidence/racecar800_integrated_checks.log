@@ -1,0 +1,100 @@
+{
+  "passed": 32,
+  "sourceSha256": "90ff54453c4ba4e3176d3223b5d13cdd0d6f05374a917f791ee1d19361886931",
+  "metrics": {
+    "balanced": {
+      "original": {
+        "triangles": 82722,
+        "vertices": 61710,
+        "parts": 31,
+        "quality": "balanced",
+        "kind": "original parametric race coupe"
+      },
+      "current": {
+        "triangles": 81102,
+        "vertices": 61452,
+        "parts": 31,
+        "quality": "balanced",
+        "kind": "original parametric race coupe",
+        "visual800": {
+          "version": "v8.00",
+          "coherentSurfaceWinding": true,
+          "derivativeSurfaceNormals": true,
+          "projectorAssemblies": 4,
+          "segmentedRearLenses": 4,
+          "loftedForgedSpokes": 40,
+          "roundedWheelCarcasses": 4,
+          "closedWingSection": true,
+          "originalEnvelope": true,
+          "originalWheelPivots": true,
+          "perFrameGeometryWork": 0
+        }
+      },
+      "originalBytes": 2967384,
+      "currentBytes": 2939688,
+      "bounds": {
+        "min": [
+          -1.086,
+          0,
+          -0.46399999999999997
+        ],
+        "max": [
+          1.083,
+          0.5834307748951706,
+          0.46399999999999997
+        ]
+      },
+      "opposedNormalsBefore": 180,
+      "opposedNormalsAfter": 0,
+      "combinedOriginalAndNewBuildMs": 2180.99,
+      "geometrySha256": "db8432a9220ea07e6e5d8b203c33ea142c11d9e329f205d4f33d2912f1244280"
+    },
+    "high": {
+      "original": {
+        "triangles": 174446,
+        "vertices": 112070,
+        "parts": 31,
+        "quality": "high",
+        "kind": "original parametric race coupe"
+      },
+      "current": {
+        "triangles": 146246,
+        "vertices": 97312,
+        "parts": 31,
+        "quality": "high",
+        "kind": "original parametric race coupe",
+        "visual800": {
+          "version": "v8.00",
+          "coherentSurfaceWinding": true,
+          "derivativeSurfaceNormals": true,
+          "projectorAssemblies": 4,
+          "segmentedRearLenses": 4,
+          "loftedForgedSpokes": 40,
+          "roundedWheelCarcasses": 4,
+          "closedWingSection": true,
+          "originalEnvelope": true,
+          "originalWheelPivots": true,
+          "perFrameGeometryWork": 0
+        }
+      },
+      "originalBytes": 5679592,
+      "currentBytes": 4868936,
+      "bounds": {
+        "min": [
+          -1.086,
+          0,
+          -0.46399999999999997
+        ],
+        "max": [
+          1.083,
+          0.5834307748951706,
+          0.46399999999999997
+        ]
+      },
+      "opposedNormalsBefore": 210,
+      "opposedNormalsAfter": 0,
+      "combinedOriginalAndNewBuildMs": 3040.77,
+      "geometrySha256": "f68b28d704f52a1f2d13e702b47048d74059e9c09989bd5eb599fd8682a736fe"
+    }
+  }
+}

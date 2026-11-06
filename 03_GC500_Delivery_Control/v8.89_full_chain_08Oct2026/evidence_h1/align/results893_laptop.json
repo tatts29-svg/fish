@@ -1,0 +1,2066 @@
+{
+ "results": [
+  {
+   "name": "D001 picture is the v8.93 render of the aligned scene (2600 x 1837) and the v8.89 / 17 Sep pictures left the media list",
+   "pass": true,
+   "detail": {
+    "sheet": true,
+    "px": [
+     2600,
+     1837
+    ],
+    "url": "bc9c1dd15df65fb3a718070a0.webp"
+   }
+  },
+  {
+   "name": "CP1, T0265 and WC81 are back on their 17 Sep positions (the inset did not move on the paper)",
+   "pass": true,
+   "detail": {
+    "CP1": {
+     "pt": [
+      0.90642,
+      0.76348
+     ],
+     "back": true
+    },
+    "WC81": {
+     "pt": [
+      0.90659,
+      0.74246
+     ],
+     "back": true
+    },
+    "T0265": {
+     "pt": [
+      0.89304,
+      0.85273
+     ],
+     "back": true
+    }
+   }
+  },
+  {
+   "name": "every pin picture is in the media list; close-ups 771 x 491 and context pictures 937 x 613 load",
+   "pass": true,
+   "detail": {
+    "thumbs": {
+     "P45": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "WC81": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "CP1": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "WC51": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "P60": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ]
+    },
+    "served": 11
+   }
+  },
+  {
+   "name": "navigation pins as v8.89 set them: P45, WC51, WC38, WC39 and WC10 on the 2 Oct master, every other pin as live (masterFixFor = ll)",
+   "pass": false,
+   "detail": {
+    "P45": {
+     "ll": [
+      -27.988119,
+      153.4300493
+     ],
+     "fix": [
+      -27.988119,
+      153.4300493
+     ]
+    },
+    "WC51": {
+     "ll": [
+      -27.9928571,
+      153.4304602
+     ],
+     "fix": [
+      -27.9928571,
+      153.4304602
+     ]
+    },
+    "WC38": {
+     "ll": [
+      -27.9835978,
+      153.4241101
+     ],
+     "fix": [
+      -27.9835978,
+      153.4241101
+     ]
+    },
+    "WC39": {
+     "ll": [
+      -27.9836022,
+      153.423968
+     ],
+     "fix": [
+      -27.9836022,
+      153.423968
+     ]
+    },
+    "WC10": {
+     "ll": [
+      -27.9845026,
+      153.4277044
+     ],
+     "fix": [
+      -27.9845026,
+      153.4277044
+     ]
+    },
+    "CP1": {
+     "ll": [
+      -27.99749,
+      153.428257
+     ],
+     "fix": [
+      -27.99749,
+      153.428257
+     ]
+    },
+    "WC81": {
+     "ll": [
+      -27.997491,
+      153.42851
+     ],
+     "fix": [
+      -27.997491,
+      153.42851
+     ]
+    },
+    "T0265": {
+     "ll": [
+      -27.99729,
+      153.427182
+     ],
+     "fix": null
+    },
+    "P60": {
+     "ll": [
+      -27.994054,
+      153.430612
+     ],
+     "fix": [
+      -27.994054,
+      153.430612
+     ]
+    },
+    "WC48": {
+     "ll": [
+      -27.993745,
+      153.430484
+     ],
+     "fix": [
+      -27.993745,
+      153.430484
+     ]
+    }
+   }
+  },
+  {
+   "name": "page-side fencing geometry still binds to the 17 Sep frame (37792f0a...)",
+   "pass": true,
+   "detail": {
+    "geometry": 127,
+    "masters": [
+     "37792f0a9d32"
+    ]
+   }
+  },
+  {
+   "name": "MASTER markers sit exactly where MASTER_LOC puts them (26 references read from the DOM)",
+   "pass": false,
+   "detail": {
+    "CP1": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC81": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 2491.26,
+     "off_m": 1757.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "T0265": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P60": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1880.98,
+     "off_m": 1327.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P62": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1862.06,
+     "off_m": 1313.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P63": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1853.64,
+     "off_m": 1307.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC48": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1845.77,
+     "off_m": 1302.4,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC49": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1860.96,
+     "off_m": 1313.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC51": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1966.92,
+     "off_m": 1387.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P45": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1250.66,
+     "off_m": 882.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC38": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1253.19,
+     "off_m": 884.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC39": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1271.66,
+     "off_m": 897.3,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC10": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 909.53,
+     "off_m": 641.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "AA": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1154.49,
+     "off_m": 814.6,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P10": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1134.69,
+     "off_m": 800.6,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P19": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1038.12,
+     "off_m": 732.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P39": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 941.58,
+     "off_m": 664.4,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P54": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1182.09,
+     "off_m": 834.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P66": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1752.42,
+     "off_m": 1236.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC09": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 911.37,
+     "off_m": 643.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC20": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1249.81,
+     "off_m": 881.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC30": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 701.55,
+     "off_m": 495,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC41": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1113.55,
+     "off_m": 785.7,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC50": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1505.22,
+     "off_m": 1062.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC61": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 680.54,
+     "off_m": 480.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC73": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1182.71,
+     "off_m": 834.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    }
+   }
+  },
+  {
+   "name": "every checked tag pin is on its 2 Oct tag (24 with a tag: the inset pins, the flagged set, the moved set and every 9th tag pin)",
+   "pass": false,
+   "detail": {
+    "WC81": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 2491.26,
+     "off_m": 1757.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P60": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1880.98,
+     "off_m": 1327.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P62": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1862.06,
+     "off_m": 1313.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P63": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1853.64,
+     "off_m": 1307.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC48": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1845.77,
+     "off_m": 1302.4,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC49": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1860.96,
+     "off_m": 1313.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC51": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1966.92,
+     "off_m": 1387.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P45": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1250.66,
+     "off_m": 882.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC38": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1253.19,
+     "off_m": 884.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC39": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1271.66,
+     "off_m": 897.3,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC10": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 909.53,
+     "off_m": 641.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "AA": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1154.49,
+     "off_m": 814.6,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P10": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1134.69,
+     "off_m": 800.6,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P19": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1038.12,
+     "off_m": 732.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P39": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 941.58,
+     "off_m": 664.4,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P54": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1182.09,
+     "off_m": 834.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P66": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1752.42,
+     "off_m": 1236.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC09": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 911.37,
+     "off_m": 643.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC20": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1249.81,
+     "off_m": 881.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC30": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 701.55,
+     "off_m": 495,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC41": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1113.55,
+     "off_m": 785.7,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC50": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1505.22,
+     "off_m": 1062.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC61": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 680.54,
+     "off_m": 480.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC73": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1182.71,
+     "off_m": 834.5,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    }
+   }
+  },
+  {
+   "name": "the inset cluster: WC81 on its tag, P68 tag beside it, CP1 (leader line from D022, no tag) and T0265 (OP42 label) back where the 17 Sep issue had them",
+   "pass": false,
+   "detail": {
+    "WC81": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 2491.26,
+     "off_m": 1757.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "CP1": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "matches_data": false,
+     "drawn": true
+    },
+    "T0265": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P68_from_WC81_pt": 2499.9
+   }
+  },
+  {
+   "name": "the first diff's flagged references (P60, P62, P63, WC48, WC49, WC51, WC81) each sit on their 2 Oct tag",
+   "pass": false,
+   "detail": {
+    "P60": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1880.98,
+     "off_m": 1327.2,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P62": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1862.06,
+     "off_m": 1313.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "P63": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1853.64,
+     "off_m": 1307.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC48": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1845.77,
+     "off_m": 1302.4,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC49": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 2,
+     "off_pt": 1860.96,
+     "off_m": 1313.1,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC51": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 1966.92,
+     "off_m": 1387.9,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    },
+    "WC81": {
+     "marker": [
+      0,
+      0
+     ],
+     "sheet_pt": [
+      0,
+      0
+     ],
+     "label_boxes": 1,
+     "off_pt": 2491.26,
+     "off_m": 1757.8,
+     "on_label": false,
+     "tag": true,
+     "matches_data": false,
+     "drawn": true
+    }
+   }
+  },
+  {
+   "name": "marker positions on screen agree with their data (bounding boxes against style, for the markers laid out)",
+   "pass": false,
+   "detail": {
+    "seen": 26,
+    "agree": 0
+   }
+  },
+  {
+   "name": "D001 sector labels sit on their 2 Oct text (20 sectors, all within 1 pt)",
+   "pass": false,
+   "detail": {
+    "S01": 1091.14,
+    "S02": 1157.62,
+    "S04": 1289.26,
+    "S05": 1464,
+    "S07": 1007.36,
+    "S08": 826.66,
+    "S10": 1092.81,
+    "S11": 1106.79,
+    "S12": 1116.45,
+    "S13": 1126.32,
+    "S14": 1151.27,
+    "S15": 1681.79,
+    "S18": 1526.01,
+    "S19": 1026.81,
+    "S20": 926.04,
+    "S21": 782.01,
+    "S22": 731.41,
+    "S22A": 705.9,
+    "S23": 1151.47,
+    "S25": 1103.8
+   }
+  },
+  {
+   "name": "D001 gate markers sit on their 2 Oct gate text (8 gates with text on the 2 Oct sheet)",
+   "pass": false,
+   "detail": {
+    "G1": 1234.99,
+    "G2": 1198.85,
+    "G3": 1442.69,
+    "G4": 1860.93,
+    "G6": 1774.36,
+    "G8": 650.24,
+    "G8a": 644.16,
+    "G9": 938.22
+   }
+  },
+  {
+   "name": "explorer scene is the 2 Oct issue in the 17 Sep frame with the v8.93 window clip; pyramid files carry the v8.93 token",
+   "pass": true,
+   "detail": {
+    "sha": "8753d875cf90",
+    "records": 301253,
+    "levels": 26,
+    "files": [
+     "Llow-84e7872ac157.bin",
+     "L-0.75-84e7872ac157.bin"
+    ]
+   }
+  },
+  {
+   "name": "tiles held in every explorer mode",
+   "pass": true,
+   "detail": {
+    "hybrid": {
+     "tiles": 8,
+     "mode": "hybrid"
+    },
+    "satellite": {
+     "tiles": 8,
+     "mode": "satellite"
+    },
+    "original": {
+     "tiles": 8,
+     "mode": "original"
+    }
+   }
+  },
+  {
+   "name": "plan_items.json (Plan on satellite in its own window) carries the v8.93 pins: inset trio at 17 Sep, WC10 placed, P45 at its 2 Oct place",
+   "pass": true,
+   "detail": {
+    "CP1": [
+     0.90642,
+     0.76348
+    ],
+    "WC81": [
+     0.90659,
+     0.74246
+    ],
+    "T0265": [
+     0.89304,
+     0.85273
+    ],
+    "WC10": [
+     0.26896,
+     0.38855
+    ],
+    "items": 161
+   }
+  },
+  {
+   "name": "explorer search lands on WC81 (inset), P45 and WC10 where the 2 Oct sheet prints them",
+   "pass": true,
+   "detail": {
+    "WC81": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      2161,
+      1250
+     ]
+    },
+    "P45": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      1210,
+      329
+     ]
+    },
+    "WC10": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      641,
+      654
+     ]
+    }
+   }
+  },
+  {
+   "name": "the page picture and the explorer render agree: best correlation at (0, 0) for the main plan and for the inset (within one sample, under 3 picture px)",
+   "pass": true,
+   "detail": {
+    "main": {
+     "best": {
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9530945952534909
+     },
+     "r0": 0.9530945952534909,
+     "shift_picture_px": [
+      0,
+      0
+     ],
+     "sample_px": 2.68,
+     "W": 480,
+     "H": 256
+    },
+    "inset": {
+     "best": {
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9958395028994576
+     },
+     "r0": 0.9958395028994576,
+     "shift_picture_px": [
+      0,
+      0
+     ],
+     "sample_px": 2.78,
+     "W": 480,
+     "H": 256
+    }
+   }
+  },
+  {
+   "name": "3D proof units: WC10 added from the 2 Oct drawing; P45, WC51, WC38, WC39 follow the 2 Oct master (v8.89 ll); CP1 unchanged",
+   "pass": true,
+   "detail": {
+    "n": 261,
+    "WC10": {
+     "k": "WC10",
+     "n": "Toilets",
+     "t": "toilets",
+     "ll": [
+      -27.9845026,
+      153.4277044
+     ],
+     "a": 0,
+     "x": 0,
+     "note": "New on the master D001-26003-03 issued 2 Oct 2026; position read off that drawing."
+    },
+    "served": 1
+   }
+  },
+  {
+   "name": "no page errors (dashboard or explorer)",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no failed requests (every 4xx/5xx listed)",
+   "pass": true,
+   "detail": {
+    "bad": []
+   }
+  },
+  {
+   "name": "no writes attempted (counts.blocked is 0); explorer served locally",
+   "pass": true,
+   "detail": {
+    "blocked": 0,
+    "liveExplorer": 0,
+    "missing": [],
+    "local": 257,
+    "mediaServed": 18
+   }
+  }
+ ],
+ "refs": {
+  "CP1": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 0,
+   "off_pt": null,
+   "off_m": null,
+   "on_label": null,
+   "tag": false,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC81": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 2491.26,
+   "off_m": 1757.8,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "T0265": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 0,
+   "off_pt": null,
+   "off_m": null,
+   "on_label": null,
+   "tag": false,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P60": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 2,
+   "off_pt": 1880.98,
+   "off_m": 1327.2,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P62": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 2,
+   "off_pt": 1862.06,
+   "off_m": 1313.9,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P63": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 2,
+   "off_pt": 1853.64,
+   "off_m": 1307.9,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC48": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 2,
+   "off_pt": 1845.77,
+   "off_m": 1302.4,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC49": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 2,
+   "off_pt": 1860.96,
+   "off_m": 1313.1,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC51": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1966.92,
+   "off_m": 1387.9,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P45": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1250.66,
+   "off_m": 882.5,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC38": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1253.19,
+   "off_m": 884.2,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC39": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1271.66,
+   "off_m": 897.3,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC10": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 909.53,
+   "off_m": 641.8,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "AA": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1154.49,
+   "off_m": 814.6,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P10": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1134.69,
+   "off_m": 800.6,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P19": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1038.12,
+   "off_m": 732.5,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P39": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 941.58,
+   "off_m": 664.4,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P54": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1182.09,
+   "off_m": 834.1,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "P66": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1752.42,
+   "off_m": 1236.5,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC09": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 911.37,
+   "off_m": 643.1,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC20": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1249.81,
+   "off_m": 881.9,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC30": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 701.55,
+   "off_m": 495,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC41": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1113.55,
+   "off_m": 785.7,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC50": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1505.22,
+   "off_m": 1062.1,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC61": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 680.54,
+   "off_m": 480.2,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  },
+  "WC73": {
+   "marker": [
+    0,
+    0
+   ],
+   "sheet_pt": [
+    0,
+    0
+   ],
+   "label_boxes": 1,
+   "off_pt": 1182.71,
+   "off_m": 834.5,
+   "on_label": false,
+   "tag": true,
+   "matches_data": false,
+   "drawn": true
+  }
+ },
+ "secs": {
+  "S01": 1091.14,
+  "S02": 1157.62,
+  "S04": 1289.26,
+  "S05": 1464,
+  "S07": 1007.36,
+  "S08": 826.66,
+  "S10": 1092.81,
+  "S11": 1106.79,
+  "S12": 1116.45,
+  "S13": 1126.32,
+  "S14": 1151.27,
+  "S15": 1681.79,
+  "S18": 1526.01,
+  "S19": 1026.81,
+  "S20": 926.04,
+  "S21": 782.01,
+  "S22": 731.41,
+  "S22A": 705.9,
+  "S23": 1151.47,
+  "S25": 1103.8
+ },
+ "gates": {
+  "G1": 1234.99,
+  "G2": 1198.85,
+  "G3": 1442.69,
+  "G4": 1860.93,
+  "G6": 1774.36,
+  "G8": 650.24,
+  "G8a": 644.16,
+  "G9": 938.22
+ },
+ "agree": {
+  "main": {
+   "best": {
+    "dx": 0,
+    "dy": 0,
+    "r": 0.9530945952534909
+   },
+   "r0": 0.9530945952534909,
+   "shift_picture_px": [
+    0,
+    0
+   ],
+   "sample_px": 2.68,
+   "W": 480,
+   "H": 256
+  },
+  "inset": {
+   "best": {
+    "dx": 0,
+    "dy": 0,
+    "r": 0.9958395028994576
+   },
+   "r0": 0.9958395028994576,
+   "shift_picture_px": [
+    0,
+    0
+   ],
+   "sample_px": 2.78,
+   "W": 480,
+   "H": 256
+  }
+ },
+ "finds": {
+  "WC81": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    2161,
+    1250
+   ]
+  },
+  "P45": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    1210,
+    329
+   ]
+  },
+  "WC10": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    641,
+    654
+   ]
+  }
+ },
+ "modes": {
+  "hybrid": {
+   "tiles": 8,
+   "mode": "hybrid"
+  },
+  "satellite": {
+   "tiles": 8,
+   "mode": "satellite"
+  },
+  "original": {
+   "tiles": 8,
+   "mode": "original"
+  }
+ },
+ "poc": {
+  "n": 261,
+  "WC10": {
+   "k": "WC10",
+   "n": "Toilets",
+   "t": "toilets",
+   "ll": [
+    -27.9845026,
+    153.4277044
+   ],
+   "a": 0,
+   "x": 0,
+   "note": "New on the master D001-26003-03 issued 2 Oct 2026; position read off that drawing."
+  },
+  "P45": [
+   -27.988119,
+   153.4300493
+  ],
+  "WC51": [
+   -27.9928571,
+   153.4304602
+  ],
+  "WC38": [
+   -27.9835978,
+   153.4241101
+  ],
+  "WC39": [
+   -27.9836022,
+   153.423968
+  ],
+  "CP1": [
+   -27.99749,
+   153.428257
+  ],
+  "source": "Master plan D001-26003-03 positions (v6.89) and the other sheets laid on it; image registration, not survey; P45, WC51, WC38, WC39 and the new WC10 follow the master issued 2 Oct 2026 (v8.93)"
+ },
+ "counts": {
+  "page": 1,
+  "live": 35,
+  "blocked": 0,
+  "local": 257,
+  "ranges": 172,
+  "missing": [],
+  "localPaths": 96,
+  "liveExplorer": 0,
+  "badResponses": []
+ }
+}

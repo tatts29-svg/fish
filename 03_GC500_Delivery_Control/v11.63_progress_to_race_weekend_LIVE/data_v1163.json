@@ -1,0 +1,1579 @@
+{
+ "schema": 1,
+ "author": "Andrew Fisher",
+ "read_on": "2026-10-23",
+ "ccb": {
+  "rows": [
+   {
+    "record_id": "F-AFV-0002",
+    "docket_no": "36560",
+    "expected": {
+     "date": "2026-09-28",
+     "location": "GC Hwy median strip (north)",
+     "quantities": {
+      "clean": 507.5,
+      "ccb_demarc": 447.5,
+      "ped_gates": 1,
+      "scrim": 427.5
+     },
+     "components": {
+      "mesh_panel": 203,
+      "cc_barrier": 179,
+      "base": 538,
+      "clamp": 547,
+      "brace": 171,
+      "wheels": 6
+     },
+     "note": "Includes 4 smoking zones. No shade cloth yet, requested from John (IEDM). Paper says CC Barrier 447.5 m; event or demarcation not written - recorded as demarcation, to confirm CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 427.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 65 m clean, 447.5 m ccb demarc, 6 vehicle gates, 1 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above."
+    },
+    "source_ids": [
+     "36560.jpg",
+     "03_CW3_2026_Fencing_Installation_Plan.pdf"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_demarc",
+     "basis": "Original north median447.5m/179CCB includes4smoking zones without a quantity split. Retain full recorded Demarcation under the later explicit manager rationale that names36560 when settling36568. Do not invent a30m actual split from planned smoking quantities. The plan mixed scope remains in provenance; it does not reopen the later manager category decision. Refreshed 23 Oct 2026: the record now also carries the braced-for-scrim metres Advanced's construction-week sheet bills on this paper (record correction of 23 Oct 2026); the crowd-control metres and their category are unchanged."
+    }
+   },
+   {
+    "record_id": "F-AFV-0010",
+    "docket_no": "36568",
+    "expected": {
+     "date": "2026-10-01",
+     "location": "GC Hwy median strip (south)",
+     "quantities": {
+      "clean": 462.5,
+      "ccb_demarc": 420,
+      "scrim": 447.5
+     },
+     "components": {
+      "mesh_panel": 185,
+      "cc_barrier": 168,
+      "base": 474,
+      "clamp": 487,
+      "wheels": 6
+     },
+     "note": "Written on the paper: site \"Median strip north plus south\"; Andrew, 2 Oct: new fence - 36560 was the north, 36568 is the south. Written on the paper: \"Shade cloth installed\". 462.5 m mesh (185 panels), 420 m CC barrier (168 barriers), 6 wheels. Paper says CC Barrier - demarcation: the median strip barrier keeps people off the road, as 36560 (Andrew, 2 Oct). Scrim 462.5 m, same as the fence (Andrew, 2 Oct). Original brace quantity is unclear: 151 or 157. The summary reads 151; independent original-source review leans 157 but cannot confirm. Brace quantity omitted pending confirmation. Base 474 was independently rechecked. Owner sign-off: Andrew, 2 Oct 2026; work/installation date: 2026-10-01. Prices and totals are blank on the photographed paper; charges and known supplier costs are calculated by the existing page rules. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 447.5 m Advanced's week 3 sheet (order 4647515) bills as braced for scrim; was 462.5 m on the record. The sheet's other lines for this paper: 420 m ccb demarc, 6 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above."
+    },
+    "source_ids": [
+     "36568.jpg",
+     "03_CW3_2026_Fencing_Installation_Plan.pdf"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_demarc",
+     "basis": "Original Median strip north plus south420m/168CCB; later Andrew decision identifies new south work and confirms road demarcation as36560. Retain420m Demarcation; physical mesh/scrim quantities and brace ambiguity untouched. Refreshed 23 Oct 2026: the record now also carries the braced-for-scrim metres Advanced's construction-week sheet bills on this paper (record correction of 23 Oct 2026); the crowd-control metres and their category are unchanged."
+    }
+   },
+   {
+    "record_id": "F-AF-0003",
+    "docket_no": "36603",
+    "expected": {
+     "date": "2026-10-13",
+     "location": "Eastern Residents & Demarc - Cable St to Gate 8A - DL & DR",
+     "quantities": {
+      "clean": 537.5,
+      "ccb_demarc": 672.5,
+      "ped_gates": 4,
+      "scrim": 52.5
+     },
+     "components": {
+      "mesh_panel": 215,
+      "cc_barrier": 269,
+      "base": 209,
+      "clamp": 240,
+      "brace": 21,
+      "wheels": 14
+     },
+     "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper. Source review 20 Oct 2026: the supplied original writes Castle St in its main location and demarcation run, while the reviewed programme uses Cable St; retain that wording discrepancy. Several handwritten building names are uncertain; the existing programme associations are area/task context, not a new exact transcription of those names. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 52.5 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 450 m clean, 672.5 m ccb demarc, 14 vehicle gates, 4 pedestrian gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above."
+    },
+    "source_ids": [
+     "36603.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_demarc",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36603 stands as recorded: CC barrier 672.5 m (269 barriers) is Demarcation; the paper's own notes name every CC barrier run Demarcation (Cable St to Breaker St, Ocean Isles to Amari, T11 DL and Runoff, Norfolk to Decks, Ocean Resort to Sunbird West). Refreshed 23 Oct 2026: the record now also carries the braced-for-scrim metres Advanced's construction-week sheet bills on this paper (record correction of 23 Oct 2026); the crowd-control metres and their category are unchanged."
+    }
+   },
+   {
+    "record_id": "F-AF-0011",
+    "docket_no": "36611",
+    "expected": {
+     "date": "2026-10-15",
+     "location": "Surfers Paradise Light Rail",
+     "quantities": {
+      "clean": 165,
+      "ccb_event": 130,
+      "scrim": 30
+     },
+     "components": {
+      "mesh_panel": 66,
+      "cc_barrier": 52,
+      "base": 90,
+      "clamp": 88,
+      "brace": 12,
+      "wheels": 4
+     },
+     "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 30 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: 125 m clean, 130 m ccb demarc, 4 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above."
+    },
+    "source_ids": [
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx",
+     "36611.jpg"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "type": "ccb_event",
+     "basis": "Programme CON WK1 row 46, 'CCB - Hi Surf (West) to Ocean Ave', 15 Oct 2026, is 115 m of CCB Event at the Surfers Paradise Light Rail Station; rows 45 and 47 are its fence. The paper says only CC Barrier 130 m; the signed 130 m is kept and booked to Event. Refreshed 23 Oct 2026: the record now also carries the braced-for-scrim metres Advanced's construction-week sheet bills on this paper (record correction of 23 Oct 2026); the crowd-control metres and their category are unchanged."
+    }
+   },
+   {
+    "record_id": "F-AF-0041",
+    "docket_no": "36623",
+    "expected": {
+     "date": "2026-10-19",
+     "location": "S15 C2 - hoarding fence and demarcation",
+     "quantities": {
+      "clean": 97.5,
+      "ccb_demarc": 100
+     },
+     "components": {
+      "mesh_panel": 39,
+      "hoarding_panel": 41,
+      "cc_barrier": 40,
+      "base": 149,
+      "clamp": 148,
+      "brace": 37,
+      "wheels": 4
+     },
+     "note": "Mesh fence 97.5 m (39 panels), hoarding 102.5 m (41 hoarding panels), CC barrier 100 m (40 barriers), 4 wheels, 149 bases, 148 clamps, 37 braces, installed 19 Oct 2026 at S15 C2; the site address reads 'S15, C.2 - / Hoarding Fence + Demarcation'. The CCB is Demarcation in the paper's own words (programme EVENT WEEK row 10, 19 Oct: Demarcation CCB - Admiralty Dr to S13 Grandstand, 99 m Demarcation). Programme rows 6-7 (19 Oct): Exclusion Zone - S15 Grandstand 90 m clean with a vehicle gate, Perimeter Fence - S15 Grandstand 100 m hoarding with a vehicle gate: the 4 wheels are the two vehicle gates, recorded as components (gates are inside the card's metre). THE HOARDING IS NOT CHARGED HERE: the 2026 card on this page has no hoarding line, so the 102.5 m is held on the paper and as 41 hoarding panels only - a rate is needed before the V8s are charged for it. Braces on the paper but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36623.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36623 stands as recorded: CC barrier 100 m (40 barriers) is Demarcation in the paper's own words ('S15, C.2 - Hoarding Fence + Demarcation'); programme EVENT WEEK row 10 (19 Oct): Demarcation CCB - Admiralty Dr to S13 Grandstand, 99 m. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_demarc"
+    }
+   },
+   {
+    "record_id": "F-AF-0045",
+    "docket_no": "36627",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "Track wide (four spots)",
+     "quantities": {
+      "ccb_event": 125,
+      "ccb_demarc": 7.5
+     },
+     "components": {
+      "cc_barrier": 53
+     },
+     "note": "CC barrier 132.5 m (53 barriers) at four spots on 20 Oct 2026, listed in the note: '[first word unclear] to PB2, cnr Pacific & Breaker St - 50 m', 'The Hill & Merchandise - BS08 - BS09 - 62.5 m', 'Birds nest Mac Island - 7.5 m', 'S01 - S05 - Corporate - 12.5 m' (50 + 62.5 + 7.5 + 12.5 = 132.5). The bird's nest on Macintosh Island is an exclusion around a hazard, recorded as Demarcation 7.5 m (as the fallen tree, 36760); the other three are crowd control, recorded as Event 125 m. Not named rows in the EVENT WEEK programme; Advanced's sheet decides the lines when it comes. Installer signature with the name Scott beside it. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36627.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36627 stands as recorded, split: of the four spots on the paper, PB2 / cnr Pacific & Breaker St 50 m, The Hill & Merchandise BS08-BS09 62.5 m and S01-S05 Corporate 12.5 m are crowd control (Event 125 m); the bird's nest on Macintosh Island 7.5 m is an exclusion around a hazard (Demarcation 7.5 m, as the fallen tree on 36760). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "split",
+     "split": {
+      "ccb_event": 125,
+      "ccb_demarc": 7.5
+     }
+    }
+   },
+   {
+    "record_id": "F-AF-0047",
+    "docket_no": "36629",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "PB03 - Gate 1 - Helen Park",
+     "quantities": {
+      "ccb_demarc": 182.5,
+      "ccb_event": 237.5,
+      "scrim": 80
+     },
+     "components": {
+      "cc_barrier": 168,
+      "brace": 11
+     },
+     "note": "CC barrier 420 m (168 barriers) at PB03 - Gate 1 - Helen Park on 20 Oct 2026, plus 11 braces: the note reads 'Added braces to fence B.O.H - Helen Park. Used bases & clamps from C.Z relocation Helen Park. Braced & Scrim' with a tick. The CCB is split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB - PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (182 m, recorded as Demarcation 182.5 m, to the barrier), CCB - Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m, is recorded as Event) - Advanced's sheet decides the lines when it comes. The braced-and-scrimmed back-of-house fence carries no metres on this paper (service note 24484 of the same day: 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'); the 11 braces are recorded as components and no scrim is charged from this paper. A small mark, read as a stray 8, sits in the Bracing box; Base and Clamp blank (used from the C.Z relocation). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 80 m added for the back-of-house fence this paper braced ('Braced & Scrim' with a tick): Advanced's signed service note 24484 of the same day records 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'. The relocated panels' fence metres were charged on their original paper; only the scrim is added here. The sheet decides."
+    },
+    "source_ids": [
+     "36629.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36629 stands as recorded, split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (Demarcation 182.5 m, to the barrier); Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "split",
+     "split": {
+      "ccb_event": 237.5,
+      "ccb_demarc": 182.5
+     }
+    }
+   },
+   {
+    "record_id": "F-AF-0052",
+    "docket_no": "36634",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "S07 viewing mound",
+     "quantities": {
+      "ccb_demarc": 12.5
+     },
+     "components": {
+      "cc_barrier": 5
+     },
+     "note": "CC barrier 12.5 m (5 barriers) at the S07 viewing mound on 20 Oct 2026: crowd control at a spectator mound, recorded as Event - no viewing-mound row in the EVENT WEEK programme; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Event to Demarcation: the viewing mound's CCB of 22 Sep (36542, Viewing mound, 60 m) is Demarcation on the record, and this is the same kind of line at S07. The sheet decides."
+    },
+    "source_ids": [
+     "36634.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36634 stands as recorded: CC barrier 12.5 m (5 barriers) at the S07 viewing mound is Demarcation, as the viewing mound's CCB of 22 Sep (36542, 60 m) is on the record (record correction of 23 Oct 2026). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_demarc"
+    }
+   },
+   {
+    "record_id": "F-AF-0053",
+    "docket_no": "36635",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "Esplanade north to the Triangle",
+     "quantities": {
+      "ccb_event": 37.5,
+      "flat_feet": 35
+     },
+     "components": {
+      "cc_barrier": 15,
+      "flat_feet_ccb": 16
+     },
+     "note": "CC barrier 37.5 m (15 barriers) and flat-feet CC barrier 35 m (16 pieces, the installer's added item row 'Flat feet CCB's 16' and the note 'Flat feet mtrs - 35 m'), Esplanade north to the Triangle, installed 20 Oct 2026. The Esplanade-Triangle run is the programme's demarcation (its removal rows read 'CCB Removal - The Esplanade Triangle Demarcation'), so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Demarcation to Event: the programme's own line for it (EVENT WEEK row 55, 22 Oct, The Esplanade, 'Demarcation CCB - Support Category Circuit Entry') carries its 32 m in the Event column, and the Esplanade's CCB of 16 Oct (36619, programme row 63) is Event on the record. The sheet decides."
+    },
+    "source_ids": [
+     "36635.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36635 stands as recorded: CC barrier 37.5 m (15 barriers), Esplanade north to the Triangle, is Event: the programme's own line for it (EVENT WEEK row 55, 22 Oct) carries its metres in the Event column and the Esplanade's CCB of 16 Oct (36619) is Event on the record (record correction of 23 Oct 2026). The 35 m of flat feet is its own line. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0054",
+    "docket_no": "36636",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "Higman St and Rhapsody",
+     "quantities": {
+      "ccb_demarc": 205
+     },
+     "components": {
+      "cc_barrier": 82
+     },
+     "note": "CC barrier 205 m (82 barriers), Higman St and Rhapsody, installed 20 Oct 2026. Programme EVENT WEEK rows 21-23 (20 Oct): Demarcation CCB - Higman St (West), CCB - Higman St garden beds, Demarcation CCB - Rhapsody (133 m): the residents' demarcation runs, so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36636.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36636 stands as recorded: CC barrier 205 m (82 barriers), Higman St and Rhapsody, is Demarcation: programme EVENT WEEK rows 21-23 (20 Oct) are the residents' demarcation runs (Demarcation CCB - Higman St (West), CCB - Higman St garden beds, Demarcation CCB - Rhapsody). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_demarc"
+    }
+   },
+   {
+    "record_id": "F-AF-0055",
+    "docket_no": "36637",
+    "expected": {
+     "date": "2026-10-20",
+     "location": "Macintosh Island foot bridge",
+     "quantities": {
+      "ccb_event": 25
+     },
+     "components": {
+      "cc_barrier": 10
+     },
+     "note": "CC barrier 25 m (10 barriers) at the Macintosh Island foot bridge, installed 20 Oct 2026. No programme row names the foot bridge; the CCB is read as Event (crowd control on the spectator route), not a demarcation request - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36637.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36637 stands as recorded: CC barrier 25 m (10 barriers) at the Macintosh Island foot bridge is Event, crowd control on the spectator route; no programme row asks for demarcation there. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0060",
+    "docket_no": "36643",
+    "expected": {
+     "date": "2026-10-21",
+     "location": "Club 500",
+     "quantities": {
+      "clean": 32.5,
+      "ccb_event": 20,
+      "scrim": 47.5
+     },
+     "components": {
+      "mesh_panel": 13,
+      "cc_barrier": 8,
+      "base": 29,
+      "clamp": 27,
+      "brace": 8,
+      "wheels": 2
+     },
+     "note": "Mesh fence 32.5 m (13 panels), CC barrier 20 m (8 barriers), 2 wheels, 29 bases, 27 clamps, 8 braces. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components; no bracing metres and no scrim written, so clean is recorded. Programme EVENT WEEK row 54 (22 Oct): Perimeter Fence - Club 500 Stage, 55 m braced for scrim, 95 m relocation, 2 vehicle gates and 1 pedestrian gate planned. The CCB is read as Event, as the other Club 500 barriers (36591, 36594); Advanced's sheet decides. Installation date written 21-10-26. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 47.5 m added: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Club 500 - 47.5 m', more than this paper's 32.5 m of new fence - the balance is the relocated panels of the Club 500 stage (programme EVENT WEEK row 54: 55 m braced for scrim and 95 m relocation; service note 24486 of 20 Oct relocates panels from the creek protection to Club 500). The sheet decides."
+    },
+    "source_ids": [
+     "36643.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36643 stands as recorded: CC barrier 20 m (8 barriers) at Club 500 is Event, crowd control at the Club 500 stage (programme EVENT WEEK row 54, 22 Oct, Perimeter Fence - Club 500 Stage). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0062",
+    "docket_no": "36645",
+    "expected": {
+     "date": "2026-10-21",
+     "location": "Inlet (Breaker St)",
+     "quantities": {
+      "ccb_demarc": 12.5
+     },
+     "components": {
+      "cc_barrier": 5
+     },
+     "note": "CC barrier 12.5 m (5 barriers) at the inlet on Breaker St. Programme EVENT WEEK row 72 (22 Oct): Demarcation CCB - T12 Runoff to Inlet, 25 m, so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36645.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36645 stands as recorded: CC barrier 12.5 m (5 barriers) at the inlet on Breaker St is Demarcation: programme EVENT WEEK row 72 (22 Oct), Demarcation CCB - T12 Runoff to Inlet, 25 m. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_demarc"
+    }
+   },
+   {
+    "record_id": "F-AF-0064",
+    "docket_no": "36647",
+    "expected": {
+     "date": "2026-10-21",
+     "location": "Club 500 - creek protection",
+     "quantities": {
+      "ccb_event": 47.5
+     },
+     "components": {
+      "cc_barrier": 19
+     },
+     "note": "CC barrier 47.5 m (19 barriers), creek protection at Club 500 - more of the creek protection recorded on 36591 (9 Oct, 105 m), which the page carries as Event from the operational plan although Advanced's sheet billed it under its uniform Demarcation column; recorded the same way. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36647.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36647 stands as recorded: CC barrier 47.5 m (19 barriers) is more of the Club 500 creek protection, Event as its first run is on the record (36591, 9 Oct, 105 m, Event from the operational plan). Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0028",
+    "docket_no": "36751",
+    "expected": {
+     "date": "2026-10-22",
+     "location": "Ocean Ave",
+     "quantities": {
+      "clean": 147.5,
+      "ccb_event": 315
+     },
+     "components": {
+      "mesh_panel": 59,
+      "cc_barrier": 126,
+      "base": 54,
+      "clamp": 54,
+      "wheels": 8
+     },
+     "note": "Mesh fence 147.5 m (59 panels), CC barrier 315 m (126 barriers), 8 wheels, 54 bases, 54 clamps. No gate line on the paper: the 8 wheels are recorded as components. Programme EVENT WEEK rows 60-61 (22 Oct): Perimeter Fence - Ocean Ave, 150 m clean with 3 double-wide vehicle gates (3 wheels), and CCB - Ocean Ave, 300 m Event (quantity may reduce - awaiting confirmation), so the CCB is Event. Vehicle gates are inside the card's metre; Advanced's sheet prices the wheels when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36751.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36751 stands as recorded: CC barrier 315 m (126 barriers) on Ocean Ave is Event: programme EVENT WEEK rows 60-61 (22 Oct), CCB - Ocean Ave, 300 m Event. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0032",
+    "docket_no": "36755",
+    "expected": {
+     "date": "2026-10-22",
+     "location": "Helipad",
+     "quantities": {
+      "clean": 35,
+      "ccb_event": 45
+     },
+     "components": {
+      "mesh_panel": 14,
+      "cc_barrier": 18,
+      "base": 14,
+      "clamp": 14
+     },
+     "note": "Mesh fence 35 m (14 panels), CC barrier 45 m (18 barriers), 14 bases, 14 clamps. No helipad row in the EVENT WEEK programme; the CCB is read as Event (crowd control at the helipad), not a demarcation request - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36755.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36755 stands as recorded: CC barrier 45 m (18 barriers) at the helipad is Event, crowd control at the helipad; no programme row asks for demarcation there. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   },
+   {
+    "record_id": "F-AF-0036",
+    "docket_no": "36760",
+    "expected": {
+     "date": "2026-10-22",
+     "location": "Macintosh Island - fallen tree",
+     "quantities": {
+      "ccb_demarc": 10
+     },
+     "components": {
+      "cc_barrier": 4
+     },
+     "note": "CC barrier 10 m (4 barriers) around a fallen tree on Macintosh Island (the site address was overwritten twice, then 'Macintosh Island failen', read as fallen, with 'tree' in the Region box). Not in the programme: an exclusion around a hazard, recorded as Demarcation CCB - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36760.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36760 stands as recorded: CC barrier 10 m (4 barriers) around a fallen tree on Macintosh Island is Demarcation, an exclusion around a hazard. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_demarc"
+    }
+   },
+   {
+    "record_id": "F-AF-0040",
+    "docket_no": "36764",
+    "expected": {
+     "date": "2026-10-22",
+     "location": "Monster (Energy)",
+     "quantities": {
+      "ccb_event": 15
+     },
+     "components": {
+      "cc_barrier": 6
+     },
+     "note": "CC barrier 15 m (6 barriers) at the Monster Energy compound on The Hill. Programme EVENT WEEK row 62 (22 Oct) is the Monster Energy CZ compound fencing removal (130 m), a different job; the CCB is read as Event - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+    },
+    "source_ids": [
+     "36764.jpg",
+     "GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx"
+    ],
+    "decision": {
+     "state": "confirmed",
+     "basis": "Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36764 stands as recorded: CC barrier 15 m (6 barriers) at the Monster Energy compound on The Hill is Event, crowd control at the compound. Advanced's sheet decides its supplier line when it comes; a change to the docket makes this review stale until it is read again.",
+     "type": "ccb_event"
+    }
+   }
+  ],
+  "sources": [
+   {
+    "id": "36623.jpg",
+    "sha256": "e0f3efe62f180645365a4d421358fc81bed3e478fbc8358cdb4094544496aa29",
+    "title": "Signed hire agreement 36623"
+   },
+   {
+    "id": "36627.jpg",
+    "sha256": "9f3b238207465dd713ef671cd2396af2d391538058c8487640611ba13fc51d56",
+    "title": "Signed hire agreement 36627"
+   },
+   {
+    "id": "36629.jpg",
+    "sha256": "36660c1b587d47a533834d40f74862bed493bf29648187453bc8cfdf8597434e",
+    "title": "Signed hire agreement 36629"
+   },
+   {
+    "id": "36634.jpg",
+    "sha256": "32cc7ea78a360a8b2cce533fda38810635f9ed4e33387ec576563805db34892c",
+    "title": "Signed hire agreement 36634"
+   },
+   {
+    "id": "36635.jpg",
+    "sha256": "f6ee5ecae98246fb7dc3a68f20184a6e2dd7675af4ecaeda431443fdba506c48",
+    "title": "Signed hire agreement 36635"
+   },
+   {
+    "id": "36636.jpg",
+    "sha256": "5678d34d1d01dcd157e2fba68c661459c0d9846e876140798cd3f6e3d212bdd8",
+    "title": "Signed hire agreement 36636"
+   },
+   {
+    "id": "36637.jpg",
+    "sha256": "8622b88aae68bb3fa0585d78286646d648e277c06bf1d643d7a0e1a361e1c123",
+    "title": "Signed hire agreement 36637"
+   },
+   {
+    "id": "36643.jpg",
+    "sha256": "95dcdce1c0297691be143ad0eb8c14ca8677d2a38b4841fb8b5fb20c59c1c905",
+    "title": "Signed hire agreement 36643"
+   },
+   {
+    "id": "36645.jpg",
+    "sha256": "307544ae987619176453fcb996cde41091fdfd086545809df0b0dfe36dad84e3",
+    "title": "Signed hire agreement 36645"
+   },
+   {
+    "id": "36647.jpg",
+    "sha256": "68a501a2ae910f6f8b34d4f0dbd3185f871cb8df72b9eaa59674d85d186c27d1",
+    "title": "Signed hire agreement 36647"
+   },
+   {
+    "id": "36751.jpg",
+    "sha256": "9ed64047dee2e82b965d6356f128ff395be350d8d4617d0508e7c72428838bf6",
+    "title": "Signed hire agreement 36751"
+   },
+   {
+    "id": "36755.jpg",
+    "sha256": "2df438f76db78bd05de9d4a29f82486b745d60da742ff95060631a6e12d4ba62",
+    "title": "Signed hire agreement 36755"
+   },
+   {
+    "id": "36760.jpg",
+    "sha256": "be3620d51c4c17981161599e87738ef36b84c29f158ddcd8286deb838876d953",
+    "title": "Signed hire agreement 36760"
+   },
+   {
+    "id": "36764.jpg",
+    "sha256": "d3c2d7c08c3e1b096b00d219a277f46dc3d8f569ceb48566e42b6a34a6fbdf0f",
+    "title": "Signed hire agreement 36764"
+   }
+  ]
+ },
+ "evidence": {
+  "refresh": [
+   {
+    "id": "physical-scrim_existing-24481",
+    "red_overlap": [
+     {
+      "id": "F-AF-0014",
+      "docket_no": "36614",
+      "date": "2026-10-15",
+      "week": "Week 1",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "clean": 40,
+       "scrim": 85
+      },
+      "components": {
+       "mesh_panel": 16,
+       "base": 78,
+       "clamp": 38,
+       "brace": 34,
+       "wheels": 2
+      },
+      "location": "S.0.8 B.O.H.",
+      "note": "Mesh fence 40 m; component table 16 panels, 78 bases, 38 clamps, 34 braces and 2 wheels. The earlier native base count 18 was explicitly provisional; both the hosted original and supplied scan read 78 with retraced strokes. Added notes in the supplied scan say Scrimmed, added Advanced panels and additional bracing, -50 m (panels already installed) and +14 panels added. Retain the 14-panel note separately from the 16-panel component table; no conversion or priced credit inferred. Service note 24481 separately records 65 m relocation and 120 m scrim with 4 person-hours. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank. CORRECTED 23 Oct 2026 (Andrew: \"Please make sure we price correctly. Numbers match up\"): scrim set to the 85 m Advanced's week 1 sheet (order 4647520) bills as braced for scrim; was 0 m on the record. The sheet's other lines for this paper: -50 m clean, 2 vehicle gates (a negative clean metre on the sheet is the credit for a fence already billed clean). The clean line keeps the paper's metres with the gates inside the card's metre; the paper's own reading stays in the words above."
+     }
+    ],
+    "basis_add": " Refreshed 23 Oct 2026: hire agreement 36614, the paper this note names, now carries 85 m braced for scrim, the metres Advanced's week 1 sheet bills on it (record correction of 23 Oct 2026); that is counted once, under Scrim fitted. This activity line keeps the note's 120 m as activity only and adds nothing to any programme figure."
+   }
+  ],
+  "operations": [
+   {
+    "id": "physical-relocation-24482",
+    "type": "relocation",
+    "quantity": 22.5,
+    "unit": "m",
+    "source_ids": [
+     "24482.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "24482.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "green",
+      "record_id": "N-AF-0008",
+      "number": "24482",
+      "expected": {
+       "id": "N-AF-0008",
+       "note_no": "24482",
+       "date": "2026-10-19",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Admiralty Dr - intersection",
+       "note": "Relocations at the Admiralty Dr intersection on 19 Oct 2026: 'Relocate 22.5 m temp fence - 2 men x 15 mins each = 0.5 hrs' and 'Relocate 70 m CCBs - 3 men x 15 mins each = 0.75 hrs', 1.25 h in the Labour quantity box. Two words at the start of the site address are scribbled out; a word in the notes is crossed out. Hire agreement 36624 is the same day's fence here. Owner/site supervisor and installer signatures dated 19/10/26.",
+       "crew_note": "see notes: 2 men x 15 min and 3 men x 15 min",
+       "labour_hours": 1.25,
+       "metres": null
+      }
+     }
+    ],
+    "red_overlap": [
+     {
+      "id": "F010",
+      "docket_no": "36510",
+      "date": "2026-09-14",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 50
+      },
+      "components": {},
+      "location": "Sea World Drive, Main Beach",
+      "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+     },
+     {
+      "id": "F025",
+      "docket_no": "36525",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 60
+      },
+      "components": {},
+      "location": "S.O.5 C.2",
+      "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+     },
+     {
+      "id": "F027",
+      "docket_no": "36528",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 27.5
+      },
+      "components": {
+       "wheels": 2
+      },
+      "location": "S.O.8 exclusion zone",
+      "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+     }
+    ],
+    "basis": "Signed service note 24482 records 'Relocate 22.5 m temp fence' at the Admiralty Dr intersection, 19 Oct 2026. The 70 m of crowd-control barriers moved on the same note is not fence and is not added, as 24471's barrier move is not. Existing fence moved; no new mesh length."
+   },
+   {
+    "id": "physical-relocation-24483",
+    "type": "relocation",
+    "quantity": 17.5,
+    "unit": "m",
+    "source_ids": [
+     "24483.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "24483.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "green",
+      "record_id": "N-AF-0009",
+      "number": "24483",
+      "expected": {
+       "id": "N-AF-0009",
+       "note_no": "24483",
+       "date": "2026-10-20",
+       "week": "Event Week",
+       "usable": true,
+       "location": "S04 BOH / corporate entry",
+       "note": "'Relocate 17.5 m temporary fence' at the S04 back-of-house / corporate entry on 20 Oct 2026; the '1 hr' sits one row above the Labour row on the paper (in the Supply Hardwood Stakes quantity cell) beside the crew note '2 men x 30 min each'. Both signatures dated 20/10/26.",
+       "crew_note": "2 men x 30 min each",
+       "labour_hours": 1,
+       "metres": 17.5
+      }
+     }
+    ],
+    "red_overlap": [
+     {
+      "id": "F010",
+      "docket_no": "36510",
+      "date": "2026-09-14",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 50
+      },
+      "components": {},
+      "location": "Sea World Drive, Main Beach",
+      "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+     },
+     {
+      "id": "F025",
+      "docket_no": "36525",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 60
+      },
+      "components": {},
+      "location": "S.O.5 C.2",
+      "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+     },
+     {
+      "id": "F027",
+      "docket_no": "36528",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 27.5
+      },
+      "components": {
+       "wheels": 2
+      },
+      "location": "S.O.8 exclusion zone",
+      "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+     }
+    ],
+    "basis": "Signed service note 24483 records 'Relocate 17.5 m temporary fence' at the S04 back of house / corporate entry, 20 Oct 2026. Existing fence moved; no new mesh length."
+   },
+   {
+    "id": "physical-relocation-24484",
+    "type": "relocation",
+    "quantity": 80,
+    "unit": "m",
+    "source_ids": [
+     "24484.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "24484.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "green",
+      "record_id": "N-AF-0010",
+      "number": "24484",
+      "expected": {
+       "id": "N-AF-0010",
+       "note_no": "24484",
+       "date": "2026-10-20",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Helen Park",
+       "note": "'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim (tick). 80 m' on 20 Oct 2026, 2 h (half an hour, four men). Explicitly recorded metres: 80 m of relocated fence braced and scrimmed at the Helen Park back of house - the scrim on it is not charged from this note; it sits with hire agreement 36629 of the same day (the braces) for Andrew's word through the page's reviewed scrim path. Both signatures dated 20/10/26.",
+       "crew_note": "1/2 hr, 4 men",
+       "labour_hours": 2,
+       "metres": 80
+      }
+     }
+    ],
+    "red_overlap": [
+     {
+      "id": "F010",
+      "docket_no": "36510",
+      "date": "2026-09-14",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 50
+      },
+      "components": {},
+      "location": "Sea World Drive, Main Beach",
+      "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+     },
+     {
+      "id": "F025",
+      "docket_no": "36525",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 60
+      },
+      "components": {},
+      "location": "S.O.5 C.2",
+      "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+     },
+     {
+      "id": "F027",
+      "docket_no": "36528",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 27.5
+      },
+      "components": {
+       "wheels": 2
+      },
+      "location": "S.O.8 exclusion zone",
+      "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+     }
+    ],
+    "basis": "Signed service note 24484 records 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m', 20 Oct 2026. Existing fence moved; its scrim is on hire agreement 36629; no new mesh length."
+   },
+   {
+    "id": "physical-relocation-24490",
+    "type": "relocation",
+    "quantity": 27.5,
+    "unit": "m",
+    "source_ids": [
+     "24490.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "24490.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "green",
+      "record_id": "N-AF-0016",
+      "number": "24490",
+      "expected": {
+       "id": "N-AF-0016",
+       "note_no": "24490",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "TV compound",
+       "note": "'Relocate 27.5 m temp fence' at the TV compound on 22 Oct 2026, 0.75 h (three men, 15 minutes each). This is the labour hire agreement 36758 points to ('also labour charge added, invoice num 24490'). Both signatures dated 22/10/26.",
+       "crew_note": "3 men x 15 mins each",
+       "labour_hours": 0.75,
+       "metres": 27.5
+      }
+     }
+    ],
+    "red_overlap": [
+     {
+      "id": "F010",
+      "docket_no": "36510",
+      "date": "2026-09-14",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 50
+      },
+      "components": {},
+      "location": "Sea World Drive, Main Beach",
+      "note": "Relocated fence line on Sea World Drive, Main Beach — half an hour of relocation work, now with a length on it. 50 m of mesh fence on 36510, confirmed as mesh panel. 50 m, charged at the 2026 card’s Relocation of Fencing rate, which is what this docket’s open question was: the rate was settled and the metres were not. Advanced bill relocation by the hour and the card prices it by the metre, so the length is the thing that had to come off the paper."
+     },
+     {
+      "id": "F025",
+      "docket_no": "36525",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 60
+      },
+      "components": {},
+      "location": "S.O.5 C.2",
+      "note": "Written on the docket: relocated fence line, 60 m, half an hour, two men. THE METRES ARE ON THIS ONE — which is what was missing from docket 36510, where the relocation was given in hours alone and Coates charge relocation by the metre. This one costs."
+     },
+     {
+      "id": "F027",
+      "docket_no": "36528",
+      "date": "2026-09-17",
+      "week": "Week 5",
+      "scope": "programme",
+      "usable": true,
+      "quantities": {
+       "relocation": 27.5
+      },
+      "components": {
+       "wheels": 2
+      },
+      "location": "S.O.8 exclusion zone",
+      "note": "Written on the docket: relocated panels from the existing fence line, 27.5 m, two men, 15 minutes; added two wheels for a gate. The metres are on this one, so the relocation costs."
+     }
+    ],
+    "basis": "Signed service note 24490 records 'Relocate 27.5 m temp fence' at the TV compound, 22 Oct 2026 (the labour hire agreement 36758 points to). Existing fence moved; no new mesh length."
+   },
+   {
+    "id": "physical-removal-28554",
+    "type": "removal",
+    "quantity": 65.0,
+    "unit": "m",
+    "source_ids": [
+     "28554.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28554.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AFV-0001",
+      "number": "28554",
+      "expected": {
+       "id": "FC-AFV-0001",
+       "collection_no": "28554",
+       "date": "2026-10-06",
+       "week": "Week 2",
+       "usable": true,
+       "location": "S04 Corporate",
+       "note": "Values are in NO. COLLECTED: 26 mesh panels, 29 bases, 29 clamps. Hire agreement number, removal time and all costs are blank. No removal length is written. Removal date 6 Oct 2026; owner signed 8 Oct 2026. Original signed collection form 28554.jpg. No charge or credit inferred.",
+       "collected": {
+        "base": 29,
+        "clamp": 29,
+        "mesh_panel": 26
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "26 mesh panels collected; 26 x settled 2.5 m = 65 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28556",
+    "type": "removal",
+    "quantity": 95.0,
+    "unit": "m",
+    "source_ids": [
+     "28556.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28556.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AFV-0003",
+      "number": "28556",
+      "expected": {
+       "id": "FC-AFV-0003",
+       "collection_no": "28556",
+       "date": "2026-10-09",
+       "week": "Week 2",
+       "usable": true,
+       "location": "Pit Lane Storage",
+       "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+       "collected": {
+        "base": 36,
+        "clamp": 38,
+        "mesh_panel": 38
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "38 mesh panels collected; 38 x settled 2.5 m = 95 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28557",
+    "type": "removal",
+    "quantity": 75.0,
+    "unit": "m",
+    "source_ids": [
+     "28557.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28557.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0001",
+      "number": "28557",
+      "expected": {
+       "id": "FC-AF-0001",
+       "collection_no": "28557",
+       "date": "2026-10-12",
+       "week": "Week 1",
+       "usable": true,
+       "location": "Double Stack CZ",
+       "note": "Collected quantities as written. Original location reads Double stack - C.Z. (final handwritten glyph resembles 2); normalised as construction zone. The supplied commercial programme prints 28857, while this original is 28557, with matching 12 Oct Double Stack removal scope; both references are preserved in the allocation. Earlier originals 24474 and 28555 explicitly name Race Admin - Double Stack CZ, supporting Race Admin as a candidate area only. This form leaves the hire agreement and issued counts blank; no charge, credit, metres or exact map location inferred.",
+       "collected": {
+        "base": 28,
+        "clamp": 28,
+        "mesh_panel": 30,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "30 mesh panels collected; 30 x settled 2.5 m = 75 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28558",
+    "type": "removal",
+    "quantity": 210.0,
+    "unit": "m",
+    "source_ids": [
+     "28558.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28558.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0002",
+      "number": "28558",
+      "expected": {
+       "id": "FC-AF-0002",
+       "collection_no": "28558",
+       "date": "2026-10-15",
+       "week": "Week 1",
+       "usable": true,
+       "location": "Pit Lane",
+       "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+       "collected": {
+        "base": 86,
+        "clamp": 84,
+        "mesh_panel": 84,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "84 mesh panels collected; 84 x settled 2.5 m = 210 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28559",
+    "type": "removal",
+    "quantity": 30.0,
+    "unit": "m",
+    "source_ids": [
+     "28559.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28559.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0003",
+      "number": "28559",
+      "expected": {
+       "id": "FC-AF-0003",
+       "collection_no": "28559",
+       "date": "2026-10-15",
+       "week": "Week 1",
+       "usable": true,
+       "location": "Porsche Lounge",
+       "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+       "collected": {
+        "base": 10,
+        "clamp": 13,
+        "mesh_panel": 12
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "12 mesh panels collected; 12 x settled 2.5 m = 30 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28560",
+    "type": "removal",
+    "quantity": 15.0,
+    "unit": "m",
+    "source_ids": [
+     "28560.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28560.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0004",
+      "number": "28560",
+      "expected": {
+       "id": "FC-AF-0004",
+       "collection_no": "28560",
+       "date": "2026-10-15",
+       "week": "Week 1",
+       "usable": true,
+       "location": "S18 - Grandstand",
+       "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+       "collected": {
+        "base": 6,
+        "clamp": 5,
+        "mesh_panel": 6
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "6 mesh panels collected; 6 x settled 2.5 m = 15 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28566",
+    "type": "removal",
+    "quantity": 30.0,
+    "unit": "m",
+    "source_ids": [
+     "28566.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28566.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0014",
+      "number": "28566",
+      "expected": {
+       "id": "FC-AF-0014",
+       "collection_no": "28566",
+       "date": "2026-10-21",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Porsche C.Z.",
+       "note": "Collected from the Porsche C.Z.: 12 mesh panels, 13 bases, 10 clamps, 4 wheels. Removal date written 21/10/26 (the owner/site supervisor's signature is dated 20/10/26, the installer's 21/10/26). No hire agreement number written; no comments.",
+       "collected": {
+        "base": 13,
+        "clamp": 10,
+        "mesh_panel": 12,
+        "wheels": 4
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "12 mesh panels collected; 12 x settled 2.5 m = 30 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28567",
+    "type": "removal",
+    "quantity": 77.5,
+    "unit": "m",
+    "source_ids": [
+     "28567.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28567.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0015",
+      "number": "28567",
+      "expected": {
+       "id": "FC-AF-0015",
+       "collection_no": "28567",
+       "date": "2026-10-21",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Triangle C.Z.",
+       "note": "Collected from the Triangle C.Z.: 31 mesh panels, 27 bases, 28 clamps, 2 wheels. Removal date written 21/10/26 (the owner/site supervisor's signature is dated 20/10/26, the installer's 21/10/26). No hire agreement number written; no comments.",
+       "collected": {
+        "base": 27,
+        "clamp": 28,
+        "mesh_panel": 31,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "31 mesh panels collected; 31 x settled 2.5 m = 77.5 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28569",
+    "type": "removal",
+    "quantity": 95.0,
+    "unit": "m",
+    "source_ids": [
+     "28569.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28569.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0005",
+      "number": "28569",
+      "expected": {
+       "id": "FC-AF-0005",
+       "collection_no": "28569",
+       "date": "2026-10-21",
+       "week": "Event Week",
+       "usable": true,
+       "location": "S15 - C.Z.",
+       "note": "Collected 21 Oct 2026 from the S15 C.Z.: 38 mesh panels, 39 bases, 37 clamps, 2 wheels. No hire agreement number written; no comments. Both signatures dated 21/10/26.",
+       "collected": {
+        "base": 39,
+        "clamp": 37,
+        "mesh_panel": 38,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "38 mesh panels collected; 38 x settled 2.5 m = 95 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28571",
+    "type": "removal",
+    "quantity": 147.5,
+    "unit": "m",
+    "source_ids": [
+     "28571.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28571.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0007",
+      "number": "28571",
+      "expected": {
+       "id": "FC-AF-0007",
+       "collection_no": "28571",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "The Hill - Monster C.Z.",
+       "note": "Collected from the Monster Energy C.Z. on The Hill: 59 mesh panels, 53 bases, 53 clamps, 2 wheels. Removal date written 22/10/26 (the owner/site supervisor's signature is dated 21/10/26, the installer's 22/10/26). No hire agreement number written; no comments.",
+       "collected": {
+        "base": 53,
+        "clamp": 53,
+        "mesh_panel": 59,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "59 mesh panels collected; 59 x settled 2.5 m = 147.5 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28572",
+    "type": "removal",
+    "quantity": 10.0,
+    "unit": "m",
+    "source_ids": [
+     "28572.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28572.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0008",
+      "number": "28572",
+      "expected": {
+       "id": "FC-AF-0008",
+       "collection_no": "28572",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "PB03",
+       "note": "Collected 22 Oct 2026 from PB03: 4 mesh panels; Base and Clamp written as a dash - none. No hire agreement number written; no comments. Both signatures dated 22/10/26.",
+       "collected": {
+        "mesh_panel": 4
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "4 mesh panels collected; 4 x settled 2.5 m = 10 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28575",
+    "type": "removal",
+    "quantity": 5.0,
+    "unit": "m",
+    "source_ids": [
+     "28575.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28575.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0010",
+      "number": "28575",
+      "expected": {
+       "id": "FC-AF-0010",
+       "collection_no": "28575",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "Macintosh Island",
+       "note": "Collected 22 Oct 2026 from Macintosh Island: 2 mesh panels; Base and Clamp written as a dash - none. No hire agreement number written; no comments. Both signatures dated 22/10/26.",
+       "collected": {
+        "mesh_panel": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "2 mesh panels collected; 2 x settled 2.5 m = 5 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form."
+   },
+   {
+    "id": "physical-removal-28577",
+    "type": "removal",
+    "quantity": 10.0,
+    "unit": "m",
+    "source_ids": [
+     "28577.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28577.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0011",
+      "number": "28577",
+      "expected": {
+       "id": "FC-AF-0011",
+       "collection_no": "28577",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "S19",
+       "note": "Collected 22 Oct 2026 from S19: 4 mesh panels, 15 CC barriers, 3 bases, 3 clamps. No hire agreement number written; no comments. Both signatures dated 22/10/26.",
+       "collected": {
+        "base": 3,
+        "cc_barrier": 15,
+        "clamp": 3,
+        "mesh_panel": 4
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "4 mesh panels collected; 4 x settled 2.5 m = 10 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form. The crowd-control barriers collected on the same form are not fence and are not added."
+   },
+   {
+    "id": "physical-removal-28578",
+    "type": "removal",
+    "quantity": 10.0,
+    "unit": "m",
+    "source_ids": [
+     "28578.jpg"
+    ],
+    "source_refs": [
+     {
+      "id": "28578.jpg",
+      "page": 1
+     }
+    ],
+    "records": [
+     {
+      "book": "blue",
+      "record_id": "FC-AF-0012",
+      "number": "28578",
+      "expected": {
+       "id": "FC-AF-0012",
+       "collection_no": "28578",
+       "date": "2026-10-22",
+       "week": "Event Week",
+       "usable": true,
+       "location": "S21",
+       "note": "Collected 22 Oct 2026 from S21: 4 mesh panels, 22 CC barriers, 2 bases, 6 clamps, 2 wheels. No hire agreement number written; no comments. Both signatures dated 22/10/26.",
+       "collected": {
+        "base": 2,
+        "cc_barrier": 22,
+        "clamp": 6,
+        "mesh_panel": 4,
+        "wheels": 2
+       },
+       "matches": []
+      }
+     }
+    ],
+    "red_overlap": [],
+    "basis": "4 mesh panels collected; 4 x settled 2.5 m = 10 m, as collections 28551-28553 and Advanced's week 4 sheet count removal. Collected counts only; no charge or credit from the form. The crowd-control barriers collected on the same form are not fence and are not added."
+   }
+  ],
+  "sources": [
+   {
+    "id": "24482.jpg",
+    "sha256": "28047f60c2e3350f9e0f11f7ba456b5b032d832c9fdd84656c286d633ec1221b",
+    "title": "Signed service note 24482"
+   },
+   {
+    "id": "24483.jpg",
+    "sha256": "cd0c791e7a302b8e4933c30d9a52a63be3cd6b1152b82adbcc7be91d3b6947c5",
+    "title": "Signed service note 24483"
+   },
+   {
+    "id": "24484.jpg",
+    "sha256": "b73697905c83e06e76ab457f31d193fbc5e8297f5410ba53ca817a826020fc8e",
+    "title": "Signed service note 24484"
+   },
+   {
+    "id": "24490.jpg",
+    "sha256": "0668a8c0eebfca5bb5bd76a77d78c19c2462c40fface3f0443efa9d47bec95c2",
+    "title": "Signed service note 24490"
+   },
+   {
+    "id": "28554.jpg",
+    "sha256": "636847f0f01c59a622101e8d20a1b1dd7ea827911bc2a6b34c80dd8254f91c00",
+    "title": "Collection form 28554"
+   },
+   {
+    "id": "28556.jpg",
+    "sha256": "dd2a011997342807ed050e855d5230a0bb1fb8640e91ecf33fcc15099eda0f6a",
+    "title": "Collection form 28556"
+   },
+   {
+    "id": "28557.jpg",
+    "sha256": "30a5d7c2ecfac43a44671e0e8460e662f9c40918a8ec3bcead6fed8310d86b80",
+    "title": "Collection form 28557"
+   },
+   {
+    "id": "28558.jpg",
+    "sha256": "e1496aeafc26e2bd37e8ee3234e9f74e62070953a99f18ab14c8f0615d4ece6d",
+    "title": "Collection form 28558"
+   },
+   {
+    "id": "28559.jpg",
+    "sha256": "9661b290c690afc580d521748fe79a43117474ddf3a8bc6f783eaf201023d26e",
+    "title": "Collection form 28559"
+   },
+   {
+    "id": "28560.jpg",
+    "sha256": "d55063c3798d756b684d9cea95cacd53e3195012b9aad6e4f0f15cfa189e84b0",
+    "title": "Collection form 28560"
+   },
+   {
+    "id": "28566.jpg",
+    "sha256": "5072970dc92ce77efdd738b7fcd39210e610e8d0ae91ca23ac475c42e4c8b1a8",
+    "title": "Collection form 28566"
+   },
+   {
+    "id": "28567.jpg",
+    "sha256": "c7bb57677bd0795ce359c3c876ed5c3d7b79c0eda954115bc4b7e17aa98f6ea0",
+    "title": "Collection form 28567"
+   },
+   {
+    "id": "28569.jpg",
+    "sha256": "b36734ca65a8f585918be3aa0582b3749ad5d8951fa9dcc647437830296f0db3",
+    "title": "Collection form 28569"
+   },
+   {
+    "id": "28571.jpg",
+    "sha256": "c2bbc893e99caa5f417a71e0ca46f99c1f8d755c61fa0b7315ee75323e6ae0cc",
+    "title": "Collection form 28571"
+   },
+   {
+    "id": "28572.jpg",
+    "sha256": "450c6cab98b5d3f601f6b0b573516c11b1a328c0118fbe48ca80eee73491dccf",
+    "title": "Collection form 28572"
+   },
+   {
+    "id": "28575.jpg",
+    "sha256": "55544e0f50037316cc8cc53328deba8b49607b736160c879a1d67624b6a3f8a7",
+    "title": "Collection form 28575"
+   },
+   {
+    "id": "28577.jpg",
+    "sha256": "da6f2b221b7f70d6d4012e1552153e63ed62915b5897af11bc58cc557c132dd9",
+    "title": "Collection form 28577"
+   },
+   {
+    "id": "28578.jpg",
+    "sha256": "4c34cfadad72ee93ccfe0de265ea3b22c2baf860dbc8dbbc051db6b84e2c4595",
+    "title": "Collection form 28578"
+   }
+  ]
+ }
+}

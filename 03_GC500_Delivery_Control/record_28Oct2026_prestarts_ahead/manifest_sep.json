@@ -1,0 +1,90 @@
+[
+  {
+    "file": "sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+    "title": "Pre-start \u00b7 Coates Installs \u00b7 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-07",
+    "crew": "coates",
+    "replaces": [
+      "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+    "title": "Pre-start \u00b7 Coates Installs \u00b7 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-08",
+    "crew": "coates",
+    "replaces": [
+      "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+    "title": "Pre-start \u00b7 Coates Installs \u00b7 2026-09-09",
+    "note": "Daily pre-start for Wed 09 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-09",
+    "crew": "coates",
+    "replaces": [
+      "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+    "title": "Pre-start \u00b7 Coates Installs \u00b7 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-10",
+    "crew": "coates",
+    "replaces": [
+      "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+    "title": "Pre-start \u00b7 Coates Installs \u00b7 2026-09-11",
+    "note": "Daily pre-start for Fri 11 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-11",
+    "crew": "coates",
+    "replaces": [
+      "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-07.pdf",
+    "title": "Pre-start \u00b7 Advanced Temporary Fencing \u00b7 2026-09-07",
+    "note": "Daily pre-start for Mon 07 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-07",
+    "crew": "fencing",
+    "replaces": [
+      "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-08.pdf",
+    "title": "Pre-start \u00b7 Advanced Temporary Fencing \u00b7 2026-09-08",
+    "note": "Daily pre-start for Tue 08 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-08",
+    "crew": "fencing",
+    "replaces": [
+      "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf"
+    ]
+  },
+  {
+    "file": "sep/pdfs/GC500_Prestart_Advanced_Fencing_2026-09-10.pdf",
+    "title": "Pre-start \u00b7 Advanced Temporary Fencing \u00b7 2026-09-10",
+    "note": "Daily pre-start for Thu 10 Sep 2026",
+    "kind": "pack",
+    "day": "2026-09-10",
+    "crew": "fencing",
+    "replaces": [
+      "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf"
+    ]
+  }
+]

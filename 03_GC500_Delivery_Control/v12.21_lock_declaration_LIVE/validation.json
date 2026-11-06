@@ -1,0 +1,93 @@
+{
+  "author": "Andrew Fisher",
+  "status": "LIVE",
+  "base_sha256": "6ccc030d201729e50015d77aa2f140ba63660fe32e0a5fc44c958d47b6636a16",
+  "candidate_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
+  "bytes": 15378131,
+  "checks": {
+    "scripts": 199,
+    "model": 19,
+    "preservation": 5,
+    "card_localhost_phone": 26,
+    "card_localhost_desktop": 26,
+    "report_layout": 5,
+    "synthetic_declarations": 120,
+    "synthetic_pages": 26,
+    "clipped": 0,
+    "initial_native_dry": 76,
+    "final_native_card_first_dry": 76,
+    "live_crew_phone": 10,
+    "live_crew_desktop": 10,
+    "public_phone_smoke": 7
+  },
+  "pending": [],
+  "desktop_sweep": {
+    "tabs": 27,
+    "shown": 19,
+    "hashes": 7,
+    "errors": [],
+    "console_errors": [],
+    "blocked_writes": 0,
+    "go_errors": [],
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "crew_sha256": "54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798",
+  "server_readback": {
+    "author": "Andrew Fisher",
+    "at": "2026-10-25T07:47:48.514453+00:00",
+    "health_build": "v5.93",
+    "lock_declarations_version": 1,
+    "retained_history_entries": 426,
+    "concurrent_history_additions": 0,
+    "tracker_configuration_and_signatures_unchanged": true,
+    "cards_unchanged": true,
+    "page_unchanged": true,
+    "inventory_preserved": true,
+    "boot_hash_verification": "Deployment-owner evidence required; health does not expose the boot hash",
+    "record_note": "Captured, not asserted unchanged across concurrent authorised work",
+    "live_writes": 0
+  },
+  "crew_live_at": "2026-10-25T07:52:56.826Z",
+  "crew_ready_source": "4f7ce94e497b5f589253b949d47ae343b5ec08cc",
+  "crew_native_publication": {
+    "card_first": true,
+    "at": "2026-10-25T07:52:56.826Z",
+    "crew_before_sha256": "2c9fed6f23d3a3732e28b2c6f32846aa7e467da233f39c40b4a67ac30b3df272",
+    "crew_sha256": "54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798",
+    "live_posts": 1,
+    "unexpected_writes": 0,
+    "errors": 0
+  },
+  "phone_sweep": {
+    "tabs": 27,
+    "shown": 19,
+    "hashes": 7,
+    "errors": [],
+    "console_errors": [],
+    "blocked_writes": 0,
+    "go_errors": [],
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "upload_dry_run": true,
+  "main_ready_source": "6eeb5744fc6a8df6d47230b1d4bad4a66d74d9b8",
+  "main_live_at": "2026-10-25T08:11:14.224Z",
+  "final_readback": {
+    "author": "Andrew Fisher",
+    "at": "2026-10-25T08:12:11.231460+00:00",
+    "page_sha256": "f06ddbdfca7b13394e1477d32f54813f7866b5e371160dd876aa94639712bab7",
+    "bytes": 15378131,
+    "crew_sha256": "54957ef5bb042313fe74b277fa0344395ecf6d543ede5e19b3abd1940ce74798",
+    "server_build": "v5.93",
+    "lock_declarations_version": 1,
+    "job_record_unchanged": true,
+    "earlier_tick_history_retained": true,
+    "tracker_configuration_and_signatures_unchanged": true,
+    "live_writes": 0
+  }
+}

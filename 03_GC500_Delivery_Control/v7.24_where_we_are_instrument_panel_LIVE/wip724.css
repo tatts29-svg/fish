@@ -1,0 +1,158 @@
+/* v7.24 - Where we are: one instrument panel (see wipPanel) */
+.wip{--wh:#161c1e;border-top-width:2px;--wh2:#12171a;--wtx:#f5f7f8;--wt2:#bac2c6;--wor:#ff7a1a;--wam:#ffbb55;--wdv:rgba(255,255,255,.13);
+ position:relative;margin:22px 0 10px;padding:22px 26px 0;border-radius:26px;color:var(--wtx);isolation:isolate;
+ background:linear-gradient(180deg,#1b2224 0%,var(--wh) 38%,var(--wh2) 100%);
+ border:1px solid rgba(255,122,26,.9);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 0 0 2px rgba(0,0,0,.35),inset 0 -18px 30px -24px rgba(0,0,0,.8),0 22px 44px -22px rgba(10,14,16,.55),0 2px 6px rgba(10,14,16,.14);
+ font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+/* the shaped brow along the top edge, drawn as one vector line that meets the perimeter; and a fine inner lip */
+.wbrow{position:absolute;left:24px;right:24px;top:-15px;width:calc(100% - 48px);height:18px;z-index:0;overflow:visible;pointer-events:none}
+.wbf{fill:#1b2224}
+.wbs{fill:none;stroke:#ff7a1a;stroke-width:1.6;filter:drop-shadow(0 -1px 3px rgba(255,122,26,.35))}
+.wlip{position:absolute;inset:9px 9px 0;border-radius:19px 19px 0 0;border:1px solid rgba(255,255,255,.045);border-bottom:0;pointer-events:none;z-index:0;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+.wgrid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.45fr) 1px minmax(0,1fr);gap:0 30px;align-items:stretch}
+.wdiv{background:linear-gradient(180deg,transparent,var(--wdv) 14%,var(--wdv) 86%,transparent)}
+.wz1{display:flex;flex-direction:column;align-items:center;min-width:0;padding-bottom:12px}
+/* the mode switch: a pill whose lit half slides */
+.wtog{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;padding:3px;border-radius:999px;background:#0e1314;
+ border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 3px rgba(0,0,0,.6);overflow:hidden}
+.wtog > i{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;pointer-events:none;
+ background:linear-gradient(180deg,#8f3f0b,#5b2807);border:1px solid var(--wor);
+ box-shadow:0 0 14px rgba(255,122,26,.32),inset 0 1px 0 rgba(255,255,255,.2);transition:transform .22s cubic-bezier(.3,.85,.25,1);overflow:hidden}
+.wtog[data-mode="all"] > i{transform:translateX(100%)}
+.wtog > i::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:50%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);opacity:0}
+.wtog.sheen > i::after{animation:wipSheen .5s .08s ease-out}
+@keyframes wipSheen{0%{left:-60%;opacity:1}100%{left:130%;opacity:0}}
+.wtog button{position:relative;z-index:1;min-height:44px;padding:0 24px;border:0;background:none;color:#c6ced1;font:inherit;font-size:15px;font-weight:600;
+ border-radius:999px;cursor:pointer;transition:color .18s,transform .12s}
+.wtog button.on{color:#fff}
+.wtog button:active{transform:translateY(1px) scale(.98)}
+.wtog button:focus-visible{outline:2px solid var(--wam);outline-offset:-4px}
+/* the gauge: vector from end to end, live text, one scale */
+.wgwrap{width:100%;max-width:470px;margin:6px auto 0}
+.wg svg{display:block;width:100%;height:auto;overflow:visible}
+.wgface{fill:url(#wgface)}
+.wgedge{fill:none;stroke:rgba(255,255,255,.06);stroke-width:1}
+.wgtrack{fill:none;stroke:#2a3336;stroke-width:9;stroke-linecap:round}
+.wgfill{fill:none;stroke:url(#wgfg);stroke-width:9.5;stroke-linecap:round}
+.wgglow{fill:none;stroke:#ff7a1a;stroke-width:24;stroke-linecap:round;opacity:.16}
+.wtk{stroke:rgba(235,240,242,.42);stroke-width:1.1;stroke-linecap:round}
+.wtk.maj{stroke:rgba(245,247,248,.9);stroke-width:2.2}
+.wtl{fill:#98a3a7;font-size:11px;font-weight:600;text-anchor:middle;letter-spacing:.04em}
+.wgk{fill:#c9d1d4;font-size:12.5px;font-weight:600;letter-spacing:.24em;text-anchor:middle}
+.wgpc{fill:#fff;font-size:64px;font-weight:800;text-anchor:middle;letter-spacing:-.02em}
+.wgpcu{font-size:34px;font-weight:700}
+.wgrule{stroke:rgba(255,255,255,.16);stroke-width:1}
+.wgfr{fill:#e9eef0;font-size:15.5px;font-weight:500;text-anchor:middle}
+.wgb{font-weight:800;fill:#fff}
+.wgdt{fill:#aeb8bc;font-size:13px;text-anchor:middle;letter-spacing:.02em}
+.wgtx{transition:opacity .13s ease,transform .13s ease;transform-box:fill-box;transform-origin:center}
+.wgtx.out{opacity:0;transform:translateY(3px)}
+.wgtx.none .wgpc{fill:#9aa5a9}
+.wgn{fill:#ff7a1a}
+.wgn2{fill:#ffd2ad;opacity:.85}
+.wgpiv{fill:url(#wgpiv);stroke:#ff7a1a;stroke-width:1.6}
+.wgpin{fill:#ff7a1a}
+.wgshine{fill:none;stroke:rgba(255,255,255,.4);stroke-width:1.2;stroke-linecap:round}
+.wip.moving .wgneedle,.wip.moving .wgfill,.wip.moving .wgglow{will-change:transform}
+.wip.moving .wgpin{fill:#ffa15c}
+/* right column: two modules, one rule between */
+.wright{display:flex;flex-direction:column;min-width:0}
+.wmod{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;padding:22px 2px;flex:1}
+.wmod + .wmod{border-top:1px solid var(--wdv)}
+.wico svg{display:block;width:74px;height:auto;fill:none;stroke:var(--wor);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.wico svg .fine{stroke-width:1;opacity:.75}
+.wk{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--wt2)}
+.wn{display:flex;flex-wrap:wrap;align-items:baseline;margin:4px 0 2px;font-size:clamp(34px,3.6vw,52px);line-height:1.02;font-weight:800;letter-spacing:-.02em;color:#fff;border-radius:6px}
+.wn small{font-size:.42em;font-weight:700;letter-spacing:.06em;color:#cfd6d9;margin-left:.35em;white-space:nowrap}
+.ws{margin:0 0 6px;font-size:14.5px;color:#d3dadd}
+.wwarn{margin:0 0 6px;font-size:13px;font-weight:700;color:var(--wam)}
+/* actions: a clear name, an arrow that leans in, a 1 px press */
+.wact{display:inline-flex;align-items:center;text-align:left;gap:10px;min-height:44px;padding:4px 0;border:0;border-bottom:1px solid rgba(255,255,255,.28);
+ background:none;color:var(--wtx);font:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:border-color .15s,color .15s,transform .1s}
+.wact .wa{width:20px;height:12px;fill:none;stroke:var(--wor);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .16s cubic-bezier(.3,.8,.3,1)}
+.wact:hover{border-bottom-color:var(--wor)}
+.wact:hover .wa,.wact:focus-visible .wa{transform:translateX(3px)}
+.wact[aria-expanded="true"] .wa{transform:rotate(90deg)}
+.wact:active{transform:translateY(1px)}
+.wact:focus-visible{outline:2px solid var(--wam);outline-offset:3px;border-radius:3px}
+.wacts{margin-top:2px}
+/* the drawers: one open at a time, the height eased open */
+.wdrs{position:relative;z-index:1}
+.wdr{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s cubic-bezier(.3,.8,.3,1)}
+.wdr.open{grid-template-rows:1fr}
+.wdri{overflow:hidden;min-height:0}
+.wdrc{margin:6px 0 16px;padding:16px 18px;border-radius:14px;background:#1d2426;border:1px solid rgba(255,255,255,.08);box-shadow:inset 0 1px 2px rgba(0,0,0,.5);
+ font-size:14.5px;line-height:1.5;color:#dde3e5;opacity:0;transform:translateY(-4px);transition:opacity .2s .05s,transform .24s .05s}
+.wdr.open .wdrc{opacity:1;transform:none}
+.wdrc h4{margin:0 0 6px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--wt2)}
+.wdrc p{margin:0 0 8px}
+.wdrc ul{margin:0 0 8px;padding-left:18px}
+.wdrc b{color:#fff}
+.wdg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.wdrc .tblwrap{overflow-x:auto;background:none !important;border:0 !important;box-shadow:none !important;padding:0 !important;margin:0 0 6px}
+.wdrc table.wtb,.wdrc table.wtb tr,.wdrc table.wtb td,.wdrc table.wtb th{background:transparent !important}
+.wtb{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:10px}
+.wtb td,.wtb th{padding:6px 8px;border:0 !important;border-bottom:1px solid rgba(255,255,255,.08) !important;text-align:left;color:#dde3e5}
+.wtb th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--wt2);font-weight:700}
+.wtb .num{text-align:right;white-space:nowrap}
+.wtb tr.tot td{border-top:1px solid rgba(255,255,255,.22) !important;border-bottom:0 !important}
+.wdrc .wgo{margin:6px 0 0}
+.wdrc button[data-k]{color:#ffd0a8}
+/* the bottom edge: the shared record's state, and a lamp that brightens once when the service confirms */
+.wfoot{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;margin:0 -26px;padding:11px 16px 13px;border-top:1px solid var(--wdv);
+ font-size:13px;color:#b7c0c4;letter-spacing:.02em;border-radius:0 0 26px 26px;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.22))}
+.wled{width:8px;height:8px;border-radius:50%;background:#5d676b;box-shadow:inset 0 1px 1px rgba(255,255,255,.3)}
+.wled.shared,.wled.view{background:#5fd47a}
+.wled.pending{background:var(--wam)}
+.wled.ping{animation:wipPing .38s ease-out}
+@keyframes wipPing{0%{box-shadow:0 0 0 0 rgba(95,212,122,.9),inset 0 1px 1px rgba(255,255,255,.3);filter:brightness(1.6)}100%{box-shadow:0 0 0 7px rgba(95,212,122,0),inset 0 1px 1px rgba(255,255,255,.3);filter:none}}
+/* a figure that genuinely changed glows once */
+.wn.chg,.wgwrap.chg{animation:wipChg .6s ease-out}
+@keyframes wipChg{0%{text-shadow:0 0 18px rgba(255,160,90,.9);filter:brightness(1.25)}100%{text-shadow:none;filter:none}}
+/* the arrival: the housing rises in, the zones follow left to right */
+.wip.enter{animation:wipIn .32s cubic-bezier(.25,.8,.3,1) both}
+.wip.enter .wz,.wip.enter .wdiv,.wip.enter .wfoot{animation:wipZone .3s cubic-bezier(.25,.8,.3,1) both}
+.wip.enter .wz1{animation-delay:.06s}.wip.enter .wdiv{animation-delay:.1s}.wip.enter .wz2{animation-delay:.14s}.wip.enter .wz3{animation-delay:.19s}.wip.enter .wfoot{animation-delay:.24s}
+.wip.enter .wtog > i{animation:wipLit .5s .3s ease-out both}
+@keyframes wipIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes wipZone{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes wipLit{0%{box-shadow:0 0 0 rgba(255,122,26,0),inset 0 1px 0 rgba(255,255,255,.2)}50%{box-shadow:0 0 22px rgba(255,122,26,.6),inset 0 1px 0 rgba(255,255,255,.3)}100%{box-shadow:0 0 14px rgba(255,122,26,.32),inset 0 1px 0 rgba(255,255,255,.2)}}
+@media (prefers-reduced-motion:reduce){.wip,.wip *{animation:none !important;transition:none !important}}
+html[data-motion="off"] .wip,html[data-motion="off"] .wip *{animation:none !important;transition:none !important}
+/* tablet: the gauge above, the two modules side by side */
+@media (max-width:960px){
+ .wgrid{grid-template-columns:minmax(0,1fr)}
+ .wdiv{height:1px;background:linear-gradient(90deg,transparent,var(--wdv) 12%,var(--wdv) 88%,transparent)}
+ .wright{flex-direction:row}
+ .wmod{padding:20px 6px}
+ .wmod + .wmod{border-top:0;border-left:1px solid var(--wdv);padding-left:20px}
+ .wdg{grid-template-columns:1fr}
+}
+/* phone: gauge, then Fencing, then Calculated revenue */
+@media (max-width:620px){
+ .wip{padding:16px 14px 0;border-radius:20px;margin-top:18px}
+ .wbrow{left:14px;right:14px;width:calc(100% - 28px)}
+ .wlip{inset:6px 6px 0;border-radius:15px 15px 0 0}
+ .wfoot{margin:0 -14px;border-radius:0 0 20px 20px;font-size:12px}
+ .wtog button{padding:0 16px;font-size:14px}
+ .wright{flex-direction:column}
+ .wmod{gap:14px;padding:18px 2px}
+ .wmod + .wmod{border-left:0;border-top:1px solid var(--wdv);padding-left:2px}
+ .wmod{grid-template-columns:40px minmax(0,1fr);align-items:start}
+ .wico svg{width:40px;margin-top:4px}
+ .wact{font-size:14.5px;gap:8px}
+ .wk{letter-spacing:.12em;font-size:11.5px}
+ .wn{font-size:32px}
+ .ws{font-size:13.5px}
+ .wdrc{padding:14px 12px;font-size:14px}
+}
+/* paper: light, final values, nothing moving */
+@media print{
+ .wip{background:#fff !important;color:#111 !important;border:1px solid #999 !important;box-shadow:none !important;break-inside:avoid;animation:none !important}
+ .wbrow,.wlip,.wtog,.wacts,.wact,.wdrs,.wfoot{display:none !important}
+ .wip *{animation:none !important;transition:none !important}
+ .wgface{fill:#fff}.wgtrack{stroke:#ddd}.wgglow{display:none}.wtk{stroke:#999}.wtk.maj{stroke:#333}.wtl,.wgdt{fill:#555}.wgk{fill:#333}.wgpc,.wgfr,.wgb{fill:#111}
+ .wk,.ws{color:#444}.wn{color:#111}.wn small{color:#444}.wgpiv{fill:#fff}
+}

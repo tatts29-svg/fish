@@ -1,0 +1,1 @@
+ const t = tilesHtml(svg), gs = svg.querySelector('g.sat g.satw'); if (gs) { gs.parentNode.setAttribute('data-z', t.z); gs.setAttribute('data-z', t.z); gs.innerHTML = t.html; }

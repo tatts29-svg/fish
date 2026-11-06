@@ -1,0 +1,296 @@
+[
+  {
+    "name": "phone plan stage grows from 140px to at least 330px",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 372,
+        "height": 355,
+        "bottom": 413
+      },
+      "frame": {
+        "x": 9,
+        "y": 383.03125,
+        "width": 372,
+        "height": 413,
+        "bottom": 796.03125
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 148.5,
+        "bottom": 148.5
+      },
+      "wrap": {
+        "x": 8,
+        "y": 382.03125,
+        "width": 374,
+        "height": 415,
+        "bottom": 797.03125
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "full": false,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "map stays above the footer without horizontal overflow",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 372,
+        "height": 355,
+        "bottom": 413
+      },
+      "frame": {
+        "x": 9,
+        "y": 383.03125,
+        "width": 372,
+        "height": 413,
+        "bottom": 796.03125
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 148.5,
+        "bottom": 148.5
+      },
+      "wrap": {
+        "x": 8,
+        "y": 382.03125,
+        "width": 374,
+        "height": 415,
+        "bottom": 797.03125
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "full": false,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "map selection and Find remain visible",
+    "ok": true
+  },
+  {
+    "name": "Full screen is visible above the map without scrolling",
+    "ok": true
+  },
+  {
+    "name": "Map tools reveals the original area filter and equipment key",
+    "ok": true
+  },
+  {
+    "name": "Map tools closes without rebuilding or losing the map",
+    "ok": true
+  },
+  {
+    "name": "phone Full screen gives the plan at least 650px",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 368,
+        "height": 706,
+        "bottom": 764
+      },
+      "frame": {
+        "x": 11,
+        "y": 69,
+        "width": 368,
+        "height": 764,
+        "bottom": 833
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 148.5,
+        "bottom": 148.5
+      },
+      "wrap": {
+        "x": 10,
+        "y": 68,
+        "width": 370,
+        "height": 766,
+        "bottom": 834
+      },
+      "viewport": [
+        390,
+        844
+      ],
+      "full": true,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "Exit full screen is labelled and keyboard reachable",
+    "ok": true
+  },
+  {
+    "name": "Escape exits and returns focus to Full screen",
+    "ok": true
+  },
+  {
+    "name": "phone page remains touch-scrollable with tools open",
+    "ok": true
+  },
+  {
+    "name": "small phone keeps a usable plan and no overflow",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 357,
+        "height": 186,
+        "bottom": 244
+      },
+      "frame": {
+        "x": 9,
+        "y": 375.03125,
+        "width": 357,
+        "height": 244,
+        "bottom": 619.03125
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 148.5,
+        "bottom": 148.5
+      },
+      "wrap": {
+        "x": 8,
+        "y": 374.03125,
+        "width": 359,
+        "height": 246,
+        "bottom": 620.03125
+      },
+      "viewport": [
+        375,
+        667
+      ],
+      "full": false,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "small phone full-screen plan fits",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 353,
+        "height": 529,
+        "bottom": 587
+      },
+      "frame": {
+        "x": 11,
+        "y": 69,
+        "width": 353,
+        "height": 587,
+        "bottom": 656
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 148.5,
+        "bottom": 148.5
+      },
+      "wrap": {
+        "x": 10,
+        "y": 68,
+        "width": 355,
+        "height": 589,
+        "bottom": 657
+      },
+      "viewport": [
+        375,
+        667
+      ],
+      "full": true,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "landscape full-screen plan and exit fit",
+    "ok": true,
+    "detail": {
+      "stage": {
+        "x": 0,
+        "y": 58,
+        "width": 822,
+        "height": 252,
+        "bottom": 310
+      },
+      "frame": {
+        "x": 11,
+        "y": 69,
+        "width": 822,
+        "height": 310,
+        "bottom": 379
+      },
+      "header": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 131,
+        "bottom": 131
+      },
+      "wrap": {
+        "x": 10,
+        "y": 68,
+        "width": 824,
+        "height": 312,
+        "bottom": 380
+      },
+      "viewport": [
+        844,
+        390
+      ],
+      "full": true,
+      "overflow": false,
+      "mainScroll": 0
+    }
+  },
+  {
+    "name": "leaving Map exits full screen",
+    "ok": true
+  },
+  {
+    "name": "desktop retains area controls and has Full screen",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page errors or record writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "writes": 0
+    }
+  }
+]

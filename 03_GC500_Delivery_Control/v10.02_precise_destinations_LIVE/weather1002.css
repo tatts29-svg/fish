@@ -1,0 +1,12 @@
+/* Author: Andrew Fisher. Fill the available width, retaining the approved animated race cards. */
+@media screen{
+ :is(#pane-timeline,#pane-demob.refresh-demob) .daystrip:has(.bc984-card){display:flex!important;max-width:none!important;width:100vw;margin-inline:calc(50% - 50vw);padding-inline:var(--wx1002-edge-start,8px) var(--wx1002-edge-end,8px);gap:20px;box-sizing:border-box;scroll-snap-type:x proximity;scroll-padding-inline:8px}
+ :is(#pane-timeline,#pane-demob) .daystrip>.day:has(.bc984-card){flex:0 0 400px;width:400px;min-width:0;max-width:none;scroll-snap-align:center}
+ :is(#pane-timeline,#pane-demob) .bc984-more{max-width:none}
+ /* Persistent selected states. Keyboard focus keeps its separate native outline. */
+ :is(button[aria-selected="true"],button[aria-pressed="true"],button.chip.on,.btn.on,nav.tabs .tabmore.on,.eqc.on,.mtile.on,.finder .fi.on,.wtog button.on,.giscope .gsc.on){box-shadow:0 0 0 1px #ffb16b,0 0 13px 2px #ff873b60!important}
+ :is(#pane-timeline,#pane-demob) .daystrip>.day.on:has(.bc984-card){--edge:#ffae66;box-shadow:0 0 0 1px #ffb16b,0 0 16px 3px #ff873b85!important}
+}
+@media screen and (max-width:760px){
+ :is(#pane-timeline,#pane-demob) .daystrip>.day:has(.bc984-card){flex-basis:calc(100vw - 16px);width:calc(100vw - 16px)}
+}

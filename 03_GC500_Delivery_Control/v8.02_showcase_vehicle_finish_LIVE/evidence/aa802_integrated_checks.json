@@ -1,0 +1,153 @@
+{
+  "author": "Andrew Fisher",
+  "baseline": {
+    "path": "/workspace/private-v802-official70-stages/06_metadata800.html",
+    "sha256": "a1a068a1b0e149b1c7c9a5cde1fdb8f55175aff3df0a208df474e877412ce5b4"
+  },
+  "candidate": {
+    "path": "/workspace/private-v802-official70-stages/07_aa802.html",
+    "sha256": "0b7380086cb4d441bba6c07825a6ed2e94d6b372e8a6d3557a132476409f1e07"
+  },
+  "sourceSha256": "ce52076e10c3dacbd3a7c2809f5549b273ba0376fa97974cfb88a07ea1247f2e",
+  "checks": [
+    {
+      "name": "only the helper and exact sample selection changed",
+      "pass": true
+    },
+    {
+      "name": "allocation, incomplete-target cleanup, disposal and resolve remain byte-identical",
+      "pass": true
+    },
+    {
+      "name": "all 1024 colour/depth/request combinations satisfy the bounded rule",
+      "pass": true,
+      "detail": {
+        "combinations": 1024,
+        "changed": 48
+      }
+    },
+    {
+      "name": "2x stays 2x when both support it",
+      "pass": true
+    },
+    {
+      "name": "4x fallback requires both actual attachment formats",
+      "pass": true
+    },
+    {
+      "name": "8x alone cannot satisfy the bounded 2x fallback",
+      "pass": true
+    },
+    {
+      "name": "ordinary 4x and higher requests keep the original maximum-at-or-below rule",
+      "pass": true
+    },
+    {
+      "name": "missing capability lists return no multisampling",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 chooses 4x for colour and matching depth",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 success allocates exactly the existing three MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 resolves colour and depth with existing nearest blit",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 disposal releases all target and MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 incomplete allocation restores 1x and deletes all partial MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 failed allocation never attempts resolve",
+      "pass": true
+    },
+    {
+      "name": "RGBA8 failed-allocation teardown leaves no objects",
+      "pass": true
+    },
+    {
+      "name": "HDR chooses 4x for colour and matching depth",
+      "pass": true
+    },
+    {
+      "name": "HDR success allocates exactly the existing three MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "HDR resolves colour and depth with existing nearest blit",
+      "pass": true
+    },
+    {
+      "name": "HDR disposal releases all target and MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "HDR incomplete allocation restores 1x and deletes all partial MSAA objects",
+      "pass": true
+    },
+    {
+      "name": "HDR failed allocation never attempts resolve",
+      "pass": true
+    },
+    {
+      "name": "HDR failed-allocation teardown leaves no objects",
+      "pass": true
+    },
+    {
+      "name": "0 requested keeps the original early no-allocation path",
+      "pass": true
+    },
+    {
+      "name": "1 requested keeps the original early no-allocation path",
+      "pass": true
+    },
+    {
+      "name": "incompatible attachment capabilities allocate nothing",
+      "pass": true
+    },
+    {
+      "name": "successive quality target replacement leaks no framebuffer or renderbuffer",
+      "pass": true
+    }
+  ],
+  "budgets": [
+    {
+      "name": "captured desktop",
+      "pixels": 661760,
+      "hdr4ExtraVsNoMSAABytes": 31764480,
+      "hdr4ExtraVsIntended2Bytes": 15882240,
+      "rgba8FourExtraVsNoMSAABytes": 21176320,
+      "hdr4ExtraVsNoMSAAMiB": 30.29296875
+    },
+    {
+      "name": "captured phone",
+      "pixels": 230100,
+      "hdr4ExtraVsNoMSAABytes": 11044800,
+      "hdr4ExtraVsIntended2Bytes": 5522400,
+      "rgba8FourExtraVsNoMSAABytes": 7363200,
+      "hdr4ExtraVsNoMSAAMiB": 10.53314208984375
+    },
+    {
+      "name": "Balanced 1.8M-pixel cap",
+      "pixels": 1800000,
+      "hdr4ExtraVsNoMSAABytes": 86400000,
+      "hdr4ExtraVsIntended2Bytes": 43200000,
+      "rgba8FourExtraVsNoMSAABytes": 57600000,
+      "hdr4ExtraVsNoMSAAMiB": 82.3974609375
+    }
+  ],
+  "limits": [
+    "CPU mocked capability/allocation lifecycle; real GL validation remains required.",
+    "Counts are attachment storage estimates; driver allocation padding and real-device timing are not measured.",
+    "Incomplete-framebuffer failure path is preserved; no new exception or out-of-memory recovery mechanism is introduced."
+  ]
+}

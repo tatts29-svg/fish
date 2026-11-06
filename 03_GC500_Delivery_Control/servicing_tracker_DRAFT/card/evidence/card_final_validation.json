@@ -1,0 +1,65 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT; local validation only, not published by this agent",
+  "files": {
+    "card/card.html": {
+      "sha256": "953233d43de21949f5a7704ee19c973c94b9864a789c86aef9f6d90437a85842",
+      "bytes": 85771
+    },
+    "card/card_src.js": {
+      "sha256": "10fa3446b048713efdeedde1c6d95d9ec1613481043d097779a815cf9a60dca0",
+      "bytes": 46101
+    },
+    "card/card.css": {
+      "sha256": "aa9e47d491667dde05f5ff9704f938bcd863e4260487b4ce191516fe5e76585d",
+      "bytes": 11341
+    },
+    "card/build_card.js": {
+      "sha256": "82c9fe32c1df842300db7afac8c0cbe2f95b609529a2e8ebc06b21dc71dc072f",
+      "bytes": 9382
+    },
+    "card/tracker_sw.js": {
+      "sha256": "898d64319a24f2cf2f2b00b4eca0d8eb32896d3f38f3852acf45e71b1a72a452",
+      "bytes": 2545
+    },
+    "panel_mockup/state.js": {
+      "sha256": "b25a17d7875986f3505cd36c97f7df3c0fcce9992522069d2035c1f947ca1b7d",
+      "bytes": 7138
+    }
+  },
+  "checks": {
+    "test_reliability.cjs": {
+      "passed": 18,
+      "failed": 0
+    },
+    "test_worker.cjs": {
+      "passed": 14,
+      "failed": 0
+    },
+    "test_offline_tabs.cjs": {
+      "passed": 18,
+      "failed": 0
+    },
+    "test_card.cjs": {
+      "passed": 158,
+      "failed": 0,
+      "seconds": 42
+    },
+    "test_server_protocol.cjs": {
+      "passed": 23,
+      "failed": 0
+    }
+  },
+  "frozenCardEqualsCurrentGenerator": true,
+  "realServerSha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "liveWrites": false,
+  "remainingGates": [
+    "Main-page admin integration has a separate owner",
+    "Guarded server/page release and exact live read-back owned by root"
+  ],
+  "limitations": [
+    "Local Chromium validation does not claim physical iPhone/Android camera, private-browsing persistence or carrier-network testing",
+    "A first-ever offline scan needs an earlier online load and Ready for offline scans confirmation"
+  ],
+  "compatibilityEvidence": "card_v589_compatibility.json"
+}

@@ -1,0 +1,647 @@
+--- GC500_Delivery_Control_hosted_v673.html	2026-09-26 07:15:55.618552346 +0000
++++ GC500_Delivery_Control_hosted_v674.html	2026-09-26 08:24:51.672215043 +0000
+@@ -5118,6 +5118,19 @@
+ @media (max-width:760px){ .dcpics{grid-template-columns:1fr 1fr} .dcpics .dcpl:nth-of-type(1){grid-column:1 / span 2;grid-row:1} .dcpics .dcpl:nth-of-type(2){grid-column:1 / span 2;grid-row:3}
+   .dcpics > .dcpic:nth-of-type(1),.dcpics > .dcpic:nth-of-type(2){grid-row:2} .dcpics > .dcpic:nth-of-type(3),.dcpics > .dcpic:nth-of-type(4){grid-row:4} }
+ @media print{ .dcpic .dcx{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
++
++/* v6.74 - the audit: a measure this record cannot take reads as unknown, never green */
++.cwkpi.unk{--acc:var(--mute)}
++.cwkpi.unk .cwkv{color:var(--mute);font-size:15px}
++.cwkpi .cwjob{display:block;margin-top:6px;font-size:12px;color:var(--ink)}
++.cwunk{margin-top:12px;border:1px dashed var(--line);border-radius:10px;padding:10px 12px}
++.cwunk ul{margin:6px 0 0;padding-left:18px}
++.cwunk li{margin:3px 0;font-size:13px}
++.cprov{display:block;font-style:normal;font-size:11.5px;color:var(--mute);margin-top:2px}
++.frc{font-size:11px;color:var(--mute);font-weight:400}
++
++/* v6.74b - REL-01: until the shared record has answered, the figures are the copy saved in this browser - dimmed */
++body.recloading main .pane.on .kpi .v, body.recloading main .pane.on .cblock, body.recloading main .pane.on .mtot{opacity:.45;transition:opacity .25s}
+ </style></head>
+ <body>
+ <!-- The delivery status instrument's materials, defined once and referenced by every instrument on the page:
+@@ -8867,6 +8880,29 @@
+  <p class="norate">Traffic and routes: TomTom.</p>
+  </div>`;
+ }
++/* v6.74b (DOC-01) - the Today documents teaser. Same collection as the Documents tab; the hosted service's file index is
++ fetched once, on its own, so the count does not depend on which tab was opened first. */
++function docsHubInner(){
++ if (SYNC.backend && SYNC.backend.files && (DOCS.state === 'unrequested' || DOCS.state == null) && !DOCS._hubAsked) { DOCS._hubAsked = true; setTimeout(() => { try { docsRefresh(false); } catch (e) {} }, 1200); }
++ /* F04: the teaser reads the SAME collection the Documents tab does. It used to read the build
++ catalogue's stored counts, so nothing uploaded since the build ever reached it. */
++ const C = docCollection();
++ /* WHAT THIS NUMBER COUNTS, ON ITS FACE. 21 Sep 2026, from the live review: this said "56 files" while
++ the Documents tab said 144 listed — 56 from the build catalogue and 88 uploaded since. Both were
++ right and they looked like a contradiction, because this one never said which of the two it was.
++ It says so now. The uploaded count is only shown when the library has ALREADY been read for some
++ other reason: Today is not going to fetch the whole document library to put a number in a chip. */
++ return `<div class="hubtitle"><h3>Documents</h3><span class="chip ref" title="${DOCS.files ? 'The build catalogue and every file uploaded since, as last read by this page.' : 'The catalogue this build carries. Files uploaded since are added once the Documents tab has been read.'}">${fmtNum(C.items.length)} ${DOCS.files ? 'listed' : 'in this build'}</span>${(() => {
++ const up = DOCS.files ? Object.keys(DOCS.files).length : null;
++ return up ? `<span class="chip cand" title="Uploaded to the service since the build, as last read by this page.">${fmtNum(up)} uploaded since the build</span>` : '';
++ })()}</div>
++ <div class="hubbig">${safetyWords(C.items).words.split(' · ').map(w => w.replace(/^(\S+) /, '<b>$1</b> ')).join(' <span class="w">·</span> ')} <span class="w">·</span> <b>${C.countOf('transport')}</b> transport <span class="w">·</span> <b>${C.countOf('map')}</b> maps and plates <span class="w">·</span> <b>${C.countOf('pack')}</b> packs${
++ C.photos ? ` <span class="w">·</span> <b>${C.photos}</b> photo${C.photos === 1 ? '' : 's'}` : ''}</div>
++ <p class="norate">${C.countOf('swms') ? 'Browse the catalogue and open the available files — the SWMS, the drawings as issued, the A1 and A3 print set and the packs.' : 'No SWMS supplied yet. Browse the catalogue and open the available files — the drawings as issued, the A1 and A3 print set and the packs.'}${
++ C.availabilityState === 'checking' ? ' Checking file availability…' : C.availabilityState === 'unchecked'
++ ? ' Availability could not be checked; this does not mean the files are missing.'
++ : C.unhosted ? ` <b>${fmtNum(C.available)}</b> of the ${fmtNum(C.items.length)} open from here; the rest are ${C.hosted ? 'not uploaded yet' : 'not beside this file'}.` : ''}</p>`; }
++function docsHubRedraw(){ const el = document.getElementById('hubDocs'); if (el) el.innerHTML = docsHubInner() + '<div class="hubgo">Open the documents →</div>'; }
+ function renderToday(){ return holdAssets(renderToday_held); } /* v6.69 - one asset list for the whole draw */
+ function renderToday_held(){
+  const today = todayIso();
+@@ -8911,7 +8947,7 @@
+  </div>
+  <div class="hubhead">
+  <div><h2>${esc(fmtDate(today))}</h2>
+- <div class="sub">${wk ? esc(weekWords(wk)) : 'outside every week on the 2026 schedule'} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
++<div class="sub">${wk ? esc(weekWords(wk)) : esc((programmeDay(today) || {}).words || 'outside the 2026 programme')} · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied)}</div></div>
+  <div class="hubwho editonly">${!canEdit() ? '' : S.operator ? `Recording as <b>${esc(S.operator)}</b>` : '<button class="linkish" data-focus="who">Put your name in “Recording as” before you record anything</button>'}</div>
+  </div>
+  <!-- v5.87 - the three instruments first: the dial, the signal head, the programme; then the cards -->
+@@ -8932,7 +8968,7 @@
+  </div>
+  ${(() => { const C = completionAsOf(today), P = C.P, v = verdictIn(P.all); return `
+  <div class="card hubcard island dialcard${P.all.overdue || C.cls === 'crit' ? ' alert' : ''}">
+- <div class="hubtitle"><h3>How far through the job we are</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
++<div class="hubtitle"><h3>Deliveries due by today met</h3><span class="chip ${v.cls}">${esc(v.word)}</span></div>
+  ${completionBlock(today, C, {note: false, scope: 'due'})}
+  <p class="norate"><b>${P.all.onsite}</b> of <b>${P.all.due}</b> references due in are on site${P.all.complete ? ` · ✓ ${P.all.complete} complete` : ''}${
+  P.all.overdue ? ` · <b style="color:var(--red)">${P.all.overdue}</b> overdue` : ''}${P.all.norecord ? ` · ${P.all.norecord} unrecorded` : ''} · ${P.all.next} due in the next ${PROG_NEXT_DAYS} days · fencing ${P.fenceLines.length ? (P.fenceLines.every(l => !l.behind) ? 'on track' : 'behind') : 'nothing planned yet'}</p>
+@@ -8950,13 +8986,13 @@
+  </div>
+  ${(() => { const v = adviceFor(today), lines = v.arrivals.slice(-4).reverse(); return `
+  <div class="card hubcard advicecard" data-go="timeline" data-day="${esc(today)}">
+- <div class="hubtitle"><h3>Delivered today</h3><span class="chip ${v.arrivals.length ? 'ok' : ''}">${v.arrivals.length} recorded on site</span></div>
++<div class="hubtitle"><h3>Delivery updates today</h3><span class="chip ${v.arrivals.length ? 'ok' : ''}">${v.arrivals.length} recorded on site</span></div>
+  <div class="hubbig"><b>${v.arrivals.length}</b> recorded on site${v.ticks.length ? ` <span class="w">·</span> <span class="tick sm">✓ ${v.ticks.length}</span> complete` : ''}${
+  v.levelled.length ? ` <span class="w">·</span> <span class="tick sm lvl">${levelGlyph(11)} ${v.levelled.length}</span> levelled` : ''}${
+  (() => { const S_ = dueSplit(v); return S_.n ? ` <span class="w">·</span> <b>${S_.n}</b> due in not on site${
+  S_.detail ? ` <span class="w" style="font-weight:400">(${esc(S_.detail)})</span>` : ''}` : ''; })()}${
+  v.dueElsewhere.length ? ` <span class="w">·</span> ${v.dueElsewhere.length} due in already on site from another day` : ''}</div>
+- ${lines.length ? `<ul class="hublist compact">${lines.map(r => { const b = branchOf(r.a.key); return `<li><span class="tm">${esc(timeOfStamp(r.at))}</span>${esc(r.a.key)}${r.a.name ? ' — ' + esc(r.a.name) : ''}
++ ${lines.length ? `<ul class="hublist compact">${lines.map(r => { const b = branchOf(r.a.key);return `<li><span class="tm" title="when the record was made on this page — not necessarily when it arrived">${esc(timeOfStamp(r.at) === '00:00' ? 'time n/r' : timeOfStamp(r.at))}</span>${esc(r.a.key)}${r.a.name ? ' — ' + esc(r.a.name) : ''}
+  <span class="w" style="color:var(--mute)">· ${b.code ? 'branch ' + esc(b.code) : 'no branch recorded'} · ${esc(r.by || 'unnamed')}</span></li>`; }).join('')}${
+  v.arrivals.length > lines.length ? `<li class="more">and ${v.arrivals.length - lines.length} earlier today</li>` : ''}</ul>`
+  : '<p class="norate">No light has been set on site today. This card shows what people recorded — it never assumes a delivery from the plan.</p>'}
+@@ -9031,25 +9067,8 @@
+  <div class="hubsheets">${DATA.sheets.map(sh => `<button class="btn" data-sheet-go="${esc(sh.key)}">${esc(sh.title)}</button>`).join('')}</div>
+  <div class="hubgo">Open the map →</div>
+  </div>
+- <div class="card hubcard" data-go="docs">
+- ${(() => { /* F04: the teaser reads the SAME collection the Documents tab does. It used to read the build
+- catalogue's stored counts, so nothing uploaded since the build ever reached it. */
+- const C = docCollection();
+- /* WHAT THIS NUMBER COUNTS, ON ITS FACE. 21 Sep 2026, from the live review: this said "56 files" while
+- the Documents tab said 144 listed — 56 from the build catalogue and 88 uploaded since. Both were
+- right and they looked like a contradiction, because this one never said which of the two it was.
+- It says so now. The uploaded count is only shown when the library has ALREADY been read for some
+- other reason: Today is not going to fetch the whole document library to put a number in a chip. */
+- return `<div class="hubtitle"><h3>Documents</h3><span class="chip ref" title="${DOCS.files ? 'The build catalogue and every file uploaded since, as last read by this page.' : 'The catalogue this build carries. Files uploaded since are added once the Documents tab has been read.'}">${fmtNum(C.items.length)} ${DOCS.files ? 'listed' : 'in this build'}</span>${(() => {
+- const up = DOCS.files ? Object.keys(DOCS.files).length : null;
+- return up ? `<span class="chip cand" title="Uploaded to the service since the build, as last read by this page.">${fmtNum(up)} uploaded since the build</span>` : '';
+- })()}</div>
+- <div class="hubbig">${safetyWords(C.items).words.split(' · ').map(w => w.replace(/^(\S+) /, '<b>$1</b> ')).join(' <span class="w">·</span> ')} <span class="w">·</span> <b>${C.countOf('transport')}</b> transport <span class="w">·</span> <b>${C.countOf('map')}</b> maps and plates <span class="w">·</span> <b>${C.countOf('pack')}</b> packs${
+- C.photos ? ` <span class="w">·</span> <b>${C.photos}</b> photo${C.photos === 1 ? '' : 's'}` : ''}</div>
+- <p class="norate">${C.countOf('swms') ? 'Browse the catalogue and open the available files — the SWMS, the drawings as issued, the A1 and A3 print set and the packs.' : 'No SWMS supplied yet. Browse the catalogue and open the available files — the drawings as issued, the A1 and A3 print set and the packs.'}${
+- C.availabilityState === 'checking' ? ' Checking file availability…' : C.availabilityState === 'unchecked'
+- ? ' Availability could not be checked; this does not mean the files are missing.'
+- : C.unhosted ? ` <b>${fmtNum(C.available)}</b> of the ${fmtNum(C.items.length)} open from here; the rest are ${C.hosted ? 'not uploaded yet' : 'not beside this file'}.` : ''}</p>`; })()}
++ <div class="card hubcard" data-go="docs" id="hubDocs">
++ ${docsHubInner()}
+  <div class="hubgo">Open the documents →</div>
+  </div>
+  ${(() => { /* a number delivered against two references is a driver sent to the wrong place, so it is on
+@@ -9949,7 +9968,7 @@
+  ${DATA.edition === 'hosted' ? `<button class="btn sheetbtn satbtn" type="button" data-mopen="explorer">Plan on satellite</button><button class="btn sheetbtn satbtn" type="button" data-mopen="proof3d">3D proof</button>` : ''}
+  </div>
+  ${discBar(onSheet)}
+- ${onSheet.length ? lightBar(onSheet, 'Lights on this sheet') : ''}
++${onSheet.length ? lightBar(onSheet, 'Delivery status on this plan') : ''}
+  ${foundBar(sh)}
+  ${foundViewsHtml()}
+  <div class="mapstage" id="stage">
+@@ -10394,9 +10413,9 @@
+  return `
+  <div class="card">
+  <h3>${esc(group)} <span class="chip ref" title="references on this page">${list.length} reference${list.length === 1 ? '' : 's'}</span></h3>
+- <div class="prog" role="img" aria-label="${esc(done)} of ${esc(items.length)} asked-for item lines recorded as supplied">
++ <div class="prog" role="img"aria-label="Specification check: ${esc(done)} of ${esc(items.length)} asked-for item lines verified against what was supplied">
+  <div class="track"><i style="width:${pct}%"></i></div>
+- <span>${esc(done)} of ${esc(items.length)} asked-for item line${items.length === 1 ? '' : 's'} recorded${pct ? ' · ' + pct + '%' : ''}</span>
++<span title="whether what was supplied matches what was asked for, line by line — not whether it has arrived">Specification check: ${esc(done)} of ${esc(items.length)} item line${items.length === 1 ? '' : 's'} verified${pct ? ' · ' + pct + '%' : ''}</span>
+  </div>
+  ${state.plantView === 'cards' ? `<div class="eqgrid">${list.map(a => equipmentCard(a, {on: state.sel === a.key})).join('')}</div>` : `<div class="tblwrap"><table>
+  <thead><tr><th>GC500 ID</th><th>Light</th><th>Dates</th><th>Asset no. · contract</th><th>Description asked for</th>
+@@ -10991,7 +11010,7 @@
+  </div>`;
+ }
+ function docketLines(d){
+- return d.lines.length ? d.lines.map(l => `<b>${esc(fmtQty(l.qty, l.unit))}</b> ${esc(l.name)}${
++return d.lines.length ? d.lines.map(l => `<b>${esc(fmtQty(l.qty, l.unit))}</b> ${esc(l.name)}${l.cost != null && l.rate != null ? ` <span class="frc">× ${esc(rateMoney(l.rate))} = ${esc(money(l.cost))}</span>` : ''}${
+  l.cost == null ? ' <span class="chip crit" title="no rate on the sheet for this column">no rate</span>' : ''}`).join('<br>')
+  : '<span class="todo">—</span>';
+ }
+@@ -11096,7 +11115,7 @@
+ 
+  ${CLO.plate ? `<div class="sect">The plan as it was marked</div>
+  <figure class="cloplate"><img src="${esc(CLO.plate)}" alt="iEDM master layout ${esc(bd.drawing_no || '')} with the race-weekend closure times and closure order written on it by hand" loading="lazy" data-dphopen="${esc(CLO.plate)}">
+- <figcaption>${esc(bd.title || 'Master layout')} · ${esc(bd.drawing_no || '')}${bd.project_no ? ' · project ' + esc(bd.project_no) : ''}${bd.revision ? ' · rev ' + esc(bd.revision) : ''}${bd.issued_by ? ' · ' + esc(bd.issued_by) : ''}. Tap to open it full size.</figcaption></figure>` : ''}
++<figcaption>${bd.project_no ? `<span class="chip act" title="the base drawing under the handwriting is an earlier project's; the 2026 closure authority is to be confirmed with the project owner">Reference only — 2026 closure authority to confirm</span> ` : ''}${esc(bd.title || 'Master layout')} · ${esc(bd.drawing_no || '')}${bd.project_no ? ' · project ' + esc(bd.project_no) : ''}${bd.revision ? ' · rev ' + esc(bd.revision) : ''}${bd.issued_by ? ' · ' + esc(bd.issued_by) : ''}. Tap to open it full size.</figcaption></figure>` : ''}
+ 
+  <div class="notice warn"><b>The sheet under the handwriting is ${esc(bd.drawn_for || 'an earlier year')}.</b>${esc(bd.caveat || '')}</div>
+  ${(CLO.open_questions || []).length ? `<p class="norate"><b>Not on the photograph, so not answered here:</b> ${CLO.open_questions.map(esc).join(' · ')}</p>` : ''}
+@@ -11303,18 +11322,29 @@
+ /* Coates's eight, as the card states them. `here` is what THIS record can honestly show against one, or null
+  where it cannot — and where it is null the page says so rather than reaching for something that looks close. */
+ function cwTargets(){
++ /* v6.74 (DATA-03) - Coates's fleet redline and fleet utilisation are measured across the fleet, over time. This
++ record holds neither, so it says so; the job's own nearest measures sit beside them under their own names and
++ never stand in for them. */
+  const P = progressAsOf(todayIso());
+  const all = P.all;
+- const bdOpen = allBreakdowns().filter(b => b.open);
++ const bdAll = allBreakdowns(), bdOpen = bdAll.filter(b => b.open);
+  const onSite = all.onsite, due = all.due;
+- const pct = (n, d) => d > 0 ? Math.round(n / d * 1000) / 10 : null;
++ return [
++ {n: '15', unit: '%', what: 'Redline — fleet unavailable', why: 'Daily management discipline.', here: null,
++ says: 'Not measured by this system — the redline is fleet time unavailable, and this record holds only the breakdowns people type in on this job. None typed in is not the same as none.',
++ job: {what: 'Breakdowns recorded on this job', v: `${fmtNum(bdOpen.length)} open`, of: `of ${fmtNum(bdAll.length)} recorded`}},
++ {n: '65', unit: '%', what: 'Fleet time utilisation', why: 'Fleet matched to demand.', here: null,
++ says: 'Not measured by this system — utilisation is on-hire time over available time across the fleet, and this record has no availability data.',
++ job: {what: 'Job delivery adherence', v: due ? `${fmtNum(onSite)} of ${fmtNum(due)}` : 'nothing due yet', of: 'references due by today on site'}},
++ ];
++}
++/* v6.74 (DATA-01) - what this record cannot assess, said as unknown rather than left to read as green */
++function cwUnknowns(){
+  const out = [];
+- if (onSite) out.push({n: '15', unit: '%', what: 'Redline — fleet unavailable', why: 'Daily management discipline.',
+- here: pct(bdOpen.length, onSite), good: v => v !== null && v < 15,
+- says: `${fmtNum(bdOpen.length)} open breakdown${bdOpen.length === 1 ? '' : 's'} against ${fmtNum(onSite)} reference${onSite === 1 ? '' : 's'} on site. A job-level reading, not the fleet redline.`});
+- if (due) out.push({n: '65', unit: '%', what: 'Fleet time utilisation', why: 'Fleet matched to demand.',
+- here: pct(onSite, due), good: v => v !== null && v >= 65,
+- says: `${fmtNum(onSite)} of ${fmtNum(due)} reference${due === 1 ? '' : 's'} due by today are on site. Delivery against plan on one job, not fleet utilisation.`});
++ if (!fenceQuote()) out.push(['Fencing against its quote', 'Not assessed — quote required. No quoted quantities are entered, so no line can be called over or under.']);
++ out.push(['Fleet unavailable', 'Not measured by this system — breakdowns are typed in by people on this job.']);
++ const M = typeof moneySummary === 'function' ? moneySummary(todayIso()) : null;
++ if (M && M.missing.length) out.push(['Commercial result', `Forecast incomplete — ${M.missing.length} cost or charge item${M.missing.length === 1 ? '' : 's'} not in the figures yet (${M.missing_short.join(' · ')}).`]);
+  return out;
+ }
+ /* The third ring asks four things of anything that is red: a root cause, a corrective action, an owner and a
+@@ -11333,6 +11363,10 @@
+  owner: null, when: null,
+  pillar: 'Financials', go: () => { state.tab = 'variances'; render(); }}));
+  const P = progressAsOf(todayIso());
++/* v6.74 (DATA-09) - a fencing type behind the programme is red on its own, whatever the other types did early */
++ fenceGapsOf(fenceTypes(P)).forEach(g => out.push({
++ what: `Fencing behind the 2026 programme — ${esc(fenceGapName(g))}: ${esc(fmtNum(g.done))} of ${esc(fmtNum(g.planned))}${g.unit === 'm' ? ' m' : ''} due by today`,
++ cause: null, action: null, owner: null, when: null, pillar: 'Operations', go: () => { state.tab = 'fencing'; render(); }}));
+  if (P.all.overdue) out.push({
+  what: `${fmtNum(P.all.overdue)} reference${P.all.overdue === 1 ? '' : 's'} overdue against the programme`,
+  cause: 'Due by today with nothing recorded on site.', action: null,
+@@ -11354,9 +11388,9 @@
+  const crew = crewCount();
+  return [
+  {k: 'P', name: 'People', line: 'Our people are the foundation of everything we deliver.',
+- rows: [['On this job', `${fmtNum(crew.total)} named — ${fmtNum(crew.coates)} Coates, ${fmtNum(crew.fencing)} Advanced Temporary Fencing`],
++rows: [['Contacts on the record', `${fmtNum(crew.total)} — ${fmtNum(crew.coates)} Coates, ${fmtNum(crew.fencing)} Advanced Temporary Fencing${crew.other ? `, ${fmtNum(crew.other)} other` : ''}`],
+  ['Pre-starts on the record', `${fmtNum(prestartsAll().length)} document${prestartsAll().length === 1 ? '' : 's'}, dated and open to read`],
+- ['Crews on the record', `${fmtNum(prestartsFor('coates').length)} Coates · ${fmtNum(prestartsFor('fencing').length)} Advanced Temporary Fencing`]],
++['Pre-start documents by crew', `${fmtNum(prestartsFor('coates').length)} Coates · ${fmtNum(prestartsFor('fencing').length)} Advanced Temporary Fencing`]],
+  go: 'prestarts'},
+  {k: 'O', name: 'Operations', line: 'How we execute the hire cycle — safely, reliably, consistently.',
+  rows: [['Due by today', `${fmtNum(all.due)} · ${fmtNum(all.onsite)} on site, ${fmtNum(all.overdue)} overdue, ${fmtNum(all.norecord)} nothing recorded`],
+@@ -11370,7 +11404,7 @@
+  go: 'register'},
+  {k: 'F', name: 'Financials', line: 'Disciplined financial performance that funds the flywheel.',
+  rows: [['Fencing charged, 2026 card', usable.length ? money(usable.reduce((a, d) => a + d.cost_total, 0)) : 'nothing priced yet'],
+- ['Dockets signed', `${fmtNum(dockets.length)} · ${fmtNum(usable.length)} priced`],
++['Fencing dockets', (() => { const part = usable.filter(d => d.cost_state === 'partly priced').length; return `${fmtNum(dockets.length)} recorded · ${fmtNum(usable.length - part)} fully priced${part ? ` · ${fmtNum(part)} partly priced` : ''}${dockets.length > usable.length ? ` · ${fmtNum(dockets.length - usable.length)} not usable` : ''}`; })()],
+  ['Variances with no authority', `${fmtNum(allVariances().filter(v => v.authority_state === 'unattributed').length)}`]],
+  go: 'costs'},
+  ];
+@@ -11378,7 +11412,8 @@
+ function crewCount(){
+  const people = (DATA.team || {}).people || [];
+  const fencing = people.filter(p => p.group === 'fencing').length;
+- return {total: people.length, fencing: fencing, coates: people.length - fencing - people.filter(p => p.group === 'other').length};
++const other = people.filter(p => p.group === 'other').length;
++ return {total: people.length, fencing: fencing, other: other, coates: people.length - fencing - other};
+ }
+ function renderCoatesWay(){ return holdAssets(renderCoatesWay_held); } /* v6.69 - one asset list for the whole draw */
+ function renderCoatesWay_held(){
+@@ -11393,14 +11428,14 @@
+  ${machineCardHtml()}
+ 
+  <div class="card cwc"><h3>The centre — Best Service &amp; Value</h3>
+- <p class="sub">The targets of Coates's eight that this job's own record can read.</p>
++<p class="sub">Two of Coates's eight targets sit closest to this job. Neither is measured by this record, and it says so; the job's own nearest measure is under each, under its own name.</p>
+  ${T.length ? `<div class="cwk">${T.map(k => {
+- const ok = k.good && k.good(k.here);
+- return `<div class="cwkpi${ok ? ' good' : ' watch'}">
++const ok = k.here != null && k.good && k.good(k.here);
++ return `<div class="cwkpi${k.here == null ? ' unk' : ok ? ' good' : ' watch'}">
+  <div class="cwkn">${esc(k.n)}<small>${esc(k.unit)}</small></div>
+  <div class="cwkw"><b>${esc(k.what)}</b><span>${esc(k.why)}</span></div>
+- <div class="cwkh"><b class="cwkv">${esc(String(k.here))}${esc(k.unit)}</b>
+- <span class="cwks">${esc(k.says)}</span></div></div>`; }).join('')}</div>`
++<div class="cwkh"><b class="cwkv">${k.here == null ? 'Not measured by this system' : esc(String(k.here)) + esc(k.unit)}</b>
++ <span class="cwks">${esc(k.says)}</span>${k.job ? `<span class="cwjob">${esc(k.job.what)}: <b>${esc(k.job.v)}</b> ${esc(k.job.of)}</span>` : ''}</div></div>`; }).join('')}</div>`
+  : '<div class="notice"><b>Nothing due yet</b>Neither reading can be taken until references are due against the programme.</div>'}
+  <p class="norate">The other six — zero recordable injuries, ROCE, EBIT margin, sales win rate, NPS and
+  employee engagement — belong to the business and to the safety system. This record does not hold them,
+@@ -11427,7 +11462,8 @@
+  <td data-l="Action">${r.action ? esc(r.action) : '<span class="todo">not recorded</span>'}</td>
+  <td data-l="Owner">${r.owner ? esc(r.owner) : '<span class="todo">nobody named</span>'}</td>
+  <td data-l="By when">${r.when ? esc(fmtDay(r.when).dm) : '<span class="todo">no date</span>'}</td></tr>`; }).join('')}</tbody></table>`
+- : '<div class="notice"><b>Nothing is red on this job today</b>No open breakdown, no overdue reference, no variance without authority and no fencing line over its quote. That is the scorecard saying green, not the page saying nothing.</div>'}
++: '<div class="notice"><b>Nothing red on what this record measures</b>No open breakdown recorded, no overdue reference, no variance without authority and no fencing type behind the programme. What it cannot assess is listed below — not assessed is not green.</div>'}
++ ${(() => { const U = cwUnknowns(); return U.length ? `<div class="cwunk"><b>Not assessed</b><ul>${U.map(([a, b]) => `<li><b>${esc(a)}</b> — ${esc(b)}</li>`).join('')}</ul></div>` : ''; })()}
+  <p class="norate">Cadence: <b>Today</b> is the daily review, <b>Where we are</b> the weekly one. A red that stays red is the one that escalates.</p>
+  </div>
+ 
+@@ -11491,7 +11527,7 @@
+  ${hero ? `<${opens ? 'button type="button"' : 'div'} class="cwhero${opens ? ' opens' : ''}" id="cwHero"${opens ? ' aria-label="Open the machine" disabled' : ''} style="aspect-ratio:${hero.width}/${hero.height}">
+  ${hero.webm || hero.mp4 ? `<video class="cwloop" muted loop playsinline preload="metadata" width="${hero.width}" height="${hero.height}" poster="${hero.poster || hero.src}" aria-label="${esc(hero.is || 'The Coates Way cog, running, coming apart and going back together')}">${
+  hero.mp4 ? `<source src="${hero.mp4}" type="video/mp4">` : ''}${hero.webm ? `<source src="${hero.webm}" type="video/webm">` : ''}</video>`
+- : `<img src="${hero.src}" width="${hero.width}" height="${hero.height}" alt="The Coates Way cog as the steering wheel of the Coates #26, from the driver's seat — every word on it readable, the hall beyond the windscreen">`} /* v6.00 - the hero is the cog's own loop; the still is its poster */
++ : `<img src="${hero.src}" width="${hero.width}" height="${hero.height}" alt="The Coates Way cog as the steering wheel of the Coates #26, from the driver's seat — every word on it readable,the hall beyond the windscreen">`}
+  <span class="cwherotag"><i></i>${opens ? 'THE MACHINE · OPENS HERE' : 'THE MACHINE · ON THE HOSTED PAGE'}</span>
+  </${opens ? 'button' : 'div'}>` : ''}
+  <h3>The machine — V8 Connected</h3>
+@@ -11500,7 +11536,7 @@
+  <div class="cwmtxt">
+  <p class="sub"><b>The Coates Way sets our direction.</b> The cog is the steering wheel of the Coates #26 — in the driver's hands, on the column, its shaft to the rack: ${esc(parts)}, every one linked to what it drives, the 138 of the wheel's own each with its Coates Way link. Start the V8 on the dyno, open the cutaway, lift the wheel off its quick-release, pull it apart, put it back.</p>
+  <div class="cwmact">
+-<button class="btn primary" id="cwOpenMachine" type="button"${DATA.edition === 'hosted' ? '' : ' hidden'}>Open the machine</button> /* v6.01 - the plan-on-satellite and 3D-proof buttons live on the Map tab only */
++<button class="btn primary" id="cwOpenMachine" type="button"${DATA.edition === 'hosted' ? '' : ' hidden'}>Open the machine</button>
+  <span class="cwmst" id="cwMachineState">${DATA.edition === 'hosted' ? 'Asking the service…' : 'Part of this build' + size + '. It runs on the hosted page — open The Coates Way there.'}</span>
+  </div>
+  </div>
+@@ -11806,14 +11842,14 @@
+  const m = (r.value != null && pr.value != null) ? Math.round((r.value - pr.value) * 10000) / 10000 : null;
+  return `<tr><td><b>${esc(c.name_as_written)}</b><div class="w" style="font-size:11px;color:var(--mute)">${esc(c.programme_type || '')}</div>
+  <div class="w" style="font-size:11px;color:var(--mute)">${c.card_line ? esc(c.card_line) + ' ' : ''}${stateChip}</div></td>
+- <td class="num frs">${c.rate != null ? `<span class="w">${c.settled_by ? 'settled' : 'card'} ${esc(money(c.rate))}</span>` : '<span class="norate">no card line</span>'}
++ <td class="num frs">${c.rate != null ? `<span class="w">${c.settled_by ? 'settled' : 'card'} ${esc(rateMoney(c.rate))}</span>` : '<span class="norate">no card line</span>'}
+  <input class="rate" type="number" min="0" step="0.01" data-fk="${esc(c.key)}" value="${esc(tCharge ?? '')}" placeholder="type over" title="what Coates charges for ${esc(c.name_as_written)} — per ${esc(c.unit || 'unit')}, on every docket">
+- ${r.value != null ? `<b>${esc(money(r.value))}</b><span class="w">${esc(per)}${r.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not charged</span>'}
++${r.value != null ? `<b>${esc(rateMoney(r.value))}</b><span class="w">${esc(per)}${r.source === 'typed' ? ' · typed' : ''}</span>` : '<span class="norate">not charged</span>'}
+  ${tCharge != null && String(tCharge).trim() !== '' ? editByLine({by: r.by, at: r.at}) : ''}
+  ${c.issued_card_differs ? `<div class="w" style="font-size:11px;color:var(--mute)">the issued card PDF prints ${esc(money(c.issued_card_rate))}</div>` : ''}</td>
+  <td class="num frs">${pr.source === 'hourly' ? `<span class="w">tracker ${esc(money(pr.hourly))} an hour</span>` : c.cost_rate != null ? `<span class="w">tracker ${esc(money(c.cost_rate))}</span>` : '<span class="norate">no tracker rate</span>'}
+  <input class="rate" type="number" min="0" step="0.01" data-fck="${esc(c.key)}" value="${esc(tCost ?? '')}" placeholder="type over" title="what ${esc((DATA.fence_contractor || {}).name || 'the crew')} bill Coates for ${esc(c.name_as_written)} — per ${esc(c.unit || 'unit')}, on every docket">
+- ${pr.value != null ? `<b>${esc(money(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : pr.source === 'hourly' ? `<b>${esc(money(pr.hourly))}</b><span class="w"> an hour · by the hour, not the metre</span>` : '<span class="norate">not costed</span>'}
++${pr.value != null ? `<b>${esc(rateMoney(pr.value))}</b><span class="w">${esc(per)}${pr.source === 'typed' ? ' · typed' : ''}</span>` : pr.source === 'hourly' ? `<b>${esc(money(pr.hourly))}</b><span class="w"> an hour · by the hour, not the metre</span>` : '<span class="norate">not costed</span>'}
+  ${tCost != null && String(tCost).trim() !== '' ? editByLine({by: pr.by, at: pr.at}) : ''}</td>
+  <td class="num">${m == null ? '<span class="norate">—</span>' : `<b class="${m < 0 ? 'fmneg' : ''}">${esc(money(m))}</b><span class="w">${esc(per)}</span>`}</td>
+  <td class="fwhy" style="font-size:12px;color:var(--mute)">${(() => { const t = (c.settled_by ? 'settled ' + esc(fmtDate(c.settled_on) || c.settled_on || '') + ': ' + esc(c.settled_said || '') + (c.settled_note ? ' — ' + esc(c.settled_note) : '') + (c.card_why ? ' · ' : '') : '') + esc(c.card_why || '') + (c.unit_basis ? ' · ' + esc(c.unit_basis) : '') + (c.cost_basis ? ' · ' + esc(c.cost_basis) : '');
+@@ -11834,7 +11870,7 @@
+  <span class="cnt"><span>${d.dockets.length} docket${d.dockets.length === 1 ? '' : 's'}</span></span>
+  <span class="ph" style="margin-top:4px;font-weight:700;color:var(--ink)">${esc(money(d.cost) || '')}</span></button>`; }).join('')}</div>
+  ${dayNow ? `<div class="dayhead"><div><h3>${esc(fmtDate(dayNow.iso))}</h3><div class="sub">${dayNow.dockets.length} docket${dayNow.dockets.length === 1 ? '' : 's'} · ${esc(money(dayNow.cost) || '')}</div></div></div>
+- <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num">Cost</th></tr></thead><tbody>${
++ <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+  dayNow.dockets.map(d => `<tr><td>${docketNoLink(d)}<br>${whereChipF(d._where)}</td><td>${esc(d.crew || '—')}</td>
+  <td>${esc(d.map_ref || '')}${d.location ? (d.map_ref ? ' · ' : '') + esc(d.location) : ''}${mapBtn(d) ? '<br>' + mapBtn(d) : ''}</td>
+  <td>${docketLines(d)}</td><td class="num"><b>${esc(money(d.cost_total) || '')}</b></td></tr>`).join('')}</tbody></table></div>` : ''}`
+@@ -11869,7 +11905,7 @@
+ 
+  <div class="card">
+  <h3>By area — what has been done where</h3>
+- ${areas.length ? `<div class="tblwrap"><table><thead><tr><th>Area</th><th>Complete</th><th>Drawing</th><th class="num">Dockets</th><th>Days</th><th>Done</th><th class="num">Cost</th></tr></thead><tbody>${
++ ${areas.length ? `<div class="tblwrap"><table><thead><tr><th>Area</th><th>Complete</th><th>Drawing</th><th class="num">Dockets</th><th>Days</th><th>Done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+  areas.map(a => { const fd = fenceAreaDone(a.name); return `<tr class="${fd.done ? 'complete' : ''}"><td><b>${esc(a.name)}</b>${(() => { const o = breakdownsForArea(a.name).filter(b => b.open); return o.length ? `<br><button class="linkish" data-bdarea="${esc(a.name)}"><span class="chip crit">${o.length} open breakdown${o.length > 1 ? 's' : ''}</span></button>` : ''; })()}</td>
+  <td><div class="lcell">${fd.done ? `<span class="tick" title="ticked ${esc(fmtStamp(fd.at))} by ${esc(fd.by || 'unnamed')}">✓ Complete</span> ${whereChip(fd.where)}` : fd.at ? `<span class="w" style="color:var(--mute)">un-ticked ${esc(fmtStamp(fd.at))}</span>` : '<span class="todo">—</span>'}${fenceAreaBtn(a.name)}</div></td>
+  <td>${a.refs.length ? a.refs.map(esc).join('<br>') : '<span class="todo">—</span>'}</td>
+@@ -11885,7 +11921,7 @@
+  <div class="filters">${byWeek.map(w => `<button data-fweek="${esc(w.week)}" aria-pressed="${w.week === weekSel}">${esc(w.week.replace('Demob Week', 'Demob'))}${w.dockets ? ' · ' + w.dockets : ''}</button>`).join('')}</div>
+  ${wk ? `<div class="dayhead"><div><h3>${esc(wk.week)} <span class="w" style="font-weight:400;font-size:13px;color:var(--mute)">${esc(wk.start)} → ${esc(wk.end)} · ${esc(wk.phase || '')}</span></h3>
+  <div class="sub">planned from ${wk.progSheet ? '<b>' + esc(wk.progSheet) + '</b> (' + (wk.rolled ? esc(wk.span || '') : '<span class="chip act" title="the 2026 file still carries ' + esc(String(wk.planYear || 'last year’s')) + ' dates on this sheet">' + esc(String(wk.planYear || 'last year’s')) + ' dates — not rolled forward</span>') + ')' : 'nothing — no matching programme sheet'} · ${wk.dockets} docket${wk.dockets === 1 ? '' : 's'} · ${esc(money(wk.cost) || '$0.00')}</div></div></div>
+- <div class="tblwrap"><table><thead><tr><th>Line</th><th class="num">Planned</th><th class="num">Done</th><th class="num">Still to do</th><th class="num">Cost</th></tr></thead><tbody>${
++ <div class="tblwrap"><table><thead><tr><th>Line</th><th class="num">Planned</th><th class="num">Done</th><th class="num">Still to do</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th></tr></thead><tbody>${
+  wk.lines.map(l => { const over = l.remaining != null && l.remaining < 0;
+  return `<tr class="${l.done > 0 && l.remaining != null && l.remaining <= 0 ? 'done' : l.done > 0 ? 'moving' : ''}">
+  <td><b>${esc(l.name)}</b>${l.unit ? ' <span class="w" style="color:var(--mute)">' + esc(l.unit) + '</span>' : ''}</td>
+@@ -11924,7 +11960,7 @@
+  without.length ? ` No paper yet against ${without.map(d => esc(d.docket_no || d.id)).join(', ')} — a docket with no signed paper behind it is a cost nobody can stand up in front of the customer.`
+  : ' Every docket on this register has its signed paper.'}${
+  misfiled.length ? ` <span class="nomark">${noGlyph(11)}</span> Some were uploaded under <b>${misfiled.map(esc).join('</b>, <b>')}</b> rather than <b>Fencing docket</b> — they are matched here by the number in the file name and counted, so nothing is lost; re-file them on the admin page when you get a minute and the Documents tab will tidy itself.` : ''}</p>`; })()}
+- <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Date</th><th>Week</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num">Cost</th><th>Recorded by</th><th></th></tr></thead>
++ <div class="tblwrap"><table><thead><tr><th>Docket</th><th>Date</th><th>Week</th><th>Crew</th><th>Where</th><th>What was done</th><th class="num" title="what Coates charges the V8s at the 2026 card, ex GST — what Coates pays is on the rates table and the purchase orders">Client charge <small>ex GST</small></th><th>Recorded by</th><th></th></tr></thead>
+  <tbody>${shown.length ? shown.map(d => `<tr class="${d.usable ? '' : ''}">
+  <td>${docketNoLink(d)} <span class="mono" style="font-size:11px;color:var(--mute)">${esc(d.id)}</span><br>${whereChipF(d._where)}${d.usable ? '' : ' <span class="chip crit" title="' + esc(d.problems.join('; ')) + '">not usable</span>'}</td>
+  <td style="white-space:nowrap">${d.date ? esc(d.date) : '<span class="todo" title="no date on this row">—</span>'}</td>
+@@ -14173,7 +14209,7 @@
+  <td class="stnote">${esc(s.notes.join(' · '))}</td></tr>`).join('')}
+  <tr class="total"><td><b>Total</b></td><td class="num" data-l="We charge"><b>${m0(c.total)}</b></td><td class="num" data-l="Coates pays"><b>${m0(k.known)}</b></td><td class="num" data-l="Difference">${sd(M.difference0)}</td><td class="stnote">not a margin yet — ${esc(M.missing_short.join(' · '))}</td></tr></tbody></table></div>
+  <p class="hint roundnote" style="margin:4px 0 0;font-size:11px;color:var(--mute)">Dollars rounded so every column adds to its total and every row across; what Coates pays under the eight categories, below, is to the cent.</p>
+- <div class="verdict ${M.difference0 < 0 ? 'neg' : ''}"><b>${esc(money0(c.total))} charged against ${esc(money0(k.known))} of known cost — ${M.difference0 < 0 ? esc(money0(-M.difference0)) + ' behind' : esc(money0(M.difference0)) + ' ahead'} so far.</b> Not a margin yet — ${pl(M.missing.length, 'thing')} not in it.${M.breakeven != null ? ` The biggest is the crew's wages: ${esc(fmtNum(M.breakeven_hours))} h on the tracker with no wage rate, and the difference so far covers them only up to ${esc(money(M.breakeven))} an hour on average.` : ''}</div>
++ <div class="verdict ${M.difference0 < 0 ? 'neg' : ''}"><b>${esc(money0(c.total))} charged against ${esc(money0(k.known))} of known cost — difference so far ${sd(M.difference0)}.</b> <span class="chip act">Forecast incomplete</span> Not a margin and not a profit — ${pl(M.missing.length, 'item')} not in it yet${M.breakeven_hours ? `, the biggest the crew's wages (${esc(fmtNum(M.breakeven_hours))} h with no wage rate)` : ''}.${M.charge.contracts_differs ? ` <b>Provisional:</b> ${pl(M.charge.contracts_differs, 'contract line')} with the charge basis unresolved — ${esc(money0(M.charge.differs_charge))} by the rule, ${esc(money0(M.charge.differs_prebill))} prebilled. Counted by the rule until the branch settles each line; the two are not netted.` : ''}</div>
+  <div class="ledger">
+  <div class="side"><h4>We charge the V8s <small>Coates → the V8s</small></h4>
+  ${ln('On the contracts, by the rate', m0(c.contracts), `${c.contracts_lines} of ${c.contracts_all} lines${c.contracts_unknown ? ` · ${c.contracts_unknown} no rate` : ''}${c.contracts_differs ? ` · ${c.contracts_differs} to settle` : ''}`)}
+@@ -14204,7 +14240,7 @@
+  <p class="hint"><b>The contracts by branch:</b> ${esc(c.by_branch.map(b => `${b.code} ${money0(b.charge0) || '—'}`).join(' · '))}${c.subhire ? ` · including subhired ${esc(money0(c.subhire))}` : ''}${c.delivery ? ` · delivery ${esc(money0(c.delivery))}` : ''}. Rate 1 as the whole-event bill, or a day rate from when it went in for VMS, forklifts and water barriers — by the rate, never by the prebill amount. For comparison only, never added: the Pricing tab's 2026 street card prices the schedule's hire at ${esc(money0(c.card_hire))} and its transport at ${esc(money0(c.card_transport))} — an estimate from the schedule, not the bill.</p>
+  ${c.race.scope ? `<p class="hint"><b>Event labour</b> is charged by ${esc(c.race.document)} — what currently gets charged to the V8s for people over the event: ${esc(fmtNum(c.race.hours))} h of people on ${esc(c.race.days.map(d => fmtDay(d).dm).join(', '))} and the entertainment nights, ${esc(money0(c.race.people_amount))}, and accommodation and travel, ${esc(money0(c.race.at))} — worked out and changed on the Pricing tab. The tracker's ${esc(fmtNum(c.race.worked_hours || 0))} h on the race days are counted with the wages, in hours only — the scope, not those hours, is what is charged.</p>` : ''}
+  ${c.race.scope ? '' : `<p class="hint"><b>The race weekend</b> (${esc(c.race.days.map(d => fmtDate(d)).join(', '))}) is what we charge, not our cost: the tracker's hours on those days at the card's hourly event rates, by the role each person is charged as — set under People below; an hour typed on the Pricing tab's event card wins for its day and role.${(() => { const rs = ((DATA.charge_basis || {}).labour_hourly || {}).rates_stated; return rs ? ` Flat — no weekend loading (${esc(rs.by)}, ${esc(fmtDate(rs.on))}); the ×1.5 and ×2 of the hours rule band the build and demob hours on our side only.` : ''; })()} ${c.race.amount != null ? `${esc(money0(c.race.amount))} priced` : 'Nothing priced yet'}${c.race.unpriced_hours ? `; ${esc(fmtNum(c.race.unpriced_hours))} h by ${esc(c.race.unpriced_people.join(', '))} have no role yet` : ''}.</p>`}
+- ${hrs ? `<p class="hint"><b>Labour outside the race weekend:</b> ${esc(fmtNum(hrs.hours))} h — ${esc(fmtNum(hrs.to_date))} h worked to ${esc(fmtDay(M.as_at).dm)}, ${esc(fmtNum(hrs.planned))} h planned · ${esc(fmtNum(hrs.ordinary))} h ordinary, ${esc(fmtNum(hrs.at_1_5))} h at ×1.5, ${esc(fmtNum(hrs.at_2))} h at ×2 · ${esc(Object.entries(hrs.by_employer).map(([e, v]) => `${e} ${fmtNum(v.hours)} h`).join(' · '))}. No wage rate was supplied, so no dollar is put on an hour.${M.breakeven != null ? ` For scale only: the difference so far divided by these hours is ${esc(money(M.breakeven))} an hour — arithmetic on the two figures, not a rate anybody gave.` : ''}</p>` : ''}
++ ${hrs ? `<p class="hint"><b>Labour outside the race weekend:</b> ${esc(fmtNum(hrs.hours))} h — ${esc(fmtNum(hrs.to_date))} h worked to ${esc(fmtDay(M.as_at).dm)}, ${esc(fmtNum(hrs.planned))} h planned · ${esc(fmtNum(hrs.ordinary))} h ordinary, ${esc(fmtNum(hrs.at_1_5))} h at ×1.5, ${esc(fmtNum(hrs.at_2))} h at ×2 · ${esc(Object.entries(hrs.by_employer).map(([e, v]) => `${e} ${fmtNum(v.hours)} h`).join(' · '))}. No wage rate was supplied, so no dollar is put on an hour.</p>` : ''}
+  <p class="hint"><b>Transport:</b> ${k.transport.schedule.refs ? `the schedule's TPORT COST column reads ${esc(money0(k.transport.schedule.amount))} on ${pl(k.transport.schedule.refs, 'reference')}${k.transport.schedule.plus ? ` (${k.transport.schedule.plus} with a plus)` : ''} — what Coates pays for those loads, so it is counted${k.transport.schedule.by_our_line ? ` (${k.transport.schedule.by_our_line} of them replaced by our own line for the same reference)` : ''}; ${k.transport.schedule.internal} marked Internal are a Coates truck, no carrier charge` : 'the schedule carries no TPORT COST figure'}${k.transport.card_cost ? `; the card's transport cost to Coates on its lines, ${esc(money0(k.transport.card_cost))}, is a comparison only, never added` : ''}.</p>
+  <p class="hint">The cost side is the labour, accommodation, meals and expense tracker${M.tracker ? ` (<span class="mono">${esc(M.tracker.workbook)}</span>, ${esc(fmtDate(M.tracker.supplied_on))})` : ''} as changed on this page, the schedule's transport costs and the transport lines people record here, what fencing is paid at the crew's sheet${k.fencing_labour ? ", Advanced's labour and truck hours on the green book at their Labour rate (a cost only — the V8s pay for it inside the fencing installation rates; the project manager, 25 Sep 2026)" : ''}${k.rehire_approved ? ' and the approved rehire quotes' : ''}. A date still to come is a plan, not a cost incurred. Nothing on either side is estimated, and the two are never added across.</p>`)}
+  </div>`;
+@@ -14281,7 +14317,7 @@
+ }
+ /* the transport we pay for — its own card, with the branch on every line */
+ function ourTransportCard(){
+- const X = ourKindCard('transport', {empty: 'No transport cost of ours recorded yet.'});
++const X = ourKindCard('transport', {empty: 'No transport invoice or manual transport line of ours recorded yet. The schedule’s own transport figures (its TPORT COST column) are counted in the totals above as scheduled estimates, not invoices.'});
+  const byB = ourByBranch(X.list), T = X.T;
+  return `<div class="card nosfold" id="ourTransport">
+  <div class="hubtitle"><h3>Transport — our costs <span class="chip ref">${X.list.length}</span> <span class="chip crit" title="the other side of the ledger — what transport costs Coates, never what is charged">cost to us · never a charge</span></h3>
+@@ -14336,7 +14372,7 @@
+  <div class="kpis" style="margin-top:10px">
+  <div class="kpi"><div class="v">${h(L.hours)}<small> h</small></div><div class="l">Labour — build and demob</div><div class="q">${h(L.to_date)} h worked, ${h(L.planned)} h planned · hours only</div></div>
+  <div class="kpi"><div class="v">${h(L.ordinary)}<small> h</small></div><div class="l">Ordinary hours</div><div class="q">${h(L.at_1_5)} h at ×1.5 · ${h(L.at_2)} h at ×2 — his rule, shift by shift</div></div>
+- ${SCOPE ? `<div class="kpi"><div class="v">${h(RW.hours)}<small> h</small></div><div class="l">Race weekend — worked</div><div class="q">wages, hours only · the people over the event are charged by the event labour scope on the Pricing tab — ${esc(money0((scopeFigures() || {}).total))}</div></div>` : ''}
++ ${SCOPE ? `<div class="kpi"><div class="v">${h(RW.hours)}<small> h</small></div><div class="l">Race weekend — ${esc(raceHoursWord())}</div><div class="q">wages, hours only · the people over the event are charged by the event labour scope on the Pricing tab — ${esc(money0((scopeFigures() || {}).total))}</div></div>` : ''}
+  ${SCOPE ? '' : `<div class="kpi"><div class="v">${EH.total != null ? esc(money0(EH.total)) : h(RW.hours) + '<small> h</small>'}</div><div class="l">Race weekend — charged</div><div class="q">${h(RW.hours)} h over ${esc(EVENT_DAYS.map(d => fmtDay(d).dm).join(', '))}${((DATA.charge_basis || {}).labour_hourly || {}).rates === 'flat' ? ' · flat rates' : ''}${RW.unpriced_hours ? ` · ${h(RW.unpriced_hours)} h need a role` : ''}</div></div>`}
+  <div class="kpi"><div class="v">${esc(money0(A.amount))}</div><div class="l">Accommodation</div><div class="q">${A.nights} nights${A.unpriced ? ` · ${A.unpriced} with no rate yet` : ''}</div></div>
+  <div class="kpi"><div class="v">${esc(money0(Mm.amount))}</div><div class="l">Meals away</div><div class="q">${Mm.lines} line${Mm.lines === 1 ? '' : 's'}</div></div>
+@@ -14357,7 +14393,7 @@
+  ${fold('misc', `Misc and other expenses — ${misc.list.length}`, misc.table + misc.form)}
+  ${fold('weeks', `By week — ${T.weeks.length}`, `<div class="tblwrap"><table class="ledgertbl"><thead><tr><th>Week</th><th>From</th><th class="num">Coates CNA h</th><th class="num">External h</th><th class="num">Salary h</th><th class="num">All h</th><th class="num">of which race weekend</th><th class="num">Nights</th><th class="num">Accommodation</th><th class="num">Meals</th><th class="num">Other</th><th class="num">Total $</th></tr></thead>
+  <tbody>${T.weeks.map(w => `<tr class="${w.from > todayIso() ? 'planned' : ''}"><td><b>${esc(w.week)}</b>${w.from > todayIso() ? ' <span class="chip" title="still to come — planned, not incurred">planned</span>' : ''}</td><td>${esc(fmtDay(w.from).dm)}</td><td class="num">${h(w.cna)}</td><td class="num">${h(w.external)}</td><td class="num">${h(w.salary)}</td><td class="num"><b>${h(w.hours)}</b></td><td class="num">${w.race ? h(w.race) : '—'}</td><td class="num">${w.nights}</td><td class="num">${esc(money(w.accommodation) || '—')}</td><td class="num">${esc(money(w.meals) || '—')}</td><td class="num">${esc(money(w.other) || '—')}</td><td class="num"><b>${esc(money(w.total) || '—')}</b></td></tr>`).join('')}</tbody></table></div>`)}
+- ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person; the tracker's race-day hours are shown here as worked, in hours only, and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
++ ${moreInfo('costs|tracker', `<p class="hint">The hours rule, stated ${esc(fmtDate(WF.hours_rule.stated_on || '2026-09-24'))}: a standard day of ${esc(String((WF.hours_rule.weekday || {}).ordinary_hours))} h, the next ${esc(String((WF.hours_rule.weekday || {}).then_at_1_5))} h at ×1.5 and the rest at ×2; Saturday ×1.5 for the first ${esc(String((WF.hours_rule.saturday || {}).at_1_5))} h and ×2 after; Sunday ×2 for every hour — applied shift by shift; ${h(L.weighted)} weighted hours outside the race weekend (ordinary + 1.5 × the ×1.5 hours + 2 × the ×2 hours). No dollar is put on an hour — hours only (24 Sep 2026). ${SCOPE ? `The people over the event are charged by the Coates Event Labour Scope on the Pricing tab (25 Sep 2026), not person by person;the tracker's race-day hours are shown here in hours only, as ${esc(raceHoursWord())} (a day still to come is planned), and counted with the wages.` : `The race weekend is what we charge, not our cost (25 Sep 2026) — at the card's hourly event rates by each person's role; Saturday and Sunday are charged at the card's hourly rate, as written, with no loading added.`}</p>
+  <p class="hint">The tracker is a starting point, to be taken with a grain of salt, and it has to be editable: every shift, night, meal, expense and person here can be changed, added to or taken off by a named person, and the change travels with the record; the tracker's own line stays underneath as what was supplied (<span class="mono">${esc(WF.workbook)}</span>, ${esc(fmtDate(WF.supplied_on))}).</p>
+  <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.55">${(WF.summary_notes || []).map(n => `<li>${esc(n)}</li>`).join('')}${((WF.setup || {}).notes || []).map(n => `<li>${esc(n)}</li>`).join('')}</ul>`)}
+  </div>`;
+@@ -20600,7 +20636,7 @@
+  if (st === 'stated') return '<span class="chip ok">removed ' + esc(String((a.hire||{}).offhire_date || '')) + '</span>';
+  if (st === 'demob row') return '<span class="chip ok">demob row</span>';
+  if (st === 'rental off-hire') return '<span class="chip ok" title="no schedule row takes it off site; the rental system carries an off-hire date">off hire ' + esc(String((a.hire||{}).offhire_date || '')) + '</span>';
+- return '<span class="chip crit">nothing removes it</span>';
++return '<span class="chip crit" title="no schedule row, demob row or rental off-hire date takes it off site yet">return date not recorded</span>';
+ }
+ function assetWeeks(a){
+  const stored = movedAway(a.key) ? null : S.weeks[a.key];
+@@ -21460,8 +21496,12 @@
+  const alias = {'fridge': 'fridge lge', 'chair': 'pad chair', 'stackable chair': 'pad chair', '3.0m cont': 'event container', '6.0m refrigerator cont': 'event container', '200kva & cables': '200kva', '100kva trailer': '100kva'};
+  if (/forklift/i.test(n)) return ONHIRE_ROWS.filter(r => !r.charge_line && r.family === 'forklift');
+  return contractByType.get(alias[low] || low) || []; };
++const poolSeen = new Set();
+  const contractCell = name => { const rowsC = contractRowsFor(name);
+  if (!rowsC.length) return '<span class="norate">—</span>';
++ /* v6.74b (DATA-17) - every forklift row reads the same pool of forklift contract lines; it is shown on the first
++ forklift row, and the rest point to it rather than repeat its total */
++ if (/forklift/i.test(String(name || ''))) { if (poolSeen.has('forklift')) return `<span class="w" title="the forklift contract lines are one pool shared by every forklift row — shown once, on the first">in the forklift pool above · ${rowsC.length} lines, counted once</span>`; poolSeen.add('forklift'); }
+  const rates = [...new Set(rowsC.filter(r => typeof r.rate_1 === 'number').map(r => r.rate_1))].sort((a, b) => a - b);
+  const types = [...new Set(rowsC.map(r => r.rate_type).filter(Boolean))];
+  const cf = contractFigures(rowsC);
+@@ -22042,7 +22082,7 @@
+  return `<tr class="${rowClass(a)}">
+  <td data-label="Light">${lightCell(a)}</td>
+  <td class="t" data-label="Time · day">${isIn ? `<input type="time" step="300" data-eta="${esc(a.key)}" value="${esc(d.eta || '')}"
+- aria-label="Planned time to site for ${esc(a.key)}">` : (d.eta ? esc(d.eta) : '<span class="todo">—</span>')}
++aria-label="Planned time to site for ${esc(a.key)}">` : outTimeHtml(events)}
+  <div class="mv"><input type="date" data-${isIn ? 'date' : 'outdate'}="${esc(a.key)}" value="${esc((isIn ? eff.in : eff.out) || '')}"
+  aria-label="${isIn ? 'Day it is due in' : 'Day it is due out'} for ${esc(a.key)}" title="change the day — the plan date is kept beside it">${
+  moved_from ? `<span class="chip act" title="moved by ${esc((isIn ? eff.in_by : eff.out_by) || 'unnamed')} ${esc(fmtStamp((isIn ? eff.in_at : eff.out_at) || ''))}">moved from ${esc(fmtDay(moved_from).dm)}</span>` : ''}</div></td>
+@@ -22178,7 +22218,7 @@
+  <div class="dcacts">${doneBtn(key, false)}${levelBtn(key, false)}${stepsBtn(key, false)}${isIn ? nextDayBtn(key, false) : ''}${doneChip(a)}${levelChip(a)}${stepsChip(a)}</div>`}
+  </section>
+  <section class="dcp dctime"><h5>${dcIco('cal')}Time · day</h5>
+- <div class="dctd">${isIn ? `<input type="time" step="300" data-eta="${esc(key)}" value="${esc(d.eta || '')}" aria-label="Planned time to site for ${esc(key)}">` : `<b>${d.eta ? esc(d.eta) : '—'}</b>`}
++ <div class="dctd">${isIn ? `<input type="time" step="300" data-eta="${esc(key)}" value="${esc(d.eta || '')}" aria-label="Planned time to site for ${esc(key)}">`: outTimeHtml(events)}
+  <input type="date" data-${isIn ? 'date' : 'outdate'}="${esc(key)}" value="${esc(day || '')}" aria-label="${isIn ? 'Day it is due in' : 'Day it is due out'} for ${esc(key)}" title="change the day — the plan date is kept beside it"></div>
+  <div class="dcsub">${esc(dow)}${moved_from ? ` <span class="chip act" title="moved by ${esc((isIn ? eff.in_by : eff.out_by) || 'unnamed')} ${esc(fmtStamp((isIn ? eff.in_at : eff.out_at) || ''))}">moved from ${esc(fmtDay(moved_from).dm)}</span>` : ''}</div>
+  </section>
+@@ -22520,7 +22560,7 @@
+  const ins = d.deliveries.filter(keep).sort(etaSort), outs = d.removals.filter(keep).sort(etaSort);
+  if (full) state.list = ins.concat(outs).map(r => r.a.key);
+  const t = lightTally(d.deliveries.map(r => r.a));
+- const sheetNote = (d.sheet ? `${d.sheet} · ${d.phase}` : 'outside every week sheet on the programme')
++ const sheetNote = (d.sheet ? `${d.sheet} · ${d.phase}` : 'no programme sheet covers this day')
+  + (d.holiday ? ` · ${d.holiday.name} — Queensland public holiday` : '') + (d.weekend && !d.holiday ? ' · weekend' : '');
+  const carrier = (DATA.transport || {}).carrier || {};
+  return `
+@@ -23087,7 +23127,7 @@
+  <div class="rs-head">
+  <div class="rs-hl"><div class="rs-brand">${esc(DATA.brand.org)} · ${esc(DATA.event.name)}</div>
+  <h1>${kind === 'removals' ? 'Collection' : 'Delivery'} — ${esc(fmtDate(d.iso))}</h1>
+- <div class="rs-sub">${esc(d.sheet ? d.sheet + ' · ' + d.phase : 'outside every week sheet on the programme')}
++ <div class="rs-sub">${esc(d.sheet ? d.sheet + ' · ' + d.phase : 'no programme sheet covers this day')}
+  · one page, one drop</div></div>
+  <div class="rs-rec">${dstat(a, {size: 'sm'})}${doneChip(a)}</div>
+  <div class="rs-r"><span class="rs-ref">${esc(a.key)}</span>
+@@ -23296,7 +23336,7 @@
+  isToday ? 'today' : '', on ? 'on' : '', d.empty ? 'blank' : '', d.weekend ? 'weekend' : '', d.holiday ? 'holiday' : ''].filter(Boolean).join(' ');
+  const D = new Date(String(d.iso).slice(0, 10) + 'T00:00:00');
+  const dt = fmtDay(d.iso);
+-const week = d.sheet ? d.sheet.replace('Demob Week', 'Demob').toUpperCase() : 'NO PROGRAMME WEEK';
++const week = d.sheet ? d.sheet.replace('Demob Week', 'Demob').toUpperCase() : (((programmeDay(d.iso) || {}).short || 'no programme sheet') + '').toUpperCase();
+  const phase = d.phase ? d.phase.toUpperCase() : '';
+  const chip = (k, n, one, many) => `<span class="dchip ${k}"><b>${n}</b> ${n === 1 ? one : many}</span>`;
+  const mvOff = movedOffDay(d.iso);
+@@ -23652,7 +23692,7 @@
+  is a statement that the service has nothing; this one is a statement that we do not know. */
+  DOCS.state = 'failed'; DOCS.error = (e && e.message) || String(e);
+  }
+- finally { DOCS.busy = false; docsRedraw(); photoRedraw(); }
++finally { DOCS.busy = false; docsRedraw(); photoRedraw(); try { docsHubRedraw(); } catch (e) {} }
+ }
+ /* Any route that wants to know about a photograph asks the registry, and asking it is what loads it — so the
+  cold route (open an asset, print its sheet) is the same route as the warm one. */
+@@ -24628,7 +24668,7 @@
+  </header>
+  <section class="ds-what" style="grid-template-columns:1.4fr 1fr 1fr 1.6fr">
+  <div class="ds-cell wide"><label>Day</label><b>${esc(fmtDate(v.iso))}</b>
+- <span>${esc(v.day && v.day.sheet ? v.day.sheet + ' · ' + (v.day.phase || '') : 'outside every week sheet on the programme')}</span></div>
++ <span>${esc(v.day && v.day.sheet ? v.day.sheet + ' · ' + (v.day.phase || '') : 'no programme sheet covers this day')}</span></div>
+  <div class="ds-cell"><label>Recorded on site</label><b>${v.arrivals.length}</b>
+  <span>${v.ticks.length ? v.ticks.length + ' ticked complete' + (v.levelled.length ? ' · ' + v.levelled.length + ' positioned and levelled' : '') + (v.steps.length ? ' · ' + v.steps.length + ' steps installed' : '') : 'lights set on site'}</span></div>
+  <div class="ds-cell"><label>Due in, not on site</label><b>${dueSplit(v).n}</b>
+@@ -25962,7 +26002,7 @@
+  const days = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+  const wk = weekOf(iso);
+  let lab, n, unit, sub;
+- if (race && iso < race) { lab = 'Race day · ' + fmtDay(race).dow + ' ' + fmtDay(race).dm; n = days(iso, race); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : 'before the programme'; }
++if (race && iso < race) { lab = 'Event opens · ' + fmtDay(race).dow + ' ' + fmtDay(race).dm; n = days(iso, race); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : ((programmeDay(iso) || {}).short || 'before the programme'); }
+  else if (race && iso <= raceEnd) { lab = 'Race weekend'; n = 'ON'; unit = 'NOW'; sub = 'the event is running'; }
+  else if (end && iso <= end) { lab = 'End of demob · ' + fmtDay(end).dow + ' ' + fmtDay(end).dm; n = days(iso, end); unit = n === 1 ? 'DAY' : 'DAYS'; sub = wk ? weekWords(wk).split(' · ').slice(0, 2).join(' · ') : 'demob'; }
+  else { lab = 'Programme'; n = '—'; unit = ''; sub = end ? 'ended ' + fmtDate(end) : ''; }
+@@ -25979,7 +26019,7 @@
+  const a = rail.querySelector('.lb.s'), b = rail.querySelector('.lb.e');
+  if (a && start) a.textContent = fmtDay(start).dm.toUpperCase(); if (b && end) b.textContent = fmtDay(end).dm.toUpperCase();
+  }
+- el.title = span ? `The programme, ${fmtDate(start)} to ${fmtDate(end)}` + (race ? ` · race day ${fmtDate(race)}` : '') : '';
++ el.title = span ? `The programme, ${fmtDate(start)} to ${fmtDate(end)}` +(race ? ` · the event opens ${fmtDate(race)}` : '') : '';
+ }
+ /* v5.93 - the banner's race-day pod carries the full countdown: whole days, then hours:minutes:seconds to midnight
+  on race day on the Gold Coast, ticking with the clock */
+@@ -26617,20 +26657,21 @@
+  }).join('');
+  /* fencing as its own plate: temporary fence in metres over the programme's whole, then every type the
+  programme carries — done, planned by the day, the whole — each in its own unit */
+- const F = fenceMetres(P), ft = fenceTypes(P), fd = fenceDerived();
++const F = fenceMetres(P), ft = fenceTypes(P), fd = fenceDerived(), gaps = fenceGapsOf(ft);
+  const fence = `<div class="grp fence ${F.total && F.done >= F.total ? 'full' : F.done ? 'part' : 'none'}" style="--acc:${FENCE_ACC}" data-go="fencing" role="button" tabindex="0" title="open the Fencing tab">
+  <div class="k">Fencing<span>${ft.length} type${ft.length === 1 ? '' : 's'} on the 2026 programme</span></div>
+- <div class="n">${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m temporary fence installed</small></div>
++<div class="n">${esc(fmtNum(F.done))}<small> of ${esc(fmtNum(F.total))} m of fence work on dockets</small></div>
+  ${gauge(F.done, F.total, F.planned ? `${esc(fmtNum(F.planned))} m planned by this day` : 'nothing planned by this day', null)}
+  ${ft.length ? `<table class="bt ft"><thead><tr><th>Type</th><th>done</th><th>planned by day</th><th>programme</th></tr></thead><tbody>${
+  ft.map(t => `<tr class="${t.planned != null && t.done < t.planned ? 'behind' : ''}"><td title="${esc(t.type)}">${esc(t.name)} <i>${esc(t.unit)}</i></td><td>${esc(fmtNum(Math.round(t.done * 100) / 100))}</td><td>${t.planned == null ? '—' : esc(fmtNum(Math.round(t.planned * 100) / 100))}</td><td>${esc(fmtNum(t.total))}</td></tr>`).join('')}</tbody></table>` : ''}
+  <div class="rows">
+- <span>Areas ticked done</span><b>${P.areas ? `${P.areasDone} of ${P.areas}` : '<small>none named on a docket yet</small>'}</b>
++${gaps.length ? `<span class="bad">Behind the programme by type</span><b class="bad">${esc(gaps.map(fenceGapWords).join(' · '))}</b>` : ''}
++ <span title="the areas the crew have named on a docket, ticked finished — not every area on the programme">Docket areas ticked done</span><b>${P.areas ? `${P.areasDone} of ${P.areas}` : '<small>none named on a docket yet</small>'}</b>
+  ${P.fenceBd ? `<span class="bad">Open fencing breakdowns</span><b class="bad">${P.fenceBd}</b>` : ''}
+  </div>
+  <div class="money"><span>Dockets — charged at the 2026 card</span><b>${fd.charged ? esc(money0(fd.charged)) : '—'}</b></div>
+  <div class="money"><span>Dockets — paid to the crew, their own sheet</span><b>${fd.cost ? esc(money0(fd.cost)) : '—'}</b></div>
+- ${moreInfo('grp|fencing', `<p class="note">Done is the dockets by this day; planned is the 2026 programme's rows dated on or before it, across the ${P.weeksStarted} week${P.weeksStarted === 1 ? '' : 's'} that have started; programme is every 2026 week. Metres and gates are never added together.${P.notRolled && P.notRolled.length ? ` ${P.notRolled.length} week sheet${P.notRolled.length === 1 ? '' : 's'} not rolled forward.` : ''}</p>`)}
++ ${moreInfo('grp|fencing', `<p class="note">Done is the dockets by this day; planned is the 2026 programme's rows dated on or before it, across the ${P.weeksStarted} week${P.weeksStarted === 1 ? '' : 's'} that have started;programme is every 2026 week. Metres and gates are never added together. The metres are work on the dockets, not fence standing: a run put in as clean fence and later converted to scrim is on both dockets (36505 then 36539, 97.5 m at Cypress Carpark), and removals are not taken off. Early work on one type never makes up for a type behind.${P.notRolled && P.notRolled.length ? ` ${P.notRolled.length} week sheet${P.notRolled.length === 1 ? '' : 's'} not rolled forward.` : ''}</p>`)}
+  </div>`;
+  return `<h3 class="sec">By group <span>what is on site over the total on the job, as at ${esc(fmtDay(asOf).dm)}</span></h3><div class="groups">${fence}${plates}</div>`;
+ }
+@@ -26753,7 +26794,7 @@
+  <span>We charge the V8s</span><b>${esc(money0(M.charge.total) || '—')}</b>
+  <span>Coates pays — known so far</span><b>${esc(money0(M.cost.known) || '—')}</b>
+  <span class="big">Difference so far</span><b class="big${M.difference0 < 0 ? ' neg' : ''}">${esc(sd(M.difference0))}</b></div>
+- <p class="mline">Not a margin yet — ${M.missing_short.length} thing${M.missing_short.length === 1 ? '' : 's'} not in it${M.breakeven != null ? `; the crew's wages are the biggest, ${esc(fmtNum(M.breakeven_hours))} h with no rate — the difference covers them up to ${esc(money(M.breakeven))} an hour` : ''}.</p>
++<p class="mline"><b>Forecast incomplete</b> — not a margin: ${M.missing_short.length} thing${M.missing_short.length === 1 ? '' : 's'} not in it yet (${esc(M.missing_short.join(' · '))}).</p>
+  ${moreInfo('money|ledger', `<div class="mtot streams">${M.streams.map(s => `<span>${esc(s.name)}</span><b>${s.charge_known ? esc(money0(s.charge0)) : '—'} · ${s.cost_known ? esc(money0(s.cost0)) : '—'} · <i class="${s.cost_known && s.difference0 < 0 ? 'neg' : ''}">${s.cost_known ? esc(sd(s.difference0)) : 'before costs'}</i></b>`).join('')}</div>
+  <p class="mnote">Each stream: what we charge · what Coates pays · the difference. <b>Not in it yet:</b> ${esc(M.missing.join('; '))}.${M.caveats.length ? ` <b>Provisional:</b> ${esc(M.caveats.join('; '))}.` : ''} Every line of both sides is on the Costs &amp; charges tab.</p>`)}
+  </div>
+@@ -27617,6 +27658,43 @@
+  On track is not a feeling. It is the plan's percentage against the recorded one, in points. A delivery nobody
+  has set a light on does NOT count as on site, so it shows as behind — which is the honest answer, and the one
+  that gets somebody to set the light. */
++/* v6.74 - THE EXECUTIVE AUDIT (26 Sep 2026). Helpers its fixes share.
++ A rate as it is stored: to the cent when it is whole cents, to four places when the card carries more, so a line's
++ charge can be worked out again from what is on the screen ($16.1607 x 100 m = $1,616.07). */
++const RATE_FMT = new Intl.NumberFormat('en-AU', {style:'currency', currency:'AUD', minimumFractionDigits:2, maximumFractionDigits:4});
++const rateMoney = v => (v == null || v === '' || !Number.isFinite(Number(v))) ? null : RATE_FMT.format(Number(v));
++/* Where a day sits in the programme whether or not a week sheet covers it: the phase around it and its day number,
++ first sheet to last. A gap day inside the build is still the build (UI-01). */
++function programmeDay(iso){
++ const W = DATA.weeks || []; if (!W.length || !iso) return null;
++ const start = W[0].start, end = W[W.length - 1].end;
++ const days = (a, b) => Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
++ const total = days(start, end) + 1;
++ if (iso < start) return {before: true, total, phase: null, wk: null, short: 'before the programme', words: 'before the programme starts on ' + fmtDay(start).dm};
++ if (iso > end) return {after: true, total, phase: null, wk: null, short: 'after the programme', words: 'after the programme ended on ' + fmtDay(end).dm};
++ const wk = weekOf(iso);
++ const prev = [...W].reverse().find(w => w.end < iso) || null, next = W.find(w => w.start > iso) || null;
++ const phase = wk ? wk.phase : prev && next && prev.phase !== next.phase ? next.phase : (prev || next || {}).phase || '';
++ const n = days(start, iso) + 1, ph = phase ? phase + ' phase' : 'Programme';
++ return {n, total, phase, wk, gap: !wk, short: `${ph} · day ${n} of ${total}`,
++ words: `${ph} · day ${n} of ${total}${wk ? '' : ' · no programme sheet covers this day'}`};
++}
++/* Fencing types behind the programme by today, each in its own unit - early work on one type never clears a late
++ one on another (DATA-09) */
++function fenceGapsOf(ft){ return (ft || []).filter(t => t.planned != null && t.done < t.planned).map(t => ({name: t.name, unit: t.unit, done: t.done, planned: t.planned, short: Math.round((t.planned - t.done) * 100) / 100})); }
++const fenceGapName = g => { const n = g.name.replace(/^Fence — /, ''); return n.charAt(0).toUpperCase() + n.slice(1); };
++const fenceGapWords = g => `${fenceGapName(g)} ${fmtNum(g.short)}${g.unit === 'm' ? ' m' : ''}`;
++/* The time a removal is written for, from the schedule row's own words ("5.00pm") - never the delivery's planned time
++ to site. Where the row gives no time, there is none to show (DATA-10). */
++function outTimeOf(events){
++ for (const e of events || []) { const m = String(e.note || '').match(/\b(\d{1,2})(?:[.:](\d{2}))?\s*(am|pm)\b/i);
++ if (m) { let h = +m[1] % 12; if (/pm/i.test(m[3])) h += 12; return String(h).padStart(2, '0') + ':' + (m[2] || '00'); } }
++ return null;
++}
++const outTimeHtml = events => { const t = outTimeOf(events); return t ? `<b title="the time the schedule row writes for this removal">${esc(t)}</b>` : '<span class="todo" title="the schedule row gives no time for this removal">time to confirm</span>'; };
++/* Race-weekend hours are worked only once the day has been (DATA-07) */
++function raceHoursWord(){ const td = todayIso(), D = (typeof EVENT_DAYS !== 'undefined' && EVENT_DAYS) || DATA.race_days || [];
++ if (!D.length) return 'planned'; if (D.every(d => d > td)) return 'planned'; if (D.every(d => d <= td)) return 'worked'; return 'worked and planned'; }
+ function completionAsOf(asOf, X){
+  X = X || dsnState(asOf);
+  const rows = X.rows;
+@@ -27657,8 +27735,11 @@
+  else if (onEarly > 0) { word = 'ahead by ' + fmtNum(onEarly) + ' unit' + (onEarly === 1 ? '' : 's') + ' early'; cls = 'ok';
+  why = 'everything the plan asks for by today is on site, and ' + fmtNum(onEarly) + ' unit' + (onEarly === 1 ? '' : 's') + ' not due yet ' + (onEarly === 1 ? 'is' : 'are') + ' on site too'; }
+  else { word = 'on track'; cls = 'ok'; why = 'what the plan asks for by today is on site'; }
++/* v6.74 (DATA-02) - a reference the schedule gives no quantity for counts as one thing to deliver, but it is
++ not a measured quantity: the whole job is said as the units that ARE quantified plus the references awaiting one */
++ const refsNoQty = rows.reduce((s, r) => s + (r.asked && r.a && !r.a.relocation ? chargeLines(r.a).filter(l => l.quantity == null).length : 0), 0);
+  return {on, onDue, onEarly, pace, plan, all, pct, planPct, points, race, toRace, word, cls, why,
+- shortfall, P: X.P, X};
++ shortfall, refsNoQty, quantified: all - refsNoQty, P: X.P, X};
+ }
+ /* The gauge. A half circle reads as a gauge without anybody being told, and it is drawn in SVG so it is sharp
+  on a phone and sharp on paper. It carries its own figures in text so nobody has to read a picture to get a
+@@ -28165,10 +28246,10 @@
+  return kick('Temporary fence') + `<h2>Metres<br>in the ground.</h2>
+  <div class="shbig">${fmtNum(F.done)}<small>of ${fmtNum(F.total)} m on the programme</small></div>
+  <div class="shmeter" aria-hidden="true"><i style="width:${F.total ? Math.min(100, F.done / F.total * 100).toFixed(1) : 0}%"></i></div>
+- <div class="shrow"><span>Clean, installed</span><b>${fmtNum(fdone('clean'))} m <span class="shof">of ${fmtNum(ftot('clean'))} m</span></b></div>
+- <div class="shrow"><span>Braced for scrim, installed</span><b>${fmtNum(fdone('scrim'))} m <span class="shof">of ${fmtNum(ftot('scrim'))} m</span></b></div>
+- ${fine('Installed is what the crew’s dockets say by this day; the second figure on each line is what the 2026 programme asks for. Gates and crowd-control barrier are counted in their own units and are never added to metres.'
+- + (fencingCrew().length ? ' Put in by ' + fencingCompany() + ' — meet the crew on the next scene.' : ''))}`;
++<div class="shrow"><span>Clean, on dockets</span><b>${fmtNum(fdone('clean'))} m <span class="shof">of ${fmtNum(ftot('clean'))} m</span></b></div>
++<div class="shrow"><span>Braced for scrim, on dockets</span><b>${fmtNum(fdone('scrim'))} m <span class="shof">of ${fmtNum(ftot('scrim'))} m</span></b></div>
++${fine('The metres are what the crew’s dockets say by this day — work done, not fence standing; the second figure on each line is what the 2026 programme asks for. Gates and crowd-control barrier are counted in their own units and are never added to metres.'
+++ (fencingCrew().length ? ' Put in by ' + fencingCompany() + '.' : ''))}`;
+  }
+  if (key === 'fencing') {
+  /* THE FENCING CREW'S OWN SCENE. the project manager, 17 Sep 2026, with a photograph of the crew's sign-on sheet:
+@@ -28473,7 +28554,7 @@
+  const o = opts || {};
+  const gapTone = !C.plan ? 'none' : C.shortfall ? 'stop' : 'good';
+  const race = C.toRace != null ? `<div class="crace"><b>${C.toRace > 0 ? C.toRace : 0}</b><span>${
+- C.toRace > 1 ? 'days to race' : C.toRace === 1 ? 'day to race' : C.toRace === 0 ? 'race day' : 'days since race'}</span></div>` : '';
++C.toRace > 1 ? 'days to the event' : C.toRace === 1 ? 'day to the event' : C.toRace === 0 ? 'event opens' : 'days since it opened'}</span></div>` : '';
+  return `<div class="cblock">
+  ${o.head ? `<div class="chead">
+  <div><p class="ceyebrow">${esc(DATA.brand.org)} · ${esc(DATA.event.name)}</p>
+@@ -28504,8 +28585,8 @@
+  </div>
+  </div>
+  <div class="ctile whole">
+- <div><b>${fmtNum(C.all)}</b><span>units on the whole job</span></div>
+- <div class="cwpc"><span><i class="on"></i>${pc1(C.pct)}% recorded</span><span><i class="pl"></i>${pc1(C.planPct)}% planned by today</span></div>
++<div><b>${fmtNum(C.quantified != null ? C.quantified : C.all)}</b><span>${C.refsNoQty ? 'quantified units' : 'units'} on the whole job${C.refsNoQty ? `<em class="cprov">+ ${fmtNum(C.refsNoQty)} reference${C.refsNoQty === 1 ? '' : 's'} awaiting quantity confirmation</em>` : ''}</span></div>
++ <div class="cwpc"><span${C.refsNoQty ? ' title="provisional — each reference awaiting a quantity counts as one until it is confirmed"' : ''}><i class="on"></i>${pc1(C.pct)}% recorded${C.refsNoQty ? ' · provisional' : ''}</span><span><i class="pl"></i>${pc1(C.planPct)}% planned by today</span></div>
+  </div>
+  </div>
+  </div>
+@@ -28537,7 +28618,7 @@
+  const cnt = l => fmtNum(l.reduce((s, r) => s + r.asked, 0));
+  lines.push(`${g.name}: ${fmtNum(onU)} of ${fmtNum(asked)}${w ? ' ' + w : ''} · ${cnt(placed.filter(r => r.due))} · ${cnt(placed.filter(r => r.overdue))} · ${cnt(placed.filter(r => r.next))}`);
+  });
+- lines.push('', `FENCING: ${fmtNum(F.done)} of ${fmtNum(F.total)} m temporary fence installed${F.planned ? ` (${fmtNum(F.planned)} m planned by this day)` : ''}${P.areas ? ` · areas ticked complete ${P.areasDone} of ${P.areas}` : ''}`);
++ lines.push('', `FENCING: ${fmtNum(F.done)} of ${fmtNum(F.total)}m of fence work on dockets${F.planned ? ` (${fmtNum(F.planned)} m planned by this day)` : ''}${(() => { const g = fenceGapsOf(fenceTypes(P)); return g.length ? ' · behind by type: ' + g.map(fenceGapWords).join(', ') : ''; })()}${P.areas ? ` · docket areas ticked complete ${P.areasDone} of ${P.areas}` : ''}`);
+  /* the types with most done or planned by the day — the rest are on the plate and the printed page */
+  const live = ft.filter(t => t.done || t.planned).sort((a, b) => (b.done + (b.planned || 0)) - (a.done + (a.planned || 0)));
+  /* v5.81 — two types, not four; v5.83 — straight under the fencing line it belongs to, so the cap below never
+@@ -28583,7 +28664,7 @@
+  const chip = v => `<span class="chip ${v.cls}" title="${esc(v.why)}">${esc(v.word)}</span>`;
+  const toRace = P.race ? daysBetween(asOf, P.race) : null;
+  const toDemobEnd = P.demobEnd ? daysBetween(asOf, P.demobEnd) : null;
+- const phase = P.wk ? P.wk.phase : (P.race && asOf > P.race ? 'after the event' : asOf < ((DATA.weeks || [])[0] || {}).start ? 'before the programme' : 'between programme weeks');
++ const phase = P.wk ? P.wk.phase : (P.race && asOf > P.race ? 'after the event' :asOf < ((DATA.weeks || [])[0] || {}).start ? 'before the programme' : (((programmeDay(asOf) || {}).phase || 'between programme weeks') + (programmeDay(asOf) ? ' phase, no programme sheet today' : '')));
+  /* the same group names as the plates, in the plates' order, and the same word for a row — a line of the schedule */
+  const gname = d => (DSN_GROUPS.find(g => g.disc === d) || {}).name || d;
+  const gorder = d => { const i = DSN_GROUPS.findIndex(g => g.disc === d); return i < 0 ? 99 : i; };
+@@ -29119,7 +29200,7 @@
+  return {k: 'shared', word: 'Shared folder', sub: 'kept in the synced folder',
+  title: 'Records are kept in the folder OneDrive syncs — everyone connected to it shares them'};
+  if (SYNC.status === 'connecting')
+- return {k: 'checking', word: 'Checking…', sub: 'saved here meanwhile',
++return {k: 'checking', word: 'Loading…', sub: 'current record on its way',
+  title: 'Connecting to the shared record — records are saved in this browser meanwhile'};
+  if (SYNC.status === 'unreachable')
+  return {k: 'offline', word: 'Offline', sub: waiting ? waiting + ' waiting to send' : (at ? 'last confirmed ' + at : 'saved in this browser'),
+@@ -29136,7 +29217,8 @@
+  el.className = 'recstrip ' + r.k;
+  el.title = r.title;
+  /* v5.87 - three pit-lane lamps and one word. Steady lamps: a heartbeat is still never faked here. */
+- const big = {view: 'LIVE', shared: 'LIVE', pending: 'PENDING', checking: 'CHECKING', offline: 'OFFLINE', local: 'LOCAL'}[r.k] || r.word.toUpperCase();
++const big = {view: 'LIVE', shared: 'LIVE', pending: 'PENDING', checking: 'LOADING', offline: 'OFFLINE', local: 'LOCAL'}[r.k] || r.word.toUpperCase();
++ document.body.classList.toggle('recloading', r.k === 'checking');
+  el.innerHTML = `<span class="rslamps" aria-hidden="true"><i></i><i></i><i></i></span><span class="rsw"><b>${esc(big)}</b><em>${esc(r.sub)}</em></span>`;
+ }
+ function hhmm(d){ return timeOfStamp(d); }

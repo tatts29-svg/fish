@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "09a50581a0259d45ad493e0bf2f28d825bb7e7ce433a975848ee43ff655a83d1",
+  "suite": "machine1304",
+  "viewport": "desktop",
+  "passed": false,
+  "finding": "Paused camera round-off repeatedly invalidated final draw reuse; the scene was static but exact transform equality did not settle.",
+  "diagnosis": "Focused 70-tick actual-scene trace isolated alternating camera Z at 8.88e-16 and quaternion at 2\u20135e-17, with no external motion or pending shadow.",
+  "testHarnessFinding": "Bare synthetic pointerdown was invalid for OrbitControls pointer capture; replaced with native Playwright pointer input.",
+  "publication": "Not published. Final source and browser acceptance required."
+}

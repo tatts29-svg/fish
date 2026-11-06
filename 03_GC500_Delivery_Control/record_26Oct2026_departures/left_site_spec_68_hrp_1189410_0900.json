@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 6 Nov 2026 (08:5x AEST): \"Hrp leaving at 9am\". HRP is the Hire Republic Crib Room, a Coates Building 6m, asset 1189410 (one fire extinguisher listed with it, counted by quantity), its reference's only unit, complete on the record. It left in full at 09:00 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 09:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "HRP",
+   "at": "2026-11-06T09:00:00+10:00",
+   "nos": [
+    "1189410"
+   ],
+   "complete": true
+  }
+ ]
+}

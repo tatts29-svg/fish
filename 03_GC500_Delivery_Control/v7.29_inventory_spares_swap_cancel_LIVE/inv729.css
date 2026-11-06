@@ -1,0 +1,50 @@
+/* v7.29 - inventory, spares, swap, cancel */
+.invcard{margin-top:14px}
+.invhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.invhead h3{margin:0}
+.invcos{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0 4px;font-size:13.5px}
+.invco .w,.invcard .w{color:var(--mute);font-size:12px}
+.invchips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 8px}
+.invchips .chip{cursor:pointer;border:1px solid var(--rule);background:transparent;font-size:12.5px;padding:4px 10px;border-radius:999px}
+.invchips .chip.on{background:var(--orange);border-color:var(--orange);color:#fff}
+.invwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:10px}
+.invtab{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.invtab th,.invtab td{padding:6px 9px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top;white-space:nowrap}
+.invtab td:first-child{white-space:normal;min-width:140px}
+.invtab th{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--tint)}
+.invtab .num{text-align:right}
+.invtab tfoot td{font-weight:700;border-bottom:0;background:var(--tint)}
+.invh{margin:16px 0 6px}
+.invspares{flex-direction:column;gap:6px}
+.invspares li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 10px;padding:6px 6px 6px 10px}
+.invsp1{flex:1 1 260px;min-width:0}
+.invsp2{flex:0 1 auto}
+.invsp2 select{max-width:190px}
+.invadd{margin-top:10px;display:grid;gap:6px}
+.invaddrow{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.invaddrow select,.invaddrow input{flex:1 1 180px;min-width:0}
+.invwarn ul{margin:6px 0 0;padding-left:18px}
+.invwarn li{margin:3px 0}
+.chcx{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 2px}
+.chcx.notice{justify-content:space-between}
+.chcxbtn{color:var(--red);border-color:var(--red)}
+.chswapb{border:1px solid var(--rule);background:transparent;color:inherit;font-size:12px;border-radius:6px;padding:1px 7px;cursor:pointer;white-space:nowrap}
+.chswapb:hover{border-color:var(--orange);color:var(--orange-ink)}
+.chswapb:disabled{opacity:.45;cursor:default}
+.chswapbox{display:grid;gap:8px;margin-top:10px}
+.chswapbox select{width:100%}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.35}
+.chk input{margin-top:2px}
+.invchk{margin-top:10px}
+@media print{.invcard{display:none}}
+#chSwapNew[hidden],.invcard [hidden]{display:none!important}
+@media (max-width:700px){
+ .invchips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:thin}
+ .invchips .chip{flex:0 0 auto;white-space:nowrap;font-size:11px;padding:4px 9px}
+ .invhead .sub{font-size:12px}
+ .invsp2{width:100%}
+ .invsp2 select{flex:1 1 auto;max-width:none}
+}
+.invtab td:first-child,.invtab th:first-child{position:sticky;left:0;z-index:1;background:var(--paper,#fff);box-shadow:1px 0 0 var(--rule)}
+.invtab thead th:first-child,.invtab tfoot td:first-child{background:var(--tint)}
+@media (max-width:700px){.invtab{font-size:12.5px}.invtab th,.invtab td{padding:6px 7px}.invtab td:first-child{min-width:104px}}

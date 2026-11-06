@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "public": true,
+  "phone": false,
+  "before": {
+    "loop": true,
+    "quality": "balanced",
+    "source": true
+  },
+  "active": {
+    "open": true,
+    "playing": true,
+    "scene": true,
+    "failed": null,
+    "visibility": {
+      "prepared": 3,
+      "submitted": 2478996,
+      "total": 4876476,
+      "sourceGeometryPreserved": true
+    },
+    "quality": "balanced"
+  },
+  "paused": true,
+  "closed": true,
+  "errors": [],
+  "counts": {
+    "page": 0,
+    "live": 22,
+    "blocked": 0
+  }
+}

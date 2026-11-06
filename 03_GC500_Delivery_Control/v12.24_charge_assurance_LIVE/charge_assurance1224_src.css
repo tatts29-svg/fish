@@ -1,0 +1,29 @@
+/* Author: Andrew Fisher. Scoped figures-first charge assurance. */
+#charge1224{padding:20px;border:1px solid #d5dce2;border-top:4px solid #f47621;background:#fff;color:#172b38;min-width:0}
+#charge1224::after{background:inherit}
+#charge1224>header{display:flex;justify-content:space-between;gap:16px;align-items:center;position:static;background:transparent;color:inherit;padding:0;margin:0 0 18px;border:0;box-shadow:none;min-height:0;height:auto}
+#charge1224 h3{margin:3px 0;font-size:22px;line-height:1.25;color:#172b38}
+#charge1224 .charge1224-eyebrow{font-size:12px;font-weight:700;color:#526472}
+#charge1224 .charge1224-status{border:1px solid #ced8d3;padding:7px 11px;border-radius:20px;font-size:12px;font-weight:700;background:#edf5ef;color:#245738;white-space:nowrap}
+#charge1224 .charge1224-status[data-result="fail"],#charge1224 .charge1224-status[data-result="unavailable"]{background:#fff0e6;color:#94320f;border-color:#eab99d}
+#charge1224 .charge1224-figures{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#charge1224 .charge1224-figures>div{padding:15px;border-radius:8px;background:#f2f5f7;min-width:0}
+#charge1224 .charge1224-figures span{display:block;font-size:13px;line-height:1.5}
+#charge1224 .charge1224-figures strong{display:block;font-variant-numeric:tabular-nums;font-size:clamp(24px,2.3vw,34px);line-height:1.5;overflow-wrap:anywhere;color:#172b38}
+#charge1224 .charge1224-review{font-weight:700;color:#8d3d14;font-size:14px;margin:16px 0 6px}
+#charge1224 p{line-height:1.55;font-size:13px;max-width:100%;overflow-wrap:anywhere}
+#charge1224 .charge1224-note{color:#526472;margin-bottom:16px}
+#charge1224 details{border-top:1px solid #dce3e8;padding:0;margin:0;background:transparent}
+#charge1224 summary{padding:13px 2px;cursor:pointer;font-weight:700;min-height:44px;font-size:14px}
+#charge1224 .charge1224-bridge{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;font-size:14px;margin:8px 0 16px}
+#charge1224 dd{margin:0;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+#charge1224 .charge1224-table{overflow:auto;max-width:100%;margin:0 0 12px}
+#charge1224 table{border-collapse:collapse;min-width:360px;width:100%;font-size:13px}
+#charge1224 th,#charge1224 td{text-align:left;border-bottom:1px solid #e1e6ea;padding:10px 7px;vertical-align:top;white-space:normal;background:transparent;color:inherit}
+#charge1224 td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#charge1224 .charge1224-issues{list-style:none;margin:0;padding:0}
+#charge1224 .charge1224-issues li{padding:12px 0;border-top:1px solid #e1e6ea;font-size:13px}
+#charge1224 .charge1224-issues p{margin:4px 0}
+#charge1224 .charge1224-issues .btn{margin:0 5px 6px 0;min-height:40px}
+#charge1224 .charge1224-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+@media(max-width:600px){#charge1224{padding:15px}#charge1224>header{align-items:flex-start;flex-wrap:wrap;gap:9px}#charge1224 .charge1224-figures{grid-template-columns:1fr;gap:8px}#charge1224 .charge1224-figures>div{padding:11px 13px}#charge1224 .charge1224-figures strong{font-size:28px}#charge1224 .charge1224-bridge{font-size:12px;gap:10px}#charge1224 .charge1224-bridge dd{max-width:130px;overflow-wrap:anywhere}}

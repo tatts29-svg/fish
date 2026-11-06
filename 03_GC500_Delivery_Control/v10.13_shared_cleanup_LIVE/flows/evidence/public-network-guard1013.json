@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Only GET reaches underlying transport",
+      "pass": true
+    },
+    {
+      "name": "Map session POST remains rejected",
+      "pass": true
+    },
+    {
+      "name": "Operational POST and PUT remain unexpected and rejected",
+      "pass": true
+    },
+    {
+      "name": "Diagnostics omit query, body and edit secret",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "scope": "Pure transport-adapter test; no real network calls."
+}

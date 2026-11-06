@@ -1,0 +1,5 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 18 Oct 2026: \"There is still more due in\", then the iEDM drawing D025-26003 rev 04 (VMS Board Locations, issued Fri 16 Oct 2026), which shows 20 VMS locations, 01-20. 16 are on site (VMS1-4, 6-17); 05, 18, 19 and 20 are still to come. T0158's own booking (contract 9961265 line 32) is 9; 7 + 2 + 2 + 9 = 20.",
+ "ops": [{"op": "set_qty", "ref": "T0158", "qty": ""}]
+}

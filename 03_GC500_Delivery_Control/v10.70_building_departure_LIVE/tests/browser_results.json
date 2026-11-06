@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Private candidate browser gates passed; official live-predecessor build/publication pending",
+  "candidate_sha256": "2c3d560843a1efbc6c24f332e46492ddafebd81bf1203356eba0cfa82b95aea6",
+  "candidate_bytes": 18501611,
+  "predecessor_sha256": "07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d",
+  "source_sha256": "f65821824aef1baca1d588162ee4dbf853b48e1b8a500fb480d1326bcdc27e7d",
+  "patch_sha256": "eb226390aa3dc79ac4be2305d7aee9a1b4ed224ae9fba6f4f3cbb39a25540ef0",
+  "test_sha256": "48ae04c3827e2fffd6e92bc8ce78b8d970fc69ca1abee144bf071cebaa1cac97",
+  "source_fixture_assertions": 93,
+  "inline_scripts_parse": 143,
+  "frozen_api_version": 9704,
+  "viewports": {
+    "desktop": {
+      "passed": true,
+      "checks": 59,
+      "clean": true,
+      "predecessor_compared": true,
+      "programme_phases": 6,
+      "page_errors": 0,
+      "console_errors": 0,
+      "failed_external_responses": 0,
+      "attempted_writes": 0,
+      "missing_frozen_endpoints": 0,
+      "driver_pages": 6,
+      "driver_overflow_pages": 0,
+      "driver_failed_images": 0,
+      "demob_overflow": false,
+      "private_log_sha256": "609d3413a5d3bcd550c45e9d92d965439f172d676db090d4c842ad7007556416",
+      "screenshots_inspected": true
+    },
+    "phone": {
+      "passed": true,
+      "checks": 59,
+      "clean": true,
+      "predecessor_compared": true,
+      "programme_phases": 6,
+      "page_errors": 0,
+      "console_errors": 0,
+      "failed_external_responses": 0,
+      "attempted_writes": 0,
+      "missing_frozen_endpoints": 0,
+      "driver_pages": 6,
+      "driver_overflow_pages": 0,
+      "driver_failed_images": 0,
+      "demob_overflow": false,
+      "private_log_sha256": "3cbcd838aac4e53f27e8894532574323a7f904d9bbdd8f5c12124095e9991d03",
+      "screenshots_inspected": true
+    }
+  }
+}

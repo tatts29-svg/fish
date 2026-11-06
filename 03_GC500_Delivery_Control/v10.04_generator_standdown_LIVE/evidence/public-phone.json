@@ -1,0 +1,92 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "0030d7d3d6838fcad67773cdb19927ea0388591aa33cbc163e53d0d02d182443",
+  "checkedAt": "2026-10-12T04:12:49.319Z",
+  "viewport": "phone",
+  "checks": [
+    {
+      "name": "Actual public bytes match approved candidate",
+      "pass": true
+    },
+    {
+      "name": "Current generator actual and forecast reconcile",
+      "pass": true
+    },
+    {
+      "name": "Current standdown charge reconciles",
+      "pass": true
+    },
+    {
+      "name": "All 18 active generators are priced",
+      "pass": true
+    },
+    {
+      "name": "Commercial off hire is race Sunday",
+      "pass": true
+    },
+    {
+      "name": "Costs and P&L agree",
+      "pass": true
+    },
+    {
+      "name": "Branch totals reconcile",
+      "pass": true
+    },
+    {
+      "name": "Concert pair uses card standby rate",
+      "pass": true
+    },
+    {
+      "name": "Unconfirmed Concert plant numbers withheld",
+      "pass": true
+    },
+    {
+      "name": "Supplied Concert map location linked",
+      "pass": true
+    },
+    {
+      "name": "Generator tab selected",
+      "pass": true
+    },
+    {
+      "name": "All 17 generator groups visible",
+      "pass": true
+    },
+    {
+      "name": "Actual total displayed",
+      "pass": true
+    },
+    {
+      "name": "Standdown and total columns visible",
+      "pass": true
+    },
+    {
+      "name": "No duplicate unrelated summary",
+      "pass": true
+    },
+    {
+      "name": "Fits viewport",
+      "pass": true
+    },
+    {
+      "name": "No page errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true
+    }
+  ],
+  "totals": {
+    "actual": 28196.4,
+    "remaining": 9333.73,
+    "total": 37530.13,
+    "standdown": 25017.27
+  },
+  "errors": [],
+  "counts": {
+    "page": 0,
+    "live": 50,
+    "blocked": 0
+  }
+}

@@ -1,0 +1,453 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261021T230305Z",
+ "finished": "2026-10-21T23:03:27.469Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026 (AEST): \"P60. P62 p63 can we remove steps these dont have steps\". The three Gate 5 buildings (P60 Gate 5 Ticket Box, P62 Gate 5 QFES Office, P63 Gate 5 Volunteer Sign On) carried the Steps tick from 14 Oct; they have no steps, so the tick comes off through the drawer's own Steps control (setSteps(ref, false), which keeps the steps history). Levelled, on site and Complete are untouched.",
+  "ops": [
+   {
+    "op": "steps_off",
+    "ref": "P60"
+   },
+   {
+    "op": "steps_off",
+    "ref": "P62"
+   },
+   {
+    "op": "steps_off",
+    "ref": "P63"
+   }
+  ]
+ },
+ "pageSha256": "d253cecd6a68962a38e2fd05d9c6dcad89e04ac2bbe16042c5b12da23cfaa8a3",
+ "version": {
+  "before": 10491,
+  "after": 10494
+ },
+ "updated": {
+  "before": "2026-10-21T22:59:55.701Z",
+  "after": "2026-10-21T23:03:26.617Z"
+ },
+ "stage": [
+  {
+   "op": "steps_off",
+   "ref": "P60",
+   "result": "steps off"
+  },
+  {
+   "op": "steps_off",
+   "ref": "P62",
+   "result": "steps off"
+  },
+  {
+   "op": "steps_off",
+   "ref": "P63",
+   "result": "steps off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P60",
+   "status": 200
+  },
+  {
+   "key": "delivery/P62",
+   "status": 200
+  },
+  {
+   "key": "delivery/P63",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/P60": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:56:37.938Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T23:00:13.653Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T23:00:09.628Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:56:37.938Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.458Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T23:00:13.653Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T23:00:09.628Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1015699": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:04.384Z"
+     }
+    },
+    "_k": "P60"
+   },
+   "delivery/P62": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:38:18.452Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T22:38:31.344Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T22:38:18.452Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:38:18.452Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.611Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:25.372Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-14T22:38:28.580Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:31.344Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1189409": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.889Z"
+     }
+    },
+    "_k": "P62"
+   },
+   "delivery/P63": {
+    "state": "on site",
+    "set_at": "2026-10-14T21:22:17.527Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T21:22:19.429Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T21:22:22.066Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T21:22:17.527Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.768Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T21:22:17.527Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T21:22:17.527Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T21:22:19.429Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T21:22:22.066Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T21:24:14.429Z"
+    },
+    "loading872": {
+     "u960719": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.383Z"
+     }
+    },
+    "_k": "P63"
+   }
+  },
+  "after": {
+   "delivery/P60": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:56:37.938Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T23:00:13.653Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:12.571Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:56:37.938Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.458Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:56:37.938Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T23:00:13.653Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T23:00:09.628Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:12.571Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1015699": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:04.384Z"
+     }
+    },
+    "_k": "P60"
+   },
+   "delivery/P62": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:38:18.452Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T22:38:31.344Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:13.406Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:38:18.452Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.611Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:25.372Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-14T22:38:28.580Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:31.344Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:13.406Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1189409": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.889Z"
+     }
+    },
+    "_k": "P62"
+   },
+   "delivery/P63": {
+    "state": "on site",
+    "set_at": "2026-10-14T21:22:17.527Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T21:22:19.429Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:14.147Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T21:22:17.527Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.768Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T21:22:17.527Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T21:22:17.527Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T21:22:19.429Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T21:22:22.066Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:14.147Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-14T21:24:14.429Z"
+    },
+    "loading872": {
+     "u960719": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.383Z"
+     }
+    },
+    "_k": "P63"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

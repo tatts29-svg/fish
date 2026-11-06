@@ -1,0 +1,136 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T232006Z",
+ "finished": "2026-10-15T23:20:16.535Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "36611 Surfers Paradise Light Rail: the paper says only CC Barrier 130 m. The 2026 fencing programme's CON WK1 row 46, 'CCB - Hi Surf (West) to Ocean Ave', 15 Oct 2026, is 115 m of CCB Event at the same place and day; rows 45 and 47 are its fence (70 + 100 m clean against the paper's 165 m). So the 130 m moves from demarcation, where it was recorded this morning 'to confirm', to the event line the programme names.",
+  "ops": [
+   {
+    "op": "docket_fix",
+    "docket_no": "36611",
+    "quantities": {
+     "clean": 165,
+     "ccb_event": 130
+    },
+    "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6643,
+  "after": 6646
+ },
+ "updated": {
+  "before": "2026-10-15T23:12:48.552Z",
+  "after": "2026-10-15T23:20:15.743Z"
+ },
+ "stage": [
+  {
+   "op": "docket_fix",
+   "no": "36611",
+   "id": "F-AF-0011",
+   "charge": 3642.82,
+   "paid": 2352,
+   "result": "quantities {\"clean\":165,\"ccb_demarc\":130} -> {\"clean\":165,\"ccb_event\":130}; $3,642.82 charged at the 2026 card, $2,352.00 paid"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0011",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0011",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0011",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AF-0011": null,
+   "by/fenceDockets~2f~F-AF-0011": null,
+   "fenceDockets/F-AF-0011": {
+    "id": "F-AF-0011",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36611",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Surfers Paradise Light Rail",
+    "quantities": {
+     "clean": 165,
+     "ccb_demarc": 130
+    },
+    "note": "Mesh fence 165 m on the clean line. Paper says CC Barrier 130 m; event or demarcation not written - recorded as demarcation, to confirm (as 36559 and 36560 stand). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36611, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0011"
+   }
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AF-0011": {
+    "_k": "fenceDockets/F-AF-0011",
+    "v": "2026-10-15T23:20:12.630Z"
+   },
+   "by/fenceDockets~2f~F-AF-0011": {
+    "_k": "fenceDockets/F-AF-0011",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0011": {
+    "id": "F-AF-0011",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "docket_no": "36611",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Surfers Paradise Light Rail",
+    "quantities": {
+     "clean": 165,
+     "ccb_event": 130
+    },
+    "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew Fisher, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 66,
+     "cc_barrier": 52,
+     "base": 90,
+     "clamp": 88,
+     "brace": 12,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36611, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0011"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

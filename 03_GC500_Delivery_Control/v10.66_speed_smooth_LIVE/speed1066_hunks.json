@@ -1,0 +1,429 @@
+[
+  {
+    "id": 0,
+    "source": "load",
+    "label": "unseenNow hold",
+    "old": "function unseenNow(){ if (!W.MS1025 || !boardIsToday()) return []; const s = MS1025.seen(); return MS1025.allFacts().filter(",
+    "new": "function unseenNow(){ if (!W.MS1025 || !boardIsToday()) return []; const s = MS1025.seen(); /* load1066: one asset list for the whole read */ return (typeof holdAssets === 'function' ? holdAssets(() => MS1025.allFacts()) : MS1025.allFacts()).filter("
+  },
+  {
+    "id": 1,
+    "source": "load",
+    "label": "nights1040 memo",
+    "old": "function nights1040(){\n let days = null; try { const C = window.EventConfig1013 && EventConfig1013.current ? EventConfig1013.current() : null; days = C && Array.isArray(C.eventDays) && C.eventDays.length ? C.eventDays.slice(0, 3) : null; } catch (e) {}\n days = days || ['2026-10-23', '2026-10-24', '2026-10-25'];\n return days.map(d => {",
+    "new": "const NIGHTS1066 = new Map(); /* load1066: the labels for one event-day list, built once; callers get their own copies */\nfunction nights1040(){\n let days = null; try { const C = window.EventConfig1013 && EventConfig1013.current ? EventConfig1013.current() : null; days = C && Array.isArray(C.eventDays) && C.eventDays.length ? C.eventDays.slice(0, 3) : null; } catch (e) {}\n days = days || ['2026-10-23', '2026-10-24', '2026-10-25'];\n const k1066 = days.join('|'); if (!NIGHTS1066.has(k1066)) NIGHTS1066.set(k1066, nights1040make(days));\n return NIGHTS1066.get(k1066).map(x => Object.assign({}, x));\n}\nfunction nights1040make(days){\n return days.map(d => {"
+  },
+  {
+    "id": 2,
+    "source": "load",
+    "label": "metadata925 index",
+    "old": "function metadata925(loads){return Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));}",
+    "new": "function metadata925(loads){return Object.entries(loads||{}).filter(([k,v])=>k.startsWith(prefix)&&v&&v.kind===kind).map(([key,v])=>Object.assign({docKey:key},v));}\n/* load1066: the same documents, in the same order, for one reference; indexed once per render hold */\nfunction metadataRef1066(loads,ref){if(!ASSETS_HELD||!loads||typeof loads!=='object'||typeof heldMemo!=='function')return metadata925(loads).filter(d=>d.ref===ref);const memo=heldMemo('metadataRef1066',()=>new WeakMap());let by=memo.get(loads);if(!by){by=new Map();for(const [key,v] of Object.entries(loads))if(key.startsWith(prefix)&&v&&v.kind===kind){const d=Object.assign({docKey:key},v),L=by.get(d.ref);if(L)L.push([key,v]);else by.set(d.ref,[[key,v]]);}memo.set(loads,by);}return (by.get(ref)||[]).map(([key,v])=>Object.assign({docKey:key},v));}"
+  },
+  {
+    "id": 3,
+    "source": "load",
+    "label": "model925 docs",
+    "old": "const native=sourceUnits925(a,env),docs=metadata925(env.loads).filter(d=>d.ref===a.key),claimed=new Set(),rows=[];",
+    "new": "const native=sourceUnits925(a,env),docs=metadataRef1066(env.loads,a.key),claimed=new Set(),rows=[];"
+  },
+  {
+    "id": 6,
+    "source": "load",
+    "label": "names first pass",
+    "old": " const start = () => { if (!D.body || W.__names1044) return; W.__names1044 = true; cleanEl(D.body);",
+    "new": " const cleanAll1066 = el => { const w = D.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n => { const p = n.parentNode && n.parentNode.tagName; return p === 'SCRIPT' || p === 'STYLE' || p === 'TEXTAREA' ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; }}); let n; while ((n = w.nextNode())) cleanText(n);\n  if (el.hasAttribute && el.hasAttribute('title') && RX.test(el.getAttribute('title'))) el.setAttribute('title', fix(el.getAttribute('title')));\n  el.querySelectorAll('[title]').forEach(x => { const v = x.getAttribute('title'); if (RX.test(v)) x.setAttribute('title', fix(v)); }); }; /* load1066 */\n const start = () => { if (!D.body || W.__names1044) return; W.__names1044 = true; cleanAll1066(D.body);"
+  },
+  {
+    "id": 7,
+    "source": "load",
+    "label": "reveal routed draw",
+    "old": "if (document.readyState === 'loading')document.addEventListener('DOMContentLoaded', () => { WeatherStrip1002.resetRefresh(); route(); Refresh904.update(); }, {once: true});",
+    "new": "if (document.readyState === 'loading')document.addEventListener('DOMContentLoaded', () => { WeatherStrip1002.resetRefresh(); const had1066 = Refresh904.report().complete; route(); if (had1066 && Refresh904.report().complete) { clearTimeout(SYNC.rtimer); Refresh904.drawn(); syncFooter(); } else Refresh904.update(); }, {once: true}); /* load1066 */"
+  },
+  {
+    "id": 8,
+    "source": "load",
+    "label": "photoRedraw wait",
+    "old": "function photoRedraw(){\n try {\n if (state.tab && state.tab !== 'docs') render();",
+    "new": "/* load1066: a registry settle needs no draw of its own (a) before DOMContentLoaded - route() draws the page then, with\n   this registry - or (b) behind the loading panel when the first-record draw is already queued: that draw renders it. */\nfunction photoWait1066(){ if (document.readyState === 'loading') return true;\n try { const r = window.GC500Refresh904 && GC500Refresh904.report ? GC500Refresh904.report() : null; return !!(r && r.hosted && !r.settled && r.drawing && r.state === 'loading'); } catch (e) { return false; } }\nfunction photoRedraw(){\n try {\n if (photoWait1066()) return;\n if (state.tab && state.tab !== 'docs') render();"
+  },
+  {
+    "id": 9,
+    "source": "load",
+    "label": "capture hidden scope",
+    "old": " for(const el of [scope,...scope.querySelectorAll('*')])if(el.scrollTop||el.scrollLeft)held.scroll.push({el,key:key(el,scope),top:el.scrollTop,left:el.scrollLeft});",
+    "new": " if(scope.getClientRects().length||getComputedStyle(scope).display==='contents')for(const el of [scope,...scope.querySelectorAll('*')])if(el.scrollTop||el.scrollLeft)held.scroll.push({el,key:key(el,scope),top:el.scrollTop,left:el.scrollLeft}); /* load1066 */"
+  },
+  {
+    "id": 10,
+    "source": "load",
+    "label": "docs at boot",
+    "old": " if (rest) { SYNC.backend = rest; syncStart(rest); rest.start(); docsRedraw(); return; }",
+    "new": " if (rest) { SYNC.backend = rest; syncStart(rest); rest.start(); docsRedraw(); try { docsRefresh(false); } catch (e) {} /* load1066 */ return; }"
+  },
+  {
+    "id": 11,
+    "source": "load",
+    "label": "histOf held",
+    "old": "function histOf(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;",
+    "new": "function histOf(key, field){ return typeof heldMemo === 'function' && ASSETS_HELD ? heldMemo('histOf1066|' + field + '|' + key, () => histOf_(key, field)).slice() : histOf_(key, field); } /* load1066 */\nfunction histOf_(key, field){\n const loc = (S.delivery || {})[key], com = (CROW.get(key) || {}).delivery;"
+  },
+  {
+    "id": 12,
+    "source": "load",
+    "label": "map key before route",
+    "old": "liveMapKeyFromService().then(() => { const ab = $('#pane-about'), mp = $('#pane-map'); if (ab && !ab.hidden) renderAbout(); if (mp && !mp.hidden) renderMap(); }).catch(() => {});",
+    "new": "liveMapKeyFromService().then(() => { if (document.readyState === 'loading') return; /* load1066: route() draws it */ const ab = $('#pane-about'), mp = $('#pane-map'); if (ab && !ab.hidden) renderAbout(); if (mp && !mp.hidden) renderMap(); }).catch(() => {});"
+  },
+  {
+    "id": 13,
+    "source": "load",
+    "label": "redraw before route",
+    "old": "if (typing) { SYNC.rtimer = setTimeout(syncRedraw, 1500); return; }\ntry { window.Idle1006.redraw(); } catch (e) {}",
+    "new": "if (typing) { SYNC.rtimer = setTimeout(syncRedraw, 1500); return; }\nif (document.readyState !== 'loading') try { window.Idle1006.redraw(); } catch (e) {} /* load1066: before DOMContentLoaded route() draws the page */"
+  },
+  {
+    "id": 14,
+    "source": "load",
+    "label": "unitEvidence index",
+    "old": "function unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}",
+    "new": "function unitKeys1066(labour,stamps){const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]),by=new Map();\n for(const k of keys){for(let i=k.indexOf('/u');i>=0;i=k.indexOf('/u',i+1)){const p=k.slice(0,i);let L=by.get(p);if(!L)by.set(p,L=[]);L.push(k);}}return by;} /* load1066 */\nfunction unitEvidence(ref,discipline,item,labour,stamps){\n const rows={},suffix='|'+discipline+'|'+item+'|install';\n if(typeof ASSETS_HELD!=='undefined'&&ASSETS_HELD&&typeof heldMemo==='function'){ /* load1066: the same keys, grouped once per render hold */\n  const m=heldMemo('unitKeys1066',()=>({}));if(m.labour!==labour||m.stamps!==stamps||!m.by){m.labour=labour;m.stamps=stamps;m.by=unitKeys1066(labour,stamps);}\n  for(const k of m.by.get(ref)||[])if(k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n  return rows;\n }\n // Native unticking deletes the value but retains its audit stamp.\n const keys=new Set([...Object.keys(labour||{}),...Object.keys(stamps||{}).filter(k=>k.startsWith('labour/')).map(k=>k.slice(7))]);\n for(const k of keys)if(k.startsWith(ref+'/u')&&k.endsWith(suffix)&&k!==ref+'/urest'+suffix)rows[k]={on:!!labour?.[k],at:stamps?.['labour/'+k]||''};\n return rows;\n}"
+  },
+  {
+    "id": 15,
+    "source": "buildtab",
+    "label": "F1a work986/past984: the record string worked out once per draw, not once per day card",
+    "old": "const key=String(ready)+'|'+photoState+'|'+docsAt+'|'+(typeof S==='undefined'?'':JSON.stringify(S));\n  if(cached && key===cachedKey)return cached;",
+    "new": "  const keyOf=()=>String(ready)+'|'+photoState+'|'+docsAt+'|'+(typeof S==='undefined'?'':JSON.stringify(S));\n  const key=typeof heldMemo==='function'?heldMemo('work986-key1066|'+ready+'|'+photoState+'|'+docsAt,keyOf):keyOf();\n  if(cached && key===cachedKey)return cached;"
+  },
+  {
+    "id": 16,
+    "source": "buildtab",
+    "label": "F1b work986/past984: the record string worked out once per draw, not once per day card",
+    "old": "function begin(){healthRevision=progressHealth985();const key=todayIso()+healthRevision+JSON.stringify(S);",
+    "new": "function begin(){healthRevision=progressHealth985();const key=todayIso()+healthRevision+(typeof heldMemo==='function'?heldMemo('S-json1066',()=>JSON.stringify(S)):JSON.stringify(S));"
+  },
+  {
+    "id": 19,
+    "source": "buildtab",
+    "label": "F4a daycats1057/daycards1056: one time formatter",
+    "old": " const hm = at => { try { const t = new Date(at); return isNaN(t) ? '' : t.toLocaleTimeString('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); } catch (x) { return ''; } };",
+    "new": " let HM1066 = null; const hm = at => { try { const t = new Date(at); if (isNaN(t)) return ''; if (!HM1066) HM1066 = new Intl.DateTimeFormat('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); return HM1066.format(t); } catch (x) { return ''; } };"
+  },
+  {
+    "id": 20,
+    "source": "buildtab",
+    "label": "F4b daycats1057/daycards1056: one time formatter",
+    "old": " const hhmm = at => { try { return new Date(at).toLocaleTimeString('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); } catch (x) { return ''; } };",
+    "new": " let HM1066 = null; const hhmm = at => { try { const t = new Date(at); if (isNaN(t)) return t.toLocaleTimeString('en-AU'); if (!HM1066) HM1066 = new Intl.DateTimeFormat('en-AU', {timeZone: 'Australia/Brisbane', hour: '2-digit', minute: '2-digit', hour12: false}); return HM1066.format(t); } catch (x) { return ''; } };"
+  },
+  {
+    "id": 21,
+    "source": "buildtab",
+    "label": "F5 isoIn: the same timestamp converted once",
+    "old": "function isoIn(when){\n const t = when instanceof Date ? when : new Date(when);\n if (isNaN(t)) return '';\n try {\n if (!ISO_FMT) ISO_FMT = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'});\n const s = ISO_FMT.format(t);\n if (/^\\d{4}-\\d{2}-\\d{2}$/.test(s)) return s;",
+    "new": "var ISO_MEMO1066;\nfunction isoIn(when){\n if (!ISO_MEMO1066) ISO_MEMO1066 = new Map();\n if (typeof when === 'string') { const m = ISO_MEMO1066.get(when); if (m !== undefined) return m; }\n const t = when instanceof Date ? when : new Date(when);\n if (isNaN(t)) return '';\n try {\n if (!ISO_FMT) ISO_FMT = new Intl.DateTimeFormat('en-CA', {timeZone: EVENT_TZ, year: 'numeric', month: '2-digit', day: '2-digit'});\n const s = ISO_FMT.format(t);\n if (/^\\d{4}-\\d{2}-\\d{2}$/.test(s)) { if (typeof when === 'string' && ISO_MEMO1066.size < 50000) ISO_MEMO1066.set(when, s); return s; }"
+  },
+  {
+    "id": 23,
+    "source": "buildtab",
+    "label": "F6b histOf / deliveryAsOf / work986 rawDelivery: once per reference per draw",
+    "old": "function deliveryAsOf(key, asOf){\n const d = deliveryOf(key);\n if (!asOf || asOf >= todayIso()) return d;",
+    "new": "function deliveryAsOf(key, asOf){\n if (!asOf || asOf >= todayIso()) return deliveryOf(key);\n const d = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('dOf1066|' + key, () => deliveryOf(key)) : deliveryOf(key);"
+  },
+  {
+    "id": 24,
+    "source": "buildtab",
+    "label": "F6c histOf / deliveryAsOf / work986 rawDelivery: once per reference per draw",
+    "old": "rawDelivery:key=>typeof deliveryOf==='function'?deliveryOf(key):null",
+    "new": "   rawDelivery:key=>typeof deliveryOf!=='function'?null:typeof ASSETS_HELD!=='undefined'&&ASSETS_HELD&&typeof heldMemo==='function'?heldMemo('dOf1066|'+key,()=>deliveryOf(key)):deliveryOf(key)"
+  },
+  {
+    "id": 25,
+    "source": "buildtab",
+    "label": "F7 renderTimeline: header car picture copied onto <html> once",
+    "old": "try { const hz = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); if (hz) document.documentElement.style.setProperty('--hzcar', hz); } catch (e) {}",
+    "new": " try { if (!window.HZCAR1066) { const hz = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); if (hz) { document.documentElement.style.setProperty('--hzcar', hz); window.HZCAR1066 = true; } } } catch (e) {}"
+  },
+  {
+    "id": 26,
+    "source": "buildtab",
+    "label": "F8 staff910 roster: workforce lines read once per draw",
+    "old": "  function roster(day) { return rosterFromRows(day, ourCosts(), {includes: rosterIncludes858, hours: runHours, worked: runWorked}); }",
+    "new": "  function roster(day) { const rows = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('roster-costs1066', () => ourCosts()) : ourCosts(); return rosterFromRows(day, rows, {includes: rosterIncludes858, hours: runHours, worked: runWorked}); }"
+  },
+  {
+    "id": 28,
+    "source": "buildtab",
+    "label": "F10 arrivalsOn(day): one replay per day per draw",
+    "old": "function arrivalsOn(iso){\n const out = [];\n allAssets().forEach(a => {\n const d = deliveryOf(a.key);",
+    "new": "function arrivalsOn(iso){ if (typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function') return heldMemo('arrivalsOn1066|' + iso, () => arrivalsOn0(iso)).slice(); return arrivalsOn0(iso); }\nfunction arrivalsOn0(iso){\n const out = [];\n allAssets().forEach(a => {\n const d = typeof ASSETS_HELD !== 'undefined' && ASSETS_HELD && typeof heldMemo === 'function' ? heldMemo('dOf1066|' + a.key, () => deliveryOf(a.key)) : deliveryOf(a.key);"
+  },
+  {
+    "id": 29,
+    "source": "buildtab",
+    "label": "F11 weather1002 reveal(): only write an edge padding that changes something",
+    "old": " strip.style.setProperty('--wx1002-edge-start',on.classList.contains('today')&&cards[0]===on?edge+'px':'8px');\n strip.style.setProperty('--wx1002-edge-end',on.classList.contains('today')&&cards.at(-1)===on?edge+'px':'8px');",
+    "new": " const edge1066=(name,v)=>{const cur=strip.style.getPropertyValue(name);if(cur===v||(!cur&&v==='8px'))return;strip.style.setProperty(name,v);};\n edge1066('--wx1002-edge-start',on.classList.contains('today')&&cards[0]===on?edge+'px':'8px');\n edge1066('--wx1002-edge-end',on.classList.contains('today')&&cards.at(-1)===on?edge+'px':'8px');"
+  },
+  {
+    "id": 30,
+    "source": "buildtab",
+    "label": "F12a renderTimeline: header car picture copied in the same style pass as the new pane",
+    "old": "function renderTimeline_held(){\n const days = calendarDays();",
+    "new": "function renderTimeline_held(){\n let hz1066 = ''; try { if (!window.HZCAR1066) hz1066 = getComputedStyle(document.querySelector('header.top')).getPropertyValue('--hzcar'); } catch (e) {}\n const days = calendarDays();"
+  },
+  {
+    "id": 31,
+    "source": "buildtab",
+    "label": "F12b renderTimeline: header car picture copied in the same style pass as the new pane",
+    "old": " </div>`;\n const pane = $('#pane-timeline');\n raceMount(pane);",
+    "new": " </div>`;\n try { if (hz1066 && !window.HZCAR1066) { document.documentElement.style.setProperty('--hzcar', hz1066); window.HZCAR1066 = true; } } catch (e) {}\n const pane = $('#pane-timeline');\n raceMount(pane);"
+  },
+  {
+    "id": 32,
+    "source": "buildtab",
+    "label": "F13 Build strip keeps its place on a background redraw (behaviour: optional)",
+    "old": "<script id=\"shapes1060-script\">",
+    "new": "<script id=\"strip1066-script\">/* Author: Andrew Fisher. A background redraw keeps the day strip where the person left it. */\n(function(){if(typeof renderTimeline!=='function'||typeof timelineChange!=='function')return;let nav=0;const tc=timelineChange;timelineChange=function(){nav++;try{return tc.apply(this,arguments);}finally{nav--;}};const rt=renderTimeline;renderTimeline=function(){const s0=document.querySelector('#pane-timeline .daystrip');const keep=!nav&&!(typeof GO_CHANGED!=='undefined'&&GO_CHANGED)&&!!s0&&s0.isConnected&&s0.clientWidth>0;const sl=keep?s0.scrollLeft:0,sel=keep?(s0.querySelector('.day.on')||{}).dataset?.day:null;const r=rt.apply(this,arguments);if(keep&&sel){const s1=document.querySelector('#pane-timeline .daystrip'),on=s1&&s1.querySelector('.day.on');if(on&&on.dataset.day===sel&&Math.abs(s1.scrollLeft-sl)>.5)s1.scrollLeft=sl;}return r;};})();\n</script>\n<script id=\"shapes1060-script\">"
+  },
+  {
+    "id": 33,
+    "source": "buildtab",
+    "label": "F14 selection-save1012: rescan for save-able fields only when one is added",
+    "old": "new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes,...r.removedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *'))))schedule();}).observe(document.body,{subtree:true,childList:true});",
+    "new": "new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&!n.matches?.('.selection1012-controls,.selection1012-controls *')&&(n.matches?.(selector)||!!n.querySelector?.(selector)))))schedule();}).observe(document.body,{subtree:true,childList:true});"
+  },
+  {
+    "id": 34,
+    "source": "buildtab",
+    "label": "F15a Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+    "old": "let ASSETS_HELD = null;\nconst HELD_MEMO = new Map();",
+    "new": "let ASSETS_HELD = null;\nconst HELD_MEMO = new Map();\nvar REC_EPOCH1066 = 0; /* v10.66 - moves on every save and every received record */\nfunction holdCarry1066(carry, fn){\n if (ASSETS_HELD) return holdAssets(fn); /* inside another draw: use it and keep nothing */\n const fresh = carry.epoch !== REC_EPOCH1066 || carry.today !== todayIso();\n if (fresh) { const e0 = REC_EPOCH1066; return holdAssets(() => { const r = fn(); if (REC_EPOCH1066 === e0 && !HELD_STALE775) { carry.epoch = e0; carry.today = todayIso(); carry.assets = ASSETS_HELD; carry.memo = new Map(HELD_MEMO); } else carry.epoch = -1; return r; }); }\n if (window.EventConfig1013) window.EventConfig1013.current();\n ASSETS_HELD = carry.assets; HELD_MEMO.clear(); carry.memo.forEach((v, k) => HELD_MEMO.set(k, v)); HELD_STALE775 = false;\n try { const r = fn(); if (carry.epoch === REC_EPOCH1066 && !HELD_STALE775) { carry.assets = ASSETS_HELD; carry.memo = new Map(HELD_MEMO); } else carry.epoch = -1; return r; } finally { ASSETS_HELD = null; HELD_MEMO.clear(); HELD_STALE775 = false; }\n}"
+  },
+  {
+    "id": 35,
+    "source": "buildtab",
+    "label": "F15b Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+    "old": "function save(){ RENDER_MEMO.clear(); /* v7.80",
+    "new": "function save(){ REC_EPOCH1066++; RENDER_MEMO.clear(); /* v7.80"
+  },
+  {
+    "id": 36,
+    "source": "buildtab",
+    "label": "F15c Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+    "old": "function sharedCache975(){\n RENDER_MEMO.clear();",
+    "new": "function sharedCache975(){\n REC_EPOCH1066++;\n RENDER_MEMO.clear();"
+  },
+  {
+    "id": 37,
+    "source": "buildtab",
+    "label": "F15d Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+    "old": " holdAssets(() => { while (qi < q.length && performance.now() - t0 < 10) if (plantFill(pane, q[qi], qi, 6)) qi++; });",
+    "new": " holdCarry1066(carry1066, () => { while (qi < q.length && performance.now() - t0 < 10) if (plantFill(pane, q[qi], qi, 6)) qi++; });"
+  },
+  {
+    "id": 38,
+    "source": "buildtab",
+    "label": "F15e Equipment tab: the batches of one row fill share one hold while the record is unchanged",
+    "old": " const pane = $('#pane-plant'); let qi = 0;\n const step = () => {",
+    "new": " const pane = $('#pane-plant'); let qi = 0; const carry1066 = {};\n const step = () => {"
+  },
+  {
+    "id": 39,
+    "source": "buildtab",
+    "label": "F16a Build day-close progress: consecutive cards share the models while the record is unchanged",
+    "old": "try{const value=holdAssets(()=>progress881Model(iso));if(value?.ready)progress.set(iso,value);return value;}",
+    "new": "try{const value=typeof holdCarry1066==='function'?holdCarry1066(PROG_CARRY1066,()=>progress881Model(iso)):holdAssets(()=>progress881Model(iso));if(value?.ready)progress.set(iso,value);return value;}"
+  },
+  {
+    "id": 40,
+    "source": "buildtab",
+    "label": "F16b Build day-close progress: consecutive cards share the models while the record is unchanged",
+    "old": "function jobAtDate(iso){",
+    "new": "var PROG_CARRY1066={};\nfunction jobAtDate(iso){"
+  },
+  {
+    "id": 41,
+    "source": "flicker",
+    "label": "head early style/script",
+    "old": "<meta name=\"gc500-weather-v818\"",
+    "new": "<style id=\"smooth1066-early\">\n/* A - until the page's script has laid the header out (html.hdr1066), the first paint keeps its finished shape */\nhtml:not(.hdr1066) .brandrow > .tools{display:none}\nhtml:not(.hdr1066) #tpodDate:empty::before,html:not(.hdr1066) #hzcdT:empty::before,html:not(.hdr1066) #hzcdSub:empty::before,\nhtml:not(.hdr1066) #footL:empty::before,html:not(.hdr1066) #footR:empty::before{content:\"\\00a0\"}\nhtml.cd1066:not(.hdr1066) .hzpod .num small.cdt:empty{display:inline}\n@media(max-width:640px){html.cd1066:not(.hdr1066) .hzpod .num small.cdt:empty{display:block}}\n#ts1053-banner{position:relative;z-index:2;background:#b3120b;color:#fff;font-weight:700;font-size:13px;line-height:1.3;padding:5px 12px;text-align:center;letter-spacing:0;text-shadow:none;border-top:1px solid #7d0c07;text-wrap:balance}#ts1053-banner b{font-weight:900;letter-spacing:.03em;white-space:nowrap}#ts1053-banner .ts1053-nw{white-space:nowrap}#ts1053-banner .ts1053-ic{display:inline-block;background:#fff;border-radius:50%;line-height:1;padding:1px;margin-right:3px;vertical-align:-1px}@media (max-width:640px){#ts1053-banner{font-size:12.5px;line-height:1.28;padding:4px 10px}}\n@media print{#ts1053-banner{display:none!important}}\n/* D - a pressed tab is answered on the same frame and keeps moving while its page is drawn (transform/opacity only,\n   so the compositor animates it even while the page's script holds the phone) */\nnav.tabs button.busy{color:#fff;box-shadow:0 0 0 1px #ffb16b,0 0 13px 2px #ff873b60!important}\nnav.tabs button.busy::after{content:'';position:absolute;left:12%;right:12%;bottom:-2.5px;height:2.5px;border-radius:2px;background:#ff6a13;box-shadow:0 0 12px 2px rgba(255,106,19,.55);transform-origin:50% 50%;animation:busy1066 .8s ease-in-out infinite alternate}\nnav.tabs:has(button.busy) button[aria-selected=\"true\"]:not(.busy)::after{opacity:.2}\n@keyframes busy1066{from{transform:scaleX(.2);opacity:.55}to{transform:scaleX(1);opacity:1}}\n@media (prefers-reduced-motion:reduce){nav.tabs button.busy::after{animation:none}}\n</style>\n<script id=\"smooth1066-head\">/* Author: Andrew Fisher. v10.66 - smooth opening. */\n/* A - the countdown line is there until race day (hzCountdownTick empties it from then on) */\nif(Date.now()<Date.parse('2026-10-23T00:00:00+10:00'))document.documentElement.classList.add('cd1066');\n/* A - safety: if the page's script ever stops before it marks the header laid out, the shape rules still end at DOMContentLoaded */\ndocument.addEventListener('DOMContentLoaded',function(){document.documentElement.classList.add('hdr1066');});\n/* B - the hosted fonts, declared and fetched before the first paint (same files, same rules as hostedMedia) */\n(function(){var m=location.pathname.match(/^\\/(?:v|e)\\/([^/]+)\\/?$/);if(!m)return;var b='/m/'+m[1]+'/',F=[[\"Barlow Condensed\", \"italic\", \"700\", \"3e91132781a58039c31d419b741d75de86107897428f95680323ff5ce279fee6.woff2\"], [\"Inter\", \"normal\", \"400\", \"8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc.woff2\"], [\"Inter\", \"normal\", \"600\", \"f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a.woff2\"], [\"Inter\", \"normal\", \"700\", \"6f56409fd3d64bb85f7d070bce20749db2d66b6d63cec586cc22d1c761be2491.woff2\"], [\"Inter\", \"normal\", \"800\", \"a7d0a50f15d389cad679238466bdb5fc9787aa0715719064ce25abaff042820d.woff2\"]],css='';\nF.forEach(function(f){css+='@font-face{font-family:'+JSON.stringify(f[0])+';font-style:'+f[1]+';font-weight:'+f[2]+';font-display:swap;src:url('+JSON.stringify(b+f[3])+') format(\"woff2\")}\\n';\nvar l=document.createElement('link');l.rel='preload';l.as='font';l.type='font/woff2';l.crossOrigin='anonymous';l.href=b+f[3];document.head.appendChild(l);});\nvar s=document.createElement('style');s.id='fonts1066';s.textContent=css;document.head.appendChild(s);})();\n/* E - a wait that counts waiting: a tick the page's own script held up counts as about one second, not the whole hold */\nwindow.patient1066=function(ms,fn){var h={t:0,acc:0,last:performance.now(),off:false};function step(){if(h.off)return;var now=performance.now(),d=now-h.last;h.last=now;h.acc+=document.hidden?d:Math.min(d,1100);if(h.acc>=ms){h.off=true;fn();}else h.t=setTimeout(step,1000);}\nh.t=setTimeout(step,1000);h.stop=function(){h.off=true;clearTimeout(h.t);};return h;};\nwindow.patientStop1066=function(h){if(h&&h.stop)h.stop();else clearTimeout(h);};\n</script>\n<meta name=\"gc500-weather-v818\""
+  },
+  {
+    "id": 42,
+    "source": "flicker",
+    "label": "static twin-steer banner",
+    "old": "<nav class=\"tabs\" id=\"tabs\" aria-label=\"Views\"></nav>",
+    "new": "<div id=\"ts1053-banner\" role=\"note\"><span class=\"ts1053-ic\" aria-hidden=\"true\">⛔</span><b>NO TWIN-STEER TRUCKS</b> · <span class=\"ts1053-nw\">Week 3 to demob</span> · <span class=\"ts1053-nw\">track, Esplanade,</span> <span class=\"ts1053-nw\">Macintosh Island Park</span></div><nav class=\"tabs\" id=\"tabs\" aria-label=\"Views\"></nav>"
+  },
+  {
+    "id": 43,
+    "source": "flicker",
+    "label": "header laid out marker",
+    "old": "syncBoot();\nwindow.addEventListener('popstate', onPop);",
+    "new": "syncBoot();\ndocument.documentElement.classList.add('hdr1066'); /* v10.66: the header is laid out; the first-paint shape rules stop */\nwindow.addEventListener('popstate', onPop);"
+  },
+  {
+    "id": 44,
+    "source": "flicker",
+    "label": "hostedMedia font guard",
+    "old": "document.head.appendChild(font);",
+    "new": "if(!document.getElementById('fonts1066'))document.head.appendChild(font); /* v10.66: already declared in the head */"
+  },
+  {
+    "id": 45,
+    "source": "flicker",
+    "label": "first tab bar marks the routed tab",
+    "old": "renderTabs();\n/* A deep link uses the later inline map/progress extensions too.",
+    "new": "{ const t1066 = state.tab, h1066 = (location.hash || '').replace(/^#/, ''); if (!h1066 || TABS.some(([k]) => k === h1066)) state.tab = h1066 || 'today'; renderTabs(); state.tab = t1066; } /* v10.66: the first bar marks the tab the address opens */\n/* A deep link uses the later inline map/progress extensions too."
+  },
+  {
+    "id": 46,
+    "source": "flicker",
+    "label": "saved-copy wait",
+    "old": "timer = setTimeout(() => { if (!settled) { show('saved'); update(); } }, 12000);",
+    "new": "timer = patient1066(12000, () => { if (!settled) { show('saved'); update(); } });"
+  },
+  {
+    "id": 47,
+    "source": "flicker",
+    "label": "saved-copy wait stop",
+    "old": "settled = true; clearTimeout(timer); show('ready');",
+    "new": "settled = true; patientStop1066(timer); show('ready');"
+  },
+  {
+    "id": 48,
+    "source": "flicker",
+    "label": "unreachable wait stop (syncStop)",
+    "old": "clearTimeout(SYNC.ftimer); clearTimeout(SYNC.utimer);",
+    "new": "clearTimeout(SYNC.ftimer); patientStop1066(SYNC.utimer);"
+  },
+  {
+    "id": 49,
+    "source": "flicker",
+    "label": "unreachable wait",
+    "old": "clearTimeout(SYNC.utimer);\n SYNC.utimer = setTimeout(() => { if (SYNC.status === 'connecting') { SYNC.status = 'unreachable'; syncFooter(); } }, 12000);",
+    "new": "patientStop1066(SYNC.utimer);\n SYNC.utimer = patient1066(12000, () => { if (SYNC.status === 'connecting') { SYNC.status = 'unreachable'; syncFooter(); } });"
+  },
+  {
+    "id": 51,
+    "source": "idle",
+    "label": "syncFold compare",
+    "old": "if (JSON.stringify(next) === JSON.stringify(c.get()) && (name !== 'qtys' || ScopeSync1017.same(next,S))) return false;",
+    "new": "const cur1066 = JSON.stringify(c.get());\n if ((JSON.stringify(next) === cur1066 || (c.wouldBe && JSON.stringify(c.wouldBe(next)) === cur1066)) && (name !== 'qtys' || ScopeSync1017.same(next,S))) return false; /* v10.66 - a delivery that would leave the record exactly as it is changes nothing */"
+  },
+  {
+    "id": 52,
+    "source": "idle",
+    "label": "loads wouldBe",
+    "old": "SYNC_COLLS.loads.set=function(v){return loadsSet0({...without(v),...scopes(S)});};",
+    "new": "SYNC_COLLS.loads.set=function(v){return loadsSet0({...without(v),...scopes(S)});};\nSYNC_COLLS.loads.wouldBe=function(v){return {...without(v),...scopes(S)};}; /* v10.66 - what set() would make S.loads, for syncFold */"
+  },
+  {
+    "id": 53,
+    "source": "idle",
+    "label": "post-delivery footer",
+    "old": " deliverAll();\nif (SYNC.status !== 'live') { SYNC.status = 'live'; syncFooter(); docsRedraw(); }",
+    "new": " deliverAll();\nif (SYNC.status !== 'live') { SYNC.status = 'live'; syncFooter(); docsRedraw(); } else syncFooter(); /* v10.66 - save lines read the record just delivered */"
+  },
+  {
+    "id": 54,
+    "source": "idle",
+    "label": "clock helpers",
+    "old": "function tpodPaint(at){",
+    "new": "/* v10.66 - the clock writes only what changed. The same markup with new digits updates the digits in place, so no\n element is replaced every second and the page's document-wide observers are not woken by the clock. */\nfunction text1066(el, v){ v = String(v); if (el.textContent === v) return; const t = el.firstChild; if (t && t.nodeType === 3 && !t.nextSibling) t.nodeValue = v; else el.textContent = v; }\nfunction shape1066(a, b){ const x = a.childNodes, y = b.childNodes; if (x.length !== y.length) return false;\n for (let i = 0; i < x.length; i++) { const p = x[i], q = y[i]; if (p.nodeType !== q.nodeType) return false;\n if (p.nodeType === 1) { if (p.nodeName !== q.nodeName || p.attributes.length !== q.attributes.length) return false;\n for (const at of q.attributes) if (p.getAttribute(at.name) !== at.value) return false;\n if (!shape1066(p, q)) return false; } else if (p.nodeType !== 3) return false; }\n return true; }\nfunction fill1066(a, b){ const x = a.childNodes, y = b.childNodes; for (let i = 0; i < x.length; i++) { if (x[i].nodeType === 3) { if (x[i].nodeValue !== y[i].nodeValue) x[i].nodeValue = y[i].nodeValue; } else fill1066(x[i], y[i]); } }\nfunction html1066(el, html){ const tpl = html1066.tpl || (html1066.tpl = document.createElement('template')); tpl.innerHTML = html;\n if (shape1066(el, tpl.content)) fill1066(el, tpl.content); else el.innerHTML = html; tpl.innerHTML = ''; }\nfunction attr1066(el, k, v){ if (el.getAttribute(k) !== v) el.setAttribute(k, v); }\nfunction tpodPaint(at){"
+  },
+  {
+    "id": 55,
+    "source": "idle",
+    "label": "clock digits",
+    "old": " num.innerHTML = (cd && r.d ? `<span class=\"d\">${r.d}<small>d</small></span>` : '')\n + `${esc(r.h)}<span class=\"sep\">:</span>${esc(r.m)}<span class=\"sep\">:</span><span class=\"sec\">${esc(r.s)}</span>`;\n num.setAttribute('aria-label', cd",
+    "new": " html1066(num, (cd && r.d ? `<span class=\"d\">${r.d}<small>d</small></span>` : '')\n + `${esc(r.h)}<span class=\"sep\">:</span>${esc(r.m)}<span class=\"sep\">:</span><span class=\"sec\">${esc(r.s)}</span>`);\n attr1066(num, 'aria-label', cd"
+  },
+  {
+    "id": 56,
+    "source": "idle",
+    "label": "clock date",
+    "old": " if (dt) { if (cd) dt.textContent = ''; else { try { dt.textContent = fmtDate(isoIn(new Date(at == null ? Date.now() : at))); } catch (e) { dt.textContent = ''; } } }",
+    "new": " if (dt) { if (cd) text1066(dt, ''); else { try { text1066(dt, fmtDate(isoIn(new Date(at == null ? Date.now() : at)))); } catch (e) { text1066(dt, ''); } } }"
+  },
+  {
+    "id": 57,
+    "source": "idle",
+    "label": "clock labels",
+    "old": " if (lab) lab.textContent = cd ? (r.expired ? 'Event date reached' : 'Countdown to the event') : 'Gold Coast · AEST';\n if (src) src.textContent = cd ? 'days · hours · minutes' : 'device clock';\n const sub = $('#tpodSub');\n if (sub) sub.innerHTML = cd",
+    "new": " if (lab) text1066(lab, cd ? (r.expired ? 'Event date reached' : 'Countdown to the event') : 'Gold Coast · AEST');\n if (src) text1066(src, cd ? 'days · hours · minutes' : 'device clock');\n const sub = $('#tpodSub');\n if (sub) html1066(sub, cd"
+  },
+  {
+    "id": 58,
+    "source": "idle",
+    "label": "clock note",
+    "old": " return `The day cannot be read from this device's clock — the time above is still ${esc(EVENT_TZ)}.`;\n } })();\n const note = $('#tpodNote');\n if (note) note.textContent = 'This is the clock on this device, read in Brisbane time. It is not a server clock, '\n + 'and it says nothing about the record — the record’s own freshness is the sync state beside it.';",
+    "new": " return `The day cannot be read from this device's clock — the time above is still ${esc(EVENT_TZ)}.`;\n } })());\n const note = $('#tpodNote');\n if (note) text1066(note, 'This is the clock on this device, read in Brisbane time. It is not a server clock, '\n + 'and it says nothing about the record — the record’s own freshness is the sync state beside it.');"
+  },
+  {
+    "id": 59,
+    "source": "idle",
+    "label": "banner countdown",
+    "old": " el.textContent = [h, m, sec].map(x => String(x).padStart(2, '0')).join(':');\n}\n/* v10.66 - the clock",
+    "new": " text1066(el, [h, m, sec].map(x => String(x).padStart(2, '0')).join(':'));\n}\n/* v10.66 - the clock"
+  },
+  {
+    "id": 61,
+    "source": "idle",
+    "label": "selection refresh",
+    "old": "function refresh(){for(const el of document.querySelectorAll(selector)){const f=family(el);if(f)draw(el,f);}}",
+    "new": "const live1066=new Set(); /* v10.66 - the fields this script has put a Save bar beside; draw() ignores every other field */\nfunction refresh(){for(const el of [...live1066]){if(!el.isConnected||!mounted.get(el)?.isConnected){live1066.delete(el);continue;}const f=family(el);if(f)draw(el,f);}}"
+  },
+  {
+    "id": 62,
+    "source": "idle",
+    "label": "selection mount set",
+    "old": "anchor.after(bar);mounted.set(el,bar);owners.set(bar,el);\n  }draw(el,f);",
+    "new": "anchor.after(bar);mounted.set(el,bar);owners.set(bar,el);\n  }live1066.add(el);draw(el,f);"
+  },
+  {
+    "id": 63,
+    "source": "idle",
+    "label": "clock formatter",
+    "old": "function tpodParts(at){\n try {\n const f = new Intl.DateTimeFormat('en-AU', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit',\n second: '2-digit', hourCycle: 'h23'}).formatToParts(at);",
+    "new": "/* v10.66 - one formatter, made once, instead of one a second */\nfunction tpodParts(at){\n try {\n const f = (tpodParts.fmt || (tpodParts.fmt = new Intl.DateTimeFormat('en-AU', {timeZone: EVENT_TZ, hour: '2-digit', minute: '2-digit',\n second: '2-digit', hourCycle: 'h23'}))).formatToParts(at);"
+  },
+  {
+    "id": 64,
+    "source": "idle",
+    "label": "glow folded",
+    "old": "@keyframes complete1008-glow{0%,100%{opacity:.55}50%{opacity:1}}",
+    "new": "@keyframes complete1008-glow{0%,100%{opacity:.55}50%{opacity:1}} /* v10.66 - a ring inside a folded section is not on screen: its glow waits there and carries on when the section opens */ details:not([open]) > :not(summary) .complete1008-ring{animation-play-state:paused}"
+  },
+  {
+    "id": 68,
+    "source": "codexport",
+    "label": "one asset list per completion read",
+    "old": "window.gc500CompleteKeys897 = function () { try { return allAssets().filter(verified897).map(a => a.key); } catch (e) { return null; } };",
+    "new": "window.gc500CompleteKeys897 = function () { try { return holdAssets(() => allAssets().filter(verified897).map(a => a.key)); } catch (e) { return null; } };"
+  },
+  {
+    "id": 69,
+    "source": "codexport",
+    "label": "one day-work snapshot per hold",
+    "old": " let cachedKey='', cached;\n function native() {",
+    "new": " let cachedKey='', cached;\n function native() { return heldMemo('buildWork1066', nativeRead1066); }\n function nativeRead1066() {"
+  },
+  {
+    "id": 70,
+    "source": "codexport",
+    "label": "reset clears the held snapshot",
+    "old": "reset:()=>{cached=null;cachedKey='';}",
+    "new": "reset:()=>{cached=null;cachedKey='';HELD_MEMO.delete('buildWork1066');}"
+  },
+  {
+    "id": 71,
+    "source": "codexport",
+    "label": "one asset list per Site-vs-Baseplan check, only when there is something to check",
+    "old": "requestAnimationFrame(() => { q = false; try { drawer(); costs(); } catch (x) {} });",
+    "new": "requestAnimationFrame(() => { q = false; try { const dr1066 = D.getElementById('drawer'), pc1066 = D.getElementById('pane-costs'); if ((dr1066 && dr1066.classList.contains('on')) || (pc1066 && !pc1066.querySelector('#align1055'))) holdAssets(() => { drawer(); costs(); }); } catch (x) {} });"
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "public",
+  "sha256": "60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b",
+  "viewport": "1440×1000",
+  "recordVersion": 5796,
+  "checks": 65,
+  "passed": true,
+  "browserErrors": 0,
+  "operationalWritesAttempted": 0,
+  "servedAssets": [
+    {
+      "name": "index.html",
+      "status": 200,
+      "sha256": "00a0075219d89ef8d2fd95513e9e84c164dca5a53ae0b4de160288977575cbfe",
+      "source": "fresh-public-get"
+    },
+    {
+      "name": "explorer-merge.js",
+      "status": 200,
+      "sha256": "00f88dcf8d18529cc1a20ab6c729a5921a7d87ff65d411d9bc92c7ceef2c7ac3",
+      "source": "fresh-public-get"
+    },
+    {
+      "name": "explorer.js",
+      "status": 200,
+      "sha256": "3ced06d864cd1e060c76cb7f7841c66f942c1194e676892f29a9430782ca36a1",
+      "source": "fresh-public-get"
+    }
+  ],
+  "scope": [
+    "verified map status and source availability",
+    "complete/pending shapes and selected status words",
+    "partial and conflicted completion",
+    "legacy Done-layer filtering",
+    "refresh without camera movement",
+    "clear selection and reduced motion",
+    "native record preservation"
+  ]
+}

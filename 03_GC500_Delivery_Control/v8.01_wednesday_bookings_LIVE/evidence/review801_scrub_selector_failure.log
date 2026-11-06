@@ -1,0 +1,12 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '#drawer.on.ptag.sync b'
+- '#drawer.on .ptag.sync b'
+             ^
+
+    at Object.querySelector (/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_unit.js:38:12)
+    at Object.drawerSync798Refresh (evalmachine.<anonymous>:9:24)
+    at /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_unit.js:41:72
+    at check (/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_unit.js:12:30)
+    at /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_unit.js:41:3

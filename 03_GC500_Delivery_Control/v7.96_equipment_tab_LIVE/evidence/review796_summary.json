@@ -1,0 +1,66 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "dd16fa3bd21d9e2b3f7e412e56855670dae7ebe5d5b03954b5951ba699c7f43c",
+  "candidateBytes": 8907669,
+  "baseSha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265",
+  "originalReadySha256": "c0056535f95cdff1f2b018e2a02ee59db23cf5abb8c4567dfdd3daa929fbce30",
+  "checks": {
+    "equipment_desktop": {
+      "passed": 22,
+      "total": 22
+    },
+    "equipment_phone": {
+      "passed": 22,
+      "total": 22
+    },
+    "packed_desktop": {
+      "passed": 20,
+      "total": 20
+    },
+    "packed_phone": {
+      "passed": 14,
+      "total": 14
+    },
+    "results_desktop": {
+      "passed": 9,
+      "total": 9
+    },
+    "results_phone": {
+      "passed": 9,
+      "total": 9
+    },
+    "rules": {
+      "passed": 45,
+      "total": 45
+    },
+    "fresh": {
+      "passed": 11,
+      "total": 11
+    },
+    "sweep_desktop": {
+      "tabs": 21,
+      "links": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    "sweep_phone": {
+      "tabs": 21,
+      "links": 7,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    "navigation": {
+      "passed": 21,
+      "total": 21
+    }
+  },
+  "functionalFindingsResolved": true,
+  "allStandingTargetsMet": false,
+  "remainingTargets": [
+    "Paired synchronous tab-open median is slower than live: Today 145.3 to 259.7 ms; Plant/Equipment 44.3 to 81.3 ms.",
+    "Desktop empty card area exceeds 15% in By group (19.1%) and By branch when open (33.2%)."
+  ],
+  "screenshotsPrivateDirectory": "/workspace/private-v796-review",
+  "visualReview": "Final desktop and phone screenshots inspected: readable controls, maps and QR codes; no horizontal page overflow.",
+  "publication": "Not performed by this review agent; coordinated by root."
+}

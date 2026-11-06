@@ -1,0 +1,274 @@
+{
+ "at": "2026-10-23T04:23:50.041Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "P34 (pad chairs) is counted by quantity, never numbered; a generator is not; water-filled barriers still are",
+   "ok": true,
+   "detail": {
+    "P34": true,
+    "GN24": false,
+    "WB": true
+   }
+  },
+  {
+   "name": "the drawer words for P34 say not numbered, counted by quantity",
+   "ok": true,
+   "detail": {
+    "rows": [
+     {
+      "asked": "Pad Chair",
+      "supplied": "Pad Chair",
+      "qty_asked": 2,
+      "qty_supplied": 2,
+      "where": "local",
+      "state": "as asked"
+     }
+    ],
+    "numbers": "not numbered — counted by quantity"
+   }
+  },
+  {
+   "name": "the asset-number question no longer asks for numbers on P34",
+   "ok": true,
+   "detail": {
+    "st": "open",
+    "q": "1 received equipment lines still need fleet numbers",
+    "rows": [
+     "EQ0005 · Fork Extensions 2.4m: 0 of 1 received units numbered; 1 still needed"
+    ]
+   }
+  },
+  {
+   "name": "with the 23 Oct record items applied: P34 two chairs received, EQ0005 on site 1 of 1, GN24 carries 1277089; the asset-number and short-delivery questions are answered (or EQ0005 no longer listed)",
+   "ok": true,
+   "detail": {
+    "p34": [
+     {
+      "asked": "Pad Chair",
+      "supplied": "Pad Chair",
+      "qty_asked": 2,
+      "qty_supplied": 2,
+      "where": "local",
+      "state": "as asked"
+     }
+    ],
+    "eq": {
+     "rows": [
+      {
+       "asked": "Fork Extensions 2.4m",
+       "supplied": "Fork Extensions 2.4m",
+       "qty_asked": 1,
+       "qty_supplied": 1,
+       "where": "local",
+       "state": "as asked"
+      }
+     ],
+     "light": "on site"
+    },
+    "gn": {
+     "nums": {
+      "q": 1,
+      "n": 1,
+      "sub": 0,
+      "co": "",
+      "identified1155": 1
+     },
+     "text": "asset no. 1277089"
+    },
+    "spNums": {
+     "st": "open",
+     "q": "1 received equipment lines still need fleet numbers",
+     "rows": [
+      "EQ0005 · Fork Extensions 2.4m: 0 of 1 received units numbered; 1 still needed"
+     ]
+    },
+    "spShort": {
+     "st": "done"
+    }
+   }
+  },
+  {
+   "name": "no failed check on the Questions tab",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "GN24 reads its identified number 1277089, 1 of 1 numbered",
+   "ok": true,
+   "detail": {
+    "text": "asset no. 1277089",
+    "html": "<small>asset no.</small> <span class=\"ano\">1277089</span>",
+    "loc": {
+     "q": 1,
+     "n": 1,
+     "sub": 0,
+     "co": "",
+     "identified1155": 1
+    },
+    "native": [],
+    "own": [
+     "1277089"
+    ]
+   }
+  },
+  {
+   "name": "GN10 reads 1283681 and P67 reads 421107 the same way",
+   "ok": true,
+   "detail": {
+    "gn10": {
+     "text": "asset no. 1283681",
+     "html": "<small>asset no.</small> <span class=\"ano\">1283681</span>",
+     "loc": {
+      "q": 1,
+      "n": 1,
+      "sub": 0,
+      "co": "",
+      "identified1155": 1
+     },
+     "native": [],
+     "own": [
+      "1283681"
+     ]
+    },
+    "p67": {
+     "text": "asset no. 421107",
+     "html": "<small>asset no.</small> <span class=\"ano\">421107</span>",
+     "loc": {
+      "q": 1,
+      "n": 1,
+      "sub": 0,
+      "co": "",
+      "identified1155": 1
+     },
+     "native": [],
+     "own": [
+      "421107"
+     ]
+    }
+   }
+  },
+  {
+   "name": "exactly the references with an identified Coates unit off their own list gain its number (GN10, GN24, P67 among them); no asset errors",
+   "ok": true,
+   "detail": {
+    "diff": [
+     "GN10:1283681",
+     "GN24:1277089",
+     "P67:421107",
+     "WC09:1268858/1311146",
+     "WC51:1197174",
+     "WC67:172824",
+     "T0001:1211356",
+     "T0128:1211646",
+     "T0158:1211364/1211348/1211376/1201864"
+    ],
+    "expect": [
+     "T0158:1211364/1211348/1211376/1201864",
+     "WC09:1268858/1311146",
+     "WC67:172824",
+     "P67:421107",
+     "WC51:1197174",
+     "GN24:1277089",
+     "T0128:1211646",
+     "T0001:1211356",
+     "GN10:1283681"
+    ]
+   }
+  },
+  {
+   "name": "\"n of q numbered\" counts identified units and never beyond q",
+   "ok": true,
+   "detail": [
+    "GN10:+1=1/1",
+    "GN24:+1=1/1",
+    "P67:+1=1/1",
+    "PG01:+1=1/1",
+    "PG03:+1=1/1",
+    "PG05:+1=1/1",
+    "PG29:+1=1/1",
+    "WC09:+14=18/18",
+    "WC10:+3=3/3",
+    "WC13:+2=2/2",
+    "WC19:+1=1/1",
+    "WC23:+5=5/5",
+    "WC24:+1=1/1",
+    "WC25:+1=1/1",
+    "WC26:+1=1/1",
+    "WC28:+1=1/1",
+    "WC29:+7=7/7",
+    "WC30:+8=8/8",
+    "WC34:+1=1/1",
+    "WC35:+1=1/1",
+    "WC38:+1=1/1",
+    "WC39:+2=2/2",
+    "WC40:+5=5/5",
+    "WC45:+8=8/8",
+    "WC46:+1=1/1",
+    "WC47:+1=1/1",
+    "WC48:+4=4/4",
+    "WC49:+3=3/3",
+    "WC51:+7=7/7",
+    "WC53:+3=3/3",
+    "WC54:+6=6/6",
+    "WC55:+1=1/1",
+    "WC57:+2=2/2",
+    "WC62:+2=2/2",
+    "WC65:+1=1/1",
+    "WC67:+2=2/2",
+    "WC68:+1=1/1",
+    "WC70:+1=1/1",
+    "WC72:+1=1/1",
+    "WC73:+2=2/2",
+    "WC85:+1=1/1",
+    "T0001:+1=8/8",
+    "T0266:+1=1/1",
+    "T0128:+2=2/2",
+    "T0158:+8=8/9",
+    "T0162:+1=1/1",
+    "T0176:+2=2/2",
+    "BJR01:+1=1/1",
+    "SVP01:+1=1/1"
+   ]
+  },
+  {
+   "name": "the finder finds GN24 by 1277089 and P67 by 421107 (the reference, not only the unit inside it)",
+   "ok": true,
+   "detail": {
+    "hayHas": true,
+    "f1": [
+     "asset:GN24",
+     "unit:GN24"
+    ],
+    "f2": [
+     "asset:P67",
+     "unit:P67"
+    ],
+    "units": 160,
+    "src": "function(q){ const out = m0.apply(this, arguments);\n  try { const digits = String(q || '').replace(/\\D/g, ''); if (digits.length < 4) return out;\n   const refs "
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 50,
+    "blocked": 0
+   }
+  }
+ ]
+}

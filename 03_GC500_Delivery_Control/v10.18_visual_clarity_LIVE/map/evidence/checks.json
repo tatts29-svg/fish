@@ -1,0 +1,99 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 6078,
+  "sourceParentSha256": "d30833b57d59b2347c106193fa052edfda6c953801c513069af0ab6e05e00b5d",
+  "modelChecks": 14,
+  "sourceAndManifestGuards": 9,
+  "machinePreparation": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "ca0b74da923e0955e6e4252a2dfe11bd076deec377585f3a1b48be0d6e5efdd0",
+    "candidateManifestSha256": "6a5582b6e60a0e1449ee42c63900912fda875c08c825cbc3dc13c42b24d6047f",
+    "changedFiles": {
+      "explorer/explorer.js": "eac70fa5b2e6d682f5e8af271f2d47f5ca286f6eb197658d32dc193a8c551cce",
+      "explorer/explorer-merge.js": "1747edf7c9a1417c757ff9dceed8e017f26550608a561e6212a34d7b4922daf3",
+      "explorer/index.html": "2d61f060ad3ad44696b86be829a2bc93af90502521fa02c3a641a3c507c3264f"
+    },
+    "otherFilesPreserved": 230,
+    "published": false,
+    "restore": false,
+    "recordWrites": 0
+  },
+  "browser": {
+    "runtime-phone3": {
+      "checks": 19,
+      "failed": [],
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 174,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "runtime-4k": {
+      "checks": 19,
+      "failed": [],
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 285,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "gestures": {
+      "checks": 6,
+      "failed": [],
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 125,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "card-phone": {
+      "checks": 9,
+      "failed": [],
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 130,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "phone-data-final": {
+      "checks": 33,
+      "failed": [],
+      "errors": [],
+      "counts": {
+        "page": 0,
+        "live": 131,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      },
+      "model": {
+        "active": 176,
+        "items": 378,
+        "categories": 23,
+        "masterEntries": 149,
+        "fallbackPins": 2,
+        "unplaced": 27,
+        "quantityDiff": [],
+        "statusDiff": [],
+        "missing": [],
+        "masterDiff": [],
+        "categoryDiff": [],
+        "duplicates": [],
+        "invalidBounds": []
+      }
+    }
+  },
+  "validationNotes": [
+    "Renderer math covers the final exact numerical tolerance; phone runtime preceded that numerical-only adjustment.",
+    "Final card-only follow-up passed its phone refresh, independent-disclosure and settled-tile screenshot checks.",
+    "Final phone data regression passed on the final card build; geometry and native models are unchanged.",
+    "Software headless measurements do not establish physical-device frame rates."
+  ]
+}

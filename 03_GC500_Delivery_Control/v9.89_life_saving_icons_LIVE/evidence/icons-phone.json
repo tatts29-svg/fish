@@ -1,0 +1,190 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 46,
+  "mobile": true,
+  "actualPublic": false,
+  "sha256": "4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf",
+  "nativeRulesPreserved": true,
+  "dailyMappings": [
+    {
+      "day": "2026-10-07",
+      "title": "Risk Assessment",
+      "key": "assess-risk"
+    },
+    {
+      "day": "2026-10-08",
+      "title": "High-Risk Work",
+      "key": "general-rule"
+    },
+    {
+      "day": "2026-10-09",
+      "title": "Training and Competency",
+      "key": "competency"
+    },
+    {
+      "day": "2026-10-10",
+      "title": "Fit for Work",
+      "key": "fit-for-work"
+    },
+    {
+      "day": "2026-10-11",
+      "title": "Tools and Equipment",
+      "key": "general-rule"
+    },
+    {
+      "day": "2026-10-12",
+      "title": "Critical Risk Non-Negotiables",
+      "key": "general-rule"
+    }
+  ],
+  "transparentPixels": [
+    [
+      {
+        "backgroundFraction": 0.7479861111111111,
+        "orangeFraction": 0.18888888888888888,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7496527777777777,
+        "orangeFraction": 0.18902777777777777,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7566666666666667,
+        "orangeFraction": 0.1770138888888889,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7588194444444445,
+        "orangeFraction": 0.17722222222222223,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7676388888888889,
+        "orangeFraction": 0.18215277777777777,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7697222222222222,
+        "orangeFraction": 0.18229166666666666,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7888888888888889,
+        "orangeFraction": 0.16069444444444445,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7913194444444445,
+        "orangeFraction": 0.1607638888888889,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7786805555555556,
+        "orangeFraction": 0.16951388888888888,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.780625,
+        "orangeFraction": 0.1696527777777778,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7295833333333334,
+        "orangeFraction": 0.20930555555555555,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7332638888888889,
+        "orangeFraction": 0.20944444444444443,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7358333333333333,
+        "orangeFraction": 0.19583333333333333,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7402083333333334,
+        "orangeFraction": 0.19555555555555557,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.8097222222222222,
+        "orangeFraction": 0.14243055555555556,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.8116666666666666,
+        "orangeFraction": 0.14256944444444444,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7843055555555556,
+        "orangeFraction": 0.15680555555555556,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7850694444444445,
+        "orangeFraction": 0.15694444444444444,
+        "corners": true
+      }
+    ],
+    [
+      {
+        "backgroundFraction": 0.7565972222222223,
+        "orangeFraction": 0.19055555555555556,
+        "corners": true
+      },
+      {
+        "backgroundFraction": 0.7574305555555556,
+        "orangeFraction": 0.190625,
+        "corners": true
+      }
+    ]
+  ],
+  "printReports": [
+    {
+      "doc": "prestart",
+      "count": 6,
+      "static": true,
+      "fit": true,
+      "prestartHeight": 744.140625
+    },
+    {
+      "doc": "drv",
+      "count": 6,
+      "static": true,
+      "fit": true,
+      "prestartHeight": null
+    },
+    {
+      "doc": "ins",
+      "count": 6,
+      "static": true,
+      "fit": true,
+      "prestartHeight": null
+    }
+  ],
+  "recordsPreserved": true,
+  "moneyPreserved": true,
+  "errors": 0,
+  "writes": 0
+}

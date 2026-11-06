@@ -1,0 +1,26 @@
+/* Author: Andrew Fisher. Independent read-only quantity and truck-capacity checks. */
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),assert=require('assert');
+const source=path.resolve(__dirname,'../subhire/supplier996.js'),S=require(source),checks=[];
+const test=(name,fn)=>{try{fn();checks.push({name,pass:true});}catch(e){checks.push({name,pass:false,error:e.message});}};
+const clone=x=>JSON.parse(JSON.stringify(x));
+const row=(ref,count,extra={})=>({ref,item:'FWF',count,quantity:count,received:count,numbers:Array.from({length:count},(_,i)=>ref+'-'+i),side:'outside',zone:'mbp',emptied:true,...extra});
+const context=rows=>({asAt:'2026-10-12',rows,spares:[],confirmed:194});
+test('Assigned fleet numbers do not create a receipt',()=>{const p=S.project(context([row('A',8,{received:0,events:[{id:'task',date:'2026-10-13',quantity:8}]})]));assert.equal(p.summary.received,0);assert.equal(p.summary.remaining,8);assert.equal(p.summary.identified,8);});
+test('Quantity-only panels count six and receive no invented numbers',()=>{const p=S.project(context([row('P',6,{item:'Pee Panel',numbers:[],quantityOnly:true})]));assert.equal(p.summary.received,6);assert.equal(p.summary.identified,0);assert.equal(p.summary.quantityOnly,6);});
+test('One explicit reschedule applies to outstanding quantity only',()=>assert.deepEqual(S.remainingDates(row('A',10,{received:4,movedDate:'2026-10-13',events:[{id:'old',date:'2026-10-09',quantity:10}]})),[{date:'2026-10-13',remaining:6}]));
+test('Reconciled dated quantities subtract earlier received scope once',()=>assert.deepEqual(S.remainingDates(row('A',12,{received:4,events:[{id:'a',date:'2026-10-09',quantity:4},{id:'b',date:'2026-10-13',quantity:8}]})),[{date:'2026-10-13',remaining:8}]));
+test('Ambiguous repeated dated scope does not invent a delivery date',()=>{const result=S.remainingDates(row('A',2,{received:0,events:[{id:'a',date:'2026-10-01',quantity:2},{id:'b',date:'2026-10-13',quantity:2}]}));assert.equal(result[0].date,'');assert.equal(result[0].remaining,2);assert(result[0].issue);});
+test('24 portaloos form one truck',()=>{const l=S.pack([row('A',24)],'demob');assert.equal(l.length,1);assert.equal(l[0].units,24);assert.equal(l[0].held,false);});
+test('25 portaloos form two trucks and every number occurs once',()=>{const l=S.pack([row('A',25)],'demob');assert.equal(l.length,2);assert.equal(l.reduce((n,r)=>n+r.units,0),25);assert.equal(new Set(l.flatMap(x=>x.stops.flatMap(s=>s.numbers))).size,25);});
+test('Six pee panels and 18 portaloos fit one truck',()=>{const l=S.pack([row('A',18),row('P',6,{item:'Pee Panel',numbers:[],quantityOnly:true})],'demob');assert.equal(l.length,1);assert.equal(l[0].units,24);assert.equal(l[0].panels,6);});
+test('Six pee panels and 19 portaloos require two trucks',()=>{const l=S.pack([row('A',19),row('P',6,{item:'Pee Panel',numbers:[],quantityOnly:true})],'demob');assert.equal(l.length,2);assert(l.every(x=>x.units<=24&&x.panels<=6));});
+test('Two 16-pan blocks consume two full separate trucks',()=>{const l=S.pack([row('B',2,{item:'16Pan Block'}),row('A',2)],'demob');assert.equal(l.filter(x=>x.type==='block').length,2);assert(l.filter(x=>x.type==='block').every(x=>x.units===1&&x.stops.length===1));});
+test('Outside public areas precede the island and never mix in a truck',()=>{const l=S.pack([row('I',10,{side:'inside',zone:'island'}),row('O',2)],'demob');assert.deepEqual(l.map(x=>x.side),['outside','inside']);});
+test('Partially identified quantity cannot allocate guessed numbers to a truck',()=>{const l=S.pack([row('A',12,{numbers:['0152','0078','0010','0070','0958','0647']})],'demob');assert(l.every(x=>x.held));assert(l.flatMap(x=>x.stops).every(s=>s.numbers.length===0));});
+test('Unknown destination holds a demob truck',()=>assert(S.pack([row('A',1,{side:'unknown'})],'demob')[0].held));
+test('No pump-out record holds a demob truck but not incoming delivery',()=>{assert(S.pack([row('A',1,{emptied:false})],'demob')[0].held);assert.equal(S.pack([row('A',1,{emptied:false})],'inbound')[0].held,false);});
+test('Pure projection and packing do not mutate their inputs',()=>{const c=context([row('A',4)]),before=clone(c);S.project(c);S.pack(c.rows,'demob');assert.deepEqual(c,before);});
+test('Conflicting fleet-number locations are disclosed and both runs held',()=>{const p=S.project(context([row('A',1,{numbers:['0007']}),row('B',1,{numbers:['0007']})]));assert.equal(p.conflicts.length,1);assert(S.pack(p.inventory.map(r=>({...r,count:r.received})),'demob').every(l=>l.held));});
+const result={author:'Andrew Fisher',source:path.basename(source),sha256:crypto.createHash('sha256').update(fs.readFileSync(source)).digest('hex'),checks,passed:checks.filter(c=>c.pass).length,failed:checks.filter(c=>!c.pass).length,browserRun:false,operationalWrites:0};
+if(process.env.OUT)fs.writeFileSync(process.env.OUT,JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify(result,null,2));if(result.failed)process.exitCode=1;

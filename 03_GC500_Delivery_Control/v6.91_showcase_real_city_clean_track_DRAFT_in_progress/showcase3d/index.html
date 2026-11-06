@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>GC500 Showcase: Real City</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Widgets/widgets.css">
+<style>
+:root{--or:#ff6a13;--or2:#ff9a4d;--ink:#f3efe9;--mute:#a9a39c;--bg:#0f0d0c;--rule:#2e2723;--hh:50px}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.4 Inter,"Segoe UI",system-ui,sans-serif;overflow:hidden}
+#cesium{position:absolute;inset:0}
+header{position:absolute;left:0;right:0;top:0;min-height:50px;display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;padding:0 14px;background:linear-gradient(180deg,rgba(28,22,19,.95),rgba(18,15,13,.9));border-bottom:2px solid var(--or);z-index:3;box-sizing:border-box}
+header b{font:700 18px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic}header b i{color:var(--or);font-style:italic}
+header>span{color:var(--mute);font-size:12px}
+.seg{display:flex;gap:3px;background:#0b0908;padding:3px;border-radius:9px;border:1px solid var(--rule)}
+.seg button{background:none;border:0;color:var(--mute);padding:6px 10px;border-radius:7px;font:600 12.5px Inter,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.seg button:hover{color:var(--ink)}.seg button[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.xnav{margin-left:auto;display:flex;gap:4px;align-items:center}.xnav a{color:var(--mute);text-decoration:none;font:600 12px Inter,sans-serif;padding:6px 9px;border-radius:7px;border:1px solid transparent}.xnav a:hover{color:var(--ink);border-color:var(--rule)}.xnav a[aria-current=page]{color:var(--ink);background:#0b0908;border-color:var(--rule)}.xnav[hidden]{display:none}
+.bar{position:absolute;left:12px;right:12px;bottom:40px;z-index:3;display:flex;flex-wrap:wrap;gap:8px;align-items:center;pointer-events:none}
+.bar>*{pointer-events:auto}
+.btn{background:rgba(15,13,12,.9);border:1px solid var(--rule);color:var(--ink);border-radius:8px;height:34px;padding:0 12px;cursor:pointer;font:600 12.5px Inter,system-ui,sans-serif}
+.btn[aria-pressed="true"]{background:var(--or);color:#1b1207}
+.hud{position:absolute;right:16px;top:calc(var(--hh) + 14px);z-index:3;text-align:right;pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.75)}
+.hud .spd{font:800 54px/1 "Barlow Condensed","Arial Narrow",system-ui,sans-serif;font-style:italic;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.hud .spd small{font-size:18px;color:var(--or2);margin-left:4px}
+.hud .lap{font:700 15px/1.3 Inter,system-ui,sans-serif;font-variant-numeric:tabular-nums;color:var(--ink)}
+.hud .lap span{color:var(--mute);font-weight:600}
+.tag{position:absolute;left:14px;top:calc(var(--hh) + 14px);z-index:3;display:flex;align-items:center;gap:10px;background:rgba(15,13,12,.82);border:1px solid var(--rule);border-left:4px solid var(--or);border-radius:8px;padding:7px 12px}
+.tag b{font:800 22px/1 "Barlow Condensed","Arial Narrow",sans-serif;font-style:italic;color:var(--or)}
+.tag div{font:700 12.5px/1.25 Inter,system-ui,sans-serif}.tag div small{display:block;color:var(--mute);font-weight:500}
+.note{position:absolute;left:12px;bottom:84px;z-index:3;font-size:11.5px;color:var(--mute);background:rgba(15,13,12,.8);border:1px solid var(--rule);border-radius:8px;padding:5px 9px;max-width:min(560px,calc(100% - 24px))}
+.cesium-viewer-bottom{z-index:3!important}.cesium-widget-credits{color:#fff!important;font-size:11px!important;background:rgba(15,13,12,.6)!important;padding:2px 6px!important;border-radius:6px}
+.loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:5;flex-direction:column;gap:8px;text-align:center;padding:0 20px}.loader.done{display:none}
+@media(max-width:900px){header{padding:6px 10px}header>span{display:none}header b{font-size:15px}.seg{overflow-x:auto;scrollbar-width:none;max-width:100%}.seg button{flex:none}
+  .hud .spd{font-size:40px}.tag b{font-size:18px}.note{display:none}.bar{bottom:44px}}
+</style>
+</head>
+<body>
+<div id="cesium"></div>
+<header><b>Coates Industrial Solutions <i>| GC500 2026</i></b><span>Showcase · the #26 on the real Surfers Paradise (Google Photorealistic 3D Tiles)</span>
+  <nav class="xnav" id="xnav" aria-label="Pages"></nav>
+  <div class="seg" id="views" role="group" aria-label="Camera"><button data-cam="chase" aria-pressed="true">Chase</button><button data-cam="blimp" aria-pressed="false">Blimp</button><button data-cam="heli" aria-pressed="false">Helicopter</button><button data-cam="tv" aria-pressed="false">Trackside TV</button><button data-cam="free" aria-pressed="false">Free look</button></div></header>
+<div class="tag"><b>#26</b><div>Coates Industrial Solutions<small>Driver: Fisher</small></div></div>
+<div class="hud" aria-live="off"><div class="spd"><span id="spd">0</span><small>km/h</small></div><div class="lap"><span>Lap</span> <span id="lapT" style="color:var(--ink)">0:00.0</span></div><div class="lap"><span id="lapN">Lap 1</span></div></div>
+<div class="note" id="note">The city is Google's photo model; the car, its line and its speeds are ours (modelled, not telemetry).</div>
+<div class="bar">
+  <button class="btn" id="playBtn" aria-pressed="true">❚❚ Pause</button>
+  <div class="seg" id="pace" role="group" aria-label="Speed"><button data-pace=".5" aria-pressed="false">½×</button><button data-pace="1" aria-pressed="true">1×</button><button data-pace="2" aria-pressed="false">2×</button></div>
+  <div class="seg" id="tod" role="group" aria-label="Time of day"><button data-t="09:30" aria-pressed="false">Morning</button><button data-t="15:30" aria-pressed="true">Race time</button><button data-t="17:35" aria-pressed="false">Golden hour</button></div>
+  <button class="btn" id="fsBtn" title="Full screen">⛶ Full screen</button>
+</div>
+<div class="loader" id="loader"><b style="font:700 22px 'Barlow Condensed',sans-serif;font-style:italic">Showcase · real city</b><div id="loadText">Asking the service for the Google key…</div></div>
+<script>(function(){ const h = document.querySelector('header'), set = () => document.documentElement.style.setProperty('--hh', h.offsetHeight + 'px'); set(); if (window.ResizeObserver) new ResizeObserver(set).observe(h); })();</script>
+<script src="https://cdn.jsdelivr.net/npm/cesium@1.131.0/Build/Cesium/Cesium.js"></script>
+<script>
+'use strict';
+/* GC500 Showcase on the real city, v6.91 draft (Andrew Fisher, 27 Sep 2026: "up the graphics ... real life would be
+   perfection"). The city is Google Photorealistic 3D Tiles (Map Tiles API, key from the dashboard service at run time,
+   never in this file; Google's attribution stays on screen). The car is the show scene's own #26 (car26.glb, built
+   from GC3D.raceCarModel by build_car_glb.py), painted by the scene's own livery rules ported below. The lap is the
+   scene's own centreline put on the ground through the circuit registration (lap.json, build_track.py); speeds are
+   modelled from simple car limits, not telemetry. The road height is read from the photo model under the car as it
+   drives (nothing from Google is stored). Cesium's own buttons are off (they need string eval, which the service
+   refuses). */
+const $ = id => document.getElementById(id);
+const PHONE = /Android|iPhone|iPad/.test(navigator.userAgent) || matchMedia('(max-width:900px)').matches;
+let viewer, tileset, car, LAP, N = 0, CUM = [], ENU = [], lapLen = 0;
+const S = {s: 0, v: 0, t: 0, lapStart: 0, lapN: 1, pace: 1, playing: true, cam: 'chase', tv: 0, wheel: 0, h: null, hBase: null, hSeen: 0, steer: 0, pitch: 0, last: 0};
+window.__S = S;
+/* ---- the livery: the show scene's paint rules (GC3D race shader, kind 1), in the car's own coordinates ---- */
+const LIVERY = `
+void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
+  float kind = fsInput.attributes.kind;
+  if (kind > 1.5) return;
+  vec3 P = fsInput.attributes.positionMC; vec3 N = normalize(v_normalMC); float panel = fsInput.attributes.panel;
+  vec3 base = vec3(.020,.026,.033); float x = P.x, y = P.y, z = abs(P.z); float rough = .22, metal = .035;
+  vec3 orange = vec3(.87,.045,.0012), ivory = vec3(.78,.81,.82);
+  bool bonnet = panel < .5 && x > .265 && y > .279 && N.y > .46 && z < .296;
+  bool roof = panel > .5 && panel < 1.5 && y > .476 && x < -.039 && x > -.450 && z < .264 && N.y > .48;
+  bool sill = z > .315 && y < .084 + .010 * (x + .5);
+  bool nose = x > .925 && y < .246;
+  bool rearBand = x < -.962 && y > .108 && y < .137 + .017 * (1. - z / .38);
+  if (bonnet || roof || sill || nose || rearBand || panel > 1.5) base = orange;
+  if (z > .315 && x > -.98 && x < .89 && y < .19) {
+    float sweep = .095 + .063 * clamp((.60 - x) / 1.35, 0., 1.);
+    if (y > sweep - .023 && y < sweep - .006) base = orange;
+    if (y > sweep && y < sweep + .013) base = ivory;
+    float lower = .092 + .020 * clamp((x + .4) / .9, 0., 1.);
+    if (x > -.43 && x < .52 && y > lower && y < lower + .006) base = ivory;
+  }
+  if (base.r > .5 && base.b < .02) { rough = .30; metal = 0.; }
+  if (x > .32 && x < .98 && y > .285 && N.y > .45 && z > .302 && z < .307) base = vec3(.83,.57,.004);
+  material.baseColor = vec4(base, 1.);
+  material.diffuse = base * (1. - metal) * .96;
+  material.specular = mix(vec3(.05), base, metal);
+  material.roughness = rough;
+}`;
+async function key() {
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname); const r = await fetch('/api/map-key' + (m ? '?t=' + encodeURIComponent(m[1]) : ''), {cache: 'no-store'}); const j = await r.json();
+  if (!(j && j.google && /^AIza/.test(j.google.key))) throw new Error('The service did not give this page a Google key.'); return j.google.key;
+}
+/* ---- the lap: positions on the ellipsoid, cumulative distance, and a local frame at each point ---- */
+function buildLap(j) {
+  LAP = j.pts; N = LAP.length; LAP.grid = j.grid; let acc = 0; CUM = [0];
+  const P = LAP.map(p => Cesium.Cartesian3.fromDegrees(p[1], p[0], 0));
+  for (let i = 1; i <= N; i++) { acc += Cesium.Cartesian3.distance(P[i - 1], P[i % N]); CUM.push(acc); }
+  lapLen = acc; LAP.P = P;
+  S.s = CUM[j.grid] || 0;
+}
+function idxAt(s) { s = ((s % lapLen) + lapLen) % lapLen; let lo = 0, hi = N; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (CUM[m] <= s) lo = m; else hi = m; } return {i: lo, f: (s - CUM[lo]) / Math.max(1e-6, CUM[lo + 1] - CUM[lo])}; }
+/* Catmull-Rom through the lap points, so the car's line and heading are smooth, not a chain of 3 m chords */
+function crPoint(i, f, out) {
+  const a = LAP.P[(i - 1 + N) % N], b = LAP.P[i % N], c = LAP.P[(i + 1) % N], d = LAP.P[(i + 2) % N], f2 = f * f, f3 = f2 * f;
+  const k0 = -.5 * f3 + f2 - .5 * f, k1 = 1.5 * f3 - 2.5 * f2 + 1, k2 = -1.5 * f3 + 2 * f2 + .5 * f, k3 = .5 * f3 - .5 * f2;
+  out.x = a.x * k0 + b.x * k1 + c.x * k2 + d.x * k3; out.y = a.y * k0 + b.y * k1 + c.y * k2 + d.y * k3; out.z = a.z * k0 + b.z * k1 + c.z * k2 + d.z * k3; return out;
+}
+const tmpA = new Cesium.Cartesian3(), tmpB = new Cesium.Cartesian3();
+function posAt(s, out) { const q = idxAt(s); return crPoint(q.i, q.f, out); }
+function speedAt(s) { const q = idxAt(s); const a = LAP[q.i][3], b = LAP[(q.i + 1) % N][3]; return a + (b - a) * q.f; }
+/* ---- THE CLEAN TRACK (Andrew, 27 Sep 2026: "we need to remove cars").
+   Google's photo model has the street as it was photographed: parked cars, vans, a bus, palms leaning over the road.
+   Along the circuit the road itself is cut out of the photo model (a clipping corridor, kerb to kerb, from the key
+   plan's measured road width) and our own race surface is laid in its place: asphalt, a rubbered line, white edge
+   lines, red and white kerbs on the inside of the corners, the start line. Everything past the kerb (footpaths,
+   barriers, buildings, the beach) is still Google's photograph.
+   The road's height comes from the footpaths either side, never from the road itself (that is where the cars were):
+   the lowest of four readings across, then a running median along the lap. Read first from a high view of the whole
+   circuit, then sharpened just ahead of the car as it drives. Nothing read from Google is kept. ---- */
+const H = [], RAW = [], LEFT = [], CHUNK = 40; let roadPrims = [], clipSet = null, lastRebuild = 0, refineAt = 0; const dirty = new Set();
+const SANE = h => h != null && isFinite(h) && h > 10 && h < 100;   /* ellipsoid heights on the Surfers strip are about 40 m */
+function prepEdges() {
+  for (let i = 0; i < N; i++) { const a = LAP[(i - 1 + N) % N], b = LAP[(i + 1) % N], la = LAP[i][0] * Math.PI / 180;
+    const tE = (b[1] - a[1]) * 111320 * Math.cos(la), tN = (b[0] - a[0]) * 110574, L = Math.hypot(tE, tN) || 1; LEFT.push([-tN / L, tE / L]); }
+}
+function offsetLL(i, d) { const p = LAP[i], la = p[0] * Math.PI / 180; return [p[0] + LEFT[i][1] * d / 110574, p[1] + LEFT[i][0] * d / (111320 * Math.cos(la))]; }
+function halfW(i) { return Math.max(4.5, (LAP[i][2] || 12) / 2); }
+function sampleRoad(i) {
+  const w = halfW(i), ex = [car, ...roadPrims, ...edgePrims.flat()].filter(Boolean); let lo = null;
+  for (const d of [w + 1.8, -(w + 1.8), w + 4, -(w + 4)]) { const [la, lo2] = offsetLL(i, d); let h; try { h = viewer.scene.sampleHeight(Cesium.Cartographic.fromDegrees(lo2, la), ex, .4); } catch (e) { h = undefined; }
+    if (SANE(h) && (lo == null || h < lo)) lo = h; }
+  return lo == null ? null : lo - .08;   /* the road sits a kerb below the footpath */
+}
+function settleH(i0, i1) {   /* running median over +-6 readings, gaps filled from the nearest readings */
+  const have = []; for (let i = 0; i < N; i++) if (RAW[i] != null) have.push(i); if (!have.length) return;
+  const all = have.map(i => RAW[i]).sort((a, b) => a - b), med = all[all.length >> 1];
+  for (let k = i0; k <= i1; k++) { const i = (k + N) % N, win = [];
+    for (let j = -6; j <= 6; j++) { const r = RAW[(i + j + N) % N]; if (r != null && Math.abs(r - med) < 8) win.push(r); }
+    const v = win.length ? win.sort((a, b) => a - b)[win.length >> 1] : med; if (H[i] == null || Math.abs(H[i] - v) > .15) { H[i] = v; dirty.add(Math.floor(i / CHUNK)); } }
+}
+function hAt(s) { const q = idxAt(s), a = H[q.i], b = H[(q.i + 1) % N]; return a == null ? (b == null ? 0 : b) : b == null ? a : a + (b - a) * q.f; }
+/* the kerb and width map: one texel per ~1.4 m of lap. r = kerb on the left, g = kerb on the right, b = width / 40 m */
+function kerbCanvas() {
+  const W = 2048, c = document.createElement('canvas'); c.width = W; c.height = 1; const g = c.getContext('2d'), im = g.createImageData(W, 1), K = new Float32Array(N);
+  for (let i = 0; i < N; i++) { const a = LAP[(i - 5 + N) % N], b = LAP[i], d = LAP[(i + 5) % N], la = b[0] * Math.PI / 180, sx = 111320 * Math.cos(la), sy = 110574;
+    const ux = (b[1] - a[1]) * sx, uy = (b[0] - a[0]) * sy, vx = (d[1] - b[1]) * sx, vy = (d[0] - b[0]) * sy, cr = ux * vy - uy * vx, lu = Math.hypot(ux, uy), lv = Math.hypot(vx, vy);
+    K[i] = 2 * cr / Math.max(1e-6, lu * lv * Math.hypot(ux + vx, uy + vy)); }   /* signed curvature: + is a left-hander */
+  for (let x = 0; x < W; x++) { const s = x / W * lapLen, i = idxAt(s).i; let L = 0, Rr = 0;
+    for (let j = -7; j <= 7; j++) { const k = K[(i + j + N) % N]; if (k > 1 / 140) L = 1; if (k < -1 / 140) Rr = 1; if (Math.abs(k) > 1 / 45) { L = 1; Rr = 1; } }
+    im.data[x * 4] = L * 255; im.data[x * 4 + 1] = Rr * 255; im.data[x * 4 + 2] = Math.min(255, (LAP[i][2] || 12) / 40 * 255); im.data[x * 4 + 3] = 255; }
+  g.putImageData(im, 0, 0); return c;
+}
+const ROAD_GLSL = `
+float gcHash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float gcNoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f);
+  return mix(mix(gcHash(i), gcHash(i + vec2(1., 0.)), f.x), mix(gcHash(i + vec2(0., 1.)), gcHash(i + vec2(1., 1.)), f.x), f.y) * 2. - 1.; }
+czm_material czm_getMaterial(czm_materialInput mi){
+  czm_material m = czm_getDefaultMaterial(mi);
+  vec2 st = mi.st; float sM = st.x * lapLen; vec4 info = texture(kerbs, vec2(st.x, .5)); float w = info.b * 40.;
+  float xM = (st.y - .5) * (w + 1.2); float edge = w * .5 - abs(xM);
+  float g1 = gcNoise(vec2(sM, xM) * 1.9) * .5 + .5, g2 = gcNoise(vec2(sM, xM) * 11.) * .5 + .5, g3 = gcNoise(vec2(sM * .05, xM * .4)) * .5 + .5;
+  vec3 c = vec3(.36, .365, .375) * (.84 + .24 * g1) * (.88 + .2 * g2) * (.92 + .14 * g3);
+  c *= 1. - .30 * exp(-xM * xM / 5.);                                   /* the rubbered racing line */
+  if (edge > .42 && edge < .56) c = vec3(.78, .79, .78) * (.92 + .1 * g2);  /* white edge line */
+  float kerb = xM > 0. ? info.r : info.g;                             /* st.y 1 is the left edge */
+  if (kerb > .5 && edge < 1.15 && edge > -.6) { float stripe = step(.5, fract(sM / 1.3)); c = mix(vec3(.80, .80, .78), vec3(.66, .05, .025), stripe) * (.9 + .12 * g2); }
+  if (abs(sM - gridS) < .9) { float ch = step(.5, fract(xM / 1.2)) == step(.5, fract((sM - gridS) / .6)) ? 1. : 0.; c = mix(vec3(.05), vec3(.85), ch); }
+  if (edge < 0.) c = vec3(.30, .30, .29) * (.85 + .2 * g1);            /* the kerb stone under the footpath edge */
+  m.diffuse = c; m.emission = c * .22; m.specular = .10; m.shininess = 12.;
+  return m;
+}`;
+let KERBS = null;
+function buildChunk(ci) {
+  const i0 = ci * CHUNK, i1 = Math.min(N, i0 + CHUNK + 1), n = i1 - i0 + 1, pos = new Float64Array(n * 2 * 3), nor = new Float32Array(n * 2 * 3), st = new Float32Array(n * 2 * 2), idx = [];
+  for (let k = 0; k < n; k++) { const i = (i0 + k) % N, s = k === n - 1 && i0 + k >= N ? lapLen : CUM[i0 + k], h = H[i] == null ? 0 : H[i], w = halfW(i) + .6;
+    for (const [side, d] of [[0, w], [1, -w]]) { const [la, lo] = offsetLL(i, d), P = Cesium.Cartesian3.fromDegrees(lo, la, h), U = Cesium.Ellipsoid.WGS84.geodeticSurfaceNormal(P, new Cesium.Cartesian3()), v = k * 2 + side;
+      pos[v * 3] = P.x; pos[v * 3 + 1] = P.y; pos[v * 3 + 2] = P.z; nor[v * 3] = U.x; nor[v * 3 + 1] = U.y; nor[v * 3 + 2] = U.z; st[v * 2] = s / lapLen; st[v * 2 + 1] = side ? 0 : 1; }
+    if (k < n - 1) { const a = k * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); } }
+  const geometry = new Cesium.Geometry({attributes: {position: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.DOUBLE, componentsPerAttribute: 3, values: pos}),
+    normal: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.FLOAT, componentsPerAttribute: 3, values: nor}), st: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.FLOAT, componentsPerAttribute: 2, values: st})},
+    indices: new Uint16Array(idx), primitiveType: Cesium.PrimitiveType.TRIANGLES, boundingSphere: Cesium.BoundingSphere.fromVertices(Array.from(pos))});
+  const material = new Cesium.Material({fabric: {type: 'GC500Road' + ci + '_' + Date.now(), uniforms: {kerbs: KERBS, lapLen, gridS: CUM[LAP.grid] || 0}, source: ROAD_GLSL}});
+  return new Cesium.Primitive({geometryInstances: new Cesium.GeometryInstance({geometry}), appearance: new Cesium.MaterialAppearance({material, translucent: false, closed: false, faceForward: true, materialSupport: Cesium.MaterialAppearance.MaterialSupport.TEXTURED}),
+    asynchronous: false, shadows: Cesium.ShadowMode.RECEIVE_ONLY});
+}
+/* RACE-DAY EDGES: a concrete barrier along both sides (0.95 m, painted Coates orange along the top, COATES on the face,
+   typeset here, not a logo file) with catch fencing above it on posts every 4 m. They stand at the cut edge, so the join
+   between our road and Google's footpath is behind concrete, as it is on the day. */
+let FACE = null;
+function faceCanvas() {
+  const c = document.createElement('canvas'); c.width = 1024; c.height = 128; const g = c.getContext('2d');
+  g.fillStyle = '#c9c6bf'; g.fillRect(0, 0, 1024, 128); g.fillStyle = '#e86412'; g.fillRect(0, 0, 1024, 22);
+  g.fillStyle = '#1b1a18'; g.font = 'bold italic 62px "DejaVu Sans", Arial, sans-serif'; g.textBaseline = 'middle'; g.fillText('COATES', 40, 76); g.fillText('GC500', 560, 76);
+  g.fillStyle = '#e86412'; g.fillRect(470, 48, 44, 56);
+  g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(1020, 0, 4, 128);   /* the joint between barrier units */
+  return c;
+}
+const BARRIER_GLSL = `
+czm_material czm_getMaterial(czm_materialInput mi){
+  czm_material m = czm_getDefaultMaterial(mi); vec2 st = mi.st;
+  vec3 c = texture(face, vec2(fract(st.x), clamp(1. - st.y * 1.18, 0., 1.))).rgb;
+  if (st.y > .86) c = vec3(.91, .39, .07);
+  c = pow(c, vec3(2.2)) * 1.25;
+  m.diffuse = c; m.emission = c * .15; m.specular = .05; m.shininess = 6.; return m; }`;
+const FENCE_GLSL = `
+czm_material czm_getMaterial(czm_materialInput mi){
+  czm_material m = czm_getDefaultMaterial(mi); vec2 st = mi.st;
+  vec2 q = abs(fract(st * vec2(26., 30.)) - .5);
+  float post = step(fract(st.x), .018);
+  float grid = max(step(.44, q.x), step(.44, q.y));
+  m.diffuse = vec3(.55, .56, .57); m.alpha = max(post, grid * .55) ; m.specular = .2; m.shininess = 20.; return m; }`;
+function buildEdges(ci) {
+  const i0 = ci * CHUNK, i1 = Math.min(N, i0 + CHUNK + 1), bp = [], bn = [], bs = [], bi = [], fp = [], fn = [], fs = [], fi = [];
+  const put = (arr, P) => arr.push(P.x, P.y, P.z);
+  for (const side of [1, -1]) {
+    const base = bp.length / 3, fb = fp.length / 3, rows = 4;
+    for (let k = i0; k <= i1; k++) { const i = k % N, s = k >= N ? lapLen : CUM[k], h = H[i] == null ? 0 : H[i], w = halfW(i) + .25, lf = LEFT[i];
+      const prof = [[w, -.35, 0], [w + .08, .82, .72], [w + .16, .95, .86], [w + .58, .95, 1]];
+      const inN = [-lf[0] * side, -lf[1] * side];
+      for (const [d, z, v] of prof) { const [la, lo] = offsetLL(i, d * side), P = Cesium.Cartesian3.fromDegrees(lo, la, h + z); put(bp, P);
+        const enu = Cesium.Transforms.eastNorthUpToFixedFrame(P), nl = v > .8 ? new Cesium.Cartesian3(0, 0, 1) : new Cesium.Cartesian3(inN[0] * .97, inN[1] * .97, .24), NW = Cesium.Matrix4.multiplyByPointAsVector(enu, nl, new Cesium.Cartesian3()); Cesium.Cartesian3.normalize(NW, NW);
+        bn.push(NW.x, NW.y, NW.z); bs.push(side > 0 ? -s / 6 : s / 6, v); }   /* each side reads left to right from the road */
+      for (const [z, v] of [[.95, 0], [3.9, 1]]) { const [la, lo] = offsetLL(i, (w + .45) * side), P = Cesium.Cartesian3.fromDegrees(lo, la, h + z); put(fp, P);
+        const enu = Cesium.Transforms.eastNorthUpToFixedFrame(P), NW = Cesium.Matrix4.multiplyByPointAsVector(enu, new Cesium.Cartesian3(inN[0], inN[1], 0), new Cesium.Cartesian3()); Cesium.Cartesian3.normalize(NW, NW); fn.push(NW.x, NW.y, NW.z); fs.push(s / 4, v); } }
+    const n = i1 - i0 + 1;
+    for (let k = 0; k < n - 1; k++) { for (let r = 0; r < rows - 1; r++) { const a = base + k * rows + r, b = a + rows; bi.push(a, b, a + 1, a + 1, b, b + 1); }
+      const a = fb + k * 2, b = a + 2; fi.push(a, b, a + 1, a + 1, b, b + 1); }
+  }
+  const geo = (p, n, s, i) => new Cesium.Geometry({attributes: {position: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.DOUBLE, componentsPerAttribute: 3, values: new Float64Array(p)}),
+    normal: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.FLOAT, componentsPerAttribute: 3, values: new Float32Array(n)}), st: new Cesium.GeometryAttribute({componentDatatype: Cesium.ComponentDatatype.FLOAT, componentsPerAttribute: 2, values: new Float32Array(s)})},
+    indices: new Uint32Array(i), primitiveType: Cesium.PrimitiveType.TRIANGLES, boundingSphere: Cesium.BoundingSphere.fromVertices(p)});
+  const bar = new Cesium.Primitive({geometryInstances: new Cesium.GeometryInstance({geometry: geo(bp, bn, bs, bi)}), asynchronous: false, shadows: Cesium.ShadowMode.ENABLED,
+    appearance: new Cesium.MaterialAppearance({material: new Cesium.Material({fabric: {type: 'GC500Barrier' + ci + '_' + Date.now(), uniforms: {face: FACE}, source: BARRIER_GLSL}}), translucent: false, closed: false, faceForward: true, materialSupport: Cesium.MaterialAppearance.MaterialSupport.TEXTURED})});
+  const fence = new Cesium.Primitive({geometryInstances: new Cesium.GeometryInstance({geometry: geo(fp, fn, fs, fi)}), asynchronous: false, shadows: Cesium.ShadowMode.DISABLED,
+    appearance: new Cesium.MaterialAppearance({material: new Cesium.Material({fabric: {type: 'GC500Fence' + ci + '_' + Date.now(), source: FENCE_GLSL}}), translucent: true, closed: false, faceForward: true, materialSupport: Cesium.MaterialAppearance.MaterialSupport.TEXTURED})});
+  return [bar, fence];
+}
+const edgePrims = [];
+function rebuild(ci) { const old = roadPrims[ci], oldE = edgePrims[ci] || []; roadPrims[ci] = viewer.scene.primitives.add(buildChunk(ci));
+  edgePrims[ci] = buildEdges(ci).map(p => viewer.scene.primitives.add(p)); if (old) viewer.scene.primitives.remove(old); for (const p of oldE) viewer.scene.primitives.remove(p); }
+function clipCorridor() {
+  const polys = [];
+  for (let ci = 0; ci * CHUNK < N; ci++) { const i0 = ci * CHUNK, i1 = Math.min(N, i0 + CHUNK + 2), L = [], Rr = [];
+    for (let k = i0; k <= i1; k++) { const i = k % N, w = halfW(i) + .25, a = offsetLL(i, w), b = offsetLL(i, -w); L.push(Cesium.Cartesian3.fromDegrees(a[1], a[0], 0)); Rr.push(Cesium.Cartesian3.fromDegrees(b[1], b[0], 0)); }
+    polys.push(new Cesium.ClippingPolygon({positions: L.concat(Rr.reverse())})); }
+  clipSet = new Cesium.ClippingPolygonCollection({polygons: polys}); tileset.clippingPolygons = clipSet;
+}
+/* first reading: the whole circuit from 1.1 km up, every third point, spread over frames */
+async function layTrack(progress) {
+  const c = LAP.reduce((a, p) => [a[0] + p[0] / N, a[1] + p[1] / N], [0, 0]);
+  viewer.camera.setView({destination: Cesium.Cartesian3.fromDegrees(c[1], c[0], 1500), orientation: {heading: 0, pitch: -Math.PI / 2, roll: 0}});
+  const t0 = performance.now(); while (performance.now() - t0 < 45000) { await new Promise(r => setTimeout(r, 400)); if (tileset.tilesLoaded) break; progress('Reading the ground under the circuit…'); }
+  for (let i = 0; i < N; i += 3) { RAW[i] = sampleRoad(i); if (i % 60 === 0) { progress('Laying the track… ' + Math.round(i / N * 100) + '%'); await new Promise(r => setTimeout(r, 0)); } }
+  settleH(0, N - 1); dirty.clear(); KERBS = kerbCanvas(); FACE = faceCanvas(); clipCorridor();
+  for (let ci = 0; ci * CHUNK < N; ci++) rebuild(ci);
+  const got = RAW.filter(x => x != null).length; S.trackReady = true; return got;
+}
+/* while driving: sharpen the road 20-160 m ahead with the detail now loaded there, two readings a frame */
+function refine(now) {
+  if (!S.trackReady) return; const q = idxAt(S.s).i;
+  for (let n = 0; n < 2; n++) { refineAt = (refineAt + 1) % 48; const i = (q + 7 + refineAt) % N, r = sampleRoad(i); if (r != null) { RAW[i] = r; settleH(i - 6, i + 6); } }
+  if (dirty.size && now - lastRebuild > 350) { const ci = dirty.values().next().value; dirty.delete(ci); rebuild(ci); lastRebuild = now; }
+}
+/* ---- the car's pose: along the line, on the road, nose where it is going, rolled into corners ---- */
+const M4 = new Cesium.Matrix4(), R3 = new Cesium.Matrix3(), frame = new Cesium.Matrix4();
+function carPose(s, h, out) {
+  const p = posAt(s, new Cesium.Cartesian3()), ahead = posAt(s + 2.5, new Cesium.Cartesian3()), behind = posAt(s - 2.5, new Cesium.Cartesian3());
+  const c = Cesium.Cartographic.fromCartesian(p); const pos = Cesium.Cartesian3.fromRadians(c.longitude, c.latitude, (h || 0));
+  Cesium.Transforms.eastNorthUpToFixedFrame(pos, Cesium.Ellipsoid.WGS84, frame);
+  const inv = Cesium.Matrix4.inverseTransformation(frame, new Cesium.Matrix4());
+  const fa = Cesium.Matrix4.multiplyByPoint(inv, ahead, new Cesium.Cartesian3()), fb = Cesium.Matrix4.multiplyByPoint(inv, behind, new Cesium.Cartesian3());
+  let fx = fa.x - fb.x, fy = fa.y - fb.y; const L = Math.hypot(fx, fy) || 1; fx /= L; fy /= L;
+  /* curvature from the heading change over the next few metres, for roll and steer */
+  const a2 = posAt(s + 9, new Cesium.Cartesian3()), fc = Cesium.Matrix4.multiplyByPoint(inv, a2, new Cesium.Cartesian3());
+  const cx = fc.x - fa.x, cy = fc.y - fa.y, cl = Math.hypot(cx, cy) || 1, turn = Math.asin(Math.max(-1, Math.min(1, (fx * cy - fy * cx) / cl)));
+  out.pos = pos; out.fwd = [fx, fy]; out.turn = turn; out.frame = frame; return out;
+}
+const pose = {};
+function placeCar(dt) {
+  carPose(S.s, S.h, pose);
+  const [fx, fy] = pose.fwd, roll = Math.max(-.05, Math.min(.05, -pose.turn * S.v * .012)), pitch = S.pitch;
+  S.steer += (Math.max(-.35, Math.min(.35, pose.turn * 2.2)) - S.steer) * Math.min(1, dt * 8);
+  /* columns: x forward, y left, z up (the model's y-up is turned to z-up by Cesium, so its right becomes -y) */
+  const cr = Math.cos(roll), sr = Math.sin(roll), cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const X = [fx * cp, fy * cp, sp], Y0 = [-fy, fx, 0], Z0 = [-sp * fx, -sp * fy, cp];
+  const Y = [Y0[0] * cr + Z0[0] * sr, Y0[1] * cr + Z0[1] * sr, Y0[2] * cr + Z0[2] * sr], Z = [Z0[0] * cr - Y0[0] * sr, Z0[1] * cr - Y0[1] * sr, Z0[2] * cr - Y0[2] * sr];
+  Cesium.Matrix3.fromArray([...X, ...Y, ...Z], 0, R3);
+  car.modelMatrix = Cesium.Matrix4.multiply(pose.frame, Cesium.Matrix4.fromRotationTranslation(R3, Cesium.Cartesian3.ZERO, M4), new Cesium.Matrix4());
+  /* wheels: roll with the road speed (0.328 m radius), fronts steer */
+  S.wheel = (S.wheel + S.v * dt / .328) % (Math.PI * 2);
+  for (const [n, front, z] of WHEELS) { const node = car.getNode(n); if (!node) continue;
+    const q1 = Cesium.Quaternion.fromAxisAngle(Cesium.Cartesian3.UNIT_Y, front ? S.steer : 0), q2 = Cesium.Quaternion.fromAxisAngle(Cesium.Cartesian3.UNIT_Z, -S.wheel);
+    const q = Cesium.Quaternion.multiply(q1, q2, new Cesium.Quaternion());
+    node.matrix = Cesium.Matrix4.fromTranslationQuaternionRotationScale(new Cesium.Cartesian3(front ? .58 : -.53, .145, z), q, new Cesium.Cartesian3(1, 1, 1)); }
+}
+const WHEELS = [['front-left-wheel', 1, -.36], ['front-right-wheel', 1, .36], ['rear-left-wheel', 0, -.36], ['rear-right-wheel', 0, .36]];
+/* ---- cameras ---- */
+const camS = {pos: null, tgt: null};
+function lerpC(a, b, k) { return Cesium.Cartesian3.lerp(a, b, k, new Cesium.Cartesian3()); }
+function enuPoint(frame, e, n, u) { return Cesium.Matrix4.multiplyByPoint(frame, new Cesium.Cartesian3(e, n, u), new Cesium.Cartesian3()); }
+const TV = [];   /* trackside cameras: every ~220 m, on a pole on the fence line at the outside of the bend, 6.5 m up (inside the cut corridor, so never inside a building) */
+function buildTV() { for (let s = 60; s < lapLen; s += 220) { const q = {}; carPose(s, 0, q); const w = Math.max(4.5, (LAP[idxAt(s).i][2] || 12) / 2) + .7, side = q.turn > 0 ? -1 : 1, [fx, fy] = q.fwd;
+  TV.push({s, e: -fy * w * side, n: fx * w * side, fr: Cesium.Matrix4.clone(q.frame)}); } }
+function camera(dt) {
+  if (S.cam === 'free') return;
+  const fr = pose.frame, [fx, fy] = pose.fwd, h = 0; let eye, tgt, k = 1 - Math.exp(-dt * 5.5);
+  /* Heights are broadcast heights: Google's photo model is at its best from a few storeys up, and melts at bumper height. */
+  if (S.cam === 'chase') { eye = enuPoint(fr, -fx * 17, -fy * 17, 7); tgt = enuPoint(fr, fx * 9, fy * 9, 0); }
+  else if (S.cam === 'blimp') { eye = enuPoint(fr, -fx * 160 - fy * 90, -fy * 160 + fx * 90, 260); tgt = enuPoint(fr, fx * 40, fy * 40, 0); k = 1 - Math.exp(-dt * 1.2); }
+  else if (S.cam === 'heli') { const a = S.t * .06; eye = enuPoint(fr, -fx * 70 + Math.cos(a) * 55, -fy * 70 + Math.sin(a) * 55, 95); tgt = enuPoint(fr, fx * 12, fy * 12, 0); k = 1 - Math.exp(-dt * 2.2); }
+  else if (S.cam === 'tv') { let best = TV[0], bd = 1e9; for (const c of TV) { const d = ((c.s - S.s) % lapLen + lapLen) % lapLen; const dd = d > lapLen / 2 ? lapLen - d : d; const sc = d < 160 ? d : dd + 400; if (sc < bd) { bd = sc; best = c; } }
+    if (best !== S.tvCam) { S.tvCam = best; camS.pos = null; }
+    eye = enuPoint(best.fr, best.e, best.n, 0); tgt = Cesium.Cartesian3.clone(pose.pos); k = 1 - Math.exp(-dt * 8);
+    const c = Cesium.Cartographic.fromCartesian(eye); eye = Cesium.Cartesian3.fromRadians(c.longitude, c.latitude, hAt(best.s) + 6.5); }
+  if (S.cam !== 'tv') { const c = Cesium.Cartographic.fromCartesian(eye), up = S.cam === 'heli' ? 95 : S.cam === 'blimp' ? 260 : 7; eye = Cesium.Cartesian3.fromRadians(c.longitude, c.latitude, (S.h || 0) + up); }
+  if (!camS.pos) { camS.pos = eye; camS.tgt = tgt; } else { camS.pos = lerpC(camS.pos, eye, k); camS.tgt = lerpC(camS.tgt, tgt, Math.min(1, k * 1.6)); }
+  const dir = Cesium.Cartesian3.normalize(Cesium.Cartesian3.subtract(camS.tgt, camS.pos, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+  const up = Cesium.Ellipsoid.WGS84.geodeticSurfaceNormal(camS.pos, new Cesium.Cartesian3());
+  const right = Cesium.Cartesian3.normalize(Cesium.Cartesian3.cross(dir, up, new Cesium.Cartesian3()), new Cesium.Cartesian3());
+  const up2 = Cesium.Cartesian3.cross(right, dir, new Cesium.Cartesian3());
+  viewer.camera.setView({destination: camS.pos, orientation: {direction: dir, up: up2}});
+}
+/* ---- the loop ---- */
+function fmt(t) { const m = Math.floor(t / 60), s = t - m * 60; return m + ':' + (s < 10 ? '0' : '') + s.toFixed(1); }
+function tick(now) {
+  refine(now); S.h = hAt(S.s);
+  const dt = Math.min(.05, S.last ? (now - S.last) / 1000 : 1 / 60); S.last = now;
+  if (S.playing && S.trackReady) {
+    const d = dt * S.pace; const vT = speedAt(S.s); S.v += (vT - S.v) * Math.min(1, d * 3);
+    const prev = S.s; S.s = S.s + S.v * d; S.t += d;
+    if (S.s >= lapLen) { S.s -= lapLen; S.lapN++; S.lapStart = S.t; }
+    const acc = (vT - S.v), slope = (hAt(S.s + 2.2) - hAt(S.s - 2.2)) / 4.4; S.pitch += ((Math.atan(slope) - acc * .0018) - S.pitch) * Math.min(1, d * 4);
+  }
+  placeCar(dt); camera(dt);
+  $('spd').textContent = Math.round(S.v * 3.6); $('lapT').textContent = fmt(S.t - S.lapStart); $('lapN').textContent = 'Lap ' + S.lapN + ' · ' + (lapLen / 1000).toFixed(3) + ' km';
+  requestAnimationFrame(tick);
+}
+function setTime(hhmm) {
+  const [H, Mi] = hhmm.split(':').map(Number), d = new Date(); /* today's sun over Surfers, AEST (UTC+10, no daylight saving) */
+  const utc = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), H - 10, Mi);
+  viewer.clock.currentTime = Cesium.JulianDate.fromDate(new Date(utc)); viewer.clock.shouldAnimate = false;
+  document.querySelectorAll('#tod button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === hhmm)));
+}
+async function boot() {
+  try {
+    const [k, lap] = await Promise.all([key(), fetch('lap.json').then(r => r.json())]); buildLap(lap); $('loadText').textContent = 'Starting the city…';
+    viewer = new Cesium.Viewer('cesium', {baseLayer: false, baseLayerPicker: false, geocoder: false, homeButton: false, sceneModePicker: false, navigationHelpButton: false, animation: false, timeline: false, fullscreenButton: false, infoBox: false, selectionIndicator: false,
+      requestRenderMode: false, msaaSamples: PHONE ? 2 : 4, shadows: true, contextOptions: {webgl: {powerPreference: 'high-performance'}}});
+    const sc = viewer.scene; sc.globe.show = false; sc.skyAtmosphere.show = true; sc.fog.enabled = true; sc.fog.density = 1.4e-4; sc.postProcessStages.fxaa.enabled = true;
+    viewer.resolutionScale = Math.min(window.devicePixelRatio || 1, PHONE ? 1.5 : 2); viewer.useBrowserRecommendedResolution = false;
+    const sm = viewer.shadowMap; sm.softShadows = true; sm.size = PHONE ? 2048 : 4096; sm.maximumDistance = 400; sm.darkness = .35;
+    sc.light = new Cesium.SunLight(); setTime('15:30');
+    tileset = await Cesium.Cesium3DTileset.fromUrl('https://tile.googleapis.com/v1/3dtiles/root.json?key=' + encodeURIComponent(k), {showCreditsOnScreen: true, skipLevelOfDetail: true,
+      cacheBytes: PHONE ? 512 * 1048576 : 1536 * 1048576, maximumCacheOverflowBytes: 512 * 1048576, maximumScreenSpaceError: PHONE ? 10 : 6, shadows: Cesium.ShadowMode.RECEIVE_ONLY,
+      dynamicScreenSpaceError: true, foveatedScreenSpaceError: true, cullRequestsWhileMoving: false});
+    sc.primitives.add(tileset);
+    $('loadText').textContent = 'Bringing out the #26…';
+    car = await Cesium.Model.fromGltfAsync({url: 'car26.glb', upAxis: Cesium.Axis.Y, forwardAxis: Cesium.Axis.X, shadows: Cesium.ShadowMode.ENABLED, minimumPixelSize: 0,
+      customShader: new Cesium.CustomShader({mode: Cesium.CustomShaderMode.MODIFY_MATERIAL, lightingModel: Cesium.LightingModel.PBR, varyings: {v_normalMC: Cesium.VaryingType.VEC3}, vertexShaderText: 'void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){ v_normalMC = vsInput.attributes.normalMC; }', fragmentShaderText: LIVERY})});
+    sc.primitives.add(car); buildTV(); prepEdges();
+    $('loader').style.background = 'rgba(15,13,12,.55)';
+    const got = await layTrack(m => { $('loadText').textContent = m; }); window.__trackReadings = got;
+    $('loader').classList.add('done'); window.__ready = true;
+    requestAnimationFrame(tick);
+    document.querySelectorAll('#views button').forEach(b => b.onclick = () => { S.cam = b.dataset.cam; camS.pos = null; S.tvCam = null; document.querySelectorAll('#views button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); sc.screenSpaceCameraController.enableInputs = S.cam === 'free'; });
+    sc.screenSpaceCameraController.enableInputs = false;
+    document.querySelectorAll('#pace button').forEach(b => b.onclick = () => { S.pace = +b.dataset.pace; document.querySelectorAll('#pace button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); });
+    document.querySelectorAll('#tod button').forEach(b => b.onclick = () => setTime(b.dataset.t));
+    $('playBtn').onclick = () => { S.playing = !S.playing; $('playBtn').textContent = S.playing ? '❚❚ Pause' : '▶ Play'; $('playBtn').setAttribute('aria-pressed', String(S.playing)); };
+    $('fsBtn').onclick = () => { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {}); };
+    document.addEventListener('visibilitychange', () => { S.last = 0; });
+  } catch (e) { console.error(e); $('loadText').textContent = String(e.message || e); window.__bootError = String((e && e.message) || '') + ' | ' + String(e && e.stack || e).slice(0, 300); }
+}
+boot();
+window.GC500_SHOW = {S, setCam: c => { const b = document.querySelector(`#views [data-cam="${c}"]`); if (b) b.click(); }, setTime, get ready() { return !!car; }, jump: s => { S.s = s; camS.pos = null; }, get lapLen() { return lapLen; }};
+</script>
+<script>
+(function(){ /* page-to-page navigation from the link's own token; hidden inside the dashboard's frame */
+  const m = /^\/w\/([A-Za-z0-9_-]{16,128})\//.exec(location.pathname), nav = document.getElementById('xnav'); if (!nav) return;
+  const framed = (function(){ try { return window.self !== window.top; } catch (e) { return true; } })();
+  if (framed) { document.body.classList.add('framed'); nav.hidden = true; return; }
+  if (!m) { nav.hidden = true; return; }
+  const t = m[1], q = new URLSearchParams(location.search), back = q.get('back') === 'e' ? 'e' : q.get('back') === 'v' ? 'v' : (/\/e\//.test(document.referrer) ? 'e' : 'v');
+  const here = location.pathname.replace(/^\/w\/[^/]+\//, ''), tail = '?back=' + back;
+  const links = [['/' + back + '/' + encodeURIComponent(t), 'Dashboard', ''], ['/w/' + t + '/explorer/index.html' + tail, 'Plan on satellite', 'explorer/index.html'], ['/w/' + t + '/poc3d/index.html' + tail, '3D proof', 'poc3d/index.html'], ['/w/' + t + '/showcase3d/index.html' + tail, 'Showcase', 'showcase3d/index.html']];
+  nav.innerHTML = links.map(([h, n, k]) => `<a href="${h}"${k === here ? ' aria-current="page"' : ''}>${n}</a>`).join('');
+})();
+</script>
+</body>
+</html>

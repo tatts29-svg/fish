@@ -1,0 +1,6 @@
+# Author: Andrew Fisher. The live QR text never goes into the repository (servicing tracker design, 18 Oct 2026).
+# make_sheets.py refuses to write a live pack inside the repo; these lines are a second guard.
+GC500_servicing_sheets.pdf
+urls_live*.json
+tracker_links*.json
+__pycache__/

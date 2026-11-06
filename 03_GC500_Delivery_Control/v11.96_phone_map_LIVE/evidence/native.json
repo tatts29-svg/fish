@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68",
+  "passed": 17,
+  "checks": [
+    {
+      "name": "phone plan stage grows from 140px to at least 330px",
+      "ok": true
+    },
+    {
+      "name": "map stays above the footer without horizontal overflow",
+      "ok": true
+    },
+    {
+      "name": "map selection and Find remain visible",
+      "ok": true
+    },
+    {
+      "name": "Full screen is visible above the map without scrolling",
+      "ok": true
+    },
+    {
+      "name": "Map tools reveals the original area filter and equipment key",
+      "ok": true
+    },
+    {
+      "name": "Map tools closes without rebuilding or losing the map",
+      "ok": true
+    },
+    {
+      "name": "phone Full screen gives the plan at least 650px",
+      "ok": true
+    },
+    {
+      "name": "Exit full screen is labelled and keyboard reachable",
+      "ok": true
+    },
+    {
+      "name": "Escape exits and returns focus to Full screen",
+      "ok": true
+    },
+    {
+      "name": "phone page remains touch-scrollable with tools open",
+      "ok": true
+    },
+    {
+      "name": "small phone keeps a usable plan and no overflow",
+      "ok": true
+    },
+    {
+      "name": "small phone full-screen plan fits",
+      "ok": true
+    },
+    {
+      "name": "landscape full-screen plan and exit fit",
+      "ok": true
+    },
+    {
+      "name": "leaving Map exits full screen",
+      "ok": true
+    },
+    {
+      "name": "desktop retains area controls and has Full screen",
+      "ok": true
+    },
+    {
+      "name": "shared record unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors or record writes",
+      "ok": true
+    }
+  ],
+  "phone_stage_height_before": 140,
+  "phone_stage_height_after": 355,
+  "phone_fullscreen_stage_height": 706
+}

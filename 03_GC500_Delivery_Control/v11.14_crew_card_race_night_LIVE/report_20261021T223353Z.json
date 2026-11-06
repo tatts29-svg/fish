@@ -1,0 +1,20 @@
+{
+ "started": "20261021T223353Z",
+ "finished": "20261021T223404Z",
+ "by": "Andrew Fisher",
+ "page_sha256": "4d421ade78a7e0f77617463d0c47e4c78ec1e22545ce771d9426d874dc5d6299",
+ "card_before": {
+  "bytes": 95258,
+  "sha256": "3e1df40f3c6edc7cbc90b029d16934d22aa38fec9d46281d54ab561e937a914f"
+ },
+ "card_after": {
+  "bytes": 101739,
+  "sha256": "31981e013cb2d0dd34e093025ed0c73da911d41cb9194b6677b9f82d9ced0635"
+ },
+ "links": 75,
+ "links_unchanged": true,
+ "key_kept": true,
+ "ticks": 13,
+ "backup": "private, outside the repo",
+ "admin_status": "Event tracker saved and read back. Run the iPhone and Android paper scans before laminating."
+}

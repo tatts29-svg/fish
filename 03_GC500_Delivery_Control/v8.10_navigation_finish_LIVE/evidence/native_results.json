@@ -1,0 +1,188 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "36d27b553b9d2ee8c221b155d49d760d02fd225645653eaaec9f3637fd3789ad",
+  "candidateSha256": "0344325c5fa32798a64cc58ee686d954fdc9d0cf947cb97cc43c6595a9873611",
+  "checks": [
+    {
+      "name": "Every byte outside address guard and route preserved",
+      "pass": true
+    },
+    {
+      "name": "Valid asset route body byte-identical",
+      "pass": true
+    },
+    {
+      "name": "Valid day route body byte-identical",
+      "pass": true
+    },
+    {
+      "name": "Known-reference drawing and business data source preserved",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2024-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2000-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2400-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-10-09\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-02-31\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"1900-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2100-02-29\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-04-31\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-00-01\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-13-01\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-10-00\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-2-03\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-10-09T00:00:00Z\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"2026-10-09 \"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation \"\"",
+      "pass": true
+    },
+    {
+      "name": "ISO calendar validation null",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #asset/MISSING",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #asset/",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #asset/P55%0A",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #day/2026-10-07%0A",
+      "pass": true
+    },
+    {
+      "name": "Rejected day leaves no phantom state.day: #day/2026-10-07%0A",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #asset/%E0%A4%A",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #day/2026-02-31",
+      "pass": true
+    },
+    {
+      "name": "Rejected day leaves no phantom state.day: #day/2026-02-31",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #day/2026-10-07/extra",
+      "pass": true
+    },
+    {
+      "name": "Rejected day leaves no phantom state.day: #day/2026-10-07/extra",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #day/2030-01-01",
+      "pass": true
+    },
+    {
+      "name": "Rejected day leaves no phantom state.day: #day/2030-01-01",
+      "pass": true
+    },
+    {
+      "name": "Rejected route closes stale drawer, clears selection, completes history: #day/%E0%A4%A",
+      "pass": true
+    },
+    {
+      "name": "Rejected day leaves no phantom state.day: #day/%E0%A4%A",
+      "pass": true
+    },
+    {
+      "name": "Native route preserves available valid day 2026-10-07",
+      "pass": true
+    },
+    {
+      "name": "Native route preserves available valid day 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "Native route preserves available valid day 2024-02-29",
+      "pass": true
+    },
+    {
+      "name": "Native known-reference route still opens exact reference",
+      "pass": true
+    },
+    {
+      "name": "Patch refuses second application without altering input",
+      "pass": true,
+      "detail": {
+        "exit": 1
+      }
+    },
+    {
+      "name": "Patch refuses missing required805 without altering input",
+      "pass": true,
+      "detail": {
+        "exit": 1
+      }
+    },
+    {
+      "name": "Patch refuses unexpected route source without altering input",
+      "pass": true,
+      "detail": {
+        "exit": 1
+      }
+    }
+  ],
+  "passed": 42,
+  "total": 42,
+  "networkCalls": 0,
+  "operationalWrites": 0
+}

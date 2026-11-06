@@ -1,0 +1,83 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T030919Z",
+ "finished": "2026-10-20T03:09:29.486Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"vms05 is intsalled i gave u the opinned location too\". VMS05 (Coates 1211356, rego ER9244; delivered 20 Oct, Micks, docket 26141143 on Schedule 11) install ticked on T0001. Andrew took this tick off on 16 Oct when VMS05 left; he has now said it is installed. His pin is already on plan position 05a (vms05_spec.json, 20 Oct).",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "T0001",
+    "unit": "1211356",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10197,
+  "after": 10200
+ },
+ "updated": {
+  "before": "2026-10-20T03:03:15.443Z",
+  "after": "2026-10-20T03:09:28.489Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "T0001",
+   "unit": "1211356",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "by/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null,
+   "labour/T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null
+  },
+  "after": {
+   "stamps/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211356|Variable message signs|VMS|install",
+    "v": "2026-10-20T03:09:26.114Z"
+   },
+   "by/labour~2f~T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1211356|Variable message signs|VMS|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/T0001~2f~u1211356~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1211356|Variable message signs|VMS|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

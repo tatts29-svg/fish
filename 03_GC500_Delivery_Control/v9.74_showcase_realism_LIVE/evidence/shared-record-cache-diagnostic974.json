@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "method": "Actual browser served candidate; public GET native hydration and photos; no operational writes",
+  "observed_native_version": 5174,
+  "remaining_before_cache_invalidation": [
+    "T0022",
+    "T0023",
+    "T0159",
+    "T0169",
+    "T0170",
+    "T0224"
+  ],
+  "remaining_after_cache_invalidation": [
+    "T0159",
+    "T0169",
+    "T0170"
+  ],
+  "stale_rows": [
+    "T0022",
+    "T0023",
+    "T0224"
+  ],
+  "diagnosis": "pinsNow global RENDER_MEMO cached pre-hydration native state; syncFold changed shared-record fields without immediate memo invalidation. Deferred render eventually invalidates, but direct models or intermediate redraws can see stale data.",
+  "confirmed": "Existing parent/unit native GPS positions resolve all three rows as soon as memo is invalidated. No new pin or mapping is needed.",
+  "errors": 0,
+  "operational_writes": 0
+}

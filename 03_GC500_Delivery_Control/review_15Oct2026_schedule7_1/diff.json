@@ -1,0 +1,6422 @@
+{
+ "author": "Andrew Fisher",
+ "reviewed": "2026-10-15",
+ "live_page": {
+  "version": "v10.18",
+  "sha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "schedule_source_held": "Schedule 7 (485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac), applied in v9.50",
+  "programme_source_held": "P003-26003-01 Programme Coates Inf V1 14.8.26 (2).xlsx (fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7), applied in v9.51"
+ },
+ "schedule_7_1": {
+  "file": "196709b7-GC500_26_Schedule_7_1.xlsx",
+  "sha256": "98b6db43c734fc0d6ea4c02efccc1c5b2b1071f83b6a85b33df07843b9183fe4",
+  "saved": "2026-09-30T15:59:45+10:00",
+  "saved_by": "Stephens, Krystal (North)",
+  "created": "2026-08-20T02:13:09Z",
+  "creator": "Meek, Brenden (North)",
+  "sheets": [
+   "BOQ",
+   "Labour",
+   "Week 6",
+   "Week 5",
+   "Week 4",
+   "Week 3",
+   "Week 2",
+   "Week 1",
+   "Event Week",
+   "Demob Week 1",
+   "Demob Week 2",
+   "Demob Week 3"
+  ],
+  "nonempty_cells": 2809,
+  "formulas": false,
+  "identical_to": {
+   "file": "GC500_26_Schedule_2.xlsx",
+   "sha256": "d65d5f7acd486c97b693555d8ea2be893fa2b06b2ccdc4473b11b6257b9c1a88",
+   "cells_different": 0
+  },
+  "cell_diff_vs_schedule_6": {
+   "sha256_schedule_6": "228801df246f21b29e6da196fa9c7c3a5ef492dc6b9aa814df0aceead67e2558",
+   "sheets_identical": [
+    "BOQ",
+    "Labour",
+    "Week 6",
+    "Week 5",
+    "Week 4",
+    "Demob Week 1",
+    "Demob Week 2",
+    "Demob Week 3"
+   ],
+   "sheets_different": [
+    "Week 3",
+    "Week 2",
+    "Week 1",
+    "Event Week"
+   ],
+   "cells_added_in_7_1": 26,
+   "cells_removed_in_7_1": 173,
+   "cells_changed": 98,
+   "note": "ref-aligned counts include row shifts; the row-aligned comparison below is the one to read"
+  },
+  "row_comparison_vs_schedule_7": {
+   "totals": {
+    "same": 176,
+    "changed": 83,
+    "only_in_71": 1,
+    "only_in_7": 7
+   },
+   "per_sheet": {
+    "Week 6": {
+     "same": 5,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    },
+    "Week 5": {
+     "same": 42,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    },
+    "Week 4": {
+     "same": 19,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    },
+    "Week 3": {
+     "same": 8,
+     "changed": 17,
+     "only_in_7_1": 0,
+     "only_in_7": 3
+    },
+    "Week 2": {
+     "same": 2,
+     "changed": 26,
+     "only_in_7_1": 0,
+     "only_in_7": 2
+    },
+    "Week 1": {
+     "same": 10,
+     "changed": 25,
+     "only_in_7_1": 1,
+     "only_in_7": 0
+    },
+    "Event Week": {
+     "same": 34,
+     "changed": 15,
+     "only_in_7_1": 0,
+     "only_in_7": 2
+    },
+    "Demob Week 1": {
+     "same": 42,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    },
+    "Demob Week 2": {
+     "same": 2,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    },
+    "Demob Week 3": {
+     "same": 12,
+     "changed": 0,
+     "only_in_7_1": 0,
+     "only_in_7": 0
+    }
+   },
+   "sheets": [
+    {
+     "sheet": "Week 6",
+     "rows_71": 5,
+     "rows_7": 5,
+     "entries": [
+      {
+       "sheet": "Week 6",
+       "row_71": 2,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-09-07",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0001"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 6",
+       "row_71": 3,
+       "local": "Delivery to Molendinar",
+       "item": "Light Tower ",
+       "date_71": "2026-09-11",
+       "qty_71": 5,
+       "page_task_ids": [
+        "T0002"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 3,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 6",
+       "row_71": 4,
+       "local": "Phillip Park",
+       "item": "Forklift 5T",
+       "date_71": "2026-09-11",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0003"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 6",
+       "row_71": 5,
+       "local": "Phillip Park",
+       "item": "Forklift 2.5T",
+       "date_71": "2026-09-11",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0004"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 5,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 6",
+       "row_71": 6,
+       "local": "Phillip Park",
+       "item": "fencing",
+       "date_71": "2026-09-12",
+       "qty_71": 1,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 6,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Week 5",
+     "rows_71": 42,
+     "rows_7": 42,
+     "entries": [
+      {
+       "sheet": "Week 5",
+       "row_71": 2,
+       "local": "P01 - iEDM Engineering Office ",
+       "item": "Building 12m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0006"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 3,
+       "local": "P03 - SCA Event Management Office ",
+       "item": "Building 12m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0007"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 4,
+       "local": "P05 - Event Control Center (ECC)",
+       "item": "Building 6m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0009"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 5,
+       "local": "CP1 (P68) - Signevent Crib Room ",
+       "item": "Building 6m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0010"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 6,
+       "local": "WC05",
+       "item": "Waste tank",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0230"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 7,
+       "local": "P04 - SCA Sales & Marketing Office ",
+       "item": "Building 12m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0008"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 8,
+       "local": "WC05 - Event Operations Compound Toilet - Combo Block (Tanked)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-14",
+       "qty_71": "T",
+       "page_task_ids": [
+        "T0012"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 9,
+       "local": "P33 - Race Medical ",
+       "item": "Building 9.6m",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0015"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 10,
+       "local": "WC21 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-09-14",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0013"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 10,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 11,
+       "local": "WC100",
+       "item": "FWF Trailer",
+       "date_71": "2026-09-14",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0016"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 12,
+       "local": "WC12 - Toilets ",
+       "item": "FWF",
+       "date_71": "2026-09-14",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0017"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 13,
+       "local": "WC11 - Toilets ",
+       "item": "FWF",
+       "date_71": "2026-09-14",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0018"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 14,
+       "local": "WC16 - S01 Corporate Toilets - 1x Female, x Male (Sewer)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-14",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0014"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 15,
+       "local": "Macintosh",
+       "item": "Forklift 2.5T RT",
+       "date_71": "2026-09-14",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0005"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 15,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 16,
+       "local": "WC81 - Toilet (Cypress)",
+       "item": "FWF",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0011"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 17,
+       "local": null,
+       "item": "Generator 200kva",
+       "date_71": "2026-09-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0019"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 17,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 18,
+       "local": "WB01 Gold Coast Highway (Near PB3 DR - On GCHWY at the Tedder Avenue intersection)",
+       "item": "TL2",
+       "date_71": "2026-09-14",
+       "qty_71": 12,
+       "page_task_ids": [
+        "T0020"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 18,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 19,
+       "local": "Office 4.8x3",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0021",
+        "T0022"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 19,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 20,
+       "local": "Lunchroom 4.8x3",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0021",
+        "T0022"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 20,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 21,
+       "local": "event container from eags",
+       "item": "Event Container",
+       "date_71": "2026-09-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0023"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 21,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 22,
+       "local": null,
+       "item": "FWF",
+       "date_71": "2026-09-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0024"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 22,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 23,
+       "local": "Trackmat Delivery - S18",
+       "item": "Trakmat",
+       "date_71": "2026-09-15",
+       "qty_71": 20,
+       "page_task_ids": [
+        "T0025"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 23,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 24,
+       "local": "WC17 - S01 Corporate Toilets",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-15",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0026"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 25,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-15",
+       "qty_71": 2,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 25,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 26,
+       "local": "P09 - Iedm Safety Office",
+       "item": "Building 6m",
+       "date_71": "2026-09-16",
+       "qty_71": 1097377,
+       "page_task_ids": [
+        "T0027"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 27,
+       "local": "P17 - Team Office BJR",
+       "item": "Building 9.6m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0028"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 27,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 28,
+       "local": "P18 - Team Office - MSR",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0029"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 28,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 29,
+       "local": "P19 - Team Office Premiair Racing",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0030"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 29,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 30,
+       "local": "P20 - Team Office Blanchard Racing",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0031"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 30,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 31,
+       "local": "P21 - Team Objective Racing",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0231"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 31,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 32,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-16",
+       "qty_71": 3,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 32,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 33,
+       "local": "P27 - Volunteer and Cadet Supervisors",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0032"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 33,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 34,
+       "local": "P29 - SCA Stewards",
+       "item": "Building 6m",
+       "date_71": "2026-09-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0033"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 34,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 35,
+       "local": "P36 - Harry the Hirer",
+       "item": "Building 6m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0232"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 35,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 36,
+       "local": "HRP - Hire Republic Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0034"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 36,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 37,
+       "local": "P10 - Team Office - 888 Racing",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0035"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 37,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 38,
+       "local": "P11 - Team Office - DJR",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0036"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 38,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 39,
+       "local": "P12 - Team 18",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0037"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 39,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 40,
+       "local": "P37 Oz Wide Audio Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0038"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 40,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 41,
+       "local": "AA - Active Air Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-09-17",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0039"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 41,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 42,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-17",
+       "qty_71": 2,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 42,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 5",
+       "row_71": 43,
+       "local": "WB03 Gold Coast Highway (Turn 2) - Concrete small blocks",
+       "item": "TL2",
+       "date_71": "2026-09-18",
+       "qty_71": 30,
+       "page_task_ids": [
+        "T0040"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 43,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Week 4",
+     "rows_71": 19,
+     "rows_7": 19,
+     "entries": [
+      {
+       "sheet": "Week 4",
+       "row_71": 2,
+       "local": "P13 - Team Office - WAU",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-21",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0041"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 3,
+       "local": "P14 - Team Office - Grove Racing",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-21",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0042"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 4,
+       "local": "P15 - Team Office - Erebus Motorsport",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-21",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0043"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 5,
+       "local": "P16 - Team Office - WFL",
+       "item": "Building 4.8m",
+       "date_71": "2026-09-21",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0044"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 6,
+       "local": "WB02 S08 - Pedestrian Pathway along Main Beach Parade",
+       "item": "TL2",
+       "date_71": "2026-09-21",
+       "qty_71": 34,
+       "page_task_ids": [
+        "T0045"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 7,
+       "local": "WC02 - Toilet",
+       "item": "FWF",
+       "date_71": "2026-09-21",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0239"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 8,
+       "local": "WC04 - Toilet - QAS",
+       "item": "FWF",
+       "date_71": "2026-09-21",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0240"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 9,
+       "local": "WC06 - Toilets - Race Admin",
+       "item": "FWF",
+       "date_71": "2026-09-21",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0241"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 10,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-21",
+       "qty_71": 2,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 10,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 11,
+       "local": "WC07 - Toilets - Merch Area",
+       "item": "FWF",
+       "date_71": "2026-09-22",
+       "qty_71": 20,
+       "page_task_ids": [
+        "T0048"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 12,
+       "local": "P44 - Queensland Ambulance Service",
+       "item": "Building 6m",
+       "date_71": "2026-09-23",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0050"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 13,
+       "local": "P58 - 1300 Medics",
+       "item": "Building 6m",
+       "date_71": "2026-09-23",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0051"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 14,
+       "local": "P41 - QFES Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-09-23",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0052"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 15,
+       "local": "WC-TV (sewer connect)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-23",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0243"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 15,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 16,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-23",
+       "qty_71": 2,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 16,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 17,
+       "local": "philip park",
+       "item": "fencing",
+       "date_71": "2026-09-24",
+       "qty_71": 3,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 17,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 19,
+       "local": "WC27 - Toilet (Tank Mounted)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-25",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0056"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 20,
+       "local": "WC27",
+       "item": "Waste tank",
+       "date_71": "2026-09-25",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0246"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 4",
+       "row_71": 21,
+       "local": "WC15 - Toilets (Sewer Connect)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-09-25",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0057"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 21,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Week 3",
+     "rows_71": 25,
+     "rows_7": 28,
+     "entries": [
+      {
+       "sheet": "Week 3",
+       "row_71": 2,
+       "local": "WB02 S08 - Pedestrian Pathway along Main Beach Parade",
+       "item": "TL2",
+       "date_71": "2026-09-27",
+       "qty_71": 34,
+       "page_task_ids": [
+        "T0058"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 3,
+       "local": "P06 - Wilclean Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0059"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M3"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 4,
+       "local": "WC01 - Toilets",
+       "item": "Accessible Toilet",
+       "date_71": "2026-09-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0060"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$570+",
+         "cell_7_1": null,
+         "cell_7": "M4"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 5,
+       "local": "WC01 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-09-28",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0061"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M5"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 6,
+       "local": "WC41 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-09-28",
+       "qty_71": 10,
+       "page_task_ids": [
+        "T0062"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M6"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 7,
+       "local": "WC42 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0063"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M7"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 8,
+       "local": "WC43 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-09-28",
+       "qty_71": 10,
+       "page_task_ids": [
+        "T0064"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M8"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 9,
+       "local": "GN01 - Generator ",
+       "item": "60kva",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0065"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M9"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 10,
+       "local": "P38 - Green Room 1",
+       "item": "Building 6m",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0066"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 10,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M10"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 11,
+       "local": "P39 Green Room 2",
+       "item": "Building 6m",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0067"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M11"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 12,
+       "local": "P42 - Production",
+       "item": "Building 6m",
+       "date_71": "2026-09-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0068"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M12"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 13,
+       "local": "WC50 - Toilet",
+       "item": "FWF",
+       "date_71": "2026-09-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0247"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M13"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 14,
+       "local": "P53 - Accred Centre",
+       "item": "Building 6m",
+       "date_71": "2026-09-29",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0070"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 15,
+       "local": "GN20 S01",
+       "item": "350kva",
+       "date_71": "2026-09-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0075"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 15,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$570+",
+         "cell_7_1": null,
+         "cell_7": "M15"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 16,
+       "local": "GN21 - Generator ",
+       "item": "60kva",
+       "date_71": "2026-09-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0076"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M16"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 17,
+       "local": "GN23 - Generator ",
+       "item": "150kva",
+       "date_71": "2026-09-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0077"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 17,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M17"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 18,
+       "local": "GN03 - Generator ",
+       "item": "30kva",
+       "date_71": "2026-10-01",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0078"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M19"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 19,
+       "local": "WC44 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-01",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0079"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 20,
+       "local": "WC66",
+       "item": "FWF",
+       "date_71": "2026-10-01",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0080"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 21,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 21,
+       "local": "WC67 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-01",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0081"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 22,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 22,
+       "local": "WC71 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-01",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0083"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 23,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 23,
+       "local": "WC60 - Toilets (Tank Mounted)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-10-01",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0248"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 24,
+       "local": "WC60 - Toilets (Tank Mounted)",
+       "item": null,
+       "date_71": null,
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0248"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 25,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M25"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 25,
+       "local": "WC60 -  (Tank ",
+       "item": null,
+       "date_71": null,
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0248"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "changed",
+       "fields": {
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$580+",
+         "cell_7_1": null,
+         "cell_7": "M26"
+        }
+       }
+      },
+      {
+       "sheet": "Week 3",
+       "row_71": 37,
+       "local": null,
+       "item": null,
+       "date_71": null,
+       "qty_71": null,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 39,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 3",
+       "row_7": 18,
+       "local": "fencing",
+       "item": "fencing",
+       "date_7": "2026-09-30",
+       "qty_7": 2,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-09-30",
+        "product": "fencing",
+        "item": "fencing",
+        "qty": 2,
+        "local": "fencing",
+        "notes": "2 x semi of fencing",
+        "carrier": "teams",
+        "tport": "$1152.62+"
+       },
+       "page_task_ids": [],
+       "page_kind": []
+      },
+      {
+       "sheet": "Week 3",
+       "row_7": 27,
+       "local": null,
+       "item": "fencing",
+       "date_7": "2026-10-01",
+       "qty_7": 2,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-10-01",
+        "product": "fencing",
+        "item": "fencing",
+        "qty": 2,
+        "notes": "2 x semi of fencing",
+        "activity": "philip park",
+        "carrier": "teams",
+        "tport": "$1152.62+"
+       },
+       "page_task_ids": [],
+       "page_kind": []
+      },
+      {
+       "sheet": "Week 3",
+       "row_7": 28,
+       "local": "fencing",
+       "item": "fencing",
+       "date_7": "Friday 2nd October",
+       "qty_7": 1,
+       "state": "only_in_7",
+       "cells": {
+        "date": "Friday 2nd October",
+        "product": "fencing",
+        "item": "fencing",
+        "qty": 1,
+        "local": "fencing",
+        "notes": "semi of fencing",
+        "activity": "philip park",
+        "carrier": "teams",
+        "tport": "$576.31+"
+       },
+       "page_task_ids": [],
+       "page_kind": []
+      }
+     ]
+    },
+    {
+     "sheet": "Week 2",
+     "rows_71": 28,
+     "rows_7": 30,
+     "entries": [
+      {
+       "sheet": "Week 2",
+       "row_71": 5,
+       "local": "P08 Security",
+       "item": "Building 6m",
+       "date_71": "2026-10-06",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0249"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "4th",
+         "cell_7_1": null,
+         "cell_7": "K5"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M5"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 6,
+       "local": "P46 - QPS Command Post",
+       "item": "Building 12m",
+       "date_71": "2026-10-06",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0086"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": 1327213,
+         "schedule_7": 1322579,
+         "cell_7_1": "I6",
+         "cell_7": "I6"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "1st",
+         "cell_7_1": null,
+         "cell_7": "K6"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M6"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 7,
+       "local": "P47 - QPS Amenities Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-10-06",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0087"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "2nd",
+         "cell_7_1": null,
+         "cell_7": "K7"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 8,
+       "local": "P51 - Security Sign On",
+       "item": "Building 12m",
+       "date_71": "2026-10-06",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0088"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "3rd",
+         "cell_7_1": null,
+         "cell_7": "K8"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M8"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 9,
+       "local": "Event Elec",
+       "item": "FWF",
+       "date_71": "2026-10-06",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0089"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 10,
+       "local": "WC20 - Toilets (Tank Mounted)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-10-07",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0250"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "8th",
+         "schedule_7": "8th  26112783/ 26112786",
+         "cell_7_1": "J10",
+         "cell_7": "J11"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0900/0900",
+         "cell_7_1": null,
+         "cell_7": "K11"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl/sfl",
+         "cell_7_1": null,
+         "cell_7": "L11"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$580+",
+         "cell_7_1": null,
+         "cell_7": "M11"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 11,
+       "local": "WC20",
+       "item": "Waste tank",
+       "date_71": "2026-10-07",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0251"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "7th",
+         "schedule_7": "7th  26112769/ 26112776",
+         "cell_7_1": "J11",
+         "cell_7": "J12"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "630/0700",
+         "cell_7_1": null,
+         "cell_7": "K12"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "kev/sfl",
+         "cell_7_1": null,
+         "cell_7": "L12"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M12"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 12,
+       "local": "WC86 - Toilet",
+       "item": "Accessible Toilet",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0252"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 23,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": null,
+         "schedule_7": "with container",
+         "cell_7_1": null,
+         "cell_7": "I23"
+        },
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "4th 26112797",
+         "cell_7_1": null,
+         "cell_7": "J23"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 530,
+         "cell_7_1": null,
+         "cell_7": "K23"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "irwins",
+         "cell_7_1": null,
+         "cell_7": "L23"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M23"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 13,
+       "local": "GN18 - Generator ",
+       "item": "50kva",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0090"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": 1276501,
+         "schedule_7": "1261273 ex  REED",
+         "cell_7_1": "I13",
+         "cell_7": "I13"
+        },
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": 26112495,
+         "cell_7_1": null,
+         "cell_7": "J13"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0930",
+         "cell_7_1": null,
+         "cell_7": "K13"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "kev",
+         "cell_7_1": null,
+         "cell_7": "L13"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "M13"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 14,
+       "local": "WC38 - Toilet",
+       "item": "FWF",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0091"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "changed",
+       "fields": {
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "NA",
+         "cell_7_1": null,
+         "cell_7": "L14"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 15,
+       "local": "WC39 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-07",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0092"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 15,
+       "state": "changed",
+       "fields": {
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "NA",
+         "cell_7_1": null,
+         "cell_7": "L15"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 16,
+       "local": "WC40 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-07",
+       "qty_71": 5,
+       "page_task_ids": [
+        "T0093"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "changed",
+       "fields": {
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "NA",
+         "cell_7_1": null,
+         "cell_7": "L16"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 17,
+       "local": "P52 - Gate 1 Volunteer Check-In",
+       "item": "Building 12m",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0253"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 17,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "6th",
+         "schedule_7": "6th  26112762",
+         "cell_7_1": "J17",
+         "cell_7": "J17"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0830",
+         "cell_7_1": null,
+         "cell_7": "K17"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "readys",
+         "cell_7_1": null,
+         "cell_7": "L17"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$652.37+",
+         "cell_7_1": null,
+         "cell_7": "M17"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 18,
+       "local": "P54 - Accred Centre BOH",
+       "item": "Building 6m",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0254"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 18,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "3rd",
+         "schedule_7": "3rd  26112733",
+         "cell_7_1": "J18",
+         "cell_7": "J18"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0530",
+         "cell_7_1": null,
+         "cell_7": "K18"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "readys",
+         "cell_7_1": null,
+         "cell_7": "L18"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$310.70+",
+         "cell_7_1": null,
+         "cell_7": "M18"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 19,
+       "local": "P55 - Gate 1 Ticket Box",
+       "item": "Ticket Box 6m",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0255"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "1st",
+         "schedule_7": "1st  26112709",
+         "cell_7_1": "J19",
+         "cell_7": "J19"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0500",
+         "cell_7_1": null,
+         "cell_7": "K19"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L19"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M19"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 20,
+       "local": "P56 - Gate 1 Ticket BOH",
+       "item": "Building 3.6m",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0256"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "2nd",
+         "schedule_7": "2nd 26112730",
+         "cell_7_1": "J20",
+         "cell_7": "J20"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0500",
+         "cell_7_1": null,
+         "cell_7": "K20"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L20"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$290+",
+         "cell_7_1": null,
+         "cell_7": "M20"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 21,
+       "local": "P57 - Radio Distribution Office",
+       "item": "Building 9.6m",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0257"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 21,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "5th",
+         "schedule_7": "5th 26112756",
+         "cell_7_1": "J21",
+         "cell_7": "J21"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0830",
+         "cell_7_1": null,
+         "cell_7": "K21"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "readys",
+         "cell_7_1": null,
+         "cell_7": "L21"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$652.37+",
+         "cell_7_1": null,
+         "cell_7": "M21"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 22,
+       "local": "Helen Park",
+       "item": "3.0m Cont",
+       "date_71": "2026-10-07",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0258"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 22,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": null,
+         "schedule_7": "with toilet",
+         "cell_7_1": null,
+         "cell_7": "I22"
+        },
+        "dd": {
+         "schedule_7_1": "4th",
+         "schedule_7": "4th 26112749",
+         "cell_7_1": "J22",
+         "cell_7": "J22"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 530,
+         "cell_7_1": null,
+         "cell_7": "K22"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "irwins",
+         "cell_7_1": null,
+         "cell_7": "L22"
+        },
+        "tport": {
+         "schedule_7_1": null,
+         "schedule_7": "$275.40+ ",
+         "cell_7_1": null,
+         "cell_7": "M22"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 23,
+       "local": "WC61 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-07",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0095"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G24"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "NA",
+         "cell_7_1": null,
+         "cell_7": "L24"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 24,
+       "local": "WC31 - Toilets ",
+       "item": "Accessible Toilet",
+       "date_71": "2026-10-08",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0096"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 25,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": 26115307,
+         "cell_7_1": null,
+         "cell_7": "J25"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 1000,
+         "cell_7_1": null,
+         "cell_7": "K25"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "kev",
+         "cell_7_1": null,
+         "cell_7": "L25"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 25,
+       "local": "WC31 - Toilets ",
+       "item": "16Pan Block",
+       "date_71": "2026-10-08",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0097"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G26"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "L26"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 26,
+       "local": "WC32 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-08",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0098"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 27,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 27,
+       "local": "WC34 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-08",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0099"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 28,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G28"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "L28"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 28,
+       "local": "WC33 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-08",
+       "qty_71": 17,
+       "page_task_ids": [
+        "T0100"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 29,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G29"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "L29"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 29,
+       "local": "WC09 - Toilets ",
+       "item": "FWF",
+       "date_71": "2026-10-08",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0101"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 30,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G30"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "reduced from 10 ",
+         "cell_7_1": null,
+         "cell_7": "K30"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "L30"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 30,
+       "local": "WC09 - Toilets ",
+       "item": "Pee Panel",
+       "date_71": "2026-10-08",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0259"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 31,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G31"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "L31"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 31,
+       "local": "WC09 - Toilets ",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-10-08",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0102"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 32,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "26115312/26115316",
+         "cell_7_1": null,
+         "cell_7": "J32"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "0930/1000",
+         "cell_7_1": null,
+         "cell_7": "K32"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl/sfl",
+         "cell_7_1": null,
+         "cell_7": "L32"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_71": 32,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-10-08",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0103"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 33,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": null,
+         "schedule_7": "premiair hire",
+         "cell_7_1": null,
+         "cell_7": "I33"
+        },
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": 26115373,
+         "cell_7_1": null,
+         "cell_7": "J33"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 900,
+         "cell_7_1": null,
+         "cell_7": "K33"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "kev",
+         "cell_7_1": null,
+         "cell_7": "L33"
+        }
+       }
+      },
+      {
+       "sheet": "Week 2",
+       "row_7": 4,
+       "local": "Supply",
+       "item": "3.5T Forklift Std",
+       "date_7": "2026-10-06",
+       "qty_7": 1,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-10-06",
+        "product": "Access",
+        "item": "3.5T Forklift Std",
+        "qty": 1,
+        "local": "Supply",
+        "notes": "1.8m Extensions",
+        "customer": "scars",
+        "asset": "1210921ex eags -SL 1262224 ex mead",
+        "dd": 26109954
+       },
+       "page_task_ids": [
+        "T0085"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ]
+      },
+      {
+       "sheet": "Week 2",
+       "row_7": 10,
+       "local": "fencing",
+       "item": "fencing",
+       "date_7": "2026-10-06",
+       "qty_7": 1,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-10-06",
+        "product": "fencing",
+        "item": "fencing",
+        "qty": 1,
+        "local": "fencing",
+        "notes": "philip park",
+        "carrier": "teams",
+        "tport": "$576.31+"
+       },
+       "page_task_ids": [],
+       "page_kind": []
+      }
+     ]
+    },
+    {
+     "sheet": "Week 1",
+     "rows_71": 36,
+     "rows_7": 35,
+     "entries": [
+      {
+       "sheet": "Week 1",
+       "row_71": 2,
+       "local": "GN? Concert",
+       "item": "200kva & cables",
+       "date_71": "2026-10-12",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0260"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "26121298 & 26121310",
+         "cell_7_1": null,
+         "cell_7": "J2"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "1100 & 1130",
+         "cell_7_1": null,
+         "cell_7": "K2"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L2"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 3,
+       "local": "Supply",
+       "item": "3.5T Forklift Std",
+       "date_71": "2026-10-12",
+       "qty_71": 1,
+       "page_task_ids": [],
+       "page_kind": [],
+       "state": "only_in_7_1",
+       "cells": {
+        "date": "2026-10-12",
+        "product": "Access",
+        "item": "3.5T Forklift Std",
+        "qty": 1,
+        "local": "Supply",
+        "notes": "1.8m Extensions",
+        "customer": "scars",
+        "asset": "1210921ex eags -SL 1262224 ex mead"
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 4,
+       "local": "GN13 - Generator ",
+       "item": "45kva",
+       "date_71": "2026-10-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0105"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": "1261273 EX REED",
+         "schedule_7": 1261271,
+         "cell_7_1": "I4",
+         "cell_7": "I4"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "700/800",
+         "cell_7_1": null,
+         "cell_7": "K4"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L4"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 5,
+       "local": "P69 - Supply Building",
+       "item": "Building 6m",
+       "date_71": "2026-10-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0106"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "D2D",
+         "cell_7_1": null,
+         "cell_7": "G5"
+        },
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "2nd 26120550",
+         "cell_7_1": null,
+         "cell_7": "J5"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 930,
+         "cell_7_1": null,
+         "cell_7": "K5"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L5"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 6,
+       "local": "P45 St John First Aid",
+       "item": "Building 6m",
+       "date_71": "2026-10-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0261"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "1st 26122823",
+         "cell_7_1": null,
+         "cell_7": "J6"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 830,
+         "cell_7_1": null,
+         "cell_7": "K6"
+        },
+        "carrier": {
+         "schedule_7_1": null,
+         "schedule_7": "sfl",
+         "cell_7_1": null,
+         "cell_7": "L6"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 7,
+       "local": "WC59 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-12",
+       "qty_71": 7,
+       "page_task_ids": [
+        "T0107"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G7"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "K7"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 8,
+       "local": "WC57 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-12",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0108"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G8"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "na",
+         "cell_7_1": null,
+         "cell_7": "K8"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 9,
+       "local": "WC67 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-13",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0262"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 10,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G10"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "moved from 1/10",
+         "cell_7_1": null,
+         "cell_7": "K10"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 10,
+       "local": "WC69 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-13",
+       "qty_71": 12,
+       "page_task_ids": [
+        "T0263"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G11"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "moved from 1/10",
+         "cell_7_1": null,
+         "cell_7": "K11"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 11,
+       "local": "WC70 - Toilet",
+       "item": "FWF",
+       "date_71": "2026-10-13",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0264"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G12"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "moved from 1/10",
+         "cell_7_1": null,
+         "cell_7": "K12"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 12,
+       "local": "Events",
+       "item": "2.5T Forklift STD",
+       "date_71": "2026-10-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0109"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 9,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": 1214298,
+         "schedule_7": "1274555 STRP plus forklift tynes.",
+         "cell_7_1": "I12",
+         "cell_7": "I9"
+        },
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "26120976 STRP & 26122181 EAGS",
+         "cell_7_1": null,
+         "cell_7": "J9"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 13,
+       "local": "OP42 Fridge",
+       "item": "Fridge",
+       "date_71": "2026-10-13",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0265"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 13,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 14,
+       "local": "Helen Park",
+       "item": "6.0m Refrigerator Cont",
+       "date_71": "2026-10-13",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0266"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 14,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": null,
+         "schedule_7": "rehire 26121442",
+         "cell_7_1": null,
+         "cell_7": "J14"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": 1200,
+         "cell_7_1": null,
+         "cell_7": "K14"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 15,
+       "local": "P25 - Support Category Stewards",
+       "item": "Building 4.8m",
+       "date_71": "2026-10-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0110"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 15,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "Not Torrens",
+         "schedule_7": "traffic control",
+         "cell_7_1": "J15",
+         "cell_7": "J15"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 16,
+       "local": "P67 - Gate 6 Security Office",
+       "item": "Building 6m",
+       "date_71": "2026-10-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0111"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "Not Torrens",
+         "schedule_7": "traffic control",
+         "cell_7_1": "J16",
+         "cell_7": "J16"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 17,
+       "local": "P65 - Support Categories Race Secretary",
+       "item": "Building 6m",
+       "date_71": "2026-10-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0112"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 17,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "Not Torrens",
+         "schedule_7": "traffic control",
+         "cell_7_1": "J17",
+         "cell_7": "J17"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 18,
+       "local": "P66 - Support Category Scrutineers",
+       "item": "Building 6m",
+       "date_71": "2026-10-14",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0113"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 18,
+       "state": "changed",
+       "fields": {
+        "dd": {
+         "schedule_7_1": "Not Torrens",
+         "schedule_7": "traffic control",
+         "cell_7_1": "J18",
+         "cell_7": "J18"
+        },
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "used",
+         "cell_7_1": null,
+         "cell_7": "K18"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 19,
+       "local": "GN06 - Generator ",
+       "item": "50kva",
+       "date_71": "2026-10-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0114"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 20,
+       "local": "P60 - Gate 5 Ticket Box",
+       "item": "Ticket Box 4.8m",
+       "date_71": "2026-10-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0115"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "3rd",
+         "cell_7_1": null,
+         "cell_7": "K20"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 21,
+       "local": "P62 - Gate 5 QFES Office",
+       "item": "Building 6m",
+       "date_71": "2026-10-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0116"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 21,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "2nd",
+         "cell_7_1": null,
+         "cell_7": "K21"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 22,
+       "local": "P63 - Gate 5 Volunteer Sign On",
+       "item": "Building 6m",
+       "date_71": "2026-10-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0117"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 22,
+       "state": "changed",
+       "fields": {
+        "load_time": {
+         "schedule_7_1": null,
+         "schedule_7": "1st",
+         "cell_7_1": null,
+         "cell_7": "K22"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 23,
+       "local": "WC49 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 3,
+       "page_task_ids": [
+        "T0118"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 23,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G23"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 24,
+       "local": "WC48 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0119"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G24"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 25,
+       "local": "WC53 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 3,
+       "page_task_ids": [
+        "T0120"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 25,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G25"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 26,
+       "local": "WC51 - Toilets",
+       "item": "Accessible Toilet",
+       "date_71": "2026-10-15",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0121"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "Coates",
+         "cell_7_1": null,
+         "cell_7": "G26"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 27,
+       "local": "WC51 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0122"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 27,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G27"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 28,
+       "local": "WC54 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0123"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 28,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G28"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 29,
+       "local": "WC56 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-15",
+       "qty_71": 12,
+       "page_task_ids": [
+        "T0124"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 29,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G29"
+        }
+       }
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 30,
+       "local": "P26 - Fridge Delivery ",
+       "item": "Fridge Lge",
+       "date_71": "2026-10-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0125"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 30,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 31,
+       "local": "P28 - Fridge Delivery ",
+       "item": "Fridge Lge",
+       "date_71": "2026-10-16",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0126"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 31,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 32,
+       "local": "P34 - Chair Delivery",
+       "item": "Pad Chair",
+       "date_71": "2026-10-16",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0127"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 32,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 33,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-10-16",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0128"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 33,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 34,
+       "local": "WB04 Helen Park - HVM",
+       "item": "TL2",
+       "date_71": "2026-10-16",
+       "qty_71": 14,
+       "page_task_ids": [
+        "T0129"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 34,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 35,
+       "local": "WB05 Gold Coast Highway (Main Beach Light Rail)",
+       "item": "TL2",
+       "date_71": "2026-10-16",
+       "qty_71": 13,
+       "page_task_ids": [
+        "T0130"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 35,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 36,
+       "local": "WB06 Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+       "item": "TL2",
+       "date_71": "2026-10-16",
+       "qty_71": 154,
+       "page_task_ids": [
+        "T0131"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 36,
+       "state": "same"
+      },
+      {
+       "sheet": "Week 1",
+       "row_71": 37,
+       "local": "WB07 Admiralty Drive Intersection (Through lane removed between centre islands) ",
+       "item": "TL2",
+       "date_71": "2026-10-18",
+       "qty_71": 17,
+       "page_task_ids": [
+        "T0132"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 37,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Event Week",
+     "rows_71": 49,
+     "rows_7": 51,
+     "entries": [
+      {
+       "sheet": "Event Week",
+       "row_71": 2,
+       "local": "Collect event weekend Accred",
+       "item": null,
+       "date_71": "2026-10-19",
+       "qty_71": null,
+       "page_task_ids": [
+        "T0234"
+       ],
+       "page_kind": [
+        "unreferenced"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 3,
+       "local": "GN04 - Generator ",
+       "item": "30kva",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0133"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": null,
+         "schedule_7": "1277400 EX EAGS",
+         "cell_7_1": null,
+         "cell_7": "I3"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 4,
+       "local": "GN10 - Generator ",
+       "item": "20kva",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0134"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 5,
+       "local": "GN19 - Generator ",
+       "item": "60kva",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0267"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": 1261271,
+         "schedule_7": "1276416 80KVA EAGS",
+         "cell_7_1": "I5",
+         "cell_7": "I5"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 6,
+       "local": "GN24 - Generator ",
+       "item": "80kva",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0136"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": null,
+         "schedule_7": "1276412 EX GYMP TRYING TO GET MEAD",
+         "cell_7_1": null,
+         "cell_7": "I6"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 7,
+       "local": "GN25 - Generator ",
+       "item": "20kva",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0137"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "changed",
+       "fields": {
+        "asset": {
+         "schedule_7_1": "1182021 EX ROCL",
+         "schedule_7": "1244536 EX NVAC",
+         "cell_7_1": "I7",
+         "cell_7": "I7"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 8,
+       "local": "WC10 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 3,
+       "page_task_ids": [
+        "T0138"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 9,
+       "local": "WC45 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0139"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 10,
+       "local": "WC47 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0140"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 10,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 11,
+       "local": "WC19 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0141"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 12,
+       "local": "WC25 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0142"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 13,
+       "local": "WC23 - Toilets ",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 5,
+       "page_task_ids": [
+        "T0143"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 14,
+       "local": "WC26 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0144"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 15,
+       "local": "WC24 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0145"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 15,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 16,
+       "local": "WC13 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0146"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 17,
+       "local": "WC28 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0147"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 17,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 18,
+       "local": "WC29 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 7,
+       "page_task_ids": [
+        "T0148"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 18,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 19,
+       "local": "WC30 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0149"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 20,
+       "local": "WC35 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0150"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 21,
+       "local": "WC46 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0151"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 21,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 22,
+       "local": "WC55 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0152"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 22,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 23,
+       "local": "WC62 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0153"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 23,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 24,
+       "local": "WC65 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0154"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 25,
+       "local": "WC68 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0155"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 25,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 26,
+       "local": "WC72 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0156"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 27,
+       "local": "WC73 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0157"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 27,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 28,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-10-19",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0158",
+        "T0159"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 28,
+       "state": "changed",
+       "fields": {
+        "qty": {
+         "schedule_7_1": 8,
+         "schedule_7": 9,
+         "cell_7_1": "D28",
+         "cell_7": "D28"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 29,
+       "local": "Relocate",
+       "item": "VMS",
+       "date_71": "2026-10-19",
+       "qty_71": 5,
+       "page_task_ids": [
+        "T0158",
+        "T0159"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 29,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 30,
+       "local": "WB13 Fence bracing behind S15",
+       "item": "TL2",
+       "date_71": "2026-10-19",
+       "qty_71": 10,
+       "page_task_ids": [
+        "T0160"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 30,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 31,
+       "local": "WB03 Gold Coast Highway (Turn 2) - Concrete small blocks",
+       "item": "TL2",
+       "date_71": "2026-10-19",
+       "qty_71": 30,
+       "page_task_ids": [
+        "T0161"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 31,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 32,
+       "local": "Blanchard Race",
+       "item": "FWF",
+       "date_71": "2026-10-19",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0162",
+        "T0176"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 32,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G32"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 33,
+       "local": "LT05/06: Light Towers",
+       "item": "Light Tower ",
+       "date_71": "2026-10-20",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0163"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 33,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 34,
+       "local": "PG01 - Toilet (Pit Garage)",
+       "item": "FWF",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0164"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 34,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G34"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 35,
+       "local": "PG03 - Toilet (Pit Garage)",
+       "item": "FWF",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0165"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 35,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G35"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 36,
+       "local": "PG05 - Toilet (Pit Garage)",
+       "item": "FWF",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0166"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 36,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G36"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 37,
+       "local": "PG29 - Toilet (Pit Garage)",
+       "item": "FWF",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0167"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 37,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G37"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 38,
+       "local": "WC85 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0168"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 38,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G38"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 39,
+       "local": "SPARE",
+       "item": "100KVA TRAILER",
+       "date_71": "2026-10-20",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0268"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 39,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 40,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-10-21",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0169",
+        "T0170"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 41,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 41,
+       "local": null,
+       "item": "VMS",
+       "date_71": "2026-10-21",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0169",
+        "T0170"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 40,
+       "state": "changed",
+       "fields": {
+        "qty": {
+         "schedule_7_1": 1,
+         "schedule_7": 2,
+         "cell_7_1": "D41",
+         "cell_7": "D40"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 42,
+       "local": "WB14 MP4.0 Turn 4 Drivers Right ",
+       "item": "TL2",
+       "date_71": "2026-10-21",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0171"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 42,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 43,
+       "local": "WB15 Turn 11 Runoff (Main Beach Parade North) - HVM",
+       "item": "TL2",
+       "date_71": "2026-10-21",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0172"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 43,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 44,
+       "local": "WB16 Commodore Park (Commodore Drive)",
+       "item": "TL2",
+       "date_71": "2026-10-21",
+       "qty_71": 13,
+       "page_task_ids": [
+        "T0173"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 44,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 45,
+       "local": "WB17 Racing kerbs (T6/7/8/9)",
+       "item": "TL2",
+       "date_71": "2026-10-22",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0174"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 45,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 46,
+       "local": "WB18 Racing kerbs (T2)",
+       "item": "TL2",
+       "date_71": "2026-10-22",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0175"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 46,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 47,
+       "local": "Brad lones",
+       "item": "FWF",
+       "date_71": "2026-10-22",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0176"
+       ],
+       "page_kind": [
+        "plant"
+       ],
+       "row_7": 47,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G47"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 48,
+       "local": "Shell V power",
+       "item": "FWF",
+       "date_71": "2026-10-22",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0176"
+       ],
+       "page_kind": [
+        "plant"
+       ],
+       "row_7": 48,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G48"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 49,
+       "local": "Redbull",
+       "item": "FWF",
+       "date_71": "2026-10-22",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0176"
+       ],
+       "page_kind": [
+        "plant"
+       ],
+       "row_7": 49,
+       "state": "changed",
+       "fields": {
+        "activity": {
+         "schedule_7_1": null,
+         "schedule_7": "event p",
+         "cell_7_1": null,
+         "cell_7": "G49"
+        }
+       }
+      },
+      {
+       "sheet": "Event Week",
+       "row_71": 50,
+       "local": "WB14 MP4.0 Turn 4 Drivers Right ",
+       "item": "TL2",
+       "date_71": "2026-10-25",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0177"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 50,
+       "state": "same"
+      },
+      {
+       "sheet": "Event Week",
+       "row_7": 45,
+       "local": "Fridge",
+       "item": "Fridge",
+       "date_7": "2026-10-21",
+       "qty_7": 1,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-10-21",
+        "product": "Furniture",
+        "item": "Fridge",
+        "qty": 1,
+        "local": "Fridge",
+        "customer": "WAU"
+       },
+       "page_task_ids": [
+        "T0273"
+       ],
+       "page_kind": [
+        "unreferenced"
+       ]
+      },
+      {
+       "sheet": "Event Week",
+       "row_7": 46,
+       "local": "Portable Aircon",
+       "item": "Air Con",
+       "date_7": "2026-10-21",
+       "qty_7": 2,
+       "state": "only_in_7",
+       "cells": {
+        "date": "2026-10-21",
+        "product": "Furniture",
+        "item": "Air Con",
+        "qty": 2,
+        "local": "Portable Aircon",
+        "customer": "WAU",
+        "dd": "Rehire"
+       },
+       "page_task_ids": [
+        "T0274"
+       ],
+       "page_kind": [
+        "unreferenced"
+       ]
+      }
+     ]
+    },
+    {
+     "sheet": "Demob Week 1",
+     "rows_71": 42,
+     "rows_7": 42,
+     "entries": [
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 2,
+       "local": "WB20 Gold Coast Highway (Turn 2) ",
+       "item": "TL2",
+       "date_71": "2026-10-26",
+       "qty_71": 30,
+       "page_task_ids": [
+        "T0178"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 3,
+       "local": "WB13 Fence bracing behind S15",
+       "item": "TL2",
+       "date_71": "2026-10-26",
+       "qty_71": 10,
+       "page_task_ids": [
+        "T0179"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 4,
+       "local": "GN04 - Generator ",
+       "item": "30kva",
+       "date_71": "2026-10-26",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0180"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 5,
+       "local": "WC45 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-26",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0181"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 5,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 6,
+       "local": "WC47 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-26",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0182"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 6,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 7,
+       "local": "WC29 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-26",
+       "qty_71": 7,
+       "page_task_ids": [
+        "T0183"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 7,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 8,
+       "local": "VMS11-23",
+       "item": "VMS",
+       "date_71": "2026-10-26",
+       "qty_71": 12,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 8,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 9,
+       "local": "WC30 - Toilets",
+       "item": "FWF",
+       "date_71": "2026-10-26",
+       "qty_71": 8,
+       "page_task_ids": [
+        "T0184"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 10,
+       "local": "WB01 Gold Coast Highway (Near PB3 DR - On GCHWY at the Tedder Avenue intersection)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 12,
+       "page_task_ids": [
+        "T0185"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 10,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 11,
+       "local": "WB04 Helen Park - HVM",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 14,
+       "page_task_ids": [
+        "T0186"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 11,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 12,
+       "local": "WB05 Gold Coast Highway (Main Beach Light Rail)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 13,
+       "page_task_ids": [
+        "T0187"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 12,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 13,
+       "local": "WB06 Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 154,
+       "page_task_ids": [
+        "T0188"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 13,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 14,
+       "local": "WB07 Admiralty Drive Intersection (Through lane removed between centre islands) ",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 17,
+       "page_task_ids": [
+        "T0189"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 14,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 15,
+       "local": "WB15 Turn 11 Runoff (Main Beach Parade North) - HVM",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 4,
+       "page_task_ids": [
+        "T0190"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 15,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 16,
+       "local": "WB16 Commodore Park (Commodore Drive)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 13,
+       "page_task_ids": [
+        "T0191"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 16,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 17,
+       "local": "WB17 Racing kerbs (T6/7/8/9)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 6,
+       "page_task_ids": [
+        "T0192"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 17,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 18,
+       "local": "WB18 Racing kerbs (T2)",
+       "item": "TL2",
+       "date_71": "2026-10-27",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0193"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 18,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 19,
+       "local": "GN06 - Generator ",
+       "item": "50kva",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0194"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 19,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 20,
+       "local": "GN10 - Generator ",
+       "item": "20kva",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0195"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 20,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 21,
+       "local": "VMS9-10",
+       "item": "VMS",
+       "date_71": "2026-10-27",
+       "qty_71": 2,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 21,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 22,
+       "local": "P60 - Gate 5 Ticket Box",
+       "item": "Ticket Box 4.8m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0196"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 22,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 23,
+       "local": "P62 - Gate 5 QFES Office",
+       "item": "Building 6m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0197"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 23,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 24,
+       "local": "P63 - Gate 5 Volunteer Sign On",
+       "item": "Building 6m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0198"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 24,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 25,
+       "local": "P25 - Support Category Stewards",
+       "item": "Building 4.8m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0199"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 25,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 26,
+       "local": "P67 - Gate 6 Security Office",
+       "item": "Building 6m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0200"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 26,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 27,
+       "local": "P65 - Support Categories Race Secretary",
+       "item": "Building 6m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0201"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 27,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 28,
+       "local": "P66 - Support Category Scrutineers",
+       "item": "Building 6m",
+       "date_71": "2026-10-27",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0202"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 28,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 29,
+       "local": "WC60 - Toilets (Tank Mounted)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-10-28",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0203"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 29,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 30,
+       "local": "VMS22",
+       "item": "VMS",
+       "date_71": "2026-10-28",
+       "qty_71": 1,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 30,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 31,
+       "local": "GN13 - Generator ",
+       "item": "45kva",
+       "date_71": "2026-10-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0204"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 31,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 32,
+       "local": "P69 - Supply Building",
+       "item": "Building 6m",
+       "date_71": "2026-10-28",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0205"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 32,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 33,
+       "local": "WB20 Gold Coast Highway (Turn 2) ",
+       "item": "TL2",
+       "date_71": "2026-10-29",
+       "qty_71": 30,
+       "page_task_ids": [
+        "T0206"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 33,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 34,
+       "local": "GN18 - Generator ",
+       "item": "50kva",
+       "date_71": "2026-10-29",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0207"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 34,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 35,
+       "local": "P46 - QPS Command Post",
+       "item": "Building 12m",
+       "date_71": "2026-10-29",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0208"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 35,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 36,
+       "local": "P47 - QPS Amenities Crib Room",
+       "item": "Building 6m",
+       "date_71": "2026-10-29",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0209"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 36,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 37,
+       "local": "P51 - Security Sign On",
+       "item": "Building 12m",
+       "date_71": "2026-10-29",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0210"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 37,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 38,
+       "local": "P52 - Gate 1 Volunteer Check-In",
+       "item": "Building 12m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0211"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 38,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 39,
+       "local": "P53 - Accred Centre",
+       "item": "Building 6m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0212"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 39,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 40,
+       "local": "P54 - Accred Centre BOH",
+       "item": "Building 6m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0213"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 40,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 41,
+       "local": "P55 - Gate 1 Ticket Box",
+       "item": "Ticket Box 6m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0214"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 41,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 42,
+       "local": "P56 - Gate 1 Ticket BOH",
+       "item": "Building 3.6m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0215"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 42,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 1",
+       "row_71": 43,
+       "local": "P57 - Radio Distribution Office",
+       "item": "Building 9.6m",
+       "date_71": "2026-10-30",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0216"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 43,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Demob Week 2",
+     "rows_71": 2,
+     "rows_7": 2,
+     "entries": [
+      {
+       "sheet": "Demob Week 2",
+       "row_71": 2,
+       "local": "WB19 S08 - Pedestrian Pathway along Main Beach Parade",
+       "item": "TL2",
+       "date_71": "2026-11-02",
+       "qty_71": 34,
+       "page_task_ids": [
+        "T0217"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 2",
+       "row_71": 3,
+       "local": "WB19 S08 - Pedestrian Pathway along Main Beach Parade",
+       "item": "TL2",
+       "date_71": "2026-11-06",
+       "qty_71": 34,
+       "page_task_ids": [
+        "T0218"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "same"
+      }
+     ]
+    },
+    {
+     "sheet": "Demob Week 3",
+     "rows_71": 12,
+     "rows_7": 12,
+     "entries": [
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 2,
+       "local": "P03 - SCA Event Management Office ",
+       "item": "Building 12m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0219"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 2,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 3,
+       "local": "P04 - SCA Sales & Marketing Office ",
+       "item": "Building 12m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0220"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 3,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 4,
+       "local": "P05 - Event Control Center (ECC)",
+       "item": "Building 6m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0221"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 4,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 5,
+       "local": null,
+       "item": "Building 6m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0222",
+        "T0223"
+       ],
+       "page_kind": [
+        "unreferenced"
+       ],
+       "row_7": 5,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 6,
+       "local": null,
+       "item": "Building 6m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0222",
+        "T0223"
+       ],
+       "page_kind": [
+        "unreferenced"
+       ],
+       "row_7": 6,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 7,
+       "local": null,
+       "item": "Event Container",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0224"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 7,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 8,
+       "local": "WC05 - Event Operations Compound Toilet - Combo Block (Tanked)",
+       "item": "Toilet Block 6m",
+       "date_71": "2026-11-12",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0225"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 8,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 9,
+       "local": "P01 - iEDM Engineering Office ",
+       "item": "Building 12m",
+       "date_71": "2026-11-13",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0226"
+       ],
+       "page_kind": [
+        "asset"
+       ],
+       "row_7": 9,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 10,
+       "local": "Phillip Park",
+       "item": "Forklift 5T",
+       "date_71": "2026-11-13",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0227"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 10,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 11,
+       "local": "Phillip Park",
+       "item": "Forklift 2.5T",
+       "date_71": "2026-11-13",
+       "qty_71": 1,
+       "page_task_ids": [
+        "T0228"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 11,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 12,
+       "local": "Macintosh",
+       "item": "Forklift 2.5T RT",
+       "date_71": "2026-11-13",
+       "qty_71": 2,
+       "page_task_ids": [
+        "T0229"
+       ],
+       "page_kind": [
+        "plant",
+        "unreferenced"
+       ],
+       "row_7": 12,
+       "state": "same"
+      },
+      {
+       "sheet": "Demob Week 3",
+       "row_71": 13,
+       "local": "VMS1-8",
+       "item": "VMS",
+       "date_71": "2026-11-13",
+       "qty_71": 8,
+       "page_task_ids": [],
+       "page_kind": [],
+       "row_7": 13,
+       "state": "same"
+      }
+     ]
+    }
+   ]
+  },
+  "references_named": [
+   "AA",
+   "CP1",
+   "GN01",
+   "GN03",
+   "GN04",
+   "GN06",
+   "GN10",
+   "GN13",
+   "GN18",
+   "GN19",
+   "GN20",
+   "GN21",
+   "GN23",
+   "GN24",
+   "GN25",
+   "HRP",
+   "LT05",
+   "P01",
+   "P03",
+   "P04",
+   "P05",
+   "P06",
+   "P08",
+   "P09",
+   "P10",
+   "P11",
+   "P12",
+   "P13",
+   "P14",
+   "P15",
+   "P16",
+   "P17",
+   "P18",
+   "P19",
+   "P20",
+   "P21",
+   "P25",
+   "P26",
+   "P27",
+   "P28",
+   "P29",
+   "P33",
+   "P34",
+   "P36",
+   "P37",
+   "P38",
+   "P39",
+   "P41",
+   "P42",
+   "P44",
+   "P45",
+   "P46",
+   "P47",
+   "P51",
+   "P52",
+   "P53",
+   "P54",
+   "P55",
+   "P56",
+   "P57",
+   "P58",
+   "P60",
+   "P62",
+   "P63",
+   "P65",
+   "P66",
+   "P67",
+   "P69",
+   "PG01",
+   "PG03",
+   "PG05",
+   "PG29",
+   "WB01",
+   "WB02",
+   "WB03",
+   "WB04",
+   "WB05",
+   "WB06",
+   "WB07",
+   "WB13",
+   "WB14",
+   "WB15",
+   "WB16",
+   "WB17",
+   "WB18",
+   "WB19",
+   "WB20",
+   "WC01",
+   "WC02",
+   "WC04",
+   "WC05",
+   "WC06",
+   "WC07",
+   "WC09",
+   "WC10",
+   "WC100",
+   "WC11",
+   "WC12",
+   "WC13",
+   "WC15",
+   "WC16",
+   "WC17",
+   "WC19",
+   "WC20",
+   "WC21",
+   "WC23",
+   "WC24",
+   "WC25",
+   "WC26",
+   "WC27",
+   "WC28",
+   "WC29",
+   "WC30",
+   "WC31",
+   "WC32",
+   "WC33",
+   "WC34",
+   "WC35",
+   "WC38",
+   "WC39",
+   "WC40",
+   "WC41",
+   "WC42",
+   "WC43",
+   "WC44",
+   "WC45",
+   "WC46",
+   "WC47",
+   "WC48",
+   "WC49",
+   "WC50",
+   "WC51",
+   "WC53",
+   "WC54",
+   "WC55",
+   "WC56",
+   "WC57",
+   "WC59",
+   "WC60",
+   "WC61",
+   "WC62",
+   "WC65",
+   "WC66",
+   "WC67",
+   "WC68",
+   "WC69",
+   "WC70",
+   "WC71",
+   "WC72",
+   "WC73",
+   "WC81",
+   "WC85",
+   "WC86"
+  ],
+  "references_not_on_register": [],
+  "proposed_changes": {
+   "apply": [],
+   "needs_andrew": [
+    "Is this file really the latest issue? Its content is the 30 Sep 2026 Schedule 2, cell for cell; the page already holds the 9 Oct Schedule 7 and the site record. If there is a newer Schedule (7.1 or 8) file, it is not in this environment.",
+    "Schedule 8 of 12 Oct 2026 (27 field changes, three new rows against Schedule 7) is reviewed and not applied; say if it should go on."
+   ]
+  }
+ },
+ "programme_iedm": {
+  "file": "6579a510-P003-26003-01_Programme_-_Coates_Inf_V1_14.8.26_1.xlsx",
+  "sha256": "078dd52a9c0680fd5ace780332fd4d5b5a5d9f8fdf8e83a9e3f110f276abb96b",
+  "saved": "2026-10-15T01:04:19+10:00",
+  "saved_by": null,
+  "creator": "Rachel Switzman",
+  "created": "2026-08-12T01:34:31Z",
+  "sheets": [
+   [
+    "Base information (4)",
+    "visible"
+   ],
+   [
+    "CON WK 6",
+    "visible"
+   ],
+   [
+    "CON WK 5",
+    "visible"
+   ],
+   [
+    "CON WK 4 ",
+    "visible"
+   ],
+   [
+    "CON WK 3",
+    "visible"
+   ],
+   [
+    "CON WK 2",
+    "visible"
+   ],
+   [
+    "CON WK 1",
+    "visible"
+   ],
+   [
+    "RACE WEEK",
+    "visible"
+   ],
+   [
+    "DEMOB WK 1 ",
+    "visible"
+   ],
+   [
+    "DEMOB WK 2",
+    "visible"
+   ],
+   [
+    "DEMOB WK 3",
+    "visible"
+   ],
+   [
+    "DEMOB WK 1",
+    "hidden"
+   ]
+  ],
+  "nonempty_cells": 11529,
+  "formulas": false,
+  "page_holds": {
+   "issue": "(2) of 9 Oct 2026",
+   "sha256": "fc39ba08ded1f6c6d4823b755b44d1463cf72262829b11dce4fa65f87506bcb7",
+   "as": "DATA.infrastructure_review951 with 12 changed rows shown in the drawer fold"
+  },
+  "base_information_sheet_vs_page_issue": "identical: the facility-aligned differences from the 7 Oct file are exactly the 12 rows the page already records (P10, P11, P12, P52, P54, P55, P56, P57, WC20, WC86, GN18 changed; P45 added)",
+  "new_cells_vs_page_issue": [
+   {
+    "sheet": "CON WK 2",
+    "cell": "I101",
+    "value": "Complete",
+    "facility": "GN13 - Generator ",
+    "base_sheet_value": null,
+    "references": [
+     "GN13"
+    ]
+   },
+   {
+    "sheet": "CON WK 2",
+    "cell": "I102",
+    "value": "Complete",
+    "facility": "P69 - Supply Building",
+    "base_sheet_value": null,
+    "references": [
+     "P69"
+    ]
+   },
+   {
+    "sheet": "CON WK 2",
+    "cell": "I103",
+    "value": "Complete",
+    "facility": "P45 - St John's Supply First Aid - Supply",
+    "base_sheet_value": null,
+    "references": [
+     "P45"
+    ]
+   }
+  ],
+  "same_three_cells_reviewed_before": {
+   "where": "v10.10_charge_persistence_LIVE/document_review (14 Oct 2026)",
+   "file_then": "1-P003-26003-01-Programme-Coates-Inf-V1-14.8.26.xlsx",
+   "sha256_then": "501d229bd7116249aff9519d719a71412790d14923ccb552e6ee808f8640a798",
+   "finding_then": "three cells only; each reference already has one received unit and an on-site/complete record (snapshot 5796)",
+   "on_page": false
+  },
+  "references": {
+   "rows_with_reference": 141,
+   "rows_without_reference": [
+    [
+     "'Base information (4)'!A21",
+     "Trackmat Delivery - S18"
+    ]
+   ],
+   "not_on_register": [
+    {
+     "ref": "LT09",
+     "cell": "'Base information (4)'!A4",
+     "facility": "LT 9,10,11 - WK6 Night Works "
+    },
+    {
+     "ref": "LT10",
+     "cell": "'Base information (4)'!A4",
+     "facility": "LT 9,10,11 - WK6 Night Works "
+    },
+    {
+     "ref": "LT11",
+     "cell": "'Base information (4)'!A4",
+     "facility": "LT 9,10,11 - WK6 Night Works "
+    },
+    {
+     "ref": "P68",
+     "cell": "'Base information (4)'!A10",
+     "facility": "CP1 (P68) - Signevent Crib Room "
+    },
+    {
+     "ref": "GN22",
+     "cell": "'Base information (4)'!A20",
+     "facility": "GN22 - Generator "
+    },
+    {
+     "ref": "WC-TV",
+     "cell": "'Base information (4)'!A52",
+     "facility": "WCTV"
+    }
+   ],
+   "on_register_but_no_master_position": [
+    {
+     "ref": "WC100",
+     "cell": "'Base information (4)'!A16",
+     "facility": "WC100"
+    },
+    {
+     "ref": "WC66",
+     "cell": "'Base information (4)'!A71",
+     "facility": "WC66 - Toilets - Helen Park Contractors"
+    },
+    {
+     "ref": "GN25",
+     "cell": "'Base information (4)'!A128",
+     "facility": "GN25 - Generator "
+    },
+    {
+     "ref": "LT05",
+     "cell": "'Base information (4)'!A149",
+     "facility": "LT05/06: Light Towers"
+    },
+    {
+     "ref": "LT06",
+     "cell": "'Base information (4)'!A149",
+     "facility": "LT05/06: Light Towers"
+    },
+    {
+     "ref": "WC85",
+     "cell": "'Base information (4)'!A154",
+     "facility": "WC85 - Toilets"
+    }
+   ]
+  },
+  "date_conflicts": [
+   {
+    "ref": "P13",
+    "cell": "Base information (4)!D40",
+    "programme_install_start": "2029-09-21",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0041 2026-09-21 Building 4.8m (qty not stated)"
+   },
+   {
+    "ref": "P14",
+    "cell": "Base information (4)!D41",
+    "programme_install_start": "2029-09-21",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0042 2026-09-21 Building 4.8m (qty not stated)"
+   },
+   {
+    "ref": "P15",
+    "cell": "Base information (4)!D42",
+    "programme_install_start": "2029-09-21",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0043 2026-09-21 Building 4.8m (qty not stated)"
+   },
+   {
+    "ref": "P16",
+    "cell": "Base information (4)!D43",
+    "programme_install_start": "2029-09-21",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0044 2026-09-21 Building 4.8m (qty not stated)"
+   },
+   {
+    "ref": "WC02",
+    "cell": "Base information (4)!D44",
+    "programme_install_start": "2026-09-22",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0239 2026-09-21 FWF ×1"
+   },
+   {
+    "ref": "WC04",
+    "cell": "Base information (4)!D45",
+    "programme_install_start": "2026-09-22",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0240 2026-09-21 FWF ×1"
+   },
+   {
+    "ref": "WC06",
+    "cell": "Base information (4)!D47",
+    "programme_install_start": "2026-09-22",
+    "page_first_date": "2026-09-21",
+    "page_events": "T0241 2026-09-21 FWF ×2"
+   },
+   {
+    "ref": "WC50",
+    "cell": "Base information (4)!D51",
+    "programme_install_start": "2026-09-23",
+    "page_first_date": "2026-09-28",
+    "page_events": "T0247 2026-09-28 FWF ×1"
+   },
+   {
+    "ref": "WC31",
+    "cell": "Base information (4)!D55",
+    "programme_install_start": "2026-09-25",
+    "page_first_date": "2026-10-08",
+    "page_events": "T0096 2026-10-08 Accessible Toilet ×1, T0097 2026-10-08 16Pan Block ×2"
+   },
+   {
+    "ref": "WC67",
+    "cell": "Base information (4)!D73",
+    "programme_install_start": "2026-10-13",
+    "page_first_date": "2026-10-01",
+    "page_events": "T0081 2026-10-01 FWF ×2, T0262 2026-10-13 FWF ×2"
+   },
+   {
+    "ref": "WC33",
+    "cell": "Base information (4)!D75",
+    "programme_install_start": "2026-10-01",
+    "page_first_date": "2026-10-08",
+    "page_events": "T0100 2026-10-08 FWF ×17"
+   },
+   {
+    "ref": "P53",
+    "cell": "Base information (4)!D84",
+    "programme_install_start": "2026-10-07",
+    "page_first_date": "2026-09-29",
+    "page_events": "T0070 2026-09-29 Building 6m ×1"
+   },
+   {
+    "ref": "WC38",
+    "cell": "Base information (4)!D92",
+    "programme_install_start": "2026-10-07",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0091 2026-10-09 FWF ×1"
+   },
+   {
+    "ref": "WC39",
+    "cell": "Base information (4)!D93",
+    "programme_install_start": "2026-10-07",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0092 2026-10-09 FWF ×2"
+   },
+   {
+    "ref": "WC40",
+    "cell": "Base information (4)!D94",
+    "programme_install_start": "2026-10-07",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0093 2026-10-09 FWF ×5"
+   },
+   {
+    "ref": "WC61",
+    "cell": "Base information (4)!D95",
+    "programme_install_start": "2026-10-07",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0095 2026-10-09 FWF ×8"
+   },
+   {
+    "ref": "WC34",
+    "cell": "Base information (4)!D98",
+    "programme_install_start": "2026-10-08",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0099 2026-10-09 FWF ×1"
+   },
+   {
+    "ref": "WC57",
+    "cell": "Base information (4)!D104",
+    "programme_install_start": "2026-10-12",
+    "page_first_date": "2026-10-09",
+    "page_events": "T0108 2026-10-09 FWF ×2"
+   },
+   {
+    "ref": "WC29",
+    "cell": "Base information (4)!D139",
+    "programme_install_start": "2026-10-19",
+    "page_first_date": "2026-10-13",
+    "page_events": "T0148 2026-10-13 FWF ×7"
+   },
+   {
+    "ref": "WC46",
+    "cell": "Base information (4)!D142",
+    "programme_install_start": "2026-10-19",
+    "page_first_date": "2026-10-15",
+    "page_events": "T0151 2026-10-15 FWF ×1"
+   },
+   {
+    "ref": "WC55",
+    "cell": "Base information (4)!D143",
+    "programme_install_start": "2026-10-19",
+    "page_first_date": "2026-10-15",
+    "page_events": "T0152 2026-10-15 FWF ×1"
+   },
+   {
+    "ref": "WC68",
+    "cell": "Base information (4)!D146",
+    "programme_install_start": "2026-10-19",
+    "page_first_date": "2026-10-13",
+    "page_events": "T0155 2026-10-13 FWF ×1"
+   },
+   {
+    "ref": "WC72",
+    "cell": "Base information (4)!D147",
+    "programme_install_start": "2026-10-19",
+    "page_first_date": "2026-10-13",
+    "page_events": "T0156 2026-10-13 FWF ×1"
+   },
+   {
+    "ref": "PG01",
+    "cell": "Base information (4)!D150",
+    "programme_install_start": "2026-10-20",
+    "page_first_date": "2026-10-19",
+    "page_events": "T0164 2026-10-19 FWF ×1"
+   },
+   {
+    "ref": "PG03",
+    "cell": "Base information (4)!D151",
+    "programme_install_start": "2026-10-20",
+    "page_first_date": "2026-10-19",
+    "page_events": "T0165 2026-10-19 FWF ×1"
+   },
+   {
+    "ref": "PG05",
+    "cell": "Base information (4)!D152",
+    "programme_install_start": "2026-10-20",
+    "page_first_date": "2026-10-19",
+    "page_events": "T0166 2026-10-19 FWF ×1"
+   },
+   {
+    "ref": "PG29",
+    "cell": "Base information (4)!D153",
+    "programme_install_start": "2026-10-20",
+    "page_first_date": "2026-10-19",
+    "page_events": "T0167 2026-10-19 FWF ×1"
+   },
+   {
+    "ref": "WC85",
+    "cell": "Base information (4)!D154",
+    "programme_install_start": "2026-10-20",
+    "page_first_date": "2026-10-19",
+    "page_events": "T0168 2026-10-19 FWF ×1"
+   }
+  ],
+  "quantity_conflicts": [
+   {
+    "ref": "WC57",
+    "cell": "Base information (4)!F104",
+    "programme": "7 x Single Toilets (Was previously 2)",
+    "page": "T0108 FWF ×2 (9 Oct); two Event Portables units received 14 Oct"
+   },
+   {
+    "ref": "WC59",
+    "cell": "Base information (4)!F77",
+    "programme": "2 x Single Toilets (was in as 7)",
+    "page": "T0107 FWF ×7 (12 Oct)"
+   },
+   {
+    "ref": "WC67",
+    "cell": "Base information (4)!F73 and G73",
+    "programme": "2x Single Toilets; CHECK NUMBERS - 4 x UNITS",
+    "page": "T0081 FWF ×2 (1 Oct) and T0262 FWF ×2 (13 Oct, moved from 1/10)"
+   },
+   {
+    "ref": "WC09",
+    "cell": "Base information (4)!F99",
+    "programme": "1x Sewer - Female, 1x Sewer - Male, 10x Single toilets",
+    "page": "T0102 Toilet Block 6m ×2, T0101 FWF ×4 (reduced from 10 in the schedule), T0259 Pee Panel ×6; native WC09 FWF planned 10 per the 14 Oct record update"
+   },
+   {
+    "ref": "P13, P14, P15, P16",
+    "cell": "Base information (4)!D40:E43",
+    "programme": "install dates written as 21 Sep 2029",
+    "page": "21 Sep 2026 (the year is a typing slip in the programme)"
+   },
+   {
+    "ref": "P69, P45",
+    "cell": "Base information (4)!E102:E103",
+    "programme": "install end 12 Oct 2025 (before the 12 Oct 2026 start)",
+    "page": "single 12 Oct 2026 delivery each; already held as an invalid end year in v9.51"
+   }
+  ],
+  "notes_not_on_page": [
+   {
+    "refs": "LT09, LT10, LT11",
+    "cell": "Base information (4)!G4",
+    "delivery_note": "Delivery to Molendinar",
+    "site_note": "—"
+   },
+   {
+    "refs": "P01",
+    "cell": "Base information (4)!G6",
+    "delivery_note": "Morning Delivery ",
+    "site_note": "Needs Levelling and aligning"
+   },
+   {
+    "refs": "P03",
+    "cell": "Base information (4)!G7",
+    "delivery_note": "Morning Delivery ",
+    "site_note": "Needs Levelling and aligning"
+   },
+   {
+    "refs": "P04",
+    "cell": "Base information (4)!K8",
+    "delivery_note": "—",
+    "site_note": "Needs Levelling and aligning"
+   },
+   {
+    "refs": "P05",
+    "cell": "Base information (4)!K9",
+    "delivery_note": "—",
+    "site_note": "Needs Levelling and aligning"
+   },
+   {
+    "refs": "CP1, P68",
+    "cell": "Base information (4)!G10",
+    "delivery_note": "Morning Delivery ",
+    "site_note": "Drawing to be updated to accurately reflect where it needs to go"
+   },
+   {
+    "refs": "WC21",
+    "cell": "Base information (4)!G13",
+    "delivery_note": "S05",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC16",
+    "cell": "Base information (4)!K14",
+    "delivery_note": "—",
+    "site_note": "Need to be levelled and aligned"
+   },
+   {
+    "refs": "P33",
+    "cell": "Base information (4)!K15",
+    "delivery_note": "—",
+    "site_note": "Need to be levelled and aligned"
+   },
+   {
+    "refs": "WC100",
+    "cell": "Base information (4)!G16",
+    "delivery_note": "Morning Delivery ",
+    "site_note": "Delivered to The Spit & S18"
+   },
+   {
+    "refs": "GN22",
+    "cell": "Base information (4)!G20",
+    "delivery_note": "NOT APPLICABLE ANY MORE",
+    "site_note": "—"
+   },
+   {
+    "refs": "—",
+    "cell": "Base information (4)!G21",
+    "delivery_note": "Morning Delivery - early ",
+    "site_note": "—"
+   },
+   {
+    "refs": "P27",
+    "cell": "Base information (4)!G29",
+    "delivery_note": "NOT IN COATES SCOPE",
+    "site_note": "—"
+   },
+   {
+    "refs": "P29",
+    "cell": "Base information (4)!G30",
+    "delivery_note": "NOT IN COATES SCOPE",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC50",
+    "cell": "Base information (4)!K51",
+    "delivery_note": "—",
+    "site_note": "Onsite - Needs dropping into final location"
+   },
+   {
+    "refs": "WC27",
+    "cell": "Base information (4)!K53",
+    "delivery_note": "—",
+    "site_note": "TO BE LEVELLED?"
+   },
+   {
+    "refs": "WC15",
+    "cell": "Base information (4)!K54",
+    "delivery_note": "—",
+    "site_note": "TO BE CONNECTED"
+   },
+   {
+    "refs": "WC31",
+    "cell": "Base information (4)!K55",
+    "delivery_note": "—",
+    "site_note": "Dropped into position, needs to be levelled and connected. "
+   },
+   {
+    "refs": "P06",
+    "cell": "Base information (4)!K57",
+    "delivery_note": "—",
+    "site_note": "TO BE PUT IN FINAL LOCATION & LEVELLED"
+   },
+   {
+    "refs": "WC01",
+    "cell": "Base information (4)!K58",
+    "delivery_note": "—",
+    "site_note": "Accessible not delivered"
+   },
+   {
+    "refs": "P38",
+    "cell": "Base information (4)!K60",
+    "delivery_note": "—",
+    "site_note": "TO BE PUT IN FINAL LOCATION & LEVELLED"
+   },
+   {
+    "refs": "P39",
+    "cell": "Base information (4)!K61",
+    "delivery_note": "—",
+    "site_note": "TO BE PUT IN FINAL LOCATION & LEVELLED"
+   },
+   {
+    "refs": "P42",
+    "cell": "Base information (4)!K62",
+    "delivery_note": "—",
+    "site_note": "TO BE PUT IN FINAL LOCATION & LEVELLED"
+   },
+   {
+    "refs": "GN20",
+    "cell": "Base information (4)!K66",
+    "delivery_note": "—",
+    "site_note": "NEED TO REVIEW DATE TO ALIGN BETTER WITH HTH"
+   },
+   {
+    "refs": "GN21",
+    "cell": "Base information (4)!K67",
+    "delivery_note": "—",
+    "site_note": "NEED TO REVIEW DATE TO ALIGN BETTER WITH HTH"
+   },
+   {
+    "refs": "GN23",
+    "cell": "Base information (4)!K68",
+    "delivery_note": "—",
+    "site_note": "NEED TO REVIEW DATE TO ALIGN BETTER WITH HTH"
+   },
+   {
+    "refs": "WC66",
+    "cell": "Base information (4)!G71",
+    "delivery_note": "I THINK ALREADY DELIVERED",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC71",
+    "cell": "Base information (4)!G72",
+    "delivery_note": "NEED TO BE DROPPED IN FINAL LOCATION",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC67",
+    "cell": "Base information (4)!G73",
+    "delivery_note": "CHECK NUMBERS - 4 x UNITS",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC60",
+    "cell": "Base information (4)!G74",
+    "delivery_note": "Needs to be before 10am",
+    "site_note": "—"
+   },
+   {
+    "refs": "P08",
+    "cell": "Base information (4)!G82",
+    "delivery_note": "PENDING APPROVAL",
+    "site_note": "—"
+   },
+   {
+    "refs": "P53",
+    "cell": "Base information (4)!G84",
+    "delivery_note": "Not in Coates Scope",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC20",
+    "cell": "Base information (4)!G89",
+    "delivery_note": "Pushed to when the Franna is available to install",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC86",
+    "cell": "Base information (4)!G90",
+    "delivery_note": "Can be pushed later in the programme",
+    "site_note": "—"
+   },
+   {
+    "refs": "GN18",
+    "cell": "Base information (4)!K91",
+    "delivery_note": "—",
+    "site_note": "Dropped but needs to be put into final location"
+   },
+   {
+    "refs": "WC31",
+    "cell": "Base information (4)!G96",
+    "delivery_note": "NEED TO CHECK ON WHAT IS CONFIRMED - 16 PAN OR SINGLE TOILETS",
+    "site_note": "—"
+   },
+   {
+    "refs": "P45",
+    "cell": "Base information (4)!G103",
+    "delivery_note": "NEW THIS YEAR",
+    "site_note": "—"
+   },
+   {
+    "refs": "WC69",
+    "cell": "Base information (4)!G105",
+    "delivery_note": "NEED TO THINK ABOUT DELIVERY DATE AS BUILDINGS HAPPENING LATER IN THE PIECE",
+    "site_note": "—"
+   }
+  ],
+  "hidden_demob_sheet": {
+   "name": "DEMOB WK 1 (hidden)",
+   "rows": 28,
+   "content": "28 buildings P01–P42 with their September install dates and Complete marks; identical to the 7 Oct file; it is not a demob plan and carries no pickup dates"
+  },
+  "proposed_changes": {
+   "apply": [
+    {
+     "what": "Record the 15 Oct programme issue (sha 078dd52a…) in DATA.infrastructure_review1021 and show its three Complete marks (GN13, P69, P45; CON WK 2!I101:I103, no date) as documentary evidence in the existing drawer fold",
+     "evidence": [
+      "CON WK 2!I101",
+      "CON WK 2!I102",
+      "CON WK 2!I103"
+     ],
+     "draft": "v10.21_schedule7_1_DRAFT"
+    }
+   ],
+   "needs_andrew": [
+    "WC57 / WC59 in the Supply compound: the programme says WC57 is now 7 (was 2) and WC59 is now 2 (was 7); the page has WC57 2 (two received 14 Oct) and WC59 7. Which is right?",
+    "WC67: programme says 2 but \"CHECK NUMBERS - 4 x UNITS\"; the page has 2 on 1 Oct plus 2 on 13 Oct. Is the total 4?",
+    "Six references the programme names have no map position on the page (WC100, WC66, GN25, LT05, LT06, WC85). Where are they?",
+    "The programme carries delivery and site notes for 38 rows (levelling, final location, before 10am, Franna, pending approval) that the page does not show. Do you want them on each reference drawer as source notes?",
+    "Twenty-eight install dates differ between the programme and the schedule the page follows (listed). The site record stands; say if any of these should move the plan."
+   ]
+  }
+ }
+}

@@ -1,0 +1,64 @@
+LEFT: Author: Andrew Fisher
+LEFT: /* Author: Andrew Fisher. v7.54 — a documented Rehire fleet number follows its adopted schedule row.
+LEFT: /* Author: Andrew Fisher. Confirmed commercial answers, recorded 01 Oct 2026.
+LEFT: /* Author: Andrew Fisher. v7.53 — questions follow the current record and confirmed commercial rules.
+LEFT: /* Author: Andrew Fisher. Keep confirmed document and service-paper evidence beside the remaining questions. */
+LEFT: /* Author: Andrew Fisher. Close checks only from their records; keep saved notes accessible. */
+LEFT: /* Author: Andrew Fisher. Keep a Questions note in place while it saves, and retain the reader's place. */
+LEFT: /* Author: Andrew Fisher. Customer inclusions confirmed 01 Oct 2026.
+LEFT: <p class="foot">Coates Industrial Solutions · GC500 2026 · Coates Installs daily pre-start, prefilled · Author: Andrew Fisher ·
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher. Financial explanations use the same current records as the figures. */
+LEFT: /* Author: Andrew Fisher. Rehire details are included in branch Revenue, not another amount to add. */
+LEFT: /* Author: Andrew Fisher
+LEFT: /* Author: Andrew Fisher. Monthly financial control: review records, never post to a ledger. */
+LEFT: <p class="fin745-author">Author: Andrew Fisher · Monthly financial control v7.45 · source record as currently received</p></section>`;
+LEFT: const month = fin745SelectedMonth(), rows = [['Author: Andrew Fisher'], ['Monthly Finance review — proposals only, no ledger posting'], ['Work month', month], [], ['Shift ID', 'Person', 'Type', 'Work 
+LEFT: /* Author: Andrew Fisher. v7.62: evidence-qualified Finance review, not ledger instructions.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher. Month-end review: evidence, forecasts and decisions stay separate. */
+LEFT: const T = [`${DATA.event.name} · Accruals for Finance · work month ${X.label} · as at ${fmtDate(X.asAt)} · AUD ex GST`, 'Author: Andrew Fisher · from the GC500 record; proposals for Finance, nothing p
+LEFT: const rows = [['Author: Andrew Fisher'], [`${DATA.event.name} — Accruals for Finance — proposals for Finance, nothing posted; no automatic accrual`], ['Work month', X.month], ['As at', X.asAt], ['Base
+LEFT: <p class="fin745-basis acc761-foot">Author: Andrew Fisher · Accruals for Finance v7.63 · read from the record; decisions are recorded in the Finance journal proposals above. No ledger entries are post
+LEFT: /* Author: Andrew Fisher. Issued-card Revenue for programme types without a docket column.
+LEFT: <p class="fin745-basis acc761-foot">Author: Andrew Fisher · in the business’s lines v7.70 · the lines and their codes are the Coates P&amp;L’s; the line each charge goes to is the 2026 street card’s c
+LEFT: <p class="fin745-basis acc761-foot">Author: Andrew Fisher · Costs to job end v7.64 · read from the record; the P&amp;L’s own figures are unchanged by this card.</p>
+LEFT: <b style="color:${INK}">${e(DATA.brand.org)}</b> &middot; ${e(DATA.event.name)} &middot; Author: ${e(DATA.brand.author || 'Andrew Fisher')}<br>
+LEFT: /* v7.77 — submission is not delivery. Author: Andrew Fisher. */
+LEFT: Author: Andrew Fisher
+LEFT: Author: Andrew Fisher. The existing sync footer owns status/capability changes; no new timer. */
+LEFT: /* Author: Andrew Fisher. GN20 installation only, at the approved 315 kVA basis.
+LEFT: /* Author: Andrew Fisher. v7.44: explain the 350 kVA install omission without inventing a rate. */
+LEFT: Author: Andrew Fisher. Read-only projections; operational allocations and delivery records stay independent. */
+LEFT: return `<div class="lbrief"><div class="lbhead"><div><p class="lbk">Supercars · Kingston dispatch</p><h3>Load brief</h3></div><div class="lbwhen"><span>Booking date</span><b>07 Oct 2026</b></div></div
+LEFT: <div class="rs-foot">${esc(DATA.brand.org)} · ${esc(DATA.event.name)} · Author: ${esc(DATA.brand.author || 'Andrew Fisher')}
+LEFT: return `<div class="dp-ft"><span><b>${esc(DATA.brand.org || 'Coates Industrial Solutions')} · GC500 2026 · Author: ${esc(DATA.brand.author || 'Andrew Fisher')}</b></span>
+LEFT: <div>${esc(DATA.brand.footer)}${/author/i.test(DATA.brand.footer || '') ? '' : ' · Author: ' + esc(DATA.brand.author || 'Andrew Fisher')} · <span class="pp-pages">extent not yet measured</span></div>
+LEFT: <div class="pstamp" aria-hidden="true"><span><b>${esc(DATA.brand.org)}</b> · ${esc(DATA.event.name)} · ${esc(DATA.event.race_dates_as_supplied || '')} · Author: ${esc(DATA.brand.author || 'Andrew Fish
+LEFT: GC500 show scene in 3D. Author: Andrew Fisher · Coates Industrial Solutions · GC500 */
+LEFT: /* Author: Andrew Fisher. v7.94 bounded opaque edge finish.
+LEFT: /* Author: Andrew Fisher. Prefer real supported multisampling to a silent 1x fallback.
+LEFT: /* Author: Andrew Fisher. v8.00 — surfaced race coupe.
+LEFT: // Author: Andrew Fisher. Vehicle material response, v8.00.
+LEFT: /* Author: Andrew Fisher. Existing named materials keep their mesh contract. */
+LEFT: /* Author: Andrew Fisher.
+LEFT: lets a test render the same graph offline and measure it. Coates Industrial Solutions · GC500 — Author: Andrew Fisher. */
+LEFT: Coates Industrial Solutions · GC500 — Author: Andrew Fisher. Data © OpenStreetMap contributors (ODbL). */
+LEFT: Coates Industrial Solutions · GC500 — Author: Andrew Fisher. */
+LEFT: /* Author: Andrew Fisher. v7.94 branch tufts at unchanged accepted tree positions.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Shared visual kerb joins v7.94. Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher. Procedural atmosphere for full-lap detail, with failure-safe resource cleanup. */
+LEFT: /* Author: Andrew Fisher. Visual detail over the existing complete circuit. */
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher. Bounded rendering work; the original simulation and cameras stay intact. */
+LEFT: /* Author: Andrew Fisher. v7.94 — show the complete existing circuit.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher.
+LEFT: /* Author: Andrew Fisher. Finish the complete circuit before ending the Showcase. */
+LEFT: /* Author: Andrew Fisher. Full-circuit orientation and compact camera controls. */
+LEFT: /* Author: Andrew Fisher. Measured-carriageway rendering, v7.94.
+LEFT: /* Author: Andrew Fisher. v8.00 — fit the selected vehicle in the existing detail views.
+scrubbed /workspace/private-v802-official70-reconstruction.html 9052114 -> 9052120 | visible code mentions left: 63

@@ -1,0 +1,61 @@
+/* Author: Andrew Fisher. v8.88 Transport view and the Everything reconciles line: the Costs & P&L housing (fin745), stacked rows on a phone. */
+#pane-costs .finance857-nav .btn[aria-pressed="true"]{background:#17272e;color:#fff;border-color:#17272e}
+.tr888-filters{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.tr888-filters .btn{min-height:34px;font-size:12.5px}
+.tr888-filters .btn[aria-pressed="true"]{background:#17272e;color:#fff;border-color:#17272e}
+.tr888-filters .btn[aria-pressed="true"] .acc761-w{color:#d7e1e6}
+.tr888-table table{font-size:12.5px}
+.tr888-table th,.tr888-table td{padding:9px 8px}
+.tr888-register td{vertical-align:top}
+.tr888-day th{background:#e9f0f4;text-align:left;font-size:12.5px;text-transform:none;letter-spacing:0;padding:8px 10px}
+.tr888-day th .linkish{margin-left:8px}
+.tr888-nofig td{color:#3a4a52}
+.tr888-flag{display:inline-block;font-size:11px;line-height:1.3;padding:2px 7px;border-radius:999px;background:#eef3f5;color:#3a4a52;margin:1px 3px 1px 0;white-space:normal}
+.tr888-flag-over{background:#fff4d8;color:#655223}
+.tr888-flag-lift,.tr888-flag-door{background:#e9f0f4;color:#2b4a8a}
+.tr888-flag-crew{background:#dff3e4;color:#1d6b3a}
+.tr888-flag-dd{background:#efe9f7;color:#5a3e8a}
+.tr888-flag-early{background:#fde3df;color:#b42318}
+.tr888-flag-off,.tr888-flag-bad{background:#b42318;color:#fff}
+.tr888-int{font-weight:700;color:#52636e}
+.tr888-plus{color:#9c470c;font-weight:800}
+.tr888-list{margin:0;padding-left:18px;font-size:13px;line-height:1.55}
+.tr888-list li{margin:0 0 8px}
+.tr888-fold{margin-top:14px}
+.tr888-fold .fin745-table{margin-top:4px}
+.tr888 .linkish.tr888-ref{font-weight:700}
+.recon888>summary{font-size:14px}
+.recon888>summary small{display:inline;margin-left:8px;font-weight:500}
+.recon888-flag>summary{border-color:#b42318;background:#fff0eb}
+.recon888-card{padding:14px 16px}
+.recon888-table table{font-size:12.5px}
+.recon888-table th,.recon888-table td{padding:8px 8px;vertical-align:top}
+.recon888-part{display:inline-block;margin:0 16px 3px 0;white-space:nowrap}
+.recon888-part .acc761-w{display:block;font-size:11px}
+.recon888-bad td{background:#fff0eb}
+.recon888-state{white-space:nowrap}
+@media (max-width:760px){
+ .tr888-table,.recon888-table{overflow-x:visible}
+ .tr888-stack,.tr888-stack tbody,.tr888-stack tr,.tr888-stack td,.tr888-stack th{display:block;width:100%;box-sizing:border-box}
+ .tr888-stack thead{display:none}
+ .tr888-stack tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 8px;padding:4px 10px;background:#fff}
+ .tr888-stack tr.tr888-day{border:0;padding:0;background:none;margin:12px 0 6px}
+ .tr888-stack tr.tr888-day th{border-radius:8px;white-space:normal}
+ .tr888-stack td{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:6px 0;border:0;border-bottom:1px dashed #e4e9ec;text-align:right;min-width:0}
+ .tr888-stack td>.tr888-v{flex:1 1 auto;min-width:0}
+ .tr888-stack td:last-child{border-bottom:0}
+ .tr888-stack td[data-l]::before{content:attr(data-l);flex:0 0 36%;max-width:36%;font-size:11px;font-weight:700;color:#52636e;text-align:left;text-transform:uppercase;letter-spacing:.04em}
+ .tr888-stack td:not([data-l]){display:block;text-align:left}
+ .tr888-stack tr.acc761-tot td{display:block;text-align:left}
+ .tr888-stack td.num{text-align:right}
+ .tr888-register td .acc761-w{display:block}
+ .tr888-stack td.num .tr888-v{text-align:right}
+ .tr888-table table{min-width:0}
+ .recon888-table table,.recon888-table tbody,.recon888-table tr,.recon888-table td{display:block;width:100%;box-sizing:border-box}
+ .recon888-table thead{display:none}
+ .recon888-table tr{border:1px solid #d2dce1;border-radius:8px;margin:0 0 8px;padding:4px 10px;background:#fff}
+ .recon888-table td{padding:5px 0;border:0}
+ .recon888-part{display:block;white-space:normal;margin:0 0 4px}
+ .recon888-card{padding:10px}
+}
+@media print{.tr888-filters,.tr888 .fin745-tools,.recon888 .linkish{display:none}}

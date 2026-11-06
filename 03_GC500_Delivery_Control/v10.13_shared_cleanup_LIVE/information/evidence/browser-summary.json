@@ -1,0 +1,156 @@
+[
+  {
+    "author": "Andrew Fisher",
+    "mode": "baseline",
+    "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "nativeVersion": 6061,
+    "passed": 8,
+    "checks": [
+      {
+        "name": "Read-only projections do not change the native record",
+        "passed": true
+      },
+      {
+        "name": "WC51 current item scope remains six received and one outstanding",
+        "passed": true
+      },
+      {
+        "name": "Original partial red chip reproduced",
+        "passed": true
+      },
+      {
+        "name": "T0266 date-only source evidence is intact",
+        "passed": true
+      },
+      {
+        "name": "Original fake midnight reproduced",
+        "passed": true
+      },
+      {
+        "name": "Partial drawer shows current received/installed summary",
+        "passed": true
+      },
+      {
+        "name": "Original drawer midnight is visible",
+        "passed": true
+      },
+      {
+        "name": "Original current-looking obsolete setup list reproduced",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "network": {
+      "page": 1,
+      "live": 71,
+      "blocked": 0
+    },
+    "screenshots": [
+      {
+        "file": "t0266-date-phone.png",
+        "sha256": "a00330343f8f113115156aac10601e075fd6cd4fcc66accbf118a8b1d10ea02c"
+      },
+      {
+        "file": "wc51-checks-phone.png",
+        "sha256": "b7702d511d47937409a6ea0c1fa5a95ee650d7b49ba895ee5f3d852a51270fad"
+      },
+      {
+        "file": "wc51-partial-phone.png",
+        "sha256": "ff7c2276c7e27b0f09caa7d996e29e95273218fe70f21b48045ece6afc4c8101"
+      }
+    ]
+  },
+  {
+    "author": "Andrew Fisher",
+    "mode": "reviewed-final",
+    "sourceSha256": "cdfb0740876e9dfc73ffbd60816e020847d6d8e0e5556a628763f32e8d2e3960",
+    "nativeVersion": 6064,
+    "passed": 15,
+    "checks": [
+      {
+        "name": "Read-only projections do not change the native record",
+        "passed": true
+      },
+      {
+        "name": "WC51 current item scope remains six received and one outstanding",
+        "passed": true
+      },
+      {
+        "name": "Partial receipt chip is amber and names scope",
+        "passed": true
+      },
+      {
+        "name": "T0266 date-only source evidence is intact",
+        "passed": true
+      },
+      {
+        "name": "Date-only receipt has no invented midnight",
+        "passed": true
+      },
+      {
+        "name": "Partial drawer shows current received/installed summary",
+        "passed": true
+      },
+      {
+        "name": "Partial drawer does not date its item scope by the old whole-reference red light",
+        "passed": true
+      },
+      {
+        "name": "Earlier whole-reference controls start closed",
+        "passed": true
+      },
+      {
+        "name": "Native light and completion controls remain accessible when expanded",
+        "passed": true
+      },
+      {
+        "name": "Whole-reference More info remains open after redraw",
+        "passed": true
+      },
+      {
+        "name": "Container drawer shows only known arrival date",
+        "passed": true
+      },
+      {
+        "name": "Current generated pricing checks are visible",
+        "passed": true
+      },
+      {
+        "name": "Earlier source questions remain closed under More info",
+        "passed": true
+      },
+      {
+        "name": "Dated fencing confirmation is distinguished from live figures",
+        "passed": true
+      },
+      {
+        "name": "Company target guidance retained in More info",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "network": {
+      "page": 1,
+      "live": 71,
+      "blocked": 0
+    },
+    "screenshots": [
+      {
+        "file": "pricing-checks-phone.png",
+        "sha256": "04722d3fcf59477e0a3b74f295a7be82f2bec952c6adf879db4b899f5c089921"
+      },
+      {
+        "file": "t0266-date-phone.png",
+        "sha256": "9b257d832d561436f65e08b38a524938c1f45a41a7e0d07a5c626da05cfa5a65"
+      },
+      {
+        "file": "wc51-checks-phone.png",
+        "sha256": "54ce3f9651d8a4d88ef3efa831374beb715a0765bca7fb499f04f2d57c038c71"
+      },
+      {
+        "file": "wc51-partial-phone.png",
+        "sha256": "ffdf6cc0e91b456d626ae201b36c0c7c49cdf622aca465d7b209b08f613d5091"
+      }
+    ]
+  }
+]

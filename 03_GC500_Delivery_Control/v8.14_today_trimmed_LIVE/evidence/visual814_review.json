@@ -1,0 +1,140 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "reviewed": true,
+  "desktopWidth": 1440,
+  "phoneWidth": 390,
+  "desktopTodayBefore": {
+    "paneHeightPx": 3798,
+    "mainScrollHeightPx": 3841,
+    "viewportWidth": 1440,
+    "pageScrollWidth": 1440,
+    "sections": {
+      "Instruments": {
+        "heightPx": 835,
+        "emptyPct": 3.5
+      },
+      "Today's work": {
+        "heightPx": 686,
+        "emptyPct": 11.9
+      },
+      "By group": {
+        "heightPx": 1106,
+        "emptyPct": 11.2
+      }
+    },
+    "totalEmptyPct": 9
+  },
+  "desktopTodayAfter": {
+    "paneHeightPx": 3540,
+    "mainScrollHeightPx": 3583,
+    "viewportWidth": 1440,
+    "pageScrollWidth": 1440,
+    "sections": {
+      "Instruments": {
+        "heightPx": 835,
+        "emptyPct": 3.5
+      },
+      "Today's work": {
+        "heightPx": 414,
+        "emptyPct": 10.7
+      },
+      "By group": {
+        "heightPx": 1106,
+        "emptyPct": 11.2
+      }
+    },
+    "totalEmptyPct": 8.4
+  },
+  "phoneToday": {
+    "paneHeightPx": 8998,
+    "mainScrollHeightPx": 9030,
+    "viewportWidth": 390,
+    "pageScrollWidth": 390,
+    "sections": {
+      "Instruments": {
+        "heightPx": 2219,
+        "emptyPct": 1.3
+      },
+      "Today's work": {
+        "heightPx": 1017,
+        "emptyPct": 4.5
+      },
+      "By group": {
+        "heightPx": 4533,
+        "emptyPct": 3.1
+      }
+    },
+    "totalEmptyPct": 2.8
+  },
+  "pairedTiming": {
+    "author": "Andrew Fisher",
+    "method": "6 synchronous go() samples per tab, reduced motion, one browser at a time",
+    "runs": [
+      {
+        "tag": "base",
+        "sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+        "metrics": {
+          "today": {
+            "medianMs": 197.8,
+            "samplesMs": [
+              235.7,
+              197,
+              197.1,
+              197.5,
+              198.1,
+              218.9
+            ]
+          },
+          "plant": {
+            "medianMs": 86.5,
+            "samplesMs": [
+              113.7,
+              86.3,
+              84.5,
+              91.9,
+              86.6,
+              78.1
+            ]
+          }
+        },
+        "errors": []
+      },
+      {
+        "tag": "candidate",
+        "sha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+        "metrics": {
+          "today": {
+            "medianMs": 181,
+            "samplesMs": [
+              191.5,
+              178,
+              169.2,
+              183.9,
+              172.1,
+              238.1
+            ]
+          },
+          "plant": {
+            "medianMs": 94.4,
+            "samplesMs": [
+              109.6,
+              81.4,
+              96.8,
+              93.5,
+              95.4,
+              84.3
+            ]
+          }
+        },
+        "errors": []
+      }
+    ]
+  },
+  "review": "Desktop top/work-row/bottom and phone top/middle/bottom, Tools Export and Equipment arrival screenshots inspected. Existing components retained; no overlap or horizontal overflow observed. The first full-page shot captured the nested scrolling shell and was replaced by actual viewport positions. Raw screenshots stay private.",
+  "limits": [
+    "Desktop timings are six synchronous navigation samples on the test host, not physical-device frame rate or network load guarantees.",
+    "Equipment code and height are preserved; its measured timing was mixed.",
+    "Closed By branch/Money/On site sections are covered by functional hydration and print checks, not the visible-section empty-space figure."
+  ]
+}

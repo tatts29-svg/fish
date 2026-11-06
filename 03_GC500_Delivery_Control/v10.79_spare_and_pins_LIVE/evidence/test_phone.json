@@ -1,0 +1,72 @@
+{
+ "device": "phone",
+ "live": false,
+ "pass": true,
+ "fails": [],
+ "tracker": {
+  "SVC1067_DATA": {
+   "refsBefore": 75,
+   "refsAfter": 74,
+   "fwfBefore": 242,
+   "fwfAfter": 242
+  },
+  "SVC1067_CARD": {
+   "refsBefore": 75,
+   "refsAfter": 74,
+   "fwfBefore": 242,
+   "fwfAfter": 242
+  }
+ },
+ "wc05": [
+  "coates:1328978",
+  "coates:1097377",
+  "event-portables:0164"
+ ],
+ "pos": {
+  "PG01": {
+   "kind": "placed",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "placed": [
+    -27.986807,
+    153.428013
+   ]
+  },
+  "PG03": {
+   "kind": "placed",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "placed": [
+    -27.986807,
+    153.428013
+   ]
+  },
+  "PG05": {
+   "kind": "placed",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "placed": [
+    -27.986807,
+    153.428013
+   ]
+  },
+  "PG29": {
+   "kind": "placed",
+   "lat": -27.986807,
+   "lon": 153.428013,
+   "placed": [
+    -27.986807,
+    153.428013
+   ]
+  },
+  "WC85": {
+   "kind": "placed",
+   "lat": -27.938636,
+   "lon": 153.426477,
+   "placed": [
+    -27.938636,
+    153.426477
+   ]
+  }
+ }
+}

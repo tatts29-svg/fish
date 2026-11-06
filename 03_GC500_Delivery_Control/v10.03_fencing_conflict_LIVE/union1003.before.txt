@@ -1,0 +1,12 @@
+ const union = (field, counter) => { const byId = new Map();
+ /* compared and hashed with the id put back to its base, so a variant already carrying a ·hash from an
+ earlier merge is the same variant, not a third one */
+ const add = (x0, fromB) => { const base = String(x0.id).replace(/·[0-9a-f]{4}$/, ''); const x = Object.assign({}, x0, {id: base}); const j = J(x);
+ const cur = byId.get(base) || []; if (cur.some(y => J(y.x) === j)) return; cur.push({x, fromB}); byId.set(base, cur); };
+ (A[field] || []).forEach(x => add(x, false)); (B[field] || []).forEach(x => add(x, true));
+ out[field] = [];
+ [...byId.keys()].sort().forEach(base => { const vs = byId.get(base);
+ if (vs.length === 1) { out[field].push(vs[0].x); if (vs[0].fromB) rep[counter]++; return; }
+ vs.sort((p, q) => J(p.x).localeCompare(J(q.x)));
+ vs.forEach(v => { const copy = Object.assign({}, v.x, {id: base + '·' + h4(J(v.x))}); out[field].push(copy); if (v.fromB) rep[counter]++; });
+ rep.clashes.push(`${base} is in both copies with different content — both kept, as ${vs.map(v => base + '·' + h4(J(v.x))).join(' and ')}`); }); };

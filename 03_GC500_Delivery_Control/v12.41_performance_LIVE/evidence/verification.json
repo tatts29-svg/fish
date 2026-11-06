@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "implementation_source": "1e8d7ad1597f60e79c3d63571da3da5f40a69957",
+  "candidate_sha256": "e106502b347cb51519f6aaed1eec5b6ba20a301b06490df04e3d29569d55b422",
+  "bytes": 15620153,
+  "base_sha256": "d0c7d444d9b9c1aef434478a283bb4fc5b0cbafeb70a329cc1a561f982bb986a",
+  "checks": {
+    "inline_scripts": 212,
+    "offline": 108,
+    "preservation": 26,
+    "native_phone": 42,
+    "photo": 18,
+    "desktop_sweep": {
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    },
+    "phone_sweep": {
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "back": true,
+      "errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    },
+    "phone_images_inspected": true
+  },
+  "operational_record_changes": false,
+  "public_readback_pending": false,
+  "ready_source": "5d36b6e1c6b9c88c7b83b46ce26d4e621cafc437",
+  "uploaded_utc": "2026-10-26T08:10:52.147Z",
+  "independent_public_get_utc": "2026-10-26T08:12:36.185959Z",
+  "actual_public_phone_checks": 8,
+  "actual_public_page_substituted": false
+}

@@ -1,0 +1,25 @@
+{
+ "by": "Andrew Fisher",
+ "clear": [
+  "P12|Portable buildings|Building 4.8m|fire_ext",
+  "P08|Portable buildings|Building 6m|fire_ext",
+  "P05|Portable buildings|Building 6m|fire_ext",
+  "P13|Portable buildings|Building 4.8m|fire_ext",
+  "CP1|Portable buildings|Building 6m|fire_ext",
+  "P11|Portable buildings|Building 4.8m|fire_ext",
+  "P09|Portable buildings|Building 6m|fire_ext",
+  "P10|Portable buildings|Building 4.8m|fire_ext",
+  "HRP|Portable buildings|Building 6m|fire_ext",
+  "P15|Portable buildings|Building 4.8m|fire_ext",
+  "P01|Portable buildings|Building 12m|fire_ext",
+  "P06|Portable buildings|Building 6m|fire_ext",
+  "P03|Portable buildings|Building 12m|fire_ext",
+  "P14|Portable buildings|Building 4.8m|fire_ext",
+  "AA|Portable buildings|Building 6m|fire_ext",
+  "P04|Portable buildings|Building 12m|fire_ext"
+ ],
+ "lines": [
+  "none"
+ ],
+ "refs": []
+}

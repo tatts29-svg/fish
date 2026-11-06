@@ -1,0 +1,718 @@
+{
+ "author": "Andrew Fisher",
+ "union": "7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e",
+ "filesChecked": [
+  "car-app.js",
+  "car-cockpit.js",
+  "car-driver.js",
+  "car-fit.js",
+  "car-gc500.js",
+  "car-powertrain.js",
+  "car-scene.js",
+  "car.css",
+  "cockpit-surfaces.js",
+  "crew.js",
+  "fx-quality.js",
+  "index.html",
+  "mech-brakes.js",
+  "mech-driveline.js",
+  "mech-oil.js",
+  "mech-register.js",
+  "part-connections.js",
+  "people-atlas.js",
+  "people-figure.js",
+  "pit-garage.js",
+  "style.css",
+  "timing-drive.js",
+  "vendor/addons/postprocessing/GTAOPass.js",
+  "view-fx.js"
+ ],
+ "references": 100,
+ "resolved": 97,
+ "missing": [],
+ "namedOnlyInComments": [
+  {
+   "from": "car-cockpit.js",
+   "spec": "tests/engine.test.mjs"
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "tests/gc500-source.test.mjs"
+  },
+  {
+   "from": "car-gc500.js",
+   "spec": "tests/gc500-source.test.mjs"
+  }
+ ],
+ "external": [
+  "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700;800&display=swap"
+ ],
+ "audioClips": 34,
+ "audioClipsMissing": [],
+ "moduleGraph": [
+  "app.js",
+  "assets/gc500/original-car.js",
+  "car-app.js",
+  "car-body.js",
+  "car-cockpit.js",
+  "car-driver.js",
+  "car-fit.js",
+  "car-gc500.js",
+  "car-motion.js",
+  "car-powertrain.js",
+  "car-references.js",
+  "car-scene.js",
+  "car.css",
+  "cockpit-surfaces.js",
+  "cog-meanings.js",
+  "content.js",
+  "crew.js",
+  "drive.js",
+  "engine-accessories.js",
+  "engine-kinematics.js",
+  "engine-systems.js",
+  "exhaust-fx.js",
+  "front-drive.js",
+  "fx-quality.js",
+  "gear-math.js",
+  "mech-brakes.js",
+  "mech-driveline.js",
+  "mech-oil.js",
+  "mech-register.js",
+  "mechanics.js",
+  "model.js",
+  "part-connections.js",
+  "parts-register.js",
+  "parts.js",
+  "people-atlas.js",
+  "people-figure.js",
+  "pit-garage.js",
+  "pit-machinery.js",
+  "poses.js",
+  "service-parts.js",
+  "style.css",
+  "timing-drive.js",
+  "v8-audio.js",
+  "vendor/OrbitControls.js",
+  "vendor/addons/math/SimplexNoise.js",
+  "vendor/addons/objects/Reflector.js",
+  "vendor/addons/postprocessing/EffectComposer.js",
+  "vendor/addons/postprocessing/GTAOPass.js",
+  "vendor/addons/postprocessing/MaskPass.js",
+  "vendor/addons/postprocessing/OutputPass.js",
+  "vendor/addons/postprocessing/Pass.js",
+  "vendor/addons/postprocessing/RenderPass.js",
+  "vendor/addons/postprocessing/ShaderPass.js",
+  "vendor/addons/shaders/CopyShader.js",
+  "vendor/addons/shaders/GTAOShader.js",
+  "vendor/addons/shaders/OutputShader.js",
+  "vendor/addons/shaders/PoissonDenoiseShader.js",
+  "vendor/addons/utils/BufferGeometryUtils.js",
+  "vendor/meshopt_decoder.module.js",
+  "vendor/three.module.js",
+  "view-fx.js"
+ ],
+ "moduleGraphMissing": [],
+ "rows": [
+  {
+   "from": "car-app.js",
+   "spec": "./assets/cog-reference.png",
+   "resolved": "assets/cog-reference.png",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-body.js",
+   "resolved": "car-body.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-cockpit.js",
+   "resolved": "car-cockpit.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-fit.js",
+   "resolved": "car-fit.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-motion.js",
+   "resolved": "car-motion.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-powertrain.js",
+   "resolved": "car-powertrain.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-references.js",
+   "resolved": "car-references.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./car-scene.js",
+   "resolved": "car-scene.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./cog-meanings.js",
+   "resolved": "cog-meanings.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./content.js",
+   "resolved": "content.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./crew.js",
+   "resolved": "crew.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./drive.js",
+   "resolved": "drive.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./exhaust-fx.js",
+   "resolved": "exhaust-fx.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./gear-math.js",
+   "resolved": "gear-math.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./mechanism.html",
+   "resolved": "mechanism.html",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./model.js",
+   "resolved": "model.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./part-connections.js",
+   "resolved": "part-connections.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./parts.js",
+   "resolved": "parts.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./pit-garage.js",
+   "resolved": "pit-garage.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./poses.js",
+   "resolved": "poses.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./v8-audio.js",
+   "resolved": "v8-audio.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/OrbitControls.js",
+   "resolved": "vendor/OrbitControls.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/addons/postprocessing/EffectComposer.js",
+   "resolved": "vendor/addons/postprocessing/EffectComposer.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/addons/postprocessing/GTAOPass.js",
+   "resolved": "vendor/addons/postprocessing/GTAOPass.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/addons/postprocessing/OutputPass.js",
+   "resolved": "vendor/addons/postprocessing/OutputPass.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/addons/postprocessing/RenderPass.js",
+   "resolved": "vendor/addons/postprocessing/RenderPass.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-app.js",
+   "spec": "./view-fx.js",
+   "resolved": "view-fx.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-cockpit.js",
+   "spec": "./car-driver.js",
+   "resolved": "car-driver.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-cockpit.js",
+   "spec": "./cockpit-surfaces.js",
+   "resolved": "cockpit-surfaces.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-cockpit.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-cockpit.js",
+   "spec": "./parts.js",
+   "resolved": "parts.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-cockpit.js",
+   "spec": "tests/engine.test.mjs",
+   "resolved": "tests/engine.test.mjs",
+   "inUnion": false
+  },
+  {
+   "from": "car-driver.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-driver.js",
+   "spec": "./vendor/addons/utils/BufferGeometryUtils.js",
+   "resolved": "vendor/addons/utils/BufferGeometryUtils.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "./car-cockpit.js",
+   "resolved": "car-cockpit.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "./car-gc500.js",
+   "resolved": "car-gc500.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-fit.js",
+   "spec": "tests/gc500-source.test.mjs",
+   "resolved": "tests/gc500-source.test.mjs",
+   "inUnion": false
+  },
+  {
+   "from": "car-gc500.js",
+   "spec": "./assets/gc500/original-car.js",
+   "resolved": "assets/gc500/original-car.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-gc500.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-gc500.js",
+   "spec": "tests/gc500-source.test.mjs",
+   "resolved": "tests/gc500-source.test.mjs",
+   "inUnion": false
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./car-gc500.js",
+   "resolved": "car-gc500.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./engine-accessories.js",
+   "resolved": "engine-accessories.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./engine-systems.js",
+   "resolved": "engine-systems.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./front-drive.js",
+   "resolved": "front-drive.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./mech-brakes.js",
+   "resolved": "mech-brakes.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./mech-driveline.js",
+   "resolved": "mech-driveline.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./mech-oil.js",
+   "resolved": "mech-oil.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./mech-register.js",
+   "resolved": "mech-register.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-powertrain.js",
+   "spec": "./timing-drive.js",
+   "resolved": "timing-drive.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-scene.js",
+   "spec": "./cockpit-surfaces.js",
+   "resolved": "cockpit-surfaces.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-scene.js",
+   "spec": "./pit-garage.js",
+   "resolved": "pit-garage.js",
+   "inUnion": true
+  },
+  {
+   "from": "car-scene.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "car.css",
+   "spec": "./assets/coates-logo.png",
+   "resolved": "assets/coates-logo.png",
+   "inUnion": true
+  },
+  {
+   "from": "cockpit-surfaces.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./car-driver.js",
+   "resolved": "car-driver.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./car-motion.js",
+   "resolved": "car-motion.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./people-atlas.js",
+   "resolved": "people-atlas.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./people-figure.js",
+   "resolved": "people-figure.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./pit-garage.js",
+   "resolved": "pit-garage.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./vendor/addons/utils/BufferGeometryUtils.js",
+   "resolved": "vendor/addons/utils/BufferGeometryUtils.js",
+   "inUnion": true
+  },
+  {
+   "from": "crew.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "index.html",
+   "spec": "./assets/favicon.svg",
+   "resolved": "assets/favicon.svg",
+   "inUnion": true
+  },
+  {
+   "from": "index.html",
+   "spec": "./assets/gc500/cutaway-preview.png",
+   "resolved": "assets/gc500/cutaway-preview.png",
+   "inUnion": true
+  },
+  {
+   "from": "index.html",
+   "spec": "./car-app.js",
+   "resolved": "car-app.js",
+   "inUnion": true
+  },
+  {
+   "from": "index.html",
+   "spec": "./car.css",
+   "resolved": "car.css",
+   "inUnion": true
+  },
+  {
+   "from": "index.html",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "part-connections.js",
+   "spec": "./mech-register.js",
+   "resolved": "mech-register.js",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./assets/coates-logo.png",
+   "resolved": "assets/coates-logo.png",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./pit-machinery.js",
+   "resolved": "pit-machinery.js",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./vendor/addons/objects/Reflector.js",
+   "resolved": "vendor/addons/objects/Reflector.js",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./vendor/addons/utils/BufferGeometryUtils.js",
+   "resolved": "vendor/addons/utils/BufferGeometryUtils.js",
+   "inUnion": true
+  },
+  {
+   "from": "pit-garage.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "timing-drive.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "../math/SimplexNoise.js",
+   "resolved": "vendor/addons/math/SimplexNoise.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "../shaders/CopyShader.js",
+   "resolved": "vendor/addons/shaders/CopyShader.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "../shaders/GTAOShader.js",
+   "resolved": "vendor/addons/shaders/GTAOShader.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "../shaders/PoissonDenoiseShader.js",
+   "resolved": "vendor/addons/shaders/PoissonDenoiseShader.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "./Pass.js",
+   "resolved": "vendor/addons/postprocessing/Pass.js",
+   "inUnion": true
+  },
+  {
+   "from": "vendor/addons/postprocessing/GTAOPass.js",
+   "spec": "three",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "view-fx.js",
+   "spec": "./fx-quality.js",
+   "resolved": "fx-quality.js",
+   "inUnion": true
+  },
+  {
+   "from": "fx-quality.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-brakes.js",
+   "spec": "./car-gc500.js",
+   "resolved": "car-gc500.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-brakes.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-driveline.js",
+   "spec": "./car-gc500.js",
+   "resolved": "car-gc500.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-driveline.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-driveline.js",
+   "spec": "./mech-brakes.js",
+   "resolved": "mech-brakes.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-oil.js",
+   "spec": "./engine-kinematics.js",
+   "resolved": "engine-kinematics.js",
+   "inUnion": true
+  },
+  {
+   "from": "mech-register.js",
+   "spec": "./car-references.js",
+   "resolved": "car-references.js",
+   "inUnion": true
+  },
+  {
+   "from": "people-atlas.js",
+   "spec": "./car-driver.js",
+   "resolved": "car-driver.js",
+   "inUnion": true
+  },
+  {
+   "from": "people-atlas.js",
+   "spec": "./vendor/three.module.js",
+   "resolved": "vendor/three.module.js",
+   "inUnion": true
+  },
+  {
+   "from": "people-figure.js",
+   "spec": "./car-driver.js",
+   "resolved": "car-driver.js",
+   "inUnion": true
+  },
+  {
+   "from": "people-figure.js",
+   "spec": "./people-atlas.js",
+   "resolved": "people-atlas.js",
+   "inUnion": true
+  },
+  {
+   "from": "people-figure.js",
+   "spec": "./vendor/addons/utils/BufferGeometryUtils.js",
+   "resolved": "vendor/addons/utils/BufferGeometryUtils.js",
+   "inUnion": true
+  }
+ ]
+}

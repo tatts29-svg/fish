@@ -1,0 +1,4 @@
+/* Author: Andrew Fisher. Existing card presentation; compact clear rate editor. */
+.pee1010-basis{display:block;font-size:11px;line-height:1.35;margin-top:3px;font-weight:400}
+.pee1010-source{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;margin:10px 0;font-size:12px}.pee1010-source dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+[data-pee1010-editor]{margin-top:12px}[data-pee1010-editor]>label{font-size:12px;font-weight:700}.pee1010-entry{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0}.pee1010-entry input{flex:1 1 110px;min-width:100px;max-width:180px;background:#fff;color:#17252a;border:1px solid #8f9da1;border-radius:5px;padding:8px}.pee1010-entry button{padding:8px 11px;min-height:38px}[data-pee1010-result]{margin:7px 0 0;font-size:12px;font-weight:700;color:#394d54}[data-save1010="shared"]{color:#12673b}[data-save1010="error"],[data-save1010="changed"]{color:#9e321d}

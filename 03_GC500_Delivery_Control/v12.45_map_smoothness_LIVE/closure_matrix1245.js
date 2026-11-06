@@ -1,0 +1,1 @@
+function satMatrix(){ const M = GEO.Ai, e = M[0][2] + M[0][0] * SO1245[0] + M[0][1] * SO1245[1], f = M[1][2] + M[1][0] * SO1245[0] + M[1][1] * SO1245[1]; return 'matrix(' + [M[0][0], M[1][0], M[0][1], M[1][1], e, f].map(n => Number(n).toPrecision(12)).join(' ') + ')'; }

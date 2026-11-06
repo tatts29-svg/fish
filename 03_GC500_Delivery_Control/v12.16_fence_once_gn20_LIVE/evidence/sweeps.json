@@ -1,0 +1,38 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "console": 0,
+  "deep_links": 7,
+  "deep_link_errors": 0,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "all_errors": [],
+  "counts": {
+   "page": 1,
+   "live": 552,
+   "blocked": 0
+  }
+ },
+ "phone": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "console": 0,
+  "deep_links": 7,
+  "deep_link_errors": 0,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "all_errors": [],
+  "counts": {
+   "page": 1,
+   "live": 462,
+   "blocked": 0
+  }
+ }
+}

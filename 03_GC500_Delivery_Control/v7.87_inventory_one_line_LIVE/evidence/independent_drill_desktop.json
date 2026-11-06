@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "device": "desktop",
+  "candidateSha256": "d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367",
+  "passed": 8,
+  "total": 8,
+  "tests": [
+    {
+      "name": "invDrill: reference opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "invDrill: map opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "invDrill: locator opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "tg782: reference opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "tg782: map opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "tg782: locator opens the selected reference",
+      "pass": true
+    },
+    {
+      "name": "No page errors",
+      "pass": true
+    },
+    {
+      "name": "No attempted record writes",
+      "pass": true
+    }
+  ]
+}

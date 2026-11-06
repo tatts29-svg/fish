@@ -1,0 +1,8 @@
+/* Author: Andrew Fisher. Pack existing Demob components at their natural size. */
+#pane-demob .dc996-day .bc984-load-row:has(>.dl1238){display:block}
+#pane-demob .dc996-day .bc984-load-row:has(>.dl1238)>.bc984-label{display:block;margin-bottom:6px}
+#pane-demob .dc996-day .dl1238{width:100%;min-width:0;box-sizing:border-box}
+#pane-demob .dc996-day .dl1238>span{grid-template-columns:auto minmax(0,1fr) auto;min-width:0}
+#pane-demob .dc996-day .dl1238>span>s{min-width:0;overflow-wrap:anywhere}
+#pane-demob .gg1238{align-items:start}
+#pane-demob .sg1238{align-content:start}

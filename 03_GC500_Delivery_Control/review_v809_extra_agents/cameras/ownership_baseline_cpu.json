@@ -1,0 +1,158 @@
+{
+  "author": "Andrew Fisher",
+  "source": "/workspace/private-v809-support/ba9fff7e/03_GC500_Delivery_Control/v8.09_coates_way_machine_DRAFT/work/car-app.js",
+  "sha256": "718b2cfa403ae8fb0d6bc7b3bde6578719e62802b2eb23c38513e4d0700f1707",
+  "mode": "baseline",
+  "assertions": [
+    {
+      "name": "aspect 1.6: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.791: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.65: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.552: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.552: original clamp reproduced",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.524: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.524: original clamp reproduced",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.5: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.5: original clamp reproduced",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.4: manual maxDistance unchanged",
+      "pass": true
+    },
+    {
+      "name": "aspect 0.4: original clamp reproduced",
+      "pass": true
+    },
+    {
+      "name": "orbit residual decays while driver shot owns camera",
+      "pass": true
+    },
+    {
+      "name": "pan residual decays while driver shot owns camera",
+      "pass": true
+    },
+    {
+      "name": "actual gesture-start handler immediately releases ownership",
+      "pass": true
+    },
+    {
+      "name": "manual max distance applies after gesture release",
+      "pass": true
+    },
+    {
+      "name": "completed return releases ownership",
+      "pass": true
+    },
+    {
+      "name": "completed return reaches saved position",
+      "pass": true
+    },
+    {
+      "name": "completed return reaches saved target",
+      "pass": true
+    },
+    {
+      "name": "separate assemblyFit follow-on remains explicit",
+      "pass": true
+    },
+    {
+      "name": "view/reset cancellation releases ownership",
+      "pass": true
+    },
+    {
+      "name": "no stale scripted pose restored after cancellation",
+      "pass": true
+    },
+    {
+      "name": "reduced-motion camera reaches hold on first frame",
+      "pass": true
+    }
+  ],
+  "measurements": [
+    {
+      "aspect": 1.6,
+      "desiredDistance": 11.258484776933077,
+      "drawnDistance": 11.258484776933077,
+      "poseError": 2.6645352591003757e-15,
+      "maxX": 0.6781184993444013,
+      "maxY": 0.8538973642325116
+    },
+    {
+      "aspect": 0.791,
+      "desiredDistance": 15.539174424655803,
+      "drawnDistance": 15.539174424655803,
+      "poseError": 1.9860273225978185e-15,
+      "maxX": 0.9295517244709738,
+      "maxY": 0.5792563916362167
+    },
+    {
+      "aspect": 0.65,
+      "desiredDistance": 18.38768845185805,
+      "drawnDistance": 18.38768845185805,
+      "poseError": 1.9860273225978185e-15,
+      "maxX": 0.9314195525995185,
+      "maxY": 0.4771371642129861
+    },
+    {
+      "aspect": 0.552,
+      "desiredDistance": 21.224710632460678,
+      "drawnDistance": 20,
+      "poseError": 1.224710632460678,
+      "maxX": 0.997108123399939,
+      "maxY": 0.4338456718463546
+    },
+    {
+      "aspect": 0.524,
+      "desiredDistance": 22.230198319151903,
+      "drawnDistance": 20,
+      "poseError": 2.2301983191519046,
+      "maxX": 1.0503887101465008,
+      "maxY": 0.4338456718463546
+    },
+    {
+      "aspect": 0.5,
+      "desiredDistance": 23.181676952958,
+      "drawnDistance": 20,
+      "poseError": 3.1816769529579996,
+      "maxX": 1.1008073682335329,
+      "maxY": 0.4338456718463546
+    },
+    {
+      "aspect": 0.4,
+      "desiredDistance": 28.207829290281293,
+      "drawnDistance": 20,
+      "poseError": 8.207829290281296,
+      "maxX": 1.3753212217065018,
+      "maxY": 0.4215991384827065
+    },
+    {
+      "assemblyFitFollowOn": 1,
+      "note": "Source interaction is unchanged; original exact-return test omits this real-frame gate."
+    }
+  ]
+}

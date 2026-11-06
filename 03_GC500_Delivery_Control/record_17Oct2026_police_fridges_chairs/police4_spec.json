@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {"op": "arrived", "ref": "P26", "iso": "2026-10-14", "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"},
+  {"op": "arrived", "ref": "P28", "iso": "2026-10-14", "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"},
+  {"op": "arrived", "ref": "P34", "iso": "2026-10-14", "why": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")"}
+ ]
+}

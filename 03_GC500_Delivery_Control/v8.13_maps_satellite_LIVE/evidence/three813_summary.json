@@ -1,0 +1,155 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Bounded3D implementation verified; root owns final integration/publication",
+  "owned_files": [
+    "patch_satellite3d813.py",
+    "satellite3d813_src.js",
+    "evidence/three813_*"
+  ],
+  "source": {
+    "base_poc_sha256": "0a060bed5acfdd970cc04c209b2163cba3199728575c84ac8196a10014b861f7",
+    "final_poc_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+    "final_combined_merge_sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+    "patch_sha256": "6bedb90fe6b5587c998338d1e30ab1273527611adc982487de4c2fe7bab3b8fa",
+    "helper_sha256": "26604c10038eaf1f966faa40f1f2923c344fbed7e8e67c7f412fad0ff0318d2f",
+    "other_entry_assets_in_targeted_fixture": {
+      "index.html": "a805d465bfa60da5c091da385ac1f2c9015337360b18a3b0ae0f44eb3026fd94",
+      "explorer.js": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0"
+    },
+    "note": "Later entry CSS has its separate affected UI review. These3D checks do not claim that later entry bytes were the fixture bytes.",
+    "component_stage_merge_sha256": "bbc441e67211d6a3f73d64c9fffcace96335baf803d22980236a461942ccda2c",
+    "merge_stage_note": "Independent CPU fixtures and replay guards use the owned 3D-only component-stage merge bbc441e6. Final combined UX plus 3D merge is 26123840; both earlier and final actual-browser runs used that combined merge, including its sync3d state.ready guard."
+  },
+  "implementation": [
+    "Ground/Street camera heights use measured44.6m site datum; other positions/angles/presets unchanged; relative height labels accurate.",
+    "Camera commands cancel prior compass/orbit/flight; leaving3D stops all camera motion.",
+    "Map-access request has20s abort;30s slow scene exposes explicit Retry. Retry reloads only on a user press.",
+    "Context/render failure clears child and parent readiness, stops rendering, remains terminal through late imagery, and offers one reachable recovery UI.",
+    "Iframe readiness is generation-fenced and late successful startup notifies parent. Master transformations and adaptive quality policy are unchanged."
+  ],
+  "cpu": {
+    "own_lifecycle_and_preservation": {
+      "passed": 37,
+      "total": 37,
+      "poc": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4"
+    },
+    "own_quality_and_access": {
+      "passed": 21,
+      "total": 21,
+      "poc": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4"
+    },
+    "independent": {
+      "prior_independent_cpu_passed": 42,
+      "prior_independent_cpu_total": 42,
+      "prior_poc_sha256": "82b05b2c6ded2d881f2ec4072523bfff4aa5d93db663f447e4619a6dbaea085c",
+      "final_affected_delta_cpu_passed": 8,
+      "final_affected_delta_cpu_total": 8,
+      "exact_allowed_source_delta_count": 7,
+      "all_other_poc_bytes_unchanged": true,
+      "merge_unchanged": true,
+      "final_rebuild_guard_passed": 5,
+      "final_rebuild_guard_total": 5,
+      "final_inline_scripts_parsed": 3,
+      "final_merge_script_parsed": true,
+      "note": "Per requested bounded rerun, the original 42-check suite is bound to the earlier candidate. Final source matches exactly the seven reviewed follow-up replacements, covered by eight affected-delta checks. No claim that all 42 fixtures were rerun on final bytes.",
+      "component_stage_merge_sha256": "bbc441e67211d6a3f73d64c9fffcace96335baf803d22980236a461942ccda2c"
+    }
+  },
+  "actual": {
+    "earlier_functional": {
+      "passed": 20,
+      "total": 20,
+      "poc": "82b05b2c6ded2d881f2ec4072523bfff4aa5d93db663f447e4619a6dbaea085c",
+      "merge": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "scope": "Explicit activation; simulated key503 then userRetry; one3D root request; master pins; Ground height; camera takeover;2D/3D session reuse; phone geometry; context-loss state. The old isVisible recovery assertion is superseded by final native hit-target/click proof."
+    },
+    "final_targeted": {
+      "passed": 9,
+      "total": 9,
+      "poc": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+      "merge": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "scope": "DPR2 wide Auto settles; controlled contextloss; Retry receives native hit; no second error overlay; actualRetry click opens one replacement session and ready rendering resumes.",
+      "root_requests": 2,
+      "child_documents": 2,
+      "operational_writes": 0,
+      "page_errors": []
+    },
+    "phone_settled": {
+      "settled": true,
+      "metrics": {
+        "loaded": true,
+        "tilesLoaded": true,
+        "tilesReceived": 211,
+        "adapt": {
+          "moving": false,
+          "k": 0.6,
+          "res": 2,
+          "still": 2,
+          "sse": 4,
+          "msaa": 1,
+          "lowpower": true,
+          "autoUp": false
+        },
+        "quality": "auto",
+        "dpr": 2,
+        "canvas": {
+          "w": 780,
+          "h": 1572,
+          "cssW": 390,
+          "cssH": 786
+        },
+        "cameraHeight": 1400.0000000001046,
+        "requests": {
+          "pending": 0,
+          "processing": 0,
+          "ready": 175
+        }
+      }
+    },
+    "wide_settled": {
+      "settled": true,
+      "metrics": {
+        "loaded": true,
+        "tilesLoaded": true,
+        "tilesReceived": 803,
+        "adapt": {
+          "moving": false,
+          "k": 0.6,
+          "res": 2,
+          "still": 2,
+          "sse": 4,
+          "msaa": 1,
+          "lowpower": true,
+          "autoUp": false
+        },
+        "quality": "auto",
+        "dpr": 2,
+        "canvas": {
+          "w": 2280,
+          "h": 1892,
+          "cssW": 1140,
+          "cssH": 946
+        },
+        "cameraHeight": 1400.0000000001046,
+        "requests": {
+          "pending": 0,
+          "processing": 0,
+          "ready": 749
+        }
+      }
+    }
+  },
+  "screenshots_private": {
+    "/workspace/private-maps813/3d/settled-final/phone-auto-settled.png": "7aa309e630d4f93b18dd198cc0b252d687a62284fc8c10bf328d82bb135c377d",
+    "/workspace/private-maps813/3d/settled-remaining/wide-auto-settled.png": "6f56f6acc75ec3e724d6b1e72b7d3b867b88451dc64bd9a80ea852cc3dda7769",
+    "/workspace/private-maps813/3d/settled-remaining/phone-recovery-hit.png": "9175fe4838650df8944cef7cce187da422eecbed9f68d237490471b897490339"
+  },
+  "visual_review": "Settled views inspected: current-camera terrain/city complete with0pending and0processing; recovery text and native Retry unobscured. No invented higher-resolution imagery or physical-device FPS claim.",
+  "limits": [
+    "Earlier functional imagery screenshots were captured while loading and are not final clarity evidence.",
+    "First wide-resize fixture sampled the previous loaded state too early; it is retained as failed fixture evidence. A separate stable-loaded wait verified the wide view and remaining recovery checks.",
+    "The target uses one headless Chromium touch/DPR2 profile at phone and wide viewports, software rendering and curl transport; not a physical-device benchmark.",
+    "The external parser-blocking Cesium CDN transfer precedes the new runtime warning; a pending CDN transfer is not covered by the20s map-access deadline. A completed library failure shows recovery.",
+    "No operational writes, coordinate changes, vehicle/track changes or automatic3D session retries."
+  ]
+}

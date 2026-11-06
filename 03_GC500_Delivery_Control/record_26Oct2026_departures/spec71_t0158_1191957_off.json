@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 13:35 AEST: \"Remove this its not part of a vms\" - asset 1191957 on T0158 is not a VMS board; its unit record was set aside on 19 Oct, the leftover Ready tick comes off",
+  "ops": [
+    {"op": "unit_ready_off", "ref": "T0158", "unit": "coates|1191957", "why": "Not a VMS board - Andrew Fisher, 29 Oct 2026; unit set aside 19 Oct"}
+  ]
+}

@@ -1,0 +1,357 @@
+{
+  "candidateSha256": "63673ae8ecd6f8bb7013a4a3767be57979648ad83bfa6a085e22cf50f981ba6b",
+  "runs": [
+    {
+      "mode": "desktop",
+      "checks": [
+        {
+          "name": "Every known truck has an actual departure-check control",
+          "pass": true
+        },
+        {
+          "name": "Departure dialog shows first DD cargo and loading-clock distinction",
+          "pass": true
+        },
+        {
+          "name": "Three unchecked confirmations; no automatic approval",
+          "pass": true
+        },
+        {
+          "name": "View-only link cannot change checks or depart",
+          "pass": true
+        },
+        {
+          "name": "Applicable full checklist linked and not replaced by reminders",
+          "pass": true
+        },
+        {
+          "name": "Departure drawer stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "First refresh preserves keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "Truck 1 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 1 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 2 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 2 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 3 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 3 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 4 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 4 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 5 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 5 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 6 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 6 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 7 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 7 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 8 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 8 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 9 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 9 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 10 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 10 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 11 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 11 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Source prerequisites have actual review controls",
+          "pass": true
+        },
+        {
+          "name": "Fencing dialog retains source requirement and dated provenance",
+          "pass": true
+        },
+        {
+          "name": "Fencing confirmation is view-only and separate from completion",
+          "pass": true
+        },
+        {
+          "name": "Fencing drawer stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "Conditional instruction preserves later-work alternative",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        },
+        {
+          "name": "Recorded operator and time are visible in actual prerequisite drawer",
+          "pass": true
+        },
+        {
+          "name": "Expanded history retains exact source instruction and operator",
+          "pass": true
+        },
+        {
+          "name": "Synthetic UI history caused no service-write attempts",
+          "pass": true
+        }
+      ],
+      "weeks": [
+        "Week 6",
+        "Week 5",
+        "Week 4",
+        "Week 3",
+        "Week 2",
+        "Week 1",
+        "Event Week",
+        "Demob Week 1",
+        "Demob Week 2",
+        "Demob Week 3"
+      ],
+      "conditional": "club 500ccb — club 500 creek protection · tue 06 oct 2026closecheck flat-feet ccb availability. the plan allows that portion to be completed later if it is not on site; install the available work.05_cw2_fencing installation plan.pdf · revision 2026-10-02 · p. 6record that this condition has been reviewed with the crew. follow the timing and alternatives stated above; this does not mean all conditional work has already happened.not yet confirmedcondition reviewed with the crewa checklist confirmation does not record work as installed, quantities as delivered, or a docket as complete.",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 123,
+        "blocked": 0
+      }
+    },
+    {
+      "mode": "phone",
+      "checks": [
+        {
+          "name": "Every known truck has an actual departure-check control",
+          "pass": true
+        },
+        {
+          "name": "Departure dialog shows first DD cargo and loading-clock distinction",
+          "pass": true
+        },
+        {
+          "name": "Three unchecked confirmations; no automatic approval",
+          "pass": true
+        },
+        {
+          "name": "View-only link cannot change checks or depart",
+          "pass": true
+        },
+        {
+          "name": "Applicable full checklist linked and not replaced by reminders",
+          "pass": true
+        },
+        {
+          "name": "Departure drawer stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "First refresh preserves keyboard focus",
+          "pass": true
+        },
+        {
+          "name": "Truck 1 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 1 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 2 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 2 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 3 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 3 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 4 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 4 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 5 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 5 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 6 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 6 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 7 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 7 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 8 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 8 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 9 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 9 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 10 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 10 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Truck 11 drawer retains its exact DD, references and clock",
+          "pass": true
+        },
+        {
+          "name": "Truck 11 departure control is reachable and held",
+          "pass": true
+        },
+        {
+          "name": "Source prerequisites have actual review controls",
+          "pass": true
+        },
+        {
+          "name": "Fencing dialog retains source requirement and dated provenance",
+          "pass": true
+        },
+        {
+          "name": "Fencing confirmation is view-only and separate from completion",
+          "pass": true
+        },
+        {
+          "name": "Fencing drawer stays within viewport",
+          "pass": true
+        },
+        {
+          "name": "Conditional instruction preserves later-work alternative",
+          "pass": true
+        },
+        {
+          "name": "No page errors or service-write attempts",
+          "pass": true
+        },
+        {
+          "name": "Recorded operator and time are visible in actual prerequisite drawer",
+          "pass": true
+        },
+        {
+          "name": "Expanded history retains exact source instruction and operator",
+          "pass": true
+        },
+        {
+          "name": "Synthetic UI history caused no service-write attempts",
+          "pass": true
+        }
+      ],
+      "weeks": [
+        "Week 6",
+        "Week 5",
+        "Week 4",
+        "Week 3",
+        "Week 2",
+        "Week 1",
+        "Event Week",
+        "Demob Week 1",
+        "Demob Week 2",
+        "Demob Week 3"
+      ],
+      "conditional": "club 500ccb — club 500 creek protection · tue 06 oct 2026closecheck flat-feet ccb availability. the plan allows that portion to be completed later if it is not on site; install the available work.05_cw2_fencing installation plan.pdf · revision 2026-10-02 · p. 6record that this condition has been reviewed with the crew. follow the timing and alternatives stated above; this does not mean all conditional work has already happened.not yet confirmedcondition reviewed with the crewa checklist confirmation does not record work as installed, quantities as delivered, or a docket as complete.",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 122,
+        "blocked": 0
+      }
+    }
+  ]
+}

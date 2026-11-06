@@ -1,0 +1,37 @@
+Boost Mobile Gold Coast 500 · Accruals for Finance · work month September 2026 · as at Thu 01 Oct 2026 · AUD ex GST
+Author: Andrew Fisher · from the GC500 record; proposals for Finance, nothing posted
+
+Baseplan billing columns (export Thu 24 Sep 2026): 0 of 307 contract lines billed — no branch has billed yet
+
+1. REVENUE EARNED IN THE MONTH, NOT YET BILLED (accrued revenue / WIP) — $177,968
+ • Hire charged from the day it goes in · STPS · $26,316 — 23 contract lines (Barrier - Crash Rated Water , Variable Message Board Senio, Variable Message Board - Col, Variable Message Board Junio, …) · the rate a day × the days on hire in September 2026 (22 run past the month). Accrue as unbilled revenue until the branch bills it.
+ • Hire charged from the day it goes in — from the card · NVAC · $11,656 — 6 contract lines (Forklift 3.0t Container Dies, Forklift Rough Terrain 2.5t , Forklift Rough Terrain 4WD W, 5T FORKLIFT 1.8TYNNES, …) · the rate a day × the days on hire in September 2026 (4 run past the month). Accrue as unbilled revenue until the branch bills it.
+ • Transport Revenue — the delivery and transport lines · KINP · $2,000 — 2 contract lines (Delivery each way per contai, Pickup each way per Containe) · the price on the line, in the month it went in. Accrue as unbilled revenue until the branch bills the delivery.
+ • Fencing — Rehire Revenue, dockets at the 2026 card · STPS · $120,913 — 59 dockets dated in September 2026 · hire and installation in one card rate. Accrue as unbilled revenue until the branch bills it.
+ • Labour ticked per piece · KINP · $16,458 — 161 ticks on 49 references that went in during September 2026 · the card's per-piece rates. Accrue as unbilled revenue until the branch bills it.
+ • Labour ticked per piece · NVAC · $625 — 4 ticks on 4 references that went in during September 2026 · the card's per-piece rates. Accrue as unbilled revenue until the branch bills it.
+
+2. COSTS INCURRED IN THE MONTH — INVOICE IN, OR STILL TO COME (accrued expense)
+ • Fencing — Advanced Temporary Fencing, rehire cost · STPS · incurred $74,606 · invoiced $42,662 · to accrue $31,944 — 62 dockets dated in September 2026 at Advanced's own sheet $73,397 + their labour and truck hours $1,209 (the green book, apportioned by the dockets) · invoices recorded: 4918492 $8,992 (PO 4647508, Construction week 6); 4922398 $33,670 (PO 4647509, Construction week 5) · 2 POs for the month with no invoice yet (4647515, 4658850). Accrue $31,944 — dockets in hand, invoice still to come.
+ • Toilets — Event Portables Australia Q6845, rehire cost · KINP · incurred $21,950 · to accrue $21,950 — $54,230 ex GST on the quote (Toilet Hire) · Mon 14 Sep 2026 to Sun 25 Oct 2026 · 17 of 42 days fall in September 2026, so $21,950 is the day-share — a suggestion, not the quote's wording · approved on Andrew’s word · no invoice and no purchase order on the record. Finance’s call: accrue the September 2026 share, or hold the whole quote to the event’s month with its revenue.
+ • Transport (cartage) — carriers’ charges · the job · incurred $22,011 · to accrue $22,011 — 37 loads dated in September 2026 with a figure on the schedule’s TPORT COST column (35 marked “and more”) · 24 Coates-truck loads, no carrier charge · whether each carrier has invoiced is not on the record. Accrue any load whose carrier invoice is not in by cut-off.
+ • Labour hire — the hours at their rates · the job · incurred $6,285 · to accrue $6,285 — 105 paid hours in September 2026 by Kyle Gover, Daniel Gough · the running sheet’s hourly pay rates · 12 of 12 shifts confirmed. Accrue the weeks their invoice has not covered by cut-off.
+ • Coates people — wages · the job — 565 paid hours in September 2026 by Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul · 55 of 55 shifts confirmed · no cost rate on the record for Coates people. Payroll — no accrual; hours for information.
+ • Accommodation — on the tracker · the job · incurred $5,476 · to accrue $5,476 — 29 lines dated in September 2026 · 4 with no figure yet · cards and expense claims. Accrue any not on a card statement or claim by cut-off.
+ • Meals away from home — on the tracker · the job · incurred $1,381 · to accrue $1,381 — 4 lines dated in September 2026 · cards and expense claims. Accrue any not on a card statement or claim by cut-off.
+ • Other expenses — on the tracker · the job · incurred $719 · to accrue $719 — 4 lines dated in September 2026 · cards and expense claims. Accrue any not on a card statement or claim by cut-off.
+ To accrue: $67,815 · Finance’s decision: $21,950 · supplier invoices recorded for the month: $42,662
+
+3. PAID AHEAD OF THE REVENUE — THE WIP QUESTION
+ • Fencing — Advanced Temporary Fencing’s invoices in hand $42,662 against the fencing charge to the V8s $120,913, none of it billed by STPS yet. Finance’s call: accrue the fencing revenue for the month (matches the cost already paid), or hold the paid cost as WIP until the branch bills.
+
+4. LABOUR — THE FORECAST, BOTH SIDES (whole job)
+ • Labour Install (install, steps, levelling, demob): ticked so far $17,083 · expected on site, not ticked $5,278 · to come $20,279 · later (demob, cleaning) $27,222 · forecast $69,862
+ • Cleaning (not labour): ticked so far $0 · expected on site, not ticked $0 · to come $0 · later (demob, cleaning) $8,484 · forecast $8,484
+ • Fire extinguishers (a hire charge): ticked so far $0 · expected on site, not ticked $1,666 · to come $937 · later (demob, cleaning) $0 · forecast $2,603
+ • Per piece, from the card: ticked so far $17,083 · expected on site, not ticked $6,943 · to come $21,216 · later (demob, cleaning) $35,706 · forecast $80,948
+ • Event labour — the scope: $55,817 for 368.9 h over the three race days
+ Labour to charge, all in: $136,765 (Labour Install + the scope $125,678)
+ Labour cost — hours on the running sheet: September 2026 670 h ($6,285 priced) · October 2026 1,028 h ($19,134 priced) · November 2026 405 h ($6,406 priced) · whole job 2,103 h, priced $31,824 (labour hire only), 1,626 h with no wage rate — PARTIAL
+
+Terms: accrual = book it in the month the work happened, invoice to follow · unbilled revenue / WIP = work done, not yet invoiced to the customer · deferral / prepayment = paid now, belongs to a later month · reclass = move a cost to the right branch or code · reversing accrual = booked now, unwound when the invoice posts · cut-off = the month-end line.

@@ -1,0 +1,66 @@
+{
+ "device": "desktop",
+ "pass": true,
+ "fails": [],
+ "strip": "Rehire on site · all equipment: Event Portables 201 on site (200 at locations, 1 spare) Premiair Hire 6 on site (6 at locations) United Rentals Royal Wolf 1 on site (1 at locations)",
+ "vmsRow": "VMS 20 Premiair Hire 6 0 20 14 0 3 23",
+ "drawers": {
+  "T0001": "1211370 1211354 1182999 1191877 1211359 1211383 1271129",
+  "T0103": "1211404 120T",
+  "T0128": "467T 1211646",
+  "T0158": "472T 487T 475T 453T 1191957 1201864 1211348 1211376 1211364"
+ },
+ "foot": "Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · Today v8.20 · v10.76",
+ "base": {
+  "costs": {
+   "gone": [],
+   "added": []
+  },
+  "today": {
+   "gone": [
+    "4 areas at 100%",
+    "20 of 20 boards complete · reached 19 Oct 2026 · 42 days start to finish",
+    "92.26 percent",
+    "92.26",
+    "Provisional: Fencing, VMS boards",
+    "Schedule basis: 20 boards. Earlier confirmed requirement: 22 boards (01 Oct 2026). Latest source: GC500 26 Schedule (7).xlsx · reviewed 2026-10-09. BOQ history: 23. Scope awaits reconciliation; no unit or hire is removed automatically. Relocations add no hire units.",
+    "100% complete against provisional schedule scope",
+    "Complete against schedule · provisional scope · 20 total",
+    "Schedule basis: 20 boards. Earlier confirmed requirement: 22 boards (01 Oct 2026). Latest source: GC500 26 Schedule (7).xlsx · reviewed 2026-10-09. BOQ history: 23. Scope awaits reconciliation; no unit or hire is removed automatically. Relocations add no hire units.",
+    "100% complete against schedule · provisional scope · items",
+    "Schedule basis: 20 boards. Earlier confirmed requirement: 22 boards (01 Oct 2026). Latest source: GC500 26 Schedule (7).xlsx · reviewed 2026-10-09. BOQ history: 23. Scope awaits reconciliation; no unit or hire is removed automatically. Relocations add no hire units.",
+    "Schedule basis: 20 boards. Earlier confirmed requirement: 22 boards (01 Oct 2026). Latest source: GC500 26 Schedule (7).xlsx · reviewed 2026-10-09. BOQ history: 23. Scope awaits reconciliation; no unit or hire is removed automatically. Relocations add no hire units.",
+    "4 areas at 100%",
+    "20 of 20 boards complete · reached 19 Oct 2026 14:29",
+    "UNITS (THE BOARD'S COUNT)\t20 of 20 boards done · 0 left",
+    "LAST COMPLETE — THE 100%\tT0158 · 19 Oct 2026 14:29 · Andrew Fisher",
+    "START TO FINISH\t42 days (first on site to the last complete tick)",
+    "20 of 20 boards on site",
+    "VMS\t20\t20"
+   ],
+   "added": [
+    "3 areas at 100%",
+    "90.39 percent",
+    "90.39",
+    "Provisional: Fencing",
+    "86.96% confirmed complete",
+    "86.96",
+    "Confirmed complete · 23 total",
+    "86.96% confirmed complete · items",
+    "3 areas at 100%",
+    "87%",
+    "20 of 23 boards complete",
+    "UNITS (THE BOARD'S COUNT)\t20 of 23 boards done · 3 left",
+    "LATEST COMPLETE\tT0158 · 19 Oct 2026 14:29 · Andrew Fisher",
+    "START TO FINISH\tnot there yet — 3 boards to go",
+    "23 boards",
+    "20 of 23 boards on site",
+    "87%",
+    "VMS\t20\t23",
+    "Due, nothing recorded"
+   ]
+  },
+  "baseVmsRow": "VMS 20 Premiair Hire 6 0 20 14 0 0 20",
+  "baseStrip": "Rehire on site · all equipment: Event Portables 201 on site (200 at locations, 1 spare) Premiair Hire 6 on site (6 at locations) United Rentals Royal Wolf 1 on site (1 at locations)"
+ }
+}

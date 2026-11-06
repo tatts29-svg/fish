@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "candidateBoundSourceFiles": 51,
+  "productSourcesUnchanged": true,
+  "testOnlyChanges": [
+    {
+      "file": "subhire/tests/export_public996.cjs",
+      "before": "adc81dc2c661cb00f0a2d75a9a5e60cbf8e17115bfdde1006309b8631f8f00e1",
+      "after": "1170657193f5dcfeb4ed610cdddd429f5d3a4bc3039e3356a123f12568645c3e"
+    }
+  ],
+  "reason": "Export verifier hashes the actual network bytes before Chromium response-buffer eviction, and uses MuPDF for previews to avoid local Poppler font fallback distortion. No HTML or PDF-generation change.",
+  "publishedSha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551"
+}

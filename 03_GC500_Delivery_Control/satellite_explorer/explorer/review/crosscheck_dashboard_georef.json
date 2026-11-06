@@ -1,0 +1,55 @@
+{
+ "check": "my sheet registration versus the dashboard's existing registration of the same aerial frame to the Queensland Government 2022 orthophoto (DATA.georef, fit rms 0.30 m, worst 0.64 m)",
+ "points_frame_px": [
+  [
+   0,
+   0
+  ],
+  [
+   4760,
+   0
+  ],
+  [
+   0,
+   2965
+  ],
+  [
+   4760,
+   2965
+  ],
+  [
+   2380,
+   1482
+  ],
+  [
+   1200,
+   800
+  ],
+  [
+   3600,
+   2200
+  ]
+ ],
+ "differences_m": [
+  0.85,
+  0.09,
+  0.83,
+  1.66,
+  0.44,
+  0.25,
+  1.04
+ ],
+ "mean_m": 0.74,
+ "max_m": 1.66,
+ "note": "two independent references (Mapbox Satellite; the QLD 2022 orthophoto); their agreement bounds the error of both",
+ "frame_px_dashboard": [
+  4760,
+  2994
+ ],
+ "frame_px_mine": [
+  4760,
+  2965
+ ],
+ "dashboard_orientation": 89.84,
+ "my_rotation_deg": 89.86773769125644
+}

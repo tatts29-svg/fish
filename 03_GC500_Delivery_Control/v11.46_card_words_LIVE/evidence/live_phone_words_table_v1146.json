@@ -1,0 +1,590 @@
+[
+ {
+  "ref": "PG01",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "PG03",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "PG05",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "PG29",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC12",
+  "label": "4 × FWF",
+  "words": "4 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC16",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks on sewer",
+  "kind": "sewer",
+  "k": "sewer"
+ },
+ {
+  "ref": "BJR01",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "T0162",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "T0176",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "SVP01",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC15",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks on sewer",
+  "kind": "sewer",
+  "k": "sewer"
+ },
+ {
+  "ref": "WC17",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks on sewer",
+  "kind": "sewer",
+  "k": "sewer"
+ },
+ {
+  "ref": "WC43",
+  "label": "10 × FWF",
+  "words": "10 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC73",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "T0243",
+  "label": "1 × Toilet block 6 m",
+  "words": "1 toilet block on sewer",
+  "kind": "sewer",
+  "k": "sewer"
+ },
+ {
+  "ref": "WC19",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC20",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks",
+  "kind": "block",
+  "k": "block"
+ },
+ {
+  "ref": "WC20",
+  "label": "2 × Waste tank",
+  "words": "2 sewer tanks",
+  "kind": "tank",
+  "k": "tank"
+ },
+ {
+  "ref": "WC86",
+  "label": "1 × Accessible toilet",
+  "words": "1 accessible toilet",
+  "kind": "access",
+  "k": "access"
+ },
+ {
+  "ref": "WC21",
+  "label": "6 × FWF",
+  "words": "6 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC44",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "T0024",
+  "label": "1 × FWF at EVL",
+  "words": "1 flush toilet at EVL",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "T0024",
+  "label": "1 × FWF at the Coates office",
+  "words": "1 flush toilet at the Coates office",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC05",
+  "label": "1 × Toilet block 6 m",
+  "words": "1 toilet block",
+  "kind": "block",
+  "k": "block"
+ },
+ {
+  "ref": "WC05",
+  "label": "1 × Waste tank",
+  "words": "1 sewer tank",
+  "kind": "tank",
+  "k": "tank"
+ },
+ {
+  "ref": "WC04",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC06",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC07",
+  "label": "20 × FWF",
+  "words": "20 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC11",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC41",
+  "label": "10 × FWF",
+  "words": "10 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC01",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC01",
+  "label": "1 × Accessible toilet",
+  "words": "1 accessible toilet",
+  "kind": "access",
+  "k": "access"
+ },
+ {
+  "ref": "WC02",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC38",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC39",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC40",
+  "label": "5 × FWF",
+  "words": "5 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC42",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC31",
+  "label": "1 × Accessible toilet",
+  "words": "1 accessible toilet",
+  "kind": "access",
+  "k": "access"
+ },
+ {
+  "ref": "WC31",
+  "label": "2 × 16-pan toilet block",
+  "words": "2 toilet blocks, 16 pans each",
+  "kind": "block",
+  "k": "pan16"
+ },
+ {
+  "ref": "WC34",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC65",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC09",
+  "label": "10 × FWF",
+  "words": "10 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC09",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks on sewer",
+  "kind": "sewer",
+  "k": "sewer"
+ },
+ {
+  "ref": "WC10",
+  "label": "3 × FWF",
+  "words": "3 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC28",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC29",
+  "label": "7 × FWF",
+  "words": "7 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC27",
+  "label": "1 × Toilet block 6 m",
+  "words": "1 toilet block",
+  "kind": "block",
+  "k": "block"
+ },
+ {
+  "ref": "WC27",
+  "label": "1 × Waste tank",
+  "words": "1 sewer tank",
+  "kind": "tank",
+  "k": "tank"
+ },
+ {
+  "ref": "WC33",
+  "label": "17 × FWF",
+  "words": "17 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC60",
+  "label": "2 × Toilet block 6 m",
+  "words": "2 toilet blocks",
+  "kind": "block",
+  "k": "block"
+ },
+ {
+  "ref": "WC60",
+  "label": "2 × Waste tank",
+  "words": "2 sewer tanks",
+  "kind": "tank",
+  "k": "tank"
+ },
+ {
+  "ref": "WC61",
+  "label": "8 × FWF",
+  "words": "8 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC57",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC59",
+  "label": "7 × FWF",
+  "words": "7 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC23",
+  "label": "5 × FWF",
+  "words": "5 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC26",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC50",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC56",
+  "label": "12 × FWF",
+  "words": "12 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC25",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC45",
+  "label": "8 × FWF",
+  "words": "8 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC47",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC13",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC24",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC54",
+  "label": "6 × FWF",
+  "words": "6 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC55",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "SPASHDOWN",
+  "label": "1 × 4-person trailer toilet",
+  "words": "1 4-person trailer toilet",
+  "kind": "trailer",
+  "k": "pump_only"
+ },
+ {
+  "ref": "WC46",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC48",
+  "label": "4 × FWF",
+  "words": "4 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC49",
+  "label": "3 × FWF",
+  "words": "3 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC51",
+  "label": "6 × FWF",
+  "words": "6 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC51",
+  "label": "1 × Accessible toilet",
+  "words": "1 accessible toilet",
+  "kind": "access",
+  "k": "access"
+ },
+ {
+  "ref": "WC53",
+  "label": "3 × FWF",
+  "words": "3 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC30",
+  "label": "8 × FWF",
+  "words": "8 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC35",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC62",
+  "label": "2 × FWF",
+  "words": "2 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC67",
+  "label": "4 × FWF",
+  "words": "4 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC68",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC69",
+  "label": "12 × FWF",
+  "words": "12 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC70",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC71",
+  "label": "8 × FWF",
+  "words": "8 flush toilets",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC72",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC81",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC85",
+  "label": "1 × FWF",
+  "words": "1 flush toilet",
+  "kind": "fwf",
+  "k": "fwf"
+ },
+ {
+  "ref": "WC100",
+  "label": "2 × FWF trailer",
+  "words": "2 trailer flush toilets",
+  "kind": "trailer",
+  "k": "fwf"
+ }
+]

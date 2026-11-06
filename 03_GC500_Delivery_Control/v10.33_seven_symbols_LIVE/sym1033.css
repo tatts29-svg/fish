@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. The seven symbols, v10.33: the tick-button style the row already has, one colour per symbol. */
+.tickbtn.sym1033{color:var(--mute);display:inline-flex;align-items:center;justify-content:center}
+.tickbtn.sym1033.part{background:repeating-linear-gradient(135deg,transparent 0 4px,rgba(0,0,0,.08) 4px 8px)}
+.tickbtn.sym1033.dlv.on,.tickbtn.sym1033.pku.on{background:#1b5e9b;border-color:#1b5e9b;color:#fff;box-shadow:0 0 10px 1px rgba(27,94,155,.4)}
+.tickbtn.sym1033.ins.on{background:#8a4b08;border-color:#8a4b08;color:#fff;box-shadow:0 0 10px 1px rgba(138,75,8,.4)}
+.tickbtn.sym1033.lvl.on{background:#0f6b3a;border-color:#0f6b3a;color:#fff}
+.tickbtn.sym1033.stp.on{background:#2d4f7c;border-color:#2d4f7c;color:#fff}
+.tickbtn.sym1033.cln.on{background:#0e7490;border-color:#0e7490;color:#fff;box-shadow:0 0 10px 1px rgba(14,116,144,.4)}
+.tickbtn.sym1033.dmb.on{background:#6b21a8;border-color:#6b21a8;color:#fff;box-shadow:0 0 10px 1px rgba(107,33,168,.4)}
+.tickbtn.sym1033.offed{border-style:dashed}
+.tickbtn.sym1033:hover{color:var(--ink);border-color:#333}
+.sym1033-island{display:contents}
+.hl.sym1033-row .tick.sm.dlv,.hl.sym1033-row .tick.sm.pku{background:#1b5e9b}
+.hl.sym1033-row .tick.sm.ins{background:#8a4b08}
+.hl.sym1033-row .tick.sm.cln{background:#0e7490}
+.hl.sym1033-row .tick.sm.dmb{background:#6b21a8}
+.hl.sym1033-row .tick.sm.lvl{background:#0f6b3a}
+.hl.sym1033-row .tick.sm.stp{background:#2d4f7c}

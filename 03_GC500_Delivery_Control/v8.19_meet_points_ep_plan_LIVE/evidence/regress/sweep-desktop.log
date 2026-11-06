@@ -1,0 +1,10 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: sweep-desktop · command: python3 - v8.19_meet_points_ep_plan_DRAFT/evidence/regress/sweep-desktop.json 0
+   22 tabs, 16 shown, 7 links, back {'hash': '#plant', 'pane': 'pane-plant'}
+PASS the sweep ran to the end
+PASS all 22 tabs swept; 16 shown; the 6 not shown are the view-only ones ['add', 'breakdowns', 'edit', 'journal', 'register', 'variances']
+PASS seven links open with no errors
+PASS Back returns to a pane
+PASS 0 page errors
+PASS 0 console errors
+PASS no write attempted ({'page': 1, 'live': 296, 'blocked': 0})

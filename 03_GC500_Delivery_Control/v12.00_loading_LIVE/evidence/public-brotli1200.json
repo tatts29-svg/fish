@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "at_utc": "2026-10-24T19:15:54.117361+00:00",
+  "sha256": "2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51",
+  "bytes": 15175515,
+  "content_encoding": "br",
+  "wire_bytes": 2740385,
+  "baseline_br_bytes": 7844902,
+  "wire_reduction_percent": 65.07,
+  "exact_candidate_match": true
+}

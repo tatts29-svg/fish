@@ -1,0 +1,267 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "abbb01baf3318d39d970313063c29cdb30990d33",
+  "scope": "Read-only synthetic CPU stream integration checks. New owner inputs supplied explicitly. No browser or shared-record writes; not release readiness.",
+  "demobSha256": "aca9b7089b42d62902c1235f25f83be9bf32a573c62e359b2625f6d9da47df31",
+  "candidateSha256": "dfb0f1f578397653436e7b198b97dedc55de5afe45669a775a337f3d9b6e36c6",
+  "passed": 11,
+  "failed": 9,
+  "results": [
+    {
+      "name": "supplier_25_packs_24_and_1",
+      "pass": true,
+      "observed": [
+        24,
+        1
+      ],
+      "expected": [
+        24,
+        1
+      ]
+    },
+    {
+      "name": "supplier_25_confirmation_preserves_days",
+      "pass": true,
+      "observed": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "WC25"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "view_preserves_record",
+      "pass": true,
+      "observed": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}",
+      "expected": "{\"delivery\":{\"WC25\":{\"out_date\":\"2026-10-27\",\"out_by\":\"Fixture operator\",\"out_at\":\"2026-10-26T08:00:00.000Z\",\"out_portions\":[{\"id\":\"2026-10-26#1\",\"date\":\"2026-10-26\",\"units\":24},{\"id\":\"2026-10-27#1\",\"date\":\"2026-10-27\",\"units\":1}]}}}"
+    },
+    {
+      "name": "supplier_25_to_24_conserves_units",
+      "pass": true,
+      "observed": 24,
+      "expected": 24
+    },
+    {
+      "name": "supplier_25_to_zero_has_no_truck_or_pump_task",
+      "pass": true,
+      "observed": {
+        "trucks": 0,
+        "pump": 0,
+        "visible": true
+      },
+      "expected": {
+        "trucks": 0,
+        "pump": 0,
+        "visible": true
+      }
+    },
+    {
+      "name": "supplier_25_to_unknown_keeps_uncertain_portions",
+      "pass": true,
+      "observed": [
+        {
+          "units": 24,
+          "uncertain": true
+        },
+        {
+          "units": 1,
+          "uncertain": true
+        }
+      ],
+      "expected": [
+        {
+          "units": 24,
+          "uncertain": true
+        },
+        {
+          "units": 1,
+          "uncertain": true
+        }
+      ]
+    },
+    {
+      "name": "coates_25_packs_12_12_1",
+      "pass": true,
+      "observed": [
+        12,
+        12,
+        1
+      ],
+      "expected": [
+        12,
+        12,
+        1
+      ]
+    },
+    {
+      "name": "coates_render_does_not_claim_capacity_24",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "coates_email_identifies_its_capacity",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "mixed_owner_streams_stay_separate",
+      "pass": true,
+      "observed": [
+        {
+          "stream": "sub",
+          "units": 24
+        },
+        {
+          "stream": "coates",
+          "units": 1
+        }
+      ],
+      "expected": [
+        {
+          "stream": "sub",
+          "units": 24
+        },
+        {
+          "stream": "coates",
+          "units": 1
+        }
+      ]
+    },
+    {
+      "name": "mixed_reference_is_listed_on_each_load_day",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "mixed_first_day_confirmation_finds_the_reference",
+      "pass": false,
+      "observed": 0,
+      "expected": 1
+    },
+    {
+      "name": "mixed_confirmation_preserves_stream_days",
+      "pass": false,
+      "observed": [
+        {
+          "day": "2026-10-27",
+          "units": 24,
+          "keys": [
+            "MIX"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "MIX"
+          ],
+          "uncertain": false
+        }
+      ],
+      "expected": [
+        {
+          "day": "2026-10-26",
+          "units": 24,
+          "keys": [
+            "MIX"
+          ],
+          "uncertain": false
+        },
+        {
+          "day": "2026-10-27",
+          "units": 1,
+          "keys": [
+            "MIX"
+          ],
+          "uncertain": false
+        }
+      ]
+    },
+    {
+      "name": "unknown_owner_creates_no_guessed_run",
+      "pass": true,
+      "observed": 0,
+      "expected": 0
+    },
+    {
+      "name": "unknown_owner_is_explained_on_pickup_row",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "supplier_pickup_has_no_model_travel_times",
+      "pass": true,
+      "observed": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "supplier_null_travel_times_do_not_render_midnight",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "supplier_print_this_load_selects_supplier_run",
+      "pass": false,
+      "observed": 0,
+      "expected": 1
+    },
+    {
+      "name": "supplier_tank_dependency_is_detected",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_tank_dependency_is_visible_in_truck_output",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    }
+  ]
+}

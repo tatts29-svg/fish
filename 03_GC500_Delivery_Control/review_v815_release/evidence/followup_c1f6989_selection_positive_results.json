@@ -1,0 +1,121 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "c1f69890736fae4c004e4643ff4139bb19cebeeb",
+  "sourceSha256": "da33522f35097ce2987e26ede691cd9d99b6e606e6522af8a0e02bb9e07cf134",
+  "preservedPositiveChecks": 43,
+  "selectionChecksPassed": 27,
+  "selectionChecksTotal": 27,
+  "failures": [],
+  "checks": [
+    {
+      "name": "Refresh after initial focus timer preserves selected marker and focus",
+      "pass": true
+    },
+    {
+      "name": "Refresh ordering false consumes one-shot focus intent",
+      "pass": true
+    },
+    {
+      "name": "Refresh before initial focus timer preserves selected marker and focus",
+      "pass": true
+    },
+    {
+      "name": "Refresh ordering true consumes one-shot focus intent",
+      "pass": true
+    },
+    {
+      "name": "full redraw keeps the selected row marked and focused",
+      "pass": true
+    },
+    {
+      "name": "full redraw restores focus without a new scroll jump",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal document search focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal document search focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal category focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal category focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal other control focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "full redraw does not steal other control focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw keeps the selected row marked and focused",
+      "pass": true
+    },
+    {
+      "name": "partial redraw restores focus without a new scroll jump",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal document search focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal document search focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal category focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal category focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal other control focus (pending selection)",
+      "pass": true
+    },
+    {
+      "name": "partial redraw does not steal other control focus (completed selection)",
+      "pass": true
+    },
+    {
+      "name": "Pending timer alone does not steal document search focus",
+      "pass": true
+    },
+    {
+      "name": "Pending timer alone does not steal category focus",
+      "pass": true
+    },
+    {
+      "name": "Pending timer alone does not steal other control focus",
+      "pass": true
+    },
+    {
+      "name": "Typed new query clears the identity, pending intent and stale highlight",
+      "pass": true
+    },
+    {
+      "name": "Chosen category clears the identity, pending intent and stale highlight",
+      "pass": true
+    },
+    {
+      "name": "Deep-linked category clears the identity and pending intent",
+      "pass": true
+    },
+    {
+      "name": "Selection redraws do not mutate catalogue, file metadata or book records",
+      "pass": true
+    }
+  ],
+  "limits": "Actual source and refresh functions with synthetic records, DOM/timer doubles and controlled file-list promise. No browser or geometry/performance claim.",
+  "originalPageSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb"
+}

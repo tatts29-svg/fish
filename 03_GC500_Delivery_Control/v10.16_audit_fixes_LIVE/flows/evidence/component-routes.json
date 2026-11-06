@@ -1,0 +1,266 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "7bbf966d4b12926b6dbdf9844a2b147aaf458fa4af3056d59b24e2dbeab602b1",
+  "checks": [
+    {
+      "name": "Missing cold reference retains requested address before shared data arrives",
+      "pass": true,
+      "details": {
+        "hash": "#asset/FL01",
+        "pending": {
+          "hash": "#asset/FL01",
+          "key": "FL01"
+        },
+        "drawer": false,
+        "status": "connecting"
+      }
+    },
+    {
+      "name": "Shared reference opens automatically after its current record arrives",
+      "pass": true,
+      "details": {
+        "hash": "#asset/FL01",
+        "sel": "FL01",
+        "on": true,
+        "pending": null,
+        "version": 6075
+      }
+    },
+    {
+      "name": "Map updates keep the open reference address and create no phantom history",
+      "pass": true,
+      "details": {
+        "before": {
+          "hash": "#asset/WC57",
+          "gc": 3
+        },
+        "after": {
+          "hash": "#asset/WC57",
+          "gc": 3,
+          "on": true
+        }
+      }
+    },
+    {
+      "name": "Routing and refresh leave operational records untouched",
+      "pass": true
+    },
+    {
+      "name": "One browser Back closes reference and returns to its map",
+      "pass": true,
+      "details": {
+        "hash": "#sheet/__explorer",
+        "tab": "map",
+        "on": false
+      }
+    },
+    {
+      "name": "Explicit Show on map closes drawer and changes address normally",
+      "pass": true,
+      "details": {
+        "found": true,
+        "tab": "map",
+        "hash": "#sheet/__explorer",
+        "on": false
+      }
+    },
+    {
+      "name": "Explicit sheet hash navigation closes drawer and opens requested sheet",
+      "pass": true,
+      "details": {
+        "selected": "MASTER",
+        "tab": "map",
+        "hash": "#sheet/MASTER",
+        "on": false
+      }
+    },
+    {
+      "name": "Cold shared reference has no runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Cold shared reference has no operational writes",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 77,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    {
+      "name": "Explicit navigation cancels pending reference request",
+      "pass": true,
+      "details": {
+        "hash": "#subhired",
+        "pending": null
+      }
+    },
+    {
+      "name": "Late shared data never pulls user back to abandoned reference",
+      "pass": true,
+      "details": {
+        "hash": "#subhired",
+        "tab": "subhired",
+        "on": false
+      }
+    },
+    {
+      "name": "Newer navigation has no runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Newer navigation has no operational writes",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 27,
+        "blocked": 0,
+        "blockedMapSessions": 0
+      }
+    },
+    {
+      "name": "Unverified cold missing reference is not rejected early",
+      "pass": true
+    },
+    {
+      "name": "Truly unknown reference uses native rejection after shared data is ready",
+      "pass": true,
+      "details": {
+        "hash": "#plant",
+        "tab": "plant",
+        "on": false,
+        "pending": null
+      }
+    },
+    {
+      "name": "Unknown reference has no runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Unknown reference has no operational writes",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 32,
+        "blocked": 0,
+        "blockedMapSessions": 0
+      }
+    },
+    {
+      "name": "Slow or failed shared read preserves requested reference with visible waiting status",
+      "pass": true,
+      "details": {
+        "hash": "#asset/FL01",
+        "status": "unreachable",
+        "pending": {
+          "hash": "#asset/FL01",
+          "key": "FL01"
+        },
+        "notice": "Opening FL01 — waiting for the current shared record."
+      }
+    },
+    {
+      "name": "Recovery opens the original requested reference once",
+      "pass": true
+    },
+    {
+      "name": "Read failure and recovery has no runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Read failure and recovery has no operational writes",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 48,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    {
+      "name": "Existing embedded reference still opens before shared data arrives",
+      "pass": true
+    },
+    {
+      "name": "Async map setup preserves cold embedded reference address",
+      "pass": true
+    },
+    {
+      "name": "Cold embedded reference has no runtime errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Cold embedded reference has no operational writes",
+      "pass": true,
+      "details": {
+        "page": 1,
+        "live": 54,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    }
+  ],
+  "results": [
+    {
+      "name": "Cold shared reference",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 77,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    {
+      "name": "Newer navigation",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 27,
+        "blocked": 0,
+        "blockedMapSessions": 0
+      }
+    },
+    {
+      "name": "Unknown reference",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 32,
+        "blocked": 0,
+        "blockedMapSessions": 0
+      }
+    },
+    {
+      "name": "Read failure and recovery",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 48,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    {
+      "name": "Cold embedded reference",
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 54,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    }
+  ],
+  "result": {
+    "checks": 25,
+    "passed": 25
+  },
+  "limitations": "GET-only current record; native writes are blocked. Network delay/outage is simulated solely in the test browser."
+}

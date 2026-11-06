@@ -1,0 +1,211 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T043238Z",
+ "finished": "2026-10-30T04:33:11.480Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 14:1x AEST: \"Gn01 leaving at 230pm\". GN01 is the 60 kVA generator, Coates 1276507, at the median strip meet-up by FOAM (on site since 28 Sep), its reference's only unit: it leaves in full at 14:30. Through the page's own Record departure form in his name; the runner refuses a departure still in the future, so this runs after 14:30. Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN01",
+    "at": "2026-10-30T14:30:00+10:00",
+    "nos": [
+     "1276507"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12156,
+  "after": 12157
+ },
+ "updated": {
+  "before": "2026-10-30T04:22:26.502Z",
+  "after": "2026-10-30T04:33:10.431Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN01",
+   "at": "2026-10-30T14:30:00+10:00",
+   "nos": [
+    "1276507"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T14:30:00+10:00, recorded by Andrew Fisher: 1 x 60kva 1276507 - GN01 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN01": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:50:34.854Z",
+    "by": "Andrew Fisher",
+    "out_date": "2026-10-26",
+    "out_by": "Andrew Fisher",
+    "out_at": "2026-10-26T04:21:56.388Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T21:29:12.472Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-28T02:50:33.501Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:34.854Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T21:29:12.472Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN01"
+   }
+  },
+  "after": {
+   "delivery/GN01": {
+    "state": "in transit",
+    "set_at": "2026-10-30T04:32:57.311Z",
+    "by": "Andrew Fisher",
+    "out_date": "2026-10-26",
+    "out_by": "Andrew Fisher",
+    "out_at": "2026-10-26T04:21:56.388Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T04:32:57.311Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-28T02:50:33.501Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:34.854Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T04:32:57.311Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "11aeb0cc-605a-48dc-9323-6e62bf124190",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T14:30:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T02:50:34.854Z",
+       "requiredKey": "[[\"60kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "60kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN01\",\"coates\",\"asset\",\"1276507\"]"
+         ],
+         "numbers": [
+          "1276507"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN01\",\"coates\",\"asset\",\"1276507\"]",
+           "number": "1276507",
+           "owner": "coates",
+           "item": "60kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T21:29:12.472Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T04:32:57.311Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "GN01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

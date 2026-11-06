@@ -1,0 +1,22 @@
+/* Author: Andrew Fisher. Generic plan versus saved-location display regressions. */
+'use strict';
+const assert=require('node:assert/strict');
+const words=require('./vmsLocationWords1103_src.js');
+const b={lat:-28,lon:153,title:'Original plan place',basis:'Plan reference'};
+const at={lat:-28,lon:153,how:'Saved pin'},elsewhere={lat:-28.01,lon:153.01,how:'Confirmed on site'};
+const before=JSON.stringify([b,at,elsewhere]);
+assert.equal(words.moved(b,at),false);
+assert.equal(words.title(b,at),b.title);
+assert.equal(words.crop(b,at),'Red dot = position · photo = the spot');
+assert.equal(words.placed(b,at),'In place as drawn');
+assert.equal(words.basis(b,at),b.basis);
+assert.equal(words.moved(b,elsewhere),true);
+assert.equal(words.title(b,elsewhere),'Confirmed board location');
+assert.equal(words.crop(b,elsewhere),'Original plan position · use the current pin to navigate');
+assert.equal(words.placed(b,elsewhere),'In place at the current pin');
+assert.equal(words.basis(b,elsewhere),'Confirmed on site · Original plan: Original plan place');
+assert.equal(words.moved(b,{lat:-28.0000001,lon:153}),false);
+assert.equal(words.moved(b,{}),false);
+assert.equal(words.moved({},elsewhere),false);
+assert.equal(JSON.stringify([b,at,elsewhere]),before);
+console.log('14 location-caption checks passed');

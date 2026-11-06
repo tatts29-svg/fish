@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.87",
+  "status": "LIVE",
+  "liveAtAEST": "02 Oct 2026 09:14 AEST",
+  "bytes": 8858382,
+  "sha256": "d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367",
+  "publicViewMatchesCandidate": true,
+  "recordVersionBefore": 3538,
+  "recordVersionAfter": 3538,
+  "recordVersionUnchanged": true,
+  "pageOnlyUpload": true,
+  "recordChanges": false,
+  "journalsPosted": false,
+  "realMessagesSent": false,
+  "implementation": "Inventory one-line handover, with an independent review correction to the two click-binding selectors.",
+  "finalCandidateReviewer": "Independent release review; the broader original regression was on the predecessor candidate. Actual agent attribution is recorded on STATUS.md.",
+  "checks": "See independent_review.json for final candidate checks."
+}

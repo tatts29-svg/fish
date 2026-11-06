@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "pageBytes": 9079773,
+  "assets": {
+    "explorer/explorer.js": {
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "bytes": 133534
+    },
+    "explorer/explorer-merge.js": {
+      "sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "bytes": 25146
+    },
+    "poc3d/index.html": {
+      "sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+      "bytes": 44565
+    },
+    "explorer/index.html": {
+      "sha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "bytes": 27591
+    }
+  },
+  "standingPacksPassed": 8,
+  "functionalAssertionsPassed": 134,
+  "navigationCpuPassed": 21,
+  "sweeps": {
+    "sweep_desktop": {
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "consoleErrors": 0
+    },
+    "sweep_phone": {
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "consoleErrors": 0
+    }
+  },
+  "browserReportSha256": "b1a62d4e9941e641e436110ae79b25539a8714ee419268c81eef7eb06d5cbf22",
+  "navigationReportSha256": "564f639a53b396f304d610b804d725822b67d57ce649fe18fd5b002914258bdf",
+  "assessmentCorrectionSha256": "e03f1cf71fb1ab6d5d5b9b97f3fe515ab85ae25fb12a3580bc6d16f2e8230985",
+  "scope": "Required inherited suites on exact combined host/map assets through the official read-only harness. At most two independent functional contexts; no performance claim. Raw browser results retained. Expected redirects were independently bound to unchanged live source and prior v8.12 evidence; initial checker assumption corrected without rerunning passed packs.",
+  "pass": true
+}

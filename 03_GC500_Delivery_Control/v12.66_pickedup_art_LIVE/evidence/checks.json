@@ -1,0 +1,566 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS",
+  "source_commit": "67678a0e12ccf23138ccb5509bd8218bff050e1e",
+  "candidate_sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+  "candidate_bytes": 16192520,
+  "base_sha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+  "page_check": {
+    "inline_scripts": 221,
+    "passed": true
+  },
+  "native": {
+    "phone": {
+      "checks_passed": 61,
+      "checks": [
+        {
+          "name": "base: current native model has gone and current cards",
+          "pass": true
+        },
+        {
+          "name": "base: complete record matches the pinned snapshot",
+          "pass": true
+        },
+        {
+          "name": "record has native picked-up example for tower",
+          "pass": true
+        },
+        {
+          "name": "record has unsupported-art fallback example",
+          "pass": true
+        },
+        {
+          "name": "baseline has no new artwork",
+          "pass": true
+        },
+        {
+          "name": "base: actual picked-up filter retains native state",
+          "pass": true
+        },
+        {
+          "name": "base: actual All filter restores all native cards",
+          "pass": true
+        },
+        {
+          "name": "base: native filtering preserves contents and controls",
+          "pass": true
+        },
+        {
+          "name": "base: repeated native draw cannot duplicate artwork",
+          "pass": true
+        },
+        {
+          "name": "base: art-tower lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: art-tower native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: fallback lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: fallback native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: fallback keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "base: current-card lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: current-card native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: current-card keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "base: every persisted document unchanged",
+          "pass": true
+        },
+        {
+          "name": "base: no write queue or inflight operation",
+          "pass": true
+        },
+        {
+          "name": "base: zero runtime errors",
+          "pass": true
+        },
+        {
+          "name": "base: zero console errors",
+          "pass": true
+        },
+        {
+          "name": "base: zero operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "candidate: current native model has gone and current cards",
+          "pass": true
+        },
+        {
+          "name": "candidate: complete record matches the pinned snapshot",
+          "pass": true
+        },
+        {
+          "name": "decorative artwork occurs once on each matching picked-up card only",
+          "pass": true
+        },
+        {
+          "name": "each decorative render is self-contained and cannot intercept controls",
+          "pass": true
+        },
+        {
+          "name": "candidate: actual picked-up filter retains native state",
+          "pass": true
+        },
+        {
+          "name": "candidate: actual All filter restores all native cards",
+          "pass": true
+        },
+        {
+          "name": "candidate: native filtering preserves contents and controls",
+          "pass": true
+        },
+        {
+          "name": "candidate: repeated native draw cannot duplicate artwork",
+          "pass": true
+        },
+        {
+          "name": "candidate: art-tower lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: art-tower native card is visible",
+          "pass": true
+        },
+        {
+          "name": "art-tower: matching image decodes",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback native card is visible",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card native card is visible",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "candidate: every persisted document unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate: no write queue or inflight operation",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero runtime errors",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero console errors",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "complete native card and financial model outputs unchanged",
+          "pass": true
+        },
+        {
+          "name": "all card text, stamp semantics and native controls preserved",
+          "pass": true
+        },
+        {
+          "name": "same native card art-tower",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved art-tower",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape art-tower",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged art-tower",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow art-tower",
+          "pass": true
+        },
+        {
+          "name": "same native card fallback",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved fallback",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape fallback",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged fallback",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow fallback",
+          "pass": true
+        },
+        {
+          "name": "same native card current-card",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved current-card",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape current-card",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged current-card",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow current-card",
+          "pass": true
+        }
+      ],
+      "operational_writes": 0
+    },
+    "desktop": {
+      "checks_passed": 61,
+      "checks": [
+        {
+          "name": "base: current native model has gone and current cards",
+          "pass": true
+        },
+        {
+          "name": "base: complete record matches the pinned snapshot",
+          "pass": true
+        },
+        {
+          "name": "record has native picked-up example for tower",
+          "pass": true
+        },
+        {
+          "name": "record has unsupported-art fallback example",
+          "pass": true
+        },
+        {
+          "name": "baseline has no new artwork",
+          "pass": true
+        },
+        {
+          "name": "base: actual picked-up filter retains native state",
+          "pass": true
+        },
+        {
+          "name": "base: actual All filter restores all native cards",
+          "pass": true
+        },
+        {
+          "name": "base: native filtering preserves contents and controls",
+          "pass": true
+        },
+        {
+          "name": "base: repeated native draw cannot duplicate artwork",
+          "pass": true
+        },
+        {
+          "name": "base: art-tower lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: art-tower native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: fallback lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: fallback native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: fallback keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "base: current-card lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "base: current-card native card is visible",
+          "pass": true
+        },
+        {
+          "name": "base: current-card keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "base: every persisted document unchanged",
+          "pass": true
+        },
+        {
+          "name": "base: no write queue or inflight operation",
+          "pass": true
+        },
+        {
+          "name": "base: zero runtime errors",
+          "pass": true
+        },
+        {
+          "name": "base: zero console errors",
+          "pass": true
+        },
+        {
+          "name": "base: zero operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "candidate: current native model has gone and current cards",
+          "pass": true
+        },
+        {
+          "name": "candidate: complete record matches the pinned snapshot",
+          "pass": true
+        },
+        {
+          "name": "decorative artwork occurs once on each matching picked-up card only",
+          "pass": true
+        },
+        {
+          "name": "each decorative render is self-contained and cannot intercept controls",
+          "pass": true
+        },
+        {
+          "name": "candidate: actual picked-up filter retains native state",
+          "pass": true
+        },
+        {
+          "name": "candidate: actual All filter restores all native cards",
+          "pass": true
+        },
+        {
+          "name": "candidate: native filtering preserves contents and controls",
+          "pass": true
+        },
+        {
+          "name": "candidate: repeated native draw cannot duplicate artwork",
+          "pass": true
+        },
+        {
+          "name": "candidate: art-tower lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: art-tower native card is visible",
+          "pass": true
+        },
+        {
+          "name": "art-tower: matching image decodes",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback native card is visible",
+          "pass": true
+        },
+        {
+          "name": "candidate: fallback keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card lands on settled actual native card",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card native card is visible",
+          "pass": true
+        },
+        {
+          "name": "candidate: current-card keeps original clear treatment",
+          "pass": true
+        },
+        {
+          "name": "candidate: every persisted document unchanged",
+          "pass": true
+        },
+        {
+          "name": "candidate: no write queue or inflight operation",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero runtime errors",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero console errors",
+          "pass": true
+        },
+        {
+          "name": "candidate: zero operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "complete native card and financial model outputs unchanged",
+          "pass": true
+        },
+        {
+          "name": "all card text, stamp semantics and native controls preserved",
+          "pass": true
+        },
+        {
+          "name": "same native card art-tower",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved art-tower",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape art-tower",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged art-tower",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow art-tower",
+          "pass": true
+        },
+        {
+          "name": "same native card fallback",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved fallback",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape fallback",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged fallback",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow fallback",
+          "pass": true
+        },
+        {
+          "name": "same native card current-card",
+          "pass": true
+        },
+        {
+          "name": "existing fonts and colours preserved current-card",
+          "pass": true
+        },
+        {
+          "name": "native geometry shape current-card",
+          "pass": true
+        },
+        {
+          "name": "card and existing content dimensions unchanged current-card",
+          "pass": true
+        },
+        {
+          "name": "no new card horizontal overflow current-card",
+          "pass": true
+        }
+      ],
+      "operational_writes": 0
+    }
+  },
+  "navigation": {
+    "phone": {
+      "routes": 27,
+      "deep_links": 7,
+      "intentional_aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "change": "#today",
+        "add": "#today",
+        "nights": "#today",
+        "vmsoff": "#today",
+        "fenceclose": "#today"
+      },
+      "back_passed": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0
+    },
+    "desktop": {
+      "routes": 27,
+      "deep_links": 7,
+      "intentional_aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "change": "#today",
+        "add": "#today",
+        "nights": "#today",
+        "vmsoff": "#today",
+        "fenceclose": "#today"
+      },
+      "back_passed": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0
+    }
+  },
+  "actual_previews": {
+    "phone_inspected": true,
+    "desktop_inspected": true,
+    "phone_shown_to_Andrew": true
+  },
+  "limitations": [
+    "Light-tower artwork only; unmatched types keep the original clear stamp.",
+    "This verifies preservation of the existing financial outputs, not an audit of their source inputs.",
+    "Acceptance is on the candidate; live verification is recorded separately."
+  ]
+}

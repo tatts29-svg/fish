@@ -1,0 +1,156 @@
+{
+  "buildings_6x3": {
+    "id": "buildings_6x3",
+    "label": "transportable building 4.8 or 6 \u00d7 3 m",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/ed40d974c39064e0c7005716d5b30a0ac9fb3e9e468d57622e2fe7fbf2e27cd9.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "buildings_12x3": {
+    "id": "buildings_12x3",
+    "label": "transportable building 9.6 or 12 \u00d7 3 m",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/84fc1bd89a19d26e909188e5b59a419ff08c1653e9faf939f61a44dc64149a3a.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "toilets_mf": {
+    "id": "toilets_mf",
+    "label": "toilet block, male and female",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/c54ece4f132a861f12322780f93b4264e37e8fa9c86934f60a0b1320ebc2114d.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "toilets_8door": {
+    "id": "toilets_8door",
+    "label": "toilet block, eight cubicles",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/86898220efea16be85f6b3e2bcb1141222a291722b01dbb61dcb8a190f898faa.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "toilet_fwf": {
+    "id": "toilet_fwf",
+    "label": "Coates portable toilet, fresh water flush",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/d3de3c8da83b14c077b7bb9a81992af3481d5739908fcc5ff04ca8af550e76d0.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "toilet_access": {
+    "id": "toilet_access",
+    "label": "Coates accessible portable toilet",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/825267fe0e1d791ad0f93620038f2d1d9c63e7e631b5d4f718a51c68ab6b5c29.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "toilet_trailer": {
+    "id": "toilet_trailer",
+    "label": "Coates portable toilet, trailer mounted",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/64226a07878179011e90dc1d0242b5af2daeb42c0be75744a98d0238dae8dfdf.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "light_tower": {
+    "id": "light_tower",
+    "label": "Coates lighting tower",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/c2daf580ec165dd7e340eaf1ce1ab480776e7d100549ffea119815c61674f22a.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "gen_qas14": {
+    "id": "gen_qas14",
+    "label": "Coates QAS 14 \u2014 the set for references under 50 kVA",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/8a5e669f8a673ccff84d200e537063e578d7bf6040c0dc2e57d8513fa9b1f504.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "gen_qas80": {
+    "id": "gen_qas80",
+    "label": "Coates QAS 80 \u2014 for 50 to 100 kVA",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/46a0bc04bfa8b9a2a6bbdfd0b802bd4195eacf25ee52207236e2c45404539dff.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "gen_qas150": {
+    "id": "gen_qas150",
+    "label": "Coates QAS 150",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/f33707486a27ff630a67d60b3c2b4db78ee02458d60d9a6da08376d4cab6eb7a.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "gen_qas200": {
+    "id": "gen_qas200",
+    "label": "Coates QAS 200 \u2014 for 200 kVA and above",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/1d048a2249085d8db325f512affc308c34e0f41e2ce564f17de259bb504aba06.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "forklift_rt": {
+    "id": "forklift_rt",
+    "label": "Coates rough-terrain forklift",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/d5c480c8efb58407b4f9025aeb2ffaf2858a9b70bfef78ad310aca765450993b.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "vms_trailer": {
+    "id": "vms_trailer",
+    "label": "Coates variable message sign, trailer mounted",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/ff59c136e0dfe8024a005e759de5c60612c569b1d09076d1f4265d16d8cde916.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "waste_tank": {
+    "id": "waste_tank",
+    "label": "site waste tank in a skid frame",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/926a8226eabc12a33e2801e7993c1d42b92e43e2d41a49a57831a2eb05fcc2bc.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "event_container": {
+    "id": "event_container",
+    "label": "Coates event container, air-conditioned",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/df0b3fe13a6da65920c2106c73a7b501e9671ea4b6781acd928757c390c1b096.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "buildings_3p6": {
+    "id": "buildings_3p6",
+    "label": "transportable building 3.6 \u00d7 3 m",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/23b8ba8ad2db7bf9f80e293b53c89bc8978069abc7a6f722ba14380108ab9923.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "ticket_box": {
+    "id": "ticket_box",
+    "label": "Coates ticket box, screened serving windows",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/a6e80de9fbd3fc857cd27cc32eb85639e6f0172a640224a56356b69e38d2506b.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "trakmat": {
+    "id": "trakmat",
+    "label": "ground protection mat",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/3475a74ff8d29bf45242a97aa848f053cb53fca4a54bcf128048118c6c0dd34f.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "forklift_std": {
+    "id": "forklift_std",
+    "label": "Coates standard counterbalance forklift, 2.5\u20133.5 t class",
+    "kind": "photo",
+    "src": "/m/Coates-GC500-2026/ab04577d41eef506c31be99a3bddc0d0e6d0f5c167bdade16b204ceb770465f0.webp",
+    "note": "Existing catalogue/product reference; not an asset-specific photograph."
+  },
+  "today_fencing": {
+    "id": "today_fencing",
+    "label": "Existing Today fencing illustration",
+    "kind": "illustration",
+    "src": "/m/Coates-GC500-2026/f45a555e319cb041acff7f26336c8ec26f69720de5ee7e8d88fb6bfe27c70c18.webp",
+    "note": "Existing Today illustration, not a photograph."
+  },
+  "today_barriers": {
+    "id": "today_barriers",
+    "label": "Existing Today barriers illustration",
+    "kind": "illustration",
+    "src": "/m/Coates-GC500-2026/a93fee4feb0b5f61c7729a630c6bb97e5b980aca4ef915af77e75ff27a939f1f.webp",
+    "note": "Existing Today illustration, not a photograph."
+  }
+}

@@ -1,0 +1,7 @@
+17632a17633,17638
+>  /* v6.84 - a 3.5 t standard forklift, which goes out when there are not enough 2.5 t, is charged at the 2.5 t
+>  standard line (Andrew, 27 Sep 2026) */
+>  if ((!e || !e.priceable) && /^3\.5\s*t\s*forklift(\s*std|\s*standard)?$/i.test(String(item || '').trim())) {
+>  const s = RM_ITEMS.get(disc + '|2.5T Forklift STD') || RM_ITEMS.get(disc + '|Forklift 2.5T');
+>  if (s && s.priceable) e = Object.assign({}, s, {state: 'matched', why: 'a 3.5 t forklift goes out when there are not enough 2.5 t, and is charged at the 2.5 t standard line (Andrew, 27 Sep 2026)'});
+>  }

@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 10,
+  "failed": 0,
+  "base_sha256": "9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a",
+  "candidate_sha256": "f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86",
+  "allowed_existing_script_index": 4,
+  "added_script_id": "svc1067-script",
+  "added_style_id": "svc1067-style",
+  "test_source_sha256": "273b79adbabe7ce661cd7bfe1119e32d074a1662e09644b4ae2dd93eda79f299"
+}

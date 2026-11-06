@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "all other page bytes including models, records and map unchanged",
+      "ok": true
+    },
+    {
+      "name": "one release marker",
+      "ok": true
+    },
+    {
+      "name": "preparation phase updates exist",
+      "ok": true
+    },
+    {
+      "name": "wrong base refuses to patch",
+      "ok": true
+    },
+    {
+      "name": "already applied refuses to patch",
+      "ok": true
+    }
+  ]
+}

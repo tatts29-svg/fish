@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed_at": "2026-10-02T00:43:02.617171+10:00",
+  "source_commit": "68877bc35b0260acc1a2a5db9b6a135d288db33d",
+  "candidate_sha256": "303029e3e64d5a43654bafc400d09e5bed2efbb93060a964214502cc04b96fc7",
+  "candidate_bytes": 8682905,
+  "base_sha256": "19d200c470b5ac7403efad12b42160a6e049c11f7ed7eadbe68b2a640999423a",
+  "verdict": "Independent Codex review complete on final v7.80 candidate on live v7.79; no blocking findings.",
+  "diff_checks": {
+    "save_replacement_once": true,
+    "version_note_once": true,
+    "all_other_live_v779_bytes_preserved": true
+  },
+  "tests": {
+    "desktop": {
+      "passed": 5,
+      "of": 5,
+      "page_errors": [],
+      "failed": []
+    },
+    "phone": {
+      "passed": 5,
+      "of": 5,
+      "page_errors": [],
+      "failed": []
+    }
+  },
+  "static_checks": "5 inline scripts parse; secret scan and author checks PASS via shared build toolchain.",
+  "preservation": "Apart from version comment, only RENDER_MEMO clearing before/after save775Inner changed; all other v7.79 bytes exactly preserved.",
+  "safety": "Only live GET reads through harness; browser push, folder write and persist stubbed; no live record changes, upload, real messages or public posts."
+}

@@ -1,0 +1,287 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T011447Z",
+ "finished": "2026-11-02T01:15:19.515Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 11:xx AEST: \"Gn18 left at 11AM\". GN18 is the 50 kVA generator, Coates 1261273, its reference's only unit: it left in full at 11:00 on 2 Nov, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN18",
+    "at": "2026-11-02T11:00:00+10:00",
+    "nos": [
+     "1261273"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12783,
+  "after": 12784
+ },
+ "updated": {
+  "before": "2026-11-02T00:28:36.306Z",
+  "after": "2026-11-02T01:15:18.710Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN18",
+   "at": "2026-11-02T11:00:00+10:00",
+   "nos": [
+    "1261273"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T11:00:00+10:00, recorded by Andrew Fisher: 1 x 50kva 1261273 - GN18 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN18",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN18": {
+    "state": "on site",
+    "set_at": "2026-10-07T03:27:57.113Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1261273": {
+      "on": true,
+      "at": "2026-10-30T04:16:31.120Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1261273": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:23:46.275Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T03:27:57.113Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.850Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T03:27:57.113Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T03:27:57.113Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1261273",
+      "ready": true,
+      "at": "2026-10-30T04:16:31.120Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1261273",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:23:46.275Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:31:39.321Z"
+    },
+    "_k": "GN18"
+   }
+  },
+  "after": {
+   "delivery/GN18": {
+    "state": "in transit",
+    "set_at": "2026-11-02T01:15:04.734Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1261273": {
+      "on": true,
+      "at": "2026-10-30T04:16:31.120Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1261273": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:23:46.275Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T01:15:04.734Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.850Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-07T03:27:57.113Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T01:15:04.734Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "02f198b7-6997-4da1-8e69-1b9bcd6316da",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T11:00:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-07T03:27:57.113Z",
+       "requiredKey": "[[\"50kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "50kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN18\",\"coates\",\"asset\",\"1261273\"]"
+         ],
+         "numbers": [
+          "1261273"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN18\",\"coates\",\"asset\",\"1261273\"]",
+           "number": "1261273",
+           "owner": "coates",
+           "item": "50kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T03:27:57.113Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T01:15:04.734Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1261273",
+      "ready": true,
+      "at": "2026-10-30T04:16:31.120Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1261273",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:23:46.275Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:31:39.321Z"
+    },
+    "_k": "GN18"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

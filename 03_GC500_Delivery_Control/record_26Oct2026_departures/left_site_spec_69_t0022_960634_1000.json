@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 6 Nov 2026 (09:1x AEST): \"Coates 4.8 lunch room leaving at 10am\". T0022 is the Lunchroom 4.8x3, a Coates Building 4.8m, asset 960634, its reference's only building, complete on the record (the other 4.8 m is T0021, the Office 4.8x3, 960639, which stays). Its fire extinguisher and two fridges (1272753, 1254399) are listed with it. It left in full at 10:00 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0022",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [
+    "960634"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

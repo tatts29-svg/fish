@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "workshop-camera1305",
+  "checks": 4420,
+  "passed": true,
+  "actualOrbitControls": {
+    "maximumControlDrift": 2.5121479338940403e-15,
+    "maximumMillisecondStep": 0.04691443931869404,
+    "minPolarAngle": 0.04,
+    "maxPolarAngle": 1.5236724369910497
+  },
+  "sourceSha256": "f85eb03715d2d9decb280d9c832832955cc4f6c989aa7195a2dc1ba4b58092a6",
+  "testSha256": "8fc82a6c198ecf1ece6a3362f59d1e88b832ca9a72ded7515403dc4a3f33919f",
+  "verifiedMachineBase": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad"
+}

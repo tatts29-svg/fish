@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "changedFiles": {
+    "explorer/explorer.js": {
+      "base": "3ced06d864cd1e060c76cb7f7841c66f942c1194e676892f29a9430782ca36a1",
+      "candidate": "5b71f3a8994f4dac72f2161970f68e77dab58b7e607a16e92b7d4d8db0da36e8",
+      "bytes": 158675
+    },
+    "explorer/explorer-merge.js": {
+      "base": "00f88dcf8d18529cc1a20ab6c729a5921a7d87ff65d411d9bc92c7ceef2c7ac3",
+      "candidate": "80d0066577308b29f5e66e2d63a8642a47637d1754e419ae11399c980346e384",
+      "bytes": 30563
+    },
+    "explorer/index.html": {
+      "base": "00a0075219d89ef8d2fd95513e9e84c164dca5a53ae0b4de160288977575cbfe",
+      "candidate": "9c24098ca71a7f5f17383fc96bd8f4ccedeef4cb0520dbb70c759354df01d1af",
+      "bytes": 28136
+    }
+  }
+}

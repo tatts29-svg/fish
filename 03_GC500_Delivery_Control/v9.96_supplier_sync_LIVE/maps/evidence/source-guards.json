@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Exactly three external files produced",
+      "pass": true
+    },
+    {
+      "name": "Reject already patched source",
+      "pass": true
+    },
+    {
+      "name": "Reject changed source",
+      "pass": true
+    }
+  ],
+  "pass": true
+}

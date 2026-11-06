@@ -1,0 +1,145 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "phone",
+  "candidateSha256": "ad9ab5e488d690444c59730f8ad286b2df60ab0353cd1d21dabc40e398a3b5a4",
+  "tests": [
+    {
+      "name": "New preference ignores old on flag; Done starts hidden",
+      "pass": true,
+      "detail": {
+        "count": 70
+      }
+    },
+    {
+      "name": "Actual Original plan control centres and fits drawing",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Actual Satellite control centres and fits ground coordinates",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Satellite to hybrid preserves pan zoom and rotation",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Hybrid to satellite preserves pan zoom and rotation",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Original to hybrid also fits ground coordinates",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Actual Done button displays finished-unit markers",
+      "pass": true,
+      "detail": {
+        "rings": 70,
+        "count": 70
+      }
+    },
+    {
+      "name": "Done on is stored on this device",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Category controls retain Done preference",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Actual Done control hides rings and stores off",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Coordinate transforms and all item places unchanged",
+      "pass": true,
+      "detail": {
+        "sha256": "f5ed58f8e011176aae83fa6e870793bd93dc8a6e8aff1dd22821f78e5e6b5078"
+      }
+    },
+    {
+      "name": "Master-plan and pin-derived dashboard model unchanged",
+      "pass": true,
+      "detail": {
+        "sha256": "db620ff4a9a50d4149e31532d3e0d2e4eff56dc191f2a324bf00226829df3fd6"
+      }
+    },
+    {
+      "name": "Done remains off after actual iframe reload",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Explicit Done on survives actual iframe reload",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Family switch during easing retains fitted view",
+      "pass": true,
+      "detail": {
+        "camera": {
+          "cx": 1192,
+          "cy": 842,
+          "z": 1,
+          "rot": 0
+        },
+        "expected": {
+          "cx": 1192,
+          "cy": 842,
+          "z": 1,
+          "rot": 0
+        }
+      }
+    },
+    {
+      "name": "Zoom button followed by family control cannot undo fit",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Family switch cancels pending momentum pan",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Family switch cancels pending rotation",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "Same-family switch preserves an ongoing zoom",
+      "pass": true,
+      "detail": {}
+    },
+    {
+      "name": "No page errors",
+      "pass": true,
+      "detail": {
+        "count": 0
+      }
+    },
+    {
+      "name": "No console errors",
+      "pass": true,
+      "detail": {
+        "count": 0
+      }
+    },
+    {
+      "name": "No live write requests attempted",
+      "pass": true,
+      "detail": {
+        "blocked": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+ "at": "2026-10-23T01:19:45.597Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card sits under the Map explorer: 28 boards (the seven off the sheet with positions) and 14 generators (13 placed, GN25 without a position), both renders wrapped, a pin per placed reference with a tap target, the removal boards in their colours, generators as green squares, labels, a list with a Navigate link per placed reference, GN25 listed as without a position, All / VMS / Generators and the zoom buttons, 100%, the credit, no agent names",
+   "ok": true,
+   "detail": {
+    "counts": {
+     "vms": 28,
+     "gens": 14,
+     "placed": 41,
+     "pins": 41,
+     "labels": 41,
+     "list": 42,
+     "links": 41
+    },
+    "off": [
+     [
+      "01",
+      -27.9737,
+      153.42028
+     ],
+     [
+      "02",
+      -27.979,
+      153.4228
+     ],
+     [
+      "03",
+      -27.9804,
+      153.42225
+     ],
+     [
+      "07",
+      -27.9781,
+      153.429
+     ],
+     [
+      "23",
+      -27.9748,
+      153.4207
+     ],
+     [
+      "09",
+      -28.0288,
+      153.43005
+     ],
+     [
+      "10",
+      -28.02975,
+      153.4341
+     ]
+    ],
+    "noneRows": [
+     "GN25 · Generator 1244536no position on the record — candidate — drawing label only, physical position not verified; pin it on the page to put it on the map"
+    ],
+    "buttons": [
+     "out",
+     "in",
+     "fit",
+     "all",
+     "vms",
+     "gen"
+    ],
+    "sub": "The Map explorer draws on the master layout’s sheet, so a board placed off the sheet cannot show there; this map draws every VMS board and every generator the record has a position for, on satellite i"
+   }
+  },
+  {
+   "name": "the filter: Generators shows the 13 generator pins and the 14 generator rows (GN25 among them), VMS boards the 28 board pins and rows, All everything",
+   "ok": true,
+   "detail": {
+    "g": {
+     "pins": 13,
+     "gen": 13,
+     "hidden": 28,
+     "shown": [
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen",
+      "gen"
+     ],
+     "on": true
+    },
+    "v": {
+     "pins": 28,
+     "vms": 28,
+     "hidden": 14
+    },
+    "a": {
+     "pins": 41,
+     "hidden": 0
+    }
+   }
+  },
+  {
+   "name": "Esri tiles placed for the whole-map view (zoom 14 to 17, the boards span several kilometres)",
+   "ok": true,
+   "detail": {
+    "n": 40,
+    "z": 15,
+    "hrefs": [
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/15/19037/30347",
+     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/15/19037/30348"
+    ]
+   }
+  },
+  {
+   "name": "zoom in twice gives 256%, Fit returns to 100%, 6400% on GN23 asks for zoom-19 (a phone) or zoom-20 (the cap) imagery",
+   "ok": true,
+   "detail": {
+    "w0": 11223.953,
+    "w1": 4384.356,
+    "p1": 256,
+    "w2": 11223.953,
+    "p2": 100,
+    "w3": 175.374,
+    "p3": 6400,
+    "z3": 20
+   }
+  },
+  {
+   "name": "the map really draws the imagery (neither dark nor flat)",
+   "ok": true,
+   "detail": {
+    "mean": 72.1,
+    "sd": 75
+   }
+  },
+  {
+   "name": "under the VMS boards tab’s head: the 28 boards alone, 28 pins and rows, no filter, none without a position",
+   "ok": true,
+   "detail": {
+    "afterHead": true,
+    "items": 28,
+    "kinds": [
+     "vms"
+    ],
+    "pins": 28,
+    "filter": 0,
+    "list": 28,
+    "none": 0
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 534,
+    "blocked": 0
+   }
+  }
+ ]
+}

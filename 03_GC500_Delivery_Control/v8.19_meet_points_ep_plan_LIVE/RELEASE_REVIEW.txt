@@ -1,0 +1,15 @@
+Author: Andrew Fisher
+v8.19 release review — 4 Oct 2026
+
+LIVE at 01:00 AEST. Exact served candidate:
+0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c
+9,356,879 bytes, base88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919.
+Owner product1cd16dcd, completed documentation/evidence84e4cf14, READY boarddacf75dd.
+
+Independent review:13 source checks,22 focused checks and18 native hydration/update checks passed. Five one-page A4 run sheets fit the pre-departure text;15 captured QR codes and13 printed QR codes decode. The stale supplier-date cache was corrected in the frozen product.
+
+Owner evidence records21/23 suites passing after its results rerun, with two inherited one-tab suites still failing. Original logs are retained. Independent review proved their four failures were stale Today assertions; the unchanged final-v8.20 semantic adapter passes24/24 on both exact base and candidate, desktop and phone (96 checks total). No assertions are skipped, no product change was needed, and the source-bound test-only patch is retained here. The correction requires the authorised absence of Fencing/roads, headings inside native fold wrappers, and restoration through tab navigation; existing stronger modal/focus checks remain.
+
+The fresh standard build exactly reproduced the reviewed candidate. Guarded upload refused a changed base by design and verified public bytes after publication. Before/after private fingerprints confirm all33 operational collections and record3736 unchanged. No SMS, email, record or machine update occurred. Actual public-host smoke passed12/12 across desktop and phone: independent HTTP200 fetches matched the exact hash and size, with no page substitution. Supplier card, native meet-point QR, run-sheet open/close/focus and Today motion checked; zero browser errors or attempted writes.
+
+v8.21 must rebuild on this exact live page and retain the supplier-plan boundary and meet-point helpers. v8.17 remains parked. Physical printed QR scanning and physical-device frame rates are not claimed.

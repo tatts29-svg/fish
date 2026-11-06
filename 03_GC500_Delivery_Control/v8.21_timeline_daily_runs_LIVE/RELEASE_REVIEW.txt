@@ -1,0 +1,33 @@
+Author: Andrew Fisher
+v8.21 — Timeline daily installer runs, LIVE 4 Oct 2026 at 01:19 AEST
+
+Live candidate SHA256 a505155e749d35c2231add24762a2db08ae617b9efcd4d06c8aee8507750a414
+Live candidate size 9,568,271 bytes
+Base SHA256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c
+Frozen owner source commit 774bd0e4
+Controller SHA256 3bbb5ffeb3dc566a1a6f3dfc745908f835aa2601bbfb70eb9c8fe88f6c8f64a5
+Renderer SHA256 63493735d72d44eb13f17bc8cfc049462bf166233100cc2e13d009aa5ebdac5a
+Release wrapper SHA256 f29025580117d47b370399a5e818a3f6e3e4b93a734689ac27ce1f3b9147b5a5
+Supplier CSS adapter SHA256 aca30b94441c34f43d7bae4566bd9a420bb928196f8d3c241445dac1f6c5ca1a
+
+Behaviour
+Timeline → choose a day → Message daily runs → choose an existing installer → Text this day's deliveries.
+Preview is optional. Only the explicit Text action submits. No automatic send, duplicate contact directory or crew assignment is added.
+Each day-only page preserves native load order, quantities, timing, notes and the per-reference meet point. Supplier-plan dates do not silently change the native schedule.
+The existing supplier card is excluded from 90 Timeline style selectors without changing specificity or editing either frozen owner source.
+
+Verification
+Focused integration: 29 owner, 12 actual visual, 52 supplier style/geometry/handler, 5 CSS-source and 19 independent helper-boundary checks passed. These ran on the equivalent runtime before the final two inert release labels and normal toolchain scrub.
+Raw labelled SHA256 d923c84b6e9bfaa25b9beead744141237f59c5ba8f7f3197c6fa01ba30f04da4 is not the uploaded artifact. Standard toolchain attribution scrubbing changes two inert comment/metadata strings and adds 12 bytes; visible sheet author footer remains intact. Exact difference proof was independently accepted.
+Final standard artifact: all 16 standing suites completed, 269/269 assertions passed. Desktop and phone each passed 22 tab destinations, seven deep links and Back. Zero page or console errors; all 19 opened contexts closed.
+Historical fixed-count expectations use the existing semantic test adapter, retaining exact current reference-set, row-count and landing-geometry assertions. No assertions were skipped. Prior failed historical evidence is retained privately.
+The standard harness blocks operational writes and uses mocked providers; its historical aggregate collector does not retain attempted-write totals. Product-specific send tests use local fixtures. No real SMS, card publication, record change or physical print was used as a test.
+Root inspected desktop/phone Timeline controls and the narrow installer page. No physical-device performance claim is made.
+
+Publication
+Fresh live-base guard passed; configured edit access verified without exposing its key. Upload returned 200 and the public view serves the exact final artifact. All 33 operational collections and record version3736 are unchanged across the upload.
+Actual public-host post-release smoke: 10/10 desktop1440/phone390 checks passed. Both HTML responses return200 and match the exact final bytes without local page substitution. Installer selection, local day-only preview, supplier-card isolation and selected-only Today motion checked. Zero browser errors or attempted operational writes; both contexts closed. Visible controls and preview screenshots inspected.
+
+Scope boundaries
+No v8.22–v8.26 presentation/checklist draft, map package, machine package or backend service release is included. No pending date-change approval is consumed by this frontend publication.
+Private operational pages, records, original documents, contact details and full runtime test captures remain outside Git. This source folder and release summary contain the generic implementation and verification facts only.

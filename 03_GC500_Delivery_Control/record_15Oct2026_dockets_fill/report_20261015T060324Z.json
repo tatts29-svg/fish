@@ -1,0 +1,287 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T060324Z",
+ "finished": "2026-10-15T06:03:38.234Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a…), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need. Second pass: the two fridge numbers were written at 15:49 and overwritten at 15:54 by another open copy of the page; written again.",
+  "ops": [
+   {
+    "op": "acc_fix",
+    "ref": "P66",
+    "type": "Fridge",
+    "from": "131190",
+    "to": "1311990",
+    "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990"
+   },
+   {
+    "op": "acc_fix",
+    "ref": "P33",
+    "type": "Fridge",
+    "from": "1238952",
+    "to": "1328952",
+    "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952"
+   }
+  ]
+ },
+ "pageSha256": "66878d12b8f4a98c177b3bf07f30efcce501da46f56b3244b92da94e458b320f",
+ "version": {
+  "before": 6501,
+  "after": 6503
+ },
+ "updated": {
+  "before": "2026-10-15T05:54:59.678Z",
+  "after": "2026-10-15T06:03:37.297Z"
+ },
+ "stage": [
+  {
+   "op": "acc_fix",
+   "ref": "P66",
+   "type": "Fridge",
+   "from": "131190",
+   "to": "1311990",
+   "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990",
+   "result": "changed 131190 -> 1311990"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P33",
+   "type": "Fridge",
+   "from": "1238952",
+   "to": "1328952",
+   "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952",
+   "result": "changed 1238952 -> 1328952"
+  }
+ ],
+ "writes": [
+  {
+   "key": "accessories/P33",
+   "status": 200
+  },
+  {
+   "key": "accessories/P66",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1238952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P66": {
+    "_k": "P66",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1372940",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:33:32.993Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:41.551Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "131190",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:24.275Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   }
+  },
+  "after": {
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher",
+      "edited_at": "2026-10-15T06:03:34.183Z",
+      "edited_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P66": {
+    "_k": "P66",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1372940",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:33:32.993Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:41.551Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1311990",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:24.275Z",
+      "added_by": "Andrew Fisher",
+      "edited_at": "2026-10-15T06:03:31.958Z",
+      "edited_by": "Andrew Fisher"
+     }
+    ]
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

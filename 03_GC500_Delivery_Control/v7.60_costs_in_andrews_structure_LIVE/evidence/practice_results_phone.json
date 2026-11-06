@@ -1,0 +1,200 @@
+{
+ "mobile": true,
+ "numbers": {
+  "labour_old_line": 17082.81,
+  "labour_ticks_old": 165,
+  "ticks": {
+   "install": {
+    "ticks": 165,
+    "amount": 17082.81,
+    "unknown": 0
+   },
+   "cleaning": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "fire_ext": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "other": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "total": 17082.81,
+   "count": 165
+  },
+  "ticksSumEqualsOld": true,
+  "toiletBranch": "KINP",
+  "servicing": 85101.75,
+  "rehireCost": 118575,
+  "rehireApproved": true,
+  "fencingByBranch": {
+   "STPS": 120913.08
+  },
+  "fencingCost": 77121.5,
+  "rehireCostCategory": 118575,
+  "contractsTotal": 277015.74,
+  "branchesRevenue": 500113.38,
+  "scope": 55816.56,
+  "scopeHours": 368.92,
+  "totalRevenue": 555929.94,
+  "reconciles": true,
+  "byBranchTicks": {
+   "KINP": {
+    "install": 16458.21,
+    "cleaning": 0,
+    "amount": 16458.21
+   },
+   "NVAC": {
+    "install": 624.6,
+    "cleaning": 0,
+    "amount": 624.6
+   }
+  },
+  "knownCosts": 235081.76,
+  "difference": 320848
+ },
+ "plText": "Forecast P&L\nas at Thu 01 Oct 2026 · AUD ex GST · every figure traces to a contract line, a card rate, a docket or a quote\nREVENUE\n$555,930\nDIRECT COSTS KNOWN\n$235,082\nDIFFERENCE SO FAR\n$320,848\nnot a margin yet\nREVENUE\ncharged to the V8s · all hire is revenue\nHire on the contracts, by the rate\n263 lines carrying a rate · including Rehire Revenue $1,437 and Transport Revenue $6,938\nON THE CONTRACTS\n$228,580\nHire with no contract rate yet — from the card, or a rate typed on Costs\n32 lines · the street rate card 2026, or the rate the branch gave us typed on Costs · an estimate until the branch puts a rate on the line (Rate 1 on the contract is kept)\nFROM THE CARD\n$48,436\nToilet servicing and cleaning — KINP rehire, at our pump-out rates\nEvent Portables’ quantities on Q6844 · Rehire Revenue on no contract line yet · servicing and cleaning are not labour\nFROM THE CARD\n$85,102\nFencing — STPS rehire, dockets at the 2026 card\n63 dockets · hire and installation in one card rate\nDOCKETS\n$120,913\nEvent labour — the scope\n368.9 h of people over the event + accommodation and travel\nTHE SCOPE\n$55,817\nLabour — Install\n165 ticks on references · install, steps, levelling and demob, per piece · the Labour Install code\nON THE CONTRACTS\n$17,083\nContract lines with no rate and no card line\n2 lines · unknown, not nought\nNOT PRICED\n—\nTotal revenue\n$555,930\nDIRECT COSTS\nwhat Coates pays · the eight categories management expect · never added to revenue\nInternal labour hours and overtime\n1,702.5 h by Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul, Wayne Crimmin — build and demob 1,260.1 ordinary, 202 at ×1.5, 69.4 at ×2, and 96 over the race weekend; wages are reviewed separately in Actuals, forecast & Finance journals, not added to this P&L\nHOURS ONLY\n1,702.5 h\nExternal contractor costs\n499 h by Daniel Gough, Kyle Gover (JOB CONNECT), 63 of them over the race weekend — wages are reviewed separately in Actuals, forecast & Finance journals, not added to this P&L\nHOURS ONLY\n499 h\nRehire costs\nKINP · Event Portables toilets, rehire cost (P&L: 2126 Re Hire Contract Costs) — the servicing and cleaning are in the quotes, not labour — four quotes approved — $118,575 ex GST, the final total may change · 2 subhired contract lines — their rehire cost is not on the record\n$118,575\nEquipment costs (including generators and associated assets)\nthe tracker's equipment lines (Equip R&M) — $578.00\n$578\nTemporary fencing and crowd control\nSTPS · Advanced's dockets, at their own sheet — $75,871.50: Rehire (their gear) $75,021.50 + Installation — external contractors (8.5 h Labour) $850.00 · Installation — external contractors: the green book, Advanced's labour and truck hours — 12.5 h × $100.00 = $1,250.00\n$77,122\nAny installation-related costs\nthe crew's installation hours are under internal labour\nNOT PRICED\nnothing recorded\nBuy invoicing branch costs\nNOT PRICED\nnothing recorded\nAny other event-related expenses\naccommodation — $15,564.34 for 70 nights (31 more with no rate yet) · meals away from home — $1,380.83 · other expenses on the tracker (Meals on the Road, Printing) — $140.70 · Transport (cartage) — $21,721.39: the schedule's TPORT COST figures, only the loads with a figure\n$38,807\nTotal direct costs known so far\nwages — 49 of 208 shifts priced; $31,823.98 partial labour outlook; 1,626 paid/allocation hours unpriced. Actuals, forecast & Finance journals separates verified costs, unconfirmed past estimates and future plans. These labour costs are not added to this P&L\n$235,082\nDifference so far\nrevenue less the direct costs known · not a margin yet\n$320,848\nNOT IN IT YET\nnamed, never added\nwages — 49 of 208 shifts priced; $31,823.98 partial labour outlook; 1,626 paid/allocation hours unpriced. Actuals, forecast & Finance journals separates verified costs, unconfirmed past estimates and future plans. These labour costs are not added to this P&L\nthe cost of the people on the event labour scope who are not on the tracker — the fence team of six among them — is not on the record\naccommodation — 31 nights for Alfie Harris with no rate yet\ntransport — only the loads with a figure are in: 36 loads from the schedule's TPORT COST column ($21,721, each written with a plus, so at least that); 23 marked Internal are a Coates truck; the rest of the loads carry no transport figure yet\nthe rehire cost of the 2 subhired lines on the contracts — not on the record\n2 contract lines with no rate yet on the charge side\ncustomer revenue for Water Truck, Water Truck - Pre fill, Water delivery, 3000 Ltr Free Drinking Water Tank — no agreed customer rate or card line. The $12,200.00 supplier cost is already in the approved rehire costs; it is not a customer rate\nProvisional: event labour is in at the scope as it stands — its access-plan times are still marked to be updated off the 2026 access plan\nProvisional: the rehire toilets are in at the quotes' figures ($118,575) — approved on 24 Sep, with the final total still able to change\nProvisional: the schedule's transport figures are in as written — 34 of them with a plus after the figure, which is the figure and more\n\nCharged windows: forklifts, VMS and water barriers from when they go in; everything else over the event (23–25 Oct). Labour is charged per piece of equipment; the only hourly labour charged is over the event. A rate typed on Costs → From the Street Rate Card 2026 replaces a card estimate and shows here at once.\n\nBY BRANCH\nwhat each branch charges the V8s · the rehire it carries · the labour ticked on its references\nBRANCH\tLINES\tHIRE · BY THE RATE\tHIRE · FROM THE CARD\tTRANSPORT\tREHIRE REVENUE\nOFF THE CONTRACTS\tLABOUR INSTALL\tCLEANING\tNO RATE\tREVENUE\tREHIRE COST\nDIRECT COST\nKINP · 10 settled\t225\t$136,084\t—\t$2,835\t$85,102\t$16,458\t—\t—\t$240,480\t$118,575\nEvent Portables, approved\nSTPS\t39\t$81,149\t—\t$103\t$120,913\t—\t—\t—\t$202,165\t$77,122\nAdvanced's dockets at their own sheet\nNVAC\t34\t$339\t$46,953\t—\t—\t$625\t—\t2\t$47,916\tnot on the record\nMEAD\t9\t$4,069\t$1,483\t$4,000\t—\t—\t—\t—\t$9,553\tnot on the record\nAll branches\t307\t$221,641\t$48,436\t$6,938\t$206,015\t$17,083\t—\t2\t$500,113\t$195,697\nEvent labour — the scope · 368.9 h of people over the event + accommodation and travel · the job’s, on no branch\t$55,817\t\nTotal revenue · the branches plus the scope\t$555,930\t\nKINP · sub-hired · rehire — Rehire · Event Portables · 132 toilet lines · 251 units · Rehire Revenue $69,092 at our rates\n+ servicing $85,102 at the card, on no contract line · Rehire cost $118,575 approved — shown, never added\n31 lines carry a Coates plant number · 4 locations marked Event Portables gear on the page\n1 SUB line the rental system books · Rehire Revenue $1,428 · ROY002 · Rehire cost not on the record\nNVAC · sub-hired · rehire — Rehire · plant · 1 line · Rehire Revenue $12,063 at our rates\nsubhired 5 t forklift, with 1.8 m tynes · marked hired in by the project manager · supplier and Rehire cost not on the record\nMEAD · sub-hired · rehire — 1 SUB line the rental system books · Rehire Revenue $9 · QUE011 · Rehire cost not on the record\nSub-hired on the record, by supplier. Event Portables — WC41, WC42, WC43, WC81 (4 locations). These are locations, not contract lines: their hire is charged to the V8s on KINP’s contracts at our rates, and the supplier’s rehire cost is the KINP Rehire cost above and under Rehire costs in Direct costs (Event Portables: $118,575, approved).\n\nEach branch’s revenue is its contracts by the rate and from the card, its Transport Revenue, the rehire it carries off the contracts (KINP the Event Portables toilets’ servicing and cleaning at our pump-out rates; STPS Advanced’s fencing dockets at the 2026 card) and the labour ticked on its references — install, steps, levelling and demob under the Labour Install code, cleaning on its own line. Rehire cost is what Coates pays the supplier: a direct cost against the branch that carries the rehire, never added to revenue. The event labour scope is the job’s and on no branch; the branches plus the scope are the total revenue.\n\nAuthor: Andrew Fisher · Events Project Manager\nThe working behind every figure is under Are we making money? below · Print and Email the summary are above\n\n",
+ "hasOldLabourLine": false,
+ "hasLabourInstall": true,
+ "hasCleaningLine": false,
+ "servicingNamesBranch": true,
+ "lowerTable": [
+  [
+   "STPS Brisbane Traffic",
+   "23 3 contracts",
+   "$81,252",
+   "—",
+   "—",
+   "—",
+   "$120,913",
+   "$202,165",
+   "9 3 invoiced",
+   "—"
+  ],
+  [
+   "KINP Brisbane Portables",
+   "132 5 contracts",
+   "$138,920",
+   "—",
+   "—",
+   "—",
+   "$85,102",
+   "$224,022",
+   "—",
+   "—"
+  ],
+  [
+   "NVAC North Power and HVAC",
+   "43 1 contract",
+   "$47,292 2 no rate",
+   "—",
+   "—",
+   "—",
+   "—",
+   "$47,292",
+   "—",
+   "—"
+  ],
+  [
+   "MEAD Brisbane Mechanical Specialist",
+   "0 1 contract",
+   "$9,552",
+   "—",
+   "—",
+   "—",
+   "—",
+   "$9,552",
+   "—",
+   "—"
+  ],
+  [
+   "All branches",
+   "198",
+   "$277,016",
+   "—",
+   "—",
+   "—",
+   "$206,015",
+   "$483,031",
+   "9",
+   "—"
+  ]
+ ],
+ "labour": {
+  "tracker": {
+   "build_demob_hours": null,
+   "race_hours": null,
+   "raw_keys": [
+    "people",
+    "personOf",
+    "labour",
+    "race",
+    "accommodation",
+    "meals",
+    "misc",
+    "weeks",
+    "lines"
+   ]
+  },
+  "cost_labour": {
+   "hours": 2042.5,
+   "ordinary": 1577.1,
+   "keys": [
+    "people",
+    "rule",
+    "hours",
+    "to_date",
+    "planned",
+    "ordinary",
+    "at_1_5",
+    "at_2",
+    "shifts",
+    "by_employer",
+    "weighted"
+   ]
+  },
+  "cost_external": null,
+  "race_hours": 159,
+  "charge_ticks": {
+   "ticked_now": 17082.81,
+   "ticks": 165,
+   "by_kind": {
+    "install": 17082.81,
+    "cleaning": 0,
+    "fire_ext": 0
+   }
+  },
+  "charge_forecast": {
+   "expected_on_site_to_tick": 6943.469999999999,
+   "to_come": 21215.57999999999,
+   "demob_cleaning_later": 35706.3000000001,
+   "keys": [
+    "charged",
+    "expected",
+    "tocome",
+    "later",
+    "n",
+    "unpriced"
+   ]
+  },
+  "event_scope": {
+   "amount": 55816.56,
+   "hours": 368.92,
+   "scope": true
+  },
+  "finance745": {
+   "rows": 208,
+   "expectedCost": 31823.98,
+   "unpricedHours": 1626,
+   "unpricedCount": 159,
+   "complete": false
+  }
+ },
+ "errors": [],
+ "console": []
+}

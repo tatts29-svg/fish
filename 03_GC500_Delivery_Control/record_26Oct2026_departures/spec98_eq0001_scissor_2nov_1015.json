@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 10:2x AEST: \"Scissor lift left at 1015am\". The only scissor lift on the record is EQ0001, Scissor Lift With Operator Protection 43ft (13.0M) - Diesel, Coates 1220903 (contract 9992300 line 4; ticked Ready 30 Oct; pick-up booked 2 Nov 09:00), its reference's only unit: it left in full at 10:15 on 2 Nov, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "EQ0001",
+   "at": "2026-11-02T10:15:00+10:00",
+   "nos": [
+    "1220903"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+/* Author: Andrew Fisher. Scoped preview only; the existing Night report owns its styling. */
+#pane-servicing.svc1252-active > :not(.panehead):not(#svc1252){display:none!important}
+#svc1252{display:grid;gap:24px;max-width:940px;margin:16px auto 0}
+#svc1252 .svc1252-night{overflow:hidden;border:1px solid #53707b;border-top:3px solid #ff8a32;border-radius:14px;background:linear-gradient(135deg,#272b2d,#15191b);box-shadow:inset 0 1px #ffffff12}
+#svc1252 .svc1252-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:18px 20px}
+#svc1252 .svc1252-heading h3{margin:0;color:#f0f8fa;font:800 26px/1.1 'Barlow Condensed','Arial Narrow',Arial,sans-serif;letter-spacing:.025em;text-transform:uppercase}
+#svc1252 .svc1252-heading small{display:block;margin-top:5px;color:#b2c2c9;font:500 12px/1.4 Inter,Arial,sans-serif;letter-spacing:0;text-transform:none}
+#svc1252 .svc1252-print{min-height:44px;padding:10px 15px;border:1px solid #ffac6b;border-radius:8px;background:#ff8a32;color:#141718;font-weight:800;cursor:pointer}
+#svc1252 .svc1252-print:focus-visible{outline:3px solid white;outline-offset:3px}
+#svc1252 .svc1252-print:disabled{opacity:.6;cursor:wait}
+#svc1252 .svc1252-report{background:#dfe5ea;min-height:240px}
+#svc1252 iframe{display:block;width:100%;border:0;background:#dfe5ea;min-height:240px}
+#svc1252 .svc1252-wait{margin:0;padding:20px;color:#cbd6dc}
+#svc1252 .svc1252-status{margin:0;padding:0 20px 16px;color:#ffcfaa;font-size:12px}
+@media(max-width:600px){#pane-servicing{padding:10px}#svc1252{gap:18px;margin-top:12px}#svc1252 .svc1252-heading{padding:14px;gap:10px}#svc1252 .svc1252-heading h3{font-size:24px}#svc1252 .svc1252-print{font-size:12px;padding:10px 12px}}
+
+#svc1252 .svc1252-heading{list-style:none;cursor:pointer}#svc1252 .svc1252-heading::-webkit-details-marker{display:none}#svc1252 .svc1252-heading h3:before{content:"+";display:inline-block;width:24px;margin-right:6px;color:#ff8a32}#svc1252 details[open]>.svc1252-heading h3:before{content:"−"}#svc1252 details:not([open]) .svc1252-heading{padding-block:22px}
+
+@media(max-width:600px){#svc1252 .svc1252-heading{display:grid;grid-template-columns:minmax(0,1fr)}#svc1252 .svc1252-print{width:100%}}

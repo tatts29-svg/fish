@@ -1,0 +1,11 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const page = await (await browser.newContext({viewport: {width: 390, height: 844}, isMobile: true})).newPage();
+  const reqs = new Map(); page.on('requestfinished', async r => { try { const s = await r.sizes(); const u = r.url().replace(/^https?:\/\/[^/]+/, ''); const k = u.replace(/\?.*/, ''); const e = reqs.get(k) || {n: 0, b: 0, type: r.resourceType()}; e.n++; e.b += s.responseBodySize; reqs.set(k, e); } catch (e) {} });
+  const t0 = Date.now(); await page.goto(process.argv[2], {waitUntil: 'load'}); const tl = Date.now() - t0; await page.waitForTimeout(4000);
+  const all = [...reqs.entries()]; const tot = all.reduce((s, [, e]) => s + e.b, 0);
+  console.log('load', tl, 'ms · requests', all.reduce((s, [, e]) => s + e.n, 0), '· KB', Math.round(tot / 1024));
+  console.log('dupes', JSON.stringify(all.filter(([, e]) => e.n > 1).map(([k, e]) => [k.slice(-50), e.n])));
+  console.log('biggest', JSON.stringify(all.sort((a, b) => b[1].b - a[1].b).slice(0, 8).map(([k, e]) => [k.slice(-40), e.type, Math.round(e.b / 1024) + 'KB'])));
+  const tim = await page.evaluate(() => { const n = performance.getEntriesByType('navigation')[0]; const p = performance.getEntriesByType('paint'); return {ttfb: Math.round(n.responseStart), domContent: Math.round(n.domContentLoadedEventEnd), load: Math.round(n.loadEventEnd), fcp: Math.round((p.find(x => x.name === 'first-contentful-paint') || {}).startTime || 0)}; });
+  console.log('timing', JSON.stringify(tim)); await browser.close(); })();

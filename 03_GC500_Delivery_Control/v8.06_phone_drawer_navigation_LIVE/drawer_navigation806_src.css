@@ -1,0 +1,5 @@
+/* Author: Andrew Fisher. Keep the existing phone drawer Navigate button inside its action column. */
+@media(max-width:720px){
+ #drawer .dhacts .navbtn{max-width:100%;white-space:normal;flex-wrap:wrap}
+ #drawer .dhacts .navbtn .navpinned{order:1}
+}

@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "candidateSha256": "75ddbb9cc77044932636f37027eeb6b97176c2a93c8e0eaa54cca0ad88fa0c3f",
+  "deterministicRebuild": true,
+  "wrongBaseGuard": true,
+  "repeatGuard": true,
+  "pureChecks": 28,
+  "parseCheckScripts": 95,
+  "combinedCandidateSha256": "0106085127fbb27dd15942261925c667cf4db429e28f45ac540776252095ce18",
+  "combinedPureChecks": 28,
+  "sourceHashes": {
+    "patch_finance1007.py": "a6821aec2eb8f91b3775908eb3d24ddaea162e2883f18376cf9b10702eb2b691",
+    "finance1007.js": "a057c882f08af1b1e0507614d4e578c6d9c96ddccfae1690dbc8bd2012010013",
+    "test_finance1007.cjs": "89d060e9eb38eeb47ec3b54c1bfc9562ee9d8d516847d77a5328f3a07c39daaf"
+  }
+}

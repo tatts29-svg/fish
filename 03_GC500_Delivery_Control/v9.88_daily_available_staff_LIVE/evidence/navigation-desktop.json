@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "pass": true,
+  "mobile": false,
+  "errors": 0,
+  "routes": 22,
+  "deepLinks": 7,
+  "back": {
+    "hash": "#plant",
+    "pane": "pane-plant"
+  },
+  "consoleErrors": 0,
+  "mapSessionFixtures": 1,
+  "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+}

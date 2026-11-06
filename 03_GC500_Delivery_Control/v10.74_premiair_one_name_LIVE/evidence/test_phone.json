@@ -1,0 +1,60 @@
+{
+ "device": "phone",
+ "pass": true,
+ "fails": [],
+ "buttons": [
+  "Sub-hired · Premiair Hire"
+ ],
+ "register": [
+  "VMS10=Premiair Hire",
+  "VMS11=Premiair Hire",
+  "VMS18=Premiair Hire",
+  "VMS19=Premiair Hire",
+  "VMS20=Premiair Hire",
+  "VMS21=Premiair Hire",
+  "VMS22=Premiair Hire",
+  "VMS23=Premiair Hire",
+  "VMS24=Premiair Hire"
+ ],
+ "cos": "Rehire on site · all equipment: Event Portables 200 on site (199 at locations, 1 spare) Premiair Hire 1 on site (1 at locations) United Rentals Royal Wolf 1 on site (1 at locations)",
+ "drawers": {
+  "T0103": {
+   "units": [
+    "1211404 | Coates |",
+    "120T | SUB-HIRED — Premiair Hire |"
+   ]
+  },
+  "T0128": {
+   "units": [
+    "467T | SUB-HIRED — Premiair Hire |",
+    "1211646 | Coates | Duplicate physical identity; check the unit records",
+    "1211646 | Coates | Duplicate physical identity; check the unit records"
+   ]
+  },
+  "T0158": {
+   "units": [
+    "472T | SUB-HIRED — Premiair Hire |",
+    "487T | SUB-HIRED — Premiair Hire |",
+    "475T | SUB-HIRED — Premiair Hire |",
+    "453T | SUB-HIRED — Premiair Hire |",
+    "1191657 | Coates |",
+    "1201864 | Coates | Duplicate physical identity; check the unit records",
+    "1211348 | Coates | Duplicate physical identity; check the unit records",
+    "1211376 | Coates | Duplicate physical identity; check the unit records",
+    "1211364 | Coates | Duplicate physical identity; check the unit records",
+    "1211364 | Coates | Duplicate physical identity; check the unit records",
+    "1211348 | Coates | Duplicate physical identity; check the unit records",
+    "1191957 | Coates |",
+    "1211376 | Coates | Duplicate physical identity; check the unit records",
+    "1201864 | Coates | Duplicate physical identity; check the unit records"
+   ]
+  }
+ },
+ "foot": "Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · Today v8.20 · v10.74",
+ "parity": {
+  "costs": true,
+  "today": true,
+  "costsHash": "5956c95e1e64c38d",
+  "todayHash": "ffed6c219612805f"
+ }
+}

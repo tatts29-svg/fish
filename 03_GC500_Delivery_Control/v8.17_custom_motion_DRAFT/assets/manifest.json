@@ -1,0 +1,49 @@
+{
+  "author": "Author: Andrew Fisher",
+  "status": "PREVIEW ONLY",
+  "fps": 30,
+  "duration": 1.2,
+  "frames": 36,
+  "width": 128,
+  "height": 128,
+  "recommendedDisplayPixels": 44,
+  "loop": false,
+  "finalHoldBeginsAtSeconds": 0.74,
+  "palette": {
+    "orange": "#FF6A13",
+    "dark": "#1A1614",
+    "white": "#F3EFE9",
+    "green": "#39E07A"
+  },
+  "creatorSourceSHA256": "ed4e68f53f84f54c1cc70bcc3733d4b1fc5d3770c3a7bcfc3240830103556f4a",
+  "transparencyPostprocess": "Remove exactly the final layer named Canvas background; all other export fields unchanged.",
+  "files": [
+    {
+      "name": "equipment-selected",
+      "layers": 10,
+      "meaning": "Selection only. Does not mean delivered, installed or complete.",
+      "nativeProject": "equipment-selected.project.json",
+      "rawCreatorExport": "equipment-selected.creator-export.json",
+      "lottie": "equipment-selected.json",
+      "reducedMotionStill": "equipment-selected.svg"
+    },
+    {
+      "name": "equipment-complete",
+      "layers": 13,
+      "meaning": "Show only after the relevant completion update is acknowledged by the service.",
+      "nativeProject": "equipment-complete.project.json",
+      "rawCreatorExport": "equipment-complete.creator-export.json",
+      "lottie": "equipment-complete.json",
+      "reducedMotionStill": "equipment-complete.svg"
+    },
+    {
+      "name": "photo-saved",
+      "layers": 11,
+      "meaning": "Show only after this individual photo is acknowledged by the service; never for the local outbox.",
+      "nativeProject": "photo-saved.project.json",
+      "rawCreatorExport": "photo-saved.creator-export.json",
+      "lottie": "photo-saved.json",
+      "reducedMotionStill": "photo-saved.svg"
+    }
+  ]
+}

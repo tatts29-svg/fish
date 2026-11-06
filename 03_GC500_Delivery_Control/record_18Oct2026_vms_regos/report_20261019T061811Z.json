@@ -1,0 +1,239 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T061811Z",
+ "finished": "2026-10-19T06:18:25.344Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: \"Wc67. Fwf. Can i add asset no 0714 this was a spare subhired. And a coates asset no 172824 to reference wc67 this will make the total 4 at this reference\". WC67 carried FWF x2 (Event Portables 0793, 0769). 0714 is an Event Portables number (the sub-hired spare); 172824 is the Coates FWF on contract 9968955 line 140 (described there as WC01).",
+  "ops": [
+   {
+    "op": "set_qty",
+    "ref": "WC67",
+    "qty": 4
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "WC67",
+    "no": "0714",
+    "item": "FWF",
+    "owner": "event-portables",
+    "label": "FWF",
+    "note": "Added by Andrew Fisher 19 Oct 2026: the sub-hired spare, now at WC67."
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "WC67",
+    "no": "172824",
+    "item": "FWF",
+    "owner": "coates",
+    "label": "FWF",
+    "note": "Added by Andrew Fisher 19 Oct 2026: Coates FWF at WC67 (contract 9968955 line 140 describes it as WC01)."
+   }
+  ]
+ },
+ "pageSha256": "1a4f83f16017aa28c237013a79888fc79a6b55c5f234ccb35175c7fd70be4c77",
+ "version": {
+  "before": 9928,
+  "after": 9937
+ },
+ "updated": {
+  "before": "2026-10-19T05:58:08.497Z",
+  "after": "2026-10-19T06:18:24.407Z"
+ },
+ "stage": [
+  {
+   "op": "set_qty",
+   "ref": "WC67",
+   "qty": 4,
+   "result": "quantity undefined -> 4"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC67",
+   "no": "0714",
+   "item": "FWF",
+   "owner": "event-portables",
+   "label": "FWF",
+   "note": "Added by Andrew Fisher 19 Oct 2026: the sub-hired spare, now at WC67.",
+   "result": "identified as FWF"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC67",
+   "no": "172824",
+   "item": "FWF",
+   "owner": "coates",
+   "label": "FWF",
+   "note": "Added by Andrew Fisher 19 Oct 2026: Coates FWF at WC67 (contract 9968955 line 140 describes it as WC01).",
+   "result": "identified as FWF"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/qtys~2f~WC67",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~WC67",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+   "status": 200
+  },
+  {
+   "key": "qtys/WC67",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/qtys~2f~WC67": null,
+   "stamps/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": null,
+   "stamps/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": null,
+   "loads/unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": null,
+   "loads/unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": null,
+   "by/qtys~2f~WC67": null,
+   "by/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": null,
+   "by/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": null,
+   "qtys/WC67": null
+  },
+  "after": {
+   "stamps/qtys~2f~WC67": {
+    "_k": "qtys/WC67",
+    "v": "2026-10-19T06:18:20.461Z"
+   },
+   "stamps/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": {
+    "_k": "loads/unit925/49231b6e-fd67-49e5-bc56-c9f789843c1d",
+    "v": "2026-10-19T06:18:21.123Z"
+   },
+   "stamps/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": {
+    "_k": "loads/unit925/1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+    "v": "2026-10-19T06:18:21.681Z"
+   },
+   "loads/unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": {
+    "ref": "WC67",
+    "owner": "event-portables",
+    "assetNo": "0714",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Added by Andrew Fisher 19 Oct 2026: the sub-hired spare, now at WC67.",
+    "kind": "unit925-record",
+    "uuid": "49231b6e-fd67-49e5-bc56-c9f789843c1d",
+    "nativeId": "slot:49231b6e-fd67-49e5-bc56-c9f789843c1d",
+    "transportId": "[\"WC67\",\"event-portables\",\"native\",\"slot:49231b6e-fd67-49e5-bc56-c9f789843c1d\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T06:18:21.123Z",
+    "_k": "unit925/49231b6e-fd67-49e5-bc56-c9f789843c1d"
+   },
+   "loads/unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": {
+    "ref": "WC67",
+    "owner": "coates",
+    "assetNo": "172824",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Added by Andrew Fisher 19 Oct 2026: Coates FWF at WC67 (contract 9968955 line 140 describes it as WC01).",
+    "kind": "unit925-record",
+    "uuid": "1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+    "nativeId": "slot:1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+    "transportId": "[\"WC67\",\"coates\",\"native\",\"slot:1a492f34-6be9-4bb5-89a6-e0fcc34a2e41\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T06:18:21.681Z",
+    "_k": "unit925/1a492f34-6be9-4bb5-89a6-e0fcc34a2e41"
+   },
+   "by/qtys~2f~WC67": {
+    "_k": "qtys/WC67",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~49231b6e-fd67-49e5-bc56-c9f789843c1d": {
+    "_k": "loads/unit925/49231b6e-fd67-49e5-bc56-c9f789843c1d",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~1a492f34-6be9-4bb5-89a6-e0fcc34a2e41": {
+    "_k": "loads/unit925/1a492f34-6be9-4bb5-89a6-e0fcc34a2e41",
+    "v": "Andrew Fisher"
+   },
+   "qtys/WC67": {
+    "_k": "WC67",
+    "v": 4,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "WC67",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "FWF",
+       "quantity": 2,
+       "received": 2,
+       "installed": 2,
+       "receipts": [
+        {
+         "at": "2026-10-01T05:06:04.553Z",
+         "quantity": 2
+        }
+       ],
+       "receiptAt": "2026-10-01T05:06:04.553Z",
+       "supplied": null,
+       "suppliedAt": "",
+       "on": true,
+       "onAt": "2026-10-01T05:06:04.553Z",
+       "done": true,
+       "doneAt": "2026-10-01T05:06:04.553Z",
+       "install": true,
+       "installAt": "2026-10-01T05:20:56.419Z",
+       "rest": 0,
+       "unitWork": {},
+       "financial1017": {
+        "contract": "9968955|84",
+        "owner": "event-portables",
+        "rehire": true,
+        "identified": 2,
+        "steps": 0
+       }
+      }
+     ],
+     "typed": 4,
+     "at": "2026-10-19T06:18:20.461Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

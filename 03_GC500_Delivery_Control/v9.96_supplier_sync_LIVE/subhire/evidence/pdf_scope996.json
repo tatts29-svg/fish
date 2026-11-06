@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 8,
+  "checks": [
+    {
+      "name": "All-dates export includes each recorded date and undated scope",
+      "pass": true
+    },
+    {
+      "name": "Undated scope receives no invented delivery date",
+      "pass": true
+    },
+    {
+      "name": "All-dates filename is distinct",
+      "pass": true
+    },
+    {
+      "name": "Every export page discloses confirmed FWF allocation gap",
+      "pass": true
+    },
+    {
+      "name": "Other received products remain separate current-stock categories",
+      "pass": true
+    },
+    {
+      "name": "Cumulative receipts are not labelled current on-site FWF",
+      "pass": true
+    },
+    {
+      "name": "Per-day API still exports only selected actual date",
+      "pass": true
+    },
+    {
+      "name": "Per-day filename is retained",
+      "pass": true
+    }
+  ],
+  "operationalWrites": 0,
+  "browser": false,
+  "layoutVerification": "Final real PDF render remains with integrated browser test"
+}

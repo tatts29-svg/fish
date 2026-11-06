@@ -1,0 +1,12 @@
+const {open} = require('./lh2'); const OUT = '/tmp/claude-0/stage4/shots/';
+const PAGE = '/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/GC500_Delivery_Control_hosted_v695solo.html';
+(async () => { const s = await open({pageFile: PAGE, hash: '#day/2026-09-28', gl: false, W: 1440, H: 1000}); const p = s.page; const res = {};
+  await p.waitForTimeout(12000);
+  res.mon = await p.evaluate(() => ({button: !!document.querySelector('[data-print-prestart="2026-09-28"]'), card: !!document.querySelector('.pscard, .psnote')}));
+  const nav = await p.$('.daynav'); if (nav) await nav.screenshot({path: OUT + 'ps695_button.png'});
+  await p.evaluate(() => { location.hash = '#day/2026-10-01'; }); await p.waitForTimeout(4000);
+  res.thu = await p.evaluate(() => ({button: !!document.querySelector('[data-print-prestart]'), card: !!document.querySelector('.pscard, .psnote')}));
+  await p.evaluate(() => { location.hash = '#day/2026-09-28'; }); await p.waitForTimeout(4000);
+  await p.evaluate(() => { window.print = () => { window.__printed = true; }; document.querySelector('[data-print-prestart="2026-09-28"]').click(); }); await p.waitForTimeout(9000);
+  res.printed = await p.evaluate(() => ({sheet: !!document.querySelector('#dayprint .psprint'), called: !!window.__printed, ask: (document.querySelector('.printask') || {}).innerText, over: (document.getElementById('dayprint').__over || []), h: document.querySelector('#dayprint .psprint').scrollHeight}));
+  res.errors = s.errors; console.log(JSON.stringify(res)); await s.browser.close(); })().catch(e => { console.error('FAIL', e); process.exit(1); });

@@ -1,0 +1,1005 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU geometry and source/lifecycle invariants; visual browser validation required",
+  "inputHtml": {
+    "path": "build/GC500_v7.94/GC500_Delivery_Control_hosted.html",
+    "sha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe"
+  },
+  "sourceSha256": "f1c47bac922eac694876de1489f94efdbc8f2968c966d5102495e1150bb06f87",
+  "elapsedMs": 110.96249899999998,
+  "maximumPitReliefM": 0.15500000000003056,
+  "checks": [
+    {
+      "name": "candidate embeds the exact tested helper after attribution scrubbing",
+      "pass": true
+    },
+    {
+      "name": "all actual existing pit modules receive replacement detail",
+      "pass": true,
+      "detail": {
+        "modules": 26
+      }
+    },
+    {
+      "name": "all four source faces receive open-bay contrast",
+      "pass": true
+    },
+    {
+      "name": "old pit geometry is counted but never appended",
+      "pass": true
+    },
+    {
+      "name": "stand frames read from original seating and canopy vertices",
+      "pass": true,
+      "detail": {
+        "stands": 18
+      }
+    },
+    {
+      "name": "every existing canopy gains underside fascia and connected supports",
+      "pass": true
+    },
+    {
+      "name": "clear stands gain complete bounded stair runs",
+      "pass": true,
+      "detail": {
+        "stairs": 18,
+        "treads": 720
+      }
+    },
+    {
+      "name": "source route building positions pit lane stands car and camera untouched",
+      "pass": true
+    },
+    {
+      "name": "same parent batch no GPU resource creation or upload",
+      "pass": true
+    },
+    {
+      "name": "finite correctly strided mesh with valid indices",
+      "pass": true
+    },
+    {
+      "name": "non-degenerate faces and outward unit normals",
+      "pass": true
+    },
+    {
+      "name": "pit and stand triangle budgets enforced",
+      "pass": true,
+      "detail": {
+        "pit": 11280,
+        "stands": 8892,
+        "total": 20172
+      }
+    },
+    {
+      "name": "pit relief stays within sixteen centimetres of original shells",
+      "pass": true,
+      "detail": 0.15500000000003056
+    },
+    {
+      "name": "source pit roof heights not exceeded",
+      "pass": true
+    },
+    {
+      "name": "stand additions remain beneath existing canopy envelope",
+      "pass": true
+    },
+    {
+      "name": "repeat build is idempotent",
+      "pass": true
+    },
+    {
+      "name": "absent source produces no guessed geometry",
+      "pass": true
+    },
+    {
+      "name": "invalid stand source layout is rejected without invented anchors",
+      "pass": true
+    },
+    {
+      "name": "occupied stand ends skip stairs while retaining connected roof supports",
+      "pass": true
+    }
+  ],
+  "stats": {
+    "author": "Andrew Fisher",
+    "version": "v7.94",
+    "scope": "Existing nominal pit shells and existing stand canopy frames; illustrative construction detail",
+    "sourceRowsUnchanged": true,
+    "sourceFootprintsUnchanged": true,
+    "sourceTopHeightsUnchanged": true,
+    "routeChanged": false,
+    "barriersMoved": 0,
+    "lanesMoved": 0,
+    "standsMoved": 0,
+    "newLandmarkPlacements": 0,
+    "newGPUResources": 0,
+    "newDrawCalls": 0,
+    "perFrameWork": 0,
+    "triangleBudget": 26000,
+    "replacedPitTriangles": 6136,
+    "oldPitGeometryAppended": false,
+    "pitModules": 26,
+    "pitFacades": 104,
+    "pitOpenBayPanels": 604,
+    "pitSteelPosts": 406,
+    "pitDeckBands": 208,
+    "pitRails": 208,
+    "standsAvailable": 18,
+    "standFramesValidated": 18,
+    "standsDetailed": 18,
+    "roofSupportColumns": 72,
+    "roofTrussMembers": 342,
+    "roofFascias": 72,
+    "roofSoffits": 18,
+    "stairRuns": 18,
+    "stairTreads": 720,
+    "stairRunsSkipped": 0,
+    "pitTriangles": 11280,
+    "standTriangles": 8892,
+    "triangles": 20172,
+    "maximumPitReliefM": 0.16,
+    "stairsWithinExistingCanopyEnvelope": true,
+    "canopyTopChanged": false,
+    "pitAnchors": [
+      {
+        "sourceIndex": 2704,
+        "frontageEdge": 0,
+        "frontageLengthM": 23.147344232511724,
+        "laneDistanceM": 4.034691659264865,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 0,
+        "vertexEnd": 880
+      },
+      {
+        "sourceIndex": 2705,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205148,
+        "laneDistanceM": 5.046919516927075,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 880,
+        "vertexEnd": 1760
+      },
+      {
+        "sourceIndex": 2706,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926669,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 1760,
+        "vertexEnd": 2640
+      },
+      {
+        "sourceIndex": 2707,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926805,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 2640,
+        "vertexEnd": 3520
+      },
+      {
+        "sourceIndex": 2708,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.68169357814745,
+        "laneDistanceM": 5.106285708468717,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 3520,
+        "vertexEnd": 4400
+      },
+      {
+        "sourceIndex": 2709,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 4400,
+        "vertexEnd": 5280
+      },
+      {
+        "sourceIndex": 2710,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 5280,
+        "vertexEnd": 6160
+      },
+      {
+        "sourceIndex": 2711,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272085,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 6160,
+        "vertexEnd": 7040
+      },
+      {
+        "sourceIndex": 2712,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272005,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 7040,
+        "vertexEnd": 7920
+      },
+      {
+        "sourceIndex": 2713,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.888243257098484,
+        "laneDistanceM": 5.044772081982228,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 7920,
+        "vertexEnd": 8800
+      },
+      {
+        "sourceIndex": 2714,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.634331276589112,
+        "laneDistanceM": 5.044723708083001,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 8800,
+        "vertexEnd": 9680
+      },
+      {
+        "sourceIndex": 2715,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.981460644294046,
+        "laneDistanceM": 5.246891279705925,
+        "sourceTop": 1.2,
+        "triangles": 408,
+        "vertexStart": 9680,
+        "vertexEnd": 10496
+      },
+      {
+        "sourceIndex": 2716,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.9648315717342,
+        "laneDistanceM": 5.046919516927046,
+        "sourceTop": 1.2,
+        "triangles": 408,
+        "vertexStart": 10496,
+        "vertexEnd": 11312
+      },
+      {
+        "sourceIndex": 2717,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.07813519409607,
+        "laneDistanceM": 4.501767664993397,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 11312,
+        "vertexEnd": 12192
+      },
+      {
+        "sourceIndex": 2718,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.3268717495124,
+        "laneDistanceM": 4.8827587447387835,
+        "sourceTop": 1.2,
+        "triangles": 408,
+        "vertexStart": 12192,
+        "vertexEnd": 13008
+      },
+      {
+        "sourceIndex": 2719,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.05774298122324,
+        "laneDistanceM": 5.046919516927359,
+        "sourceTop": 1.2,
+        "triangles": 408,
+        "vertexStart": 13008,
+        "vertexEnd": 13824
+      },
+      {
+        "sourceIndex": 2720,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.72605321147771,
+        "laneDistanceM": 4.873561072486895,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 13824,
+        "vertexEnd": 14704
+      },
+      {
+        "sourceIndex": 2721,
+        "frontageEdge": 0,
+        "frontageLengthM": 22.212207432431015,
+        "laneDistanceM": 5.046919516927183,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 14704,
+        "vertexEnd": 15584
+      },
+      {
+        "sourceIndex": 2722,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.294482684440595,
+        "laneDistanceM": 4.499796608016199,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 15584,
+        "vertexEnd": 16464
+      },
+      {
+        "sourceIndex": 2723,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.227681833791113,
+        "laneDistanceM": 5.137915698293881,
+        "sourceTop": 1.2,
+        "triangles": 408,
+        "vertexStart": 16464,
+        "vertexEnd": 17280
+      },
+      {
+        "sourceIndex": 2724,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576404355,
+        "laneDistanceM": 5.046919516927124,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 17280,
+        "vertexEnd": 18160
+      },
+      {
+        "sourceIndex": 2725,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576405627,
+        "laneDistanceM": 5.046919516927057,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 18160,
+        "vertexEnd": 19040
+      },
+      {
+        "sourceIndex": 2726,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.724175825099813,
+        "laneDistanceM": 5.000631730586948,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 19040,
+        "vertexEnd": 19920
+      },
+      {
+        "sourceIndex": 2727,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926806,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 19920,
+        "vertexEnd": 20800
+      },
+      {
+        "sourceIndex": 2728,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566847,
+        "laneDistanceM": 5.046919516927443,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 20800,
+        "vertexEnd": 21680
+      },
+      {
+        "sourceIndex": 2729,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926816,
+        "sourceTop": 1.2,
+        "triangles": 440,
+        "vertexStart": 21680,
+        "vertexEnd": 22560
+      }
+    ],
+    "standAnchors": [
+      {
+        "sourceIndex": 0,
+        "name": "S01",
+        "sourceRoof": [
+          [
+            -16.142608289132482,
+            2.1403155220698182,
+            4.252806290333459
+          ],
+          [
+            -10.18299203089372,
+            2.1403155220698182,
+            0.6422664339496212
+          ],
+          [
+            -9.160143914289,
+            2.3003155220698184,
+            2.3305962981521633
+          ],
+          [
+            -15.119760172527762,
+            2.3003155220698184,
+            5.941136154536002
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 22560,
+        "vertexEnd": 23548,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 1,
+        "name": "S02",
+        "sourceRoof": [
+          [
+            6.278034727509903,
+            2.1403155220698182,
+            -6.335415000605623
+          ],
+          [
+            12.885661796139823,
+            2.1403155220698182,
+            -8.547266831517712
+          ],
+          [
+            13.512268500247238,
+            2.3003155220698184,
+            -6.675358703866239
+          ],
+          [
+            6.904641431617318,
+            2.3003155220698184,
+            -4.4635068729541505
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 23548,
+        "vertexEnd": 24536,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 2,
+        "name": "S04",
+        "sourceRoof": [
+          [
+            30.63481013299577,
+            2.1403155220698182,
+            -13.838240826033639
+          ],
+          [
+            37.38180921281604,
+            2.1403155220698182,
+            -15.579225437368416
+          ],
+          [
+            37.875021558220006,
+            2.3003155220698184,
+            -13.667833907006015
+          ],
+          [
+            31.12802247839974,
+            2.3003155220698184,
+            -11.926849295671238
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 24536,
+        "vertexEnd": 25524,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 3,
+        "name": "S05",
+        "sourceRoof": [
+          [
+            56.35314362428052,
+            2.1403155220698182,
+            -17.544380553974033
+          ],
+          [
+            62.9886541850542,
+            2.1403155220698182,
+            -19.671120688043292
+          ],
+          [
+            63.59114916563008,
+            2.3003155220698184,
+            -17.791313304724223
+          ],
+          [
+            56.9556386048564,
+            2.3003155220698184,
+            -15.664573170654966
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 25524,
+        "vertexEnd": 26512,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 4,
+        "name": "S07",
+        "sourceRoof": [
+          [
+            97.84961799004414,
+            2.1403155220698182,
+            -32.04058066823237
+          ],
+          [
+            100.09887561839106,
+            2.1403155220698182,
+            -38.63556847120238
+          ],
+          [
+            101.9672031044793,
+            2.3003155220698184,
+            -37.99836488934864
+          ],
+          [
+            99.71794547613237,
+            2.3003155220698184,
+            -31.403377086378637
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 26512,
+        "vertexEnd": 27500,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 5,
+        "name": "S08",
+        "sourceRoof": [
+          [
+            87.28889996781352,
+            2.1403155220698182,
+            -47.64435473771365
+          ],
+          [
+            80.41480213491106,
+            2.1403155220698182,
+            -48.78444376216992
+          ],
+          [
+            80.73778372708624,
+            2.3003155220698184,
+            -50.731841741812495
+          ],
+          [
+            87.6118815599887,
+            2.3003155220698184,
+            -49.59175271735622
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 27500,
+        "vertexEnd": 28488,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 6,
+        "name": "S10",
+        "sourceRoof": [
+          [
+            63.03400865096712,
+            2.1403155220698182,
+            -48.29341018858
+          ],
+          [
+            56.06633472986483,
+            2.1403155220698182,
+            -48.22600003214224
+          ],
+          [
+            56.04723776534012,
+            2.3003155220698184,
+            -50.19990765560033
+          ],
+          [
+            63.01491168644241,
+            2.3003155220698184,
+            -50.26731781203809
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 28488,
+        "vertexEnd": 29476,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 7,
+        "name": "S11",
+        "sourceRoof": [
+          [
+            35.555546786777185,
+            2.1403155220698182,
+            -40.271917676536404
+          ],
+          [
+            28.668117739005393,
+            2.1403155220698182,
+            -41.32849001760411
+          ],
+          [
+            28.368796010924502,
+            2.3003155220698184,
+            -39.37731537060331
+          ],
+          [
+            35.256225058696295,
+            2.3003155220698184,
+            -38.320743029535606
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 29476,
+        "vertexEnd": 30464,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 8,
+        "name": "S13",
+        "sourceRoof": [
+          [
+            11.871455737029025,
+            2.1403155220698182,
+            -51.37727559576026
+          ],
+          [
+            4.908950021727848,
+            2.1403155220698182,
+            -51.653930912713385
+          ],
+          [
+            4.987325107213708,
+            2.3003155220698184,
+            -53.626374408982684
+          ],
+          [
+            11.949830822514885,
+            2.3003155220698184,
+            -53.34971909202956
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 30464,
+        "vertexEnd": 31452,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 9,
+        "name": "S14",
+        "sourceRoof": [
+          [
+            -14.144571733275626,
+            2.1403155220698182,
+            -43.362649332484416
+          ],
+          [
+            -21.111424838215648,
+            2.1403155220698182,
+            -43.48906853271763
+          ],
+          [
+            -21.147238773528557,
+            2.3003155220698184,
+            -41.51539344242607
+          ],
+          [
+            -14.180385668588539,
+            2.3003155220698184,
+            -41.38897424219285
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 31452,
+        "vertexEnd": 32440,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 10,
+        "name": "S15",
+        "sourceRoof": [
+          [
+            -42.41057395236175,
+            2.1403155220698182,
+            -46.80022662189704
+          ],
+          [
+            -49.048686643706525,
+            2.1403155220698182,
+            -44.681622388679486
+          ],
+          [
+            -49.64887676373687,
+            2.3003155220698184,
+            -46.562166942743005
+          ],
+          [
+            -43.0107640723921,
+            2.3003155220698184,
+            -48.68077117596056
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 32440,
+        "vertexEnd": 33428,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 11,
+        "name": "S19",
+        "sourceRoof": [
+          [
+            -89.63955202053575,
+            2.1403155220698182,
+            -16.59736965462091
+          ],
+          [
+            -90.28865845052312,
+            2.1403155220698182,
+            -9.659669398588722
+          ],
+          [
+            -88.32324221840378,
+            2.3003155220698184,
+            -9.4757807515171
+          ],
+          [
+            -87.67413578841641,
+            2.3003155220698184,
+            -16.413481007549287
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 33428,
+        "vertexEnd": 34416,
+        "stairSide": 1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 12,
+        "name": "S20",
+        "sourceRoof": [
+          [
+            -90.52234830690348,
+            2.1403155220698182,
+            -10.497479219302951
+          ],
+          [
+            -91.45241271968071,
+            2.1403155220698182,
+            -3.5918290552644216
+          ],
+          [
+            -89.49607612039655,
+            2.3003155220698184,
+            -3.3283463987170276
+          ],
+          [
+            -88.56601170761932,
+            2.3003155220698184,
+            -10.233996562755555
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 34416,
+        "vertexEnd": 35404,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 13,
+        "name": "S21",
+        "sourceRoof": [
+          [
+            -79.39731325298861,
+            2.1403155220698182,
+            10.992776381062248
+          ],
+          [
+            -80.35532251268593,
+            2.1403155220698182,
+            17.894605287832842
+          ],
+          [
+            -78.40006845672077,
+            2.3003155220698184,
+            18.166004581553064
+          ],
+          [
+            -77.44205919702345,
+            2.3003155220698184,
+            11.264175674782466
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 35404,
+        "vertexEnd": 36392,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 14,
+        "name": "S22",
+        "sourceRoof": [
+          [
+            -85.33565990018299,
+            2.1403155220698182,
+            36.707439620860114
+          ],
+          [
+            -88.91363724410353,
+            2.1403155220698182,
+            42.68666215613938
+          ],
+          [
+            -87.21975301840874,
+            2.3003155220698184,
+            43.70028547371962
+          ],
+          [
+            -83.6417756744882,
+            2.3003155220698184,
+            37.721062938440355
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 36392,
+        "vertexEnd": 37380,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 15,
+        "name": "S22A",
+        "sourceRoof": [
+          [
+            -78.60150329330439,
+            2.1403155220698182,
+            49.426584774194616
+          ],
+          [
+            -72.92101881111942,
+            2.1403155220698182,
+            45.39110214535631
+          ],
+          [
+            -71.77778650495887,
+            2.3003155220698184,
+            47.00035535543569
+          ],
+          [
+            -77.45827098714383,
+            2.3003155220698184,
+            51.035837984273996
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 37380,
+        "vertexEnd": 38368,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 16,
+        "name": "S22B",
+        "sourceRoof": [
+          [
+            -57.713994685504844,
+            2.1403155220698182,
+            34.16530818935269
+          ],
+          [
+            -52.10800111925586,
+            2.1403155220698182,
+            30.026967926013423
+          ],
+          [
+            -50.93562975303431,
+            2.3003155220698184,
+            31.615118227358934
+          ],
+          [
+            -56.541623319283296,
+            2.3003155220698184,
+            35.7534584906982
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 38368,
+        "vertexEnd": 39356,
+        "stairSide": -1,
+        "stairTreads": 40
+      },
+      {
+        "sourceIndex": 17,
+        "name": "S23",
+        "sourceRoof": [
+          [
+            -36.996574155768585,
+            2.1403155220698182,
+            18.7960894571467
+          ],
+          [
+            -31.39058058951956,
+            2.1403155220698182,
+            14.657749193807474
+          ],
+          [
+            -30.218209223298025,
+            2.3003155220698184,
+            16.245899495152994
+          ],
+          [
+            -35.82420278954705,
+            2.3003155220698184,
+            20.384239758492217
+          ]
+        ],
+        "sourceBase": 0.030315522069818544,
+        "sourceSeatingTop": 1.3303155220698186,
+        "triangles": 494,
+        "vertexStart": 39356,
+        "vertexEnd": 40344,
+        "stairSide": -1,
+        "stairTreads": 40
+      }
+    ],
+    "foliageChanged": false
+  }
+}

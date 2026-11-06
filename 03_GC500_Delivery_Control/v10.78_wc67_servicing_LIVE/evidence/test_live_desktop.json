@@ -1,0 +1,19 @@
+{
+ "device": "desktop",
+ "pass": true,
+ "fails": [],
+ "tracker": {
+  "SVC1067_DATA": {
+   "refs": 75,
+   "fwfBefore": 240,
+   "fwfAfter": 242
+  },
+  "SVC1067_CARD": {
+   "refs": 75,
+   "fwfBefore": 240,
+   "fwfAfter": 242
+  }
+ },
+ "recordWC67": "0714 0769 0793 172824",
+ "state": "on site"
+}

@@ -1,0 +1,20 @@
+/* Author: Andrew Fisher. Branch projection safety; private input is never embedded. */
+'use strict';
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('node:assert/strict');
+assert(process.env.INPUT,'INPUT must name the private native inputs captured from the native page');
+const raw=JSON.parse(fs.readFileSync(process.env.INPUT)),input=raw.input||raw;
+const context={window:{}};vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'../pl1251_branches.js'),'utf8'),context);
+const project=context.window.PL1251Branches.project,copy=x=>JSON.parse(JSON.stringify(x));
+const before=JSON.stringify(input),out=copy(project(input));
+assert.equal(JSON.stringify(input),before,'Read-only projection must preserve every native input');
+assert(out.nativeMatches);assert.deepEqual(out.gaps,[]);
+for(const row of Object.values(out.rows))for(const part of Object.values(row.branches))for(const period of ['now','job'])assert(Number.isSafeInteger(part[period]),'All branch amounts use integer cents');
+const changed=copy(input);changed.nativeBranches.rows[0].cost+=0.01;
+assert.throws(()=>project(changed),/differs from the native Finance totals/,'One-cent native mismatch must not be hidden');
+const rm=copy(input);rm.ledger.cost.push({key:'rm',now:1,job:1});
+assert.throws(()=>project(rm),/R&M needs its own source branch mapping/,'New R&M attribution cannot borrow an unrelated allocation');
+const unknown=copy(input);unknown.manual.push({branch:'KINP',recorded:1,job:1});
+assert.throws(()=>project(unknown),/no native ledger row/,'A new source cannot create a synthetic ledger row');
+const missing=copy(input);missing.consumables=[];
+assert.throws(()=>project(missing),/Source category mapping exceeds/,'Opposite category gaps cannot cancel each other and hide missing source mapping');
+console.log('PASS read-only inputs, integer cents, exact native totals and fail-closed category/source/one-cent guards');

@@ -1,0 +1,876 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T092032Z",
+ "finished": "2026-10-16T09:20:54.360Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "lines": [
+   "demob",
+   "pickup"
+  ],
+  "ours": [
+   "P11|Portable buildings|Building 4.8m|demob",
+   "P06|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|demob",
+   "GN?|Generators|200kva & cables|pickup",
+   "P13|Portable buildings|Building 4.8m|pickup",
+   "GN03|Generators|30kva|pickup",
+   "CP1|Portable buildings|Building 6m|demob",
+   "P03|Portable buildings|Building 12m|pickup",
+   "P03|Portable buildings|Building 12m|demob",
+   "P08|Portable buildings|Building 6m|demob",
+   "P10|Portable buildings|Building 4.8m|demob",
+   "P05|Portable buildings|Building 6m|demob",
+   "HRP|Portable buildings|Building 6m|demob",
+   "AA|Portable buildings|Building 6m|demob",
+   "P08|Portable buildings|Building 6m|pickup",
+   "GN21|Generators|60kva|pickup",
+   "GN23|Generators|150kva|pickup",
+   "HRP|Portable buildings|Building 6m|pickup",
+   "AA|Portable buildings|Building 6m|pickup",
+   "P04|Portable buildings|Building 12m|demob",
+   "P12|Portable buildings|Building 4.8m|demob",
+   "P11|Portable buildings|Building 4.8m|pickup",
+   "P09|Portable buildings|Building 6m|demob",
+   "P14|Portable buildings|Building 4.8m|demob",
+   "GN06|Generators|50kva|pickup",
+   "P14|Portable buildings|Building 4.8m|pickup",
+   "GN01|Generators|60kva|pickup",
+   "P13|Portable buildings|Building 4.8m|demob",
+   "P10|Portable buildings|Building 4.8m|pickup",
+   "P05|Portable buildings|Building 6m|pickup",
+   "GN18|Generators|50kva|pickup",
+   "P12|Portable buildings|Building 4.8m|pickup",
+   "P06|Portable buildings|Building 6m|demob",
+   "P04|Portable buildings|Building 12m|pickup",
+   "CP1|Portable buildings|Building 6m|pickup",
+   "GN13|Generators|45kva|pickup",
+   "P09|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|pickup"
+  ],
+  "max": 40
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 9431,
+  "after": 9515
+ },
+ "updated": {
+  "before": "2026-10-16T09:20:31.507Z",
+  "after": "2026-10-16T09:20:53.660Z"
+ },
+ "stage": [
+  {
+   "k": "plan",
+   "ticked": true,
+   "now": "28 ticks on 15 references · {\"demob\":18,\"pickup\":10} · at the card $4935.15 {\"demob\":1400.2,\"pickup\":3535} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 0 ticks, complete off on 0",
+   "refs": [
+    "WC85",
+    "WC86",
+    "T0002",
+    "T0004",
+    "T0005",
+    "T0021",
+    "T0022",
+    "T0024",
+    "T0025",
+    "T0243",
+    "T0162",
+    "T0176",
+    "BJR01",
+    "SVP01",
+    "TM01"
+   ],
+   "done": [],
+   "offList": [],
+   "doneOff": [],
+   "sample": [
+    "WC85 FWF demob 0135",
+    "WC85 FWF pickup",
+    "WC86 Accessible Toilet demob 1296899",
+    "WC86 Accessible Toilet pickup",
+    "T0002 Light Tower demob 1264929",
+    "T0002 Light Tower demob 1314284",
+    "T0002 Light Tower demob 1264899",
+    "T0002 Light Tower demob 1188888",
+    "T0002 Light Tower demob 1249499",
+    "T0002 Light Tower pickup",
+    "T0004 Forklift 2.5T pickup",
+    "T0005 Forklift 2.5T RT pickup"
+   ]
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "stamps/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": null,
+   "stamps/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": null,
+   "stamps/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "stamps/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": null,
+   "stamps/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": null,
+   "stamps/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": null,
+   "stamps/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": null,
+   "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": null,
+   "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": null,
+   "stamps/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "stamps/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "stamps/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "stamps/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "stamps/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": null,
+   "by/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "by/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": null,
+   "by/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": null,
+   "by/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "by/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": null,
+   "by/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": null,
+   "by/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": null,
+   "by/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": null,
+   "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": null,
+   "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": null,
+   "by/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "by/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "by/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "by/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "by/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": null,
+   "labour/WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "labour/WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": null,
+   "labour/WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": null,
+   "labour/T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": null,
+   "labour/T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": null,
+   "labour/T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": null,
+   "labour/T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": null,
+   "labour/T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": null,
+   "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": null,
+   "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": null,
+   "labour/T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "labour/T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "labour/BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "labour/SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": null,
+   "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": null,
+   "labour/TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": null
+  },
+  "after": {
+   "stamps/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC85/u0135|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:40.174Z"
+   },
+   "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/WC85|Toilets & amenities|FWF|pickup",
+    "v": "2026-10-16T09:20:40.548Z"
+   },
+   "stamps/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": {
+    "_k": "labour/WC86/u1296899|Toilets & amenities|Accessible Toilet|demob",
+    "v": "2026-10-16T09:20:40.706Z"
+   },
+   "stamps/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": {
+    "_k": "labour/WC86|Toilets & amenities|Accessible Toilet|pickup",
+    "v": "2026-10-16T09:20:40.858Z"
+   },
+   "stamps/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1264929|Lighting towers|Light Tower|demob",
+    "v": "2026-10-16T09:20:41.004Z"
+   },
+   "stamps/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1314284|Lighting towers|Light Tower|demob",
+    "v": "2026-10-16T09:20:41.149Z"
+   },
+   "stamps/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1264899|Lighting towers|Light Tower|demob",
+    "v": "2026-10-16T09:20:41.329Z"
+   },
+   "stamps/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1188888|Lighting towers|Light Tower|demob",
+    "v": "2026-10-16T09:20:41.509Z"
+   },
+   "stamps/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1249499|Lighting towers|Light Tower|demob",
+    "v": "2026-10-16T09:20:41.674Z"
+   },
+   "stamps/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": {
+    "_k": "labour/T0002|Lighting towers|Light Tower|pickup",
+    "v": "2026-10-16T09:20:41.837Z"
+   },
+   "stamps/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": {
+    "_k": "labour/T0004|Access & plant|Forklift 2.5T|pickup",
+    "v": "2026-10-16T09:20:42.003Z"
+   },
+   "stamps/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": {
+    "_k": "labour/T0005|Access & plant|Forklift 2.5T RT|pickup",
+    "v": "2026-10-16T09:20:42.178Z"
+   },
+   "stamps/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/T0021|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:20:42.341Z"
+   },
+   "stamps/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/T0022|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:20:42.496Z"
+   },
+   "stamps/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0024/u1211968|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:42.655Z"
+   },
+   "stamps/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "labour/T0025|Ground protection|Trakmat|demob",
+    "v": "2026-10-16T09:20:42.856Z"
+   },
+   "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": {
+    "_k": "labour/T0243|Toilets & amenities|Toilet Block 6m|demob",
+    "v": "2026-10-16T09:20:43.089Z"
+   },
+   "stamps/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": {
+    "_k": "labour/T0243|Toilets & amenities|Toilet Block 6m|pickup",
+    "v": "2026-10-16T09:20:43.310Z"
+   },
+   "stamps/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0162/u0990|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:43.493Z"
+   },
+   "stamps/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/T0162|Toilets & amenities|FWF|pickup",
+    "v": "2026-10-16T09:20:43.700Z"
+   },
+   "stamps/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0176/u0994|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:43.887Z"
+   },
+   "stamps/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0176/u0576|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:44.048Z"
+   },
+   "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/T0176|Toilets & amenities|FWF|pickup",
+    "v": "2026-10-16T09:20:44.196Z"
+   },
+   "stamps/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/BJR01/u0941|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:44.388Z"
+   },
+   "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/BJR01|Toilets & amenities|FWF|pickup",
+    "v": "2026-10-16T09:20:44.547Z"
+   },
+   "stamps/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/SVP01/u0939|Toilets & amenities|FWF|demob",
+    "v": "2026-10-16T09:20:44.784Z"
+   },
+   "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/SVP01|Toilets & amenities|FWF|pickup",
+    "v": "2026-10-16T09:20:44.973Z"
+   },
+   "stamps/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "labour/TM01|Ground protection|Trakmat|demob",
+    "v": "2026-10-16T09:20:45.111Z"
+   },
+   "by/labour~2f~WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/WC85/u0135|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/WC85|Toilets & amenities|FWF|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": {
+    "_k": "labour/WC86/u1296899|Toilets & amenities|Accessible Toilet|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": {
+    "_k": "labour/WC86|Toilets & amenities|Accessible Toilet|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1264929|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1314284|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1264899|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1188888|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "labour/T0002/u1249499|Lighting towers|Light Tower|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": {
+    "_k": "labour/T0002|Lighting towers|Light Tower|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": {
+    "_k": "labour/T0004|Access & plant|Forklift 2.5T|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": {
+    "_k": "labour/T0005|Access & plant|Forklift 2.5T RT|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/T0021|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/T0022|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0024/u1211968|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "labour/T0025|Ground protection|Trakmat|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": {
+    "_k": "labour/T0243|Toilets & amenities|Toilet Block 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": {
+    "_k": "labour/T0243|Toilets & amenities|Toilet Block 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0162/u0990|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/T0162|Toilets & amenities|FWF|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0176/u0994|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/T0176/u0576|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/T0176|Toilets & amenities|FWF|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/BJR01/u0941|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/BJR01|Toilets & amenities|FWF|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "labour/SVP01/u0939|Toilets & amenities|FWF|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "labour/SVP01|Toilets & amenities|FWF|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "labour/TM01|Ground protection|Trakmat|demob",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC85~2f~u0135~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "WC85/u0135|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "WC85|Toilets & amenities|FWF|pickup",
+    "v": true
+   },
+   "labour/WC86~2f~u1296899~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~demob": {
+    "_k": "WC86/u1296899|Toilets & amenities|Accessible Toilet|demob",
+    "v": true
+   },
+   "labour/WC86~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~pickup": {
+    "_k": "WC86|Toilets & amenities|Accessible Toilet|pickup",
+    "v": true
+   },
+   "labour/T0002~2f~u1264929~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "T0002/u1264929|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/T0002~2f~u1314284~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "T0002/u1314284|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/T0002~2f~u1264899~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "T0002/u1264899|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/T0002~2f~u1188888~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "T0002/u1188888|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/T0002~2f~u1249499~7c~Lighting~20~towers~7c~Light~20~Tower~7c~demob": {
+    "_k": "T0002/u1249499|Lighting towers|Light Tower|demob",
+    "v": true
+   },
+   "labour/T0002~7c~Lighting~20~towers~7c~Light~20~Tower~7c~pickup": {
+    "_k": "T0002|Lighting towers|Light Tower|pickup",
+    "v": true
+   },
+   "labour/T0004~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~7c~pickup": {
+    "_k": "T0004|Access & plant|Forklift 2.5T|pickup",
+    "v": true
+   },
+   "labour/T0005~7c~Access~20~~26~~20~plant~7c~Forklift~20~2.5T~20~RT~7c~pickup": {
+    "_k": "T0005|Access & plant|Forklift 2.5T RT|pickup",
+    "v": true
+   },
+   "labour/T0021~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "T0021|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/T0022~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "T0022|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/T0024~2f~u1211968~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "T0024/u1211968|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/T0025~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "T0025|Ground protection|Trakmat|demob",
+    "v": true
+   },
+   "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~demob": {
+    "_k": "T0243|Toilets & amenities|Toilet Block 6m|demob",
+    "v": true
+   },
+   "labour/T0243~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~pickup": {
+    "_k": "T0243|Toilets & amenities|Toilet Block 6m|pickup",
+    "v": true
+   },
+   "labour/T0162~2f~u0990~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "T0162/u0990|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/T0162~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "T0162|Toilets & amenities|FWF|pickup",
+    "v": true
+   },
+   "labour/T0176~2f~u0994~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "T0176/u0994|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/T0176~2f~u0576~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "T0176/u0576|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "T0176|Toilets & amenities|FWF|pickup",
+    "v": true
+   },
+   "labour/BJR01~2f~u0941~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "BJR01/u0941|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "BJR01|Toilets & amenities|FWF|pickup",
+    "v": true
+   },
+   "labour/SVP01~2f~u0939~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~demob": {
+    "_k": "SVP01/u0939|Toilets & amenities|FWF|demob",
+    "v": true
+   },
+   "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~pickup": {
+    "_k": "SVP01|Toilets & amenities|FWF|pickup",
+    "v": true
+   },
+   "labour/TM01~7c~Ground~20~protection~7c~Trakmat~7c~demob": {
+    "_k": "TM01|Ground protection|Trakmat|demob",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 25 Oct 2026: \"i made a error the gn20 is here sorry\", \"its this big one here 350A\", \"in pink\" (the big set on drawing D024 beside GN21), then \"please add GN20 Back and all costs please add all this data back in\". GN20 was deleted on 20 Oct and the page never re-uses a deleted reference, so the 350 kVA (1276701) goes back as GN20-A through the page's Add form, at GN20's own drawing callout (D024-26003-02, 020), on NVAC, its contract line as its note; on site from GN20's own arrival on our record (30 Sep 07:23), received, complete, its install labour ticked as GN20's was, quantity 1 (set 2 then 1 at the end, the page's own way to take a received/installed baseline after the arrival). Same run: EQ0006's quantity set 2 then 1 for the same reason (its 25 Oct baseline read 0 received). Nothing else changes.",
+ "ops": [
+  {
+   "op": "add_ref",
+   "ref": "GN20-A",
+   "disc": "Generators",
+   "name": "S01 (GN20)",
+   "type": "350kva",
+   "no": "1276701",
+   "note": "This is GN20 (S01, 350 kVA), deleted on 20 Oct in error. Andrew, 25 Oct: \"i made a error the gn20 is here\". Rental 9961976, line 6.",
+   "branch": "NVAC",
+   "sheet": "D024-26003-02",
+   "callout": "020"
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 1
+  },
+  {
+   "op": "light",
+   "ref": "GN20-A",
+   "state": "on site",
+   "at": "2026-09-29T21:23:16.631Z",
+   "why": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference."
+  },
+  {
+   "op": "supplied",
+   "ref": "GN20-A",
+   "item": "350kva",
+   "qty": 1
+  },
+  {
+   "op": "complete",
+   "ref": "GN20-A"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN20-A",
+   "disc": "Generators",
+   "item": "350kva",
+   "line": "install"
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 2
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 1
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 2
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 1
+  }
+ ]
+}

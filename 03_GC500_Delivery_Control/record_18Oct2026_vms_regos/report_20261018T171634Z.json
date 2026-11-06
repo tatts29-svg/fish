@@ -1,0 +1,154 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T171634Z",
+ "finished": "2026-10-18T17:16:45.986Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 18 Oct 2026: \"There is still more due in\", then the iEDM drawing D025-26003 rev 04 (VMS Board Locations, issued Fri 16 Oct 2026), which shows 20 VMS locations, 01-20. 16 are on site (VMS1-4, 6-17); 05, 18, 19 and 20 are still to come. T0158's own booking (contract 9961265 line 32) is 9; 7 + 2 + 2 + 9 = 20.",
+  "ops": [
+   {
+    "op": "set_qty",
+    "ref": "T0158",
+    "qty": ""
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9765,
+  "after": 9767
+ },
+ "updated": {
+  "before": "2026-10-18T16:40:42.958Z",
+  "after": "2026-10-18T17:16:45.284Z"
+ },
+ "stage": [
+  {
+   "op": "set_qty",
+   "ref": "T0158",
+   "qty": "",
+   "result": "quantity 5 -> the schedule's own"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/qtys~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "qtys/T0158",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/qtys~2f~T0158": {
+    "_k": "qtys/T0158",
+    "v": "2026-10-18T16:40:40.006Z"
+   },
+   "qtys/T0158": {
+    "_k": "T0158",
+    "v": 5,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0158",
+     "firstQuantity": 9,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 9,
+       "received": 5,
+       "installed": 5,
+       "receipts": [
+        {
+         "at": "2026-10-16T00:39:42.197Z",
+         "quantity": 5
+        }
+       ],
+       "receiptAt": "2026-10-16T00:39:42.197Z",
+       "supplied": 5,
+       "suppliedAt": "2026-10-16T00:39:42.197Z",
+       "on": true,
+       "onAt": "2026-10-16T02:09:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-18T10:21:26.898Z",
+       "install": true,
+       "installAt": "2026-10-18T10:21:26.898Z",
+       "rest": 0,
+       "unitWork": {},
+       "financial1017": {
+        "contract": "9961265|32",
+        "owner": "coates",
+        "rehire": false,
+        "identified": 2,
+        "steps": 0
+       }
+      }
+     ],
+     "typed": 5,
+     "at": "2026-10-18T16:40:40.006Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  },
+  "after": {
+   "stamps/qtys~2f~T0158": {
+    "_k": "qtys/T0158",
+    "v": "2026-10-18T17:16:42.778Z"
+   },
+   "qtys/T0158": {
+    "_k": "T0158",
+    "v": null,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "T0158",
+     "firstQuantity": 5,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 5,
+       "received": 5,
+       "installed": 5,
+       "receipts": [
+        {
+         "at": "2026-10-16T00:39:42.197Z",
+         "quantity": 5
+        }
+       ],
+       "receiptAt": "2026-10-16T00:39:42.197Z",
+       "supplied": 5,
+       "suppliedAt": "2026-10-16T00:39:42.197Z",
+       "on": true,
+       "onAt": "2026-10-16T02:09:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-18T10:21:26.898Z",
+       "install": true,
+       "installAt": "2026-10-18T10:19:37.770Z",
+       "rest": 0,
+       "unitWork": {},
+       "financial1017": {
+        "contract": "9961265|32",
+        "owner": "coates",
+        "rehire": false,
+        "identified": 2,
+        "steps": 0
+       }
+      }
+     ],
+     "typed": null,
+     "at": "2026-10-18T17:16:42.778Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

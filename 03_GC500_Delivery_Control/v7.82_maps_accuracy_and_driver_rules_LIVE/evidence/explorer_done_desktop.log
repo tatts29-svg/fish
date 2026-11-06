@@ -1,0 +1,10 @@
+PASS X1 the Done chip is there, on by default, with the count — {"chip":true,"pressed":"true","count":"21","rings":21,"anim":"d782beat","list":21}
+PASS X2 every finished unit in view has a ring with its own double beat — {"chip":true,"pressed":"true","count":"21","rings":21,"anim":"d782beat","list":21}
+PASS X3 the chip hides the layer (and remembers it on this device) — {"pressed":"false","list":0} rings 0
+PASS X4 a change in the finished list shows without a reload (read every 4 s) — {"count":20,"list":20}
+PASS X5 a category still works with the layer on (Find chips unchanged) — 
+PASS X6 picking a category leaves the Done chip as it was, and its layer showing — {"pressed":"true","on":true,"list":20}
+PASS X7 Escape clears the category chips but not the Done chip — {"pressed":"true","on":true,"list":20,"cats":0}
+PASS X8 the dashboard's Motion Off holds the rings still; turning motion back on brings the beat back — {"off":{"still":true,"rings":21,"anim":"none"},"on":{"still":false,"anim":"d782beat"}}
+PASS E1 no page errors — ["console: Failed to load resource: net::ERR_FAILED"]
+9/9 desktop · trade items 183

@@ -1,0 +1,57 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed_at_utc": "2026-10-30T20:44:24.117850+00:00",
+  "scope": "Independent source, exact byte boundary, type guard and static presentation review; no browser run in this review",
+  "status": "PASS",
+  "base": {
+    "version": "v12.65",
+    "sha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+    "bytes": 16167272
+  },
+  "candidate": {
+    "version": "v12.66",
+    "sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+    "bytes": 16192520,
+    "added_bytes": 25248
+  },
+  "checks": {
+    "base_hash_exact": true,
+    "candidate_hash_exact": true,
+    "patch_matches_frozen_candidate": true,
+    "four_unique_replacements": true,
+    "reversal_restores_every_base_byte": true,
+    "wrong_base_rejected": true,
+    "double_application_rejected": true
+  },
+  "type_mapping": {
+    "synthetic_cases": 13,
+    "passed": true,
+    "own_item_only": true,
+    "native_icon_must_be_tower": true,
+    "ambiguous_accessory_unknown_and_reference_only_labels_retain_plain_stamp": true,
+    "input_mutation": false
+  },
+  "artwork": {
+    "type": "light tower",
+    "format": "WebP",
+    "bytes": 17942,
+    "body_colour": "orange",
+    "inline_data_url": true,
+    "new_external_fetch_dependency": false
+  },
+  "static_presentation_review": {
+    "out_of_flow_decorative_image": true,
+    "foreground_text_layered_above_image": true,
+    "pointer_events_disabled": true,
+    "original_stamp_glow_and_pulse_retained": true,
+    "stamp_dimensions_and_content_preserved_by_source": true,
+    "separate_departed_stamp_untouched": true,
+    "image_hidden_for_print": true,
+    "finance_and_operational_read_write_paths_untouched": true
+  },
+  "resolved_finding": "Artwork selection now requires the unit own item to match an explicit accepted label; broader reference wording cannot assign artwork.",
+  "limitations": [
+    "Native desktop/phone geometry, contrast, navigation and runtime acceptance belong to the separate browser evidence.",
+    "Artwork is illustrative equipment-type decoration and does not assert the exact model or identity of an operational asset."
+  ]
+}

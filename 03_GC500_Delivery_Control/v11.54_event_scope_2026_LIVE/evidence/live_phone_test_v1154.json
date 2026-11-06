@@ -1,0 +1,91 @@
+{
+ "at": "2026-10-23T02:46:56.346Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the page carries the 2026 document, received 23 Oct 2026, with nothing typed over it and no provisional flag",
+   "ok": true,
+   "detail": {
+    "doc": "C004-26003-01 Coates Event Labour Scope",
+    "suppliedOn": "2026-10-23",
+    "edits": 0,
+    "typed": 0,
+    "provisional": false
+   }
+  },
+  {
+   "name": "every line reproduces the workbook: rate, each day's start, finish and hours, the line's hours and amount",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "people, accommodation and travel, hours and the total land on the workbook to the cent",
+   "ok": true,
+   "detail": {
+    "people": 37642.87,
+    "at": 19101.6,
+    "total": 56744.47,
+    "hours": 372.58,
+    "want": {
+     "day_staffing": 30602.765,
+     "vms_moves": 5954.48,
+     "entertainment": 1085.625,
+     "accommodation_travel": 19101.6,
+     "people": 37642.87,
+     "grand": 56744.47
+    }
+   }
+  },
+  {
+   "name": "the 2026 access plan is the one in force (gates Fri 09:30, Sat and Sun 08:00; closure 07:00; track opening 18:00, 18:00, 17:40; entertainment 20:30, 20:30, none)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "the P&L race-weekend line is the scope total, in scope, not provisional, and no caveat says the times are still to be updated",
+   "ok": true,
+   "detail": {
+    "race": {
+     "amount": 56744.47,
+     "scope": true,
+     "provisional": false
+    },
+    "caveats": [
+     "$101,747.00 ex GST known subtotal — current received hire and site-count servicing at supplier rates; excluded quote-only scope removed and fixed allowances retained. Supplier servicing estimate on the site count: $41,772.00 ex GST. Original quote servicing: $46,545.00 ex GST, reference only. Toilet Block Cleaning: 51 supplier services; 33 customer sewer-connect services. Supplier cleaning also covers blocks with waste tanks. Approved scope dated 24 Sep; provisional until invoiced",
+     "the water services (Water Truck, Water Truck - Pre fill, Water delivery, 3000 Ltr Free Drinking Water Tank) are charged on at what Event Portables charge us, $13,950 — the project manager, 1 Oct: “what we charge should cover what we get charged” — until the branch puts a rate on",
+     "the schedule's transport figures are in as written — 59 of them with a plus after the figure, which is the figure and more"
+    ]
+   }
+  },
+  {
+   "name": "the Customer rates & charges card names the 2026 document, received 23 Oct 2026, with the workbook's total",
+   "ok": true,
+   "detail": {
+    "found": true,
+    "snippet": "Event labour — revenue: what we charge the V8s for people over the event\nAS THE SCOPE HAS IT\n\nC004-26003-01 Coates Event Labour Scope, received Fri 23 Oct 2026 as what currently gets charged — worked out here the way the workbook does it, and editable because it may change: change a day's access-pla"
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 59,
+    "blocked": 0
+   }
+  }
+ ]
+}

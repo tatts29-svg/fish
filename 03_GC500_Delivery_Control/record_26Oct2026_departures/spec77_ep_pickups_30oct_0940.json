@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 09:4x AEST: \"Picked up 940am\" with twelve Event Portables toilet numbers (0065, 0651, 0517, 0518, 0643, 0191, 0682, 0521, 0669, 0996, 0146, 0031), then \"Another is 0435\". This spec records the two that are plainly new departures: 0146, one of WC44's two FWF (0037 stays), and 0435, WC19's only toilet (WC19 leaves in full). The ten on WC41 are already on the record as left site Tue 28 Oct 12:15 (entered through the page 28 Oct 12:20): their redate to 30 Oct 09:40 is spec78, held for Andrew's answer, because the dry run showed it flips the Event Portables supplier estimate to incomplete (known cost -20,475.00). 0031 is on no reference on the record and is not recorded - Andrew asked.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC44",
+   "at": "2026-10-30T09:40:00+10:00",
+   "nos": [
+    "0146"
+   ],
+   "unnumbered": [],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "WC19",
+   "at": "2026-10-30T09:40:00+10:00",
+   "nos": [
+    "0435"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

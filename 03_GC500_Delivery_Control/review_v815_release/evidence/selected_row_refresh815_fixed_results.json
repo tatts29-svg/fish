@@ -1,0 +1,977 @@
+{
+  "author": "Andrew Fisher",
+  "expectation": "corrected behaviour",
+  "candidateSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "devices": [
+    {
+      "device": "desktop",
+      "states": [
+        {
+          "label": "after actual selection",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after 1050ms",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after native docsRedraw",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after partial repaint",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        }
+      ],
+      "checks": [
+        {
+          "name": "after actual selection preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after 1050ms preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after native docsRedraw preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after partial repaint preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "Full redraw leaves document search focus alone",
+          "pass": true
+        },
+        {
+          "name": "Partial redraw leaves document search focus alone",
+          "pass": true
+        },
+        {
+          "name": "A new typed query clears the previous row selection without losing search focus",
+          "pass": true
+        },
+        {
+          "name": "A later header selection reacquires the chosen row",
+          "pass": true
+        },
+        {
+          "name": "Choosing another category clears the old selection and keeps category focus",
+          "pass": true
+        },
+        {
+          "name": "Later refresh does not resurrect an old selected row",
+          "pass": true
+        }
+      ],
+      "trace": [
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 1954,
+          "pending": false,
+          "marked": false,
+          "activeTag": "SECTION"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2243,
+          "pending": false,
+          "marked": false,
+          "activeTag": "SECTION"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2243,
+          "pending": false,
+          "marked": false,
+          "activeTag": "SECTION"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2243,
+          "pending": false,
+          "marked": false,
+          "activeTag": "SECTION"
+        },
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 2403,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 2425,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2733,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2734,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2734,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 2738,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 3833,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 3833,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 4196,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 4196,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 4196,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 4196,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 4351,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 4599,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 4599,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 4599,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 4766,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 4766,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 5093,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 5093,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 5093,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 5093,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 5253,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 5492,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 5493,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 5493,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 5779,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 6006,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 6006,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 6006,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 6066,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 6076,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 6345,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 6345,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 6345,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 6349,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 7424,
+          "pending": false,
+          "marked": true,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 7652,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 7652,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 7652,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 8016,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 8016,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 8279,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 8279,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 8279,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 8279,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        }
+      ],
+      "reproduced": false,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    {
+      "device": "phone",
+      "states": [
+        {
+          "label": "after actual selection",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after 1050ms",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after native docsRedraw",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after partial repaint",
+          "rowExists": true,
+          "marked": true,
+          "focused": true,
+          "inView": true,
+          "selectionPending": false
+        }
+      ],
+      "checks": [
+        {
+          "name": "after actual selection preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after 1050ms preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after native docsRedraw preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "after partial repaint preserves selected row and focus",
+          "pass": true
+        },
+        {
+          "name": "Full redraw leaves document search focus alone",
+          "pass": true
+        },
+        {
+          "name": "Partial redraw leaves document search focus alone",
+          "pass": true
+        },
+        {
+          "name": "A new typed query clears the previous row selection without losing search focus",
+          "pass": true
+        },
+        {
+          "name": "A later header selection reacquires the chosen row",
+          "pass": true
+        },
+        {
+          "name": "Choosing another category clears the old selection and keeps category focus",
+          "pass": true
+        },
+        {
+          "name": "Later refresh does not resurrect an old selected row",
+          "pass": true
+        }
+      ],
+      "trace": [
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 1728,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 1751,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2059,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2059,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2059,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 2063,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 2092,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2392,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2392,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2392,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 3537,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 3537,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 3869,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 3869,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 3869,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 3869,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 4058,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 4295,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 4295,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 4295,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 4461,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 4461,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 4796,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 4797,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 4797,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 4797,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 4951,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 5187,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 5187,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 5187,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 5467,
+          "pending": false,
+          "marked": true,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 5716,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 5716,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 5716,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 5845,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 5856,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 6135,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 6135,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 6135,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 6139,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "before",
+          "at": 7216,
+          "pending": false,
+          "marked": true,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 7458,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 7458,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "paintDocs815",
+          "phase": "after",
+          "at": 7458,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 7823,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 7823,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 8080,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 8080,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 8080,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 8080,
+          "pending": false,
+          "marked": false,
+          "activeTag": "DIV"
+        }
+      ],
+      "reproduced": false,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  ]
+}

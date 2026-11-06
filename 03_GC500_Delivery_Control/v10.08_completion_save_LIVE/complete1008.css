@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Completion accents preserve the existing controls, lights and layout. */
+.complete1008-glyph{display:inline-block;flex:none;width:1.8em;height:1.8em;vertical-align:middle;overflow:visible;color:inherit}
+.complete1008-glyph path{fill:none;stroke:currentColor;stroke-linejoin:round;stroke-linecap:round}
+.complete1008-ring{stroke-width:1.2;opacity:.9}
+.complete1008-inset{stroke-width:.6;opacity:.35}
+.complete1008-check{stroke-width:3.3}
+.tick.complete1008-badge,.fi .fik.ok897.complete1008-badge{display:inline-flex;align-items:center;gap:.4em;background:#08271c;color:#94ffc0;border:1px solid #42c87d;box-shadow:inset 0 0 10px #45e78c12,0 0 9px #36d17b24;font-weight:800;letter-spacing:.04em}
+.tickbtn.complete1008-done.on{background:#08271c;border-color:#42c87d;color:#94ffc0;box-shadow:inset 0 0 8px #45e78c12,0 0 10px #36d17b44}
+.tickbtn.complete1008-done .complete1008-glyph{width:1.15em;height:1.15em;pointer-events:none}
+#drawer .cmp816 .hl.complete1008-done{border-color:#42c87d;color:#b4ffd1;box-shadow:inset 0 0 12px #42c87d15,0 0 12px #36d17b30}
+#drawer .cmp816 .hl.complete1008-done>b{display:inline-flex;align-items:center;color:#94ffc0;text-shadow:none;line-height:1}
+#drawer .cmp816 .hl.complete1008-done>b .complete1008-glyph{width:1.05em;height:1.05em;filter:drop-shadow(0 0 3px #42c87d55)}
+.complete1008-badge .complete1008-ring,.complete1008-done .complete1008-ring{animation:complete1008-glow 3.4s ease-in-out infinite}
+@keyframes complete1008-glow{0%,100%{opacity:.55}50%{opacity:1}}
+.staff988 [data-staff988-result]:empty{display:none}
+.staff988 [data-staff988-result]:not(:empty){margin:10px 0 0;padding:8px 10px;border-left:3px solid #ff943c;background:#102630;color:#f4f7f8;font-size:.85rem}
+.staff988 [data-staff988-result][data-save1008=shared]{border-left-color:#70dc96}
+.staff988 [data-staff988-result][data-save1008=error]{border-left-color:#ff7474}
+.flow891-rules .flow1008-table{width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain}
+.flow891-rules .flow1008-table:focus-visible{outline:2px solid #ff9a4d;outline-offset:2px}
+html[data-motion=off] .complete1008-glyph *{animation:none!important}
+@media(prefers-reduced-motion:reduce){.complete1008-glyph *{animation:none!important}}
+@media print{.complete1008-glyph *{animation:none!important}.complete1008-badge,.complete1008-done{box-shadow:none!important;filter:none!important}}

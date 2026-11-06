@@ -1,0 +1,227 @@
+{
+ "page": "GC500_Delivery_Control_hosted.html",
+ "checks": [
+  {
+   "name": "1 #nights opens the Event nights pane on a phone",
+   "ok": true,
+   "detail": {
+    "tab": "nights",
+    "heading": "Event nights — Boost Mobile Gold Coast 500"
+   }
+  },
+  {
+   "name": "1 three nights, the Friday tasks, the sign-off block",
+   "ok": true,
+   "detail": {
+    "nights": 3,
+    "tasks": 5
+   }
+  },
+  {
+   "name": "1 every toilet unit on the register, number order, none cancelled or deleted (WC66 is deleted)",
+   "ok": true,
+   "detail": {
+    "units": 64,
+    "expected": 64,
+    "cancelled": [],
+    "wc66": false
+   }
+  },
+  {
+   "name": "1 view link: every tick disabled, nothing pre-ticked",
+   "ok": true,
+   "detail": {
+    "ticks": 199,
+    "disabled": 199,
+    "preTicked": 0
+   }
+  },
+  {
+   "name": "1 the night manager named as Kyle, no cost line",
+   "ok": true,
+   "detail": {
+    "kyle": true
+   }
+  },
+  {
+   "name": "1 footer is the release",
+   "ok": true,
+   "detail": "v10.23"
+  },
+  {
+   "name": "1 no page errors, no blocked writes on the view link",
+   "ok": true,
+   "detail": {
+    "errors": [],
+    "blocked": 0
+   }
+  },
+  {
+   "name": "2 writes accepted by the page, the wrong night refused",
+   "ok": true,
+   "detail": {
+    "unit": true,
+    "wrongNight": false
+   }
+  },
+  {
+   "name": "2 record shape: kind, night, part, id, by, at, the tick and the level",
+   "ok": true,
+   "detail": {
+    "pumped": true,
+    "kind": "nights1022",
+    "night": "2026-10-23",
+    "part": "unit",
+    "id": "WC23",
+    "by": "Practice Operator 1022",
+    "at": "2026-10-14T19:19:19.600Z",
+    "level": "50"
+   }
+  },
+  {
+   "name": "2 one document per unit, task, request and sign-off; stamp and name on each",
+   "ok": true,
+   "detail": {
+    "keys": [
+     "nights1022/2026-10-23/unit/WC23",
+     "nights1022/2026-10-23/task/meet",
+     "nights1022/2026-10-23/request/1",
+     "nights1022/2026-10-23/signoff"
+    ],
+    "by": [
+     "Practice Operator 1022",
+     "Practice Operator 1022",
+     "Practice Operator 1022",
+     "Practice Operator 1022"
+    ]
+   }
+  },
+  {
+   "name": "2 the tab shows the tick, the level and the summary",
+   "ok": true,
+   "detail": {
+    "pumped": true,
+    "level": "50",
+    "by": "Practice Operator 1022 · 15 Oct, 05:19",
+    "sum": "1/5 tasks 1/64 pumped out 0/64 refilled 1 fill levels 0 spot checks 1 requests"
+   }
+  },
+  {
+   "name": "2 the page tried exactly the planned PUTs (loads, stamps, by for each new key), all aborted by the harness",
+   "ok": true,
+   "detail": {
+    "tried": 12,
+    "missing": [],
+    "extra": [],
+    "blockedNow": 12
+   }
+  },
+  {
+   "name": "2 the unit document as sent carries the record",
+   "ok": true,
+   "detail": [
+    "pumped",
+    "kind",
+    "night",
+    "part",
+    "id",
+    "by",
+    "at",
+    "level",
+    "_k"
+   ]
+  },
+  {
+   "name": "2 no page errors in edit practice",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "3 #print/nights/<date> lands on the Event nights tab with the print bar ready",
+   "ok": true,
+   "detail": {
+    "tab": "nights",
+    "bar": "Event night run sheet · Sun 25 Oct 2026 · 1 page"
+   }
+  },
+  {
+   "name": "3 one run sheet with every unit, Sunday relocation marks, the form id",
+   "ok": true,
+   "detail": {
+    "rows": 64,
+    "units": 64,
+    "rel": 11,
+    "title": "Sunday night · Sun 25 Oct 2026"
+   }
+  },
+  {
+   "name": "3 fit zoom 1 or no less than 0.8; wrapper and printing classes set",
+   "ok": true,
+   "detail": {
+    "zoom": "1",
+    "wrap": "ps7wrap"
+   }
+  },
+  {
+   "name": "3 issued and signed line names the author and 15 Oct 2026",
+   "ok": true,
+   "detail": "Issued and signed: Andrew Fisher, Shutdown Manager · 15 Oct 2026 · the night’s ticks, levels, requests and sign-off are "
+  },
+  {
+   "name": "3 no page errors on the print path, no writes",
+   "ok": true,
+   "detail": {
+    "errors": [],
+    "blocked": 0
+   }
+  },
+  {
+   "name": "3 Close puts the page back",
+   "ok": true,
+   "detail": {
+    "bar": false,
+    "printing": false,
+    "wrap": ""
+   }
+  },
+  {
+   "name": "4 #today still routes",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "on": true
+   }
+  },
+  {
+   "name": "4 #prestarts still routes",
+   "ok": true,
+   "detail": {
+    "tab": "prestarts",
+    "on": true
+   }
+  },
+  {
+   "name": "4 #fencing still routes",
+   "ok": true,
+   "detail": {
+    "tab": "fencing",
+    "on": true
+   }
+  },
+  {
+   "name": "4 #map still routes",
+   "ok": true,
+   "detail": {
+    "tab": "map",
+    "on": true
+   }
+  },
+  {
+   "name": "4 no page errors after routing through the other tabs",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "fails": [],
+ "result": "PASS"
+}

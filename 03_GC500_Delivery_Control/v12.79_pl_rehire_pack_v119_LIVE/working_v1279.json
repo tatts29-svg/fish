@@ -1,0 +1,1052 @@
+[
+[
+" const T = [`${DATA.event.name} · Accruals for Finance · work month ${X.label} · as at ${fmtDate(X.asAt)} · AUD ex GST`, 'Author: Andrew Fisher · from the GC500 record; proposals for Finance, nothing posted — Finance check each line against what is already in the ledger. No automatic accrual.', ''];",
+" const T = ['Superseded at 31 Oct 2026 by “Journals prepared for Finance, through 31 Oct” in the P&L at the top of the Costs & P&L tab. The V8s were invoiced in October, so no revenue is to be accrued from this schedule. Working figures from the record: do not post from it.', '', `${DATA.event.name} · Accrual schedule from the record (working figures) · work month ${X.label} · as at ${fmtDate(X.asAt)} · AUD ex GST`, 'Author: Andrew Fisher · working figures from the live record, with the quotes and the running sheet, as the record showed the month before invoicing; kept for reference, nothing is posted from here. The position for Finance is the P&L at the top of the Costs & P&L tab (31 Oct 2026).', ''];",
+"accruals copy: superseded line first, title"
+],
+[
+"T.push(`1. REVENUE ${fut ? 'DUE IN' : 'EARNED IN'} THE MONTH, NOT YET BILLED — ",
+"T.push(`1. REVENUE ${fut ? 'DUE IN' : 'EARNED IN'} THE MONTH, AS THE RECORD SHOWED IT BEFORE INVOICING (WORKING FIGURE, NOT AN ACCRUAL TO POST) — ",
+"accruals copy: section 1 heading"
+],
+[
+" T.push(` To accrue (a proposal): ${money0(S.toAccrue)}${S.decide ? ` · Finance’s call: ${money0(S.decide)}` : ''}",
+" T.push(` Not yet invoiced on the record (working figure, not a journal): ${money0(S.toAccrue)}${S.decide ? ` · month split not on the record: ${money0(S.decide)}` : ''}",
+"accruals copy: section 2 total line"
+],
+[
+" T.push(' Accrual to post: not confirmed until Finance have matched these to the invoices, payments and postings already in the ledger.');",
+" T.push(' Accrual to post: none from this schedule. The journals for Finance at 31 Oct are in “Journals prepared for Finance, through 31 Oct” in the P&L at the top of the Costs & P&L tab.');",
+"accruals copy: accrual to post"
+],
+[
+"${r.accrue ? ' · to accrue ' + money0(r.accrue) : ''}",
+"${r.accrue ? ' · dockets ahead of the invoices ' + money0(r.accrue) : ''}",
+"accruals copy: cost rows, the docket gap"
+],
+[
+"T.push('', `${UA.length ? 4 : 3}.FENCING PAID BEFORE BILLING — AGREED ACCRUAL DIRECTION`);",
+"T.push('', `${UA.length ? 4 : 3}. FENCING PAID BEFORE BILLING — THE RULE BEFORE INVOICING (THE V8S WERE INVOICED IN OCTOBER)`);",
+"accruals copy: section 4 heading"
+],
+[
+" const rows = [['Author: Andrew Fisher'], [`${DATA.event.name} — Accruals for Finance — proposals for Finance, nothing posted; no automatic accrual`],",
+" const rows = [['Superseded at 31 Oct 2026 by “Journals prepared for Finance, through 31 Oct” in the P&L at the top of the Costs & P&L tab. The V8s were invoiced in October, so no revenue is to be accrued from this schedule. Working figures from the record: do not post from it.'], ['Author: Andrew Fisher'], [`${DATA.event.name} — Accrual schedule from the record (working figures) — kept for reference; nothing is posted from here`],",
+"accruals CSV: superseded line first, title"
+],
+[
+"['Section', 'Stream', 'Branch', 'Amount AUD ex GST', 'Invoices recorded AUD', 'To accrue (proposal) AUD', 'What Finance does', 'How it is worked out', 'Status']];\n S.R.rev.forEach(r => rows.push(['Revenue earned, not yet billed', r.name,",
+"['Section', 'Stream', 'Branch', 'Amount AUD ex GST', 'Invoices recorded AUD', 'Before invoicing AUD (working figure)', 'What the record showed', 'How it is worked out', 'Status']];\n S.R.rev.forEach(r => rows.push(['Revenue earned before invoicing (working figure)', r.name,",
+"accruals CSV: column heads and the revenue section"
+],
+[
+"rows.push([], ['Revenue earned, not yet billed', '', '', X.revenueTotal], ['Costs to accrue (proposal)', '', '', '', '', S.toAccrue], ['Costs for Finance’s decision', '', '', '', '', S.decide], ['Supplier invoices recorded for the month', '', '', '', X.invoiced], ['Accrual to post', 'Not confirmed until Finance match these to the ledger']);",
+"rows.push([], ['Revenue earned before invoicing (working figure)', '', '', X.revenueTotal], ['Costs not yet invoiced on the record (working figure)', '', '', '', '', S.toAccrue], ['Costs with no month split on the record (working figure)', '', '', '', '', S.decide], ['Supplier invoices recorded for the month', '', '', '', X.invoiced], ['Accrual to post', 'None from this schedule: the journals for Finance at 31 Oct are in the P&L at the top of the Costs & P&L tab']);",
+"accruals CSV: totals"
+],
+[
+"if (r.kind === 'revenue') return {key: 'accrue', badge: 'Accrue', words: 'Accrue as unbilled revenue until the branch bills it'};",
+"if (r.kind === 'revenue') return {key: 'accrue', badge: 'Before invoicing', words: 'Working figure, not an accrual to post: the invoices to the V8s are in the P&L at the top of the Costs & P&L tab'};",
+"accruals rows: revenue words"
+],
+[
+"if (prov) return {key: 'decide', badge: 'Finance’s call', words: `Accrue the ${X.label} share, or hold the whole quote to the event’s month with its revenue`};",
+"if (prov) return {key: 'decide', badge: 'Month split open', words: `No month split on the record: the ${X.label} share, or the whole quote in the event’s month with its revenue`};",
+"accruals rows: provisional split words"
+],
+[
+"if (e.labourType === 'hire') return {key: 'check', badge: 'Check the invoice', words: 'Accrue the weeks Job Connect’s invoice has not covered by cut-off'};",
+"if (e.labourType === 'hire') return {key: 'check', badge: 'Check the invoice', words: 'Weeks not covered by a Job Connect invoice on the record at cut-off (working figure)'};",
+"accruals rows: labour hire words"
+],
+[
+"return r.accrue ? {key: 'accrue', badge: 'Accrue', words: `Accrue ${money0(r.accrue)} — dockets in hand, invoice still to come (a proposal; Finance match it to what is already posted)`}",
+"return r.accrue ? {key: 'accrue', badge: 'Dockets ahead', words: `Dockets in hand for ${money0(r.accrue)} more than the invoices recorded for the month (working figure, not a journal)`}",
+"accruals rows: fencing dockets words"
+],
+[
+"{key: 'check', badge: 'Check the invoice', words: 'Match Advanced’s invoices to the dockets before accruing'}",
+"{key: 'check', badge: 'Check the invoice', words: 'Advanced’s invoices not yet matched to the dockets on the record'}",
+"accruals rows: fencing check words"
+],
+[
+"if (/Transport/.test(r.stream)) return {key: 'check', badge: 'Check the invoice', words: 'Accrue any load whose carrier invoice is not in by cut-off'};\n return {key: 'check', badge: 'Check', words: 'Accrue anything not on a card statement or claim by cut-off'};",
+"if (/Transport/.test(r.stream)) return {key: 'check', badge: 'Check the invoice', words: 'Loads with no carrier invoice on the record at cut-off (working figure)'};\n return {key: 'check', badge: 'Check', words: 'Anything not on a card statement or claim at cut-off (working figure)'};",
+"accruals rows: transport and other words"
+],
+[
+", none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)', words: 'Andrew’s direction, 1 Oct 2026: accrue earned, unbilled fencing Revenue in the work month; keep the cost in the month the work occurred. Finance must match invoices, payments and prior postings before booking the accrual. The page records invoices, not proof of payment'",
+"; the record has the fencing marked as paid, entered 1 Oct 2026 (amount not matched)', words: 'The rule set on 1 Oct 2026, before invoicing: earned, unbilled fencing Revenue was to be accrued in the work month, with the cost kept in the month the work occurred. The V8s were invoiced in October, so no fencing revenue is to be accrued from here; the journals for Finance at 31 Oct are in the P&L at the top of the Costs & P&L tab. The page records invoices, not proof of payment'",
+"accruals fencing note (attribution, now invoiced)"
+],
+[
+"<p class=\"fin745-eyebrow\">ACCRUALS FOR FINANCE</p><p>The accrual schedule could not be worked out",
+"<p class=\"fin745-eyebrow\">ACCRUALS FOR FINANCE · WORKING FIGURES</p><p>The accrual schedule could not be worked out",
+"accruals block: the error eyebrow"
+],
+[
+"`What belongs in ${esc(X.label)} but has not been billed or invoiced yet`}</h2><p>${fut ? 'A month still to come: everything here is planned, from the schedule, the contracts and the running sheet. Nothing to accrue yet.' : 'Earned, unbilled Revenue and costs incurred in the work month, for Finance to match to invoices, payments and existing ledger entries'} — from the record as at ${esc(fmtDate(X.asAt))}. Proposals for Finance; nothing is posted from here, and Finance match every line to what is already in the ledger first.</p>",
+"`What the record showed for ${esc(X.label)} before invoicing (working figures)`}</h2><p>${fut ? 'A month still to come: everything here is planned, from the schedule, the contracts and the running sheet. Nothing to accrue yet.' : 'Revenue earned and costs incurred in the work month, worked out from the live record with the quotes and the running sheet'} — from the record as at ${esc(fmtDate(X.asAt))}. Kept for reference; nothing is posted from here. The position for Finance is the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026).</p>",
+"accruals block: heading and lead"
+],
+[
+"${fin745Card(fut ? 'Revenue due, planned' : 'Revenue earned, not yet billed', money0(X.revenueTotal), S.R.rev.length ? `${fmtNum(S.R.rev.length)} stream${S.R.rev.length === 1 ? '' : 's'} · ${fut ? 'from the contracts and the schedule' : 'accrued revenue / WIP until the branches bill'}` : 'nothing in this month on the record')}\n ${fin745Card(fut ? 'Costs planned' : 'Costs incurred, invoice still to come', money0(fut ? S.planned : S.toAccrue), fut ? 'from the quotes, the schedule and the running sheet' : 'to accrue — a proposal · dockets, loads, hours and expenses in the month, less the supplier invoices recorded')}",
+"${fin745Card(fut ? 'Revenue due, planned' : 'Revenue earned before invoicing (working figure)', money0(X.revenueTotal), S.R.rev.length ? `${fmtNum(S.R.rev.length)} stream${S.R.rev.length === 1 ? '' : 's'} · ${fut ? 'from the contracts and the schedule' : 'as the record showed them before invoicing; not an accrual to post'}` : 'nothing in this month on the record')}\n ${fin745Card(fut ? 'Costs planned' : 'Costs incurred, no invoice on the record (working figure)', money0(fut ? S.planned : S.toAccrue), fut ? 'from the quotes, the schedule and the running sheet' : 'not a journal · dockets, loads, hours and expenses in the month, less the supplier invoices recorded')}",
+"accruals block: revenue and cost cards"
+],
+[
+"${fin745Card('For Finance’s decision', S.decisions ? `${fmtNum(S.decisions)} item${S.decisions === 1 ? '' : 's'}` : 'none', S.decide ? `${money0(S.decide)} of cost where the month split is Finance’s call${(X.wip || []).length ? ' · and the fencing reconciliation below' : ''}` : 'Finance confirms the month split and reconciles the settled fencing accrual direction')}",
+"${fin745Card('Open on the record', S.decisions ? `${fmtNum(S.decisions)} item${S.decisions === 1 ? '' : 's'}` : 'none', S.decide ? `${money0(S.decide)} of cost with no month split on the record${(X.wip || []).length ? ' · and the fencing note below' : ''}` : 'the month split and the fencing note, as the record showed them before invoicing')}",
+"accruals block: open items card"
+],
+[
+"Added across every month the revenue is the P&amp;L’s Revenue to the cent. A “to accrue” figure is a proposal: Finance match it to the invoices, payments and postings already in the ledger before anything is booked — no automatic accrual, and a paid cost is never accrued twice.",
+"Added across every month the revenue is the live model’s Forecast P&amp;L Revenue to the cent, not the P&amp;L at 31 Oct at the top of this tab. A “to accrue” figure here is a working figure from the record, not a journal: nothing is booked from it, and a paid cost is never accrued twice.",
+"accruals block: basis note"
+],
+[
+"<h3>1. Revenue ${fut ? 'due' : 'earned'} in ${esc(X.label)}, not yet billed</h3><p>Accrued revenue, or WIP — Finance’s name for work done that no invoice has gone out for. Each line names the branch that will bill it.</p>",
+"<h3>1. Revenue ${fut ? 'due' : 'earned'} in ${esc(X.label)}, as the record showed it before invoicing</h3><p>Work done, as the record showed it before invoicing. The V8s were invoiced in October (Revenue by invoice, in the P&amp;L at the top of this tab), so these lines are working figures, not accruals to post. Each line names its branch.</p>",
+"accruals block: section 1 heading"
+],
+[
+"<th>How it is worked out</th><th>What Finance does</th></tr></thead><tbody>\n ${S.R.rev.length",
+"<th>How it is worked out</th><th>What the record showed</th></tr></thead><tbody>\n ${S.R.rev.length",
+"accruals block: section 1 column head"
+],
+[
+"<tr class=\"acc761-tot\"><td colspan=\"2\">Revenue ${fut ? 'due' : 'earned, not yet billed'}</td>",
+"<tr class=\"acc761-tot\"><td colspan=\"2\">Revenue ${fut ? 'due' : 'earned before invoicing (working figure)'}</td>",
+"accruals block: section 1 total"
+],
+[
+"<p>An accrued expense is a cost we have had the benefit of whose supplier invoice is not in yet. Incurred less the invoices recorded is the proposal to accrue; where the month split is not on the record, the line says so and leaves it to Finance. An invoice missing here may still be in Finance’s hands — match first.</p>",
+"<p>Incurred less the supplier invoices recorded, as the record showed it; where the month split is not on the record, the line says so. Working figures, not journals: the journals for Finance at 31 Oct are in “Journals prepared for Finance, through 31 Oct” in the P&amp;L at the top of this tab. An invoice missing here may still be in Finance’s hands.</p>",
+"accruals block: section 2 note"
+],
+[
+"<th class=\"num\">To accrue</th><th>Evidence</th><th>What Finance does</th>",
+"<th class=\"num\">Before invoicing (working)</th><th>Evidence</th><th>What the record showed</th>",
+"accruals block: section 2 column heads"
+],
+[
+"${fut ? 'Planned, not yet incurred' : 'To accrue — a proposal'}${S.decide ? ' · and for Finance’s decision' : ''}</td>",
+"${fut ? 'Planned, not yet incurred' : 'Not yet invoiced on the record (working figure)'}${S.decide ? ' · and with no month split on the record' : ''}</td>",
+"accruals block: section 2 total label"
+],
+[
+"`<span class=\"acc761-w\">${m(r.act.toDate)} if accrued</span>`",
+"`<span class=\"acc761-w\">${m(r.act.toDate)} if it belongs in this month</span>`",
+"accruals block: section 2 split rows"
+],
+[
+"<span class=\"acc761-w\">+ ${m(S.decide)} Finance’s call</span>",
+"<span class=\"acc761-w\">+ ${m(S.decide)} with no month split on the record</span>",
+"accruals block: section 2 total, the open split"
+],
+[
+"<span class=\"acc761-w\">Accrual to post: not confirmed until Finance have matched these to the ledger.</span>",
+"<span class=\"acc761-w\">Accrual to post: none from here; the journals for Finance at 31 Oct are in the P&amp;L at the top of this tab.</span>",
+"accruals block: section 2 accrual to post"
+],
+[
+"<h3>${UA.length ? 4 : 3}.Fencing paid before billing — agreed accrual direction</h3><p>Andrew’s direction is to accrue earned, unbilled Revenue and retain costs in the work month. Finance confirms payment and existing postings so a paid or previously accrued cost is not counted twice. Recorded supplier invoices are not proof of payment.</p>",
+"<h3>${UA.length ? 4 : 3}. Fencing paid before billing — the rule before invoicing (the V8s were invoiced in October)</h3><p>The rule below was set on 1 Oct 2026, before invoicing. Recorded supplier invoices are not proof of payment.</p>",
+"accruals block: section 4 heading (attribution)"
+],
+[
+"the invoice catches up later. “Please accrue it in September.” Finance reconcile",
+"the invoice catches up later. Finance reconcile",
+"accruals block: glossary example"
+],
+[
+"Accruals for Finance v7.63 · read from the record; decisions are recorded in the Finance journal proposals above. No ledger entries are posted by this view.",
+"Accrual schedule from the record v7.63 (working figures) · read from the record; the journals for Finance at 31 Oct are in the P&amp;L at the top of this tab. No ledger entries are posted by this view.",
+"accruals block: foot"
+],
+[
+"' - Andrew, 28 Oct 2026: match Baseplan to the cent'",
+"' · matched to Baseplan to the cent, as set on 28 Oct 2026'",
+"generator basis (attribution)"
+],
+[
+"['accruals761','Month-end — what Finance should accrue for the work month','Revenue earned but not billed, costs incurred but not invoiced, and the export for Finance','Review first'],\n['finance745','Actual hours and costs — confirmed, pending and forecast','Pay rates, the billing months and the Finance journal requests','Record controls']",
+"['accruals761','Accrual schedule from the record — working figures, superseded at 31 Oct','Revenue earned and costs incurred as the record showed them before invoicing, and its export','Superseded'],\n['finance745','Actual hours and costs — working figures from the record','Pay rates, the billing months and the journal proposals on the record','Working figures']",
+"Workings: month-end fold titles and tags"
+],
+[
+"accruals761: 'More info · month-end accruals',\n    finance745: 'More info · wage rates and Finance controls'};",
+"accruals761: 'Accrual schedule from the record · working figures, superseded at 31 Oct',\n    finance745: 'Wage rates, billing months and the journal schedule from the record · working figures'};",
+"Workings: month-end fold summaries"
+],
+[
+"text(pane.querySelector('#cj765monthend'), 'Finance');",
+"text(pane.querySelector('#cj765monthend'), 'Month-end working figures from the record · the journals at 31 Oct are in the P&L at the top of this tab');",
+"Workings: month-end section heading"
+],
+[
+"text(pane.querySelector('.hubhead h2'), 'P&L');",
+"text(pane.querySelector('.hubhead h2'), 'The live model · working figures from the live record, not the P&L at 31 Oct');",
+"Workings: the old Costs heading"
+],
+[
+"if (title) title.textContent = 'Whole-job P&L · all in';",
+"if (title) title.textContent = 'The live model on the ledger lines · all in · working figures, not the P&L at 31 Oct';",
+"Workings: the whole-job ledger card heading"
+],
+[
+"<div class=\"pl-kicker\">Coates Industrial Solutions · GC500 2026</div><h3>Forecast P&amp;L</h3>",
+"<div class=\"pl-kicker\">Coates Industrial Solutions · GC500 2026 · working figures from the live record</div><h3>Forecast P&amp;L · the live model, not the P&amp;L at 31 Oct</h3>",
+"Workings: the Forecast P&L heading"
+],
+[
+"<p class=\"fin745-eyebrow\">COSTS TO JOB END · AUD EX GST · FORECAST</p>",
+"<p class=\"fin745-eyebrow\">COSTS TO JOB END · AUD EX GST · FORECAST · WORKING FIGURES FROM THE LIVE RECORD</p>",
+"Workings: costs to job end eyebrow"
+],
+[
+"<p class=\"fin745-eyebrow\">MONTH-END CONTROL · AUD EX GST</p><h2 id=\"fin745Title\">Actuals, forecast &amp; Finance journals</h2><p>What has happened, what is still expected, and what Finance needs to review.</p>",
+"<p class=\"fin745-eyebrow\">MONTH-END CONTROL · AUD EX GST · WORKING FIGURES FROM THE LIVE RECORD</p><h2 id=\"fin745Title\">Actuals, forecast &amp; Finance journals (working figures)</h2><p>Labour hours and costs, billing months and the journal proposals recorded on this page, from the live record. The journals prepared for Finance through 31 Oct are in the P&amp;L at the top of this tab.</p>",
+"Workings: month-end control heading"
+],
+[
+"<h3>3. Finance journal schedule</h3><p>Entries involving this work, posting or reversal month. Journals do not add to the labour totals above.</p>",
+"<h3>3. Journal schedule from the record (working figures, not the journals at 31 Oct)</h3><p>Proposals recorded on this page for this work, posting or reversal month. Journals do not add to the labour totals above. The journals at 31 Oct are in the P&amp;L at the top of this tab.</p>",
+"Workings: journal schedule heading"
+],
+[
+"rows = [['Author: Andrew Fisher'], ['Monthly Finance review — proposals only, no ledger posting'], ['Work month', month],",
+"rows = [['Working figures from the live record: the journals prepared for Finance through 31 Oct are in the P&L at the top of the Costs & P&L tab (31 Oct 2026). Do not post from this export.'], ['Author: Andrew Fisher'], ['Monthly Finance review — working figures and proposals recorded on the page, no ledger posting'], ['Work month', month],",
+"Workings: month-end control CSV, a working-figures line first"
+],
+[
+"text(section.querySelector('#fh866Title'), 'Finance handover');",
+"text(section.querySelector('#fh866Title'), 'PO receipts and handover (working figures)');",
+"handover: the heading compactHandover writes"
+],
+[
+"<p class=\"fin745-eyebrow\">FINANCE HANDOVER · AS AT ${esc(fmtDate(H.asAt).toUpperCase())} · AUD EX GST</p>",
+"<p class=\"fin745-eyebrow\">PO RECEIPTS AND HANDOVER (WORKING FIGURES) · AS AT ${esc(fmtDate(H.asAt).toUpperCase())} · AUD EX GST</p>",
+"handover: the eyebrow"
+],
+[
+"<p class=\"fin745-eyebrow\">FINANCE HANDOVER</p><p>The handover could not be worked out from this record:",
+"<p class=\"fin745-eyebrow\">PO RECEIPTS AND HANDOVER (WORKING FIGURES)</p><p>The handover could not be worked out from this record:",
+"handover: the eyebrow when the model cannot be worked out"
+],
+[
+"<p>Each figure is a cut of the Costs &amp; P&amp;L figures by the branch on the hire contracts. Nothing here is added to the P&amp;L.</p>",
+"<p>Each figure is a cut of the live model’s working figures by the branch on the hire contracts. Nothing here is added to the P&amp;L.</p>",
+"handover: the line under the heading (it now shows: compactHandover removes the first heading p, which is the WORKING banner)"
+],
+[
+"\n <div class=\"fin745-metrics fh866-metrics\">",
+"\n <p class=\"fh1279-banner\"><b>Working figures from the live record</b>, with quotes and the running sheet: not the month-end P&amp;L, and the totals differ from it. The position for Finance is the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026), with the journals prepared for Finance. The 18 invoices to the V8s are all dated October and are listed in its Revenue by invoice. No journal is to be posted from these figures.</p>\n <div class=\"fin745-metrics fh866-metrics\">",
+"handover: the working-figures banner, outside the heading so compactHandover keeps it"
+],
+[
+"data-fh866-act=\"copy\">Copy for Finance</button>",
+"data-fh866-act=\"copy\">Copy (working figures)</button>",
+"handover: the Copy button"
+],
+[
+"const text = fh866Text(H), done = () => { try { flash('Copied for Finance — paste it into your email or note.'); }",
+"const text = fh866Text(H), done = () => { try { flash('Copied (working figures) — paste it into your email or note.'); }",
+"handover: the Copy confirmation"
+],
+[
+"${fin745Card(`Invoice by ${fmtDate(H.deadline)}`, due, `${money(H.invTotal.unbilled)} not yet billed`)}",
+"${fin745Card(`Invoice by ${fmtDate(H.deadline)}`, due, `${money(H.invTotal.unbilled)} not billed on the contract export (working figures)`)}",
+"handover: the fourth tile (compactHandover removes it; reworded in case it shows)"
+],
+[
+"<h3>4. Invoice by ${esc(fmtDate(H.deadline))} — by branch</h3></div></div>",
+"<h3>Revenue on the record by branch, against the contract export (working figures)</h3></div></div>\n <p class=\"fh1279-invnote\">Working figures from the live record, not invoices. Billed comes from the contract export named under More info. The 18 invoices to the V8s are all dated October and are listed in Revenue by invoice in the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026). Not billed on that export is not an amount to accrue.</p>",
+"handover: the invoice table heading and its line on the 18 invoices"
+],
+[
+"<th>Branch</th><th class=\"num\">Revenue on the record</th><th class=\"num\">Still to come</th><th class=\"num\">To job end</th><th class=\"num\">Billed</th><th class=\"num\">Not yet billed</th>",
+"<th>Branch</th><th class=\"num\">Revenue on the record (working)</th><th class=\"num\">Still to come (working)</th><th class=\"num\">To job end (working)</th><th class=\"num\">Billed on the contract export</th><th class=\"num\">Not billed on that export</th>",
+"handover: the invoice table columns"
+],
+[
+" Not yet billed is the accrual by branch if the invoices are not out by ${esc(fmtDate(H.deadline))}.",
+" Not billed on that export is the record’s revenue less that export’s billed column: not an accrual, and not what is left to invoice.",
+"handover: the invoice table basis (under More info)"
+],
+[
+"[`${DATA.event.name} — Finance handover — by purchase order and by branch`], ['As at', H.asAt], ['Invoice by', H.deadline]",
+"[`${DATA.event.name} — PO receipts and handover (working figures) — by purchase order and by branch`], ['As at', H.asAt], ['Invoice by', H.deadline]",
+"handover CSV: the title"
+],
+[
+"rows.push([`4. Invoice by ${H.deadline}`, 'Branch', 'Revenue on the record', 'Still to come', 'To job end', 'Billed', 'Not yet billed']);",
+"rows.push([`4. Revenue on the record by branch, against the contract export (working figures, not an accrual)`, 'Branch', 'Revenue on the record (working)', 'Still to come (working)', 'To job end (working)', 'Billed on the contract export', 'Not billed on that export']);",
+"handover CSV: section 4 and its columns"
+],
+[
+"H.inv.forEach(r => rows.push(['Invoice', r.branch,",
+"H.inv.forEach(r => rows.push(['Revenue by branch (working)', r.branch,",
+"handover CSV: section 4 row label"
+],
+[
+"rows.push(['Invoice total', '', H.invTotal.onRecord,",
+"rows.push(['Revenue by branch total (working)', '', H.invTotal.onRecord,",
+"handover CSV: section 4 total label"
+],
+[
+"L.push(`${DATA.event.name} — Finance handover, as at ${fmtDate(H.asAt)} (AUD ex GST)`);",
+"L.push(`${DATA.event.name} — PO receipts and handover (working figures), as at ${fmtDate(H.asAt)} (AUD ex GST)`);",
+"handover Copy text: the title"
+],
+[
+"L.push(`4. Invoice by ${fmtDate(H.deadline)} (${H.daysLeft} days): not yet billed ${money(H.invTotal.unbilled)}`);",
+"L.push(`4. Revenue on the record by branch, against the contract export (working figures): not billed on that export ${money(H.invTotal.unbilled)}. Not an amount to accrue: the 18 invoices to the V8s are all dated October (Revenue by invoice in the P&L).`);",
+"handover Copy text: section 4"
+],
+[
+"billed ${money(r.billed)}, not yet billed ${money(r.unbilled)}`));",
+"billed on the contract export ${money(r.billed)}, not billed on that export ${money(r.unbilled)}`));",
+"handover Copy text: section 4 by branch"
+],
+[
+"const identity = [['Customer', customer.name], ['Customer code', customer.code], ['Site code', customer.site]];\n  return identity.map(row => row.map(fin745CsvCell).join(',')).join('\\r\\n') + '\\r\\n' + previousCsv.call(this, handoverExport(H));",
+"const identity = [['Working figures from the live record, not the month-end P&L. The position for Finance is the P&L at the top of the Costs & P&L tab (31 Oct 2026); the 18 invoices to the V8s are all dated October (its Revenue by invoice). No journal is to be posted from these figures.'], ['Customer', customer.name], ['Customer code', customer.code], ['Site code', customer.site]];\n  return identity.map(row => row.map(fin745CsvCell).join(',')).join('\\r\\n') + '\\r\\n' + previousCsv.call(this, handoverExport(H));",
+"handover CSV: the superseded line, first row"
+],
+[
+"return 'Customer: ' + customer.name + '\\nCustomer code: ' + customer.code + '\\nSite code: ' + customer.site + '\\n\\n' + previousText.call(this, handoverExport(H));",
+"return 'Working figures from the live record, not the month-end P&L. The position for Finance is the P&L at the top of the Costs & P&L tab (31 Oct 2026); the 18 invoices to the V8s are all dated October (its Revenue by invoice). No journal is to be posted from these figures.\\n\\n' + 'Customer: ' + customer.name + '\\nCustomer code: ' + customer.code + '\\nSite code: ' + customer.site + '\\n\\n' + previousText.call(this, handoverExport(H));",
+"handover Copy text: the superseded line, first line"
+],
+[
+"part('Finance handover — invoice by branch', H.invTotal.onRecord)",
+"part('PO receipts and handover — invoice by branch', H.invTotal.onRecord)",
+"reconciliation label 1"
+],
+[
+"part('Finance handover — invoice by branch', H.invTotal.job)",
+"part('PO receipts and handover — invoice by branch', H.invTotal.job)",
+"reconciliation label 2"
+],
+[
+"part('Finance handover — costs by branch', H.costTotal.job)",
+"part('PO receipts and handover — costs by branch', H.costTotal.job)",
+"reconciliation label 3"
+],
+[
+"part('Finance handover — costs by branch', hT.toDate)",
+"part('PO receipts and handover — costs by branch', hT.toDate)",
+"reconciliation label 4"
+],
+[
+"part('Finance handover — costs by branch', hT.toCome)",
+"part('PO receipts and handover — costs by branch', hT.toCome)",
+"reconciliation label 5"
+],
+[
+"part('Finance handover — the branches added',",
+"part('PO receipts and handover — the branches added',",
+"reconciliation label 6"
+],
+[
+"part('Finance handover — invoice by branch', hInvT.toCome)",
+"part('PO receipts and handover — invoice by branch', hInvT.toCome)",
+"reconciliation label 7"
+],
+[
+"part('Finance handover — demob forecast',",
+"part('PO receipts and handover — demob forecast',",
+"reconciliation label 8"
+],
+[
+"Costs to job end, the Finance handover, Transport, Equipment and the Timeline — all tied",
+"Costs to job end, PO receipts and handover, Transport, Equipment and the Timeline — all tied",
+"reconciliation summary"
+],
+[
+"the business’s lines and the Finance handover — ${esc(fmtNum(trans.length))} tie-outs, all tied.",
+"the business’s lines and PO receipts and handover — ${esc(fmtNum(trans.length))} tie-outs, all tied.",
+"Transport view: tie-outs line"
+],
+[
+"against the Finance handover’s split and the branch’s Transport Revenue.",
+"against the split in PO receipts and handover and the branch’s Transport Revenue.",
+"Transport view: by branch"
+],
+[
+"The Finance handover spreads the ${esc(money0(spread))} on loads",
+"PO receipts and handover spreads the ${esc(money0(spread))} on loads",
+"Transport view: the spread"
+],
+[
+"'Every load carries a branch, so the Finance handover’s split is the loads’ own.'",
+"'Every load carries a branch, so the split in PO receipts and handover is the loads’ own.'",
+"Transport view: the split"
+],
+[
+"'none on the record — a carrier’s PO is added on the Finance handover'",
+"'none on the record — a carrier’s PO is added on PO receipts and handover'",
+"Transport view: carrier POs"
+],
+[
+"'To job end', 'Finance handover', 'Transport Revenue', 'Provisional revenue to come']",
+"'To job end', 'Handover split (PO receipts and handover)', 'Transport Revenue', 'Provisional revenue to come']",
+"Transport CSV: the handover column"
+],
+[
+"'<dt>Invoiced</dt><dd>Contract export status in Finance handover.</dd>'",
+"'<dt>Invoiced</dt><dd>Contract export status in PO receipts and handover (working figures). The invoices to the V8s are in Revenue by invoice in the P&amp;L at the top of the tab.</dd>'",
+"live model glossary: Invoiced"
+],
+[
+"tick(Mo.checks.costs, 'ties to the Finance handover to the cent')",
+"tick(Mo.checks.costs, 'ties to PO receipts and handover to the cent')",
+"live model: costs tick"
+],
+[
+"'<h3 class=\"pl1267-h3\">Finance’s invoicing view, and the bridge to the management view</h3>'",
+"'<h3 class=\"pl1267-h3\">The contract-branch view, and the bridge to the management view</h3>'",
+"live model bridge: heading"
+],
+[
+"'the branch on the hire contracts, as the Finance handover invoices it: revenue stays in the branch (the project manager, 31 Oct 2026)'",
+"'the branch on the hire contracts, as PO receipts and handover has it: revenue stays in the branch (as set on 31 Oct 2026)'",
+"live model bridge: both views"
+],
+[
+"brow('Finance’s handover', 'travel, accommodation and meals by the labour on each branch, as its CSV has them',",
+"brow('Contract-branch view', 'travel, accommodation and meals by the labour on each branch, as the handover CSV has them',",
+"live model bridge: costs row"
+],
+[
+"'with the people whose costs they are, the project manager’s ruling of 29 Oct 2026'",
+"'with the people whose costs they are, as set on 29 Oct 2026'",
+"live model bridge: the move row"
+],
+[
+"brow('Finance’s view', '', L.finDiff, L.finDiffT)",
+"brow('Contract-branch view', '', L.finDiff, L.finDiffT)",
+"live model bridge: difference row"
+],
+[
+"'Finance’s view is the handover’s figures to the cent, and the moves bridge it to the cards'",
+"'the contract-branch view is the handover’s figures to the cent, and the moves bridge it to the cards'",
+"live model bridge: tick"
+],
+[
+"Management view: revenue stays on the branch that invoices it (the project manager, 31 Oct 2026); the people’s labour hire, travel, accommodation and meals sit on KINP by his ruling of 29 Oct 2026, until each shift is put to the branch of the work it was on; gear and moves sit on the branch of the gear. Finance’s handover and its CSV keep the contract branches; nothing is written back.",
+"Management view: revenue stays on the branch that invoices it (as set on 31 Oct 2026); the people’s labour hire, travel, accommodation and meals sit on KINP (as set on 29 Oct 2026), until each shift is put to the branch of the work it was on; gear and moves sit on the branch of the gear. PO receipts and handover and its CSV keep the contract branches; nothing is written back.",
+"live model bridge: the rule line"
+],
+[
+"section.querySelector(':scope > small').textContent = 'Priced Revenue subtotal · AUD ex GST';",
+"section.querySelector(':scope > small').textContent = 'Priced Revenue subtotal · AUD ex GST · working figures from the live record';",
+"onsite equipment card: the sub-line"
+],
+[
+"eyebrow('P&amp;L · WHOLE JOB · AUD EX GST · AS AT '",
+"eyebrow('LIVE MODEL (WORKING FIGURES) · WHOLE JOB · AUD EX GST · AS AT '",
+"live model face: the eyebrow"
+],
+[
+"'<h2 id=\"pl1267Title\" class=\"vh\">P&amp;L</h2>'",
+"'<h2 id=\"pl1267Title\" class=\"vh\">Live model (working figures)</h2>'",
+"live model face: the heading (screen readers)"
+],
+[
+"' · ' + pc(Mo.pcJob) + ' at job end · not a margin until the costs are complete'",
+"' · ' + pc(Mo.pcJob) + ' of revenue at job end · working figures, not a margin'",
+"live model face: the difference tile, its percentage named"
+],
+[
+"tick(Mo.checks.revenue, 'the Forecast P&L’s revenue to the cent')",
+"tick(Mo.checks.revenue, 'the forecast model’s revenue to the cent')",
+"live model face: revenue tick"
+],
+[
+"tick(Mo.checks.difference, 'one difference: the Forecast P&L’s, the same figure on At a glance')",
+"tick(Mo.checks.difference, 'one difference: the forecast model’s, the same figure on At a glance')",
+"live model face: difference tick"
+],
+[
+"note: 'hours only, never priced here (the project manager, 23 Oct 2026)'",
+"note: 'hours only, never priced here (as set on 23 Oct 2026)'",
+"live model face: Coates wages note (attribution)"
+],
+[
+"{what: 'Coates wages, hours only', owner: 'never priced here (the project manager, 23 Oct 2026)'}",
+"{what: 'Coates wages, hours only', owner: 'never priced here (as set on 23 Oct 2026)'}",
+"live model face: not in it yet, Coates wages (attribution)"
+],
+[
+"note: 'hours only, no hourly rate (the project manager, 23 Oct 2026)'}",
+"note: 'hours only, no hourly rate (as set on 23 Oct 2026)'}",
+"ledger fold: Coates wages note (attribution)"
+],
+[
+"tick(L.checks.revenue && L.checks.direct, 'revenue and cost of sales tie to the Forecast P&L to the cent')",
+"tick(L.checks.revenue && L.checks.direct, 'revenue and cost of sales tie to the forecast model to the cent')",
+"ledger fold: tie tick"
+],
+[
+"brow('Contribution · job end', L.contribB, L.contribT,",
+"brow('Difference · job end (working figures)', L.contribB, L.contribT,",
+"ledger fold: by-branch last row"
+],
+[
+"{label: 'Gross Margin · all in', job: gm,",
+"{label: 'Revenue less direct costs · all in (working figures)', job: gm,",
+"Workings whole-job card: the Gross Margin row"
+],
+[
+"['Gross Margin · all in', 'Total Revenue less Total Direct Costs, all in. The percentage is Gross Margin ÷ Total Revenue.']",
+"['Revenue less direct costs · all in (working figures)', 'Total Revenue less Total Direct Costs, all in, from the live record; not the P&L at 31 Oct. The percentage is that difference ÷ Total Revenue.']",
+"Workings whole-job card: the glossary entry"
+],
+[
+"Transport Revenue and Toilet Pumpouts ÷ Transport and Toilet Pumpout Costs — the P&L groups them together",
+"Transport Revenue and Toilet Pumpouts ÷ Transport and Toilet Pumpout Costs — the ledger groups them together",
+"Workings recovery: transport recovery words"
+],
+[
+"Coates wages and salary are tracked in hours only, no hourly rate (the project manager, 23 Oct 2026); Direct Staff and any journal to Installation remain Finance allocations.",
+"Coates wages and salary are tracked in hours only, no hourly rate (as set on 23 Oct 2026); Direct Staff and any journal to Installation remain Finance allocations.",
+"Workings glossary: labour hire (attribution)"
+],
+[
+"h tracked in hours only, no hourly rate (the project manager, 23 Oct 2026) — Direct Staff (3210) is Finance’s to post",
+"h tracked in hours only, no hourly rate (as set on 23 Oct 2026) — Direct Staff (3210) is Finance’s to post",
+"Workings business lines: wages row (attribution)"
+],
+[
+"at Baseplan (8)’s figures (Andrew, 28 Oct 2026); water is part of the pump-out charges",
+"at Baseplan (8)’s figures (as set on 28 Oct 2026); water is part of the pump-out charges",
+"Workings business lines: consumables (attribution)"
+],
+[
+"of customer servicing the P&L posts to Toilet Pumpouts below",
+"of customer servicing the live model posts to Toilet Pumpouts below",
+"Workings business lines: rehire revenue words"
+],
+[
+"' — the Forecast P&L carries the supplier cost estimate once as Rehire cost of '",
+"' — the forecast model carries the supplier cost estimate once as Rehire cost of '",
+"Workings business lines: rehire cost words"
+],
+[
+"'the P&amp;L’s Installation line (1047), to the cent'",
+"'the live model’s Installation line (1047), to the cent'",
+"Workings labour: installation line words"
+],
+[
+"(on the P&amp;L under 2142)` : 'what the P&amp;L calls wages priced'}",
+"(in the live model under 2142)` : 'what the live model calls wages priced'}",
+"Workings labour: priced wages words"
+],
+[
+"no hourly rate goes on anyone (the project manager, 23 Oct 2026).</p>",
+"no hourly rate goes on anyone (as set on 23 Oct 2026).</p>",
+"Workings labour: what the labour costs us (attribution)"
+],
+[
+"are tracked in hours only and never priced here (the project manager, 23 Oct 2026); not a margin and not a profit.",
+"are tracked in hours only and never priced here (as set on 23 Oct 2026); not a margin and not a profit.",
+"Workings labour: the closing line (attribution)"
+],
+[
+"<p>The Forecast P&amp;L above is the record as it stands:",
+"<p>The forecast model above, working figures from the live record, is the record as it stands:",
+"Workings costs to job end: the lead"
+],
+[
+"money0(X.known), 'the P&L’s figure · toilets approved",
+"money0(X.known), 'the forecast model’s figure · toilets approved",
+"Workings costs to job end: known-today tile"
+],
+[
+"“Known today” is the P&amp;L’s direct costs known",
+"“Known today” is the forecast model’s direct costs known",
+"Workings costs to job end: basis, known today"
+],
+[
+"wages sit on their own line, as the P&amp;L keeps them.",
+"wages sit on their own line, as the forecast model keeps them.",
+"Workings costs to job end: basis, wages"
+],
+[
+"Direct costs <span class=\"acc761-w\">· the P&amp;L’s eight categories</span>",
+"Direct costs <span class=\"acc761-w\">· the forecast model’s eight categories</span>",
+"Workings costs to job end: total row label"
+],
+[
+"known today = the P&amp;L’s direct costs known · each figure",
+"known today = the forecast model’s direct costs known · each figure",
+"Workings costs to job end: total row note"
+],
+[
+"wages are reviewed under Month-end control and are not in the P&amp;L’s direct costs known",
+"wages are reviewed under Month-end control and are not in the forecast model’s direct costs known",
+"Workings costs to job end: wages row note"
+],
+[
+"booked ahead) — the P&L’s figure · to come:",
+"booked ahead) — the forecast model’s figure · to come:",
+"Workings costs to job end: accommodation basis"
+],
+[
+"tracked in hours only — no hourly rate goes on anyone (the project manager, 23 Oct 2026)${unpH",
+"tracked in hours only — no hourly rate goes on anyone (as set on 23 Oct 2026)${unpH",
+"Workings costs to job end: wages row (attribution)"
+],
+[
+"h are hours only, not priced (the project manager, 23 Oct 2026) · before the items below",
+"h are hours only, not priced (as set on 23 Oct 2026) · before the items below",
+"Workings costs to job end: wages total (attribution)"
+],
+[
+"carried on Rehire (the project manager, 23 Oct 2026)'",
+"carried on Rehire (as set on 23 Oct 2026)'",
+"Workings costs to job end: rehire adjustment (attribution)"
+],
+[
+"aria-label=\"Profit and loss statement, forecast\"",
+"aria-label=\"Forecast model, working figures from the live record\"",
+"Workings forecast card: its label for screen readers"
+],
+[
+"wages are reviewed separately in Actuals, forecast & Finance journals; they are not added to this P&L'",
+"wages are reviewed separately in Actuals, forecast & Finance journals (working figures); they are not added to this forecast model'",
+"Workings forecast card: crew stream note"
+],
+[
+"${fmtNum(r1(bi.at_2))} at ×2; wages are reviewed separately in Actuals, forecast & Finance journals, not added to this P&L`",
+"${fmtNum(r1(bi.at_2))} at ×2; wages are reviewed separately in Actuals, forecast & Finance journals (working figures), not added to this forecast model`",
+"Workings forecast card: internal labour row"
+],
+[
+"of them over the race weekend` : ''} — wages are reviewed separately in Actuals, forecast & Finance journals, not added to this P&L`",
+"of them over the race weekend` : ''} — wages are reviewed separately in Actuals, forecast & Finance journals (working figures), not added to this forecast model`",
+"Workings forecast card: external labour row"
+],
+[
+"h tracked in hours only, no hourly rate (the project manager, 23 Oct 2026). The “Actuals, forecast & Finance journals” section",
+"h tracked in hours only, no hourly rate (as set on 23 Oct 2026). The “Actuals, forecast & Finance journals (working figures)” section",
+"Workings forecast card: wages caveat (attribution)"
+],
+[
+"supplier water costs remain in Direct costs (Andrew, 27 Oct 2026).'",
+"supplier water costs remain in Direct costs (as set on 27 Oct 2026).'",
+"Workings forecast card: water caveat (attribution)"
+],
+[
+"h of Coates wages in hours only — no hourly rate (the project manager, 23 Oct 2026)${m.unresolvedShifts",
+"h of Coates wages in hours only — no hourly rate (as set on 23 Oct 2026)${m.unresolvedShifts",
+"Workings running-sheet forecast (attribution)"
+],
+[
+"counted in the Forecast P&L above.'",
+"counted in the forecast model above.'",
+"Workings transport lines typed here: empty words"
+],
+[
+"<b>Andrew’s rule (1 Oct 2026): “what we charge should cover what we get charged.”</b>",
+"<b>As set on 1 Oct 2026: what we charge should cover what we get charged.</b>",
+"Workings rehire by branch (attribution)"
+],
+[
+"eparate customer hire charge. Confirmed by the project manager, 1 Oct 2026.</span>'",
+"eparate customer hire charge. Confirmed on 1 Oct 2026.</span>'",
+"contract coverage words (attribution)"
+],
+[
+"takes the next size down (the project manager, 1 Oct 2026).",
+"takes the next size down (as set on 1 Oct 2026).",
+"generator rate note (attribution)"
+],
+[
+"in hours only (Coates wages and salary) — not priced, by the project manager’s rule (23 Oct 2026)'",
+"in hours only (Coates wages and salary) — not priced (as set on 23 Oct 2026)'",
+"Workings actual hours and costs (attribution)"
+],
+[
+"part('Forecast P&L', M.charge.total)",
+"part('Forecast model', M.charge.total)",
+"reconciles: Forecast P&L named the forecast model (M.charge.total)"
+],
+[
+"part('Forecast P&L', M.cost.known)",
+"part('Forecast model', M.cost.known)",
+"reconciles: Forecast P&L named the forecast model (M.cost.known)"
+],
+[
+"part('Forecast P&L', M.charge.labour)",
+"part('Forecast model', M.charge.labour)",
+"reconciles: Forecast P&L named the forecast model (M.charge.labour)"
+],
+[
+"part('Forecast P&L', M.cost.transport.amount)",
+"part('Forecast model', M.cost.transport.amount)",
+"reconciles: Forecast P&L named the forecast model (M.cost.transport.amount)"
+],
+[
+"part('Forecast P&L', M.charge.delivery)",
+"part('Forecast model', M.charge.delivery)",
+"reconciles: Forecast P&L named the forecast model (M.charge.delivery)"
+],
+[
+"part('Forecast P&L — loads with a figure', T.schedT.refs)",
+"part('Forecast model — loads with a figure', T.schedT.refs)",
+"reconciles: loads with a figure"
+],
+[
+"tie('Transport', 'Demob transport in the handover is a cut of the P&L',",
+"tie('Transport', 'Demob transport in the handover is a cut of the live model',",
+"reconciles: demob transport line"
+],
+[
+"return mailto(`GC500 · are we making money — ${money0(M.charge.total)} revenue",
+"return mailto(`GC500 live model (working figures from the record, not the P&L at 31 Oct) — ${money0(M.charge.total)} revenue",
+"summary email: subject"
+],
+[
+"const lines = [`${DATA.event.name} · as at ${fmtDate(M.as_at)} · AUD ex GST`,",
+"const lines = ['Live model: working figures from the record, not the P&L at 31 Oct 2026.', `${DATA.event.name} · as at ${fmtDate(M.as_at)} · AUD ex GST`,",
+"summary email: a working-figures line first"
+],
+[
+"`Coates wages are not in this P&L (hours only): ${fmtNum(M.breakeven_hours)} h — the difference divided by those hours is ${money(M.breakeven)} an hour, before the other missing costs. See Actuals, forecast & Finance journals for the priced labour outlook.`",
+"`Coates wages are not in this live model (hours only): ${fmtNum(M.breakeven_hours)} h — the difference divided by those hours is ${money(M.breakeven)} an hour, before the other missing costs. See Actuals, forecast & Finance journals (working figures) for the priced labour outlook.`",
+"summary email: wages line"
+],
+[
+"gap(`${fmtNum(T888.demob.notInPl.legs)} demob movements still unpriced`,",
+"gap(`${fmtNum(T888.demob.notInPl.legs)} demob movements unpriced in the live record (the P&L at 31 Oct estimates the pick-ups still to come)`,",
+"not in it yet: demob movements (v1.19 estimate)"
+],
+[
+"need an item, quantity, cost rate or supplier scope confirmed. Unknown does not mean free.</li>",
+"need an item, quantity, cost rate or supplier scope confirmed in the live record. Unknown does not mean free. The P&amp;L at 31 Oct at the top of the tab estimates the pick-ups still to come.</li>",
+"Transport demob: still unpriced (v1.19 estimate)"
+],
+[
+"carry no carrier, docket or figure and are not forecast in the P&amp;L yet",
+"carry no carrier, docket or figure and are not forecast in the live model yet (the P&amp;L at 31 Oct estimates the pick-ups still to come)",
+"handover: demob legs (v1.19 estimate)"
+],
+[
+"· ${n(tot.noFig)} with no figure yet · the P&L’s direct cost`",
+"· ${n(tot.noFig)} with no figure yet · the live model’s direct cost`",
+"Transport: to-date tile"
+],
+[
+"<span class=\"fh866-ok\">Ties to the Forecast P&amp;L, Costs to job end, ",
+"<span class=\"fh866-ok\">Ties to the forecast model, Costs to job end, ",
+"Transport: tie-outs line (start)"
+],
+[
+"The figures are the Forecast P&amp;L’s, read from one model;",
+"The figures are the live model’s (working figures from the live record), read from one model;",
+"Transport: the lead"
+],
+[
+"The branches and the unconfirmed loads add to the P&amp;L.</p>",
+"The branches and the unconfirmed loads add to the live model.</p>",
+"Transport: by branch lead"
+],
+[
+"To date and to come are the P&amp;L’s Transport (cartage) figures",
+"To date and to come are the live model’s Transport (cartage) figures",
+"Transport: by branch basis"
+],
+[
+"— the P&amp;L’s loads. Open the reference",
+"— the live model’s loads. Open the reference",
+"Transport: every load lead"
+],
+[
+"'the Forecast P&amp;L’s figure, to the cent' : '<span class=\"fh866-todo\">does not equal the Forecast P&amp;L’s Transport Revenue</span>'",
+"'the forecast model’s figure, to the cent' : '<span class=\"fh866-todo\">does not equal the forecast model’s Transport Revenue</span>'",
+"Transport: revenue total note"
+],
+[
+"<p>The demob legs the schedule carries, what the P&amp;L holds for them, and the Demob tab’s truck plan.</p>",
+"<p>The demob legs the schedule carries, what the live model holds for them, and the Demob tab’s truck plan.</p>",
+"Transport: demob lead"
+],
+[
+"<li><b>In the P&amp;L:</b>",
+"<li><b>In the live model:</b>",
+"Transport: demob, in the live model"
+],
+[
+"not forecast in the P&amp;L${r.demobCard",
+"not forecast in the live model${r.demobCard",
+"Transport: planned leg words"
+],
+[
+"read from the record; the P&amp;L’s own figures are unchanged by this view.</p>",
+"read from the record: working figures from the live record; the P&amp;L at 31 Oct at the top of the tab is the position for Finance.</p>",
+"Transport: the foot"
+],
+[
+"const rows = [['Author: Andrew Fisher'], [`${DATA.event.name} — Transport — every load, by branch and by carrier`]",
+"const rows = [['Working figures from the live record, not the P&L at 31 Oct 2026: the P&L at the top of the Costs & P&L tab (31 Oct 2026) is the position for Finance. Do not post from this export.'], ['Author: Andrew Fisher'], [`${DATA.event.name} — Transport — every load, by branch and by carrier`]",
+"Transport CSV: a working-figures line first"
+],
+[
+"on the project manager’s ruling of 24 Oct 2026; what remains",
+"as set on 24 Oct 2026; what remains",
+"Fencing: charges row (ruling)"
+],
+[
+"on the project manager’s ruling of 24 Oct 2026; forecast remaining",
+"as set on 24 Oct 2026; forecast remaining",
+"Fencing: cost row (ruling)"
+],
+[
+"(the project manager’s word, 23 Oct 2026)",
+"(as set on 23 Oct 2026)",
+"Fencing closures: the numbers note (attribution)"
+],
+[
+"(the project manager, 23 Oct 2026).` : ''}",
+"(as set on 23 Oct 2026).` : ''}",
+"Customer rates: not charged here (attribution)"
+],
+[
+"Excluded from current supplier costs on Andrew’s instruction: ",
+"Excluded from current supplier costs, as instructed: ",
+"Customer rates: Event Portables exclusions (attribution)"
+],
+[
+"authorised by the project manager on 9 October 2026 for install/demob",
+"authorised on 9 October 2026 for install/demob",
+"Customer rates: pee panel labour (attribution)"
+],
+[
+"Radios $578 (14 Sep) removed on Andrew's word, 20 Oct 2026.",
+" Radios $578 (14 Sep) removed as set on 20 Oct 2026.",
+"Workforce: other expenses (Andrew's word)"
+],
+[
+"what we know (the project manager, 23 Oct 2026). Job-end Rehire",
+"what we know (as set on 23 Oct 2026). Job-end Rehire",
+"Workings costs to job end: Event Portables missing words (attribution)"
+],
+[
+"Contribution uses priced costs; unpriced costs remain",
+"The difference uses priced costs; unpriced costs remain",
+"Workings branch detail: contribution named the difference"
+],
+[
+"which sits on the Forecast P&L’s By branch table",
+"which sits on the forecast model’s By branch table",
+"Workings by branch: forecast model named"
+],
+[
+"nothing more (the project manager, 23 Oct 2026). A receipted order",
+"nothing more (as set on 23 Oct 2026). A receipted order",
+"Fencing purchase orders: not matched (attribution)"
+],
+[
+"the receipted amount is the cost (the project manager, 23 Oct 2026).",
+"the receipted amount is the cost (as set on 23 Oct 2026).",
+"Fencing purchase orders: receipted amount (attribution)"
+],
+[
+"· what we pay Advanced — on the P&amp;L under Installation — external contractors (2142), not wages",
+"· what we pay Advanced — in the live model under Installation — external contractors (2142), not wages",
+"Workings labour: race crew row"
+],
+[
+"ex GST, counted once on the P&L (${k.rehire_approved",
+"ex GST, counted once in the forecast model (${k.rehire_approved",
+"Workings costs to job end: Event Portables basis"
+],
+[
+"included once in these totals and in the P&amp;L forecast.",
+"included once in these totals and in the forecast model.",
+"Workforce costs: salary allowance words"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36596 ",
+"(as set on 22 Oct 2026). Docket 36596 ",
+"Fencing docket 36596: CCB decision basis (attribution)"
+],
+[
+"s.\"},\"source_ids\":[\"36603.jpg\",\"GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx\"],\"decision\":{\"state\":\"confirmed\",\"type\":\"ccb_demarc\",\"basis\":\"Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36603 ",
+"s.\"},\"source_ids\":[\"36603.jpg\",\"GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx\"],\"decision\":{\"state\":\"confirmed\",\"type\":\"ccb_demarc\",\"basis\":\"Our dockets and what has been invoiced are the truth (as set on 22 Oct 2026). Docket 36603 ",
+"Fencing docket 36603: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36613 ",
+"(as set on 22 Oct 2026). Docket 36613 ",
+"Fencing docket 36613: CCB decision basis (attribution)"
+],
+[
+"e.\"},\"source_ids\":[\"36603.jpg\",\"GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx\"],\"decision\":{\"state\":\"confirmed\",\"type\":\"ccb_demarc\",\"basis\":\"Our dockets and what has been invoiced are the truth (the project manager's rule, 22 Oct 2026). Docket 36603 ",
+"e.\"},\"source_ids\":[\"36603.jpg\",\"GC500_2026_Coates_Fencing_Programme_Reviewed_09Oct2026.xlsx\"],\"decision\":{\"state\":\"confirmed\",\"type\":\"ccb_demarc\",\"basis\":\"Our dockets and what has been invoiced are the truth (as set on 22 Oct 2026). Docket 36603 ",
+"Fencing docket 36603: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36623 ",
+"(as set on 22 Oct 2026). Docket 36623 ",
+"Fencing docket 36623: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36627 ",
+"(as set on 22 Oct 2026). Docket 36627 ",
+"Fencing docket 36627: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36629 ",
+"(as set on 22 Oct 2026). Docket 36629 ",
+"Fencing docket 36629: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36634 ",
+"(as set on 22 Oct 2026). Docket 36634 ",
+"Fencing docket 36634: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36635 ",
+"(as set on 22 Oct 2026). Docket 36635 ",
+"Fencing docket 36635: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36636 ",
+"(as set on 22 Oct 2026). Docket 36636 ",
+"Fencing docket 36636: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36637 ",
+"(as set on 22 Oct 2026). Docket 36637 ",
+"Fencing docket 36637: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36643 ",
+"(as set on 22 Oct 2026). Docket 36643 ",
+"Fencing docket 36643: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36645 ",
+"(as set on 22 Oct 2026). Docket 36645 ",
+"Fencing docket 36645: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36647 ",
+"(as set on 22 Oct 2026). Docket 36647 ",
+"Fencing docket 36647: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36751 ",
+"(as set on 22 Oct 2026). Docket 36751 ",
+"Fencing docket 36751: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36755 ",
+"(as set on 22 Oct 2026). Docket 36755 ",
+"Fencing docket 36755: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36760 ",
+"(as set on 22 Oct 2026). Docket 36760 ",
+"Fencing docket 36760: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026). Docket 36764 ",
+"(as set on 22 Oct 2026). Docket 36764 ",
+"Fencing docket 36764: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026); the build is complete at the numbers we hold (his ruling of 24 Oct 2026: \\\"we work off number we have for completion of build\\\"). Docket 36766 ",
+"(as set on 22 Oct 2026); the build is complete at the numbers we hold (as set on 24 Oct 2026). Docket 36766 ",
+"Fencing docket 36766: CCB decision basis (attribution)"
+],
+[
+"(the project manager's rule, 22 Oct 2026); the build is complete at the numbers we hold (his ruling of 24 Oct 2026: \\\"we work off number we have for completion of build\\\"). Docket 36768 ",
+"(as set on 22 Oct 2026); the build is complete at the numbers we hold (as set on 24 Oct 2026). Docket 36768 ",
+"Fencing docket 36768: CCB decision basis (attribution)"
+],
+[
+"on the project manager’s word of 22 Sep 2026",
+"as set on 22 Sep 2026",
+"Fencing docket note: brace count (attribution) @4022962"
+],
+[
+"},\"authority\":\"One figure: what Coates CHARGES, at the 2026 street rate card — fencing is the one thing on this event priced from that card rather than the circuit card, on the project manager's answer of 19 Sep 2026",
+"},\"authority\":\"One figure: what Coates CHARGES, at the 2026 street rate card — fencing is the one thing on this event priced from that card rather than the circuit card, as set on 19 Sep 2026",
+"Fencing: the card fencing is priced from (attribution) @3983015"
+],
+[
+"\",\"authority\":\"One figure: what Coates CHARGES, at the 2026 street rate card — fencing is the one thing on this event priced from that card rather than the circuit card, on the project manager's answer of 19 Sep 2026",
+"\",\"authority\":\"One figure: what Coates CHARGES, at the 2026 street rate card — fencing is the one thing on this event priced from that card rather than the circuit card, as set on 19 Sep 2026",
+"Fencing: the card fencing is priced from (attribution) @4510318"
+],
+[
+"<p class=\"fin745-eyebrow\">TRANSPORT · AS AT ${esc(fmtDate(todayIso()).toUpperCase())} · AUD EX GST</p>",
+"<p class=\"fin745-eyebrow\">TRANSPORT · WORKING FIGURES FROM THE LIVE RECORD · AS AT ${esc(fmtDate(todayIso()).toUpperCase())} · AUD EX GST</p>",
+"Transport: the eyebrow says working figures"
+],
+[
+"\n <div class=\"fin745-metrics tr888-metrics\">",
+"\n <p class=\"fin745-note tr1279-working\"><b>Working figures from the live record, not the P&amp;L at 31 Oct 2026.</b> This view works from the transport schedule on the live record and the card’s transport costs, so its totals differ from the P&amp;L. The position for Finance is the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026): its Transport line, which includes the transport estimate of 1 Nov 2026, “Transport estimate: trucks that ran with no figure, and pick-ups still to come” and “Transport checked against Schedule 17”. Do not post from this view.</p>\n <div class=\"fin745-metrics tr888-metrics\">",
+"Transport: the working-figures banner at the top"
+],
+[
+"· the Costs to job end figure`)}",
+"· the live model’s Costs to job end figure`)}",
+"Transport: still-to-come tile names the live model"
+],
+[
+"</span>`}</p>\n <details class=\"plfold765 tr888-fold tr888-how\"",
+"</span>`} These tie-outs check the working figures against each other, not against the P&amp;L at 31 Oct 2026.</p>\n <details class=\"plfold765 tr888-fold tr888-how\"",
+"Transport: the tie-outs are between the working figures"
+],
+[
+"This is a cut of the transport forecast, not an additional charge; Finance reads the same figure.</li>",
+"This is a cut of the live model’s transport forecast, not an additional charge, and a working figure: the P&amp;L at 31 Oct 2026 carries the pick-ups still to come in its transport estimate of 1 Nov 2026.</li>",
+"Transport demob: not the figure Finance reads"
+],
+[
+"<li><b>Still unpriced:</b>",
+"<li><b>Still unpriced (the live record does not carry the transport estimate of 1 Nov 2026):</b>",
+"Transport demob: the unpriced line dated"
+],
+[
+"not bookings or invoices</small></summary>",
+"not bookings or invoices · working figures</small></summary>",
+"Transport: planned movements fold says working figures"
+],
+[
+"paneHeadingHtml('pricing') + vmsRequirement747Html() + `",
+"paneHeadingHtml('pricing') + '<p class=\"fin745-note sv1279-working\"><b>Working figures from the live record</b>: the 2026 rate card against the schedule. Revenue in the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026) is by invoice; do not post from here.</p>' + vmsRequirement747Html() + `",
+"Customer rates & charges: working-figures line at the top"
+],
+[
+"<p class=\"fin745-eyebrow\">AUD EX GST</p>",
+"<p class=\"fin745-eyebrow\">AUD EX GST · WORKING FIGURES</p><p class=\"fin745-note sv1279-working\"><b>Working figures from the live record</b>: the dockets, the card and the supplier’s rates, not the P&amp;L at 31 Oct 2026. The position for Finance is the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026); do not post from here.</p>",
+"Fencing: the recorded and forecast card says working figures"
+],
+[
+"the card above splits it by P&amp;L line.",
+"the card above splits it by ledger code (working figures).",
+"Fencing: money rules name the card as working figures"
+],
+[
+"Review actual hours, remaining labour forecast, billing months and Finance journal requests on Costs.",
+"Actual hours, the remaining labour forecast and billing months, as working figures from the live record. The journals prepared for Finance are in the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026); the roster totals below are not for posting.",
+"Workforce costs: the month-end link line points to the P&L for journals"
+],
+[
+"· AUD EX GST</p><h2 id=\"generator1004-title\">Generators</h2></div></div>'+",
+"· AUD EX GST · WORKING FIGURES</p><h2 id=\"generator1004-title\">Generators</h2></div></div>'+\n  '<p class=\"fin745-note sv1279-working\"><b>Working figures from the live record</b>: generator hire at the 2026 rate card, by reference. Revenue in the P&amp;L at the top of the Costs &amp; P&amp;L tab (31 Oct 2026) is by invoice; do not post from here.</p>'+",
+"Generators: working-figures eyebrow and line"
+],
+[
+"data-a761=\"copy\">Copy for Finance</button>",
+"data-a761=\"copy\">Copy (working figures)</button>",
+"accruals: the Copy button (working figures)"
+]
+]

@@ -1,0 +1,13 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (15:5x AEST): \"Left at 330pm\" with a list: 0423 0769 0793 0552 0010 0490 0078 0537 0644. Read 15:56 AEST, all Event Portables FWF in servicing area 12 (Helen Park), every one Ready, none already left, no booking: 0423 is WC70's only unit, so WC70 leaves in full; 0769 and 0793 are on WC67 (0714 and Coates FWF 172824 stay on site); 0552, 0490 and 0644 are on WC71; 0010 and 0078 are on WC69 (ten stay). 0537 is not on the record (all 236 FWF carry numbers); asked which unit it was, Andrew chose \"0531 at WC71\", so WC71 sends 0552, 0490, 0644 and 0531 (0116, 0279, 0280 and 0293 stay). WC67 had no Emptied tick: it is on the Helen Park servicing list (4 x FWF), and Andrew's word on the final-night pump-out (\"Yes pumpee out you know this / You gave me document qll.was done\": the Servicing night report for 25 into 26 October, pump out 250 of 250 units, all 74 locations) covers it, so WC67 is ticked Emptied, its one tick for the reference. Recorded after 15:30.",
+  "ops": [
+    {"op": "emptied", "ref": "WC67", "on": true},
+    {"op": "depart", "ref": "WC70", "at": "2026-10-27T15:30:00+10:00", "nos": ["0423"], "complete": true},
+    {"op": "depart", "ref": "WC67", "at": "2026-10-27T15:30:00+10:00", "nos": ["0769", "0793"], "complete": false},
+    {"op": "depart", "ref": "WC71", "at": "2026-10-27T15:30:00+10:00", "nos": ["0552", "0490", "0644", "0531"], "complete": false},
+    {"op": "depart", "ref": "WC69", "at": "2026-10-27T15:30:00+10:00", "nos": ["0010", "0078"], "complete": false}
+  ],
+  "allowRemove": ["costs/W-L-kyle-gover-20261027", "costs/W-L-kyle-gover-20261028"],
+  "allowRemoveWhy": "Kyle Gover's labour lines for 27 and 28 Oct were deleted on the page under Andrew's name at 15:52 and 15:53 AEST (tombstones on the service); every edit page queues the matching removal and sends it with its next save. Asked, Andrew: \"Yes, send it too\". The page's P&L already leaves those days out"
+}

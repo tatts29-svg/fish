@@ -1,0 +1,56 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 4872,
+  "afterVersion": 4877,
+  "changes": [
+    {
+      "collection": "delivery",
+      "key": "WC38"
+    },
+    {
+      "collection": "delivery",
+      "key": "WC34"
+    },
+    {
+      "collection": "delivery",
+      "key": "WC40"
+    },
+    {
+      "collection": "delivery",
+      "key": "WC39"
+    },
+    {
+      "collection": "delivery",
+      "key": "WC61"
+    }
+  ],
+  "check": {
+    "dates": [
+      {
+        "ref": "WC34",
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC38",
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC39",
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC40",
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC61",
+        "date": "2026-10-13"
+      }
+    ],
+    "today": [
+      "WC09"
+    ]
+  },
+  "errors": []
+}

@@ -1,0 +1,486 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "bd3158b0df08315735d29c940e12f831ac7a9479959488210a0387b3cfd61cfb",
+  "candidateSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "patchSha256": "92d0f0e3059a8c7dd68cdacf093480d6cae8c0e62a5322db68677cbcb091f022",
+  "passed": 29,
+  "total": 29,
+  "checks": [
+    {
+      "name": "patch applies to the original trimmed page",
+      "pass": true
+    },
+    {
+      "name": "second application refuses and preserves bytes",
+      "pass": true
+    },
+    {
+      "name": "wrong base refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "missing replacement anchor refuses without mutation",
+      "pass": true
+    },
+    {
+      "name": "only placement function changes",
+      "pass": true
+    },
+    {
+      "name": "two-card Today pair uses 1 + 1 columns at C2",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "programme day keeps existing placement at C2",
+      "pass": true,
+      "detail": [
+        {
+          "name": "due",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "151",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "1 / span 2",
+          "row": "261",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "extra visible alert keeps existing placement at C2",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "1 / span 1",
+          "row": "111",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "alert",
+          "column": "2 / span 1",
+          "row": "111",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "other section keeps existing placement at C2",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "1 / span 2",
+          "row": "111",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "single card keeps existing placement at C2",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "hidden cards do not suppress the visible pair at C2",
+      "pass": true
+    },
+    {
+      "name": "two-card Today pair uses 1 + 2 columns at C3",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "programme day keeps existing placement at C3",
+      "pass": true,
+      "detail": [
+        {
+          "name": "due",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "151",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "3 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "extra visible alert keeps existing placement at C3",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "3 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "alert",
+          "column": "1 / span 2",
+          "row": "111",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "other section keeps existing placement at C3",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "3 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "single card keeps existing placement at C3",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 3",
+          "row": "1",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "hidden cards do not suppress the visible pair at C3",
+      "pass": true
+    },
+    {
+      "name": "two-card Today pair uses 1 + 3 columns at C4",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 3",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "programme day keeps existing placement at C4",
+      "pass": true,
+      "detail": [
+        {
+          "name": "due",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "updates",
+          "column": "2 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "4 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "extra visible alert keeps existing placement at C4",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "3 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "alert",
+          "column": "4 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "other section keeps existing placement at C4",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "3 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "single card keeps existing placement at C4",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 3",
+          "row": "1",
+          "placed": "1",
+          "wide": "1"
+        }
+      ]
+    },
+    {
+      "name": "hidden cards do not suppress the visible pair at C4",
+      "pass": true
+    },
+    {
+      "name": "same nodes resize to C4 without stale spans",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 3",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "same nodes resize to C3 without stale spans",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 2",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "same nodes resize to C2 without stale spans",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "same nodes resize to C4 without stale spans",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": "1 / span 1",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": "2 / span 3",
+          "row": "1",
+          "placed": "1",
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "phone removes placement and writes no grid coordinates",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": null,
+          "row": null,
+          "placed": null,
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": null,
+          "row": null,
+          "placed": null,
+          "wide": null
+        }
+      ]
+    },
+    {
+      "name": "paper removes placement and writes no grid coordinates",
+      "pass": true,
+      "detail": [
+        {
+          "name": "updates",
+          "column": null,
+          "row": null,
+          "placed": null,
+          "wide": null
+        },
+        {
+          "name": "team",
+          "column": null,
+          "row": null,
+          "placed": null,
+          "wide": null
+        }
+      ]
+    }
+  ],
+  "verifiedFinalCandidateSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "verifiedFinalCandidateBytes": 9074112,
+  "binding": "Patch replay output matches the final three-patch build byte for byte; tested placement function is exactly the final candidate."
+}

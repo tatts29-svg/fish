@@ -1,0 +1,50 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "8112a63d10c5b6c88206a539af5a59dc1037176e414a95f20d253b16f844e257",
+  "candidate_bytes": 15387611,
+  "base_sha256": "d286f3a53f56574a016cb8505d8164b7631b70ec9cc038f9ebe8cb3591afa7e4",
+  "implementation_commit": "fbf78011bd518785bc0b3b93ada82f87aaa61d63",
+  "checker": {
+    "scripts": 200,
+    "pass": true
+  },
+  "synthetic_model_checks": 24,
+  "preservation_checks": 13,
+  "native_phone_checks": 13,
+  "native_desktop_tablet_checks": 15,
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "direct_panes_shown": 19,
+      "deep_links": 7,
+      "back": "PASS",
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "direct_panes_shown": 19,
+      "deep_links": 7,
+      "back": "PASS",
+      "page_errors": 0,
+      "console_errors": 0,
+      "record_write_attempts": 0
+    }
+  },
+  "visual_review": {
+    "viewports": [
+      390,
+      768,
+      1440
+    ],
+    "reviewers": [
+      "Codex",
+      "Codex review agent"
+    ],
+    "passed": true,
+    "private_screenshots": true
+  },
+  "live_writes_in_tests": 0,
+  "status": "READY TO UPLOAD"
+}

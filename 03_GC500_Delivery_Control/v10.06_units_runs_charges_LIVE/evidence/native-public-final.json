@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "version": 5796,
+  "checks": {
+    "allReceiptsEventPortables": true,
+    "duplicatesRemoved": true,
+    "wrong0689Removed": true,
+    "kyleOnceEveryConfirmedDay": true,
+    "threeNightsRecognised": true,
+    "noStaleEventReturn": true,
+    "kyleMissingHoursVisible": true,
+    "financeNotFalselyComplete": true,
+    "allMissingHoursFlagged": true
+  },
+  "supplier": {
+    "confirmed": 194,
+    "received": 112,
+    "onSite": 112,
+    "pending": 76,
+    "unallocated": 6,
+    "over": 0
+  },
+  "errors": [],
+  "writes": 0
+}

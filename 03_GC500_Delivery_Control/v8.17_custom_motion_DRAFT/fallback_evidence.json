@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    "A failed player retains matching final fallback and small icon",
+    "Other two players remain usable",
+    "Replay does not erase failure status",
+    "Visibility-change handler settles playback when document is hidden"
+  ],
+  "limits": "Visibility event is simulated; not a physical-device backgrounding measurement."
+}

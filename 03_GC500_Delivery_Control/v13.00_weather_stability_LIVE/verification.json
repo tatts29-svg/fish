@@ -1,0 +1,86 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "baseSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
+  "candidateSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+  "candidateBytes": 17065377,
+  "inlineScripts": 224,
+  "focusedNodeTests": 16,
+  "scopeGuardPassed": true,
+  "nativeChecks": {
+    "weatherContinuity": {
+      "passed": true,
+      "nodeIdentityAndPhase": true,
+      "realDayClickAndRender": true,
+      "changedNativeFactsAndForecast": true,
+      "pauseReducedMotionOffscreen": true
+    },
+    "phoneResize": {
+      "passed": true,
+      "demobAndBuild": true,
+      "heightOnlyScrollPreserved": true,
+      "realWidthRecentres": true
+    },
+    "observedAndForecastWeather": {
+      "passed": true,
+      "historyPartialAndCurrent": true,
+      "directEntry": true
+    },
+    "staffAndObservers": {
+      "passed": true,
+      "unchangedNodeAcrossRefreshAndPolling": true,
+      "changedFactsUpdate": true,
+      "openDraftPreserved": true,
+      "controlsTriggerNoEquipmentDecoration": true,
+      "equipmentAndMixedMutationsStillDecorate": true
+    },
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "attemptedRecordWrites": 0,
+    "screenshotsInspected": true
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": {
+    "uploadedAt": "2026-11-04T18:16:59.724Z",
+    "exactPublicReadback": true,
+    "independentReadbackAt": "2026-11-04T18:17:34Z",
+    "independentExactReadback": true,
+    "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+    "recordUnchangedAcrossPublication": true,
+    "freshPublicChecks": {
+      "weatherContinuity": true,
+      "buildAndDemobPhoneResize": true,
+      "staffAndEquipmentObservers": true,
+      "noCandidateOverrides": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedRecordWrites": 0,
+      "phoneScreenshotInspected": true
+    }
+  },
+  "implementationSource": "bf367a3e43ac641e508dab4ebfcfa7836eb151c9",
+  "wrongBaseAndRepeatRefused": true,
+  "reproducesExactCandidate": true,
+  "readySource": "b9c15ce871ef81ed7a237829e5f0713b6b33066a"
+}

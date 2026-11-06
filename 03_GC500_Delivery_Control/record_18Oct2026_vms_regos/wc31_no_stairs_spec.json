@@ -1,0 +1,27 @@
+{
+ "by": "Andrew Fisher",
+ "why": "Andrew, 20 Oct 2026: \"wc31 nothing there has stairs\" - the two steps ticks at WC31 come off (block 12, and Coates 1317645 whose ticks were filed under 16Pan Block before it was retyped as the Accessible Toilet today).",
+ "ops": [
+  {
+   "op": "labour_off",
+   "ref": "WC31",
+   "unit": "12",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "steps"
+  },
+  {
+   "op": "labour_off",
+   "ref": "WC31",
+   "unit": "1317645",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "steps"
+  }
+ ],
+ "allowRemove": [
+  "labour/WC31~2f~u12~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps",
+  "labour/WC31~2f~u1317645~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~steps"
+ ],
+ "allowRemoveWhy": "the page's own untick removes the labour document; Andrew: nothing at WC31 has stairs"
+}

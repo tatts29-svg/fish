@@ -1,0 +1,30 @@
+{
+ "25a": {
+  "credits": 322,
+  "duration": 23.28,
+  "generation": "fYKY6VpSLpWnoZSDD6zu",
+  "prompt_head": "[driving, over the engine] And NOW \u2014 the crew that wraps the",
+  "session": "GmBQhOGIhgO3wnAahvz8"
+ },
+ "25b": {
+  "credits": 322,
+  "duration": 24.56,
+  "generation": "nod7vmJRewxqG1rSnLxv",
+  "prompt_head": "[driving, over the engine] And NOW \u2014 the crew that wraps the",
+  "session": "RZWdv8YbhPeKr5vNlR29"
+ },
+ "47a": {
+  "credits": 386,
+  "duration": 33.68,
+  "generation": "3TOR3qxXD3OnlHeCgxOn",
+  "prompt_head": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle",
+  "session": "fqbfLDe9nNCfDuQ7FJyY"
+ },
+ "47b": {
+  "credits": 386,
+  "duration": 35.2,
+  "generation": "9Eb7edkTt9xif0aBtmuw",
+  "prompt_head": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle",
+  "session": "uEagZ2nX0tT1PKGWnAWh"
+ }
+}

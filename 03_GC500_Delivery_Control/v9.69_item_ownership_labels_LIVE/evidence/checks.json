@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Read-only item ownership labels",
+  "source_sha256": {
+    "ownership969.js": "0ee79558591da9db23b011de945a9bb20623af03b93bfab6d6885bb32afd91e2",
+    "patch_v969.py": "f2476366491125f8cb0b248acce781c1270ef724ec30f053995a2812c8c240f9"
+  },
+  "native_fixture_version": 5167,
+  "focused_assertions": 33,
+  "patch_checks": 15,
+  "inline_scripts": 50,
+  "native_network_writes": 0,
+  "unchanged": [
+    "Native S",
+    "Physical identities",
+    "Canonical item models",
+    "Toilet counts",
+    "Event Portables totals",
+    "moneySummary",
+    "ourCosts"
+  ],
+  "verified_refs": [
+    "WC09",
+    "WC31",
+    "T0103",
+    "WC33",
+    "WC61",
+    "WC69"
+  ],
+  "phone_screenshots_inspected": [
+    "WC09",
+    "T0103"
+  ],
+  "integration_candidate_sha256": "7ad8abcbbeee31684b036fe89103fad048cbc390383aaee030e807e5fe4f62df",
+  "final_standard_build": "Release owner performs final combined build and checks.",
+  "independent_source_review": {
+    "reviewer": "Separate implementation agent",
+    "result": "PASS",
+    "focused_assertions_rerun": 33,
+    "source_sha256": {
+      "ownership969.js": "0ee79558591da9db23b011de945a9bb20623af03b93bfab6d6885bb32afd91e2",
+      "patch_v969.py": "f2476366491125f8cb0b248acce781c1270ef724ec30f053995a2812c8c240f9"
+    }
+  }
+}

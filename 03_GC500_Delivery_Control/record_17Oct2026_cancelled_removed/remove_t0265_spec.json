@@ -1,0 +1,14 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026: \"t0265 we spoke about this and where. fridges are\" (after \"If they are cancelled remove records of them please\"). Andrew, 15 Oct 2026: \"to265 was cancelled  fridges 1311992 and 1283996 can we add these to P46\" - both are on P46 as fridge accessories (record_15Oct2026_p46_fridges). T0265's other two numbers, 1318501 and 1260164, are on no Baseplan (5) line, no docket, no building and no other paperwork; they were only on T0265's own unit records (14 Oct). Tested in page memory: every charge unchanged (labour, contracts, delivery, buildings); P46 keeps 1311992 and 1283996.",
+ "refs": [
+  "T0265"
+ ],
+ "ops": [
+  {
+   "op": "asset_delete",
+   "ref": "T0265",
+   "why": "Cancelled - Andrew 15 Oct 2026 (\"to265 was cancelled\"); its fridges 1311992 and 1283996 are on P46; removed on his word 17 Oct"
+  }
+ ]
+}

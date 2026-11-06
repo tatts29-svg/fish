@@ -1,0 +1,40 @@
+{
+ "day": "2026-10-16",
+ "by": "Andrew Fisher",
+ "owner": "event-portables",
+ "item": "FWF",
+ "partial": false,
+ "rows": [
+  {
+   "ref": "WC62",
+   "numbers": [
+    "0103",
+    "0976"
+   ]
+  },
+  {
+   "ref": "WC35",
+   "numbers": [
+    "0284"
+   ]
+  },
+  {
+   "ref": "WC30",
+   "numbers": [
+    "0428",
+    "0440",
+    "0024",
+    "0419",
+    "0993",
+    "0584",
+    "0089",
+    "0553",
+    "0081",
+    "0140"
+   ],
+   "topup": true,
+   "over": true,
+   "note": "Fourteen FWF units on site and installed against the schedule's eight: the four of 15 Oct, then 0428, 0440, 0024, 0419, 0993, 0584, 0089, 0553, 0081 and 0140 on 16 Oct, as Andrew recorded them. The schedule quantity is to be checked."
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{
+ "device": "desktop",
+ "live": false,
+ "pass": true,
+ "fails": [],
+ "A": {
+  "n": 24,
+  "total": 24,
+  "on": 20,
+  "toCome": [
+   "VMS05",
+   "VMS21",
+   "VMS22",
+   "VMS24"
+  ],
+  "equipment": "VMS 20 Premiair Hire 6 0 20 14 0 4 24",
+  "lines": 24,
+  "v5": {
+   "asset": "1211356",
+   "co": "Coates",
+   "noLine": true,
+   "fleet": "1211356",
+   "rego": null,
+   "on": null
+  }
+ },
+ "steps": [
+  "qty true",
+  "unit {\"ok\":true,\"kept\":true,\"id\":\"[\\\"T0001\\\",\\\"coates\\\",\\\"native\\",
+  "board true ",
+  "pin true"
+ ],
+ "B": {
+  "on": 21,
+  "done": 21,
+  "toCome": [
+   "VMS21",
+   "VMS22",
+   "VMS24"
+  ],
+  "v5": {
+   "asset": "1211356",
+   "co": "Coates",
+   "noLine": true,
+   "fleet": "1211356",
+   "rego": "ER9244",
+   "on": "T0001"
+  }
+ }
+}

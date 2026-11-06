@@ -1,0 +1,147 @@
+{
+ "at": "2026-10-22T16:55:12.240Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the tab is in the list as Fence closures, #fenceclose shows it",
+   "ok": true,
+   "detail": {
+    "inTabs": true,
+    "shown": true,
+    "hash": "#fenceclose"
+   }
+  },
+  {
+   "name": "ten closure points as marked: numbers 1 to 7, 3 black, 3 orange, 2 teal, 2 pink, each with its place as read",
+   "ok": true,
+   "detail": {
+    "colours": {
+     "black": 3,
+     "orange": 3,
+     "teal": 2,
+     "pink": 2
+    },
+    "pts": [
+     {
+      "id": "1-black",
+      "n": 1,
+      "colour": "black",
+      "where": "east end — Surfers Paradise Blvd at the Gold Coast Hwy junction, by Gate 4"
+     },
+     {
+      "id": "1-orange",
+      "n": 1,
+      "colour": "orange",
+      "where": "Main Beach Pde at Madison Point / Narrowneck Court"
+     },
+     {
+      "id": "2-black",
+      "n": 2,
+      "colour": "black",
+      "where": "Main Beach Pde, mid-circuit near Pacific Point"
+     },
+     {
+      "id": "2-teal",
+      "n": 2,
+      "colour": "teal",
+      "where": "Main Beach Pde at Mustang / Beachcrest"
+     }
+    ]
+   }
+  },
+  {
+   "name": "Saturday: ten points with their colour dots, the windows written on the plan (7-7.25am, 5.53pm-7pm), the 07:00 fence closure, vehicles off 07:45, the 17:20 opening lap, \"not the order\", three days, a print button",
+   "ok": true,
+   "detail": {
+    "points": 10,
+    "dots": 10,
+    "am": true,
+    "pm": true,
+    "fence": true,
+    "opening": true,
+    "notOrder": true,
+    "days": [
+     "2026-10-23",
+     "2026-10-24",
+     "2026-10-25"
+    ],
+    "ticks": 22,
+    "ticked": 0,
+    "printBtn": true,
+    "overflow": 0,
+    "heading": "Saturday · Sat 24 Oct 2026 closed 7-7.25am · open 5.53pm-7pm"
+   }
+  },
+  {
+   "name": "nothing is pre-ticked: 22 ticks (10 closed, 10 opened, sign-off, audit), none checked; no horizontal overflow",
+   "ok": true,
+   "detail": {
+    "ticks": 22,
+    "ticked": 0,
+    "overflow": 0
+   }
+  },
+  {
+   "name": "Friday carries its own windows (7-8am, 6-7pm) and times (closing lap 08:15, opening lap 17:00)",
+   "ok": true,
+   "detail": {
+    "am": true,
+    "pm": true,
+    "lap": true
+   }
+  },
+  {
+   "name": "a tick on the view link is refused and springs back; nothing is written",
+   "ok": true,
+   "detail": {
+    "checkedAfter": false,
+    "anyChecked": 0,
+    "recs": 0
+   }
+  },
+  {
+   "name": "the Fencing tab’s closure card no longer calls the circled numbers an order",
+   "ok": true,
+   "detail": {
+    "order": false,
+    "notOrder": true,
+    "marked": true,
+    "has": true
+   }
+  },
+  {
+   "name": "the closures sheet prints on #print/fenceclose/<date>: one A4 page with the ten points, the windows and the fence closure",
+   "ok": true,
+   "detail": {
+    "rows": 10,
+    "title": "Saturday · Sat 24 Oct 2026",
+    "zoom": "0.8",
+    "windows": true,
+    "fence": true,
+    "notOrder": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 59,
+    "blocked": 0
+   }
+  }
+ ]
+}

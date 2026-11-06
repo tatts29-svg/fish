@@ -1,0 +1,20 @@
+Author: Andrew Fisher
+v8.56 immersive selected weather
+Base v8.55: 69dbf48d271dc73a17d9f3eb437eb3a425e68f075f954a8e769f92f69087c584
+Candidate: 51e3a3876ab8fa20908b81dbc77face665e350871d2bf758e3bd8bf4731ab624
+Bytes: 10967155
+Implementation: 5ca6edeb
+Codex independently implemented and reviewed; Claude intentionally paused.
+Selected weather fills the card with a full-depth native sky scene, stronger cloud/sun movement, layered rain, protected text and solid delivery panels. Inherited quiet-day face opacity corrected only for selected weather cards.
+Standard build PASS. All inline scripts preserved except footer version.
+Final candidate laptop/phone checks PASS: actual cloud transform movement, new rain background-position movement, full face opacity, selected-only motion, paused neighbours, reduced-motion, tab departure and unchanged shared collections.
+Private phone and laptop screenshots inspected.
+Both final native sweeps pass: 22 routes, seven deep links and Back, zero runtime/console errors and no caught navigation failures. VERIFIED LIVE, 5 Oct 2026 at 14:35 AEST.
+No weather model/source values, financial figures, operational records, load controls, media or server changes.
+
+Weather matrix: 20/20 scene/unavailable-forecast cases across laptop and phone PASS, including actual transforms, sun corona, strong wind and visible storm flash. Temporary browser fixtures restored; shared records unchanged. Weather art generator changed only for sun corona and storm bolt; weather classification and source models preserved.
+
+READY checkpoint: b3023c75
+Guarded upload: exact public bytes verified.
+Actual-public focused laptop/phone checks and 20/20 weather/unavailable-forecast matrix cases PASS; no local PAGE override, runtime errors or operational writes.
+All33shared collections unchanged, version3742. Health OK, server v5.87.

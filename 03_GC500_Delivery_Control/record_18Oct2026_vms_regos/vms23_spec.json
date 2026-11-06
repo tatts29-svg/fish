@@ -1,0 +1,11 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: \"Vms23 asset no 453t rego TF54CQ\". Contract 9961265 line 30 is \"VMS23 Variable Message Board Senior Premiair\" (SUB-2631, booked 19 Oct); the nine 19 Oct boards on the contract (VMS13-20 and VMS23) are T0158's nine. Not said to be complete, so nothing is ticked; the quantity baseline is refreshed first so the eight already installed stay installed.",
+ "ops": [
+  {"op": "scope_refresh", "ref": "T0158"},
+  {"op": "unit_reidentify", "ref": "T0158", "no": "453T", "item": "VMS", "owner": "prem-air-hire", "label": "VMS23", "note": "Arrival recorded by Andrew Fisher, 19 Oct 2026. Rego TF54CQ. Premiair Hire sub-hire, contract 9961265 line 30."},
+  {"op": "supplied", "ref": "T0158", "item": "VMS", "qty": 9},
+  {"op": "vms_board", "key": "VMS23", "fleet": "453T", "rego": "TF54CQ", "on": "T0158"},
+  {"op": "note_append", "ref": "T0158", "text": "VMS23 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 453T, rego TF54CQ (contract 9961265 line 30)."}
+ ]
+}

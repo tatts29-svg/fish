@@ -1,0 +1,720 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "0d165f5f8829f0b4bdc4403d945ebfb09ef668cfbc7a09e0c139e40ba23634ac",
+  "passed": 30,
+  "total": 30,
+  "tests": [
+    {
+      "name": "laptop: equal pod widths",
+      "pass": true
+    },
+    {
+      "name": "laptop: pods occupy half the header content row",
+      "pass": true
+    },
+    {
+      "name": "laptop: pane fills main width",
+      "pass": true
+    },
+    {
+      "name": "laptop: no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "laptop: native scroll hysteresis 90/91/50/12/11/80/600/0",
+      "pass": true
+    },
+    {
+      "name": "laptop: reduced header restores at top",
+      "pass": true
+    },
+    {
+      "name": "wide: equal pod widths",
+      "pass": true
+    },
+    {
+      "name": "wide: pods occupy half the header content row",
+      "pass": true
+    },
+    {
+      "name": "wide: pane fills main width",
+      "pass": true
+    },
+    {
+      "name": "wide: no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "wide: native scroll hysteresis 90/91/50/12/11/80/600/0",
+      "pass": true
+    },
+    {
+      "name": "wide: reduced header restores at top",
+      "pass": true
+    },
+    {
+      "name": "small: equal pod widths",
+      "pass": true
+    },
+    {
+      "name": "small: pane fills main width",
+      "pass": true
+    },
+    {
+      "name": "small: no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "small: native scroll hysteresis 90/91/50/12/11/80/600/0",
+      "pass": true
+    },
+    {
+      "name": "small: reduced header restores at top",
+      "pass": true
+    },
+    {
+      "name": "boundary: equal pod widths",
+      "pass": true
+    },
+    {
+      "name": "boundary: pane fills main width",
+      "pass": true
+    },
+    {
+      "name": "boundary: no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "boundary: native scroll hysteresis 90/91/50/12/11/80/600/0",
+      "pass": true
+    },
+    {
+      "name": "boundary: reduced header restores at top",
+      "pass": true
+    },
+    {
+      "name": "Desktop: zero page errors",
+      "pass": true
+    },
+    {
+      "name": "Desktop: no attempted writes",
+      "pass": true
+    },
+    {
+      "name": "Phone base: zero page errors and writes",
+      "pass": true
+    },
+    {
+      "name": "Phone candidate: zero page errors and writes",
+      "pass": true
+    },
+    {
+      "name": "Phone top: original header geometry retained",
+      "pass": true
+    },
+    {
+      "name": "Phone top: no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Phone scroll: original header geometry retained",
+      "pass": true
+    },
+    {
+      "name": "Phone scroll: no horizontal overflow",
+      "pass": true
+    }
+  ],
+  "measurements": {
+    "laptop": {
+      "top": {
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1333,
+          "h": 234.890625
+        },
+        "row": {
+          "x": 0,
+          "y": 0,
+          "w": 1333,
+          "h": 187.890625
+        },
+        "rowInner": 1301,
+        "cluster": {
+          "x": 600.5,
+          "y": 8,
+          "w": 650.5,
+          "h": 121.890625
+        },
+        "pods": [
+          {
+            "x": 612.5,
+            "y": 26.78125,
+            "w": 202.15625,
+            "h": 88.3125
+          },
+          {
+            "x": 824.65625,
+            "y": 22,
+            "w": 202.171875,
+            "h": 97.890625
+          },
+          {
+            "x": 1036.828125,
+            "y": 22,
+            "w": 202.171875,
+            "h": 97.890625
+          }
+        ],
+        "pane": {
+          "x": 16,
+          "y": 250.890625,
+          "w": 1301,
+          "h": 1740.625
+        },
+        "slim": false,
+        "y": 0,
+        "overflow": false,
+        "windowW": 1333
+      },
+      "thresholds": [
+        {
+          "y": 90,
+          "slim": false,
+          "headerHeight": 234.890625
+        },
+        {
+          "y": 91,
+          "slim": true,
+          "headerHeight": 155
+        },
+        {
+          "y": 50,
+          "slim": true,
+          "headerHeight": 155
+        },
+        {
+          "y": 12,
+          "slim": true,
+          "headerHeight": 155
+        },
+        {
+          "y": 11,
+          "slim": false,
+          "headerHeight": 234.890625
+        },
+        {
+          "y": 80,
+          "slim": false,
+          "headerHeight": 234.890625
+        },
+        {
+          "y": 600,
+          "slim": true,
+          "headerHeight": 155
+        },
+        {
+          "y": 0,
+          "slim": false,
+          "headerHeight": 234.890625
+        }
+      ]
+    },
+    "wide": {
+      "top": {
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 232.890625
+        },
+        "row": {
+          "x": 0,
+          "y": 0,
+          "w": 1920,
+          "h": 185.890625
+        },
+        "rowInner": 1888,
+        "cluster": {
+          "x": 855.859375,
+          "y": 8,
+          "w": 944,
+          "h": 121.890625
+        },
+        "pods": [
+          {
+            "x": 867.859375,
+            "y": 26.78125,
+            "w": 300,
+            "h": 88.3125
+          },
+          {
+            "x": 1177.859375,
+            "y": 22,
+            "w": 300,
+            "h": 97.890625
+          },
+          {
+            "x": 1487.859375,
+            "y": 22,
+            "w": 300,
+            "h": 97.890625
+          }
+        ],
+        "pane": {
+          "x": 16,
+          "y": 248.890625,
+          "w": 1888,
+          "h": 1936.296875
+        },
+        "slim": false,
+        "y": 0,
+        "overflow": false,
+        "windowW": 1920
+      },
+      "thresholds": [
+        {
+          "y": 90,
+          "slim": false,
+          "headerHeight": 232.890625
+        },
+        {
+          "y": 91,
+          "slim": true,
+          "headerHeight": 153
+        },
+        {
+          "y": 50,
+          "slim": true,
+          "headerHeight": 153
+        },
+        {
+          "y": 12,
+          "slim": true,
+          "headerHeight": 153
+        },
+        {
+          "y": 11,
+          "slim": false,
+          "headerHeight": 232.890625
+        },
+        {
+          "y": 80,
+          "slim": false,
+          "headerHeight": 232.890625
+        },
+        {
+          "y": 600,
+          "slim": true,
+          "headerHeight": 153
+        },
+        {
+          "y": 0,
+          "slim": false,
+          "headerHeight": 232.890625
+        }
+      ]
+    },
+    "small": {
+      "top": {
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 1100,
+          "h": 305.890625
+        },
+        "row": {
+          "x": 0,
+          "y": 0,
+          "w": 1100,
+          "h": 258.890625
+        },
+        "rowInner": 1068,
+        "cluster": {
+          "x": 16,
+          "y": 79,
+          "w": 1002,
+          "h": 121.890625
+        },
+        "pods": [
+          {
+            "x": 28,
+            "y": 97.78125,
+            "w": 319.328125,
+            "h": 88.3125
+          },
+          {
+            "x": 357.328125,
+            "y": 93,
+            "w": 319.328125,
+            "h": 97.890625
+          },
+          {
+            "x": 686.65625,
+            "y": 93,
+            "w": 319.34375,
+            "h": 97.890625
+          }
+        ],
+        "pane": {
+          "x": 16,
+          "y": 321.890625,
+          "w": 1068,
+          "h": 1679.46875
+        },
+        "slim": false,
+        "y": 0,
+        "overflow": false,
+        "windowW": 1100
+      },
+      "thresholds": [
+        {
+          "y": 90,
+          "slim": false,
+          "headerHeight": 305.890625
+        },
+        {
+          "y": 91,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 50,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 12,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 11,
+          "slim": false,
+          "headerHeight": 305.890625
+        },
+        {
+          "y": 80,
+          "slim": false,
+          "headerHeight": 305.890625
+        },
+        {
+          "y": 600,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 0,
+          "slim": false,
+          "headerHeight": 305.890625
+        }
+      ]
+    },
+    "boundary": {
+      "top": {
+        "header": {
+          "x": 0,
+          "y": 0,
+          "w": 641,
+          "h": 301.390625
+        },
+        "row": {
+          "x": 0,
+          "y": 0,
+          "w": 641,
+          "h": 254.390625
+        },
+        "rowInner": 609,
+        "cluster": {
+          "x": 16,
+          "y": 65,
+          "w": 543,
+          "h": 131.390625
+        },
+        "pods": [
+          {
+            "x": 28,
+            "y": 94.03125,
+            "w": 166.328125,
+            "h": 77.3125
+          },
+          {
+            "x": 204.328125,
+            "y": 79,
+            "w": 166.328125,
+            "h": 107.390625
+          },
+          {
+            "x": 380.65625,
+            "y": 79,
+            "w": 166.328125,
+            "h": 107.390625
+          }
+        ],
+        "pane": {
+          "x": 16,
+          "y": 317.390625,
+          "w": 609,
+          "h": 1713.390625
+        },
+        "slim": false,
+        "y": 0,
+        "overflow": false,
+        "windowW": 641
+      },
+      "thresholds": [
+        {
+          "y": 90,
+          "slim": false,
+          "headerHeight": 301.390625
+        },
+        {
+          "y": 91,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 50,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 12,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 11,
+          "slim": false,
+          "headerHeight": 301.390625
+        },
+        {
+          "y": 80,
+          "slim": false,
+          "headerHeight": 301.390625
+        },
+        {
+          "y": 600,
+          "slim": true,
+          "headerHeight": 163
+        },
+        {
+          "y": 0,
+          "slim": false,
+          "headerHeight": 301.390625
+        }
+      ]
+    },
+    "phone": {
+      "base": {
+        "top": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 252.59375
+          },
+          "row": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 205.59375
+          },
+          "rowInner": 366,
+          "cluster": {
+            "x": 12,
+            "y": 69.5,
+            "w": 366,
+            "h": 126.09375
+          },
+          "pods": [
+            {
+              "x": 20,
+              "y": 101.9375,
+              "w": 97.328125,
+              "h": 65.21875
+            },
+            {
+              "x": 124.328125,
+              "y": 81.5,
+              "w": 119.34375,
+              "h": 106.09375
+            },
+            {
+              "x": 250.671875,
+              "y": 81.5,
+              "w": 119.328125,
+              "h": 106.09375
+            }
+          ],
+          "pane": {
+            "x": 10,
+            "y": 262.59375,
+            "w": 370,
+            "h": 2394.953125
+          },
+          "slim": false,
+          "y": 0,
+          "overflow": false,
+          "windowW": 390
+        },
+        "scroll": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 252.59375
+          },
+          "row": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 205.59375
+          },
+          "rowInner": 366,
+          "cluster": {
+            "x": 12,
+            "y": 69.5,
+            "w": 366,
+            "h": 126.09375
+          },
+          "pods": [
+            {
+              "x": 20,
+              "y": 101.9375,
+              "w": 97.328125,
+              "h": 65.21875
+            },
+            {
+              "x": 124.328125,
+              "y": 81.5,
+              "w": 119.34375,
+              "h": 106.09375
+            },
+            {
+              "x": 250.671875,
+              "y": 81.5,
+              "w": 119.328125,
+              "h": 106.09375
+            }
+          ],
+          "pane": {
+            "x": 10,
+            "y": -337.40625,
+            "w": 370,
+            "h": 2394.953125
+          },
+          "slim": false,
+          "y": 600,
+          "overflow": false,
+          "windowW": 390
+        }
+      },
+      "candidate": {
+        "top": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 252.59375
+          },
+          "row": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 205.59375
+          },
+          "rowInner": 366,
+          "cluster": {
+            "x": 12,
+            "y": 69.5,
+            "w": 366,
+            "h": 126.09375
+          },
+          "pods": [
+            {
+              "x": 20,
+              "y": 101.9375,
+              "w": 97.328125,
+              "h": 65.21875
+            },
+            {
+              "x": 124.328125,
+              "y": 81.5,
+              "w": 119.34375,
+              "h": 106.09375
+            },
+            {
+              "x": 250.671875,
+              "y": 81.5,
+              "w": 119.328125,
+              "h": 106.09375
+            }
+          ],
+          "pane": {
+            "x": 10,
+            "y": 262.59375,
+            "w": 370,
+            "h": 2394.953125
+          },
+          "slim": false,
+          "y": 0,
+          "overflow": false,
+          "windowW": 390
+        },
+        "scroll": {
+          "header": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 252.59375
+          },
+          "row": {
+            "x": 0,
+            "y": 0,
+            "w": 390,
+            "h": 205.59375
+          },
+          "rowInner": 366,
+          "cluster": {
+            "x": 12,
+            "y": 69.5,
+            "w": 366,
+            "h": 126.09375
+          },
+          "pods": [
+            {
+              "x": 20,
+              "y": 101.9375,
+              "w": 97.328125,
+              "h": 65.21875
+            },
+            {
+              "x": 124.328125,
+              "y": 81.5,
+              "w": 119.34375,
+              "h": 106.09375
+            },
+            {
+              "x": 250.671875,
+              "y": 81.5,
+              "w": 119.328125,
+              "h": 106.09375
+            }
+          ],
+          "pane": {
+            "x": 10,
+            "y": -337.40625,
+            "w": 370,
+            "h": 2394.953125
+          },
+          "slim": true,
+          "y": 600,
+          "overflow": false,
+          "windowW": 390
+        }
+      }
+    }
+  }
+}

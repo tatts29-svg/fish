@@ -1,0 +1,78 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a\u2026), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need.",
+ "ops": [
+  {
+   "op": "number_off",
+   "ref": "HRP",
+   "no": "1189410",
+   "why": "docket 26085104, 17 Sep: 1189410 is P36's shell (Baseplan line 93); it sat on HRP through an old contract join"
+  },
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1282487",
+   "why": "Baseplan line 121: 1282487 is P63's planned shell, still Pending; it sat on P36 through an old contract join"
+  },
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1327222",
+   "why": "docket 26126001, 14 Oct: 1327222 is P66's shell"
+  },
+  {
+   "op": "number_on",
+   "ref": "P36",
+   "no": "1189410"
+  },
+  {
+   "op": "number_off",
+   "ref": "P06",
+   "no": "1097453",
+   "why": "Baseplan line 64 and docket 26094121, 30 Sep: P06's shell is fleet number 1087453; 1097453 is the schedule's copy of it"
+  },
+  {
+   "op": "number_on",
+   "ref": "P06",
+   "no": "1087453"
+  },
+  {
+   "op": "number_off",
+   "ref": "GN06",
+   "no": "1283681",
+   "why": "the 15 Oct export carries 1283681 as a spare generator, not GN06; GN06 is 1320828, confirmed on site 15 Oct"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P66",
+   "type": "Fridge",
+   "from": "131190",
+   "to": "1311990",
+   "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P33",
+   "type": "Fridge",
+   "from": "1238952",
+   "to": "1328952",
+   "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952"
+  },
+  {
+   "op": "light",
+   "ref": "WB06",
+   "state": "on site",
+   "why": "three dockets dated 15 Oct (26126575, 26126597, 26126606) to Gold Coast Hwy, Main Beach"
+  },
+  {
+   "op": "answer",
+   "id": "oi-TX03",
+   "text": "Settled by the branch's delivery dockets (Baseplan export, 15 Oct 2026): P20 is one 4.8 m building, 1097339, docket 26076698, delivered 17 Sep 13:01; P21 is one 6 m building, 1327220, docket 26076820, delivered 17 Sep 12:29. One movement each; the second load link on each is superseded."
+  },
+  {
+   "op": "answer",
+   "id": "oi-R10",
+   "text": "Contract 9968929 (Baseplan export, 15 Oct 2026) books the pick-up of the office 960639 and the lunchroom 960634 for 13 Nov. That is the transport booking the branch holds; Schedule 9 Demob Week 3 still shows 12 Nov for the row. Pick-up: 13 Nov."
+  }
+ ]
+}

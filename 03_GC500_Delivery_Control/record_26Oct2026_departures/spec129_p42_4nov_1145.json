@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 11:4x AEST: \"P42 leaving at 1145am\". P42 is Coates 1327221 (Portable Building Shell 6.0 m x 3.0 m, cyclonic rated; contract 9994954 L4, KINP; the record's unit u1327221), with its air conditioner 1327939. It leaves site at 11:45 on 4 Nov through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged and 1327221 is P42's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P42",
+   "at": "2026-11-04T11:45:00+10:00",
+   "nos": [
+    "1327221"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

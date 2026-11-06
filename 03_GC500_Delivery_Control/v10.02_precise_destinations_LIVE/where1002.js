@@ -1,0 +1,6 @@
+/* Author: Andrew Fisher. One location description for supplier views and exports. */
+function where(a){
+ const d=dest782(a),w=whereText(a)||{},authority=destinationOf(a),z=zone816(a),usable=!!(d&&d.ll&&d.kind!=='report'),basis={master:'Master plan reference position',confirmed:'Confirmed reference position',pinned:'Recorded site pin',placed:'Map position — check on site',unverified:'Drawing position — check on site',area:'Area only — exact position unconfirmed',desc:d&&d.approx?'Description position — approximate':'Location from description'};
+ const raw=text(authority&&authority.known&&authority.text)||w.main||'',generic=/^(toilets?|fwf|pee panels?|amenities)$/i.test(raw),baseLocation=(generic?(DM816.name[z.zone]||'Location not recorded'):raw)||'Location not recorded',coordinates=usable?d.ll.lat.toFixed(6)+', '+d.ll.lon.toFixed(6):'',location=destination1002(a.key,{sourceText:raw,baseLocation,coordinates,moveAt:a._locationMoved?.at||'',landmarks:!a._locationMoved&&d&&['master','area'].includes(d.kind)?masterWords(masterLoc(a.key)):''});
+ return {location,locationBasis:usable?(basis[d.kind]||'Drawing position — check on site'):'Exact location not recorded',url:usable?navUrl(d.ll):'',coordinates,side:z.side,zone:z.zone};
+}

@@ -1,0 +1,199 @@
+{
+ "mobile": false,
+ "numbers": {
+  "labour_old_line": 17082.81,
+  "labour_ticks_old": 165,
+  "ticks": {
+   "install": {
+    "ticks": 165,
+    "amount": 17082.81,
+    "unknown": 0
+   },
+   "cleaning": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "fire_ext": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "other": {
+    "ticks": 0,
+    "amount": 0,
+    "unknown": 0
+   },
+   "total": 17082.81,
+   "count": 165
+  },
+  "ticksSumEqualsOld": true,
+  "toiletBranch": "KINP",
+  "servicing": 85101.75,
+  "rehireCost": 118575,
+  "rehireApproved": true,
+  "fencingByBranch": {
+   "STPS": 120913.08
+  },
+  "fencingCost": 77121.5,
+  "rehireCostCategory": 118575,
+  "contractsTotal": 277015.74,
+  "branchesRevenue": 500113.38,
+  "scope": 55816.56,
+  "scopeHours": 368.92,
+  "totalRevenue": 555929.94,
+  "reconciles": true,
+  "byBranchTicks": {
+   "KINP": {
+    "install": 16458.21,
+    "cleaning": 0,
+    "amount": 16458.21
+   },
+   "NVAC": {
+    "install": 624.6,
+    "cleaning": 0,
+    "amount": 624.6
+   }
+  },
+  "knownCosts": 235081.76,
+  "difference": 320848
+ },
+ "hasOldLabourLine": false,
+ "hasLabourInstall": true,
+ "hasCleaningLine": false,
+ "servicingNamesBranch": true,
+ "lowerTable": [
+  [
+   "STPS Brisbane Traffic",
+   "23 3 contracts",
+   "$81,252",
+   "—",
+   "—",
+   "—",
+   "$120,913",
+   "$202,165",
+   "9 3 invoiced",
+   "—"
+  ],
+  [
+   "KINP Brisbane Portables",
+   "132 5 contracts",
+   "$138,920",
+   "—",
+   "—",
+   "—",
+   "$85,102",
+   "$224,022",
+   "—",
+   "—"
+  ],
+  [
+   "NVAC North Power and HVAC",
+   "43 1 contract",
+   "$47,292 2 no rate",
+   "—",
+   "—",
+   "—",
+   "—",
+   "$47,292",
+   "—",
+   "—"
+  ],
+  [
+   "MEAD Brisbane Mechanical Specialist",
+   "0 1 contract",
+   "$9,552",
+   "—",
+   "—",
+   "—",
+   "—",
+   "$9,552",
+   "—",
+   "—"
+  ],
+  [
+   "All branches",
+   "198",
+   "$277,016",
+   "—",
+   "—",
+   "—",
+   "$206,015",
+   "$483,031",
+   "9",
+   "—"
+  ]
+ ],
+ "labour": {
+  "tracker": {
+   "build_demob_hours": null,
+   "race_hours": null,
+   "raw_keys": [
+    "people",
+    "personOf",
+    "labour",
+    "race",
+    "accommodation",
+    "meals",
+    "misc",
+    "weeks",
+    "lines"
+   ]
+  },
+  "cost_labour": {
+   "hours": 2042.5,
+   "ordinary": 1577.1,
+   "keys": [
+    "people",
+    "rule",
+    "hours",
+    "to_date",
+    "planned",
+    "ordinary",
+    "at_1_5",
+    "at_2",
+    "shifts",
+    "by_employer",
+    "weighted"
+   ]
+  },
+  "cost_external": null,
+  "race_hours": 159,
+  "charge_ticks": {
+   "ticked_now": 17082.81,
+   "ticks": 165,
+   "by_kind": {
+    "install": 17082.81,
+    "cleaning": 0,
+    "fire_ext": 0
+   }
+  },
+  "charge_forecast": {
+   "expected_on_site_to_tick": 6943.469999999999,
+   "to_come": 21215.57999999999,
+   "demob_cleaning_later": 35706.3000000001,
+   "keys": [
+    "charged",
+    "expected",
+    "tocome",
+    "later",
+    "n",
+    "unpriced"
+   ]
+  },
+  "event_scope": {
+   "amount": 55816.56,
+   "hours": 368.92,
+   "scope": true
+  },
+  "finance745": {
+   "rows": 208,
+   "expectedCost": 31823.98,
+   "unpricedHours": 1626,
+   "unpricedCount": 159,
+   "complete": false
+  }
+ },
+ "errors": [],
+ "console": []
+}

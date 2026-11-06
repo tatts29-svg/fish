@@ -1,0 +1,644 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "nativeVersion": 5814,
+  "checks": [
+    {
+      "name": "baseline Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "baseline Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "baseline P&L controls",
+      "pass": true
+    },
+    {
+      "name": "baseline Branch controls",
+      "pass": true
+    },
+    {
+      "name": "baseline automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "baseline received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "baseline generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "baseline Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "baseline Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Four confirmed FWF classify as Event Portables",
+      "pass": true
+    },
+    {
+      "name": "Separate Coates blocks stay owned hire",
+      "pass": true
+    },
+    {
+      "name": "Contract Rehire unit count is 109 FWF plus two 16-pan blocks, without six stale WC09 units",
+      "pass": true
+    },
+    {
+      "name": "Verified missing owner allocations cover 39 contract lines",
+      "pass": true
+    },
+    {
+      "name": "Verified classification moves 9817.63 once",
+      "pass": true
+    },
+    {
+      "name": "full hire edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "full hire edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "full hire edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "full hire edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "full hire edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "full hire edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "full hire edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "full hire edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "full hire edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Edited full hire = six \u00d7 500",
+      "pass": true
+    },
+    {
+      "name": "Edited shared hire amount",
+      "pass": true
+    },
+    {
+      "name": "Edited hire current delta",
+      "pass": true
+    },
+    {
+      "name": "Edited hire job delta",
+      "pass": true
+    },
+    {
+      "name": "Edited hire card value",
+      "pass": true
+    },
+    {
+      "name": "Edited hire visible in item drawer",
+      "pass": true
+    },
+    {
+      "name": "branch edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "branch edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "branch edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "branch edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "branch edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "branch edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "branch edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "branch edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "branch edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Native WC09 branch changed",
+      "pass": true
+    },
+    {
+      "name": "Pee hire follows recorded reference branch",
+      "pass": true
+    },
+    {
+      "name": "Branch edit does not change total",
+      "pass": true
+    },
+    {
+      "name": "Branch edit does not change full forecast",
+      "pass": true
+    },
+    {
+      "name": "Onsite WC09 rows follow new branch",
+      "pass": true
+    },
+    {
+      "name": "Whole WC09 revenue moves once KINP",
+      "pass": true
+    },
+    {
+      "name": "Whole WC09 revenueJob moves once KINP",
+      "pass": true
+    },
+    {
+      "name": "October Finance branch allocation moves once KINP",
+      "pass": true
+    },
+    {
+      "name": "Rehire customer hire allocation moves once KINP",
+      "pass": true
+    },
+    {
+      "name": "Supplier cost branch does not follow customer edit KINP",
+      "pass": true
+    },
+    {
+      "name": "Whole WC09 revenue moves once NVAC",
+      "pass": true
+    },
+    {
+      "name": "Whole WC09 revenueJob moves once NVAC",
+      "pass": true
+    },
+    {
+      "name": "October Finance branch allocation moves once NVAC",
+      "pass": true
+    },
+    {
+      "name": "Rehire customer hire allocation moves once NVAC",
+      "pass": true
+    },
+    {
+      "name": "Supplier cost branch does not follow customer edit NVAC",
+      "pass": true
+    },
+    {
+      "name": "Original billed snapshot unchanged by allocation",
+      "pass": true
+    },
+    {
+      "name": "Original Baseplan summary unchanged",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "pending building branch edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Pending branch change does not invent current hire",
+      "pass": true
+    },
+    {
+      "name": "Pending branch change preserves full job scope",
+      "pass": true
+    },
+    {
+      "name": "Pending branch change moves full future package once",
+      "pass": true
+    },
+    {
+      "name": "Pending allocation takes recorded branch",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "generator branch edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Generator branch edit leaves total unchanged",
+      "pass": true
+    },
+    {
+      "name": "Generator branch edit leaves job unchanged",
+      "pass": true
+    },
+    {
+      "name": "Generator received row follows new branch",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "generator rate edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Generator new hire current delta",
+      "pass": true
+    },
+    {
+      "name": "Generator new hire job delta",
+      "pass": true
+    },
+    {
+      "name": "Generator reference hire updates",
+      "pass": true
+    },
+    {
+      "name": "generator start edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "generator start edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "generator start edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "generator start edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "generator start edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "generator start edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "generator start edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "generator start edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "generator start edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Generator start updates current",
+      "pass": true
+    },
+    {
+      "name": "Generator start updates job",
+      "pass": true
+    },
+    {
+      "name": "Generator start updates reference",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "install source rate edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Install source rate updates current",
+      "pass": true
+    },
+    {
+      "name": "Install source rate updates job",
+      "pass": true
+    },
+    {
+      "name": "Install source rate updates item charges",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced P&L controls",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced Branch controls",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "transport POA priced Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Transport current adds two trips once",
+      "pass": true
+    },
+    {
+      "name": "Transport job adds two trips once",
+      "pass": true
+    },
+    {
+      "name": "Transport reference uses same total",
+      "pass": true
+    },
+    {
+      "name": "Customer transport leaves supplier direct costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited P&L controls",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited Branch controls",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "pee received quantity edited Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Received panels = four",
+      "pass": true
+    },
+    {
+      "name": "Received hire partitions without duplication",
+      "pass": true
+    },
+    {
+      "name": "Received hire reference matches",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals Costs = P&L current",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals Finance = P&L job",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals P&L controls",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals Branch controls",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals automatic work totals agree",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals received subtotal ties branch totals",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals generator actual + remaining = forecast",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals Rehire branches tie customer revenue",
+      "pass": true
+    },
+    {
+      "name": "reset restores all source totals Rehire branches retain supplier cost total",
+      "pass": true
+    },
+    {
+      "name": "Reset restores current",
+      "pass": true
+    },
+    {
+      "name": "Reset restores forecast",
+      "pass": true
+    },
+    {
+      "name": "Reset restores published full hire",
+      "pass": true
+    },
+    {
+      "name": "All native state restored exactly",
+      "pass": true
+    },
+    {
+      "name": "Original contract source unchanged",
+      "pass": true
+    },
+    {
+      "name": "No native record version changed",
+      "pass": true
+    },
+    {
+      "name": "Original source card restored",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "check_count": 158,
+  "model_errors": [],
+  "browser_errors": [],
+  "operational_write_attempts": 0,
+  "scope": "In-memory edits restored exactly; published/native records never written."
+}

@@ -1,0 +1,227 @@
+{
+  "sha256": "9d79d107f726811424aa1d6bf0dabd05ad4288804f0a998682f3b4d4d3cf777d",
+  "checks": [
+    {
+      "name": "inventory visible Close",
+      "pass": true
+    },
+    {
+      "name": "inventory visible Back",
+      "pass": true
+    },
+    {
+      "name": "inventory controls fit and are unobscured",
+      "pass": true
+    },
+    {
+      "name": "inventory focus remains inside overlay",
+      "pass": true
+    },
+    {
+      "name": "inventory Back dismisses",
+      "pass": true
+    },
+    {
+      "name": "inventory Close dismisses",
+      "pass": true
+    },
+    {
+      "name": "inventory Escape dismisses",
+      "pass": true
+    },
+    {
+      "name": "inventory browser Back dismisses",
+      "pass": true,
+      "data": {
+        "tab": "today"
+      }
+    },
+    {
+      "name": "print visible Close",
+      "pass": true
+    },
+    {
+      "name": "print visible Back",
+      "pass": true
+    },
+    {
+      "name": "print controls fit and are unobscured",
+      "pass": true
+    },
+    {
+      "name": "print focus remains inside overlay",
+      "pass": true
+    },
+    {
+      "name": "print Back dismisses",
+      "pass": true
+    },
+    {
+      "name": "print Close dismisses",
+      "pass": true
+    },
+    {
+      "name": "print Escape dismisses",
+      "pass": true
+    },
+    {
+      "name": "print browser Back dismisses",
+      "pass": true,
+      "data": {
+        "tab": "today"
+      }
+    },
+    {
+      "name": "Today supplier link available",
+      "pass": true
+    },
+    {
+      "name": "Today breakdown visible Back",
+      "pass": true
+    },
+    {
+      "name": "Today supplier opens Sub-hired Event Portables",
+      "pass": true,
+      "data": {
+        "tab": "subhired"
+      }
+    },
+    {
+      "name": "Supplier retains Back to breakdown",
+      "pass": true
+    },
+    {
+      "name": "Supplier Back restores Today breakdown",
+      "pass": true
+    },
+    {
+      "name": "Nested Text dialog has Close",
+      "pass": true
+    },
+    {
+      "name": "Nested Text Escape closes only upper dialog",
+      "pass": true
+    },
+    {
+      "name": "Asset drawer visible Back",
+      "pass": true
+    },
+    {
+      "name": "contract native Close visible",
+      "pass": true
+    },
+    {
+      "name": "contract visible Back",
+      "pass": true
+    },
+    {
+      "name": "contract header controls fit",
+      "pass": true
+    },
+    {
+      "name": "contract Back dismisses without saving",
+      "pass": true
+    },
+    {
+      "name": "breakdown native Close visible",
+      "pass": true
+    },
+    {
+      "name": "breakdown visible Back",
+      "pass": true
+    },
+    {
+      "name": "breakdown header controls fit",
+      "pass": true
+    },
+    {
+      "name": "breakdown Back dismisses without saving",
+      "pass": true
+    },
+    {
+      "name": "variation native Close visible",
+      "pass": true
+    },
+    {
+      "name": "variation visible Back",
+      "pass": true
+    },
+    {
+      "name": "variation header controls fit",
+      "pass": true
+    },
+    {
+      "name": "variation Back dismisses without saving",
+      "pass": true
+    },
+    {
+      "name": "pairing native Close visible",
+      "pass": true
+    },
+    {
+      "name": "pairing visible Back",
+      "pass": true
+    },
+    {
+      "name": "pairing header controls fit",
+      "pass": true
+    },
+    {
+      "name": "pairing Back dismisses without saving",
+      "pass": true
+    },
+    {
+      "name": "drop card native Close visible",
+      "pass": true
+    },
+    {
+      "name": "drop card visible Back",
+      "pass": true
+    },
+    {
+      "name": "drop card header controls fit",
+      "pass": true
+    },
+    {
+      "name": "drop card Back dismisses without saving",
+      "pass": true
+    },
+    {
+      "name": "Timeline progress visible Back and Close",
+      "pass": true
+    },
+    {
+      "name": "Timeline progress Back dismisses",
+      "pass": true
+    },
+    {
+      "name": "Removed opener returns focus to current pane",
+      "pass": true
+    },
+    {
+      "name": "Desktop preview controls fit",
+      "pass": true
+    },
+    {
+      "name": "Native record unchanged",
+      "pass": true
+    },
+    {
+      "name": "No runtime errors",
+      "pass": true
+    }
+  ],
+  "requests": {
+    "page": 1,
+    "live": 70,
+    "blocked": 1,
+    "blockedPaths": [
+      {
+        "method": "POST",
+        "origin": "https://tile.googleapis.com",
+        "path": "/v1/createSession"
+      }
+    ]
+  },
+  "errors": []
+}

@@ -1,0 +1,230 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "actualPublic": false,
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "checks": [
+    {
+      "name": "Only inferred fencing crew-delay reds removed; genuine reds unchanged",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 fencing numeric values, flags, qualifications and records preserved 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 fencing numeric values, flags, qualifications and records preserved 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 fencing numeric values, flags, qualifications and records preserved 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary842 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 fencing numeric values, flags, qualifications and records preserved 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 fencing numeric values, flags, qualifications and records preserved 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 fencing numeric values, flags, qualifications and records preserved 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary847 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 fencing numeric values, flags, qualifications and records preserved 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-09",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 fencing numeric values, flags, qualifications and records preserved 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-12",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 fencing numeric values, flags, qualifications and records preserved 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "todayWorkSummary848 quantity labels do not imply crew delay or ahead-of-programme work 2026-10-23",
+      "pass": true
+    },
+    {
+      "name": "cj764Fencing fencing numeric values, flags, qualifications and records preserved ",
+      "pass": true
+    },
+    {
+      "name": "cj764Fencing quantity labels do not imply crew delay or ahead-of-programme work ",
+      "pass": true
+    },
+    {
+      "name": "Fencing plate/Showcase and email use neutral comparison wording",
+      "pass": true
+    },
+    {
+      "name": "One fencing confirmation badge",
+      "pass": true
+    },
+    {
+      "name": "Operations badge states the dated site confirmation",
+      "pass": true
+    },
+    {
+      "name": "One closed native More info comparison",
+      "pass": true
+    },
+    {
+      "name": "Original programme and docket quantities retained exactly",
+      "pass": true
+    },
+    {
+      "name": "No unsupported fencing crew-delay accusation in red scorecard",
+      "pass": true
+    },
+    {
+      "name": "Quantity comparison opens by keyboard",
+      "pass": true
+    },
+    {
+      "name": "User confirmation retained under More info",
+      "pass": true
+    },
+    {
+      "name": "Visible comparison preserves type, programme, docketed amount and unit",
+      "pass": true
+    },
+    {
+      "name": "Comparison disclosure retains its state across native redraw",
+      "pass": true
+    },
+    {
+      "name": "Page fits the viewport",
+      "pass": true
+    },
+    {
+      "name": "Shared records, P&L, progress and docket calculations unchanged",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational write attempts",
+      "pass": true
+    },
+    {
+      "name": "Public checks use actual HTML",
+      "pass": true
+    }
+  ],
+  "redComparison": {
+    "before": 7,
+    "retired": 6
+  },
+  "modelChecks": {
+    "entries": [
+      {
+        "name": "todayWorkSummary842",
+        "day": "2026-10-09",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary842",
+        "day": "2026-10-12",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary842",
+        "day": "2026-10-23",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary847",
+        "day": "2026-10-09",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary847",
+        "day": "2026-10-12",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary847",
+        "day": "2026-10-23",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary848",
+        "day": "2026-10-09",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary848",
+        "day": "2026-10-12",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "todayWorkSummary848",
+        "day": "2026-10-23",
+        "unchanged": true,
+        "wording": true
+      },
+      {
+        "name": "cj764Fencing",
+        "day": null,
+        "unchanged": true,
+        "wording": true
+      }
+    ],
+    "plate": true,
+    "email": true
+  },
+  "pass": true,
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 63,
+    "blocked": 0
+  },
+  "screenshot_review": "Inspected at 1440 x 960; dated badge readable, native comparison retained, no page overflow."
+}

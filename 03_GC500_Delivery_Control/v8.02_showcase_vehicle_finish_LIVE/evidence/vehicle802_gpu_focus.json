@@ -1,0 +1,2322 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS",
+  "candidateSha256": "85adb462803e6830e1a7162a88f20d25fcd678fc854ad2c70d8b95335ae21467",
+  "matchedBaselineSha256": "5270f18bee891aabbd64173f0250e0e68d8061c8c2d935bddd74df3ec5e67ce5",
+  "privateCaptureDirectory": "/workspace/private-v802-final-focus",
+  "harnessSha256": "a60bbf11dd4dd85a0659da7ffe69de258240fe43ed43fc3104c59461cf6bb8f8",
+  "browserChecks": 82,
+  "checks": [
+    {
+      "name": "desktop-car-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "desktop-car-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 31764480
+      }
+    },
+    {
+      "name": "desktop-car-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.4006677664112575,
+        "maxY": 0.6884319896669613,
+        "minDepth": 1.0599957733974905,
+        "points": 312,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "desktop-car-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "car",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 43,
+              "triangles": 152006,
+              "vertices": 100656,
+              "gpuBytes": 5045064,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 43,
+              "triangles": 86862,
+              "vertices": 64796,
+              "gpuBytes": 3115816,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop-car-vms-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 17,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "desktop-car-vms-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 31764480
+      }
+    },
+    {
+      "name": "desktop-car-vms-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-vms-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-vms-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.3123342432463909,
+        "maxY": 0.7199790978247977,
+        "minDepth": 2.867976516745615,
+        "points": 448,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "desktop-car-vms-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-vms-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-vms-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_vms",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 43,
+              "triangles": 152006,
+              "vertices": 100656,
+              "gpuBytes": 5045064,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 43,
+              "triangles": 86862,
+              "vertices": 64796,
+              "gpuBytes": 3115816,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop-car-loo-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "desktop-car-loo-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 31764480
+      }
+    },
+    {
+      "name": "desktop-car-loo-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-loo-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-loo-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.36559445890392617,
+        "maxY": 0.7150894670300343,
+        "minDepth": 2.2875715618682864,
+        "points": 512,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "desktop-car-loo-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-loo-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-loo-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "car_loo",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 43,
+              "triangles": 152006,
+              "vertices": 100656,
+              "gpuBytes": 5045064,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 43,
+              "triangles": 86862,
+              "vertices": 64796,
+              "gpuBytes": 3115816,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop-forklift-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 18,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "desktop-forklift-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 31764480
+      }
+    },
+    {
+      "name": "desktop-forklift-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "desktop-forklift-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "desktop-forklift-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.3693921493860546,
+        "maxY": 0.7827782778643787,
+        "minDepth": 1.346344134458155,
+        "points": 144,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "desktop-forklift-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "desktop-forklift-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "desktop-forklift-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "forklift",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 18,
+              "triangles": 24668,
+              "vertices": 20095,
+              "gpuBytes": 939056,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 18,
+              "triangles": 17704,
+              "vertices": 15775,
+              "gpuBytes": 717248,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "desktop-car-night: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "desktop-car-night: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 31764480
+      }
+    },
+    {
+      "name": "desktop-car-night: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-night: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-night: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.3987876570890831,
+        "maxY": 0.6884258135914532,
+        "minDepth": 1.0603559975845838,
+        "points": 344,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "desktop-car-night: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "desktop-car-night: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "desktop: closing explicitly deletes every colour/depth/multisample target before intentional context loss",
+      "pass": true,
+      "detail": {
+        "handles": 14,
+        "releasedTargets": 5,
+        "expectedTargets": 5,
+        "deletedHandles": 14,
+        "releasedBeforeLoss": true,
+        "released": true,
+        "contextLost": true,
+        "gl": 37442,
+        "expectedContextLossCode": 37442
+      }
+    },
+    {
+      "name": "phone-boom-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 22,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "phone-boom-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 11044800
+      }
+    },
+    {
+      "name": "phone-boom-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "phone-boom-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "phone-boom-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.6956532488690658,
+        "maxY": 0.23745502232712926,
+        "minDepth": 1.1587254232273005,
+        "points": 176,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "phone-boom-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "phone-boom-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "phone-boom-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "boom",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 22,
+              "triangles": 23692,
+              "vertices": 19418,
+              "gpuBytes": 905680,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 22,
+              "triangles": 17164,
+              "vertices": 15374,
+              "gpuBytes": 697936,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone-scissor-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 18,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "phone-scissor-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 11044800
+      }
+    },
+    {
+      "name": "phone-scissor-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "phone-scissor-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "phone-scissor-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.7044287880070792,
+        "maxY": 0.4251132936776536,
+        "minDepth": 0.6679818116524985,
+        "points": 144,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "phone-scissor-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "phone-scissor-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "phone-scissor-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "scissor",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 18,
+              "triangles": 23340,
+              "vertices": 19689,
+              "gpuBytes": 910128,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 18,
+              "triangles": 17692,
+              "vertices": 16221,
+              "gpuBytes": 731376,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone-tractor-day: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 19,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "phone-tractor-day: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 11044800
+      }
+    },
+    {
+      "name": "phone-tractor-day: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "phone-tractor-day: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "phone-tractor-day: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.6784895645982989,
+        "maxY": 0.3427495606639566,
+        "minDepth": 0.7705833506261607,
+        "points": 152,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "phone-tractor-day: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "phone-tractor-day: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "phone-tractor-day: High/Balanced switches replace and release old model buffers",
+      "pass": true,
+      "detail": {
+        "vehicle": "tractor",
+        "results": [
+          {
+            "quality": "high",
+            "stats": {
+              "parts": 19,
+              "triangles": 24488,
+              "vertices": 19643,
+              "gpuBytes": 922432,
+              "quality": "high"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          },
+          {
+            "quality": "balanced",
+            "stats": {
+              "parts": 19,
+              "triangles": 17372,
+              "vertices": 15299,
+              "gpuBytes": 698032,
+              "quality": "balanced"
+            },
+            "oldReleased": true,
+            "valid": true,
+            "gl": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "phone-car-wheel-high: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "phone-car-wheel-high: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 11044800
+      }
+    },
+    {
+      "name": "phone-car-wheel-high: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "phone-car-wheel-high: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "phone-car-wheel-high: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.5899772175880091,
+        "maxY": 0.44503930635767164,
+        "minDepth": 0.2720170052099014,
+        "points": 8,
+        "scope": "front wheel inspection envelope"
+      }
+    },
+    {
+      "name": "phone-car-wheel-high: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "phone-car-wheel-high: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "phone: context-loss extension available",
+      "pass": true
+    },
+    {
+      "name": "phone: context restore mounts a fresh scene",
+      "pass": true
+    },
+    {
+      "name": "phone-car-restored: shader links, parts/atlas valid and GL clear",
+      "pass": true,
+      "detail": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      }
+    },
+    {
+      "name": "phone-car-restored: native requested quality uses valid supported 4x attachments",
+      "pass": true,
+      "detail": {
+        "capabilityFix": true,
+        "samples": 4,
+        "valid": true,
+        "extraAttachmentBytes": 11044800
+      }
+    },
+    {
+      "name": "phone-car-restored: requested selection and lighting active",
+      "pass": true
+    },
+    {
+      "name": "phone-car-restored: held pose remains paused and unchanged through render",
+      "pass": true
+    },
+    {
+      "name": "phone-car-restored: complete requested subject fits the canvas",
+      "pass": true,
+      "detail": {
+        "maxX": 0.6834832246998329,
+        "maxY": 0.3220649205864891,
+        "minDepth": 0.8244157237447435,
+        "points": 312,
+        "scope": "actual animated part bounding boxes, including trailer"
+      }
+    },
+    {
+      "name": "phone-car-restored: baseline pose within 1e-9 and exact camera reproduced",
+      "pass": true
+    },
+    {
+      "name": "phone-car-restored: screenshot cannot advance simulation or reintroduce smoke",
+      "pass": true
+    },
+    {
+      "name": "phone: closing explicitly deletes every colour/depth/multisample target before intentional context loss",
+      "pass": true,
+      "detail": {
+        "handles": 14,
+        "releasedTargets": 5,
+        "expectedTargets": 5,
+        "deletedHandles": 14,
+        "releasedBeforeLoss": true,
+        "released": true,
+        "contextLost": true,
+        "gl": 37442,
+        "expectedContextLossCode": 37442
+      }
+    },
+    {
+      "name": "no browser/shader errors or attempted live writes",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "blockedWrites": 0
+      }
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0,
+  "views": [
+    {
+      "id": "desktop-car-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.4006677664112575,
+        "maxY": 0.6884319896669613,
+        "minDepth": 1.0599957733974905,
+        "points": 312,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          32.59093767336054,
+          0.7511520296421431,
+          -17.909806831408737
+        ],
+        "target": [
+          31.409970921530032,
+          0.13021825347474128,
+          -18.58102680532506
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 421.60429633506027,
+        "v": 9.590558679495064,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.005431544808066294,
+        "slip": 0.015510865777394713,
+        "pitch": -5.183188290243572e-10,
+        "roll": 0.004948858850867379,
+        "wheel": 1222.9310455883806,
+        "wheelR": 2502.0704780321694,
+        "steer": -0.012611478221811414,
+        "position": [
+          31.41004449891278,
+          0.030315522069818544,
+          -18.580731410006376
+        ],
+        "heading": -0.246012115877959,
+        "trailer": null,
+        "sway": {
+          "r": -0.013772514606960405,
+          "p": -3.553453737120609e-05
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 86862,
+        "vertices": 64796,
+        "gpuBytes": 3115816,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517,
+        "imageRendering": "auto"
+      },
+      "file": "desktop-car-day.png",
+      "sha256": "d3074dba2819ce51a61f39313330cfef849e2f90d525276f04a59bf842b43f47"
+    },
+    {
+      "id": "desktop-car-vms-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 15,
+      "framing": {
+        "maxX": 0.3123342432463909,
+        "maxY": 0.7199790978247977,
+        "minDepth": 2.867976516745615,
+        "points": 448,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          52.7124106839259,
+          1.8997406432933754,
+          -24.517120548031347
+        ],
+        "target": [
+          50.31940144278593,
+          0.4209733621882076,
+          -22.34021133983181
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 14.999999999999789,
+        "s": 441.465956747684,
+        "v": 8.182373910013032,
+        "brake": 2.0210317653219635e-64,
+        "lat": 0.021495387952462464,
+        "slip": 0.07373688121424028,
+        "pitch": -0.00978259509355015,
+        "roll": 0.012301489080512224,
+        "wheel": 1608.8379734566188,
+        "wheelR": 2887.9774059004485,
+        "steer": -0.07031422735526506,
+        "position": [
+          50.87064964192967,
+          0.030315522069818544,
+          -22.34754013504103
+        ],
+        "heading": 0.02469973703157874,
+        "trailer": {
+          "ax": 49.70998132459708,
+          "az": -22.303861896130297,
+          "hd": -0.07266685795655743,
+          "roll": -0.08000026218770047,
+          "spin": 1143.1877301938498
+        },
+        "sway": {
+          "r": -0.04169943583113797,
+          "p": -0.0015711865102509084
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 17,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 86862,
+        "vertices": 64796,
+        "gpuBytes": 3115816,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517,
+        "imageRendering": "auto"
+      },
+      "file": "desktop-car-vms-day.png",
+      "sha256": "cfa6828556fb176c70e58ad068fd40fd3e8a37474d7c79433cc26b3bf9728129"
+    },
+    {
+      "id": "desktop-car-loo-day",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 15,
+      "framing": {
+        "maxX": 0.36559445890392617,
+        "maxY": 0.7150894670300343,
+        "minDepth": 2.2875715618682864,
+        "points": 512,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          52.39067315930266,
+          1.5315243261795386,
+          -24.172564308449683
+        ],
+        "target": [
+          50.36714724539773,
+          0.2810803819992143,
+          -22.33177233854005
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 14.999999999999789,
+        "s": 441.465956747684,
+        "v": 8.182373910013032,
+        "brake": 2.0210317653219635e-64,
+        "lat": 0.021495387952462464,
+        "slip": 0.07373688121424028,
+        "pitch": -0.00978259509355015,
+        "roll": 0.012301489080512224,
+        "wheel": 1608.8379734566188,
+        "wheelR": 2887.9774059004485,
+        "steer": -0.07031422735526506,
+        "position": [
+          50.87064964192967,
+          0.030315522069818544,
+          -22.34754013504103
+        ],
+        "heading": 0.02469973703157874,
+        "trailer": {
+          "ax": 49.70998132459708,
+          "az": -22.303861896130297,
+          "hd": -0.07266685795655743,
+          "roll": -0.08000026218770047,
+          "spin": 1143.1877301938498
+        },
+        "sway": {
+          "r": -0.04169943583113797,
+          "p": -0.0015711865102509084
+        },
+        "loo": {
+          "a": 0,
+          "arm": 0
+        }
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 86862,
+        "vertices": 64796,
+        "gpuBytes": 3115816,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517,
+        "imageRendering": "auto"
+      },
+      "file": "desktop-car-loo-day.png",
+      "sha256": "be9783ac7e604e97e187be7325ddf1140d0ab7bfa974c2d8a7556e9ef5c3be81"
+    },
+    {
+      "id": "desktop-forklift-day",
+      "device": "desktop",
+      "vehicle": "forklift",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.3693921493860546,
+        "maxY": 0.7827782778643787,
+        "minDepth": 1.346344134458155,
+        "points": 144,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          10.304910089045192,
+          0.9814756138683444,
+          -11.016978761303282
+        ],
+        "target": [
+          8.883464539941604,
+          0.2594191446667269,
+          -11.70593413638353
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 397.97744253227154,
+        "v": 4.603468166157631,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.004616494878160937,
+        "slip": 0.011508712492688204,
+        "pitch": -3.2326418237929727e-16,
+        "roll": 0.0008285469598835691,
+        "wheel": 763.8673833967083,
+        "wheelR": 2043.006815840544,
+        "steer": -0.01189821728663457,
+        "position": [
+          8.805468595442157,
+          0.030315522069818544,
+          -11.716200466452138
+        ],
+        "heading": -0.3115237200776919,
+        "trailer": null,
+        "sway": {
+          "r": -0.0022580501637065923,
+          "p": 2.5366513487413683e-08
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 18,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 18,
+        "triangles": 17704,
+        "vertices": 15775,
+        "gpuBytes": 717248,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517,
+        "imageRendering": "auto"
+      },
+      "file": "desktop-forklift-day.png",
+      "sha256": "b9bce36a1d7e17c9ca9008cbb549c64fbcd934879e0a3f6449a8d6b15c8bbbfb"
+    },
+    {
+      "id": "desktop-car-night",
+      "device": "desktop",
+      "vehicle": "car",
+      "look": "showcase",
+      "quality": "balanced",
+      "seconds": 2.8,
+      "framing": {
+        "maxX": 0.3987876570890831,
+        "maxY": 0.6884258135914532,
+        "minDepth": 1.0603559975845838,
+        "points": 344,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          -23.7559648387168,
+          0.7448097997634897,
+          5.537248587336256
+        ],
+        "target": [
+          -23.425276529337005,
+          0.13069577993900122,
+          4.213674153895975
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 2.7999999999999927,
+        "s": 361.865536105877,
+        "v": 2.299999329802384,
+        "brake": 0.9999999983610646,
+        "lat": 0.00833640982021226,
+        "slip": 0,
+        "pitch": -2.7361473497201115e-05,
+        "roll": 0.00033154665463870555,
+        "wheel": 62.22237593134919,
+        "wheelR": 982.0314114382502,
+        "steer": 0,
+        "position": [
+          -23.42526398052926,
+          0.030315522069818544,
+          4.213690582224891
+        ],
+        "heading": -0.5775856068916866,
+        "trailer": null,
+        "sway": {
+          "r": -0.0009815028590595208,
+          "p": 0.0014708674008391213
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 31764480
+        },
+        "parts": 43,
+        "trailerParts": 25,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          1280,
+          517
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 86862,
+        "vertices": 64796,
+        "gpuBytes": 3115816,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 1280,
+        "height": 517,
+        "cssWidth": 1280,
+        "cssHeight": 517,
+        "imageRendering": "auto"
+      },
+      "file": "desktop-car-night.png",
+      "sha256": "b3b29879d9a9d728e503989f2e9338b864078e58cabe69d12c4684054a985ba7"
+    },
+    {
+      "id": "phone-boom-day",
+      "device": "phone",
+      "vehicle": "boom",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.6956532488690658,
+        "maxY": 0.23745502232712926,
+        "minDepth": 1.1587254232273005,
+        "points": 176,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          4.4661826695935165,
+          0.9184081871708336,
+          -9.047906232559516
+        ],
+        "target": [
+          3.0949966373907256,
+          0.21637861042958118,
+          -9.73966042279902
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 391.70802310551886,
+        "v": 3.6444122982081244,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.012600741714841105,
+        "slip": 0.037640528124257416,
+        "pitch": -3.331330715075347e-17,
+        "roll": 0.0017508921028000527,
+        "wheel": 642.0541844881976,
+        "wheelR": 1921.1936169320259,
+        "steer": -0.03819874331187559,
+        "position": [
+          2.8689656068227993,
+          0.030315522069818544,
+          -9.70170588868394
+        ],
+        "heading": -0.2956097983559014,
+        "trailer": null,
+        "sway": {
+          "r": -0.006066480488674608,
+          "p": -5.390603355557269e-09
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 22,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 22,
+        "triangles": 17164,
+        "vertices": 15374,
+        "gpuBytes": 697936,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590,
+        "imageRendering": "auto"
+      },
+      "file": "phone-boom-day.png",
+      "sha256": "c63112788ba26bc453afdef972387c006cf82dca4184b0f40588b1bcee30b074"
+    },
+    {
+      "id": "phone-scissor-day",
+      "device": "phone",
+      "vehicle": "scissor",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.7044287880070792,
+        "maxY": 0.4251132936776536,
+        "minDepth": 0.6679818116524985,
+        "points": 144,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          1.2895748919305396,
+          0.7594756575654342,
+          -8.36709821315463
+        ],
+        "target": [
+          0.4163367242123024,
+          0.3132097501961891,
+          -8.803640060716887
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 389.044375801974,
+        "v": 3.2607899510283223,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.017920074748392464,
+        "slip": 0.05435311486772046,
+        "pitch": -3.725798347514286e-17,
+        "roll": 0.002490496245682913,
+        "wheel": 590.3002058940074,
+        "wheelR": 1869.43963833785,
+        "steer": -0.05245817686480626,
+        "position": [
+          0.3620086187194565,
+          0.030315522069818544,
+          -8.802744316152681
+        ],
+        "heading": -0.2992687487664103,
+        "trailer": null,
+        "sway": {
+          "r": -0.008061507916329905,
+          "p": -4.161416479620477e-09
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 18,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 18,
+        "triangles": 17692,
+        "vertices": 16221,
+        "gpuBytes": 731376,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590,
+        "imageRendering": "auto"
+      },
+      "file": "phone-scissor-day.png",
+      "sha256": "4150436725d717c4070b96bbdfbe427b8e9b4792c2dfa98310362f2269e076e5"
+    },
+    {
+      "id": "phone-tractor-day",
+      "device": "phone",
+      "vehicle": "tractor",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.6784895645982989,
+        "maxY": 0.3427495606639566,
+        "minDepth": 0.7705833506261607,
+        "points": 152,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          13.656671040469133,
+          0.743428735684086,
+          -12.491488589261264
+        ],
+        "target": [
+          12.682662170731483,
+          0.24657950208643983,
+          -12.973912411089888
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 402.0347859046908,
+        "v": 5.274807273722286,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.004393280219609583,
+        "slip": 0.01136405545946999,
+        "pitch": -2.8670071198956287e-15,
+        "roll": 0.0014704802987515148,
+        "wheel": 842.700516358942,
+        "wheelR": 2121.839948802762,
+        "steer": -0.009942093849649069,
+        "position": [
+          12.65772485353487,
+          0.030315522069818544,
+          -12.989714773782838
+        ],
+        "heading": -0.3029673368385676,
+        "trailer": null,
+        "sway": {
+          "r": -0.0038915474420220084,
+          "p": -6.638974188000991e-08
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 19,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 19,
+        "triangles": 17372,
+        "vertices": 15299,
+        "gpuBytes": 698032,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590,
+        "imageRendering": "auto"
+      },
+      "file": "phone-tractor-day.png",
+      "sha256": "c702fc75189682dd887be9a1a1cf6a972b805713740109aaa4563f57b2e3ebd7"
+    },
+    {
+      "id": "phone-car-wheel-high",
+      "device": "phone",
+      "vehicle": "car",
+      "look": "day",
+      "quality": "high",
+      "seconds": 0,
+      "framing": {
+        "maxX": 0.5899772175880091,
+        "maxY": 0.44503930635767164,
+        "minDepth": 0.2720170052099014,
+        "points": 8,
+        "scope": "front wheel inspection envelope"
+      },
+      "camera": {
+        "eye": [
+          -25.500975354931505,
+          0.17376872266092078,
+          6.262123728182218
+        ],
+        "target": [
+          -25.812981310561298,
+          0.0855954186618328,
+          5.989833912402392
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 0,
+        "s": 358.6631066816611,
+        "v": 0,
+        "brake": 0,
+        "lat": 0,
+        "slip": 0,
+        "pitch": 0,
+        "roll": 0,
+        "wheel": 0,
+        "wheelR": 0,
+        "position": [
+          -26.095404027575363,
+          0.030315522069818544,
+          5.981808144856376
+        ],
+        "heading": -0.5988983732713531,
+        "trailer": null,
+        "sway": {
+          "r": 0,
+          "p": 0
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "high",
+        "samples": 4,
+        "shadowMap": 2048,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": true,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 152006,
+        "vertices": 100656,
+        "gpuBytes": 5045064,
+        "quality": "high"
+      },
+      "canvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590,
+        "imageRendering": "auto"
+      },
+      "file": "phone-car-wheel-high.png",
+      "sha256": "35ca336417b9c0f4f93bacfa608e18fde4fe56be24782254755505daac0a76fd"
+    },
+    {
+      "id": "phone-car-restored",
+      "device": "phone",
+      "vehicle": "car",
+      "look": "day",
+      "quality": "balanced",
+      "seconds": 12,
+      "framing": {
+        "maxX": 0.6834832246998329,
+        "maxY": 0.3220649205864891,
+        "minDepth": 0.8244157237447435,
+        "points": 312,
+        "scope": "actual animated part bounding boxes, including trailer"
+      },
+      "camera": {
+        "eye": [
+          32.40466546883621,
+          0.653213029097848,
+          -18.015677402335786
+        ],
+        "target": [
+          31.409970921530032,
+          0.13021825347474128,
+          -18.58102680532506
+        ],
+        "fov": 36
+      },
+      "before": {
+        "clock": 11.99999999999996,
+        "s": 421.60429633506027,
+        "v": 9.590558679495064,
+        "brake": 6.001637236989464e-48,
+        "lat": 0.005431544808066294,
+        "slip": 0.015510865777394713,
+        "pitch": -5.183188290243572e-10,
+        "roll": 0.004948858850867379,
+        "wheel": 1222.9310455883806,
+        "wheelR": 2502.0704780321694,
+        "steer": -0.012611478221811414,
+        "position": [
+          31.41004449891278,
+          0.030315522069818544,
+          -18.580731410006376
+        ],
+        "heading": -0.246012115877959,
+        "trailer": null,
+        "sway": {
+          "r": -0.013772514606960405,
+          "p": -3.553453737120609e-05
+        },
+        "loo": null
+      },
+      "resources": {
+        "programLinked": true,
+        "shaderCompiles": [
+          {
+            "compiled": true,
+            "log": ""
+          },
+          {
+            "compiled": true,
+            "log": ""
+          }
+        ],
+        "sampleSupport": {
+          "rgba16f": [
+            4
+          ],
+          "rgba8": [
+            4
+          ],
+          "depth": [
+            4
+          ]
+        },
+        "multisample": {
+          "capabilityFix": true,
+          "samples": 4,
+          "valid": true,
+          "extraAttachmentBytes": 11044800
+        },
+        "parts": 43,
+        "trailerParts": 0,
+        "validBuffers": true,
+        "atlasValid": true,
+        "glError": 0
+      },
+      "graphics": {
+        "version": "1.8",
+        "quality": "balanced",
+        "samples": 4,
+        "shadowMap": 1024,
+        "resolution": [
+          390,
+          590
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": true,
+        "reflections": true,
+        "shadowOn": true,
+        "drawnAt": "100%"
+      },
+      "carStats": {
+        "parts": 43,
+        "triangles": 86862,
+        "vertices": 64796,
+        "gpuBytes": 3115816,
+        "quality": "balanced"
+      },
+      "canvas": {
+        "width": 390,
+        "height": 590,
+        "cssWidth": 390,
+        "cssHeight": 590,
+        "imageRendering": "auto"
+      },
+      "file": "phone-car-restored.png",
+      "sha256": "1435d01bef81f693f74b4cc12af7c3d90bb90888a74b03c023451b271da843a3"
+    }
+  ],
+  "visualReview": "Directly inspected all 10 final-candidate screenshots. Authored orange and yellow livery remain vivid, painted panels retain shape, glass shows cabin depth, tyre/rim and light assemblies remain attached and readable. All towing combinations fit completely; no new rendering defect observed. Native 4x AA smooths silhouettes, railings and lamp edges.",
+  "memory": {
+    "liveryMipAdditionalBytes": 174763,
+    "desktopHDR4xAdditionalAttachmentBytes": 31764480,
+    "phoneHDR4xAdditionalAttachmentBytes": 11044800,
+    "balanced1800000PixelCapHDR4xAttachmentBytes": 86400000,
+    "basis": "4 samples times colour RGBA16F 8 bytes plus depth/stencil 4 bytes per native pixel. Extra versus previous 1x fallback that allocated no multisample renderbuffers; double intended 2x storage. Actual driver memory overhead is not measured."
+  },
+  "relatedComponentVisualGates": {
+    "actualUICameraViews": 14,
+    "actualUICameraChecks": 71,
+    "actualUIPrivate": "/workspace/private-v802-ui-aa",
+    "normalOpeningTourViews": 10,
+    "normalOpeningTourChecks": 45,
+    "normalOpeningPrivate": "/workspace/private-v800-opening-tuned"
+  },
+  "limits": [
+    "Software renderer, DPR 1, fixed controlled inspection poses and manual quality; this is not a real-device FPS benchmark. Adaptive quality behavior remains unchanged in product code.",
+    "Inspection cameras remove only render smoke; normal product opening/tour smoke and seam were independently reviewed unchanged.",
+    "The map/control labels in controlled inspection are not product camera/UI acceptance evidence; that gate uses the actual UI 14-view harness.",
+    "Component UI/opening captures use earlier private composition hashes with the same frozen visual components; final 82-check focus run uses the exact 85adb462 release candidate."
+  ]
+}

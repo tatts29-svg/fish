@@ -1,0 +1,47 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026: \"Why remember my records were truth. Confirm proceed and action\" and \"number I allocate is truth\". The site-truth audit (audit_17Oct2026_site_truth/, three-lens verification) confirmed these as his own site entries overridden by record operations on branch paperwork.",
+ "refs": [
+  "T0001",
+  "P65",
+  "P66",
+  "WC86"
+ ],
+ "ops": [
+  {
+   "op": "labour_off",
+   "ref": "T0001",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "unit": "1182999",
+   "why": "Andrew unticked install on board 1182999 on 23 Sep 2026; a 9 Oct agent run re-ticked the whole reference. A tick he took off stays off."
+  },
+  {
+   "op": "door",
+   "ref": "P65",
+   "id": "u1327217",
+   "side": "passenger",
+   "why": "Andrew recorded P65 passenger side on 9 Oct (07:03 AEST) before the unit was numbered; carried onto the numbered unit"
+  },
+  {
+   "op": "door",
+   "ref": "P66",
+   "id": "u1327222",
+   "side": "driver",
+   "why": "Andrew recorded P66 driver side on 9 Oct (07:02 AEST); carried onto the numbered unit"
+  },
+  {
+   "op": "door",
+   "ref": "WC86",
+   "id": "u1296899",
+   "side": "na",
+   "why": "Andrew recorded WC86 door side not applicable on 7 Oct; carried onto the numbered unit"
+  }
+ ],
+ "note": "WC09: left as it is. The page already shows both of Andrew's toilet blocks, 1268858 and 1311146, with his photos, through the 15 Oct unit records; putting his typed numbers back changes nothing on the page (tested in page memory, 17 Oct).",
+ "allowRemove": [
+  "labour/T0001~7c~Variable~20~message~20~signs~7c~VMS~7c~install"
+ ],
+ "allowRemoveWhy": "the page spreads the 9 Oct reference-level install tick onto each board (v5.58) before taking 1182999 off; the other seven boards stay ticked, each with its own tick"
+}

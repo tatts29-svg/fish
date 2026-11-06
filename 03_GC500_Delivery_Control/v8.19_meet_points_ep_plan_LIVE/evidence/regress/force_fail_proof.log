@@ -1,0 +1,16 @@
+# Proof that run_all.sh exits non-zero when one suite fails (Codex review). Trial runs on the working tree (ALLOW_DIRTY=1), CPU suites only.
+$ ONLY="anchors qr" ALLOW_DIRTY=1 SCRATCH=... bash run_all.sh
+# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:13:54Z
+suite              pass   fail  exit  result
+anchors               6      0     0  PASS
+qr                    5      0     0  PASS
+suites: 2, failed: 0
+exit code: 0
+
+$ ONLY="anchors qr" FORCE_FAIL=anchors ALLOW_DIRTY=1 SCRATCH=... bash run_all.sh
+# v8.19 checks · source commit f84eddeb8f033f4e93368fffc34d751cefed516f + UNCOMMITTED CHANGES (trial run, not evidence) · candidate sha256 0036947974eeffd24145642637c125ea5a0f152350ca9f16384ac9f9d158dbe1 (9327411 bytes) · base (live at build) sha256 f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000 (9265578 bytes) · run 2026-10-03T13:14:08Z
+suite              pass   fail  exit  result
+anchors               0      1     1  FAIL
+qr                    5      0     0  PASS
+suites: 2, failed: 1
+exit code: 1

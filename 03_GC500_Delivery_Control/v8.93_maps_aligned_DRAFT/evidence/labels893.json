@@ -1,0 +1,5094 @@
+{
+ "author": "Andrew Fisher",
+ "pins": [
+  {
+   "ref": "AA",
+   "pt": [
+    0.42076,
+    0.34382
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "AA",
+   "on_17_sep": {
+    "box": [
+     1000.26,
+     576.59,
+     1005.89,
+     581.45
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1000.2,
+     576.59,
+     1005.83,
+     581.45
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.08,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "CP1",
+   "pt": [
+    0.91719,
+    0.76348
+   ],
+   "how": "leader line from callout CP1 on D022",
+   "label_text": null
+  },
+  {
+   "ref": "GN01",
+   "pt": [
+    0.36573,
+    0.44959
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 001's line on D024 (corrected 2 Oct 2026: it was 4.4 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN03",
+   "pt": [
+    0.49719,
+    0.36549
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 003's line on D024 (corrected 2 Oct 2026: it was 9.0 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN04",
+   "pt": [
+    0.6625,
+    0.3423
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 004's line on D024",
+   "label_text": null
+  },
+  {
+   "ref": "GN06",
+   "pt": [
+    0.89338,
+    0.14981
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 006's line on D024 (corrected 2 Oct 2026: it was 6.5 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN10",
+   "pt": [
+    0.69558,
+    0.19897
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 010's line on D024 (corrected 2 Oct 2026: it was 4.1 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN13",
+   "pt": [
+    0.53212,
+    0.19189
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 013's line on D024 (corrected 2 Oct 2026: it was 8.7 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN18",
+   "pt": [
+    0.202,
+    0.6883
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 018's line on D024 (corrected 2 Oct 2026: it was 13.5 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN19",
+   "pt": [
+    0.11777,
+    0.65215
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 019's line on D024 (corrected 2 Oct 2026: it was 10.2 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN20",
+   "pt": [
+    0.32738,
+    0.43163
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 020's line on D024 (corrected 2 Oct 2026: it was 9.4 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN21",
+   "pt": [
+    0.32815,
+    0.42825
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 021's line on D024 (corrected 2 Oct 2026: the 27 Sep trace had followed the wrong line to Gate 2, 423 m away)",
+   "label_text": null
+  },
+  {
+   "ref": "GN23",
+   "pt": [
+    0.38685,
+    0.3834
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 023's line on D024 (corrected 2 Oct 2026: it was 6.5 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "GN24",
+   "pt": [
+    0.187,
+    0.46952
+   ],
+   "how": "the orange generator symbol on the master D001, at the end of callout 024's line on D024 (corrected 2 Oct 2026: it was 7.1 m off, at the arrow's end)",
+   "label_text": null
+  },
+  {
+   "ref": "HRP",
+   "pt": [
+    0.4172,
+    0.34561
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "HRP",
+   "on_17_sep": {
+    "box": [
+     990.77,
+     579.18,
+     998.48,
+     584.75
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     990.71,
+     579.25,
+     998.42,
+     584.81
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "LTC01",
+   "pt": [
+    0.37156,
+    0.45154
+   ],
+   "how": "leader line from callout 01 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC02",
+   "pt": [
+    0.41753,
+    0.41657
+   ],
+   "how": "leader line from callout 02 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC03",
+   "pt": [
+    0.50961,
+    0.3712
+   ],
+   "how": "leader line from callout 03 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC04",
+   "pt": [
+    0.69526,
+    0.19145
+   ],
+   "how": "leader line from callout 04 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC05",
+   "pt": [
+    0.32362,
+    0.19002
+   ],
+   "how": "leader line from callout 05 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC06",
+   "pt": [
+    0.28997,
+    0.2247
+   ],
+   "how": "leader line from callout 06 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC07",
+   "pt": [
+    0.10478,
+    0.70232
+   ],
+   "how": "leader line from callout 07 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC08",
+   "pt": [
+    0.12424,
+    0.66413
+   ],
+   "how": "leader line from callout 08 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC09",
+   "pt": [
+    0.25268,
+    0.51793
+   ],
+   "how": "leader line from callout 09 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC10",
+   "pt": [
+    0.31787,
+    0.32928
+   ],
+   "how": "leader line from callout 10 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC11",
+   "pt": [
+    0.3044,
+    0.45493
+   ],
+   "how": "leader line from callout 11 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC12",
+   "pt": [
+    0.32882,
+    0.44264
+   ],
+   "how": "leader line from callout 12 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "LTC14",
+   "pt": [
+    0.20143,
+    0.50748
+   ],
+   "how": "leader line from callout 14 on D024",
+   "label_text": null
+  },
+  {
+   "ref": "P01",
+   "pt": [
+    0.19929,
+    0.48124
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P01",
+   "on_17_sep": {
+    "box": [
+     471.47,
+     807.13,
+     478.83,
+     813.65
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     -0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     471.41,
+     807.13,
+     478.77,
+     813.68
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P03",
+   "pt": [
+    0.20549,
+    0.48688
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P03",
+   "on_17_sep": {
+    "box": [
+     486.17,
+     816.62,
+     493.53,
+     823.16
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     -0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     486.17,
+     816.6,
+     493.54,
+     823.12
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P04",
+   "pt": [
+    0.20235,
+    0.49299
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P04",
+   "on_17_sep": {
+    "box": [
+     478.92,
+     827.7,
+     486.04,
+     832.63
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.08,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     478.93,
+     827.8,
+     486.04,
+     832.7
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.09,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P05",
+   "pt": [
+    0.19476,
+    0.47666
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P05",
+   "on_17_sep": {
+    "box": [
+     460.6,
+     799.4,
+     467.96,
+     805.96
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     460.6,
+     799.47,
+     467.96,
+     806.03
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P06",
+   "pt": [
+    0.25122,
+    0.38563
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P06",
+   "on_17_sep": {
+    "box": [
+     595.39,
+     645.85,
+     602.41,
+     653.0
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     595.39,
+     645.85,
+     602.41,
+     653.0
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P08",
+   "pt": [
+    0.20789,
+    0.68219
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P08",
+   "on_17_sep": {
+    "box": [
+     493.08,
+     1144.82,
+     498.05,
+     1152.69
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     -0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     492.66,
+     1142.03,
+     497.69,
+     1149.93
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.44,
+     -2.83
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P09",
+   "pt": [
+    0.2901,
+    0.47179
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P09",
+   "on_17_sep": {
+    "box": [
+     688.57,
+     791.61,
+     694.6,
+     797.31
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     688.58,
+     791.69,
+     694.62,
+     797.38
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P10",
+   "pt": [
+    0.40734,
+    0.35374
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P10",
+   "on_17_sep": {
+    "box": [
+     967.48,
+     592.98,
+     974.76,
+     598.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     967.42,
+     592.98,
+     974.7,
+     598.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P11",
+   "pt": [
+    0.41112,
+    0.35202
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P11",
+   "on_17_sep": {
+    "box": [
+     976.51,
+     590.1,
+     983.77,
+     595.5
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     976.44,
+     590.09,
+     983.71,
+     595.49
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P12",
+   "pt": [
+    0.41493,
+    0.35006
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P12",
+   "on_17_sep": {
+    "box": [
+     985.6,
+     586.75,
+     992.91,
+     592.31
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.06,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     985.55,
+     586.83,
+     992.86,
+     592.37
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.1
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P13",
+   "pt": [
+    0.41883,
+    0.34822
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P13",
+   "on_17_sep": {
+    "box": [
+     994.8,
+     583.67,
+     1002.07,
+     589.07
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     994.8,
+     583.67,
+     1002.07,
+     589.07
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P14",
+   "pt": [
+    0.42219,
+    0.34662
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P14",
+   "on_17_sep": {
+    "box": [
+     1002.9,
+     581.03,
+     1010.17,
+     586.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1002.91,
+     581.04,
+     1010.17,
+     586.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P15",
+   "pt": [
+    0.42592,
+    0.34495
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P15",
+   "on_17_sep": {
+    "box": [
+     1011.72,
+     578.15,
+     1018.99,
+     583.55
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1011.73,
+     578.16,
+     1018.99,
+     583.55
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P16",
+   "pt": [
+    0.42961,
+    0.34323
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P16",
+   "on_17_sep": {
+    "box": [
+     1020.59,
+     575.31,
+     1027.89,
+     580.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.05,
+     0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1020.58,
+     575.29,
+     1027.89,
+     580.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.05,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P17",
+   "pt": [
+    0.29421,
+    0.44857
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P17",
+   "on_17_sep": {
+    "box": [
+     698.02,
+     751.68,
+     704.82,
+     758.97
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     -0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     698.02,
+     751.68,
+     704.82,
+     758.97
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     -0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P18",
+   "pt": [
+    0.29899,
+    0.45962
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P18",
+   "on_17_sep": {
+    "box": [
+     709.24,
+     770.41,
+     716.31,
+     777.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     709.24,
+     770.41,
+     716.31,
+     777.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P19",
+   "pt": [
+    0.29635,
+    0.45564
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P19",
+   "on_17_sep": {
+    "box": [
+     703.0,
+     763.81,
+     710.07,
+     770.91
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     703.0,
+     763.87,
+     710.07,
+     770.97
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.12
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P20",
+   "pt": [
+    0.29887,
+    0.45143
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P20",
+   "on_17_sep": {
+    "box": [
+     708.88,
+     756.73,
+     715.95,
+     763.83
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     708.88,
+     756.73,
+     715.95,
+     763.83
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P21",
+   "pt": [
+    0.29509,
+    0.45772
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P21",
+   "on_17_sep": {
+    "box": [
+     699.94,
+     767.23,
+     707.01,
+     774.33
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     699.88,
+     767.23,
+     706.95,
+     774.33
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.08,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P25",
+   "pt": [
+    0.72911,
+    0.16496
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P25",
+   "on_17_sep": {
+    "box": [
+     1736.27,
+     274.44,
+     1740.22,
+     281.14
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1736.27,
+     274.44,
+     1740.22,
+     281.14
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P26",
+   "pt": [
+    0.28414,
+    0.48753
+   ],
+   "how": "leader line from callout 026 on D022",
+   "label_text": null
+  },
+  {
+   "ref": "P28",
+   "pt": [
+    0.28591,
+    0.48723
+   ],
+   "how": "leader line from callout 028 on D022",
+   "label_text": null
+  },
+  {
+   "ref": "P33",
+   "pt": [
+    0.29341,
+    0.47625
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P33",
+   "on_17_sep": {
+    "box": [
+     695.99,
+     798.42,
+     702.86,
+     805.67
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     695.99,
+     798.42,
+     702.86,
+     805.67
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P34",
+   "pt": [
+    0.28779,
+    0.48409
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P34",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "P36",
+   "pt": [
+    0.41346,
+    0.34727
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P36",
+   "on_17_sep": {
+    "box": [
+     982.06,
+     582.08,
+     989.34,
+     587.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     982.06,
+     582.06,
+     989.34,
+     587.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P37",
+   "pt": [
+    0.42441,
+    0.34198
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P37",
+   "on_17_sep": {
+    "box": [
+     1008.1,
+     573.18,
+     1015.38,
+     578.63
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1008.1,
+     573.25,
+     1015.38,
+     578.69
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.08
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P38",
+   "pt": [
+    0.27471,
+    0.39715
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P38",
+   "on_17_sep": {
+    "box": [
+     651.17,
+     665.42,
+     658.46,
+     672.22
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     650.9,
+     665.79,
+     658.22,
+     672.48
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.35,
+     0.33
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P39",
+   "pt": [
+    0.27798,
+    0.40137
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P39",
+   "on_17_sep": {
+    "box": [
+     659.08,
+     672.48,
+     666.34,
+     679.33
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     658.92,
+     672.6,
+     666.22,
+     679.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.13,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P41",
+   "pt": [
+    0.20881,
+    0.55802
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P41",
+   "on_17_sep": {
+    "box": [
+     494.13,
+     936.41,
+     501.48,
+     942.99
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     494.07,
+     936.41,
+     501.42,
+     942.99
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P42",
+   "pt": [
+    0.27148,
+    0.3927
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P42",
+   "on_17_sep": {
+    "box": [
+     643.63,
+     657.8,
+     650.82,
+     664.76
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     643.05,
+     658.41,
+     650.28,
+     665.31
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.54,
+     0.55
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P44",
+   "pt": [
+    0.22504,
+    0.49014
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P44",
+   "on_17_sep": {
+    "box": [
+     532.77,
+     822.42,
+     540.15,
+     828.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     531.21,
+     823.49,
+     538.31,
+     830.56
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -1.74,
+     1.63
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P45",
+   "pt": [
+    0.50738,
+    0.19555
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 85 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "label_text": "P45",
+   "on_17_sep": {
+    "box": [
+     1327.38,
+     322.96,
+     1334.26,
+     330.2
+    ],
+    "to_box_pt": 117.78,
+    "inside": false,
+    "centre_offset_pt": [
+     121.23,
+     -2.72
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1207.39,
+     326.13,
+     1211.45,
+     332.89
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.17,
+     0.2
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P46",
+   "pt": [
+    0.20243,
+    0.69751
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P46",
+   "on_17_sep": {
+    "box": [
+     480.41,
+     1170.7,
+     484.93,
+     1178.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     480.23,
+     1171.44,
+     484.98,
+     1179.21
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.72
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P47",
+   "pt": [
+    0.20013,
+    0.69299
+   ],
+   "how": "the QPS compound by Gate 2 / Commodore Park, beside P46 (QPS Command Post): D022 rev 02 callout 047 points into it; the current master (rev 03) does not draw P47 - the spot confirmed by the project manager, 2 Oct 2026",
+   "label_text": null
+  },
+  {
+   "ref": "P51",
+   "pt": [
+    0.20705,
+    0.67387
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P51",
+   "on_17_sep": {
+    "box": [
+     491.04,
+     1130.93,
+     496.06,
+     1138.83
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     490.62,
+     1128.14,
+     495.58,
+     1136.01
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.51,
+     -2.72
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P52",
+   "pt": [
+    0.05831,
+    0.69133
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P52",
+   "on_17_sep": {
+    "box": [
+     135.49,
+     1161.97,
+     142.47,
+     1166.54
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     135.48,
+     1161.98,
+     142.47,
+     1166.55
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     0.06
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P53",
+   "pt": [
+    0.05579,
+    0.69727
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P53",
+   "on_17_sep": {
+    "box": [
+     130.66,
+     1170.62,
+     135.34,
+     1177.65
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     -0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     130.66,
+     1170.64,
+     135.28,
+     1177.64
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     -0.06
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P54",
+   "pt": [
+    0.05877,
+    0.69929
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P54",
+   "on_17_sep": {
+    "box": [
+     137.74,
+     1174.06,
+     142.36,
+     1181.06
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     137.68,
+     1174.05,
+     142.35,
+     1181.07
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P55",
+   "pt": [
+    0.06065,
+    0.71027
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P55",
+   "on_17_sep": {
+    "box": [
+     141.0,
+     1193.64,
+     148.15,
+     1198.63
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     141.0,
+     1193.64,
+     148.16,
+     1198.7
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.08
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P56",
+   "pt": [
+    0.05793,
+    0.70315
+   ],
+   "how": "tag on the unit, master D001 — the newer master (rev 03) is used; the older D022 (rev 02) arrow points about 16 m away",
+   "label_text": "P56",
+   "on_17_sep": {
+    "box": [
+     134.56,
+     1181.73,
+     141.61,
+     1186.46
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     134.5,
+     1181.73,
+     141.55,
+     1186.46
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.08,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P57",
+   "pt": [
+    0.05885,
+    0.67797
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P57",
+   "on_17_sep": {
+    "box": [
+     136.81,
+     1139.44,
+     143.79,
+     1144.01
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     136.76,
+     1139.49,
+     143.73,
+     1144.01
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P58",
+   "pt": [
+    0.22827,
+    0.48783
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P58",
+   "on_17_sep": {
+    "box": [
+     540.49,
+     818.42,
+     547.88,
+     824.47
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     540.43,
+     818.42,
+     547.82,
+     824.47
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.06
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P60",
+   "pt": [
+    0.89824,
+    0.15036
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P60",
+   "on_17_sep": {
+    "box": [
+     2139.1,
+     251.82,
+     2143.67,
+     254.48
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.06
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     2139.1,
+     251.82,
+     2143.67,
+     254.48
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.06
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "P62",
+   "pt": [
+    0.88876,
+    0.15107
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P62",
+   "on_17_sep": {
+    "box": [
+     2116.4,
+     252.96,
+     2121.06,
+     255.8
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.02
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     2116.43,
+     253.02,
+     2121.06,
+     255.8
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.01
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "P63",
+   "pt": [
+    0.88444,
+    0.15137
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P63",
+   "on_17_sep": {
+    "box": [
+     2106.22,
+     253.56,
+     2110.79,
+     256.22
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     -0.02
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     2106.16,
+     253.56,
+     2110.73,
+     256.22
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.02
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "P65",
+   "pt": [
+    0.72185,
+    0.16574
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P65",
+   "on_17_sep": {
+    "box": [
+     1718.81,
+     275.66,
+     1722.99,
+     282.48
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1718.75,
+     275.64,
+     1722.99,
+     282.48
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P66",
+   "pt": [
+    0.72685,
+    0.16514
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P66",
+   "on_17_sep": {
+    "box": [
+     1730.81,
+     274.78,
+     1734.81,
+     281.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1730.75,
+     274.78,
+     1734.76,
+     281.51
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P67",
+   "pt": [
+    0.71992,
+    0.16603
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P67",
+   "on_17_sep": {
+    "box": [
+     1714.19,
+     276.14,
+     1718.37,
+     282.95
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1714.13,
+     276.18,
+     1718.37,
+     283.02
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "P69",
+   "pt": [
+    0.5104,
+    0.19424
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "P69",
+   "on_17_sep": {
+    "box": [
+     1213.53,
+     325.3,
+     1220.08,
+     328.96
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1213.53,
+     325.36,
+     1220.08,
+     329.02
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.09
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "PG01",
+   "pt": [
+    0.35654,
+    0.41508
+   ],
+   "how": "Pit Lane label on the master — garage numbers are not printed",
+   "label_text": "PIT LANE",
+   "on_17_sep": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "PG03",
+   "pt": [
+    0.35654,
+    0.41508
+   ],
+   "how": "Pit Lane label on the master — garage numbers are not printed",
+   "label_text": "PIT LANE",
+   "on_17_sep": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "PG05",
+   "pt": [
+    0.35654,
+    0.41508
+   ],
+   "how": "Pit Lane label on the master — garage numbers are not printed",
+   "label_text": "PIT LANE",
+   "on_17_sep": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "PG29",
+   "pt": [
+    0.35654,
+    0.41508
+   ],
+   "how": "Pit Lane label on the master — garage numbers are not printed",
+   "label_text": "PIT LANE",
+   "on_17_sep": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     850.18,
+     698.76,
+     875.79,
+     716.6
+    ],
+    "to_box_pt": 0.19,
+    "inside": false,
+    "centre_offset_pt": [
+     12.99,
+     8.69
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WB02",
+   "pt": [
+    0.30789,
+    0.22625
+   ],
+   "how": "sector S08 label on the master",
+   "label_text": "SECTOR S08",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WB03",
+   "pt": [
+    0.64052,
+    0.31888
+   ],
+   "how": "Turn 2 marker on the master",
+   "label_text": null
+  },
+  {
+   "ref": "WB04",
+   "pt": [
+    0.05327,
+    0.71378
+   ],
+   "how": "Helen Park label on the master",
+   "label_text": "HELEN PARK",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WB07",
+   "pt": [
+    0.43456,
+    0.46853
+   ],
+   "how": "Admiralty Dr label on the master",
+   "label_text": "ADMIRALTY DR",
+   "on_17_sep": {
+    "box": [
+     1035.52,
+     788.69,
+     1081.02,
+     823.77
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     22.28,
+     17.23
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1035.52,
+     788.69,
+     1081.02,
+     823.77
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     22.28,
+     17.23
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WB13",
+   "pt": [
+    0.66779,
+    0.32126
+   ],
+   "how": "sector S15 label on the master",
+   "label_text": "SECTOR S15",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WB14",
+   "pt": [
+    0.74664,
+    0.24584
+   ],
+   "how": "Turn 4 marker on the master",
+   "label_text": null
+  },
+  {
+   "ref": "WB15",
+   "pt": [
+    0.08641,
+    0.27494
+   ],
+   "how": "Turn 11 marker on the master",
+   "label_text": null
+  },
+  {
+   "ref": "WB16",
+   "pt": [
+    0.1745,
+    0.69774
+   ],
+   "how": "Commodore Park label on the master",
+   "label_text": "COMMODORE PARK",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WB17",
+   "pt": [
+    0.34815,
+    0.20487
+   ],
+   "how": "Turns 6–9 markers on the master (T6–T9 span ~250 m)",
+   "label_text": null
+  },
+  {
+   "ref": "WB18",
+   "pt": [
+    0.64052,
+    0.31888
+   ],
+   "how": "Turn 2 marker on the master",
+   "label_text": null
+  },
+  {
+   "ref": "WB19",
+   "pt": [
+    0.30789,
+    0.22625
+   ],
+   "how": "sector S08 label on the master",
+   "label_text": "SECTOR S08",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WB20",
+   "pt": [
+    0.64052,
+    0.31888
+   ],
+   "how": "Turn 2 marker on the master",
+   "label_text": null
+  },
+  {
+   "ref": "WC01",
+   "pt": [
+    0.19761,
+    0.59115
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC01",
+   "on_17_sep": {
+    "box": [
+     465.99,
+     991.19,
+     476.28,
+     999.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     465.97,
+     991.15,
+     476.26,
+     999.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC02",
+   "pt": [
+    0.20931,
+    0.55196
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC02",
+   "on_17_sep": {
+    "box": [
+     493.82,
+     925.19,
+     504.12,
+     933.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     493.76,
+     925.16,
+     504.05,
+     933.85
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC04",
+   "pt": [
+    0.22722,
+    0.48426
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC04",
+   "on_17_sep": {
+    "box": [
+     536.43,
+     811.59,
+     547.01,
+     819.37
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     536.43,
+     811.59,
+     547.01,
+     819.37
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC05",
+   "pt": [
+    0.20986,
+    0.4997
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC05",
+   "on_17_sep": {
+    "box": [
+     495.12,
+     839.33,
+     505.5,
+     843.81
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     495.06,
+     839.39,
+     505.44,
+     843.87
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.13
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC06",
+   "pt": [
+    0.281,
+    0.48468
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC06",
+   "on_17_sep": {
+    "box": [
+     665.21,
+     811.33,
+     674.62,
+     821.17
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     665.15,
+     811.33,
+     674.55,
+     821.17
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC07",
+   "pt": [
+    0.26571,
+    0.45523
+   ],
+   "how": "tag on the unit, master D001 (the second of its two tags; Andrew's pin is 3.9 m from it)",
+   "label_text": "WC07",
+   "on_17_sep": {
+    "box": [
+     629.24,
+     761.43,
+     637.71,
+     771.81
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.01
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     629.18,
+     761.43,
+     637.65,
+     771.81
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.01
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "WC09",
+   "pt": [
+    0.28461,
+    0.36704
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC09",
+   "on_17_sep": {
+    "box": [
+     673.15,
+     614.4,
+     683.79,
+     621.86
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     673.15,
+     614.38,
+     683.78,
+     621.86
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC11",
+   "pt": [
+    0.29501,
+    0.48331
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC11",
+   "on_17_sep": {
+    "box": [
+     698.29,
+     809.3,
+     708.3,
+     818.49
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     698.3,
+     809.32,
+     708.32,
+     818.49
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC12",
+   "pt": [
+    0.33175,
+    0.41835
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC12",
+   "on_17_sep": {
+    "box": [
+     785.63,
+     700.39,
+     796.09,
+     708.64
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     785.58,
+     700.49,
+     796.06,
+     708.7
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     0.09
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC13",
+   "pt": [
+    0.69295,
+    0.24056
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC13",
+   "on_17_sep": {
+    "box": [
+     1650.3,
+     400.02,
+     1653.84,
+     410.1
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1650.3,
+     400.02,
+     1653.84,
+     410.1
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC15",
+   "pt": [
+    0.36921,
+    0.35695
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC15",
+   "on_17_sep": {
+    "box": [
+     875.05,
+     599.26,
+     885.16,
+     602.86
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     875.05,
+     599.26,
+     885.16,
+     602.86
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC16",
+   "pt": [
+    0.36581,
+    0.3908
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC16",
+   "on_17_sep": {
+    "box": [
+     866.81,
+     654.42,
+     877.44,
+     661.94
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     866.75,
+     654.42,
+     877.38,
+     661.94
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC17",
+   "pt": [
+    0.40252,
+    0.35321
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC17",
+   "on_17_sep": {
+    "box": [
+     954.41,
+     592.49,
+     964.82,
+     597.09
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     954.41,
+     592.5,
+     964.83,
+     597.15
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC19",
+   "pt": [
+    0.5125,
+    0.34335
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC19",
+   "on_17_sep": {
+    "box": [
+     1216.53,
+     575.33,
+     1227.17,
+     581.17
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.05,
+     0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1216.53,
+     575.39,
+     1227.17,
+     581.23
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.05,
+     0.11
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC20",
+   "pt": [
+    0.46426,
+    0.35
+   ],
+   "how": "tag on the unit, master D001 — the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 31 m away",
+   "label_text": "WC20",
+   "on_17_sep": {
+    "box": [
+     1101.38,
+     585.98,
+     1112.06,
+     592.67
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.08,
+     -0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1104.38,
+     585.11,
+     1115.07,
+     591.77
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     2.93,
+     -0.96
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC21",
+   "pt": [
+    0.57584,
+    0.31621
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC21",
+   "on_17_sep": {
+    "box": [
+     1367.57,
+     530.33,
+     1377.9,
+     534.63
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1367.57,
+     530.32,
+     1377.9,
+     534.63
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC23",
+   "pt": [
+    0.59765,
+    0.26734
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC23",
+   "on_17_sep": {
+    "box": [
+     1419.55,
+     446.12,
+     1429.99,
+     454.42
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1419.56,
+     446.18,
+     1430.0,
+     454.45
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.12
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC24",
+   "pt": [
+    0.69622,
+    0.2291
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC24",
+   "on_17_sep": {
+    "box": [
+     1654.8,
+     383.98,
+     1664.91,
+     387.58
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1654.8,
+     383.98,
+     1664.91,
+     387.58
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC25",
+   "pt": [
+    0.63209,
+    0.29578
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC25",
+   "on_17_sep": {
+    "box": [
+     1501.69,
+     494.0,
+     1512.13,
+     502.3
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1501.63,
+     494.06,
+     1512.08,
+     502.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.12
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC26",
+   "pt": [
+    0.55474,
+    0.23587
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC26",
+   "on_17_sep": {
+    "box": [
+     1317.31,
+     393.08,
+     1327.76,
+     401.38
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1317.32,
+     393.08,
+     1327.76,
+     401.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC27",
+   "pt": [
+    0.31774,
+    0.24371
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC27",
+   "on_17_sep": {
+    "box": [
+     752.36,
+     408.17,
+     762.72,
+     412.59
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     752.3,
+     408.17,
+     762.66,
+     412.59
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC28",
+   "pt": [
+    0.19501,
+    0.26675
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC28",
+   "on_17_sep": {
+    "box": [
+     459.59,
+     446.66,
+     470.12,
+     451.82
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     459.59,
+     446.66,
+     470.12,
+     451.82
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC29",
+   "pt": [
+    0.20554,
+    0.3174
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC29",
+   "on_17_sep": {
+    "box": [
+     486.54,
+     529.13,
+     493.49,
+     539.82
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     486.54,
+     529.19,
+     493.49,
+     539.88
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC30",
+   "pt": [
+    0.12974,
+    0.37654
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC30",
+   "on_17_sep": {
+    "box": [
+     304.2,
+     632.2,
+     314.38,
+     636.03
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     304.14,
+     632.2,
+     314.32,
+     636.03
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC31",
+   "pt": [
+    0.13469,
+    0.58486
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC31",
+   "on_17_sep": {
+    "box": [
+     317.96,
+     979.49,
+     324.28,
+     990.16
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     -0.08
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     317.9,
+     979.49,
+     324.22,
+     990.16
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     -0.08
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "WC32",
+   "pt": [
+    0.15596,
+    0.64299
+   ],
+   "how": "tag on the unit, master D001 issued 17 Sep (not drawn on the 2 Oct issue)",
+   "label_text": "WC32",
+   "on_17_sep": {
+    "box": [
+     366.68,
+     1078.41,
+     376.89,
+     1087.26
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": null
+  },
+  {
+   "ref": "WC33",
+   "pt": [
+    0.37387,
+    0.2402
+   ],
+   "how": "tag on the unit, master D001 — the newer master (rev 03) is used; the older D023 (rev 02) arrow points about 45 m away",
+   "label_text": "WC33",
+   "on_17_sep": {
+    "box": [
+     885.95,
+     401.73,
+     896.55,
+     407.3
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     885.94,
+     401.69,
+     896.55,
+     407.3
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC34",
+   "pt": [
+    0.12693,
+    0.54026
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC34",
+   "on_17_sep": {
+    "box": [
+     297.32,
+     906.88,
+     307.94,
+     912.55
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     297.32,
+     906.88,
+     307.94,
+     912.55
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.08
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC35",
+   "pt": [
+    0.09425,
+    0.3845
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC35",
+   "on_17_sep": {
+    "box": [
+     219.47,
+     645.4,
+     229.8,
+     649.71
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     219.49,
+     645.47,
+     229.8,
+     649.71
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     0.09
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC38",
+   "pt": [
+    0.20889,
+    0.68542
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 13 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "label_text": "WC38",
+   "on_17_sep": {
+    "box": [
+     500.75,
+     1130.57,
+     505.68,
+     1142.37
+    ],
+    "to_box_pt": 12.19,
+    "inside": false,
+    "centre_offset_pt": [
+     5.22,
+     -17.78
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     492.05,
+     1152.55,
+     503.61,
+     1156.71
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.16,
+     0.38
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC39",
+   "pt": [
+    0.20915,
+    0.69716
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 9 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "label_text": "WC39",
+   "on_17_sep": {
+    "box": [
+     486.06,
+     1183.39,
+     497.61,
+     1187.49
+    ],
+    "to_box_pt": 9.43,
+    "inside": false,
+    "centre_offset_pt": [
+     -6.78,
+     11.42
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     492.66,
+     1172.35,
+     504.21,
+     1176.45
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.18,
+     0.38
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC40",
+   "pt": [
+    0.21195,
+    0.65665
+   ],
+   "how": "tag on the unit, master D001; the 2 Oct issue drops the second tag (WC40a)",
+   "label_text": "WC40",
+   "on_17_sep": {
+    "box": [
+     501.6,
+     1099.7,
+     508.98,
+     1111.91
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.0,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     501.59,
+     1099.69,
+     508.93,
+     1111.9
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC41",
+   "pt": [
+    0.28968,
+    0.52375
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC41",
+   "on_17_sep": {
+    "box": [
+     685.52,
+     877.53,
+     695.73,
+     886.38
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     685.52,
+     877.53,
+     695.73,
+     886.38
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     -0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC42",
+   "pt": [
+    0.18905,
+    0.62637
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC42",
+   "on_17_sep": {
+    "box": [
+     445.72,
+     1050.16,
+     455.66,
+     1059.44
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     445.71,
+     1050.14,
+     455.63,
+     1059.43
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC43",
+   "pt": [
+    0.39136,
+    0.42743
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC43",
+   "on_17_sep": {
+    "box": [
+     927.73,
+     715.93,
+     938.29,
+     723.78
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     927.72,
+     715.91,
+     938.28,
+     723.78
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.0,
+     0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC44",
+   "pt": [
+    0.56472,
+    0.34644
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC44",
+   "on_17_sep": {
+    "box": [
+     1341.32,
+     581.56,
+     1351.4,
+     585.1
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.08
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1341.3,
+     581.56,
+     1351.41,
+     585.16
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.06,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC45",
+   "pt": [
+    0.67735,
+    0.33165
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC45",
+   "on_17_sep": {
+    "box": [
+     1610.03,
+     553.71,
+     1619.74,
+     563.27
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.08,
+     -0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1610.02,
+     553.69,
+     1619.71,
+     563.26
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.06,
+     -0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC46",
+   "pt": [
+    0.77773,
+    0.25012
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC46",
+   "on_17_sep": {
+    "box": [
+     1848.76,
+     418.22,
+     1859.42,
+     424.32
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.07
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1848.76,
+     418.22,
+     1859.42,
+     424.32
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC47",
+   "pt": [
+    0.64341,
+    0.33563
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC47",
+   "on_17_sep": {
+    "box": [
+     1528.59,
+     562.31,
+     1539.23,
+     568.15
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1528.59,
+     562.37,
+     1539.23,
+     568.21
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.09
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC48",
+   "pt": [
+    0.87785,
+    0.16081
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC48",
+   "on_17_sep": {
+    "box": [
+     2087.71,
+     268.67,
+     2098.02,
+     272.91
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.07,
+     -0.01
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     2087.63,
+     268.6,
+     2097.96,
+     272.91
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.0,
+     -0.05
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "WC49",
+   "pt": [
+    0.8927,
+    0.14359
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC49",
+   "on_17_sep": {
+    "box": [
+     2122.97,
+     239.69,
+     2133.3,
+     243.99
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.03
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     2122.95,
+     239.62,
+     2133.3,
+     243.99
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     0.0
+    ],
+    "candidates": 2
+   }
+  },
+  {
+   "ref": "WC50",
+   "pt": [
+    0.61552,
+    0.21348
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC50",
+   "on_17_sep": {
+    "box": [
+     1462.25,
+     357.35,
+     1472.58,
+     361.65
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1462.19,
+     357.34,
+     1472.52,
+     361.65
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.05,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC51",
+   "pt": [
+    0.81939,
+    0.1626
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (drawn about 18 m from its navigation pin, which stays where it is: confirmed by Andrew 8 Oct)",
+   "label_text": "WC51",
+   "on_17_sep": {
+    "box": [
+     1971.4,
+     261.65,
+     1981.8,
+     266.19
+    ],
+    "to_box_pt": 19.53,
+    "inside": false,
+    "centre_offset_pt": [
+     23.17,
+     -9.9
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1948.06,
+     271.73,
+     1958.45,
+     276.27
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.17,
+     0.18
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC53",
+   "pt": [
+    0.80793,
+    0.17637
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC53",
+   "on_17_sep": {
+    "box": [
+     1923.9,
+     291.8,
+     1928.15,
+     302.12
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.08,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1923.85,
+     291.8,
+     1928.09,
+     302.11
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.14,
+     -0.05
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC54",
+   "pt": [
+    0.73515,
+    0.16419
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC54",
+   "on_17_sep": {
+    "box": [
+     1747.47,
+     274.54,
+     1757.69,
+     278.5
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1747.47,
+     274.54,
+     1757.69,
+     278.5
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC55",
+   "pt": [
+    0.71317,
+    0.21283
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC55",
+   "on_17_sep": {
+    "box": [
+     1694.91,
+     355.65,
+     1705.51,
+     361.17
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1694.91,
+     355.66,
+     1705.51,
+     361.21
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC56",
+   "pt": [
+    0.61942,
+    0.19531
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC56",
+   "on_17_sep": {
+    "box": [
+     1471.49,
+     326.86,
+     1481.75,
+     330.93
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1471.49,
+     326.86,
+     1481.75,
+     330.93
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC57",
+   "pt": [
+    0.5112,
+    0.18385
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC57",
+   "on_17_sep": {
+    "box": [
+     1213.63,
+     307.72,
+     1223.8,
+     311.5
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1213.63,
+     307.72,
+     1223.8,
+     311.5
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC59",
+   "pt": [
+    0.51082,
+    0.19032
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC59",
+   "on_17_sep": {
+    "box": [
+     1212.72,
+     318.7,
+     1222.83,
+     322.3
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1212.72,
+     318.7,
+     1222.83,
+     322.3
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     -0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC60",
+   "pt": [
+    0.32043,
+    0.19466
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC60",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "WC61",
+   "pt": [
+    0.24471,
+    0.2149
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC61",
+   "on_17_sep": {
+    "box": [
+     578.07,
+     359.13,
+     588.65,
+     364.58
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.04
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     578.07,
+     359.13,
+     588.65,
+     364.58
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.03,
+     -0.04
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC62",
+   "pt": [
+    0.081,
+    0.26116
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC62",
+   "on_17_sep": {
+    "box": [
+     191.16,
+     434.74,
+     194.94,
+     444.9
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     191.16,
+     434.74,
+     194.94,
+     444.9
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC65",
+   "pt": [
+    0.06988,
+    0.49964
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC65",
+   "on_17_sep": {
+    "box": [
+     164.07,
+     836.14,
+     169.24,
+     846.68
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.06,
+     0.02
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     164.02,
+     836.14,
+     169.25,
+     846.68
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.02
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC67",
+   "pt": [
+    0.06342,
+    0.68135
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC67",
+   "on_17_sep": {
+    "box": [
+     145.88,
+     1144.92,
+     156.37,
+     1149.87
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     145.88,
+     1144.92,
+     156.37,
+     1149.86
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.07,
+     0.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC68",
+   "pt": [
+    0.06774,
+    0.6573
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC68",
+   "on_17_sep": {
+    "box": [
+     156.24,
+     1104.32,
+     166.78,
+     1109.49
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.02,
+     0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     156.18,
+     1104.38,
+     166.72,
+     1109.54
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.04,
+     0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC69",
+   "pt": [
+    0.07047,
+    0.67874
+   ],
+   "how": "tag on the unit, master D001 (the second of its two tags; D023 callout WC69 and zone page K228 both put it here); one tag on the 2 Oct issue",
+   "label_text": "WC69",
+   "on_17_sep": {
+    "box": [
+     163.64,
+     1138.09,
+     173.09,
+     1147.89
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.37,
+     -0.01
+    ],
+    "candidates": 2
+   },
+   "on_2_oct": {
+    "box": [
+     163.64,
+     1138.09,
+     173.09,
+     1147.89
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.37,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC70",
+   "pt": [
+    0.0828,
+    0.694
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC70",
+   "on_17_sep": {
+    "box": [
+     192.68,
+     1163.73,
+     202.09,
+     1173.56
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.01,
+     -0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     192.62,
+     1163.72,
+     202.05,
+     1173.54
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.06,
+     -0.07
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC71",
+   "pt": [
+    0.05549,
+    0.73515
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC71",
+   "on_17_sep": {
+    "box": [
+     127.18,
+     1233.56,
+     137.41,
+     1242.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.03
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     127.18,
+     1233.56,
+     137.41,
+     1242.36
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.01,
+     -0.03
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC72",
+   "pt": [
+    0.11376,
+    0.6943
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC72",
+   "on_17_sep": {
+    "box": [
+     266.0,
+     1165.13,
+     276.49,
+     1173.28
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     266.0,
+     1165.13,
+     276.49,
+     1173.28
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.04,
+     0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC73",
+   "pt": [
+    0.43108,
+    0.35469
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC73",
+   "on_17_sep": {
+    "box": [
+     1022.42,
+     594.46,
+     1033.04,
+     600.13
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     0.0
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1022.42,
+     594.52,
+     1033.04,
+     600.2
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     0.03,
+     0.06
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC81",
+   "pt": [
+    0.91736,
+    0.74246
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC81",
+   "on_17_sep": {
+    "box": [
+     2158.28,
+     1244.33,
+     2164.29,
+     1256.38
+    ],
+    "to_box_pt": 22.7,
+    "inside": false,
+    "centre_offset_pt": [
+     -25.7,
+     0.05
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     2158.28,
+     1244.27,
+     2164.3,
+     1256.33
+    ],
+    "to_box_pt": 22.69,
+    "inside": false,
+    "centre_offset_pt": [
+     -25.7,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "WC86",
+   "pt": [
+    0.47689,
+    0.34697
+   ],
+   "how": "tag on the unit, master D001",
+   "label_text": "WC86",
+   "on_17_sep": {
+    "box": [
+     1131.57,
+     581.39,
+     1142.21,
+     587.23
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.02,
+     0.01
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     1131.5,
+     581.35,
+     1142.14,
+     587.23
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.09,
+     -0.01
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "T0005",
+   "pt": [
+    0.22357,
+    0.43824
+   ],
+   "how": "Macintosh Island label on the master",
+   "label_text": "MACINTOSH ISLAND",
+   "on_17_sep": {
+    "box": [
+     533.42,
+     738.38,
+     621.43,
+     747.48
+    ],
+    "to_box_pt": 0.58,
+    "inside": false,
+    "centre_offset_pt": [
+     44.43,
+     4.93
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     533.42,
+     738.44,
+     621.43,
+     747.54
+    ],
+    "to_box_pt": 0.62,
+    "inside": false,
+    "centre_offset_pt": [
+     44.43,
+     4.99
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "T0024",
+   "pt": [
+    0.52433,
+    0.19834
+   ],
+   "how": "supply / equipment compound on the master — \"Coates compound\" read as this compound, confirm",
+   "label_text": null
+  },
+  {
+   "ref": "T0025",
+   "pt": [
+    0.62374,
+    0.20309
+   ],
+   "how": "sector S18 label on the master",
+   "label_text": "SECTOR S18",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "T0085",
+   "pt": [
+    0.51091,
+    0.19834
+   ],
+   "how": "SUPPLY compound label on the master (S.L.S equipment compound)",
+   "label_text": "SUPPLY COMPOUND",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "T0258",
+   "pt": [
+    0.05327,
+    0.71378
+   ],
+   "how": "Helen Park label on the master",
+   "label_text": "HELEN PARK",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "T0265",
+   "pt": [
+    0.90381,
+    0.85273
+   ],
+   "how": "OP42 label on the master",
+   "label_text": "OP42",
+   "on_17_sep": {
+    "box": [
+     2129.06,
+     1435.51,
+     2147.44,
+     1442.59
+    ],
+    "to_box_pt": 7.24,
+    "inside": false,
+    "centre_offset_pt": [
+     -16.43,
+     3.06
+    ],
+    "candidates": 1
+   },
+   "on_2_oct": {
+    "box": [
+     2129.06,
+     1435.45,
+     2147.44,
+     1442.53
+    ],
+    "to_box_pt": 7.24,
+    "inside": false,
+    "centre_offset_pt": [
+     -16.43,
+     3.0
+    ],
+    "candidates": 1
+   }
+  },
+  {
+   "ref": "T0266",
+   "pt": [
+    0.05327,
+    0.71378
+   ],
+   "how": "Helen Park label on the master",
+   "label_text": "HELEN PARK",
+   "on_17_sep": null,
+   "on_2_oct": null
+  },
+  {
+   "ref": "P27",
+   "pt": [
+    0.28658,
+    0.4823
+   ],
+   "how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 027 about 20 m west, beside T&S)",
+   "label_text": null
+  },
+  {
+   "ref": "P29",
+   "pt": [
+    0.28658,
+    0.4823
+   ],
+   "how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 029 about 20 m west, beside T&S)",
+   "label_text": null
+  },
+  {
+   "ref": "T0243",
+   "pt": [
+    0.46992,
+    0.34656
+   ],
+   "how": "leader line from callout WCTV on D023 (the schedule names T0243 \"Toilet Block 6m · WC-TV\"); the master prints WC on the same block",
+   "label_text": null
+  },
+  {
+   "ref": "WC10",
+   "pt": [
+    0.26896,
+    0.38855
+   ],
+   "how": "tag on the unit, master D001 issued 2 Oct (new on this issue; navigation pin read off the drawing, not yet checked on site)",
+   "label_text": "WC10",
+   "on_17_sep": null,
+   "on_2_oct": {
+    "box": [
+     636.8,
+     649.41,
+     645.27,
+     659.79
+    ],
+    "to_box_pt": 0.0,
+    "inside": true,
+    "centre_offset_pt": [
+     -0.16,
+     0.28
+    ],
+    "candidates": 1
+   }
+  }
+ ],
+ "summary": {
+  "pins": 166,
+  "with_label_text": 127,
+  "on_their_2_oct_label": 108,
+  "not_on_a_2_oct_label": [
+   {
+    "ref": "P34",
+    "text": "P34",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "PG01",
+    "text": "PIT LANE",
+    "17_sep": "0.2 pt (0.1 m) off",
+    "2_oct": "0.2 pt (0.1 m) off"
+   },
+   {
+    "ref": "PG03",
+    "text": "PIT LANE",
+    "17_sep": "0.2 pt (0.1 m) off",
+    "2_oct": "0.2 pt (0.1 m) off"
+   },
+   {
+    "ref": "PG05",
+    "text": "PIT LANE",
+    "17_sep": "0.2 pt (0.1 m) off",
+    "2_oct": "0.2 pt (0.1 m) off"
+   },
+   {
+    "ref": "PG29",
+    "text": "PIT LANE",
+    "17_sep": "0.2 pt (0.1 m) off",
+    "2_oct": "0.2 pt (0.1 m) off"
+   },
+   {
+    "ref": "WB02",
+    "text": "SECTOR S08",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WB04",
+    "text": "HELEN PARK",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WB13",
+    "text": "SECTOR S15",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WB16",
+    "text": "COMMODORE PARK",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WB19",
+    "text": "SECTOR S08",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WC32",
+    "text": "WC32",
+    "17_sep": "on it",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WC60",
+    "text": "WC60",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "WC81",
+    "text": "WC81",
+    "17_sep": "22.7 pt (16.0 m) off",
+    "2_oct": "22.7 pt (16.0 m) off"
+   },
+   {
+    "ref": "T0005",
+    "text": "MACINTOSH ISLAND",
+    "17_sep": "0.6 pt (0.4 m) off",
+    "2_oct": "0.6 pt (0.4 m) off"
+   },
+   {
+    "ref": "T0025",
+    "text": "SECTOR S18",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "T0085",
+    "text": "SUPPLY COMPOUND",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "T0258",
+    "text": "HELEN PARK",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   },
+   {
+    "ref": "T0265",
+    "text": "OP42",
+    "17_sep": "7.2 pt (5.1 m) off",
+    "2_oct": "7.2 pt (5.1 m) off"
+   },
+   {
+    "ref": "T0266",
+    "text": "HELEN PARK",
+    "17_sep": "no label",
+    "2_oct": "no label"
+   }
+  ]
+ }
+}

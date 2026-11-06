@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "hostSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "hostBytes": 9079773,
+  "hostChecks": 13,
+  "hostScriptsParsed": 7,
+  "entryScriptsParsed": 2,
+  "pocScriptsParsed": 3,
+  "externalScriptsParsed": 2,
+  "newCredentials": 0,
+  "files": {
+    "explorer/explorer.js": {
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "bytes": 133534
+    },
+    "explorer/explorer-merge.js": {
+      "sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "bytes": 25146
+    },
+    "poc3d/index.html": {
+      "sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+      "bytes": 44565
+    },
+    "explorer/index.html": {
+      "sha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "bytes": 27591
+    }
+  },
+  "sourceReview": "Final entry changes after script parse are CSS only; 21 source checks prove unchanged HTML/scripts."
+}

@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 5168,
+  "afterVersion": 5174,
+  "destinations": {
+    "T0268": "Coates compound",
+    "WC85": "Coates compound"
+  },
+  "changes": [
+    {
+      "collection": "by",
+      "key": "locations/T0268"
+    },
+    {
+      "collection": "by",
+      "key": "locations/WC85"
+    },
+    {
+      "collection": "locations",
+      "key": "T0268"
+    },
+    {
+      "collection": "locations",
+      "key": "WC85"
+    },
+    {
+      "collection": "stamps",
+      "key": "locations/T0268"
+    },
+    {
+      "collection": "stamps",
+      "key": "locations/WC85"
+    }
+  ],
+  "unrelatedDocumentsUnchanged": true,
+  "arrivalAndInstallationUnchanged": true,
+  "readbackCorrection": "Native location documents store values in v; initial verifier compared the envelope with text. All six authorised writes succeeded; corrected comparison passes.",
+  "errors": []
+}

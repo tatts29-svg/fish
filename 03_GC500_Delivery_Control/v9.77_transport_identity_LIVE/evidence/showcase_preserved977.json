@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "publishSha256": "9eeb760f79d35968d326ee021dc1fa7e8840824c16a0932fa9c54fce5474bc30",
+  "existingChangedScripts": [
+    2,
+    53
+  ],
+  "unchangedShowcaseBearingScripts": [
+    3,
+    6,
+    7,
+    28,
+    50
+  ],
+  "allAddedScripts": "Financial/prose presentation and derived transport item display only",
+  "pass": true
+}

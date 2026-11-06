@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.73",
+  "readySourceCommit": "d22beeb8e9692c23eddbef18bedb9e35ecd87286",
+  "liveAt": "9 Oct 2026 21:14 AEST",
+  "sha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "bytes": 12855461,
+  "scripts": 52,
+  "actualPublicPage": true,
+  "pageOrStateSubstitution": false,
+  "checksPassed": 10,
+  "checks": [
+    "12 open, 5 pending and 41 answered/history",
+    "All four intended source-evidence predicates and specific staffing remainder are active",
+    "Current P36 building and retained planned history are distinct",
+    "Phone Questions keeps settled P36 in closed history with evidence folded",
+    "Question evidence disclosure survives redraw and navigation",
+    "Phone drawer shows one current building and the old allocation in closed history",
+    "GN25/LT05/LT06 retain named sourced destinations without invented coordinates or pit-lane navigation",
+    "31 linked source rows, 3 source tasks, 8 specific remaining allocation facts",
+    "Original 17-page VMS document publicly answers with the verified original bytes",
+    "Native record preserved and zero errors or operational writes"
+  ],
+  "nativeVersion": 5168,
+  "completeNativeBeforeAfterIdentical": true,
+  "referenceCounts": {
+    "rows": 34,
+    "linked": 31,
+    "tasks": 3,
+    "remaining": 8
+  },
+  "questions": {
+    "open": 12,
+    "pending": 5,
+    "answered": 41
+  },
+  "operationalWrites": 0,
+  "errors": [],
+  "vmsOriginal": {
+    "sha256": "9ef1527d1fd9c6c7ea70dd3db3ced96784b0c1b32eba0df2aa3fb5ecd61be382",
+    "bytes": 2994014,
+    "pages": 17,
+    "exactPublicReadback": true
+  },
+  "visualReview": "Actual-public Questions and P36 phone screenshots inspected; no horizontal overflow, source history folded and item number clear.",
+  "scope": "Public page and native state fetched without substitution. The focused GET-only fixture locally answers Google tile-session and tile-image requests; actual map loading was separately exercised by both standard sweeps."
+}

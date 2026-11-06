@@ -1,0 +1,131 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026: \"can we not charge for these two units we will keep a record of these 2 but no labour charges or steps or transport or pick up or dmob for these 2 just purely tracking please. AA and HRP pay for there separate are on HS# 9968926 & 9974238.\" The drawer's own record of both buildings stays as it is (on site, levelled, steps fitted, complete, photos, place). What comes off is the Costs tab's charge ticks on each: install, steps, levelling, cleaning, the delivery and pickup legs and demob, through the page's own labour control as an editor unticking them; and a note on each building says why. The fire extinguisher quantity on each stays - it is a thing in the building.",
+ "ops": [
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "install"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "levelling"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "cleaning"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "delivery"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "pickup"
+  },
+  {
+   "op": "labour_off",
+   "ref": "AA",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "demob"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "install"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "steps"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "levelling"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "cleaning"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "delivery"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "pickup"
+  },
+  {
+   "op": "labour_off",
+   "ref": "HRP",
+   "disc": "Portable buildings",
+   "item": "Building 6m",
+   "line": "demob"
+  },
+  {
+   "op": "note_append",
+   "ref": "AA",
+   "text": "Tracked only, not charged on this job: Active Air pays for this building on its own contract HS 9968926. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026)."
+  },
+  {
+   "op": "note_append",
+   "ref": "HRP",
+   "text": "Tracked only, not charged on this job: Hire Republic pays for this building on its own contract HS 9974238. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026)."
+  }
+ ],
+ "allowRemove": [
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+  "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~install",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~steps",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~levelling",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~cleaning",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~delivery",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+  "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob"
+ ],
+ "allowRemoveWhy": "a labour tick taken off is a document removed, exactly as the Costs tab does when an editor unticks it; these fourteen are the charge ticks on AA and HRP, which Andrew asked not to charge on this job"
+}

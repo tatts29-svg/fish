@@ -1,0 +1,2305 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261029T212029Z",
+ "finished": "2026-10-29T21:21:18.100Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Advanced Temporary Fencing's demob-week papers, photographed by Andrew on 30 Oct 2026 (\"I have more fence dockets\"): nineteen blue-book collection forms 28584-28602 (removals 26-29 Oct 2026), seven green-book service notes 24496-24500, 24001 and 24002 (26-28 Oct: scrim removals and fence relocations), and eight red-book hire agreements 36775, 36777-36783 (the construction-zone fences going in 26-29 Oct). Every paper read twice at full size and by an independent reader working from the photographs alone, who agreed on every count, metre and date. Recorded through the page's own forms: collections as counts only (no charge, credit or metres inferred); service notes as the crew's hours and the metres the note states; hire agreements charged at the 2026 card and costed at Advanced's sheet by the page's own rules. 36780 and 36782 carry no metres and go on as components only (nothing charged from them): 36780 reads as a rewrite of 36778 (same site, same day, same 51/47/45), 36782's metres wait on Advanced's sheet or Andrew's word.",
+  "ops": [
+   {
+    "op": "collection",
+    "collection_no": "28584",
+    "date": "2026-10-26",
+    "location": "Gate 1 Entry",
+    "collected": {
+     "mesh_panel": 92,
+     "cc_barrier": 138,
+     "base": 322,
+     "clamp": 320,
+     "brace": 109
+    },
+    "note": "Collected from Gate 1 Entry: 92 mesh panels, 138 CC barriers, 322 bases, 320 clamps, 109 braces. Removal date written 26/10/26. The Hoarding Panel box holds a small scribble, no figure. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor and installer signatures both dated 26/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28585",
+    "date": "2026-10-26",
+    "location": "S15 - C.2. + Fencing Removal",
+    "collected": {
+     "mesh_panel": 43,
+     "hoarding_panel": 41,
+     "cc_barrier": 41,
+     "base": 154,
+     "clamp": 150,
+     "brace": 38,
+     "wheels": 2
+    },
+    "note": "Collected from S15 C.2 (the site line reads 'S15 - C.2. + Fencing Removal'): 43 mesh panels, 41 hoarding panels, 41 CC barriers, 154 bases, 150 clamps, 38 braces, 2 wheels. Removal date written 26/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 26/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28586",
+    "date": "2026-10-26",
+    "location": "Admiralty Intersection",
+    "collected": {
+     "mesh_panel": 31,
+     "cc_barrier": 120,
+     "base": 124,
+     "brace": 43
+    },
+    "note": "Collected from the Admiralty Dr intersection (written 'Admirality Intersection'): 31 mesh panels, 120 CC barriers, 124 bases, 43 braces; no clamps written. Removal date written 26/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 26/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28587",
+    "date": "2026-10-27",
+    "location": "Transporter Compound (Spit)",
+    "collected": {
+     "mesh_panel": 133,
+     "base": 211,
+     "clamp": 206,
+     "brace": 38,
+     "wheels": 1
+    },
+    "note": "Collected from the Transporter Compound (Spit): 133 mesh panels, 211 bases, 206 clamps, 38 braces, 1 wheel. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28588",
+    "date": "2026-10-27",
+    "location": "Telstra C.O.W - Commodore Park",
+    "collected": {
+     "mesh_panel": 18,
+     "base": 46,
+     "clamp": 44
+    },
+    "note": "Collected from the Telstra cell on wheels at Commodore Park (written 'TELTRA C.O.W - Commodore Prak'): 18 mesh panels, 46 bases, 44 clamps. Removal date written 27/10/26 with the day's digit written over (a 7 over an 8; 28/10/26 is the other reading) and the installer's date the same; the owner/site supervisor's date 30/10/26. No hire agreement number, order number or removal time; nothing priced.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28589",
+    "date": "2026-10-27",
+    "location": "Staghorn St - Meriton + Ocean Ave",
+    "collected": {
+     "mesh_panel": 103,
+     "cc_barrier": 200,
+     "base": 100,
+     "clamp": 98,
+     "wheels": 3
+    },
+    "note": "Collected from Staghorn St - Meriton and Ocean Ave: 103 mesh panels, 200 CC barriers, 100 bases, 98 clamps, 3 wheels. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28590",
+    "date": "2026-10-27",
+    "location": "Esplanade",
+    "collected": {
+     "mesh_panel": 21,
+     "base": 7,
+     "clamp": 20,
+     "wheels": 3
+    },
+    "note": "Collected from the Esplanade (written 'ESPLANDE'): 21 mesh panels, 7 bases, 20 clamps, 3 wheels, the figures written low in their rows. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28591",
+    "date": "2026-10-27",
+    "location": "Cypress Ave - Carpark",
+    "collected": {
+     "mesh_panel": 62,
+     "base": 58,
+     "clamp": 56,
+     "wheels": 4
+    },
+    "note": "Collected from the Cypress Ave carpark: 62 mesh panels, 58 bases, 56 clamps, 4 wheels. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28592",
+    "date": "2026-10-27",
+    "location": "The Hill - Monster C.Z.",
+    "collected": {
+     "mesh_panel": 81,
+     "base": 79,
+     "clamp": 78
+    },
+    "note": "Collected from The Hill - Monster C.Z.: 81 mesh panels, 79 bases, 78 clamps. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28593",
+    "date": "2026-10-28",
+    "location": "Medium Strip (South)",
+    "collected": {
+     "mesh_panel": 136,
+     "cc_barrier": 169,
+     "base": 357,
+     "clamp": 350,
+     "brace": 118,
+     "wheels": 4
+    },
+    "note": "Collected from the median strip south (written 'MEDIUM STRIP (South)'): 136 mesh panels, 169 CC barriers, 357 bases, 350 clamps, 118 braces, 4 wheels. Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28594",
+    "date": "2026-10-28",
+    "location": "Pit Lane - Exit",
+    "collected": {
+     "mesh_panel": 6,
+     "base": 4,
+     "clamp": 8,
+     "wheels": 3
+    },
+    "note": "Collected from the Pit Lane exit: 6 mesh panels, 4 bases, 8 clamps, 3 wheels. Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28595",
+    "date": "2026-10-28",
+    "location": "Rhapsody Suites - Walk Through",
+    "collected": {
+     "mesh_panel": 29,
+     "base": 78,
+     "clamp": 76,
+     "brace": 26,
+     "wheels": 1
+    },
+    "note": "Collected from the Rhapsody Suites walk-through (written 'RHAPSODY Suites - WALK THREW'): 29 mesh panels, 78 bases, 76 clamps, 26 braces, 1 wheel (a single stroke in the Wheels box). Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28596",
+    "date": "2026-10-29",
+    "location": "Main Beach Residence Fencing - Malibu + Main Beach Tower",
+    "collected": {
+     "mesh_panel": 74,
+     "base": 72,
+     "clamp": 70,
+     "ped_gate": 2,
+     "wheels": 8
+    },
+    "note": "Collected from the Main Beach residence fencing, Malibu and Main Beach Tower (the word 'TOWER' overflows into the Removal Time box): 74 mesh panels (a scribbled-out figure precedes the 74), 72 bases, 70 clamps, 2 pedestrian gates, 8 wheels. Removal date written 29/10/26. No hire agreement number or order number; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28597",
+    "date": "2026-10-29",
+    "location": "Pacific St - Cronin Av - Fishermans",
+    "collected": {
+     "mesh_panel": 58,
+     "base": 58,
+     "clamp": 56
+    },
+    "note": "Collected from Pacific St - Cronin Av - Fishermans: 58 mesh panels, 58 bases, 56 clamps. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28598",
+    "date": "2026-10-29",
+    "location": "S18 - C.2.",
+    "collected": {
+     "mesh_panel": 52,
+     "base": 50,
+     "clamp": 50,
+     "wheels": 2
+    },
+    "note": "Collected from S18 C.2: 52 mesh panels, 50 bases, 50 clamps, 2 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28599",
+    "date": "2026-10-29",
+    "location": "Clean Away - Compactor",
+    "collected": {
+     "mesh_panel": 13,
+     "base": 23,
+     "clamp": 23,
+     "brace": 6,
+     "wheels": 2
+    },
+    "note": "Collected from the Cleanaway compactor (written 'CLEAN AWAY - Compactor'): 13 mesh panels, 23 bases, 23 clamps, 6 braces, 2 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28600",
+    "date": "2026-10-29",
+    "location": "Macintosh Island (Entry)",
+    "collected": {
+     "mesh_panel": 12,
+     "base": 24,
+     "clamp": 22,
+     "brace": 7
+    },
+    "note": "Collected from the Macintosh Island entry: 12 mesh panels, 24 bases, 22 clamps, 7 braces. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28601",
+    "date": "2026-10-29",
+    "location": "Surfers Paradise Light Rail",
+    "collected": {
+     "mesh_panel": 68,
+     "cc_barrier": 51,
+     "base": 80,
+     "clamp": 78,
+     "brace": 12
+    },
+    "note": "Collected from the Surfers Paradise light rail: 68 mesh panels, 51 CC barriers, 80 bases, 78 clamps, 12 braces. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28602",
+    "date": "2026-10-29",
+    "location": "Ferny Av",
+    "collected": {
+     "mesh_panel": 89,
+     "cc_barrier": 51,
+     "base": 85,
+     "clamp": 82,
+     "wheels": 8
+    },
+    "note": "Collected from Ferny Ave (the company line reads 'Ferny Ave Coates V8s', the site line 'Ferny Av'): 89 mesh panels, 51 CC barriers, 85 bases, 82 clamps, 8 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 29/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24496",
+    "date": "2026-10-26",
+    "location": "Admiralty Dr / S14 C.Z.",
+    "labour_hours": 0.75,
+    "crew_note": "3 men x 15 mins each",
+    "metres": 35,
+    "note": "'Relocate 35m temporary fence from Admiralty Dr intersection to S14 Construction Zone.' on 26 Oct 2026, 0.75 h (three men, 15 minutes each). Nothing priced. Owner/site supervisor signature dated 30/10/26, installer 26/10/26.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24497",
+    "date": "2026-10-26",
+    "location": "Gate 1 Entry",
+    "labour_hours": 3.75,
+    "crew_note": "3 men x 1.25 hrs each",
+    "metres": 280,
+    "note": "'Remove scrim from temporary fence and roll up / Collected zip ties. 280m' at Gate 1 Entry on 26 Oct 2026, 3.75 h (three men, 1.25 hours each). Nothing priced. Both signatures dated 26/10/26.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24498",
+    "date": "2026-10-26",
+    "location": "Gate 1 / S23 Construction",
+    "labour_hours": 2.25,
+    "crew_note": "3 men x 45 mins each",
+    "metres": 57.5,
+    "note": "'Relocate 57.5m temporary fence from Gate 1 to S23 Construction Zone' on 26 Oct 2026, 2.25 h (three men, 45 minutes each); the site line reads 'Gate 1/S23 Construction', the digit after 'Gate' in the notes could also be read as a 2. Nothing priced. Both signatures dated 26/10/26.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24499",
+    "date": "2026-10-27",
+    "location": "Optus Cnr - Commodore Park",
+    "labour_hours": 0.25,
+    "crew_note": "1 man x 15 mins",
+    "metres": "",
+    "note": "'Remove Scrim from Optus Cnr at Commodore Park' on 27 Oct 2026, 0.25 h (one man, 15 minutes); no metres written. Nothing priced. Owner/site supervisor signature dated 26/10/26 (the day before the work), installer 27/10/26.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24500",
+    "date": "2026-10-28",
+    "location": "GC Highway South Median Strip",
+    "labour_hours": 4.5,
+    "crew_note": "3 men x 1.5 hrs each",
+    "metres": 340,
+    "note": "'Remove 70% shadecloth and roll up for collection. Remove and dispose of all zip ties. 340m' on the GC Highway south median strip (written 'Media Strip') on 28 Oct 2026, 4.5 h (three men, 1.5 hours each). Nothing priced. Owner/site supervisor signature dated 26/10/26 (before the work), installer 28/10/26; the day digit of the installation date is written over.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24001",
+    "date": "2026-10-28",
+    "location": "Rhapsody Sales Walk Through",
+    "labour_hours": 1,
+    "crew_note": "2 men x 30 min each",
+    "metres": 72.5,
+    "note": "'Remove 72.5m scrim and roll up for collection. Remove and dispose of all zip ties' at the Rhapsody sales walk-through on 28 Oct 2026, 1 h (two men, 30 minutes each). Nothing priced. Owner/site supervisor signature dated 30/10/26; the installer's date 28/10/26 is written but the installer's signature line is not signed. Numbered from a different book (24001) than the 2449x notes.",
+    "signed_by": ""
+   },
+   {
+    "op": "service_note",
+    "note_no": "24002",
+    "date": "2026-10-28",
+    "location": "S05 Construction Zone",
+    "labour_hours": 1.5,
+    "crew_note": "6 men x 15 mins each",
+    "metres": 65,
+    "note": "'Relocate 65m temporary fence from S05 Bolt to construction zone line.' on 28 Oct 2026, 1.5 h (six men, 15 minutes each; the 15 is written over). Nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "signed_by": ""
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36775",
+    "date": "2026-10-26",
+    "location": "Club 500 - C.Z.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 90
+    },
+    "components": {
+     "mesh_panel": 36,
+     "base": 33,
+     "clamp": 32
+    },
+    "signed_by": "",
+    "note": "Mesh fence 90 m (36 panels), 33 bases, 32 clamps, installed 26 Oct 2026 at Club 500 construction zone (written 'Club 500 - C.Z'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 26/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36777",
+    "date": "2026-10-26",
+    "location": "Oceanway C.Z.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 95
+    },
+    "components": {
+     "mesh_panel": 38,
+     "base": 36,
+     "clamp": 40,
+     "wheels": 5
+    },
+    "signed_by": "",
+    "note": "Mesh fence 95 m (38 panels), 5 wheels, 36 bases, 40 clamps, installed 26 Oct 2026 at the Oceanway construction zone (written 'Oceanway C.Z'; something is crossed out before the company name). No scrim or bracing written, so clean; the wheels are gate wheels, inside the card's metre. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 26/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36778",
+    "date": "2026-10-28",
+    "location": "S04 - C.Z.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 127.5
+    },
+    "components": {
+     "mesh_panel": 51,
+     "base": 47,
+     "clamp": 45
+    },
+    "signed_by": "",
+    "note": "Mesh fence 127.5 m (51 panels), 47 bases, 45 clamps, installed 28 Oct 2026 at the S04 construction zone (written 'S.O.4 - C.Z.'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26. 36780 carries the same site, day and components with no metres and is held as components only."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36779",
+    "date": "2026-10-28",
+    "location": "Pit Lane - C.Z.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 270
+    },
+    "components": {
+     "mesh_panel": 108,
+     "base": 105,
+     "clamp": 104,
+     "wheels": 6
+    },
+    "signed_by": "",
+    "note": "Mesh fence 270 m (108 panels), 6 wheels, 105 bases, 104 clamps, installed 28 Oct 2026 at the Pit Lane construction zone (written 'PIT LANE - C.Z.'). No scrim or bracing written, so clean; the wheels are gate wheels, inside the card's metre. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36780",
+    "date": "2026-10-28",
+    "location": "S04 - C.Z. (components only - reads as a rewrite of 36778)",
+    "map_ref": "",
+    "quantities": {},
+    "components_only": true,
+    "components": {
+     "mesh_panel": 51,
+     "base": 47,
+     "clamp": 45
+    },
+    "signed_by": "",
+    "note": "COMPONENTS ONLY, NOTHING CHARGED FROM THIS PAPER: 51 mesh panels, 47 bases, 45 clamps at 'S.O.4 C.2.' on 28 Oct 2026 with no metres and no rates written. It carries the same site, the same day and the same three counts as 36778 (127.5 m), so it reads as a rewrite of that fence rather than a second one; 36778 carries the charge. Andrew to say if it is a second fence. Owner/site supervisor signature dated 30/10/26, installer 28/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36781",
+    "date": "2026-10-28",
+    "location": "S11 - C.2.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 45
+    },
+    "components": {
+     "mesh_panel": 18,
+     "base": 15,
+     "clamp": 15
+    },
+    "signed_by": "",
+    "note": "Mesh fence 45 m (18 panels), 15 bases, 15 clamps, installed 28 Oct 2026 at the S11 construction zone (written 'S.11. C.2.'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36782",
+    "date": "2026-10-29",
+    "location": "S07 - C.2. (components only - no metres on the paper)",
+    "map_ref": "",
+    "quantities": {},
+    "components_only": true,
+    "components": {
+     "mesh_panel": 56,
+     "base": 56,
+     "clamp": 55
+    },
+    "signed_by": "",
+    "note": "COMPONENTS ONLY, NOTHING CHARGED YET: 56 mesh panels, 56 bases, 55 clamps installed 29 Oct 2026 at the S07 construction zone (written 'S.O.7 .C.2.') with the Mesh Fence metres box blank and no rates written. Every other paper in this batch runs at 2.5 m a panel (56 panels would be 140 m) but no metre is inferred: the charge waits on Advanced's sheet or Andrew's word. Owner/site supervisor signature dated 30/10/26, installer 29/10/26."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36783",
+    "date": "2026-10-29",
+    "location": "Concert - Entry Safe Zone (Mirror)",
+    "map_ref": "",
+    "quantities": {
+     "clean": 35
+    },
+    "components": {
+     "mesh_panel": 14,
+     "base": 14,
+     "clamp": 14
+    },
+    "signed_by": "",
+    "note": "Mesh fence 35 m (14 panels), 14 bases, 14 clamps, installed 29 Oct 2026 at the concert entry safe zone (written 'Concert - Entry Safe Zone. (MIRROR)'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 29/10/26."
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12008,
+  "after": 12098
+ },
+ "updated": {
+  "before": "2026-10-29T21:16:08.199Z",
+  "after": "2026-10-29T21:21:16.994Z"
+ },
+ "stage": [
+  {
+   "op": "collection",
+   "no": "28584",
+   "id": "FC-AF-0020",
+   "result": "recorded as FC-AF-0020 - 92 mesh_panel, 138 cc_barrier, 322 base, 320 clamp, 109 brace - Collection form 28584 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28585",
+   "id": "FC-AF-0021",
+   "result": "recorded as FC-AF-0021 - 43 mesh_panel, 41 hoarding_panel, 41 cc_barrier, 154 base, 150 clamp, 38 brace, 2 wheels - Collection form 28585 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28586",
+   "id": "FC-AF-0022",
+   "result": "recorded as FC-AF-0022 - 31 mesh_panel, 120 cc_barrier, 124 base, 43 brace - Collection form 28586 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28587",
+   "id": "FC-AF-0023",
+   "result": "recorded as FC-AF-0023 - 133 mesh_panel, 211 base, 206 clamp, 38 brace, 1 wheels - Collection form 28587 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28588",
+   "id": "FC-AF-0024",
+   "result": "recorded as FC-AF-0024 - 18 mesh_panel, 46 base, 44 clamp - Collection form 28588 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28589",
+   "id": "FC-AF-0025",
+   "result": "recorded as FC-AF-0025 - 103 mesh_panel, 200 cc_barrier, 100 base, 98 clamp, 3 wheels - Collection form 28589 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28590",
+   "id": "FC-AF-0026",
+   "result": "recorded as FC-AF-0026 - 21 mesh_panel, 7 base, 20 clamp, 3 wheels - Collection form 28590 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28591",
+   "id": "FC-AF-0027",
+   "result": "recorded as FC-AF-0027 - 62 mesh_panel, 58 base, 56 clamp, 4 wheels - Collection form 28591 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28592",
+   "id": "FC-AF-0028",
+   "result": "recorded as FC-AF-0028 - 81 mesh_panel, 79 base, 78 clamp - Collection form 28592 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28593",
+   "id": "FC-AF-0029",
+   "result": "recorded as FC-AF-0029 - 136 mesh_panel, 169 cc_barrier, 357 base, 350 clamp, 118 brace, 4 wheels - Collection form 28593 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28594",
+   "id": "FC-AF-0030",
+   "result": "recorded as FC-AF-0030 - 6 mesh_panel, 4 base, 8 clamp, 3 wheels - Collection form 28594 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28595",
+   "id": "FC-AF-0031",
+   "result": "recorded as FC-AF-0031 - 29 mesh_panel, 78 base, 76 clamp, 26 brace, 1 wheels - Collection form 28595 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28596",
+   "id": "FC-AF-0032",
+   "result": "recorded as FC-AF-0032 - 74 mesh_panel, 72 base, 70 clamp, 2 ped_gate, 8 wheels - Collection form 28596 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28597",
+   "id": "FC-AF-0033",
+   "result": "recorded as FC-AF-0033 - 58 mesh_panel, 58 base, 56 clamp - Collection form 28597 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28598",
+   "id": "FC-AF-0034",
+   "result": "recorded as FC-AF-0034 - 52 mesh_panel, 50 base, 50 clamp, 2 wheels - Collection form 28598 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28599",
+   "id": "FC-AF-0035",
+   "result": "recorded as FC-AF-0035 - 13 mesh_panel, 23 base, 23 clamp, 6 brace, 2 wheels - Collection form 28599 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28600",
+   "id": "FC-AF-0036",
+   "result": "recorded as FC-AF-0036 - 12 mesh_panel, 24 base, 22 clamp, 7 brace - Collection form 28600 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28601",
+   "id": "FC-AF-0037",
+   "result": "recorded as FC-AF-0037 - 68 mesh_panel, 51 cc_barrier, 80 base, 78 clamp, 12 brace - Collection form 28601 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28602",
+   "id": "FC-AF-0038",
+   "result": "recorded as FC-AF-0038 - 89 mesh_panel, 51 cc_barrier, 85 base, 82 clamp, 8 wheels - Collection form 28602 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "service_note",
+   "no": "24496",
+   "id": "N-AF-0019",
+   "result": "recorded as N-AF-0019 - 0.75 h, 35 m - Service note 24496 recorded as N-AF-0019 - 0.75 h, $75.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24497",
+   "id": "N-AF-0020",
+   "result": "recorded as N-AF-0020 - 3.75 h, 280 m - Service note 24497 recorded as N-AF-0020 - 3.75 h, $375.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24498",
+   "id": "N-AF-0021",
+   "result": "recorded as N-AF-0021 - 2.25 h, 57.5 m - Service note 24498 recorded as N-AF-0021 - 2.25 h, $225.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24499",
+   "id": "N-AF-0022",
+   "result": "recorded as N-AF-0022 - 0.25 h - Service note 24499 recorded as N-AF-0022 - 0.25 h, $25.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24500",
+   "id": "N-AF-0023",
+   "result": "recorded as N-AF-0023 - 4.5 h, 340 m - Service note 24500 recorded as N-AF-0023 - 4.5 h, $450.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24001",
+   "id": "N-AF-0024",
+   "result": "recorded as N-AF-0024 - 1 h, 72.5 m - Service note 24001 recorded as N-AF-0024 - 1 h, $100.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24002",
+   "id": "N-AF-0025",
+   "result": "recorded as N-AF-0025 - 1.5 h, 65 m - Service note 24002 recorded as N-AF-0025 - 1.5 h, $150.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36775",
+   "id": "F-AF-0073",
+   "charge": 1454.46,
+   "paid": 900,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0073 - 90 clean - F-AF-0073 saved in this browser — $1,454.46 charged at the 2026 card, $900.00 paid. Export and rebuild to put it on the record. | Hire agreement 36775 recorded as F-AF-0073 - $1,454.46 charged at the 2026 card, $900.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36777",
+   "id": "F-AF-0074",
+   "charge": 1535.27,
+   "paid": 950,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0074 - 95 clean - F-AF-0074 saved in this browser — $1,535.27 charged at the 2026 card, $950.00 paid. Export and rebuild to put it on the record. | Hire agreement 36777 recorded as F-AF-0074 - $1,535.27 charged at the 2026 card, $950.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36778",
+   "id": "F-AF-0075",
+   "charge": 2060.49,
+   "paid": 1275,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0075 - 127.5 clean - F-AF-0075 saved in this browser — $2,060.49 charged at the 2026 card, $1,275.00 paid. Export and rebuild to put it on the record. | Hire agreement 36778 recorded as F-AF-0075 - $2,060.49 charged at the 2026 card, $1,275.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36779",
+   "id": "F-AF-0076",
+   "charge": 4363.39,
+   "paid": 2700,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0076 - 270 clean - F-AF-0076 saved in this browser — $4,363.39 charged at the 2026 card, $2,700.00 paid. Export and rebuild to put it on the record. | Hire agreement 36779 recorded as F-AF-0076 - $4,363.39 charged at the 2026 card, $2,700.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36780",
+   "id": "F-AF-0077",
+   "charge": 0,
+   "paid": 0,
+   "cost_state": "nothing to price",
+   "result": "recorded as F-AF-0077 -  - Hire agreement 36780 recorded: components only; no charge quantity confirmed."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36781",
+   "id": "F-AF-0078",
+   "charge": 727.23,
+   "paid": 450,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0078 - 45 clean - F-AF-0078 saved in this browser — $727.23 charged at the 2026 card, $450.00 paid. Export and rebuild to put it on the record. | Hire agreement 36781 recorded as F-AF-0078 - $727.23 charged at the 2026 card, $450.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36782",
+   "id": "F-AF-0079",
+   "charge": 0,
+   "paid": 0,
+   "cost_state": "nothing to price",
+   "result": "recorded as F-AF-0079 -  - Hire agreement 36782 recorded: components only; no charge quantity confirmed."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36783",
+   "id": "F-AF-0080",
+   "charge": 565.62,
+   "paid": 350,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0080 - 35 clean - F-AF-0080 saved in this browser — $565.62 charged at the 2026 card, $350.00 paid. Export and rebuild to put it on the record. | Hire agreement 36783 recorded as F-AF-0080 - $565.62 charged at the 2026 card, $350.00 paid to Advanced. By Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0026",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0027",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0028",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0029",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0030",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0031",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0032",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0033",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0034",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0036",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0038",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0019",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0077",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0079",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0026",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0027",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0028",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0029",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0030",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0031",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0032",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0033",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0034",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0036",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0038",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0019",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0077",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0079",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0073",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0074",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0075",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0076",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0077",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0078",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0079",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0080",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0019",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0020",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0021",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0022",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0023",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0024",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0025",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0026",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0027",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0028",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0029",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0030",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0031",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0032",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0033",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0034",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0036",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0038",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/fenceCollections~2f~FC-AF-0020": null,
+   "stamps/fenceCollections~2f~FC-AF-0021": null,
+   "stamps/fenceCollections~2f~FC-AF-0022": null,
+   "stamps/fenceCollections~2f~FC-AF-0023": null,
+   "stamps/fenceCollections~2f~FC-AF-0024": null,
+   "stamps/fenceCollections~2f~FC-AF-0025": null,
+   "stamps/fenceCollections~2f~FC-AF-0026": null,
+   "stamps/fenceCollections~2f~FC-AF-0027": null,
+   "stamps/fenceCollections~2f~FC-AF-0028": null,
+   "stamps/fenceCollections~2f~FC-AF-0029": null,
+   "stamps/fenceCollections~2f~FC-AF-0030": null,
+   "stamps/fenceCollections~2f~FC-AF-0031": null,
+   "stamps/fenceCollections~2f~FC-AF-0032": null,
+   "stamps/fenceCollections~2f~FC-AF-0033": null,
+   "stamps/fenceCollections~2f~FC-AF-0034": null,
+   "stamps/fenceCollections~2f~FC-AF-0035": null,
+   "stamps/fenceCollections~2f~FC-AF-0036": null,
+   "stamps/fenceCollections~2f~FC-AF-0037": null,
+   "stamps/fenceCollections~2f~FC-AF-0038": null,
+   "stamps/serviceNotes~2f~N-AF-0019": null,
+   "stamps/serviceNotes~2f~N-AF-0020": null,
+   "stamps/serviceNotes~2f~N-AF-0021": null,
+   "stamps/serviceNotes~2f~N-AF-0022": null,
+   "stamps/serviceNotes~2f~N-AF-0023": null,
+   "stamps/serviceNotes~2f~N-AF-0024": null,
+   "stamps/serviceNotes~2f~N-AF-0025": null,
+   "stamps/fenceDockets~2f~F-AF-0077": null,
+   "stamps/fenceDockets~2f~F-AF-0079": null,
+   "by/fenceCollections~2f~FC-AF-0020": null,
+   "by/fenceCollections~2f~FC-AF-0021": null,
+   "by/fenceCollections~2f~FC-AF-0022": null,
+   "by/fenceCollections~2f~FC-AF-0023": null,
+   "by/fenceCollections~2f~FC-AF-0024": null,
+   "by/fenceCollections~2f~FC-AF-0025": null,
+   "by/fenceCollections~2f~FC-AF-0026": null,
+   "by/fenceCollections~2f~FC-AF-0027": null,
+   "by/fenceCollections~2f~FC-AF-0028": null,
+   "by/fenceCollections~2f~FC-AF-0029": null,
+   "by/fenceCollections~2f~FC-AF-0030": null,
+   "by/fenceCollections~2f~FC-AF-0031": null,
+   "by/fenceCollections~2f~FC-AF-0032": null,
+   "by/fenceCollections~2f~FC-AF-0033": null,
+   "by/fenceCollections~2f~FC-AF-0034": null,
+   "by/fenceCollections~2f~FC-AF-0035": null,
+   "by/fenceCollections~2f~FC-AF-0036": null,
+   "by/fenceCollections~2f~FC-AF-0037": null,
+   "by/fenceCollections~2f~FC-AF-0038": null,
+   "by/serviceNotes~2f~N-AF-0019": null,
+   "by/serviceNotes~2f~N-AF-0020": null,
+   "by/serviceNotes~2f~N-AF-0021": null,
+   "by/serviceNotes~2f~N-AF-0022": null,
+   "by/serviceNotes~2f~N-AF-0023": null,
+   "by/serviceNotes~2f~N-AF-0024": null,
+   "by/serviceNotes~2f~N-AF-0025": null,
+   "by/fenceDockets~2f~F-AF-0077": null,
+   "by/fenceDockets~2f~F-AF-0079": null,
+   "fenceDockets/F-AF-0073": null,
+   "fenceDockets/F-AF-0074": null,
+   "fenceDockets/F-AF-0075": null,
+   "fenceDockets/F-AF-0076": null,
+   "fenceDockets/F-AF-0077": null,
+   "fenceDockets/F-AF-0078": null,
+   "fenceDockets/F-AF-0079": null,
+   "fenceDockets/F-AF-0080": null,
+   "serviceNotes/N-AF-0019": null,
+   "serviceNotes/N-AF-0020": null,
+   "serviceNotes/N-AF-0021": null,
+   "serviceNotes/N-AF-0022": null,
+   "serviceNotes/N-AF-0023": null,
+   "serviceNotes/N-AF-0024": null,
+   "serviceNotes/N-AF-0025": null,
+   "fenceCollections/FC-AF-0020": null,
+   "fenceCollections/FC-AF-0021": null,
+   "fenceCollections/FC-AF-0022": null,
+   "fenceCollections/FC-AF-0023": null,
+   "fenceCollections/FC-AF-0024": null,
+   "fenceCollections/FC-AF-0025": null,
+   "fenceCollections/FC-AF-0026": null,
+   "fenceCollections/FC-AF-0027": null,
+   "fenceCollections/FC-AF-0028": null,
+   "fenceCollections/FC-AF-0029": null,
+   "fenceCollections/FC-AF-0030": null,
+   "fenceCollections/FC-AF-0031": null,
+   "fenceCollections/FC-AF-0032": null,
+   "fenceCollections/FC-AF-0033": null,
+   "fenceCollections/FC-AF-0034": null,
+   "fenceCollections/FC-AF-0035": null,
+   "fenceCollections/FC-AF-0036": null,
+   "fenceCollections/FC-AF-0037": null,
+   "fenceCollections/FC-AF-0038": null
+  },
+  "after": {
+   "stamps/fenceCollections~2f~FC-AF-0020": {
+    "_k": "fenceCollections/FC-AF-0020",
+    "v": "2026-10-29T21:20:36.898Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0021": {
+    "_k": "fenceCollections/FC-AF-0021",
+    "v": "2026-10-29T21:20:37.635Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0022": {
+    "_k": "fenceCollections/FC-AF-0022",
+    "v": "2026-10-29T21:20:38.348Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0023": {
+    "_k": "fenceCollections/FC-AF-0023",
+    "v": "2026-10-29T21:20:38.996Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0024": {
+    "_k": "fenceCollections/FC-AF-0024",
+    "v": "2026-10-29T21:20:39.741Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0025": {
+    "_k": "fenceCollections/FC-AF-0025",
+    "v": "2026-10-29T21:20:40.531Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0026": {
+    "_k": "fenceCollections/FC-AF-0026",
+    "v": "2026-10-29T21:20:41.164Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0027": {
+    "_k": "fenceCollections/FC-AF-0027",
+    "v": "2026-10-29T21:20:41.912Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0028": {
+    "_k": "fenceCollections/FC-AF-0028",
+    "v": "2026-10-29T21:20:42.640Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0029": {
+    "_k": "fenceCollections/FC-AF-0029",
+    "v": "2026-10-29T21:20:43.296Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0030": {
+    "_k": "fenceCollections/FC-AF-0030",
+    "v": "2026-10-29T21:20:44.037Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0031": {
+    "_k": "fenceCollections/FC-AF-0031",
+    "v": "2026-10-29T21:20:44.770Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0032": {
+    "_k": "fenceCollections/FC-AF-0032",
+    "v": "2026-10-29T21:20:45.381Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0033": {
+    "_k": "fenceCollections/FC-AF-0033",
+    "v": "2026-10-29T21:20:45.975Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0034": {
+    "_k": "fenceCollections/FC-AF-0034",
+    "v": "2026-10-29T21:20:46.649Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0035": {
+    "_k": "fenceCollections/FC-AF-0035",
+    "v": "2026-10-29T21:20:47.344Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0036": {
+    "_k": "fenceCollections/FC-AF-0036",
+    "v": "2026-10-29T21:20:48.078Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0037": {
+    "_k": "fenceCollections/FC-AF-0037",
+    "v": "2026-10-29T21:20:48.715Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0038": {
+    "_k": "fenceCollections/FC-AF-0038",
+    "v": "2026-10-29T21:20:49.369Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0019": {
+    "_k": "serviceNotes/N-AF-0019",
+    "v": "2026-10-29T21:20:50.022Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0020": {
+    "_k": "serviceNotes/N-AF-0020",
+    "v": "2026-10-29T21:20:50.849Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0021": {
+    "_k": "serviceNotes/N-AF-0021",
+    "v": "2026-10-29T21:20:51.647Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0022": {
+    "_k": "serviceNotes/N-AF-0022",
+    "v": "2026-10-29T21:20:52.316Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0023": {
+    "_k": "serviceNotes/N-AF-0023",
+    "v": "2026-10-29T21:20:53.109Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0024": {
+    "_k": "serviceNotes/N-AF-0024",
+    "v": "2026-10-29T21:20:53.829Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0025": {
+    "_k": "serviceNotes/N-AF-0025",
+    "v": "2026-10-29T21:20:54.569Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0077": {
+    "_k": "fenceDockets/F-AF-0077",
+    "v": "2026-10-29T21:21:01.179Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0079": {
+    "_k": "fenceDockets/F-AF-0079",
+    "v": "2026-10-29T21:21:03.463Z"
+   },
+   "by/fenceCollections~2f~FC-AF-0020": {
+    "_k": "fenceCollections/FC-AF-0020",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0021": {
+    "_k": "fenceCollections/FC-AF-0021",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0022": {
+    "_k": "fenceCollections/FC-AF-0022",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0023": {
+    "_k": "fenceCollections/FC-AF-0023",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0024": {
+    "_k": "fenceCollections/FC-AF-0024",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0025": {
+    "_k": "fenceCollections/FC-AF-0025",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0026": {
+    "_k": "fenceCollections/FC-AF-0026",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0027": {
+    "_k": "fenceCollections/FC-AF-0027",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0028": {
+    "_k": "fenceCollections/FC-AF-0028",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0029": {
+    "_k": "fenceCollections/FC-AF-0029",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0030": {
+    "_k": "fenceCollections/FC-AF-0030",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0031": {
+    "_k": "fenceCollections/FC-AF-0031",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0032": {
+    "_k": "fenceCollections/FC-AF-0032",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0033": {
+    "_k": "fenceCollections/FC-AF-0033",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0034": {
+    "_k": "fenceCollections/FC-AF-0034",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0035": {
+    "_k": "fenceCollections/FC-AF-0035",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0036": {
+    "_k": "fenceCollections/FC-AF-0036",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0037": {
+    "_k": "fenceCollections/FC-AF-0037",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0038": {
+    "_k": "fenceCollections/FC-AF-0038",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0019": {
+    "_k": "serviceNotes/N-AF-0019",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0020": {
+    "_k": "serviceNotes/N-AF-0020",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0021": {
+    "_k": "serviceNotes/N-AF-0021",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0022": {
+    "_k": "serviceNotes/N-AF-0022",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0023": {
+    "_k": "serviceNotes/N-AF-0023",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0024": {
+    "_k": "serviceNotes/N-AF-0024",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0025": {
+    "_k": "serviceNotes/N-AF-0025",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0077": {
+    "_k": "fenceDockets/F-AF-0077",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0079": {
+    "_k": "fenceDockets/F-AF-0079",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0073": {
+    "id": "F-AF-0073",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "docket_no": "36775",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500 - C.Z.",
+    "quantities": {
+     "clean": 90
+    },
+    "note": "Mesh fence 90 m (36 panels), 33 bases, 32 clamps, installed 26 Oct 2026 at Club 500 construction zone (written 'Club 500 - C.Z'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 26/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 36,
+     "base": 33,
+     "clamp": 32
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36775, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0073"
+   },
+   "fenceDockets/F-AF-0074": {
+    "id": "F-AF-0074",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "docket_no": "36777",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Oceanway C.Z.",
+    "quantities": {
+     "clean": 95
+    },
+    "note": "Mesh fence 95 m (38 panels), 5 wheels, 36 bases, 40 clamps, installed 26 Oct 2026 at the Oceanway construction zone (written 'Oceanway C.Z'; something is crossed out before the company name). No scrim or bracing written, so clean; the wheels are gate wheels, inside the card's metre. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 26/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 38,
+     "base": 36,
+     "clamp": 40,
+     "wheels": 5
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36777, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0074"
+   },
+   "fenceDockets/F-AF-0075": {
+    "id": "F-AF-0075",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "docket_no": "36778",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S04 - C.Z.",
+    "quantities": {
+     "clean": 127.5
+    },
+    "note": "Mesh fence 127.5 m (51 panels), 47 bases, 45 clamps, installed 28 Oct 2026 at the S04 construction zone (written 'S.O.4 - C.Z.'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26. 36780 carries the same site, day and components with no metres and is held as components only.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 51,
+     "base": 47,
+     "clamp": 45
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36778, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0075"
+   },
+   "fenceDockets/F-AF-0076": {
+    "id": "F-AF-0076",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "docket_no": "36779",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Pit Lane - C.Z.",
+    "quantities": {
+     "clean": 270
+    },
+    "note": "Mesh fence 270 m (108 panels), 6 wheels, 105 bases, 104 clamps, installed 28 Oct 2026 at the Pit Lane construction zone (written 'PIT LANE - C.Z.'). No scrim or bracing written, so clean; the wheels are gate wheels, inside the card's metre. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 108,
+     "base": 105,
+     "clamp": 104,
+     "wheels": 6
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36779, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0076"
+   },
+   "fenceDockets/F-AF-0077": {
+    "id": "F-AF-0077",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "docket_no": "36780",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S04 - C.Z. (components only - reads as a rewrite of 36778)",
+    "quantities": {},
+    "components": {
+     "mesh_panel": 51,
+     "base": 47,
+     "clamp": 45
+    },
+    "components_only": true,
+    "note": "COMPONENTS ONLY, NOTHING CHARGED FROM THIS PAPER: 51 mesh panels, 47 bases, 45 clamps at 'S.O.4 C.2.' on 28 Oct 2026 with no metres and no rates written. It carries the same site, the same day and the same three counts as 36778 (127.5 m), so it reads as a rewrite of that fence rather than a second one; 36778 carries the charge. Andrew to say if it is a second fence. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36780, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "_k": "F-AF-0077"
+   },
+   "fenceDockets/F-AF-0078": {
+    "id": "F-AF-0078",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "docket_no": "36781",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S11 - C.2.",
+    "quantities": {
+     "clean": 45
+    },
+    "note": "Mesh fence 45 m (18 panels), 15 bases, 15 clamps, installed 28 Oct 2026 at the S11 construction zone (written 'S.11. C.2.'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 18,
+     "base": 15,
+     "clamp": 15
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36781, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0078"
+   },
+   "fenceDockets/F-AF-0079": {
+    "id": "F-AF-0079",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "docket_no": "36782",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S07 - C.2. (components only - no metres on the paper)",
+    "quantities": {},
+    "components": {
+     "mesh_panel": 56,
+     "base": 56,
+     "clamp": 55
+    },
+    "components_only": true,
+    "note": "COMPONENTS ONLY, NOTHING CHARGED YET: 56 mesh panels, 56 bases, 55 clamps installed 29 Oct 2026 at the S07 construction zone (written 'S.O.7 .C.2.') with the Mesh Fence metres box blank and no rates written. Every other paper in this batch runs at 2.5 m a panel (56 panels would be 140 m) but no metre is inferred: the charge waits on Advanced's sheet or Andrew's word. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36782, signed paper photographed on site",
+    "origin": "captured",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "_k": "F-AF-0079"
+   },
+   "fenceDockets/F-AF-0080": {
+    "id": "F-AF-0080",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "docket_no": "36783",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Concert - Entry Safe Zone (Mirror)",
+    "quantities": {
+     "clean": 35
+    },
+    "note": "Mesh fence 35 m (14 panels), 14 bases, 14 clamps, installed 29 Oct 2026 at the concert entry safe zone (written 'Concert - Entry Safe Zone. (MIRROR)'). No scrim or bracing written, so clean. Rates and amounts blank. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "components": {
+     "mesh_panel": 14,
+     "base": 14,
+     "clamp": 14
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36783, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0080"
+   },
+   "serviceNotes/N-AF-0019": {
+    "id": "N-AF-0019",
+    "note_no": "24496",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Admiralty Dr / S14 C.Z.",
+    "crew_note": "3 men x 15 mins each",
+    "note": "'Relocate 35m temporary fence from Admiralty Dr intersection to S14 Construction Zone.' on 26 Oct 2026, 0.75 h (three men, 15 minutes each). Nothing priced. Owner/site supervisor signature dated 30/10/26, installer 26/10/26.",
+    "metres": 35,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24496, signed paper photographed on site",
+    "labour_hours": 0.75,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:50.022Z",
+    "_k": "N-AF-0019"
+   },
+   "serviceNotes/N-AF-0020": {
+    "id": "N-AF-0020",
+    "note_no": "24497",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Gate 1 Entry",
+    "crew_note": "3 men x 1.25 hrs each",
+    "note": "'Remove scrim from temporary fence and roll up / Collected zip ties. 280m' at Gate 1 Entry on 26 Oct 2026, 3.75 h (three men, 1.25 hours each). Nothing priced. Both signatures dated 26/10/26.",
+    "metres": 280,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24497, signed paper photographed on site",
+    "labour_hours": 3.75,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:50.849Z",
+    "_k": "N-AF-0020"
+   },
+   "serviceNotes/N-AF-0021": {
+    "id": "N-AF-0021",
+    "note_no": "24498",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Gate 1 / S23 Construction",
+    "crew_note": "3 men x 45 mins each",
+    "note": "'Relocate 57.5m temporary fence from Gate 1 to S23 Construction Zone' on 26 Oct 2026, 2.25 h (three men, 45 minutes each); the site line reads 'Gate 1/S23 Construction', the digit after 'Gate' in the notes could also be read as a 2. Nothing priced. Both signatures dated 26/10/26.",
+    "metres": 57.5,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24498, signed paper photographed on site",
+    "labour_hours": 2.25,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:51.647Z",
+    "_k": "N-AF-0021"
+   },
+   "serviceNotes/N-AF-0022": {
+    "id": "N-AF-0022",
+    "note_no": "24499",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Optus Cnr - Commodore Park",
+    "crew_note": "1 man x 15 mins",
+    "note": "'Remove Scrim from Optus Cnr at Commodore Park' on 27 Oct 2026, 0.25 h (one man, 15 minutes); no metres written. Nothing priced. Owner/site supervisor signature dated 26/10/26 (the day before the work), installer 27/10/26.",
+    "metres": null,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24499, signed paper photographed on site",
+    "labour_hours": 0.25,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:52.316Z",
+    "_k": "N-AF-0022"
+   },
+   "serviceNotes/N-AF-0023": {
+    "id": "N-AF-0023",
+    "note_no": "24500",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "GC Highway South Median Strip",
+    "crew_note": "3 men x 1.5 hrs each",
+    "note": "'Remove 70% shadecloth and roll up for collection. Remove and dispose of all zip ties. 340m' on the GC Highway south median strip (written 'Media Strip') on 28 Oct 2026, 4.5 h (three men, 1.5 hours each). Nothing priced. Owner/site supervisor signature dated 26/10/26 (before the work), installer 28/10/26; the day digit of the installation date is written over.",
+    "metres": 340,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24500, signed paper photographed on site",
+    "labour_hours": 4.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:53.109Z",
+    "_k": "N-AF-0023"
+   },
+   "serviceNotes/N-AF-0024": {
+    "id": "N-AF-0024",
+    "note_no": "24001",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Rhapsody Sales Walk Through",
+    "crew_note": "2 men x 30 min each",
+    "note": "'Remove 72.5m scrim and roll up for collection. Remove and dispose of all zip ties' at the Rhapsody sales walk-through on 28 Oct 2026, 1 h (two men, 30 minutes each). Nothing priced. Owner/site supervisor signature dated 30/10/26; the installer's date 28/10/26 is written but the installer's signature line is not signed. Numbered from a different book (24001) than the 2449x notes.",
+    "metres": 72.5,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24001, signed paper photographed on site",
+    "labour_hours": 1,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:53.829Z",
+    "_k": "N-AF-0024"
+   },
+   "serviceNotes/N-AF-0025": {
+    "id": "N-AF-0025",
+    "note_no": "24002",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "S05 Construction Zone",
+    "crew_note": "6 men x 15 mins each",
+    "note": "'Relocate 65m temporary fence from S05 Bolt to construction zone line.' on 28 Oct 2026, 1.5 h (six men, 15 minutes each; the 15 is written over). Nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "metres": 65,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24002, signed paper photographed on site",
+    "labour_hours": 1.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "at": "2026-10-29T21:20:54.569Z",
+    "_k": "N-AF-0025"
+   },
+   "fenceCollections/FC-AF-0020": {
+    "id": "FC-AF-0020",
+    "collection_no": "28584",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Gate 1 Entry",
+    "removal_time": null,
+    "note": "Collected from Gate 1 Entry: 92 mesh panels, 138 CC barriers, 322 bases, 320 clamps, 109 braces. Removal date written 26/10/26. The Hoarding Panel box holds a small scribble, no figure. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor and installer signatures both dated 26/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28584, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 92,
+     "cc_barrier": 138,
+     "base": 322,
+     "clamp": 320,
+     "brace": 109
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0020"
+   },
+   "fenceCollections/FC-AF-0021": {
+    "id": "FC-AF-0021",
+    "collection_no": "28585",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "S15 - C.2. + Fencing Removal",
+    "removal_time": null,
+    "note": "Collected from S15 C.2 (the site line reads 'S15 - C.2. + Fencing Removal'): 43 mesh panels, 41 hoarding panels, 41 CC barriers, 154 bases, 150 clamps, 38 braces, 2 wheels. Removal date written 26/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 26/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28585, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 43,
+     "hoarding_panel": 41,
+     "cc_barrier": 41,
+     "base": 154,
+     "clamp": 150,
+     "brace": 38,
+     "wheels": 2
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0021"
+   },
+   "fenceCollections/FC-AF-0022": {
+    "id": "FC-AF-0022",
+    "collection_no": "28586",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Admiralty Intersection",
+    "removal_time": null,
+    "note": "Collected from the Admiralty Dr intersection (written 'Admirality Intersection'): 31 mesh panels, 120 CC barriers, 124 bases, 43 braces; no clamps written. Removal date written 26/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 26/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28586, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 31,
+     "cc_barrier": 120,
+     "base": 124,
+     "brace": 43
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0022"
+   },
+   "fenceCollections/FC-AF-0023": {
+    "id": "FC-AF-0023",
+    "collection_no": "28587",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Transporter Compound (Spit)",
+    "removal_time": null,
+    "note": "Collected from the Transporter Compound (Spit): 133 mesh panels, 211 bases, 206 clamps, 38 braces, 1 wheel. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28587, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 133,
+     "base": 211,
+     "clamp": 206,
+     "brace": 38,
+     "wheels": 1
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0023"
+   },
+   "fenceCollections/FC-AF-0024": {
+    "id": "FC-AF-0024",
+    "collection_no": "28588",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Telstra C.O.W - Commodore Park",
+    "removal_time": null,
+    "note": "Collected from the Telstra cell on wheels at Commodore Park (written 'TELTRA C.O.W - Commodore Prak'): 18 mesh panels, 46 bases, 44 clamps. Removal date written 27/10/26 with the day's digit written over (a 7 over an 8; 28/10/26 is the other reading) and the installer's date the same; the owner/site supervisor's date 30/10/26. No hire agreement number, order number or removal time; nothing priced.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28588, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 18,
+     "base": 46,
+     "clamp": 44
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0024"
+   },
+   "fenceCollections/FC-AF-0025": {
+    "id": "FC-AF-0025",
+    "collection_no": "28589",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Staghorn St - Meriton + Ocean Ave",
+    "removal_time": null,
+    "note": "Collected from Staghorn St - Meriton and Ocean Ave: 103 mesh panels, 200 CC barriers, 100 bases, 98 clamps, 3 wheels. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28589, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 103,
+     "cc_barrier": 200,
+     "base": 100,
+     "clamp": 98,
+     "wheels": 3
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0025"
+   },
+   "fenceCollections/FC-AF-0026": {
+    "id": "FC-AF-0026",
+    "collection_no": "28590",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Esplanade",
+    "removal_time": null,
+    "note": "Collected from the Esplanade (written 'ESPLANDE'): 21 mesh panels, 7 bases, 20 clamps, 3 wheels, the figures written low in their rows. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28590, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 21,
+     "base": 7,
+     "clamp": 20,
+     "wheels": 3
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0026"
+   },
+   "fenceCollections/FC-AF-0027": {
+    "id": "FC-AF-0027",
+    "collection_no": "28591",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Cypress Ave - Carpark",
+    "removal_time": null,
+    "note": "Collected from the Cypress Ave carpark: 62 mesh panels, 58 bases, 56 clamps, 4 wheels. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28591, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 62,
+     "base": 58,
+     "clamp": 56,
+     "wheels": 4
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0027"
+   },
+   "fenceCollections/FC-AF-0028": {
+    "id": "FC-AF-0028",
+    "collection_no": "28592",
+    "date": "2026-10-27",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "The Hill - Monster C.Z.",
+    "removal_time": null,
+    "note": "Collected from The Hill - Monster C.Z.: 81 mesh panels, 79 bases, 78 clamps. Removal date written 27/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 27/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28592, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 81,
+     "base": 79,
+     "clamp": 78
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0028"
+   },
+   "fenceCollections/FC-AF-0029": {
+    "id": "FC-AF-0029",
+    "collection_no": "28593",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Medium Strip (South)",
+    "removal_time": null,
+    "note": "Collected from the median strip south (written 'MEDIUM STRIP (South)'): 136 mesh panels, 169 CC barriers, 357 bases, 350 clamps, 118 braces, 4 wheels. Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28593, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 136,
+     "cc_barrier": 169,
+     "base": 357,
+     "clamp": 350,
+     "brace": 118,
+     "wheels": 4
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0029"
+   },
+   "fenceCollections/FC-AF-0030": {
+    "id": "FC-AF-0030",
+    "collection_no": "28594",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Pit Lane - Exit",
+    "removal_time": null,
+    "note": "Collected from the Pit Lane exit: 6 mesh panels, 4 bases, 8 clamps, 3 wheels. Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28594, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 6,
+     "base": 4,
+     "clamp": 8,
+     "wheels": 3
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0030"
+   },
+   "fenceCollections/FC-AF-0031": {
+    "id": "FC-AF-0031",
+    "collection_no": "28595",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Rhapsody Suites - Walk Through",
+    "removal_time": null,
+    "note": "Collected from the Rhapsody Suites walk-through (written 'RHAPSODY Suites - WALK THREW'): 29 mesh panels, 78 bases, 76 clamps, 26 braces, 1 wheel (a single stroke in the Wheels box). Removal date written 28/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 28/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28595, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 29,
+     "base": 78,
+     "clamp": 76,
+     "brace": 26,
+     "wheels": 1
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0031"
+   },
+   "fenceCollections/FC-AF-0032": {
+    "id": "FC-AF-0032",
+    "collection_no": "28596",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Main Beach Residence Fencing - Malibu + Main Beach Tower",
+    "removal_time": null,
+    "note": "Collected from the Main Beach residence fencing, Malibu and Main Beach Tower (the word 'TOWER' overflows into the Removal Time box): 74 mesh panels (a scribbled-out figure precedes the 74), 72 bases, 70 clamps, 2 pedestrian gates, 8 wheels. Removal date written 29/10/26. No hire agreement number or order number; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28596, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 74,
+     "base": 72,
+     "clamp": 70,
+     "ped_gate": 2,
+     "wheels": 8
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0032"
+   },
+   "fenceCollections/FC-AF-0033": {
+    "id": "FC-AF-0033",
+    "collection_no": "28597",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Pacific St - Cronin Av - Fishermans",
+    "removal_time": null,
+    "note": "Collected from Pacific St - Cronin Av - Fishermans: 58 mesh panels, 58 bases, 56 clamps. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28597, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 58,
+     "base": 58,
+     "clamp": 56
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0033"
+   },
+   "fenceCollections/FC-AF-0034": {
+    "id": "FC-AF-0034",
+    "collection_no": "28598",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "S18 - C.2.",
+    "removal_time": null,
+    "note": "Collected from S18 C.2: 52 mesh panels, 50 bases, 50 clamps, 2 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28598, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 52,
+     "base": 50,
+     "clamp": 50,
+     "wheels": 2
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0034"
+   },
+   "fenceCollections/FC-AF-0035": {
+    "id": "FC-AF-0035",
+    "collection_no": "28599",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Clean Away - Compactor",
+    "removal_time": null,
+    "note": "Collected from the Cleanaway compactor (written 'CLEAN AWAY - Compactor'): 13 mesh panels, 23 bases, 23 clamps, 6 braces, 2 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28599, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 13,
+     "base": 23,
+     "clamp": 23,
+     "brace": 6,
+     "wheels": 2
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0035"
+   },
+   "fenceCollections/FC-AF-0036": {
+    "id": "FC-AF-0036",
+    "collection_no": "28600",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Macintosh Island (Entry)",
+    "removal_time": null,
+    "note": "Collected from the Macintosh Island entry: 12 mesh panels, 24 bases, 22 clamps, 7 braces. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28600, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 12,
+     "base": 24,
+     "clamp": 22,
+     "brace": 7
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0036"
+   },
+   "fenceCollections/FC-AF-0037": {
+    "id": "FC-AF-0037",
+    "collection_no": "28601",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Surfers Paradise Light Rail",
+    "removal_time": null,
+    "note": "Collected from the Surfers Paradise light rail: 68 mesh panels, 51 CC barriers, 80 bases, 78 clamps, 12 braces. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signature dated 30/10/26, installer 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28601, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 68,
+     "cc_barrier": 51,
+     "base": 80,
+     "clamp": 78,
+     "brace": 12
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0037"
+   },
+   "fenceCollections/FC-AF-0038": {
+    "id": "FC-AF-0038",
+    "collection_no": "28602",
+    "date": "2026-10-29",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Ferny Av",
+    "removal_time": null,
+    "note": "Collected from Ferny Ave (the company line reads 'Ferny Ave Coates V8s', the site line 'Ferny Av'): 89 mesh panels, 51 CC barriers, 85 bases, 82 clamps, 8 wheels. Removal date written 29/10/26. No hire agreement number, order number or removal time; nothing priced. Both signatures dated 29/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28602, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-30",
+    "collected": {
+     "mesh_panel": 89,
+     "cc_barrier": 51,
+     "base": 85,
+     "clamp": 82,
+     "wheels": 8
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0038"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

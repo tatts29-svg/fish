@@ -1,0 +1,13 @@
+/* v7.31 - counts that name their locations */
+.invn{border:1px solid var(--rule);background:transparent;color:inherit;font:inherit;font-variant-numeric:tabular-nums;border-radius:6px;padding:1px 8px;cursor:pointer;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:3px;text-align:inherit}
+.invn:hover,.invn.on{border-color:var(--orange);background:var(--orange-soft,#fff1e6)}
+.invdrill{margin-top:10px;display:grid;gap:6px}
+.invdrillh{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.invdrl{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.invref{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1px solid var(--rule);background:var(--paper,#fff);color:inherit;font:inherit;font-size:13.5px;border-radius:8px;padding:5px 8px;cursor:pointer}
+.invref:hover{border-color:var(--orange)}
+.invref>span:not(.rplate){flex:1;min-width:0}
+.invref .rplate,.wkh .rplate{flex:0 0 auto;width:auto}
+.invgo{color:var(--orange-ink,#b4480c);font-size:12.5px;white-space:nowrap}
+.invspr{font-size:13px;padding:4px 8px}
+.qref{font-weight:700}

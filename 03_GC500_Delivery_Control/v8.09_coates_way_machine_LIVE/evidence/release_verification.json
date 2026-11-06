@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "liveVerifiedAtAest": "3 Oct 2026 14:32",
+  "sourceCommit": "dfec015586208531bbe31fe507d44cc9cc49955e",
+  "registration": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86",
+    "candidateManifestSha256": "7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e",
+    "expectedPageSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+    "dryRun": false,
+    "registrationAttempted": true,
+    "registrationAccepted": true,
+    "verifiedPublicFiles": 226,
+    "uploadedBlobCount": 24,
+    "complete": true
+  },
+  "pageAndRecordPreservation": {
+    "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+    "candidateBytes": 9244210,
+    "servedSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+    "servedBytes": 9244210,
+    "exactPageMatch": true,
+    "beforeRecordSha256": "089767e7fd7c8fd99e59e98a0ce9a75abd6b6c6cddd16dab6f4d3d4ff2b17edd",
+    "afterRecordSha256": "089767e7fd7c8fd99e59e98a0ce9a75abd6b6c6cddd16dab6f4d3d4ff2b17edd",
+    "recordUnchanged": true,
+    "changedCollections": []
+  },
+  "mapsPreserved": 4,
+  "preservedFiles": 202
+}

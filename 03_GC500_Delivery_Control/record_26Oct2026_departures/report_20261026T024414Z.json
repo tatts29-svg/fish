@@ -1,0 +1,186 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T024414Z",
+ "finished": "2026-10-26T02:45:28.941Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026 12:42: \"Picked up now 1277400 60kva generator\". 1277400 is GN04's only unit on the record (contract 9961976 line 14; the record and the contract both have it as a 30 kVA, not 60 kVA: the size is left as recorded and asked of Andrew). GN04 left site in full at 12:42 AEST, when Andrew sent it. Recorded through the page's own Record departure form.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN04",
+    "at": "2026-10-26T12:42:00+10:00",
+    "nos": [
+     "1277400"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "c6b8141c32728a7f59914aa53c0032cb8770131e142407bc0d0e7f84a4a0cf45",
+ "version": {
+  "before": 11010,
+  "after": 11011
+ },
+ "updated": {
+  "before": "2026-10-26T02:22:59.115Z",
+  "after": "2026-10-26T02:45:28.046Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN04",
+   "at": "2026-10-26T12:42:00+10:00",
+   "nos": [
+    "1277400"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-26T12:42:00+10:00, recorded by Andrew Fisher: 1 x 30kva 1277400 - GN04 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN04",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN04": {
+    "state": "on site",
+    "set_at": "2026-10-19T04:28:15.248Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:28:15.248Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.087Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:28:15.248Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:28:15.248Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN04"
+   }
+  },
+  "after": {
+   "delivery/GN04": {
+    "state": "in transit",
+    "set_at": "2026-10-26T02:44:46.205Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T02:44:46.205Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:14.087Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:28:15.248Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T02:44:46.205Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c07fccfa-91c2-45d7-a36d-4978ee16e759",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T12:42:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T04:28:15.248Z",
+       "requiredKey": "[[\"30kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "30kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN04\",\"coates\",\"asset\",\"1277400\"]"
+         ],
+         "numbers": [
+          "1277400"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN04\",\"coates\",\"asset\",\"1277400\"]",
+           "number": "1277400",
+           "owner": "coates",
+           "item": "30kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:28:15.248Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T02:44:46.205Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "GN04"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

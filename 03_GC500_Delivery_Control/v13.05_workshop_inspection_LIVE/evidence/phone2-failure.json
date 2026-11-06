@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "469c81a7b7ff01a154a1bdbad3b178be91de56a08a0fc72704614b5d68d118f6",
+  "passed": false,
+  "completedChecks": 16,
+  "failure": "landscape content width exceeds layout viewport by 6 px",
+  "orientationCollapseResolved": true,
+  "landscapeModelViewport": {
+    "width": 520.703125,
+    "height": 267.21875
+  },
+  "panelSeparated": true,
+  "scrollY": 0,
+  "documentScrollWidth": 850,
+  "documentClientWidth": 844,
+  "runtimeErrors": [],
+  "status": "Source correction pending; strict width requirement retained"
+}

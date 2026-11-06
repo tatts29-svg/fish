@@ -1,0 +1,235 @@
+{
+ "desktop": {
+  "tabs": {
+   "off": [
+    "variances",
+    "journal",
+    "add",
+    "breakdowns",
+    "register",
+    "edit",
+    "progress",
+    "nights",
+    "change",
+    "vmsoff",
+    "fenceclose"
+   ],
+   "bar": [
+    "Today",
+    "Build",
+    "Equipment",
+    "Sub-hired",
+    "Demob",
+    "Map explorer",
+    "Documents",
+    "Coates Way",
+    "Tools"
+   ],
+   "menu": [
+    "today",
+    "map",
+    "docs",
+    "plant",
+    "demob",
+    "fencing",
+    "prestarts",
+    "coatesway",
+    "costs",
+    "timeline",
+    "subhired",
+    "servicing",
+    "vms",
+    "questions",
+    "about"
+   ],
+   "charge": 998997,
+   "footer": "v12.56"
+  },
+  "pl_card": "fail elementHandle.screenshot: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - taking element screenshot\u001b[22m",
+  "groups": [
+   [
+    "Toilets & amenities",
+    "full",
+    "271 of 271 units completed"
+   ],
+   [
+    "Portable buildings",
+    "full",
+    "52 of 52 units completed"
+   ],
+   [
+    "Generators",
+    "full",
+    "15 of 15 generators completed"
+   ],
+   [
+    "Lighting towers",
+    "full",
+    "7 of 7 towers completed"
+   ],
+   [
+    "Variable message signs",
+    "full",
+    "24 of 24 boards completed"
+   ],
+   [
+    "Water-filled barriers",
+    "full",
+    "311 of 311 barriers completed"
+   ],
+   [
+    "Access & plant",
+    "full",
+    "12 of 12 units completed"
+   ],
+   [
+    "Furniture",
+    "full",
+    "6 of 6 items completed"
+   ],
+   [
+    "Ground protection",
+    "full",
+    "30 of 30 completed"
+   ],
+   [
+    "Other",
+    "full",
+    "5 of 5 units completed"
+   ]
+  ],
+  "mapBar": {
+   "hasSwitch": true,
+   "checked": false
+  },
+  "insideBefore": {
+   "module": true,
+   "showLeft": false,
+   "keyHidden": true
+  },
+  "map_before": "ok",
+  "insideAfter": {
+   "module": true,
+   "showLeft": true,
+   "keyHidden": false
+  },
+  "map_after": "ok",
+  "pageErrors": 0
+ },
+ "phone": {
+  "tabs": {
+   "off": [
+    "variances",
+    "journal",
+    "add",
+    "breakdowns",
+    "register",
+    "edit",
+    "progress",
+    "nights",
+    "change",
+    "vmsoff",
+    "fenceclose"
+   ],
+   "bar": [
+    "Today",
+    "Build",
+    "Equipment",
+    "Sub-hired",
+    "Demob",
+    "Map explorer",
+    "Coates Way",
+    "Tools"
+   ],
+   "menu": [
+    "today",
+    "map",
+    "docs",
+    "plant",
+    "demob",
+    "fencing",
+    "prestarts",
+    "coatesway",
+    "costs",
+    "timeline",
+    "subhired",
+    "servicing",
+    "vms",
+    "questions",
+    "about"
+   ],
+   "charge": 998997,
+   "footer": "v12.56"
+  },
+  "pl_card": "fail elementHandle.screenshot: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - taking element screenshot\u001b[22m",
+  "groups": [
+   [
+    "Toilets & amenities",
+    "full",
+    "271 of 271 units completed"
+   ],
+   [
+    "Portable buildings",
+    "full",
+    "52 of 52 units completed"
+   ],
+   [
+    "Generators",
+    "full",
+    "15 of 15 generators completed"
+   ],
+   [
+    "Lighting towers",
+    "full",
+    "7 of 7 towers completed"
+   ],
+   [
+    "Variable message signs",
+    "full",
+    "24 of 24 boards completed"
+   ],
+   [
+    "Water-filled barriers",
+    "full",
+    "311 of 311 barriers completed"
+   ],
+   [
+    "Access & plant",
+    "full",
+    "12 of 12 units completed"
+   ],
+   [
+    "Furniture",
+    "full",
+    "6 of 6 items completed"
+   ],
+   [
+    "Ground protection",
+    "full",
+    "30 of 30 completed"
+   ],
+   [
+    "Other",
+    "full",
+    "5 of 5 units completed"
+   ]
+  ],
+  "mapBar": {
+   "hasSwitch": true,
+   "checked": false
+  },
+  "insideBefore": {
+   "module": true,
+   "showLeft": false,
+   "keyHidden": true
+  },
+  "map_before": "ok",
+  "insideAfter": {
+   "module": true,
+   "showLeft": true,
+   "keyHidden": false
+  },
+  "map_after": "ok",
+  "pageErrors": 0
+ }
+}

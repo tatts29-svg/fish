@@ -1,0 +1,339 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T020932Z",
+ "finished": "2026-10-16T02:09:46.040Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "boards": [
+   {
+    "key": "VMS11",
+    "fleet": "467T",
+    "rego": "TE97G",
+    "on": "T0128"
+   },
+   {
+    "key": "VMS12",
+    "expect_fleet": "1211646",
+    "rego": "TF59LR",
+    "on": "T0128"
+   },
+   {
+    "key": "VMS13",
+    "expect_fleet": "1191957",
+    "rego": "EN3803",
+    "on": "T0158"
+   },
+   {
+    "key": "VMS14",
+    "expect_fleet": "1201864",
+    "rego": "TD98VJ",
+    "on": "T0158"
+   },
+   {
+    "key": "VMS15",
+    "expect_fleet": "1211348",
+    "rego": "ER9217",
+    "on": "T0158"
+   },
+   {
+    "key": "VMS16",
+    "expect_fleet": "1211376",
+    "rego": "ES3211",
+    "on": "T0158"
+   },
+   {
+    "key": "VMS17",
+    "expect_fleet": "1211364",
+    "rego": "ER9410",
+    "on": "T0158"
+   }
+  ]
+ },
+ "pageSha256": "fa44b754a6ab55bed9723a54998edd3d14ea8efaa5945a435de898733066e7a5",
+ "version": {
+  "before": 7312,
+  "after": 7333
+ },
+ "updated": {
+  "before": "2026-10-16T02:01:02.719Z",
+  "after": "2026-10-16T02:09:45.187Z"
+ },
+ "stage": [
+  {
+   "k": "VMS11",
+   "now": "Premiair · 467T · TE97G · on T0128"
+  },
+  {
+   "k": "VMS12",
+   "now": "Coates · 1211646 · TF59LR · on T0128"
+  },
+  {
+   "k": "VMS13",
+   "now": "Coates · 1191957 · EN3803 · on T0158"
+  },
+  {
+   "k": "VMS14",
+   "now": "Coates · 1201864 · TD98VJ · on T0158"
+  },
+  {
+   "k": "VMS15",
+   "now": "Coates · 1211348 · ER9217 · on T0158"
+  },
+  {
+   "k": "VMS16",
+   "now": "Coates · 1211376 · ES3211 · on T0158"
+  },
+  {
+   "k": "VMS17",
+   "now": "Coates · 1211364 · ER9410 · on T0158"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/vmsboard~2f~VMS11",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS12",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS13",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS14",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS15",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS16",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS17",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS11",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS12",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS13",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS14",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS15",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS16",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS17",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS11",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS12",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS13",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS14",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS15",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS16",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS17",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/vmsboard~2f~VMS11": null,
+   "stamps/vmsboard~2f~VMS12": null,
+   "stamps/vmsboard~2f~VMS13": null,
+   "stamps/vmsboard~2f~VMS14": null,
+   "stamps/vmsboard~2f~VMS15": null,
+   "stamps/vmsboard~2f~VMS16": null,
+   "stamps/vmsboard~2f~VMS17": null,
+   "by/vmsboard~2f~VMS11": null,
+   "by/vmsboard~2f~VMS12": null,
+   "by/vmsboard~2f~VMS13": null,
+   "by/vmsboard~2f~VMS14": null,
+   "by/vmsboard~2f~VMS15": null,
+   "by/vmsboard~2f~VMS16": null,
+   "by/vmsboard~2f~VMS17": null,
+   "vmsboard/VMS11": null,
+   "vmsboard/VMS12": null,
+   "vmsboard/VMS13": null,
+   "vmsboard/VMS14": null,
+   "vmsboard/VMS15": null,
+   "vmsboard/VMS16": null,
+   "vmsboard/VMS17": null
+  },
+  "after": {
+   "stamps/vmsboard~2f~VMS11": {
+    "_k": "vmsboard/VMS11",
+    "v": "2026-10-16T02:09:39.055Z"
+   },
+   "stamps/vmsboard~2f~VMS12": {
+    "_k": "vmsboard/VMS12",
+    "v": "2026-10-16T02:09:39.511Z"
+   },
+   "stamps/vmsboard~2f~VMS13": {
+    "_k": "vmsboard/VMS13",
+    "v": "2026-10-16T02:09:39.890Z"
+   },
+   "stamps/vmsboard~2f~VMS14": {
+    "_k": "vmsboard/VMS14",
+    "v": "2026-10-16T02:09:40.303Z"
+   },
+   "stamps/vmsboard~2f~VMS15": {
+    "_k": "vmsboard/VMS15",
+    "v": "2026-10-16T02:09:40.704Z"
+   },
+   "stamps/vmsboard~2f~VMS16": {
+    "_k": "vmsboard/VMS16",
+    "v": "2026-10-16T02:09:41.104Z"
+   },
+   "stamps/vmsboard~2f~VMS17": {
+    "_k": "vmsboard/VMS17",
+    "v": "2026-10-16T02:09:41.577Z"
+   },
+   "by/vmsboard~2f~VMS11": {
+    "_k": "vmsboard/VMS11",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS12": {
+    "_k": "vmsboard/VMS12",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS13": {
+    "_k": "vmsboard/VMS13",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS14": {
+    "_k": "vmsboard/VMS14",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS15": {
+    "_k": "vmsboard/VMS15",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS16": {
+    "_k": "vmsboard/VMS16",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS17": {
+    "_k": "vmsboard/VMS17",
+    "v": "Andrew Fisher"
+   },
+   "vmsboard/VMS11": {
+    "co": null,
+    "fleet": "467T",
+    "rego": "TE97G",
+    "on": "T0128",
+    "line": "9961265/15",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:39.055Z",
+    "_k": "VMS11"
+   },
+   "vmsboard/VMS12": {
+    "co": null,
+    "fleet": null,
+    "rego": "TF59LR",
+    "on": "T0128",
+    "line": "9961265/16",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:39.511Z",
+    "_k": "VMS12"
+   },
+   "vmsboard/VMS13": {
+    "co": null,
+    "fleet": null,
+    "rego": "EN3803",
+    "on": "T0158",
+    "line": "9961265/32",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:39.890Z",
+    "_k": "VMS13"
+   },
+   "vmsboard/VMS14": {
+    "co": null,
+    "fleet": null,
+    "rego": "TD98VJ",
+    "on": "T0158",
+    "line": "9961265/34",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:40.303Z",
+    "_k": "VMS14"
+   },
+   "vmsboard/VMS15": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9217",
+    "on": "T0158",
+    "line": "9961265/35",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:40.704Z",
+    "_k": "VMS15"
+   },
+   "vmsboard/VMS16": {
+    "co": null,
+    "fleet": null,
+    "rego": "ES3211",
+    "on": "T0158",
+    "line": "9961265/37",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:41.104Z",
+    "_k": "VMS16"
+   },
+   "vmsboard/VMS17": {
+    "co": null,
+    "fleet": null,
+    "rego": "ER9410",
+    "on": "T0158",
+    "line": "9961265/39",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:41.577Z",
+    "_k": "VMS17"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

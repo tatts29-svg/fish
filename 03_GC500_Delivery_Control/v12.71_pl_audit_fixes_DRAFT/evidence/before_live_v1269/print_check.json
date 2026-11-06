@@ -1,0 +1,31 @@
+{
+ "before": {
+  "armed": false,
+  "lock": true,
+  "strip": "NO TWIN-STEER TRUCKS: not on the track, the Esplanade or inside Macintosh Island Park · Week 3, Week 2, Week 1, Race Week and demob · nowhere to park or unload"
+ },
+ "after": {
+  "armed": false,
+  "costPage": false,
+  "printingCosts": false,
+  "strip": "NO TWIN-STEER TRUCKS: not on the track, the Esplanade or inside Macintosh Island Park · Week 3, Week 2, Week 1, Race Week and demob · nowhere to park or unload"
+ },
+ "printMedia": {
+  "face": false,
+  "tiles": false,
+  "lock": true,
+  "strip": false,
+  "main": false
+ },
+ "pdf": {
+  "bytes": 31652,
+  "pages": 2,
+  "hasWarning": true,
+  "hasFace": false,
+  "hasRevenue": false,
+  "head": "⛔ NO TWIN-STEER TRUCKS — GC500 SITE Twin-steer trucks must not be used for any GC500 delivery or pick-up. That means nowhere on the track, the Esplanade or inside Macintosh Island Park. This applies to every delivery and pick-up in Week 3, Week 2, Week 1, Race Week and demob. Week 1: there is next t"
+ },
+ "errors": 0,
+ "console": 0,
+ "blocked": 0
+}

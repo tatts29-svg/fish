@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68",
+  "desktop": {
+    "passed": 21
+  },
+  "phone": {
+    "passed": 21
+  },
+  "note": "The v11.88 assertions remain unchanged; the phone setup opens Map tools before testing the existing area filter."
+}

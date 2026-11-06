@@ -1,0 +1,114 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 7,
+  "mobile": false,
+  "actualPublic": false,
+  "expectedBug": true,
+  "sha256": "5f5ac67334f382985d57e136277a6321bf47565ac1033e35cf203c631ae1e45c",
+  "result": {
+    "emptyCollection": "items",
+    "waiting": [
+      {
+        "iso": "2026-10-07",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-08",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-09",
+        "text": "Not recorded"
+      }
+    ],
+    "waitingReady": false,
+    "recordSameAtWait": true,
+    "uncachedUnavailable": false,
+    "restored": [
+      {
+        "iso": "2026-10-07",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-08",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-09",
+        "text": "Not recorded"
+      }
+    ],
+    "expected": [
+      {
+        "iso": "2026-10-07",
+        "text": "60.82%"
+      },
+      {
+        "iso": "2026-10-08",
+        "text": "62.36%"
+      },
+      {
+        "iso": "2026-10-09",
+        "text": "63.43%"
+      }
+    ],
+    "restoreRenders": 0,
+    "recordSameAfterRestore": true,
+    "stableRenders": 0,
+    "unavailableAgain": [
+      {
+        "iso": "2026-10-07",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-08",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-09",
+        "text": "Not recorded"
+      }
+    ],
+    "restoredAgain": [
+      {
+        "iso": "2026-10-07",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-08",
+        "text": "Not recorded"
+      },
+      {
+        "iso": "2026-10-09",
+        "text": "Not recorded"
+      }
+    ],
+    "stale": {
+      "health": {
+        "ready": true,
+        "loading": false,
+        "stale": true,
+        "status": "unreachable",
+        "basis": "Last received records · connection unavailable"
+      },
+      "renders": 0,
+      "repeatRenders": 0
+    },
+    "reconnected": {
+      "health": {
+        "ready": true,
+        "loading": false,
+        "stale": false,
+        "status": "live",
+        "basis": "Shared progress records"
+      },
+      "renders": 0
+    },
+    "nativeUnchanged": true,
+    "moneyUnchanged": true,
+    "firstRestored": true
+  },
+  "errors": 0,
+  "writes": 0
+}

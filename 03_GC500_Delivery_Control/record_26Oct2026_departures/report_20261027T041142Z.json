@@ -1,0 +1,383 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T041142Z",
+ "finished": "2026-10-27T04:12:16.631Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (14:0x AEST): \"Ilve done 2 x trucks so far of 24. And another truck of 18\" — the record held 24, 24 and 15 for the three trucks, so the third truck (13:30–13:40: WC51's six, WC49's three, WC48's four, WC13's two) was 3 FWF short; \"We are missing 3 fwf what else is in that same area of fwf\" — the only FWF still on site in servicing area 10 (Main Beach Seaside — South, with WC48, WC49 and WC51) are WC53's three, 0952, 0951 and 0074, 43 m from WC51; asked to record them at 13:30 on the 18 truck, \"Rhey are the ones\". All three are Event Portables FWF on WC53 only, all of WC53 (read 14:10 AEST: Emptied, every one Ready, none already left, no booking), so WC53 left in full at 13:30 AEST, the same time as WC51 beside it.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC53",
+    "at": "2026-10-27T13:30:00+10:00",
+    "nos": [
+     "0952",
+     "0951",
+     "0074"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9",
+ "version": {
+  "before": 11569,
+  "after": 11570
+ },
+ "updated": {
+  "before": "2026-10-27T04:11:14.941Z",
+  "after": "2026-10-27T04:12:15.810Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC53",
+   "at": "2026-10-27T13:30:00+10:00",
+   "nos": [
+    "0952",
+    "0951",
+    "0074"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T13:30:00+10:00, recorded by Andrew Fisher: 3 x FWF 0952, 0951, 0074 - WC53 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC53",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC53": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:23.999Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:23.099Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:06.730Z",
+    "ready1238_units": {
+     "event-portables|0074": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c3115bfd-31cc-43d5-8612-fbae70307981"
+     },
+     "event-portables|0951": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/89349d5e-f0c4-4a2e-93f1-b9b5f0126c05"
+     },
+     "event-portables|0952": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/52b55039-01c7-4216-8bce-4bafca04de87"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:23.999Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.705Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:06.730Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0074",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0951",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0952",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0074",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0951",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0952",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC53"
+   }
+  },
+  "after": {
+   "delivery/WC53": {
+    "state": "in transit",
+    "set_at": "2026-10-27T04:12:01.250Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:23.099Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:06.730Z",
+    "ready1238_units": {
+     "event-portables|0074": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c3115bfd-31cc-43d5-8612-fbae70307981"
+     },
+     "event-portables|0951": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/89349d5e-f0c4-4a2e-93f1-b9b5f0126c05"
+     },
+     "event-portables|0952": {
+      "on": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/52b55039-01c7-4216-8bce-4bafca04de87"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T04:12:01.250Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.705Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T04:12:01.250Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "2d506cbc-d864-43e9-a896-f7d37b5d0555",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T13:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T23:40:23.999Z",
+       "requiredKey": "[[\"fwf\",3]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 3,
+         "unitIds": [
+          "[\"WC53\",\"event-portables\",\"native\",\"slot:52b55039-01c7-4216-8bce-4bafca04de87\"]",
+          "[\"WC53\",\"event-portables\",\"native\",\"slot:89349d5e-f0c4-4a2e-93f1-b9b5f0126c05\"]",
+          "[\"WC53\",\"event-portables\",\"native\",\"slot:c3115bfd-31cc-43d5-8612-fbae70307981\"]"
+         ],
+         "numbers": [
+          "0952",
+          "0951",
+          "0074"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC53\",\"event-portables\",\"native\",\"slot:52b55039-01c7-4216-8bce-4bafca04de87\"]",
+           "number": "0952",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC53\",\"event-portables\",\"native\",\"slot:89349d5e-f0c4-4a2e-93f1-b9b5f0126c05\"]",
+           "number": "0951",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC53\",\"event-portables\",\"native\",\"slot:c3115bfd-31cc-43d5-8612-fbae70307981\"]",
+           "number": "0074",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T04:12:01.250Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:06.730Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0074",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0951",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0952",
+      "ready": true,
+      "at": "2026-10-26T10:27:25.719Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0074",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0951",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0952",
+      "ready": true,
+      "at": "2026-10-26T18:19:47.141Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC53"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

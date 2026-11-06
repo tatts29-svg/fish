@@ -1,0 +1,1202 @@
+{
+ "at": "2026-10-23T05:31:33.243Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card header counts the invoices matched to the cent and the orders not matched yet",
+   "ok": true,
+   "detail": {
+    "head": "6 of 9 pairings confirmed · 4 with a receipt ID · 4 invoices matched to the cent · 5 not matched yet",
+    "counts": {
+     "matched": 4,
+     "awaiting": 5,
+     "other": 0
+    }
+   }
+  },
+  {
+   "name": "weeks 1 to 4 read \"invoice matched to the cent\" with the sheet total",
+   "ok": true,
+   "detail": [
+    {
+     "po": "4647508 · $8,992.00",
+     "n": "6",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · 6 dockets so far · about $10,869 at the supplier’s sheet rates"
+    },
+    {
+     "po": "4647509 · $33,670.00",
+     "n": "29",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · 34 dockets so far · about $25,380 at the supplier’s sheet rates"
+    },
+    {
+     "po": "4647515 · $50,154.00",
+     "n": "14",
+     "state": "inv1158-matched",
+     "words": "invoice matched to the cent · $50,154"
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 65 m × $10.00 = $650.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 105 m × $10.00 = $1,050.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 127.5 m × $10.00 = $1,275.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 327.5 m × $10.00 = $3,275.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 150 m × $5.40 = $810.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 40 m × $24.40 = $976.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 25 m × $10.00 = $250.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 2 × $100.00 = $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 270 m × $24.40 = $6,588.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 215 m × $5.40 = $1,161.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 0.8 × $100.00 = $75.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 447.5 m × $24.40 = $10,919.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 12.5 m × $10.00 = $125.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 10 m × $24.40 = $244.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 332.5 m × $10.00 = $3,325.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 10 m × $10.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 0.5 × $100.00 = $50.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 0.3 × $100.00 = $25.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "4647517 · $26,695.00",
+     "n": "23",
+     "state": "inv1158-matched",
+     "words": "invoice matched to the cent · $26,695"
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 167.5 m × $10.00 = $1,675.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 167.5 m × $10.00 = $1,675.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 32.5 m × $10.00 = $325.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 0.8 × $100.00 = $75.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 370 m × $5.40 = $1,998.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 25 m × $5.40 = $135.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 60 m × $5.40 = $324.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 40 m × $24.40 = $976.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 20 m × $10.00 = $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 52.5 m × $24.40 = $1,281.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 72.5 m × $24.40 = $1,769.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 10 m × $10.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 22.5 m × $10.00 = $225.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 475 m × $10.00 = $4,750.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 13 m × $10.00 = $130.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 510 m × $5.40 = $2,754.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 52.5 m × $10.00 = $525.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 20 m × $10.00 = $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 12.5 m × $10.00 = $125.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 352.5 m × $5.40 = $1,903.50",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 30 m × $10.00 = $300.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1.5 × $100.00 = $150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 377.5 m × $5.40 = $2,038.50",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 100 m × $10.00 = $1,000.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 10 m × $10.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1 × $100.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "1 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "1 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "4647519 · $28,246.50",
+     "n": "24",
+     "state": "inv1158-matched",
+     "words": "invoice matched to the cent · $28,247"
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 97.5 m × $10.00 = $975.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 0.8 × $100.00 = $75.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 162.5 m × $10.00 = $1,625.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 0.3 × $100.00 = $25.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 120 m × $10.00 = $1,200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 2.5 m × $24.40 = $61.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 25 m × $24.40 = $610.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 75 m × $10.00 = $750.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 35 m × $10.00 = $350.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 1.5 × $100.00 = $150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 4 × $100.00 = $400.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 150 m × $10.00 = $1,500.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 72.5 m × $24.40 = $1,769.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 77.5 m × $10.00 = $775.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1.5 × $100.00 = $150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 7.5 m × $24.40 = $183.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 45 m × $24.40 = $1,098.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 25 m × $24.40 = $610.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 145 m × $10.00 = $1,450.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 4 × $100.00 = $400.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Relocation labour · 0.5 × $100.00 = $50.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 22.5 m × $24.40 = $549.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 97.5 m × $10.00 = $975.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 32.5 m × $10.00 = $325.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 15 m × $24.40 = $366.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 105 m × $5.40 = $567.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 137.5 m × $10.00 = $1,375.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 90 m × $10.00 = $900.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 22.5 m × $5.40 = $121.50",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 10 m × $5.40 = $54.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "4647520 · $66,272.00",
+     "n": "27",
+     "state": "inv1158-matched",
+     "words": "invoice matched to the cent · $66,272"
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 3 × $100.00 = $300.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 2 × $100.00 = $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1.5 × $100.00 = $150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 0.5 × $100.00 = $50.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 1.5 × $100.00 = $150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Installer labour · 4 × $100.00 = $400.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Component collection only · no charge in this allocation",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 355 m × $10.00 = $3,550.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 17.5 m × $24.40 = $427.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 7.5 m × $24.40 = $183.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 147.5 m × $24.40 = $3,599.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Bases supplied · 200 × $1.00 = $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 25 m × $24.40 = $610.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 45 m × $24.40 = $1,098.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 450 m × $10.00 = $4,500.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 105 m × $5.40 = $567.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 95 m × $10.00 = $950.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 10 m × $10.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 47.5 m × $10.00 = $475.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 97.5 m × $10.00 = $975.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 285 m × $10.00 = $2,850.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 347.5 m × $10.00 = $3,475.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 125 m × $10.00 = $1,250.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 275 m × $10.00 = $2,750.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Demarcation CCB · 70 m × $5.40 = $378.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Braced for scrim · 85 m × $24.40 = $2,074.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 70 m × $10.00 = $700.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 142.5 m × $10.00 = $1,425.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 117.5 m × $10.00 = $1,175.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 147.5 m × $10.00 = $1,475.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 242.5 m × $10.00 = $2,425.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Bases supplied · 100 × $1.00 = $100.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 2.5 m × $10.00 = $25.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "Clean temporary fencing · 115 m × $10.00 = $1,150.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "40 × $64.50",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "4 × $196.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "",
+     "n": "2 × $200.00",
+     "state": null,
+     "words": null
+    },
+    {
+     "po": "4647522",
+     "n": "0",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · no dockets yet"
+    },
+    {
+     "po": "4647523",
+     "n": "0",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · no dockets yet"
+    },
+    {
+     "po": "4658850 · $195.00",
+     "n": "—",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · no dockets yet"
+    }
+   ]
+  },
+  {
+   "name": "week 5 reads not matched yet, with its dockets so far and their estimate at the sheet rates",
+   "ok": true,
+   "detail": {
+    "r5": {
+     "po": "4647509 · $33,670.00",
+     "n": "29",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · 34 dockets so far · about $25,380 at the supplier’s sheet rates"
+    },
+    "w5": {
+     "state": "awaiting",
+     "n": 34,
+     "est": 25379.5,
+     "words": "invoice not matched yet · 34 dockets so far · about $25,380 at the supplier’s sheet rates"
+    },
+    "est5": 25379.5,
+    "n5": 34
+   }
+  },
+  {
+   "name": "week 6 reads not matched yet with 6 dockets; the event week has no dockets yet",
+   "ok": true,
+   "detail": {
+    "r6": {
+     "po": "4647508 · $8,992.00",
+     "n": "6",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · 6 dockets so far · about $10,869 at the supplier’s sheet rates"
+    },
+    "r22": {
+     "po": "4647522",
+     "n": "0",
+     "state": "inv1158-awaiting",
+     "words": "invoice not matched yet · no dockets yet"
+    },
+    "w6": {
+     "state": "awaiting",
+     "n": 6,
+     "est": 10869,
+     "words": "invoice not matched yet · 6 dockets so far · about $10,869 at the supplier’s sheet rates"
+    }
+   }
+  },
+  {
+   "name": "no revenue figure stands against an order any more; the column says invoice",
+   "ok": true,
+   "detail": {
+    "th": [
+     "PO",
+     "Period",
+     "Schedule week",
+     "Dockets that week · invoice",
+     "Receipt ID No.",
+     "Description",
+     "Value",
+     "",
+     "Source",
+     "Work date",
+     "Current area / reference",
+     "Supplier billed quantities",
+     "Direct cost",
+     "Source",
+     "Work date",
+     "Current area / reference",
+     "Supplier billed quantities",
+     "Direct cost",
+     "Source",
+     "Work date",
+     "Current area / reference",
+     "Supplier billed quantities",
+     "Direct cost",
+     "Source",
+     "Work date",
+     "Current area / reference",
+     "Supplier billed quantities",
+     "Direct cost"
+    ],
+    "words": [
+     "invoice not matched yet · 6 dockets so far · about $10,869 at the supplier’s sheet rates",
+     "invoice not matched yet · 34 dockets so far · about $25,380 at the supplier’s sheet rates",
+     "invoice matched to the cent · $50,154",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     "invoice matched to the cent · $26,695",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     "invoice matched to the cent · $28,247",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     "invoice matched to the cent · $66,272",
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     "invoice not matched yet · no dockets yet",
+     "invoice not matched yet · no dockets yet",
+     "invoice not matched yet · no dockets yet"
+    ]
+   }
+  },
+  {
+   "name": "the card note carries the rule in the project manager's words",
+   "ok": true,
+   "detail": "A purchase order is a Coates commercial reference; nothing here says what an order is worth until a person types it. Invoices are matched to dockets as the dockets come in: an order with its supplier sheet on the record reads matched to the cent; an order without one reads not matched yet, with the dockets so far and what they come to at the supplier’s sheet rates — the figure the invoice is matched against when it arrives. Not matched means the invoice is not here yet, nothing more (the project manager, 23 Oct 2026).The order's own value and receipt ID number, typed here, are what Coates pays"
+  },
+  {
+   "name": "the P&L Rehire line says four orders are invoiced and matched to the cent",
+   "ok": true,
+   "detail": "Event Portables’ Q6845 and Q6847 (the toilet hire, their on-site labour, and their delivery and pickup) $45,525 — the Forecast P&L carries the supplier cost estimate once as Rehire cost of $101,747; Q6844 and Q6846 are on Toilet Pumpout Costs and Consumables below, approved — the final total may change · Advanced’s gear on the dockets at their own sheet $199,126 (4 orders invoiced and matched to the cent, $171,368; the other dockets await their invoice, counted at the sheet rates) · to job end adds the fencing programme to come at Advanced’s rates, $108,525 (of which $63,019 relates to ended-week programme quantities not yet docketed; matching and scope need review)"
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 59,
+    "blocked": 0
+   }
+  }
+ ]
+}

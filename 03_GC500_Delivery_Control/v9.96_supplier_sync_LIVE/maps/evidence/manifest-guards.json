@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Exactly 230 unrelated machine files retained",
+      "pass": true
+    },
+    {
+      "name": "Reject unrelated file changes",
+      "pass": true
+    },
+    {
+      "name": "Reject added paths",
+      "pass": true
+    },
+    {
+      "name": "Reject removed paths",
+      "pass": true
+    },
+    {
+      "name": "Reject changed entry",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "writes": 0
+}

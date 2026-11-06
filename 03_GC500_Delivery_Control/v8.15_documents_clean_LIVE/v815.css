@@ -1,0 +1,61 @@
+/* v8.15 - Documents, cleaned up. Layout only: every colour, radius, shadow and font here is one the page already uses
+   (Today's island and white cards, .hubcard:hover, .card.island:hover, .btn.sm, .edbar). Nothing new is drawn. */
+#pane-docs .head815{align-items:flex-end;margin:2px 0 12px}
+#pane-docs .docfind815{flex:1 1 320px;max-width:520px;margin:0}
+#pane-docs .docfind815 .f, #pane-docs .docfind815 .f:last-child{flex:1 1 auto}
+/* the six cards: one row on a laptop, three across on a tablet, two on a phone */
+#pane-docs .hub.tiles815{grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;margin:0 0 14px}
+@media (max-width:1180px){#pane-docs .hub.tiles815{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){#pane-docs .hub.tiles815{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+/* the category cards are Today's islands (.card.island.racecard): only their size and order are set here. The open card
+   wears the island's own hover ring, so it reads as the one you are on. */
+#pane-docs .tile815{grid-column:auto;cursor:pointer;gap:6px;padding:14px 16px 12px;min-width:0}
+#pane-docs .tile815 .hubtitle{flex-wrap:nowrap;justify-content:flex-start}
+#pane-docs .tile815 .hubtitle h3{display:flex;align-items:center;gap:7px;line-height:1.3;overflow-wrap:anywhere}
+#pane-docs .tile815 .g815{flex:0 0 auto;color:#ff8a3a}
+#pane-docs .tile815 .fig815{display:flex;align-items:center;justify-content:space-between;gap:4px 8px;flex-wrap:wrap;min-width:0}
+#pane-docs .tile815 .pstat{flex:0 1 auto;padding:0;white-space:nowrap}
+#pane-docs .tile815 .dstat .hz{width:64px;height:auto}
+#pane-docs .tile815 .chip{align-self:flex-start}
+/* a narrow card (a phone, a small laptop) keeps its figure and its lamp on one line: the unit word gives way, the card's
+   title already says what is counted. Without container queries the lamp simply drops under the figure. */
+#pane-docs .tile815{container-type:inline-size}
+@container (max-width:220px){#pane-docs .tile815 .u815{display:none}}
+#pane-docs .tile815.on815{box-shadow:0 0 0 1px #ff6a13,0 0 0 2px #0a0706,0 18px 34px -16px rgba(0,0,0,.8)}
+#pane-docs .tile815.dim815{opacity:.55}
+@media (max-width:640px){#pane-docs .tile815{padding:12px 12px 10px}#pane-docs .tile815 .pstat b{font-size:36px}#pane-docs .tile815 .dstat .hz{width:56px}}
+#pane-docs .hubcard.static815{cursor:default;margin:0 0 14px}
+#pane-docs .hubcard.static815:hover{transform:none}
+/* slim rows: plate, title and one line, the light, Open. Several columns on a laptop so a list is not a strip */
+#pane-docs .rows815{grid-template-columns:repeat(auto-fill,minmax(400px,1fr));column-gap:22px}
+@media (max-width:640px){#pane-docs .rows815{grid-template-columns:1fr}}
+#pane-docs .rows815 > li{flex-wrap:nowrap;gap:9px;min-height:34px}
+#pane-docs .rows815 > li > .rplate, #pane-docs .rows815 > li > .plateb{flex:0 0 auto}
+#pane-docs .rows815 > li .w b{display:block;font-weight:700;overflow-wrap:anywhere}
+#pane-docs .rows815 > li .btn.sm{flex:0 0 auto;white-space:nowrap}
+#pane-docs .rows815 .ph815{flex:0 0 auto;width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--rule);background:var(--tint2)}
+#pane-docs .sub815{margin:12px 0 4px;color:var(--mute);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+#pane-docs .static815 > .hubtitle + .sub815{margin-top:4px}
+#pane-docs details.fold815 > summary .rplate{font-size:13px}
+#pane-docs details.fold815 > summary .tl{text-transform:none;letter-spacing:0}
+#pane-docs .folds815{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));column-gap:22px;align-items:start}
+#pane-docs .folds815 .rows815{grid-template-columns:1fr}
+#pane-docs .docfoot815{margin:4px 0 14px}
+#pane-docs .rows815 > li[aria-current]{border-radius:8px;box-shadow:0 0 0 3px var(--glow);outline:none}
+#pane-docs .rows815 .note815{color:var(--ink2);margin-top:3px}
+#pane-docs .rows815 .note815[hidden]{display:none}
+#pane-docs .in815{animation:paneIn .22s ease-out both}
+@media (prefers-reduced-motion:reduce){#pane-docs .in815{animation:none}}
+html[data-motion="off"] #pane-docs .in815{animation:none}
+/* the list on paper: always on the page, shown only when printing (Print the list, Ctrl+P or the browser menu) */
+#pane-docs .print815{display:none}
+@media print{
+  #pane-docs .head815, #pane-docs .tiles815, #pane-docs #docBody815, #pane-docs .docfoot815, #pane-docs #docAddCard{display:none!important}
+  #pane-docs .print815{display:block!important}
+  #pane-docs .prtcat815{margin:0 0 4mm}
+  #pane-docs .prtcat815 > h3{margin:0 0 1mm;font-size:12pt;break-after:avoid}
+  #pane-docs .print815 .sub815{margin:2mm 0 1mm;break-after:avoid}
+  #pane-docs .print815 .rows815{display:block}
+  #pane-docs .print815 .rows815 > li{break-inside:avoid;padding:1px 0}
+  #pane-docs .print815 .btn, #pane-docs .print815 .anos.editonly{display:none!important}
+}

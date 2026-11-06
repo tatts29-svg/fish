@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 4 Nov 2026 15:0x AEST: \"415576 leaving at 310pm\". Coates 415576 is building P11 (Portable Building Shell 4.8 m x 2.4 m; contract 9968862 L46, KINP; ticked Ready 3 Nov); an exact match, not P16's 415575 (left 10:30). It leaves site at 15:10 on 4 Nov through the page's own Record departure form in his name, recorded after 15:10 (the form takes no future time). Applied only if the dry run shows the P&L unchanged and 415576 is P11's.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P11",
+   "at": "2026-11-04T15:10:00+10:00",
+   "nos": [
+    "415576"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

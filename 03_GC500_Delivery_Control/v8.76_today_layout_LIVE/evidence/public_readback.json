@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "live_aest": "7 Oct 2026 13:57",
+  "source_ready": "e0e9a181",
+  "sha256": "4ec46478f952b0f26fa2ae72f73e5477c41012bf4b479395bab6283265451254",
+  "bytes": 11116428,
+  "public_layout_desktop_phone": "18/18",
+  "runtime_errors": 0,
+  "attempted_live_writes": 0,
+  "screenshots_inspected": true,
+  "health": "OK v5.87",
+  "claude_independent_readback": "pending"
+}

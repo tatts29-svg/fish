@@ -1,0 +1,2 @@
+TIMING base {"iso":"2026-10-19","loads":30,"runs":[2351,1963,1890,1363,1240,1287,1263,1079,916,813,1151,931,1500,820,1003],"median":1240,"best":813,"flow891BuildMs":null,"dpLoadsMs":0.43,"lines":35}
+errors 0 blocked 0

@@ -1,0 +1,285 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261105T225606Z",
+ "finished": "2026-11-05T22:56:39.930Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 6 Nov 2026 (08:5x AEST): \"We had the coates event container leaving at 830am\". T0023 is the Event Container from EAGS (Coates 1257261, island west parkland entry by the merch strip, on site since 15 Sep 2026), the only container still on site: T0258 (3.0m container) and T0266 (refrigerator container) left 30 Oct, and T0023's own 30 Oct entry was withdrawn (run 88) because the container that left that day was T0266. It left in full at 08:30 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 08:30, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0023",
+    "at": "2026-11-06T08:30:00+10:00",
+    "nos": [
+     "1257261"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13059,
+  "after": 13060
+ },
+ "updated": {
+  "before": "2026-11-05T05:33:42.662Z",
+  "after": "2026-11-05T22:56:38.952Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0023",
+   "at": "2026-11-06T08:30:00+10:00",
+   "nos": [
+    "1257261"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-06T08:30:00+10:00, recorded by Andrew Fisher: 1 x Event Container 1257261 - T0023 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0023",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0023": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:15:31.323Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:53:03.232Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:18:41.952Z",
+    "eta": "12:00",
+    "note": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:15:31.323Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:41.952Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:53:03.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1257261": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:10.993Z"
+     }
+    },
+    "_k": "T0023"
+   }
+  },
+  "after": {
+   "delivery/T0023": {
+    "state": "in transit",
+    "set_at": "2026-11-05T22:56:25.997Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-05T22:56:25.997Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-05T22:56:25.997Z",
+    "eta": "12:00",
+    "note": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:15:31.323Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-05T22:56:25.997Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "29269bd5-a3d2-4a04-a88a-c65d489c0249",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T08:30:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:15:31.323Z",
+       "requiredKey": "[[\"event container\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Event Container",
+         "n": 1,
+         "unitIds": [
+          "[\"T0023\",\"coates\",\"asset\",\"1257261\"]"
+         ],
+         "numbers": [
+          "1257261"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0023\",\"coates\",\"asset\",\"1257261\"]",
+           "number": "1257261",
+           "owner": "coates",
+           "item": "Event Container"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "T0023",
+        "capturedAt": "2026-11-05T22:56:25.996Z",
+        "arrivalAt": "2026-09-15T07:15:31.323Z",
+        "reference": {
+         "lat": -27.983303,
+         "lon": 153.4263373,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "reference",
+         "approximate": false,
+         "label": "T0023",
+         "tag": "T0023",
+         "what": "Event Container · event container from eags · Event Container",
+         "how": "position: pinned on site, within 5 m",
+         "warn": "",
+         "source": "position: pinned on site, within 5 m"
+        },
+        "units": {
+         "[\"T0023\",\"coates\",\"asset\",\"1257261\"]": {
+          "identity": {
+           "id": "[\"T0023\",\"coates\",\"asset\",\"1257261\"]",
+           "number": "1257261",
+           "owner": "coates",
+           "item": "Event Container"
+          },
+          "location": {
+           "lat": -27.983303,
+           "lon": 153.4263373,
+           "kind": "unit-pin",
+           "scope": "unit",
+           "confidence": "unit-recorded",
+           "approximate": false,
+           "label": "T0023",
+           "tag": "T0023",
+           "what": "Event Container",
+           "how": "Recorded unit GPS pin",
+           "warn": "",
+           "source": "Recorded unit GPS pin",
+           "accuracyM": 5,
+           "positionAt": "2026-09-21T23:16:59.776Z"
+          }
+         }
+        }
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:41.952Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-05T22:56:25.997Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:53:03.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-05T22:56:25.997Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "loading872": {
+     "u1257261": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:10.993Z"
+     }
+    },
+    "_k": "T0023"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

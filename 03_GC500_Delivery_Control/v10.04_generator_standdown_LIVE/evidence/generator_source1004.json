@@ -1,0 +1,101 @@
+{
+  "author": "Andrew Fisher",
+  "nativeReadVersion": 5443,
+  "readOnly": true,
+  "testWrites": 0,
+  "sourcesRead": [
+    {
+      "file": "Baseplan SuperCars.xlsx",
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+      "sheet": "9961976-NVAC",
+      "sourceRows": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        28,
+        31,
+        33,
+        34,
+        36,
+        37
+      ],
+      "finding": "18 own-fleet generator contract lines. Branch NVAC. Rate columns zero and rate classification no rates; no supplier sub-rental values. The generator standdown rule is customer Hire Revenue, not a new supplier Direct cost. Source Delivered rows are lines 6, 9, 10, 16 and 38. Pending or Del Req plant numbers are allocations, not physical identity confirmations. Row35/line41 is a distribution board and is not a generator."
+    },
+    {
+      "file": "GC500 26 Schedule (7).xlsx",
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac",
+      "sheets": [
+        "Week 5",
+        "Week 3",
+        "Week 2",
+        "Week 1",
+        "Event Week",
+        "Demob Week 1",
+        "Demob Week 2",
+        "Demob Week 3"
+      ],
+      "finding": "The schedule establishes requested sizes and dated planned deliveries. Concert is two 200kVA generators on Week1 row2, booked12Oct with two delivery dockets. T0268 is one100kVA trailer spare on20Oct. Old T0019 200kVA row is cancelled in the project manager's committed record; it is not added to current quantities."
+    },
+    {
+      "file": "Rate_Card_2026_1.xlsx",
+      "sha256": "60a62f37d9d91634ca617f3b2840809e64ebc1f000303857f1abb5e00691d7d6",
+      "sheet": "Street Rate Card 2026",
+      "range": "A65:D81",
+      "finding": "Exact Daily Rate2026 and Standby Rate2026 values read directly from original card. Andrew clarified12Oct that the printed card contains standdown rates and confirmed200kVA is182.28/day before race Friday. Use published values, retaining source precision until contract-line rounding. Requested-size and established next-lower-card rule retained."
+    }
+  ],
+  "roster": {
+    "activeGroups": 17,
+    "activeGenerators": 18,
+    "confirmedArrivals": 9,
+    "remainingForecastGenerators": 9,
+    "cancelledExcluded": [
+      "T0019"
+    ],
+    "contractOnlySpares": [
+      "9961976 line32:300kVA",
+      "9961976 line39:60kVA"
+    ],
+    "knownMissingLocations": [
+      "Contract-only300kVA spare",
+      "Contract-only60kVA spare"
+    ],
+    "datePolicy": "Explicit recorded hire start, then Delivered contract start, then dated on-site arrival in Australia/Brisbane. Delivery bookings remain forecast. Planned dates are not evidence of actual arrival.",
+    "assetNumberPolicy": "Explicit native number overrides first; otherwise explicitly recorded generator units and Delivered contract plant numbers only. Pending/DelReq booking numbers are withheld. Distribution boards do not become generator identities.",
+    "confirmedNumberCorrection": "GN13 current native number1276503 overrides planned/export1261271; requested45kVA remains the pricing basis.",
+    "identityNotYetConfirmed": [
+      "GN18",
+      "Concert generator1",
+      "Concert generator2"
+    ],
+    "concertPosition": {
+      "lat": -27.984576,
+      "lon": 153.4277,
+      "source": "Andrew supplied maps21521.jpg and21524.jpg,12Oct2026",
+      "quantity": 2,
+      "description": "Macintosh Island Park, lawn beside path junction near peacock enclosure"
+    }
+  },
+  "independentHireBaseline": {
+    "currency": "AUD",
+    "tax": "ex GST",
+    "rounding": "once per customer contract line, then sum",
+    "actualCompleteEventHireForConfirmedArrivals": 28196.4,
+    "forecastRemainingArrivals": 9333.73,
+    "total": 37530.13,
+    "excludes": "Existing installation, demob, transport, cleaning, waiver, electrical accessories and any separate Direct costs. This audit does not add these a second time.",
+    "standdownActual": 21132.58,
+    "standdownRemaining": 3884.69,
+    "standdownTotal": 25017.27
+  },
+  "pureSourceRegressionChecks": 36
+}

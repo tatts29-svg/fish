@@ -1,0 +1,22 @@
+/* Author: Andrew Fisher. Guards against misleading equipment references. */
+'use strict';
+const assert=require('node:assert/strict');
+const art=require('../artwork1270_src.js');
+const own=item=>({owner:'coates',item});
+const check=(item,ids)=>assert.deepEqual(art.resolveAll(own(item)),ids,item);
+check('FWF',['toilet_fwf']);check('FWF trailer',['toilet_trailer']);check('Accessible Toilet',['toilet_access']);
+check('20kva',['gen_qas14']);check('50kva',['gen_qas80']);check('100kva',['gen_qas80']);check('150kva',['gen_qas150']);check('350kva',['gen_qas200']);
+assert.match(art.describe(own('350kva')).sources[0].note,/not proof/);
+check('Building 3.6m',['buildings_3p6']);check('Building 4.8m',['buildings_6x3']);check('Building 9.6m',['buildings_12x3']);
+check('Ticket Box 6m',['ticket_box']);check('Event Container',['event_container']);
+for(const item of ['3.0m Cont','6.0m Refrigerator Cont','Fridge Lge','Freezer','Forklift 5t','350kva cables spare','Chair','Tyne Rotator','Boom Lift','Unknown','<img>'])check(item,[]);
+check('Forklift 2.5t STD',['forklift_std']);check('Forklift 3.0t RT',['forklift_rt']);
+check('16Pan Block',['toilets_8door']);assert.match(art.describe(own('16Pan Block')).sources[0].note,/smaller/);
+assert.deepEqual(art.resolveAll({...own('Toilet Block 6m'),tankNo:'present'}),['toilets_mf','waste_tank']);
+assert.deepEqual(art.resolveAll({items:[own('Building 6m'),own('Fridge Lge')]}),[]);
+assert.deepEqual(art.resolveAll({items:[own('Toilet Block 6m'),own('Waste Tank')]}),['toilets_mf','waste_tank']);
+for(const owner of ['unknown','event portables','premiair',''])assert.deepEqual(art.resolveAll({item:'VMS',owner}),[]);
+assert.equal(art.html({item:'VMS'}),'');assert.equal(art.html({types:['VMS']}),'');
+assert.equal(art.describe(own('TL2')).sources[0].kind,'illustration');
+assert(!art.html(own('VMS')).includes('art1268-'));
+console.log('PASS: source distinctions, historical representative disclosures, supplier guards, mixed/unknown fallbacks.');

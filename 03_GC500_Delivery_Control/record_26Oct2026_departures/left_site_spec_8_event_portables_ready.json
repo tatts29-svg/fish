@@ -1,0 +1,56 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 26 Oct 2026: \"i want all Event Portaloo's Showing Ready part from the 16Pan. this is organised through Eventportaloos to pick up not coates\" (14:54 AEST), then \"Event Portables should all be Ready for pick up apart from the 16\" and \"take out our coates toilest blocks and aset and put in our list\". Record run 7 ticked Emptied on the 43 locations holding only Event Portables units. This run ticks Ready, unit by unit through v12.38's own per-unit Ready (Singles1238.setUnitReady), on the Event Portables units at the four locations that also hold Coates units: WC09 (10 FWF, 6 pee panels), WC51 (6 FWF), WC67 (3 FWF) and T0024 (1 FWF). The Coates units beside them (WC09's two toilet blocks, WC51's accessible toilet, WC67's FWF 172824, T0024's FWF 1211968) stay Not ready. WC31's two Event Portables 16 Pan blocks are Andrew's exception and are not ticked. The final night's pump-out was 100% (250 of 250 units, all 74 locations).",
+ "ops": [
+  {
+   "op": "unit_ready",
+   "ref": "WC09",
+   "units": [
+    "event-portables|0081",
+    "event-portables|0085",
+    "event-portables|0089",
+    "event-portables|0140",
+    "event-portables|0450",
+    "event-portables|0551",
+    "event-portables|0553",
+    "event-portables|0584",
+    "event-portables|0585",
+    "event-portables|0993",
+    "event-portables|PP01",
+    "event-portables|PP02",
+    "event-portables|PP03",
+    "event-portables|PP04",
+    "event-portables|PP05",
+    "event-portables|PP06"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC51",
+   "units": [
+    "event-portables|0028",
+    "event-portables|0136",
+    "event-portables|0167",
+    "event-portables|0453",
+    "event-portables|0653",
+    "event-portables|0991"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC67",
+   "units": [
+    "event-portables|0714",
+    "event-portables|0769",
+    "event-portables|0793"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0024",
+   "units": [
+    "event-portables|0164"
+   ]
+  }
+ ]
+}

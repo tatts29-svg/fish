@@ -1,0 +1,6 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026, in chat (map screenshot of the concert generators GN? 1316182, 1316183 beside WC10): \"remove and delete the 350A generator GN20 not needed and the picture took its place\". GN20 is the 350 kVA, unit 1276701 (set on site and complete 30 Sep under Andrew's name; install ticked via Codex). A read-only in-memory deleteAsset('GN20') moves revenue -$166.56 and known costs -$570.00.",
+ "refs": ["GN20"],
+ "ops": [{"op": "asset_delete", "ref": "GN20", "why": "Removed on Andrew's word 20 Oct 2026 - the 350 kVA (1276701) is not needed; the concert generators took its place."}]
+}

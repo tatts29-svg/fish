@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "base_sha256": "0a02e5fdba577f678a3494ffdccca474a126bc7be13dac2015a09d3a1c88dd9f",
+  "candidate_sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+  "deterministic_clock": {
+    "animation_callbacks_hz": 60,
+    "gpu_frame_ms": 200,
+    "wall_seconds": 2,
+    "before_simulation_seconds": 0.5,
+    "after_simulation_seconds": 2.0,
+    "maximum_outstanding_gpu_frames": 1,
+    "core_physics_and_audio_update_unchanged": true
+  },
+  "actual_webgl": {
+    "environment": "Chromium with SwiftShader software rendering, 1280x800; not physical-device FPS evidence",
+    "fallbacks": 1,
+    "quality_reductions": 7,
+    "old_contexts_pending_disposal": 0,
+    "slide_changes": 8,
+    "open_call_ms": 93.7,
+    "close_call_ms": 261.2,
+    "page_errors": 0,
+    "attempted_record_writes": 0,
+    "tested_candidate": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+    "max_heartbeat_gap_ms": 17263.5,
+    "limitation": "Cold software GPU rendering still produced a long stall before automatic recovery; this is not evidence of stutter-free physical-device playback."
+  },
+  "preservation": "Exact base equality after reversing the footer and two scheduling/fallback modules; no geometry, content, servicing, crew, report or other page code changed.",
+  "independent_second_agent_review": false,
+  "browser_checks": {
+    "desktop": 18,
+    "phone": 18
+  },
+  "full_sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "shown": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0
+    }
+  },
+  "phone_visual_inspection": "Passed on final candidate: readable controls, retry visible, no horizontal clipping",
+  "live_at": "2026-10-24T01:19:05.676Z",
+  "exact_public_readback": {
+    "author": "Author: Andrew Fisher",
+    "version": "v11.74",
+    "sha256": "98a4d37322b8cd216b93922d365ef8fac1fa3617821909548dd5974577abeb46",
+    "bytes": 21756603,
+    "readback_at": "2026-10-24T01:20:53.727937+00:00",
+    "exact_match": true,
+    "build_source_commit": "e1527b626d0b3ca823bd102a217f73775bcdfc1e"
+  },
+  "live_browser_checks": {
+    "desktop": 6,
+    "phone": 6,
+    "errors": 0,
+    "attempted_writes": 0
+  }
+}

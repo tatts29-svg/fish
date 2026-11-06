@@ -1,0 +1,176 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Explicit loading and unloading selection Save",
+  "candidate_sha256": "972089e57f537c7d9a0adc7de893b78adb0ce5ce3ee273d61846949903865b1f",
+  "javascript_sha256": "9f1c53b2c0f993d2df1be1149c59ea70e74e1add8c2cb37158712f43f59646f1",
+  "css_sha256": "69103e06d9a60bcd20ad1352593c262206b7f79c71a093893db070b78d4b28f7",
+  "module_embedded_exact": true,
+  "pure_checks": 29,
+  "browser_checks": [
+    {
+      "name": "phone one Save per editor and native auto-save selectors removed",
+      "passed": true
+    },
+    {
+      "name": "phone radio selection is draft only",
+      "passed": true
+    },
+    {
+      "name": "phone unsaved selection and open editor survive live drawer refresh",
+      "passed": true
+    },
+    {
+      "name": "phone Save keeps drawer open and reading position",
+      "passed": true
+    },
+    {
+      "name": "phone Save invokes native door setter once",
+      "passed": true
+    },
+    {
+      "name": "phone pending shared acknowledgement is not reported as shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone exact acknowledged delivery document reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone Clear is readable draft and does not write",
+      "passed": true
+    },
+    {
+      "name": "phone Save Clear writes explicit blank once",
+      "passed": true
+    },
+    {
+      "name": "phone unloading draft does not call native setter",
+      "passed": true
+    },
+    {
+      "name": "phone unloading Save calls native setter once",
+      "passed": true
+    },
+    {
+      "name": "phone stale draft is rejected after remote selection change",
+      "passed": true
+    },
+    {
+      "name": "phone Reload takes latest selection without a write",
+      "passed": true
+    },
+    {
+      "name": "phone shape dropdown receives one explicit Save and no auto-save selector",
+      "passed": true
+    },
+    {
+      "name": "phone shape selection is draft only",
+      "passed": true
+    },
+    {
+      "name": "phone shape Save uses exactly one native door setter",
+      "passed": true
+    },
+    {
+      "name": "phone shared Build editors all have exactly one Save and no old auto-save selectors",
+      "passed": true
+    },
+    {
+      "name": "phone view-only editor has disabled choices and no Save",
+      "passed": true
+    },
+    {
+      "name": "phone drawer contains no unhandled runtime errors",
+      "passed": true
+    },
+    {
+      "name": "desktop one Save per editor and native auto-save selectors removed",
+      "passed": true
+    },
+    {
+      "name": "desktop radio selection is draft only",
+      "passed": true
+    },
+    {
+      "name": "desktop unsaved selection and open editor survive live drawer refresh",
+      "passed": true
+    },
+    {
+      "name": "desktop Save keeps drawer open and reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop Save invokes native door setter once",
+      "passed": true
+    },
+    {
+      "name": "desktop pending shared acknowledgement is not reported as shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop exact acknowledged delivery document reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop Clear is readable draft and does not write",
+      "passed": true
+    },
+    {
+      "name": "desktop Save Clear writes explicit blank once",
+      "passed": true
+    },
+    {
+      "name": "desktop unloading draft does not call native setter",
+      "passed": true
+    },
+    {
+      "name": "desktop unloading Save calls native setter once",
+      "passed": true
+    },
+    {
+      "name": "desktop stale draft is rejected after remote selection change",
+      "passed": true
+    },
+    {
+      "name": "desktop Reload takes latest selection without a write",
+      "passed": true
+    },
+    {
+      "name": "desktop shape dropdown receives one explicit Save and no auto-save selector",
+      "passed": true
+    },
+    {
+      "name": "desktop shape selection is draft only",
+      "passed": true
+    },
+    {
+      "name": "desktop shape Save uses exactly one native door setter",
+      "passed": true
+    },
+    {
+      "name": "desktop shared Build editors all have exactly one Save and no old auto-save selectors",
+      "passed": true
+    },
+    {
+      "name": "desktop view-only editor has disabled choices and no Save",
+      "passed": true
+    },
+    {
+      "name": "desktop drawer contains no unhandled runtime errors",
+      "passed": true
+    }
+  ],
+  "browser_errors": 0,
+  "native_writes": 0,
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "method": "Real application native setters with all service writes captured in browser memory. Source rows used for read-only native identity. No operational record changes."
+}

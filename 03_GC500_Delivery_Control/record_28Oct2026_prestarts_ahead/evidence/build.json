@@ -1,0 +1,684 @@
+{
+ "author": "Andrew Fisher",
+ "built": "2026-10-28T06:09:56.381Z",
+ "signed": "2026-10-15",
+ "form": "GC500-PS-INS-01 v1",
+ "page_version": null,
+ "record_read_at": "2026-10-28T06:07:56.152Z",
+ "page_file": {
+  "name": "live.html",
+  "sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+  "bytes": 16028642
+ },
+ "records": [
+  {
+   "crew": "coates",
+   "day": "2026-10-29",
+   "words": "Thu 29 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-10-29.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Kyle Gover"
+   ],
+   "count": 5,
+   "basis": "2 buildings off · 1 water barrier off · 1 generator off · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 892,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 155817,
+   "sha256": "4c8eafa2c0da596a1fb9a9f8472944a96a210f068f0932a2b271e5acb33edc65"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-30",
+   "words": "Fri 30 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-10-30.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Kyle Gover"
+   ],
+   "count": 5,
+   "basis": "5 buildings off · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 872,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 155276,
+   "sha256": "6baf5155635c313c0a443f8b4372d1f47c65e56610fe7268d1a64cb4b27bb9d7"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-02",
+   "words": "Mon 02 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-02.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "1 water barrier on · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 872,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153801,
+   "sha256": "6bab76ae6c3d7f317daa29669594fef9912430dfd93805b21b8f9842803d04c3"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-03",
+   "words": "Tue 03 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-03.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 852,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153174,
+   "sha256": "b4fb27d4f3cefd19e0442e97115bed1d462b706eb962ff5246ed51565a1e4aa2"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-04",
+   "words": "Wed 04 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-04.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 852,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153170,
+   "sha256": "f095990da7dab170270de67471ce2e2a8f99afa85b9b8d95a6df134a29f35f20"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-05",
+   "words": "Thu 05 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-05.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 852,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153169,
+   "sha256": "ebc1af7f0746b14f44e72581fd5f706a8857dea32e1715ccab91cba7a9d298dd"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-06",
+   "words": "Fri 06 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-06.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "1 water barrier off · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 872,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153972,
+   "sha256": "187b056e5fb1bbbd66b17aa5dc52cde4cbc7ab9e3e260bd4effbfc03a0f53b75"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-09",
+   "words": "Mon 09 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-09.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ],
+   "count": 3,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 152684,
+   "sha256": "8108f61ec55c4adc4fd2091978cd5eb808c82488951131d6bb9b2a1a0768e4f7"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-10",
+   "words": "Tue 10 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-10.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ],
+   "count": 3,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 152695,
+   "sha256": "bbd5eefac4aad559cda741991e5a101b4a50d5df870910bd76ed66af07dd68ff"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-11",
+   "words": "Wed 11 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-11.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ],
+   "count": 3,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 152692,
+   "sha256": "e80c2ec156331b92ea0bd5d46f327aaa462d840b13985ef5e07dd643570d8d87"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-12",
+   "words": "Thu 12 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-12.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ],
+   "count": 3,
+   "basis": "4 buildings off · 1 toilet off · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 863,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153710,
+   "sha256": "2f8785ee7e34e354cfe75d6ce93b80e0c20a2f02571642ff7404822b7b303ace"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-11-13",
+   "words": "Fri 13 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-11-13.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ],
+   "count": 3,
+   "basis": "1 building off · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 863,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 153670,
+   "sha256": "c477836c34d02886025637005fbb03d7901d1c59d55d2231faccbcf68c923c40"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-29",
+   "words": "Thu 29 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-10-29.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "15 installation-plan row(s) (DECON WK1)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 1049,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 164244,
+   "sha256": "dc25d5ebe8279218e6b3122f25e3eef2829e2d947be217aeaff1cbcda4394ca9"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-30",
+   "words": "Fri 30 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-10-30.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "6 installation-plan row(s) (DECON WK1)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 951,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 161791,
+   "sha256": "c2b16f10170f700db2547310e2efd83762553d0739566a2504d7abfff37e50c5"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-02",
+   "words": "Mon 02 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-02.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "18 installation-plan row(s) (DECON WK2)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 1104,
+    "zoom": 0.954,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 164234,
+   "sha256": "0239bb39222f7cb32dfb75c24e28e049d1675c0a8b552c43147c269762351b15"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-03",
+   "words": "Tue 03 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-03.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "9 installation-plan row(s) (DECON WK2)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 981,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 162423,
+   "sha256": "28237f5cce486fc7668817698167b12e9ed7e539c8c31062b835f0f2c635cdca"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-04",
+   "words": "Wed 04 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-04.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "8 installation-plan row(s) (DECON WK2)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 1014,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 163950,
+   "sha256": "fc1fcb086340405344f8b8e78a795c85ce920ef6ee3f271d423377c5e4535c04"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-05",
+   "words": "Thu 05 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-05.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "10 installation-plan row(s) (DECON WK2)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 982,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 163070,
+   "sha256": "d16763a9231815bd19e760db222f1f48a5538db293d4c1ccc0da2511255d3256"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-06",
+   "words": "Fri 06 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-06.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "8 installation-plan row(s) (DECON WK2)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 1005,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 163350,
+   "sha256": "8ca4f8eb4828ac6c6bdba49761281f3dd4726ed3cbccb8a1ba61383334615d80"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-09",
+   "words": "Mon 09 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-09.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "3 installation-plan row(s) (DECON WK3)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 912,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 160964,
+   "sha256": "cf73eebe4c9896263f2655cd54c5881d191c6623edf98b7eb426e789bce07557"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-11",
+   "words": "Wed 11 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-11.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "4 installation-plan row(s) (DECON WK3)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 922,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 160578,
+   "sha256": "f5af77b9c560543abe12edbeeee3e5ec8f69a0e753bd02983f3d3049fa187a6b"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-12",
+   "words": "Thu 12 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-12.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "5 installation-plan row(s) (DECON WK3)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 941,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 161882,
+   "sha256": "6c38bdf0a76a202cfdc27a9a546a36ca3859b43afe059ab99e945844d7df841d"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-11-13",
+   "words": "Fri 13 Nov 2026",
+   "file": "pdfs/GC500_Prestart_Advanced_Fencing_2026-11-13.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden McAvoy",
+    "Alonzo McAvoy"
+   ],
+   "count": 10,
+   "basis": "2 installation-plan row(s) (DECON WK3)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 893,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 159984,
+   "sha256": "c23f5016174c22856546a1c5b529b034f6b4fd00e609b475c813f55129170fe2"
+  }
+ ],
+ "skipped": [
+  {
+   "crew": "fencing",
+   "day": "2026-11-10",
+   "reason": "nothing on the record for the fencing crew that day: no docket dated that day and no installation-plan row dated that day",
+   "unsigned_left": []
+  }
+ ]
+}

@@ -1,0 +1,1284 @@
+{
+"units": {
+"P27": {
+"ll": [
+-27.984773,
+153.426571
+],
+"how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 027 about 20 m west, beside T&S)",
+"near": [
+"S11 (~45 m)",
+"Macintosh Island (~90 m)"
+],
+"next": [
+"ADMIN",
+"RACE",
+"MERCH"
+],
+"beside": [
+"OP03",
+"P09",
+"P33",
+"WC06",
+"WC11"
+],
+"prec": "unit",
+"pt": [
+0.28658,
+0.4823
+],
+"sec": "S11",
+"img": [
+"df2fc98eb72a05a3c6ecb8a7f7d3529630769510baadc3c1a76c27fd40e660f3",
+"ecd7b606d0f67de6ebbcc05f211665ea01a52c685e963551ddfea4b3736d27ab"
+]
+},
+"P29": {
+"ll": [
+-27.984773,
+153.426571
+],
+"how": "the block tag P34/24/26/27/28/29 on the master D001 (D022 rev 02 drew callout 029 about 20 m west, beside T&S)",
+"near": [
+"S11 (~45 m)",
+"Macintosh Island (~90 m)"
+],
+"next": [
+"ADMIN",
+"RACE",
+"MERCH"
+],
+"beside": [
+"OP03",
+"P09",
+"P33",
+"WC06",
+"WC11"
+],
+"prec": "unit",
+"pt": [
+0.28658,
+0.4823
+],
+"sec": "S11",
+"img": [
+"df2fc98eb72a05a3c6ecb8a7f7d3529630769510baadc3c1a76c27fd40e660f3",
+"ecd7b606d0f67de6ebbcc05f211665ea01a52c685e963551ddfea4b3736d27ab"
+]
+}
+},
+"layers": [
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.7517,
+"fy": 0.1542,
+"ll": [
+-27.991829,
+153.430559
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.9764,
+"fy": 0.161,
+"ll": [
+-27.995242,
+153.430486
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.5204,
+"fy": 0.177,
+"ll": [
+-27.988316,
+153.430274
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.5663,
+"fy": 0.1814,
+"ll": [
+-27.989013,
+153.430223
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.2283,
+"fy": 0.2074,
+"ll": [
+-27.98388,
+153.429895
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.2004,
+"fy": 0.2142,
+"ll": [
+-27.983457,
+153.429811
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.1645,
+"fy": 0.2193,
+"ll": [
+-27.982911,
+153.429748
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0844,
+"fy": 0.228,
+"ll": [
+-27.981695,
+153.42964
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.8526,
+"fy": 0.2539,
+"ll": [
+-27.993364,
+153.429357
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0359,
+"fy": 0.2758,
+"ll": [
+-27.980959,
+153.429059
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.5473,
+"fy": 0.3496,
+"ll": [
+-27.988729,
+153.428187
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.6562,
+"fy": 0.35,
+"ll": [
+-27.990383,
+153.428186
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.5774,
+"fy": 0.3516,
+"ll": [
+-27.989187,
+153.428164
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.538,
+"fy": 0.3614,
+"ll": [
+-27.988588,
+153.428044
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.5564,
+"fy": 0.3731,
+"ll": [
+-27.988868,
+153.427903
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0405,
+"fy": 0.3753,
+"ll": [
+-27.981032,
+153.427856
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.4711,
+"fy": 0.3891,
+"ll": [
+-27.987573,
+153.427706
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.3663,
+"fy": 0.4586,
+"ll": [
+-27.985983,
+153.426861
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.2864,
+"fy": 0.5395,
+"ll": [
+-27.984772,
+153.425879
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0673,
+"fy": 0.5408,
+"ll": [
+-27.981443,
+153.425854
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.2251,
+"fy": 0.6014,
+"ll": [
+-27.983842,
+153.425127
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0635,
+"fy": 0.6499,
+"ll": [
+-27.981389,
+153.424534
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "ep",
+"label": "Entry point",
+"face": "EP",
+"fx": 0.0755,
+"fy": 0.7165,
+"ll": [
+-27.981573,
+153.423729
+],
+"src": "D001-26003-03",
+"note": "Pedestrian entry point (E.P) drawn on the master."
+},
+{
+"layer": "gate",
+"label": "Gate G1",
+"face": "G1",
+"fx": 0.0772,
+"fy": 0.7332,
+"ll": [
+-27.981599,
+153.423527
+],
+"src": "D001-26003-03",
+"note": "Gate G1 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G10",
+"face": "G10",
+"fx": 0.054,
+"fy": 0.6491,
+"ll": [
+-27.981244,
+153.424543
+],
+"src": "D001-26003-03",
+"note": "Gate G10 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G2",
+"face": "G2",
+"fx": 0.1959,
+"fy": 0.6622,
+"ll": [
+-27.9834,
+153.42439
+],
+"src": "D001-26003-03",
+"note": "Gate G2 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G3",
+"face": "G3",
+"fx": 0.5475,
+"fy": 0.3808,
+"ll": [
+-27.988733,
+153.427809
+],
+"src": "D001-26003-03",
+"note": "Gate G3 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G4",
+"face": "G4",
+"fx": 0.8467,
+"fy": 0.2481,
+"ll": [
+-27.993274,
+153.429427
+],
+"src": "D001-26003-03",
+"note": "Gate G4 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G4",
+"face": "G4",
+"fx": 0.6289,
+"fy": 0.6664,
+"ll": [
+-27.993272,
+153.429427
+],
+"src": "D001-26003-03",
+"note": "Gate G4 \u2014 the approach (Cypress car park inset), as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G5A",
+"face": "G5A",
+"fx": 0.9697,
+"fy": 0.1641,
+"ll": [
+-27.99514,
+153.430448
+],
+"src": "D001-26003-03",
+"note": "Gate G5A \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G5A",
+"face": "G5A",
+"fx": 0.7519,
+"fy": 0.5825,
+"ll": [
+-27.995136,
+153.430437
+],
+"src": "D001-26003-03",
+"note": "Gate G5A \u2014 the approach (Cypress car park inset), as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G5B",
+"face": "G5B",
+"fx": 0.8653,
+"fy": 0.1864,
+"ll": [
+-27.993555,
+153.430174
+],
+"src": "D001-26003-03",
+"note": "Gate G5B \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G5B",
+"face": "G5B",
+"fx": 0.6475,
+"fy": 0.6047,
+"ll": [
+-27.993552,
+153.43017
+],
+"src": "D001-26003-03",
+"note": "Gate G5B \u2014 the approach (Cypress car park inset), as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G6",
+"face": "G6",
+"fx": 0.8455,
+"fy": 0.1617,
+"ll": [
+-27.993254,
+153.430472
+],
+"src": "D001-26003-03",
+"note": "Gate G6 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G6",
+"face": "G6",
+"fx": 0.6277,
+"fy": 0.58,
+"ll": [
+-27.99325,
+153.430467
+],
+"src": "D001-26003-03",
+"note": "Gate G6 \u2014 the approach (Cypress car park inset), as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G7",
+"face": "G7",
+"fx": 0.0263,
+"fy": 0.2763,
+"ll": [
+-27.980814,
+153.429053
+],
+"src": "D001-26003-03",
+"note": "Gate G7 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G8",
+"face": "G8",
+"fx": 0.0301,
+"fy": 0.379,
+"ll": [
+-27.980874,
+153.42781
+],
+"src": "D001-26003-03",
+"note": "Gate G8 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G8a",
+"face": "G8a",
+"fx": 0.0698,
+"fy": 0.3758,
+"ll": [
+-27.981477,
+153.427851
+],
+"src": "D001-26003-03",
+"note": "Gate G8a \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G9",
+"face": "G9",
+"fx": 0.0649,
+"fy": 0.5557,
+"ll": [
+-27.981407,
+153.425674
+],
+"src": "D001-26003-03",
+"note": "Gate G9 \u2014 the approach, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G1",
+"face": "G1",
+"fx": 0.081,
+"fy": 0.7271,
+"ll": [
+-27.981657,
+153.423601
+],
+"src": "D001-26003-03",
+"note": "Gate G1 \u2014 on the fence line, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G8",
+"face": "G8",
+"fx": 0.0385,
+"fy": 0.3836,
+"ll": [
+-27.981002,
+153.427755
+],
+"src": "D001-26003-03",
+"note": "Gate G8 \u2014 on the fence line, as the master draws it."
+},
+{
+"layer": "gate",
+"label": "Gate G8a",
+"face": "G8a",
+"fx": 0.0769,
+"fy": 0.379,
+"ll": [
+-27.981585,
+153.427812
+],
+"src": "D001-26003-03",
+"note": "Gate G8a \u2014 on the fence line, as the master draws it."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.33834,
+"fy": 0.24091,
+"ll": [
+-27.985553,
+153.429494
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.89878,
+"fy": 0.15487,
+"ll": [
+-27.994063,
+153.430557
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.80717,
+"fy": 0.16568,
+"ll": [
+-27.992672,
+153.430422
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.7948,
+"fy": 0.15321,
+"ll": [
+-27.992483,
+153.430573
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.66187,
+"fy": 0.19311,
+"ll": [
+-27.990465,
+153.430085
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.47248,
+"fy": 0.18094,
+"ll": [
+-27.987588,
+153.430225
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "EE genset",
+"face": "EE",
+"fx": 0.26758,
+"fy": 0.20107,
+"ll": [
+-27.984477,
+153.429973
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as EE: Eventelec \u2014 direct hire. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "TV genset",
+"face": "TV",
+"fx": 0.45206,
+"fy": 0.35885,
+"ll": [
+-27.987283,
+153.428071
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as TV: SC Television \u2014 self supply. Not one of ours."
+},
+{
+"layer": "gens",
+"label": "TV genset",
+"face": "TV",
+"fx": 0.28742,
+"fy": 0.49026,
+"ll": [
+-27.984786,
+153.426474
+],
+"src": "D024-26003-02",
+"note": "Generator drawn on D024 as TV: SC Television \u2014 self supply. Not one of ours."
+},
+{
+"layer": "screen",
+"label": "Big screen 003",
+"face": "B03",
+"fx": 0.50961,
+"fy": 0.3712,
+"ll": [
+-27.988157,
+153.427924
+],
+"src": "D024-26003-02",
+"note": "Big screen 003 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 002",
+"face": "B02",
+"fx": 0.41753,
+"fy": 0.41657,
+"ll": [
+-27.98676,
+153.427371
+],
+"src": "D024-26003-02",
+"note": "Big screen 002 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 001",
+"face": "B01",
+"fx": 0.37156,
+"fy": 0.45154,
+"ll": [
+-27.986063,
+153.426946
+],
+"src": "D024-26003-02",
+"note": "Big screen 001 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 009",
+"face": "B09",
+"fx": 0.25268,
+"fy": 0.51793,
+"ll": [
+-27.984259,
+153.426138
+],
+"src": "D024-26003-02",
+"note": "Big screen 009 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 007",
+"face": "B07",
+"fx": 0.10478,
+"fy": 0.70232,
+"ll": [
+-27.982017,
+153.423901
+],
+"src": "D024-26003-02",
+"note": "Big screen 007 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 011",
+"face": "B11",
+"fx": 0.3044,
+"fy": 0.45493,
+"ll": [
+-27.985043,
+153.426903
+],
+"src": "D024-26003-02",
+"note": "Big screen 011 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 014",
+"face": "B14",
+"fx": 0.20143,
+"fy": 0.50748,
+"ll": [
+-27.98348,
+153.426263
+],
+"src": "D024-26003-02",
+"note": "Big screen 014 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 010",
+"face": "B10",
+"fx": 0.31787,
+"fy": 0.32928,
+"ll": [
+-27.985244,
+153.428424
+],
+"src": "D024-26003-02",
+"note": "Big screen 010 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 004",
+"face": "B04",
+"fx": 0.69526,
+"fy": 0.19145,
+"ll": [
+-27.990972,
+153.430106
+],
+"src": "D024-26003-02",
+"note": "Big screen 004 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 005",
+"face": "B05",
+"fx": 0.32362,
+"fy": 0.19002,
+"ll": [
+-27.985328,
+153.430109
+],
+"src": "D024-26003-02",
+"note": "Big screen 005 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 006",
+"face": "B06",
+"fx": 0.28997,
+"fy": 0.2247,
+"ll": [
+-27.984817,
+153.429688
+],
+"src": "D024-26003-02",
+"note": "Big screen 006 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 008",
+"face": "B08",
+"fx": 0.12424,
+"fy": 0.66413,
+"ll": [
+-27.982312,
+153.424364
+],
+"src": "D024-26003-02",
+"note": "Big screen 008 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "screen",
+"label": "Big screen 012",
+"face": "B12",
+"fx": 0.32882,
+"fy": 0.44264,
+"ll": [
+-27.985413,
+153.427052
+],
+"src": "D024-26003-02",
+"note": "Big screen 012 (2.88 sqm outdoor screen), leader line followed to its arrow on D024."
+},
+{
+"layer": "iface",
+"label": "EVL \u00b7 Eventelec",
+"face": "EVL",
+"fx": 0.18049,
+"fy": 0.48124,
+"ll": [
+-27.983161,
+153.426579
+],
+"src": "D022-26003-02",
+"note": "Eventelec \u2014 an interface area D022 marks \"not in BOQ\". Not ours to supply."
+},
+{
+"layer": "iface",
+"label": "GEM \u00b7 Gema Catering",
+"face": "GEM",
+"fx": 0.22475,
+"fy": 0.41485,
+"ll": [
+-27.983832,
+153.427384
+],
+"src": "D022-26003-02",
+"note": "Gema Catering \u2014 an interface area D022 marks \"not in BOQ\". Not ours to supply."
+},
+{
+"layer": "iface",
+"label": "TAL \u00b7 Broadcast (TAL)",
+"face": "TAL",
+"fx": 0.39715,
+"fy": 0.38812,
+"ll": [
+-27.98645,
+153.427715
+],
+"src": "D022-26003-02",
+"note": "Broadcast (TAL) \u2014 an interface area D022 marks \"not in BOQ\". Not ours to supply."
+},
+{
+"layer": "iface",
+"label": "COO \u00b7 Coolroom",
+"face": "COO",
+"fx": 0.38846,
+"fy": 0.39038,
+"ll": [
+-27.986318,
+153.427687
+],
+"src": "D022-26003-02",
+"note": "Coolroom \u2014 an interface area D022 marks \"not in BOQ\". Not ours to supply."
+},
+{
+"layer": "wcx",
+"label": "Toilet WCBS",
+"face": "WCBS",
+"fx": 0.05872,
+"fy": 0.67512,
+"ll": [
+-27.981317,
+153.424229
+],
+"src": "D023-26003-02",
+"note": "Toilet WCBS is drawn on D023 but no row on our schedule carries it."
+},
+{
+"layer": "wcx",
+"label": "Toilet WCTV",
+"face": "WCTV",
+"fx": 0.46992,
+"fy": 0.34656,
+"ll": [
+-27.987554,
+153.428221
+],
+"src": "D023-26003-02",
+"note": "Toilet WCTV is drawn on D023 but no row on our schedule carries it."
+},
+{
+"layer": "wcx",
+"label": "Toilet WC18",
+"face": "WC18",
+"fx": 0.09526,
+"fy": 0.37043,
+"ll": [
+-27.981864,
+153.427917
+],
+"src": "D023-26003-02",
+"note": "Toilet WC18 is drawn on D023 but no row on our schedule carries it."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 1",
+"face": "Z1",
+"fx": 0.38238,
+"fy": 0.45178,
+"ll": [
+-27.986227,
+153.426944
+],
+"src": "K221",
+"note": "Zone 1, drawing K221: hostile vehicle mitigation (HVM), about 329 m of run. The page lists: 154 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 2",
+"face": "Z2",
+"fx": 0.76328,
+"fy": 0.26033,
+"ll": [
+-27.992007,
+153.429275
+],
+"src": "K222",
+"note": "Zone 2, drawing K222: traffic management barriers, about 11 m of run. The page lists: 2 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 3",
+"face": "Z3",
+"fx": 0.87612,
+"fy": 0.25118,
+"ll": [
+-27.993721,
+153.429391
+],
+"src": "K223",
+"note": "Zone 3, drawing K223: hostile vehicle mitigation (HVM), about 26 m of run. The page lists: MERIDIAN HVM; 8x BARRIERS 1x RAPID GATE."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 4",
+"face": "Z4",
+"fx": 0.75629,
+"fy": 0.57678,
+"ll": [
+-27.995202,
+153.430506
+],
+"src": "K224",
+"note": "Zone 4, drawing K224: hostile vehicle mitigation (HVM), about 30 m of run. The page lists: MERIDIAN HVM; 13x BARRIERS 1x RAPID GATE."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 5",
+"face": "Z5",
+"fx": 0.91269,
+"fy": 0.38336,
+"ll": [
+-27.99428,
+153.427793
+],
+"src": "K225",
+"note": "Zone 5, drawing K225: traffic management barriers, about 28 m of run. The page lists: 8x COATES WFB; 8x COATES WFB; 9x COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 5",
+"face": "Z5",
+"fx": 0.96366,
+"fy": 0.39208,
+"ll": [
+-27.995054,
+153.427689
+],
+"src": "K225",
+"note": "Zone 5, drawing K225: traffic management barriers, about 28 m of run. The page lists: 8x COATES WFB; 8x COATES WFB; 9x COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 6",
+"face": "Z6",
+"fx": 0.02884,
+"fy": 0.26865,
+"ll": [
+-27.980852,
+153.429146
+],
+"src": "K226",
+"note": "Zone 6, drawing K226: hostile vehicle mitigation (HVM), about 11 m of run. The page lists: 2x COATES WFB; 2x COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 6",
+"face": "Z6",
+"fx": 0.02932,
+"fy": 0.28292,
+"ll": [
+-27.98086,
+153.428973
+],
+"src": "K226",
+"note": "Zone 6, drawing K226: hostile vehicle mitigation (HVM), about 11 m of run. The page lists: 2x COATES WFB; 2x COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 7",
+"face": "Z7",
+"fx": 0.04908,
+"fy": 0.37631,
+"ll": [
+-27.981162,
+153.427844
+],
+"src": "K227",
+"note": "Zone 7, drawing K227: hostile vehicle mitigation (HVM), about 23 m of run. The page lists: 12 MERIDIAN BARRIERS."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 8",
+"face": "Z8",
+"fx": 0.07461,
+"fy": 0.74093,
+"ll": [
+-27.98156,
+153.423433
+],
+"src": "K228",
+"note": "Zone 8, drawing K228: traffic management barriers, about 107 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 8",
+"face": "Z8",
+"fx": 0.04422,
+"fy": 0.74188,
+"ll": [
+-27.981098,
+153.42342
+],
+"src": "K228",
+"note": "Zone 8, drawing K228: traffic management barriers, about 20 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 8",
+"face": "Z8",
+"fx": 0.04056,
+"fy": 0.75248,
+"ll": [
+-27.981043,
+153.423292
+],
+"src": "K228",
+"note": "Zone 8, drawing K228: traffic management barriers, about 9 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 8",
+"face": "Z8",
+"fx": 0.01037,
+"fy": 0.78205,
+"ll": [
+-27.980585,
+153.422933
+],
+"src": "K228",
+"note": "Zone 8, drawing K228: traffic management barriers, about 116 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 8",
+"face": "Z8",
+"fx": 0.05022,
+"fy": 0.71833,
+"ll": [
+-27.981189,
+153.423705
+],
+"src": "K228",
+"note": "Zone 8, drawing K228: hostile vehicle mitigation (HVM), about 31 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 9",
+"face": "Z9",
+"fx": 0.22094,
+"fy": 0.63341,
+"ll": [
+-27.98378,
+153.42474
+],
+"src": "K229",
+"note": "Zone 9, drawing K229: hostile vehicle mitigation (HVM), about 26 m of run. The page lists: 12 COATES WFB; 7 COATES WFB; 6 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 9",
+"face": "Z9",
+"fx": 0.15656,
+"fy": 0.66491,
+"ll": [
+-27.982803,
+153.424356
+],
+"src": "K229",
+"note": "Zone 9, drawing K229: hostile vehicle mitigation (HVM), about 25 m of run. The page lists: 12 COATES WFB; 7 COATES WFB; 6 COATES WFB."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 10",
+"face": "Z10",
+"fx": 0.64336,
+"fy": 0.32935,
+"ll": [
+-27.990188,
+153.428436
+],
+"src": "K230",
+"note": "Zone 10, drawing K230: traffic management barriers, about 40 m of run. The page lists: 20 COATES WFB; 10 COATES WFB; 3 COATES WFB; 3 COATES WFB; 2 COATES WFB; 10 WFB MOVED TO FERNY AVE MONDAY CW0 & REINSTATED MONDAY PW1."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 10",
+"face": "Z10",
+"fx": 0.65583,
+"fy": 0.34268,
+"ll": [
+-27.990378,
+153.428275
+],
+"src": "K230",
+"note": "Zone 10, drawing K230: traffic management barriers, about 30 m of run. The page lists: 20 COATES WFB; 10 COATES WFB; 3 COATES WFB; 3 COATES WFB; 2 COATES WFB; 10 WFB MOVED TO FERNY AVE MONDAY CW0 & REINSTATED MONDAY PW1."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 10",
+"face": "Z10",
+"fx": 0.67858,
+"fy": 0.32716,
+"ll": [
+-27.990723,
+153.428463
+],
+"src": "K230",
+"note": "Zone 10, drawing K230: traffic management barriers, about 63 m of run. The page lists: 20 COATES WFB; 10 COATES WFB; 3 COATES WFB; 3 COATES WFB; 2 COATES WFB; 10 WFB MOVED TO FERNY AVE MONDAY CW0 & REINSTATED MONDAY PW1."
+},
+{
+"layer": "wb",
+"label": "Barriers \u00b7 Zone 11",
+"face": "Z11",
+"fx": 0.31236,
+"fy": 0.22053,
+"ll": [
+-27.985157,
+153.429739
+],
+"src": "K231",
+"note": "Zone 11, drawing K231: traffic management barriers, about 83 m of run. The page lists: 31 COATES WFB."
+}
+],
+"off_sheet": [
+{
+"sheet": "K225",
+"kind": "traffic management barriers",
+"ll": [
+-27.995855,
+153.427551
+],
+"note": "Zone 5, drawing K225: traffic management barriers, about 28 m of run. The page lists: 8x COATES WFB; 8x COATES WFB; 9x COATES WFB."
+},
+{
+"sheet": "K228",
+"kind": "traffic management barriers",
+"ll": [
+-27.980061,
+153.422591
+],
+"note": "Zone 8, drawing K228: traffic management barriers, about 20 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+},
+{
+"sheet": "K228",
+"kind": "traffic management barriers",
+"ll": [
+-27.979719,
+153.422606
+],
+"note": "Zone 8, drawing K228: traffic management barriers, about 57 m of run. The page lists: 54 RW315 CONTRACTOR WFB; 114 RW315 CONTRACTOR WFB; 14 COATES WFB."
+}
+]
+}

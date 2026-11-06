@@ -1,0 +1,29 @@
+PASS source
+PASS sourceNotModel
+PASS crane
+PASS franna
+PASS editor
+PASS identity
+PASS nativeSheet
+PASS drop
+PASS checklist
+PASS merge
+PASS persist
+PASS retained
+PASS invalid
+PASS none
+PASS clear
+PASS clearWarning
+PASS money
+PASS restore
+PASS coverage
+PASS sourceReview
+PASS boqReview
+PASS split
+PASS splitIdentity
+PASS splitEvidence
+PASS reference handling visible
+PASS no horizontal overflow
+PASS no runtime errors
+PASS no attempted live writes
+phone: 28/28

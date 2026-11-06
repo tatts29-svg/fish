@@ -1,0 +1,332 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "665f53fef3bd685260771c2d8e2867531263f3af7e9c84d870c316797f4c15fb",
+  "devices": [
+    {
+      "device": "desktop",
+      "states": [
+        {
+          "label": "after actual selection",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after 1050ms",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after native docsRedraw",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        }
+      ],
+      "trace": [
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 1692,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 1706,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2011,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2011,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2011,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 2015,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 2048,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2331,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2331,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2331,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 3404,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 3404,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 3734,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 3734,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 3734,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 3734,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        }
+      ],
+      "reproduced": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    {
+      "device": "phone",
+      "states": [
+        {
+          "label": "after actual selection",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after 1050ms",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        },
+        {
+          "label": "after native docsRedraw",
+          "rowExists": true,
+          "marked": false,
+          "focused": false,
+          "inView": true,
+          "selectionPending": false
+        }
+      ],
+      "trace": [
+        {
+          "name": "finderPick",
+          "phase": "before",
+          "at": 1590,
+          "pending": false,
+          "marked": false,
+          "activeTag": "INPUT"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 1614,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 1910,
+          "pending": true,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 1910,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 1910,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "finderPick",
+          "phase": "after",
+          "at": 1914,
+          "pending": false,
+          "marked": true,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 1939,
+          "pending": false,
+          "marked": true,
+          "activeTag": "LI"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 2198,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 2198,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 2198,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "before",
+          "at": 3311,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "before",
+          "at": 3311,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "before",
+          "at": 3645,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "selRow815",
+          "phase": "after",
+          "at": 3645,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "renderDocs",
+          "phase": "after",
+          "at": 3645,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        },
+        {
+          "name": "docsRedraw",
+          "phase": "after",
+          "at": 3645,
+          "pending": false,
+          "marked": false,
+          "activeTag": "BODY"
+        }
+      ],
+      "reproduced": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  ]
+}

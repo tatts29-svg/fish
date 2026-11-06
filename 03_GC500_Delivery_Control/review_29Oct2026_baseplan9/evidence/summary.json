@@ -1,0 +1,76 @@
+{
+ "author": "Author: Andrew Fisher",
+ "fixes": {
+  "Branch": 18,
+  "Missing line": 6,
+  "Rate": 24,
+  "Amount": 1,
+  "Quantity": 16,
+  "Remove": 1,
+  "Not on site": 68,
+  "Start date": 9
+ },
+ "who": {
+  "Baseplan": 59,
+  "Decision": 11,
+  "Our record": 1,
+  "Ask Andrew": 72
+ },
+ "tie": [
+  [
+   "KINP",
+   452300.34,
+   452300.34,
+   9045.18,
+   0.0,
+   "Baseplan \u00b7 Missing line: $780.75; Baseplan \u00b7 Rate: $8,354.50; Baseplan \u00b7 Remove: $-90.07; Decision \u00b7 Amount: $0.00"
+  ],
+  [
+   "NVAC",
+   52947.08,
+   52947.08,
+   4733.36,
+   0.0,
+   "Baseplan \u00b7 Quantity: $1,842.12; Baseplan \u00b7 Rate: $2,891.24; Decision \u00b7 Rate: $0.00"
+  ],
+  [
+   "STPS",
+   478427.41,
+   504949.81,
+   45064.32,
+   0.0,
+   "Baseplan \u00b7 Missing line: $21,044.29; Baseplan \u00b7 Quantity: $23,965.92; Baseplan \u00b7 Rate: $697.43; Baseplan \u00b7 Start date: $-643.32"
+  ],
+  [
+   "MEAD",
+   27621.2,
+   27621.2,
+   0.0,
+   0.0,
+   ""
+  ],
+  [
+   "All",
+   1011296.03,
+   1037818.43,
+   58842.86,
+   0.0,
+   ""
+  ]
+ ],
+ "lines": 408,
+ "start_dates": 108,
+ "diff": {
+  "added": 6,
+  "gone": 3,
+  "changed": 260,
+  "dd_added": 0,
+  "dd_gone": 0
+ },
+ "water": 0.0,
+ "forklifts_card": 0.0,
+ "accommodation": [
+  27700,
+  27700.0
+ ]
+}

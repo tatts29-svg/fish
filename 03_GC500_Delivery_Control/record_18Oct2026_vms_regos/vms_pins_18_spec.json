@@ -1,0 +1,13 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026, board pins in chat: VMS18 -27.993096, 153.428198 (plan 18).",
+ "ops": [
+  {
+   "op": "vms_plan",
+   "pos": "18",
+   "lat": -27.993096,
+   "lon": 153.428198,
+   "how": "Andrew Fisher's pinned location for VMS18, 20 Oct 2026"
+  }
+ ]
+}

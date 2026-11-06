@@ -1,0 +1,29 @@
+{
+ "day": "2026-10-17",
+ "by": "Andrew Fisher",
+ "branch": "KINP",
+ "rows": [
+  {
+   "key": "FR01",
+   "disc": "Furniture",
+   "type": "Fridge",
+   "no": "1318501",
+   "loc": "TV compound",
+   "from": "2026-10-14",
+   "in": "2026-10-14",
+   "name": "Fridge · TV compound (broadcast)",
+   "note": "Fridge 1318501 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+  },
+  {
+   "key": "FR02",
+   "disc": "Furniture",
+   "type": "Fridge",
+   "no": "1260164",
+   "loc": "TV compound",
+   "from": "2026-10-14",
+   "in": "2026-10-14",
+   "name": "Fridge · TV compound (broadcast)",
+   "note": "Fridge 1260164 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+  }
+ ]
+}

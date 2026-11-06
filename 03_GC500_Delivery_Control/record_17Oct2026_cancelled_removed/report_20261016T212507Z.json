@@ -1,0 +1,212 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T212507Z",
+ "finished": "2026-10-16T21:25:21.751Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat: \"Were these cancelled please check P27, P29, P53\" then \"If they are cancelled remove records of them please\". Checked: P27 and P29 - Andrew, 15 Sep 2026: \"P27 and P29, due the next day, are cancelled and no longer needed\" (the page's committed cancellations); neither ever had a number, a light or a docket, and P27's planned 1097343 went to P18 (docket 26076747, 16 Sep). P27 was put back on its day at 07:11 on 17 Oct (by Andrew on the page), before his message asking for cancelled references to be removed. P53 - cancelled on the page by Andrew 29 Sep 04:40, 'Customer cancelled', and its number 1327222 taken off the same day; 1327222 went to P66 (docket 26126001, 14 Oct). Schedule 9's 15 Oct 'Fridge Lge' row on P53 reads 'inside Thursday building'; P62 (in that Thursday) carries Andrew's fridge 1254221. Tested in page memory: every charge unchanged (labour $74,374.67, buildings $149,017.32, contracts, delivery), Site vs Baseplan unchanged (P06 only).",
+  "refs": [
+   "P27",
+   "P29",
+   "P53"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "P27",
+    "why": "Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+   },
+   {
+    "op": "asset_delete",
+    "ref": "P29",
+    "why": "Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+   },
+   {
+    "op": "asset_delete",
+    "ref": "P53",
+    "why": "Cancelled 29 Sep 2026 by Andrew - Customer cancelled; removed on his word 17 Oct"
+   }
+  ]
+ },
+ "pageSha256": "03ebb3cc0f1e4e4d630da2ea5792a9920212f9ca244773a5629f56cc2e4a8a72",
+ "version": {
+  "before": 9587,
+  "after": 9602
+ },
+ "updated": {
+  "before": "2026-10-16T21:23:27.787Z",
+  "after": "2026-10-16T21:25:20.940Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "P27",
+   "why": "Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct",
+   "result": "deleted for good - Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+  },
+  {
+   "op": "asset_delete",
+   "ref": "P29",
+   "why": "Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct",
+   "result": "deleted for good - Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+  },
+  {
+   "op": "asset_delete",
+   "ref": "P53",
+   "why": "Cancelled 29 Sep 2026 by Andrew - Customer cancelled; removed on his word 17 Oct",
+   "result": "deleted for good - Cancelled 29 Sep 2026 by Andrew - Customer cancelled; removed on his word 17 Oct"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~P27",
+   "status": 200
+  },
+  {
+   "key": "stamps/notes~2f~asset~2f~P29",
+   "status": 200
+  },
+  {
+   "key": "stamps/notes~2f~asset~2f~P53",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~P27",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~P29",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~P53",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~P27",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~P29",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~P53",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~P27",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~P27",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~P29",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~P29",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~P53",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~P53",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~P27": null,
+   "stamps/notes~2f~asset~2f~P29": null,
+   "stamps/notes~2f~asset~2f~P53": null,
+   "notes/asset~2f~P27": null,
+   "notes/asset~2f~P29": null,
+   "notes/asset~2f~P53": null,
+   "deleted/asset~2f~P27": null,
+   "deleted/asset~2f~P29": null,
+   "deleted/asset~2f~P53": null,
+   "by/deleted~2f~asset~2f~P27": null,
+   "by/notes~2f~asset~2f~P27": null,
+   "by/deleted~2f~asset~2f~P29": null,
+   "by/notes~2f~asset~2f~P29": null,
+   "by/deleted~2f~asset~2f~P53": null,
+   "by/notes~2f~asset~2f~P53": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~P27": {
+    "_k": "notes/asset/P27",
+    "v": "2026-10-16T21:25:15.214Z"
+   },
+   "stamps/notes~2f~asset~2f~P29": {
+    "_k": "notes/asset/P29",
+    "v": "2026-10-16T21:25:15.789Z"
+   },
+   "stamps/notes~2f~asset~2f~P53": {
+    "_k": "notes/asset/P53",
+    "v": "2026-10-16T21:25:16.253Z"
+   },
+   "notes/asset~2f~P27": {
+    "_k": "asset/P27",
+    "v": "Deleted 17 Oct 07:25 by Andrew Fisher — Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+   },
+   "notes/asset~2f~P29": {
+    "_k": "asset/P29",
+    "v": "Deleted 17 Oct 07:25 by Andrew Fisher — Cancelled 15 Sep 2026 (Andrew: \"P27 and P29, due the next day, are cancelled and no longer needed\"); removed on his word 17 Oct"
+   },
+   "notes/asset~2f~P53": {
+    "_k": "asset/P53",
+    "v": "Deleted 17 Oct 07:25 by Andrew Fisher — Cancelled 29 Sep 2026 by Andrew - Customer cancelled; removed on his word 17 Oct"
+   },
+   "deleted/asset~2f~P27": {
+    "_k": "asset/P27",
+    "v": "2026-10-16T21:25:15.214Z"
+   },
+   "deleted/asset~2f~P29": {
+    "_k": "asset/P29",
+    "v": "2026-10-16T21:25:15.789Z"
+   },
+   "deleted/asset~2f~P53": {
+    "_k": "asset/P53",
+    "v": "2026-10-16T21:25:16.253Z"
+   },
+   "by/deleted~2f~asset~2f~P27": {
+    "_k": "deleted/asset/P27",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~P27": {
+    "_k": "notes/asset/P27",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~asset~2f~P29": {
+    "_k": "deleted/asset/P29",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~P29": {
+    "_k": "notes/asset/P29",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~asset~2f~P53": {
+    "_k": "deleted/asset/P53",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~P53": {
+    "_k": "notes/asset/P53",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

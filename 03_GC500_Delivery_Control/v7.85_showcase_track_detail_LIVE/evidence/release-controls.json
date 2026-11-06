@@ -1,0 +1,32 @@
+{
+  "author": "Andrew Fisher",
+  "source": "preview781_src.js",
+  "checks": [
+    {
+      "name": "entry names the released feature and exposes only four tour cameras",
+      "pass": true
+    },
+    {
+      "name": "every supported camera changes the tour frame without persisting a preference",
+      "pass": true
+    },
+    {
+      "name": "ordinary View behaviour resumes after leaving track detail",
+      "pass": true
+    },
+    {
+      "name": "a deliberate backdrop selection exits detail and restores the prior camera",
+      "pass": true
+    },
+    {
+      "name": "closing restores options and preserves an absent backdrop preference",
+      "pass": true
+    },
+    {
+      "name": "repeated tours do not lose the original option visibility or disabled state",
+      "pass": true
+    }
+  ],
+  "passed": 6,
+  "total": 6
+}

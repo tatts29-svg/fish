@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 13:12 AEST: \"Picked up 467T at 1230pm\" - Premiair VMS board 467T (TE97G, VMS11) left site at 12:30",
+  "ops": [
+    {"op": "depart", "ref": "T0128", "at": "2026-10-29T12:30:00+10:00", "nos": ["467T"], "complete": false}
+  ]
+}

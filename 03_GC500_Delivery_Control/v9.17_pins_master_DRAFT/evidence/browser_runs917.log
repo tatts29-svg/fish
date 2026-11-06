@@ -1,0 +1,108 @@
+first run (candidate 80aa0dbb…, before the CP1 off-plan wording; base collectors and base sweeps):
+start 2026-10-08T11:26:50Z cand 80aa0dbb7be34e13 base c547a6debe1dea90
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":66,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":66,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":71,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":69,"blocked":0} errors 0
+sweep laptop exit 0
+sweep phone exit 0
+sweep base laptop exit 0
+sweep base phone exit 0
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+CP1 where shown no dollar figures [{"w":771,"src":"2ba614951ddc1e2.webp"},{"w":937,"src":"b6ff5daa2a9cb43.webp"},{"w":560,"src":"e2fe7fbf2e27cd9.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+CP1 dropsheet_go shown no dollar figures {"satnav":[-27.997497,153.428419],"nav":[-27.997497,153.428419,"master plan"],"rings":0}
+CP1 dropsheet_pics shown no dollar figures {"satnav":[-27.997497,153.428419],"nav":[-27.997497,153.428419,"master plan"],"rings":0}
+PASS shots, counts {"page":1,"live":88,"blocked":0}, errors 0, pictures served locally 4
+end 2026-10-08T11:36:43Z
+
+final candidate f60f5822… (base collectors reused: base and collector unchanged):
+start 2026-10-08T11:43:02Z cand f60f582201cd1b66 base c547a6debe1dea90
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":66,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":71,"blocked":0} errors 0
+sweep laptop exit 0
+sweep phone exit 0
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+CP1 where shown no dollar figures [{"w":771,"src":"2ba614951ddc1e2.webp"},{"w":937,"src":"b6ff5daa2a9cb43.webp"},{"w":560,"src":"e2fe7fbf2e27cd9.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+CP1 dropsheet_go shown no dollar figures {"satnav":[-27.997497,153.428419],"nav":[-27.997497,153.428419,"master plan"],"rings":0}
+CP1 dropsheet_pics shown no dollar figures {"satnav":[-27.997497,153.428419],"nav":[-27.997497,153.428419,"master plan"],"rings":0}
+PASS shots, counts {"page":1,"live":88,"blocked":0}, errors 0, pictures served locally 4
+end 2026-10-08T11:48:29Z
+
+third round, candidate 4001406a… (8 Oct, base collectors reused from the second round: same base c547a6de, same collector, record 4581 both times):
+start 2026-10-08T14:09:20Z cand 4001406ab35556e7 base c547a6debe1dea90
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":63,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4581 -> 4581 counts {"page":1,"live":71,"blocked":0} errors 0
+end collect 2026-10-08T14:11:26Z
+sweep laptop exit 0
+sweep phone exit 0
+end sweeps 2026-10-08T14:14:33Z
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC09 pins shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC59 where shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC59 pins shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC59 dropsheet_go shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+WC59 dropsheet_pics shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+FAIL shots, counts {"page":1,"live":90,"blocked":0}, errors 0, pictures served locally 4
+end shots 2026-10-08T14:15:16Z
+elementHandle.screenshot: Timeout 30000ms exceeded (element is not visible) - second shots run
+end shots 2026-10-08T14:16:44Z
+shots run 1 above: FAIL only on the round-2 'pins' check (the drawer's 'Where it is — master plan' block sits in a closed fold on the phone and is never in the viewport); a second shots run that shot the block as an element timed out (element not visible) and is not kept
+
+r4, candidate 8a963fe0… (9 Oct, after the independent check; base c547a6de; the browser's own temp files in the default /tmp: a long TMPDIR made Chromium stop at launch, SIGTRAP, nothing ran):
+start 2026-10-08T15:03:04Z cand 8a963fe0e663ad78 base c547a6debe1dea90
+rows 200 footer · v9.18 record 4599 -> 4599 counts {"page":1,"live":65,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4599 -> 4599 counts {"page":1,"live":63,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4599 -> 4599 counts {"page":1,"live":70,"blocked":0} errors 0
+rows 200 footer · v9.18 record 4599 -> 4599 counts {"page":1,"live":65,"blocked":0} errors 0
+end collect 2026-10-08T15:07:56Z
+sweep laptop exit 0
+sweep phone exit 0
+end sweeps 2026-10-08T15:13:59Z
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC09 pins shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC59 where shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC59 pins shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC59 dropsheet_go shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+WC59 dropsheet_pics shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+PASS shots, counts {"page":1,"live":167,"blocked":0}, errors 0, pictures served locally 4
+shots exit 0
+end 2026-10-08T15:14:29Z
+start base sweeps 2026-10-08T15:14:56Z base c547a6debe1dea90
+sweep base laptop exit 0
+sweep base phone exit 0
+end 2026-10-08T15:17:51Z
+
+r5, candidate d8bb1311… on live v9.20 (9 Oct; base 93c3bab1; same run script as r4, TMPDIR left default):
+start 2026-10-08T15:36:28Z cand d8bb13116dffa2a0 base 93c3bab1f0e0e21b
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":77,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":77,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":78,"blocked":0} errors 0
+rows 200 footer · v9.20 record 4599 -> 4599 counts {"page":1,"live":79,"blocked":0} errors 0
+end collect 2026-10-08T15:40:08Z
+sweep laptop exit 0
+sweep phone exit 0
+end sweeps 2026-10-08T15:43:08Z
+WC09 where shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC09 pins shown no dollar figures [{"w":771,"src":"9a601ea712d5055.webp"},{"w":937,"src":"34a181398d9c275.webp"},{"w":480,"src":"d828fb81baa00f4ed000"}]
+WC59 where shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC59 pins shown no dollar figures [{"w":771,"src":"3a190b7d91b2911.webp"},{"w":937,"src":"7738ea7f6272b36.webp"},{"w":800,"src":"04ca8af550e76d0.webp"}]
+WC09 dropsheet_go shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC09 dropsheet_pics shown no dollar figures {"satnav":[-27.984717,153.428026],"nav":[-27.984717,153.428026,"master plan"],"rings":3}
+WC59 dropsheet_go shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+WC59 dropsheet_pics shown no dollar figures {"satnav":[-27.988183,153.430169],"nav":[-27.9881826,153.4301687,"master plan"],"rings":3}
+PASS shots, counts {"page":1,"live":168,"blocked":0}, errors 0, pictures served locally 4
+shots exit 0
+end 2026-10-08T15:43:38Z
+start base sweeps 2026-10-08T15:43:38Z base 93c3bab1f0e0e21b
+sweep base laptop exit 0
+sweep base phone exit 0
+end base sweeps 2026-10-08T15:46:36Z
+exit 0

@@ -1,0 +1,72 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "checks": [
+    {
+      "name": "One asset per exact delivery docket and load time",
+      "pass": true
+    },
+    {
+      "name": "GN13 names the source-proved orange-symbol destination",
+      "pass": true
+    },
+    {
+      "name": "GN13 identity and approved coordinates retained",
+      "pass": true
+    },
+    {
+      "name": "No invented exact Concert pin",
+      "pass": true
+    },
+    {
+      "name": "Both Concert loads rendered with the original data key",
+      "pass": true
+    },
+    {
+      "name": "Clear Concert name and physical-location gap on each card",
+      "pass": true
+    },
+    {
+      "name": "Displayed asset numbers are scoped to their loads",
+      "pass": true
+    },
+    {
+      "name": "Build uses the same GN13 destination",
+      "pass": true
+    },
+    {
+      "name": "Map finder accepts useful names and preserves identities",
+      "pass": true
+    },
+    {
+      "name": "Booking details share both exact asset/DD joins",
+      "pass": true
+    },
+    {
+      "name": "Today shares Concert label and GN13 destination",
+      "pass": true
+    },
+    {
+      "name": "No horizontal page overflow",
+      "pass": true
+    },
+    {
+      "name": "No operational data, financial, source or map mutation",
+      "pass": true
+    },
+    {
+      "name": "No browser exceptions",
+      "pass": true
+    },
+    {
+      "name": "No operational write attempted",
+      "pass": true
+    }
+  ],
+  "mapFixture": "Local tile/session only, no project data fixture",
+  "pass": true,
+  "errors": [],
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "writes": 0,
+  "scope": "Read-only final candidate and original plan/contract review; no project data fixtures"
+}

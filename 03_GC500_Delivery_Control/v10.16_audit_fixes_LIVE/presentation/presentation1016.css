@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Keep the existing record pod; let its status use the
+   available interior height instead of clipping the final timestamp digits. */
+@media screen and (max-width:640px) {
+  /* The glass highlight is a positioned pseudo-element. Keep the constrained
+     content and the existing lamps above it, preserving the live indicator. */
+  #recstrip .rsw {max-width:100%;position:relative}
+  #recstrip .rslamps {z-index:1}
+  #recstrip .rsw em {white-space:normal}
+}

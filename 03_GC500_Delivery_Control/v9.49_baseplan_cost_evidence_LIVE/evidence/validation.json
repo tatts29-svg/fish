@@ -1,0 +1,55 @@
+{
+  "author": "Andrew Fisher",
+  "passed": true,
+  "candidateSha256": "50350f07e8f54bf880ce7d9dfde4707b61fd0bf8aee8fc602f0af45bfb16ad9f",
+  "record": 4705,
+  "clock": "2026-10-08T21:34:11.575Z",
+  "desktop": {
+    "financial": {
+      "checks": 1647,
+      "passed": true,
+      "models": 16,
+      "unitIdentities": 251,
+      "nativeTies": 17,
+      "ok": true
+    },
+    "nativeTieouts": 17,
+    "nativeTieoutsPassed": 17,
+    "canonicalPhotoBindingsUnchanged": true,
+    "physicalIdentitiesUnchanged": true,
+    "recordUnchanged": true,
+    "pageErrors": 0,
+    "operationalWrites": 0
+  },
+  "phone": {
+    "financial": {
+      "checks": 1647,
+      "passed": true,
+      "models": 16,
+      "unitIdentities": 251,
+      "nativeTies": 17,
+      "ok": true
+    },
+    "nativeTieouts": 17,
+    "nativeTieoutsPassed": 17,
+    "canonicalPhotoBindingsUnchanged": true,
+    "physicalIdentitiesUnchanged": true,
+    "recordUnchanged": true,
+    "pageErrors": 0,
+    "operationalWrites": 0
+  },
+  "state": "READY for combined release; not published",
+  "sourceWorkbookSha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+  "baseSha256": "968cd3a850584736fcfa28b403e9b7fd2d280557e86984c8be87c2b5bf8c0ca1",
+  "activeSourceLines": 320,
+  "retainedCustomerChargesUnchanged": 317,
+  "archivedAbsentLines": 4,
+  "addedSourceLines": 3,
+  "supplierNotes": 2,
+  "supplierEstimateLines": 9,
+  "syntheticCoverageChecks": 23,
+  "nativeExpenseSchemaChecked": true,
+  "allScriptsParsed": 45,
+  "mode": "OFFLINE frozen record; not a live readback",
+  "phoneScreenshotReviewed": true
+}

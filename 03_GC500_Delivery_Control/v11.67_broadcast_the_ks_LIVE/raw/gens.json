@@ -1,0 +1,58 @@
+{
+ "02a": {
+  "credits": 330.00000000000006,
+  "duration": 23.2,
+  "generation": "SmjLB3PsTpFzv37CSdIz",
+  "prompt_head": "[rapid] Forty-seven days! From the first truck through the g",
+  "session": "Ms0LMwLtzKtvFzR6BdYK"
+ },
+ "02b": {
+  "credits": 330.00000000000006,
+  "duration": 24.88,
+  "generation": "7UGsmhCfKBKZc2PX6HsV",
+  "prompt_head": "[rapid] Forty-seven days! From the first truck through the g",
+  "session": "kTxkRMNfMXHg4kVgVLb8"
+ },
+ "28a": {
+  "credits": 322,
+  "duration": 21.76,
+  "generation": "zxtreIGHVVcdwxwOm96f",
+  "prompt_head": "[fast, building] THIRTEEN POINT TWO KILOMETRES of temporary ",
+  "session": "Ap6M42DDE9bCCbb3ieRq"
+ },
+ "28b": {
+  "credits": 322,
+  "duration": 20.48,
+  "generation": "uKYXazpAmtv1kNRtlBD3",
+  "prompt_head": "[fast, building] THIRTEEN POINT TWO KILOMETRES of temporary ",
+  "session": "knKzMCsaNvy9Dr1yo7ZN"
+ },
+ "35a": {
+  "credits": 374.00000000000006,
+  "duration": 25.84,
+  "generation": "jh4ycYyF474gZvhwyriT",
+  "prompt_head": "[fast, summing up] Put it all together \u2014 thirteen point two ",
+  "session": "vA2frf4u4CbxUYl1B692"
+ },
+ "35b": {
+  "credits": 374.00000000000006,
+  "duration": 25.6,
+  "generation": "Id0w15XqjSMPB2oK1Ums",
+  "prompt_head": "[fast, summing up] Put it all together \u2014 thirteen point two ",
+  "session": "FMsMpXhaFBnkPQ5dfEFA"
+ },
+ "43a": {
+  "credits": 390.00000000000006,
+  "duration": 28.24,
+  "generation": "SfwJ4ZTFGhRGHMwxSTNI",
+  "prompt_head": "[building, awed] Seven hundred and twenty-seven pieces of eq",
+  "session": "qD3X60ZTCLQWXpOSjRQ4"
+ },
+ "43b": {
+  "credits": 390.00000000000006,
+  "duration": 29.28,
+  "generation": "FDqqe5ttHKy7JCcxQoNn",
+  "prompt_head": "[building, awed] Seven hundred and twenty-seven pieces of eq",
+  "session": "QcjAPpRcB4mimDcYlp83"
+ }
+}

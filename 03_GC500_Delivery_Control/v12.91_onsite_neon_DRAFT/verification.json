@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "status": "SUPERSEDED \u2014 never published; rebuild as v12.93 on live92",
+  "sourceCommit": "e2fbf0c5221cb3ec08d7cce222ab063839bb81e1",
+  "basePageSha256": "ec56ffe5ef53670d286db566bd968366dfc366ad25edf6f2aa753076b10fc3e8",
+  "pageSha256": "af59486bc1246222893e19fadfd38227ac1c052d5ae00a53ab9e11e690bb8678",
+  "bytes": 16983597,
+  "machineReleaseSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "machineChange": false,
+  "recordWrites": 0,
+  "build": {
+    "inlineScripts": 224,
+    "passed": true
+  },
+  "scope": "Exact additive map presentation function and footer only; original code and content retained",
+  "focused": {
+    "passed": true,
+    "checks": 16,
+    "errors": 0,
+    "consoleErrors": 0,
+    "recordWrites": 0
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "review": "Independent Codex source/test review and root phone/close-up visual review; no Claude implementation review claimed",
+  "checkedAt": "2026-11-03T04:30:58.803805+00:00"
+}

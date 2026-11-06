@@ -1,0 +1,20 @@
+{
+ "0.0": {
+  "identical": 20,
+  "different": 0,
+  "only_live": 0,
+  "only_new": 0,
+  "max_abs_diff": 0,
+  "changed_pixels": 0,
+  "difference_boxes_pt": []
+ },
+ "2.0": {
+  "identical": 247,
+  "different": 0,
+  "only_live": 0,
+  "only_new": 0,
+  "max_abs_diff": 0,
+  "changed_pixels": 0,
+  "difference_boxes_pt": []
+ }
+}

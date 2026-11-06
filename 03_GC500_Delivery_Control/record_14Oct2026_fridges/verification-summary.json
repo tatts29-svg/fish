@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "scope": "fridges",
+  "beforeVersion": 5992,
+  "afterVersion": 6025,
+  "writes": 33,
+  "allOtherSharedFieldsUnchanged": true,
+  "publicVersion": 6025,
+  "publicChecks": 57,
+  "publicPass": true,
+  "practiceChecks": 56,
+  "independentOperationalChecks": 66,
+  "independentFinancialChecks": 39,
+  "pageUnchanged": true
+}

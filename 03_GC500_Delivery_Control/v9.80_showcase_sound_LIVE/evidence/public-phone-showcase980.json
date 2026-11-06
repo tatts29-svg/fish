@@ -1,0 +1,321 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "824192c81c4c719590d82bd5497cb8c6e5e0f93590d61035ce642e7490919b34",
+  "mobile": true,
+  "actualPublic": true,
+  "pass": true,
+  "checks": [
+    {
+      "name": "Exact public bytes; no HTML substitution",
+      "pass": true
+    },
+    {
+      "name": "No audio context before Sound gesture",
+      "pass": true
+    },
+    {
+      "name": "Opening retains quality, view, backdrop and engine preferences",
+      "pass": true
+    },
+    {
+      "name": "Photo landmarks and prepared track retained",
+      "pass": true
+    },
+    {
+      "name": "Phone Options reveals sound controls",
+      "pass": true
+    },
+    {
+      "name": "Sound on while paused is silent",
+      "pass": true
+    },
+    {
+      "name": "Playing uses the same context and pulse engine",
+      "pass": true
+    },
+    {
+      "name": "Pause freezes motion and suspends audio",
+      "pass": true
+    },
+    {
+      "name": "Complete finite motion/audio lap at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Stationary grid and smoke-free countdown at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Continuous pullaway without a second stop at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Five sequential countdown tones at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Engine does not fall to idle at launch at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Engine changes gear without staying at maximum RPM at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Bounded grip and smoke at 0.25x",
+      "pass": true
+    },
+    {
+      "name": "Complete finite motion/audio lap at 1x",
+      "pass": true
+    },
+    {
+      "name": "Stationary grid and smoke-free countdown at 1x",
+      "pass": true
+    },
+    {
+      "name": "Continuous pullaway without a second stop at 1x",
+      "pass": true
+    },
+    {
+      "name": "Five sequential countdown tones at 1x",
+      "pass": true
+    },
+    {
+      "name": "Engine does not fall to idle at launch at 1x",
+      "pass": true
+    },
+    {
+      "name": "Engine changes gear without staying at maximum RPM at 1x",
+      "pass": true
+    },
+    {
+      "name": "Bounded grip and smoke at 1x",
+      "pass": true
+    },
+    {
+      "name": "Complete finite motion/audio lap at 2x",
+      "pass": true
+    },
+    {
+      "name": "Stationary grid and smoke-free countdown at 2x",
+      "pass": true
+    },
+    {
+      "name": "Continuous pullaway without a second stop at 2x",
+      "pass": true
+    },
+    {
+      "name": "Five sequential countdown tones at 2x",
+      "pass": true
+    },
+    {
+      "name": "Engine does not fall to idle at launch at 2x",
+      "pass": true
+    },
+    {
+      "name": "Engine changes gear without staying at maximum RPM at 2x",
+      "pass": true
+    },
+    {
+      "name": "Bounded grip and smoke at 2x",
+      "pass": true
+    },
+    {
+      "name": "Designed V8 selection keeps the pulse and context",
+      "pass": true
+    },
+    {
+      "name": "Loop selection keeps the pulse and preference",
+      "pass": true
+    },
+    {
+      "name": "Restart resets launch and gearbox together",
+      "pass": true
+    },
+    {
+      "name": "Hidden page pauses motion and sound",
+      "pass": true
+    },
+    {
+      "name": "Visible page resumes the same context",
+      "pass": true
+    },
+    {
+      "name": "Visibility never overrides a manual Pause",
+      "pass": true
+    },
+    {
+      "name": "Sound off disconnects engine sources",
+      "pass": true
+    },
+    {
+      "name": "Grid frame renders without GL error",
+      "pass": true
+    },
+    {
+      "name": "Pullaway frame renders without GL error",
+      "pass": true
+    },
+    {
+      "name": "Back disposes scene and audio context",
+      "pass": true
+    },
+    {
+      "name": "Selected engine preference survives closing",
+      "pass": true
+    },
+    {
+      "name": "Complete native operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "No page errors or operational write attempts",
+      "pass": true
+    }
+  ],
+  "recordUnchanged": true,
+  "errors": [],
+  "operationalWrites": 0,
+  "track": [
+    {
+      "pace": 0.25,
+      "steps": 31698,
+      "complete": true,
+      "finite": true,
+      "bounded": true,
+      "stationary": true,
+      "rolling": true,
+      "minLaunchRpm": 2240.6970703125016,
+      "maxRpm": 6032.391334495576,
+      "lapMinRpm": 2232.2998046875014,
+      "highRpmShare": 0,
+      "peakSlip": 0.13968134885161054,
+      "peakSmoke": 200,
+      "peakOpening": 0,
+      "gears": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "lampEvents": [
+        {
+          "what": "beep 1",
+          "clock": 0.5
+        },
+        {
+          "what": "beep 2",
+          "clock": 1.05
+        },
+        {
+          "what": "beep 3",
+          "clock": 1.55
+        },
+        {
+          "what": "beep 4",
+          "clock": 2.05
+        },
+        {
+          "what": "beep 5",
+          "clock": 2.55
+        }
+      ]
+    },
+    {
+      "pace": 1,
+      "steps": 8230,
+      "complete": true,
+      "finite": true,
+      "bounded": true,
+      "stationary": true,
+      "rolling": true,
+      "minLaunchRpm": 2236.4000000000033,
+      "maxRpm": 5997.035136875033,
+      "lapMinRpm": 2236.4000000000033,
+      "highRpmShare": 0,
+      "peakSlip": 0.13872051292680024,
+      "peakSmoke": 184,
+      "peakOpening": 0,
+      "gears": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "lampEvents": [
+        {
+          "what": "beep 1",
+          "clock": 0.5
+        },
+        {
+          "what": "beep 2",
+          "clock": 1.05
+        },
+        {
+          "what": "beep 3",
+          "clock": 1.55
+        },
+        {
+          "what": "beep 4",
+          "clock": 2.05
+        },
+        {
+          "what": "beep 5",
+          "clock": 2.55
+        }
+      ]
+    },
+    {
+      "pace": 2,
+      "steps": 4319,
+      "complete": true,
+      "finite": true,
+      "bounded": true,
+      "stationary": true,
+      "rolling": true,
+      "minLaunchRpm": 2236.400000000006,
+      "maxRpm": 5927.307343714443,
+      "lapMinRpm": 2236.400000000006,
+      "highRpmShare": 0,
+      "peakSlip": 0.1333105821700891,
+      "peakSmoke": 109,
+      "peakOpening": 0,
+      "gears": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "lampEvents": [
+        {
+          "what": "beep 1",
+          "clock": 0.5
+        },
+        {
+          "what": "beep 2",
+          "clock": 1.05
+        },
+        {
+          "what": "beep 3",
+          "clock": 1.55
+        },
+        {
+          "what": "beep 4",
+          "clock": 2.05
+        },
+        {
+          "what": "beep 5",
+          "clock": 2.55
+        }
+      ]
+    }
+  ],
+  "scope": "Actual page fixed-step motion plus actual sound tick, controls, GL render and explicit visibility fixture in software Chromium. Not subjective listening or physical-device FPS evidence."
+}

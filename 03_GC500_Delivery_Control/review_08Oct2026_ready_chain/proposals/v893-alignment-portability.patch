@@ -1,0 +1,11 @@
+--- a/03_GC500_Delivery_Control/v8.93_maps_aligned_DRAFT/tests/test_align893.cjs
++++ b/03_GC500_Delivery_Control/v8.93_maps_aligned_DRAFT/tests/test_align893.cjs
+@@ -3,7 +3,7 @@
+ // and assets, the page's new pictures and the 3D proof's files served from disk. Every write the page tries is aborted.
+ //   PAGE=<v8.93 build> CODE=<v8.93 explorer code> ASSETS=<v8.93 assets> MEDIA=<v8.93 media dir> POC3D=<dir with units3d.json>
+ //   OUT=<evidence dir> [MOB=1] node tests/test_align893.cjs
+-const {open} = require('/home/user/fish/03_GC500_Delivery_Control/v8.90_explorer_master_DRAFT/tests/xembed890.cjs');
++const {open} = require('../../v8.90_explorer_master_DRAFT/tests/xembed890.cjs');
+ const fs = require('fs'), path = require('path');
+ const here = __dirname, OUT = process.env.OUT || '.'; fs.mkdirSync(OUT, {recursive: true});
+ const C93 = JSON.parse(fs.readFileSync(path.join(here, '..', 'changes893.json'), 'utf8'));

@@ -1,0 +1,196 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    "WC49 uses the reviewed precise destination",
+    "WC49 supplier UI includes its precise destination",
+    "WC48 uses the reviewed precise destination",
+    "WC48 supplier UI includes its precise destination",
+    "WC51 uses the reviewed precise destination",
+    "WC51 supplier UI includes its precise destination",
+    "WC53 uses the reviewed precise destination",
+    "WC53 supplier UI includes its precise destination",
+    "WC46 uses the reviewed precise destination",
+    "WC46 supplier UI includes its precise destination",
+    "WC54 uses the reviewed precise destination",
+    "WC54 supplier UI includes its precise destination",
+    "WC55 uses the reviewed precise destination",
+    "WC55 supplier UI includes its precise destination",
+    "WC24 uses the reviewed precise destination",
+    "WC24 supplier UI includes its precise destination",
+    "WC13 uses the reviewed precise destination",
+    "WC13 supplier UI includes its precise destination",
+    "WC45 uses the reviewed precise destination",
+    "WC45 supplier UI includes its precise destination",
+    "WC47 uses the reviewed precise destination",
+    "WC47 supplier UI includes its precise destination",
+    "WC25 uses the reviewed precise destination",
+    "WC25 supplier UI includes its precise destination",
+    "WC23 uses the reviewed precise destination",
+    "WC23 supplier UI includes its precise destination",
+    "WC26 uses the reviewed precise destination",
+    "WC26 supplier UI includes its precise destination",
+    "WC57 uses the reviewed precise destination",
+    "WC57 supplier UI includes its precise destination",
+    "WC28 uses the reviewed precise destination",
+    "WC28 supplier UI includes its precise destination",
+    "WC34 uses the reviewed precise destination",
+    "WC34 supplier UI includes its precise destination",
+    "WC65 uses the reviewed precise destination",
+    "WC65 supplier UI includes its precise destination",
+    "WC69 uses the reviewed precise destination",
+    "WC69 supplier UI includes its precise destination",
+    "WC68 uses the reviewed precise destination",
+    "WC68 supplier UI includes its precise destination",
+    "WC70 uses the reviewed precise destination",
+    "WC70 supplier UI includes its precise destination",
+    "WC72 uses the reviewed precise destination",
+    "WC72 supplier UI includes its precise destination",
+    "WC39 uses the reviewed precise destination",
+    "WC39 supplier UI includes its precise destination",
+    "WC38 uses the reviewed precise destination",
+    "WC38 supplier UI includes its precise destination",
+    "WC40 uses the reviewed precise destination",
+    "WC40 supplier UI includes its precise destination",
+    "WC35 uses the reviewed precise destination",
+    "WC35 supplier UI includes its precise destination",
+    "WC62 uses the reviewed precise destination",
+    "WC62 supplier UI includes its precise destination",
+    "WC10 uses the reviewed precise destination",
+    "WC10 supplier UI includes its precise destination",
+    "WC85 uses the reviewed precise destination",
+    "WC85 supplier UI includes its precise destination",
+    "PG01 uses the reviewed precise destination",
+    "PG01 supplier UI includes its precise destination",
+    "PG03 uses the reviewed precise destination",
+    "PG03 supplier UI includes its precise destination",
+    "PG05 uses the reviewed precise destination",
+    "PG05 supplier UI includes its precise destination",
+    "PG29 uses the reviewed precise destination",
+    "PG29 supplier UI includes its precise destination",
+    "T0162 uses the reviewed precise destination",
+    "T0162 supplier UI includes its precise destination",
+    "EP-S7-EW49 uses the reviewed precise destination",
+    "EP-S7-EW49 supplier UI includes its precise destination",
+    "WC30 uses the reviewed precise destination",
+    "WC30 supplier UI includes its precise destination",
+    "WC29 uses the reviewed precise destination",
+    "WC29 supplier UI includes its precise destination",
+    "WC73 uses the reviewed precise destination",
+    "WC73 supplier UI includes its precise destination",
+    "WC19 uses the reviewed precise destination",
+    "WC19 supplier UI includes its precise destination",
+    "T0176 uses the reviewed precise destination",
+    "T0176 supplier UI includes its precise destination",
+    "EP-S7-EW50 uses the reviewed precise destination",
+    "EP-S7-EW50 supplier UI includes its precise destination",
+    "Expanded daily card uses its planned date",
+    "Map due label shows Friday seven without a split",
+    "Reference email draft shows Friday seven",
+    "Exactly five consecutive delivery dates including Saturday",
+    "2026-10-13 full runs and remainder",
+    "2026-10-13 daily cards match supplier runs",
+    "2026-10-13 each location and date conserved",
+    "2026-10-13 supplier stop order matches shared remaining model",
+    "2026-10-13 native daily stop order matches shared remaining model",
+    "2026-10-13 capacity respected",
+    "2026-10-14 full runs and remainder",
+    "2026-10-14 daily cards match supplier runs",
+    "2026-10-14 each location and date conserved",
+    "2026-10-14 supplier stop order matches shared remaining model",
+    "2026-10-14 native daily stop order matches shared remaining model",
+    "2026-10-14 capacity respected",
+    "2026-10-15 full runs and remainder",
+    "2026-10-15 daily cards match supplier runs",
+    "2026-10-15 each location and date conserved",
+    "2026-10-15 supplier stop order matches shared remaining model",
+    "2026-10-15 native daily stop order matches shared remaining model",
+    "2026-10-15 capacity respected",
+    "2026-10-16 full runs and remainder",
+    "2026-10-16 daily cards match supplier runs",
+    "2026-10-16 each location and date conserved",
+    "2026-10-16 supplier stop order matches shared remaining model",
+    "2026-10-16 native daily stop order matches shared remaining model",
+    "2026-10-16 capacity respected",
+    "2026-10-17 full runs and remainder",
+    "2026-10-17 daily cards match supplier runs",
+    "2026-10-17 each location and date conserved",
+    "2026-10-17 supplier stop order matches shared remaining model",
+    "2026-10-17 native daily stop order matches shared remaining model",
+    "2026-10-17 capacity respected",
+    "All 99 outstanding toilets retained",
+    "Five physical delivery runs",
+    "Actual on-site count and unallocated balance are unchanged",
+    "WC29 is seven on Friday with no split",
+    "QR manifest retains the shared quantity total",
+    "Every QR destination has its recorded precision basis",
+    "Supplier UI states daily limit and carried balance",
+    "No day exceeds 24 total",
+    "Completed WC61 absent; WC69 has only six remaining",
+    "Native records unchanged",
+    "No viewport overflow",
+    "WC29 drawer shows Friday seven with no earlier split",
+    "Combined PDF has one page per day",
+    "2026-10-13 PDF has one page per day",
+    "2026-10-14 PDF has one page per day",
+    "2026-10-15 PDF has one page per day",
+    "2026-10-16 PDF has one page per day",
+    "2026-10-17 PDF has one page per day",
+    "Native records unchanged after navigation and export",
+    "No page errors: []",
+    "No operational writes"
+  ],
+  "recordVersion": 5324,
+  "groups": [
+    {
+      "date": "2026-10-13",
+      "units": [
+        24
+      ],
+      "nativeUnits": [
+        24
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "units": [
+        24
+      ],
+      "nativeUnits": [
+        24
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "units": [
+        24
+      ],
+      "nativeUnits": [
+        24
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "units": [
+        24
+      ],
+      "nativeUnits": [
+        24
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "units": [
+        3
+      ],
+      "nativeUnits": [
+        3
+      ]
+    }
+  ],
+  "counts": {
+    "page": 1,
+    "live": 54,
+    "blocked": 0
+  },
+  "errors": []
+}

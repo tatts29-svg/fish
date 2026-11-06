@@ -1,0 +1,14 @@
+Author: Andrew Fisher
+
+v8.59 verified live: 5 Oct 2026, 21:33 AEST.
+Implementation a733a440; READY 3705e7f3; base 3b37cef6118920d6e518314356de34caeb6e685c878c34a02c6f63317a9f00e7.
+Exact host SHA-256 71fdff199e5b09e6d67b2716cb6733ef4e69cb8b2fa3f002db5fec992527e888, 10,974,485 bytes.
+
+PASS standard build: eleven inline scripts, attribution, no new keys or leaked edit key.
+PASS final laptop/phone focused allowance column, whole-job aggregate once, P&L reconciliation, legacy routing, five toilet preview/print/retry flows and unchanged native collections.
+PASS both final 21-route/seven-link/Back sweeps, zero runtime or console errors.
+PASS all five printed PDFs: one A4 page, readable content.
+PASS phone screenshot review and actual-public laptop/phone tests, no HTML substitution.
+PASS server health v5.87; no backend deployment or shared-record changes.
+
+Implementation and independent review: Codex. Claude remains intentionally paused. Financial amounts, original roster evidence and PDFs remain private outside Git. Unpriced employee and supplier costs remain explicit; no final profit claim.

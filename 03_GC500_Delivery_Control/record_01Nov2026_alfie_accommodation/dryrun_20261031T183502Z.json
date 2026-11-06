@@ -1,0 +1,255 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T183502Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Alfie Harris's 12 accommodation nights with no amount on the record, priced at 223.63: his rate on all 8 of his latest priced nights (26-29 Oct and 2-5 Nov). Andrew, 1 Nov 2026: \"Yes enter 223.63 for Alfie's nights on the record\".",
+  "ops": [
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-23",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-24",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-25",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-09",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-10",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-11",
+    "amount": 223.63
+   },
+   {
+    "op": "accom_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-12",
+    "amount": 223.63
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261005",
+   "person": "Alfie Harris",
+   "date": "2026-10-05",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261005 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261012",
+   "person": "Alfie Harris",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261013",
+   "person": "Alfie Harris",
+   "date": "2026-10-13",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261013 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261014",
+   "person": "Alfie Harris",
+   "date": "2026-10-14",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261014 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261015",
+   "person": "Alfie Harris",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261023",
+   "person": "Alfie Harris",
+   "date": "2026-10-23",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261023 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261024",
+   "person": "Alfie Harris",
+   "date": "2026-10-24",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261024 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261025",
+   "person": "Alfie Harris",
+   "date": "2026-10-25",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261025 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261109",
+   "person": "Alfie Harris",
+   "date": "2026-11-09",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261109 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261110",
+   "person": "Alfie Harris",
+   "date": "2026-11-10",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261110 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261111",
+   "person": "Alfie Harris",
+   "date": "2026-11-11",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261111 changed by Andrew Fisher."
+  },
+  {
+   "op": "accom_set",
+   "id": "W-A-alfie-harris-20261112",
+   "person": "Alfie Harris",
+   "date": "2026-11-12",
+   "usable": true,
+   "problems": [],
+   "was": null,
+   "amount": 223.63,
+   "result": "priced the tracker line at 223.63 (was no amount) - W-A-alfie-harris-20261112 changed by Andrew Fisher."
+  }
+ ],
+ "plan": [
+  "stamps/ourcost~2f~W-A-alfie-harris-20261005",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261012",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261013",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261014",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261015",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261023",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261024",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261025",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261109",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261110",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261111",
+  "stamps/ourcost~2f~W-A-alfie-harris-20261112",
+  "by/ourcost~2f~W-A-alfie-harris-20261005",
+  "by/ourcost~2f~W-A-alfie-harris-20261012",
+  "by/ourcost~2f~W-A-alfie-harris-20261013",
+  "by/ourcost~2f~W-A-alfie-harris-20261014",
+  "by/ourcost~2f~W-A-alfie-harris-20261015",
+  "by/ourcost~2f~W-A-alfie-harris-20261023",
+  "by/ourcost~2f~W-A-alfie-harris-20261024",
+  "by/ourcost~2f~W-A-alfie-harris-20261025",
+  "by/ourcost~2f~W-A-alfie-harris-20261109",
+  "by/ourcost~2f~W-A-alfie-harris-20261110",
+  "by/ourcost~2f~W-A-alfie-harris-20261111",
+  "by/ourcost~2f~W-A-alfie-harris-20261112",
+  "costs/W-A-alfie-harris-20261005",
+  "costs/W-A-alfie-harris-20261012",
+  "costs/W-A-alfie-harris-20261013",
+  "costs/W-A-alfie-harris-20261014",
+  "costs/W-A-alfie-harris-20261015",
+  "costs/W-A-alfie-harris-20261023",
+  "costs/W-A-alfie-harris-20261024",
+  "costs/W-A-alfie-harris-20261025",
+  "costs/W-A-alfie-harris-20261109",
+  "costs/W-A-alfie-harris-20261110",
+  "costs/W-A-alfie-harris-20261111",
+  "costs/W-A-alfie-harris-20261112"
+ ]
+}

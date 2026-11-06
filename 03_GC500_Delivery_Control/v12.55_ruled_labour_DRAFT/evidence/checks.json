@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT CHECKED; engineering checks complete; scope confirmation pending",
+  "baseSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
+  "candidateSha256": "5c3d92999b92852c23992fbd48b156717d5b00da7422a589690421e9366d8fe1",
+  "bytes": 16133042,
+  "pythonTests": 21,
+  "financialHelperTests": "PASS",
+  "inlineScripts": 217,
+  "nativeAcceptanceChecks": 6343,
+  "independentPreservation": "PASS",
+  "actualPhoneReadback": "PASS; full treatment text/geometry and screenshots inspected",
+  "desktopSweep": {
+    "status": "PASS",
+    "tabs": 27,
+    "deepLinks": 7,
+    "back": "PASS",
+    "preservedAliasRoutes": 8,
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "operationalWrites": 0
+  },
+  "phoneSweep": {
+    "status": "PASS",
+    "tabs": 27,
+    "deepLinks": 7,
+    "back": "PASS",
+    "preservedAliasRoutes": 8,
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "operationalWrites": 0
+  },
+  "runtimeErrors": 0,
+  "consoleErrors": 0,
+  "operationalWrites": 0,
+  "remaining": [
+    "Resolve existing proposed-scope confirmation before freeze",
+    "Final READY handover and guarded publication",
+    "Independent public-byte read-back"
+  ],
+  "privateEvidence": "Detailed records, monetary outputs and screenshots retained privately",
+  "sharedBuildExact": true,
+  "baseIndependentlyVerified": true,
+  "sourceCommit": "dd2d3c563afc0eb5abc50c89f8acc6565ed45a0d",
+  "actualPhoneTreatmentCells": 20
+}

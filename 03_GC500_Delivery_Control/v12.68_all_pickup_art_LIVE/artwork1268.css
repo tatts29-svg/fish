@@ -1,0 +1,37 @@
+/* Author: Andrew Fisher. Small static orange equipment renders behind the original stamp. */
+.stp1238 > .artwork1268-frame, .stamp1232 > .artwork1268-frame {
+  position: absolute; inset: 4% 3% 4% auto; width: 44%; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(var(--art1268-cols, 1), minmax(0, 1fr));
+  align-items: stretch; gap: 1px; opacity: .20; pointer-events: none; user-select: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 91%, transparent);
+}
+.stp1238 > .artwork1268-frame ~ *, .stamp1232 > .artwork1268-frame ~ * { position: relative; z-index: 1; }
+.artwork1268-frame > .artwork1268-cell {
+  display: block; position: relative; min-width: 0; min-height: 0; margin: 0; padding: 0;
+  container-type: size; pointer-events: none;
+}
+.artwork1268-cell > .artwork1268 {
+  position: absolute; display: block; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100%; height: 100%; margin: 0; padding: 0; pointer-events: none; --art1268-ratio: 1;
+  background-repeat: no-repeat; background-size: 300% 200%;
+}
+/* A square cell preserves each equipment render's proportions in every original stamp size. */
+@supports (width: 1cqw) {
+  .artwork1268-cell > .artwork1268 { width: min(100cqw, calc(100cqh * var(--art1268-ratio))); height: min(100cqh, calc(100cqw / var(--art1268-ratio))); }
+}
+.artwork1268.art1268-a { background-image: url("data:image/webp;base64,__ATLAS_A__"); }
+.artwork1268.art1268-b { background-image: url("data:image/webp;base64,__ATLAS_B__"); }
+.artwork1268.art1268-c { background-image: url("data:image/webp;base64,__ATLAS_C__"); }
+.artwork1268.art1268-d { background-image: url("data:image/webp;base64,__ATLAS_D__"); }
+.artwork1268.art1268-e { background-image: url("data:image/webp;base64,__ATLAS_E__"); }
+.artwork1268.art1268-cell-0 { background-position: 0 0; }
+.artwork1268.art1268-cell-1 { background-position: 50% 0; }
+.artwork1268.art1268-cell-2 { background-position: 100% 0; }
+.artwork1268.art1268-cell-3 { background-position: 0 100%; }
+.artwork1268.art1268-cell-4 { background-position: 50% 100%; }
+.artwork1268.art1268-cell-5 { background-position: 100% 100%; }
+/* Atlas E uses measured source windows: keep the trailer drawbar out of the distribution-board cell. */
+.artwork1268.art1268-e.art1268-cell-0 { --art1268-ratio: 1.09375; background-size: 274.2857142857143% 200%; background-position: 0 0; }
+.artwork1268.art1268-e.art1268-cell-1 { --art1268-ratio: .875; background-size: 342.8571428571429% 200%; background-position: 52.9411764705882% 0; }
+@media print { .stp1238 > .artwork1268-frame, .stamp1232 > .artwork1268-frame { display: none; } }

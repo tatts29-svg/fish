@@ -1,0 +1,170 @@
+{
+  "author": "Andrew Fisher",
+  "atUTC": "2026-10-02T10:12:47.139Z",
+  "status": "PASS",
+  "liveOnly": true,
+  "localOverrides": 0,
+  "viewport": [
+    390,
+    844
+  ],
+  "dpr": 2,
+  "bindings": {
+    "/v/Coates-GC500-2026/": {
+      "sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+      "bytes": 9079773,
+      "expected": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+      "matches": true
+    },
+    "/w/Coates-GC500-2026/explorer/index.html": {
+      "sha256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "bytes": 27591,
+      "expected": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+      "matches": true
+    },
+    "/w/Coates-GC500-2026/explorer/explorer-merge.js": {
+      "sha256": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "bytes": 25146,
+      "expected": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+      "matches": true
+    },
+    "/w/Coates-GC500-2026/explorer/explorer.js": {
+      "sha256": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "bytes": 133534,
+      "expected": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+      "matches": true
+    }
+  },
+  "checks": [
+    {
+      "id": "visible-map-and-viewport",
+      "pass": true,
+      "details": {
+        "viewport": [
+          390,
+          844
+        ],
+        "mapTop": 262.59375,
+        "mapBottom": 795.59375,
+        "mapHeight": 533,
+        "footerTop": 806,
+        "canvas": {
+          "width": 368,
+          "height": 473,
+          "bufferWidth": 736,
+          "bufferHeight": 946,
+          "mode": "hybrid"
+        }
+      }
+    },
+    {
+      "id": "placed-selection-local-card-only",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "explicit-open-record",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "no-page-exceptions",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "no-console-errors",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "no-operational-write-attempts",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "no-3d-open-or-request",
+      "pass": true,
+      "details": {}
+    },
+    {
+      "id": "all-published-source-bindings",
+      "pass": true,
+      "details": {}
+    }
+  ],
+  "geometry": {
+    "viewport": [
+      390,
+      844
+    ],
+    "mapTop": 262.59375,
+    "mapBottom": 795.59375,
+    "mapHeight": 533,
+    "footerTop": 806
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "counts": {
+    "page": 0,
+    "live": 61,
+    "blocked": 0
+  },
+  "browserClosed": true,
+  "requestPolicy": "GET only except the authorised Google tile createSession read-session POST; no3D opening or operational writes.",
+  "requestCounts": {
+    "total": 59,
+    "get": 58,
+    "googleReadSessionPost": 1,
+    "poc3d": 0
+  },
+  "runtimeAt2500ms": {
+    "ready": true,
+    "apiKeys": [
+      "ready",
+      "find",
+      "state",
+      "fit",
+      "goto",
+      "zoom",
+      "setMode",
+      "render",
+      "refresh",
+      "pickPoint",
+      "picking",
+      "pickReady",
+      "mode3d",
+      "is3d",
+      "clearPick813"
+    ],
+    "items": 391,
+    "plan": true,
+    "canvas": true,
+    "qual": "Drawing sharp at this zoom",
+    "frameConnected": true
+  },
+  "attemptHistory": [
+    {
+      "status": "Discarded fixture",
+      "reason": "Shared curl harness disk cache returned an old external entry. No native checks ran. Direct uncached service responses matched final files.",
+      "action": "All subsequent live attempts used unique GC500_CACHE directories."
+    },
+    {
+      "status": "Unreproduced readiness timeout",
+      "reason": "A fresh-cache attempt bound all published files correctly but timed out waiting for readiness, with no page exceptions or HTTP errors. No runtime state was captured before closing, so no cause is claimed."
+    },
+    {
+      "status": "PASS",
+      "reason": "Final isolated-cache native phone flow passed all eight checks. Runtime was ready with expected API and sharp drawing after2.5s; no overrides, no3D requests, browser closed."
+    }
+  ],
+  "screenshots": {
+    "reviewed": true,
+    "location": "Private audit evidence; not copied to repository",
+    "names": [
+      "phone-live-map.png",
+      "phone-live-selected.png"
+    ]
+  },
+  "scope": "One bounded post-publication native flow. No full suite repeated, no source changes, no operational record writes."
+}

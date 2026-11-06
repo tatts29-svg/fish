@@ -1,0 +1,150 @@
+{
+ "at": "2026-10-22T16:21:54.217Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "page: registers only --sp (its own --p stays a length elsewhere); the panel ring carries --sp with a transition and its icon breathes",
+   "ok": true,
+   "detail": {
+    "props": [
+     "--sp"
+    ],
+    "sp": "0",
+    "p": "",
+    "computedSp": "0",
+    "transition": "--sp",
+    "anim": "svc1126-breathe"
+   }
+  },
+  {
+   "name": "card template carries the registered property, the breathing and flash rules, the not-done card, the live effects after each draw",
+   "ok": true,
+   "detail": {
+    "len": 150588
+   }
+  },
+  {
+   "name": "crew card: registers --p; every job, header, area and progress ring is keyed; a ring with work left breathes with a pulsing halo and carries the sweep transition; the icon sizes are the v11.25 ones by their CSS width (42 / 26 px in a 66 px ring)",
+   "ok": true,
+   "detail": {
+    "props": [
+     "--p"
+    ],
+    "keyed": 22,
+    "j3k": "j3:all:pump",
+    "hdk": "hd:pump",
+    "areak": "area:1",
+    "progk": "prog:all",
+    "halo": "svc-halo",
+    "breathe": "svc-breathe",
+    "transition": "--p",
+    "sizes": [
+     "42px",
+     "26px",
+     "66px"
+    ],
+    "nd": {
+     "cls": "card notdone",
+     "h3": "Not done yet · Thursday 22",
+     "sum": "75 of 75 references752 jobs to go251Pump out259Clean & restock242Water checked / refilled",
+     "jobs": [
+      "pump:251",
+      "clean:259",
+      "refill:242"
+     ],
+     "areas": 15,
+     "refs": 75,
+     "refsWithIcons": 75,
+     "first": "PG01",
+     "firstIcons": [
+      "pump",
+      "clean",
+      "refill"
+     ],
+     "beforeAudit": true
+    }
+   }
+  },
+  {
+   "name": "crew card: the Not done yet card sits before the audit, names the shown day, counts 75 of 75 references and 752 jobs by kind with icons, lists 15 areas and 75 references each carrying the icons of its missing jobs",
+   "ok": true,
+   "detail": {
+    "cls": "card notdone",
+    "h3": "Not done yet · Thursday 22",
+    "sum": "75 of 75 references752 jobs to go251Pump out259Clean & restock242Water checked / refilled",
+    "jobs": [
+     "pump:251",
+     "clean:259",
+     "refill:242"
+    ],
+    "areas": 15,
+    "refs": 75,
+    "refsWithIcons": 75,
+    "first": "PG01",
+    "firstIcons": [
+     "pump",
+     "clean",
+     "refill"
+    ],
+    "beforeAudit": true
+   }
+  },
+  {
+   "name": "a closed day reads Missed in red with its references; a day to come reads Not yet open",
+   "ok": true,
+   "detail": {
+    "wed": {
+     "h3": "Missed · Wednesday 21",
+     "cls": "card notdone missed",
+     "refs": 75
+    },
+    "fri": {
+     "h3": "Not yet open · Friday 23",
+     "cls": "card notdone",
+     "refs": 75
+    },
+    "sun": {
+     "h3": "Not yet open · Sunday 25",
+     "cls": "card notdone",
+     "refs": 75
+    }
+   }
+  },
+  {
+   "name": "a changed ring sweeps from its old value (mid-sweep below 40, then 40) and flashes; the number bumps; the change pill shows under the header for four seconds then hides",
+   "ok": true,
+   "detail": {
+    "t0": 0,
+    "t1": 40,
+    "moved": true,
+    "bump": true,
+    "haloNow": "svc-flash, svc-halo",
+    "shown": "+3 jobs done · 255 of 752 · 33%",
+    "hidden": true,
+    "inHeader": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 66,
+    "blocked": 0
+   }
+  }
+ ]
+}

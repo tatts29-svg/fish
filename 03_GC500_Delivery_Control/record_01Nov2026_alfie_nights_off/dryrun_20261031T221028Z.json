@@ -1,0 +1,69 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T221028Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\".",
+  "ops": [
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-23",
+    "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-24",
+    "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-25",
+    "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261023",
+   "person": "Alfie Harris",
+   "date": "2026-10-23",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261023 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261024",
+   "person": "Alfie Harris",
+   "date": "2026-10-24",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261024 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261025",
+   "person": "Alfie Harris",
+   "date": "2026-10-25",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261025 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "plan": [
+  "deleted/W-A-alfie-harris-20261023",
+  "deleted/W-A-alfie-harris-20261024",
+  "deleted/W-A-alfie-harris-20261025",
+  "by/deleted~2f~W-A-alfie-harris-20261023",
+  "by/deleted~2f~W-A-alfie-harris-20261024",
+  "by/deleted~2f~W-A-alfie-harris-20261025",
+  "costs/W-A-alfie-harris-20261023",
+  "costs/W-A-alfie-harris-20261024",
+  "costs/W-A-alfie-harris-20261025"
+ ]
+}

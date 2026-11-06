@@ -1,0 +1,86 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Every unique source contract line retained once",
+      "pass": true
+    },
+    {
+      "name": "Every source line has an explicit coverage disposition",
+      "pass": true
+    },
+    {
+      "name": "Coverage categories conserve source lines",
+      "pass": true
+    },
+    {
+      "name": "Confirmed source duplicates are excluded from unique-line total",
+      "pass": true
+    },
+    {
+      "name": "Original workbook rows independently reread",
+      "pass": true
+    },
+    {
+      "name": "Evidence uses the same shared record version",
+      "pass": true
+    },
+    {
+      "name": "Current reference count agrees with snapshot",
+      "pass": true
+    },
+    {
+      "name": "Aliases excluded from canonical count",
+      "pass": true
+    },
+    {
+      "name": "Cancelled history excluded from active canonical count",
+      "pass": true
+    },
+    {
+      "name": "New source requests are marked unreceived",
+      "pass": true
+    },
+    {
+      "name": "Source requirement conflict does not invent arrivals",
+      "pass": true
+    },
+    {
+      "name": "No native or original source mutations",
+      "pass": true
+    },
+    {
+      "name": "Exactly two plain-language review tabs",
+      "pass": true
+    },
+    {
+      "name": "Every review row has reference, quantity, current state, source, contract and action",
+      "pass": true
+    },
+    {
+      "name": "No executable formulas in review workbook",
+      "pass": true
+    },
+    {
+      "name": "No price totals in equipment-only workbook",
+      "pass": true
+    },
+    {
+      "name": "Workbook credits Andrew Fisher",
+      "pass": true
+    }
+  ],
+  "sourceSheets": 11,
+  "sourceWorksheetRows": 296,
+  "sourceUniqueLines": 295,
+  "currentReferences": 182,
+  "newSourceOnlyRequests": 2,
+  "reviewRows": {
+    "Existing": 23,
+    "Needs checking": 22
+  },
+  "nativeWrites": 0,
+  "originalWrites": 0,
+  "scope": "Read-only source coverage validation. No claim of full physical or financial accuracy."
+}

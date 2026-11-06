@@ -1,0 +1,448 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T053758Z",
+ "finished": "2026-10-28T05:38:34.669Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026: \"1276701 and 1261284 leaving at 330pm\". 1276701 is GN20-A (365 kVA, Coates; its only unit) and 1261284 is GN21 (60 kVA, Coates; its only unit), as their departure forms offer them. Both leave in full. Left site 28 Oct 2026 15:30 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN20-A",
+    "at": "2026-10-28T15:30:00+10:00",
+    "nos": [
+     "1276701"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "GN21",
+    "at": "2026-10-28T15:30:00+10:00",
+    "nos": [
+     "1261284"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11688,
+  "after": 11690
+ },
+ "updated": {
+  "before": "2026-10-28T05:29:47.857Z",
+  "after": "2026-10-28T05:38:33.669Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN20-A",
+   "at": "2026-10-28T15:30:00+10:00",
+   "nos": [
+    "1276701"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T15:30:00+10:00, recorded by Andrew Fisher: 1 x 350kva 1276701 - GN20-A has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "GN21",
+   "at": "2026-10-28T15:30:00+10:00",
+   "nos": [
+    "1261284"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T15:30:00+10:00, recorded by Andrew Fisher: 1 x 60kva 1261284 - GN21 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN21",
+   "status": 200
+  },
+  {
+   "key": "delivery/GN20-A",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN21": {
+    "state": "on site",
+    "set_at": "2026-09-30T00:49:09.873Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1261284": {
+      "on": true,
+      "at": "2026-10-27T06:04:19.969Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1261284": {
+      "at": "2026-10-28T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:35:06.828Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-30T00:49:14.107Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-30T00:49:09.873Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T00:49:14.107Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1261284",
+      "ready": true,
+      "at": "2026-10-27T06:04:19.969Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1261284",
+      "pickup": "2026-10-28T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:35:06.828Z"
+     }
+    ],
+    "_k": "GN21"
+   },
+   "delivery/GN20-A": {
+    "state": "on site",
+    "set_at": "2026-09-29T21:23:16.631Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1276701": {
+      "on": true,
+      "at": "2026-10-27T06:04:13.496Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1276701": {
+      "at": "2026-10-28T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:34:31.855Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-30T02:45:42.687Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-29T21:23:16.631Z",
+      "by": "Andrew Fisher",
+      "note": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T02:45:42.687Z",
+      "by": "Andrew Fisher",
+      "note": "GN20's own dates on our record (complete 30 Sep 12:45, install 30 Sep 22:40), carried over from the deleted reference."
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1276701",
+      "ready": true,
+      "at": "2026-10-27T06:04:13.496Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1276701",
+      "pickup": "2026-10-28T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:34:31.855Z"
+     }
+    ],
+    "_k": "GN20-A"
+   }
+  },
+  "after": {
+   "delivery/GN21": {
+    "state": "in transit",
+    "set_at": "2026-10-28T05:38:18.761Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1261284": {
+      "on": true,
+      "at": "2026-10-27T06:04:19.969Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1261284": {
+      "at": "2026-10-28T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:35:06.828Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T05:38:18.761Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-30T00:49:09.873Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T05:38:18.761Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "9d951f76-30f1-4b17-a369-12ed9724fb35",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T15:30:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-30T00:49:09.873Z",
+       "requiredKey": "[[\"60kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "60kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN21\",\"coates\",\"asset\",\"1261284\"]"
+         ],
+         "numbers": [
+          "1261284"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN21\",\"coates\",\"asset\",\"1261284\"]",
+           "number": "1261284",
+           "owner": "coates",
+           "item": "60kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T00:49:14.107Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T05:38:18.761Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1261284",
+      "ready": true,
+      "at": "2026-10-27T06:04:19.969Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1261284",
+      "pickup": "2026-10-28T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:35:06.828Z"
+     }
+    ],
+    "_k": "GN21"
+   },
+   "delivery/GN20-A": {
+    "state": "in transit",
+    "set_at": "2026-10-28T05:38:17.870Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1276701": {
+      "on": true,
+      "at": "2026-10-27T06:04:13.496Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1276701": {
+      "at": "2026-10-28T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:34:31.855Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T05:38:17.870Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-29T21:23:16.631Z",
+      "by": "Andrew Fisher",
+      "note": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T05:38:17.870Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "099887ef-76e2-4722-b928-59ee9c9311f3",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T15:30:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-29T21:23:16.631Z",
+       "requiredKey": "[[\"350kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "350kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN20-A\",\"coates\",\"asset\",\"1276701\"]"
+         ],
+         "numbers": [
+          "1276701"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN20-A\",\"coates\",\"asset\",\"1276701\"]",
+           "number": "1276701",
+           "owner": "coates",
+           "item": "350kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T02:45:42.687Z",
+      "by": "Andrew Fisher",
+      "note": "GN20's own dates on our record (complete 30 Sep 12:45, install 30 Sep 22:40), carried over from the deleted reference."
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T05:38:17.870Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1276701",
+      "ready": true,
+      "at": "2026-10-27T06:04:13.496Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1276701",
+      "pickup": "2026-10-28T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:34:31.855Z"
+     }
+    ],
+    "_k": "GN20-A"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

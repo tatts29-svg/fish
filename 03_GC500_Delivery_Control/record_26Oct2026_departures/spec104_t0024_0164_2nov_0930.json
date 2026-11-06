@@ -1,0 +1,25 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 11:5x AEST: \"0164 left at 9:30AM\". 0164 is Event Portables' FWF at the EVL toilet on T0024 (servicing tracker: area 3, EVL / Coates compound); T0024's other toilet, Coates FWF 1211968 (the Coates office toilet), stays, so T0024 stays on site. On Andrew's word of 30 Oct 2026, \"Really.. all toilets have been pumped out this was done on sunday night via servicing\", T0024 gets the Emptied tick through the page's own setEmptied816 if the page's emptied gate asks for it; then 0164 leaves at 09:30 through the Record departure form in his name. Applied only if the dry run shows the P&L unchanged. T0024's delivery document carries no light field on the record (the page reads it as on site), so the runner's check that a partial departure leaves the light 'on site' cannot pass; 'complete' is left out, which skips that check only — the departure is the same, and the read-back confirms 1 left and 1 still to leave.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "T0024",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; T0024 on the servicing tracker, area 3)"
+  },
+  {
+   "op": "depart",
+   "ref": "T0024",
+   "at": "2026-11-02T09:30:00+10:00",
+   "nos": [
+    "0164"
+   ],
+   "unnumbered": []
+  }
+ ]
+}

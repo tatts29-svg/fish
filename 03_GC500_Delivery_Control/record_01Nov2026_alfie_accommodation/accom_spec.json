@@ -1,0 +1,18 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Alfie Harris's 12 accommodation nights with no amount on the record, priced at 223.63: his rate on all 8 of his latest priced nights (26-29 Oct and 2-5 Nov). Andrew, 1 Nov 2026: \"Yes enter 223.63 for Alfie's nights on the record\".",
+  "ops": [
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-05", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-12", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-13", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-14", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-15", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-23", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-24", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-10-25", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-11-09", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-11-10", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-11-11", "amount": 223.63},
+    {"op": "accom_set", "person": "Alfie Harris", "date": "2026-11-12", "amount": 223.63}
+  ]
+}

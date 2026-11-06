@@ -1,0 +1,17 @@
+/* Author: Andrew Fisher. Clear destination silhouettes with small adjacent load labels. */
+#pane-timeline .drops911 button.drops911-pin.destination930-label{height:44px;min-height:44px;min-width:44px;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 3px;border:0;border-radius:0;background:transparent;color:#15313d;box-shadow:none;outline:0}
+#pane-timeline .drops911 button.drops911-pin.destination930-label.selected{background:transparent;color:#15313d;border:0;box-shadow:none;outline:0}
+#pane-timeline .drops911 .destination930-label .destination930-number{flex:0 0 24px;width:24px;height:24px;line-height:22px;background:#15313d;color:#fff;border:1.5px solid #fff;border-radius:50%;font-size:13px;font-weight:850;text-align:center;box-shadow:0 1px 3px #12283266}
+#pane-timeline .drops911 .destination930-label.selected .destination930-number{background:#ff852f;color:#132c36;border-color:#fff}
+#pane-timeline .drops911 .destination930-label strong{font-size:11px;line-height:1.2;font-weight:800;color:#15313d;background:#fffffff0;border-radius:2px;padding:2px 3px;overflow-wrap:normal;text-align:left;box-shadow:0 1px 2px #15313d22}
+#pane-timeline .drops911 .destination930-label i{left:20px;right:auto;top:4px;width:13px;height:13px;border:1px solid #fff;font-size:8px;line-height:11px;background:#0c7857;color:#fff}
+#pane-timeline .drops911 button.drops911-pin.destination930-label:focus-visible{outline:2px solid #193b4b;outline-offset:2px;border-radius:5px;background:#ffffff66}
+#pane-timeline .drops911 .destination930-leader line{stroke:#23434e;stroke-width:1;filter:drop-shadow(0 0 1px #fff);opacity:.75}
+#pane-timeline .drops911 .destination930-leader circle{fill:#23434e;stroke:#fff;stroke-width:1}
+#pane-timeline .drops911 .destination930-leader.selected line{stroke:#d96915;stroke-width:1.5;opacity:1}
+#pane-timeline .drops911 .destination930-leader.selected circle{fill:#ff852f;stroke:#163743;stroke-width:1}
+/* Selection follows only the real polygon; no rectangular plate covers the destination. */
+#pane-timeline .shape926-overlay .ms926-marker.selected .ms926-comp:not(.ms926-tank){fill:#ff852f;fill-opacity:.72;stroke:#b94e00;stroke-width:1.5}
+#pane-timeline .shape926-overlay .ms926-marker.selected .ms926-mark{stroke:#15313d}
+
+#pane-timeline .drops911 .destination930-label .destination930-ref{font-size:inherit;white-space:nowrap}

@@ -1,0 +1,18 @@
+FAIL D001 sheet is the 2 Oct issue
+PASS old sheet picture leaves the media list
+PASS drawing register shows the 2 Oct issue and what it replaces
+FAIL every changed pin carries the 2 Oct position
+PASS P45 position used by the map and pins
+PASS P45 drive and walk links go to the new spot
+PASS WC10 has a master position, a sector and a pin on the master sheet
+PASS WC32 keeps its pin, noted as not on the 2 Oct issue
+PASS WC69 and WC40 carry one tag each
+FAIL inset pins follow the inset (28 px on the picture)
+FAIL every new picture is named in the media list
+FAIL new sheet picture loads at 2600 x 1837
+FAIL new P45 close-up loads
+PASS Map tab opens with the new master
+PASS no runtime errors
+PASS no attempted live writes
+[{"k":"WC81","same":false},{"k":"CP1","same":false},{"k":"T0265","same":false}]
+phone: 10/16 (media served locally: 0)

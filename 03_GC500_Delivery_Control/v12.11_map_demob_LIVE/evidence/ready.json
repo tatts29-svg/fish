@@ -1,0 +1,132 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "source_branch": "ccr-061f77e8-ivjhrv",
+  "implementation_source": "2e318d3c339561678b943106ce56bab05912a8f0",
+  "base_sha256": "4e53b9dc3e08ea8cdbe60fdaba053093890562445625ea4541cf61a95d67c95d",
+  "candidate_sha256": "3b51c50a7766f2f37d222f49c2cad18c03eb868356c8019ce600581eac46915d",
+  "bytes": 15314171,
+  "inline_scripts": 196,
+  "checks": {
+    "vmsicons-desktop": {
+      "passed": 18,
+      "failed": 0
+    },
+    "vmsicons-phone": {
+      "passed": 18,
+      "failed": 0
+    },
+    "vmsicons-uhd": {
+      "passed": 18,
+      "failed": 0
+    },
+    "departure-desktop": {
+      "passed": 28,
+      "failed": 0
+    },
+    "departure-phone": {
+      "passed": 28,
+      "failed": 0
+    },
+    "native-desktop": {
+      "passed": 29,
+      "failed": 0
+    },
+    "native-phone": {
+      "passed": 29,
+      "failed": 0
+    },
+    "search-desktop": {
+      "passed": 39,
+      "failed": 0
+    },
+    "search-phone": {
+      "passed": 39,
+      "failed": 0
+    },
+    "sweeps": {
+      "desktop": {
+        "routes": 27,
+        "direct_panes": 19,
+        "deep_links": 7,
+        "errors": 0,
+        "console_errors": 0,
+        "attempted_writes": 0,
+        "back": {
+          "hash": "#plant",
+          "pane": "pane-plant"
+        }
+      },
+      "phone": {
+        "routes": 27,
+        "direct_panes": 19,
+        "deep_links": 7,
+        "errors": 0,
+        "console_errors": 0,
+        "attempted_writes": 0,
+        "back": {
+          "hash": "#plant",
+          "pane": "pane-plant"
+        }
+      }
+    },
+    "pdf-checks": {
+      "native-desktop": {
+        "pages": 3,
+        "searchable_details": true,
+        "navigation_link": true,
+        "map_and_closeup": true,
+        "numbered_pages": true
+      },
+      "native-phone": {
+        "pages": 3,
+        "searchable_details": true,
+        "navigation_link": true,
+        "map_and_closeup": true,
+        "numbered_pages": true
+      }
+    },
+    "preservation": [
+      {
+        "name": "exactly one new module and no missing source script",
+        "ok": true
+      },
+      {
+        "name": "all 188 unrelated scripts unchanged, including Servicing and crew card",
+        "ok": true
+      },
+      {
+        "name": "teams1187-script preserved exactly",
+        "ok": true
+      },
+      {
+        "name": "who1189-script preserved exactly",
+        "ok": true
+      },
+      {
+        "name": "embedded operational/business source data unchanged",
+        "ok": true
+      },
+      {
+        "name": "page structure and styles outside changed scripts unchanged",
+        "ok": true
+      },
+      {
+        "name": "wrong base refuses to patch",
+        "ok": true
+      },
+      {
+        "name": "already applied refuses to patch",
+        "ok": true
+      }
+    ]
+  },
+  "unit_boundaries": {
+    "departure": 17,
+    "pickup": 14
+  },
+  "phone_visual_inspection": true,
+  "public_release_verified": false,
+  "independent_second_agent_review": false,
+  "record_write_policy": "Browser rehearsals captured native departures locally; zero service record mutations. No tracker publication."
+}

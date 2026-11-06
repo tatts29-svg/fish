@@ -1,0 +1,48 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU checks of storage reuse, quality policy and frame lifecycle; not a physical-device FPS benchmark",
+  "passed": 10,
+  "total": 10,
+  "checks": [
+    {
+      "name": "context limits are queried once each, and reset after a context rebuild",
+      "passed": true
+    },
+    {
+      "name": "static uploads retain their original implementation",
+      "passed": true
+    },
+    {
+      "name": "dynamic uploads retain exact GPU bytes and reuse all storage at steady size",
+      "passed": true
+    },
+    {
+      "name": "growth allocates only when capacity is exceeded; shrink and empty draws retain safe counts",
+      "passed": true
+    },
+    {
+      "name": "quality decreases pixels before sunlight or full detail and never climbs automatically",
+      "passed": true
+    },
+    {
+      "name": "automatic reductions target smoothness first, retaining a bounded fallback threshold",
+      "passed": true
+    },
+    {
+      "name": "reinstalling the quality ladder is idempotent",
+      "passed": true
+    },
+    {
+      "name": "hidden and lost-context callbacks skip GL work; visible callbacks retain the original frame",
+      "passed": true
+    },
+    {
+      "name": "visibility changes reset elapsed wall time without changing the user pause state",
+      "passed": true
+    },
+    {
+      "name": "rendering exceptions remain visible to the caller",
+      "passed": true
+    }
+  ]
+}

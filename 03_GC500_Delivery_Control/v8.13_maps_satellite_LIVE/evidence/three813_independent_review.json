@@ -1,0 +1,98 @@
+{
+  "author": "Andrew Fisher",
+  "assessment": "No remaining demonstrated blocker in bounded independent CPU/source review of final candidate. Two reproduced readiness/recovery findings were corrected by the source owner.",
+  "candidate": {
+    "poc_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+    "merge_sha256": "bbc441e67211d6a3f73d64c9fffcace96335baf803d22980236a461942ccda2c"
+  },
+  "source": {
+    "patch_sha256": "6bedb90fe6b5587c998338d1e30ab1273527611adc982487de4c2fe7bab3b8fa",
+    "helper_sha256": "26604c10038eaf1f966faa40f1f2923c344fbed7e8e67c7f412fad0ff0318d2f"
+  },
+  "base": {
+    "poc_sha256": "0a060bed5acfdd970cc04c209b2163cba3199728575c84ac8196a10014b861f7",
+    "merge_sha256": "efa5dffd3946310b37cab45e2a85b77391720cbdfc53a22d6cfa5668a495ddfd"
+  },
+  "validation": {
+    "prior_independent_cpu_passed": 42,
+    "prior_independent_cpu_total": 42,
+    "prior_poc_sha256": "82b05b2c6ded2d881f2ec4072523bfff4aa5d93db663f447e4619a6dbaea085c",
+    "final_affected_delta_cpu_passed": 8,
+    "final_affected_delta_cpu_total": 8,
+    "exact_allowed_source_delta_count": 7,
+    "all_other_poc_bytes_unchanged": true,
+    "merge_unchanged": true,
+    "final_rebuild_guard_passed": 5,
+    "final_rebuild_guard_total": 5,
+    "final_inline_scripts_parsed": 3,
+    "final_merge_script_parsed": true,
+    "note": "Per requested bounded rerun, the original 42-check suite is bound to the earlier candidate. Final source matches exactly the seven reviewed follow-up replacements, covered by eight affected-delta checks. No claim that all 42 fixtures were rerun on final bytes."
+  },
+  "resolved_finding": {
+    "name": "Parent readiness survived terminal child context loss",
+    "original_poc_sha256": "e6651e5c5bc73b2259d9bce1965d332eadd58ca89c2a655242fb314c68d384bf",
+    "original_merge_sha256": "6d8a243e0bf68e931a77eca2ef321bf530c2afe38c6e230468fd95324942c36c",
+    "demonstration": {
+      "author": "Andrew Fisher",
+      "poc_sha256": "e6651e5c5bc73b2259d9bce1965d332eadd58ca89c2a655242fb314c68d384bf",
+      "merge_sha256": "6d8a243e0bf68e931a77eca2ef321bf530c2afe38c6e230468fd95324942c36c",
+      "before": {
+        "parentReady": true,
+        "childReady": true,
+        "pinWrites": 1
+      },
+      "after": {
+        "parentReady": true,
+        "childReady": true,
+        "childBootError": "context",
+        "childApiReady": false,
+        "renderLoop": false
+      },
+      "callbackAcceptsLostChild": true,
+      "pinWritesAfterFailure": 2,
+      "limitation": "CPU exact helper/readiness callback only; no browser, GPU, network or live session."
+    },
+    "correction": "Child failure clears __ready and notifies the parent; parent failure handoff clears ready3d and outstanding polls, ready callback rejects __bootError, and sync3d gates on public API state.ready.",
+    "source_evidence": [
+      "poc3d/index.html:200",
+      "poc3d/index.html:201",
+      "explorer-merge.js:57",
+      "explorer-merge.js:65",
+      "explorer-merge.js:70"
+    ],
+    "status": "Resolved and regression-tested on corrected candidate"
+  },
+  "scoped_conclusions": [
+    "No application-level automatic 3D root request or iframe reload was introduced; Retry requires the button press. Cesium internals are not simulated.",
+    "The exact key function aborts at 20,000 ms, cleans its timer on success/error, and does not retry HTTP/JSON failures automatically.",
+    "Slow startup keeps the one pending imagery request; late success clears its warning. Context loss prevents late imagery from restarting a scene.",
+    "Readiness polls are owned by a load epoch, a late healthy callback can recover from the slow state, and 2D/3D switches reuse the frame and stop camera motion.",
+    "Native compass/orbit cancellation and flight takeover pass; Ground and Street use the unchanged SITE_H=44.6 datum plus 12 m and 45 m respectively. Other camera presets remain unchanged.",
+    "Patch replay on exact live inputs reproduces both candidate files byte-for-byte, second application is refused, and changed POC baseline is refused."
+  ],
+  "limits": [
+    "No product files edited; no browser, GPU, network or service requests made by this independent review.",
+    "Parser-blocking external Cesium script at poc3d/index.html:84 executes before runtime recovery code; an indefinitely pending library transfer is not bounded by the runtime 30-second warning. Existing limitation, not a new regression.",
+    "SOURCE SITE_H is the existing datum, not an independently surveyed elevation or visual proof of clearance.",
+    "Google billing, Cesium internal retries, physical-device performance, visual layout and actual WebGL restoration require separate evidence."
+  ],
+  "evidence": {
+    "prior_cpu": "review_checks_82b05b2c.json",
+    "prior_cpu_script": "review_checks_82b05b2c.cjs",
+    "affected_delta_cpu": "render_delta_checks.json",
+    "affected_delta_script": "render_delta_checks.cjs",
+    "fixture_support": "review_checks.cjs",
+    "exact_delta_binding": "final_delta_binding.json",
+    "rebuild": "rebuild_checks.json",
+    "syntax": "final_syntax.json",
+    "original_readiness_defect": "readiness_probe.json",
+    "original_render_defect": "render_delta_defect_254c4c68.json"
+  },
+  "resolved_render_finding": {
+    "name": "Late imagery cleared a terminal render error while loop stayed disabled",
+    "failed_poc_sha256": "254c4c68dcc41c375a2119af7c6b8a098c2c73c6a9283402e757363ac6ea4f36",
+    "original_evidence": "render_delta_defect_254c4c68.json",
+    "correction": "Terminal failure kind is retained separately from the nonterminal slow warning. A late tileset is destroyed and boot returns; a later imagery rejection preserves the original terminal failure kind. Cesium built-in render-error panel is disabled and scene.renderError uses the same manual recovery UI.",
+    "status": "Resolved; final affected CPU checks 8/8."
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY_TO_UPLOAD",
+  "base_version": "12.46",
+  "base_sha256": "4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1",
+  "candidate_sha256": "1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff",
+  "candidate_bytes": 16086631,
+  "approval": "Direct approval for existing dark cards plus selected map strip; no redesign",
+  "offline": {
+    "boundary_cases": 7,
+    "lifecycle_adapter_assertions": 157,
+    "inline_scripts": 215,
+    "original_style_blocks_unchanged": 149,
+    "whole_page_reversal": true
+  },
+  "native": {
+    "card_dom_preserved": true,
+    "weather_controls_details_preserved": true,
+    "map_dispatch_preserved": true,
+    "scroll_tab_eviction_and_reentry": true,
+    "source_records_unchanged": true,
+    "phone_desktop_images_inspected": true,
+    "financial_preservation_checks": 34
+  },
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "operational_writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "operational_writes": 0
+    }
+  },
+  "remaining": [
+    "Claude exact rebuild and unchanged-money probe",
+    "Claude guarded upload and exact public read-back",
+    "Independent live verification after publication"
+  ],
+  "private_evidence": "Kept outside the repository; no operational fixtures or financial figures included",
+  "implementation_tests_source": "c4cb487626b5283e878803a348c44e3ff4c7ccb5",
+  "live_predecessor": {
+    "independently_verified": true,
+    "verified_at_utc": "2026-10-28T13:21:09Z",
+    "sha256": "4c07b14d578e390b7d39d073b8946ce9d84a21250cb55147d980eadce635cfe1",
+    "bytes": 16070111,
+    "record_matches_tested_snapshot": true
+  },
+  "shared_build": {
+    "at_utc": "2026-10-28T13:22:15Z",
+    "exact_tested_candidate": true,
+    "inline_scripts": 215,
+    "checks_passed": true
+  }
+}

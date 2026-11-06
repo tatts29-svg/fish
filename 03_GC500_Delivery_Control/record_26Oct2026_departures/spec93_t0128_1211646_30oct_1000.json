@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 13:2x AEST: \"I have asset no 1211646 off site same time as vms 120t please\". 1211646 is VMS12 (Coates, rego TF59LR), the second board on T0128 (pit lane entry drop); 120T (Premiair's VMS10) left T0103 at 10:00 today (run 86), so 1211646 leaves at 10:00 too. T0128's other board 467T (VMS11) left 29 Oct 12:30 (run 70), so T0128 leaves in full. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0128",
+   "at": "2026-10-30T10:00:00+10:00",
+   "nos": [
+    "1211646"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

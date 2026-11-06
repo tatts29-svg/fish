@@ -1,0 +1,37 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T163548Z",
+ "mode": "dry",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "labour_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat), correcting the 5 Oct shift recorded that morning: \"No he diid not work kings bdat\" · \"No one did\" · \"Alfie did not work the 5th\" · \"Alfie did not stay 5th either for the night\""
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "labour_remove",
+   "id": "W-L-alfie-harris-20261005",
+   "person": "Alfie Harris",
+   "date": "2026-10-05",
+   "was": {
+    "hours": 10.5,
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "KINP labour, the rest of the day · Mon 5 Oct, King's Birthday (Queensland public holiday) · Andrew Fisher, 2 Nov 2026"
+   },
+   "result": "taken off (was 10.5 h 06:30-17:00) - W-L-alfie-harris-20261005 taken off by Andrew Fisher — the removal travels with the record.",
+   "sheet": null
+  }
+ ],
+ "plan": [
+  "deleted/W-L-alfie-harris-20261005",
+  "costs/W-L-alfie-harris-20261005"
+ ]
+}

@@ -1,0 +1,707 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Forty-six Advanced Temporary Fencing papers from the event week, signed and photographed (Andrew, 23 Oct 2026, the photographs sent without words after 'I have fencing dockets more to send you'): twenty-seven hire agreements 36623-36640 and 36642-36650 installed 19-22 Oct 2026, ten Environmental Services service notes 24482-24491 (19-22 Oct) and nine collection forms 28569-28572, 28574-28575 and 28577-28579 (21-22 Oct); recorded through the page's own forms (recordHireAgreement, recordServiceNote, recordCollection) and the hire agreements charged at the 2026 card. Every figure read twice at full size, the hard ones from crops, and by independent readers. CCB event or demarcation from the programme request where there is one, or the paper's own words; the wheels are recorded as components because no paper carries a gate line and vehicle gates are inside the card's metre; mesh fence is recorded clean where the paper writes no scrim, and clean plus scrim on the same metres where it writes braced and scrimmed (the 2 Oct convention); bracing-only papers are components only; the hoarding on 36623 has no card line and is held as panels only; scrim on existing fences listed on the scrim-labour service notes is not charged from them - Advanced's sheet decides, and the page's reviewed scrim path is Andrew's word.",
+ "ops": [
+  {
+   "op": "hire_agreement",
+   "docket_no": "36623",
+   "date": "2026-10-19",
+   "location": "S15 C2 - hoarding fence and demarcation",
+   "map_ref": "",
+   "quantities": {
+    "clean": 97.5,
+    "ccb_demarc": 100
+   },
+   "components": {
+    "mesh_panel": 39,
+    "hoarding_panel": 41,
+    "cc_barrier": 40,
+    "base": 149,
+    "clamp": 148,
+    "brace": 37,
+    "wheels": 4
+   },
+   "signed_by": "",
+   "note": "Mesh fence 97.5 m (39 panels), hoarding 102.5 m (41 hoarding panels), CC barrier 100 m (40 barriers), 4 wheels, 149 bases, 148 clamps, 37 braces, installed 19 Oct 2026 at S15 C2; the site address reads 'S15, C.2 - / Hoarding Fence + Demarcation'. The CCB is Demarcation in the paper's own words (programme EVENT WEEK row 10, 19 Oct: Demarcation CCB - Admiralty Dr to S13 Grandstand, 99 m Demarcation). Programme rows 6-7 (19 Oct): Exclusion Zone - S15 Grandstand 90 m clean with a vehicle gate, Perimeter Fence - S15 Grandstand 100 m hoarding with a vehicle gate: the 4 wheels are the two vehicle gates, recorded as components (gates are inside the card's metre). THE HOARDING IS NOT CHARGED HERE: the 2026 card on this page has no hoarding line, so the 102.5 m is held on the paper and as 41 hoarding panels only - a rate is needed before the V8s are charged for it. Braces on the paper but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36624",
+   "date": "2026-10-19",
+   "location": "Admiralty Drive Intersection",
+   "map_ref": "",
+   "quantities": {
+    "clean": 32.5
+   },
+   "components": {
+    "mesh_panel": 13,
+    "base": 58,
+    "clamp": 62,
+    "brace": 31
+   },
+   "signed_by": "",
+   "note": "Mesh fence 32.5 m (13 panels), 58 bases, 62 clamps, 31 braces, installed 19 Oct 2026 at the Admiralty Drive intersection. Programme EVENT WEEK row 9 (19 Oct): Perimeter Fence - Admiralty Dr Intersection, 71 m braced for scrim and 30 m relocation planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded (31 braces on 13 panels: braced, the scrim not written) - Advanced's sheet decides. Service note 24482 of the same day relocates 22.5 m of fence and 70 m of CCB here. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36625",
+   "date": "2026-10-19",
+   "location": "Gate 1 - S23 Compound",
+   "map_ref": "",
+   "quantities": {
+    "clean": 285,
+    "scrim": 285
+   },
+   "components": {
+    "mesh_panel": 114,
+    "base": 331,
+    "clamp": 330,
+    "brace": 110
+   },
+   "signed_by": "",
+   "note": "Mesh fence 285 m (114 panels), 331 bases, 330 clamps, 110 braces, installed 19 Oct 2026 at Gate 1 - S23 compound; the note reads 'Braced & Scrimmed', so clean and scrim are both recorded on the same metres (the 2 Oct convention). Programme EVENT WEEK row 12 (19 Oct): Fence Relocation - S23 Grandstand CZ to Gate 1 Entry, 10 m clean, 180 m braced for scrim, 90 m relocation planned; the paper is a hire agreement for 285 m of mesh fence and is charged as it reads - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36626",
+   "date": "2026-10-19",
+   "location": "Seaway Carpark - The Spit and fuel compound",
+   "map_ref": "",
+   "quantities": {
+    "clean": 492.5
+   },
+   "components": {
+    "mesh_panel": 197,
+    "base": 278,
+    "clamp": 270,
+    "brace": 44
+   },
+   "signed_by": "",
+   "note": "Mesh fence 492.5 m (197 panels), 278 bases, 270 clamps, 44 braces, installed 19 Oct 2026 at the Seaway carpark, The Spit, and the fuel compound. Programme EVENT WEEK row 17 (19 Oct): Perimeter Fence - Supercars Transporter Compound, The Spit, 120 m clean planned; the paper carries 492.5 m. Braces but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36627",
+   "date": "2026-10-20",
+   "location": "Track wide (four spots)",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 125,
+    "ccb_demarc": 7.5
+   },
+   "components": {
+    "cc_barrier": 53
+   },
+   "signed_by": "",
+   "note": "CC barrier 132.5 m (53 barriers) at four spots on 20 Oct 2026, listed in the note: '[first word unclear] to PB2, cnr Pacific & Breaker St - 50 m', 'The Hill & Merchandise - BS08 - BS09 - 62.5 m', 'Birds nest Mac Island - 7.5 m', 'S01 - S05 - Corporate - 12.5 m' (50 + 62.5 + 7.5 + 12.5 = 132.5). The bird's nest on Macintosh Island is an exclusion around a hazard, recorded as Demarcation 7.5 m (as the fallen tree, 36760); the other three are crowd control, recorded as Event 125 m. Not named rows in the EVENT WEEK programme; Advanced's sheet decides the lines when it comes. Installer signature with the name Scott beside it. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36628",
+   "date": "2026-10-20",
+   "location": "PB03 - footings",
+   "map_ref": "",
+   "quantities": {
+    "clean": 25,
+    "scrim": 25
+   },
+   "components": {
+    "mesh_panel": 10,
+    "base": 10,
+    "clamp": 10
+   },
+   "signed_by": "",
+   "note": "Mesh fence 25 m (10 panels), 10 bases, 10 clamps at the PB03 footings; the note reads 'Scrim Completed' with a tick, so clean and scrim are both recorded on the 25 m (no braces on the paper). The installation date is written '20/9/26' but both signatures are dated 20/10/26 and the paper sits between 36627 and 36629 of 20 Oct 2026, so 20 Oct 2026 is recorded. No PB03 footings row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36629",
+   "date": "2026-10-20",
+   "location": "PB03 - Gate 1 - Helen Park",
+   "map_ref": "",
+   "quantities": {
+    "ccb_demarc": 182.5,
+    "ccb_event": 237.5
+   },
+   "components": {
+    "cc_barrier": 168,
+    "brace": 11
+   },
+   "signed_by": "",
+   "note": "CC barrier 420 m (168 barriers) at PB03 - Gate 1 - Helen Park on 20 Oct 2026, plus 11 braces: the note reads 'Added braces to fence B.O.H - Helen Park. Used bases & clamps from C.Z relocation Helen Park. Braced & Scrim' with a tick. The CCB is split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB - PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (182 m, recorded as Demarcation 182.5 m, to the barrier), CCB - Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m, is recorded as Event) - Advanced's sheet decides the lines when it comes. The braced-and-scrimmed back-of-house fence carries no metres on this paper (service note 24484 of the same day: 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'); the 11 braces are recorded as components and no scrim is charged from this paper. A small mark, read as a stray 8, sits in the Bracing box; Base and Clamp blank (used from the C.Z relocation). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36630",
+   "date": "2026-10-20",
+   "location": "Macintosh Island - entry",
+   "map_ref": "",
+   "quantities": {
+    "clean": 30
+   },
+   "components": {
+    "mesh_panel": 12,
+    "base": 25,
+    "clamp": 28,
+    "brace": 7,
+    "wheels": 3
+   },
+   "signed_by": "",
+   "note": "Mesh fence 30 m (12 panels), 3 wheels, 25 bases, 28 clamps, 7 braces at the Macintosh Island entry on 20 Oct 2026; the note reads 'Not scrimmed, confirmed with Jake' (name as best read) and initials 'I.C.P.M' (as best read). No gate line on the paper: the 3 wheels (a double-wide vehicle gate) are recorded as components. Programme EVENT WEEK row 26 (20 Oct): Perimeter Fence - Mac Park Entry, 31 m braced for scrim and 1 vehicle gate planned; the paper says not scrimmed, so clean is recorded. A short word before the site address is scribbled out. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36631",
+   "date": "2026-10-20",
+   "location": "Podium",
+   "map_ref": "",
+   "quantities": {
+    "clean": 5,
+    "scrim": 5
+   },
+   "components": {
+    "mesh_panel": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 5 m (2 panels) at the podium on 20 Oct 2026; the note reads 'Scrim' with a tick, so clean and scrim are both recorded on the 5 m; Base and Clamp written as a dash - none. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36632",
+   "date": "2026-10-20",
+   "location": "Pit Lane - S01",
+   "map_ref": "",
+   "quantities": {},
+   "components_only": true,
+   "components": {
+    "base": 16,
+    "clamp": 16,
+    "brace": 8
+   },
+   "signed_by": "",
+   "note": "Bracing added to the existing fence at Pit Lane - S01 on 20 Oct 2026: 16 bases, 16 clamps, 8 braces; the note reads 'Added braces to existing fence instead' (last word as best read); the Mesh Panel box holds a scribble, no number. No metres and no charge line on the paper; components only, as 36763, 36597 and 36519 (bracing an existing fence). Advanced's sheet decides whether it bills braced-for-scrim metres. Owner/site supervisor signature present, name not written; contact Brendan."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36633",
+   "date": "2026-10-20",
+   "location": "Fire hydrant - S01 - toilets",
+   "map_ref": "",
+   "quantities": {
+    "clean": 17.5
+   },
+   "components": {
+    "mesh_panel": 7,
+    "base": 7,
+    "clamp": 5
+   },
+   "signed_by": "",
+   "note": "Mesh fence 17.5 m (7 panels), 7 bases, 5 clamps around the fire hydrant at S01 - toilets on 20 Oct 2026. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36634",
+   "date": "2026-10-20",
+   "location": "S07 viewing mound",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 12.5
+   },
+   "components": {
+    "cc_barrier": 5
+   },
+   "signed_by": "",
+   "note": "CC barrier 12.5 m (5 barriers) at the S07 viewing mound on 20 Oct 2026: crowd control at a spectator mound, recorded as Event - no viewing-mound row in the EVENT WEEK programme; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36635",
+   "date": "2026-10-20",
+   "location": "Esplanade north to the Triangle",
+   "map_ref": "",
+   "quantities": {
+    "ccb_demarc": 37.5,
+    "flat_feet": 35
+   },
+   "components": {
+    "cc_barrier": 15,
+    "flat_feet_ccb": 16
+   },
+   "signed_by": "",
+   "note": "CC barrier 37.5 m (15 barriers) and flat-feet CC barrier 35 m (16 pieces, the installer's added item row 'Flat feet CCB's 16' and the note 'Flat feet mtrs - 35 m'), Esplanade north to the Triangle, installed 20 Oct 2026. The Esplanade-Triangle run is the programme's demarcation (its removal rows read 'CCB Removal - The Esplanade Triangle Demarcation'), so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36636",
+   "date": "2026-10-20",
+   "location": "Higman St and Rhapsody",
+   "map_ref": "",
+   "quantities": {
+    "ccb_demarc": 205
+   },
+   "components": {
+    "cc_barrier": 82
+   },
+   "signed_by": "",
+   "note": "CC barrier 205 m (82 barriers), Higman St and Rhapsody, installed 20 Oct 2026. Programme EVENT WEEK rows 21-23 (20 Oct): Demarcation CCB - Higman St (West), CCB - Higman St garden beds, Demarcation CCB - Rhapsody (133 m): the residents' demarcation runs, so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36637",
+   "date": "2026-10-20",
+   "location": "Macintosh Island foot bridge",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 25
+   },
+   "components": {
+    "cc_barrier": 10
+   },
+   "signed_by": "",
+   "note": "CC barrier 25 m (10 barriers) at the Macintosh Island foot bridge, installed 20 Oct 2026. No programme row names the foot bridge; the CCB is read as Event (crowd control on the spectator route), not a demarcation request - Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36638",
+   "date": "2026-10-20",
+   "location": "Pit Building north",
+   "map_ref": "",
+   "quantities": {
+    "flat_feet": 88
+   },
+   "components": {
+    "flat_feet_ccb": 40
+   },
+   "signed_by": "",
+   "note": "Flat-feet CC barrier 88 m (40 pieces), installed 20 Oct 2026: the paper writes no standard component quantity; the installer added a row 'Flat feet CCB's 40' to the item table and the note reads 'Flat feet - mtrs - 88 m'. Recorded on the card's flat-feet line as 36591 was. Programme EVENT WEEK row 27 (20 Oct): CCB - Pit Building (North). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36639",
+   "date": "2026-10-21",
+   "location": "McIntosh Island storage",
+   "map_ref": "",
+   "quantities": {
+    "clean": 15,
+    "scrim": 15
+   },
+   "components": {
+    "mesh_panel": 6,
+    "base": 5,
+    "clamp": 5,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "6 mesh panels, 2 wheels, 5 bases, 5 clamps; the note reads 'Scrim (tick) - braces not required'. The paper's Mesh Fence box is blank: the 15 m recorded is the 6 panels at the 2.5 m panel the page uses everywhere, clean plus scrim for the same metres (the 2 Oct convention), flagged for Andrew and for Advanced's sheet to decide. No gate line: the 2 wheels (a vehicle gate) are recorded as components. Programme EVENT WEEK row 26 (20 Oct): Perimeter Fence - Mac Park Entry, 31 m braced for scrim and 1 vehicle gate planned. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36640",
+   "date": "2026-10-21",
+   "location": "D.S - storage",
+   "map_ref": "",
+   "quantities": {
+    "clean": 47.5
+   },
+   "components": {
+    "mesh_panel": 17,
+    "base": 15,
+    "clamp": 15,
+    "wheels": 4
+   },
+   "signed_by": "",
+   "note": "Mesh fence 47.5 m (17 panels written; 47.5 m would be 19 panels - the paper's metres are recorded), 4 wheels, 15 bases, 15 clamps. The site address reads 'D.S - storage'. No gate line: the 4 wheels (vehicle gates) are recorded as components. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36642",
+   "date": "2026-10-21",
+   "location": "Gate 6",
+   "map_ref": "",
+   "quantities": {
+    "clean": 7.5,
+    "scrim": 7.5
+   },
+   "components": {
+    "mesh_panel": 3,
+    "base": 4,
+    "clamp": 5,
+    "brace": 1
+   },
+   "signed_by": "",
+   "note": "Mesh fence 7.5 m (3 panels), 4 bases, 5 clamps, 1 brace; the note reads 'Braced & Scrim', so scrim for the same metres (the clean-plus-scrim convention of 2 Oct). Programme EVENT WEEK rows 25, 28 and 51 (20-21 Oct): Gate 6 operations, Gate 6 fencing and Gate 6 entry, all braced for scrim (15 m, 85 m, 10 m with a vehicle gate). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36643",
+   "date": "2026-10-21",
+   "location": "Club 500",
+   "map_ref": "",
+   "quantities": {
+    "clean": 32.5,
+    "ccb_event": 20
+   },
+   "components": {
+    "mesh_panel": 13,
+    "cc_barrier": 8,
+    "base": 29,
+    "clamp": 27,
+    "brace": 8,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 32.5 m (13 panels), CC barrier 20 m (8 barriers), 2 wheels, 29 bases, 27 clamps, 8 braces. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components; no bracing metres and no scrim written, so clean is recorded. Programme EVENT WEEK row 54 (22 Oct): Perimeter Fence - Club 500 Stage, 55 m braced for scrim, 95 m relocation, 2 vehicle gates and 1 pedestrian gate planned. The CCB is read as Event, as the other Club 500 barriers (36591, 36594); Advanced's sheet decides. Installation date written 21-10-26. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36644",
+   "date": "2026-10-21",
+   "location": "Porsche to Staghorn St (Esplanade)",
+   "map_ref": "",
+   "quantities": {},
+   "components_only": true,
+   "components": {
+    "base": 184,
+    "clamp": 176,
+    "brace": 88
+   },
+   "signed_by": "",
+   "note": "Bracing added to the existing Esplanade fence from the Porsche Lounge to Staghorn St: 184 bases, 176 clamps, 88 braces (the paper spells it 'Porche'). No metres and no charge line on the paper; components only, as 36763, 36597 and 36519 (bracing an existing fence). Advanced's sheet decides whether it bills braced-for-scrim metres. Owner/site supervisor signature present, name not written; contact Brendan."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36645",
+   "date": "2026-10-21",
+   "location": "Inlet (Breaker St)",
+   "map_ref": "",
+   "quantities": {
+    "ccb_demarc": 12.5
+   },
+   "components": {
+    "cc_barrier": 5
+   },
+   "signed_by": "",
+   "note": "CC barrier 12.5 m (5 barriers) at the inlet on Breaker St. Programme EVENT WEEK row 72 (22 Oct): Demarcation CCB - T12 Runoff to Inlet, 25 m, so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36646",
+   "date": "2026-10-21",
+   "location": "S08 - TV",
+   "map_ref": "",
+   "quantities": {
+    "clean": 15
+   },
+   "components": {
+    "mesh_panel": 6,
+    "base": 5,
+    "clamp": 5
+   },
+   "signed_by": "",
+   "note": "Mesh fence 15 m (6 panels), 5 bases, 5 clamps; the site address reads 'S.0.8 - T.V.'. A small stray pen mark sits at the left of the Relocation Work hours box - not a figure. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36647",
+   "date": "2026-10-21",
+   "location": "Club 500 - creek protection",
+   "map_ref": "",
+   "quantities": {
+    "ccb_event": 47.5
+   },
+   "components": {
+    "cc_barrier": 19
+   },
+   "signed_by": "",
+   "note": "CC barrier 47.5 m (19 barriers), creek protection at Club 500 - more of the creek protection recorded on 36591 (9 Oct, 105 m), which the page carries as Event from the operational plan although Advanced's sheet billed it under its uniform Demarcation column; recorded the same way. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36648",
+   "date": "2026-10-22",
+   "location": "Gate 7",
+   "map_ref": "",
+   "quantities": {
+    "clean": 37.5
+   },
+   "components": {
+    "mesh_panel": 15,
+    "base": 14,
+    "clamp": 12,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 37.5 m (15 panels), 2 wheels, 14 bases, 12 clamps. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components. Programme EVENT WEEK row 69 (22 Oct): Perimeter Fence - Gate 7 Entry, 37 m clean and 1 double-wide vehicle gate (3 wheels) planned. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36649",
+   "date": "2026-10-22",
+   "location": "Gate 10",
+   "map_ref": "",
+   "quantities": {
+    "clean": 40,
+    "scrim": 40
+   },
+   "components": {
+    "mesh_panel": 16,
+    "base": 30,
+    "clamp": 30,
+    "brace": 8,
+    "wheels": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 40 m (16 panels), 2 wheels, 30 bases, 30 clamps, 8 braces; the note reads 'Braced & Scrim' with a tick, so scrim for the same metres (the clean-plus-scrim convention of 2 Oct). No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components. Programme EVENT WEEK row 66 (22 Oct): Perimeter Fence - Gate 10 Entry, 40 m braced for scrim and 1 double-wide vehicle gate (3 wheels) planned - as the paper. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36650",
+   "date": "2026-10-22",
+   "location": "Malibu - Breaker St",
+   "map_ref": "",
+   "quantities": {
+    "clean": 5
+   },
+   "components": {
+    "mesh_panel": 2,
+    "base": 2,
+    "clamp": 2
+   },
+   "signed_by": "",
+   "note": "Mesh fence 5 m (2 panels), 2 bases, 2 clamps; the note reads 'Gate alignment'. Not a named row in the EVENT WEEK programme. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper."
+  },
+  {
+   "op": "service_note",
+   "note_no": "24482",
+   "date": "2026-10-19",
+   "location": "Admiralty Dr - intersection",
+   "labour_hours": 1.25,
+   "crew_note": "see notes: 2 men x 15 min and 3 men x 15 min",
+   "metres": "",
+   "note": "Relocations at the Admiralty Dr intersection on 19 Oct 2026: 'Relocate 22.5 m temp fence - 2 men x 15 mins each = 0.5 hrs' and 'Relocate 70 m CCBs - 3 men x 15 mins each = 0.75 hrs', 1.25 h in the Labour quantity box. Two words at the start of the site address are scribbled out; a word in the notes is crossed out. Hire agreement 36624 is the same day's fence here. Owner/site supervisor and installer signatures dated 19/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24483",
+   "date": "2026-10-20",
+   "location": "S04 BOH / corporate entry",
+   "labour_hours": 1,
+   "crew_note": "2 men x 30 min each",
+   "metres": 17.5,
+   "note": "'Relocate 17.5 m temporary fence' at the S04 back-of-house / corporate entry on 20 Oct 2026; the '1 hr' sits one row above the Labour row on the paper (in the Supply Hardwood Stakes quantity cell) beside the crew note '2 men x 30 min each'. Both signatures dated 20/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24484",
+   "date": "2026-10-20",
+   "location": "Helen Park",
+   "labour_hours": 2,
+   "crew_note": "1/2 hr, 4 men",
+   "metres": 80,
+   "note": "'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim (tick). 80 m' on 20 Oct 2026, 2 h (half an hour, four men). Explicitly recorded metres: 80 m of relocated fence braced and scrimmed at the Helen Park back of house - the scrim on it is not charged from this note; it sits with hire agreement 36629 of the same day (the braces) for Andrew's word through the page's reviewed scrim path. Both signatures dated 20/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24485",
+   "date": "2026-10-20",
+   "location": "Pit Lane - Race Admin - BOH - TV/Media - S04",
+   "labour_hours": 8,
+   "crew_note": "4 hrs x 2 men",
+   "metres": "",
+   "note": "8 h (4 hours, two men) on 20 Oct 2026 across Pit Lane, Race Admin, back of house, TV/Media and S04; the notes list 'Race Admin 122.5 m', 'Pit Lane - 22.5 m', 'B.O.H - TV Media - S04 - 137.5 m' (282.5 m in all) without saying what was done to them - no metres recorded on the note's own line for that reason. A word in the Postal Address row is scribbled out. Both signatures dated 20/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24486",
+   "date": "2026-10-20",
+   "location": "Creek protection to Club 500",
+   "labour_hours": 0.5,
+   "crew_note": "15 mins, 2 men",
+   "metres": "",
+   "note": "'Relocation' from the creek protection to Club 500, half an hour (15 minutes, two men). The installation date is blank and the installer signature and date are blank; the owner/site supervisor signed and dated it 20/10/26, which is the date recorded. No metres on the paper.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24487",
+   "date": "2026-10-22",
+   "location": "Track wide - scrim labour",
+   "labour_hours": 31.5,
+   "crew_note": "3 men - 10.5 hrs (8 am - 6:30 pm)",
+   "metres": 745,
+   "note": "'Scrim labour' on 22 Oct 2026, 31.5 h (three men, 10.5 hours, 8 am to 6:30 pm): 'Porsche to Staghorn St - 420 m' and 'S04 / Podium / S01 Kitchen = 325 m' (745 m in all, the metres recorded). The scrim on these existing fences is not charged from this note: Porsche to Staghorn St is the Esplanade fence that 36644 braced (components only) and the podium's own paper 36631 carries its 5 m of scrim; the rest is for Andrew's word through the page's reviewed scrim path. Both signatures dated 22/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24488",
+   "date": "2026-10-22",
+   "location": "Track wide - scrim labour",
+   "labour_hours": 20,
+   "crew_note": "2 men - 9:30 am - 7:30 pm (10 hrs) total 20 hrs",
+   "metres": 345,
+   "note": "'Scrim labour' on 22 Oct 2026, 20 h (two men, 9:30 am to 7:30 pm): 'Club 500 - 47.5 m', 'PB2 - 65 m', 'S04 - 35 m', 'PB1 - 27.5 m', 'Helen Park - 30 m', 'Ferny Ave - 72.5 m (Rhapsody walk through)', '[word unclear, read as Supply] - 27.5 m', 'PB3 - 7.5 m', 'Rubbish Compactor - 32.5 m' (345 m in all, the metres recorded). The scrim on these existing fences is not charged from this note (the Rhapsody walk-through is 36759, 72.5 m clean; the compactor is 36761, 35 m clean; Club 500 is 36643, 32.5 m clean) - for Andrew's word through the page's reviewed scrim path. Both signatures dated 22/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24489",
+   "date": "2026-10-21",
+   "location": "Philip Park - Advanced compound",
+   "labour_hours": 0.5,
+   "crew_note": "2 men x 15 min each",
+   "metres": "",
+   "note": "Half an hour (two men, 15 minutes each) at the Philip Park Advanced compound on 21 Oct 2026; the note reads 'Truck - PB17x' followed by a scribble (as best read). Both signatures dated 21/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24490",
+   "date": "2026-10-22",
+   "location": "TV compound",
+   "labour_hours": 0.75,
+   "crew_note": "3 men x 15 mins each",
+   "metres": 27.5,
+   "note": "'Relocate 27.5 m temp fence' at the TV compound on 22 Oct 2026, 0.75 h (three men, 15 minutes each). This is the labour hire agreement 36758 points to ('also labour charge added, invoice num 24490'). Both signatures dated 22/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "service_note",
+   "note_no": "24491",
+   "date": "2026-10-22",
+   "location": "S15 demarcation",
+   "labour_hours": 1,
+   "crew_note": "4 men x 15 min each",
+   "metres": "",
+   "note": "'Relocate 26 CCBs' at the S15 demarcation on 22 Oct 2026, 1 h (four men, 15 minutes each); a count of barriers, no metres written. Both signatures dated 22/10/26.",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28569",
+   "date": "2026-10-21",
+   "location": "S15 - C.Z.",
+   "collected": {
+    "mesh_panel": 38,
+    "base": 39,
+    "clamp": 37,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 21 Oct 2026 from the S15 C.Z.: 38 mesh panels, 39 bases, 37 clamps, 2 wheels. No hire agreement number written; no comments. Both signatures dated 21/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28570",
+   "date": "2026-10-21",
+   "location": "Club 500 - creek protection zone",
+   "collected": {
+    "base": 19,
+    "flat_feet_ccb": 19
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 21 Oct 2026 from the Club 500 creek protection zone: 19 bases and, on a handwritten row, 19 flat-feet CCBs. No hire agreement number written; no comments. Both signatures dated 21/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28571",
+   "date": "2026-10-22",
+   "location": "The Hill - Monster C.Z.",
+   "collected": {
+    "mesh_panel": 59,
+    "base": 53,
+    "clamp": 53,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected from the Monster Energy C.Z. on The Hill: 59 mesh panels, 53 bases, 53 clamps, 2 wheels. Removal date written 22/10/26 (the owner/site supervisor's signature is dated 21/10/26, the installer's 22/10/26). No hire agreement number written; no comments."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28572",
+   "date": "2026-10-22",
+   "location": "PB03",
+   "collected": {
+    "mesh_panel": 4
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from PB03: 4 mesh panels; Base and Clamp written as a dash - none. No hire agreement number written; no comments. Both signatures dated 22/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28574",
+   "date": "2026-10-22",
+   "location": "Macintosh Island - Pit Building north",
+   "collected": {
+    "cc_barrier": 1,
+    "flat_feet_ccb": 16
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from Macintosh Island - Pit Building north: 1 CC barrier and, on a handwritten row, 16 flat-feet CCBs. No hire agreement number written; no comments. Both signatures dated 22/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28575",
+   "date": "2026-10-22",
+   "location": "Macintosh Island",
+   "collected": {
+    "mesh_panel": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from Macintosh Island: 2 mesh panels; Base and Clamp written as a dash - none. No hire agreement number written; no comments. Both signatures dated 22/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28577",
+   "date": "2026-10-22",
+   "location": "S19",
+   "collected": {
+    "mesh_panel": 4,
+    "cc_barrier": 15,
+    "base": 3,
+    "clamp": 3
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from S19: 4 mesh panels, 15 CC barriers, 3 bases, 3 clamps. No hire agreement number written; no comments. Both signatures dated 22/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28578",
+   "date": "2026-10-22",
+   "location": "S21",
+   "collected": {
+    "mesh_panel": 4,
+    "cc_barrier": 22,
+    "base": 2,
+    "clamp": 6,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from S21: 4 mesh panels, 22 CC barriers, 2 bases, 6 clamps, 2 wheels. No hire agreement number written; no comments. Both signatures dated 22/10/26."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28579",
+   "date": "2026-10-22",
+   "location": "Monster Energy C.Z.",
+   "collected": {
+    "mesh_panel": 1
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected 22 Oct 2026 from the Monster Energy C.Z.: a single short stroke in the Mesh Panel 'no collected' box, read as 1 mesh panel (it may be a stray mark - the compound's own collection is 28571). Nothing else written. No hire agreement number; no comments. Both signatures dated 22/10/26 (the owner's written '22/6/26' in haste)."
+  }
+ ]
+}

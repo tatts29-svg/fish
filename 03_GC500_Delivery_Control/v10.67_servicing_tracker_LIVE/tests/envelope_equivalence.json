@@ -1,0 +1,70 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Non-rendered upload identity comment only; no runtime, style, data or operational changes. Prior browser evidence remains bound to original hashes.",
+  "base_v1066_sha256": "9724e2a644833e7b6e56139b7954add2f639e348f03c6b6c9d109e0229cc821a",
+  "comment": "<!-- GC500 Delivery Control -->\n",
+  "added_bytes": 32,
+  "placement": "Immediately after the existing BOM and lowercase doctype line",
+  "candidates": [
+    {
+      "version": "v10.67",
+      "original_sha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+      "candidate_sha256": "f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86",
+      "original_bytes": 18465214,
+      "candidate_bytes": 18465246,
+      "comment_removal_exact": true,
+      "all_scripts_styles_data_and_other_bytes_identical": true,
+      "native_upload_envelope": true
+    },
+    {
+      "version": "v10.68",
+      "original_sha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0",
+      "candidate_sha256": "851197de50912e51e5715c16d6a21271691593588ebba5bb0a0dd60608374534",
+      "original_bytes": 18486212,
+      "candidate_bytes": 18486244,
+      "comment_removal_exact": true,
+      "all_scripts_styles_data_and_other_bytes_identical": true,
+      "native_upload_envelope": true
+    },
+    {
+      "version": "v10.69",
+      "original_sha256": "07cf8b6eedddc22397f301b9afae875137c608f5d62bae80a78249174cbfd88d",
+      "candidate_sha256": "c9fa67ec1cd11dba593b42e717a422300eaf7a6dc414e8f7624c6d5d43390891",
+      "original_bytes": 18491946,
+      "candidate_bytes": 18491978,
+      "comment_removal_exact": true,
+      "all_scripts_styles_data_and_other_bytes_identical": true,
+      "native_upload_envelope": true
+    },
+    {
+      "version": "v10.70",
+      "original_sha256": "2c3d560843a1efbc6c24f332e46492ddafebd81bf1203356eba0cfa82b95aea6",
+      "candidate_sha256": "5d31bce2674d6789a47be46034beb49b97a8a617d46da04179fb80363da42893",
+      "original_bytes": 18501611,
+      "candidate_bytes": 18501643,
+      "comment_removal_exact": true,
+      "all_scripts_styles_data_and_other_bytes_identical": true,
+      "native_upload_envelope": true
+    },
+    {
+      "version": "v10.71",
+      "original_sha256": "1d43cde32a478389d3ad1dedd280606fe4ed57ceab1e045de122b22c5de627bc",
+      "candidate_sha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+      "original_bytes": 18506324,
+      "candidate_bytes": 18506356,
+      "comment_removal_exact": true,
+      "all_scripts_styles_data_and_other_bytes_identical": true,
+      "native_upload_envelope": true
+    }
+  ],
+  "live_writes": 0,
+  "affected_checks": {
+    "v1067_exact_build": 10,
+    "v1067_static_inline_scripts": 142,
+    "v1068_static_inline_scripts": 142,
+    "v1069_static_inline_scripts": 142,
+    "v1070_static_inline_scripts": 143,
+    "v1071_static_inline_scripts": 143,
+    "failed": 0
+  }
+}

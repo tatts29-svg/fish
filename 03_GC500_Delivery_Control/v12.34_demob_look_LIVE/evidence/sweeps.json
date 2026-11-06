@@ -1,0 +1,31 @@
+{
+ "candidate": "3625dd965f394bdd7b17aa6e8748236e58793dec1460be3a153b0d5f92598a33",
+ "sweeps": {
+  "desktop": {
+   "tabs": 27,
+   "shown": 19,
+   "allErrors": [],
+   "console": 0,
+   "deep_links": 7,
+   "tab_errors": [],
+   "writes_blocked": 0,
+   "back": {
+    "hash": "#plant",
+    "pane": "pane-plant"
+   }
+  },
+  "phone": {
+   "tabs": 27,
+   "shown": 19,
+   "allErrors": [],
+   "console": 0,
+   "deep_links": 7,
+   "tab_errors": [],
+   "writes_blocked": 0,
+   "back": {
+    "hash": "#plant",
+    "pane": "pane-plant"
+   }
+  }
+ }
+}

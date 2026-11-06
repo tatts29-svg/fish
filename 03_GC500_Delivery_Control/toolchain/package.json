@@ -1,0 +1,12 @@
+{
+  "name": "gc500-toolchain",
+  "private": true,
+  "description": "Build, check, test and upload GC500 Delivery Control releases. See ../../AGENTS.md.",
+  "scripts": {
+    "sweep": "node harness/sweep.js",
+    "sweep:phone": "MOB=1 node harness/sweep.js"
+  },
+  "dependencies": {
+    "playwright": "^1.63.0"
+  }
+}

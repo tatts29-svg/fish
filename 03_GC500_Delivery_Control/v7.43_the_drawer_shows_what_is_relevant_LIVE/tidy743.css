@@ -1,0 +1,7 @@
+
+/* v7.43 - a sub-hired location says so first */
+.notice.subhirebanner{display:flex;flex-direction:column;gap:5px;border:2px solid var(--orange);background:var(--tint2);margin:0 0 10px}
+.notice.subhirebanner .subhirebig{font-weight:800;font-size:15px;letter-spacing:.04em;color:var(--orange)}
+.notice.subhirebanner .subhirewords{font-size:12.5px;line-height:1.45}
+.notice.subhirebanner .w{color:var(--mute);font-size:11.5px}
+.notice.subhirebanner .subhireacts{margin-top:2px}

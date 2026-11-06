@@ -1,0 +1,131 @@
+{
+  "author": "Andrew Fisher",
+  "pageLiveAt": "14 Oct 2026 03:54 AEST",
+  "pageSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+  "bytes": 15123821,
+  "machine": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "ad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654",
+    "candidateManifestSha256": "712e195b0207dc59690dab0978353091328d2a3b6d492e4019164a36e2c63587",
+    "changedFiles": {
+      "explorer/explorer.js": "5b71f3a8994f4dac72f2161970f68e77dab58b7e607a16e92b7d4d8db0da36e8",
+      "explorer/explorer-merge.js": "80d0066577308b29f5e66e2d63a8642a47637d1754e419ae11399c980346e384",
+      "explorer/index.html": "9c24098ca71a7f5f17383fc96bd8f4ccedeef4cb0520dbb70c759354df01d1af"
+    },
+    "otherFilesPreserved": 230,
+    "published": true,
+    "recordWrites": 0,
+    "publicAssetsExact": true
+  },
+  "publicChecks": {
+    "mapPhone": {
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "checks": 37,
+      "recordVersion": 5806,
+      "errors": [],
+      "pass": true
+    },
+    "mapDesktop": {
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "checks": 37,
+      "recordVersion": 5806,
+      "errors": [],
+      "pass": true
+    },
+    "photosPhone": {
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "checks": 17,
+      "recordVersion": 5806,
+      "errors": [],
+      "pass": true
+    },
+    "finance": {
+      "author": "Andrew Fisher",
+      "at": "2026-10-13T17:56:27.749Z",
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "nativeVersion": 5806,
+      "items": 185,
+      "arrivedItemGroups": 117,
+      "checks": [
+        {
+          "name": "No model mutation of shared record",
+          "pass": true
+        },
+        {
+          "name": "All arrived applicable automatic service quantities included",
+          "pass": true
+        },
+        {
+          "name": "Stairs remain manual",
+          "pass": true
+        },
+        {
+          "name": "Costs labour equals charged plan and tick total",
+          "pass": true
+        },
+        {
+          "name": "Labour slots have unique reference item charge state",
+          "pass": true
+        },
+        {
+          "name": "Costs actual and P&L actual agree",
+          "pass": true
+        },
+        {
+          "name": "Costs job and P&L forecast agree",
+          "pass": true
+        },
+        {
+          "name": "P&L model controls reconcile",
+          "pass": true
+        },
+        {
+          "name": "Branch financial controls reconcile",
+          "pass": true
+        },
+        {
+          "name": "P&L reconciliation controls pass",
+          "pass": true
+        },
+        {
+          "name": "Arrived package branch sum matches priced subtotal",
+          "pass": true
+        },
+        {
+          "name": "Transport actual and remaining reconcile once",
+          "pass": true
+        },
+        {
+          "name": "Transport contract plus arrived allowance equals Costs",
+          "pass": true
+        },
+        {
+          "name": "Transport invoice and revenue controls pass",
+          "pass": true
+        },
+        {
+          "name": "Generator actual plus remaining equals total",
+          "pass": true
+        },
+        {
+          "name": "Generator branch amounts tie once",
+          "pass": true
+        },
+        {
+          "name": "No browser errors or live writes",
+          "pass": true
+        }
+      ],
+      "modelErrors": [],
+      "browserErrors": [],
+      "liveWrites": 0
+    }
+  },
+  "nativeEricChange": "Stopped before write gate; full native record5806 unchanged. Performance fix required before retry.",
+  "panelChecks": {
+    "checks": 64,
+    "pass": true,
+    "browserErrors": 0,
+    "operationalWrites": 0
+  }
+}

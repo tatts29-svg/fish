@@ -1,0 +1,34 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, on the Coates forklifts on contract 9961976 (all at $0 on Baseplan (8)): asked whether a forklift was off-hired earlier; the branch's delivery dockets show 1247787 (Forklift Rough Terrain 2.5t, switchable 2WD/4WD) out 14 Sep (26058104), back in 18 Sep (26083950, line 25 Returned, term 17 Sep), AT009 (Forklift Rough Terrain 2.5t, no fleet number, line 34) out 17 Sep (26083924) to The Esplanade, and 1247787 out again 20 Oct to Macintosh Island Park (26142467, line 35). Our record had T0005 on site from 14 Sep with 1247787 throughout and no AT009. Andrew: \"Add the forklifts as you said. I will need to find out rates\". So AT009 is added as EQ0007 from 17 Sep on NVAC, and T0005 carries a note of 1247787's return and second trip; rates to come from Andrew.",
+  "ops": [
+    {
+      "op": "add_ref",
+      "ref": "EQ0007",
+      "disc": "Access & plant",
+      "name": "AT009 Forklift Rough Terrain 2.5t",
+      "type": "Forklift 2.5T RT",
+      "no": "",
+      "no_none": true,
+      "from": "2026-09-17",
+      "note": "AT009, no fleet number on the docket. Contract 9961976 line 34; delivery docket 26083924, out 17 Sep 2026 to The Esplanade, in place of 1247787 (back 18 Sep). Rate to come.",
+      "branch": "NVAC"
+    },
+    {
+      "op": "light",
+      "ref": "EQ0007",
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "why": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+    },
+    {
+      "op": "complete",
+      "ref": "EQ0007"
+    },
+    {
+      "op": "note_append",
+      "ref": "T0005",
+      "text": "1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come."
+    }
+  ]
+}

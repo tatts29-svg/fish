@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "base_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "candidate_sha256": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+  "candidate_bytes": 292090,
+  "exact_rebuild": true,
+  "wrong_base_refused": true,
+  "repeat_refused": true,
+  "passed": 3,
+  "failed": 0
+}

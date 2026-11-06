@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Pure collection-scope invariants. */
+'use strict';const assert=require('node:assert/strict'),D=require('./demob1017');let checks=0;
+const ck=(name,fn)=>{fn();checks++;};
+const canonical=[{key:'pending'},{key:'onsite'},{key:'cancel',_cancelled:true},{key:'relocation',relocation:true},{key:'rest',rest_of:'onsite'},{key:'moved',_movedTo:'new'},{key:'movedlocation',_locationMoved:{from:'old'}},{key:'off'}];
+ck('Only active canonical references schedule collection',()=>assert.deepEqual(D.eligible(canonical,k=>['off','moved'].includes(k)).map(a=>a.key),['pending','onsite','movedlocation']));
+ck('Current reference with updated location remains collectable',()=>assert.equal(D.eligible(canonical,k=>false).some(a=>a.key==='movedlocation'),true));
+ck('Eligibility does not mutate source',()=>assert.equal(canonical.length,8));
+const a={key:'source',name:'VMS × 8',item_types:['VMS']},rows=[{type:'VMS',n:8,unknown:false},{type:'FWF',n:6,unknown:false}];
+const result=D.units(a,rows,()=>7);
+ck('Reviewed move adjusts VMS collection scope',()=>assert.equal(result[0].n,7));
+ck('Mixed non-VMS units remain exactly unchanged',()=>assert.equal(result[1],rows[1]));
+ck('Historical received quantity remains intact',()=>assert.equal(rows[0].n,8));
+ck('Projection exposes original/current scope',()=>assert.deepEqual(result[0].movement1017,{receivedOrPlanned:8,currentScope:7}));
+ck('Replacement restoring count retains original row',()=>assert.equal(D.units(a,rows,()=>8)[0],rows[0]));
+ck('Partial receipts keep projected partial scope',()=>assert.equal(D.units(a,[{type:'VMS',n:4,unknown:false}],(_,__,n)=>n-1)[0].n,3));
+ck('Zero current units remain zero',()=>assert.equal(D.units(a,[{type:'VMS',n:1,unknown:false}],()=>0)[0].n,0));
+ck('Unknown quantities are not invented',()=>assert.deepEqual(D.units(a,[{type:'VMS',n:0,unknown:true}],()=>7),[{type:'VMS',n:0,unknown:true}]));
+ck('Invalid projection cannot replace recorded quantity',()=>assert.equal(D.units(a,rows,()=>NaN)[0],rows[0]));
+const fmt=a=>[...a.item_types,a.name].filter(Boolean).join(' · ');
+ck('Changed description no longer repeats original count',()=>assert.equal(D.description({a,units:[result[0]]},fmt),'VMS × 7'));
+ck('Meaningful location wording remains',()=>assert.equal(D.description({a:{...a,name:'VMS × 8 · Entrance A'},units:[result[0]]},fmt),'VMS × 7 · Entrance A'));
+ck('Unchanged descriptions retain original formatting',()=>assert.equal(D.description({a,units:rows},fmt),fmt(a)));
+console.log(JSON.stringify({checks,passed:checks}));

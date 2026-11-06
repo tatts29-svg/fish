@@ -1,0 +1,49 @@
+{
+  "author": "Andrew Fisher",
+  "day": "2026-10-14",
+  "references": {
+    "WC57": 2,
+    "WC53": 3,
+    "WC51": 6,
+    "WC48": 4,
+    "WC49": 3,
+    "WC54": 6
+  },
+  "quantity": 24,
+  "owner": "Event Portables",
+  "before_version": 5874,
+  "after_version": 5987,
+  "acknowledged_writes": 113,
+  "public_checks": 39,
+  "independent_practice_checks": 200,
+  "partial_reference": "WC51 accessible toilet remains unconfirmed",
+  "other_records_unchanged": true,
+  "no_rate_changes": true,
+  "no_application_release": true,
+  "supplier_summary": {
+    "onSite": 144,
+    "onsiteUnknown": 0,
+    "received": 144,
+    "identified": 138,
+    "quantityOnly": 6,
+    "remaining": 52,
+    "references": 29,
+    "spares": 1,
+    "fwf": {
+      "confirmed": 194,
+      "received": 136,
+      "onSite": 136,
+      "pending": 52,
+      "unallocated": 6,
+      "over": 0
+    }
+  },
+  "source_sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "private_evidence": "/workspace/private-portables14Oct2026/record_14Oct2026_event-portables_2026-10-13T23-40-06-424Z",
+  "sha256": {
+    "plan.json": "9fec803d28ea8e982a44c7695697030233d9acb91a5777afdb10e2a3428ef996",
+    "before-public.json": "b728b3e82142c3cb471868527837bed6c397f6001b3566329879c0763d933ded",
+    "after-public.json": "827a6b073b6ba4572caa014bcf4833290179084c6dcbc745ca45a1b082192524",
+    "fresh-public-verification.json": "17c1824385cf445347661953b57911d52182181802defcd633a8ef6960f26011"
+  }
+}

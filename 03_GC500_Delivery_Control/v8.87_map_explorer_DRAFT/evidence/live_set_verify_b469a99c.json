@@ -1,0 +1,2088 @@
+{
+ "set": "b469a99c43a30a6d165ce126c4983d0c92204c8f548f0636a008f43de60e95d8",
+ "files": 231,
+ "etag_ok": 231,
+ "len_ok": 231,
+ "errors": 0,
+ "rows": [
+  {
+   "path": "app.js",
+   "etag": "bac91710fb44caa06ed79e262b2f40c9",
+   "etag_ok": true,
+   "len": "37425",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/belt-run-fast.mp3",
+   "etag": "824d3673303d392ff0a44c4066199278",
+   "etag_ok": true,
+   "len": "146029",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/belt-run.mp3",
+   "etag": "e54767b52d04f6423289f3e84b428636",
+   "etag_ok": true,
+   "len": "146029",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/butterflies-close.mp3",
+   "etag": "eb1ca727a756e2c7d2d1715d8998319a",
+   "etag_ok": true,
+   "len": "29000",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/butterflies-open.mp3",
+   "etag": "b8f3460ebc626ae23d49362f860e9571",
+   "etag_ok": true,
+   "len": "29000",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/chain-run.mp3",
+   "etag": "91486cbe0bcbb9b0327b70b3e5bfd924",
+   "etag_ok": true,
+   "len": "146029",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/clutch-engage.mp3",
+   "etag": "822ac3496e00cdedc69958edd5006f46",
+   "etag_ok": true,
+   "len": "34016",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/clutch-release.mp3",
+   "etag": "38a29baf40219c1eff5ab766a8037a34",
+   "etag_ok": true,
+   "len": "34016",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/coates-fm.mp3",
+   "etag": "aae3c41e1bb4cd3435558c706183e4f2",
+   "etag_ok": true,
+   "len": "1518803",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/cog-deploy.mp3",
+   "etag": "541181cc6d957889ae75c7674d564b3c",
+   "etag_ok": true,
+   "len": "49898",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/cog-retract.mp3",
+   "etag": "0d544f688af6f7f8434a41b030e4cdd3",
+   "etag_ok": true,
+   "len": "49898",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/dog-engage.mp3",
+   "etag": "cf0ab246612cd26cf3dde51d9d2987d1",
+   "etag_ok": true,
+   "len": "25657",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/dyno-rollers.mp3",
+   "etag": "948837f0dc9092016a3b0528e0c50b62",
+   "etag_ok": true,
+   "len": "177794",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/fans-run.mp3",
+   "etag": "b0af7b93d956277f7e04ec1d51bd61eb",
+   "etag_ok": true,
+   "len": "113846",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/layers-reassemble.mp3",
+   "etag": "da83dab33854e562eae3ba17810f3dcc",
+   "etag_ok": true,
+   "len": "65781",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/layers-separate.mp3",
+   "etag": "c814e7334f425ba4bc70c70040ac2c23",
+   "etag_ok": true,
+   "len": "65781",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/machine-run.mp3",
+   "etag": "4852d2e622c41bd139cfa7b6279ec64a",
+   "etag_ok": true,
+   "len": "177794",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/machine-start.mp3",
+   "etag": "b475973f36eacdf962bb7bae0521a6d0",
+   "etag_ok": true,
+   "len": "65781",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/machine-stop.mp3",
+   "etag": "f9441b33f228a89298b2e1f56e3ae795",
+   "etag_ok": true,
+   "len": "82081",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/panels-off.mp3",
+   "etag": "e9da1140cb2a18935de35b8961f3449a",
+   "etag_ok": true,
+   "len": "57422",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/panels-on.mp3",
+   "etag": "11e3da2c6b32b117c9cc2a660e4d5cfd",
+   "etag_ok": true,
+   "len": "57422",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/part-reconnect.mp3",
+   "etag": "0da34d6c2ed2a3be4d48beaf88d78ab8",
+   "etag_ok": true,
+   "len": "41539",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/part-separate.mp3",
+   "etag": "4e2deee2499ed84dbc62262715038eaa",
+   "etag_ok": true,
+   "len": "41539",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/starter-pinion.mp3",
+   "etag": "07b0d304ac4f544eb464329fc8235683",
+   "etag_ok": true,
+   "len": "41539",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/tour-step.mp3",
+   "etag": "19940d592c9efe4beb253b245d3b33b0",
+   "etag_ok": true,
+   "len": "41539",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/ui-confirm.mp3",
+   "etag": "04c1b65afa9683200bc41eb6871a58f8",
+   "etag_ok": true,
+   "len": "27329",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/ui-denied.mp3",
+   "etag": "6b08e1c3d47fb13072aae4fd13a18c55",
+   "etag_ok": true,
+   "len": "27329",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/ui-select.mp3",
+   "etag": "bcd464cb398a9a96259bfde42514ee9a",
+   "etag_ok": true,
+   "len": "25657",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-blip.mp3",
+   "etag": "b3097d4ea1226f4afc021996c0423393",
+   "etag_ok": true,
+   "len": "49898",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-cruise.mp3",
+   "etag": "84446bb682953c8f3b1d327e44b052bb",
+   "etag_ok": true,
+   "len": "177794",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-idle.mp3",
+   "etag": "5c875d1d0d5aee0adc8bc7bdc85a9023",
+   "etag_ok": true,
+   "len": "177794",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-overrun.mp3",
+   "etag": "cb14ab0167c04ed376c6bdf888d5e2a9",
+   "etag_ok": true,
+   "len": "65781",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-roar.mp3",
+   "etag": "9f1d599d8e419cf991740f652a9bf49d",
+   "etag_ok": true,
+   "len": "177794",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-start.mp3",
+   "etag": "447e7845e301ed0463357967feb27cdc",
+   "etag_ok": true,
+   "len": "82081",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/v8-stop.mp3",
+   "etag": "ce78a51704c5cf13e5d1ed5562e775ba",
+   "etag_ok": true,
+   "len": "82081",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/audio/workshop-tone.mp3",
+   "etag": "cd3c9a9edeb16bcba24afe7365a02a75",
+   "etag_ok": true,
+   "len": "337872",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/coates-logo.png",
+   "etag": "ce98b187e38811a30b6d91b869ac943a",
+   "etag_ok": true,
+   "len": "3155",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/cog-reference.png",
+   "etag": "601b19f8be7bd63c70a0442e0570f294",
+   "etag_ok": true,
+   "len": "337444",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/favicon.svg",
+   "etag": "e611562f055c9615174fadb310bbe1f4",
+   "etag_ok": true,
+   "len": "238",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/gc500/cutaway-preview.png",
+   "etag": "b7640c26a82192c871ede53269e2bb80",
+   "etag_ok": true,
+   "len": "223801",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/gc500/original-car.js",
+   "etag": "4f07fda08a07b55aeb60b9798d5a0f01",
+   "etag_ok": true,
+   "len": "224298",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/gc500/provenance.json",
+   "etag": "b7a3d4f4ed8070c9c1bf2f09ebce5da1",
+   "etag_ok": true,
+   "len": "488",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/artwork-provenance.json",
+   "etag": "3eee7aae7b460331e04fe5fba80effa6",
+   "etag_ok": true,
+   "len": "416",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/coates-23.glb",
+   "etag": "9a3db2bb54d7de71de4712809bd1e3c1",
+   "etag_ok": true,
+   "len": "6474396",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/coates-23.glb.gz.bin",
+   "etag": "c4ab4906c5bd552a0914beaaa7b72cc2",
+   "etag_ok": true,
+   "len": "1818975",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/cog-outline.json",
+   "etag": "43b76872efc77aa151d0859e8e744314",
+   "etag_ok": true,
+   "len": "3164",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/studio.hdr",
+   "etag": "69c7eb05177872db1c0e40a0c4f32540",
+   "etag_ok": true,
+   "len": "2115634",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "assets/machine/studio.hdr.gz.bin",
+   "etag": "8a1ff2ccacb4a7bae9fa37c0543501d6",
+   "etag_ok": true,
+   "len": "58773",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-app.js",
+   "etag": "d2964c3138eb1b2429a542cfb598adb5",
+   "etag_ok": true,
+   "len": "150573",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-body.js",
+   "etag": "f06454e5246dfbb0b96cf9cdb8e186ba",
+   "etag_ok": true,
+   "len": "184",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-cockpit.js",
+   "etag": "bd0a198cb5a21100166ede6803d5443f",
+   "etag_ok": true,
+   "len": "88819",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-driver.js",
+   "etag": "3f0cb7e314377ffbd506672610a4b0c8",
+   "etag_ok": true,
+   "len": "25308",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-fit.js",
+   "etag": "7a9348f5c3333c39aebf02a87a4fcfea",
+   "etag_ok": true,
+   "len": "6207",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-gc500.js",
+   "etag": "e61e3d002b4174f230e8483c9bdb43b4",
+   "etag_ok": true,
+   "len": "23111",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-motion.js",
+   "etag": "4f9e53fbeaddac43e84af707a5340d35",
+   "etag_ok": true,
+   "len": "18995",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-powertrain.js",
+   "etag": "fa842cc90f10974464210b913dabeb19",
+   "etag_ok": true,
+   "len": "47148",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-references.js",
+   "etag": "f728b3bc8e886e762220e2675d41ebcc",
+   "etag_ok": true,
+   "len": "5457",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car-scene.js",
+   "etag": "8fbaed2ee75320d49e2844198fbf9e51",
+   "etag_ok": true,
+   "len": "5821",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "car.css",
+   "etag": "ac558e79e7182bb88731a864d83c6e6d",
+   "etag_ok": true,
+   "len": "28212",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "cockpit-surfaces.js",
+   "etag": "9d09692404126eab990b402ae2e85949",
+   "etag_ok": true,
+   "len": "11616",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "cog-meanings.js",
+   "etag": "f968bad28b8c08eb243fda20f1c1166e",
+   "etag_ok": true,
+   "len": "8638",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "content.js",
+   "etag": "0ba343ffbb2cb04e9ac89e7ca05071cc",
+   "etag_ok": true,
+   "len": "4519",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "crew.js",
+   "etag": "fc0a9314450e9eabf145b6d4f1b3682c",
+   "etag_ok": true,
+   "len": "152822",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "drive.js",
+   "etag": "1877d3cf85c9df5a2a9be737ae657f02",
+   "etag_ok": true,
+   "len": "6964",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "engine-accessories.js",
+   "etag": "14654db2ac254837c0ae5b8eacd87b35",
+   "etag_ok": true,
+   "len": "11065",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "engine-kinematics.js",
+   "etag": "bf166a0f9900bd906e4ed78e652f6100",
+   "etag_ok": true,
+   "len": "8409",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "engine-systems.js",
+   "etag": "de2ce3e19ff6b1292ff26aed37fee6c2",
+   "etag_ok": true,
+   "len": "10577",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "exhaust-fx.js",
+   "etag": "583cdbbf20610b1e6828a7f6df4a1ddb",
+   "etag_ok": true,
+   "len": "6029",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/README.md",
+   "etag": "e0fd5887bda26fac5a5048db64545d62",
+   "etag_ok": true,
+   "len": "12388",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/classification.json",
+   "etag": "a7bfedb41a891148ca5360e7fc8d08a0",
+   "etag_ok": true,
+   "len": "182604",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/drawing-scene.bin",
+   "etag": "e588eba1de24bc3cb2c46403c39101c3",
+   "etag_ok": true,
+   "len": "13589698",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/georeferencing.json",
+   "etag": "bb7509af2a9281706dd1b6aacc570bf9",
+   "etag_ok": true,
+   "len": "2521",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/google_logo_white.png",
+   "etag": "fc9a07956f0e725418bd3bb1df522099",
+   "etag_ok": true,
+   "len": "3399",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/original-preview.webp",
+   "etag": "59aed154083e16db2975ecde2322a007",
+   "etag_ok": true,
+   "len": "2447122",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/plan_items.json",
+   "etag": "ea543fcf06403f1c8b44b4ea122a7442",
+   "etag_ok": true,
+   "len": "42109",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/register.json",
+   "etag": "dcb76c5231657de348f654f25a735aa5",
+   "etag_ok": true,
+   "len": "37329",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/sheet-overview.webp",
+   "etag": "b7f82bb5ad82e27ba0e3b274016ffbe6",
+   "etag_ok": true,
+   "len": "178670",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/source-labels.json",
+   "etag": "788ced50bc2c4acaa626e6d932f4a698",
+   "etag_ok": true,
+   "len": "41863",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/manifest.json",
+   "etag": "7489ea2438e2d551004f69eddcb66853",
+   "etag_ok": true,
+   "len": "13988",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x102.webp",
+   "etag": "46e64ebaff048eebba15ea62a4d94cd0",
+   "etag_ok": true,
+   "len": "1626",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x108.webp",
+   "etag": "7b819bad42288c0938020378cf0acf10",
+   "etag_ok": true,
+   "len": "1766",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x111.webp",
+   "etag": "9db3d3ece614114d7600ab5e6986e926",
+   "etag_ok": true,
+   "len": "1792",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x114.webp",
+   "etag": "dfe503dc9c32eb56b4aa950b632106eb",
+   "etag_ok": true,
+   "len": "932",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x117.webp",
+   "etag": "29b3ec2251743534ced94dc4f9eb1e8e",
+   "etag_ok": true,
+   "len": "3230",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x12.webp",
+   "etag": "1482c2cc1867f85f7e8adeabde9ce01f",
+   "etag_ok": true,
+   "len": "2886",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x123.webp",
+   "etag": "cfd47b2391f1789fc69d58a4691b33b2",
+   "etag_ok": true,
+   "len": "2512",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x126.webp",
+   "etag": "8477c0ff459bba278521fa94647825b2",
+   "etag_ok": true,
+   "len": "2850",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x129.webp",
+   "etag": "0e2186ef2c037cb677fd091abc41192d",
+   "etag_ok": true,
+   "len": "7302",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x132.webp",
+   "etag": "d37baebced5e5d901dd99d8a3587ce2e",
+   "etag_ok": true,
+   "len": "2074",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x135.webp",
+   "etag": "db2a0f33b26d32585b8c7825629b4ce8",
+   "etag_ok": true,
+   "len": "1422",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x138.webp",
+   "etag": "b8e993d4b464475b80119b4e782ae72d",
+   "etag_ok": true,
+   "len": "2482",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x141.webp",
+   "etag": "b9c4ebe2cad7c6559eabbc3f20e3124b",
+   "etag_ok": true,
+   "len": "1446",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x144.webp",
+   "etag": "5a0ce095fd2eb1ac7c26da8ad6680435",
+   "etag_ok": true,
+   "len": "2218",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x15.webp",
+   "etag": "1f3e71bfe7adc04ab69b242bfff80412",
+   "etag_ok": true,
+   "len": "3642",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x150.webp",
+   "etag": "8747dd7400c9cfbe956f5971f7f76589",
+   "etag_ok": true,
+   "len": "12728",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x159.webp",
+   "etag": "57551c83b10b58f619f414275953890c",
+   "etag_ok": true,
+   "len": "11954",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x165.webp",
+   "etag": "9148e42fd38db8343c99a5c894e6ec12",
+   "etag_ok": true,
+   "len": "1874",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x168.webp",
+   "etag": "328287f06b8786755e7c9231edf45fda",
+   "etag_ok": true,
+   "len": "1978",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1728.webp",
+   "etag": "c44ae0adfeed5d5d6b6d76d120044b02",
+   "etag_ok": true,
+   "len": "129844",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1731.webp",
+   "etag": "c680cfaddaa483b6c1304574f4dfb428",
+   "etag_ok": true,
+   "len": "1314",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1743.webp",
+   "etag": "b6c9d6efeeb4ca4535d7b82a2af2d1c9",
+   "etag_ok": true,
+   "len": "2472",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1746.webp",
+   "etag": "b0626feaa6c2ebfd7e0189253003eea9",
+   "etag_ok": true,
+   "len": "2506",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1749.webp",
+   "etag": "c6115030ae2c057ab21da70ce0088ec2",
+   "etag_ok": true,
+   "len": "1246",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1752.webp",
+   "etag": "ba14756dd16c8567806a4bbe92443d84",
+   "etag_ok": true,
+   "len": "1434",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1755.webp",
+   "etag": "db5f5bc749b670f28b08d82b94ab4097",
+   "etag_ok": true,
+   "len": "2350",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1758.webp",
+   "etag": "97f442bd4fc35d914e0695c23ffa8c06",
+   "etag_ok": true,
+   "len": "1692",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1764.webp",
+   "etag": "5715836dc44c3db9cc5f126007b80bcd",
+   "etag_ok": true,
+   "len": "4910",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1767.webp",
+   "etag": "bb9f65630095b39753d17c548991c7c7",
+   "etag_ok": true,
+   "len": "2034",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1773.webp",
+   "etag": "923cc02ed39140a6fee557a6a98a1684",
+   "etag_ok": true,
+   "len": "1666",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1779.webp",
+   "etag": "1314a2cd1724ebc5f0cd4c4b5162fd84",
+   "etag_ok": true,
+   "len": "3982",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1782.webp",
+   "etag": "a978c73e66656e4b8e66e1eb968131cc",
+   "etag_ok": true,
+   "len": "1872",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1785.webp",
+   "etag": "0193c0adeecea9632dd6beb8edb29ad3",
+   "etag_ok": true,
+   "len": "1498",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x18.webp",
+   "etag": "8faf083083df976b287ff101c747ab17",
+   "etag_ok": true,
+   "len": "2708",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x180.webp",
+   "etag": "19fa177db98ecf3a773e4a293b47da44",
+   "etag_ok": true,
+   "len": "8020",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x183.webp",
+   "etag": "64e753ad3bcf5f7ac0cbb964bb9f27bd",
+   "etag_ok": true,
+   "len": "32812",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x186.webp",
+   "etag": "a1aedd30ede7de416f33056dd951235a",
+   "etag_ok": true,
+   "len": "3142",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x189.webp",
+   "etag": "0fcc515abcaf5afdfb0a1f4fda0790f8",
+   "etag_ok": true,
+   "len": "3232",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1919.webp",
+   "etag": "8fd9daf5b782426cb955cae1682d6170",
+   "etag_ok": true,
+   "len": "9818",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x1921.webp",
+   "etag": "293e3eee131e37062ddd46c920b0f0c9",
+   "etag_ok": true,
+   "len": "8574",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x21.webp",
+   "etag": "328ab9f51cbd26be954e4ae11259b8d5",
+   "etag_ok": true,
+   "len": "2490",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x24.webp",
+   "etag": "72d0eb05ad80f12ca1a85cf0910a345f",
+   "etag_ok": true,
+   "len": "2506",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x27.webp",
+   "etag": "eb65c45cf4682406242199a22059cc8c",
+   "etag_ok": true,
+   "len": "1400",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x3.webp",
+   "etag": "4786e5df6a241a0d7e29c80fb839bc63",
+   "etag_ok": true,
+   "len": "2226",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x30.webp",
+   "etag": "ea141c37b9208bdfe1f347217089c75e",
+   "etag_ok": true,
+   "len": "1750",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x33.webp",
+   "etag": "965b003477e59afb5d36700423c12186",
+   "etag_ok": true,
+   "len": "3104",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x36.webp",
+   "etag": "61c74ab6a450c8aa536def60051a4583",
+   "etag_ok": true,
+   "len": "2612",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x39.webp",
+   "etag": "1203c27bd0c4281b1a409a2742f0cf9a",
+   "etag_ok": true,
+   "len": "900",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x42.webp",
+   "etag": "ffbba11773ece214a6656838a6839d53",
+   "etag_ok": true,
+   "len": "900",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x45.webp",
+   "etag": "c6daa09a9d7323a603f07a4179c46c2b",
+   "etag_ok": true,
+   "len": "1170",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x48.webp",
+   "etag": "0c276988cca39e12ca37397064fd3ed9",
+   "etag_ok": true,
+   "len": "1722",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x51.webp",
+   "etag": "994a169e96d7d3f2aa55feffeace6e8e",
+   "etag_ok": true,
+   "len": "3382",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x54.webp",
+   "etag": "450473a5059b115027f9acdd2f455ffa",
+   "etag_ok": true,
+   "len": "1678",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x57.webp",
+   "etag": "5f8f0d2d77485a04d19b2cfac7403836",
+   "etag_ok": true,
+   "len": "1874",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x6.webp",
+   "etag": "9efcd13ea0482fd7616666b64ba50eba",
+   "etag_ok": true,
+   "len": "491012",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x66.webp",
+   "etag": "6e65f2caaf651888e3ed75b967511311",
+   "etag_ok": true,
+   "len": "1384",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x69.webp",
+   "etag": "74f6317541af5f7d35ffbe16dbaad524",
+   "etag_ok": true,
+   "len": "1516",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x72.webp",
+   "etag": "f7f11f6c6469dd820c70a38b27299fa5",
+   "etag_ok": true,
+   "len": "1218",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x84.webp",
+   "etag": "7063b9cb364d3d3fdc6c51a9359a72bc",
+   "etag_ok": true,
+   "len": "2418",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x87.webp",
+   "etag": "8412a5d789440996db16e6139799f41c",
+   "etag_ok": true,
+   "len": "2118",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x90.webp",
+   "etag": "b5fbb42907271f5db7fa19f6c113a081",
+   "etag_ok": true,
+   "len": "2468",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x93.webp",
+   "etag": "2051359917ec702d0668ea0faae51d14",
+   "etag_ok": true,
+   "len": "9676",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x96.webp",
+   "etag": "60bb2a4566e7e2b3d552f412f0f98c26",
+   "etag_ok": true,
+   "len": "1172",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/underlay/x99.webp",
+   "etag": "6f485f3f310d2082afa69edae89a9099",
+   "etag_ok": true,
+   "len": "2842",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L-0.25.bin",
+   "etag": "b1db81c9e02d94fe45e8c5ceedd29503",
+   "etag_ok": true,
+   "len": "1345106",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L-0.5.bin",
+   "etag": "2c86623d2dd965b02e0bfe96d76c2c51",
+   "etag_ok": true,
+   "len": "1051544",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L-0.75.bin",
+   "etag": "826e92545c12b988a19715de4bf2da3d",
+   "etag_ok": true,
+   "len": "805080",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L0.25.bin",
+   "etag": "2f97ab7d136ff103b4cf605ba58b7d4a",
+   "etag_ok": true,
+   "len": "2109660",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L0.5.bin",
+   "etag": "e960ed6de542c3c5826e7872d13ccaf7",
+   "etag_ok": true,
+   "len": "2710502",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L0.75.bin",
+   "etag": "6b828a3cc8f3572bdfb86979dc9cc5f6",
+   "etag_ok": true,
+   "len": "3368796",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L0.bin",
+   "etag": "87d3729225b5bfe24958c6b96fec734b",
+   "etag_ok": true,
+   "len": "1724368",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L1.25.bin",
+   "etag": "57a6b61b683d804fa7ee7cd354749ec4",
+   "etag_ok": true,
+   "len": "5084406",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L1.5.bin",
+   "etag": "87d49d9c32978abca18f24db6ca5540d",
+   "etag_ok": true,
+   "len": "6247182",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L1.75.bin",
+   "etag": "dfd179252b9af934f079541bac974313",
+   "etag_ok": true,
+   "len": "7647410",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L1.bin",
+   "etag": "4d2db26368896e7b8c01334b5250c491",
+   "etag_ok": true,
+   "len": "4150756",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L2.25.bin",
+   "etag": "897d092d49962a1bd355c534ef3b0fae",
+   "etag_ok": true,
+   "len": "11408322",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L2.5.bin",
+   "etag": "7064056f5d1fa08f62adb2de7e37e33a",
+   "etag_ok": true,
+   "len": "13867210",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L2.75.bin",
+   "etag": "33c139040302c3c862715165d63ababc",
+   "etag_ok": true,
+   "len": "16641112",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L2.bin",
+   "etag": "663ce37b1e450fec4805b0d5a92cd15a",
+   "etag_ok": true,
+   "len": "9097830",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L3.25.bin",
+   "etag": "bda30958bb35543c5f3f96dc6acee3c8",
+   "etag_ok": true,
+   "len": "23951428",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/L3.bin",
+   "etag": "3fb0b1ecd38604681654e428f284bc8a",
+   "etag_ok": true,
+   "len": "19953202",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/Llow.bin",
+   "etag": "2669c2ffc0a33376b89b0174f4545403",
+   "etag_ok": true,
+   "len": "2752294",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/assets/vt/manifest.json",
+   "etag": "307fbeefc09ac817d1cfd04e5c2a98c9",
+   "etag_ok": true,
+   "len": "112010",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/explorer-fix864.css",
+   "etag": "c37afd30491161c7d2d50e792b8d96c0",
+   "etag_ok": true,
+   "len": "1793",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/explorer-fix864.js",
+   "etag": "2b0cfadb0b2b68b9516408e1458f22de",
+   "etag_ok": true,
+   "len": "7167",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/explorer-merge.js",
+   "etag": "261238402f3c4bf3dc94a661b3dc8378",
+   "etag_ok": true,
+   "len": "25146",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/explorer.js",
+   "etag": "65749fbe601b1ae6cd2e99fc2c317e6c",
+   "etag_ok": true,
+   "len": "134827",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/fencing-map-core.js",
+   "etag": "0c26c3b7777f99573326123e264d4fb4",
+   "etag_ok": true,
+   "len": "10357",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/fencing-map-explorer.js",
+   "etag": "31418b528009e4ec5e8eb23884f27fcf",
+   "etag_ok": true,
+   "len": "46100",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/fencing-map.css",
+   "etag": "a4f3e8688702c8dd80fc9522d039aab0",
+   "etag_ok": true,
+   "len": "6118",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/index.html",
+   "etag": "f75f8f4ff9b11cc7af0d373dc0484cdf",
+   "etag_ok": true,
+   "len": "27899",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/classification.json",
+   "etag": "a7bfedb41a891148ca5360e7fc8d08a0",
+   "etag_ok": true,
+   "len": "182604",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/content_retention_and_alignment.json",
+   "etag": "f283d763de87851b2790e470d09b71b7",
+   "etag_ok": true,
+   "len": "1764",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/crosscheck_dashboard_georef.json",
+   "etag": "e73357849e8f6a8a411144e870d45478",
+   "etag_ok": true,
+   "len": "782",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/georef_inset.json",
+   "etag": "47ac7a1afbbbedf9b0374c3383ec963f",
+   "etag_ok": true,
+   "len": "1515",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/georef_main.json",
+   "etag": "873ffdcb14601aea4e28596b2e023b0c",
+   "etag_ok": true,
+   "len": "25165",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/georef_main_z16.json",
+   "etag": "afa1059f730df1eb9e777679f941ad6b",
+   "etag_ok": true,
+   "len": "2016",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/match_main.jpg",
+   "etag": "834234ce421db11f8d5c18205c51a651",
+   "etag_ok": true,
+   "len": "1062891",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/proof_beachfront.jpg",
+   "etag": "7473a435ea78fd012520dc6bab805f46",
+   "etag_ok": true,
+   "len": "326402",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/proof_pit_island.jpg",
+   "etag": "2c0047268fb7ee2e2304668a46f477bc",
+   "etag_ok": true,
+   "len": "357367",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/review/proof_south_east.jpg",
+   "etag": "cfad3096d07b7428193dca2b2fb7eaf2",
+   "etag_ok": true,
+   "len": "334398",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "explorer/scene-worker.js",
+   "etag": "ec58b3bcb4f3b8594f3ab1304cf4d564",
+   "etag_ok": true,
+   "len": "7210",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "front-drive.js",
+   "etag": "c425194b4f45b9fac4b1fbcd864a5caa",
+   "etag_ok": true,
+   "len": "5349",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "fx-quality.js",
+   "etag": "3bde119ed7da19feaf01b8f7778b9836",
+   "etag_ok": true,
+   "len": "18834",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "gear-math.js",
+   "etag": "b8933f5e53ace025ac08ae58d07f01a9",
+   "etag_ok": true,
+   "len": "1349",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "index.html",
+   "etag": "fb07e7b09dd5574f3869f5e35ac61f22",
+   "etag_ok": true,
+   "len": "11468",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mech-brakes.js",
+   "etag": "e98ed2ee1c48e4306f5b1d1e5537803a",
+   "etag_ok": true,
+   "len": "18254",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mech-driveline.js",
+   "etag": "5f8361b93380a7b6309eeca8580349c1",
+   "etag_ok": true,
+   "len": "13295",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mech-oil.js",
+   "etag": "6ed2710b80e94615556517b98d951a31",
+   "etag_ok": true,
+   "len": "4013",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mech-register.js",
+   "etag": "3ca9272996b77f3fa6f6924da36dda40",
+   "etag_ok": true,
+   "len": "8085",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mechanics.js",
+   "etag": "959b2216623796f8f1a7d60031e39cae",
+   "etag_ok": true,
+   "len": "5688",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "mechanism.html",
+   "etag": "698f48a8695c03be7a00b74f9d9708b3",
+   "etag_ok": true,
+   "len": "8531",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "model.js",
+   "etag": "86725d2606b9a15e0f5d30682b068e7e",
+   "etag_ok": true,
+   "len": "9843",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "part-connections.js",
+   "etag": "63dc3e5a3d4118f9557e96e943c0544a",
+   "etag_ok": true,
+   "len": "12572",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "parts-register.csv",
+   "etag": "eb380769caad0909cad1c96d1beac274",
+   "etag_ok": true,
+   "len": "44176",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "parts-register.js",
+   "etag": "5aa0aa9a99a18275c155a73908fb4152",
+   "etag_ok": true,
+   "len": "2926",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "parts.js",
+   "etag": "c6a57131c5968037834f0ac381b2f2ca",
+   "etag_ok": true,
+   "len": "28883",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "people-atlas.js",
+   "etag": "ca348d901d0a1deb36454617f347c232",
+   "etag_ok": true,
+   "len": "14528",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "people-figure.js",
+   "etag": "16fab5c0bb809edb77e30280d4a19212",
+   "etag_ok": true,
+   "len": "24068",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "pit-garage.js",
+   "etag": "e543b48a02c68ab5955c652c96fd8186",
+   "etag_ok": true,
+   "len": "103331",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "pit-machinery.js",
+   "etag": "43a93c2eab9aa04e3595c70433f86fe0",
+   "etag_ok": true,
+   "len": "37380",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "poc3d/index.html",
+   "etag": "c463bf4afaa37c28a2b78e83e1c7461e",
+   "etag_ok": true,
+   "len": "45822",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "poc3d/units3d.json",
+   "etag": "0dcff3e6303bc628b57f7def8bb488e4",
+   "etag_ok": true,
+   "len": "33107",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "poses.js",
+   "etag": "a8a6b42e872c334490a100bb83719d12",
+   "etag_ok": true,
+   "len": "1270",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "service-parts.js",
+   "etag": "90c2ddbb785c4761add2dda6f73cf77c",
+   "etag_ok": true,
+   "len": "16144",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "style.css",
+   "etag": "b01c5c0ce0ac04929267b15e5f8b625b",
+   "etag_ok": true,
+   "len": "21985",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "timing-drive.js",
+   "etag": "857e720ae0d365d6ddbde8c6d4f1abaa",
+   "etag_ok": true,
+   "len": "7191",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "v8-audio.js",
+   "etag": "a2210e58068faaf2355bf1492b23a08e",
+   "etag_ok": true,
+   "len": "37810",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/MESHOPTIMIZER-LICENSE.txt",
+   "etag": "f03037ca7bad1e3eb7f4a63fa6084a8b",
+   "etag_ok": true,
+   "len": "1079",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/OrbitControls.js",
+   "etag": "80efaadea4f8a636a65fb0bd08bfef62",
+   "etag_ok": true,
+   "len": "32134",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/RoomEnvironment.js",
+   "etag": "85869bdd22f7cf0b22e68dcefe6cb710",
+   "etag_ok": true,
+   "len": "3606",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/THREE-LICENSE.txt",
+   "etag": "4c40a1ef62450b857c3b2aaf29493630",
+   "etag_ok": true,
+   "len": "1081",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/math/SimplexNoise.js",
+   "etag": "9b8d541b77b0ddc79afaa6a1de894145",
+   "etag_ok": true,
+   "len": "14351",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/objects/Reflector.js",
+   "etag": "42067cd52f091e8f6d059c9e5a28310d",
+   "etag_ok": true,
+   "len": "7059",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/EffectComposer.js",
+   "etag": "d234e578618fa816955ebdc059c049c5",
+   "etag_ok": true,
+   "len": "4651",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/GTAOPass.js",
+   "etag": "33e0c4074eff4f2cd6116fef1df4ae90",
+   "etag_ok": true,
+   "len": "16645",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/MaskPass.js",
+   "etag": "328cf7db0da5d9be83ffe39d54b01d5a",
+   "etag_ok": true,
+   "len": "2231",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/OutputPass.js",
+   "etag": "32f879d2179087676631c799857a8855",
+   "etag_ok": true,
+   "len": "2524",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/Pass.js",
+   "etag": "b3c6128340eaa37e40a6a2f1b738e894",
+   "etag_ok": true,
+   "len": "1706",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/RenderPass.js",
+   "etag": "6c9b8a539ea16e898f65e4760f14937e",
+   "etag_ok": true,
+   "len": "1941",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/SSAOPass.js",
+   "etag": "e7be94aeecfb6af31e0d1227bb1b0a8c",
+   "etag_ok": true,
+   "len": "11116",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/postprocessing/ShaderPass.js",
+   "etag": "3b28a1ee27e0eb96c0eab137a1f442cc",
+   "etag_ok": true,
+   "len": "1576",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/BlendShader.js",
+   "etag": "6cf2d069f5c28d33b30e99487797d5c1",
+   "etag_ok": true,
+   "len": "754",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/CopyShader.js",
+   "etag": "4e3346db194db56a596cd074e9bdb39f",
+   "etag_ok": true,
+   "len": "571",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/GTAOShader.js",
+   "etag": "e1f5dd89bca4ee679a4aca50c3ef3513",
+   "etag_ok": true,
+   "len": "12990",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/OutputShader.js",
+   "etag": "4944cecd49c0d4d1520a4d927bde8a59",
+   "etag_ok": true,
+   "len": "1490",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/PoissonDenoiseShader.js",
+   "etag": "3dab419b23529f8fd59e2713458502f9",
+   "etag_ok": true,
+   "len": "6614",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/shaders/SSAOShader.js",
+   "etag": "bd5cda34d6b52941c1121b7794766484",
+   "etag_ok": true,
+   "len": "6478",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/addons/utils/BufferGeometryUtils.js",
+   "etag": "31afd27ae8035ab828d67fe0b136c552",
+   "etag_ok": true,
+   "len": "31784",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/meshopt_decoder.module.js",
+   "etag": "10b313edaa0e322b0c1b46443f6c8b18",
+   "etag_ok": true,
+   "len": "29019",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "vendor/three.module.js",
+   "etag": "ce1fa418de16a19495a9f72495580e30",
+   "etag_ok": true,
+   "len": "1314681",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  },
+  {
+   "path": "view-fx.js",
+   "etag": "39c6bd70fbf478a977a5cd849a18ac69",
+   "etag_ok": true,
+   "len": "13784",
+   "len_ok": true,
+   "enc": null,
+   "status": 200
+  }
+ ]
+}

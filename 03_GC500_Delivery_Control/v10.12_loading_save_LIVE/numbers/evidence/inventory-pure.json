@@ -1,0 +1,84 @@
+{
+  "author": "Andrew Fisher",
+  "sourceSha256": "16fc57930f01445d2705f08de6f8bd06bc33010df4b611157a06bd4f4b92ff48",
+  "checks": [
+    {
+      "name": "One confirmed supplier FWF unit is counted as Event Portables",
+      "pass": true
+    },
+    {
+      "name": "WC72 follows the same generic single-item identity rule",
+      "pass": true
+    },
+    {
+      "name": "Single-item Coates identity remains Coates",
+      "pass": true
+    },
+    {
+      "name": "Mixed owner single-item scope remains split by owner",
+      "pass": true
+    },
+    {
+      "name": "No physical identity preserves legacy reader without inventing ownership",
+      "pass": true
+    },
+    {
+      "name": "Unknown ordered scope does not activate the new single-item projection",
+      "pass": true
+    },
+    {
+      "name": "Zero ordered scope does not activate the new single-item projection",
+      "pass": true
+    },
+    {
+      "name": "No receipt contributes no supplier unit",
+      "pass": true
+    },
+    {
+      "name": "Partial receipt cannot identify which of two assigned units arrived",
+      "pass": true
+    },
+    {
+      "name": "Duplicate physical id cannot multiply supplier count",
+      "pass": true
+    },
+    {
+      "name": "Duplicate supplier fleet number cannot multiply supplier count",
+      "pass": true
+    },
+    {
+      "name": "Identity belonging to another reference is not credited here",
+      "pass": true
+    },
+    {
+      "name": "Unconfirmed owner remains unidentified",
+      "pass": true
+    },
+    {
+      "name": "Different item identity cannot satisfy the requested item",
+      "pass": true
+    },
+    {
+      "name": "Existing multi-item ownership stays separated by item",
+      "pass": true
+    },
+    {
+      "name": "Existing VMS allocation path remains managed",
+      "pass": true
+    },
+    {
+      "name": "Inventory row, reference and company total update together with unchanged quantities",
+      "pass": true
+    },
+    {
+      "name": "Repeated reconciliation is idempotent, never a second unit",
+      "pass": true
+    },
+    {
+      "name": "An excluded/cancelled reference is not reintroduced into inventory",
+      "pass": true
+    }
+  ],
+  "passed": 19,
+  "failed": []
+}

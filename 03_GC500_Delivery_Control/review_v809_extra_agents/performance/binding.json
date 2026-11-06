@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "source_commit": "ba9fff7ec48d3d49d037f461c145b1abd6f2c957",
+  "files": {
+    "car-app.js": {
+      "source_sha256": "718b2cfa403ae8fb0d6bc7b3bde6578719e62802b2eb23c38513e4d0700f1707",
+      "proposal_sha256": "66db6c9c7420b759bcf0621746566691c85a2912d90ebb721009bdfef82aa4ab"
+    },
+    "vendor/addons/postprocessing/GTAOPass.js": {
+      "source_sha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+      "proposal_sha256": "33e0c4074eff4f2cd6116fef1df4ae900ef33229ac91c6793c5af5d6dab4fcb2"
+    }
+  }
+}

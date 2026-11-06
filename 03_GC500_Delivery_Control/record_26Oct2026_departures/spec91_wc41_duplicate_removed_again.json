@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "WC41's ten Event Portables toilets left Thu 30 Oct 09:40 (Andrew, run 78). Run 82 (11:55) took out the superseded 28 Oct 12:15 entry a stale copy of the page had merged back at 10:34; at 12:42:58 AEST (record 12138 -> 12139) another copy of the page still holding that entry saved and merged it back again beside the corrected one (same collection id 14c64f48...). The page reads the first entry per id, so WC41 showed 28 Oct again; the P&L is unaffected either way. Andrew, 30 Oct 2026 13:0x AEST: \"Pages refreshed on all devices, take the wc41 duplicate out\" - this takes the 28 Oct duplicate out once more and leaves the 30 Oct 09:40 entry, which notes both removals. Dry run first, P&L unchanged.",
+ "ops": [
+  {
+   "op": "collection_remove",
+   "ref": "WC41",
+   "id": "14c64f48-1792-41ac-88d4-4be728336e99",
+   "at": "2026-10-28T02:20:44.187Z",
+   "keep_at": "2026-10-30T00:15:13.212Z",
+   "keep_departed": "2026-10-30T09:40:00+10:00",
+   "why": "Andrew Fisher, 30 Oct 2026 13:0x: the 28 Oct entry came back a second time (12:42) from a copy of the page not yet refreshed; every device refreshed, taken out again; the ten left Thu 30 Oct at 09:40"
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+PASS labels: Search & layers (phone: Search) / Fencing {"nav0":"Search","fen0":"Fencing"}
+PASS phone: side panel shows Back to the map, and it closes the panel {"vis":true}
+PASS category: Clear selection shown on the map {"shown":true}
+PASS category: one tap clears it (chip off, list closed, pill gone) {"chip":false,"list":false,"pill":true}
+PASS fencing labels: Fencing list / Close fencing (phone: List / Close) {"nav1":"List","fen1":"Close"}
+PASS header buttons fit, nothing cut off {"hdrFits":true}
+PASS fencing panel has a visible Close fencing button {"fenceClose":true}
+PASS fencing: no freeze over 9 s of refreshes (no task over 50 ms) {"longTasks":[]}
+PASS fencing pick: Clear selection shown and clears it {"picked":{"selected":"cw2-20261002:site-closed"},"pill2":true,"after":null}
+PASS Close fencing button leaves fencing {}
+PASS Escape: first clears the pick, then closes fencing {"e1":{"sel":null,"on":true},"e2":false}
+PASS canvas draws lighter while moving and returns to full at rest {"rest0":736,"moving":414,"rest1":736}
+PASS dashboard fencing snapshot: best of 3 under 60 ms (live v8.63: about 120 ms) {"best":10,"runs":[16,13,10],"flag":true}
+PASS no page errors (dashboard or explorer) []
+PASS no writes attempted {"page":1,"live":91,"blocked":0,"local":3}
+PASS candidate explorer files were served {"page":1,"live":91,"blocked":0,"local":3}
+phone: 16/16 pass

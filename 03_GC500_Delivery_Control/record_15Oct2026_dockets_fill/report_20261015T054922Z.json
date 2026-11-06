@@ -1,0 +1,680 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T054922Z",
+ "finished": "2026-10-15T05:49:41.029Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Baseplan SuperCars export of 15 Oct 2026 (sha256 ba246d4a…), its Delivery Dockets sheet, and Schedule 9. Andrew, 15 Oct 2026 about 15:50 AEST: fix anything that is relevant to truth; we have all the data we need.",
+  "ops": [
+   {
+    "op": "number_off",
+    "ref": "HRP",
+    "no": "1189410",
+    "why": "docket 26085104, 17 Sep: 1189410 is P36's shell (Baseplan line 93); it sat on HRP through an old contract join"
+   },
+   {
+    "op": "number_off",
+    "ref": "P36",
+    "no": "1282487",
+    "why": "Baseplan line 121: 1282487 is P63's planned shell, still Pending; it sat on P36 through an old contract join"
+   },
+   {
+    "op": "number_off",
+    "ref": "P36",
+    "no": "1327222",
+    "why": "docket 26126001, 14 Oct: 1327222 is P66's shell"
+   },
+   {
+    "op": "number_on",
+    "ref": "P36",
+    "no": "1189410"
+   },
+   {
+    "op": "number_off",
+    "ref": "P06",
+    "no": "1097453",
+    "why": "Baseplan line 64 and docket 26094121, 30 Sep: P06's shell is fleet number 1087453; 1097453 is the schedule's copy of it"
+   },
+   {
+    "op": "number_on",
+    "ref": "P06",
+    "no": "1087453"
+   },
+   {
+    "op": "number_off",
+    "ref": "GN06",
+    "no": "1283681",
+    "why": "the 15 Oct export carries 1283681 as a spare generator, not GN06; GN06 is 1320828, confirmed on site 15 Oct"
+   },
+   {
+    "op": "acc_fix",
+    "ref": "P66",
+    "type": "Fridge",
+    "from": "131190",
+    "to": "1311990",
+    "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990"
+   },
+   {
+    "op": "acc_fix",
+    "ref": "P33",
+    "type": "Fridge",
+    "from": "1238952",
+    "to": "1328952",
+    "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952"
+   },
+   {
+    "op": "light",
+    "ref": "WB06",
+    "state": "on site",
+    "why": "three dockets dated 15 Oct (26126575, 26126597, 26126606) to Gold Coast Hwy, Main Beach"
+   },
+   {
+    "op": "answer",
+    "id": "oi-TX03",
+    "text": "Settled by the branch's delivery dockets (Baseplan export, 15 Oct 2026): P20 is one 4.8 m building, 1097339, docket 26076698, delivered 17 Sep 13:01; P21 is one 6 m building, 1327220, docket 26076820, delivered 17 Sep 12:29. One movement each; the second load link on each is superseded."
+   },
+   {
+    "op": "answer",
+    "id": "oi-R10",
+    "text": "Contract 9968929 (Baseplan export, 15 Oct 2026) books the pick-up of the office 960639 and the lunchroom 960634 for 13 Nov. That is the transport booking the branch holds; Schedule 9 Demob Week 3 still shows 12 Nov for the row. Pick-up: 13 Nov."
+   }
+  ]
+ },
+ "pageSha256": "66878d12b8f4a98c177b3bf07f30efcce501da46f56b3244b92da94e458b320f",
+ "version": {
+  "before": 6469,
+  "after": 6498
+ },
+ "updated": {
+  "before": "2026-10-15T05:19:16.563Z",
+  "after": "2026-10-15T05:49:40.189Z"
+ },
+ "stage": [
+  {
+   "op": "number_off",
+   "ref": "HRP",
+   "no": "1189410",
+   "why": "docket 26085104, 17 Sep: 1189410 is P36's shell (Baseplan line 93); it sat on HRP through an old contract join",
+   "result": "taken off"
+  },
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1282487",
+   "why": "Baseplan line 121: 1282487 is P63's planned shell, still Pending; it sat on P36 through an old contract join",
+   "result": "taken off"
+  },
+  {
+   "op": "number_off",
+   "ref": "P36",
+   "no": "1327222",
+   "why": "docket 26126001, 14 Oct: 1327222 is P66's shell",
+   "result": "taken off"
+  },
+  {
+   "op": "number_on",
+   "ref": "P36",
+   "no": "1189410",
+   "result": "put on"
+  },
+  {
+   "op": "number_off",
+   "ref": "P06",
+   "no": "1097453",
+   "why": "Baseplan line 64 and docket 26094121, 30 Sep: P06's shell is fleet number 1087453; 1097453 is the schedule's copy of it",
+   "result": "taken off"
+  },
+  {
+   "op": "number_on",
+   "ref": "P06",
+   "no": "1087453",
+   "result": "put on"
+  },
+  {
+   "op": "number_off",
+   "ref": "GN06",
+   "no": "1283681",
+   "why": "the 15 Oct export carries 1283681 as a spare generator, not GN06; GN06 is 1320828, confirmed on site 15 Oct",
+   "result": "taken off"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P66",
+   "type": "Fridge",
+   "from": "131190",
+   "to": "1311990",
+   "why": "a dropped digit: docket 26126001 and Baseplan line 115 say 1311990",
+   "result": "changed 131190 -> 1311990"
+  },
+  {
+   "op": "acc_fix",
+   "ref": "P33",
+   "type": "Fridge",
+   "from": "1238952",
+   "to": "1328952",
+   "why": "digits in the wrong order: docket 26064103 and Baseplan line 26 say 1328952",
+   "result": "changed 1238952 -> 1328952"
+  },
+  {
+   "op": "light",
+   "ref": "WB06",
+   "state": "on site",
+   "why": "three dockets dated 15 Oct (26126575, 26126597, 26126606) to Gold Coast Hwy, Main Beach",
+   "result": "set on site"
+  },
+  {
+   "op": "answer",
+   "id": "oi-TX03",
+   "result": "noted"
+  },
+  {
+   "op": "answer",
+   "id": "oi-R10",
+   "result": "noted"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WB06",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "stamps/assetNumbers~2f~P06~2f~1087453",
+   "status": 200
+  },
+  {
+   "key": "stamps/answers~2f~oi-TX03",
+   "status": 200
+  },
+  {
+   "key": "stamps/answers~2f~oi-R10",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P36",
+   "status": 200
+  },
+  {
+   "key": "assetNumbers/P06",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~P36~2f~1282487",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~P36~2f~1327222",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~P06~2f~1097453",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~num~2f~P06~2f~1087453",
+   "status": 200
+  },
+  {
+   "key": "deleted/num~2f~GN06~2f~1283681",
+   "status": 200
+  },
+  {
+   "key": "accessories/P33",
+   "status": 200
+  },
+  {
+   "key": "accessories/P66",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~HRP~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~P36~2f~1282487",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~P36~2f~1327222",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~P36~2f~1189410",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~P06~2f~1097453",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~num~2f~P06~2f~1087453",
+   "status": 200
+  },
+  {
+   "key": "by/assetNumbers~2f~P06~2f~1087453",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~num~2f~GN06~2f~1283681",
+   "status": 200
+  },
+  {
+   "key": "by/answers~2f~oi-TX03",
+   "status": 200
+  },
+  {
+   "key": "by/answers~2f~oi-R10",
+   "status": 200
+  },
+  {
+   "key": "answers/oi-TX03",
+   "status": 200
+  },
+  {
+   "key": "answers/oi-R10",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/WB06": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:25.071Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.071Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WB06"
+   },
+   "stamps/assetNumbers~2f~P36~2f~1189410": null,
+   "stamps/assetNumbers~2f~P06~2f~1087453": null,
+   "stamps/answers~2f~oi-TX03": null,
+   "stamps/answers~2f~oi-R10": null,
+   "assetNumbers/P36": null,
+   "assetNumbers/P06": null,
+   "deleted/num~2f~HRP~2f~1189410": null,
+   "deleted/num~2f~P36~2f~1282487": null,
+   "deleted/num~2f~P36~2f~1327222": null,
+   "deleted/back~2f~num~2f~P36~2f~1189410": null,
+   "deleted/num~2f~P06~2f~1097453": null,
+   "deleted/back~2f~num~2f~P06~2f~1087453": null,
+   "deleted/num~2f~GN06~2f~1283681": null,
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1238952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P66": {
+    "_k": "P66",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1372940",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:33:32.993Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:41.551Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "131190",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:24.275Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "by/deleted~2f~num~2f~HRP~2f~1189410": null,
+   "by/deleted~2f~num~2f~P36~2f~1282487": null,
+   "by/deleted~2f~num~2f~P36~2f~1327222": null,
+   "by/deleted~2f~back~2f~num~2f~P36~2f~1189410": null,
+   "by/assetNumbers~2f~P36~2f~1189410": null,
+   "by/deleted~2f~num~2f~P06~2f~1097453": null,
+   "by/deleted~2f~back~2f~num~2f~P06~2f~1087453": null,
+   "by/assetNumbers~2f~P06~2f~1087453": null,
+   "by/deleted~2f~num~2f~GN06~2f~1283681": null,
+   "by/answers~2f~oi-TX03": null,
+   "by/answers~2f~oi-R10": null,
+   "answers/oi-TX03": null,
+   "answers/oi-R10": null
+  },
+  "after": {
+   "delivery/WB06": {
+    "state": "on site",
+    "set_at": "2026-10-15T05:49:34.379Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.071Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T05:49:34.379Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB06"
+   },
+   "stamps/assetNumbers~2f~P36~2f~1189410": {
+    "_k": "assetNumbers/P36/1189410",
+    "v": "2026-10-15T05:49:29.404Z"
+   },
+   "stamps/assetNumbers~2f~P06~2f~1087453": {
+    "_k": "assetNumbers/P06/1087453",
+    "v": "2026-10-15T05:49:30.112Z"
+   },
+   "stamps/answers~2f~oi-TX03": {
+    "_k": "answers/oi-TX03",
+    "v": "2026-10-15T05:49:35.574Z"
+   },
+   "stamps/answers~2f~oi-R10": {
+    "_k": "answers/oi-R10",
+    "v": "2026-10-15T05:49:35.686Z"
+   },
+   "assetNumbers/P36": {
+    "_k": "P36",
+    "v": [
+     "1189410"
+    ]
+   },
+   "assetNumbers/P06": {
+    "_k": "P06",
+    "v": [
+     "1087453"
+    ]
+   },
+   "deleted/num~2f~HRP~2f~1189410": {
+    "_k": "num/HRP/1189410",
+    "v": "2026-10-15T05:49:28.143Z"
+   },
+   "deleted/num~2f~P36~2f~1282487": {
+    "_k": "num/P36/1282487",
+    "v": "2026-10-15T05:49:28.635Z"
+   },
+   "deleted/num~2f~P36~2f~1327222": {
+    "_k": "num/P36/1327222",
+    "v": "2026-10-15T05:49:29.048Z"
+   },
+   "deleted/back~2f~num~2f~P36~2f~1189410": {
+    "_k": "back/num/P36/1189410",
+    "v": "2026-10-15T05:49:29.404Z"
+   },
+   "deleted/num~2f~P06~2f~1097453": {
+    "_k": "num/P06/1097453",
+    "v": "2026-10-15T05:49:29.736Z"
+   },
+   "deleted/back~2f~num~2f~P06~2f~1087453": {
+    "_k": "back/num/P06/1087453",
+    "v": "2026-10-15T05:49:30.112Z"
+   },
+   "deleted/num~2f~GN06~2f~1283681": {
+    "_k": "num/GN06/1283681",
+    "v": "2026-10-15T05:49:30.393Z"
+   },
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher",
+      "edited_at": "2026-10-15T05:49:33.244Z",
+      "edited_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P66": {
+    "_k": "P66",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1372940",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:33:32.993Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:41.551Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1311990",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:34:24.275Z",
+      "added_by": "Andrew Fisher",
+      "edited_at": "2026-10-15T05:49:31.525Z",
+      "edited_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "by/deleted~2f~num~2f~HRP~2f~1189410": {
+    "_k": "deleted/num/HRP/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~num~2f~P36~2f~1282487": {
+    "_k": "deleted/num/P36/1282487",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~num~2f~P36~2f~1327222": {
+    "_k": "deleted/num/P36/1327222",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~P36~2f~1189410": {
+    "_k": "deleted/back/num/P36/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~P36~2f~1189410": {
+    "_k": "assetNumbers/P36/1189410",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~num~2f~P06~2f~1097453": {
+    "_k": "deleted/num/P06/1097453",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~num~2f~P06~2f~1087453": {
+    "_k": "deleted/back/num/P06/1087453",
+    "v": "Andrew Fisher"
+   },
+   "by/assetNumbers~2f~P06~2f~1087453": {
+    "_k": "assetNumbers/P06/1087453",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~num~2f~GN06~2f~1283681": {
+    "_k": "deleted/num/GN06/1283681",
+    "v": "Andrew Fisher"
+   },
+   "by/answers~2f~oi-TX03": {
+    "_k": "answers/oi-TX03",
+    "v": "Andrew Fisher"
+   },
+   "by/answers~2f~oi-R10": {
+    "_k": "answers/oi-R10",
+    "v": "Andrew Fisher"
+   },
+   "answers/oi-TX03": {
+    "_k": "oi-TX03",
+    "v": "Settled by the branch's delivery dockets (Baseplan export, 15 Oct 2026): P20 is one 4.8 m building, 1097339, docket 26076698, delivered 17 Sep 13:01; P21 is one 6 m building, 1327220, docket 26076820, delivered 17 Sep 12:29. One movement each; the second load link on each is superseded."
+   },
+   "answers/oi-R10": {
+    "_k": "oi-R10",
+    "v": "Contract 9968929 (Baseplan export, 15 Oct 2026) books the pick-up of the office 960639 and the lunchroom 960634 for 13 Nov. That is the transport booking the branch holds; Schedule 9 Demob Week 3 still shows 12 Nov for the row. Pick-up: 13 Nov."
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

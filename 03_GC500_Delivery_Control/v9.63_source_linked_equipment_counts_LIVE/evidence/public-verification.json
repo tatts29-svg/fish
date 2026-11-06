@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublicPage": true,
+  "candidateInterception": false,
+  "stateInterception": false,
+  "sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "bytes": 12762245,
+  "nativeVersion": 5155,
+  "finalNativeVersion": 5155,
+  "sameReviewedRecord": true,
+  "recordUnchangedDuringCheck": true,
+  "requiresReview": false,
+  "checks": [
+    "Today and Equipment use the same toilet scope",
+    "Public partial reference badges agree with item scope",
+    "Public VMS provisional caption follows the computed scope",
+    "Fencing has a ready source-supported reading",
+    "Reviewed toilet totals and mixed locations match publication proof",
+    "Supplier stock separates assigned identities from receipt",
+    "Published fencing quantities and components match final checks",
+    "Public visible scope captions are present"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "blockedRequests": [
+    {
+      "method": "POST",
+      "origin": "https://tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "liveRecordWriteAttempts": 0,
+  "pass": true
+}

@@ -1,0 +1,370 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T015250Z",
+ "finished": "2026-11-02T01:53:24.059Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 11:5x AEST: \"wc86 left at 1130AM\". WC86 holds one Accessible Toilet, Coates 1296899 (servicing tracker: Island north, by FREIGHT), its only unit: it left site at 11:30 on 2 Nov, so WC86 leaves in full, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged. The first dry run stopped at the page's emptied gate (\"the Record departure form did not open for WC86\": no Emptied tick). On Andrew's word of 30 Oct 2026 11:1x AEST, \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (as WC09 run 80, WC20 run 90, WC01 run 100), WC86 gets the Emptied tick through the page's own setEmptied816 first: WC86 (1 x Accessible Toilet 1296899) is on the servicing tracker (Island north, by FREIGHT), covered by the final-night pump-out of Sun 25 Oct.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "emptied",
+    "ref": "WC86",
+    "on": true,
+    "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; WC86 on the servicing tracker)"
+   },
+   {
+    "op": "depart",
+    "ref": "WC86",
+    "at": "2026-11-02T11:30:00+10:00",
+    "nos": [
+     "1296899"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12789,
+  "after": 12790
+ },
+ "updated": {
+  "before": "2026-11-02T01:51:10.370Z",
+  "after": "2026-11-02T01:53:23.073Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "emptied",
+   "ref": "WC86",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; WC86 on the servicing tracker)",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T01:53:07.520Z"
+  },
+  {
+   "op": "depart",
+   "ref": "WC86",
+   "at": "2026-11-02T11:30:00+10:00",
+   "nos": [
+    "1296899"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T11:30:00+10:00, recorded by Andrew Fisher: 1 x Accessible Toilet 1296899 - WC86 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC86",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC86": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:34:56.409Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1296899": {
+      "at": "2026-11-02T13:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:55.000Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:45:48.073Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.279Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:56.409Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:45:48.073Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1296899",
+      "pickup": "2026-11-02T13:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:55.000Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:29:46.174Z"
+    },
+    "loading872": {
+     "item:Accessible Toilet": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:54.088Z"
+     },
+     "u1296899": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T19:28:52.690Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:35:58.376Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:56.538Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:56.538Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:46.230Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:46.230Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:47.918Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:47.918Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:58.376Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:58.376Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:35:58.376Z"
+    },
+    "_k": "WC86"
+   }
+  },
+  "after": {
+   "delivery/WC86": {
+    "state": "in transit",
+    "set_at": "2026-11-02T01:53:08.907Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1296899": {
+      "at": "2026-11-02T13:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:55.000Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T01:53:08.907Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.279Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:34:56.409Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T01:53:08.907Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "659411aa-97a0-495e-9c98-20b8f7199a03",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T11:30:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T22:34:56.409Z",
+       "requiredKey": "[[\"accessible toilet\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Accessible Toilet",
+         "n": 1,
+         "unitIds": [
+          "[\"WC86\",\"coates\",\"asset\",\"1296899\"]"
+         ],
+         "numbers": [
+          "1296899"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC86\",\"coates\",\"asset\",\"1296899\"]",
+           "number": "1296899",
+           "owner": "coates",
+           "item": "Accessible Toilet"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:45:48.073Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T01:53:08.907Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1296899",
+      "pickup": "2026-11-02T13:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:55.000Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:29:46.174Z"
+    },
+    "loading872": {
+     "item:Accessible Toilet": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:54.088Z"
+     },
+     "u1296899": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T19:28:52.690Z"
+     }
+    },
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-11-02T01:53:08.907Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:34:56.538Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:34:56.538Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:46.230Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:46.230Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:47.918Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:47.918Z"
+      },
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:35:58.376Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:35:58.376Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-11-02T01:53:08.907Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-11-02T01:53:08.907Z"
+      }
+     ],
+     "recorded_at": "2026-11-02T01:53:08.907Z"
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T01:53:07.520Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T01:53:07.520Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC86"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

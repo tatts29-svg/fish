@@ -1,0 +1,277 @@
+{
+ "sheet_id": "D024-26003-02",
+ "dwg_no": "D024",
+ "revision": "02",
+ "title": "Generator, Light Tower & Big Screen Locations",
+ "source_sha256": "ce483e4f905d422a9927579e2fc7e42295069de8bde20338e7a9aedfd2993960",
+ "source_bytes": 10833478,
+ "page_points": [
+  2384,
+  1684
+ ],
+ "read_from": "the D024-26003-02 labels extract (parser labels-1.2.0), checked against the sheet picture on 8 Oct 2026",
+ "authority_note": "Project 26003 Rev 02 drawing supplied 07 Sep 2026. Legend separates GENSETS (refer BOQ), GENSETS - EVENTELEC DIRECT HIRE (EE), GENSETS - SC TELEVISION SELF SUPPLY (TV), LIGHTING TOWERS (refer BOQ) and BIG SCREENS. Same digits are used for gensets and big screens; the callout colour distinguishes them. Lighting towers are drawn two ways: six purple callouts listed in the top-left key with a location instead of a position (01–04 BSF storage yard Molendinar, 05–06 Seaway car park transporter compound), and thirteen light-spread fans on the circuit numbered 01–12 and 14 in magenta at the apex. Both series count from 01; nothing on the sheet says whether they are the same towers.",
+ "keyed_towers": [
+  {
+   "key": "LT01",
+   "label": "01",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "BSF STORAGE YARD - MOLENDINAR",
+   "x": 89.39,
+   "y": 213.03
+  },
+  {
+   "key": "LT02",
+   "label": "02",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "BSF STORAGE YARD - MOLENDINAR",
+   "x": 414.05,
+   "y": 88.89
+  },
+  {
+   "key": "LT03",
+   "label": "03",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "BSF STORAGE YARD - MOLENDINAR",
+   "x": 415.13,
+   "y": 151.59
+  },
+  {
+   "key": "LT04",
+   "label": "04",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "BSF STORAGE YARD - MOLENDINAR",
+   "x": 414.83,
+   "y": 212.31
+  },
+  {
+   "key": "LT05",
+   "label": "05",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "SEAWAY CAR PARK TRANSPORTER COMPOUND",
+   "x": 744.41,
+   "y": 88.89
+  },
+  {
+   "key": "LT06",
+   "label": "06",
+   "kind": "tower",
+   "context": "Off-site reference note",
+   "location": "SEAWAY CAR PARK TRANSPORTER COMPOUND",
+   "x": 746.39,
+   "y": 151.59
+  }
+ ],
+ "circuit_fans": [
+  {
+   "key": "LTC01",
+   "label": "01",
+   "x": 874.02,
+   "y": 746.98,
+   "same_digit_screen": "001",
+   "distance_pt": 115.1,
+   "nearest_screen": "001",
+   "nearest_distance_pt": 115.1
+  },
+  {
+   "key": "LTC02",
+   "label": "02",
+   "x": 981.33,
+   "y": 686.64,
+   "same_digit_screen": "002",
+   "distance_pt": 84.6,
+   "nearest_screen": "002",
+   "nearest_distance_pt": 84.6
+  },
+  {
+   "key": "LTC03",
+   "label": "03",
+   "x": 1199.98,
+   "y": 602.42,
+   "same_digit_screen": "003",
+   "distance_pt": 102.1,
+   "nearest_screen": "003",
+   "nearest_distance_pt": 102.1
+  },
+  {
+   "key": "LTC04",
+   "label": "04",
+   "x": 1650.91,
+   "y": 344.19,
+   "same_digit_screen": "004",
+   "distance_pt": 108.1,
+   "nearest_screen": "004",
+   "nearest_distance_pt": 108.1
+  },
+  {
+   "key": "LTC05",
+   "label": "05",
+   "x": 780.25,
+   "y": 333.62,
+   "same_digit_screen": "005",
+   "distance_pt": 104.8,
+   "nearest_screen": "005",
+   "nearest_distance_pt": 104.8
+  },
+  {
+   "key": "LTC06",
+   "label": "06",
+   "x": 700.57,
+   "y": 384.63,
+   "same_digit_screen": "006",
+   "distance_pt": 131.6,
+   "nearest_screen": "010",
+   "nearest_distance_pt": 101.9
+  },
+  {
+   "key": "LTC07",
+   "label": "07",
+   "x": 237.92,
+   "y": 1166.55,
+   "same_digit_screen": "007",
+   "distance_pt": 144.5,
+   "nearest_screen": "008",
+   "nearest_distance_pt": 121.2
+  },
+  {
+   "key": "LTC08",
+   "label": "08",
+   "x": 275.71,
+   "y": 1105.51,
+   "same_digit_screen": "008",
+   "distance_pt": 128.2,
+   "nearest_screen": "008",
+   "nearest_distance_pt": 128.2
+  },
+  {
+   "key": "LTC09",
+   "label": "09",
+   "x": 589.26,
+   "y": 852.24,
+   "same_digit_screen": "009",
+   "distance_pt": 205.4,
+   "nearest_screen": "009",
+   "nearest_distance_pt": 205.4
+  },
+  {
+   "key": "LTC10",
+   "label": "10",
+   "x": 790.4,
+   "y": 557.72,
+   "same_digit_screen": "010",
+   "distance_pt": 130.5,
+   "nearest_screen": "010",
+   "nearest_distance_pt": 130.5
+  },
+  {
+   "key": "LTC11",
+   "label": "11",
+   "x": 722.45,
+   "y": 749.08,
+   "same_digit_screen": "011",
+   "distance_pt": 200.0,
+   "nearest_screen": "012",
+   "nearest_distance_pt": 196.8
+  },
+  {
+   "key": "LTC12",
+   "label": "12",
+   "x": 773.05,
+   "y": 741.63,
+   "same_digit_screen": "012",
+   "distance_pt": 174.3,
+   "nearest_screen": "012",
+   "nearest_distance_pt": 174.3
+  },
+  {
+   "key": "LTC14",
+   "label": "14",
+   "x": 488.15,
+   "y": 857.55,
+   "same_digit_screen": "014",
+   "distance_pt": 127.3,
+   "nearest_screen": "014",
+   "nearest_distance_pt": 127.3
+  }
+ ],
+ "big_screens": [
+  {
+   "label": "001",
+   "x": 938.77,
+   "y": 842.13
+  },
+  {
+   "label": "002",
+   "x": 1020.97,
+   "y": 761.37
+  },
+  {
+   "label": "003",
+   "x": 1270.81,
+   "y": 675.99
+  },
+  {
+   "label": "004",
+   "x": 1614.13,
+   "y": 242.55
+  },
+  {
+   "label": "005",
+   "x": 724.09,
+   "y": 245.19
+  },
+  {
+   "label": "006",
+   "x": 609.67,
+   "y": 289.41
+  },
+  {
+   "label": "007",
+   "x": 322.93,
+   "y": 1283.37
+  },
+  {
+   "label": "008",
+   "x": 351.43,
+   "y": 1208.91
+  },
+  {
+   "label": "009",
+   "x": 768.25,
+   "y": 953.07
+  },
+  {
+   "label": "010",
+   "x": 682.15,
+   "y": 484.83
+  },
+  {
+   "label": "011",
+   "x": 817.81,
+   "y": 924.93
+  },
+  {
+   "label": "012",
+   "x": 852.67,
+   "y": 896.67
+  },
+  {
+   "label": "014",
+   "x": 362.47,
+   "y": 877.65
+  }
+ ],
+ "settled": {
+  "fans_are_big_screens": {
+   "by": "Andrew Fisher",
+   "on": "2026-10-08",
+   "words": "Yes they big screens not light's",
+   "about": "whether the 13 circuit light-spread fans on D024 are big screens rather than lighting towers"
+  }
+ }
+}

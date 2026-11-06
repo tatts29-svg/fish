@@ -1,0 +1,29 @@
+[
+  {
+    "file": "pdfs/GC500_EventNights_RunSheet_2026-10-23_Issued.pdf",
+    "title": "Event nights run sheet · Friday night · 2026-10-23 · Issued and signed",
+    "note": "Run sheet for the friday night of 23 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-23",
+    "crew": "nights",
+    "replaces": []
+  },
+  {
+    "file": "pdfs/GC500_EventNights_RunSheet_2026-10-24_Issued.pdf",
+    "title": "Event nights run sheet · Saturday night · 2026-10-24 · Issued and signed",
+    "note": "Run sheet for the saturday night of 24 Oct 2026 (service night: maps, service order, spot checks, relocation requests); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-24",
+    "crew": "nights",
+    "replaces": []
+  },
+  {
+    "file": "pdfs/GC500_EventNights_RunSheet_2026-10-25_Issued.pdf",
+    "title": "Event nights run sheet · Sunday night · 2026-10-25 · Issued and signed",
+    "note": "Run sheet for the sunday night of 25 Oct 2026 (final night: no pump-out missed, equipment off the roadways, relocations to the collection points); issued and signed by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the night is recorded on the page's Event nights tab",
+    "kind": "pack",
+    "day": "2026-10-25",
+    "crew": "nights",
+    "replaces": []
+  }
+]

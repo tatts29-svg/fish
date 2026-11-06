@@ -1,0 +1,568 @@
+--- build_asset_app.py.v668	2026-09-26 05:12:33.840728040 +0000
++++ build_asset_app.py	2026-09-26 05:27:55.852124845 +0000
+@@ -1842,7 +1842,10 @@
+   background:var(--orange);color:#1b1207;font:800 13px/1 'Inter',var(--sans,system-ui,sans-serif);text-decoration:none;
+   transition:top .12s ease}
+ .skipwork:focus{top:0;outline:3px solid #fff;outline-offset:-3px}
+-@media print{ .skipwork{display:none} }
++@media print{ .skipwork{display:none} .dstat .hz.lite > use{display:none !important} }
++/* v6.69 - a Plant table below the fold is not laid out until it is scrolled near: its rows fill in for free */
++#pane-plant > .card.has-table{content-visibility:auto;contain-intrinsic-size:auto 1400px}
++@media print{ #pane-plant > .card.has-table{content-visibility:visible} }
+ .brandrow{display:flex;align-items:center;gap:14px;padding:0 16px;flex-wrap:nowrap}
+ .hbar{height:84px;min-height:84px}
+ .lockup{display:flex;align-items:center;gap:11px;flex:0 1 auto;min-width:0}
+@@ -6843,6 +6846,11 @@
+   <filter id="hzBloom" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="4.4"/></filter>
+   <filter id="hzHalo" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="1.7"/></filter>
+   <filter id="hzHot" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="2.6"/></filter>
++
++  <!-- v6.69 - the row edition of the instrument: the fixed parts drawn once here, used by every register row -->
++  <g id="hzHouse"><path d="M6 0H150L156 6V54L150 60H6L0 54V6Z" fill="url(#hzBody)"/><path d="M6 0H150L156 6V54L150 60H6L0 54V6Z" fill="url(#hzSheen)"/><path d="M9.2 4.4H146.8L151.6 9.2V50.8L146.8 55.6H9.2L4.4 50.8V9.2Z" fill="url(#hzPanel)" stroke="#000" stroke-opacity=".5" stroke-width=".8"/><path d="M4.4 50.8V9.2L9.2 4.4H146.8" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="1"/><path d="M151.6 9.2V50.8L146.8 55.6H9.2" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1"/><path d="M6 0H150L156 6V54L150 60H6L0 54V6Z" fill="none" stroke="#000" stroke-opacity=".8" stroke-width="1"/><path d="M1 53.6V6.4L6.4 1H149.6" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1"/><g transform="translate(5.6 5.6)"><circle r="2.6" fill="url(#hzBolt)"/><circle r="2.6" fill="none" stroke="#000" stroke-opacity=".55" stroke-width=".6"/><polygon points="1.15,0.575,1 -.575,1 -1.15,0 -.575,-1.575,-1" fill="#0a0a0b" fill-opacity=".85"/></g><g transform="translate(150.4 5.6)"><circle r="2.6" fill="url(#hzBolt)"/><circle r="2.6" fill="none" stroke="#000" stroke-opacity=".55" stroke-width=".6"/><polygon points="1.15,0.575,1 -.575,1 -1.15,0 -.575,-1.575,-1" fill="#0a0a0b" fill-opacity=".85"/></g><g transform="translate(5.6 54.4)"><circle r="2.6" fill="url(#hzBolt)"/><circle r="2.6" fill="none" stroke="#000" stroke-opacity=".55" stroke-width=".6"/><polygon points="1.15,0.575,1 -.575,1 -1.15,0 -.575,-1.575,-1" fill="#0a0a0b" fill-opacity=".85"/></g><g transform="translate(150.4 54.4)"><circle r="2.6" fill="url(#hzBolt)"/><circle r="2.6" fill="none" stroke="#000" stroke-opacity=".55" stroke-width=".6"/><polygon points="1.15,0.575,1 -.575,1 -1.15,0 -.575,-1.575,-1" fill="#0a0a0b" fill-opacity=".85"/></g><g transform="translate(30 30)"><circle r="22.4" fill="url(#hzBezel)"/><circle r="20.3" fill="url(#hzBezelIn)"/><circle r="19.2" fill="#050506"/><circle r="18" fill="url(#hzWell)"/></g><g transform="translate(78 30)"><circle r="22.4" fill="url(#hzBezel)"/><circle r="20.3" fill="url(#hzBezelIn)"/><circle r="19.2" fill="#050506"/><circle r="18" fill="url(#hzWell)"/></g><g transform="translate(126 30)"><circle r="22.4" fill="url(#hzBezel)"/><circle r="20.3" fill="url(#hzBezelIn)"/><circle r="19.2" fill="#050506"/><circle r="18" fill="url(#hzWell)"/></g></g>
++  <g id="hzOver"><g transform="translate(30 30)"><path d="M-15.6 -9A18 18 0 0 1 -3 -17.7" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/><ellipse cx="-6" cy="-8.5" rx="9.5" ry="5.8" fill="url(#hzGlass)"/><circle r="18" fill="none" stroke="#000" stroke-opacity=".65" stroke-width="1"/></g><g transform="translate(78 30)"><path d="M-15.6 -9A18 18 0 0 1 -3 -17.7" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/><ellipse cx="-6" cy="-8.5" rx="9.5" ry="5.8" fill="url(#hzGlass)"/><circle r="18" fill="none" stroke="#000" stroke-opacity=".65" stroke-width="1"/></g><g transform="translate(126 30)"><path d="M-15.6 -9A18 18 0 0 1 -3 -17.7" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1" stroke-linecap="round"/><ellipse cx="-6" cy="-8.5" rx="9.5" ry="5.8" fill="url(#hzGlass)"/><circle r="18" fill="none" stroke="#000" stroke-opacity=".65" stroke-width="1"/></g></g>
++  <g id="hzLampR"><circle r="29" fill="#ff3b2f" opacity=".5" filter="url(#hzBloom)"/><circle r="20.6" fill="none" stroke="#ff3b2f" stroke-width="3.2" opacity=".55" filter="url(#hzHalo)"/><circle r="18" fill="url(#hzCoreR)"/><circle r="18" fill="url(#hzDotsOnR)"/><circle r="7" fill="#fff" opacity=".34" filter="url(#hzHot)"/></g><g id="hzLampA"><circle r="29" fill="#ffb300" opacity=".5" filter="url(#hzBloom)"/><circle r="20.6" fill="none" stroke="#ffb300" stroke-width="3.2" opacity=".55" filter="url(#hzHalo)"/><circle r="18" fill="url(#hzCoreA)"/><circle r="18" fill="url(#hzDotsOnA)"/><circle r="7" fill="#fff" opacity=".34" filter="url(#hzHot)"/></g><g id="hzLampG"><circle r="29" fill="#2ee56f" opacity=".5" filter="url(#hzBloom)"/><circle r="20.6" fill="none" stroke="#2ee56f" stroke-width="3.2" opacity=".55" filter="url(#hzHalo)"/><circle r="18" fill="url(#hzCoreG)"/><circle r="18" fill="url(#hzDotsOnG)"/><circle r="7" fill="#fff" opacity=".34" filter="url(#hzHot)"/></g>
+ </defs></svg>
+ <div class="app">
+  <div class="printnote" id="printnote"></div>
+@@ -7860,13 +7868,19 @@
+   });
+   return {contents: out.filter(x => (x.qty || 1) > 0 && !(x.qty === 0)), unitsLeft, contentsNumbers};
+ }
++/* v6.69 - WORKED OUT ONCE PER DRAW. The day's figures (dsnState) and a key's rental lines (rentalOf) were worked out two
++   and three times over in a single draw - Where we are built the whole day three times to open. Inside a draw the
++   record cannot change, so the first answer is kept until the draw ends; outside one nothing is kept. */
+ let ASSETS_HELD = null;
++const HELD_MEMO = new Map();
++function heldMemo(k, f){ if (!ASSETS_HELD) return f(); if (HELD_MEMO.has(k)) return HELD_MEMO.get(k); const v = f(); HELD_MEMO.set(k, v); return v; }
++
+ function allAssets(){ return ASSETS_HELD || buildAllAssets(); }
+ /* Run `fn` with the asset list built once. Nested calls keep the outer hold — one pass, one list. */
+ function holdAssets(fn){
+-  if (ASSETS_HELD) return fn();
+-  ASSETS_HELD = buildAllAssets();
+-  try { return fn(); } finally { ASSETS_HELD = null; }
++if (ASSETS_HELD) return fn();
++ ASSETS_HELD = buildAllAssets(); HELD_MEMO.clear();
++ try { return fn(); } finally { ASSETS_HELD = null; HELD_MEMO.clear(); }
+ }
+ function buildAllAssets(){
+   const extra = (S.added || []).map(a => Object.assign({
+@@ -8075,7 +8089,8 @@
+ }
+ /* Every rental line on a key: a plant line carries its own; an asset carries the extract rows whose match names
+    it. The earliest start is the day the rental system has it on site. */
+-function rentalOf(key){
++function rentalOf(key){ return heldMemo('rental|' + key, () => rentalOf_(key)); }
++function rentalOf_(key){
+   const pl = plantLineOf(key);
+   let lines = pl ? (pl.rental || []) : [];
+   if (!pl) lines = ONHIRE_ROWS.filter(r => r.match && r.match.to === 'asset' && r.match.key === key);
+@@ -8396,7 +8411,8 @@
+ }
+ /* One way to get from a reference to its marker, used from the plant pages, the variance registers and the
+    drawer. Three copies of this drifted apart the last time each page grew its own. */
+-function showOnMap(key){
++function showOnMap(key){ return holdAssets(() => showOnMap_held(key)); } /* v6.69 */
++function showOnMap_held(key){
+   const a = allAssets().find(x => x.key === key);
+   const at = a && mapPlaceFor(a);
+   if (!at) { const sh = a && mapSheetFor(a); if (!sh) { flash(key + ' has no drawing link, so there is no marker to show.'); return; }
+@@ -9477,6 +9493,15 @@
+   </svg>`;
+ }
+ const LAMP_SIZE = {sm: [78, 30], md: [106, 41], lg: [158, 61], xl: [234, 90]};
++/* v6.69 - THE ROW EDITION. A register row's light was the full 92-piece drawing, 219 times over - 21,000 elements, most
++   of the Plant page's weight and most of its wait. The housing, the bezels and the glass never change, so they are drawn
++   once in the defs and used; what a row keeps as its own is what the state and the press targets touch: each lens's
++   dark matrix, its lamp, its shade and a ring for the keyboard. Same drawing, same lamps, 21 pieces. */
++function lampSvgLite(w, h){
++ const lens = c => `<g class="lens ${c}" transform="translate(${LAMP_CX[c]} 30)"><circle class="bz" r="22.4" fill="none"/><circle class="dots off" r="18" fill="url(#hzDotsOff${c.toUpperCase()})"/><g class="lamp"><use href="#hzLamp${c.toUpperCase()}"/></g><circle class="shade" r="18" fill="url(#hzShade)"/></g>`;
++ return `<svg class="hz lite" viewBox="0 0 156 60" width="${w}" height="${h}" aria-hidden="true" focusable="false"><use href="#hzHouse"/>${lens('r')}${lens('a')}${lens('g')}<use href="#hzOver"/></svg>`;
++}
++
+ /* ------------------------------------------------------------------ the delivery status instrument
+    The register row, the equipment card, the drawer and the printed sheet all call THIS, so one reference cannot
+    read one way on a screen and another on paper: same resolved facts, same words, same lens. `size` picks the
+@@ -9499,9 +9524,9 @@
+      is the thing that shows the result — no second row of buttons pretending to be lamps. A role of group,
+      because an image cannot hold buttons; the words stay in the flow so the state is still read out. */
+   if (o.ctl) return `<span class="${cls}" title="${esc(said)}"
+-    >${lensBtns(key, d, !!o.labels, lampSvg(state, w, h))}${words}</span>`;
++>${lensBtns(key, d, !!o.labels, o.size === 'sm' ? lampSvgLite(w, h) : lampSvg(state, w, h))}${words}</span>`;
+   return `<span class="${cls}" role="img" title="${esc(said)}" aria-label="${esc('Delivery: ' + said)}"
+-    >${lampSvg(state, w, h)}${words}</span>`;
++>${o.size === 'sm' ? lampSvgLite(w, h) : lampSvg(state, w, h)}${words}</span>`;
+ }
+ /* The three press targets, one over each lens, wired once by delegation (below) so a row in any table can set
+    a light. `labels` puts the state's words under each lens — the drawer's big control says its words, because a
+@@ -9924,6 +9949,53 @@
+     $('#tabs').querySelector(`[data-tab="${btns[to].dataset.tab}"]`).focus();
+   };
+ }
++/* v6.69 - THE REGISTER OPENS AT ONCE AND FILLS IN BEHIND (Andrew, 26 Sep 2026: "no stalling, no lags... smooth, no
++   delay with opening"). Plant drew all 219 rows before it showed anything - half a second of a frozen page on a desk and
++   more on a phone. The first two dozen rows are drawn with the page; the rest follow in small batches between frames,
++   each well inside one frame, so the page is on screen and answering a tap at once and the rows are all there before
++   anybody can scroll to them. Arriving part-way down (a remembered position), a re-draw while scrolled, and printing
++   all draw the lot in one go, so nothing is ever missing where somebody is looking. */
++let GO_CHANGED = false;
++const PLANT_REST = {gen: 0, q: [], budget: 0, on: false};
++function plantRows(list, fn){
++ if (!PLANT_REST.on) return list.map(fn).join('');
++ const now = list.slice(0, Math.max(0, PLANT_REST.budget)); PLANT_REST.budget -= now.length;
++ const rest = list.slice(now.length);
++ if (!rest.length) return now.map(fn).join('');
++ const id = PLANT_REST.q.length; PLANT_REST.q.push({rest, fn, at: 0});
++ return now.map(fn).join('') + `<tr class="plrest" data-rest="${id}"><td colspan="9" style="padding:12px 10px;color:var(--mute);font-size:12px">Loading ${rest.length} more…</td></tr>`;
++}
++function plantBindRow(r){
++ r.querySelectorAll('[data-eq]').forEach(b => b.onclick = () => openAsset(b.dataset.eq));
++ r.querySelectorAll('[data-k]').forEach(x => x.onclick = ev => { ev.stopPropagation(); openAsset(x.dataset.k); });
++ r.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openAsset(b.dataset.open));
++ r.querySelectorAll('[data-map]').forEach(b => b.onclick = () => showOnMap(b.dataset.map));
++}
++/* one batch into the marker's table; true when that table is complete */
++function plantFill(pane, job, id, n){
++ const mk = pane.querySelector(`tr.plrest[data-rest="${id}"]`); if (!mk) return true;
++ const part = job.rest.slice(job.at, job.at + n); job.at += part.length;
++ const before = mk.previousElementSibling;
++ mk.insertAdjacentHTML('beforebegin', part.map(job.fn).join(''));
++ for (let r = before ? before.nextElementSibling : mk.parentNode.firstElementChild; r && r !== mk; r = r.nextElementSibling) plantBindRow(r);
++ if (job.at >= job.rest.length) { mk.remove(); return true; }
++ const c = mk.firstElementChild; if (c) c.textContent = 'Loading ' + (job.rest.length - job.at) + ' more…';
++ return false;
++}
++function plantPump(){
++ const gen = ++PLANT_REST.gen, q = PLANT_REST.q; PLANT_REST.q = []; PLANT_REST.on = false;
++ if (!q.length) return;
++ const pane = $('#pane-plant'); let qi = 0;
++ const step = () => {
++  if (gen !== PLANT_REST.gen || !pane.isConnected) return;
++  const t0 = performance.now();
++  holdAssets(() => { while (qi < q.length && performance.now() - t0 < 10) if (plantFill(pane, q[qi], qi, 6)) qi++; });
++  if (qi < q.length) requestAnimationFrame(() => setTimeout(step, 0)); else PLANT_REST.flush = null;
++ };
++ PLANT_REST.flush = () => { if (gen !== PLANT_REST.gen) return; holdAssets(() => { while (qi < q.length) if (plantFill(pane, q[qi], qi, 1e9)) qi++; }); PLANT_REST.flush = null; };
++ requestAnimationFrame(() => setTimeout(step, 0));
++}
++window.addEventListener('beforeprint', () => { try { if (PLANT_REST.flush) PLANT_REST.flush(); } catch (e) {} });
+ const TAB_SCROLL = {};   /* each tab's reading position, by tab key (v5.79) */
+ /* v5.92 - the big figures on the race cards and the data cards count up when a page arrives: whole numbers only,
+    the final text put back exactly as rendered, 640 ms, once per arrival; nothing for reduced motion or print */
+@@ -9977,9 +10049,9 @@
+        hidden pane bigger than a few thousand elements is emptied on leaving; its filters live in `state`, and
+        it comes back exactly as it would have anyway. Small panes stay, so a tab change on a phone stays cheap. */
+     if (!on && changed && p.childElementCount && p.getElementsByTagName('*').length > 3000) p.innerHTML = '';
+-  });
+-  render();
+-  if (changed) countUpFigures(tab);   /* v5.92 */
++});
++ GO_CHANGED = changed; try { render(); } finally { GO_CHANGED = false; }
++ if (changed) countUpFigures(tab);   /* v5.92 */
+   /* Every view gets a heading it is named by, put there after render so no page has to remember to add one,
+      and the focus is MOVED to the pane on a real change of view — so a person on a keyboard or a screen reader
+      is told where they have arrived instead of being left on BODY. */
+@@ -10208,8 +10280,11 @@
+    in one place: the day it counts (today if it is a programme day, else the next), the entries due in on it, how many
+    are recorded on site, how many are not recorded on site yet, and rows still needing a reference. */
+ function todayFigures(){
+-  const today = todayIso(), days = programmeDays();
+-  const dayNow = days.find(d => d.iso === today) || null, next = days.find(d => d.iso > today) || null, show = dayNow || next;
++const today = todayIso(), days = programmeDays();
++ /* v6.69 - the pod counts deliveries in, so a day with none in is passed over for the next day that has some */
++ const withIn = days.find(d => d.iso >= today && d.deliveries.length) || null;
++ const show = withIn || days.find(d => d.iso === today) || days.find(d => d.iso > today) || null, dayNow = show && show.iso === today ? show : null;
++ const nextIn = !!(withIn && show === withIn && !dayNow);
+   const due = show ? show.deliveries : [];
+   const onsite = due.filter(r => { const d = deliveryOf(r.a.key); return d.recorded && d.state === 'on site'; }).length;
+   const R = show ? dayReview(show) : {review: 0, refs: 0, both: 0, total: 0};
+@@ -10217,8 +10292,8 @@
+   const redDue = due.filter(r => { const v = deliveryView(r.a); return v.recorded && v.negative; }).length;
+   const split = [waiting ? fmtNum(waiting) + ' with no record' : null, redDue ? fmtNum(redDue) + ' recorded not on site' : null].filter(Boolean).join(' · ');
+   const d = fmtDay(show ? show.iso : today);
+-  return {d, dayNow: !!dayNow, due: due.length, onsite, notYet: R.review, refs: R.refs, chase: R.total, both: R.both, list: due.map(r => r.a),   /* v6.20 - the list, for the banner's map */
+-    subDue: 'schedule entries', subOn: onsite === due.length && due.length ? 'all of them' : 'so far today', subNot: R.review ? split : 'nothing outstanding'};
++return {d, dayNow: !!dayNow, nextIn, due: due.length, onsite, notYet: R.review, refs: R.refs, chase: R.total, both: R.both, list: due.map(r => r.a),   /* v6.20 - the list, for the banner's map */
++    subDue: 'schedule entries',subOn: onsite === due.length && due.length ? 'all of them' : dayNow ? 'so far today' : 'already recorded', subNot: R.review ? split : 'nothing outstanding'};
+ }
+ function hzTodayPod(){
+   const el = $('#hztd'); if (!el) return;
+@@ -10227,7 +10302,7 @@
+     seen: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.5L16 9.5"/></svg>',
+     gap: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17.5v.5"/></svg>'};
+   const fig = (n, lab, sub, go, icon, cls) => `<button type="button" class="tdf${cls ? ' ' + cls : ''}" data-go="${go}" title="Open ${go === 'plant' ? 'Plant' : 'the Timeline'}"><span class="tl">${lab}</span><span class="tn"><b>${fmtNum(n)}</b>${ICON[icon]}</span><span class="ts">${esc(sub)}</span></button>`;
+-  el.innerHTML = `<span class="tdday">${refPlate(f.d.dm.toUpperCase(), 19)}<span class="tdw"><b>${esc(f.d.dow)}</b> · ${f.dayNow ? 'today' : 'next programme day'}</span></span>
++  el.innerHTML = `<span class="tdday">${refPlate(f.d.dm.toUpperCase(), 19)}<span class="tdw"><b>${esc(f.d.dow)}</b> · ${f.dayNow ? 'today' : f.nextIn ? 'next delivery day' : 'next programme day'}</span></span>
+     <span class="tdrow">${fig(f.due, 'Due in', f.subDue, 'timeline', 'cal')}${fig(f.onsite, 'Recorded on site', f.subOn, 'plant', 'seen')}${fig(f.notYet, 'Not recorded on site', f.subNot, 'plant', 'gap', f.notYet ? 'gap' : '')}${f.refs ? fig(f.refs, f.refs === 1 ? 'Row needs a reference' : 'Rows need references', 'on the schedule', 'timeline', 'gap', 'gap') : ''}</span>`;
+   if (!el.dataset.wired) { el.dataset.wired = '1'; el.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); }); }
+   hzMapPins(f);
+@@ -10430,7 +10505,8 @@
+     <p class="norate">Traffic and routes: TomTom.</p>
+   </div>`;
+ }
+-function renderToday(){
++function renderToday(){ return holdAssets(renderToday_held); } /* v6.69 - one asset list for the whole draw */
++function renderToday_held(){
+   const today = todayIso();
+   const days = programmeDays();
+   const dayNow = days.find(d => d.iso === today) || null;
+@@ -10718,7 +10794,8 @@
+   };
+   return [...byRef.entries()].map(([, xs]) => Object.assign({}, best(xs), {of: xs.length}));
+ }
+-function renderSatBoard(){
++function renderSatBoard(){ return holdAssets(renderSatBoard_held); } /* v6.69 - one asset list for the whole draw */
++function renderSatBoard_held(){
+   const pins = satBoardPins();
+   const latest = pins.slice().sort((a, b) => String(b.at || '').localeCompare(String(a.at || '')))[0];
+   const drawn = allAssets().map(a => { const pt = aerialPointFor(a); const ll = pt && lonLatOf(pt.ax, pt.ay); return ll ? {key: a.key, name: a.name || a.item || '', lat: ll.lat, lon: ll.lon} : null; }).filter(Boolean);
+@@ -11343,7 +11420,8 @@
+   if (!sh || sh.circuit_frame === false || typeof o.north_deg_clockwise_from_sheet_top !== 'number') return null;
+   return o.north_deg_clockwise_from_sheet_top;
+ }
+-function renderMap(){
++function renderMap(){ return holdAssets(renderMap_held); } /* v6.69 - one asset list for the whole draw */
++function renderMap_held(){
+   /* v5.52 — THE SATELLITE PIN BOARD, on the hosted link only. Andrew Fisher, 18 Sep 2026: a new, blank satellite
+      image that becomes an updated pinned image as the job goes. Mapbox's
+      satellite, no drawing on it, every recorded pin on it, and it updates as the record syncs. */
+@@ -11646,8 +11724,11 @@
+     inner.style.transform = `translate(${state.ox}px,${state.oy}px) scale(${state.zoom})`;
+     if (rotEl) { rotEl.style.setProperty('--rot', state.rot + 'deg'); rotEl.style.transform = `rotate(${state.rot}deg)`; }
+     const n = $('#rotn'); if (n && north != null) n.style.transform = `rotate(${north + state.rot}deg)`;
+-    mapBar(); };
+-  mapBar();
++ mapBar(); };
++ /* v6.69 - a burst of wheel events moves the drawing once per frame */
++ let applyRaf = 0;
++ const applySoon = () => { if (!applyRaf) applyRaf = requestAnimationFrame(() => { applyRaf = 0; apply(); }); };
++ mapBar();
+   /* v5.83 — THE DRAWING TURNS ABOUT THE MIDDLE OF THE STAGE (Andrew Fisher, 25 Sep 2026: every map can be spun
+      round). The pan and zoom stay in the drawing's own frame, so a point on the screen is turned back into that
+      frame before it is used: a drag moves the drawing the way the finger went, and a pinch or a wheel zooms about
+@@ -11692,12 +11773,15 @@
+   stage.addEventListener('wheel', e => {
+     e.preventDefault();
+     if (e.shiftKey) { turnTo(state.rot + ((e.deltaY || e.deltaX) < 0 ? -5 : 5)); return; }
+-    const r = stage.getBoundingClientRect(), old = state.zoom;
+-    const { x: cx, y: cy } = unturn(e.clientX - r.left, e.clientY - r.top, r);
+-    state.zoom = Math.min(8, Math.max(1, state.zoom * (e.deltaY < 0 ? 1.18 : 1/1.18)));
+-    state.ox = cx - (cx - state.ox) * (state.zoom/old);
+-    state.oy = cy - (cy - state.oy) * (state.zoom/old);
+-    clamp(); apply();
++const r = stage.getBoundingClientRect(), old = state.zoom;
++ const { x: cx, y: cy } = unturn(e.clientX - r.left, e.clientY - r.top, r);
++ /* v6.69 - zoom by how far the wheel moved: a mouse notch is the same 18 % it always was, a trackpad's small
++    steps are small, and a pinch on a trackpad (ctrl + wheel) follows the fingers */
++ const dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
++ state.zoom = Math.min(8, Math.max(1, state.zoom * Math.exp(-Math.max(-240, Math.min(240, dy)) * (e.ctrlKey ? 0.006 : 0.00138))));
++ state.ox = cx - (cx - state.ox) * (state.zoom/old);
++ state.oy = cy - (cy - state.oy) * (state.zoom/old);
++ clamp(); applySoon();
+   }, {passive:false});
+   let drag = null;
+   const pts = new Map();
+@@ -11744,7 +11828,8 @@
+ }
+ 
+ /* ------------------------------------------------------------------ register */
+-function renderRegister(){
++function renderRegister(){ return holdAssets(renderRegister_held); } /* v6.69 - one asset list for the whole draw */
++function renderRegister_held(){
+   const byDisc = allAssets().filter(a => matches(a, state.q.trim().toLowerCase()))
+     .filter(a => !state.disc || a.discipline === state.disc);
+   const list = byDisc.filter(lightMatches);
+@@ -11865,8 +11950,11 @@
+   host.appendChild(REG_PANE);
+   renderRegister();
+ }
+-function renderPlant(){
+-  const q = state.q.trim().toLowerCase();
++function renderPlant(){ return holdAssets(renderPlant_held); } /* v6.69 - one asset list for the whole draw */
++function renderPlant_held(){
++ const q = state.q.trim().toLowerCase();
++ { const m = $('main'), y = GO_CHANGED ? (TAB_SCROLL.plant || 0) : ((m && m.scrollTop) || 0);
++   PLANT_REST.q = []; PLANT_REST.budget = 24; PLANT_REST.on = y < 40 && state.plantView !== 'cards' && !(window.matchMedia && matchMedia('print').matches); }
+   const groups = plantGroups();
+   const only = state.plantGroup && groups.some(([g]) => g === state.plantGroup) ? state.plantGroup : null;
+   const shown = only ? groups.filter(([g]) => g === only) : groups;
+@@ -11906,7 +11994,8 @@
+     state.plantGroup = b.dataset.pg || null; render();
+   });
+   $('#pane-plant').querySelectorAll('[data-open]').forEach(b => b.onclick = () => openAsset(b.dataset.open));
+-  $('#pane-plant').querySelectorAll('[data-map]').forEach(b => b.onclick = () => showOnMap(b.dataset.map));
++$('#pane-plant').querySelectorAll('[data-map]').forEach(b => b.onclick = () => showOnMap(b.dataset.map));
++ plantPump();
+ }
+ function plantTable(group, list){
+   if (!list.length) return '';
+@@ -11924,7 +12013,7 @@
+     ${state.plantView === 'cards' ? `<div class="eqgrid">${list.map(a => equipmentCard(a, {on: state.sel === a.key})).join('')}</div>` : `<div class="tblwrap"><table>
+       <thead><tr><th>GC500 ID</th><th>Light</th><th>Dates</th><th>Asset no. · contract</th><th>Description asked for</th>
+         <th>Description supplied</th><th>State</th>${isBuilding ? '<th>What comes with it</th>' : ''}</tr></thead>
+-      <tbody>${list.map(a => {
++<tbody>${plantRows(list, a => {
+         const rows = itemRows(a), com = CROW.get(a.key) || {}, d = deliveryOf(a.key);
+         const rent = rentalOf(a.key);
+         /* a plant line's numbers come from the rental system, and the tynes line is named as what it is */
+@@ -11968,8 +12057,8 @@
+               + (acc.length ? `<div class="w" style="font-size:11px;color:var(--mute)">${acc.reduce((s, x) => s + (x.qty || 1), 0)} inside it</div>` : ''); })()}</div></td>
+           <td>${asked}</td><td>${sup}</td><td>${st}</td>
+           ${isBuilding ? '<td>' + contentsCell(a) + '</td>' : ''}</tr>`;
+-      }).join('')}</tbody></table></div>`}
+-    ${isBuilding ? `<p class="norate">${esc(DATA.accessory_authority)}</p>` : ''}
++})}</tbody></table></div>`}
++ ${isBuilding ? `<p class="norate">${esc(DATA.accessory_authority)}</p>` : ''}
+   </div>`;
+ }
+ function contentsCell(a){
+@@ -12904,7 +12993,8 @@
+   const fencing = people.filter(p => p.group === 'fencing').length;
+   return {total: people.length, fencing: fencing, coates: people.length - fencing - people.filter(p => p.group === 'other').length};
+ }
+-function renderCoatesWay(){
++function renderCoatesWay(){ return holdAssets(renderCoatesWay_held); } /* v6.69 - one asset list for the whole draw */
++function renderCoatesWay_held(){
+   const T = cwTargets(), reds = cwReds(), pillars = cwPillars();
+   const missing = r => [!r.cause && 'a root cause', !r.action && 'a corrective action', !r.owner && 'an owner',
+                         !r.when && 'a deadline'].filter(Boolean);
+@@ -13133,7 +13223,8 @@
+   if (r && r.focus && document.contains(r)) try { r.focus(); } catch (e) {}
+ }
+ 
+-function renderPrestarts(){
++function renderPrestarts(){ return holdAssets(renderPrestarts_held); } /* v6.69 - one asset list for the whole draw */
++function renderPrestarts_held(){
+   const hosted = !!(SYNC.backend && SYNC.backend.fileUrl);
+   const canAdd = hosted && !SYNC.readonly;
+   const today = todayIso();
+@@ -13248,7 +13339,8 @@
+     (${esc(span)}). They are the crew's stock moving, not deliveries, so they are on no day of the Timeline, no list and no
+     count — the fencing is measured here, off the dockets (Andrew Fisher, 25 Sep 2026).</p>`;
+ }
+-function renderFencing(){
++function renderFencing(){ return holdAssets(renderFencing_held); } /* v6.69 - one asset list for the whole draw */
++function renderFencing_held(){
+   const q = state.q.trim().toLowerCase();
+   const all = allDockets();
+   const hay = d => [d.id, d.date, d.week, d.docket_no, d.crew, d.map_ref, d.location, d.note, d.recorded_by,
+@@ -14634,7 +14726,8 @@
+    Two halves of one question. WHAT IS OWED sits on top, because an open action with a name and a date on it is
+    the only thing on this page anybody can act on. WHAT HAPPENED sits under it, read back out of the record —
+    not written here, not editable here, and therefore not arguable. */
+-function renderJournal(){
++function renderJournal(){ return holdAssets(renderJournal_held); } /* v6.69 - one asset list for the whole draw */
++function renderJournal_held(){
+   const q = (state.q || '').trim();
+   const kind = state.jKind || 'all';
+   const rows = journal({q, kind, ref: state.jRef || null});
+@@ -14780,7 +14873,8 @@
+   pane.querySelectorAll('[data-areopen]').forEach(b => b.onclick = () => setState(b.dataset.areopen, 'open'));
+ }
+ 
+-function renderBreakdowns(){
++function renderBreakdowns(){ return holdAssets(renderBreakdowns_held); } /* v6.69 - one asset list for the whole draw */
++function renderBreakdowns_held(){
+   const q = state.q.trim().toLowerCase();
+   const all = allBreakdowns();
+   const hay = b => [b.id, b.type, b.severity, b.status, b.ref, b.area, b.map_ref, b.what, b.owner, b.action, b.resolution, b.by].filter(Boolean).join(' ').toLowerCase();
+@@ -15885,7 +15979,8 @@
+       <ul style="margin:0;padding-left:18px;font-size:12.5px;line-height:1.55">${(WF.summary_notes || []).map(n => `<li>${esc(n)}</li>`).join('')}${((WF.setup || {}).notes || []).map(n => `<li>${esc(n)}</li>`).join('')}</ul>`)}
+   </div>`;
+ }
+-function renderCosts(){
++function renderCosts(){ return holdAssets(renderCosts_held); } /* v6.69 - one asset list for the whole draw */
++function renderCosts_held(){
+   const q = state.q.trim().toLowerCase();
+   const all = allCosts(), by = costsByCategory(all), T = costTotals(all), fd = fenceDerived();
+   const local = all.filter(c => c._where === 'local').length;
+@@ -15962,7 +16057,8 @@
+     .filter(Boolean).join(' ').toLowerCase();
+   return q.split(/\s+/).filter(Boolean).every(t => hay.includes(t));
+ }
+-function renderVariances(){
++function renderVariances(){ return holdAssets(renderVariances_held); } /* v6.69 - one asset list for the whole draw */
++function renderVariances_held(){
+   const q = state.q.trim().toLowerCase();
+   const all = allVariances();
+   const shown = all.filter(v => varMatches(v, q));
+@@ -17414,7 +17510,8 @@
+     d.addEventListener('toggle', () => { try { localStorage.setItem('gc500.dsect.' + d.id.replace(/^dsect/, '').toLowerCase(), d.open ? 'open' : 'closed'); } catch (e) {} });
+   });
+ }
+-function openAsset(key, opts){
++function openAsset(key, opts){ return holdAssets(() => openAsset_held(key, opts)); } /* v6.69 */
++function openAsset_held(key, opts){
+   const a = allAssets().find(x => x.key === key);
+   if (!a) return;
+   const keep = !!(opts && opts.keep);                 // a redraw of a drawer that is already open
+@@ -18490,7 +18587,8 @@
+           hs && rs && rs !== hs.iso ? `<div class="edwas">the rental system says <b>${esc(fmtDate(rs))}</b></div>` : ''}</div>`; })()}</td>
+   </tr>`;
+ }
+-function renderEdit(){
++function renderEdit(){ return holdAssets(renderEdit_held); } /* v6.69 - one asset list for the whole draw */
++function renderEdit_held(){
+   const place = editKeepPlace();
+   const rows = editRows(), all = allAssets();
+   const discs = [...new Set(all.map(a => a.discipline).filter(Boolean))].sort();
+@@ -18656,7 +18754,8 @@
+   });
+   return out.sort((x, y) => x.sheet.localeCompare(y.sheet) || x.label.localeCompare(y.label, undefined, {numeric: true}));
+ }
+-function renderAdd(){
++function renderAdd(){ return holdAssets(renderAdd_held); } /* v6.69 - one asset list for the whole draw */
++function renderAdd_held(){
+   const pre = state.addPrefill || null; state.addPrefill = null;
+   const v = k => esc(pre && pre[k] != null ? pre[k] : '');
+   $('#pane-add').innerHTML = paneHeadingHtml('add') + `
+@@ -22876,7 +22975,8 @@
+    <p class="maphint">${esc(R.what_this_does_not_say)}</p>
+   </div>`;
+ }
+-function renderPricing(){
++function renderPricing(){ return holdAssets(renderPricing_held); } /* v6.69 - one asset list for the whole draw */
++function renderPricing_held(){
+   /* The rate card prices the job that is still on. A cancelled reference keeps its own row, its drawing and its
+      history — nothing is deleted — but it is not priced here, because the running total on Where we are is this
+      page's total and the two can never differ. The card says underneath which references are out. */
+@@ -24779,7 +24879,8 @@
+   const target = (next && !next.disabled ? next : null) || pane.querySelector('.day[aria-pressed="true"]') || pane;
+   if (target && target.focus) try { target.focus({preventScroll: true}); } catch (e) { target.focus(); }
+ }
+-function renderTimeline(){
++function renderTimeline(){ return holdAssets(renderTimeline_held); } /* v6.69 - one asset list for the whole draw */
++function renderTimeline_held(){
+   const days = calendarDays();
+   const discs = [...new Set(allAssets().map(a => a.discipline))].sort();
+   const view = state.tlView || 'day';
+@@ -24998,7 +25099,8 @@
+    ${Object.keys(TEAM.addresses || {}).length ? `<p class="norate">${Object.entries(TEAM.addresses).map(([k, v]) => `<b>${esc(k)}</b> ${esc(v)}`).join(' · ')}</p>` : ''}
+   </div>`;
+ }
+-function renderAbout(){
++function renderAbout(){ return holdAssets(renderAbout_held); } /* v6.69 - one asset list for the whole draw */
++function renderAbout_held(){
+   $('#pane-about').innerHTML = paneHeadingHtml('about') + `
+   ${teamCard()}
+   <div class="card"><h3>What this file is</h3>
+@@ -25464,7 +25566,8 @@
+   pane.querySelectorAll('[data-photocat]').forEach(b => b.onclick = () => { state.photoCat = b.dataset.photocat; render(); const m = $('main'); if (m) m.scrollTop = 0; });
+   const back = $('#photoBack'); if (back) back.onclick = () => { state.photoCat = null; render(); const el = $('#docsec-photos'); if (el) el.scrollIntoView({behavior: motionOff() ? 'auto' : 'smooth', block: 'start'}); };
+ }
+-function renderDocs(keep){
++function renderDocs(keep){ return holdAssets(() => renderDocs_held(keep)); } /* v6.69 */
++function renderDocs_held(keep){
+   const hosted = !!(SYNC.backend && SYNC.backend.fileUrl);
+   if (state.photoCat) { if (hosted) docsRefresh(false); return renderPhotoGallery(docCollection().items, state.photoCat); }
+   if (hosted) docsRefresh(false);
+@@ -27304,7 +27407,8 @@
+   box.querySelectorAll('[data-fi]').forEach(el => { el.onmousedown = ev => ev.preventDefault(); el.onclick = () => finderPick(Number(el.dataset.fi)); });
+   const cur = box.querySelector('.fi.on'); if (cur && cur.scrollIntoView) cur.scrollIntoView({block: 'nearest'});
+ }
+-function finderOpen(q){ FINDER.list = finderMatches(q); FINDER.at = FINDER.list.length ? 0 : -1; finderDraw(); }
++function finderOpen(q){ return holdAssets(() => finderOpen_held(q)); } /* v6.69 */
++function finderOpen_held(q){ FINDER.list = finderMatches(q); FINDER.at = FINDER.list.length ? 0 : -1; finderDraw(); }
+ function finderClose(){ FINDER.list = []; FINDER.at = -1; finderDraw(); }
+ function finderPick(i){
+   const it = (FINDER.list || [])[i]; if (!it) return;
+@@ -27339,7 +27443,8 @@
+    behind the pill and named in a strip above the map, until the next search or the strip's ×. A reference is
+    found by the pill the map links it to (by key, or by the unit standing there), not by a label that another
+    pill on the same sheet may share — D024 numbers gensets and towers alike. */
+-function mapLocate(sheetKey, label, key, opts){
++function mapLocate(sheetKey, label, key, opts){ return holdAssets(() => mapLocate_held(sheetKey, label, key, opts)); } /* v6.69 */
++function mapLocate_held(sheetKey, label, key, opts){
+   const o = opts || {};
+   const sh = DATA.sheets.find(s => s.key === sheetKey); if (!sh) return;
+   const m = o.marker || (sh.markers || []).find(x => x.marker_kind !== 'note' && calloutKey(x.label) === calloutKey(label));
+@@ -27843,7 +27948,7 @@
+       toRace != null ? (toRace > 0 ? ` · <b>${toRace} days</b> to race day` : toRace === 0 ? ' · <b>race day</b>' : '') : ''} · <b>${toEnd >= 0 ? toEnd : 0} days</b> to the end of demob</p>
+     <div class="hacts">
+       <label class="hb"><span class="vh">View date</span><input type="date" id="asOf" value="${esc(asOf)}" data-ro title="a viewing filter — it changes what this page replays, never the record"></label>
+-      <a class="hb" id="emailProgress" href="${progressMailto(asOf)}">Email this</a>
++<a class="hb" id="emailProgress" href="mailto:" data-mailasof="${esc(asOf)}">Email this</a>
+       <button class="hb" id="printProgress">Print</button>
+       <button class="showgo" id="showStart" data-ro title="the job on a screen, for a room — it changes nothing">Start showcase <i>${SHOW_ORDER.length} scenes</i></button>
+     </div>
+@@ -27899,7 +28004,8 @@
+ /* every line on the job as at the day, once — its light, its status, its money and what it asks for in things.
+    The plates, the Plant tab, the Register, the trade tables and the branch plates all read this one reading, so
+    a figure on one page can never disagree with the same figure on another. */
+-function dsnState(asOf){
++function dsnState(asOf){ return heldMemo('dsn|' + asOf, () => dsnState_(asOf)); }
++function dsnState_(asOf){
+   const all = allAssets().filter(a => !a._cancelled);   // a cancelled reference is not on the job's work — see progressAsOf()
+   const rows = all.map(a => {
+     const d = deliveryAsOf(a.key, asOf), st = assetStatusAsOf(a, asOf), t = assetTotal(a);
+@@ -28751,14 +28857,16 @@
+   /* A TIGHT BLOOM. The glow used to be one and a half pitches wide on every lit lamp, which is more light than
+      lamp — next-door lamps ran into each other and the letters closed up. A real board's lamps are separate
+      points of light with a little halo, so the halo is a third of a pitch and the lamp itself is what reads. */
+-  for (let yy = 0; yy < ROWS; yy++) for (let xx = 0; xx < COLS; xx++) {
+-    const lit = on[yy * COLS + xx];
+-    const cx = xx * PITCH + PITCH / 2, cy = yy * PITCH + PITCH / 2;
+-    if (lit) { g.shadowColor = 'rgba(255,150,20,.55)'; g.shadowBlur = PITCH * 0.33; g.fillStyle = '#ffb020'; }
+-    else { g.shadowBlur = 0; g.fillStyle = 'rgba(90,70,50,.20)'; }
+-    g.beginPath(); g.arc(cx, cy, r, 0, 6.2832); g.fill();
+-  }
+-  g.shadowBlur = 0;
++/* v6.69 - THE SAME LAMPS FROM TWO STAMPS. Seven thousand circles each with its own blur took 0.8 s and froze the page
++    every time the board paged. The dark lamps are one repeating tile laid in a single fill; each lit lamp is one copy
++    of a lamp drawn once with its halo. Same pitch, same colours, same glow - a few milliseconds. */
++ const tile = document.createElement('canvas'); tile.width = tile.height = PITCH;
++ { const k = tile.getContext('2d'); k.fillStyle = 'rgba(90,70,50,.20)'; k.beginPath(); k.arc(PITCH / 2, PITCH / 2, r, 0, 6.2832); k.fill(); }
++ g.fillStyle = g.createPattern(tile, 'repeat'); g.fillRect(0, 0, COLS * PITCH, ROWS * PITCH);
++ const lamp = document.createElement('canvas'); lamp.width = lamp.height = PITCH * 2;
++ { const k = lamp.getContext('2d'); k.shadowColor = 'rgba(255,150,20,.55)'; k.shadowBlur = PITCH * 0.33; k.fillStyle = '#ffb020';
++   k.beginPath(); k.arc(PITCH, PITCH, r, 0, 6.2832); k.fill(); }
++ for (let yy = 0; yy < ROWS; yy++) for (let xx = 0; xx < COLS; xx++) if (on[yy * COLS + xx]) g.drawImage(lamp, xx * PITCH - PITCH / 2, yy * PITCH - PITCH / 2);
+ }
+ /* the size word each line carries, for the lamp layout */
+ function ledLines(page){
+@@ -28870,8 +28978,7 @@
+       if ((!w || w.scrollHeight <= w.clientHeight + 1) && lines.every(l => l.scrollWidth <= l.clientWidth + 1)) break;
+     }
+   };
+-  size();
+-  /* When the board changes size the words are re-sized — and the lamps have to be drawn again too, at the pitch
++ /* When the board changes size the words are re-sized — and the lamps have to be drawn again too, at the pitch
+      the new size deserves. Without this the face keeps whatever resolution it had at first paint, so a board that
+      grows (a wider window, a laptop on a desk monitor) is a small picture stretched, which is what Andrew Fisher
+      saw on 13 Sep 2026: a very fuzzy board. Only a real change in width redraws, so the observer cannot chase its own
+@@ -28939,9 +29046,12 @@
+       catch (e) { board.classList.add('nolamps'); } }
+     else board.classList.add('nolamps');
+     board.setAttribute('aria-label', page.lines.map(l => l.t).join('. ')); };
+-  BOARD_RUN.redraw = draw;                 // so a change of size draws the lamps again, not just the words
+-  BOARD_RUN.w = Math.round(board.getBoundingClientRect().width);
+-  draw();
++BOARD_RUN.redraw = draw; // so a change of size draws the lamps again, not just the words
++ /* v6.69 - the words go up with the page; the lamps are lit on the next frame, not in the middle of opening it */
++ if (words) { const pages0 = boardPages(asOf, X); if (pages0.length) words.innerHTML = pages0[(fig._page || 0) % pages0.length].lines.map(l => `<div class="${l.cls}">${esc(l.t)}</div>`).join(''); }
++ cancelAnimationFrame(BOARD_RUN.raf || 0);
++ BOARD_RUN.raf = requestAnimationFrame(() => { BOARD_RUN.raf = 0; if (BOARD_RUN.redraw !== draw || !board.isConnected) return;
++  BOARD_RUN.w = Math.round(board.getBoundingClientRect().width); try { draw(); } catch (e) {} });
+   const canPage = () => document.body.contains(board) && pane.classList.contains('on')
+     && !fig.classList.contains('folded') && document.visibilityState !== 'hidden'
+     && BOARD_RUN.seen && !motionOff();
+@@ -30032,6 +30142,9 @@
+   </div>`;
+ }
+ /* the same summary as the plates, as plain text for an email — the plates' figures, never a second reading */
++/* v6.69 - the email is written when "Email this" is pressed, from the record as it stands at that moment */
++document.addEventListener('click', e => { const a = e.target && e.target.closest && e.target.closest('#emailProgress[data-mailasof]');
++ if (a) { try { a.href = holdAssets(() => progressMailto(a.dataset.mailasof)); } catch (err) {} } }, true);
+ function progressMailto(asOf, X){
+   X = X || dsnState(asOf); const {all, rows, P} = X;
+   const on = rows.filter(r => r.on);
+@@ -30091,7 +30204,8 @@
+   const tail = `Open breakdowns: ${allBreakdowns().filter(b => b.open).length} · On hire is on site; a light a person sets overrides it. Sent from GC500 Delivery Control.`;
+   return mailto(`GC500 where we are — ${fmtDate(asOf)}`, capLines(lines, undefined, tail.length + 2) + '\n\n' + tail);
+ }
+-function renderProgress(){
++function renderProgress(){ return holdAssets(renderProgress_held); } /* v6.69 - one asset list for the whole draw */
++function renderProgress_held(){
+   const asOf = /^\d{4}-\d{2}-\d{2}$/.test(state.asOf || '') ? state.asOf : todayIso();
+   const P = progressAsOf(asOf);
+   state.list = P.all.overdue_keys.concat(P.all.norecord_keys);

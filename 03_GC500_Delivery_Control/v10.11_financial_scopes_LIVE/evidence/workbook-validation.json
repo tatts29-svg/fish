@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "source": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "financialCapture": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "nativeVersion": 5813,
+  "output": "/workspace/output/GC500_Charge_Audit_14Oct2026.xlsx",
+  "existingRows": 208,
+  "questionRows": 41,
+  "transportGroups": 17,
+  "sourceAndRateGroups": 20,
+  "forecastAllocationGroups": 2,
+  "labourInputGroups": 2,
+  "noFormulas": true
+}

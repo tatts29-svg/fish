@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "priorBehaviourExit": 1,
+  "fixedBehaviourExit": 0,
+  "tests": 3,
+  "priorFailure": "F..\n======================================================================\nFAIL: test_attribution_does_not_change_selectors_or_unrelated_strings (__main__.ScrubAttributionsTests.test_attribution_does_not_change_selectors_or_unrelated_strings)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/tmp/tmpnythtgcj/test_scrub_attributions.py\", line 35, in test_attribution_does_not_change_selectors_or_unrelated_strings\n    self.assertEqual(self.scrub(original), expected)\nAssertionError: \"<scr[117 chars]er.on.ptag.sync b';\\nconst css = '#drv782.box{[269 chars]ipt>\" != \"<scr[117 chars]er.on .ptag.sync b';\\nconst css = '#drv782 .bo[284 chars]ipt>\"\nDiff is 911 characters long. Set self.maxDiff to None to see it.\n\n----------------------------------------------------------------------\nRan 3 tests in 0.094s\n\nFAILED (failures=1)\n",
+  "fixedResult": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.112s\n\nOK\n"
+}

@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"T0266 can be what ever\". The door side does not matter for this container, recorded as not applicable (as T0258's container is). T0266 has no unit number; its one row is the item 6.0m Refrigerator Cont.",
+ "refs": [
+  "T0266"
+ ],
+ "ops": [
+  {
+   "op": "door",
+   "ref": "T0266",
+   "id": "item:6.0m Refrigerator Cont",
+   "side": "na",
+   "why": "Andrew, 17 Oct 2026: T0266 can be whatever - door side not applicable"
+  }
+ ]
+}

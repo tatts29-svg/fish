@@ -1,0 +1,13 @@
+{
+  "desktop": {
+    "passed": 29,
+    "page_errors": 0,
+    "console_errors": 0
+  },
+  "phone": {
+    "passed": 27,
+    "page_errors": 0,
+    "console_errors": 0
+  },
+  "scope": "Area-sharing regression on the map-search implementation before the final label-only adjustment and Servicing base rebase. Area model/geometry retained; exact non-map byte preservation checked on the final candidate."
+}

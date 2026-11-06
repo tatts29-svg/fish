@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "pageSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "sourceSha256": "b75367903f9265d5b49b2dd926f1338cee0235474c0025333edc6c7f826d6e91",
+  "baselineSha256": "e1ac123e18fdd39bb8240c3387286f3ca305a9f9cfa3240d032ef748029d1c46",
+  "passed": 21,
+  "total": 21,
+  "privateLogSha256": "74978277f3931b5bf64dd7ceb2c18d343d951532ae90d012f3573a2582f06ca9",
+  "scope": "Exact inherited synthetic CPU navigation/calculation suite on final host; no browser/network/record writes."
+}

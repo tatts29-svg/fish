@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifest": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad",
+  "dashboardBaseSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "releaseScopeSha256": "a8b16c5fd5b8de006cb2c0a522a3644e2268d2e2d7e67792400af2174cb3df93",
+  "files": {
+    "car-app.js": {
+      "base": "c97d5589d82f56ce704bb76a57a38ec544268c592cada66380a156384306c9d9",
+      "sha256": "6302e14ce2b46feb25f6a55116e6c8d31f3b28a5d4b33fffb6713f2ed1070ddc",
+      "bytes": 154599
+    },
+    "index.html": {
+      "base": "7450008a101546f896ceffebb59139511e77e08ddbdd3ab42205b47e79c05bdb",
+      "sha256": "beee6f7c2d096c156a699dfeb190714a47292e0a447c82c4a80886d32b5ed4b4",
+      "bytes": 11531
+    },
+    "workshop-camera.js": {
+      "base": null,
+      "sha256": "f85eb03715d2d9decb280d9c832832955cc4f6c989aa7195a2dc1ba4b58092a6",
+      "bytes": 10903
+    },
+    "workshop-learning.js": {
+      "base": "63114b4594cf8df016f95fae2b898d00b0177e77ac406b95df7965bfcb46511a",
+      "sha256": "e2fe1fa2c609733b47fe2c72f52ec728ac94ff536845fd95b8964de5a3a0aa0a",
+      "bytes": 21700
+    },
+    "workshop-lighting.js": {
+      "base": null,
+      "sha256": "730d77c1fc5e9ceae1846c169453d886407f988ba479b8ab791e81d81945e58f",
+      "bytes": 3928
+    },
+    "workshop-selection.js": {
+      "base": null,
+      "sha256": "fd0eedb71307bcab099f4b1644517d062335097f1cb10963270dbe388bd7a131",
+      "bytes": 11737
+    },
+    "workshop-ui.js": {
+      "base": "f16a46418e99856757ba1cf8d5750c2a5ac5351bf59e289a7b7d321240c79797",
+      "sha256": "88bfbeb876d51036c8e8b1b1f72ab320451d1d998402946299d23e8a39c3c1b9",
+      "bytes": 37465
+    }
+  }
+}

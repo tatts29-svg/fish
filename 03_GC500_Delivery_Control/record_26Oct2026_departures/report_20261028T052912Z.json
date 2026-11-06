@@ -1,0 +1,395 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T052912Z",
+ "finished": "2026-10-28T05:29:48.683Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026 (photo): \"1271129 F05419 / 1211356 ER9244 / 1182999 410UFQ / Left 230pm\" - three Coates VMS boards on T0001 (asset number and rego). Three boards stay (1211354, 1191877, 1211359). Left site 28 Oct 2026 14:30 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0001",
+    "at": "2026-10-28T14:30:00+10:00",
+    "nos": [
+     "1271129",
+     "1211356",
+     "1182999"
+    ],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11687,
+  "after": 11688
+ },
+ "updated": {
+  "before": "2026-10-28T05:16:32.361Z",
+  "after": "2026-10-28T05:29:47.857Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0001",
+   "at": "2026-10-28T14:30:00+10:00",
+   "nos": [
+    "1271129",
+    "1211356",
+    "1182999"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-28T14:30:00+10:00, recorded by Andrew Fisher: 3 x VMS 1182999, 1271129, 1211356 - still to leave: 3 x VMS"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0001",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1211356": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a972a3f8-103f-45ff-95d1-bed613e924cd"
+     },
+     "coates|1182999": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211370": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T22:58:09.477Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "4da8856a-7198-4495-ab0d-6ebda548a538",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T08:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-06T21:00:00Z",
+       "requiredKey": "[[\"vms\",8]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 2,
+         "unitIds": [
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]"
+         ],
+         "numbers": [
+          "1211370",
+          "1211383"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+           "number": "1211370",
+           "owner": "coates",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]",
+           "number": "1211383",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1182999",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211356",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211370",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0001"
+   }
+  },
+  "after": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1211356": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a972a3f8-103f-45ff-95d1-bed613e924cd"
+     },
+     "coates|1182999": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211370": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T22:58:09.477Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "4da8856a-7198-4495-ab0d-6ebda548a538",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T08:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-06T21:00:00Z",
+       "requiredKey": "[[\"vms\",8]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 2,
+         "unitIds": [
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]"
+         ],
+         "numbers": [
+          "1211370",
+          "1211383"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+           "number": "1211370",
+           "owner": "coates",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]",
+           "number": "1211383",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-28T05:29:32.537Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b2d58aaa-2fae-4038-8065-39373aeb4f5b",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T14:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-06T21:00:00Z",
+       "requiredKey": "[[\"vms\",8]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 3,
+         "unitIds": [
+          "[\"T0001\",\"coates\",\"native\",\"vms:1182999\"]",
+          "[\"T0001\",\"coates\",\"native\",\"vms:1271129\"]",
+          "[\"T0001\",\"coates\",\"native\",\"slot:a972a3f8-103f-45ff-95d1-bed613e924cd\"]"
+         ],
+         "numbers": [
+          "1182999",
+          "1271129",
+          "1211356"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1182999\"]",
+           "number": "1182999",
+           "owner": "coates",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1271129\"]",
+           "number": "1271129",
+           "owner": "coates",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"slot:a972a3f8-103f-45ff-95d1-bed613e924cd\"]",
+           "number": "1211356",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1182999",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211356",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211370",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0001"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

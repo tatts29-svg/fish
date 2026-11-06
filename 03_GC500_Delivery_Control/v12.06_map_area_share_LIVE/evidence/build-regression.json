@@ -1,0 +1,14 @@
+{
+  "desktop": {
+    "checks": 28,
+    "errors": 0,
+    "attempted_writes": 0,
+    "suite": "v12.04_build_cards_LIVE/tests/test_build1204.cjs"
+  },
+  "phone": {
+    "checks": 28,
+    "errors": 0,
+    "attempted_writes": 0,
+    "suite": "v12.04_build_cards_LIVE/tests/test_build1204.cjs"
+  }
+}

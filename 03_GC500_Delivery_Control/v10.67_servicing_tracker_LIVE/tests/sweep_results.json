@@ -1,0 +1,142 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at_utc": "2026-10-18T01:18:26.155475+00:00",
+  "candidate_sha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+  "live_gets_only": true,
+  "no_page_publication": true,
+  "viewports": {
+    "desktop": {
+      "tabs_checked": 24,
+      "displayed_directly": 18,
+      "expected_redirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "deep_links": {
+        "#timeline": {
+          "hash": "#timeline",
+          "pane": "pane-timeline",
+          "bar": false,
+          "errors": []
+        },
+        "#day/2026-09-28": {
+          "hash": "#day/2026-09-28",
+          "pane": "pane-timeline",
+          "bar": false,
+          "errors": []
+        },
+        "#change/2026-09-28": {
+          "hash": "#change/2026-09-28",
+          "pane": "pane-change",
+          "bar": false,
+          "errors": []
+        },
+        "#print/drivers/2026-09-28": {
+          "hash": "#print/drivers/2026-09-28",
+          "pane": "pane-timeline",
+          "bar": true,
+          "errors": []
+        },
+        "#sheet/__satellite3d": {
+          "hash": "#sheet/__satellite3d",
+          "pane": "pane-map",
+          "bar": false,
+          "errors": []
+        },
+        "#plant": {
+          "hash": "#plant",
+          "pane": "pane-plant",
+          "bar": false,
+          "errors": []
+        },
+        "#today": {
+          "hash": "#today",
+          "pane": "pane-today",
+          "bar": false,
+          "errors": []
+        }
+      },
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "navigation_exceptions": 0,
+      "attempted_writes": 0,
+      "raw_result_sha256": "6518782b6b1bf9699af6e4aa276853ce11962e69e35182c0b580505d8f4dba0c"
+    },
+    "phone": {
+      "tabs_checked": 24,
+      "displayed_directly": 18,
+      "expected_redirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "deep_links": {
+        "#timeline": {
+          "hash": "#timeline",
+          "pane": "pane-timeline",
+          "bar": false,
+          "errors": []
+        },
+        "#day/2026-09-28": {
+          "hash": "#day/2026-09-28",
+          "pane": "pane-timeline",
+          "bar": false,
+          "errors": []
+        },
+        "#change/2026-09-28": {
+          "hash": "#change/2026-09-28",
+          "pane": "pane-change",
+          "bar": false,
+          "errors": []
+        },
+        "#print/drivers/2026-09-28": {
+          "hash": "#print/drivers/2026-09-28",
+          "pane": "pane-timeline",
+          "bar": true,
+          "errors": []
+        },
+        "#sheet/__satellite3d": {
+          "hash": "#sheet/__satellite3d",
+          "pane": "pane-map",
+          "bar": false,
+          "errors": []
+        },
+        "#plant": {
+          "hash": "#plant",
+          "pane": "pane-plant",
+          "bar": false,
+          "errors": []
+        },
+        "#today": {
+          "hash": "#today",
+          "pane": "pane-today",
+          "bar": false,
+          "errors": []
+        }
+      },
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "navigation_exceptions": 0,
+      "attempted_writes": 0,
+      "raw_result_sha256": "d9cc0dffc124f5d3449b3b53bae841797b32991b010744b100f9800eb236895e"
+    }
+  },
+  "machine_sha256_before_after": "8256bce609ce48d30fd319ac56bce74729cfe8a980ad051228379d09b06a15e6",
+  "record_version_before_after": 9704,
+  "data_scope": "Standard harness read fresh live APIs; the matching before/after versions are endpoint observations, not an atomic frozen-record snapshot."
+}

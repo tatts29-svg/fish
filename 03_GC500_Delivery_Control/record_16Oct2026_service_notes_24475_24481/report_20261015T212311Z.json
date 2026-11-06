@@ -1,0 +1,732 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T212311Z",
+ "finished": "2026-10-15T21:23:34.064Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Seven Advanced Environmental Services service notes (24475-24481, 12 to 15 Oct 2026) and four Advanced Temporary Fencing collection forms (28557-28560, 12 and 15 Oct 2026), signed by Andrew on 16 Oct 2026 and photographed; recorded through the page's own green-book and blue-book forms (recordServiceNote, recordCollection). Hours are the total person-hours as the note writes them; crew size is not multiplied again. Collection forms: counts collected only, no charge, credit or metres inferred.",
+  "ops": [
+   {
+    "op": "service_note",
+    "note_no": "24475",
+    "date": "2026-10-12",
+    "location": "Madison Point to Ferry Rd",
+    "labour_hours": 3,
+    "crew_note": "1/2 hr x 6 men",
+    "metres": 135,
+    "note": "Had to walk panels in from Madison Point to Ferry Rd. Hire agreement invoice num 36596. No access for truck, concrete bollards already installed. Metres installed 135 metres.",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24476",
+    "date": "2026-10-13",
+    "location": "Helen Park",
+    "labour_hours": 2,
+    "crew_note": "1/2 hr - 4 men",
+    "metres": 82.5,
+    "note": "Scrim existing fence. 82.5 m.",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24477",
+    "date": "2026-10-13",
+    "location": "S.0.2 - B.O.H.",
+    "labour_hours": 1.5,
+    "crew_note": "15 mins x 6 men",
+    "metres": 75,
+    "note": "Scrim existing fence - 75 m.",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24478",
+    "date": "2026-10-12",
+    "location": "Philip Park - Advanced Compound",
+    "labour_hours": 0.5,
+    "crew_note": "1 man x 0.5 hr",
+    "metres": "",
+    "note": "XB60AQ - 13:45 - 14:15",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24479",
+    "date": "2026-10-13",
+    "location": "Philip Park - Advanced Compound",
+    "labour_hours": 0.5,
+    "crew_note": "1 man x 0.5 hrs",
+    "metres": "",
+    "note": "XB38ZP 12:15 - 12:45",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24480",
+    "date": "2026-10-14",
+    "location": "Philip Park - Advanced Compound",
+    "labour_hours": 1.5,
+    "crew_note": "1 man x 1 hr + 2 men x 0.25 hr each",
+    "metres": "",
+    "note": "XB77VR 9:45 - 10:15; 771CIK 10:15 - 10:45; 22CIRA 13:00 - 13:15 - 2 men x 0.25 hr each",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "service_note",
+    "note_no": "24481",
+    "date": "2026-10-15",
+    "location": "S.0.8 B.O.H.",
+    "labour_hours": 4,
+    "crew_note": "1 hr x 4 men",
+    "metres": 185,
+    "note": "Includes relocation of S.0.8 C.2 to S.0.8 B.O.H. 65 m. Also includes 120 m scrim. Hire agreement doct num 36614.",
+    "signed_by": "Andrew Fisher"
+   },
+   {
+    "op": "collection",
+    "collection_no": "28557",
+    "date": "2026-10-12",
+    "location": "Double stack - C.2",
+    "collected": {
+     "mesh_panel": 30,
+     "base": 28,
+     "clamp": 28,
+     "wheels": 2
+    },
+    "hire_agreements_written": "",
+    "signed_by": "Andrew Fisher",
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+   },
+   {
+    "op": "collection",
+    "collection_no": "28558",
+    "date": "2026-10-15",
+    "location": "Pit Lane",
+    "collected": {
+     "mesh_panel": 84,
+     "base": 86,
+     "clamp": 84,
+     "wheels": 2
+    },
+    "hire_agreements_written": "",
+    "signed_by": "Andrew Fisher",
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+   },
+   {
+    "op": "collection",
+    "collection_no": "28559",
+    "date": "2026-10-15",
+    "location": "Porsche Lounge",
+    "collected": {
+     "mesh_panel": 12,
+     "base": 10,
+     "clamp": 13
+    },
+    "hire_agreements_written": "",
+    "signed_by": "Andrew Fisher",
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+   },
+   {
+    "op": "collection",
+    "collection_no": "28560",
+    "date": "2026-10-15",
+    "location": "S18 - Grandstand",
+    "collected": {
+     "mesh_panel": 6,
+     "base": 6,
+     "clamp": 5
+    },
+    "hire_agreements_written": "",
+    "signed_by": "Andrew Fisher",
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred."
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6582,
+  "after": 6615
+ },
+ "updated": {
+  "before": "2026-10-15T19:49:25.915Z",
+  "after": "2026-10-15T21:23:33.259Z"
+ },
+ "stage": [
+  {
+   "op": "service_note",
+   "no": "24475",
+   "id": "N-AF-0001",
+   "result": "recorded as N-AF-0001 - 3 h, 135 m - Service note 24475 recorded as N-AF-0001 - 3 h, $300.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24476",
+   "id": "N-AF-0002",
+   "result": "recorded as N-AF-0002 - 2 h, 82.5 m - Service note 24476 recorded as N-AF-0002 - 2 h, $200.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24477",
+   "id": "N-AF-0003",
+   "result": "recorded as N-AF-0003 - 1.5 h, 75 m - Service note 24477 recorded as N-AF-0003 - 1.5 h, $150.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24478",
+   "id": "N-AF-0004",
+   "result": "recorded as N-AF-0004 - 0.5 h - Service note 24478 recorded as N-AF-0004 - 0.5 h, $50.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24479",
+   "id": "N-AF-0005",
+   "result": "recorded as N-AF-0005 - 0.5 h - Service note 24479 recorded as N-AF-0005 - 0.5 h, $50.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24480",
+   "id": "N-AF-0006",
+   "result": "recorded as N-AF-0006 - 1.5 h - Service note 24480 recorded as N-AF-0006 - 1.5 h, $150.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24481",
+   "id": "N-AF-0007",
+   "result": "recorded as N-AF-0007 - 4 h, 185 m - Service note 24481 recorded as N-AF-0007 - 4 h, $400.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "collection",
+   "no": "28557",
+   "id": "FC-AF-0001",
+   "result": "recorded as FC-AF-0001 - 30 mesh_panel, 28 base, 28 clamp, 2 wheels - Collection form 28557 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28558",
+   "id": "FC-AF-0002",
+   "result": "recorded as FC-AF-0002 - 84 mesh_panel, 86 base, 84 clamp, 2 wheels - Collection form 28558 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28559",
+   "id": "FC-AF-0003",
+   "result": "recorded as FC-AF-0003 - 12 mesh_panel, 10 base, 13 clamp - Collection form 28559 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28560",
+   "id": "FC-AF-0004",
+   "result": "recorded as FC-AF-0004 - 6 mesh_panel, 6 base, 5 clamp - Collection form 28560 recorded: counts only; no charge or credit inferred."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0005",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0007",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0005",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0006",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0007",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0004",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0005",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0006",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0007",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0001",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0002",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0003",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0004",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/serviceNotes~2f~N-AF-0001": null,
+   "stamps/serviceNotes~2f~N-AF-0002": null,
+   "stamps/serviceNotes~2f~N-AF-0003": null,
+   "stamps/serviceNotes~2f~N-AF-0004": null,
+   "stamps/serviceNotes~2f~N-AF-0005": null,
+   "stamps/serviceNotes~2f~N-AF-0006": null,
+   "stamps/serviceNotes~2f~N-AF-0007": null,
+   "stamps/fenceCollections~2f~FC-AF-0001": null,
+   "stamps/fenceCollections~2f~FC-AF-0002": null,
+   "stamps/fenceCollections~2f~FC-AF-0003": null,
+   "stamps/fenceCollections~2f~FC-AF-0004": null,
+   "by/serviceNotes~2f~N-AF-0001": null,
+   "by/serviceNotes~2f~N-AF-0002": null,
+   "by/serviceNotes~2f~N-AF-0003": null,
+   "by/serviceNotes~2f~N-AF-0004": null,
+   "by/serviceNotes~2f~N-AF-0005": null,
+   "by/serviceNotes~2f~N-AF-0006": null,
+   "by/serviceNotes~2f~N-AF-0007": null,
+   "by/fenceCollections~2f~FC-AF-0001": null,
+   "by/fenceCollections~2f~FC-AF-0002": null,
+   "by/fenceCollections~2f~FC-AF-0003": null,
+   "by/fenceCollections~2f~FC-AF-0004": null,
+   "serviceNotes/N-AF-0001": null,
+   "serviceNotes/N-AF-0002": null,
+   "serviceNotes/N-AF-0003": null,
+   "serviceNotes/N-AF-0004": null,
+   "serviceNotes/N-AF-0005": null,
+   "serviceNotes/N-AF-0006": null,
+   "serviceNotes/N-AF-0007": null,
+   "fenceCollections/FC-AF-0001": null,
+   "fenceCollections/FC-AF-0002": null,
+   "fenceCollections/FC-AF-0003": null,
+   "fenceCollections/FC-AF-0004": null
+  },
+  "after": {
+   "stamps/serviceNotes~2f~N-AF-0001": {
+    "_k": "serviceNotes/N-AF-0001",
+    "v": "2026-10-15T21:23:17.451Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0002": {
+    "_k": "serviceNotes/N-AF-0002",
+    "v": "2026-10-15T21:23:18.466Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0003": {
+    "_k": "serviceNotes/N-AF-0003",
+    "v": "2026-10-15T21:23:19.624Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0004": {
+    "_k": "serviceNotes/N-AF-0004",
+    "v": "2026-10-15T21:23:20.949Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0005": {
+    "_k": "serviceNotes/N-AF-0005",
+    "v": "2026-10-15T21:23:22.407Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0006": {
+    "_k": "serviceNotes/N-AF-0006",
+    "v": "2026-10-15T21:23:23.824Z"
+   },
+   "stamps/serviceNotes~2f~N-AF-0007": {
+    "_k": "serviceNotes/N-AF-0007",
+    "v": "2026-10-15T21:23:24.742Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0001": {
+    "_k": "fenceCollections/FC-AF-0001",
+    "v": "2026-10-15T21:23:25.746Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0002": {
+    "_k": "fenceCollections/FC-AF-0002",
+    "v": "2026-10-15T21:23:26.752Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0003": {
+    "_k": "fenceCollections/FC-AF-0003",
+    "v": "2026-10-15T21:23:27.632Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0004": {
+    "_k": "fenceCollections/FC-AF-0004",
+    "v": "2026-10-15T21:23:28.136Z"
+   },
+   "by/serviceNotes~2f~N-AF-0001": {
+    "_k": "serviceNotes/N-AF-0001",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0002": {
+    "_k": "serviceNotes/N-AF-0002",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0003": {
+    "_k": "serviceNotes/N-AF-0003",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0004": {
+    "_k": "serviceNotes/N-AF-0004",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0005": {
+    "_k": "serviceNotes/N-AF-0005",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0006": {
+    "_k": "serviceNotes/N-AF-0006",
+    "v": "Andrew Fisher"
+   },
+   "by/serviceNotes~2f~N-AF-0007": {
+    "_k": "serviceNotes/N-AF-0007",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0001": {
+    "_k": "fenceCollections/FC-AF-0001",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0002": {
+    "_k": "fenceCollections/FC-AF-0002",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0003": {
+    "_k": "fenceCollections/FC-AF-0003",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0004": {
+    "_k": "fenceCollections/FC-AF-0004",
+    "v": "Andrew Fisher"
+   },
+   "serviceNotes/N-AF-0001": {
+    "id": "N-AF-0001",
+    "note_no": "24475",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Madison Point to Ferry Rd",
+    "crew_note": "1/2 hr x 6 men",
+    "note": "Had to walk panels in from Madison Point to Ferry Rd. Hire agreement invoice num 36596. No access for truck, concrete bollards already installed. Metres installed 135 metres.",
+    "metres": 135,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24475, signed paper photographed on site",
+    "labour_hours": 3,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:17.450Z",
+    "_k": "N-AF-0001"
+   },
+   "serviceNotes/N-AF-0002": {
+    "id": "N-AF-0002",
+    "note_no": "24476",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Helen Park",
+    "crew_note": "1/2 hr - 4 men",
+    "note": "Scrim existing fence. 82.5 m.",
+    "metres": 82.5,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24476, signed paper photographed on site",
+    "labour_hours": 2,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:18.466Z",
+    "_k": "N-AF-0002"
+   },
+   "serviceNotes/N-AF-0003": {
+    "id": "N-AF-0003",
+    "note_no": "24477",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "S.0.2 - B.O.H.",
+    "crew_note": "15 mins x 6 men",
+    "note": "Scrim existing fence - 75 m.",
+    "metres": 75,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24477, signed paper photographed on site",
+    "labour_hours": 1.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:19.624Z",
+    "_k": "N-AF-0003"
+   },
+   "serviceNotes/N-AF-0004": {
+    "id": "N-AF-0004",
+    "note_no": "24478",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Philip Park - Advanced Compound",
+    "crew_note": "1 man x 0.5 hr",
+    "note": "XB60AQ - 13:45 - 14:15",
+    "metres": null,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24478, signed paper photographed on site",
+    "labour_hours": 0.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:20.949Z",
+    "_k": "N-AF-0004"
+   },
+   "serviceNotes/N-AF-0005": {
+    "id": "N-AF-0005",
+    "note_no": "24479",
+    "date": "2026-10-13",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Philip Park - Advanced Compound",
+    "crew_note": "1 man x 0.5 hrs",
+    "note": "XB38ZP 12:15 - 12:45",
+    "metres": null,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24479, signed paper photographed on site",
+    "labour_hours": 0.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:22.407Z",
+    "_k": "N-AF-0005"
+   },
+   "serviceNotes/N-AF-0006": {
+    "id": "N-AF-0006",
+    "note_no": "24480",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Philip Park - Advanced Compound",
+    "crew_note": "1 man x 1 hr + 2 men x 0.25 hr each",
+    "note": "XB77VR 9:45 - 10:15; 771CIK 10:15 - 10:45; 22CIRA 13:00 - 13:15 - 2 men x 0.25 hr each",
+    "metres": null,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24480, signed paper photographed on site",
+    "labour_hours": 1.5,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:23.824Z",
+    "_k": "N-AF-0006"
+   },
+   "serviceNotes/N-AF-0007": {
+    "id": "N-AF-0007",
+    "note_no": "24481",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "S.0.8 B.O.H.",
+    "crew_note": "1 hr x 4 men",
+    "note": "Includes relocation of S.0.8 C.2 to S.0.8 B.O.H. 65 m. Also includes 120 m scrim. Hire agreement doct num 36614.",
+    "metres": 185,
+    "signed_by": "Andrew Fisher",
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24481, signed paper photographed on site",
+    "labour_hours": 4,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "at": "2026-10-15T21:23:24.742Z",
+    "_k": "N-AF-0007"
+   },
+   "fenceCollections/FC-AF-0001": {
+    "id": "FC-AF-0001",
+    "collection_no": "28557",
+    "date": "2026-10-12",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Double stack - C.2",
+    "removal_time": null,
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+    "order_no": null,
+    "signed_by": "Andrew Fisher",
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28557, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "collected": {
+     "mesh_panel": 30,
+     "base": 28,
+     "clamp": 28,
+     "wheels": 2
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0001"
+   },
+   "fenceCollections/FC-AF-0002": {
+    "id": "FC-AF-0002",
+    "collection_no": "28558",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Pit Lane",
+    "removal_time": null,
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+    "order_no": null,
+    "signed_by": "Andrew Fisher",
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28558, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "collected": {
+     "mesh_panel": 84,
+     "base": 86,
+     "clamp": 84,
+     "wheels": 2
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0002"
+   },
+   "fenceCollections/FC-AF-0003": {
+    "id": "FC-AF-0003",
+    "collection_no": "28559",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Porsche Lounge",
+    "removal_time": null,
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+    "order_no": null,
+    "signed_by": "Andrew Fisher",
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28559, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "collected": {
+     "mesh_panel": 12,
+     "base": 10,
+     "clamp": 13
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0003"
+   },
+   "fenceCollections/FC-AF-0004": {
+    "id": "FC-AF-0004",
+    "collection_no": "28560",
+    "date": "2026-10-15",
+    "week": "Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "S18 - Grandstand",
+    "removal_time": null,
+    "note": "Collected quantities as written. Hire agreement and issued counts blank; no charge, credit or metres inferred.",
+    "order_no": null,
+    "signed_by": "Andrew Fisher",
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28560, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "collected": {
+     "mesh_panel": 6,
+     "base": 6,
+     "clamp": 5
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0004"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

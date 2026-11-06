@@ -1,0 +1,54 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-14T01:43:34.783549+00:00",
+  "candidateSha256": "ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143",
+  "nativeVersion": 6052,
+  "finding": "The legacy practice harness has a capability race, not a false Saved result. A previously initiated view-level version response can arrive after the test forces local edit flags. The Save adapter correctly refuses to capture an edit when SYNC.readonly is true.",
+  "observedFailure": {
+    "statusState": "idle",
+    "statusText": "",
+    "attemptDirty": false,
+    "attemptAccepted": false,
+    "documentsUnchanged": true,
+    "testCapability": "edit",
+    "actualReadonlyGate": true,
+    "actualLevel": "view",
+    "capturedNativeWritesBeforeAssertion": 0
+  },
+  "testCorrection": "The diagnostic can supply a consistent isolated edit capability from initial navigation via STABLE_EDIT=1 while holding native version 6052. All original Save assertions are retained; eight additional capability-gate assertions are included. Native document setters remain captured promises, and the harness rejects operational network writes. No application source change was needed.",
+  "baselineFocused": {
+    "sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "passed": 5,
+    "checks": 5
+  },
+  "finalFrozenCandidate": {
+    "passed": 80,
+    "checks": 80,
+    "viewports": [
+      "390x844 phone",
+      "1440x1000 desktop"
+    ],
+    "families": [
+      "asset branch",
+      "rental",
+      "supplied quantity",
+      "manual stairs"
+    ],
+    "coverage": [
+      "typed draft remains unsaved with no document mutation",
+      "native Save exact document capture",
+      "device-only feedback before acknowledgement",
+      "exact acknowledgement required for shared Saved",
+      "repeated Save does not replay field mutation",
+      "open drawer and disclosures retained",
+      "reading position retained",
+      "invalid quantity remains unsaved",
+      "Reload preserves native value and reading position",
+      "no duplicate Save in specialized forms"
+    ],
+    "errors": [],
+    "escapedOperationalWrites": 0
+  },
+  "diagnosticSha256": "29eed6c534d0a92150f915689f91704bb1f184d03f91ba31fed0364e37a24874",
+  "actionableApplicationFindings": []
+}

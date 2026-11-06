@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Verified complete is green octagon white check",
+      "pass": true
+    },
+    {
+      "name": "Known open state uses distinct diamond and dash",
+      "pass": true
+    },
+    {
+      "name": "Partial remains partial instead of whole-reference complete",
+      "pass": true
+    },
+    {
+      "name": "Review is distinct triangle warning",
+      "pass": true
+    },
+    {
+      "name": "Actual no delivery record is explicit",
+      "pass": true
+    },
+    {
+      "name": "Per-item exception is unavailable",
+      "pass": true
+    },
+    {
+      "name": "Unavailable batch clears an apparent complete claim",
+      "pass": true
+    },
+    {
+      "name": "Missing reference is unavailable rather than incomplete",
+      "pass": true
+    },
+    {
+      "name": "Cancelled and moved cannot get completion check",
+      "pass": true
+    },
+    {
+      "name": "Unrecognised status does not inherit object property",
+      "pass": true
+    },
+    {
+      "name": "Unavailable snapshot discards all apparent complete rows",
+      "pass": true
+    },
+    {
+      "name": "Duplicate contradictory reference is review",
+      "pass": true
+    },
+    {
+      "name": "Reference list order does not force changed snapshot",
+      "pass": true
+    },
+    {
+      "name": "Malformed reference rows are ignored",
+      "pass": true
+    },
+    {
+      "name": "Older or absent parent supplies no verified status",
+      "pass": true
+    },
+    {
+      "name": "Throwing parent supplies no verified status",
+      "pass": true
+    },
+    {
+      "name": "Available parent bridge passes snapshot",
+      "pass": true
+    },
+    {
+      "name": "Non-equipment map annotation gets no work status",
+      "pass": true
+    },
+    {
+      "name": "SVG glyph is accessible decoration with distinct paths",
+      "pass": true
+    },
+    {
+      "name": "Canvas complete badge is 28px shape and white check",
+      "pass": true
+    },
+    {
+      "name": "Canvas incomplete badge draws diamond dash not check",
+      "pass": true
+    },
+    {
+      "name": "Device pixel ratio changes resolution without CSS badge size",
+      "pass": true
+    }
+  ]
+}

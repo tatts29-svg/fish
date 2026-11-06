@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "state": {
+    "version": 3538,
+    "collections": {
+      "delivery": "cf0b53ad821729f76f59c7c8025fa7465237d138618a4c49b0ba02b8527e01ec",
+      "stamps": "ac6cca19e72e2680cb7dd077ab8902c2c2ea12f986855178d995dca1aa603692",
+      "assetNumbers": "1df1b408dfaa397a8aaeb3fd42ba525c10df2a3f96b2c903e9e3a42a77a346b9",
+      "notes": "43eef4d194da75308d7a8104d1614491abba3d6b14a9da4a65cad6ee5ba56898",
+      "units": "7a9e6b7d4c90c79f677f9fe26f8952ace62f6dd4ee1d4e6c37c290cb3bd796d5",
+      "deleted": "afc127f0255a8fab5d2e636770ce4eb9dc8b61ce8b6ba13789f7bcaa9372b3ac",
+      "locations": "a492b95f3c31b5bd05daea5cfac61536283b10399c617f3bb85b6e9b558b0e2b",
+      "dropPhotos": "4dd1e32983e5b6491f8a802950ae192d4d4cba5cc7028c5f378f39c638a08339",
+      "loads": "7ffebd3f2f5c4ddfc1c26f5e344fb5c56ab196d153e874b8ce7e75beeaecd148",
+      "supplied": "c761c43c4095e0ea576fa8be6069fa8546f284bcb53179bac021004373ef537c",
+      "fenceDone": "99824b1b3dee81be2c2326de63bd985cc31b7b8a5af85944a2721ab82bb9334b",
+      "accessories": "319400fdf4bc98a97024ba01822280044596512ed5441fc466241db99875119f",
+      "branch": "ecbc39f4b5737f81a33b5274ced343ad3c16a8b2ae2d51f7ec9b62b52b2f77a4",
+      "rates": "40416d26d810bc41de539ea8b35e1ebefc1507a6f157e20ec073b0ae2dbcfbe0",
+      "by": "fb784eecb3944b8a807301ad5a511618b42744e2bbbab9bbe97fdb3310e72e59",
+      "labour": "04e64af40beb440c35d12d0a4cc90154b16c45cfbfbdf42245a401c7176f6037",
+      "fixes": "ac9a9daaa1a748d4857ade0fc08823232174c16aee620ace146869c64622830e",
+      "entries": "9ca37e652d798c518b8a8d02928648c3242b1a7499e84cc63374c68169fa7eda",
+      "mapRef": "f12e7eb524d5e3754c9a75098ad0e5bff0aa8e9c14ca44ad454c4f6f7147e316",
+      "mapKeys": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "purchaseOrders": "fec52f403228ad0a75bd0bb6f869f964426dbf7a3b51de3bba349f3eb0809760",
+      "added": "c0def3475fe6d5e508cc73d9bcc8e4251050693e5ab81b86732722ef5ed0c785",
+      "givenRefs": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "moves": "caf435faf61cd0fe86b4b9d4d637b6a270393576d9cf43867eb208f0e3b53a76",
+      "costs": "c22c3acbfa4c2fa422afa1daa45872d285a084c69d502f8383ed990a03a3524d",
+      "subhire": "ad4151db967338d75bcc9e5a19ac7ea03c2a8aada7759c620efe22cf7c0369a0",
+      "fenceDockets": "1b9a27ffe2ae46cc06013c07bd5377212f0fb804cfb534a506e92b2aa7bf022d",
+      "serviceNotes": "1477e99d10ad3fa933b657a8aa2c52fe36ae08de52120cfb9356398cf261421a",
+      "aside": "cb0b10d5fd68f67afc49ec5ad650cde1e72d2bff98c5b0f52eac6899613b91c3",
+      "places": "8ca46a498aef123adcc16dd05294302a92ab07f958f5438fbcf2c586c21b7b7f",
+      "photoLinks": "cda5f48c6f2b7cc391422e7192a2c3f18458954e3fc831f9263f401ce568851c",
+      "spares": "47839fd57a6b3ffa65a01b46d3c5a718e37899b01ac4def5ea5fcd79371b6fc7",
+      "finance745": "1a59e2db6ebebe017c04c89fbfe781f5c11e8b0e9338b7d58b337b959b99ecbc"
+    }
+  },
+  "livePageSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9"
+}

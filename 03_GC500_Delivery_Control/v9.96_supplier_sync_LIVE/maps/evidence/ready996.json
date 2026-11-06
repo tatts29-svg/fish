@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "status": "external map verified; source-request parent addition pure-verified; final combined browser check owned by root",
+  "nativeRecordVersion": 5300,
+  "nativeRecordRestored": true,
+  "recordWrites": 0,
+  "pageErrors": 0,
+  "baseParentSha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "parentPatchSha256": "fce987d8b2eaa6e5becbfdb6e58a2bb186dd17d4c7e53dd46799f9a7a7cb1e06",
+  "baseMachineSha256": "3dac8423d878d8a24eb9a0a6b771adc48862ff86bb42c8394d8d2d413c2db9e2",
+  "externalFiles": {
+    "explorer/explorer.js": {
+      "base": "5d9ec8fa34696b3806fc83ff889a6e23cc30ae5699d89d17852c2465f68d4296",
+      "candidate": "5a66caa035b46c82dae5a70a0ddd36f52ef05e128d7c8d42eaab3f8e944070e5",
+      "bytes": 149331
+    },
+    "explorer/explorer-merge.js": {
+      "base": "b3f1bb15f5dc697d1fb3a0dbda90d2792eb4f95988672ff1d88c5e2f35ebd331",
+      "candidate": "1dd20a619be4c534ac7ef3a6ed58c90df96287232b9217e745e088207b8ee50e",
+      "bytes": 30035
+    },
+    "explorer/index.html": {
+      "base": "d23edfb85666a6df9854f5f4c305878ce8fa6bb7311406a8a2c7ce6fbc2a8411",
+      "candidate": "f83fb82aab5ecb07e801a47cb95e6736f0e86383d8769370c7479b756980c0a6",
+      "bytes": 28136
+    }
+  },
+  "nativeSourceChecks": 15,
+  "identityChecks": 12,
+  "desktopBrowserChecks": 17,
+  "phoneBrowserChecks": 16,
+  "registration": "Dry-run only; all 230 unrelated manifest entries preserved",
+  "coordinateChanges": 0,
+  "mapDesignChanges": 0,
+  "referenceCoverage": {
+    "parentReferences": 176,
+    "missing": []
+  },
+  "candidateMachineSha256": "8e791df7c83ebe1fac2a67b55f589fbfe3c51e77bef9986ff4f535c028a664ba",
+  "sourceRequestChecks": 8
+}

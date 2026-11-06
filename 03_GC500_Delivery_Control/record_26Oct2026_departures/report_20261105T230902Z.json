@@ -1,0 +1,279 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261105T230902Z",
+ "finished": "2026-11-05T23:09:34.532Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 6 Nov 2026 (08:5x AEST): \"Hrp leaving at 9am\". HRP is the Hire Republic Crib Room, a Coates Building 6m, asset 1189410 (one fire extinguisher listed with it, counted by quantity), its reference's only unit, complete on the record. It left in full at 09:00 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 09:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "HRP",
+    "at": "2026-11-06T09:00:00+10:00",
+    "nos": [
+     "1189410"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13060,
+  "after": 13061
+ },
+ "updated": {
+  "before": "2026-11-05T22:56:38.952Z",
+  "after": "2026-11-05T23:09:33.500Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "HRP",
+   "at": "2026-11-06T09:00:00+10:00",
+   "nos": [
+    "1189410"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T09:00:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1189410 - HRP has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/HRP",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/HRP": {
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:31:58.865Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:04.881Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:48.042Z",
+    "eta": "07:00",
+    "note": "On site 07:00 · Reported by the project manager from site, 17 Sep 2026 12:04 (his message, typed in by hand) — turned up, with the arrival time he gave. Not ticked complete or levelled: the arrival is all that was reported. Tracked only, not charged on this job: Hire Republic pays for this building on its own contract HS 9974238. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:48.042Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:31:58.865Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:04.881Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:44.980Z"
+    },
+    "loading872": {
+     "u1189410": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:46.439Z"
+     }
+    },
+    "_k": "HRP"
+   }
+  },
+  "after": {
+   "delivery/HRP": {
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-05T23:09:20.003Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-05T23:09:20.003Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-05T23:09:20.003Z",
+    "eta": "07:00",
+    "note": "On site 07:00 · Reported by the project manager from site, 17 Sep 2026 12:04 (his message, typed in by hand) — turned up, with the arrival time he gave. Not ticked complete or levelled: the arrival is all that was reported. Tracked only, not charged on this job: Hire Republic pays for this building on its own contract HS 9974238. No labour, steps, transport, pickup or demob is charged here (Andrew Fisher, 22 Oct 2026).",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:48.042Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-05T23:09:20.003Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:31:58.865Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-05T23:09:20.003Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:04.881Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-05T23:09:20.003Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:44.980Z"
+    },
+    "loading872": {
+     "u1189410": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:46.439Z"
+     }
+    },
+    "state": "in transit",
+    "set_at": "2026-11-05T23:09:20.003Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-05T23:09:20.003Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "29a470bd-086e-440a-ac06-542c12c74599",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T09:00:00+10:00",
+       "programmeDate": "2026-11-03",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-16T21:00:00Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"HRP\",\"coates\",\"asset\",\"1189410\"]"
+         ],
+         "numbers": [
+          "1189410"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"HRP\",\"coates\",\"asset\",\"1189410\"]",
+           "number": "1189410",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "HRP",
+        "capturedAt": "2026-11-05T23:09:20.003Z",
+        "arrivalAt": "2026-09-16T21:00:00.000Z",
+        "reference": {
+         "lat": -27.986753,
+         "lon": 153.42823,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "HRP",
+         "tag": "HRP",
+         "what": "Hire Republic Crib Room · Building 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "_k": "HRP"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

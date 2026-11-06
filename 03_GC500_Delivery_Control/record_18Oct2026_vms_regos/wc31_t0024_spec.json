@@ -1,0 +1,17 @@
+{
+ "by": "Andrew Fisher",
+ "why": "Andrew, 20 Oct 2026, Event Portables inventory screenshot: \"please make sure we update this\" - WC31's 16-pan blocks 12 and 74 showed 0 on site / 0 received because Coates unit 1317645 (the Accessible Toilet: its unit label and WC31's supplied counts, 2 x 16Pan Block + 1 x Accessible Toilet) was counted as a 16Pan Block, making the 16-pan line three units with mixed ownership. Andrew, 20 Oct 2026, answered: WC31 \"Apply it\"; T0024 \"Set T0024 to 2 FWF\" (Coates 1211968 + Event Portables 0164 both at T0024, EVL toilet symbol).",
+ "ops": [
+  {
+   "op": "number_item",
+   "ref": "WC31",
+   "no": "1317645",
+   "item": "Accessible Toilet"
+  },
+  {
+   "op": "set_qty",
+   "ref": "T0024",
+   "qty": 2
+  }
+ ]
+}

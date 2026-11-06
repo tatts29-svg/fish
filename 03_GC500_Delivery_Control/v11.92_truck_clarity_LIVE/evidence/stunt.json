@@ -1,0 +1,118 @@
+[
+  {
+    "name": "positive bend lifts inside side with a bounded smooth lean",
+    "ok": true,
+    "detail": {
+      "angle": 0.47999999999089676,
+      "maxDelta": 0.020599689143024222
+    }
+  },
+  {
+    "name": "zero timestep does not advance stunt",
+    "ok": true
+  },
+  {
+    "name": "right corner keeps exactly two tyres grounded",
+    "ok": true,
+    "detail": [
+      {
+        "x": -1.65,
+        "z": -0.43,
+        "y": -5.960464510845753e-9
+      },
+      {
+        "x": -1.65,
+        "z": 0.43,
+        "y": 0.7942601788043975
+      },
+      {
+        "x": 1,
+        "z": -0.43,
+        "y": -5.960464510845753e-9
+      },
+      {
+        "x": 1,
+        "z": 0.43,
+        "y": 0.7942601788043975
+      }
+    ]
+  },
+  {
+    "name": "contact patches follow only grounded tyres 1",
+    "ok": true
+  },
+  {
+    "name": "finite banked transform 1",
+    "ok": true
+  },
+  {
+    "name": "left corner keeps exactly two tyres grounded",
+    "ok": true,
+    "detail": [
+      {
+        "x": -1.65,
+        "z": -0.43,
+        "y": 0.7942601788043975
+      },
+      {
+        "x": -1.65,
+        "z": 0.43,
+        "y": -5.960464510845753e-9
+      },
+      {
+        "x": 1,
+        "z": -0.43,
+        "y": 0.7942601788043975
+      },
+      {
+        "x": 1,
+        "z": 0.43,
+        "y": -5.960464510845753e-9
+      }
+    ]
+  },
+  {
+    "name": "contact patches follow only grounded tyres -1",
+    "ok": true
+  },
+  {
+    "name": "finite banked transform -1",
+    "ok": true
+  },
+  {
+    "name": "settles on straight",
+    "ok": true
+  },
+  {
+    "name": "stopped settles without stunt",
+    "ok": true
+  },
+  {
+    "name": "calm settles without stunt",
+    "ok": true
+  },
+  {
+    "name": "reduced-motion settles without stunt",
+    "ok": true
+  },
+  {
+    "name": "airborne settles without stunt",
+    "ok": true
+  },
+  {
+    "name": "existing non-truck matrix returned unchanged",
+    "ok": true
+  },
+  {
+    "name": "existing simulation still called and result preserved",
+    "ok": true
+  },
+  {
+    "name": "switching vehicle clears stunt state",
+    "ok": true
+  },
+  {
+    "name": "driving quantities untouched",
+    "ok": true
+  }
+]

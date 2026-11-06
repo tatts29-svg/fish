@@ -1,0 +1,107 @@
+{
+  "author": "Andrew Fisher",
+  "reviewer": "Codex independent Save review",
+  "result": "PASS \u2014 source and isolated lifecycle checks; parent owns final combined-page gates",
+  "sources": {
+    "loading_save1012.js": "9f1c53b2c0f993d2df1be1149c59ea70e74e1add8c2cb37158712f43f59646f1",
+    "selection_save/selection_save1012.js": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+    "selection_save/selection_save1012.css": "69a04c2b99548cc35b7ba0805c7db65677fc6f054718639ac194993bcad53997"
+  },
+  "independently_rerun": {
+    "loading_pure_checks": 29,
+    "selection_pure_checks": 26,
+    "selection_browser_checks": 37,
+    "browser_errors": 0,
+    "network": "all fixture requests aborted",
+    "operational_writes": 0
+  },
+  "native_review": [
+    "save/save775Inner and persist return values",
+    "bump.kept timing",
+    "toDocs and document deletion encoding",
+    "syncStageLive, syncSend and syncSettled exact acknowledgement",
+    "native loading872Set and handling875Set validation/capability",
+    "native chSetDate/chSetText deferred handlers",
+    "native Questions dual onchange/onblur handlers",
+    "native field-to-collection mappings and existing explicit forms"
+  ],
+  "resolved_findings": [
+    "Loading cancelled setter no longer disables retry",
+    "Item-type edits observe items, not nonexistent itemTypes",
+    "Pee rate hidden bridge and specialist forms excluded",
+    "Stale drafts have explicit Reload recovery",
+    "Deferred Change setters matched by ref/field/value without long global save attribution",
+    "Transient chdirty metadata excluded from identity",
+    "Restored pending draft submits once; accepted mutations are never replayed",
+    "Failed persistence retains visible draft and guards remote overwrite",
+    "Reload and stale Tab-away block native Questions blur writer",
+    "Save observer captures its original context",
+    "Explicit flush/ retry catches exceptions and requires strict successful boolean",
+    "Asynchronous flush rechecks current edit permission"
+  ],
+  "acknowledgement_rule": "Nonempty accepted expected documents must match current values and exact shared acknowledgements, with no corresponding queued or inflight write. Null deletion queue entries remain pending. Partial acknowledgements and failed persistence cannot say shared saved.",
+  "coverage": "Reviewed selection_save/COVERAGE.md against native handlers. Shared record controls are separate from existing explicit forms, view/navigation selections, uploads and device-only Demob assumptions.",
+  "financial_scope": "No charge calculation, rate, branch allocation, quantity or native record edits performed by this reviewer. Adapter observes native setters and flushes existing state; parent validates final financial model parity.",
+  "remaining": "No source or scoped lifecycle blocker found at final ffd5ef64. Parent owns final combined candidate navigation/mobile/financial and publication gates.",
+  "css_review": "Scoped styles provide explicit paired foreground/background colours for neutral, pending, error and shared states; wrapping controls and print exclusion do not alter record behaviour.",
+  "previous_review": {
+    "selection_js_sha256": "d6ce95174fade300f19ab02705adfd8405eb547d6b525f06374075733d346cf3",
+    "checks": 90,
+    "result": "PASS; evidence retained, before mirrored-control/cache follow-up"
+  },
+  "follow_up_review": {
+    "result": "PASS",
+    "delta": [
+      "Originating mirrored field is identity-validated at initial Save and asynchronous flush; corresponding copy fallback is used only after redraw.",
+      "Questions Reload calls native refreshQuestionNote754 to discard its session draft cache without a record mutation.",
+      "Reload retains folds and scroll via drawer keep or Persistence1010 capture/restore with drafts=false; discarded values are not restored."
+    ],
+    "independent_final_fixture_source_sha256": "c315d89b27025acd45c910584aa173018a04354f734d3b8dd6305284e093bf46",
+    "independent_final_fixture_checks": 37,
+    "errors": 0,
+    "writes": 0
+  },
+  "implementation_evidence_reviewed": {
+    "path": "selection_save/evidence/native-save-coverage.json",
+    "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+    "native_page_checks": 37,
+    "result": "PASS",
+    "native_writes": 0,
+    "runtime_errors": []
+  },
+  "timing_follow_up_review": {
+    "result": "PASS \u2014 source order, isolated lifecycle and reviewed native position evidence",
+    "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+    "delta": [
+      "Render mounts all generic controls synchronously before outer native bump/Idle persistence restores page position.",
+      "Drawer restore mounts controls before calling the prior native position restore; original next-frame user-intent guards remain the scroll owner.",
+      "Explicit main Reload mounts before Persistence1010.restore with drafts=false.",
+      "mount does not call render, openAsset or save; repeated mounting reuses bars and does not introduce recursive rendering or new delayed scroll callbacks."
+    ],
+    "loading_pure_checks": 29,
+    "selection_pure_checks": 26,
+    "selection_browser_checks": 37,
+    "errors": 0,
+    "operational_writes": 0,
+    "independent_fixture": "/workspace/private-selection1012-independent-timing-final/fixture-desktop.json",
+    "native_drawer_evidence": "Parent reports phone 36/36 and scroll 4511 to 4511 at preceding drawer-only timing hash fd39e36d; final main-pane evidence pending.",
+    "native_main_evidence": {
+      "source_sha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+      "checks": 37,
+      "writes": 0,
+      "errors": 0,
+      "main_scroll_before_after": [
+        1246,
+        1246
+      ],
+      "field_y_before_after": [
+        521.625,
+        521.625
+      ],
+      "operations": [
+        "explicit Save",
+        "background refresh"
+      ]
+    }
+  }
+}

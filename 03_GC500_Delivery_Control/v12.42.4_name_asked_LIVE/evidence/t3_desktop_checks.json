@@ -1,0 +1,191 @@
+[
+ {
+  "name": "page loads with no errors, the footer v12.42.4, the Demob cards module unchanged (v12.42.3)",
+  "ok": true,
+  "detail": {
+   "errors": [],
+   "foot": [
+    "v12.42.4"
+   ]
+  }
+ },
+ {
+  "name": "v12.42.4: with no name, Book pick-up asks for the name once (the browser's own box, above the sheet) and keeps it in Tools · Recording as",
+  "ok": true,
+  "detail": {
+   "asked": 1,
+   "msg": "Your name, please. It goes on everything you record here, with the time. (Change it later under Tools · Recording as.)",
+   "who": "Pat Example",
+   "op": "Pat Example",
+   "fy": "Saved on the shared record as Pat Example, with the time it was booked. The view link shows it and cannot change it."
+  }
+ },
+ {
+  "name": "v12.42.4: Save booking then books it in that name, the sheet closes, nothing more is asked",
+  "ok": true,
+  "detail": {
+   "B1": {
+    "n": 1,
+    "b": {
+     "at": "2026-10-28T07:30:00+10:00",
+     "note": "",
+     "by": "Pat Example",
+     "set": "2026-10-27T03:24:19.873Z"
+    }
+   },
+   "S1": {
+    "open": false,
+    "asked": 1
+   }
+  }
+ },
+ {
+  "name": "v12.42.4: once the sheet closes, the \"booked ... recorded by\" message shows on the page, readable (review: it must not leave with the sheet)",
+  "ok": true,
+  "detail": {
+   "shown": true,
+   "text": "GN18 pick-up booked for Wed 28 Oct · 07:30 - recorded by Pat Example.",
+   "inBody": true,
+   "onTop": true
+  }
+ },
+ {
+  "name": "v12.42.4: with a name set (as on Andrew's phone and laptop) nothing is asked; the changed booking is in that name",
+  "ok": true,
+  "detail": {
+   "B2": {
+    "n": 2,
+    "b": {
+     "at": "2026-10-28T09:15:00+10:00",
+     "note": "",
+     "by": "Pat Example",
+     "set": "2026-10-27T03:24:26.018Z"
+    }
+   },
+   "A2": 1
+  }
+ },
+ {
+  "name": "v12.42.4: the name question cancelled (asked when the sheet opened and again at Save), Save books nothing and the sheet stays open to try again",
+  "ok": true,
+  "detail": {
+   "C3": {
+    "open": true,
+    "asked": 2,
+    "mirror": "Put your name in Tools · Recording as first — every record carries the name of whoever made it.",
+    "mr": {
+     "top": 12,
+     "bottom": 51,
+     "w": 619,
+     "inView": true
+    },
+    "saveTappable": true,
+    "hitIs": "BUTTON.sv1238",
+    "who": ""
+   },
+   "n3": 2,
+   "N3": 2
+  }
+ },
+ {
+  "name": "v12.42.4: and the message saying where the name goes shows at the top of the sheet, in view, while taps still reach Save booking (review: it must not cover the buttons)",
+  "ok": true,
+  "detail": {
+   "open": true,
+   "asked": 2,
+   "mirror": "Put your name in Tools · Recording as first — every record carries the name of whoever made it.",
+   "mr": {
+    "top": 12,
+    "bottom": 51,
+    "w": 619,
+    "inView": true
+   },
+   "saveTappable": true,
+   "hitIs": "BUTTON.sv1238",
+   "who": ""
+  }
+ },
+ {
+  "name": "v12.42.4: with the sheet closed, a message shows on the page as before, and no copy is left showing",
+  "ok": true,
+  "detail": {
+   "inBody": true,
+   "onTop": true,
+   "text": "A message with no sheet open",
+   "mirrors": 0
+  }
+ },
+ {
+  "name": "v12.42.4: one press asks once: a second ask straight after a cancelled one does not ask again (no name either way)",
+  "ok": true,
+  "detail": {
+   "x": null,
+   "y": null,
+   "asked": 1
+  }
+ },
+ {
+  "name": "v12.42.4: a \"name\" with no letter in it (\"0\") is asked for again; the Ready tick is in the name given",
+  "ok": true,
+  "detail": {
+   "u": {
+    "on": true,
+    "at": "2026-10-27T03:24:39.159Z",
+    "by": "Sam Example",
+    "why": "",
+    "doc": "unit925/c0426c7a-a8cd-43e4-9646-6ff29860f788"
+   },
+   "who": "Sam Example",
+   "asked": "Your name, please. It goes on everything you record here, with the time. (Change it later under Tools · Recording as.)"
+  }
+ },
+ {
+  "name": "v12.42.4: Picked up with no name and the name question cancelled: the pick-up form stays open, nothing is recorded, and the message shows at the top of the form, in view",
+  "ok": true,
+  "detail": {
+   "form": true,
+   "saved": 0,
+   "mirror": "Put your name in Tools · Recording as first — every record carries the name of whoever made it.",
+   "inView": true
+  }
+ },
+ {
+  "name": "v12.42.4: Picked up with no name: the departure form asks for the name on Confirm and records the pick-up in it",
+  "ok": true,
+  "detail": {
+   "pu": {
+    "k": "GN25",
+    "u": "coates|1244536"
+   },
+   "form": false,
+   "cancel": {
+    "form": true,
+    "saved": 0,
+    "mirror": "Put your name in Tools · Recording as first — every record carries the name of whoever made it.",
+    "inView": true
+   },
+   "by": "Lee Example",
+   "at": "2026-10-27T00:05:00+10:00",
+   "flash": "Departure recorded for GN25.",
+   "asked": 1
+  }
+ },
+ {
+  "name": "every write captured in the page (4 delivery documents), nothing reached the network, no page errors",
+  "ok": true,
+  "detail": {
+   "sent": [
+    "delivery/GN18",
+    "delivery/GN18",
+    "delivery/WC31",
+    "delivery/GN25"
+   ],
+   "counts": {
+    "page": 1,
+    "live": 637,
+    "blocked": 0
+   },
+   "errors": []
+  }
+ }
+]

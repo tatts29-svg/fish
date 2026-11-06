@@ -1,0 +1,98 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T112605Z",
+ "finished": "2026-10-18T11:26:17.394Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 18 Oct 2026, in chat: \"Remove t0159\", after the VMS totals were set to what is on site (16 of 24 booked) and he was told the 24 included T0159, T0169 and T0170 still to come. T0159 holds no record of its own (no light, tick, number or note); it is a schedule row for VMS boards not on site.",
+  "refs": [
+   "T0159"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "T0159",
+    "why": "Removed on Andrew's word 18 Oct 2026 - VMS boards not coming; the 16 on site are VMS1-4, 6-17."
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9744,
+  "after": 9749
+ },
+ "updated": {
+  "before": "2026-10-18T10:52:53.227Z",
+  "after": "2026-10-18T11:26:15.300Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "T0159",
+   "why": "Removed on Andrew's word 18 Oct 2026 - VMS boards not coming; the 16 on site are VMS1-4, 6-17.",
+   "result": "deleted for good - Removed on Andrew's word 18 Oct 2026 - VMS boards not coming; the 16 on site are VMS1-4, 6-17."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~T0159",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~T0159",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~T0159",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~T0159",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~T0159",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~T0159": null,
+   "notes/asset~2f~T0159": null,
+   "deleted/asset~2f~T0159": null,
+   "by/deleted~2f~asset~2f~T0159": null,
+   "by/notes~2f~asset~2f~T0159": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~T0159": {
+    "_k": "notes/asset/T0159",
+    "v": "2026-10-18T11:26:12.760Z"
+   },
+   "notes/asset~2f~T0159": {
+    "_k": "asset/T0159",
+    "v": "Deleted 18 Oct 21:26 by Andrew Fisher — Removed on Andrew's word 18 Oct 2026 - VMS boards not coming; the 16 on site are VMS1-4, 6-17."
+   },
+   "deleted/asset~2f~T0159": {
+    "_k": "asset/T0159",
+    "v": "2026-10-18T11:26:12.760Z"
+   },
+   "by/deleted~2f~asset~2f~T0159": {
+    "_k": "deleted/asset/T0159",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~T0159": {
+    "_k": "notes/asset/T0159",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

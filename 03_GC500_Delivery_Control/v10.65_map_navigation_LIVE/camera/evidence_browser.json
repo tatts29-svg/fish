@@ -1,0 +1,23 @@
+{
+  "author": "Andrew Fisher",
+  "base": "v10.64",
+  "method": "Original live map functions, then the exact transformed zoomBy installed in the same read-only browser frame",
+  "passed": 9,
+  "pageErrors": 0,
+  "recordWrites": 0,
+  "originalReproduction": {
+    "referenceFlightActive": true,
+    "manualZoomActive": true
+  },
+  "checks": [
+    "Original reference flight and manual zoom compete",
+    "Manual zoom cancels the reference flight immediately",
+    "Repeated wheel goals accumulate on the same zoom loop",
+    "Manual zoom retains the selected reference",
+    "Manual zoom lands at the accumulated requested zoom",
+    "Rotation already cancels an existing reference flight",
+    "Manual zoom also cancels rotation",
+    "Reduced-motion zoom cancels a flight and lands immediately",
+    "No browser page errors"
+  ]
+}

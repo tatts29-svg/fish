@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "publicSha256": "b899e56b8d76776ed361940a0fd2e968628edee562e274b9b33aa8e10679cdc4",
+  "publishedAest": "12 Oct 2026 07:31 AEST",
+  "sourceCommit": "f239a834",
+  "readyCommit": "5fb8f4a6",
+  "desktop": {
+    "focusedChecks": 45,
+    "recordVersion": 5324,
+    "errors": 0,
+    "operationalWrites": 0,
+    "actualPublicHtml": true
+  },
+  "phone": {
+    "focusedChecks": 38,
+    "recordVersion": 5324,
+    "errors": 0,
+    "operationalWrites": 0,
+    "actualPublicHtml": true
+  },
+  "portraitPDF": {
+    "author": "Andrew Fisher",
+    "recordVersion": 5324,
+    "pages": 6,
+    "allA4Portrait": true,
+    "onePagePerDay": true,
+    "allReferencesPresent": true,
+    "dailyTotalsMatch": true,
+    "eachDayAtMost24": true,
+    "noClipping": true,
+    "textMatchesInspectedCandidate": true,
+    "eachIndividualPDFOnePage": true,
+    "file": "/workspace/GC500-Event-Portables-Daily-Run-Sheets-12-Oct-2026.pdf",
+    "sha256": "dc660d49a5f466ed854ae8fa3db8b570d20f1bfdf361dff8e47e5f76858bbead"
+  },
+  "publicPhoneAndPdfInspected": true,
+  "waterBarrierPDF": {
+    "file": "/workspace/GC500-Water-Barrier-Schedule-12-Oct-2026.pdf",
+    "sha256": "7f679f6c33899d5c0b908a5db791a82de740eda8a348fbfb5fb339932656627a",
+    "sourceMovements": 30,
+    "pages": 2,
+    "sourceAndCurrentRecordsMatch": true,
+    "WB02CollectionUnconfirmed": true,
+    "visuallyInspected": true
+  }
+}

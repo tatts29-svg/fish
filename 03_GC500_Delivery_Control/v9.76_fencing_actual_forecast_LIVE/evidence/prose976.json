@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Supporting operational prose within existing More info folds",
+  "implementation": "Explicit supporting paragraph classes across Today, Equipment, Sub-hired, Timeline, About and drawer, plus plain narrative in About. Existing figures, short labels, warnings, controls, tables and recorded information remain intact. No model changes.",
+  "isolatedPhoneDomChecks": 15,
+  "isolatedChecksPassed": true,
+  "actualPhoneGetOnlyAudit": {
+    "tabs": ["today", "plant", "subhired", "timeline", "about"],
+    "newFoldCounts": [0, 0, 1, 0, 7],
+    "newFoldParagraphCounts": [0, 0, 1, 0, 10],
+    "notes": "Existing More info can receive supporting paragraphs without adding another fold. Most Today, Equipment and Timeline supporting paragraphs were already folded.",
+    "controlsMoved": 0,
+    "figuresTablesChartsMoved": 0,
+    "nativeUnchanged": true,
+    "pageErrors": 0,
+    "nativeWrites": 0
+  },
+  "preserved": ["original source links", "existing saved text", "charts", "headline figures", "sizes and weights", "forms and controls", "Back navigation", "short status and warnings"],
+  "foldMemory": "Existing SFOLD_OPEN and native sfold toggle handling preserve choice across redraw",
+  "releaseStatus": "Component verified; final combined release and live proof pending"
+}

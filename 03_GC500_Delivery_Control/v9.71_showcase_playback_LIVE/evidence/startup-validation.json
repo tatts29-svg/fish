@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Static detail upload scheduling only; software WebGL SwiftShader,1440\u00d7900,dpr1, same live v9.69 geometry.",
+  "baselineSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "isolatedCandidateSha256": "be5e4eeda2ed929319671df677389bc5a1396cafd74861d79c01250d1f4df9ec",
+  "before": {
+    "vegetationInstallerMs": 16065.5,
+    "maxBufferDataMs": 15548.299999952316
+  },
+  "after": {
+    "vegetationInstallerMs": 565.7000000476837,
+    "maxBufferDataMs": 182.5,
+    "startup": {
+      "prepared": true,
+      "shown": true,
+      "completed": 3,
+      "total": 3,
+      "pending": false,
+      "elapsedMs": 3363.899999976158
+    },
+    "earlyDraws": 0,
+    "firstDrawPrepared": true
+  },
+  "graphicsEqual": true,
+  "graphics": {
+    "version": "1.8",
+    "quality": "balanced",
+    "samples": 4,
+    "shadowMap": 1024,
+    "resolution": [
+      1440,
+      668
+    ],
+    "facades": "recessed glass and concrete",
+    "ambientContact": false,
+    "carStyle": "solid",
+    "steppedDownTo": null,
+    "bloom": true,
+    "reflections": true,
+    "shadowOn": true,
+    "drawnAt": "100%"
+  },
+  "nativeRecordUnchanged": true,
+  "pageErrors": [],
+  "realWrites": 0,
+  "schedulerTests": 15,
+  "inlineScriptsParsed": 50,
+  "limitation": "Single paired software-renderer trace; initialization and shader compilation vary. Not a physical-device frame-rate claim.",
+  "sourceHashes": {
+    "startup971.js": "de3913d31f811f8395f3577a9068e2c98049c4014dd25abf1abbdf671ed44981",
+    "startup_patch971.py": "fc122bd5eb314184fae40a1a8797358a157fe19335d81239044eb23463d0e304",
+    "test_startup971.cjs": "2c5246a94d41977a01319d5d3984f8c13f33152b5e56c8b3ba0c18b76191c29c"
+  },
+  "profileSourceHashes": {
+    "startup971.js": "4dc9bae5e78a7a3e9d71a7f572017aacdeeb51d2b801651b7e6f902300afa32c",
+    "startup_patch971.py": "fc122bd5eb314184fae40a1a8797358a157fe19335d81239044eb23463d0e304",
+    "test_startup971.cjs": "a316980ba66bd7627120450c7674ecda2dd2c146da3c92fa324ab85466e141ab"
+  },
+  "postProfileRevision": "Lifecycle cleanup only: S.unmount cancels queued preparation RAF and deletes scene state before the existing unmount; scheduling/upload logic unchanged. Close-before-next-hidden-frame cancellation test passes."
+}

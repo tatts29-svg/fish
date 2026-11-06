@@ -1,0 +1,46 @@
+/* Author: Andrew Fisher. v8.92 A+ pass — the look: contrast, tap targets and a steady reading position.
+   Every component keeps its design; these are the touch-ups the three-size audit found (phone 390, laptop 1440, wide 2560). */
+
+/* the page keeps its own reading position on a redraw; the browser's guess at an anchor fought it (+47 px on the Timeline) */
+main{overflow-anchor:none}
+/* a change of tab moves focus to the pane (so a screen reader is told where it arrived); v8.84 took the ring this drew around
+   the whole of Today away — the same for every pane, so no view wears a box around all of its work. The tab strip shows the
+   open view; the pane's own heading names it. */
+main .pane:focus,main .pane:focus-visible{outline:none!important}
+
+/* contrast (WCAG AA). The Demob day tiles reuse the dark island tile's grey words on a light tile — 1.9:1 and 1.6:1. */
+#pane-demob .cside .ctile .ctk,#pane-demob .cside .ctile span{color:#4b5560}
+#pane-demob .cside .ctile .dled i{color:inherit}
+/* the fold heading written for a dark drawer, drawn on the light Demob card — 1.9:1 */
+#pane-demob details.dsect>summary{color:var(--orange-ink)}
+/* Today: the small print under the circuit map was 4.3:1; the first jump pill was white on #ff6a13 (2.9:1), the same fix the
+   primary button had in v5.49 — the darker orange keeps the brand and clears 4.5:1 */
+#pane-today .maphint,#pane-today.today876 .maphint{color:#5f6a75}
+#pane-today .jb95:first-child{background:var(--orange-ink);border-color:var(--orange-ink)}
+
+/* the Transport view's explanation, folded so the four figures lead (lead's note, 8 Oct 2026) */
+.tr888-how{margin:4px 0 12px}
+.tr888-how>summary small{display:block;font-weight:400;color:var(--mute);font-size:12px;margin-top:2px}
+.tr888-how p{margin:8px 0 0}
+.tr888-tie{margin:6px 0 0}
+
+/* tap targets on a touch screen. The small controls keep their size and their look; each gains a 44 px tall hit area
+   centred on it, and a × gets a 44 px square. Fold headings get the room a thumb needs. */
+@media (pointer:coarse){
+ .btn.sm,.btn.tiny,.linkish,.invn,a.chip,.filters button,.jb95,#bOpen,.bplay,.hubgo[data-go],#searchBtn,#moreBtn,#navBack,.tabmoremenu button{position:relative}
+ .btn.sm::after,.btn.tiny::after,.linkish::after,.invn::after,a.chip::after,.filters button::after,.jb95::after,#bOpen::after,.bplay::after,.hubgo[data-go]::after,#searchBtn::after,#moreBtn::after,#navBack::after{content:'';position:absolute;left:0;right:0;top:50%;height:44px;transform:translateY(-50%)}
+ /* not inside a box that scrolls: a hit area poking out of a table box or a strip would give it a scrollbar */
+ .tblwrap .btn.sm::after,.tblwrap .btn.tiny::after,.tblwrap .linkish::after,.tblwrap .invn::after,.tblwrap a.chip::after,.cside .btn.sm::after,.cside .linkish::after,.cside .invn::after,.daystrip .btn.sm::after,.daystrip .linkish::after,.moremenu .btn.sm::after,.finder .linkish::after,.tabmoremenu .btn.sm::after,nav.tabs .btn.sm::after{content:none}
+ .close{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+ summary{box-sizing:border-box;min-height:44px;padding-top:max(0px,calc((44px - 1.6em)/2));padding-bottom:max(0px,calc((44px - 1.6em)/2))}
+}
+@media print{.tr888-how{display:block}.tr888-how>summary{display:none}}
+
+/* smooth: four decorative sweeps animated `left` — a layout on every frame, two of them running the whole time a Today instrument
+   is lit. The same travel as a transform (compositor only). Each sweep's width is a share of its track and its `left` was a share
+   of the same track, so the distance below is the original to the pixel (travel 0→80% of a track on a 20%-wide light = 400% of
+   itself; the LED sheen −22%→102% on 20% = 620%; the plate gloss −60%→130% on 40% = 475%, skew kept; the toggle sheen on 50% = 380%). */
+@keyframes tw841-travel{0%,100%{transform:translateX(0);opacity:.8}50%{transform:translateX(400%);opacity:1}}
+@keyframes tw843-sheen{0%,100%{transform:translateX(0);opacity:0}15%,85%{opacity:1}95%{transform:translateX(620%);opacity:0}}
+@keyframes plateGloss{0%{transform:translateX(0) skewX(-18deg);opacity:0}15%{opacity:1}100%{transform:translateX(475%) skewX(-18deg);opacity:0}}
+@keyframes wipSheen{0%{transform:translateX(0) skewX(-20deg);opacity:1}100%{transform:translateX(380%) skewX(-20deg);opacity:0}}

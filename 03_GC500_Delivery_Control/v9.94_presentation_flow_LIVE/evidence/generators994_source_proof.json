@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Source join and descriptive labels only. No operational record, asset identity, delivery status, coordinate, rate, charge or source DATA changes.",
+  "sources": [
+    {
+      "name": "GC500 26 Schedule (7).xlsx",
+      "sheet": "Week 1",
+      "row": 2,
+      "sha256": "485f5d885b88d836b63e85ad4062474a95a484022386efec7be62429f958edac",
+      "facts": "12 Oct; GN? Concert; two synced 200kVA generators; assets1316182-1316183; DD26121298 and26121310;11:00 and11:30 loading;SFL."
+    },
+    {
+      "name": "Baseplan SuperCars.xlsx",
+      "sheet": "9961976-NVAC",
+      "rows": [
+        36,
+        37
+      ],
+      "sha256": "eb4a224fadbe1350d031adf8a1b12760d3dd748a2f0643119ea103d1df9b5b21",
+      "facts": [
+        {
+          "line": 42,
+          "asset": "1316182",
+          "dd": "26121298",
+          "booked_delivery": "2026-10-12",
+          "status": "Del Req"
+        },
+        {
+          "line": 43,
+          "asset": "1316183",
+          "dd": "26121310",
+          "booked_delivery": "2026-10-12",
+          "status": "Del Req"
+        }
+      ]
+    },
+    {
+      "name": "D001-26003-03-MASTER.pdf",
+      "revision": "03",
+      "issued": "2026-10-02",
+      "sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+      "page": 1,
+      "gn13_crop_pdf_points": [
+        930,
+        178,
+        1420,
+        455
+      ],
+      "fact": "Orange generator on beach-side fence of printed S.L.S Equipment Compound, beside Supply/P69/WC59 at Narrowneck."
+    },
+    {
+      "name": "D024-26003-02-GENS_LTS.pdf",
+      "revision": "02",
+      "sha256": "ce483e4f905d422a9927579e2fc7e42295069de8bde20338e7a9aedfd2993960",
+      "page": 1,
+      "gn13_crop_pdf_points": [
+        930,
+        178,
+        1420,
+        455
+      ],
+      "fact": "Callout013 points to the SLS Equipment Compound generator."
+    }
+  ],
+  "implementation": {
+    "concert": "Original internal GN? key retained. Shared plate Concert; Build/finder Concert generators. Split booking assets derived by matching delivery docket in native rental rows, with exact date, allocation and quantity checks. No source-order assumptions.",
+    "gn13": "Display SLS Equipment Compound \u00b7 Narrowneck only while native master target is unchanged. All source location text and coordinates retained; moved/pinned targets are not overwritten.",
+    "remaining": "Exact physical Concert generator position not established by available current plans. Existing reporting fallback remains labelled; no map pin invented."
+  },
+  "source_search": {
+    "native_registry": 74,
+    "saved_v973_file_inventory": 428,
+    "found_current_generator_plan": "D024 rev02",
+    "separate_current_concert_power_stage_plan_found": false,
+    "older_excluded": "2021 Concert.pdf is historical, not authority for2026",
+    "map_note": "Orange pair near Palms Bar/S13 is alreadyGN20(350kVA) andGN21(60kVA). Do not reassign to the Concert200kVA pair.",
+    "fresh_live_file_inventory": 428,
+    "fresh_live_review": "GET /api/files with public view capability on12Oct2026 AEST: same428 entries, no separately named currentConcert/power/electrical/stageplan. D024 source hash unchanged; D001 library original still old17Sepfile, so latest2Octoriginal reviewed from private authorized attachment."
+  },
+  "verification": {
+    "candidate_sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+    "model": "passed",
+    "browser_desktop": {
+      "checks": 15,
+      "pass": true
+    },
+    "browser_phone": {
+      "checks": 15,
+      "pass": true
+    },
+    "screenshots": "Desktop and phone inspected; existing card styling retained. No clipped generator labels or asset numbers.",
+    "unchanged": "S, DATA, MASTER_LOC and pl770Model snapshots unchanged. Zero operational writes and browser errors."
+  }
+}

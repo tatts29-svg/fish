@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifest": "b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7",
+  "dashboardBaseSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "files": {
+    "car-app.js": {
+      "base": "4284541268e9f01d443f2f3b4793f1713d1c1977ba882f0b1f7fd0aeb33d0625",
+      "sha256": "585deb2b5eea6ccc2d9464cbb60cdc7a29afdd1e9c02cd0ad62bd26a2930c3f2",
+      "bytes": 152353
+    },
+    "engine-lift-preview.js": {
+      "base": "22bb51c1a3143f1ca655e48e9784201815ed119553fd6292cd2afcc75be4c3e6",
+      "sha256": "e7bf404d54f1bc7122e32e4b1be581c96b040149ebe9adc8abd9253a8a1bcc4a",
+      "bytes": 28377
+    },
+    "index.html": {
+      "base": "694e91bd40e328988a61161b0e06fffd988dbfd7b4b9cd7f4874af0eeac2bbee",
+      "sha256": "83bc23b84c2cb2c215f464502093af4267a39d99e8c988af2905395048225c09",
+      "bytes": 11531
+    },
+    "workshop-lessons.js": {
+      "base": null,
+      "sha256": "5eea0fa89248b6eec23056ec492278a5f699898236a78c2e779d88357e8836a6",
+      "bytes": 19961
+    },
+    "workshop-mechanic.js": {
+      "base": null,
+      "sha256": "5b6540c9298ea63fc54a9614f7376e3b656da1c44260b8ffaf06ed2d560789d7",
+      "bytes": 24629
+    },
+    "workshop-service.js": {
+      "base": null,
+      "sha256": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",
+      "bytes": 21561
+    },
+    "workshop-showcase.js": {
+      "base": null,
+      "sha256": "f21572ad60df42c8851fa0d7b47a091984d0cc450647e8bbeee949f0d862c953",
+      "bytes": 12643
+    },
+    "workshop-ui.js": {
+      "base": "11d9a29c004de434bf2977b80deccaa693564dbab52f83d10684993a9b787737",
+      "sha256": "3b9f7fdef33e2537afea0c5bee5137227d32daa32fc57f1055b468b3b22a4a74",
+      "bytes": 27360
+    }
+  }
+}

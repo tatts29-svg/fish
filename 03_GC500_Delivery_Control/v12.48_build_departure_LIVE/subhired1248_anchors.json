@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "replacements": [
+    {
+      "name": "supplier numbered unit departure",
+      "old": "esc925(u.item||'Description to confirm')+'</small></span><span>'+esc925(u.identityReview",
+      "new": "esc925(u.item||'Description to confirm')+'</small>'+(window.Subhired1248?window.Subhired1248.unitHtml(u.ref,u.id,u.item,u.physical):'')+'</span><span>'+esc925(u.identityReview"
+    },
+    {
+      "name": "supplier quantity-only departure",
+      "old": "+' \u00b7 quantity only; no fleet numbers</small></span><span>'+esc(r.status)",
+      "new": "+' \u00b7 quantity only; no fleet numbers</small>'+(window.Subhired1248?window.Subhired1248.quantityHtml(r.ref,r.item):'')+'</span><span>'+esc(r.status)"
+    }
+  ]
+}

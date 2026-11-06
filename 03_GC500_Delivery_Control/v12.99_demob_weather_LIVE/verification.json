@@ -1,0 +1,79 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE \u2014 weather follow-up open",
+  "baseSha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
+  "candidateSha256": "ae11b779720acbaf6b4e8d32061cc7da5c9218e9eaa017cceb0343defa73e8ee",
+  "candidateBytes": 17060912,
+  "inlineScripts": 224,
+  "focusedNodeTests": 14,
+  "archivePythonTests": 6,
+  "scopeGuardPassed": true,
+  "weather": {
+    "nativePhonePassed": true,
+    "observedRows": 59,
+    "originalRowsUnchanged": 46,
+    "verifiedRowsAdded": 13,
+    "partialDate": "2026-11-04",
+    "directForecastEntry": true,
+    "unchangedWeatherDomRetained": true,
+    "changedForecastOnlyUpdatesAffectedCard": true,
+    "hiddenAndReducedMotion": true,
+    "errors": 0,
+    "consoleErrors": 0,
+    "attemptedWrites": 0,
+    "userReportedRemainingGlitch": true
+  },
+  "clarity": {
+    "nativePhoneAndDesktopPassed": true,
+    "screenshotsInspected": true,
+    "originalEquipmentAndStaffFactsRetained": true,
+    "mapsAndGlowRetained": true,
+    "listWidthAndNaturalCardHeightChecked": true,
+    "pickupCountDeduplicatedWithTimeAndReadinessRetained": true,
+    "errors": 0,
+    "consoleErrors": 0,
+    "attemptedWrites": 0
+  },
+  "privateRecordCorrection": {
+    "rehearsalPassed": true,
+    "allWritesBlocked": true,
+    "historicalFinancialRowsPreserved": true,
+    "liveApplied": true,
+    "backupAndNativeAcknowledgementVerified": true,
+    "independentReadbackVerified": true,
+    "currentAndHistoricalPublicUiPassed": true
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": {
+    "uploadedAt": "2026-11-04T17:43:02.636Z",
+    "exactPublicReadback": true,
+    "independentReadback": true,
+    "nativePublicWeatherCheckPassed": true,
+    "machineSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+    "nativePublicPhoneLayoutPassed": true
+  },
+  "implementationSource": "a76798317a4bbd5fb8da1b0455c58ff9aeb8df43",
+  "wrongBaseAndRepeatRefused": true,
+  "readySource": "490f98c010297f1888d623df13dff222af829366"
+}

@@ -1,0 +1,22 @@
+PASS  v8.92 style and script are in and the footer carries the release marker (v8.92, or a later release built on it)
+PASS  the Today travelling light, the LED sheen, the plate gloss and the toggle sheen animate transform, not left
+PASS  inside a draw each model is worked out once (file index, book numbers, labour plan, Finance events); outside a draw nothing is kept
+PASS  a paper’s docket number is read exactly as before for every file name on the service (387 names, 67 carry a number)
+PASS  every docket’s papers by name are the same files as before, in the same order (72 dockets, 55 papers)
+PASS  the Timeline lamps are lit exactly for the gantries in view (0 of 4)
+PASS  a redraw while scrolled keeps the reading position on Timeline, Equipment, Costs, Fencing and Today
+PASS  Transport: the four figures come first, the tie-out line stays, and “How these figures are worked out” is a closed fold that opens, is remembered and keeps every word
+PASS  the words: Equipment page; Costs & P&L (not Costs & charges); Customer rates & charges (no “Pricing tab”); sub-hired (one spelling); oversized; Rate 1; Fencing/Toilets — Rehire; no stray &amp;
+PASS  contrast clears WCAG AA where the audit found it short: Demob day tiles, the Demob oversized fold, Today’s jump pill and small print
+PASS  no page-wide or main-area horizontal overflow on any tab at 1440 px
+PASS  no focus ring is drawn around a whole pane on a change of view (as v8.84 settled for Today)
+PASS  every dialog and menu opens, closes with Escape and closes with its × or Close (7 tried)
+PASS  search finds a reference (P33), a name (medical), an asset number (1322588) and a map place (callout 033)
+PASS  Back returns to the tab before; #day/… opens that day on the Timeline; #costs opens Costs & P&L
+PASS  speed: Costs & P&L 645 ms, Fencing 449 ms, Documents 186 ms, Timeline 362 ms to the painted frame (budgets 1500 / 1200 / 900 / 1200)
+PASS  search typing on Today: the finder answers and no task over 300 ms — Today never reads the search text, so it is not redrawn (longest 0 ms, 0 over 50 ms)
+PASS  search typing on Equipment still filters the register to the match
+PASS  a redraw changes no figure, and every reconciliation tie-out still ties
+PASS  no page errors and no console errors
+PASS  no writes attempted
+1440 px: 21/21

@@ -1,0 +1,3 @@
+/* Author: Andrew Fisher. Visible scope for whole-day physical loads. */
+#pane-demob .demob994-scope{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin:0 0 12px;padding:8px 10px;border-left:3px solid var(--orange,#ff7900);background:var(--tint2,#f3f6f7);font-size:12px;line-height:1.5}
+#pane-demob .demob994-scope span{color:var(--mute,#596a73)}

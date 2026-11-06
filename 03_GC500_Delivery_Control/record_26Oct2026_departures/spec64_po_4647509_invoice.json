@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 09:53 AEST: \"Match ours to the cent\" - purchase order 4647509 (Advanced Temporary Fencing, construction week 5) to Advanced's invoice GC220926 of 22 Sep 2026, $33,670.50 ex GST; the order and receipt 4922398 held $33,670.00",
+  "ops": [
+    {"op": "po", "number": "4647509", "supplier_name": "Advanced Temporary Fencing", "stream": "fencing", "what": "Construction week 5", "period": "Construction week 5", "branch": "STPS", "revenue_branch": null, "confirmed": true, "amount": 33670.5, "note": "GC500 Week 5 - Advanced invoice GC220926 (22 Sep 2026) $33,670.50 ex GST; receipt 4922398 was $33,670.00; order matched to the invoice on Andrew's word, 29 Oct 2026"}
+  ]
+}

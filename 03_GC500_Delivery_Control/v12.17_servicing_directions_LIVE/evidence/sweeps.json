@@ -1,0 +1,26 @@
+{
+  "desktop": {
+    "routes": 27,
+    "visible_panes": 19,
+    "deep_links": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "page_errors": 0,
+    "console_errors": 0,
+    "record_writes": 0
+  },
+  "phone": {
+    "routes": 27,
+    "visible_panes": 19,
+    "deep_links": 7,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    },
+    "page_errors": 0,
+    "console_errors": 0,
+    "record_writes": 0
+  }
+}

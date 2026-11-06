@@ -1,0 +1,5 @@
+WC59  {'toilet': 7}  derived [-27.9881826, 153.4301687] pt [0.51159, 0.18564] | vs audit 0.005 m / 0.007 pt | moves  5.62 m east (audit ~5.6) | tag 5.7 m
+WC57  {'toilet': 2}  derived [-27.9882058, 153.4300756] pt [0.5131, 0.19334] | vs audit 0.005 m / 0.005 pt | moves 11.77 m west (audit ~11.8) | tag 11.8 m
+WC13  {'toilet': 3}  derived [-27.9909565, 153.4295185] pt [0.69412, 0.23996] | vs audit 0.000 m / 0.001 pt | moves  2.05 m south (audit ~2.0) | tag 2.0 m | pairs [0.66, 0.68] m
+WC69  {'toilet': 9}  derived [-27.9814958, 153.4241619] pt [0.0705, 0.68052] | vs audit 0.000 m / 0.000 pt | moves  2.27 m west (audit ~2.3) | tag 2.3 m | fence 3: middle 8.77 m north-east of the row's middle, 3.21 m from its end toilet, labels [('WC-BSF', 7.1), ('WC69', 7.2)]
+PASS 0 []

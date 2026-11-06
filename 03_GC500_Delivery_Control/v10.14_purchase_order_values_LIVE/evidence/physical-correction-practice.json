@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": {
+    "only docket and its two audit records change": true,
+    "exact source-backed corrected record": true,
+    "docket counted once": true,
+    "named audit attribution": true,
+    "new audit timestamp": true,
+    "customer and supplier rate cards unchanged": true,
+    "PO and supplier allocation unchanged": true,
+    "supplier amount remains approved": true,
+    "customer line uses current card and proper rounding": true,
+    "physical weekly metres and customer price update once": true,
+    "actual fencing Revenue rises by corrected line delta": true,
+    "actual Direct costs and branch split unchanged": true,
+    "only fencing actual Revenue changes": true,
+    "job Revenue follows corrected actual and remaining forecast": true,
+    "job Direct costs follow only remaining physical forecast": true,
+    "Finance actual cost stays approved and forecast changes once": true,
+    "same fencing branch carries only remaining forecast change": true,
+    "other Finance categories unchanged": true,
+    "same reviewed programme task retains its capped allocation": true,
+    "remaining forecast only reduces by newly evidenced capped metres": true,
+    "reject extra quantity changes": true,
+    "reject extra component changes": true,
+    "reject stale original quantity": true,
+    "reject changed card rate": true,
+    "reject changed approved PO total": true,
+    "reject changed supplier allocation": true,
+    "reject missing source evidence": true,
+    "reject wrong rounded customer amount": true,
+    "rejected plans do not mutate native records": true,
+    "no browser errors or operational write attempts": true
+  },
+  "requests": {
+    "page": 1,
+    "live": 9,
+    "blocked": 0,
+    "blockedMapSessions": 0
+  },
+  "note": "Pricing and corrected physical source were staged only in a GET-only browser. Source details and amounts remain private."
+}

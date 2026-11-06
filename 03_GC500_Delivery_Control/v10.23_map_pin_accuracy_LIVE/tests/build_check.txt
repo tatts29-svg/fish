@@ -1,0 +1,2 @@
+checked build/GC500_v10.23/GC500_Delivery_Control_hosted.html: 121 inline scripts, 15,927,703 bytes, secrets {'google key': 0, 'mapbox token': 0}
+PASS all checks

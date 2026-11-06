@@ -1,0 +1,52 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "expected-fixed",
+  "candidate_sha256": "7eb8e20e37e7efc31abf68f11be8980446f69f229e08224447a8c923836a1a02",
+  "native_functions": [
+    "ldId",
+    "hhmm782",
+    "clock782",
+    "crew883Key",
+    "crew883Day",
+    "crew883Arrival",
+    "crew883Finish",
+    "crew883Plan",
+    "crew883Assess",
+    "crew883Summary",
+    "crew883Transport",
+    "dpT",
+    "bookingRows801",
+    "bookingSort801",
+    "bookingGroups801",
+    "dpLoadsBefore801",
+    "dpLoads",
+    "daily821Date",
+    "daily821Model",
+    "docIdOf",
+    "toDocs",
+    "fromDocs",
+    "validateRecords",
+    "blank",
+    "mergeRecords"
+  ],
+  "checks": [
+    "Stagger isolates the selected native truck ID and removes the area conflict",
+    "Order changes native load numbering while preserving unknown people and the selected window",
+    "Native message model and driver header retain each truck window after renumbering",
+    "Filtered native message rows retain identity instead of joining by display index",
+    "Historical Crew windows remain the fallback; staggering leaves the entire Crew record unchanged",
+    "Explicit zero people and notes remain recorded after order and window edits",
+    "Native document serialization and JSON reload preserve dedicated windows and order",
+    "Native merge keeps independent truck windows and takes the later stamp for the same truck",
+    "Window metadata passes native import validation; malformed or unrelated load records remain rejected",
+    "View mode, missing operator, invalid windows and invalid IDs never mutate records",
+    "An overlong native identity is refused before document-ID truncation can collide",
+    "Window audit timestamps advance and recover from a malformed prior timestamp",
+    "Malformed saved overrides fall back without contaminating another truck or day"
+  ],
+  "passed": 13,
+  "limitations": [
+    "Offline native-function fixture, not browser/release acceptance",
+    "Existing Crew/order file-import namespace limitation remains separate"
+  ]
+}

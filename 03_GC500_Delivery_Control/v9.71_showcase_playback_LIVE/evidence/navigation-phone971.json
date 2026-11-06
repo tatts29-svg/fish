@@ -1,0 +1,24 @@
+{
+  "author": "Andrew Fisher",
+  "view": "phone",
+  "sha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "routes": 22,
+  "directPanes": 16,
+  "intentionalRedirects": [
+    "register",
+    "journal",
+    "breakdowns",
+    "variances",
+    "edit",
+    "add"
+  ],
+  "deepLinks": 7,
+  "back": {
+    "hash": "#plant",
+    "pane": "pane-plant"
+  },
+  "pageErrors": 0,
+  "consoleErrors": 0,
+  "blockedRequests": 0,
+  "pass": true
+}

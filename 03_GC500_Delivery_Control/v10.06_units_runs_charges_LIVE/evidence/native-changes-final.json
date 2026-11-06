@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "changes": [
+    {
+      "author": "Andrew Fisher",
+      "pass": true,
+      "scope": "identity",
+      "beforeVersion": 5698,
+      "afterVersion": 5735,
+      "writes": 37,
+      "allOtherSharedFieldsUnchanged": true
+    },
+    {
+      "author": "Andrew Fisher",
+      "pass": true,
+      "scope": "roster",
+      "beforeVersion": 5735,
+      "afterVersion": 5793,
+      "writes": 58,
+      "allOtherSharedFieldsUnchanged": true
+    },
+    {
+      "author": "Andrew Fisher",
+      "pass": true,
+      "scope": "wrong_number",
+      "beforeVersion": 5793,
+      "afterVersion": 5796,
+      "writes": 3,
+      "allOtherSharedFieldsUnchanged": true
+    }
+  ],
+  "totalAcknowledgedWrites": 98,
+  "finalVersion": 5796,
+  "priceChangesFromBOQ": 0
+}

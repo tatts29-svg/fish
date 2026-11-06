@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.56-final-r3",
+  "modes": {
+    "desktop": {
+      "routes": 22,
+      "deep_links": 7,
+      "all_routes_inspected": true,
+      "route_behaviour_preserved": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "go_errors": 0,
+      "blocked_write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "print_bar": true,
+      "pass": true
+    },
+    "phone": {
+      "routes": 22,
+      "deep_links": 7,
+      "all_routes_inspected": true,
+      "route_behaviour_preserved": true,
+      "page_errors": 0,
+      "console_errors": 0,
+      "go_errors": 0,
+      "blocked_write_attempts": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "print_bar": true,
+      "pass": true
+    }
+  },
+  "sha256": "4410bb0b4f8fb8dbdb049485df95d0163ee9032251ad25df37c265a943efaca1",
+  "bytes": 12688275,
+  "pass": true
+}

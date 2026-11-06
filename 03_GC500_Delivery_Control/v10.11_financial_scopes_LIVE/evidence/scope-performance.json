@@ -1,0 +1,650 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+  "candidateSha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "moduleSha256": "a6fefe97d857294f195b2feba16116c52b4e97d0079675f986ff4e5b1dcb9643",
+  "nativeVersion": 5806,
+  "checks": [
+    {
+      "name": "Baseline starts outside render scope",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup fh866Model",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup acc761Model",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup moneySummary",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup pl770Model",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup cj764Model",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup rh766Model",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup contractFigures",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup branchRollup",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "Baseline cleanup finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "Same native version in exact candidate",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity fh866Model",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup fh866Model",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot fh866Model",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once fh866Model",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes fh866Model",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes branchFinancial978",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity acc761Model",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup acc761Model",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot acc761Model",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once acc761Model",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes acc761Model",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity moneySummary",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup moneySummary",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot moneySummary",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once moneySummary",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes moneySummary",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity pl770Model",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup pl770Model",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot pl770Model",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once pl770Model",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes pl770Model",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity cj764Model",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup cj764Model",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot cj764Model",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once cj764Model",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes cj764Model",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity rh766Model",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup rh766Model",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot rh766Model",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once rh766Model",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes rh766Model",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes pl752Rows",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity contractFigures",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup contractFigures",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot contractFigures",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once contractFigures",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes contractFigures",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes contractRowsByBranch",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity branchRollup",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup branchRollup",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot branchRollup",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once branchRollup",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes branchRollup",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes contractReferenceBranches1010",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes currentFwfOwners1010",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes generatorBranch1004",
+      "pass": true
+    },
+    {
+      "name": "Exact model parity finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "Fresh standalone cleanup finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "One asset snapshot finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "Each index built at most once finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "No record/source changes finance928ContractOwner",
+      "pass": true
+    },
+    {
+      "name": "nextCallSeesEdit",
+      "pass": true
+    },
+    {
+      "name": "savedInsideHoldFresh",
+      "pass": true
+    },
+    {
+      "name": "savedInsideHoldCleaned",
+      "pass": true
+    },
+    {
+      "name": "throwIdentityPreserved",
+      "pass": true
+    },
+    {
+      "name": "throwCleaned",
+      "pass": true
+    },
+    {
+      "name": "recoveryAfterThrow",
+      "pass": true
+    },
+    {
+      "name": "priceEditFresh",
+      "pass": true
+    },
+    {
+      "name": "priceResetFresh",
+      "pass": true
+    },
+    {
+      "name": "quantityEditFresh",
+      "pass": true
+    },
+    {
+      "name": "quantityResetFresh",
+      "pass": true
+    },
+    {
+      "name": "untouched",
+      "pass": true
+    },
+    {
+      "name": "cleaned",
+      "pass": true
+    },
+    {
+      "name": "Nested models reuse index",
+      "pass": true
+    },
+    {
+      "name": "No browser errors or write attempts",
+      "pass": true
+    }
+  ],
+  "timings": [
+    {
+      "name": "fh866Model",
+      "baselineMs": 1667,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 1748,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "branchFinancial978",
+      "baselineMs": 1346,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 1324,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "acc761Model",
+      "baselineMs": 826,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 796,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "moneySummary",
+      "baselineMs": 643,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 657,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "pl770Model",
+      "baselineMs": 1076,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 1058,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "cj764Model",
+      "baselineMs": 884,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 904,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "rh766Model",
+      "baselineMs": 928,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 992,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "pl752Rows",
+      "baselineMs": 129,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1,
+        "currentFwfOwners1010": 1
+      },
+      "standaloneMs": 187,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "contractFigures",
+      "baselineMs": 76,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 89,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "contractRowsByBranch",
+      "baselineMs": 76,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 86,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "branchRollup",
+      "baselineMs": 360,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 384,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "contractReferenceBranches1010",
+      "baselineMs": 68,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 122,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "currentFwfOwners1010",
+      "baselineMs": 83,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "currentFwfOwners1010": 1,
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 104,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "generatorBranch1004",
+      "baselineMs": 70,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 84,
+      "parity": true,
+      "untouched": true
+    },
+    {
+      "name": "finance928ContractOwner",
+      "baselineMs": 113,
+      "cleaned": true,
+      "assets": 1,
+      "indexes": {
+        "currentFwfOwners1010": 1,
+        "contractReferenceBranches1010": 1
+      },
+      "standaloneMs": 108,
+      "parity": true,
+      "untouched": true
+    }
+  ],
+  "edits": {
+    "nextCallSeesEdit": true,
+    "nested": {
+      "sameIndex": true,
+      "before": "KINP",
+      "after": "NVAC"
+    },
+    "savedInsideHoldFresh": true,
+    "savedInsideHoldCleaned": true,
+    "throwIdentityPreserved": true,
+    "throwCleaned": true,
+    "recoveryAfterThrow": true,
+    "priceEditFresh": true,
+    "priceResetFresh": true,
+    "quantityEditFresh": true,
+    "quantityResetFresh": true,
+    "untouched": true,
+    "cleaned": true
+  },
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 49,
+    "blocked": 0
+  },
+  "testSha256": "65d932efa2e1957bbb5a53589256b239cb9917eb69efb07a97a2dd1d47d5dd33",
+  "scope": "Standalone synchronous financial entry points; exact model-output parity against held v10.10 reads; rate/quantity/branch freshness, nested invalidation and exception cleanup. Browser harness forbids operational writes."
+}

@@ -1,0 +1,3 @@
+/* Author: Andrew Fisher. v12.56 - the "Show what has left" choice sits in the existing Map tools bar. */
+#map1147-controls .map1256-left{flex:0 1 auto;flex-direction:row;align-items:center;white-space:normal}
+#map1147-controls .map1256-left input{width:20px;height:20px;min-width:20px;margin:0;accent-color:#ff6a13}

@@ -1,0 +1,43 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9",
+  "uploadedAt": "10 Oct 2026 15:34 AEST",
+  "verifiedAt": "10 Oct 2026 15:37 AEST",
+  "sourceCommit": "f0156158",
+  "readyCommit": "978d885d",
+  "checks": {
+    "public-desktop": {
+      "checks": 126,
+      "pass": true,
+      "actualPublic": true,
+      "mobile": false,
+      "errors": 0,
+      "writes": 0
+    },
+    "public-phone": {
+      "checks": 125,
+      "pass": true,
+      "actualPublic": true,
+      "mobile": true,
+      "errors": 0,
+      "writes": 0
+    },
+    "public-hydration": {
+      "checks": 19,
+      "pass": true,
+      "actualPublic": true,
+      "mobile": false,
+      "errors": 0,
+      "writes": 0
+    },
+    "public-native-phone": {
+      "checks": 5,
+      "pass": true,
+      "actualPublic": true,
+      "mobile": true,
+      "errors": 0,
+      "writes": 0
+    }
+  },
+  "scope": "Actual public URL and exact served bytes; no HTML substitution. Genuine screenshots captured before isolated browser weather/readiness fixtures. No operational writes."
+}

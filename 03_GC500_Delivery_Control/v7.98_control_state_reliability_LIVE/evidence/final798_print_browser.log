@@ -1,0 +1,3 @@
+page.waitForFunction: Timeout 120000ms exceeded.
+    at run (/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_print_notes_browser.js:17:130)
+    at async /workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v7.98_control_state_reliability_DRAFT/evidence/control798_print_notes_browser.js:76:148

@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "author": "Andrew Fisher",
+  "sources": [
+    {
+      "id": "36595.jpg",
+      "sha256": "2a9f8d2e5e9cacc199c48eb3c2ea34c5272f0c62ebd8355bfe0cb2ec194cf371",
+      "title": "Original signed paper 36595.jpg"
+    }
+  ],
+  "unclassified": [
+    {
+      "id": "measured-unclassified-36595",
+      "quantity": 10,
+      "unit": "m",
+      "records": [
+        {
+          "book": "red",
+          "record_id": "F-AFV-0038",
+          "number": "36595",
+          "expected": {
+            "id": "F-AFV-0038",
+            "docket_no": "36595",
+            "date": "2026-10-09",
+            "week": "Week 2",
+            "scope": "programme",
+            "usable": true,
+            "quantities": {},
+            "components": {
+              "cc_barrier": 4
+            },
+            "location": "Rear of S20 — Shower",
+            "note": "CC barrier 10 m / 4 barriers. Event/Demarcation category awaiting confirmation; no guessed charge allocated. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories."
+          }
+        }
+      ],
+      "source_ids": [
+        "36595.jpg"
+      ],
+      "basis": "Hire agreement 36595 records 10 m / 4 crowd-control barriers at Rear S20 Shower. The measured length is included once in shared pending CCB work; Event or Demarcation remains unproven. No category or price is inferred."
+    }
+  ]
+}

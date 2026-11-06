@@ -1,0 +1,91 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T025359Z",
+ "finished": "2026-10-20T02:54:10.243Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"wc31 accesbale toilet is installed\", \"fix wc31 still showing as not complete\". The Accessible Toilet's supplied record was re-stamped today by the retype of 1317645, so its 9 Oct install tick no longer counts (install before receipt). Step 1 of 2: the install tick off; step 2 puts it straight back on, dated now.",
+  "allowRemove": [
+   "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install"
+  ],
+  "allowRemoveWhy": "re-dating the accessible install so it follows today's receipt (step 1 of 2)",
+  "ops": [
+   {
+    "op": "labour_off",
+    "ref": "WC31",
+    "disc": "Toilets & amenities",
+    "item": "Accessible Toilet",
+    "line": "install"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10141,
+  "after": 10144
+ },
+ "updated": {
+  "before": "2026-10-20T02:32:11.702Z",
+  "after": "2026-10-20T02:54:09.413Z"
+ },
+ "stage": [
+  {
+   "op": "labour_off",
+   "ref": "WC31",
+   "disc": "Toilets & amenities",
+   "item": "Accessible Toilet",
+   "line": "install",
+   "result": "taken off"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "2026-10-09T06:48:46.012Z"
+   },
+   "by/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "Andrew Fisher via Codex"
+   },
+   "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": true
+   }
+  },
+  "after": {
+   "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "2026-10-20T02:54:06.943Z"
+   },
+   "by/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

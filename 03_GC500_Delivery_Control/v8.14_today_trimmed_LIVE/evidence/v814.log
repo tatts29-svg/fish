@@ -1,0 +1,44 @@
+
+== desktop
+live : The lights | Deliveries due by today met | Where we are on the programme | Next programme day | Delivery updates today | Also on the schedule that day — no reference | Who to call | Fencing | Variances | Breakdowns | Costs & charges | Your records | Map | Documents | Edit
+v8.14: The lights | Deliveries due by today met | Where we are on the programme | Delivery updates today | Who to call | Variances | Breakdowns | Costs & charges | Edit
+PASS desktop: off Today: ^Map$
+PASS desktop: off Today: ^Documents$
+PASS desktop: off Today: ^Also on the schedule
+PASS desktop: off Today: ^Roads between
+PASS desktop: off Today: ^Fencing$
+PASS desktop: off Today: ^Your records$
+PASS desktop: off Today: ^Next programme day$
+PASS desktop: the live page had the cards being removed (the check is real)  - The lights | Deliveries due by today met | Where we are on the programme | Next programme day | Delivery updates today | Also on the schedule that day — no reference | Who to call | Fencing | Variances | Breakdowns | Costs & charges | Your records | Map | Documents | Edit
+PASS desktop: unchanged: ^Deliveries due by today met$
+PASS desktop: unchanged: ^Delivery updates today$
+PASS desktop: unchanged: ^Who to call$
+PASS desktop: unchanged: ^Costs & charges$
+PASS desktop: unchanged: ^Breakdowns$
+PASS desktop: fewer cards (15 -> 9)
+PASS desktop: Tools > Export still there  - Export
+PASS desktop: no sideways scroll
+PASS desktop: no page errors
+
+== phone
+live : The lights | Deliveries due by today met | Where we are on the programme | Next programme day | Delivery updates today | Also on the schedule that day — no reference | Who to call | Fencing | Variances | Breakdowns | Costs & charges | Your records | Map | Documents | Edit
+v8.14: The lights | Deliveries due by today met | Where we are on the programme | Delivery updates today | Who to call | Variances | Breakdowns | Costs & charges | Edit
+PASS phone: off Today: ^Map$
+PASS phone: off Today: ^Documents$
+PASS phone: off Today: ^Also on the schedule
+PASS phone: off Today: ^Roads between
+PASS phone: off Today: ^Fencing$
+PASS phone: off Today: ^Your records$
+PASS phone: off Today: ^Next programme day$
+PASS phone: the live page had the cards being removed (the check is real)  - The lights | Deliveries due by today met | Where we are on the programme | Next programme day | Delivery updates today | Also on the schedule that day — no reference | Who to call | Fencing | Variances | Breakdowns | Costs & charges | Your records | Map | Documents | Edit
+PASS phone: unchanged: ^Deliveries due by today met$
+PASS phone: unchanged: ^Delivery updates today$
+PASS phone: unchanged: ^Who to call$
+PASS phone: unchanged: ^Costs & charges$
+PASS phone: unchanged: ^Breakdowns$
+PASS phone: fewer cards (15 -> 9)
+PASS phone: Tools > Export still there  - Export
+PASS phone: no sideways scroll
+PASS phone: no page errors
+
+ALL PASSED

@@ -1,0 +1,339 @@
+{
+ "author": "Andrew Fisher",
+ "what": "v9.17 third round - WC59, WC57, WC13 and WC69 (the project manager, 8 Oct about 23:20) re-derived from the 2 Oct master PDF",
+ "pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+ "page_sha256": "c547a6debe1dea9009b50466d3c1028ec9c3a800e6c591ea258b61490b14b762",
+ "georeferencing": {
+  "main_rms_m": 0.669719671487297
+ },
+ "frame": "2 Oct paper -> 17 Sep frame (main +25.50/+0.12 pt) -> main sheet_to_z18px; pt = x17/2384, y17*(2600/2384)/1837",
+ "rule": "area centre of the toilets drawn; checked against the audit point: 0.3 pt and 0.2 m",
+ "shapes_scanned": 8041,
+ "unit_shapes": 748,
+ "rows": {
+  "WC59": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 7
+   },
+   "n_parts": 7,
+   "drawings": [
+    118240,
+    118250,
+    118260,
+    118840,
+    118850,
+    118860,
+    118870
+   ],
+   "outline_of_audit_row": "WC57",
+   "paper_pt": [
+    1194.125,
+    312.569
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9881826,
+    153.4301687
+   ],
+   "derived_pt": [
+    0.51159,
+    0.18564
+   ],
+   "listed_ll": [
+    -27.9881826,
+    153.4301687
+   ],
+   "listed_pt": [
+    0.51159,
+    0.18564
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.006,
+   "within_tolerance": true,
+   "audit_paper_pt": [
+    1194.131,
+    312.565
+   ],
+   "audit_ll": [
+    -27.9881826,
+    153.4301687
+   ],
+   "derived_vs_audit_pt": 0.007,
+   "derived_vs_audit_m": 0.005,
+   "page_now_ll": [
+    -27.988171,
+    153.430113
+   ],
+   "page_now_pt": [
+    0.51082,
+    0.19032
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "d9c9a20c4e1a7cf3ae00647b84b065b81c27c3588568f4bf8c149999d717577c",
+    "248c6ef28aa8056d3a190f100f466b13a0bdc65f2c1c7cead37c2bb572208556"
+   ],
+   "moves_m": 5.62,
+   "moves_dir": "east",
+   "moves_bearing": 103,
+   "audit_moves_m": 5.6,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 5.7
+  },
+  "WC57": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 2
+   },
+   "n_parts": 2,
+   "drawings": [
+    119383,
+    119668
+   ],
+   "outline_of_audit_row": "WC59",
+   "paper_pt": [
+    1197.735,
+    325.535
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9882058,
+    153.4300756
+   ],
+   "derived_pt": [
+    0.5131,
+    0.19334
+   ],
+   "listed_ll": [
+    -27.9882058,
+    153.4300756
+   ],
+   "listed_pt": [
+    0.5131,
+    0.19334
+   ],
+   "listed_vs_derived_m": 0.005,
+   "listed_vs_derived_pt": 0.006,
+   "within_tolerance": true,
+   "audit_paper_pt": [
+    1197.73,
+    325.532
+   ],
+   "audit_ll": [
+    -27.9882058,
+    153.4300756
+   ],
+   "derived_vs_audit_pt": 0.005,
+   "derived_vs_audit_m": 0.005,
+   "page_now_ll": [
+    -27.988177,
+    153.430191
+   ],
+   "page_now_pt": [
+    0.5112,
+    0.18385
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "cc50166b263cb33f1ad208cb38abeffc34c9b35c0e7fbde9d66b4ff07b8c5d77",
+    "d86440f2aa186b4e0d4c6091a617983093aeecd744e06483e63ec98b187ec55a"
+   ],
+   "moves_m": 11.77,
+   "moves_dir": "west",
+   "moves_bearing": 254,
+   "audit_moves_m": 11.8,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 11.8
+  },
+  "WC13": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 3
+   },
+   "n_parts": 3,
+   "drawings": [
+    119223,
+    119233,
+    122448
+   ],
+   "outline_of_audit_row": "WC13",
+   "paper_pt": [
+    1629.283,
+    404.068
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9909565,
+    153.4295185
+   ],
+   "derived_pt": [
+    0.69412,
+    0.23996
+   ],
+   "listed_ll": [
+    -27.9909565,
+    153.4295185
+   ],
+   "listed_pt": [
+    0.69412,
+    0.23996
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.003,
+   "within_tolerance": true,
+   "audit_paper_pt": [
+    1629.283,
+    404.068
+   ],
+   "audit_ll": [
+    -27.9909565,
+    153.4295185
+   ],
+   "derived_vs_audit_pt": 0.001,
+   "derived_vs_audit_m": 0.0,
+   "page_now_ll": [
+    -27.990939,
+    153.429512
+   ],
+   "page_now_pt": [
+    0.69295,
+    0.24056
+   ],
+   "page_now_how": "tag on the unit, master D001",
+   "page_now_img": [
+    "693a2dee206dc3d9110aec3cfcf133569a07834c582e4c83cebf779a193dc840",
+    "5934949646a9625f66f5507e14975fae3a1144cf2a48f6b978c6bcaaa8f4bd3b"
+   ],
+   "moves_m": 2.05,
+   "moves_dir": "south",
+   "moves_bearing": 162,
+   "audit_moves_m": 2.0,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.0,
+   "pairs_middle_to_row_middle_m": [
+    0.66,
+    0.68
+   ]
+  },
+  "WC69": {
+   "kind": "toilet",
+   "unit_kinds": {
+    "toilet": 9
+   },
+   "n_parts": 9,
+   "drawings": [
+    121794,
+    121804,
+    121814,
+    122693,
+    122703,
+    122713,
+    122723,
+    122733,
+    122743
+   ],
+   "outline_of_audit_row": "WC69",
+   "paper_pt": [
+    142.57,
+    1146.139
+   ],
+   "inset": false,
+   "derived_ll": [
+    -27.9814958,
+    153.4241619
+   ],
+   "derived_pt": [
+    0.0705,
+    0.68052
+   ],
+   "listed_ll": [
+    -27.9814958,
+    153.4241619
+   ],
+   "listed_pt": [
+    0.0705,
+    0.68052
+   ],
+   "listed_vs_derived_m": 0.004,
+   "listed_vs_derived_pt": 0.002,
+   "within_tolerance": true,
+   "audit_paper_pt": [
+    142.57,
+    1146.139
+   ],
+   "audit_ll": [
+    -27.9814958,
+    153.4241619
+   ],
+   "derived_vs_audit_pt": 0.0,
+   "derived_vs_audit_m": 0.0,
+   "page_now_ll": [
+    -27.981495,
+    153.424185
+   ],
+   "page_now_pt": [
+    0.07047,
+    0.67874
+   ],
+   "page_now_how": "tag on the unit, master D001 (the second of its two tags; D023 callout WC69 and zone page K228 both put it here); one tag on the 2 Oct issue",
+   "page_now_img": [
+    "333dd1bb8785c6fe5b551bcd772ebaa6447bde95fa49d431c6da2bab085bfa0c",
+    "6e8a517fc547cfc283473c22f4bd894044b27667a23d5a98ad3a890717e9f6bf"
+   ],
+   "moves_m": 2.27,
+   "moves_dir": "west",
+   "moves_bearing": 268,
+   "audit_moves_m": 2.3,
+   "m_per_pt": 0.707,
+   "touching_extra": 0,
+   "drawn_twice": 0,
+   "tag_to_unit_m": 2.3,
+   "fence_three": {
+    "n": 3,
+    "drawings": [
+     122593,
+     122603,
+     122613
+    ],
+    "paper_pt": [
+     135.188,
+     1136.149
+    ],
+    "ll": [
+     -27.9814486,
+     153.4242335
+    ],
+    "middle_to_row_middle_m": 8.77,
+    "direction_from_row_middle": "north-east",
+    "bearing": 53,
+    "nearest_to_row_end_toilet_m": 3.21,
+    "edge_gap_to_row_m": 1.82,
+    "nearest_wc_labels": [
+     [
+      "WC-BSF",
+      7.1
+     ],
+     [
+      "WC69",
+      7.2
+     ]
+    ],
+    "other_lone_toilets_within_10m": [
+     {
+      "drawing": 119323,
+      "m": 9.7
+     }
+    ],
+    "question_said": "about 6.5 m north-west (written off the paper; the paper is not north-up)"
+   }
+  }
+ },
+ "fails": []
+}

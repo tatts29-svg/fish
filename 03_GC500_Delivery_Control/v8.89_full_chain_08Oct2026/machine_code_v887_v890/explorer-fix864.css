@@ -1,0 +1,18 @@
+/* Author: Andrew Fisher. v8.64 Map explorer: close bars, the Clear pill and the header buttons. */
+.x864-bar{position:sticky;top:0;z-index:5;display:flex;justify-content:flex-end;margin:-4px 0 8px;padding:4px 0;background:inherit}
+.x864-close{display:inline-flex;align-items:center;gap:2px;min-height:36px;padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.22);background:#1d2328;color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer}
+.x864-close:hover,.x864-close:focus-visible{border-color:#ff6a13;outline:none}
+#side>.x864-bar{display:none}
+@media (max-width:900px){body.nav #side>.x864-bar{display:flex}}
+body.fencing-map #side>.x864-bar{display:none}
+#fencePanel>.x864-bar{display:flex}
+.x864-clear{pointer-events:auto;display:inline-flex;align-items:center;gap:2px;min-height:34px;padding:5px 12px;border-radius:999px;border:1px solid #ff6a13;background:#1d2328;color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.x864-clear[hidden]{display:none!important}
+.x864-clear:hover,.x864-clear:focus-visible{background:#ff6a13;outline:none}
+#fenceMode.x864-on{background:#ff6a13;border-color:#ff6a13;color:#fff}
+#navBtn,#fenceMode{white-space:nowrap}
+.x864-s{display:none}
+/* a phone: icon over a short word, like the dashboard's own phone tabs, so Search, Fencing and the four views fit one row */
+@media (max-width:560px){header>b{display:none} .x864-l{display:none} .x864-s{display:inline}
+  #navBtn,#fenceMode{display:inline-flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:44px;height:44px;min-height:44px;padding:2px 6px!important;font-size:10.5px!important;line-height:1.05;font-weight:700}
+  #navBtn svg,#fenceMode svg{margin:0!important;width:16px;height:16px}}

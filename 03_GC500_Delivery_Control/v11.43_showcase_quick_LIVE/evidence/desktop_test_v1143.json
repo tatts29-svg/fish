@@ -1,0 +1,172 @@
+{
+ "at": "2026-10-22T23:00:02.621Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "never chosen, nothing remembered: the Showcase opens on the 3D circuit at night, no button",
+   "ok": true,
+   "detail": {
+    "back": "circuit3d",
+    "sel": "circuit3d",
+    "btn": {
+     "hidden": true,
+     "text": "",
+     "title": ""
+    },
+    "q": {
+     "applied": null,
+     "lastMs": null,
+     "why": "",
+     "want3d": false
+    },
+    "pref": null
+   }
+  },
+  {
+   "name": "the base circuit’s build time on this device is kept in local storage once it has built (or the device says it cannot)",
+   "ok": true,
+   "detail": {
+    "mountMs": 6967,
+    "kept": {
+     "ms": 6968,
+     "at": "2026-10-22T22:55:41.453Z"
+    },
+    "failed": false,
+    "pending": false
+   }
+  },
+  {
+   "name": "closing the Showcase hides it",
+   "ok": true,
+   "detail": {
+    "want": false,
+    "hidden": true
+   }
+  },
+  {
+   "name": "this device was slow (over 1.5 s): the next opening starts on the flat circuit with the \"3D circuit · N s here\" button, the choice untouched",
+   "ok": true,
+   "detail": {
+    "o2": {
+     "back": "circuit",
+     "sel": "circuit",
+     "btn": {
+      "hidden": false,
+      "text": "3D circuit · 7.0 s here",
+      "title": "Opened on the flat circuit: the 3D circuit took 7.0 s to build here last time. Press for the 3D circuit now."
+     },
+     "q": {
+      "applied": "circuit3d",
+      "lastMs": 6968,
+      "why": "the 3D circuit took 7.0 s to build here last time",
+      "want3d": false
+     },
+     "pref": null
+    },
+    "slowHere": true,
+    "kept": {
+     "ms": 6968,
+     "at": "2026-10-22T22:55:41.453Z"
+    }
+   }
+  },
+  {
+   "name": "pressing \"3D circuit\" brings the 3D circuit back for this opening (the build deferred past the paint as v11.20 does), the button hides",
+   "ok": true,
+   "detail": {
+    "back": "circuit3d",
+    "sel": "circuit3d",
+    "want": true,
+    "btn": true,
+    "deferred": 2,
+    "pending": false
+   }
+  },
+  {
+   "name": "a remembered build within budget (0.5 s): the 3D circuit at night opens as before, no button",
+   "ok": true,
+   "detail": {
+    "back": "circuit3d",
+    "sel": "circuit3d",
+    "btn": {
+     "hidden": true,
+     "text": "3D circuit · 7.0 s here",
+     "title": "Opened on the flat circuit: the 3D circuit took 7.0 s to build here last time. Press for the 3D circuit now."
+    },
+    "q": {
+     "applied": null,
+     "lastMs": 6968,
+     "why": "the 3D circuit took 7.0 s to build here last time",
+     "want3d": false
+    },
+    "pref": null
+   }
+  },
+  {
+   "name": "a chosen 3D day on a device that took 9 s: opens on the flat circuit with the button, the choice kept",
+   "ok": true,
+   "detail": {
+    "back": "circuit",
+    "sel": "circuit",
+    "btn": {
+     "hidden": false,
+     "text": "3D circuit · 9.0 s here",
+     "title": "Opened on the flat circuit: the 3D circuit took 9.0 s to build here last time. Press for the 3D circuit now."
+    },
+    "q": {
+     "applied": "circuit3d_day",
+     "lastMs": 9000,
+     "why": "the 3D circuit took 9.0 s to build here last time",
+     "want3d": false
+    },
+    "pref": "circuit3d_day"
+   }
+  },
+  {
+   "name": "the button returns the chosen 3D day, the choice still kept",
+   "ok": true,
+   "detail": {
+    "back": "circuit3d_day",
+    "sel": "circuit3d_day",
+    "pref": "circuit3d_day"
+   }
+  },
+  {
+   "name": "choosing a 3D look from the backdrop list during a flat opening is honoured at once (not snapped back), and stored as the choice as before",
+   "ok": true,
+   "detail": {
+    "o7": {
+     "back": "circuit"
+    },
+    "o8": {
+     "back": "circuit3d",
+     "sel": "circuit3d",
+     "pref": "circuit3d",
+     "want": true
+    }
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 90,
+    "blocked": 0
+   }
+  }
+ ]
+}

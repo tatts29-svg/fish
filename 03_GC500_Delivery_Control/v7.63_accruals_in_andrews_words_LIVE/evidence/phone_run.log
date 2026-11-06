@@ -1,0 +1,116 @@
+{
+ "pass": true,
+ "checks": {
+  "defaultIsLastCompleteMonth": true,
+  "everyMonthPlusUnallocatedAddsToThePLRevenue": true,
+  "readOnlyKeepsTotalsAndJournals": true,
+  "baseplanBilledColumnsRead": true,
+  "sepInvoicesRecordedAreTheConfirmedPOsByProgrammeWeek": true,
+  "sepFencingAccrueIsIncurredLessInvoiced": true,
+  "sepLabourTicksDatedByTheDayIn": true,
+  "sepFencingRevenueIsAllDocketsAtTheCard": true,
+  "sepNoRowIsPlanned": true,
+  "sepHasWipQuestionAskedAsAQuestion": true,
+  "octFutureRowsArePlanned": true,
+  "octIncludesTheToiletsAtOurRates": true,
+  "labour_perEqualsPlan": true,
+  "labour_chargedEqualsPL": true,
+  "labour_packageReconciles": true,
+  "labour_labourOnlyExcludesSupport": true,
+  "labour_hoursClassified": true,
+  "labour_hoursEqualRows": true,
+  "andrewsWordsNotAuditSpeak": true,
+  "caveatSaidOnceNotPerRow": true,
+  "badgesPresent": true,
+  "peopleDaysHoursTable": true,
+  "noBrokenValues": true,
+  "unallocatedExplained": true,
+  "currentMonthSplitsToDateFromPlanned": true,
+  "futureMonthSaysPlannedNotIncurred": true,
+  "monthSwitchBack": true,
+  "csvExported": true,
+  "copyTextCarriesTheFigures": true,
+  "exportsHaveNoBrokenValues": true,
+  "noWriteLeftThePage": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true
+ },
+ "sep": {
+  "revenueTotal": 176968.07,
+  "toAccrue": 67856.11,
+  "decide": 21950.24,
+  "invoiced": 42662,
+  "fence": {
+   "stream": "Fencing — supplier docket estimate",
+   "branch": "STPS",
+   "candidate": 73396.5,
+   "invoiced": 42662,
+   "accrue": 30734.5,
+   "status": "review",
+   "act": "accrue"
+  },
+  "labourRows": [
+   [
+    "KINP",
+    16458.21
+   ],
+   [
+    "NVAC",
+    624.6
+   ]
+  ],
+  "unallocated": [
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 22,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 23,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 278.39,
+    "basis": "Delivery for HA Line Item(s) 45,* 23 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Transport Revenue",
+    "amount": 103.3,
+    "basis": "Delivery for HA Line Item(s) 1,2 15 Sep 2026: delivery date missing"
+   },
+   {
+    "stream": "Fencing — supplier docket estimate",
+    "amount": 2475,
+    "basis": "Docket work date missing"
+   },
+   {
+    "stream": "Toilets — supplier quote",
+    "amount": 4850,
+    "basis": "Quote hire dates need confirmation"
+   }
+  ],
+  "wip": [
+   "Fencing — Advanced Temporary Fencing’s invoices recorded $42,662 against the fencing charge to the V8s $120,913 for September 2026, none of it billed by the branch yet (Andrew, 1 Oct 2026: the fencing is paid)"
+  ],
+  "decisions": 2
+ },
+ "labour": {
+  "per": 80948.16,
+  "install": 69861.51,
+  "labourOnly": 106576.47,
+  "packageTotal": 136764.72,
+  "all": {
+   "hours": 2103,
+   "cost": 31823.98,
+   "unpriced": 1626,
+   "confirmed": 670,
+   "pending": 61.5,
+   "forecast": 1371.5
+  }
+ },
+ "errors": [],
+ "console": [],
+ "overflow": 0
+}

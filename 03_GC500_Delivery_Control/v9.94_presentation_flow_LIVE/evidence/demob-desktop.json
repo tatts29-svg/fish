@@ -1,0 +1,68 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "failures": [],
+  "counts": {
+    "page": 1,
+    "live": 32,
+    "blocked": 0
+  },
+  "errors": [],
+  "actualPublic": false,
+  "checks": [
+    {
+      "name": "Native Demob toilet load available for interaction proof",
+      "pass": true
+    },
+    {
+      "name": "Toilet content explicitly says All branches",
+      "pass": true
+    },
+    {
+      "name": "Day print action names selected branch",
+      "pass": true
+    },
+    {
+      "name": "Native full-load selection preserves all original reference rows",
+      "pass": true
+    },
+    {
+      "name": "Print this load selects its exact whole load without changing branch",
+      "pass": true
+    },
+    {
+      "name": "Day print keeps selected branch scope",
+      "pass": true
+    },
+    {
+      "name": "Pump-out content declares full day-ahead scope",
+      "pass": true
+    },
+    {
+      "name": "View changes do not mutate branch or confirmation scope",
+      "pass": true
+    },
+    {
+      "name": "Branch-filtered pickup list is not labelled all branches",
+      "pass": true
+    },
+    {
+      "name": "Operational records unchanged",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true
+    },
+    {
+      "name": "Public mode has no HTML substitution",
+      "pass": true
+    }
+  ],
+  "passed": 13
+}

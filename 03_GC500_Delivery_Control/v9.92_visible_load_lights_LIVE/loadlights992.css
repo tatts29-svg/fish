@@ -1,0 +1,13 @@
+/* Author: Andrew Fisher. Keep the native progress lights visible once on every load reference. */
+#pane-timeline .ld.tl846.lc991 .lc992-data {display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:8px;min-width:0}
+#pane-timeline .ld.tl846.lc991 .lc992-data>.tl841-gantry {flex:0 1 410px;width:410px;max-width:100%;margin:0}
+#pane-timeline .ld.tl846.lc991 .lc992-measures {flex:1 1 190px;min-width:0;display:grid;gap:8px}
+#pane-timeline .ld.tl846.lc991 .lc992-product {margin:0;padding:0;border:0;min-width:0;overflow-wrap:anywhere}
+#pane-timeline .ld.tl846.lc991 .lc992-product>b {display:block;font-size:11px;line-height:1.4;color:#b6cbd4}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.r931-fact {margin:3px 0 0;font-size:12px;line-height:1.4}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.r931-fact>span {font-size:11px;color:#c4d5dd;opacity:1}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.r931-fact>strong {display:block;font-size:13px;color:#edf4f7}
+#pane-timeline .ld.tl846.lc991 .lc992-product>.hint {margin:3px 0;font-size:11px;color:#c4d5dd}
+#pane-timeline .ld.tl846.lc991 .lc991-progress:empty {display:none}
+#pane-timeline .ld.tl846.lc991 .lc991-progress:empty+.tl846-controls {grid-column:1/-1}
+#pane-timeline .ld.tl846.lc991 .timeline908-plans>.timeline968-loading.lc992-sources {padding:0;border:0;background:none}

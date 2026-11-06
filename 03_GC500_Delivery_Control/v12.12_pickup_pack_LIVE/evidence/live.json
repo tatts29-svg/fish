@@ -1,0 +1,45 @@
+{
+  "version": "v12.12",
+  "checked_at": "2026-10-25T01:24:56.183657+00:00",
+  "sha256": "d01878c99c7d8972beb8c6b76e16775d7c53f20551c4c3d41f422404d1616a67",
+  "bytes": 15324794,
+  "byte_for_byte": true,
+  "footer": true,
+  "transport_model_present": true,
+  "pickup_departure_shortcut_absent": true,
+  "author": "Andrew Fisher",
+  "uploaded_at": "2026-10-25T01:24:19.995Z",
+  "ready_source": "b856121c47171362d6eaa20ee3a19ab6701b7426",
+  "public_native_phone": {
+    "passed": 36,
+    "total": 36,
+    "screenshots_inspected": true
+  },
+  "public_pdf": {
+    "pages": 2,
+    "checks": {
+      "brand_and_identity": true,
+      "metadata_author": true,
+      "prepared_snapshot": true,
+      "all_selected_equipment": true,
+      "weights_and_dimensions": true,
+      "holds_and_doors": true,
+      "loading_and_unidentified": true,
+      "access_and_record_boundary": true,
+      "every_page_numbered": true,
+      "only_expected_navigation_links": true,
+      "qr_page_1_scans": true,
+      "qr_destination_readback": true,
+      "no_text_outside_paper": true,
+      "map_not_covered_by_heading": true,
+      "native_text": true,
+      "compact_pack": true
+    },
+    "passed": 16,
+    "total": 16,
+    "qr_pages": 1
+  },
+  "independent_second_agent_review": false,
+  "real_record_writes": false,
+  "tracker_published": false
+}

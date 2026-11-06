@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.03",
+  "base_version": "v12.00",
+  "base_sha256": "2261fdc8c1043bad0ed582fac9240366ef112e1275e4962ced62068089c2de51",
+  "candidate_sha256": "682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69",
+  "candidate_bytes": 15180045,
+  "inline_scripts": 192,
+  "secrets_found": 0,
+  "independent_agent_review": false,
+  "write_attempts": 0,
+  "visual_review": {
+    "wide_2560x1080": "inspected; controls and map fit",
+    "original_plan_full_screen": "inspected; controls and map fit",
+    "phone_390x844": "inspected; no horizontal clipping"
+  },
+  "limits": [
+    "Chromium viewport tests; no claim of physical-monitor or Samsung Internet testing",
+    "Map sizing only; no map image or operational record changes"
+  ],
+  "state": "VERIFIED LIVE",
+  "ready_source": "3e2305a6220c4109b3833e0c1e522cb09d1f7483",
+  "live_time_aest": "25 Oct 2026 06:27:49 AEST",
+  "public_ui_checks": 9,
+  "live_screenshots_inspected": [
+    "wide Original plan",
+    "phone Original plan"
+  ]
+}

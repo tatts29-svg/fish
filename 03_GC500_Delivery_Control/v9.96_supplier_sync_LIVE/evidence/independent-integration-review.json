@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent v9.96 cross-component source and pure-model review; no browser or operational writes.",
+  "held": true,
+  "checks": {
+    "stock_and_arrival_charges": 13,
+    "demob_model": 24,
+    "packing": 13,
+    "finance": 24,
+    "source_request_resolution": 13,
+    "narrow_candidate_inline_scripts": 86
+  },
+  "closed_findings": [
+    "Cumulative receipt was displayed as on-site supplier stock: supply label now uses fwf.onSite.",
+    "Two source requests could claim one native quantity twice: resolver identity precedence plus finance shared-key hold.",
+    "A partial original portion could complete every derived truck: completion now requires the original portion quantity.",
+    "Full collection erased light-only arrival charge coverage: typed collection floor added only in arrivedChargeRows975."
+  ],
+  "financial_scope": "Inventory and Today subtract collections. Arrival billing preserves cumulative quantity via max(native receipt, valid typed collection), never addition. Existing pee-panel hire forecast fixture remains4033.01. Global toiletArrival962 and pricing unchanged.",
+  "remaining": "Root-owned final integrated desktop/phone and publication checks. No broad financial audit claimed.",
+  "source_sha256": {
+    "stock996.js": "85e39417736ba8892b3573fc29835c7742684f826b020620761206e2627d3a33",
+    "stock996.py": "87325168453d10f742b28a5376fe899e21c92cbf15908c8ba8be4197510ee22f",
+    "tests/stock996.cjs": "d8314dc967992c8ea0beb9fba1d63de1d093217293d61118914242eeee6af7b6",
+    "finance/finance996.js": "0037299e7ffa1ef1311756a2c89aced1776897ea7d12c5e358d0626ff603577b",
+    "subhire/supplier996.js": "6829448d02a6aec1de5861ae5edad90b1a757303ef074ee905cb09bdaa5788cb",
+    "subhire/supplier996_ui.js": "a7891fddacf2bcd09b075581a5854d8de9e315f2361b98fee5d3aad30ed7f927",
+    "demob-weather/model996.js": "2cd6313fb37f5ef48f1db0290d8b8f375db7ed869e39552217f07f606d6b2d69",
+    "demob-weather/packing996.js": "468489cf74926fdb1da055af2b2d60615b4ef69fd73412ffa6d9f3635c1d1970",
+    "demob-weather/packing996.py": "7e072ba0cd3f0bfa8d33e1e2147597f8885479a232449eeba20d9e1b52b440d5",
+    "patch_v996.py": "c59ae9a54a2492d15ea4c44d50ea694ba2e4d009fbcf3190b7fd2701a338e2df"
+  }
+}

@@ -1,0 +1,29 @@
+/* Author: Andrew Fisher. Shared approved card geometry, existing warm Demob colour language. */
+#pane-demob.refresh-demob .refresh-calendar.dc996-calendar{background:transparent;border:0;padding:0;min-width:0}
+#pane-demob .dc996-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 12px;font-size:12px}
+#pane-demob.refresh-demob .refresh-calendar .daystrip{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:flex-start;grid-template-columns:none;grid-auto-flow:initial;width:100%;max-width:1240px;min-width:0;overflow-x:auto;overflow-y:hidden;padding:5px 0 20px;gap:20px}
+#pane-demob .daystrip>.day:has(.bc984-card){--edge:#987a57;--face:#282622}
+#pane-demob .daystrip>.day .bc984-card{background:linear-gradient(150deg,#393c3b,#242b2d 48%,#242626)}
+#pane-demob .bc984-week{color:#e6b779}
+#pane-demob .daystrip>.day.on:has(.bc984-card){--edge:#eeb570;box-shadow:0 0 15px -2px #d9994970,0 7px 16px -13px #d999499c}
+#pane-demob .bc984-rule-icon{flex:0 0 44px;width:44px;height:44px;color:inherit}
+#pane-demob .bc984-rule-icon .ls989-icon{--ls989-size:44px;--ls989-ink:#ff953e}
+#pane-demob .bc984-rule-icon .ls989-svg{width:44px;height:44px}
+#pane-demob .bc984-day[data-bc984-motion="on"] .ls989-aura{animation-play-state:running}
+#pane-demob .staff988>:is(.staff988-heading,.staff988-names,.staff988-empty){display:none!important}
+#pane-demob .staff988:not(:has(>[data-staff988-edit])){display:none!important}
+#pane-demob .staff988{padding:8px 14px!important;margin:10px 0!important}
+#pane-demob .staff988>[data-staff988-edit]{border:0;margin:0;padding:0}
+#pane-demob .dc996-more{margin:8px 0 12px;border:1px solid #5d6a70;background:#1c2d35;color:#e2e9eb;border-radius:6px;padding:10px 14px}
+#pane-demob .dc996-more>summary{cursor:pointer;font-size:13px;font-weight:600}
+#pane-demob .dc996-more>div{padding-top:12px;font-size:12px;line-height:1.5}
+#pane-demob .dc996-more a{color:#ffc087}
+@media print{#pane-demob .staff988,#pane-demob .dc996-controls{display:none!important}#pane-demob .daystrip>.day:not(.on){display:none!important}#pane-demob .dc996-more{color:#111;background:white;border-color:#777}}
+.collection996{max-height:calc(100dvh - 32px);overflow:auto;z-index:200000;box-sizing:border-box}
+.collection996 form>label,.collection996 fieldset>label{display:grid;gap:6px;font-weight:600}
+.collection996 fieldset{border:1px solid var(--rule);padding:12px;border-radius:8px;margin:12px 0}
+.collection996 legend{font-weight:700;padding:0 5px}
+.collection996 input[type=date],.collection996 input[type=number]{min-height:44px;width:100%;box-sizing:border-box}
+.collection996-numbers{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.collection996-numbers label{display:flex;align-items:center;gap:6px;min-height:40px;padding:3px 8px;border:1px solid var(--rule);border-radius:5px}
+.collection996 [role=status]{color:var(--red,#b93322);font-size:13px}

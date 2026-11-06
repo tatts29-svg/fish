@@ -1,0 +1,29 @@
+{
+  "desktop": {
+    "routes": 27,
+    "direct_panes": 19,
+    "deep_links": 7,
+    "errors": 0,
+    "console_errors": 0,
+    "attempted_writes": 0,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "phone": {
+    "routes": 27,
+    "direct_panes": 19,
+    "deep_links": 7,
+    "errors": 0,
+    "console_errors": 0,
+    "attempted_writes": 0,
+    "back": {
+      "hash": "#plant",
+      "pane": "pane-plant"
+    }
+  },
+  "author": "Andrew Fisher",
+  "candidate_sha256": "f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68",
+  "note": "Initial desktop sweep had a transient asset HTTP 502; separate GET returned 200 and the full desktop retry passed unchanged strict checks."
+}

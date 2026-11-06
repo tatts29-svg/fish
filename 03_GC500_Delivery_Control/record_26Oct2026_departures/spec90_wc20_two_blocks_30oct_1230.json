@@ -1,0 +1,23 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 12:4x AEST: \"2.x.toilet blocks wc20 have left at 1230pm the waste tanks have not left yet\". WC20 (Coates, Toilets & amenities) holds two Toilet Block 6m (1327228 Set 1, 1327225 Set 2) and two waste tanks (1311341 Set 1, 1328982 Set 2). The two toilet blocks leave at 12:30 through the page's own Record departure form in his name; the two waste tanks stay, so WC20 stays on site. The Emptied tick first, on his word of 11:1x today that all toilets were pumped out on Sunday night 25 Oct by the servicing (the page's emptied gate keeps a toilet's departure form shut until it is ticked; the same word carried WC09's tick in run 80). Applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "WC20",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: all toilets were pumped out on Sunday night 25 Oct by the servicing"
+  },
+  {
+   "op": "depart",
+   "ref": "WC20",
+   "at": "2026-10-30T12:30:00+10:00",
+   "nos": [
+    "1327228",
+    "1327225"
+   ],
+   "unnumbered": [],
+   "complete": false
+  }
+ ]
+}

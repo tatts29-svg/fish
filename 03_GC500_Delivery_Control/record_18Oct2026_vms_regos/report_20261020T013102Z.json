@@ -1,0 +1,143 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T013102Z",
+ "finished": "2026-10-20T01:31:13.461Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"Set T0024 to 2 FWF\" - after the quantity went to 2 the reference read 1 of 2 received. Both FWF are on site at T0024 (Coates 1211968 and Event Portables 0164, EVL toilet symbol, Andrew's pin -27.983217, 153.426642), so 2 supplied and the reference complete again.",
+  "ops": [
+   {
+    "op": "supplied",
+    "ref": "T0024",
+    "item": "FWF",
+    "qty": 2
+   },
+   {
+    "op": "complete_again",
+    "ref": "T0024"
+   }
+  ]
+ },
+ "pageSha256": "fe480d5168ad44040dd5cd79a525bcebb444db4ccbcb91d9d0621071d7f7d4fe",
+ "version": {
+  "before": 10057,
+  "after": 10061
+ },
+ "updated": {
+  "before": "2026-10-20T01:30:16.432Z",
+  "after": "2026-10-20T01:31:11.708Z"
+ },
+ "stage": [
+  {
+   "op": "supplied",
+   "ref": "T0024",
+   "item": "FWF",
+   "qty": 2,
+   "result": "FWF supplied 2"
+  },
+  {
+   "op": "complete_again",
+   "ref": "T0024",
+   "result": "complete again (was 2026-09-29T05:46:41.858Z)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0024",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~T0024~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "supplied/T0024",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~T0024~2f~FWF",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0024": {
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-29T05:46:41.858Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-29T05:46:41.858Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1211968": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:18.129Z"
+     }
+    },
+    "_k": "T0024"
+   },
+   "stamps/supplied~2f~T0024~2f~FWF": null,
+   "supplied/T0024": null,
+   "by/supplied~2f~T0024~2f~FWF": null
+  },
+  "after": {
+   "delivery/T0024": {
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-20T01:31:09.460Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-29T05:46:41.858Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-20T01:31:09.460Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1211968": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:18.129Z"
+     }
+    },
+    "_k": "T0024"
+   },
+   "stamps/supplied~2f~T0024~2f~FWF": {
+    "_k": "supplied/T0024/FWF",
+    "v": "2026-10-20T01:31:09.360Z"
+   },
+   "supplied/T0024": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 2
+     }
+    ],
+    "_k": "T0024"
+   },
+   "by/supplied~2f~T0024~2f~FWF": {
+    "_k": "supplied/T0024/FWF",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

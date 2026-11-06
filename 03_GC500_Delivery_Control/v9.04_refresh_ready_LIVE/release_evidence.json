@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.04",
+  "uploadedUtc": "2026-10-08T02:31:13.714Z",
+  "sourceCommit": "b90a423f",
+  "basePageSha256": "f7f4a3fedad41f024eca82d85befad163067b83720413fab2a8aa5999d5d0ab4",
+  "pageSha256": "d0d630046090cc4dd9f2bcd8ad3d85d818cc0a8bfe87cae4f8ee059e95b7b57d",
+  "pageBytes": 11450666,
+  "mediaSha256": "752a49a945bf4bdcb9a5816b481f97327bb34c16fb52eb268fec465318361b08",
+  "mediaFiles": 1967,
+  "machineSha256": "cd05e73e45b7c5afe1add67e12f595591ecc19c1e5adda3ccc4c9a948e0a6a49",
+  "checks": {
+    "today": 15,
+    "trafficAndLayout": 43,
+    "phonePrint": 20,
+    "refreshBrowserCases": 4,
+    "navigation": {
+      "laptop": {
+        "routes": 21,
+        "deepLinks": 7,
+        "back": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0
+      },
+      "phone": {
+        "routes": 21,
+        "deepLinks": 7,
+        "back": true,
+        "runtimeErrors": 0,
+        "consoleErrors": 0
+      }
+    },
+    "publicReadback": {
+      "exactPageBytes": true,
+      "desktopSmoke": true,
+      "phoneSmoke": true,
+      "newPanorama": true,
+      "operationalWrites": 0,
+      "externalGoogleSessionAttemptsBlocked": 2
+    }
+  }
+}

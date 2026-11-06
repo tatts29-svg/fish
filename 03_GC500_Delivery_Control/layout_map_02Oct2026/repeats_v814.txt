@@ -1,0 +1,234 @@
+repeats: 169 (169 to resolve) · across tabs 121 · same tab 48 · page errors 0
+
+SECTIONS THAT SHARE FIGURES (most first):
+  63  costs · Charge lines on the record 64 (table)  <->  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)   e.g. $1,207, $24,775, 137.5 m, 420 m, 462.5 m, 447.5 m
+  54  fencing · By area — what has been done where (table)  <->  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)   e.g. $1,207, $24,775, 420 m, 462.5 m, 447.5 m, 202.5 m
+  53  costs · Charge lines on the record 64 (table)  <->  fencing · By area — what has been done where (table)   e.g. $1,207, $24,775, 420 m, 462.5 m, 447.5 m, 202.5 m
+  14  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · table (table)   e.g. $150,027, $601,581, $1,525, $99,052, $2,100, $15,564
+  12  costs · From the Street Rate Card 2026 · what the card f (table)  <->  questions · Answered or history   e.g. $2,100, $6,800, $2,800, $2,250, $1,415, $5,548
+   9  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)   e.g. $150,027, $601,581, $99,052, $55,817, $19,670, $6,938
+   9  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  <->  costs · table (table)   e.g. $601,581, $256,612, $840,533, $453,918, $31,824, $238,952
+   9  coatesway · The third ring — the scorecard, and what is red (table)  <->  questions · Needs an answer   e.g. 140 m, 249 m, 2,622.5 m, 1,895 m, 5 of 2,622, 5 of 249
+   8  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · Internal labour hours and overtime   e.g. $1,525, $15,564, $22,011, $96,836, $95,986, $1,380
+   7  costs · By branch 4 (table)  <->  today · All branches together (By branch)   e.g. $150,027, $99,052, $231,279, $138,920, $47,292, $9,552
+   7  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  today · All branches together (By branch)   e.g. $150,027, $601,581, $99,052, $55,817, $19,670, $6,938
+   7  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  costs · table (table)   e.g. $150,027, $601,581, $99,052, $19,670, $6,938, $118,575
+   7  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  today · All branches together (By branch)   e.g. $150,027, $601,581, $99,052, $55,817, $19,670, $231,279
+   6  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  <->  fencing · Fencing by day (table)   e.g. $24,775, 420 m, 462.5 m, $5,493, $7,474, $11,807
+   5  costs · table (table)  <->  today · All branches together (By branch)   e.g. $150,027, $601,581, $99,052, $19,670, $6,938
+   4  costs · By branch 4 (table)  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)   e.g. $150,027, $99,052, $231,279, $249,079
+   4  costs · Internal labour hours and overtime  <->  costs · table (table)   e.g. $1,525, $15,564, $22,011, $118,575
+   4  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  questions · Answered or history   e.g. $2,100, $6,800, $2,800, $13,950
+   3  costs · By branch 4 (table)  <->  today · STPS (By branch)   e.g. $150,027, $231,279, $81,252
+   3  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  today · Revenue, by stream (Money)   e.g. $150,027, $601,581, $81,149
+   3  costs · table (table)  <->  today · Fencing (By group)   e.g. $150,027, $1,525, 140 m
+   3  costs · table (table)  <->  today · Revenue, by stream (Money)   e.g. $150,027, $601,581, $168,144
+   3  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026   e.g. $601,581, $256,612, $344,969
+   3  costs · Internal labour hours and overtime  <->  fencing · Paid to Advanced Temporary Fencing, by P&L line    e.g. $1,525, $95,986, $98,361
+   3  today · Fencing (By group)  <->  today · Fencing — planned to date against done (table)   e.g. 140 m, 111.5 m, 675 m
+   3  costs · Charge lines on the record 64 (table)  <->  fencing · Fencing by day   e.g. $1,207, $24,775, $3,999
+   3  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  <->  fencing · Fencing by day   e.g. $1,207, $24,775, $3,999
+   3  costs · Charge lines on the record 64 (table)  <->  fencing · Fencing by day (table)   e.g. $24,775, 420 m, 462.5 m
+   3  fencing · By area — what has been done where (table)  <->  fencing · Fencing by day (table)   e.g. $24,775, 420 m, 462.5 m
+   3  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · From the Street Rate Card 2026 · what the card f (table)   e.g. $2,100, $6,800, $2,800
+   3  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  runsheet · Running totals — the whole job (table)   e.g. $15,564, $31,823, $1,380
+   3  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  questions · Pending confirmation / later   e.g. $31,823, $22,011, 49 of 209
+   2  costs · By branch 4 (table)  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026   e.g. $150,027, $99,052
+   2  costs · By branch 4 (table)  <->  costs · table (table)   e.g. $150,027, $99,052
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  today · Fencing (By group)   e.g. $150,027, $1,525
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  today · Revenue, by stream (Money)   e.g. $150,027, $601,581
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  today · STPS (By branch)   e.g. $150,027, $231,279
+   2  today · All branches together (By branch)  <->  today · Revenue, by stream (Money)   e.g. $150,027, $601,581
+   2  today · All branches together (By branch)  <->  today · STPS (By branch)   e.g. $150,027, $231,279
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  fencing · Paid to Advanced Temporary Fencing, by P&L line    e.g. $1,525, $95,986
+   2  costs · table (table)  <->  fencing · Paid to Advanced Temporary Fencing, by P&L line    e.g. $1,525, $2,375
+   2  coatesway · The third ring — the scorecard, and what is red (table)  <->  today · Fencing — planned to date against done (table)   e.g. 140 m, 249 m
+   2  questions · Needs an answer  <->  today · Fencing — planned to date against done (table)   e.g. 140 m, 249 m
+   2  fencing · By area — what has been done where (table)  <->  fencing · Fencing by day   e.g. $1,207, $24,775
+   2  fencing · By week — planned, done, still to do (table)  <->  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)   e.g. $1,207, $1,850
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  <->  costs · Labour, accommodation, meals and expenses   e.g. $15,564, $55,817
+   2  costs · Internal labour hours and overtime  <->  runsheet · Running totals — the whole job (table)   e.g. $15,564, $1,380
+   2  costs · Labour, accommodation, meals and expenses  <->  costs · table (table)   e.g. $15,564, $1,381
+   2  fencing · Quoted quantities — and when a variation is need (table)  <->  today · Fencing — planned to date against done (table)   e.g. 137.5 m, 717.5 m
+   2  costs · Charge lines on the record 64 (table)  <->  questions · Needs an answer   e.g. 447.5 m, 202.5 m
+   2  fencing · By area — what has been done where (table)  <->  questions · Needs an answer   e.g. 447.5 m, 202.5 m
+   2  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  <->  questions · Needs an answer   e.g. 447.5 m, 202.5 m
+   2  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  <->  today · KINP (By branch)   e.g. $2,835, $18,899
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  costs · By branch 4 (table)   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  costs · Charge lines on the record 64 (table)   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  costs · table (table)   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  today · All branches together (By branch)   e.g. $150,027
+   1  coatesway · The second ring — People, Operations, Assets, Fi (table)  <->  today · Fencing (By group)   e.g. $150,027
+
+EVERY REPEATED FIGURE:
+across tabs $150,027       today · Fencing (By group)  |  today · All branches together (By branch)  |  today · STPS (By branch)  |  today · Revenue, by stream (Money)  |  fencing · (page text)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)  |  costs · By branch 4 (table)  |  costs · Charge lines on the record 64 (table)  |  coatesway · The second ring — People, Operations, Assets, Fi (table)
+across tabs $601,581       today · All branches together (By branch)  |  today · Revenue, by stream (Money)  |  costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)
+across tabs $1,525         today · Fencing (By group)  |  fencing · Paid to Advanced Temporary Fencing, by P&L line   |  fencing · Green book — labour 15 COST ONLY (table)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)  |  costs · Internal labour hours and overtime
+across tabs 140 m          today · Fencing (By group)  |  today · Fencing — planned to date against done (table)  |  costs · table (table)  |  questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs $99,052        today · All branches together (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)  |  costs · By branch 4 (table)
+across tabs $1,207         fencing · Fencing by day  |  fencing · By area — what has been done where (table)  |  fencing · By week — planned, done, still to do (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $24,775        fencing · Fencing by day  |  fencing · Fencing by day (table)  |  fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,100         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)  |  costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $15,564        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)  |  costs · Internal labour hours and overtime  |  costs · Labour, accommodation, meals and expenses  |  runsheet · Running totals — the whole job (table)
+across tabs $55,817        today · All branches together (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · Labour, accommodation, meals and expenses
+across tabs $19,670        today · All branches together (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)
+across tabs $231,279       today · All branches together (By branch)  |  today · STPS (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · By branch 4 (table)
+across tabs $6,938         today · All branches together (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)
+across tabs 137.5 m        today · Fencing — planned to date against done (table)  |  fencing · Quoted quantities — and when a variation is need (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 420 m          fencing · Fencing by day (table)  |  fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 462.5 m        fencing · Fencing by day (table)  |  fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 447.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)  |  questions · Needs an answer
+across tabs 202.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)  |  questions · Needs an answer
+across tabs 100 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  fencing · Green book — labour 15 COST ONLY (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $31,823        costs · (page text)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  runsheet · Running totals — the whole job (table)  |  questions · Pending confirmation / later
+across tabs $22,011        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)  |  costs · Internal labour hours and overtime  |  questions · Pending confirmation / later
+across tabs 75 of 75       today · DELIVERIES DUE BY TODAY MET  |  coatesway · The centre — Best Service & Value  |  coatesway · The second ring — People, Operations, Assets, Fi (table)
+across tabs $69,092        today · Toilets & amenities (By group)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)
+across tabs $138,920       today · All branches together (By branch)  |  today · KINP (By branch)  |  costs · By branch 4 (table)
+across tabs $47,292        today · All branches together (By branch)  |  today · NVAC (By branch)  |  costs · By branch 4 (table)
+across tabs $9,552         today · All branches together (By branch)  |  today · MEAD (By branch)  |  costs · By branch 4 (table)
+across tabs $1,428         today · KINP (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)
+across tabs 717.5 m        today · Fencing — planned to date against done (table)  |  fencing · (page text)  |  fencing · Quoted quantities — and when a variation is need (table)
+across tabs 249 m          today · Fencing — planned to date against done (table)  |  questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs $96,836        fencing · (page text)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · Internal labour hours and overtime
+across tabs $95,986        fencing · Paid to Advanced Temporary Fencing, by P&L line   |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · Internal labour hours and overtime
+across tabs $3,999         fencing · Fencing by day  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,614         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $5,292         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,962         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,667         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $14,054        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,302         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $4,749         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $3,022         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,616         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,010         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $3,830         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,647         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,171         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,778         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,787         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,424         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,764         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,876         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,818         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,419         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,084         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,060         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,414         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $9,405         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,141         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $4,161         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 215 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 327.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 150 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 507.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 142.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 130 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 402.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 510 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 352.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 147.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 370 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 172.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 235 m          fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 112.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 277.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 127.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 577.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 132.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 247.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 257.5 m        fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $6,800         costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $2,800         costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $1,380         costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · Internal labour hours and overtime  |  runsheet · Running totals — the whole job (table)
+across tabs $5,351         today · Water-filled barriers (By group)  |  costs · table (table)
+across tabs $277,016       today · All branches together (By branch)  |  costs · By branch 4 (table)
+across tabs $1,437         today · All branches together (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026
+across tabs 197 of 197     today · All branches together (By branch)  |  costs · By branch 4
+across tabs $81,252        today · STPS (By branch)  |  costs · By branch 4 (table)
+across tabs $2,835         today · KINP (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)
+across tabs $18,899        today · KINP (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)
+across tabs $4,000         today · MEAD (By branch)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)
+across tabs $168,144       today · Revenue, by stream (Money)  |  costs · table (table)
+across tabs $81,149        today · Revenue, by stream (Money)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)
+across tabs $2,375         fencing · Paid to Advanced Temporary Fencing, by P&L line   |  costs · table (table)
+across tabs $98,361        fencing · Paid to Advanced Temporary Fencing, by P&L line   |  costs · Internal labour hours and overtime
+across tabs 285 m          fencing · By week — planned, done, still to do (table)  |  costs · table (table)
+across tabs $3,757         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,575         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $1,090         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,222         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $2,489         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $7,676         fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 232.5 m        fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs 475 m          fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)  |  costs · Charge lines on the record 64 (table)
+across tabs $13,950        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  questions · Answered or history
+across tabs 49 of 209      costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  questions · Pending confirmation / later
+across tabs $1,483         costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  questions · Answered or history
+across tabs $2,250         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $1,415         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $5,548         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $7,786         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $2,589         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $1,726         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $12,062        costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $1,254         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs $4,820         costs · From the Street Rate Card 2026 · what the card f (table)  |  questions · Answered or history
+across tabs 2,622.5 m      questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 1,895 m        questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 5 of 2,622     questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 5 of 249       questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 0 of 140       questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 3 of 48        questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+across tabs 1,220 of 1,895 questions · Needs an answer  |  coatesway · The third ring — the scorecard, and what is red (table)
+same tab    $118,575       costs · (page text)  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)  |  costs · Internal labour hours and overtime
+same tab    $256,612       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · table (table)
+same tab    $16,148        fencing · By week — planned, done, still to do  |  fencing · By week — planned, done, still to do (table)  |  fencing · Purchase orders 9 (table)
+same tab    $840,533       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $453,918       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $344,969       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026
+same tab    $31,824        costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $238,952       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $181,307       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $73,293        costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $21,950        costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026  |  costs · table (table)
+same tab    $98,362        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · table (table)
+same tab    27 of 68       today · WHERE WE ARE ON THE PROGRAMME  |  today · Today · 03 Oct
+same tab    111.5 m        today · Fencing (By group)  |  today · Fencing — planned to date against done (table)
+same tab    675 m          today · Fencing (By group)  |  today · Fencing — planned to date against done (table)
+same tab    54 of 59       today · Fencing (By group)  |  today · Fencing — planned to date against done
+same tab    129 of 262     today · Toilets & amenities (By group)  |  today · KINP (By branch)
+same tab    33 of 53       today · Portable buildings (By group)  |  today · KINP (By branch)
+same tab    5 of 16        today · Generators (By group)  |  today · NVAC (By branch)
+same tab    6 of 25        today · Lighting towers (By group)  |  today · NVAC (By branch)
+same tab    8 of 22        today · VMS boards (By group)  |  today · STPS (By branch)
+same tab    76 of 375      today · Water-filled barriers (By group)  |  today · STPS (By branch)
+same tab    $40,829        today · Forklifts (By group)  |  today · Revenue, by stream (Money)
+same tab    20 of 20       today · Track mat (By group)  |  today · STPS (By branch)
+same tab    $5,493         fencing · Fencing by day (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)
+same tab    $7,474         fencing · Fencing by day (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)
+same tab    $11,807        fencing · Fencing by day (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)
+same tab    $2,383         fencing · By area — what has been done where (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)
+same tab    $1,850         fencing · By week — planned, done, still to do (table)  |  fencing · Docket register 68 RED BOOK · HIRE AGREEMENTS (table)
+same tab    $430,248       costs · (page text)  |  costs · table (table)
+same tab    $23,671        costs · (page text)  |  costs · table (table)
+same tab    $354,791       costs · (page text)  |  costs · AT A GLANCE · AUD EX GST · AS AT SAT 03 OCT 2026
+same tab    $197,307       costs · (page text)  |  costs · table (table)
+same tab    $55,262        costs · (page text)  |  costs · table (table)
+same tab    $331,857       costs · (page text)  |  costs · table (table)
+same tab    $570,809       costs · (page text)  |  costs · table (table)
+same tab    $214,562       costs · (page text)  |  costs · table (table)
+same tab    $379,946       costs · (page text)  |  costs · table (table)
+same tab    $165,384       costs · (page text)  |  costs · table (table)
+same tab    $388,979       costs · (page text)  |  costs · table (table)
+same tab    $261,371       costs · (page text)  |  costs · table (table)
+same tab    $12,248        costs · (page text)  |  costs · table (table)
+same tab    $42,662        costs · (page text)  |  costs · table (table)
+same tab    $125,252       costs · (page text)  |  costs · table (table)
+same tab    $48,436        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)
+same tab    $39,097        costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026  |  costs · Internal labour hours and overtime
+same tab    $249,079       costs · COATES INDUSTRIAL SOLUTIONS · GC500 2026 (table)  |  costs · By branch 4 (table)
+same tab    $1,381         costs · table (table)  |  costs · Labour, accommodation, meals and expenses

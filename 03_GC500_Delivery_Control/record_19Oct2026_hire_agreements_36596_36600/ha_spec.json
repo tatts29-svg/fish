@@ -1,0 +1,63 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Five Advanced Temporary Fencing hire agreements 36596-36600, installed 12 Oct 2026, signed and photographed (Andrew, 19 Oct 2026: \"Please see attached more fencing dockets\"); recorded through the page's own red-book form (recordHireAgreement) and charged at the 2026 card. Every figure double-read by two independent readers. CCB event or demarcation from the programme request: 36596's CCB is Demarcation (CON WK1 rows 8 and 10; CON WK1's 12 Oct total is Event 0 m, Demarcation 379 m).",
+ "ops": [
+  {
+   "op": "hire_agreement",
+   "docket_no": "36596",
+   "date": "2026-10-12",
+   "location": "Main Beach Pde - Madison Point to Ferny Ave, Higman St to Equinox, Ferny Ave southern side, Seacrest to Pacific Point",
+   "map_ref": "",
+   "quantities": {"clean": 385, "ccb_demarc": 287.5, "ped_gates": 5},
+   "components": {"mesh_panel": 164, "cc_barrier": 115, "base": 164, "clamp": 160, "wheels": 12},
+   "signed_by": "Andrew Fisher",
+   "note": "Mesh fence 385 m (164 panels), CC barrier 287.5 m (115 barriers), 5 pedestrian gates, 12 wheels, 164 bases, 160 clamps. Install includes: Madison Point to Ferny Ave; Higman St to Equinox; Ferny Ave southern side; Seacrest to Pacific Point. Programme CON WK1 rows 7-10 (12 Oct): Residents Fence Seacrest to Pacific Point (221 m, 4 pedestrian gates) and Maddison Point (98 m, 1 pedestrian gate); Demarcation CCB Seacrest to Pacific Point (228 m) and Maddison Point (91 m) - so the CCB is Demarcation. 164 panels would make 410 m against 385 m written; the paper's metres are recorded. Service note 24475 (3 h walking 135 m of these panels in from Madison Point to Ferny Ave, no truck access) is this paper's labour, not extra metres. Installation date written 12/10/24 (the year a slip; installed 12 Oct 2026). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36597",
+   "date": "2026-10-12",
+   "location": "The Spit - McMahon's/HTH Compound",
+   "map_ref": "",
+   "quantities": {},
+   "components_only": true,
+   "components": {"base": 14, "clamp": 14, "brace": 7},
+   "signed_by": "Andrew Fisher",
+   "note": "Bracing added to the existing front fence line: 14 bases, 14 clamps, 7 braces. Paper reads \"McMahon's // Harry's Compound (Spit)\" and \"Notched braced to front fence line\". No metres and no charge line on the paper; components only, as 36519 (bracing an existing fence) and 36620. The compound is the programme's CON WK6 row 7, The Spit - Perimeter Fence - McMahon's/HTH/Fuel Bund Compound (9 Sep). Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36598",
+   "date": "2026-10-12",
+   "location": "Main Beach Pde - Rhapsody",
+   "map_ref": "",
+   "quantities": {"clean": 7.5},
+   "components": {"mesh_panel": 3, "base": 9, "clamp": 7, "brace": 2},
+   "signed_by": "Andrew Fisher",
+   "note": "Mesh fence 7.5 m (3 panels), 9 bases, 7 clamps, 2 braces. Programme CON WK1 row 6 (12 Oct): Residents Fence - Rhapsody, 8 m and 1 pedestrian gate planned; no gate on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36599",
+   "date": "2026-10-12",
+   "location": "Supply Compound",
+   "map_ref": "",
+   "quantities": {"clean": 147.5, "scrim": 147.5},
+   "components": {"mesh_panel": 59, "base": 136, "clamp": 138, "brace": 42},
+   "signed_by": "Andrew Fisher",
+   "note": "Mesh fence 147.5 m (59 panels), 136 bases, 138 clamps, 42 braces. \"Braced & Scrimmed\" (read at full size; one reading was 'Screwed'), so scrim for the same metres, the clean-plus-scrim convention Andrew set on 2 Oct. Programme CON WK1 row 14 (12 Oct): Supply Compound - Perimeter Fence, 130 m braced for scrim and 2 vehicle gates planned; no gates on the paper. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "hire_agreement",
+   "docket_no": "36600",
+   "date": "2026-10-12",
+   "location": "I.E.D.M - Compound",
+   "map_ref": "",
+   "quantities": {},
+   "components_only": true,
+   "components": {"base": 200},
+   "signed_by": "Andrew Fisher",
+   "note": "Drop off: 200 bases delivered to the iEDM compound (\"Drop off. Bases only.\"). No fence installed and no charge line on the paper; components only, as 36620. Owner sign-off dated 20.10.26 on the paper, photographed 19 Oct 2026."
+  }
+ ]
+}

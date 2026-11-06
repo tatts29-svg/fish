@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "checked_at": "2026-10-25T00:40:20.630014+00:00",
+  "sha256": "3b51c50a7766f2f37d222f49c2cad18c03eb868356c8019ce600581eac46915d",
+  "bytes": 15314171,
+  "exact_candidate_match": true,
+  "footer": "v12.11",
+  "demob_and_vms_modules_present": true,
+  "ready_source": "919fb745d4d9b984bef8bd2e9c7fe1dafd314e21",
+  "independent_second_agent_review": false,
+  "uploaded_at": "2026-10-25T00:39:41.729Z",
+  "public_native_checks": {
+    "public-vmsicons-phone": {
+      "passed": 18,
+      "failed": 0,
+      "served_candidate_override": false
+    },
+    "public-native-phone": {
+      "passed": 29,
+      "failed": 0,
+      "served_candidate_override": false
+    }
+  },
+  "public_phone_images_inspected": true
+}

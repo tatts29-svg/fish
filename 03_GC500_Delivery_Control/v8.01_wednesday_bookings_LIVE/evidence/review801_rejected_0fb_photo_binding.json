@@ -1,0 +1,132 @@
+{
+  "author": "Andrew Fisher",
+  "finalCandidateSha256": "0fb42652b4d23574b90000bbdff9d566e5cd075af0ecb691fbfb554e1e5bb1e0",
+  "testedNativeCandidateSha256": "76939c32635b8628b05b577233f827f41c1a60a52fe65270304711abdc6b725e",
+  "reviewed798Sha256": "9a52ec22c794a514d44936ef84335b62a6876c2664fa54f211a35f1315666d95",
+  "nativeBrowser": "151.0.7922.173",
+  "nativeChecks": 29,
+  "nativePassed": true,
+  "allPhotoAndPersistenceSourcesSemanticallyIdentical": true,
+  "byteIdenticalDependencyScopes": 9,
+  "byteIdenticalPhotoChunks": 6,
+  "leadingIndentationOnlyPhotoChunks": 4,
+  "checks": [
+    {
+      "name": "stampIt",
+      "sha256": "1dc733684ff1414dde2e2915915986af01b1f02682afa5ff48317e8673d1cba2",
+      "identical": true
+    },
+    {
+      "name": "persist",
+      "sha256": "2d141bcec63185550d1babb279c52fffbfb571c53a48a3b0ab00b59783bd8661",
+      "identical": true
+    },
+    {
+      "name": "save",
+      "sha256": "c091f0efd427b42253e3feadb61adc2a184d5859c523d47039f6f86d3a41d714",
+      "identical": true
+    },
+    {
+      "name": "bump",
+      "sha256": "3981ffbcc83d7c3d44acb3ee4a6b61d3500f0f5671fb2cd7e70d85480a2588e9",
+      "identical": true
+    },
+    {
+      "name": "photo links",
+      "sha256": "7669804f4bae0aef47314e99b31bc19f28cb2559380e79d2fef7501ba3735797",
+      "identical": true
+    },
+    {
+      "name": "photo slots",
+      "sha256": "b04ad935737700b46e2d70fcd33d90cf542e6552d7023da9efd73a61d6ac0bc6",
+      "identical": true
+    },
+    {
+      "name": "document serialization",
+      "sha256": "caf55d897b422a2366cf1749770943be0ec1edb942b4dc238533f3736397efd2",
+      "identical": true
+    },
+    {
+      "name": "sync stage/send/ack",
+      "sha256": "8c21b52d8dacde4f4e47b68f75bd8eb3d140ac37c62fe48a4bf6bd5a581b2742",
+      "identical": true
+    },
+    {
+      "name": "outbox read",
+      "sha256": "a37020b05e6dec21b872ca13d01c5368d6e1f6e9062866c2b9720001da86807d",
+      "identical": true
+    },
+    {
+      "name": "photo797 production chunk 0",
+      "sourceSha256": "b0c6d752ce0d828f2793d9b6a6a115838bc9bdb93cd4e31a5dfa8a8daa042cb1",
+      "identical": false,
+      "leadingIndentationOnly": true,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 1",
+      "sourceSha256": "55b959e20e510652459764743bb4985bc00e4ef9cac4bf0c7f84a14d3b5fb83e",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 2",
+      "sourceSha256": "9b316d18298664144b67e9f641b3b5cd13f49bb65ec63a43bba81620c724cf84",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 3",
+      "sourceSha256": "6e8de3bece1558cfffa181e18cdc72274479cd21d2e4e1977ec5b7a9a07ca50a",
+      "identical": false,
+      "leadingIndentationOnly": true,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 4",
+      "sourceSha256": "2fadc32a512fb1af4e868fd668bf1b9601740c581654fd23a8c7121ef14341bd",
+      "identical": false,
+      "leadingIndentationOnly": true,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 5",
+      "sourceSha256": "7c465301a1d5e7a60d475b860e5366b0038962b05d46254b7de9c4815104c22b",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 6",
+      "sourceSha256": "055e64e6da036cb9f05842c9fb77d2d615a734c6983b2b5495232afde4d27801",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 7",
+      "sourceSha256": "378d45ff516de3b376a426c6f8347361c1b10ea9dc37ec72e8de590a4bcd185a",
+      "identical": false,
+      "leadingIndentationOnly": true,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 8",
+      "sourceSha256": "29dfc236d57c7dd5737ca9fe71ebce073fb05c8284562ae0f63734860d732da2",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    },
+    {
+      "name": "photo797 production chunk 9",
+      "sourceSha256": "522ac40e6dd1987cde101e1107d2bbdf40b24ca71cfdcc03cad976bf28e1065b",
+      "identical": true,
+      "leadingIndentationOnly": false,
+      "semanticIdentity": true
+    }
+  ],
+  "scope": "Real Chromium IndexedDB/localStorage/Blob/SHA/Web Locks were exercised with synthetic blobs and mock transports on769.9a changes only toolbar fitting; final801 retains all nine persistence dependency scopes and six photo chunks byte-for-byte. Four other photo chunks differ only in leading line indentation; each has no template literal or escaped newline, so this whitespace cannot change its JavaScript semantics. This is an explicit source binding, not a claim of another native-browser run on801.",
+  "liveWrites": 0
+}

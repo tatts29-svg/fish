@@ -1,0 +1,60 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Missing requests remain explicit missing",
+      "pass": true
+    },
+    {
+      "name": "Unique FWF name alias resolves once",
+      "pass": true
+    },
+    {
+      "name": "Building alias cannot fulfil a toilet request",
+      "pass": true
+    },
+    {
+      "name": "Explicit BJR identity outranks contradictory Shell name",
+      "pass": true
+    },
+    {
+      "name": "Unique explicit native identity outranks a separate alias candidate",
+      "pass": true
+    },
+    {
+      "name": "Two source markers on one native ref are ambiguous for both",
+      "pass": true
+    },
+    {
+      "name": "Cross-request name and location aliases are ambiguous for both",
+      "pass": true
+    },
+    {
+      "name": "Repeated same source marker does not invent a second request",
+      "pass": true
+    },
+    {
+      "name": "Two native references explicitly claiming one request are ambiguous",
+      "pass": true
+    },
+    {
+      "name": "Cancelled explicit identity suppresses an alias fallback",
+      "pass": true
+    },
+    {
+      "name": "Deleted explicit native identity is not recreated from the source",
+      "pass": true
+    },
+    {
+      "name": "A foreign source marker does not borrow a known alias",
+      "pass": true
+    },
+    {
+      "name": "Resolver preserves all native input fields",
+      "pass": true
+    }
+  ],
+  "passed": 13,
+  "operationalWrites": 0,
+  "browser": false
+}

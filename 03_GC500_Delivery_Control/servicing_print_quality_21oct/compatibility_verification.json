@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "date": "2026-10-21",
+  "scope": "Portable print PDF export; private operational contents remain outside the repository",
+  "state": "PASS",
+  "raster_dpi": 300,
+  "opaque_page_images": true,
+  "nested_forms_fonts_or_soft_masks": false,
+  "source_hash_guard": "pass",
+  "same_path_guard": "pass",
+  "existing_code_payloads": "unchanged, decoded at 150 and 300 dpi",
+  "independent_engine": "Ghostscript actual all-page 150 dpi rendering; zero warnings/errors",
+  "geometry_page_order_and_links": "preserved",
+  "original_scan_check_readiness_guard": "retained",
+  "physical_print_phone_scan_verified": false,
+  "live_service_or_record_writes": 0,
+  "visual_review": "Every page checked; no new blanking or clipping",
+  "actual_Adobe_Android_verified": false
+}

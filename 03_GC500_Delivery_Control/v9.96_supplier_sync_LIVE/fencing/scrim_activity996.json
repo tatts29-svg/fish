@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "author": "Andrew Fisher",
+  "source": {
+    "id": "24473.jpg",
+    "sha256": "1b51a31a7d4f92dfaaa0d440c5fa02ca3285d0a5a32ae55a146b5710a76e1ceb",
+    "title": "Original service note 24473",
+    "pages": 1
+  },
+  "operation": {
+    "id": "physical-scrim-existing-24473",
+    "type": "scrim_existing",
+    "quantity": 150,
+    "unit": "m",
+    "source_ids": [
+      "24473.jpg"
+    ],
+    "source_refs": [
+      {
+        "id": "24473.jpg",
+        "page": 1
+      }
+    ],
+    "records": [
+      {
+        "book": "green",
+        "record_id": "N-AFV-0013",
+        "number": "24473",
+        "expected": {
+          "id": "N-AFV-0013",
+          "note_no": "24473",
+          "date": "2026-10-08",
+          "week": "Week 2",
+          "usable": true,
+          "location": "Pit Lane",
+          "note": "Scrim existing fence — 150 m. Work/installer dated 8 Oct; owner signed 9 Oct. Existing-fence work; no new mesh length inferred. Exact earlier hire agreement not identified by this paper; source-linked scrim quantity remains for reconciliation.",
+          "crew_note": "4 men × 1 hour each",
+          "labour_hours": 4,
+          "metres": 150
+        }
+      }
+    ],
+    "red_overlap": [],
+    "basis": "Service note 24473 records 150 m of scrim applied to existing Pit Lane fence on 8 Oct 2026. Separate activity only: no new mesh, bracing quantity, programme percentage or charge is inferred. The existing 4 labour hours remain counted once. Reconciliation to the earlier hire agreement is still open."
+  }
+}

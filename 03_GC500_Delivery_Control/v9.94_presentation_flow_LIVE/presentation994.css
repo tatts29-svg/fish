@@ -1,0 +1,19 @@
+/* Author: Andrew Fisher. Keep daily staff once on the existing Build weather card. */
+@media screen {
+ #pane-timeline .staff988 > :is(.staff988-heading,.staff988-names,.staff988-empty) {display:none!important}
+ #pane-timeline .staff988:not(:has(> [data-staff988-edit])) {display:none!important}
+ #pane-timeline .staff988 {padding:0 14px!important;margin:8px 0 12px}
+ #pane-timeline .staff988 > [data-staff988-edit] {margin:0;padding:0;border:0}
+ #pane-timeline .staff988 > [data-staff988-edit] > summary {min-height:44px;align-content:center}
+ #pane-timeline .staff988 > [data-staff988-edit][open] {padding-bottom:12px}
+ /* The inherited paper pseudo-element had painted white over this dark header. */
+ #pane-plant.refresh-equipment .eqhead {--face:#232a2e;--ink:#fff;--mute:#c8d0d4;background:#232a2e;color:#fff}
+ #pane-plant.refresh-equipment .eqhead::before,#pane-plant.refresh-equipment .eqhead::after {content:none}
+ #pane-plant.refresh-equipment .eqhead h3 {color:#fff}
+ #pane-plant.refresh-equipment .eqhead .sub {color:#c8d0d4}
+ .presentation994-machine-info {flex:1 1 220px;min-width:0}
+ .presentation994-machine-info > summary {min-height:44px;align-content:center;font-size:13px;cursor:pointer}
+ .presentation994-machine-info > .cwmst {display:block;padding:4px 0 10px;overflow-wrap:anywhere}
+}
+/* The printed day cards already carry daily availability. */
+@media print {#pane-timeline .staff988{display:none!important}}

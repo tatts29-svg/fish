@@ -1,0 +1,381 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261017T023727Z",
+ "finished": "2026-10-17T02:37:38.613Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "date",
+    "ref": "FR01",
+    "iso": "2026-10-17"
+   },
+   {
+    "op": "date",
+    "ref": "FR02",
+    "iso": "2026-10-17"
+   }
+  ],
+  "reorderOk": [
+   "accessories/P46"
+  ]
+ },
+ "pageSha256": "3afd6b5b7ce3d2aba54849db82a66b8768bada34848176b5a009a92c80f62c2b",
+ "version": {
+  "before": 9690,
+  "after": 9693
+ },
+ "updated": {
+  "before": "2026-10-17T02:32:23.642Z",
+  "after": "2026-10-17T02:37:37.720Z"
+ },
+ "stage": [
+  {
+   "op": "date",
+   "ref": "FR01",
+   "iso": "2026-10-17",
+   "result": "due in 2026-10-17 (plan 2026-10-14)"
+  },
+  {
+   "op": "date",
+   "ref": "FR02",
+   "iso": "2026-10-17",
+   "result": "due in 2026-10-17 (plan 2026-10-14)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/FR01",
+   "status": 200
+  },
+  {
+   "key": "delivery/FR02",
+   "status": 200
+  },
+  {
+   "key": "accessories/P46",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/FR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:35.106Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1129733 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1129733 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1318501, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:35.106Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FR01"
+   },
+   "delivery/FR02": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:36.658Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1157786 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1157786 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1260164, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:36.658Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FR02"
+   },
+   "accessories/P46": {
+    "_k": "P46",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327959",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:16.497Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327960",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:32.955Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-09T17:18:00.893Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Replacement fridge confirmed on site by Andrew Fisher, 14 Oct 2026.",
+      "asset_no": "1272751",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T00:00:17.691Z",
+      "added_by": "Andrew Fisher via Codex"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328957",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:52.053Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1311992",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-15T04:16:43.942Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1283996",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-15T04:16:45.670Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Police fridge, from T0265's 14 Oct delivery",
+      "asset_no": "1318501",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-17T02:32:10.815Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Police fridge, from T0265's 14 Oct delivery",
+      "asset_no": "1260164",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-17T02:32:13.476Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   }
+  },
+  "after": {
+   "delivery/FR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:35.106Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1129733 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1129733 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1318501, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:35.106Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:34.791Z",
+    "_k": "FR01"
+   },
+   "delivery/FR02": {
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:36.658Z",
+    "by": "Andrew Fisher",
+    "note": "Fridge 1157786 for the broadcast compound (TV compound). It came in on 17 Oct 2026. Andrew, 17 Oct 2026: \"1157786 - Came in Today\" and \"the 2 that you mentioed are for broadcast\". Corrected 17 Oct: 1260164, recorded here that morning, is one of the four police fridges from T0265's 14 Oct delivery and is on P46 (\"the 4 that were for police 2 went to p46 then 2 went to p26 and p28\").",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:36.658Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-17",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-17T02:37:35.345Z",
+    "_k": "FR02"
+   },
+   "accessories/P46": {
+    "_k": "P46",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327959",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:16.497Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327960",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:32.955Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-09T17:18:00.893Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Police fridge, from T0265's 14 Oct delivery",
+      "asset_no": "1318501",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-17T02:32:10.815Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Police fridge, from T0265's 14 Oct delivery",
+      "asset_no": "1260164",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-17T02:32:13.476Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Replacement fridge confirmed on site by Andrew Fisher, 14 Oct 2026.",
+      "asset_no": "1272751",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T00:00:17.691Z",
+      "added_by": "Andrew Fisher via Codex"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328957",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-05T23:29:52.053Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1311992",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-15T04:16:43.942Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1283996",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-15T04:16:45.670Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

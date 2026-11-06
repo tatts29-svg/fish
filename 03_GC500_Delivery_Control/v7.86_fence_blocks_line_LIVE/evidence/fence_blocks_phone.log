@@ -1,0 +1,9 @@
+PASS B1 a Fence blocks line at the 2026 card's $3.02 a block, counted each — {"col":{"unit":"each","card_line":"Fence Blocks( per block)","rate":3.02},"rate":{"value":3.02,"source":"card"}}
+PASS B2 36566 as used - 216 blocks - is charged $652.32 — {"cost":652.32,"lines":[["fence_blocks",216,3.02,652.32]]}
+PASS B3 what Advanced bill for blocks is not known and is not estimated (paid side left for their invoice) — {"paid":{"value":null,"source":null},"paidTotal":0,"paidUnpriced":["fence_blocks"]}
+PASS B4 the record-a-paper form offers the Fence blocks line — true
+PASS B5 the docket counts on the Fencing tab as usable, and the tab draws with the line on it — {"inAll":{"cost":652.32,"usable":true,"problems":[]},"rendered":true,"err":null}
+PASS B6 no existing docket's charge or paid figure moves (63 dockets) — []
+PASS B7 the settled line is not raised as an open rate question — []
+PASS E1 no page errors — []
+8/8 phone

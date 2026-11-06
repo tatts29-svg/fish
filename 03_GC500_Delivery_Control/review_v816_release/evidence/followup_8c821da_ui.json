@@ -1,0 +1,137 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "scope": "Affected UI template/handler CPU probes only, using minimal DOM stubs. No browser. Unchanged planner/date checks were not rerun.",
+  "demobSha256": "bafd51d93afd3716c4e277eec4a93d56f358d94820f17e485e2a64dd0745d143",
+  "candidateSha256": "f16b0c3a46582a6545e48ce02883582f2406767f32c912a64585cabcf07e1c1d",
+  "passed": 18,
+  "failed": 2,
+  "results": [
+    {
+      "name": "coates_load_card_shows_actual_capacity_12",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "coates_email_identifies_capacity_12",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "coates_load_card_identifies_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_on_pickup_row",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_in_toilet_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_in_email",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_no_midnight_times_in_truck_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_actual_wired_print_selects_one_list",
+      "pass": true,
+      "observed": "1",
+      "expected": "1"
+    },
+    {
+      "name": "supplier_print_has_no_midnight_or_kingston_departure",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_print_includes_asset_and_empty_requirement",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "printing_does_not_change_shared_record",
+      "pass": true,
+      "observed": "{\"delivery\":{}}",
+      "expected": "{\"delivery\":{}}"
+    },
+    {
+      "name": "same_day_stream_buttons_have_distinct_ids",
+      "pass": true,
+      "observed": [
+        "sub1",
+        "coates1"
+      ],
+      "expected": [
+        "sub1",
+        "coates1"
+      ]
+    },
+    {
+      "name": "wired_sub1_prints_only_its_selected_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "wired_coates1_prints_only_its_selected_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_tank_dependency_visible_in_truck_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_tank_dependency_visible_in_sheet",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "capacity_handler_writes_selected_device_key",
+      "pass": true,
+      "observed": "8",
+      "expected": "8"
+    },
+    {
+      "name": "capacity_change_does_not_change_shared_record",
+      "pass": true,
+      "observed": "{\"delivery\":{}}",
+      "expected": "{\"delivery\":{}}"
+    },
+    {
+      "name": "reduced_truck_capacity_never_exceeds_accepted_capacity",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    },
+    {
+      "name": "reduced_truck_capacity_is_not_labelled_full_without_overload_warning",
+      "pass": false,
+      "observed": false,
+      "expected": true
+    }
+  ]
+}

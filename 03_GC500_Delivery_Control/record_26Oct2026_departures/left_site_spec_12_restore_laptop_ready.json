@@ -1,0 +1,122 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Restore, 27 Oct 2026. The stale page that wiped the Ready fields at 03:59:55 also took Andrew's own Ready ticks made on his laptop between 21:56 and 22:13 on 26 Oct, which no file here held. Andrew chose to read them from the service's own hourly copy of the record (server v5.94, edit key, read-only): records-2026102617.json, taken 03:45:33 AEST, record version 11251, 14 minutes before the wipe; the same as every hourly copy back to 22:45. This puts back exactly those ticks, each one Andrew's, through the page's own per-unit Ready: T0001's three VMS boards, T0002's five light towers, T0128's two boards, T0158's four boards, the nine buildings P25, P45, P60, P62, P63, P65, P66, P67 and P69, WC51's Coates accessible toilet 1197174 and WC60's two Coates toilet blocks: 26 units. Their first ticks were 21:56-22:13 on 26 Oct; these carry today's time.",
+ "ops": [
+  {
+   "op": "unit_ready",
+   "ref": "T0001",
+   "units": [
+    "coates|1211356",
+    "coates|1182999",
+    "coates|1211370"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0002",
+   "units": [
+    "coates|1188888",
+    "coates|1249499",
+    "coates|1264899",
+    "coates|1264929",
+    "coates|1314284"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0128",
+   "units": [
+    "prem-air-hire|467T",
+    "coates|1211646"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "T0158",
+   "units": [
+    "prem-air-hire|475T",
+    "prem-air-hire|487T",
+    "coates|1201864",
+    "coates|1191957"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P25",
+   "units": [
+    "coates|1189408"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P45",
+   "units": [
+    "coates|107135"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P60",
+   "units": [
+    "coates|1015699"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P62",
+   "units": [
+    "coates|1189409"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P63",
+   "units": [
+    "coates|960719"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P65",
+   "units": [
+    "coates|1327217"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P66",
+   "units": [
+    "coates|1327222"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P67",
+   "units": [
+    "coates|421107"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "P69",
+   "units": [
+    "coates|107247"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC51",
+   "units": [
+    "coates|1197174"
+   ]
+  },
+  {
+   "op": "unit_ready",
+   "ref": "WC60",
+   "units": [
+    "coates|1087500",
+    "coates|1119489"
+   ]
+  }
+ ]
+}

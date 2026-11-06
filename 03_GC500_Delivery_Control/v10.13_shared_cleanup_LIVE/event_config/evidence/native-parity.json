@@ -1,0 +1,162 @@
+{
+  "author": "Andrew Fisher",
+  "nativeVersion": 6052,
+  "baseSha": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "candidateSha": "f07367fcb2adace13afcff2e5192e047ef1104d5085b714360db47e8a9769d86",
+  "checks": [
+    {
+      "name": "Current native generator is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native supplier is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native money is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native profit is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native forecast is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native finance is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native rehire is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native branches is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native contracts is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native charges is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native transport is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native october is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native november is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native workforce is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native toilets is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native inventory is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current native demob is unchanged",
+      "pass": true
+    },
+    {
+      "name": "Actual render and held caches clear after in-place event edit",
+      "pass": true
+    },
+    {
+      "name": "Shared eventWindow follows new date input",
+      "pass": true
+    },
+    {
+      "name": "Generator model metadata updates without reload",
+      "pass": true
+    },
+    {
+      "name": "Workforce reads current event days",
+      "pass": true
+    },
+    {
+      "name": "Demob actual model rereads changed window",
+      "pass": true
+    },
+    {
+      "name": "Short Demob never assigns undefined date",
+      "pass": true
+    },
+    {
+      "name": "Demob actual model respects holiday change",
+      "pass": true
+    },
+    {
+      "name": "Cross-month actual generator rows remain unpriced with issues",
+      "pass": true
+    },
+    {
+      "name": "Monthly financial model shows unallocated generator revenue",
+      "pass": true
+    },
+    {
+      "name": "Whole-event supplier estimates show configuration holds",
+      "pass": true
+    },
+    {
+      "name": "Missing demob dates render a visible pending message",
+      "pass": true
+    },
+    {
+      "name": "Missing shared eventWindow is null",
+      "pass": true
+    },
+    {
+      "name": "Missing event model contains no non-finite numeric leaves",
+      "pass": true
+    },
+    {
+      "name": "All in-memory configuration fixtures restored native record",
+      "pass": true
+    },
+    {
+      "name": "Original event dates restored",
+      "pass": true
+    },
+    {
+      "name": "All active Inventory and map quantities agree with shared item scope",
+      "pass": true
+    },
+    {
+      "name": "Fully identified typed ownership agrees with Inventory",
+      "pass": true
+    },
+    {
+      "name": "Inactive references do not inflate active Inventory",
+      "pass": true
+    },
+    {
+      "name": "Quantity audit keeps the native record unchanged",
+      "pass": true
+    },
+    {
+      "name": "Both pages use same frozen native and keep source/record untouched",
+      "pass": true
+    }
+  ],
+  "passed": 37,
+  "failed": [],
+  "timingMs": {
+    "base": 3372,
+    "candidate": 3574
+  }
+}

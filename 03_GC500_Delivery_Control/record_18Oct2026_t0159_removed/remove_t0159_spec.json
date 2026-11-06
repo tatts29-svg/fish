@@ -1,0 +1,6 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 18 Oct 2026, in chat: \"Remove t0159\", after the VMS totals were set to what is on site (16 of 24 booked) and he was told the 24 included T0159, T0169 and T0170 still to come. T0159 holds no record of its own (no light, tick, number or note); it is a schedule row for VMS boards not on site.",
+ "refs": ["T0159"],
+ "ops": [{"op": "asset_delete", "ref": "T0159", "why": "Removed on Andrew's word 18 Oct 2026 - VMS boards not coming; the 16 on site are VMS1-4, 6-17."}]
+}

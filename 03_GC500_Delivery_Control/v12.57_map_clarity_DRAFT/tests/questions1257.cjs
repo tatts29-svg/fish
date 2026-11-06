@@ -1,0 +1,26 @@
+/* Author: Andrew Fisher. Independent geometry and read-only Questions behaviour. */
+'use strict';
+const assert=require('node:assert/strict'),fs=require('fs'),path=require('path'),vm=require('vm');
+const factory=require('../questions1257.js');
+const n=134217728,plan={w:2384,h:1684,k:1,main:[[1000,0,n/2],[0,1000,n/2]],inset:[[1000,0,n/2+50000],[0,1000,n/2+50000]],insetRect:[100,100,200,200]};
+const ll=(x,y)=>[(2*Math.atan(Math.exp((0.5-(n/2+1000*y)/n)*2*Math.PI))-Math.PI/2)*180/Math.PI,1000*x/n*360];
+const core=factory(plan);let checks=0;
+const ok=(v,m)=>{assert(v,m);checks++;},eq=(a,b,m)=>{assert.deepEqual(JSON.parse(JSON.stringify(a)),JSON.parse(JSON.stringify(b)),m);checks++;};
+const p=core.sheetPoint(ll(500,700));ok(Math.abs(p[0]-500/2384)<1e-10&&Math.abs(p[1]-700/1684)<1e-10,'Known independent main-sheet coordinate');
+const inset=core.sheetPoint(ll(175,175));ok(Math.abs(inset[0]-125/2384)<1e-10&&Math.abs(inset[1]-125/1684)<1e-10,'Native main-region then inset precedence');
+eq(core.sheetPoint(ll(125,125)),null,'A point in an unavailable inset is not labelled outside');
+ok(core.onSheet([0,0])&&core.onSheet([1,1]),'Exact sheet edges are included');
+ok(!core.onSheet([-0.00001,0.5])&&!core.onSheet([0.5,1.00001]),'Strict outside boundaries');
+for(const input of [null,[],[null,0],[0,undefined],[90,0],[0,181],[NaN,1]])eq(core.sheetPoint(input),null,'Unknown coordinates are not manufactured');
+const model={items:[{key:'MASTER',pt:[0.5,0.5]}],placed:[{key:'OFF',ll:ll(-500,300)},{key:'INSIDE',ll:ll(500,700)},{key:'MASTER',ll:ll(-500,300)},{key:'OFF',ll:ll(-500,300)},{key:'REQUEST',ll:ll(-500,300),sourceRequest1017:true},{key:'UNKNOWN',ll:[90,0]},{key:'UNRECOGNISED',ll:ll(-500,300)}]};
+const original=JSON.stringify(model);eq(core.collect(model,key=>key!=='UNRECOGNISED'),[{key:'OFF'}],'Only unique real off-sheet pins, after master precedence');eq(JSON.stringify(model),original,'Source map model is untouched');
+const source=fs.readFileSync(path.join(__dirname,'../questions1257.js'),'utf8').replace('__PLAN1257__',JSON.stringify(plan));
+let initial=[{id:'existing',st:'open',q:'Keep this question'},{id:'map-offsheet1257',archived754:true,st:'done',note:'Saved note'}];
+const box={gc500PlanItems:()=>model,assetOf:key=>key==='UNRECOGNISED'?null:{key},holdAssets:fn=>fn(),QH_OPEN:'open',SYNC:{status:'live',first:new Set(['places'])},SYNC_COLLS:{places:{}},questionsList:()=>Object.assign(initial.map(x=>({...x})),{fails:['existing check']})};
+box.window=box;vm.runInNewContext(source,box);
+let questions=box.questionsList();eq(questions.filter(x=>x.id==='map-offsheet1257').length,1,'Saved note gets one current question');eq(questions.find(x=>x.id==='existing'),initial[0],'Other questions preserved');eq(questions.fails,['existing check'],'Existing failure markers retained');
+let question=questions.find(x=>x.id==='map-offsheet1257');eq(question.note,'Saved note','Saved note retained');ok(!question.archived754&&question.st==='open','An unresolved position is not treated as answered');eq(question.rows,['OFF · pinned off the drawing'],'Question identifies exact off-sheet reference');ok(!/depot/i.test(question.why+question.need),'No unsupported depot conclusion');
+eq(box.questionsList().filter(x=>x.id==='map-offsheet1257').length,1,'Repeated reads do not duplicate question');eq(JSON.stringify(model),original,'Questions read never moves a location');
+box.gc500PlanItems=()=>({items:[],placed:[]});questions=box.questionsList();eq(questions.find(x=>x.id==='map-offsheet1257'),initial[1],'Native retained-note history survives resolved location');
+box.gc500PlanItems=()=>{throw Error('Unavailable')};questions=box.questionsList();eq(questions.fails,['existing check','recorded map positions'],'Missing evidence is an explicit check failure');
+console.log(JSON.stringify({status:'PASS',checks}));

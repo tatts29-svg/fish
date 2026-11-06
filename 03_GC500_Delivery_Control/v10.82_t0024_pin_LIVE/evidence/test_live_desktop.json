@@ -1,0 +1,16 @@
+{
+ "device": "desktop",
+ "live": true,
+ "pass": true,
+ "fails": [],
+ "stillNoPin": [
+  "WC100"
+ ],
+ "pos": {
+  "T0024": [
+   "placed",
+   -27.983217,
+   153.426372
+  ]
+ }
+}

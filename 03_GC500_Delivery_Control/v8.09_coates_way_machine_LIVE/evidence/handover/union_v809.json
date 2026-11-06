@@ -1,0 +1,244 @@
+{
+ "author": "Andrew Fisher",
+ "base": "65c47180502d9052ca3661e5aedd06683e8168c1e9be9297bcbcb7c2e4d9fe86",
+ "candidate": "7d2ff39f645696c212197f1bf0c7dfe8e4a01c232c4e3ca1dbea359b53500a1e",
+ "files": 226,
+ "bytes": 172348506,
+ "changed": [
+  {
+   "path": "car-app.js",
+   "before": {
+    "sha256": "a6c3a4025be3f5142d9b53cd97224a07c3c7ad8e19fb0712dbf90d529ede9a78",
+    "bytes": 129280
+   },
+   "after": {
+    "sha256": "d2964c3138eb1b2429a542cfb598adb507ae345b6b92858c78231fdbe49ff3c8",
+    "bytes": 150573
+   }
+  },
+  {
+   "path": "car-cockpit.js",
+   "before": {
+    "sha256": "259ea8a36bec9ea1e12920f055a90922b308e59c3ce1ea59d4b66cafab64220a",
+    "bytes": 88795
+   },
+   "after": {
+    "sha256": "bd0a198cb5a21100166ede6803d5443f4471dd695cfc8fa36c97b4090375fc29",
+    "bytes": 88819
+   }
+  },
+  {
+   "path": "car-driver.js",
+   "before": {
+    "sha256": "f26f4a900a8977c5d9745b68b07edbe3db232aed94cfd2a1df028eb61e77aee3",
+    "bytes": 23556
+   },
+   "after": {
+    "sha256": "3f0cb7e314377ffbd506672610a4b0c83af2873dabaf0e6145730234d3736c8d",
+    "bytes": 25308
+   }
+  },
+  {
+   "path": "car-fit.js",
+   "before": {
+    "sha256": "9f8077351367a41375223c15d4aedb75e5e453853c18d3855e38bace26b10527",
+    "bytes": 6159
+   },
+   "after": {
+    "sha256": "7a9348f5c3333c39aebf02a87a4fcfeac9e227d8c17255c5b955a9f0d64514fb",
+    "bytes": 6207
+   }
+  },
+  {
+   "path": "car-gc500.js",
+   "before": {
+    "sha256": "6287ee0e1cd0c87d3925794bc13e936655c15f1f8f76b958b5b16051cab3247f",
+    "bytes": 16257
+   },
+   "after": {
+    "sha256": "e61e3d002b4174f230e8483c9bdb43b49aeeb7c665230b5033ea9f512c0b795e",
+    "bytes": 23111
+   }
+  },
+  {
+   "path": "car-powertrain.js",
+   "before": {
+    "sha256": "bd0897200c1e65f146355c6fab4eb852090f6d738c7a25092ba3aad58a69cefe",
+    "bytes": 41812
+   },
+   "after": {
+    "sha256": "fa842cc90f10974464210b913dabeb19ced14b9292eb9b9310a5aaa32ce7209d",
+    "bytes": 47148
+   }
+  },
+  {
+   "path": "car-scene.js",
+   "before": {
+    "sha256": "65aa1e52e934e32589a7132a63d2b5cf6f897b3ee94b25e8fdc0e3c8c3d57148",
+    "bytes": 4622
+   },
+   "after": {
+    "sha256": "8fbaed2ee75320d49e2844198fbf9e51bb510dbab83ea66d7221adeeec6ed92d",
+    "bytes": 5821
+   }
+  },
+  {
+   "path": "car.css",
+   "before": {
+    "sha256": "78b7b8be0b1c824568731927ee5b43d01a0acaa82dfcdffa511de065f70fbeda",
+    "bytes": 24943
+   },
+   "after": {
+    "sha256": "ac558e79e7182bb88731a864d83c6e6dbbfe616e13ce316755047a5f01b3260f",
+    "bytes": 28212
+   }
+  },
+  {
+   "path": "cockpit-surfaces.js",
+   "before": {
+    "sha256": "35b9f8672cb041e3860fa71db0c2b9bfb6b87e31c08a59894ccb575c5c51ccba",
+    "bytes": 10594
+   },
+   "after": {
+    "sha256": "9d09692404126eab990b402ae2e85949c3609fdf5f0ee95dc7ffcf6ae3ac07b1",
+    "bytes": 11616
+   }
+  },
+  {
+   "path": "crew.js",
+   "before": {
+    "sha256": "652851251e5c529287747d44956e0f37ae9214b757e8ea8e529f9e79d24db04a",
+    "bytes": 144923
+   },
+   "after": {
+    "sha256": "fc0a9314450e9eabf145b6d4f1b3682ccb89168cd8be2a2facd1bfa55d44eb8d",
+    "bytes": 152822
+   }
+  },
+  {
+   "path": "index.html",
+   "before": {
+    "sha256": "f69cfb19e25d5ce2044b7795dae9b7fee67a1b621a462a3d65a3ccb7e43f237c",
+    "bytes": 11143
+   },
+   "after": {
+    "sha256": "fb07e7b09dd5574f3869f5e35ac61f22d950f42efbf13d7a2a2ddaa90d571148",
+    "bytes": 11468
+   }
+  },
+  {
+   "path": "part-connections.js",
+   "before": {
+    "sha256": "4856f9632ce260a6a8f4e495b119115da4d252b7cf5889f0d3bc54ecd05d90de",
+    "bytes": 11050
+   },
+   "after": {
+    "sha256": "63dc3e5a3d4118f9557e96e943c0544ad9a4289494f235fbb244bf10b130bdd7",
+    "bytes": 12572
+   }
+  },
+  {
+   "path": "pit-garage.js",
+   "before": {
+    "sha256": "0b88a0386f82abcbc859676cf040112d4d51ccf1995b0025cd436ffedc9ef946",
+    "bytes": 96519
+   },
+   "after": {
+    "sha256": "e543b48a02c68ab5955c652c96fd8186241fa87d9616b580576cb3e2b4eec72d",
+    "bytes": 103331
+   }
+  },
+  {
+   "path": "style.css",
+   "before": {
+    "sha256": "fe62a8b23dccd154a007e6752ad645d62576932d0c9707ad828bea774bc3f3d7",
+    "bytes": 21827
+   },
+   "after": {
+    "sha256": "b01c5c0ce0ac04929267b15e5f8b625b55f8f74c87cc9745afc17bf3eeafa389",
+    "bytes": 21985
+   }
+  },
+  {
+   "path": "timing-drive.js",
+   "before": {
+    "sha256": "448d6d4f9244a62be0b818fdf6ff547ae7105ea2b5f6e80071fe654c864a2331",
+    "bytes": 4358
+   },
+   "after": {
+    "sha256": "857e720ae0d365d6ddbde8c6d4f1abaa24994b68f7a797c10c4de18c242b8d04",
+    "bytes": 7191
+   }
+  },
+  {
+   "path": "vendor/addons/postprocessing/GTAOPass.js",
+   "before": {
+    "sha256": "980b036767c439cf2aadd0e869b2e51b2ec00736a75a5ad1bb69dddb03254fe8",
+    "bytes": 16582
+   },
+   "after": {
+    "sha256": "33e0c4074eff4f2cd6116fef1df4ae900ef33229ac91c6793c5af5d6dab4fcb2",
+    "bytes": 16645
+   }
+  },
+  {
+   "path": "view-fx.js",
+   "before": {
+    "sha256": "e39a4d405a7b838784e351b63940b77c0e0eceac0954c0792622b9651ef87fc0",
+    "bytes": 10897
+   },
+   "after": {
+    "sha256": "39c6bd70fbf478a977a5cd849a18ac6920a84fe7aaa8ccb368df388c59e9820d",
+    "bytes": 13784
+   }
+  }
+ ],
+ "added": [
+  {
+   "path": "fx-quality.js",
+   "sha256": "3bde119ed7da19feaf01b8f7778b9836a0053431b324f74437bffc750760b31d",
+   "bytes": 18834
+  },
+  {
+   "path": "mech-brakes.js",
+   "sha256": "e98ed2ee1c48e4306f5b1d1e5537803a6fc740ffc919b997b11906090e8471ce",
+   "bytes": 18254
+  },
+  {
+   "path": "mech-driveline.js",
+   "sha256": "5f8361b93380a7b6309eeca8580349c1cbb7eb3fb63196c1a137c3b1fa01da23",
+   "bytes": 13295
+  },
+  {
+   "path": "mech-oil.js",
+   "sha256": "6ed2710b80e94615556517b98d951a316c047a8042a561e8d9785b2edbb56a4d",
+   "bytes": 4013
+  },
+  {
+   "path": "mech-register.js",
+   "sha256": "3ca9272996b77f3fa6f6924da36dda403c568c5c6ef896c4cebfd83aed5a6411",
+   "bytes": 8085
+  },
+  {
+   "path": "people-atlas.js",
+   "sha256": "ca348d901d0a1deb36454617f347c2324f68c15405a04f2ac4616b775d3ad100",
+   "bytes": 14528
+  },
+  {
+   "path": "people-figure.js",
+   "sha256": "16fab5c0bb809edb77e30280d4a1921299d84778e76fb3f53604b8b8f4c92203",
+   "bytes": 24068
+  }
+ ],
+ "preservedDescriptors": 202,
+ "removed": [],
+ "maps": {
+  "explorer/explorer.js": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+  "explorer/explorer-merge.js": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+  "explorer/index.html": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+  "poc3d/index.html": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4"
+ },
+ "mapsUnchanged": true,
+ "manifestFileSha256": "b6cedf5839d005d3597608b58037d64700d586086de067d70ec87f140760a59f",
+ "method": "sha256 of canonical JSON {schema, entry, files} with files sorted by path as {bytes, path, sha256, type} and object keys sorted, no whitespace (machine_set.py canonical()/digest; reproduces 65c47180 from the v8.13 manifest)"
+}

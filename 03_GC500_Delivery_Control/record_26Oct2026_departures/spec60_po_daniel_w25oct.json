@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 10:58 AEST: \"this will be daniel next week 25/10/2026 4670882\" (one purchase order per person per week; Daniel's race-week hours are not yet on the record, his accommodation 22-25 Oct is)",
+  "ops": [
+    {"op": "po", "number": "4670882", "supplier_name": "Job Connect", "stream": "labour", "what": "Daniel Gough - week ending 25 Oct 2026", "period": "w/e 25 Oct 2026", "branch": "KINP", "revenue_branch": "KINP", "confirmed": true}
+  ]
+}

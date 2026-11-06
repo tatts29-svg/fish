@@ -1,0 +1,26 @@
+PASS  phone  antialias: multisampled canvas  {"antialias":true,"samples":4,"webgl2":true,"maxAniso":16}
+PASS  phone  fx-quality loaded (window.__fx)
+PASS  phone  phone starts on Laptop  laptop
+PASS  phone  phone: no rim light, per-pixel detail off, anisotropy 8  {"rim":false,"aniso":8}
+PASS  phone  phone: the Quality button offers Laptop and Balanced only  ["laptop","balanced"]
+PASS  phone  laptop: still pixel ratio = 3 (buffer 1170x1533)  {"ratio":3,"megapixels":1.79}
+PASS  phone  laptop: prints redrawn at 1x, as far as the budget allows (1x; 71/71, 26.97 MP)
+PASS  phone  laptop: prints inside the 20 MP budget for this setting (or every one at its own size)  26.97 MP at 1x, budget 20 MP
+      phone laptop: frame 26 ms (median of 3, software renderer), 1.79 MP
+PASS  phone  balanced: still pixel ratio = 3 (buffer 1170x1533)  {"ratio":3,"megapixels":1.79}
+PASS  phone  balanced: post stack multisampled  4
+PASS  phone  balanced: prints redrawn at 1.5x, as far as the budget allows (1x; 71/71, 26.97 MP)
+PASS  phone  balanced: prints inside the 20 MP budget for this setting (or every one at its own size)  26.97 MP at 1x, budget 20 MP
+      phone balanced: frame 11539 ms (median of 3, software renderer), 1.79 MP
+PASS  phone  phone: high not offered by the Quality button  not on the ladder
+PASS  phone  phone: ultra not offered by the Quality button  not on the ladder
+PASS  phone  every texture mipmapped (105 textures)  []
+PASS  phone  every texture filtered at 8x anisotropy  []
+PASS  phone  livery atlas mipmapped and anisotropic  {"mip":true,"aniso":16}
+PASS  phone  Quality Balanced/Laptop round and round: the renderer's texture count stays put  after rounds 1-3: 82 → 82 → 82
+PASS  phone  4K capture is a 3840 x 2160 PNG  {"bytes":10516573}
+PASS  phone  4K capture puts the canvas back at its own size  {"before":[1170,1533],"after":[1170,1533]}
+PASS  phone  phone: the 4K still is drawn without the post stack  {"width":3840,"height":2160,"post":false}
+PASS  phone  no page or console errors  []
+
+22/22 checks passed (v8.09_coates_way_machine_DRAFT/evidence/../work)

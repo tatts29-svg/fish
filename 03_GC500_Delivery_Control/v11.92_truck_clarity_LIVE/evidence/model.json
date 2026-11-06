@@ -1,0 +1,134 @@
+[
+  {
+    "name": "balanced loaded branded truck",
+    "ok": true
+  },
+  {
+    "name": "balanced cached model",
+    "ok": true
+  },
+  {
+    "name": "balanced bounded model",
+    "ok": true
+  },
+  {
+    "name": "balanced finite indexed mesh",
+    "ok": true
+  },
+  {
+    "name": "balanced non-degenerate outward faces",
+    "ok": true
+  },
+  {
+    "name": "balanced four independently rotating wheels with correct radius",
+    "ok": true
+  },
+  {
+    "name": "balanced illustrative truck envelope",
+    "ok": true
+  },
+  {
+    "name": "balanced forklift unchanged",
+    "ok": true
+  },
+  {
+    "name": "balanced boom unchanged",
+    "ok": true
+  },
+  {
+    "name": "balanced scissor unchanged",
+    "ok": true
+  },
+  {
+    "name": "balanced tractor unchanged",
+    "ok": true
+  },
+  {
+    "name": "high loaded branded truck",
+    "ok": true
+  },
+  {
+    "name": "high cached model",
+    "ok": true
+  },
+  {
+    "name": "high bounded model",
+    "ok": true
+  },
+  {
+    "name": "high finite indexed mesh",
+    "ok": true
+  },
+  {
+    "name": "high non-degenerate outward faces",
+    "ok": true
+  },
+  {
+    "name": "high four independently rotating wheels with correct radius",
+    "ok": true
+  },
+  {
+    "name": "high illustrative truck envelope",
+    "ok": true
+  },
+  {
+    "name": "high forklift unchanged",
+    "ok": true
+  },
+  {
+    "name": "high boom unchanged",
+    "ok": true
+  },
+  {
+    "name": "high scissor unchanged",
+    "ok": true
+  },
+  {
+    "name": "high tractor unchanged",
+    "ok": true
+  },
+  {
+    "name": "only truck stunt module added",
+    "ok": true
+  },
+  {
+    "name": "ShowcaseStable1175 preserved",
+    "ok": true
+  },
+  {
+    "name": "W.Find1176.open preserved",
+    "ok": true
+  },
+  {
+    "name": "shared embedded data preserved",
+    "ok": true
+  },
+  {
+    "name": "eight garage choices and selector present",
+    "ok": true
+  },
+  {
+    "name": "car all camera shots preserved",
+    "ok": true
+  },
+  {
+    "name": "forklift all camera shots preserved",
+    "ok": true
+  },
+  {
+    "name": "boom all camera shots preserved",
+    "ok": true
+  },
+  {
+    "name": "scissor all camera shots preserved",
+    "ok": true
+  },
+  {
+    "name": "tractor all camera shots preserved",
+    "ok": true
+  },
+  {
+    "name": "tow all camera shots preserved",
+    "ok": true
+  }
+]

@@ -1,0 +1,18 @@
+PASS 115 dockets on approved sheets, each charged on the sheet's quantities at our rates
+PASS the 52 rate-sheet dockets keep their lines, vehicle gates at $40.40
+PASS labour notes 108.5 h $15,407; team leader $9,200; weed mat $2,580; shade cloth $784; order 4658850 $195: [["LABOUR-NOTES",15407],["TEAM-LEADER",9200],["WEED-MAT",2580],["SHADE-CLOTH",784],["ORDER-4658850",195]]
+PASS they are usable fencing lines on Costs, subhire on STPS: [["C-FD-LABOUR-NOTES",true,"STPS",""],["C-FD-TEAM-LEADER",true,"STPS",""],["C-FD-SHADE-CLOTH",true,"STPS",""],["C-FD-WEED-MAT",true,"STPS",""],["C-FD-ORDER-4658850",true,"STPS",""]]
+PASS Fencing tab 364816.4 = the dockets 336650.4 + what else they bill 28166 = the Costs category 364816.4
+PASS charge 340871.73 -> 364816.4 (the workbook's line-by-line figure is $364,816.28; the page rounds each docket)
+PASS what we pay unchanged (244368.2; gear 234118.2, crew 10250, green 10850)
+PASS the papers' quantities, Today and every area's metres unchanged
+PASS P&L: Rehire Revenue 398702.68 -> 422647.35 (+23944.67), every other revenue line and every cost unchanged
+PASS the P&L card ties and renders its 14 rows
+PASS card: Rehire Revenue, Total Revenue, Gross Margin and Difference each +23944.67; costs unchanged
+PASS job difference 520904.94 -> 544849.61; branch view 423775.38 -> 447720.05
+PASS the P&L names the basis
+PASS footer .20 · v12.19
+PASS build: 0 page errors, 0 record writes
+P&L card, base : [["Hire Revenue","$230,118.72","—"],["Rehire Revenue","$398,702.68","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$965,524.03","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$295,378.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$429,510.83","$10,350.00"],["Gross Margin · all in 55.5%","$536,013.20","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$423,775.38","$16,172.40"]]
+P&L card, build: [["Hire Revenue","$230,118.72","—"],["Rehire Revenue","$422,647.35","$26,522.40"],["Transport Revenue","$205,616.13","—"],["Other Revenue","$111,984.90","—"],["Revenue · allocation pending","$19,101.60","—"],["Total Revenue","$989,468.70","$26,522.40"],["Transport","$108,182.65","—"],["Rehire","$295,378.18","$10,350.00"],["Other Direct Costs","$25,950.00","—"],["Total Direct Costs","$429,510.83","$10,350.00"],["Gross Margin · all in 56.6%","$559,957.87","$16,172.40"],["Labour hire and salary allowance","$82,964.27","—"],["Travel, accommodation, meals and printing","$29,273.55","—"],["Difference · all in, not a margin yet","$447,720.05","$16,172.40"]]
+15/15 desktop

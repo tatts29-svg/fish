@@ -1,0 +1,113 @@
+{
+ "at": "2026-10-22T16:17:09.002Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template lays labels out, draws leaders, offers Closer / Wider, never uses the old fixed label spot",
+   "ok": true,
+   "detail": {
+    "len": 150588,
+    "refs": 74
+   }
+  },
+  {
+   "name": "every reference with a pin draws a map in both views, except the one whose record pin is off the sheet (WC85 at the Coates Compound), which gets a line saying so",
+   "ok": true,
+   "detail": {
+    "refs": 74,
+    "drawn": 73,
+    "off": [
+     {
+      "ref": "WC85",
+      "zoom": false,
+      "none": true,
+      "off": "WC85 sits off the site plan. Navigate, above, takes you to its pin."
+     }
+    ]
+   }
+  },
+  {
+   "name": "wide view: for every reference, no label runs into another label or another pin, and none leaves the crop",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "Closer view: the same, with the crop narrower and the scanned reference still on it",
+   "ok": true,
+   "detail": {
+    "bad": [],
+    "narrower": 73
+   }
+  },
+  {
+   "name": "the scanned reference carries the largest label on every map",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "PG01: the Area 1 cluster is drawn with leader lines where a label had to move out, Closer trims to the references near PG01 and the button reads Wider",
+   "ok": true,
+   "detail": {
+    "wide": {
+     "ref": "PG01",
+     "zoom": false,
+     "pins": 14,
+     "ll": 0,
+     "lp": 0,
+     "outside": 0,
+     "pairs": [],
+     "leads": 5,
+     "vbw": 230,
+     "meFs": 10.1,
+     "maxOtherFs": 8.4,
+     "meIn": true,
+     "btn": "Closer"
+    },
+    "close": {
+     "ref": "PG01",
+     "zoom": true,
+     "pins": 7,
+     "ll": 0,
+     "lp": 0,
+     "outside": 0,
+     "pairs": [],
+     "leads": 0,
+     "vbw": 150,
+     "meFs": 6.6,
+     "maxOtherFs": 5.5,
+     "meIn": true,
+     "btn": "Wider"
+    }
+   }
+  },
+  {
+   "name": "tapping Closer flips the view",
+   "ok": true,
+   "detail": {
+    "zoomAfterTap": true
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 68,
+    "blocked": 0
+   }
+  }
+ ]
+}

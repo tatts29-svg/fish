@@ -1,0 +1,33 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T163601Z",
+ "mode": "dry",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-05",
+    "why": "Andrew Fisher, 2 Nov 2026 (this chat), correcting the 5 Oct shift recorded that morning: \"No he diid not work kings bdat\" · \"No one did\" · \"Alfie did not work the 5th\" · \"Alfie did not stay 5th either for the night\""
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261005",
+   "person": "Alfie Harris",
+   "date": "2026-10-05",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261005 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "plan": [
+  "deleted/W-A-alfie-harris-20261005",
+  "by/deleted~2f~W-A-alfie-harris-20261005",
+  "costs/W-A-alfie-harris-20261005"
+ ]
+}

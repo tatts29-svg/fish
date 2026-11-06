@@ -1,0 +1,325 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T015326Z",
+ "finished": "2026-10-30T01:53:57.686Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:5x AEST: \"To258 left 11am\". T0258 is the 3.0m Container (Coates 1134386, Helen Park, craned in 7 Oct), its reference's only unit: it left in full at 11:00. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0258",
+    "at": "2026-10-30T11:00:00+10:00",
+    "nos": [
+     "1134386"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12136,
+  "after": 12137
+ },
+ "updated": {
+  "before": "2026-10-30T01:52:03.788Z",
+  "after": "2026-10-30T01:53:56.869Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0258",
+   "at": "2026-10-30T11:00:00+10:00",
+   "nos": [
+    "1134386"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T11:00:00+10:00, recorded by Andrew Fisher: 1 x 3.0m Cont 1134386 - T0258 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0258",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0258": {
+    "state": "on site",
+    "set_at": "2026-10-06T22:36:08.158Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-15T09:14:27.546Z",
+    "pickup1238_units": {
+     "coates|1134386": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T20:52:55.890Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-07T00:46:01.081Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.061Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:36:08.158Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:46:01.081Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:27.546Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1134386",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T20:52:55.890Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:30:06.544Z"
+    },
+    "loading872": {
+     "u1134386": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:59.924Z"
+     }
+    },
+    "timeline841": {
+     "stage": 3,
+     "at": "2026-10-06T22:36:08.315Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:36:08.315Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:36:08.316Z"
+      }
+     ],
+     "recorded_at": "2026-10-06T22:36:08.316Z"
+    },
+    "_k": "T0258"
+   }
+  },
+  "after": {
+   "delivery/T0258": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:53:44.101Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:53:44.101Z",
+    "pickup1238_units": {
+     "coates|1134386": {
+      "at": "2026-10-30T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T20:52:55.890Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:53:44.101Z",
+    "note": "Wed 07 Oct 2026 — Helen Park, then WC20: Wednesday will be Helen park these are craned in under traffic control. BSF cranes have been booked will be there from 7am. They will do there own inductions and lift plan will need to be signed off by David or Steve before they start. They will also install WC20 toilets after Helen park.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.061Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-06T22:36:08.158Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:53:44.101Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d81b0a08-ea87-429f-9326-212a9561c406",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-06T22:36:08.158Z",
+       "requiredKey": "[[\"3.0m cont\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "3.0m Cont",
+         "n": 1,
+         "unitIds": [
+          "[\"T0258\",\"coates\",\"asset\",\"1134386\"]"
+         ],
+         "numbers": [
+          "1134386"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0258\",\"coates\",\"asset\",\"1134386\"]",
+           "number": "1134386",
+           "owner": "coates",
+           "item": "3.0m Cont"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-07T00:46:01.081Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:53:44.101Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:27.546Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:53:44.101Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1134386",
+      "pickup": "2026-10-30T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T20:52:55.890Z"
+     }
+    ],
+    "handling875": {
+     "method": "franna",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T12:30:06.544Z"
+    },
+    "loading872": {
+     "u1134386": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T02:54:59.924Z"
+     }
+    },
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-30T01:53:44.101Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 3,
+       "at": "2026-10-06T22:36:08.315Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-06T22:36:08.316Z"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-30T01:53:44.101Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-30T01:53:44.101Z"
+      }
+     ],
+     "recorded_at": "2026-10-30T01:53:44.101Z"
+    },
+    "_k": "T0258"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

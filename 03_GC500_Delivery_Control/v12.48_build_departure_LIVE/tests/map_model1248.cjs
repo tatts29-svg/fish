@@ -1,0 +1,26 @@
+/* Author: Andrew Fisher. Synthetic map labels and responsive sizing boundaries. */
+'use strict';
+const assert=require('node:assert/strict'),M=require('../map1248_src.js');let checks=0;
+const eq=(a,b)=>{checks++;assert.deepEqual(a,b)};
+const it={code:'EXAMPLE',reg:{}};
+const native='EXAMPLE \ue10c';
+const complete={collected:6,remaining:0,complete:true,unknown:false,issues:[]};
+eq(M.reference(native,it,complete),'EXAMPLE (6) \ue10c ↗');
+eq(M.reference(native,it,{...complete,complete:false,collected:2,remaining:4}),'EXAMPLE (2/6) \ue10c ↗');
+eq(M.reference(native,it,{...complete,complete:false,collected:2,remaining:0,unknown:true}),'EXAMPLE (2/2+?) \ue10c ↗');
+eq(M.reference(native,it,{...complete,collected:2,remaining:null,complete:false}),'EXAMPLE (2/?) \ue10c ↗');
+eq(M.reference(native,it,{...complete,issues:['conflict']}),'EXAMPLE (6/6) \ue10c ↗ · REVIEW');
+eq(M.reference(native,it,null),native);
+for(const n of [0,-1,NaN,Infinity,'6'])eq(M.reference(native,it,{...complete,collected:n}),native);
+eq(M.reference('SOURCE \ue109',{code:'alias',reg:{sourceRequest1017:true,sourceKey1017:'SOURCE'}},complete),'SOURCE (6) \ue109 ↗');
+eq(M.reference('custom \ue109',it,complete),'custom \ue109 (6) ↗');
+const frozen=JSON.stringify({it,complete});M.reference(native,it,complete);eq(JSON.stringify({it,complete}),frozen);
+eq(M.height(340,658,true,false),642);
+eq(M.height(198,454,true,false),438);
+eq(M.height(359,650,true,false),634);
+eq(M.height(529,832,false,false),529);
+eq(M.height(720,658,true,true),720);
+eq(M.height(970,658,true,false),970);
+eq(M.height(0,130,true,false),160);
+for(const n of [undefined,null,NaN,Infinity,0,-1])eq(M.height(340,n,true,false),340);
+console.log(JSON.stringify({checks,passed:true}));

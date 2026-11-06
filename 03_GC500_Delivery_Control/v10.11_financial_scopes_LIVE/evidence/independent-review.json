@@ -1,0 +1,50 @@
+{
+  "author": "Andrew Fisher",
+  "reviewerRole": "Independent source and calculation-scope review",
+  "result": "PASS",
+  "moduleSha256": "a6fefe97d857294f195b2feba16116c52b4e97d0079675f986ff4e5b1dcb9643",
+  "patchSha256": "e47f46f0da7edf57be0b0c51e48b9c6cee72ef87b5ee22c5ced6daa7ec3922a1",
+  "exactBaseSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+  "candidateSha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "synchronousEntriesReviewed": 15,
+  "pureTests": {
+    "runner": "test_scopes1011.cjs",
+    "checks": 36,
+    "result": "PASS"
+  },
+  "independentNativeHelperFixture": {
+    "checks": 9,
+    "result": "PASS",
+    "method": "Isolated VM using actual holdAssets, heldMemo and sharedCache975 definitions read from the exact live base; state and asset builder replaced by a synthetic fixture.",
+    "verified": [
+      "Nested calls share one synchronous asset snapshot and index.",
+      "Independent calls rebuild and observe changed inputs.",
+      "Save/poll invalidation during a hold refreshes the next read.",
+      "Original thrown error identity is preserved.",
+      "Asset hold, memo and stale flag are cleared after normal return and errors."
+    ]
+  },
+  "sourceReview": {
+    "noNewPersistentCache": true,
+    "receiverArgumentsReturnAndErrorsPreserved": true,
+    "entryFunctionsAreSynchronous": true,
+    "noRequiredFunctionPropertiesLost": true,
+    "validatesAllEntriesBeforeReplacement": true,
+    "exactBaseAndRepeatedPatchGuards": true,
+    "onlyChanges": "One appended calculation-scope script and the version footer. Removing these reverses the candidate byte-for-byte to the exact base.",
+    "pricingRatesQuantitiesBranchesAndSourcesChanged": false
+  },
+  "separateBrowserEvidence": {
+    "file": "evidence/scope-performance.json",
+    "owner": "Charge engine reviewer",
+    "reportedChecks": 106,
+    "reportedResult": "PASS",
+    "reportedStandaloneFinanceHandoverMs": 1748,
+    "scope": "Exact candidate against exact base; all 15 standalone model outputs match, with input freshness and unchanged native/source data. Not executed by this independent reviewer."
+  },
+  "operationalWrites": 0,
+  "limitations": [
+    "This review confirms the bounded calculation-scope change; it does not resolve pre-existing pricing or allocation holds.",
+    "Publication and post-release checks remain with the release owner."
+  ]
+}

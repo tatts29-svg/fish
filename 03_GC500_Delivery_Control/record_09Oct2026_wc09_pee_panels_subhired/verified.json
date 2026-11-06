@@ -1,0 +1,75 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "userConfirmation": "And pee panels are subhired",
+  "beforeVersion": 5164,
+  "afterVersion": 5167,
+  "ref": "WC09",
+  "item": "Pee Panel",
+  "supplier": "Event Portables",
+  "quantity": 6,
+  "received": 6,
+  "installed": 6,
+  "quantityOnly": true,
+  "source": "Q6845 Portable Toilets line 3 and user WC09 confirmation",
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "loads/quantity-subhire964/WC09/Pee%20Panel"
+    },
+    {
+      "collection": "loads",
+      "key": "quantity-subhire964/WC09/Pee%20Panel"
+    },
+    {
+      "collection": "by",
+      "key": "loads/quantity-subhire964/WC09/Pee%20Panel"
+    }
+  ],
+  "unrelatedDocumentsUnchanged": true,
+  "financialModelsUnchanged": true,
+  "physicalIdentitiesUnchanged": true,
+  "sharedToilets": {
+    "planned": 254,
+    "received": 138,
+    "installed": 138,
+    "left": 116,
+    "pct": 54.33,
+    "review": 0
+  },
+  "supplierSummary": {
+    "units": 91,
+    "quantityOnly": 6,
+    "quantityOnlyReceived": 6,
+    "trackedUnits": 97,
+    "numbered": 91,
+    "unnumbered": 0,
+    "onSite": 79,
+    "atReferences": 78,
+    "spares": 1,
+    "references": 14,
+    "scopeGaps": 0,
+    "locationConflicts": 0,
+    "fwfSupply": {
+      "total": 194,
+      "on": 71,
+      "at": 70,
+      "spare": 1,
+      "left": 123,
+      "allocated": 190,
+      "unallocated": 4,
+      "inLoads": 120,
+      "over": 0
+    }
+  },
+  "wc09": {
+    "received": 8,
+    "installed": 8,
+    "complete": false,
+    "mapComplete": false,
+    "fwfReceived": 0,
+    "fwfInstalled": 0,
+    "blocksInstalled": 2
+  },
+  "errors": []
+}

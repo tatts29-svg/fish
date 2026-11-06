@@ -1,0 +1,634 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "baseSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "method": "Unchanged source-owner suites, sequential browsers. View-link harness blocks service writes; simulated saves remain in the test page.",
+  "runs": [
+    {
+      "name": "packed_desktop",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "exitCode": 0,
+      "passed": 20,
+      "total": 20,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/packed_desktop.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/packed_desktop.log",
+      "reportSha256": "941558ef9a07330a4425bbb530e4b5f0060d16f6a7558358982733965003e700",
+      "checks": [
+        {
+          "name": "Today still carries Where we are, one set of buttons",
+          "pass": true
+        },
+        {
+          "name": "By branch, Money and On site fold; By group stays open",
+          "pass": true
+        },
+        {
+          "name": "a fold's line carries words, not figures",
+          "pass": true
+        },
+        {
+          "name": "jump buttons: Today, Today's work, By group, By branch, Money, On site, Trade by trade",
+          "pass": true
+        },
+        {
+          "name": "no page wider than the screen",
+          "pass": true
+        },
+        {
+          "name": "Today's work, By group and By branch are packed",
+          "pass": true
+        },
+        {
+          "name": "no two cards overlap",
+          "pass": true
+        },
+        {
+          "name": "programme card in one band across",
+          "pass": true
+        },
+        {
+          "name": "opening a card's More info repacks with no overlap",
+          "pass": true
+        },
+        {
+          "name": "each jump button lands its part at the top (or as far as the page goes)",
+          "pass": true
+        },
+        {
+          "name": "a jump to a fold opens it",
+          "pass": true
+        },
+        {
+          "name": "no overlap with every fold open",
+          "pass": true
+        },
+        {
+          "name": "opened folds stay open through a redraw",
+          "pass": true
+        },
+        {
+          "name": "the date control redraw keeps the folds and one jump row",
+          "pass": true
+        },
+        {
+          "name": "Print opens every fold for the paper",
+          "pass": true
+        },
+        {
+          "name": "on paper: By branch, Money, On site printed with their headings (On site has its own), nothing packed, no jump row",
+          "pass": true
+        },
+        {
+          "name": "after the print the folds close again",
+          "pass": true
+        },
+        {
+          "name": "a narrower window repacks with no overlap",
+          "pass": true
+        },
+        {
+          "name": "round trip comes back packed and folded",
+          "pass": true
+        },
+        {
+          "name": "no page errors",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "packed_phone",
+      "source": "v7.95_today_packed_DRAFT/evidence/packed_tests.js",
+      "sourceSha256": "82f7a0f74e524fa052d8116eb60e1b5d404c7c3c8969360dae896a9c2d95ad87",
+      "exitCode": 0,
+      "passed": 14,
+      "total": 14,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/packed_phone.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/packed_phone.log",
+      "reportSha256": "57a7a10690dd0494629d81e7f53cc2b2b1eafe62f6680674dc1e9b1914a2b3a4",
+      "checks": [
+        {
+          "name": "Today still carries Where we are, one set of buttons",
+          "pass": true
+        },
+        {
+          "name": "By branch, Money and On site fold; By group stays open",
+          "pass": true
+        },
+        {
+          "name": "a fold's line carries words, not figures",
+          "pass": true
+        },
+        {
+          "name": "jump buttons: Today, Today's work, By group, By branch, Money, On site, Trade by trade",
+          "pass": true
+        },
+        {
+          "name": "no page wider than the screen",
+          "pass": true
+        },
+        {
+          "name": "each jump button lands its part at the top (or as far as the page goes)",
+          "pass": true
+        },
+        {
+          "name": "a jump to a fold opens it",
+          "pass": true
+        },
+        {
+          "name": "opened folds stay open through a redraw",
+          "pass": true
+        },
+        {
+          "name": "the date control redraw keeps the folds and one jump row",
+          "pass": true
+        },
+        {
+          "name": "Print opens every fold for the paper",
+          "pass": true
+        },
+        {
+          "name": "on paper: By branch, Money, On site printed with their headings (On site has its own), nothing packed, no jump row",
+          "pass": true
+        },
+        {
+          "name": "after the print the folds close again",
+          "pass": true
+        },
+        {
+          "name": "round trip comes back packed and folded",
+          "pass": true
+        },
+        {
+          "name": "no page errors",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "equipment_desktop",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "exitCode": 0,
+      "passed": 22,
+      "total": 22,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/equipment_desktop.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/equipment_desktop.log",
+      "reportSha256": "eb2355bfa3215249d7c36726f1046d83b9f3c4d2e72431116f357a56d6ff3ed2",
+      "checks": [
+        {
+          "name": "a light on Today opens Equipment on every trade with that light",
+          "pass": true
+        },
+        {
+          "name": "the tab is called Equipment; Plant is gone from the row",
+          "pass": true
+        },
+        {
+          "name": "opens on the first trade",
+          "pass": true
+        },
+        {
+          "name": "one heading, one row of trade buttons, names only",
+          "pass": true
+        },
+        {
+          "name": "List/Cards and Share PDF in the heading",
+          "pass": true
+        },
+        {
+          "name": "the Inventory, in its look, for the trade chosen; its own trade buttons gone",
+          "pass": true
+        },
+        {
+          "name": "order: heading, Inventory, Every reference, contracts",
+          "pass": true
+        },
+        {
+          "name": "Every reference folded, its line saying how many and how many recorded",
+          "pass": true
+        },
+        {
+          "name": "no repeats: old Plant heading gone, the trade heading and progress not repeated inside",
+          "pass": true
+        },
+        {
+          "name": "Branches folded under the contracts",
+          "pass": true
+        },
+        {
+          "name": "opened, Every reference shows the reference rows",
+          "pass": true
+        },
+        {
+          "name": "an opened fold stays open through a redraw",
+          "pass": true
+        },
+        {
+          "name": "a trade button moves the Inventory and the references together",
+          "pass": true
+        },
+        {
+          "name": "VMS boards finds its Inventory trade (Variable message signs)",
+          "pass": true
+        },
+        {
+          "name": "All: every trade in both parts, each trade named in the references",
+          "pass": true
+        },
+        {
+          "name": "pressing a number shows its locations on Equipment",
+          "pass": true
+        },
+        {
+          "name": "Share PDF opens from the heading",
+          "pass": true
+        },
+        {
+          "name": "Change deliveries no longer carries the Inventory; its button opens Equipment",
+          "pass": true
+        },
+        {
+          "name": "Print opens the folds, their lines do not print, and the ones closed before close again",
+          "pass": true
+        },
+        {
+          "name": "on an editing link the Inventory spares can be typed",
+          "pass": true
+        },
+        {
+          "name": "no page wider than the screen",
+          "pass": true
+        },
+        {
+          "name": "no page errors",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "equipment_phone",
+      "source": "v7.96_equipment_tab_LIVE/evidence/equipment_tests.js",
+      "sourceSha256": "272f48bf29f1e1ace3b357627a39d17711eb5485cd8b9b9b9b147116f4d758e1",
+      "exitCode": 0,
+      "passed": 22,
+      "total": 22,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/equipment_phone.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/equipment_phone.log",
+      "reportSha256": "c2ea3850afe8cf9fb79685b6481b8062dc75a075cc03cb638f4fc8a8ce09bad6",
+      "checks": [
+        {
+          "name": "a light on Today opens Equipment on every trade with that light",
+          "pass": true
+        },
+        {
+          "name": "the tab is called Equipment; Plant is gone from the row",
+          "pass": true
+        },
+        {
+          "name": "opens on the first trade",
+          "pass": true
+        },
+        {
+          "name": "one heading, one row of trade buttons, names only",
+          "pass": true
+        },
+        {
+          "name": "List/Cards and Share PDF in the heading",
+          "pass": true
+        },
+        {
+          "name": "the Inventory, in its look, for the trade chosen; its own trade buttons gone",
+          "pass": true
+        },
+        {
+          "name": "order: heading, Inventory, Every reference, contracts",
+          "pass": true
+        },
+        {
+          "name": "Every reference folded, its line saying how many and how many recorded",
+          "pass": true
+        },
+        {
+          "name": "no repeats: old Plant heading gone, the trade heading and progress not repeated inside",
+          "pass": true
+        },
+        {
+          "name": "Branches folded under the contracts",
+          "pass": true
+        },
+        {
+          "name": "opened, Every reference shows the reference rows",
+          "pass": true
+        },
+        {
+          "name": "an opened fold stays open through a redraw",
+          "pass": true
+        },
+        {
+          "name": "a trade button moves the Inventory and the references together",
+          "pass": true
+        },
+        {
+          "name": "VMS boards finds its Inventory trade (Variable message signs)",
+          "pass": true
+        },
+        {
+          "name": "All: every trade in both parts, each trade named in the references",
+          "pass": true
+        },
+        {
+          "name": "pressing a number shows its locations on Equipment",
+          "pass": true
+        },
+        {
+          "name": "Share PDF opens from the heading",
+          "pass": true
+        },
+        {
+          "name": "Change deliveries no longer carries the Inventory; its button opens Equipment",
+          "pass": true
+        },
+        {
+          "name": "Print opens the folds, their lines do not print, and the ones closed before close again",
+          "pass": true
+        },
+        {
+          "name": "on an editing link the Inventory spares can be typed",
+          "pass": true
+        },
+        {
+          "name": "no page wider than the screen",
+          "pass": true
+        },
+        {
+          "name": "no page errors",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "rules",
+      "source": "v7.84_ways_in_from_andrew_LIVE/evidence/rules_tests.js",
+      "sourceSha256": "c34fce37d2519de7ac9c2b826783649403697d6250b5881ad80f9e4bf73de949",
+      "exitCode": 0,
+      "passed": 45,
+      "total": 45,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/rules.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/rules.log",
+      "reportSha256": "04b1aa04aaf64cf06f9823a1873700140bf17bc7bac4e5169f739fa13998e099",
+      "checks": [
+        {
+          "name": "G1 GN21 is beside GN20 at the pit lane west end (D024 arrow 021, its orange symbol on the master), not by Gate 2",
+          "pass": true
+        },
+        {
+          "name": "G2 every generator the master places sends the driver to its orange symbol (within 1 m)",
+          "pass": true
+        },
+        {
+          "name": "R1 every text stays inside three texts (<= 459 GSM units), all plain",
+          "pass": true
+        },
+        {
+          "name": "R2 the order line is on every named unit",
+          "pass": true
+        },
+        {
+          "name": "R3 every reference with a waste tank says the tank goes first",
+          "pass": true
+        },
+        {
+          "name": "R4 S08 drops (WB02, WB19, WC27) are land side: enter from the Surfers (south) end, race direction",
+          "pass": true
+        },
+        {
+          "name": "R5 seaside drops (WC50, WC60, WC62) come in at the Seaworld Dr roundabout end and drive south",
+          "pass": true
+        },
+        {
+          "name": "R6 a drop nowhere near Main Beach Pde carries no Main Beach entry line (AA, P01)",
+          "pass": true
+        },
+        {
+          "name": "R7 Full details carries the whole rule set (order, entry, park, stagger, D007 event-week facts)",
+          "pass": true
+        },
+        {
+          "name": "R8 the drawer shows a Driver rules box for a named unit, none for a unit no rule touches",
+          "pass": true
+        },
+        {
+          "name": "R9 park drops carry the wildlife and branches caution, in the text when it fits and always in Full details",
+          "pass": true
+        },
+        {
+          "name": "R10 the order check reads the record (GN21 before GN20 recorded out of order; P01 vs P03; WC05 vs P05, P04)",
+          "pass": true
+        },
+        {
+          "name": "L1 the load rule (morning: away from Kingston by 05:00, in order, no travel 07:00-09:00 or 16:00-18:00; a timed delivery follows its own leave-by) is in Full details and the drawer of a delivery still to come",
+          "pass": true
+        },
+        {
+          "name": "L2 the general load check flags the 14 Sep plan as if still to come and untimed (WC05 tank 08:30 after 05:00 and in the 07:00-09:00 no-travel window; toilet 09:30 after 05:00; P01 same slot as P03; P04 same slot as the WC05 toilet; P05 clean)",
+          "pass": true
+        },
+        {
+          "name": "L3 a waste tank loading after its toilet block is called out",
+          "pass": true
+        },
+        {
+          "name": "L4 nothing to check on a unit already on site (no noise on finished work)",
+          "pass": true
+        },
+        {
+          "name": "T1 the time given is an UNLOADED-BY time: every Full details of a delivery still to come says so; a delivered one does not (its record, not a plan)",
+          "pass": true
+        },
+        {
+          "name": "T2 a delivery still to come with a time reads \"on site by .., unloaded by ..\" (30 min to unload), and the check gives the latest Kingston departure (WB04 at 09:00, no load time: in before the 07:00-09:00 window and a morning run away by 05:00, so on site by 06:10)",
+          "pass": true
+        },
+        {
+          "name": "T5 a load that would be on the road in a no-travel window is called out with the load-by time (load 07:30 for 09:00: leave Kingston by 05:00)",
+          "pass": true
+        },
+        {
+          "name": "T7 one plan, one answer: a timed morning load that leaves after 05:00 is called out, even with time to unload (load 05:30 for 09:00)",
+          "pass": true
+        },
+        {
+          "name": "T6 one plan meets every constraint: 30 min to unload, 70 min run, never on the road 07:00-09:00 or 16:00-18:00, and a morning run away from Kingston by 05:00",
+          "pass": true
+        },
+        {
+          "name": "T3 a load that reaches site after its unloaded-by time is called out (WC05 07:00: tank 08:30 runs into the no-travel window, toilet 09:30 lands after 07:00, as if to come); one that makes it shows its unloading time (P05: 50 min)",
+          "pass": true
+        },
+        {
+          "name": "T4 a delivered record keeps its own words (P03: \"on site 07:00\")",
+          "pass": true
+        },
+        {
+          "name": "D1 every Full details of a delivery still to come carries the dispatch rule (no driver leaves without firm directions)",
+          "pass": true
+        },
+        {
+          "name": "D2 a delivery with a verified location but no way in is held - in the text, the drawer and Full details (WB13 - GN04 has its way in since v7.84); the label says DIRECTIONS, not ready to send",
+          "pass": true
+        },
+        {
+          "name": "D3 no drop-off yet: the driver is sent to the pit lane (the spot by P33; never named) - text (with P33 GPS and Navigate), driver sheet and Full details (PG01)",
+          "pass": true
+        },
+        {
+          "name": "D4 (measure) still to come: ready to send vs not, and why; delivered units are not counted",
+          "pass": true
+        },
+        {
+          "name": "D5 a drop-off placed at the branch (Edit) reaches the driver sheet as well as the text - it replaces the pit-lane fallback (T0085, in memory only)",
+          "pass": true
+        },
+        {
+          "name": "D6 (measure) every reference on the driver sheet: exact drop-off (pin, master, placed) vs description (water barriers) vs report to the pit lane",
+          "pass": true
+        },
+        {
+          "name": "C1 clocks are always valid, and a time on another day says which (Codex review)",
+          "pass": true
+        },
+        {
+          "name": "C2 a delivery just after midnight plans back into the day before (WB04 unloaded by 00:20: on site by 23:50 the day before, leave Kingston by 22:40 the day before)",
+          "pass": true
+        },
+        {
+          "name": "C3 a load the day before is compared on the calendar, not the clock (23:00 the day before for 09:00: on site 00:10, 530 min to unload)",
+          "pass": true
+        },
+        {
+          "name": "H1 a delivered unit shows its record, not a plan: no Time or Loading row, no time/load checks, no TIME/LOAD/DISPATCH lines (P03)",
+          "pass": true
+        },
+        {
+          "name": "V1 a position the map review left unverified does not count as a drop-off: LTC01 goes to the pit lane - its source still says not verified, and Navigate names the pit lane it goes to (Codex recheck: the tooltip matches the destination)",
+          "pass": true
+        },
+        {
+          "name": "V2 one source label on every surface: P47 is \"confirmed by the project manager\" in the text, Navigate, the pin record and the driver sheet",
+          "pass": true
+        },
+        {
+          "name": "W1 every water barrier has a drop-off from its description - the spot the master marks, or (WB01, WB05, WB06) looked up from the description; none goes to the pit lane",
+          "pass": true
+        },
+        {
+          "name": "W2 \"P33\" is never shown to a driver for a pit-lane fallback (text, driver sheet, drawer, Full details, sign)",
+          "pass": true
+        },
+        {
+          "name": "Z1 every location has its way in by area (the project manager, 2 Oct 2026; zones read off the master D001): the island by the pit lane; seaside from the north end; land side and over the bridge from the south end; Gate 1 by the Tedder Ave access point and Gate 2 by the GC Hwy underpass (D007)",
+          "pass": true
+        },
+        {
+          "name": "Z2 only WB07 (Admiralty Dr) and WB13, WB18, WB20 (Turn 2 / Ferny Ave) still need a way in - the project manager gave the rest on 2 Oct (v7.84)",
+          "pass": true
+        },
+        {
+          "name": "M1 the done tick has its own double beat on the master plan",
+          "pass": true
+        },
+        {
+          "name": "M2 the explorer gets the finished list",
+          "pass": true
+        },
+        {
+          "name": "R11 (measure) a delivery-details link gives way only where a v7.82 line needs the room (ORDER, ENTRY, HOLD, the pit-lane directions, the spot for a water barrier) (the link stays in Full details)",
+          "pass": true
+        },
+        {
+          "name": "R12 no Due line lost against the live page",
+          "pass": true
+        },
+        {
+          "name": "R13 (measure) three-text messages",
+          "pass": true
+        },
+        {
+          "name": "E1 no page errors",
+          "pass": true
+        }
+      ]
+    },
+    {
+      "name": "fresh_after_save",
+      "source": "v7.75_fresh_after_a_save_LIVE/evidence/fresh_after_save_tests.js",
+      "sourceSha256": "84c2cee38a8532be8e6f212bda6b39dacf27ca5d40e0f9c34f04047c215066b2",
+      "exitCode": 0,
+      "passed": 11,
+      "total": 11,
+      "pass": true,
+      "pageErrors": [],
+      "privateRawReport": "/workspace/private-v812-final-cd3159be/standing/fresh_after_save.json",
+      "privateLog": "/workspace/private-v812-final-cd3159be/standing/fresh_after_save.log",
+      "reportSha256": "647971baab9a16889ae7674d53b7dfa23cd3500bcc73b8a4b1ef527d7c0ebe47",
+      "checks": [
+        {
+          "name": "A1 the commit ran inside the held draw (the v7.76 path)",
+          "pass": true
+        },
+        {
+          "name": "A2 the rest of the draw sees the saved record (asset list)",
+          "pass": true
+        },
+        {
+          "name": "A3 the forecast and Rehire models are worked out again after the save",
+          "pass": true
+        },
+        {
+          "name": "A4 after the draw the probe is gone from the list (the page is left as found)",
+          "pass": true
+        },
+        {
+          "name": "B1 a tab change builds the asset list once at most (no save, no rebuild)",
+          "pass": true
+        },
+        {
+          "name": "C1 today the quotes split and the ratios read as before",
+          "pass": true
+        },
+        {
+          "name": "C2 quotes not approved: Transport and Consumables Recovery wait, and say why",
+          "pass": true
+        },
+        {
+          "name": "C3 quotes not splitting to the cent: Transport and Consumables Recovery wait, and say why",
+          "pass": true
+        },
+        {
+          "name": "C4 put back: the ratios read as before",
+          "pass": true
+        },
+        {
+          "name": "A5 leaving a big pane (emptied inside the hold) commits a typed box; the draw sees the save",
+          "pass": true
+        },
+        {
+          "name": "A6 on an editing link the tab bar that save() redraws reads the edit",
+          "pass": true
+        }
+      ]
+    }
+  ]
+}

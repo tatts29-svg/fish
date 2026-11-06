@@ -1,0 +1,87 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"there is a VMS05 now asset no 1211356 Rego no ER9244 pinned location 27°58'57.5\\\"S 153°25'28.7\\\"E\" (= -27.982639, 153.424639). On 19 Oct VMS05 was removed (T0001 quantity 7, supplied 7). VMS05 is a Coates board on T0001 (\"VMS x 8\", the Coates boards VMS01-08); no contract line names it or 1211356 yet - page v10.80 puts it on the register on his word. The pin is 34 m from VMS plan position 05a (\"Relocate VMS05 to Gold Coast Highway (southbound), PB3\"). Not said to be installed, so nothing is ticked. Same day, Andrew's pins for VMS07 (https://maps.app.goo.gl/52F2ieQfjar4jAn96 -> -27.985575, 153.429741; plan 07a, 20 m), VMS13 (-27.98178329772029, 153.42445159739486; plan 13, 43 m), VMS14 (-27.98257576843371, 153.4243927676852; plan 14, 57 m), VMS16 (-27.981781685729203, 153.42914032314948; plan 16, 9 m) and VMS17 (-27.981594044132482, 153.4270381140577; plan 17, 101 m), rounded to 6 places as the page keeps them. And VMS19 (-27.985077763788354, 153.42726708916737; plan 19).",
+ "ops": [
+  {
+   "op": "set_qty",
+   "ref": "T0001",
+   "qty": ""
+  },
+  {
+   "op": "supplied",
+   "ref": "T0001",
+   "item": "VMS",
+   "qty": 8
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "T0001",
+   "no": "1211356",
+   "item": "VMS",
+   "owner": "coates",
+   "label": "VMS05",
+   "note": "Arrival recorded by Andrew Fisher, 20 Oct 2026. Rego ER9244. Coates; no contract line yet."
+  },
+  {
+   "op": "vms_board",
+   "key": "VMS05",
+   "fleet": "1211356",
+   "rego": "ER9244",
+   "on": "T0001"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "05a",
+   "lat": -27.982639,
+   "lon": 153.424639,
+   "how": "Andrew Fisher's pinned location for VMS05, 20 Oct 2026 (27°58'57.5\"S 153°25'28.7\"E)"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "07a",
+   "lat": -27.985575,
+   "lon": 153.429741,
+   "how": "Andrew Fisher's pinned location for VMS07, 20 Oct 2026"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "13",
+   "lat": -27.981783,
+   "lon": 153.424452,
+   "how": "Andrew Fisher's pinned location for VMS13, 20 Oct 2026"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "14",
+   "lat": -27.982576,
+   "lon": 153.424393,
+   "how": "Andrew Fisher's pinned location for VMS14, 20 Oct 2026"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "16",
+   "lat": -27.981782,
+   "lon": 153.42914,
+   "how": "Andrew Fisher's pinned location for VMS16, 20 Oct 2026"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "17",
+   "lat": -27.981594,
+   "lon": 153.427038,
+   "how": "Andrew Fisher's pinned location for VMS17, 20 Oct 2026"
+  },
+  {
+   "op": "vms_plan",
+   "pos": "19",
+   "lat": -27.985078,
+   "lon": 153.427267,
+   "how": "Andrew Fisher's pinned location for VMS19, 20 Oct 2026"
+  },
+  {
+   "op": "note_append",
+   "ref": "T0001",
+   "text": "VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet."
+  }
+ ]
+}

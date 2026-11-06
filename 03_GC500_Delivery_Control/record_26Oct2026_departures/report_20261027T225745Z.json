@@ -1,0 +1,506 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T225745Z",
+ "finished": "2026-10-27T22:58:26.627Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026: \"1244536 1211383 1211370 these 3 left site at 9:30AM\", then \"sorry left at 8:30AM\". 1244536 is GN25's only unit (Coates 20 kVA generator, booked for pick-up 28 Oct 07:00 with LT05/06), so GN25 leaves in full. 1211383 (vms8) and 1211370 (vms2) are two of the eight VMS boards on T0001; the other boards stay unless already recorded as gone. Left site 28 Oct 2026 08:30 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN25",
+    "at": "2026-10-28T08:30:00+10:00",
+    "nos": [
+     "1244536"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "T0001",
+    "at": "2026-10-28T08:30:00+10:00",
+    "nos": [
+     "1211383",
+     "1211370"
+    ],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11641,
+  "after": 11643
+ },
+ "updated": {
+  "before": "2026-10-27T22:32:15.428Z",
+  "after": "2026-10-27T22:58:25.686Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN25",
+   "at": "2026-10-28T08:30:00+10:00",
+   "nos": [
+    "1244536"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T08:30:00+10:00, recorded by Andrew Fisher: 1 x 20kva 1244536 - GN25 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "T0001",
+   "at": "2026-10-28T08:30:00+10:00",
+   "nos": [
+    "1211383",
+    "1211370"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-28T08:30:00+10:00, recorded by Andrew Fisher: 2 x VMS 1211370, 1211383 - still to leave: 6 x VMS"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0001",
+   "status": 200
+  },
+  {
+   "key": "delivery/GN25",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1211356": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a972a3f8-103f-45ff-95d1-bed613e924cd"
+     },
+     "coates|1182999": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211370": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1182999",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211356",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211370",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0001"
+   },
+   "delivery/GN25": {
+    "state": "on site",
+    "set_at": "2026-10-19T01:30:05.189Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T06:13:41.512Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1244536": {
+      "on": true,
+      "at": "2026-10-26T18:20:18.866Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1244536": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with LT5 & 6",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:02:21.574Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T01:30:05.729Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.367Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T01:30:05.189Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T01:30:05.729Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T06:13:41.512Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1244536",
+      "ready": true,
+      "at": "2026-10-26T18:20:18.866Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1244536",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with LT5 & 6",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:02:21.574Z"
+     }
+    ],
+    "_k": "GN25"
+   }
+  },
+  "after": {
+   "delivery/T0001": {
+    "state": "on site",
+    "set_at": "2026-09-06T21:00:00Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1211356": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a972a3f8-103f-45ff-95d1-bed613e924cd"
+     },
+     "coates|1182999": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211370": {
+      "on": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "12:00",
+    "note": "All eight boards turned up 07 Sep and are complete · time is the rental contract’s 07:00 hire start, not a time recorded on site · entered 14 Sep 13:56 from site notes VMS05 back 20 Oct 2026 (Andrew): Coates 1211356, rego ER9244, at 05a - Gold Coast Hwy southbound, PB3 - pinned -27.982639, 153.424639. No contract line yet.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-06T21:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T22:58:09.477Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "4da8856a-7198-4495-ab0d-6ebda548a538",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T08:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-06T21:00:00Z",
+       "requiredKey": "[[\"vms\",8]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "VMS",
+         "n": 2,
+         "unitIds": [
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+          "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]"
+         ],
+         "numbers": [
+          "1211370",
+          "1211383"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211370\"]",
+           "number": "1211370",
+           "owner": "coates",
+           "item": "VMS"
+          },
+          {
+           "id": "[\"T0001\",\"coates\",\"native\",\"vms:1211383\"]",
+           "number": "1211383",
+           "owner": "coates",
+           "item": "VMS"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1182999",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211356",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211370",
+      "ready": true,
+      "at": "2026-10-26T20:16:25.775Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0001"
+   },
+   "delivery/GN25": {
+    "state": "in transit",
+    "set_at": "2026-10-27T22:58:08.197Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T06:13:41.512Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1244536": {
+      "on": true,
+      "at": "2026-10-26T18:20:18.866Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1244536": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with LT5 & 6",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:02:21.574Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T22:58:08.197Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.367Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T01:30:05.189Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T22:58:08.197Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "9b7cc753-6c02-4617-95a0-127f6d63b8ed",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T08:30:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T01:30:05.189Z",
+       "requiredKey": "[[\"20kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "20kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN25\",\"coates\",\"asset\",\"1244536\"]"
+         ],
+         "numbers": [
+          "1244536"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN25\",\"coates\",\"asset\",\"1244536\"]",
+           "number": "1244536",
+           "owner": "coates",
+           "item": "20kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T01:30:05.729Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T22:58:08.197Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T06:13:41.512Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1244536",
+      "ready": true,
+      "at": "2026-10-26T18:20:18.866Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1244536",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with LT5 & 6",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:02:21.574Z"
+     }
+    ],
+    "_k": "GN25"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

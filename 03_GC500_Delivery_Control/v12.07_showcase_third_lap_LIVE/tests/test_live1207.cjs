@@ -1,0 +1,15 @@
+/* Author: Andrew Fisher. Actual public-page scene verification, no candidate substitution. */
+const fs=require('fs'),path=require('path'),{open}=require('../../toolchain/harness/open_page');
+(async()=>{const out=process.env.OUT;fs.mkdirSync(out,{recursive:true});const h=await open({gl:true,W:390,H:844,mobile:true,dpr:1}),p=h.page,checks=[];
+const check=(name,ok,detail)=>{checks.push({name,ok:!!ok,detail});console.log((ok?'PASS ':'FAIL ')+name);};
+try{await p.waitForFunction(()=>typeof SYNC!=='undefined'&&SYNC.status==='live'&&window.ShowcaseIncident1195,null,{timeout:180000});const record=await p.evaluate(()=>JSON.stringify(S));
+ check('actual public page contains the released scene',h.counts.page===0&&await p.evaluate(()=>ShowcaseIncident1207.version===1207&&ShowcaseIncident1207.interval===3));
+ await p.evaluate(()=>{window.live1195render=GC3D.render;GC3D.render=()=>{};GC3D.frame=()=>{};localStorage.setItem('gc500.showquality','balanced');localStorage.setItem('gc500.showback','circuit3d_day');localStorage.setItem('gc500.showvehicle','fencing_truck');showOpen();showPause();});
+ await p.waitForFunction(()=>GC3D.S?.cv?.isConnected&&!ShowcaseSmooth1157.state().pending,null,{timeout:180000});
+ await p.evaluate(()=>{const G=GC3D,Q=G.S,A=ShowcaseIncident1195;Q.shadowOff=true;Q.reflOff=true;Q.bloom=false;Q.o.ss=1;Q.clock=33;A.update(Q);Q.sim.s=Q.gridS+3*Q.CL.L;A.update(Q);const P=A.placement(Q);Q.incident1195.place=P;Q.sim.s=P.at+3*Q.CL.L-8*P.scale;Q.sim.lat=0;Q.sim.air=0;Q.sim.pitch=Q.sim.roll=0;Q.forceShot=null;G.pose();G.camStep(0);G.render=live1195render;G.render();window.live1195fence=Q.gl.fenceSync(Q.gl.SYNC_GPU_COMMANDS_COMPLETE,0);Q.gl.flush();});
+ await p.waitForFunction(()=>GC3D.S.gl.clientWaitSync(live1195fence,0,0)!==GC3D.S.gl.TIMEOUT_EXPIRED,null,{timeout:240000,polling:200});
+ const r=await p.evaluate(()=>{const Q=GC3D.S;Q.gl.deleteSync(live1195fence);return {scene:ShowcaseIncident1195.state(),view:Q.shotName,logos:ShowcaseIncident1195.model().stats.logoCopies,error:Q.gl.getError(),truck:GC3D.plantModel('fencing_truck','high').stats.detailVersion};});
+ check('public third-lap scene renders with both wordmarks',r.scene.active&&r.scene.lap===3&&r.scene.draws===1&&r.scene.personDraws===1&&r.logos===2&&r.error===0&&r.view==='incident1195',r);check('loaded fencing truck and clarity remain present',r.truck===1192);
+ await p.screenshot({path:path.join(out,'public-phone.png'),timeout:180000});await p.evaluate(()=>showClose());check('public scene closes cleanly',await p.evaluate(()=>!GC3D.S&&!ShowcaseSmooth1157.state().pending));check('shared record unchanged',record===await p.evaluate(()=>JSON.stringify(S)));check('zero page errors and attempted writes',h.errors.length===0&&h.counts.blocked===0,{errors:h.errors,writes:h.counts.blocked});
+}finally{await h.browser.close();fs.writeFileSync(path.join(out,'checks.json'),JSON.stringify(checks,null,2));}console.log(checks.filter(c=>c.ok).length+'/'+checks.length);process.exit(checks.length&&checks.every(c=>c.ok)?0:1);
+})().catch(e=>{console.error(e);process.exit(2)});

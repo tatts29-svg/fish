@@ -1,0 +1,17 @@
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html?embed=1
+Call log:
+[2m  - navigating to "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html?embed=1", waiting until "load"[22m
+
+    at run (/home/user/fish/03_GC500_Delivery_Control/v7.58_the_explorer_zooms_quicker_DRAFT/evidence/practice_tests.js:14:13)
+    at async /home/user/fish/03_GC500_Delivery_Control/v7.58_the_explorer_zooms_quicker_DRAFT/evidence/practice_tests.js:37:57 {
+  log: [
+    '  - navigating to "https://gc500-production.up.railway.app/w/Coates-GC500-2026/explorer/index.html?embed=1", waiting until "load"'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.22.2

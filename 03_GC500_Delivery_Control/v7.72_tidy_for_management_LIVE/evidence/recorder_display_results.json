@@ -1,0 +1,100 @@
+{
+  "author": "Andrew Fisher",
+  "fixture": "synthetic only",
+  "passed": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "all eleven recorder replacements apply exactly once",
+      "pass": true
+    },
+    {
+      "name": "shared HTML escaper remains byte-for-byte unchanged",
+      "pass": true
+    },
+    {
+      "name": "only explicit recorder call sites use the new helper",
+      "pass": true
+    },
+    {
+      "name": "reference note input retains its original renderer",
+      "pass": true
+    },
+    {
+      "name": "issue description input retains its original renderer",
+      "pass": true
+    },
+    {
+      "name": "variance reason input retains its original renderer",
+      "pass": true
+    },
+    {
+      "name": "generic editable field input retains its original renderer",
+      "pass": true
+    },
+    {
+      "name": "editable note text preserved: Checked via Claude during inspection",
+      "pass": true
+    },
+    {
+      "name": "editable note text preserved: Discussed via Codex and confirmed",
+      "pass": true
+    },
+    {
+      "name": "editable note text preserved: Delivered via Claudette",
+      "pass": true
+    },
+    {
+      "name": "editable note text preserved: Note ends via Claude",
+      "pass": true
+    },
+    {
+      "name": "editable note text preserved: Note ends via Codex (reviewed)",
+      "pass": true
+    },
+    {
+      "name": "recorder-only suffix hidden:  via Codex",
+      "pass": true
+    },
+    {
+      "name": "recorder-only suffix hidden:  via Claude",
+      "pass": true
+    },
+    {
+      "name": "recorder-only suffix hidden:  via Codex (reviewed)",
+      "pass": true
+    },
+    {
+      "name": "recorder-only suffix hidden:  via Claude (reviewed)",
+      "pass": true
+    },
+    {
+      "name": "non-suffix recorder text preserved: Alex via Claudette",
+      "pass": true
+    },
+    {
+      "name": "non-suffix recorder text preserved: Alex via Claude during inspection",
+      "pass": true
+    },
+    {
+      "name": "non-suffix recorder text preserved: Alex via Codex and Sam",
+      "pass": true
+    },
+    {
+      "name": "HTML escaping remains safe for notes and recorder names",
+      "pass": true
+    },
+    {
+      "name": "display helper never mutates its source record",
+      "pass": true
+    },
+    {
+      "name": "embedded source data remains unchanged",
+      "pass": true
+    },
+    {
+      "name": "duplicate patch refused without file changes",
+      "pass": true
+    }
+  ]
+}

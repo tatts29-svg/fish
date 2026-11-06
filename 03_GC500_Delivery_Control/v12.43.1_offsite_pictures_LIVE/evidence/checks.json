@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD; not live",
+  "source_commit": "6f138f49715aad0ede3088416a07dbbf1113f6b4",
+  "base_sha256": "7efda7e067d34b1455d8da9e3de29c695d4d216afc072e49e27754295a09976f",
+  "candidate_sha256": "174b7f4c51c46696caa44610eb31b1339c5f3e54dc573fb45c0b652d6f8133ff",
+  "bytes": 16040506,
+  "inline_scripts": 214,
+  "source_ring_checks": 41,
+  "native_wrapper_checks": 15,
+  "integrated_cache_checks": 256,
+  "native_ring_lifecycle_checks": 8,
+  "preservation_checks": 34,
+  "sweeps": {
+    "desktop": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": "#plant",
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    },
+    "phone": {
+      "tabs": 27,
+      "deep_links": 7,
+      "back": "#plant",
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "writes": 0
+    }
+  },
+  "phone_screenshots_inspected": true,
+  "publisher": "Claude",
+  "limits": [
+    "Native ring diagnostics use a private observable copy; pictures also checked on unmodified candidate.",
+    "CSS mode lifecycle checks do not certify 3D renderer performance.",
+    "No whole-site smoothness or final-bill certification.",
+    "Upload and public-byte read-back not yet performed."
+  ]
+}

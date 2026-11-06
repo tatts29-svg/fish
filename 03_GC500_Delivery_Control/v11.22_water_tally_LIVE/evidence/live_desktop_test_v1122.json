@@ -1,0 +1,105 @@
+{
+ "at": "2026-10-22T07:52:09.609Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "tracker definition: \"Water checked\" is a task, an extra, on the clean code, in the FWF and accessible night plan",
+   "ok": true,
+   "detail": {
+    "extras": [
+     "check",
+     "refill"
+    ],
+    "planFwf": [
+     "pump",
+     "clean",
+     "check",
+     "refill"
+    ],
+    "cleanGroup": [
+     "clean",
+     "lockup",
+     "check",
+     "refill"
+    ]
+   }
+  },
+  {
+   "name": "panel completion meter renders (made-up ticks: two cleans count, checks and refills do not)",
+   "ok": true,
+   "detail": "0%Not started0 / 75 references2 / 510 jobs20%40%60%80%100%"
+  },
+  {
+   "name": "water line: \"Water checked · 2 of N units · refilled 1 (FWF 1, accessible 0)\", not in the completion %",
+   "ok": true,
+   "detail": "0%Water checked · 2 of 242 units · refilled 1 (FWF 1, accessible 0)tracked on its own · not in the completion %"
+  },
+  {
+   "name": "a small water line on each area with FWF or accessible units; area 1 shows 2 checked, 1 refilled",
+   "ok": true,
+   "detail": {
+    "areaWater": 15,
+    "areaTexts": [
+     "8%Water checked · 2 of 25 units · refilled 1tracked on its own · not in the completion %",
+     "0%Water checked · 0 of 10 units · refilled 0tracked on its own · not in the completion %"
+    ]
+   }
+  },
+  {
+   "name": "\"Water checked\" and \"Refilled\" are not among the counted jobs; the table shows them as \"not in %\" columns",
+   "ok": true,
+   "detail": {
+    "tasks": [
+     "Pump out0 of 251 · 0%",
+     "Clean & restock2 of 259 · 0%"
+    ],
+    "cols": [
+     "Reference",
+     "Pump out",
+     "Clean & restock",
+     "Water checked not in %",
+     "Refilled not in %"
+    ]
+   }
+  },
+  {
+   "name": "card template publishes with the water tally and the new hint; its data carries the Water checked job",
+   "ok": true,
+   "detail": {
+    "len": 110891
+   }
+  },
+  {
+   "name": "crew card (view mode): a water line under the Everything bar reading \"Water checked · 0 of N · refilled 0\", and a small one on each area header",
+   "ok": true,
+   "detail": {
+    "barsWater": true,
+    "small": 15,
+    "barsText": "Everything · Thursday 22 0% 0 of 75 references · 0 of 510 jobs 510 jobs to go · 75 references left 0% Water checked · 0 of 242 · refilled 0 (FWF 0, accessible 0) not in the completion %",
+    "errors": 0
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 67,
+    "blocked": 0
+   }
+  }
+ ]
+}

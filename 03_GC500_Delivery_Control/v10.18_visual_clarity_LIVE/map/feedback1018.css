@@ -1,0 +1,7 @@
+/* Author: Andrew Fisher. Existing orange identity; finite feedback and a steady selected ring. */
+#mapTap1018{position:fixed;z-index:1000;pointer-events:none;border:2px solid #ff9a4d;box-shadow:0 0 0 1px #1b1009,0 0 14px #ff9a4d99;box-sizing:border-box;opacity:.95}
+.pulse i{display:none;animation:none}
+.pulse b{border:2px solid #ff9a4d;box-shadow:0 0 0 1px #1b1009,0 0 12px #ff9a4d99;animation:mapSelected1018 .9s ease-out 1 both;will-change:opacity}
+@keyframes mapSelected1018{0%,25%{opacity:.95}60%{opacity:.35}80%{opacity:.8}100%{opacity:0}}
+.pulse.motion1018-off b{animation:none;opacity:.85}
+@media(prefers-reduced-motion:reduce){.pulse b{animation:none;opacity:.85}}

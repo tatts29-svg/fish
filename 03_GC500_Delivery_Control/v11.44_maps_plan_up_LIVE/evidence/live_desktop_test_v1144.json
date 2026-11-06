@@ -1,0 +1,115 @@
+{
+ "at": "2026-10-22T23:24:59.535Z",
+ "live": true,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the plan’s frame: a point 200 m east (toward the beach) sits higher on the map, a point 220 m south sits to the right, both maps share the fit, and the Gate 7 crossing lands at its sheet point (108, 461) within 2 pt",
+   "ok": true,
+   "detail": {
+    "east": {
+     "dx": 0.6920006982982159,
+     "dy": -278.35095051676035
+    },
+    "south": {
+     "dx": 313.8924228399992,
+     "dy": 0.7276168167591095
+    },
+    "same": true,
+    "gate7": [
+     107.96532233431935,
+     460.93775936961174
+    ]
+   }
+  },
+  {
+   "name": "the removals map: imagery placed through the matrix from a local origin (tile coordinates small, the first tile within the map), five pins and five routes, VMS 16’s spot behind 2 Breaker St above its board (east is up), 29 m",
+   "ok": true,
+   "detail": {
+    "n": 60,
+    "z": 17,
+    "tf": "matrix(",
+    "first": [
+     -5040,
+     -1392
+    ],
+    "bbIn": true,
+    "pins": 5,
+    "routes": 5,
+    "spotAbove": true,
+    "m16": 29
+   }
+  },
+  {
+   "name": "the removals map really draws the imagery",
+   "ok": true,
+   "detail": {
+    "mean": 93,
+    "sd": 70
+   }
+  },
+  {
+   "name": "the \"Where it is\" map under the explorer: 41 pins of 42 references, tiles placed through the matrix, VMS 10 (Old Burleigh Rd, south) well to the right of VMS 01 (north), GN25 still without a position",
+   "ok": true,
+   "detail": {
+    "n": 40,
+    "z": 15,
+    "pins": 41,
+    "items": 42,
+    "southRight": true,
+    "gn25none": true,
+    "tf": "matrix("
+   }
+  },
+  {
+   "name": "6400% on GN23 centres the view on its sheet point at zoom 19 or 20",
+   "ok": true,
+   "detail": {
+    "pct": 6400,
+    "dx": 0,
+    "dy": 0,
+    "z": 20
+   }
+  },
+  {
+   "name": "the zoomed map really draws the imagery",
+   "ok": true,
+   "detail": {
+    "mean": 84.9,
+    "sd": 58.4
+   }
+  },
+  {
+   "name": "the finder’s \"VMS 10\" still lands on the VMS boards map at 1600% centred on the board, now in the plan’s frame; 28 pins there",
+   "ok": true,
+   "detail": {
+    "tab": "vms",
+    "pct": 1600,
+    "dx": 0,
+    "dy": 0,
+    "pins": 28
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "live": 535,
+    "blocked": 0
+   }
+  }
+ ]
+}

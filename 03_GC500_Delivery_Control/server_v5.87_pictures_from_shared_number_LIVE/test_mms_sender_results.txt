@@ -1,0 +1,15 @@
+PASS health says v5.87
+PASS shared: the brief names a ClickSend shared number and needs nothing more
+PASS shared: the dry run sends nothing and names the shared number
+PASS shared: the picture message is accepted (200)
+PASS shared: ClickSend is asked with NO "from" on every message
+PASS shared: the media file and recipient still go
+PASS shared: the plain text still goes from SMS_FROM
+PASS shared: the start-up banner says pictures go from a ClickSend shared number
+PASS unset: pictures go from SMS_FROM, as v5.86
+PASS unset: the brief names SMS_FROM
+PASS number: pictures go from MMS_FROM (spaces removed)
+PASS number: texts still go from SMS_FROM
+PASS no sender: a picture is refused 501 and ClickSend is not asked
+PASS MMS_FROM=shared with no SMS_FROM: the picture goes, with no "from"
+14/14 v5.87 sender checks passed

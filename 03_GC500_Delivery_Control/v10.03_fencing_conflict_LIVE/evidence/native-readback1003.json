@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "version": 5407,
+  "docket": "36560",
+  "id": "F-AFV-0002",
+  "storedCount": 1,
+  "pricedCount": 1,
+  "quantities": {
+    "clean": 507.5,
+    "ccb_demarc": 447.5,
+    "ped_gates": 1
+  },
+  "recordedRevenueExGst": 14091.04,
+  "recordedDirectCostsExGst": 7527.5,
+  "firstAndRepeatNotices": 0,
+  "guardedRunnerWrites": 0,
+  "guardedRunnerResult": "Already clean after the published reconciliation; no additional native write needed",
+  "recentDeliveryUpdatesIntact": [
+    "GN13",
+    "P45"
+  ],
+  "testWrites": 0,
+  "errors": []
+}

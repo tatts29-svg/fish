@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "comparedWith": "abbb01baf3318d39d970313063c29cdb30990d33",
+  "regions": {
+    "planner_and_gate_before_renderDemob816": {
+      "unchanged": true,
+      "sha256_abbb01b": "2a5194d1cbdb852379a7d02e9f32ef98b97a1f4232cd367df7f1a0b9683a44fd",
+      "sha256_8c821da": "2a5194d1cbdb852379a7d02e9f32ef98b97a1f4232cd367df7f1a0b9683a44fd"
+    },
+    "confirm816": {
+      "unchanged": true,
+      "sha256_abbb01b": "15f65cddfa92010590ead7d12be83089d6fe0d46e28e5a545a554767b15bee28",
+      "sha256_8c821da": "15f65cddfa92010590ead7d12be83089d6fe0d46e28e5a545a554767b15bee28"
+    }
+  },
+  "timelinePatchAndDrawer": "Byte-identical; previous 17/17 result retained, not rerun."
+}

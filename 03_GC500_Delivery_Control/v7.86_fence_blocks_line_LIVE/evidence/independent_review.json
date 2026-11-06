@@ -1,0 +1,70 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed_utc": "2026-10-01T22:44:23.576887+00:00",
+  "release": "v7.86",
+  "candidate": {
+    "bytes": 8838586,
+    "sha256": "0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425",
+    "base_sha256": "2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297"
+  },
+  "scope": [
+    "Disable incomplete Track detail button while preserving the existing Showcase",
+    "Add settled Fence blocks line; supplier block cost remains unknown"
+  ],
+  "source_review": {
+    "diff_hunks": 3,
+    "existing_showcase_source_preserved": true,
+    "no_record_mutation": true
+  },
+  "checks": {
+    "track-desktop": {
+      "passed": 4,
+      "total": 4
+    },
+    "track-phone": {
+      "passed": 4,
+      "total": 4
+    },
+    "fence-desktop": {
+      "passed": 8,
+      "total": 8
+    },
+    "fence-phone": {
+      "passed": 8,
+      "total": 8
+    },
+    "sweep-desktop": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "sweep-phone": {
+      "tabs": 21,
+      "deep_links": 7,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "static": {
+      "inline_scripts": 6,
+      "passed": true,
+      "new_keys": 0
+    },
+    "official_dry_run": {
+      "passed": true,
+      "fresh_base_matches": true,
+      "upload_performed": false
+    },
+    "phone_visual": {
+      "inspected": true,
+      "viewport": "390x844, DPR 2",
+      "original_car_and_scene_visible": true,
+      "normal_controls_reachable": true,
+      "partial_detail_button_absent": true,
+      "errors": 0,
+      "blocked_writes": 0,
+      "limitation": "Emulated phone in Chromium; no physical handset performance claim"
+    }
+  },
+  "review_outcome": "PASS \u2014 ready for official publication; not uploaded by reviewer"
+}

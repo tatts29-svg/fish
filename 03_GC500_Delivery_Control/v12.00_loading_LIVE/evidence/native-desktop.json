@@ -1,0 +1,136 @@
+{
+  "author": "Andrew Fisher",
+  "mobile": false,
+  "checks": [
+    {
+      "name": "no hidden explorer loaded at startup",
+      "ok": true
+    },
+    {
+      "name": "idle warm cannot start hidden map",
+      "ok": true
+    },
+    {
+      "name": "finder query",
+      "ok": true
+    },
+    {
+      "name": "finder epoch",
+      "ok": true
+    },
+    {
+      "name": "finder stable",
+      "ok": true
+    },
+    {
+      "name": "finder documents",
+      "ok": true
+    },
+    {
+      "name": "finder view",
+      "ok": true
+    },
+    {
+      "name": "finder record",
+      "ok": true
+    },
+    {
+      "name": "finder results",
+      "ok": true
+    },
+    {
+      "name": "document book once",
+      "ok": true
+    },
+    {
+      "name": "document book precedence",
+      "ok": true
+    },
+    {
+      "name": "document book missing",
+      "ok": true
+    },
+    {
+      "name": "document book nextRead",
+      "ok": true
+    },
+    {
+      "name": "document book restore",
+      "ok": true
+    },
+    {
+      "name": "50 images decode and remain usable in same-origin canvas",
+      "ok": true
+    },
+    {
+      "name": "all five print fonts embed successfully",
+      "ok": true
+    },
+    {
+      "name": "print renderer embeds external SVG icon pixels",
+      "ok": true
+    },
+    {
+      "name": "failed extracted image offers retry",
+      "ok": true
+    },
+    {
+      "name": "retry restores the original image",
+      "ok": true
+    },
+    {
+      "name": "independent P&L rendered",
+      "ok": true
+    },
+    {
+      "name": "independent P&L groupValues",
+      "ok": true
+    },
+    {
+      "name": "independent P&L revenue",
+      "ok": true
+    },
+    {
+      "name": "independent P&L costs",
+      "ok": true
+    },
+    {
+      "name": "independent P&L difference",
+      "ok": true
+    },
+    {
+      "name": "independent P&L totalRows",
+      "ok": true
+    },
+    {
+      "name": "independent P&L grossMargin",
+      "ok": true
+    },
+    {
+      "name": "independent P&L differenceShown",
+      "ok": true
+    },
+    {
+      "name": "independent P&L overheads",
+      "ok": true
+    },
+    {
+      "name": "independent P&L fencing",
+      "ok": true
+    },
+    {
+      "name": "independent P&L fencingHandover",
+      "ok": true
+    },
+    {
+      "name": "independent P&L gaps",
+      "ok": true
+    },
+    {
+      "name": "no page errors or attempted writes",
+      "ok": true
+    }
+  ],
+  "errors": [],
+  "attemptedWrites": 0
+}

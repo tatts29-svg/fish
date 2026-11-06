@@ -1,0 +1,155 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T224602Z",
+ "finished": "2026-10-16T22:46:13.481Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026: \"yes delete\" (asked: delete WC32 and T0019, still on the page as cancelled). WC32 (Toilets): cancelled 3 Oct 20:11 on Andrew's word (\"wc32 is cancelled\"), entered by the other agent; the customer's 2 Oct master plan also dropped it; no number. T0019 (Generator 200kva): taken off its day 14 Sep by Andrew - the row's own note: WAS GN22 NOW 350KVA GN22-GN20; the set is GN20 (1276701); no number. Tested in page memory: every charge unchanged; 1276701 stays on GN20.",
+  "refs": [
+   "WC32",
+   "T0019"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "WC32",
+    "why": "Cancelled 3 Oct 2026 (Andrew: \"wc32 is cancelled\"); deleted on his word 17 Oct"
+   },
+   {
+    "op": "asset_delete",
+    "ref": "T0019",
+    "why": "Taken off its day 14 Sep 2026 by Andrew; replaced by GN20 (350 kVA, 1276701); deleted on his word 17 Oct"
+   }
+  ]
+ },
+ "pageSha256": "03ebb3cc0f1e4e4d630da2ea5792a9920212f9ca244773a5629f56cc2e4a8a72",
+ "version": {
+  "before": 9612,
+  "after": 9622
+ },
+ "updated": {
+  "before": "2026-10-16T22:42:20.353Z",
+  "after": "2026-10-16T22:46:12.612Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "WC32",
+   "why": "Cancelled 3 Oct 2026 (Andrew: \"wc32 is cancelled\"); deleted on his word 17 Oct",
+   "result": "deleted for good - Cancelled 3 Oct 2026 (Andrew: \"wc32 is cancelled\"); deleted on his word 17 Oct"
+  },
+  {
+   "op": "asset_delete",
+   "ref": "T0019",
+   "why": "Taken off its day 14 Sep 2026 by Andrew; replaced by GN20 (350 kVA, 1276701); deleted on his word 17 Oct",
+   "result": "deleted for good - Taken off its day 14 Sep 2026 by Andrew; replaced by GN20 (350 kVA, 1276701); deleted on his word 17 Oct"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~WC32",
+   "status": 200
+  },
+  {
+   "key": "stamps/notes~2f~asset~2f~T0019",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~WC32",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~T0019",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~WC32",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~T0019",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~WC32",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~WC32",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~T0019",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~T0019",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~WC32": null,
+   "stamps/notes~2f~asset~2f~T0019": null,
+   "notes/asset~2f~WC32": null,
+   "notes/asset~2f~T0019": null,
+   "deleted/asset~2f~WC32": null,
+   "deleted/asset~2f~T0019": null,
+   "by/deleted~2f~asset~2f~WC32": null,
+   "by/notes~2f~asset~2f~WC32": null,
+   "by/deleted~2f~asset~2f~T0019": null,
+   "by/notes~2f~asset~2f~T0019": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~WC32": {
+    "_k": "notes/asset/WC32",
+    "v": "2026-10-16T22:46:09.445Z"
+   },
+   "stamps/notes~2f~asset~2f~T0019": {
+    "_k": "notes/asset/T0019",
+    "v": "2026-10-16T22:46:10.028Z"
+   },
+   "notes/asset~2f~WC32": {
+    "_k": "asset/WC32",
+    "v": "Deleted 17 Oct 08:46 by Andrew Fisher — Cancelled 3 Oct 2026 (Andrew: \"wc32 is cancelled\"); deleted on his word 17 Oct"
+   },
+   "notes/asset~2f~T0019": {
+    "_k": "asset/T0019",
+    "v": "Deleted 17 Oct 08:46 by Andrew Fisher — Taken off its day 14 Sep 2026 by Andrew; replaced by GN20 (350 kVA, 1276701); deleted on his word 17 Oct"
+   },
+   "deleted/asset~2f~WC32": {
+    "_k": "asset/WC32",
+    "v": "2026-10-16T22:46:09.445Z"
+   },
+   "deleted/asset~2f~T0019": {
+    "_k": "asset/T0019",
+    "v": "2026-10-16T22:46:10.028Z"
+   },
+   "by/deleted~2f~asset~2f~WC32": {
+    "_k": "deleted/asset/WC32",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~WC32": {
+    "_k": "notes/asset/WC32",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~asset~2f~T0019": {
+    "_k": "deleted/asset/T0019",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~T0019": {
+    "_k": "notes/asset/T0019",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

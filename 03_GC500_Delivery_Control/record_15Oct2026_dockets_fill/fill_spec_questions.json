@@ -1,0 +1,150 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 15 Oct 2026 about 16:30 AEST: 'You have all the data, you are the brains, I need you to work it out.' Each note below is read off the record, the Baseplan export of 15 Oct, Schedule 9, Advanced's weekly approval sheets and the 2026 card as the page holds them; where a source is silent the note says what rule is applied until a person says otherwise.",
+ "ops": [
+  {
+   "op": "unit_reidentify",
+   "ref": "P63",
+   "no": "960719",
+   "item": "Building 6m",
+   "owner": "coates",
+   "note": "Identified from the record and Baseplan line 121 (Delivered, 960719), 15 Oct 2026."
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "P65",
+   "no": "1327217",
+   "item": "Building 6m",
+   "owner": "coates",
+   "note": "Identified from the record and Baseplan line 110 (Delivered, 1327217), 15 Oct 2026."
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "P66",
+   "no": "1327222",
+   "item": "Building 6m",
+   "owner": "coates",
+   "note": "Identified from the record and docket 26126001 (14 Oct, 1327222), 15 Oct 2026."
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC31",
+   "no": "1317645",
+   "item": "Accessible Toilet",
+   "owner": "coates",
+   "note": "Coates accessible toilet: Baseplan line 97 (Delivered) carries 1317645 as Toilet - Accessible."
+  },
+  {
+   "op": "number_off",
+   "ref": "WC51",
+   "no": "1197174",
+   "why": "typed as a plain number; recorded again below as the unit it is"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC51",
+   "no": "1197174",
+   "item": "Accessible Toilet",
+   "owner": "coates",
+   "note": "The accessible toilet Andrew confirmed on site 15 Oct 2026 (number 1197174); it was typed as a plain number."
+  },
+  {
+   "op": "number_off",
+   "ref": "WC09",
+   "no": "1268858",
+   "why": "typed as a plain number; recorded again below as the unit it is"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC09",
+   "no": "1268858",
+   "item": "Toilet Block 6m",
+   "owner": "coates",
+   "note": "Toilet block, Baseplan line 103 and docket of 12 Oct; it was typed as a plain number."
+  },
+  {
+   "op": "number_off",
+   "ref": "WC09",
+   "no": "1311146",
+   "why": "typed as a plain number; recorded again below as the unit it is"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "WC09",
+   "no": "1311146",
+   "item": "Toilet Block 6m",
+   "owner": "coates",
+   "note": "Toilet block, Baseplan line 105 and docket of 12 Oct; it was typed as a plain number."
+  },
+  {
+   "op": "answer",
+   "id": "fe-quote",
+   "text": "No lump-sum quote exists and none is needed: Advanced is paid on measured dockets at the rates on its weekly Commercial Approval sheet (clean $10/m, braced for scrim $24.40/m, vehicle gate $50, pedestrian gate $61, demarcation CCB $5.40/m, installer and relocation labour $100/h, team leader $200/day), approved week by week against a purchase order each: 4647508 wk6 $8,992; 4647509 wk5 $33,670; 4647517 wk4 $26,695; 4647515 wk3 $50,154; 4647519 wk2 $28,246.50. Over or under is read docket by docket against the programme on the Fencing tab."
+  },
+  {
+   "op": "answer",
+   "id": "fe-rate-team_leader",
+   "text": "No separate customer rate. The V8s are charged fencing per metre at the 2026 street card (clean $16.16, scrim $25.53, relocation $8.65, ped gate $36.18, CCB event $7.51, demarcation $13.08) and event people at the Event Labour Scope roles (fence team $88.49/h). Advanced's $200/day team leader is inside our cost of each week's approval sheet, not a line to the customer. Rule applied 15 Oct 2026."
+  },
+  {
+   "op": "answer",
+   "id": "fe-gap",
+   "text": "Read against the programme weeks to 14 Oct: braced-for-scrim is booked under Clean with the bracing as components (36581 S04 corporate: 58 panels braced, no metres), so it is not missing; relocation is on the green service notes as hours (24469, 24471, 24474), not metres; removal is CON WK1 and the DECON weeks, still to do, with no docket metres by design; gates: Advanced's week 2 sheet carries 33 vehicle and 3 pedestrian gates on 36574-36590 held here as wheels, the rest are CON WK1 (50 + 21) and Event Week; CCB flat feet 42 of 45 for WK2 done, 121 m is Event Week."
+  },
+  {
+   "op": "answer",
+   "id": "fe-closure",
+   "text": "Working rule until iEDM writes the key: a window is the time the closure is in force (closed at its start, clear by its end: Fri 7-8am and 6-7pm, Sat 7-7.25am and 5.53-7pm, Sun 7-7.25am and 5.15-7pm); the two marks sharing an order number are the two ends of one section and close together; the colour is the crew running that section (black, orange, teal, pink). Basis: the 19 Sep photograph (circled numbers = order, Andrew 19 Sep) and the 5 Oct review."
+  },
+  {
+   "op": "answer",
+   "id": "lb-rates",
+   "text": "Cost basis on the record: Kyle Gover and Daniel Gough are Job Connect labour hire, costed from the purchase orders (Kyle $3,023.70 w/e 20 Sep and $1,299.74 w/e 27 Sep; Daniel $3,052.60 w/e 4 Oct); Aaron Zelvis, Alfie Harris, Jayden Paul, Wayne Crimmin, Frank Devilles and Ludwig Chee are Coates staff on salary, whose cost rate is a payroll figure the 30 Sep finance review left blank. Kyle's records without hours are shifts from 15 Oct on, not yet worked; hours go on after each shift."
+  },
+  {
+   "op": "answer",
+   "id": "lb-nights-alfie-harris",
+   "text": "Alfie's nightly rate on the record is $223.63 ex GST (14-17 Sep and 6-9 Oct; the 21-24 Sep stay was $176.04 and 28 Sep-1 Oct $248.78). Nights from 12 Oct are planned at $223.63 until the invoice says otherwise; a night is only a cost once it is stayed."
+  },
+  {
+   "op": "answer",
+   "id": "sp-short",
+   "text": "Not short by error: WC09 asks for 10 FWF on Andrew's word of 14 Oct (4 received 8 Oct, 6 more to come on an Event Portables run); WC30 asks for 8 (Schedule 9, Event Week 19 Oct) and 4 arrived 15 Oct (0681, 0043, 0963, 0545). Both close as the rest arrive."
+  },
+  {
+   "op": "answer",
+   "id": "oi-R26",
+   "text": "028 on D024 is the sheet's off-site reference note in its corner, not a generator position on the plan; the only 028 drawn on the set is building callout 028 on D022 (P28). No Coates generator row exists for it and none is drawn; nothing to supply unless iEDM adds a row."
+  },
+  {
+   "op": "answer",
+   "id": "oi-R29",
+   "text": "S04 since the 11 Sep plan: 36546 22.5 m extension, 36589 15 m corporate toilets (scrimmed), 36565 25 m zip-tied to the S04-S05 bridge, and 36581 braced the corporate line (58 panels). The 41 m is covered (37.5 m of mesh plus the bridge run); no gate is docketed at S04, so the gate stays on the event-week install list."
+  },
+  {
+   "op": "answer",
+   "id": "oi-R30",
+   "text": "Settled by what was issued: the Coates VMS plan pack of 15 Oct 2026 follows iEDM's VMS001-26003-01 for every board position (D025 Rev 02's VMS bubbles sit tens of metres off the spots and are not used for placement). Board 03 goes to the highway outside Gate 1 as the plan has it; boards 21-24 are on hire lines 9961265/31-39 (VMS24 sub-hired); supply stays 22 boards (R16); charges unchanged."
+  },
+  {
+   "op": "answer",
+   "id": "ccb-classification753",
+   "text": "36595, rear of S20 shower, 10 m: demarcation. Advanced booked it to the demarcation column at $5.40/m and the rear of a shower block is back-of-house, not crowd control. Customer rate: CCB demarcation $13.08/m."
+  },
+  {
+   "op": "answer",
+   "id": "br-norate-STPS",
+   "text": "9990776 line 10, shade cloth: charged to the customer as scrim at the 2026 street card, $25.53/m, when the metres are docketed; the contract line carries no rate because Advanced bills it on the approval sheet at $24.40/m (our cost)."
+  },
+  {
+   "op": "answer",
+   "id": "br-norate-KINP",
+   "text": "9968929 line 5, Shop Front - Shut Down, item 1257261: that is the 6 m container standing at T0023 (GPS fix 21 Sep). The shop-front shutdown is a fit-out of that container, charged within its container line; no separate hire rate."
+  },
+  {
+   "op": "answer",
+   "id": "br-norate-NVAC",
+   "text": "9961976: line 41 distribution board and line 47 cable are supplied with the generators and are inside the card rate (the card prices 200 kVA with cables); line 45 is a spare 60 kVA, Pending, no charge unless called off; line 37 tyne rotator, Pending, no charge unless delivered. Nothing to enter."
+  }
+ ]
+}

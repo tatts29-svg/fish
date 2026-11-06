@@ -1,0 +1,41 @@
+{
+ "stated_by": "the project manager, 2 Oct 2026: \"water barriers you should have locations - it tells you in the description\"",
+ "method": "Each water-barrier reference's schedule description names the place. Twelve of fifteen have that place marked on the master D001 (a sector label, a turn marker or a park/street label) and use that mark. The three the master does not mark were looked up from their description with TomTom search (2 Oct 2026). Nothing else is inferred.",
+ "on_the_master": {
+  "WB02": "S08 - Pedestrian Pathway along Main Beach Parade -> sector S08 label",
+  "WB03": "Gold Coast Highway (Turn 2) - Concrete small blocks -> Turn 2 marker",
+  "WB04": "Helen Park - HVM -> Helen Park label",
+  "WB07": "Admiralty Drive Intersection -> Admiralty Dr label",
+  "WB13": "Fence bracing behind S15 -> sector S15 label",
+  "WB14": "MP4.0 Turn 4 Drivers Right -> Turn 4 marker",
+  "WB15": "Turn 11 Runoff (Main Beach Parade North) - HVM -> Turn 11 marker",
+  "WB16": "Commodore Park (Commodore Drive) -> Commodore Park label",
+  "WB17": "Racing kerbs (T6/7/8/9) -> Turns 6-9 markers (span ~250 m)",
+  "WB18": "Racing kerbs (T2) -> Turn 2 marker",
+  "WB19": "S08 - Pedestrian Pathway along Main Beach Parade -> sector S08 label",
+  "WB20": "Gold Coast Highway (Turn 2) -> Turn 2 marker"
+ },
+ "looked_up": {
+  "WB01": {
+   "description": "Gold Coast Highway (Near PB3 DR - On GCHWY at the Tedder Avenue intersection)",
+   "query": "Gold Coast Highway & Tedder Avenue, Main Beach QLD 4217",
+   "match": "TomTom cross street: Tedder Avenue & Gold Coast Highway, Main Beach",
+   "ll": [-27.982069, 153.423912],
+   "src": "Gold Coast Hwy at the Tedder Ave intersection (from the description)"
+  },
+  "WB05": {
+   "description": "Gold Coast Highway (Main Beach Light Rail)",
+   "query": "Main Beach light rail station Gold Coast Highway",
+   "match": "TomTom POI: Main Beach (railway station), Gold Coast Highway",
+   "ll": [-27.982059, 153.42347],
+   "src": "Main Beach light rail station, Gold Coast Hwy (from the description)"
+  },
+  "WB06": {
+   "description": "Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+   "query": "Macintosh Island Park Gold Coast Highway Surfers Paradise",
+   "match": "TomTom street point: Gold Coast Highway beside Macintosh Island (approximate for the turning lane)",
+   "ll": [-27.985905, 153.426834],
+   "src": "Gold Coast Hwy at the Macintosh Park turning lane (from the description - approximate, check on site)"
+  }
+ }
+}

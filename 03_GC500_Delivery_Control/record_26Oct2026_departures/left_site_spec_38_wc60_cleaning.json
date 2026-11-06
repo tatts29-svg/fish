@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026, on the toilet-block labour against Baseplan (8)/(9) (15 blocks × $707.88 = $10,618.20; our ticks $10,462.05): \"can we make our ticks match baseplan\". WC60's two blocks (1119489 with tank 1328980, 1087500 with tank 1328981; installed, levelled, stairs on, 1 Oct 2026) carry install, steps, levelling and demob each, and cleaning on 1119489 only. The missing tick is cleaning on block 1087500 ($156.15), ticked here through the page's own labour control.",
+  "ops": [
+    {"op": "labour_on", "ref": "WC60", "unit": "1087500", "disc": "Toilets & amenities", "item": "Toilet Block 6m", "line": "cleaning"}
+  ]
+}

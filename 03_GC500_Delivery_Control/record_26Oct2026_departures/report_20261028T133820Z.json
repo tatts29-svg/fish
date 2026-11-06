@@ -1,0 +1,606 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T133820Z",
+ "finished": "2026-10-28T13:38:58.475Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026, late evening: \"Things in build are no longer showing 100% please fix.\" The Build progress bar read 6 of 7 areas at 100%: VMS boards had 7 references with 4 Complete at the Fri 23 Oct cut-off, though all 24 boards were on site. The three Premiair references VMS-01 (VMS21), VMS-02 (VMS22) and VMS-03 (VMS24) were added to the record on 27 Oct and their Complete ticks carry that day's time, after the cut-off; the boards themselves were in place on 22 Oct 2026, as the record's own on-site stamps and Andrew's 27 Oct word (\"22 oct\", Premiair docket 26143911) already say. Each Complete is dated to its reference's on-site stamp. Receipt and install are dated to the same on-site stamp, since each board was delivered and put in place on arrival.",
+  "ops": [
+   {
+    "op": "date_back",
+    "ref": "VMS-01",
+    "done_at": "2026-10-21T22:08:24.160Z",
+    "item": "VMS",
+    "disc": "Variable message signs",
+    "why": "VMS21 in place 22 Oct 2026 08:08 on the VMS plan; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+    "supplied_at": "2026-10-21T22:08:24.160Z",
+    "install_at": "2026-10-21T22:08:24.160Z"
+   },
+   {
+    "op": "date_back",
+    "ref": "VMS-02",
+    "done_at": "2026-10-21T14:00:00.000Z",
+    "item": "VMS",
+    "disc": "Variable message signs",
+    "why": "VMS22 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+    "supplied_at": "2026-10-21T14:00:00.000Z",
+    "install_at": "2026-10-21T14:00:00.000Z"
+   },
+   {
+    "op": "date_back",
+    "ref": "VMS-03",
+    "done_at": "2026-10-21T14:00:00.000Z",
+    "item": "VMS",
+    "disc": "Variable message signs",
+    "why": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+    "supplied_at": "2026-10-21T14:00:00.000Z",
+    "install_at": "2026-10-21T14:00:00.000Z"
+   }
+  ]
+ },
+ "pageSha256": "1437f56498007f24a7e54acfd23542c2ab2daa0e3fd9aca64941c45753bd47ff",
+ "version": {
+  "before": 11703,
+  "after": 11715
+ },
+ "updated": {
+  "before": "2026-10-28T08:47:20.806Z",
+  "after": "2026-10-28T13:38:57.209Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011296.03,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 563276.46,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "date_back",
+   "ref": "VMS-01",
+   "done_at": "2026-10-21T22:08:24.160Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS21 in place 22 Oct 2026 08:08 on the VMS plan; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T22:08:24.160Z",
+   "install_at": "2026-10-21T22:08:24.160Z",
+   "result": "dated: complete 2026-10-21T22:08:24.160Z, receipt 2026-10-21T22:08:24.160Z, install 2026-10-21T22:08:24.160Z"
+  },
+  {
+   "op": "date_back",
+   "ref": "VMS-02",
+   "done_at": "2026-10-21T14:00:00.000Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS22 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T14:00:00.000Z",
+   "install_at": "2026-10-21T14:00:00.000Z",
+   "result": "dated: complete 2026-10-21T14:00:00.000Z, receipt 2026-10-21T14:00:00.000Z, install 2026-10-21T14:00:00.000Z"
+  },
+  {
+   "op": "date_back",
+   "ref": "VMS-03",
+   "done_at": "2026-10-21T14:00:00.000Z",
+   "item": "VMS",
+   "disc": "Variable message signs",
+   "why": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026).",
+   "supplied_at": "2026-10-21T14:00:00.000Z",
+   "install_at": "2026-10-21T14:00:00.000Z",
+   "result": "dated: complete 2026-10-21T14:00:00.000Z, receipt 2026-10-21T14:00:00.000Z, install 2026-10-21T14:00:00.000Z"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "delivery/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "delivery/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-01~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-02~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~VMS-03~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "qtys/VMS-02",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/VMS-01": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:24.160Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:12.101Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "note": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:12.101Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-01"
+   },
+   "delivery/VMS-02": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:18.953Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:18.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-02"
+   },
+   "delivery/VMS-03": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T19:19:25.384Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-26T19:19:25.384Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "VMS-03"
+   },
+   "stamps/supplied~2f~VMS-01~2f~VMS": {
+    "_k": "supplied/VMS-01/VMS",
+    "v": "2026-10-26T19:19:11.946Z"
+   },
+   "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-01|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:12.876Z"
+   },
+   "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-02|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:19.868Z"
+   },
+   "stamps/supplied~2f~VMS-02~2f~VMS": {
+    "_k": "supplied/VMS-02/VMS",
+    "v": "2026-10-26T19:19:18.817Z"
+   },
+   "stamps/supplied~2f~VMS-03~2f~VMS": {
+    "_k": "supplied/VMS-03/VMS",
+    "v": "2026-10-26T19:19:25.239Z"
+   },
+   "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-03|Variable message signs|VMS|install",
+    "v": "2026-10-26T19:19:26.190Z"
+   },
+   "qtys/VMS-01": {
+    "_k": "VMS-01",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-01",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:11.946Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:11.946Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:11.946Z",
+       "on": true,
+       "onAt": "2026-10-21T22:08:24.160Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:12.101Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:12.876Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:14.945Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-03": {
+    "_k": "VMS-03",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-03",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:25.239Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:25.239Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:25.239Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:25.384Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:26.190Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:28.107Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-02": {
+    "_k": "VMS-02",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-02",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-26T19:19:18.817Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-26T19:19:18.817Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:18.817Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:18.953Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:19.868Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:21.847Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  },
+  "after": {
+   "delivery/VMS-01": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:24.160Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T22:08:24.160Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "note": "VMS21's own arrival on the VMS plan (in place 22 Oct 08:08), carried to its delivery reference."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "note": "VMS21 in place 22 Oct 2026 08:08 on the VMS plan; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026)."
+     }
+    ],
+    "_k": "VMS-01"
+   },
+   "delivery/VMS-02": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T14:00:00.000Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS22 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS22 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026)."
+     }
+    ],
+    "_k": "VMS-02"
+   },
+   "delivery/VMS-03": {
+    "state": "on site",
+    "set_at": "2026-10-21T14:00:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T14:00:00.000Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 came 22 Oct 2026 by Premiair docket 26143911 (Andrew, 27 Oct: \"22 oct\"); no time recorded, so 00:00 AEST that day."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "VMS24 on site 22 Oct 2026 by Premiair docket 26143911; Complete was pressed on 27 Oct when the reference was added (Andrew Fisher, 28 Oct 2026)."
+     }
+    ],
+    "_k": "VMS-03"
+   },
+   "stamps/supplied~2f~VMS-01~2f~VMS": {
+    "_k": "supplied/VMS-01/VMS",
+    "v": "2026-10-21T22:08:24.160Z"
+   },
+   "stamps/labour~2f~VMS-01~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-01|Variable message signs|VMS|install",
+    "v": "2026-10-21T22:08:24.160Z"
+   },
+   "stamps/labour~2f~VMS-02~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-02|Variable message signs|VMS|install",
+    "v": "2026-10-21T14:00:00.000Z"
+   },
+   "stamps/supplied~2f~VMS-02~2f~VMS": {
+    "_k": "supplied/VMS-02/VMS",
+    "v": "2026-10-21T14:00:00.000Z"
+   },
+   "stamps/supplied~2f~VMS-03~2f~VMS": {
+    "_k": "supplied/VMS-03/VMS",
+    "v": "2026-10-21T14:00:00.000Z"
+   },
+   "stamps/labour~2f~VMS-03~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/VMS-03|Variable message signs|VMS|install",
+    "v": "2026-10-21T14:00:00.000Z"
+   },
+   "qtys/VMS-01": {
+    "_k": "VMS-01",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-01",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-21T22:08:24.160Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-21T22:08:24.160Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:11.946Z",
+       "on": true,
+       "onAt": "2026-10-21T22:08:24.160Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:12.101Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:12.876Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:14.945Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-03": {
+    "_k": "VMS-03",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-03",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-21T14:00:00.000Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-21T14:00:00.000Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:25.239Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:25.384Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:26.190Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:28.107Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/VMS-02": {
+    "_k": "VMS-02",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "VMS-02",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "VMS",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-21T14:00:00.000Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-21T14:00:00.000Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-26T19:19:18.817Z",
+       "on": true,
+       "onAt": "2026-10-21T14:00:00.000Z",
+       "done": true,
+       "doneAt": "2026-10-26T19:19:18.953Z",
+       "install": true,
+       "installAt": "2026-10-26T19:19:19.868Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-26T19:19:21.847Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

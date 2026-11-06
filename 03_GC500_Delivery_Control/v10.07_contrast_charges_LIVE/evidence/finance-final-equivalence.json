@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "auditedSource": "0106085127fbb27dd15942261925c667cf4db429e28f45ac540776252095ce18",
+  "release": "b5d99de88886d9f03aad7af2177b68b1239919542f6c27e2d80be7ec9a89bdfb",
+  "scripts": 95,
+  "scriptsIdentical": true,
+  "nonStyleHtmlIdentical": true,
+  "nativeVersion": 5796,
+  "basis": "Final rebuild changes style only; all complete script blocks including embedded DATA are byte-for-byte identical to the financial capture."
+}

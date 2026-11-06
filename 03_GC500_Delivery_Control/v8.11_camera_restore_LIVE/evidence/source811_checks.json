@@ -1,0 +1,152 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Source restoration component; no operational writes",
+  "baseSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "pageSha256": "b9a8d98a0d2a189df5e6523923d8a332ee3b914fdf50734792c575c29dc3a576",
+  "previousSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "patchSha256": "ca3d446c1dd5f96d57af7f49ef77d6336dff1451689a5fcb1a1ab378cb5c0af9",
+  "passed": 28,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "exact previous live camera baseline",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "candidate reproduced by frozen component",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "entire original views/director/rigs/transitions/FOV/lean/shake/portaloo priority restored byte-for-byte",
+      "passed": true,
+      "detail": "a6fada76c3c3ea98bd81df5abb883bcc30b2d439a3269a6ac89219536708c622"
+    },
+    {
+      "name": "original default and remembered-view getter unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no replacement camera runtime, tour insertion or fitting remains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "only obsolete selected-vehicle camera script removed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "QR is byte-for-byte unchanged",
+      "passed": true,
+      "detail": "3fb4ed58ff85c0445d942ad860a50cf20a4db7ff67f0442d48cab4175dc270ca"
+    },
+    {
+      "name": "all business/record/selection code and embedded DATA is byte-for-byte unchanged",
+      "passed": true,
+      "detail": "921b507b69b2a33a45ebf9ebdbaab8ce2fe03715dbee2c6a5551f2e033a17bb7"
+    },
+    {
+      "name": "compression library is byte-for-byte unchanged",
+      "passed": true,
+      "detail": "a90b42909d80964269ef6d5f3d1e4a5a7e2a4c263a5d2a76a9e7151901343262"
+    },
+    {
+      "name": "PDF library is byte-for-byte unchanged",
+      "passed": true,
+      "detail": "e6551fcdc32f09d6853b2c5126d18d01d9447e0da618a41a11ebeee0f6c20d54"
+    },
+    {
+      "name": "new architecture/vegetation geometry is byte-for-byte unchanged",
+      "passed": true,
+      "detail": "14243ffd22488bc5bac892dde2c5d1519adfd89663fb4e6db72d16fd363fc7af"
+    },
+    {
+      "name": "main renderer outside original camera block is byte-for-byte unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full lap playback/map/scenery/pit/corridor source retained exactly outside removed camera/menu override",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "HTML/CSS/components/styles and release metadata unchanged",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "duplicate application refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "pre-overhaul source refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mutated original camera hook refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mutated overlay refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "missing visual prerequisite refused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "integration retains v8.07 marker",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "integration retains v8.08 marker",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 0 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 1 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 2 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 3 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 4 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 5 parses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "inline script 6 parses",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

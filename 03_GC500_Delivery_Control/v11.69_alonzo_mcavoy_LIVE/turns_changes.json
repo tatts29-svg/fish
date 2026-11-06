@@ -1,0 +1,24 @@
+{
+ "schema": "gc500-broadcast-revoice-v1",
+ "base": "v11.67",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "flow": "Qc1iMoJTLhlFZqKutDwx",
+ "turns": [
+  {
+   "slot": 25,
+   "scene": "fencing",
+   "old": "[driving, over the engine] And NOW — the crew that wraps the WHOLE circuit! [race-caller, naming them] Wayne Woods leads the Advanced Temporary Fencing crew — Owen Cowell McPaul! Daniel Macleod! Cody Woods! Chase Hireni! Tahi Peni! Daniel Smith! Scott Hildebrand! Hayden McAvoy! [shouting] Give them a ROAR!",
+   "text": "[driving, over the engine] And NOW — the crew that wraps the WHOLE circuit! [race-caller, naming them] Wayne Woods leads the Advanced Temporary Fencing crew — Owen Cowell McPaul! Daniel Macleod! Cody Woods! Chase Hireni! Tahi Peni! Daniel Smith! Scott Hildebrand! Hayden McAvoy! Alonzo McAvoy! [shouting] Give them a ROAR!",
+   "loop": false
+  },
+  {
+   "slot": 47,
+   "scene": "crews_finish1090",
+   "old": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle Gover! Alfie Harris! Daniel Gough! Jayden Paul! Wayne Crimmin! Ludwig Chee! Frank Devilles! [fast] And on the fence — Wayne Woods! Owen Cowell McPaul! Daniel Macleod! Cody Woods! Chase Hireni! Tahi Peni! Daniel Smith! Scott Hildebrand! Hayden McAvoy! [shouting] THIS is the team that built the GC five hundred!",
+   "text": "[race-caller, naming them] Andrew Fisher! Aaron Zelvis! Kyle Gover! Alfie Harris! Daniel Gough! Jayden Paul! Wayne Crimmin! Ludwig Chee! Frank Devilles! [fast] And on the fence — Wayne Woods! Owen Cowell McPaul! Daniel Macleod! Cody Woods! Chase Hireni! Tahi Peni! Daniel Smith! Scott Hildebrand! Hayden McAvoy! Alonzo McAvoy! [shouting] THIS is the team that built the GC five hundred!",
+   "loop": false
+  }
+ ]
+}

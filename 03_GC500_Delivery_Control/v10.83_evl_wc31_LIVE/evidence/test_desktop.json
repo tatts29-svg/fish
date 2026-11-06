@@ -1,0 +1,37 @@
+{
+ "device": "desktop",
+ "live": false,
+ "pass": true,
+ "fails": [],
+ "tracker": {
+  "SVC1067_DATA": {
+   "refs": 74,
+   "fwfBefore": 242,
+   "fwfAfter": 242
+  },
+  "SVC1067_CARD": {
+   "refs": 74,
+   "fwfBefore": 242,
+   "fwfAfter": 242
+  }
+ },
+ "record": {
+  "wc05": [
+   "1328978",
+   "1097377"
+  ],
+  "t24": [
+   "0164"
+  ],
+  "t24pos": [
+   "placed",
+   -27.983217,
+   153.426642
+  ],
+  "wc31place": [
+   -27.982533,
+   153.425151
+  ],
+  "foot": "Coates Industrial Solutions · GC500 · Author: Andrew Fisher · built 2026-09-25 · assets-1.0.0 · Today v8.20 · v10.83"
+ }
+}

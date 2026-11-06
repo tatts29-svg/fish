@@ -1,0 +1,413 @@
+{
+ "contract": "9990776",
+ "baseplan_lines_unchanged_since_15_Oct": true,
+ "exports": {
+  "(4) 15 Oct": [
+   {
+    "line": 1,
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "quantity": 10,
+    "rate": 1.18,
+    "status": "Pending"
+   },
+   {
+    "line": 2,
+    "description": "Ped Gates",
+    "quantity": 32,
+    "rate": 36.18,
+    "status": "Pending"
+   },
+   {
+    "line": 3,
+    "description": "1.8m Security Fence",
+    "quantity": 8778,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 4,
+    "description": "Fence Relocation",
+    "quantity": 1520,
+    "rate": 8.65,
+    "status": "Pending"
+   },
+   {
+    "line": 5,
+    "description": "1.8m Security Fence w/ Hoarding",
+    "quantity": 110,
+    "rate": 23.59,
+    "status": "Pending"
+   },
+   {
+    "line": 6,
+    "description": "1.8m Fence w/Scrim",
+    "quantity": 2775,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 7,
+    "description": "Barrier - Crowd Control",
+    "quantity": 2350,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 8,
+    "description": "Barrier - Crowd Control Flat Feet",
+    "quantity": 220,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 9,
+    "description": "Demarcation CCB",
+    "quantity": 4603,
+    "rate": 13.08,
+    "status": "Pending"
+   },
+   {
+    "line": 10,
+    "description": "Shade Cloth",
+    "quantity": 9,
+    "rate": null,
+    "status": "Pending"
+   }
+  ],
+  "(5) 16 Oct": [
+   {
+    "line": 1,
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "quantity": 10,
+    "rate": 1.18,
+    "status": "Pending"
+   },
+   {
+    "line": 2,
+    "description": "Ped Gates",
+    "quantity": 32,
+    "rate": 36.18,
+    "status": "Pending"
+   },
+   {
+    "line": 3,
+    "description": "1.8m Security Fence",
+    "quantity": 8778,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 4,
+    "description": "Fence Relocation",
+    "quantity": 1520,
+    "rate": 8.65,
+    "status": "Pending"
+   },
+   {
+    "line": 5,
+    "description": "1.8m Security Fence w/ Hoarding",
+    "quantity": 110,
+    "rate": 23.59,
+    "status": "Pending"
+   },
+   {
+    "line": 6,
+    "description": "1.8m Fence w/Scrim",
+    "quantity": 2775,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 7,
+    "description": "Barrier - Crowd Control",
+    "quantity": 2350,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 8,
+    "description": "Barrier - Crowd Control Flat Feet",
+    "quantity": 220,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 9,
+    "description": "Demarcation CCB",
+    "quantity": 4603,
+    "rate": 13.08,
+    "status": "Pending"
+   },
+   {
+    "line": 10,
+    "description": "Shade Cloth",
+    "quantity": 9.37,
+    "rate": null,
+    "status": "Pending"
+   }
+  ],
+  "(6) 22 Oct": [
+   {
+    "line": 1,
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "quantity": 10,
+    "rate": 1.18,
+    "status": "Delivered"
+   },
+   {
+    "line": 2,
+    "description": "Ped Gates",
+    "quantity": 32,
+    "rate": 36.18,
+    "status": "Pending"
+   },
+   {
+    "line": 3,
+    "description": "1.8m Security Fence",
+    "quantity": 8778,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 4,
+    "description": "Fence Relocation",
+    "quantity": 1520,
+    "rate": 8.65,
+    "status": "Pending"
+   },
+   {
+    "line": 5,
+    "description": "1.8m Security Fence w/ Hoarding",
+    "quantity": 110,
+    "rate": 23.59,
+    "status": "Pending"
+   },
+   {
+    "line": 6,
+    "description": "1.8m Fence w/Scrim",
+    "quantity": 2775,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 7,
+    "description": "Barrier - Crowd Control",
+    "quantity": 2350,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 8,
+    "description": "Barrier - Crowd Control Flat Feet",
+    "quantity": 220,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 9,
+    "description": "Demarcation CCB",
+    "quantity": 4603,
+    "rate": 13.08,
+    "status": "Pending"
+   },
+   {
+    "line": 10,
+    "description": "Shade Cloth",
+    "quantity": 2775,
+    "rate": 9.37,
+    "status": "Pending"
+   }
+  ],
+  "(7) 25 Oct": [
+   {
+    "line": 1,
+    "description": "WB13 Barrier - Crash Rated Water filled - Armorzone MASH TL2",
+    "quantity": 10,
+    "rate": 1.18,
+    "status": "Delivered"
+   },
+   {
+    "line": 2,
+    "description": "Ped Gates",
+    "quantity": 32,
+    "rate": 36.18,
+    "status": "Pending"
+   },
+   {
+    "line": 3,
+    "description": "1.8m Security Fence",
+    "quantity": 8778,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 4,
+    "description": "Fence Relocation",
+    "quantity": 1520,
+    "rate": 8.65,
+    "status": "Pending"
+   },
+   {
+    "line": 5,
+    "description": "1.8m Security Fence w/ Hoarding",
+    "quantity": 110,
+    "rate": 23.59,
+    "status": "Pending"
+   },
+   {
+    "line": 6,
+    "description": "1.8m Fence w/Scrim",
+    "quantity": 2775,
+    "rate": 16.16,
+    "status": "Pending"
+   },
+   {
+    "line": 7,
+    "description": "Barrier - Crowd Control",
+    "quantity": 2350,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 8,
+    "description": "Barrier - Crowd Control Flat Feet",
+    "quantity": 220,
+    "rate": 7.51,
+    "status": "Pending"
+   },
+   {
+    "line": 9,
+    "description": "Demarcation CCB",
+    "quantity": 4603,
+    "rate": 13.08,
+    "status": "Pending"
+   },
+   {
+    "line": 10,
+    "description": "Shade Cloth",
+    "quantity": 2775,
+    "rate": 9.37,
+    "status": "Pending"
+   }
+  ]
+ },
+ "baseplan_fencing_total": 309106.83,
+ "dockets": {
+  "worked to 15 Oct": {
+   "dockets": 116,
+   "quantities": {
+    "ccb_demarc": 4532.5,
+    "ccb_event": 965.0,
+    "clean": 10875.0,
+    "fence_blocks": 216.0,
+    "flat_feet": 147.0,
+    "labour": 8.5,
+    "ped_gates": 22.0,
+    "relocation": 137.5,
+    "scrim": 3330.0,
+    "v_gates": 3.0
+   },
+   "at_card": 332558.49
+  },
+  "worked 16-23 Oct": {
+   "dockets": 51,
+   "quantities": {
+    "ccb_demarc": 530.0,
+    "ccb_event": 1230.0,
+    "clean": 2395.0,
+    "flat_feet": 123.0,
+    "scrim": 647.5
+   },
+   "at_card": 72592.34
+  }
+ },
+ "dockets_to_date": {
+  "ccb_demarc": 5062.5,
+  "ccb_event": 2195.0,
+  "clean": 13270.0,
+  "fence_blocks": 216.0,
+  "flat_feet": 270.0,
+  "labour": 8.5,
+  "ped_gates": 22.0,
+  "relocation": 137.5,
+  "scrim": 3977.5,
+  "v_gates": 3.0
+ },
+ "more_on_baseplan_than_every_docket": {
+  "crowd control barrier m": [
+   2350,
+   2195.0
+  ],
+  "ped gates": [
+   32,
+   22.0
+  ]
+ },
+ "programme_2026_build_and_event": {
+  "Crowd Control Barriers (m) \u2014 Demarcation": 5168.0,
+  "Crowd Control Barriers (m) \u2014 Event": 2375.0,
+  "Crowd Control Barriers (m) \u2014 Flat Feet": 256.0,
+  "Crowd Control Barriers (m) \u2014 WPF": 135.0,
+  "Ped. Gates": 33.0,
+  "Temporary Fence (m) \u2014 Braced for Scrim": 3554.5,
+  "Temporary Fence (m) \u2014 Clean": 8458.5,
+  "Temporary Fence (m) \u2014 Hoarding": 137.0,
+  "Temporary Fence (m) \u2014 Relocation": 957.0,
+  "Temporary Fence (m) \u2014 Removal": 1108.0,
+  "Vehicle Gates": 131.0
+ },
+ "our_record_then": [
+  {
+   "record": 6128,
+   "dockets": 37,
+   "quantities": {
+    "ccb_demarc": 1220.0,
+    "ccb_event": 342.5,
+    "clean": 3765.0,
+    "fence_blocks": 216.0,
+    "flat_feet": 42.0,
+    "ped_gates": 4.0,
+    "scrim": 1142.5
+   }
+  },
+  {
+   "record": 6348,
+   "dockets": 38,
+   "quantities": {
+    "ccb_demarc": 1220.0,
+    "ccb_event": 342.5,
+    "clean": 3897.5,
+    "fence_blocks": 216.0,
+    "flat_feet": 42.0,
+    "ped_gates": 4.0,
+    "scrim": 1142.5
+   }
+  },
+  {
+   "record": 7185,
+   "dockets": 53,
+   "quantities": {
+    "ccb_demarc": 2355.0,
+    "ccb_event": 472.5,
+    "clean": 6207.5,
+    "fence_blocks": 216.0,
+    "flat_feet": 135.0,
+    "ped_gates": 13.0,
+    "scrim": 1212.5
+   }
+  }
+ ],
+ "export_delivery_dockets": {
+  "rows": 258,
+  "first": "2026-09-07",
+  "last": "2026-10-22",
+  "same_as_22_Oct": true,
+  "on_9990776": [
+   {
+    "docket": 26138423,
+    "date": "2026-10-19T11:12",
+    "direction": "Out"
+   }
+  ]
+ }
+}

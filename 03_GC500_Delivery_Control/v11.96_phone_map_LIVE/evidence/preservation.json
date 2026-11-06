@@ -1,0 +1,35 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "one viewport module appended",
+      "ok": true
+    },
+    {
+      "name": "only existing explorer controls and footer changed",
+      "ok": true
+    },
+    {
+      "name": "embedded site record identical",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseIncident1195 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseTruck1192 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "Map1188 retained exactly",
+      "ok": true
+    },
+    {
+      "name": "Gates1156 retained exactly",
+      "ok": true
+    }
+  ],
+  "passed": 7,
+  "candidate_sha256": "f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68"
+}

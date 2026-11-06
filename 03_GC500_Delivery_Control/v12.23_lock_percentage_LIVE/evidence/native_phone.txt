@@ -1,0 +1,14 @@
+PASS selected final night reads the intercepted grouped completion
+PASS large lock percentage and done/total match the shared saved-state model
+PASS large and existing small lock totals agree with explicit door-lock label
+PASS final night has pump, clean and lock rings plus area lock chips
+PASS main servicing has no horizontal overflow
+PASS servicing pseudo-face inherits its dark gradient, keeping pale text legible
+PASS all job indicators have equal widths, usable text space and aligned rows or columns
+PASS header search does not hide lock indicators
+PASS candidate footer identifies v12.23
+PASS previous night retains water and no lock indicators
+PASS returning to tonight restores its saved lock percentage
+PASS no page or console errors
+PASS no attempted record writes
+{"checks":13,"mobile":true,"readOnly":true,"syntheticTicks":true}

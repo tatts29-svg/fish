@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: \"P69 left 1015am\". P69 (supply building, 6 m; the departure form offers its one unit, Coates 107247) left in full. Left site 28 Oct 2026 10:15 AEST.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P69",
+   "at": "2026-10-28T10:15:00+10:00",
+   "nos": [
+    "107247"
+   ],
+   "complete": true
+  }
+ ]
+}

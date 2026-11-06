@@ -1,0 +1,42 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: \"0939 0192 0576 0100 left 945am\". Event Portables FWF: SVP01 0939, WC73 0192, T0176 0576, PG03 0100; all four locations ticked Emptied. Left site 28 Oct 2026 09:45 AEST.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "SVP01",
+   "at": "2026-10-28T09:45:00+10:00",
+   "nos": [
+    "0939"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC73",
+   "at": "2026-10-28T09:45:00+10:00",
+   "nos": [
+    "0192"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "T0176",
+   "at": "2026-10-28T09:45:00+10:00",
+   "nos": [
+    "0576"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "PG03",
+   "at": "2026-10-28T09:45:00+10:00",
+   "nos": [
+    "0100"
+   ],
+   "complete": true
+  }
+ ]
+}

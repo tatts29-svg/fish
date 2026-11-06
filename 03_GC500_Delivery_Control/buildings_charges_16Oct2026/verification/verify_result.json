@@ -1,0 +1,643 @@
+{
+  "summary": "Independently verify the GC500 buildings charges position (record 9515) before it is locked",
+  "agentCount": 10,
+  "logs": [
+    "completeness: issues, 1 standing, 4 refuted · rates: issues, 1 standing, 4 refuted · ticks: issues, 2 standing, 2 refuted · hire: issues, 4 standing, 3 refuted · arithmetic: issues, 5 standing, 1 refuted"
+  ],
+  "result": [
+    {
+      "lens": "completeness",
+      "verdict": "issues",
+      "checked": "Answer on set membership: the 52 is right. Every building that Baseplan (5) and the dockets show as delivered maps to a reference in the 52. Nothing cancelled or not on site is in it. No building sits under another discipline. The issues below are about who pays and identities; none of them is a missing or extra building.\n\nWhat I checked:\n(1) buildings.json, 56 Portable buildings refs: 52 on site, 4 cancelled (P27, P29, P47, P53). The xlsx Buildings sheet lists the same 52 refs. I re-read the live page read-only through the harness (GET only, 0 writes blocked): 187 assets, 56 Portable buildings, the same 52 on site.\n(2) Record at 9515 (after_all.json), delivery collection, 205 docs: 151 on site, 42 not on site, 12 with no state. Seven buildings (HRP, P10, P11, P13, P14, P36, P37) have done=true from Andrew but no state field; the page counts them as on site.\n(3) 24 delivery docs that are not page references: F01, LT01-04, LTC01-14 (13 docs, no LTC13), NVLT, T0089, T0233, T0235, T0242, T0245. T0235/T0242/T0245 are fencing rows. T0233 cannot be identified (issue 5).\n(4) All 131 non-building assets on the live page: no building, crib room, office or container is filed under another discipline. P26, P28 and P34 are Furniture (fridge/chair deliveries), not on site.\n(5) Baseplan 9968862: 87 rows, of which 45 are building shells (lines 1-131), all Delivered. That matches INSTDISMEXTNL qty 45 and transport 72 + 18 (= 45 x 2). The 9 big buildings are P01, P03, P04, P46, P51, P52 (12 m) and P17, P33, P57 (9.6 m).\n(6) Baseplan 9968929: T0021 (960639), T0022 (960634), T0023 (1257261). Baseplan 9974042: T0258 (1134386), T0266 (SUB-2131).\n(7) The other 9 contracts searched for building, container, office, crib, booth, ticket or shell lines: only toilets and one forklift.\n(8) Delivery Dockets sheet, 209 rows: 45 building-shell dockets on 9968862, 2 on 9968929 and 2 on 9974042, all direction Out. All 50 Baseplan building lines map to a ref in the 52; P67 (421107, line 108) joins through its contract line.\n(9) Branch labels that differ from the record (the record stands; both buildings are in the 52): line 59 says \"P44\" for 1273656, which is P58 on the record; line 93 says \"P36\".\n(10) Duplicate asset numbers across all 187 assets, the record's units, assetNumbers, accessories and unit925 records: only 1327217, on P47 and P65.\n(11) Why the 4 refs are out:\n  - P27 and P29: cancelled by Andrew on 15 Sep (\"P27 and P29, due the next day, are cancelled and no longer needed\").\n  - P53: notes row/P53, \"Cancelled 29 Sep, Customer cancelled\".\n  - P47: notes row/P47, \"Cancelled 06 Oct, No longer needed\".\n  - None of the four has a Baseplan building line, a docket, an on-site state or any labour tick.\n(12) Labour collection: zero ticks on the 4 cancelled refs. All 10 fire extinguisher accessories are on refs inside the 52.",
+      "standing": [
+        {
+          "refs": [
+            "T0258",
+            "T0266",
+            "9974042/3",
+            "9974042/4"
+          ],
+          "what": "The branch has delivery and pick-up lines for the two Helen Park containers, but the 52 carries no transport legs for either of them.",
+          "evidence": "- Baseplan 9974042 line 3 is 'Delivery each way per container' qty 2, and line 4 is 'Pickup each way per Container' qty 2. Both are Pending with no rate.\n- The card shows 'no rate line' for 3.0m Cont and 6.0m Refrigerator Cont (page_buildings.json). So the xlsx gives T0258 and T0266 hire only ($285.60 and $1,428.00) and no delivery or pick-up.\n- Andrew's rule is that everything has a delivery and pick-up cost.\n- The charge cannot be priced until a rate is set, so it is recorded here as $0.",
+          "money_effect": 0,
+          "severity": "low",
+          "stands": true,
+          "verifier": "This stands, and the checker's premise of 'no rate' is wrong, so the money effect is understated. In bp.xlsx 9974042-KINP, line 3 ('Delivery each way per container') and line 4 ('Pickup each way per Container') are Item Type 2 TRANSPORT lines with Quantity 2, Price $500 and Prebill Amount $1,000 each. That is the same structure as the 9968862 building transport lines 134/135 ($500/$800, also Pending), which the position relies on. Contract 9974042 is to V8SU0845 V8 Supercars: dockets 26112749 (T0258, 1134386) and 26127706 (T0266, SUB-2131) are both on the Delivery Dockets sheet. Both containers are on site on Andrew's record. Andrew's rule gives everything on site its delivery and pick-up legs, and his standing decision is that a rate on the contract line wins where the card has none (the card reads 'no rate line' for 3.0m Cont and 6.0m Refrigerator Cont). The page holds all four legs as 'held' and the xlsx carries $0 transport for T0258 and T0266. The 52 is therefore short 2 containers x ($500 delivery + $500 pick-up) = $2,000.",
+          "corrected_money_effect": 2000
+        }
+      ],
+      "refuted": [
+        {
+          "refs": [
+            "AA",
+            "HRP",
+            "P36",
+            "9968862/93",
+            "1189410",
+            "1282487",
+            "142514"
+          ],
+          "what": "Two of the 52, AA and HRP, are on no Baseplan (5) contract line and have no docket. The 52 charges each of them labour and transport ($1,603.78 each) but no hire. Baseplan's install count (45) and transport count (90 legs) do not cover them either. HRP's identity is also in conflict with the site photos.",
+          "why_refuted": "The facts are right, but they do not make a discrepancy under Andrew's rules. Checked: 142514, 1282487, Hire Republic, Active Air and dockets 26077061/26077039/26077026 appear nowhere in bp.xlsx or bp4.xlsx. 9968862 line 133 (45 installs) and lines 134/135 (72 + 18 = 90 legs) cover the 45 refs on 9968862 and not AA or HRP. Andrew's record has AA on site and done (delivery/AA set 17 Sep 04:19Z) and HRP done (17 Sep 04:33Z), so his rule gives them card labour and transport ($1,603.78 each), which is what the 52 charges. Hire is not a card cost. The position takes hire from the contract amount on the page, and neither the record nor Baseplan holds any hire line or rate for AA or HRP. The $2,852.14 is an assumption, and even the rate is uncertain: 6 m shells on 9968862 are billed at $1,125.84 (lines 92, 105) as well as $1,426.07 (line 93). The HRP/P36 identity point is accurate and changes no money: one line-93 hire sits on P36 whichever physical unit is 1189410. The 15 Oct swap (deleted/num/HRP/1189410 and assetNumbers/P36, 05:49Z) was the authorised dockets fill, which itself records that HRP's number is genuinely unknown. The 1 Oct review also already logged 'No contract line for HRP'. The Coates billing gap is known and open; the position is not wrong."
+        },
+        {
+          "refs": [
+            "T0021",
+            "T0022",
+            "T0023",
+            "9968929"
+          ],
+          "what": "Three of the 52 are on Coates' own-use contract 9968929, which charges no customer hire. Even so, the locked total charges the V8s card labour on T0021 and T0022: $603.78 each, $1,207.56 together.",
+          "why_refuted": "The evidence checks out, but removing the labour is not supported by Andrew's rules. The record has T0021 and T0022 on site (set by Andrew on 15 Sep). Andrew personally ticked T0022 install, steps and levelling (stamps 18 Sep 00:33Z, by 'Andrew Fisher'). T0021's ticks were made 'via Codex' on 9 Oct, and cleaning and demob on both were added on 16 Oct. His rule is that anything on site gets its card costs. The 1 Oct own-use decision ('contract 9968929 lines for Coates' own use', applied in v7.47) removes the customer hire charge only: Baseplan 9968929 has Rate 1 at 0 and the 52 shows hire 0. So the $603.78 x 2 follows his record, and the -$1,207.56 depends on a rule he has not given. The inconsistency the checker noticed is real, but it runs the other way. The page's transport model deliberately excludes these legs (exclusion 'Coates own use' in buildingTransportModel831), even though his rule says delivery and pick-up apply to anything on site. Applying the rule literally would add 4 legs x $500 = $2,000, not take labour off. That is a policy call for Andrew, not an evidenced error. The T0023 point is correct (docket 26072468 is on the 9968929 contract line but not on the Delivery Dockets sheet) and changes no money."
+        },
+        {
+          "refs": [
+            "P47",
+            "P65",
+            "1327217",
+            "9968862/110"
+          ],
+          "what": "P47 is cancelled but the page still gives it P65's asset number and P65's contract line. One physical building therefore appears on two refs.",
+          "why_refuted": "The observation is accurate but it is not a discrepancy in the position. buildings.json gives P47 asset 1327217 and line 9968862/110 at $1,426.07, the same as P65. The record has no assetNumbers entry for P47: the number comes from the schedule (planned). P47 was cancelled by Andrew on 6 Oct ('Cancelled 06 Oct 12:27 by Andrew Fisher — No longer needed', with deleted/row/P47 and delivery state 'not on site'). Baseplan line 110 and docket 26126006 belong to P65. The xlsx correctly lists P47 under 'Not on site' and counts line 110 once, on P65. The duplicate is only a display carry-over on a cancelled ref. Double-counting is hypothetical and the locked total is unaffected."
+        },
+        {
+          "refs": [
+            "T0233"
+          ],
+          "what": "An orphan record is on site, complete, levelled and with steps (ticks only buildings and toilet blocks carry), but it is not a register reference and not in the 52.",
+          "why_refuted": "Already accounted for, and no money. delivery/T0233 does show on site, done, steps and levelled by Andrew at 23 Sep 18:34Z. It has no labour, asset number, place or register entry, and it is not in the page's assets. The 14 Oct inventory recheck (audit_14Oct2026_inventory_recheck/references/README.md) already records it as the one unresolved historical item, with the instruction 'Do not infer equipment, delete the record, or add a charge from those flags.' Every Baseplan building line and building docket maps to a ref in the 52. T0233 has no item, so no card cost can attach to it, and the position correctly leaves it out. Asking Andrew to name it is housekeeping, not a discrepancy in the locked figures."
+        }
+      ],
+      "unverified": []
+    },
+    {
+      "lens": "rates",
+      "verdict": "issues",
+      "checked": "I checked all 52 on-site buildings in buildings.json (record 9515) and all 52 rows in GC500_Buildings_Charges_16Oct2026.xlsx against the page_buildings.json card and Baseplan (5) sheets 9968862, 9968929, 9974042 and Delivery Dockets. I read Baseplan only and copied nothing from it into the repo. I did not reload the live page. To see why the page excludes some transport legs, I read the transport model in the v10.48 build source. Results:\n(1) Labour rates. The card has the same six labour rates for all 7 building and ticket-box items: install 145.74, steps 156.15, levelling 52.05, cleaning 104.10, fire extinguisher 52.05, demob 145.74. That is 49 carded buildings x 6 lines = 294 rate cells, and every one matches the card, in the JSON and in the xlsx. Item counts: 23 x 6m, 14 x 4.8m, 6 x 12m, 3 x 9.6m, 1 x 3.6m, 1 x Ticket Box 6m, 1 x Ticket Box 4.8m. The three containers have no card line.\n(2) Transport card. 6m, 4.8m, 3.6m and both ticket boxes are $500 each way; 9.6m and 12m are $800. That matches the stated rule. 47 buildings are charged both legs: 38 x $500 + 9 x $800 = $26,200 each way, which ties to the xlsx.\n(3) xlsx arithmetic. Every row recomputed: labour + transport = col P, plus hire = col Q. Totals tie: 65,136.20 / 81,881.12 / 147,017.32.\n(4) Contract lines. All 45 on-site 9968862 buildings match Baseplan (5) by line and asset number. Baseplan sizes agree with the card item for 42 of them; P19, P21 and P25 do not. Baseplan confirms 12m for P01, P03, P04, P46, P51, P52 and 9.6m for P17, P33, P57, so their $800 legs are right.\n(5) Baseplan transport. Line 134 (72 x $500) and line 135 (18 x $800) equal the position's 36 small and 9 big buildings on 9968862, both legs, exactly.\n(6) Baseplan install & dismantle. $655.83 a building is the six card labour lines added together (603.78 + 52.05). The $2,446.35 Baseplan charges above the position is 35 x fire extinguisher plus 4 x steps (P06, P38, P39, P42). Under Andrew's rules the position is right on that.\n(7) Hire against Baseplan (5) Rate 1. Checked all 45 on 9968862, plus 9968929 at 0 and 9974042 at 285.60 and 1,428. Only P41 differs. P39's 1,426.08 is 1 cent above the 6m card rate (1,426.07), but it matches the contract, so no change.\n(8) AA (asset 142514) and HRP (no asset on record; the schedule says 1282487) are on no Baseplan contract, so their 6m size cannot be checked there. They are carded 6m from the schedule.\n(9) T0023 is Coates own use with no card line. Baseplan 9968929 line 5 is still 'Del Req'. It carries no charges, which is consistent.",
+      "standing": [
+        {
+          "refs": [
+            "P41"
+          ],
+          "what": "The P41 hire on the page is still the superseded Baseplan (4) rate, 10 cents above the current contract and the card.",
+          "evidence": "buildings.json P41 hire is 1,426.17. The page's ONHIRE row for 9968862/63 has rate_1 1,426.17, which is Baseplan (4) line 63. Baseplan (5) of 16 Oct, line 63 (asset 1189412, 'P41 Portable Building Shell 6.0M x 3.0M'), has Rate 1 at 1,426.07, which equals the 6m card hire. So the position overstates hire by $0.10. P39 at 1,426.08 is 1 cent above the card, but Baseplan (5) line 73 has the same figure, so it needs no change.",
+          "money_effect": -0.1,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Confirmed. buildings.json gives P41 hire 1,426.17. The live ONHIRE row 9968862 line 63 has rate_1 1,426.17, the same as Baseplan (4) line 63. Baseplan (5) of 16 Oct, line 63 (asset 1189412, serial 897, 'P41 Portable Building Shell 6.0M x 3.0M'), has Rate 1 at 1,426.07. That equals the 6m card hire (20.37237/day x 70 days). A scan of every on-site 9968862 building in buildings.json against Baseplan (5) finds P41 is the only hire that differs. P39 at 1,426.08 matches Baseplan (5) line 73 and needs no change. The position overstates hire by $0.10.",
+          "corrected_money_effect": -0.1
+        }
+      ],
+      "refuted": [
+        {
+          "refs": [
+            "T0021",
+            "T0022"
+          ],
+          "what": "Two on-site 4.8m buildings are charged full card labour but $0 delivery and $0 pick-up instead of the card's $500 each way. The position is inconsistent either way.",
+          "why_refuted": "The facts check out. T0021 (asset 960639, 9968929 line 1) and T0022 (asset 960634, line 3) are on site on the record. Each carries five ticked labour lines (install, steps, levelling, cleaning, demob) at $603.78, so $1,207.56 for the two. The demob ticks were stamped 2026-10-16T09:20:42 by today's run. Both transport legs are $0. But the $0 legs are a deliberate treatment, not an omission. The live page (read-only probe today) marks all four legs state 'excluded' with reason 'Coates own use'. ONHIRE 9968929 lines 1 and 3 read contractCharge how='Coates own use', treatment own_use, amount 0. That comes from Andrew's confirmed 1 Oct 2026 decision in CONTRACT_TREATMENTS747 that the 9968929 lines are for Coates' own use. Baseplan (5) has both lines at Rate 0 ('no rates'). The 2025 reference (reference_2025_contracts_and_invoices/contracts_2025_as_read.md line 46) records the Coates Office and Lunchroom own-use contracts as 'never invoiced'. Billing the customer $2,000 to move Coates' own office and lunchroom goes against that decision, so +$2,000 is not supported. The one real loose end runs the other way: $1,207.56 of card labour is counted on these two own-use buildings. Andrew ticked install, steps and levelling himself (T0021's via Codex) and ticked cleaning on both today. It is a question for Andrew, not an evidenced error. If he says own use carries no customer charges at all, the effect is -$1,207.56, not +$2,000."
+        },
+        {
+          "refs": [
+            "T0258",
+            "T0266"
+          ],
+          "what": "Two on-site containers carry their contract hire but $0 delivery and $0 pick-up. Coates' own billing charges $500 each way per container, which fits the up-to-6m transport rate.",
+          "why_refuted": "The Baseplan facts are right. Baseplan (5) 9974042 line 3 'Delivery each way per container' is qty 2 x $500 and line 4 'Pickup each way per Container' is qty 2 x $500. But the $2,000 is already counted on the page. In the live probe today, both lines are charge lines in ONHIRE_ROWS (charge_line true, price 500, qty 2), and contractCharge reads $1,000 each ('a transport or delivery charge line - the price on it x 2 is the charge'). contractFigures for 9974042 gives transport $2,000 over 2 lines, inside the contract charge of $3,713.60 (285.60 + 1,428.00 + 2,000). The page's transport coverage also points 9974042|3 and |4 at contract lines 9974042|1 and |2, 'shared source consumed once, not twice per target'. The T0258 and T0266 legs are held on purpose: their reasons are 'Reviewed transport source or movement allocation changed; reconfirm affected coverage', and for the sister container T0023 the page states 'do not add another allowance'. Ticking or adding $500 legs on T0258/T0266 would count the same $2,000 twice. The only gap is in the presentation: the xlsx carries the container hire (285.60 and 1,428.00) but not their contract transport. A note row ('9974042 lines 3-4, $2,000 contract transport, already in Costs') would make the sheet complete, with no money change."
+        },
+        {
+          "refs": [
+            "P19",
+            "P21",
+            "P25"
+          ],
+          "what": "These three are on the card as Building 4.8m, but the physical buildings are 6.0m x 3.0m. Their hire is billed at the 4.8m rate.",
+          "why_refuted": "Every fact holds. Baseplan (5) 9968862 line 34 (1110619), line 92 (1327220, serial 261186) and line 105 (1189408, serial 893) read 6.0M x 3.0M. Delivery Dockets 26076816, 26076820 and 26125993 say the same. The record's supplied doc for P21 reads asked 'Building 4.8m', supplied 'Building 6m' (4 Oct). The live ONHIRE register_type for these lines is 'Building 6m'. STATUS.md line 633 already lists the P25 4.8m vs 6x3 difference as an open source discrepancy. Under Andrew's rules, though, nothing in the position changes. The live card has the same labour for Building 4.8m and Building 6m (install 145.74, steps 156.15, levelling 52.05, cleaning 104.10, fire ext 52.05, demob 145.74) and the same $500 each-way transport. Hire is the contract amount, and $1,125.84 matches Baseplan (5) Rate 1 on all three lines. Neither the position nor the site record is wrong on rates. The +$900.69 would only arise if the branch re-rated the contract. Worth keeping as a label note and a warning before the lock: P19, P21 and P25 ticks are keyed 'Building 4.8m', so changing the item would drop them."
+        },
+        {
+          "refs": [
+            "P58",
+            "P44"
+          ],
+          "what": "Baseplan labels the P58 building line as P44. The size, and so the card item and rates, are right; only the label is wrong.",
+          "why_refuted": "The labels are as described. Baseplan (5) line 59 (asset 1273656, docket 26088630) and line 61 (asset 198481, docket 26088639) are both labelled P44, both 6.0M x 3.0M, both Rate 1 1,426.07, and the Delivery Dockets sheet repeats the P44 label on both. The record has assetNumbers P58 = 1273656 and P44 = 198481, and buildings.json joins P58 to line 59 and P44 to line 61. Both carry Building 6m, hire 1,426.07 and $500 legs, all correct. The position is right. The fault is only a label in Coates' billing export, with nothing to correct in the charges. Worth passing to the branch as a label fix, not a charge discrepancy."
+        }
+      ],
+      "unverified": []
+    },
+    {
+      "lens": "ticks",
+      "verdict": "issues",
+      "checked": "Live /api/state is still version 9515 and identical to after_all.json (0 documents differ). I also loaded the live page read-only (GET only, 0 writes blocked, 0 page errors) and read labourTicked, labourMoney, fire914 and buildingTransportModel831 for all 56 Portable buildings refs. Probe script: /tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/bp/ticks_probe.cjs. Output: /tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/bp/ticks_probe.json. Record script: /tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/bp/ticks_lens.py.\n\nWhat I checked:\n(1) 52 refs on site, 4 cancelled (P27, P29, P47, P53). The cancelled four have no labour, stamp or by keys, no Complete, and both legs excluded ('Cancelled reference'). Nothing is moved away. HRP, P10, P11, P13, P14, P36 and P37 have no stored light. The page reads them as on site from the rental system, and Andrew ticked all seven Complete.\n(2) 349 Portable buildings labour keys. All are whole-reference keys (REF|disc|item|line). labourUnits is [] for every building, so there are no per-unit keys and no per-unit vs whole-reference mismatch. No key sits on an item other than the building's current card item.\n(3) Every one of the 49 rated on-site buildings has install, levelling, cleaning and demob ticked. Steps is ticked on 45. Steps is off only on P06, P38, P39 and P42. Each of those four has a stamp by 'Andrew Fisher' at 14 Oct 18:18–18:21Z, matching that delivery doc's steps-off history (P42's delivery steps went off on 2 Oct). I found no agent run that touches those keys, so these are a person's actions.\n(4) Fire extinguisher: exactly 10 'Fire extinguisher' accessories exist on the whole record, each qty 1, added by Andrew 9–13 Oct: P08, P25, P45, P46, P51, P52, P54, P57, P66, P69. fire_ext is ticked on exactly those 10 and nowhere else. No fire_ext stamp is left over from the 16 that fix 1 cleared. Accessories are unchanged between 8077 and 9515.\n(5) Delivery and pick-up leg keys are ticked on all 47 buildings whose legs apply. The 5 exceptions are in the issues: T0021 and T0022 are excluded as 'Coates own use'; T0023, T0258 and T0266 are held.\n(6) Every on-site ref is Complete. The delivery-doc levelled and steps flags agree with the labour ticks on all on-site buildings.\n(7) The xlsx agrees with the record. Install, levelling, cleaning and demob are 49 × card rate each. Steps 7,026.75 = 45 × 156.15. Fire extinguisher 520.50 = 10 × 52.05. Delivery and pick-up are 26,200 each (38 × $500 + 9 × $800). Fire extinguisher rows are exactly the 10 refs; rows with no steps are exactly P06, P38, P39 and P42.\n(8) What today's runs added for buildings, 8077 → 9515: 106 ticks, each with a stamp and by 'Andrew Fisher' (no 'via'), stamped 09:17:12Z–09:20:42Z. There were no delivery-doc, accessory or Complete changes and no other building key changed.\n • Demob on 49 refs (the 47 plus T0021 and T0022): $7,141.26.\n • Pick-up legs on 47 refs: $26,200.\n • fire_ext on the 10 refs: $520.50 in the xlsx, but $0 new money on the page (see issue 3).\nAlong the way, the interrupted first run left 16 fire_ext stamps (removed by fix 1) and 30 building demob/pick-up stamps without ticks (15 demob, 15 pick-up; ticked by fix 2). None of those 30 keys had a stamp at 8077, so treating them as the run's own was right.\n(9) The earlier run today (here_costs, 7350 → 8064) added, for buildings: cleaning 49, delivery legs 47, install 9, levelling 9, steps 7. The set of stamps without a tick is the same at 7350, 8077 and 9515, so no run put back a tick somebody had taken off.",
+      "standing": [
+        {
+          "refs": [
+            "T0021",
+            "T0022",
+            "9968929/1",
+            "9968929/3"
+          ],
+          "what": "Two Coates own-use buildings carry client labour charges in the locked position. Their hire and transport are treated as 'no client charge', but $603.78 of labour each is counted. Today's run added the demob part.",
+          "evidence": "The page's CONTRACT_TREATMENTS747 marks 9968929 lines 1 (T0021) and 3 (T0022) as own_use, approved by the project manager on 2026-10-01. Hire shows 'Coates own use / No client charge'. buildingTransportModel831 excludes both legs on both buildings with reason 'Coates own use'. Baseplan 9968929 bills $0 on both with no transport line, and Coates' Installation & Dismantling line (9968862 line 133) is for 45 buildings, which are the 45 on 9968862 and do not include T0021 or T0022. Even so, both carry ticked install 145.74, steps 156.15, levelling 52.05, cleaning 104.10 and demob 145.74, which is $603.78 each in labourMoney and in the xlsx rows. Who ticked what: demob by today's all-costs run (stamps 2026-10-16T09:20:42.341Z and .496Z, 'Andrew Fisher'); cleaning by the 03:44Z here-costs run; install, levelling and steps on T0022 by Andrew on 18 Sep, and on T0021 'via Codex' on 9 Oct. Andrew's rule would also need delivery and pick-up legs on these two, but the page excludes them, so his rule and the own-use treatment conflict. Andrew needs to decide which applies.",
+          "money_effect": -1207.56,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "The evidence holds. (1) The live page (v10.48, sha 43c1c13b…) has CONTRACT_TREATMENTS747 with 9968929 line 1 = T0021 and line 3 = T0022 as own_use. contractTreatment747 gives approved_by 'the project manager', approved_on 2026-10-01, and the code comment says 'Author: Andrew Fisher. Confirmed 1 Oct 2026 … the four unpriced lines on contract 9968929 are for Coates' own use'. The page treats it as hire 'Coates own use / No client charge'. (2) My own read-only probe of buildingTransportModel831 shows both legs on both buildings as state 'excluded', reason 'Coates own use', $0. (3) In Baseplan, 9968929 lines 1 and 3 have Rate 1 0 and Price 0 and there is no transport line. 9968862 line 133 is Installation & Dismantling, 45 × 655.83, and buildings.json has exactly 45 on-site buildings on 9968862, so T0021 and T0022 are not in it. (4) The probe's labourMoney is 603.78 each (install 145.74, steps 156.15, levelling 52.05, cleaning 104.10, demob 145.74), the same as the xlsx rows. That is 1,207.56 for the two. (5) Stamps and 'by' at 9515 match the claim exactly. T0022 install, steps and levelling are 'Andrew Fisher' on 18 Sep. T0021's three are 'Andrew Fisher via Codex' on 9 Oct. Cleaning is 2026-10-16T03:44:26.994Z / .140Z. Demob is 09:20:42.341Z / .496Z. So the position is inconsistent for these two buildings: own use is applied to hire and transport but not to labour. This is a decision for Andrew, not an arithmetic error. If own use applies, which fits his 1 Oct confirmation, the page's treatment and Coates' own billing, the labour comes out: -1,207.56. If his 16 Oct on-site rule overrides own use, the labour stays and the missing card transport has to be added instead: 4.8 m is $500 each way, so +2,000. The figure below takes the own-use reading.",
+          "corrected_money_effect": -1207.56
+        },
+        {
+          "refs": [
+            "T0258",
+            "T0266",
+            "9974042/3",
+            "9974042/4"
+          ],
+          "what": "Two Helen Park containers are on site and Complete on Andrew's record, but neither leg is ticked or charged. The page holds both legs, and the card has no rate line for these items.",
+          "evidence": "In buildings.json and the page probe, T0258 (3.0m Cont) and T0266 (6.0m Refrigerator Cont) are both 'on site' and done. Their delivery and pick-up rows in buildingTransportModel831 are state 'held' with the reason 'Reviewed transport source or movement allocation changed; reconfirm affected coverage'. No delivery or pick-up labour key exists for either, and page_buildings.json shows 'no rate line' for both items, so there are no labour lines either. Baseplan 9974042 bills line 3 'Delivery each way per container' 2 × $500 and line 4 'Pickup each way per Container' 2 × $500 (Pending), $2,000 in all. The xlsx carries $0 transport on both rows, and its 26,200 / 26,200 leg totals leave this out. (T0023, also held, is own use on 9968929, so it is consistent and has no money effect.)",
+          "money_effect": 2000,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "Confirmed. In buildings.json and in my own live probe, T0258 (3.0m Cont) and T0266 (6.0m Refrigerator Cont) are both 'on site' and done. The record agrees: T0258 on site 6 Oct, done 7 Oct; T0266 on site, effective 13 Oct, done 14 Oct. Both legs on both containers are state 'held' at $0, with no tick and the reason 'Reviewed transport source or movement allocation changed; reconfirm affected coverage'. after_all.json has no delivery or pickup labour key for either. page_buildings.json has 'no rate line' for both items, so there is no card transport or labour. Baseplan 9974042-KINP has line 3 'Delivery each way per container', qty 2 × Price 500, and line 4 'Pickup each way per Container', qty 2 × 500, both Pending. That is $2,000 by price × qty, without using the pre-bill column. The page means these lines to cover the containers' legs: DATA.transport_forecast831.coverage has bindings 9974042|3 and 9974042|4 targeting lines 1 and 2. The hold comes only from a stale signature: the binding expects line 1 asset_no null, but the current row has asset_no '1134386'. The charge lines themselves are unchanged. So the hold is technical staleness, not a decision. The xlsx carries $0 transport on both rows, and its 26,200 + 26,200 equals exactly 47 card buildings (9 × 800 + 38 × 500 each way). It counts hire from this same contract (285.60 and 1,428.00) but leaves out the contract's transport. Under Andrew's rule, on site means delivery and pick-up legs, and the pick-ups are forward charges just like every other building's in the position. The position is short $2,000.",
+          "corrected_money_effect": 2000
+        }
+      ],
+      "refuted": [
+        {
+          "refs": [
+            "P08",
+            "P25",
+            "P45",
+            "P46",
+            "P51",
+            "P52",
+            "P54",
+            "P57",
+            "P66",
+            "P69"
+          ],
+          "what": "Today's fire extinguisher ticks (fix 3) do nothing on the page. The $52.05 is charged from the accessory, and was already charged at 8077. The leftover tick is a latent risk: if Andrew takes a fire extinguisher off one of these buildings, the charge would stay.",
+          "why_refuted": "There is no discrepancy at 9515. At 8077 the 10 Fire extinguisher accessories (qty 1, added by Andrew Fisher 9–13 Oct) were already on P08, P25, P45, P46, P51, P52, P54, P57, P66 and P69, with no fire_ext ticks. At 9515 the same 10 accessories are there, plus 10 fire_ext ticks stamped 2026-10-16T09:17 (fix 3). Ticks and accessories match exactly. The position's 520.50 is 10 × 52.05 on exactly the buildings Andrew recorded, and my probe shows 655.83 each from fire914 with labourTicked off, so nothing is double-counted. The latent risk is real by code: I ran a fresh-memo what-if in memory with the accessory at qty 0 / off_qty, and the page still charged 655.83 through the leftover raw tick; with the tick removed as well it charged 603.78. buildings.cjs also ORs the raw S.labour key, so the xlsx fire extinguisher column depends on those ticks. But this only matters if Andrew later takes a fire extinguisher off. That would be a record change after the lock, not an error in the position being locked. Worth a note for the lock's drift guard; no money effect."
+        },
+        {
+          "refs": [
+            "WC20/u1311341",
+            "WC20/u1327228",
+            "WC01",
+            "WC60/u1087500",
+            "T0001/u1182999"
+          ],
+          "what": "There are 12 stamps without a tick across the record, not six. Five of them were written by an agent, not a person. None are on buildings and none carry money; buildings have only the four person-made steps stamps.",
+          "why_refuted": "The count is true: after_all.json (9515), the 8077 backup and the 7350 here-costs backup each hold the same 12 labour stamps with no labour key. They are P06, P38, P39 and P42 steps ('Andrew Fisher', 14 Oct); T0001/u1182999 VMS install; WC01|FWF|install; WC60/u1087500 cleaning; and five WC20 keys stamped 2026-10-08T17:28:52.725Z 'Andrew Fisher via Codex'. The five WC20 keys are orphans: units now records u1311341 as the Waste tank and u1327228 as the Toilet Block 6m. WC01's live item is Accessible Toilet. The runs' 'six' counts unticks on lines that currently exist; the extra six are orphan keys that no current line reads. It is not a discrepancy in the buildings position. The only building unticks are the four steps, and the position honours them: P06, P38, P39 and P42 have no steps in buildings.json or the xlsx. None of the 12 carries any money, here or in any building."
+        }
+      ],
+      "unverified": []
+    },
+    {
+      "lens": "hire",
+      "verdict": "issues",
+      "checked": "I checked all 56 Portable buildings refs in buildings.json (52 on site, 4 cancelled: P27, P29, P47, P53) against Baseplan (5). I joined each one by contract, line and asset number to Rate 1, Prebill, Rate Type and Number of Days on 9968862-KINP (86 lines, 45 of them building shells), 9968929-KINP (4 lines) and 9974042-KINP (4 lines). I also checked every building against the Delivery Dockets sheet and against Baseplan (4) (bp4.xlsx) to see which rates changed. Then I re-read the live page read-only (harness GET, hire_probe.cjs). The hire joins for all 56 refs are unchanged from buildings.json, and the on-site sum is still 65,136.20.\n\nResults:\n- Every 9968862 shell line is joined exactly once to an on-site building: 45 lines, 45 buildings, 45 distinct assets, and every asset matches its line. Baseplan has no building line that is unjoined.\n- The 9.6 m and 12 m count (9) and the up-to-6 m count (36) agree with Baseplan's transport quantities 18 and 72 and its install and dismantle quantity of 45.\n- T0021 and T0022 are 9968929 lines 1 and 3. Rate 1 is 0 on both and the page marks them own use, which matches Andrew's answer of 1 Oct. Their labour ticks are Andrew's own (stamps from 18 Sep and 16 Oct), so I made no finding on them.\n- T0258 is 9974042 line 1 (1134386) at 285.60, which matches.\n- T0266 is 9974042 line 2 (SUB-2131, rehired from United Rentals/Royal Wolf) at 1,428.00, which matches. It covers its cost rate of 1,364.23, and it is Rehire Revenue rather than Hire Revenue.\n- P39 is carried at 1,426.08, which matches the branch's own 1c-high rate.\n- Every shell line is Rate Type W, 7 days, start 14 Sep, expected term 13 Nov, with Billed Amount 0. The page takes Rate 1 once as the whole-event bill, which agrees with Brenden Meek's rule that everything is charged over the event only. There is no billing yet that contradicts it, but watch for weekly billing from 14 Sep.\n- Out of this position: 9968862 also carries 1,731.15 of delivered furniture and appliance hire (fridges, sinks, urns and so on) plus 148.26 pending. The page carries these lines as furniture, outside the buildings hire.\n\nReproduced hire total from Baseplan (5): 63,422.50 (45 shells on 9968862) + 285.60 + 1,428.00 (9974042) + 0 (9968929) = 65,136.10. That is 0.10 below the position's 65,136.20, and the whole difference is P41. If AA and HRP turn out to be Coates hire at the 6 m line rate, the total would be 67,988.24.",
+      "standing": [
+        {
+          "refs": [
+            "AA",
+            "HRP"
+          ],
+          "what": "Two crib rooms are on site and done on Andrew's record but carry no hire. Neither has a contract line or a docket in Baseplan (5), yet Coates' own schedule shows both as Coates deliveries to Supercars. Either the branch has left two buildings off 9968862 or they are not Coates hire. Someone has to answer that before the hire can be locked.",
+          "evidence": "In buildings.json and the live page, AA (asset 142514) and HRP (no number) both show hire null with no contract line. The position still charges each one labour and transport of 1,603.78. Baseplan (5): 142514 is on no line on any sheet, and none of the 45 shell lines on 9968862 is free. Every one is joined to another ref. Install and dismantle quantity is 45, and transport is 72 + 18 legs (45 buildings), so the branch charges nothing for AA or HRP at all. Schedule 3, Week 5 rows 36 and 41 (review_01Oct2026_schedule_3/schedule_3_rows_as_read.json) lists both as customer 'scars', 'Picking sheet done', D2P 17 Sep: HRP on DD#26077039 at $290+, AA with asset 142514 on DD#26077061 by Internal truck, with a fridge, fold table and 4 chairs. Neither docket number is on Baseplan (5)'s Delivery Dockets sheet. The other crib rooms carry 1,426.07 each: CP1 Signevent (line 17), P06 Wilclean (64), P37 Oz Wide Audio (50) and P41 QFES (63). The v10.10 independent pricing review left 'AA asset142514 lacks matched source hire allocation' open. HRP's number is unknown (record_15Oct2026_dockets_fill README). The master plan puts P36, HRP and AA at three separate adjacent positions, so HRP is not P36.",
+          "money_effect": 2852.14,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "The evidence checks out, but this is an open question for the lock, not a calculation error. Facts confirmed: buildings.json and probe4.json show AA (asset 142514) and HRP (no asset number) on site and done, with hire null, no contract line and no 'incomplete' flag. The position xlsx charges each 1,603.78 of labour and transport with a blank hire cell. In Baseplan (5), 142514 is not on any sheet. 9968862 has exactly 45 shell, ticket-office and commentary-booth lines, and every one is joined to an on-site ref (line 110 also to cancelled P47). Line 133 is 45 x 655.83, and lines 134/135 are 72 x 500 + 18 x 800, which is 36 + 9 = 45 buildings. Schedule 3 Week 5 rows 36 and 41 match the claim (scars, DD#26077039 at $290+, and DD#26077061 Internal with 142514). Neither docket is on the Delivery Dockets sheet, even though that sheet carries every 9968862 line's docket. The master-plan pins put AA, HRP and P36 at three separate positions about 6 m apart. v10.10 pricing/README line 56 still lists AA as having no hire allocation. Andrew's rules cover card costs only. Hire is whatever contract amount the page carries, so 65,136.20 is faithful to the contract. Two Coates buildings on his record have no hire anywhere, though, so the hire figure cannot be called complete. Caveat on the money: 2,852.14 assumes Supercars should pay the 6 m crib-room rate (2 x 1,426.07), and the card has no hire rate. The missing docket numbers sit inside Coates' own sequence (26076826 to 26077069) but are absent from a Supercars-only export (all 209 rows are V8SU0845). That fits either a voided docket or a different customer account. If they are on another account, nothing more is owed. Treat 2,852.14 as possible exposure, not a confirmed amount.",
+          "corrected_money_effect": 2852.14
+        },
+        {
+          "refs": [
+            "T0258",
+            "T0266",
+            "9974042/3",
+            "9974042/4"
+          ],
+          "what": "The two Helen Park containers carry the right hire, but the position holds their delivery and pick-up at $0. Baseplan bills $500 each way per container. Andrew's rule is that everything on site has a delivery and a pick-up. This overlaps the transport lens.",
+          "evidence": "In buildings.json, tr.delivery and tr.pickup for both T0258 and T0266 are charge 0, state 'held', with no tick. page_buildings.json shows the card has 'no rate line' for 3.0m Cont or 6.0m Refrigerator Cont. Baseplan (5) 9974042: line 3 'Delivery each way per container' quantity 2, Prebill 1,000; line 4 'Pickup each way per Container' quantity 2, Prebill 1,000. These lines have no Rate 1, so the only figure is a prebill one and Andrew needs to confirm the rate. Both containers are delivered: dockets 26112749 (12 Oct) and 26127706 (13 Oct).",
+          "money_effect": 2000,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "Confirmed. buildings.json shows T0258 and T0266 delivery and pick-up at charge 0, state 'held', rate null, no tick. The page's hold reason is 'Reviewed transport source changed; reconcile its current movement scope' (rates_verify/probe.json). The xlsx leaves both legs blank, so the position total of 147,017.32 includes nothing for them. Andrew's record has both on site and done: T0258 craned 7 Oct, T0266 arrived 13 Oct. Baseplan (5) 9974042 line 3 'Delivery each way per container' is qty 2 at Price 500, prebill 1,000. Line 4 'Pickup each way per Container' is qty 2 at Price 500, prebill 1,000. One correction to the claim: the lines do carry a Price of 500, not only a prebill figure. They are built the same way as 9968862 lines 133-135. Dockets 26112749 (1134386) and 26127706 (SUB-2131) are both on the sheet. v10.13 finance/README notes the page already counts this container transport in its contract-level transport revenue. It is missing from the buildings position only. 2 containers x 2 legs x 500 = 2,000. This overlaps the transport lens, so don't count it twice.",
+          "corrected_money_effect": 2000
+        },
+        {
+          "refs": [
+            "P41",
+            "9968862/63",
+            "1189412"
+          ],
+          "what": "P41's hire still uses Baseplan (4)'s rate of 1,426.17. Baseplan (5) has corrected line 63 to 1,426.07, so the position is 10c over.",
+          "evidence": "buildings.json and the live page re-read today: P41 hire 1426.17, joined to 9968862 line 63, asset 1189412. Baseplan (5) 9968862-KINP line 63: Rate 1 1426.07, Prebill 1426.07. bp4.xlsx line 63: 1426.17. review_16Oct2026_baseplan5/README.md line 55 records 'P41 rate 10c'. The page's contract source has 83 rows for 9968862 against 86 in (5), which confirms it predates (5).",
+          "money_effect": -0.1,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Confirmed. buildings.json, probe4.json and the xlsx all carry P41 at 1,426.17 on 9968862 line 63, asset 1189412. Baseplan (5) line 63 has Rate 1 1,426.07 and Prebill 1,426.07. bp4.xlsx line 63 has 1,426.17 for both. P41 is the only on-site 9968862 building whose page hire differs from Baseplan (5) Rate 1: I compared all of them. bp4 has 83 lines on 9968862 and bp5 has 86 (the new lines are 133-135). The Baseplan (5) review (build_check.py line 79) marked this 'Nothing to do' as a billing matter, but the position still uses the old figure. Corrected hire total is 65,136.10.",
+          "corrected_money_effect": -0.1
+        },
+        {
+          "refs": [
+            "T0023",
+            "9968929/5",
+            "1257261"
+          ],
+          "what": "The page leaves T0023's hire as unknown (incomplete, not own use). It should be settled at $0 like the other 9968929 lines.",
+          "evidence": "In probe4.json, T0023 shows amount null, incomplete true, ownUse false, basis 'no rate on the line yet — unknown, not nought'. Baseplan (5) 9968929 line 5 'Shop Front - Shut Down' has Rate 1 0 and Prebill 0, status 'Del Req'. STATUS v7.47 records Andrew's answer of 1 Oct that the 9968929 lines are for Coates' own use. The 15 Oct question note says Shop Front - Shut Down is a fit-out of container 1257261 at T0023, with no separate hire rate. T0021 and T0022 (lines 1 and 3) are already ownUse true at 0.",
+          "money_effect": 0,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Status only, no money. probe4.json shows T0023 at amount null, incomplete true, ownUse false, basis 'no rate on the line yet — unknown, not nought'. Lines 1 and 3 (T0021/T0022) are ownUse true at 0, 'confirmed 1 Oct 2026'. Baseplan (5) 9968929 line 5 (1257261 'Shop Front - Shut Down', Del Req) has Rate 1 0 and Prebill 0. STATUS line 2592 (v7.47) records Andrew's 1 Oct answer that the 9968929 lines are for Coates' own use. The 15 Oct question note (record_15Oct2026_dockets_fill README) says the shop front is a fit-out of container 1257261 with no separate hire rate. So the page leaves an on-site building's hire 'unknown' against Andrew's decision. Money is unaffected: the xlsx already treats null as 0 and shows hire blank against T0021/T0022's 0.",
+          "corrected_money_effect": 0
+        }
+      ],
+      "refuted": [
+        {
+          "refs": [
+            "P47",
+            "P65",
+            "9968862/110",
+            "1327217"
+          ],
+          "what": "Two buildings share one line. P47 was cancelled 6 Oct but still carries asset 1327217, and the live page still joins it to 9968862 line 110 at 1,426.07. That is P65's line and P65's building. The position excludes P47 as cancelled, so line 110 is counted once in 65,136.20. Any page view that sums hire without the cancelled filter would count 1,426.07 twice.",
+          "why_refuted": "No discrepancy in the position. The facts are right: probe4.json has P47 cancelled, still carrying 1327217 and joined to 9968862|110 at 1,426.07, the same line as P65, and docket 26126006 delivered 1327217 as P65. But the position follows Andrew's cancelled rule. P47 is on the 'Not on site' sheet, its transport legs are 'excluded' with reason 'Cancelled reference', and line 110 is counted once (P65) in 65,136.20. The page has filtered superseded P47/P53 hire since v10.13 (finance/README). The double count is hypothetical: no evidence any view does it. A per-asset 'base' on cancelled refs in live_probe.json also shows on P53, which has no hire line, so it is not a hire sum. The stale number on P47 is a record clean-up item with no money effect."
+        },
+        {
+          "refs": [
+            "P58",
+            "P44",
+            "9968862/59",
+            "9968862/61",
+            "1273656",
+            "198481"
+          ],
+          "what": "Baseplan labels two lines 'P44'. The page joins them correctly by asset (line 59 to P58, line 61 to P44), so hire is right and nothing is counted twice. Only the branch's description on line 59 is wrong.",
+          "why_refuted": "Not a discrepancy in the position, and the claim says so itself. Baseplan (5) line 59 (1273656, docket 26088630, 23 Sep) and line 61 (198481, docket 26088639) are both labelled P44. The record has P58 on 1273656 and P44 on 198481, and the page joins line 59 to P58 and line 61 to P44, at 1,426.07 each, each counted once. This is a branch label error only, and the Baseplan (5) review README already records it under 'Labels only, no money: ... line 59 labelled P44 is P58's building (1273656)'."
+        },
+        {
+          "refs": [
+            "P19",
+            "P21",
+            "P25",
+            "9968862/34",
+            "9968862/92",
+            "9968862/105"
+          ],
+          "what": "For three buildings, Baseplan describes a 6.0 m x 3.0 m shell but rates it at the 4.8 m rate of 1,125.84. Andrew's record has all three as Building 4.8m and the page carries 1,125.84, so the page and Baseplan agree on hire. If the branch re-rates them to the 6 m rate of 1,426.07, the total rises by 300.23 each (900.69).",
+          "why_refuted": "Not a discrepancy. Baseplan (5) lines 34, 92 and 105 (P19 1110619, P21 1327220, P25 1189408) do describe 6.0 m shells, and so do dockets 26076816, 26076820 and 26125993. But all three are billed at 1,125.84, the page carries 1,125.84, and Andrew's record, which is the truth, has all three as Building 4.8m. Record, page and contract agree on hire. The card's labour and transport for 4.8 m and 6 m are the same (500 each way, same labour pieces), so nothing else in the position changes. The 900.69 re-rate is hypothetical with no evidence behind it, and the Baseplan (5) review README already lists these as 'Labels only, no money'."
+        }
+      ],
+      "unverified": []
+    },
+    {
+      "lens": "arithmetic",
+      "verdict": "issues",
+      "checked": "Arithmetic is right. No double counting found. All four building sources agree to the cent at $147,017.32: buildings.json, the raw record at 9515, the workbook and the live page.\n\n(1) buildings.json recomputed in Decimal for the 52 on site (P27, P29, P47, P53 cancelled):\n- hire 65,136.20\n- install 7,141.26 (49 x 145.74)\n- steps 7,026.75 (45 x 156.15)\n- levelling 2,550.45 (49 x 52.05)\n- cleaning 5,100.90 (49 x 104.10)\n- fire extinguisher 520.50 (10 x 52.05)\n- demob 7,141.26 (49 x 145.74)\n- delivery 26,200 (38 x 500 + 9 x 800)\n- pick-up 26,200\n- labour + transport 81,881.12; total 147,017.32\n\n(2) Raw record after_all.json: 345 'Portable buildings' labour docs, all true, all four-part keys. There are no '/u' unit keys, so no building is ticked per unit and twice. Counts: install, levelling, cleaning and demob 49 each; steps 45; fire_ext 10; delivery 47; pickup 47. These counts times the card (page_buildings.json; every building item has the same labour rates; 500 or 800 each way) give the same figures for every building and every column, with 0 differences.\n\n(3) Workbook: all 52 rows were compared cell by cell. Row totals, column sums, the TOTAL row, the Baseplan column (79,912.35 = 45 x 655.83 + 72 x 500 + 18 x 800) and 'over' (2,446.35) all reconcile. No contract line or asset number appears twice among the on-site rows. Every building has qty 1 and one charge line, and there are no multi-building refs, so rate x pieces = rate.\n\n(4) Live page, read only with GET. The harness blocked 0 writes. /api/state and /api/version both returned 9515. Building labour, delivery, accessories, stamps and assetNumbers match after_all.json exactly, so nothing has changed since 9515. All 52 buildings were compared, not just 8, with 0 differences on:\n- labourMoney against workbook labour\n- arrivedChargeRows975 against workbook labour less fire extinguisher (the README already records that this list omits the fire extinguisher, 10 x 52.05)\n- buildingTransportModel831 actualAdditional1006 delivery and pickup\n- ItemCharges979 hire\n- labourPlan charged slots\n\nPage grand total (hire + labourMoney + legs) is 147,017.32. Sample of 8, given as labour / delivery / pick-up / hire → total:\n- P01: 603.78 / 800 / 800 / 1951.46 → 4155.24\n- P06: 447.63 (no steps; steps qty 0) / 500 / 500 / 1426.07 → 2873.70\n- P08: labourMoney 655.83 incl. fire extinguisher, arrived list 603.78 / 500 / 500 / 1426.07 → 3081.90\n- P17: 603.78 / 800 / 800 / 1576.18 → 3779.96\n- P41: 603.78 / 500 / 500 / 1426.17 → 3029.95\n- P56: 603.78 / 500 / 500 / 975.73 → 2579.51\n- AA: 603.78 / 500 / 500 / no contract → 1603.78\n- T0021: 603.78 / 0 / 0 (excluded, 'Coates own use') / 0 → 603.78\n\nDemob is charged once. OnsiteCharges1006 charges demob automatically and takes max(arrived, ticks), so it does not add the tick on top: demob qty is 1 on all 49. The fire extinguisher is also charged once: there is a single fire914 entry and labourPlan skips the ticked fire_ext line when an accessory exists. Each building has one delivery and one pickup row. The 'delivery'/'pickup' labour keys are not counted inside labourMoney.\n\nThe 10 fire extinguisher accessories (P08, P25, P45, P46, P51, P52, P54, P57, P66, P69, qty 1 each) match the 10 fire_ext ticks.\n\nBuilding ticks a person took off stay off: P06, P38, P39 and P42 steps are stamped with no tick. Record-wide there are 12 stamped-but-unticked labour keys across 8 refs (the same at 8077 and 9515), not six; the other 8 are on non-building refs.\n\nHire was also checked against Baseplan (5) Rate 1 for all 50 joined lines. Only P41 differs (issue below); Baseplan's sum is 65,136.10.\n\nNot counted as a finding: assetTotal() is an internal card estimator and carries one transport leg (27,200). The locked figures use buildingTransportModel831 instead.\n\nLatent only, no effect today: build_xlsx.py, buildings.cjs and the v10.49 draft snap1049 take the rate x 1 from the first charge line. That would undercount if a building ref ever had qty above 1 or a second charge line.\n\nScratch files are in /tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/bp/arith_lens/ (recompute.py, live_probe.cjs, live_probe.json, cmp_live.py, drift_probe.cjs, drift.json, ver_probe.cjs).",
+      "standing": [
+        {
+          "refs": [
+            "T0258",
+            "T0266"
+          ],
+          "what": "The two containers on 9974042 carry no transport in the position, although Coates' own contract puts a rate on both legs.",
+          "evidence": "Baseplan (5) sheet 9974042-KINP, line 3 'Delivery each way per container' 2 x $500 and line 4 'Pickup each way per Container' 2 x $500, both Pending: $2,000. The workbook has delivery and pick-up blank (0) for T0258 and T0266. On the live page both legs on both containers are state 'held' with rate null ('Reviewed transport source ... reconfirm affected coverage'), and the card has no container line. Hire on the same contract is counted (285.60 and 1,428.00).",
+          "money_effect": 2000,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "Confirmed. Baseplan (5) sheet 9974042-KINP line 3 'Delivery each way per container' is qty 2 x $500 and line 4 'Pickup each way per Container' is qty 2 x $500, both Pending. Baseplan (4) has the same lines, and the page's ONHIRE_ROWS carries both as charge_line transport at price 500, qty 2. On the record, T0258 and T0266 are 'on site' and done (delivery collection). In the workbook both have Delivery and Pick-up blank and labour+transport 0, while their hire on the same contract is counted (285.60 and 1,428.00). Live at v9515, both legs on both containers are 'held' with rate null ('Reviewed transport source or movement allocation changed; reconfirm affected coverage'). The card has no rate line for containers. all_costs.cjs skips legs in state held, excluded or included, so these were never ticked. Under Andrew's rule (on site gets delivery and pick-up), the buildings position is $2,000 short. One caveat: the page's job Revenue already counts this $2,000. branchRollup puts KINP contract transport at 2 lines, $2,000, and moneySummary_ delivery 115,667.04 = contract transport 7,817.04 + building legs 107,850. So the $2,000 is missing from the buildings breakdown only, not from job revenue. When it goes into the breakdown it must not be counted twice job-wide.",
+          "corrected_money_effect": 2000
+        },
+        {
+          "refs": [
+            "P41"
+          ],
+          "what": "P41's hire is 10 cents too high. It uses Baseplan (4)'s superseded rate, not the current billing export or the card.",
+          "evidence": "Workbook and live ItemCharges979 show P41 9968862/63 hire $1,426.17. Baseplan (5) of 16 Oct, line 63 (1189412) has Rate 1 $1,426.07; Baseplan (4) had 1,426.17. The page's own pricing row for 9968862/63 says rate_1 1426.17 against card 1426.07. Hire column 65,136.20 against Baseplan (5) sum 65,136.10.",
+          "money_effect": -0.1,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Confirmed. Baseplan (5) 9968862-KINP line 63 (P41, item 1189412) has Rate 1 1426.07. Baseplan (4) line 63 had 1426.17. The live ONHIRE_ROWS still reads rate_1 1426.17 for 9968862/63. The page's own pricing row says rate_1 1426.17 against card 1426.07, difference 0.1, marked 'agrees'. The record holds no rate override for this line (the rates collection has only 'Portable buildings|Building 9.6m'). I checked every workbook row's contract and line against Baseplan (5) Rate 1 x qty, and P41 is the only difference: workbook hire 65,136.20 against Baseplan (5) 65,136.10. P41's hire, and the total, are 10 cents too high.",
+          "corrected_money_effect": -0.1
+        },
+        {
+          "refs": [
+            "AA",
+            "CP1",
+            "HRP",
+            "P01",
+            "P03",
+            "P04",
+            "P05",
+            "P06",
+            "P09",
+            "P10",
+            "P11",
+            "P12",
+            "P13",
+            "P14",
+            "P15",
+            "P16",
+            "P17",
+            "P18",
+            "P19",
+            "P20",
+            "P21",
+            "P33",
+            "P36",
+            "P37",
+            "P38",
+            "P39",
+            "P41",
+            "P42",
+            "P44",
+            "P55",
+            "P56",
+            "P58",
+            "P60",
+            "P62",
+            "P63",
+            "P65",
+            "P67",
+            "T0021",
+            "T0022"
+          ],
+          "what": "The page forecasts a fire extinguisher still 'to come' on all 39 buildings that have none recorded. This breaks the rule that fire extinguishers are charged only where Andrew recorded one.",
+          "evidence": "Live labourPlan(): building slots are charged 29,481.12 (equal to the workbook) plus 39 'tocome' fire_ext slots of 52.05 = $2,029.95. These are the only building 'to come' slots. They come from OnsiteCharges1006.project, which sets planned = ordered for fire_ext. They appear on the Revenue panel line 'Labour ticked on references ... not in the total yet: ... $4,763 to come' (labourPlan().all.tocome 4,762.61, of which 2,029.95 is building fire extinguishers) and by branch. The locked $147,017.32 is unaffected.",
+          "money_effect": 0,
+          "severity": "medium",
+          "stands": true,
+          "verifier": "Confirmed with my own read-only probe at v9515. Building slots in labourPlan(): charged 29,481.12 (equal to the workbook labour), and 39 fire_ext slots 'tocome' at 52.05 = 2,029.95. Building fire extinguishers are the only 'to come' slots for buildings. The 39 refs match the list exactly (AA ... T0022); the 10 recorded fire extinguisher buildings are 'charged' instead. labourPlan().all.tocome = 4,762.61. The rest of the 'to come' is Generators install 874.44, Lighting towers install and demob 176.98 each, and VMS install 1,504.26. The Revenue panel template prints money0(LP.tocome) as '... to come' on the 'Labour ticked on references' line, so the page shows $2,029.95 of fire extinguishers still coming on buildings where Andrew recorded none. That conflicts with his 'nowhere else' rule. The locked $147,017.32 is unaffected, so the effect on the position is 0; the page's 'to come' is overstated by $2,029.95.",
+          "corrected_money_effect": 0
+        },
+        {
+          "refs": [
+            "P47",
+            "P65"
+          ],
+          "what": "The page joins one contract line, 9968862/110, to two references: P65 (on site) and cancelled P47.",
+          "evidence": "buildings.json and live ItemCharges979: P47 (cancelled, not on site) shows contract 9968862 line 110, asset 1327217, hire 1,426.07, the same as P65. Baseplan (5) line 110 is labelled P65. The workbook counts it once (P65 only), so the locked total is right. Any page sum of ItemCharges979 hire over all references, cancelled ones included, would count $1,426.07 twice.",
+          "money_effect": 0,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Confirmed, but the double-count risk is overstated. My live probe finds exactly one contract line joined to two building refs: 9968862/110 to P47 (cancelled) at 1,426.07 and to P65 at 1,426.07. Baseplan (5) line 110 is labelled 'P65 ... Cyclonic Rated', item 1327217. The record has no asset number for either ref, so the join is made by the page. assetTotal(P47) gives total 1,426.07, so cancelled P47's own reference shows a hire charge, which goes against Andrew's rule that cancelled buildings carry no charges. The workbook puts P47 on 'Not on site' and counts line 110 once, under P65. No page total I checked counts it twice: moneySummary_ works from allAssets().filter(a => !a._cancelled), and Revenue sums contract rows once. The 'would count twice' part is hypothetical. The money effect is 0; only P47's reference display is wrong.",
+          "corrected_money_effect": 0
+        },
+        {
+          "refs": [
+            "STATUS.md line 1"
+          ],
+          "what": "The STATUS board misquotes the labour figure inside the buildings breakdown by $0.50.",
+          "evidence": "STATUS.md line 1 reads 'my-record total $147,017.32 (hire $65,136.20, labour $29,480.62 incl. demob, transport $52,400.00)'. Those three add to 147,016.82. Workbook labour columns 7,141.26 + 7,026.75 + 2,550.45 + 5,100.90 + 520.50 + 7,141.26 = 29,481.12, which is also the live labourPlan building charged figure. The total is right; only the component is wrong.",
+          "money_effect": 0,
+          "severity": "low",
+          "stands": true,
+          "verifier": "Confirmed. STATUS.md line 1 reads 'my-record total $147,017.32 (hire $65,136.20, labour $29,480.62 incl. demob, transport $52,400.00)', and those three add to 147,016.82. The workbook TOTAL row labour columns are 7,141.26 + 7,026.75 + 2,550.45 + 5,100.90 + 520.50 + 7,141.26 = 29,481.12. The live labourPlan building 'charged' figure is also 29,481.12. 65,136.20 + 29,481.12 + 52,400.00 = 147,017.32. The total is right and the labour figure in STATUS is $0.50 low. This is a documentation error with no money effect.",
+          "corrected_money_effect": 0
+        }
+      ],
+      "refuted": [
+        {
+          "refs": [
+            "T0021",
+            "T0022"
+          ],
+          "what": "The two Coates own-use buildings on contract 9968929 are charged labour to the V8s, while the same page treats them as Coates own use for hire and transport.",
+          "why_refuted": "Refuted as stated. The labour on T0021 and T0022 is on Andrew's own record. after_all.json (v9515) has labour ticks with 'by' entries: T0022 install, steps and levelling ticked 18 Sep by 'Andrew Fisher'; T0021 the same three ticked 9 Oct by 'Andrew Fisher via Codex'; cleaning on both ticked 16 Oct 03:44 by Andrew Fisher; demob on both ticked 16 Oct 09:20 by Andrew Fisher. Both buildings are 'on site' and done. His rule for this position is that anything on site gets install, steps, levelling, cleaning and demob, so taking off 1,207.56 would go against his record. His 1 Oct own-use confirmation reads 'no customer hire charge' (page CONTRACT_TREATMENTS747 and contractCharge, both returning amount 0 and treatment own_use for 9968929 lines 1, 3 and 7), so it covers hire only. Hire 0 and labour charged therefore do not contradict each other. The other direction (+$2,000 for the delivery and pick-up legs excluded as 'Coates own use') is the page applying own use to transport, and Baseplan (5) 9968929 bills no transport. Whether own use also covers transport is for Andrew to decide; nothing in the evidence shows it as an error. The Baseplan figures are correct (lines 1 and 3 Rate 1 0, with no install or transport lines), but the money effect claimed here does not follow from them."
+        }
+      ],
+      "unverified": []
+    }
+  ],
+  "workflowProgress": [
+    {
+      "type": "workflow_phase",
+      "index": 1,
+      "title": "Check"
+    },
+    {
+      "type": "workflow_phase",
+      "index": 2,
+      "title": "Refute"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 1,
+      "label": "check:completeness",
+      "phaseIndex": 1,
+      "phaseTitle": "Check",
+      "agentId": "a09496c9526c93231",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792143693508,
+      "queuedAt": 1792143693461,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "COMPLETENESS: is every building on site on Andrew's record …",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792144653110,
+      "tokens": 290353,
+      "toolCalls": 53,
+      "durationMs": 959600,
+      "resultPreview": "{\"lens\":\"COMPLETENESS: is every building on site on Andrew's record in the 52, and nothing that is not on site?\",\"checked\":\"Answer on set membership: the 52 is right. Every building that Baseplan (5) and the dockets show as delivered maps to a reference in the 52. Nothing cancelled or not on site is in it. No building sits under another discipline. The issues below are about who pays and identitie…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 2,
+      "label": "check:rates",
+      "phaseIndex": 1,
+      "phaseTitle": "Check",
+      "agentId": "a16cb74a99e30fe87",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792143693509,
+      "queuedAt": 1792143693461,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "RATES: card rate per charge line, and card item against the…",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792144055100,
+      "tokens": 222338,
+      "toolCalls": 35,
+      "durationMs": 358312,
+      "resultPreview": "{\"lens\":\"RATES: card rate per charge line, and card item against the physical building (Baseplan description, asset number and transport size class)\",\"checked\":\"I checked all 52 on-site buildings in buildings.json (record 9515) and all 52 rows in GC500_Buildings_Charges_16Oct2026.xlsx against the page_buildings.json card and Baseplan (5) sheets 9968862, 9968929, 9974042 and Delivery Dockets. I rea…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 3,
+      "label": "check:ticks",
+      "phaseIndex": 1,
+      "phaseTitle": "Check",
+      "agentId": "a28c6dd4cc7897deb",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792144055116,
+      "queuedAt": 1792143693461,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "TICKS AND RULES: labour, stamps, by, accessories and delive…",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792144540324,
+      "tokens": 245928,
+      "toolCalls": 48,
+      "durationMs": 485207,
+      "resultPreview": "{\"lens\":\"TICKS AND RULES: labour, stamps, by, accessories and delivery at record 9515, compared with the 8077 backup\",\"checked\":\"Live /api/state is still version 9515 and identical to after_all.json (0 documents differ). I also loaded the live page read-only (GET only, 0 writes blocked, 0 page errors) and read labourTicked, labourMoney, fire914 and buildingTransportModel831 for all 56 Portable bui…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 4,
+      "label": "check:hire",
+      "phaseIndex": 1,
+      "phaseTitle": "Check",
+      "agentId": "a6e1b50d9ba1f9c34",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792144540374,
+      "queuedAt": 1792143693462,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "HIRE",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792144988971,
+      "tokens": 206950,
+      "toolCalls": 40,
+      "durationMs": 448597,
+      "resultPreview": "{\"lens\":\"HIRE\",\"checked\":\"I checked all 56 Portable buildings refs in buildings.json (52 on site, 4 cancelled: P27, P29, P47, P53) against Baseplan (5). I joined each one by contract, line and asset number to Rate 1, Prebill, Rate Type and Number of Days on 9968862-KINP (86 lines, 45 of them building shells), 9968929-KINP (4 lines) and 9974042-KINP (4 lines). I also checked every building against …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 5,
+      "label": "check:arithmetic",
+      "phaseIndex": 1,
+      "phaseTitle": "Check",
+      "agentId": "a8c67571d6b268f67",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792144653120,
+      "queuedAt": 1792143693462,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "lastToolSummary": "ARITHMETIC AND DOUBLE COUNTING",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792145306032,
+      "tokens": 245980,
+      "toolCalls": 52,
+      "durationMs": 652911,
+      "resultPreview": "{\"lens\":\"ARITHMETIC AND DOUBLE COUNTING\",\"checked\":\"Arithmetic is right. No double counting found. All four building sources agree to the cent at $147,017.32: buildings.json, the raw record at 9515, the workbook and the live page.\\n\\n(1) buildings.json recomputed in Decimal for the 52 on site (P27, P29, P47, P53 cancelled):\\n- hire 65,136.20\\n- install 7,141.26 (49 x 145.74)\\n- steps 7,026.75 (45 …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 6,
+      "label": "refute:rates",
+      "phaseIndex": 2,
+      "phaseTitle": "Refute",
+      "agentId": "aca6a68bf8311cfa3",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792144989004,
+      "queuedAt": 1792144055174,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792145444257,
+      "tokens": 203275,
+      "toolCalls": 29,
+      "durationMs": 455252,
+      "resultPreview": "{\"results\":[{\"index\":0,\"stands\":false,\"corrected_money_effect\":0,\"reason\":\"The facts check out. T0021 (asset 960639, 9968929 line 1) and T0022 (asset 960634, line 3) are on site on the record. Each carries five ticked labour lines (install, steps, levelling, cleaning, demob) at $603.78, so $1,207.56 for the two. The demob ticks were stamped 2026-10-16T09:20:42 by today's run. Both transport legs a…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 7,
+      "label": "refute:ticks",
+      "phaseIndex": 2,
+      "phaseTitle": "Refute",
+      "agentId": "a6155add6a94c8b93",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792145306046,
+      "queuedAt": 1792144540430,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792145846879,
+      "tokens": 244125,
+      "toolCalls": 45,
+      "durationMs": 540831,
+      "resultPreview": "{\"results\":[{\"index\":0,\"stands\":true,\"reason\":\"The evidence holds. (1) The live page (v10.48, sha 43c1c13b…) has CONTRACT_TREATMENTS747 with 9968929 line 1 = T0021 and line 3 = T0022 as own_use. contractTreatment747 gives approved_by 'the project manager', approved_on 2026-10-01, and the code comment says 'Author: Andrew Fisher. Confirmed 1 Oct 2026 … the four unpriced lines on contract 9968929 ar…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 8,
+      "label": "refute:completeness",
+      "phaseIndex": 2,
+      "phaseTitle": "Refute",
+      "agentId": "a0739f37c58635615",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792145444265,
+      "queuedAt": 1792144653158,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792145773052,
+      "tokens": 195150,
+      "toolCalls": 32,
+      "durationMs": 328785,
+      "resultPreview": "{\"results\":[{\"index\":0,\"stands\":false,\"corrected_money_effect\":0,\"reason\":\"The facts are right, but they do not make a discrepancy under Andrew's rules. Checked: 142514, 1282487, Hire Republic, Active Air and dockets 26077061/26077039/26077026 appear nowhere in bp.xlsx or bp4.xlsx. 9968862 line 133 (45 installs) and lines 134/135 (72 + 18 = 90 legs) cover the 45 refs on 9968862 and not AA or HRP. …"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 9,
+      "label": "refute:hire",
+      "phaseIndex": 2,
+      "phaseTitle": "Refute",
+      "agentId": "a5c74ec1792a7b605",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792145773061,
+      "queuedAt": 1792144989049,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792146146477,
+      "tokens": 218578,
+      "toolCalls": 33,
+      "durationMs": 373416,
+      "resultPreview": "{\"results\":[{\"index\":0,\"stands\":true,\"reason\":\"The evidence checks out, but this is an open question for the lock, not a calculation error. Facts confirmed: buildings.json and probe4.json show AA (asset 142514) and HRP (no asset number) on site and done, with hire null, no contract line and no 'incomplete' flag. The position xlsx charges each 1,603.78 of labour and transport with a blank hire cell…"
+    },
+    {
+      "type": "workflow_agent",
+      "index": 10,
+      "label": "refute:arithmetic",
+      "phaseIndex": 2,
+      "phaseTitle": "Refute",
+      "agentId": "a36eb0021353543cb",
+      "model": "claude-opus-5-5",
+      "state": "done",
+      "startedAt": 1792145846897,
+      "queuedAt": 1792145306099,
+      "attempt": 1,
+      "lastToolName": "StructuredOutput",
+      "promptPreview": "You are checking the GC500 (Boost Mobile Gold Coast 500, Coates hire) BUILDINGS charges position before the site manager, Andrew Fisher, locks it in.\nHis site record is the truth. The position was read from the live page at shared record version 9515 on 16 Oct 2026.\n\nInputs (read-only):\n- /home/user/fish/03_GC500_Delivery_Control/buildings_charges_16Oct2026/buildings.json — one object per Portable…",
+      "promptFramed": true,
+      "lastProgressAt": 1792146733658,
+      "tokens": 196985,
+      "toolCalls": 39,
+      "durationMs": 886760,
+      "resultPreview": "{\"results\":[{\"index\":0,\"stands\":false,\"corrected_money_effect\":0,\"reason\":\"Refuted as stated. The labour on T0021 and T0022 is on Andrew's own record. after_all.json (v9515) has labour ticks with 'by' entries: T0022 install, steps and levelling ticked 18 Sep by 'Andrew Fisher'; T0021 the same three ticked 9 Oct by 'Andrew Fisher via Codex'; cleaning on both ticked 16 Oct 03:44 by Andrew Fisher; de…"
+    }
+  ],
+  "totalTokens": 2269662,
+  "totalToolCalls": 406
+}

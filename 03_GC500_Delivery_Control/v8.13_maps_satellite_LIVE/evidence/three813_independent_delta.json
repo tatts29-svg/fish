@@ -1,0 +1,49 @@
+{
+  "author": "Andrew Fisher",
+  "poc_sha256": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+  "merge_sha256": "bbc441e67211d6a3f73d64c9fffcace96335baf803d22980236a461942ccda2c",
+  "checks": [
+    {
+      "name": "built-in Cesium error panel disabled",
+      "pass": true
+    },
+    {
+      "name": "running render failure invalidates ready and offers manual retry",
+      "pass": true
+    },
+    {
+      "name": "render failure does not reload session automatically",
+      "pass": true
+    },
+    {
+      "name": "context loss keeps its more specific recovery text",
+      "pass": true
+    },
+    {
+      "name": "render failure before imagery completion cannot be cleared by late imagery",
+      "pass": true,
+      "observed": {
+        "bootError": "render",
+        "ready": false,
+        "renderLoop": false,
+        "retryHidden": false,
+        "added": 0
+      }
+    },
+    {
+      "name": "late imagery is disposed after terminal render failure",
+      "pass": true
+    },
+    {
+      "name": "late imagery rejection preserves original render failure",
+      "pass": true
+    },
+    {
+      "name": "nonterminal slow warning still permits late success",
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "total": 8,
+  "limits": "CPU exact boot/helper functions; no browser, GPU, network or service calls."
+}

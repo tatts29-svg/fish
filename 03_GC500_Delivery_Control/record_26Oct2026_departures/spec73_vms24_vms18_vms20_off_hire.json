@@ -1,0 +1,9 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 13:35 AEST: \"450. 472.475 off hire as of today please\" - Premiair VMS boards 450T (TE94CL, VMS24), 472T (TE58GZ, VMS18) and 475T (TE88HN, VMS20) are off hire from 29 Oct 2026. 450T leaves the record today (no time given, 12:00 used as a nominal time); 472T and 475T already left site Mon 26 Oct (run 72), so their off-hire day goes on the reference as a note",
+  "ops": [
+    {"op": "depart", "ref": "VMS-03", "at": "2026-10-29T12:00:00+10:00", "nos": ["450T"], "complete": true},
+    {"op": "note_append", "ref": "VMS-03", "text": "Off hire Thu 29 Oct 2026 - Premiair board 450T (VMS24), on Andrew Fisher's word 29 Oct 2026. Left site recorded the same day, 12:00 nominal."},
+    {"op": "note_append", "ref": "T0158", "text": "Off hire Thu 29 Oct 2026 - Premiair boards 472T (VMS18) and 475T (VMS20), on Andrew Fisher's word 29 Oct 2026. Both left site Mon 26 Oct 2026 (12:00 nominal)."}
+  ]
+}

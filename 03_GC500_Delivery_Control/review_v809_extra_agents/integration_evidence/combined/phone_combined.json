@@ -1,0 +1,192 @@
+{
+  "author": "Andrew Fisher",
+  "method": "Extracted source functions with controlled event and DOM doubles; no browser or GPU",
+  "rows": [
+    {
+      "candidate": "snapshot",
+      "case": "single touch release",
+      "view": "car",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": true
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "single touch release",
+      "view": "cog",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "second touch lifts first",
+      "view": "car",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "second touch lifts first",
+      "view": "cog",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "wheel touch lifts first",
+      "view": "car",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "wheel touch lifts first",
+      "view": "cog",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "wheel touch cancelled",
+      "view": "car",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "wheel touch cancelled",
+      "view": "cog",
+      "ok": false,
+      "state": {
+        "held": true,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "snapshot",
+      "case": "Find a part during tour",
+      "ok": false,
+      "visibleSurfaceCount": 2,
+      "tour": 0
+    },
+    {
+      "candidate": "snapshot",
+      "case": "Next focuses new tour heading",
+      "ok": false,
+      "focus": "tour-next"
+    },
+    {
+      "candidate": "proposal",
+      "case": "single touch release",
+      "view": "car",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": true
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "single touch release",
+      "view": "cog",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "second touch lifts first",
+      "view": "car",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": true
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "second touch lifts first",
+      "view": "cog",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "wheel touch lifts first",
+      "view": "car",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": true
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "wheel touch lifts first",
+      "view": "cog",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "wheel touch cancelled",
+      "view": "car",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": true
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "wheel touch cancelled",
+      "view": "cog",
+      "ok": true,
+      "state": {
+        "held": false,
+        "orbit": false
+      }
+    },
+    {
+      "candidate": "proposal",
+      "case": "Find a part during tour",
+      "ok": true,
+      "visibleSurfaceCount": 1,
+      "tour": -1
+    },
+    {
+      "candidate": "proposal",
+      "case": "Next focuses new tour heading",
+      "ok": true,
+      "focus": "tour-title"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: the Questions tab reads EQ0002 and EQ0003 as short (0 of 1). Both booms turned up on 21 Oct 2026 and left on 26 Oct with Record departure entries; the quantity records never took a receipt. What turned up is recorded as 1 each.",
+ "ops": [
+  {
+   "op": "supplied",
+   "ref": "EQ0002",
+   "item": "Knuckle Boom 61ft (18.6M) - Diesel",
+   "qty": 1
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0003",
+   "item": "Straight Boom 60ft - Diesel",
+   "qty": 1
+  }
+ ]
+}

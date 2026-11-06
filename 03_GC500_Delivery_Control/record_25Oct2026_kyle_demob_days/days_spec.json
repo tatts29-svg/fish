@@ -1,0 +1,87 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\". Nine new running-sheet day shifts for Kyle Gover (Job Connect), 06:30-17:00, the break left blank as on his other day shifts and on the crew's demob days, through the sheet's own control (runSetShift). He has no line on any of these days before the run. Nothing else changes.",
+ "ops": [
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-27",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-28",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-29",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-02",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-03",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-04",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-05",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  },
+  {
+   "op": "shift_add",
+   "person": "Kyle Gover",
+   "date": "2026-11-06",
+   "start": "06:30",
+   "finish": "17:00",
+   "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026.",
+   "why": "Andrew, 25 Oct 2026: \"can we add Kyle back to start on days as of 27th Oct 6:30-17:00 to friday 30/10/2026 then again 02/11/2026 to 06/11/2026\""
+  }
+ ]
+}

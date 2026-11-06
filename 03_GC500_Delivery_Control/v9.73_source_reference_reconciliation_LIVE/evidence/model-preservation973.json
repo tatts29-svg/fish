@@ -1,0 +1,164 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v9.73",
+  "baseSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "sha256": "eb42ed37194210db9f514c1a4c6e9e013e5b2ecf153856cb2e05103dd50a66fb",
+  "nativeVersion": 5168,
+  "pass": true,
+  "checks": [
+    {
+      "name": "exact final candidate",
+      "pass": true
+    },
+    {
+      "name": "paired native record version",
+      "pass": true
+    },
+    {
+      "name": "record unchanged while captured",
+      "pass": true
+    },
+    {
+      "name": "all shared collections ready",
+      "pass": true
+    },
+    {
+      "name": "financial caches cleared and photo index ready",
+      "pass": true
+    },
+    {
+      "name": "no model errors",
+      "pass": true
+    },
+    {
+      "name": "no browser errors or attempted writes",
+      "pass": true
+    },
+    {
+      "name": "complete native record preserved",
+      "pass": true
+    },
+    {
+      "name": "all financial models retained",
+      "pass": true
+    },
+    {
+      "name": "financial model pl752 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model ticks exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model pl770 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model rehire exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model cj exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model finance exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model money exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model fenceSplit exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model fence exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model green exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model source949 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model supplierCosts exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model contracts exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model ties exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "financial model scope961 exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "embeddedData exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "today exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "inventory exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "ep exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "epSupply exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "sourceAliases exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "baseline has both source-only removal rows",
+      "pass": true
+    },
+    {
+      "name": "programme dates and movements preserved apart from two linked removal rows",
+      "pass": true
+    },
+    {
+      "name": "T0222 retained exactly once with original source row and removal date",
+      "pass": true
+    },
+    {
+      "name": "T0223 retained exactly once with original source row and removal date",
+      "pass": true
+    },
+    {
+      "name": "only exact approved P36 current/history identity projection changes",
+      "pass": true
+    },
+    {
+      "name": "all native financial ties pass",
+      "pass": true
+    },
+    {
+      "name": "all independent financial invariants pass",
+      "pass": true
+    }
+  ],
+  "financialModels": 15,
+  "financialInvariants": 153,
+  "financialInvariantsPassed": 153,
+  "nativeTies": 17,
+  "liveWrites": 0,
+  "limits": "Exact comparison on one frozen native record. Source-reference projection changes are independently reviewed; this check does not invent or resolve missing facts."
+}

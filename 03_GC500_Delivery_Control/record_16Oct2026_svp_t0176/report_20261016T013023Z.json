@@ -1,0 +1,158 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T013023Z",
+ "finished": "2026-10-16T01:30:33.680Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "branch": "KINP",
+  "rows": [
+   {
+    "key": "SVP01",
+    "disc": "Toilets & amenities",
+    "type": "FWF",
+    "no": "",
+    "loc": "Shell V-Power",
+    "from": "2026-10-22",
+    "name": "Shell V-Power",
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it."
+   }
+  ]
+ },
+ "pageSha256": "d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd",
+ "version": {
+  "before": 7232,
+  "after": 7239
+ },
+ "updated": {
+  "before": "2026-10-16T01:29:17.703Z",
+  "after": "2026-10-16T01:30:32.944Z"
+ },
+ "stage": [
+  {
+   "key": "SVP01",
+   "added": true,
+   "type": "FWF",
+   "no": null
+  },
+  {
+   "key": "SVP01",
+   "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it."
+  },
+  {
+   "key": "SVP01",
+   "dated": true,
+   "date": "2026-10-16",
+   "light": "on site"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/SVP01",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~SVP01",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~SVP01",
+   "status": 200
+  },
+  {
+   "key": "branch/SVP01",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~SVP01",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~SVP01",
+   "status": 200
+  },
+  {
+   "key": "added/SVP01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/SVP01": null,
+   "stamps/branch~2f~SVP01": null,
+   "stamps/dnote~2f~SVP01": null,
+   "branch/SVP01": null,
+   "by/branch~2f~SVP01": null,
+   "by/dnote~2f~SVP01": null,
+   "added/SVP01": null
+  },
+  "after": {
+   "delivery/SVP01": {
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:30:30.142Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:30:30.594Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:30:30.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "stamps/branch~2f~SVP01": {
+    "_k": "branch/SVP01",
+    "v": "2026-10-16T01:30:29.706Z"
+   },
+   "stamps/dnote~2f~SVP01": {
+    "_k": "dnote/SVP01",
+    "v": "2026-10-16T01:30:29.787Z"
+   },
+   "branch/SVP01": {
+    "_k": "SVP01",
+    "v": "KINP"
+   },
+   "by/branch~2f~SVP01": {
+    "_k": "branch/SVP01",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~SVP01": {
+    "_k": "dnote/SVP01",
+    "v": "Andrew Fisher"
+   },
+   "added/SVP01": {
+    "key": "SVP01",
+    "discipline": "Toilets & amenities",
+    "name": "Shell V-Power",
+    "item_types": [
+     "FWF"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-22",
+    "last_date": null,
+    "locations": [
+     "Shell V-Power"
+    ],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-16T01:30:29.706Z",
+    "added_by": "Andrew Fisher",
+    "_k": "SVP01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

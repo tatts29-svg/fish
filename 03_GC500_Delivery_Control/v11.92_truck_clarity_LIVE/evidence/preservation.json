@@ -1,0 +1,66 @@
+[
+  {
+    "name": "embedded operational data and media unchanged",
+    "ok": true
+  },
+  {
+    "name": "vehicle selection and dynamics preserved",
+    "ok": true
+  },
+  {
+    "name": "driving simulation preserved",
+    "ok": true
+  },
+  {
+    "name": "all unrelated inline scripts byte-identical",
+    "ok": true
+  },
+  {
+    "name": "only truck stunt module added",
+    "ok": true
+  },
+  {
+    "name": "root.ShowcaseClarity1182 preserved",
+    "ok": true
+  },
+  {
+    "name": "root.ShowcaseStable1175 preserved",
+    "ok": true
+  },
+  {
+    "name": "root.ShowcaseGPU1175 preserved",
+    "ok": true
+  },
+  {
+    "name": "v11.85 feet presentation preserved",
+    "ok": true
+  },
+  {
+    "name": "car all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "forklift all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "boom all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "scissor all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "tractor all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "tow all camera rigs preserved",
+    "ok": true
+  },
+  {
+    "name": "all truck cameras preserved",
+    "ok": true
+  }
+]

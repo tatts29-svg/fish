@@ -1,0 +1,69 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9",
+  "bytes": 14611866,
+  "scripts": 71,
+  "baseSha256": "f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8",
+  "unitChecks": {
+    "dailyWork": 26,
+    "progressQueue": 17
+  },
+  "checks": {
+    "desktop": {
+      "pass": true,
+      "checks": 124,
+      "errors": 0,
+      "writes": 0,
+      "mobile": false
+    },
+    "phone": {
+      "pass": true,
+      "checks": 123,
+      "errors": 0,
+      "writes": 0,
+      "mobile": true
+    },
+    "hydration": {
+      "pass": true,
+      "checks": 17,
+      "errors": 0,
+      "writes": 0,
+      "mobile": false
+    },
+    "desktop-nav": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "mobile": false
+    },
+    "phone-nav": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "mobile": true
+    },
+    "native-phone-entry": {
+      "pass": true,
+      "checks": 3,
+      "mobile": true,
+      "errors": 0,
+      "writes": 0
+    }
+  },
+  "preservation": {
+    "author": "Andrew Fisher",
+    "baseSha256": "f36c42ebb6f85a49f62663b5c5454510308dee7ea0087e2bed01a860b5a2c3c8",
+    "sha256": "7f477763bd1e8f49244439388cc74dd78320961a3240a59705ce4cd1b43178b9",
+    "nativeVersion": 5201,
+    "financialModels": 15,
+    "operationalProjections": 12,
+    "exactPreservation": true,
+    "pass": true
+  },
+  "sourceReview": "Independent historical-progress, daily-work and integration review completed. Native as-of completion, source precedence, duplicate papers, document cache revisions and deferred calculation verified.",
+  "scope": "Read-only local final candidate, native record and financial preservation, isolated browser fixtures. Private screenshots and full records remain outside Git. Actual-public verification pending."
+}

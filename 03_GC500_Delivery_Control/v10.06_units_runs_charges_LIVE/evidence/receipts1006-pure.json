@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 21,
+  "checks": [
+    "AEST receipt day crosses UTC midnight correctly",
+    "Repeated on-site confirmations do not deliver the full quantity twice",
+    "Partial receipt history plus newer cumulative receipt yields deltas",
+    "Lower corrected receipt total is never exceeded by historical baseline",
+    "Install-only timestamps never invent a delivery date",
+    "Scheduled date never substitutes for a receipt",
+    "Future dated receipt is not assigned to today",
+    "Undated physical receipt remains visible but not day-attributed",
+    "Distinct supplier identity does not inflate recorded delivered quantity",
+    "Equivalent owner aliases count once and preserve supplier identity",
+    "Unique genuinely mixed owners are retained for scoped reconciliation",
+    "Duplicate same supplier number is one physical identity",
+    "Different owners with the same number are not merged without authority",
+    "Leading zeroes are significant physical identifiers",
+    "Known WC72 alias requires the exact active supplier metadata evidence",
+    "Unknown partial receipt history stays unassigned to a delivery day",
+    "Extra supplier number remains visible for review",
+    "Today23 actual receipts permit only one more portaloo",
+    "Actual receipt overflow does not produce negative pending quantity",
+    "Receipt capacity is FWF-only, not pee panels or blocks",
+    "Original input receipt evidence and identities are not mutated"
+  ],
+  "networkCalls": 0,
+  "recordWrites": 0
+}

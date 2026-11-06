@@ -1,0 +1,363 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU actual-source geometry and injected failure tests; GPU compilation and desktop/phone visual acceptance remain required",
+  "passed": 38,
+  "inputHtml": {
+    "path": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v7.94/GC500_Delivery_Control_hosted.html",
+    "sha256": "bb245eb19de977e984bc8d1c045fa9bf59fc943649933f416f7d384f9fa0c8e1"
+  },
+  "moduleSha256": "2134722c2ce418842311d422ef30dd0905624aa8a0da61f6f0d28dea31cef02b",
+  "elapsedMs": 1140.414336,
+  "maxProjectionM": 1.265471480196105,
+  "actualSourceRows": 2730,
+  "nominalPitRows": 26,
+  "baseline": {
+    "triangles": 76682,
+    "slabs": 2369
+  },
+  "stats": {
+    "garageModules": 0,
+    "garageDoors": 0,
+    "hospitalityBays": 0,
+    "towerParts": 80,
+    "roofParapets": 354,
+    "facadeFins": 0,
+    "facadeElevations": 354,
+    "balconySlabs": 3542,
+    "balconyRails": 7084,
+    "balconyPosts": 232,
+    "balconyDividers": 0,
+    "recessedGlazingBays": 503,
+    "verticalCores": 94,
+    "podiumBays": 248,
+    "creamFacadeBays": 503,
+    "thinHandrailProfiles": 3542,
+    "facadeDepthVariants": 354,
+    "recessedJambs": 1006,
+    "slabSoffits": 3542,
+    "balconyReturns": 7084,
+    "podiumLintels": 248,
+    "localGlazingCoordinates": true,
+    "filteredWindowMullions": true,
+    "underSlabShade": true,
+    "storeyRhythmM": 3.1,
+    "shaderStoreyBands": true,
+    "storeyBandHeightM": 0.26,
+    "duplicateFacadesSkipped": 0,
+    "hiddenFacadeSpansSkipped": 147,
+    "maxBalconyDepthM": 1.4637852887613232,
+    "facadeProfiles": {
+      "white coastal wings": 21,
+      "recessed dark glazing": 17,
+      "cream balcony bands": 22,
+      "pale terraces": 20
+    },
+    "sourceShellsChanged": 0,
+    "sourceTopHeightsChanged": 0,
+    "sourceFootprintsUnchanged": true,
+    "sourceHeightsUnchanged": true,
+    "sourceRowsUnchanged": true,
+    "garagesPreserved": true,
+    "omittedNominalGarages": 0,
+    "triangles": 85432,
+    "triangleBudget": 150000,
+    "drawCalls": 1,
+    "fullCircuitSelection": true,
+    "circuitLengthM": 2910.1086655413205,
+    "refinementDistanceM": 215,
+    "eligibleTowerParts": 80,
+    "eligibleFacades": 354,
+    "coverageSectors": 10,
+    "budgetSkips": 0,
+    "sectors": [
+      {
+        "sector": 1,
+        "eligibleParts": 5,
+        "eligibleFacades": 33,
+        "towerParts": 5,
+        "facades": 33,
+        "triangles": 8748
+      },
+      {
+        "sector": 2,
+        "eligibleParts": 4,
+        "eligibleFacades": 22,
+        "towerParts": 4,
+        "facades": 22,
+        "triangles": 7312
+      },
+      {
+        "sector": 3,
+        "eligibleParts": 0,
+        "eligibleFacades": 0,
+        "towerParts": 0,
+        "facades": 0,
+        "triangles": 0
+      },
+      {
+        "sector": 4,
+        "eligibleParts": 4,
+        "eligibleFacades": 18,
+        "towerParts": 4,
+        "facades": 18,
+        "triangles": 9348
+      },
+      {
+        "sector": 5,
+        "eligibleParts": 18,
+        "eligibleFacades": 73,
+        "towerParts": 18,
+        "facades": 73,
+        "triangles": 10292
+      },
+      {
+        "sector": 6,
+        "eligibleParts": 17,
+        "eligibleFacades": 61,
+        "towerParts": 17,
+        "facades": 61,
+        "triangles": 8184
+      },
+      {
+        "sector": 7,
+        "eligibleParts": 5,
+        "eligibleFacades": 22,
+        "towerParts": 5,
+        "facades": 22,
+        "triangles": 10460
+      },
+      {
+        "sector": 8,
+        "eligibleParts": 0,
+        "eligibleFacades": 0,
+        "towerParts": 0,
+        "facades": 0,
+        "triangles": 0
+      },
+      {
+        "sector": 9,
+        "eligibleParts": 2,
+        "eligibleFacades": 14,
+        "towerParts": 2,
+        "facades": 14,
+        "triangles": 4760
+      },
+      {
+        "sector": 10,
+        "eligibleParts": 12,
+        "eligibleFacades": 36,
+        "towerParts": 12,
+        "facades": 36,
+        "triangles": 6796
+      },
+      {
+        "sector": 11,
+        "eligibleParts": 2,
+        "eligibleFacades": 14,
+        "towerParts": 2,
+        "facades": 14,
+        "triangles": 9824
+      },
+      {
+        "sector": 12,
+        "eligibleParts": 11,
+        "eligibleFacades": 61,
+        "towerParts": 11,
+        "facades": 61,
+        "triangles": 9708
+      }
+    ],
+    "source": "Unchanged OSM footprints and roof heights; full-circuit road-facing generic coastal facades, not surveyed building or event details",
+    "eligibleSectors": 10,
+    "fullEligibleCoverage": true,
+    "gpuBytes": 9226656
+  },
+  "geometryHash": "1d8b8baca2c64d73295377f00e6f9489325bd32fcbcdd5172b38ccd08c46f15e",
+  "checks": [
+    {
+      "name": "actual hosted source includes the complete building and nominal garage list",
+      "pass": true,
+      "detail": {
+        "sourceRows": 2730,
+        "pitRows": 26
+      }
+    },
+    {
+      "name": "all original source rows, footprints, heights, route, pit, simulation and camera unchanged",
+      "pass": true
+    },
+    {
+      "name": "exact original tower and facade eligibility retained",
+      "pass": true,
+      "detail": {
+        "towerParts": 80,
+        "facades": 354
+      }
+    },
+    {
+      "name": "every eligible facade in every eligible circuit sector receives detail",
+      "pass": true,
+      "detail": {
+        "covered": 10,
+        "eligible": 10
+      }
+    },
+    {
+      "name": "unchanged deterministic facade profile allocation",
+      "pass": true,
+      "detail": {
+        "white coastal wings": 21,
+        "recessed dark glazing": 17,
+        "cream balcony bands": 22,
+        "pale terraces": 20
+      }
+    },
+    {
+      "name": "fixed total and per-sector budgets retained",
+      "pass": true,
+      "detail": {
+        "triangles": 85432,
+        "baseline": 76682
+      }
+    },
+    {
+      "name": "all finite vertices, valid indices, non-degenerate faces, unit normals and matching winding",
+      "pass": true
+    },
+    {
+      "name": "facade-local attribute has twelve-float stride and nonconstant bay coordinates",
+      "pass": true
+    },
+    {
+      "name": "real recessed jambs, slab soffits, balcony returns and existing-base podium contrast generated",
+      "pass": true
+    },
+    {
+      "name": "more physical storey slabs fit inside the unchanged budget",
+      "pass": true,
+      "detail": {
+        "slabs": 3542,
+        "baseline": 2369
+      }
+    },
+    {
+      "name": "every thin horizontal handrail cap faces upward",
+      "pass": true,
+      "detail": {
+        "handrailCaps": 3542
+      }
+    },
+    {
+      "name": "repeat installation returns the same stats without allocating",
+      "pass": true
+    },
+    {
+      "name": "day and night draws do not rebuild geometry or shaders",
+      "pass": true
+    },
+    {
+      "name": "disposal unregisters the shadow mesh and removes the installed object",
+      "pass": true
+    },
+    {
+      "name": "every architecture GPU handle is released exactly once",
+      "pass": true
+    },
+    {
+      "name": "reinstallation reproduces every vertex and index exactly",
+      "pass": true
+    },
+    {
+      "name": "protected scene data remains unchanged after draws and reinstallation",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 3 m/unit, CCW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 3 m/unit, CCW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 3 m/unit, CW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 3 m/unit, CW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 5.93755 m/unit, CCW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 5.93755 m/unit, CCW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 5.93755 m/unit, CW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 5.93755 m/unit, CW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 10 m/unit, CCW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 10 m/unit, CCW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 10 m/unit, CW, base 0 m",
+      "pass": true
+    },
+    {
+      "name": "rotated source envelope, height and winding at 10 m/unit, CW, base 8 m",
+      "pass": true
+    },
+    {
+      "name": "dense twelve-sector fixture keeps complete coverage below all caps",
+      "pass": true,
+      "detail": {
+        "triangles": 128976,
+        "facades": 632
+      }
+    },
+    {
+      "name": "compile failure releases every new GPU handle exactly once",
+      "pass": true
+    },
+    {
+      "name": "compile failure leaves source and original render resources available",
+      "pass": true
+    },
+    {
+      "name": "link failure releases every new GPU handle exactly once",
+      "pass": true
+    },
+    {
+      "name": "link failure leaves source and original render resources available",
+      "pass": true
+    },
+    {
+      "name": "upload failure releases every new GPU handle exactly once",
+      "pass": true
+    },
+    {
+      "name": "upload failure leaves source and original render resources available",
+      "pass": true
+    },
+    {
+      "name": "existing full-lap failure path resumes original rendering without repeated allocation",
+      "pass": true
+    },
+    {
+      "name": "shader keeps derivative-filtered glass and floor cues with analytic fallback and no extra samplers",
+      "pass": true
+    }
+  ]
+}

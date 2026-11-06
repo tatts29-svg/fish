@@ -1,0 +1,7 @@
+PASS two-second 60 Hz clock with 200 ms GPU frames: { before: 0.5000000000000007, after: 1.9999999999999953, draws: 11 }
+PASS paused redraw retained, hidden interval excluded, no resume jump
+PASS >10-second stalls trigger guard, moderate slowdown is gradual, manual quality respected
+PASS close is immediate, old-context disposal deferred, lost scene does not advance
+PASS severe stalls keep rendering the chosen 3D scene
+PASS quality changes wait for outstanding GPU work
+PASS bounded physics and audio clock unchanged

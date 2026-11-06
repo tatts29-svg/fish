@@ -1,0 +1,6314 @@
+{
+ "mobile": false,
+ "readyMs": 93,
+ "tabs": [
+  {
+   "k": "today",
+   "name": "Today",
+   "paintMs": 307,
+   "wallMs": 1537,
+   "longTasks": 3,
+   "longTaskMs": 511,
+   "longest": 248,
+   "textNodes": 486,
+   "groups": 122,
+   "low": [
+    {
+     "key": "rgb(255, 215, 154)|rgb(7,8,10)|23|700|0.00",
+     "color": "rgb(255, 215, 154)",
+     "bg": "rgb(7,8,10)",
+     "bgImg": false,
+     "size": 23.121,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "THU 01 OCT"
+     ],
+     "sels": [
+      "div.ln.mid.white"
+     ],
+     "blur": [],
+     "shadow": [
+      "rgba(255, 190, 120, 0.7) 0px 0px 4.9545px"
+     ]
+    },
+    {
+     "key": "rgb(255, 179, 26)|rgb(7,8,10)|31|700|0.00",
+     "color": "rgb(255, 179, 26)",
+     "bg": "rgb(7,8,10)",
+     "bgImg": false,
+     "size": 31.3785,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "22 DAYS TO RACE DAY"
+     ],
+     "sels": [
+      "div.ln.big"
+     ],
+     "blur": [],
+     "shadow": [
+      "rgba(255, 150, 20, 0.75) 0px 0px 4.9545px, rgba(255, 110, 10, 0.35) 0px 0px 12.3862px"
+     ]
+    },
+    {
+     "key": "rgb(255, 140, 26)|rgb(7,8,10)|18|700|0.00",
+     "color": "rgb(255, 140, 26)",
+     "bg": "rgb(7,8,10)",
+     "bgImg": false,
+     "size": 18.1665,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "WEEK 3 · BUILD"
+     ],
+     "sels": [
+      "div.ln.sm"
+     ],
+     "blur": [],
+     "shadow": [
+      "rgba(255, 150, 20, 0.75) 0px 0px 4.9545px, rgba(255, 110, 10, 0.35) 0px 0px 12.3862px"
+     ]
+    },
+    {
+     "key": "rgb(210, 216, 210)|rgb(241,238,236)|12|700|1.00",
+     "color": "rgb(210, 216, 210)",
+     "bg": "rgb(241,238,236)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.25,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Today · 01 Oct"
+     ],
+     "sels": [
+      "span.plab"
+     ],
+     "blur": [
+      "subpx:-47.91,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 154, 77)|rgb(252,251,250)|12|600|1.00",
+     "color": "rgb(255, 154, 77)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 2.04,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Build phase"
+     ],
+     "sels": [
+      "span.pphase"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|0.62",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 0.62,
+     "ratio": 2.61,
+     "large": false,
+     "n": 18,
+     "samples": [
+      "Queuing traffic",
+      "its own end time has passed",
+      "Queuing traffic"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(252,251,250)|13|400|0.62",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 400,
+     "opacity": 0.62,
+     "ratio": 3,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "· 8.6 km",
+      "21 Sept 2026, 13:51 – 21 Sept 2026, 17:55 · about 11 min del",
+      "The worst single delay on the corridor when this snapshot wa"
+     ],
+     "sels": [
+      "span.w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.78)|rgb(208,83,10)|12|700|1.00",
+     "color": "rgba(27, 18, 7, 0.78)",
+     "bg": "rgb(208,83,10)",
+     "bgImg": true,
+     "size": 11.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 3.39,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "OCT 2026"
+     ],
+     "sels": [
+      "span.dbdm"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(27, 18, 7)|rgb(208,83,10)|11|800|1.00",
+     "color": "rgb(27, 18, 7)",
+     "bg": "rgb(208,83,10)",
+     "bgImg": true,
+     "size": 11,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 4.33,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "THU"
+     ],
+     "sels": [
+      "span.dbdw"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(182, 192, 187)|rgb(18,14,12)|7|400|1.00",
+     "color": "rgb(182, 192, 187)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 7,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 10.28,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "due by this day"
+     ],
+     "sels": [
+      "p"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|400|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 9.58333,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "asset no.",
+      "Rehire · Event Portables · asset no.",
+      "asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 180, 179)|rgb(18,14,12)|10|700|1.00",
+     "color": "rgb(169, 180, 179)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 9.02,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "The lights",
+      "Deliveries due by today met",
+      "Recorded on site"
+     ],
+     "sels": [
+      "h3",
+      "p.ctk"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 180, 179)|rgb(18,14,12)|10|600|1.00",
+     "color": "rgb(169, 180, 179)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 9.02,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "of 127",
+      "of 127"
+     ],
+     "sels": [
+      "span.w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(192, 198, 194)|rgb(18,14,12)|10|700|1.00",
+     "color": "rgb(192, 198, 194)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 11.06,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "GC500 · delivery"
+     ],
+     "sels": [
+      "span"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(18,14,12)|10|700|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 6.69,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "against the plan"
+     ],
+     "sels": [
+      "span"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|800|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "The daily brief"
+     ],
+     "sels": [
+      "p.dbk"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(47, 56, 65)|rgb(253,240,230)|11|400|1.00",
+     "color": "rgb(47, 56, 65)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 10.65,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "schedule entries",
+      "schedule entries"
+     ],
+     "sels": [
+      "span.dbts"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(47, 56, 65)|rgb(243,232,255)|11|400|1.00",
+     "color": "rgb(47, 56, 65)",
+     "bg": "rgb(243,232,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 10.1,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "schedule entries",
+      "schedule entries"
+     ],
+     "sels": [
+      "span.dbts"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(47, 56, 65)|rgb(219,234,254)|11|400|1.00",
+     "color": "rgb(47, 56, 65)",
+     "bg": "rgb(219,234,254)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 9.76,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "on the carrier’s list",
+      "on the carrier’s list"
+     ],
+     "sels": [
+      "span.dbts"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(29, 95, 196)|rgb(227,237,251)|11|800|1.00",
+     "color": "rgb(29, 95, 196)",
+     "bg": "rgb(227,237,251)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 5.1,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "master plan",
+      "master plan",
+      "master plan"
+     ],
+     "sels": [
+      "span.navpinned"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|0.62",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 0.62,
+     "ratio": 2.61,
+     "large": false,
+     "n": 18,
+     "samples": [
+      "Queuing traffic",
+      "its own end time has passed",
+      "Queuing traffic"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "Road closure",
+      "Road closure",
+      "Road closure"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 178, 122)|rgb(32,28,27)|11|700|1.00",
+     "color": "rgb(255, 178, 122)",
+     "bg": "rgb(32,28,27)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 9.54,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "197 assets"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(57, 224, 122)|rgb(32,28,27)|11|700|1.00",
+     "color": "rgb(57, 224, 122)",
+     "bg": "rgb(32,28,27)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 9.71,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "on track"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(182, 192, 187)|rgb(18,14,12)|11|400|1.00",
+     "color": "rgb(182, 192, 187)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 10.28,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "39 more recorded early — a separate fact, not counted here"
+     ],
+     "sels": [
+      "div.cgnote"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(215, 222, 221)|rgb(30,26,24)|11|700|1.00",
+     "color": "rgb(215, 222, 221)",
+     "bg": "rgb(30,26,24)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 12.65,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Next milestone"
+     ],
+     "sels": [
+      "span.pnk"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "Thu 01 Oct",
+      "18 on the team",
+      "10 sheets"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "8 recorded on site"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "no quote entered"
+     ],
+     "sels": [
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "6 not in it yet"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [
+    {
+     "key": "rgb(210, 216, 210)|rgb(18,14,12)|12|400|1.00",
+     "color": "rgb(210, 216, 210)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 13.25,
+     "large": false,
+     "n": 7,
+     "samples": [
+      "units recorded on site",
+      "07 Sep – 13 Nov",
+      "Starts Fri 23 Oct"
+     ],
+     "sels": [
+      "p.ginote",
+      "i",
+      "span.a",
+      "span.m",
+      "span.z",
+      "p.pnote"
+     ],
+     "blur": [
+      "subpx:-29.31,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(210, 216, 210)|rgb(241,238,236)|12|700|1.00",
+     "color": "rgb(210, 216, 210)",
+     "bg": "rgb(241,238,236)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.25,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Today · 01 Oct"
+     ],
+     "sels": [
+      "span.plab"
+     ],
+     "blur": [
+      "subpx:-47.91,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(210, 216, 210)|rgb(18,14,12)|13|700|1.00",
+     "color": "rgb(210, 216, 210)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 13.25,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "07 Sep",
+      "23 Oct",
+      "13 Nov"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:-29.31,0.00"
+     ],
+     "shadow": []
+    }
+   ],
+   "imgs": [
+    {
+     "src": "872b214b252b790ef82c2da780ae89550efd3036dcfebb92a13101e.webp",
+     "nat": [
+      1672,
+      941
+     ],
+     "css": [
+      1406,
+      791
+     ],
+     "up": 1.68,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 1480,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "progress",
+   "name": "Where we are",
+   "paintMs": 435,
+   "wallMs": 1693,
+   "longTasks": 2,
+   "longTaskMs": 489,
+   "longest": 375,
+   "textNodes": 1698,
+   "groups": 105,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|52|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 51.84,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1,
+     "large": true,
+     "n": 2,
+     "samples": [
+      "5,450",
+      "$572,467"
+     ],
+     "sels": [
+      "p.wn"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(186, 194, 198)|rgb(29,36,38)|13|700|0.00",
+     "color": "rgb(186, 194, 198)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Due by 01 Oct",
+      "The whole job"
+     ],
+     "sels": [
+      "h4"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(221, 227, 229)|rgb(29,36,38)|15|400|0.00",
+     "color": "rgb(221, 227, 229)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 14.5,
+     "weight": 400,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 7,
+     "samples": [
+      "Everything due by 01 Oct is recorded on site.",
+      "more units are recorded beyond the due rows: 39 not due yet ",
+      "units across 10 trades on 197 references - 168 drawn on the "
+     ],
+     "sels": [
+      "p"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(29,36,38)|15|700|0.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 14.5,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "39",
+      "789"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(29,36,38)|15|600|0.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 15,
+     "weight": 600,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Open the trade-by-trade detail",
+      "Open the Fencing tab",
+      "Open Costs & charges"
+     ],
+     "sels": [
+      "button.wact"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(186, 194, 198)|rgb(29,36,38)|12|700|0.00",
+     "color": "rgb(186, 194, 198)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "Line",
+      "Recorded",
+      "Planned by 01 Oct"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(221, 227, 229)|rgb(29,36,38)|14|400|0.00",
+     "color": "rgb(221, 227, 229)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 14,
+     "weight": 400,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 33,
+     "samples": [
+      "Clean",
+      "2343.5 m",
+      "7479.5 m"
+     ],
+     "sels": [
+      "td",
+      "td.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(29,36,38)|14|700|0.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(29,36,38)",
+     "bgImg": false,
+     "size": 14,
+     "weight": 700,
+     "opacity": 0,
+     "ratio": 1,
+     "large": false,
+     "n": 8,
+     "samples": [
+      "5235 m",
+      "215 m",
+      "137.5 m"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|11|600|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "25",
+      "50",
+      "75"
+     ],
+     "sels": [
+      "text"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|13|600|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "DELIVERY",
+      "AGAINST PLAN"
+     ],
+     "sels": [
+      "text"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|64|800|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 64,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "100"
+     ],
+     "sels": [
+      "tspan"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|16|800|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 15.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "246",
+      "246"
+     ],
+     "sels": [
+      "tspan"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|16|500|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 15.5,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "of",
+      "due units recorded"
+     ],
+     "sels": [
+      "text"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|13|400|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Due by 01 Oct"
+     ],
+     "sels": [
+      "text"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|14|400|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 14,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Delivery against plan: 100 per cent. 246 of 246 due units re"
+     ],
+     "sels": [
+      "p.vh#wgsay"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(245, 247, 248)|rgb(255,255,255)|15|600|1.00",
+     "color": "rgb(245, 247, 248)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 15,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "View delivery details",
+      "View fencing breakdown",
+      "View charges"
+     ],
+     "sels": [
+      "button.wact"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(211, 218, 221)|rgb(255,255,255)|15|400|1.00",
+     "color": "rgb(211, 218, 221)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 14.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.41,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Recorded fence work · to 01 Oct",
+      "Rate coverage incomplete · 2 hire lines with no rate"
+     ],
+     "sels": [
+      "p.ws"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(207, 214, 217)|rgb(255,255,255)|22|700|1.00",
+     "color": "rgb(207, 214, 217)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 21.7728,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.47,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "ex GST"
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(186, 194, 198)|rgb(255,255,255)|13|700|1.00",
+     "color": "rgb(186, 194, 198)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.81,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Fencing records",
+      "Calculated revenue"
+     ],
+     "sels": [
+      "p.wk"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(183, 192, 196)|rgb(255,255,255)|13|400|1.00",
+     "color": "rgb(183, 192, 196)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.85,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "View only · last confirmed 17:53"
+     ],
+     "sels": [
+      "span#wipStat"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|700|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 60,
+     "samples": [
+      "Type",
+      "done",
+      "planned by day"
+     ],
+     "sels": [
+      "th",
+      "span.hd",
+      "b.hd"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(47, 56, 65)|rgb(255,255,255)|10|400|1.00",
+     "color": "rgb(47, 56, 65)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 11.91,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "· 132 lines",
+      "· 64 lines",
+      "· 17 lines"
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|600|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "asset no.",
+      "asset no.",
+      "asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|10|400|1.00",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.4167,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 17.82,
+     "large": false,
+     "n": 37,
+     "samples": [
+      "asset no.",
+      "asset no.",
+      "asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|11|600|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 39,
+     "samples": [
+      "each",
+      "each",
+      "· 59 lines"
+     ],
+     "sels": [
+      "i",
+      "small",
+      "span.ano.none"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 20,
+     "samples": [
+      "81 lines on site",
+      "77 set by a person",
+      "8 recorded on site"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "79 asset numbers delivered on the rental contracts"
+     ],
+     "sels": [
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Set at",
+      "Group",
+      "· total, then by reference"
+     ],
+     "sels": [
+      "th.num",
+      "th",
+      "span.w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 22,
+     "samples": [
+      "Ref",
+      "What",
+      "Branch"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 18,
+     "samples": [
+      "NVAC",
+      "KINP",
+      "KINP"
+     ],
+     "sels": [
+      "span.chip.ref.mono",
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "behind",
+      "1 still on site",
+      "1 still on site"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "68",
+      "32",
+      "10"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|12|400|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 7.25,
+     "large": false,
+     "n": 21,
+     "samples": [
+      "Every one is read from this record as at the selected day. O",
+      "Programme starts",
+      "Race start"
+     ],
+     "sels": [
+      "p.dsnsrc",
+      "span.a",
+      "span.m",
+      "span.z",
+      "p.pnote",
+      "p.norate"
+     ],
+     "blur": [
+      "subpx:-29.31,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(154, 63, 10)|rgb(241,238,236)|12|700|1.00",
+     "color": "rgb(154, 63, 10)",
+     "bg": "rgb(241,238,236)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.89,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Today · 01 Oct"
+     ],
+     "sels": [
+      "span.plab"
+     ],
+     "blur": [
+      "subpx:-47.91,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(47, 56, 65)|rgb(248,246,244)|13|700|1.00",
+     "color": "rgb(47, 56, 65)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 11.05,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "07 Sep",
+      "23 Oct",
+      "13 Nov"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:-29.31,0.00"
+     ],
+     "shadow": []
+    }
+   ],
+   "imgs": [
+    {
+     "src": "c8af052e264350b7256e3151f2d92fae99a098dc3bff80fe69c2b3e.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 2856,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "map",
+   "name": "Map explorer",
+   "paintMs": 267,
+   "wallMs": 5375,
+   "longTasks": 7,
+   "longTaskMs": 842,
+   "longest": 197,
+   "textNodes": 4,
+   "groups": 4,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 10,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "docs",
+   "name": "Documents",
+   "paintMs": 118,
+   "wallMs": 1350,
+   "longTasks": 3,
+   "longTaskMs": 586,
+   "longest": 436,
+   "textNodes": 925,
+   "groups": 29,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|13|700|0.99",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 1,
+     "large": false,
+     "n": 70,
+     "samples": [
+      "Open PDF",
+      "Open PDF",
+      "Open PDF"
+     ],
+     "sels": [
+      "a.btn.primary"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|0.99",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 9.94,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "6 documents",
+      "3 files",
+      "41 files"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(27, 18, 7)|rgb(255,255,255)|11|800|0.99",
+     "color": "rgb(27, 18, 7)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.99,
+     "ratio": 18.2,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "SWMS",
+      "SWMS",
+      "SWMS"
+     ],
+     "sels": [
+      "span.dockind"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    }
+   ],
+   "blurred": [
+    {
+     "key": "rgb(20, 24, 29)|rgb(248,246,244)|21|700|1.00",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 21,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 16.53,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "Documents — Boost Mobile Gold Coast 500"
+     ],
+     "sels": [
+      "h2.panehead.vh#panehead-docs"
+     ],
+     "blur": [
+      "subpx:0.00,0.00"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(64,60,58)|12|700|0.99",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(64,60,58)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 10.72,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "The plans behind the build"
+     ],
+     "sels": [
+      "figcaption.rbcap"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": [
+      "rgba(0, 0, 0, 0.6) 0px 1px 2px"
+     ]
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(64,60,58)|12|600|0.99",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(64,60,58)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 10.72,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "· illustrative scene, not a drawing or a record"
+     ],
+     "sels": [
+      "span"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": [
+      "rgba(0, 0, 0, 0.6) 0px 1px 2px"
+     ]
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(248,246,244)|24|700|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 24,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 16.26,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "Documents"
+     ],
+     "sels": [
+      "h2"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|13|400|0.99",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 400,
+     "opacity": 0.99,
+     "ratio": 6.92,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "4 SWMS · 1 risk assessment · 1 HSEQ plan · 3 transport & lif",
+      "listed",
+      "(73 in the build catalogue + 244 uploaded since)"
+     ],
+     "sels": [
+      "div.sub",
+      "div.sub.docavail.short",
+      "span.w"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(133, 77, 14)|rgb(248,246,244)|13|700|0.99",
+     "color": "rgb(133, 77, 14)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 6.25,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "317",
+      "308"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|13|400|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 400,
+     "opacity": 0.99,
+     "ratio": 17.52,
+     "large": false,
+     "n": 8,
+     "samples": [
+      "Print this list",
+      "Refresh",
+      "SWMS & safety plan"
+     ],
+     "sels": [
+      "button.btn#docsPrintList",
+      "button.btn#docsRefresh",
+      "button.btn"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(248,246,244)|17|800|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 17,
+     "weight": 800,
+     "opacity": 0.99,
+     "ratio": 16.26,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "SWMS & safety plan",
+      "Transport & lifting",
+      "Maps and drawings"
+     ],
+     "sels": [
+      "h3"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|0.99",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 9.94,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "6 documents",
+      "3 files",
+      "41 files"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|11|700|0.99",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 7.11,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "SWMS and the HSEQ Management Plan",
+      "Transport & lifting of portable buildings",
+      "Drawings as issued — project 26003"
+     ],
+     "sels": [
+      "div.docgroup"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|12|400|0.99",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 400,
+     "opacity": 0.99,
+     "ratio": 7.11,
+     "large": false,
+     "n": 17,
+     "samples": [
+      "The safety documents for this job, each behind its cover. Yo",
+      "The Coates procedures every driver and crew moving a buildin",
+      "iEDM's sheets, as sent. Open the PDF for the drawing at full"
+     ],
+     "sels": [
+      "p.maphint",
+      "div.thumb.none"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(27, 18, 7)|rgb(255,255,255)|11|800|0.99",
+     "color": "rgb(27, 18, 7)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.99,
+     "ratio": 18.2,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "SWMS",
+      "SWMS",
+      "SWMS"
+     ],
+     "sels": [
+      "span.dockind"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(154, 63, 10)|rgb(255,255,255)|15|800|0.99",
+     "color": "rgb(154, 63, 10)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 15,
+     "weight": 800,
+     "opacity": 0.99,
+     "ratio": 6.69,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "//",
+      "//",
+      "//"
+     ],
+     "sels": [
+      "span.slash.doc"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|15|800|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 15,
+     "weight": 800,
+     "opacity": 0.99,
+     "ratio": 17.52,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "Loading and unloading at third party sites — SWMS",
+      "Portable buildings and toilets, installation and removal — S",
+      "Temporary fencing and crowd control barriers, installation a"
+     ],
+     "sels": [
+      "h4"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|12|400|0.99",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 400,
+     "opacity": 0.99,
+     "ratio": 7.65,
+     "large": false,
+     "n": 151,
+     "samples": [
+      "SEQ-SWMS-009.01g · published 13 Feb 2025 · review 13 Feb 202",
+      "no revision recorded on the file",
+      "SEQ-SWMS- x TSV500.1 · published 14 Aug 2026 · review 14 Aug"
+     ],
+     "sels": [
+      "div.docsub",
+      "span"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(22, 101, 52)|rgb(220,252,231)|11|600|0.99",
+     "color": "rgb(22, 101, 52)",
+     "bg": "rgb(220,252,231)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 6.38,
+     "large": false,
+     "n": 70,
+     "samples": [
+      "Available",
+      "Available",
+      "Available"
+     ],
+     "sels": [
+      "span.pill.good"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(30, 64, 175)|rgb(219,234,254)|11|600|0.99",
+     "color": "rgb(30, 64, 175)",
+     "bg": "rgb(219,234,254)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 7.04,
+     "large": false,
+     "n": 79,
+     "samples": [
+      "Source document",
+      "Source document",
+      "Source document"
+     ],
+     "sels": [
+      "span.pill.plan"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|13|700|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 17.52,
+     "large": false,
+     "n": 165,
+     "samples": [
+      "Revision",
+      "Details",
+      "Revision"
+     ],
+     "sels": [
+      "b",
+      "button.btn.ghost",
+      "button.btn"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|13|700|0.99",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 1,
+     "large": false,
+     "n": 70,
+     "samples": [
+      "Open PDF",
+      "Open PDF",
+      "Open PDF"
+     ],
+     "sels": [
+      "a.btn.primary"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(133, 77, 14)|rgb(254,243,199)|11|600|0.99",
+     "color": "rgb(133, 77, 14)",
+     "bg": "rgb(254,243,199)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 6.05,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "Not hosted",
+      "Not hosted",
+      "Not hosted"
+     ],
+     "sels": [
+      "span.pill.gap"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(133, 77, 14)|rgb(255,255,255)|12|600|0.99",
+     "color": "rgb(133, 77, 14)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 6.73,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "Not on the service yet — upload it on the admin page, or her",
+      "Not on the service yet — upload it on the admin page, or her",
+      "Not on the service yet — upload it on the admin page, or her"
+     ],
+     "sels": [
+      "span.absent"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 64, 56)|rgb(247,243,237)|13|600|0.99",
+     "color": "rgb(74, 64, 56)",
+     "bg": "rgb(247,243,237)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 8.94,
+     "large": false,
+     "n": 64,
+     "samples": [
+      "Loading picture…",
+      "Loading picture…",
+      "Loading picture…"
+     ],
+     "sels": [
+      "span.gc-media-status"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(18,14,12)|44|700|0.99",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 44,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 18.9,
+     "large": true,
+     "n": 2,
+     "samples": [
+      "188",
+      "44"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": [
+      "rgb(255, 255, 255) 0px 0px 1px, rgba(255, 255, 255, 0.18) 0px 0px 12px"
+     ]
+    },
+    {
+     "key": "rgb(201, 209, 208)|rgb(18,14,12)|14|700|0.99",
+     "color": "rgb(201, 209, 208)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 14,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 12.17,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Drop photographs",
+      "Fencing dockets",
+      "Site pictures"
+     ],
+     "sels": [
+      "span"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(201, 209, 208)|rgb(18,14,12)|12|600|0.99",
+     "color": "rgb(201, 209, 208)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 600,
+     "opacity": 0.99,
+     "ratio": 12.17,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "what went where, from the drop cards",
+      "the paper, photographed",
+      "photographs filed against a reference"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 138, 58)|rgb(18,14,12)|12|700|0.99",
+     "color": "rgb(255, 138, 58)",
+     "bg": "rgb(18,14,12)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 8.07,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Open the drop photographs →",
+      "Open the fencing dockets →",
+      "Open the site pictures →"
+     ],
+     "sels": [
+      "div.hubgo"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(253,245,227)|13|700|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 16.15,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "No invoices here yet"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(253,245,227)|13|400|0.99",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 400,
+     "opacity": 0.99,
+     "ratio": 16.15,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Upload one on the admin page or above, filed against its bra"
+     ],
+     "sels": [
+      "div.notice"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|12|700|0.99",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 11.5,
+     "weight": 700,
+     "opacity": 0.99,
+     "ratio": 7.11,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "not to scale"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [
+      "subpx:0.00,0.11"
+     ],
+     "shadow": []
+    }
+   ],
+   "imgs": [
+    {
+     "src": "67034e76b1fa70f40c19437fe8a0c6ae2e4051ba444ca32e0e816e3.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 2032,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "register",
+   "name": "Register",
+   "paintMs": 226,
+   "wallMs": 1429,
+   "longTasks": 3,
+   "longTaskMs": 227,
+   "longest": 98,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "plant",
+   "name": "Plant",
+   "paintMs": 279,
+   "wallMs": 1483,
+   "longTasks": 3,
+   "longTaskMs": 575,
+   "longest": 361,
+   "textNodes": 3251,
+   "groups": 60,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|12|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "All 789"
+     ],
+     "sels": [
+      "button.btn.primary"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|13|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 13,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Put on the 197 still on"
+     ],
+     "sels": [
+      "button.btn.primary#branchPut"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(214, 40, 28)|rgb(234,244,238)|12|900|1.00",
+     "color": "rgb(214, 40, 28)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 900,
+     "opacity": 1,
+     "ratio": 4.47,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "cancelled",
+      "cancelled",
+      "cancelled"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(20, 24, 29)|rgb(234,244,238)|10|400|1.00",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 9.58333,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 15.85,
+     "large": false,
+     "n": 12,
+     "samples": [
+      "Rehire · Event Portables · asset no.",
+      "Rehire · Event Portables · asset no.",
+      "Rehire · Event Portables · asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(234,244,238)|10|600|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 6.95,
+     "large": false,
+     "n": 48,
+     "samples": [
+      "asset no.",
+      "asset no.",
+      "asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 12,
+     "samples": [
+      "Colour code",
+      "GC500 ID",
+      "GC500 ID"
+     ],
+     "sels": [
+      "b",
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 17,
+     "samples": [
+      "not recorded",
+      "nothing recorded with it",
+      "nothing recorded with it"
+     ],
+     "sels": [
+      "i.chip",
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 74,
+     "samples": [
+      "stated",
+      "demob row",
+      "demob row"
+     ],
+     "sels": [
+      "i.chip.ok",
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 239,
+     "samples": [
+      "assumed",
+      "shared record",
+      "WC01"
+     ],
+     "sels": [
+      "i.chip.cand",
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "differs",
+      "Short · Accessible Toilet 0 of 1, 16Pan Block 1 of 2",
+      "moved"
+     ],
+     "sels": [
+      "i.chip.act",
+      "span.chip.act.shortchip",
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 124,
+     "samples": [
+      "unresolved",
+      "return date not recorded",
+      "return date not recorded"
+     ],
+     "sels": [
+      "i.chip.crit",
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|600|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Show",
+      "Branch code"
+     ],
+     "sels": [
+      "span.lead",
+      "label"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 198,
+     "samples": [
+      "74 references",
+      "KINP",
+      "KINP"
+     ],
+     "sels": [
+      "span.chip.ref",
+      "span.chip.ref.mono"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 66,
+     "samples": [
+      "Light",
+      "Dates",
+      "Asset no. · contract"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "8d3d380943a24ce8069db0d8642b27e5b62264ada922fddb3debdf9.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 15092,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "fencing",
+   "name": "Fencing",
+   "paintMs": 321,
+   "wallMs": 1530,
+   "longTasks": 2,
+   "longTaskMs": 378,
+   "longest": 265,
+   "textNodes": 2293,
+   "groups": 64,
+   "low": [],
+   "small": [
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 21,
+     "samples": [
+      "dockets · 5 shared record",
+      "revenue at the 2026 card",
+      "paid to Advanced on the dockets · Rehire + Installation (ext"
+     ],
+     "sels": [
+      "div.l",
+      "div.sect",
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|600|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 12,
+     "samples": [
+      "direct costs · known so far",
+      "Quote reference",
+      "Entered by"
+     ],
+     "sels": [
+      "span.chip",
+      "label"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 11,
+     "samples": [
+      "Day",
+      "Column",
+      "Docket"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 54,
+     "samples": [
+      "Closed",
+      "Revenue",
+      "Direct cost"
+     ],
+     "sels": [
+      "th",
+      "th.num",
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Reference only — 2026 closure authority to confirm",
+      "195 m over",
+      "added here"
+     ],
+     "sels": [
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 68,
+     "samples": [
+      "matched",
+      "settled · Thu 24 Sep 2026",
+      "matched"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "no line",
+      "no quote entered",
+      "no rate"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 69,
+     "samples": [
+      "shared record",
+      "shared record",
+      "shared record"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "63",
+      "from the workbook",
+      "as Scrim · $25.53 / m"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "6b690574326199c4cca775293ea5829e63b0c21dbef61ea384fa95c.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    },
+    {
+     "src": "26976d1de9e55a0aa394a2daf2b71d0cdd22ca69b91b52aa3563889.webp",
+     "nat": [
+      1800,
+      1225
+     ],
+     "css": [
+      1372,
+      934
+     ],
+     "up": 1.52,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 4461,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "prestarts",
+   "name": "Pre-starts",
+   "paintMs": 87,
+   "wallMs": 1291,
+   "longTasks": 1,
+   "longTaskMs": 65,
+   "longest": 65,
+   "textNodes": 98,
+   "groups": 24,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": true,
+     "size": 11,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.03,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Print",
+      "Print"
+     ],
+     "sels": [
+      "button.btn.tiny.primary"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 165,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "coatesway",
+   "name": "The Coates Way",
+   "paintMs": 237,
+   "wallMs": 1443,
+   "longTasks": 1,
+   "longTaskMs": 152,
+   "longest": 152,
+   "textNodes": 171,
+   "groups": 31,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|13|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 13,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Open the machine"
+     ],
+     "sels": [
+      "button.btn.primary#cwOpenMachine"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 329,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "journal",
+   "name": "Journal",
+   "paintMs": 570,
+   "wallMs": 1773,
+   "longTasks": 1,
+   "longTaskMs": 531,
+   "longest": 531,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "breakdowns",
+   "name": "Breakdowns",
+   "paintMs": 510,
+   "wallMs": 1722,
+   "longTasks": 1,
+   "longTaskMs": 444,
+   "longest": 444,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "variances",
+   "name": "Variances",
+   "paintMs": 549,
+   "wallMs": 1753,
+   "longTasks": 1,
+   "longTaskMs": 515,
+   "longest": 515,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "costs",
+   "name": "Costs",
+   "paintMs": 786,
+   "wallMs": 1998,
+   "longTasks": 3,
+   "longTaskMs": 985,
+   "longest": 689,
+   "textNodes": 4556,
+   "groups": 147,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|24|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 24,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": true,
+     "n": 3,
+     "samples": [
+      "$572,467",
+      "$235,372",
+      "$337,095"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|34|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 34,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "Forecast P&L"
+     ],
+     "sels": [
+      "h3"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|12|400|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "as at Thu 01 Oct 2026 · AUD ex GST · every figure traces to "
+     ],
+     "sels": [
+      "div.pl-sub"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.98,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Revenue",
+      "Direct costs known",
+      "Difference so far"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.66,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Coates Industrial Solutions · GC500 2026"
+     ],
+     "sels": [
+      "div.pl-kicker"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|11|400|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 2.67,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "not a margin yet"
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(23, 39, 46)|rgb(255,255,255)|12|400|0.50",
+     "color": "rgb(23, 39, 46)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 400,
+     "opacity": 0.5,
+     "ratio": 3.13,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "Set cost rate",
+      "Set cost rate",
+      "Set cost rate"
+     ],
+     "sels": [
+      "button.btn.ghost.sm"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.98,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Revenue",
+      "Direct costs known",
+      "Difference so far"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(79, 88, 96)|rgb(255,255,255)|10|400|1.00",
+     "color": "rgb(79, 88, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 7.25,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "· 10 settled"
+     ],
+     "sels": [
+      "span.w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.66,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Coates Industrial Solutions · GC500 2026"
+     ],
+     "sels": [
+      "div.pl-kicker"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|11|400|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 2.67,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "not a margin yet"
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 95, 44)|rgb(231,244,234)|11|700|1.00",
+     "color": "rgb(20, 95, 44)",
+     "bg": "rgb(231,244,234)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 6.85,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "on the contracts",
+      "dockets",
+      "the scope"
+     ],
+     "sels": [
+      "i.pl-tag.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(143, 58, 8)|rgb(255,241,230)|11|700|1.00",
+     "color": "rgb(143, 58, 8)",
+     "bg": "rgb(255,241,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 6.83,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "priced by us · the card",
+      "priced by us · the card + at cost",
+      "hours only"
+     ],
+     "sels": [
+      "i.pl-tag.est"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(79, 88, 96)|rgb(240,242,244)|11|700|1.00",
+     "color": "rgb(79, 88, 96)",
+     "bg": "rgb(240,242,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 6.46,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "not priced",
+      "not priced",
+      "not priced"
+     ],
+     "sels": [
+      "i.pl-tag.none"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(79, 88, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(79, 88, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.01,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Branch"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(79, 88, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(79, 88, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.25,
+     "large": false,
+     "n": 13,
+     "samples": [
+      "Lines",
+      "Hire · by the rate",
+      "Hire · from the card"
+     ],
+     "sels": [
+      "th.num",
+      "span.w",
+      "th.num.pl-cost"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 88,
+     "samples": [
+      "1005",
+      "1010",
+      "1030 · 1031"
+     ],
+     "sels": [
+      "span.chip.ref.mono",
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "direct cost · never revenue"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 75,
+     "samples": [
+      "Labour — build and demob",
+      "Paid — ordinary hours",
+      "Race weekend — planned"
+     ],
+     "sels": [
+      "div.l",
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 55,
+     "samples": [
+      "no rate yet",
+      "no rate yet",
+      "no rate yet"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 15,
+     "samples": [
+      "race day",
+      "race day",
+      "race day"
+     ],
+     "sels": [
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|400|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "by the rate",
+      "charge lines",
+      "charge lines"
+     ],
+     "sels": [
+      "span.w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Our transport"
+     ],
+     "sels": [
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 59,
+     "samples": [
+      "from the record",
+      "from the record",
+      "from the record"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "a253bcc7d429ff5ee4622a4c71bd7f0a33e7837c26d60b09d5e6385.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 9115,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "edit",
+   "name": "Edit",
+   "paintMs": 510,
+   "wallMs": 1713,
+   "longTasks": 1,
+   "longTaskMs": 465,
+   "longest": 465,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "change",
+   "name": "Change deliveries",
+   "paintMs": 149,
+   "wallMs": 1356,
+   "longTasks": 1,
+   "longTaskMs": 124,
+   "longest": 124,
+   "textNodes": 282,
+   "groups": 43,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|13|700|0.45",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 13,
+     "weight": 700,
+     "opacity": 0.45,
+     "ratio": 1.03,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Add sub-hired gear"
+     ],
+     "sels": [
+      "button.btn.primary"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|12|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Start"
+     ],
+     "sels": [
+      "button.btn.primary.sm"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,106,19)|13|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": false,
+     "size": 12.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.87,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Toilets & amenities"
+     ],
+     "sels": [
+      "button.chip.invdisc.on"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|13|400|0.45",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 13,
+     "weight": 400,
+     "opacity": 0.45,
+     "ratio": 2.93,
+     "large": false,
+     "n": 7,
+     "samples": [
+      "Change",
+      "Change",
+      "Change"
+     ],
+     "sels": [
+      "button.btn",
+      "button.btn#spAdd"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(20, 24, 29)|rgb(255,255,255)|12|400|0.45",
+     "color": "rgb(20, 24, 29)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 12,
+     "weight": 400,
+     "opacity": 0.45,
+     "ratio": 2.93,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Use"
+     ],
+     "sels": [
+      "button.btn.sm"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|400|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.4167,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "asset no.",
+      "Rehire · Event Portables · asset no.",
+      "asset no."
+     ],
+     "sels": [
+      "small"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "on the master plan",
+      "on the master plan",
+      "on the master plan"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(91,42,134)|11|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(91,42,134)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 9.9,
+     "large": false,
+     "n": 13,
+     "samples": [
+      "SUB-HIRED · Event Portables",
+      "SUB-HIRED · Event Portables",
+      "SUB-HIRED · Event Portables"
+     ],
+     "sels": [
+      "span.chip.subhirechip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 16,
+     "samples": [
+      "2 of 2",
+      "4 of 4",
+      "2 of 2"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Sub-hire · Event Portables ×2",
+      "Sub-hire · Event Portables ×2",
+      "Sub-hire · Event Portables ×8"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Location",
+      "Location"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "What",
+      "Fleet numbers",
+      "Numbered"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Short · Accessible Toilet 0 of 1, 16Pan Block 1 of 2"
+     ],
+     "sels": [
+      "span.chip.act.shortchip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "spare"
+     ],
+     "sels": [
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 1166,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "add",
+   "name": "Add an asset",
+   "paintMs": 520,
+   "wallMs": 1726,
+   "longTasks": 1,
+   "longTaskMs": 479,
+   "longest": 479,
+   "textNodes": 0,
+   "groups": 0,
+   "low": [],
+   "small": [],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 0,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "pricing",
+   "name": "Pricing",
+   "paintMs": 251,
+   "wallMs": 1464,
+   "longTasks": 2,
+   "longTaskMs": 297,
+   "longest": 196,
+   "textNodes": 2184,
+   "groups": 45,
+   "low": [],
+   "small": [
+    {
+     "key": "rgb(74, 85, 96)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.06,
+     "large": false,
+     "n": 23,
+     "samples": [
+      "Plant on the job",
+      "Rate lines",
+      "Lines priced in full"
+     ],
+     "sels": [
+      "div.l",
+      "span.chip"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 15,
+     "samples": [
+      "Trade",
+      "Window",
+      "Item"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 67,
+     "samples": [
+      "Item asked for · card line",
+      "Units",
+      "Days charged"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 104,
+     "samples": [
+      "1 plant line",
+      "1 plant line",
+      "1 plant line"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 58,
+     "samples": [
+      "matched",
+      "matched",
+      "matched"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 9,
+     "samples": [
+      "ambiguous",
+      "typed",
+      "ambiguous"
+     ],
+     "sels": [
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 21,
+     "samples": [
+      "no line",
+      "Unit unresolved",
+      "no line"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "1a8e2e65473a24bf822e0985a76fa3b86196cf171e6993b3742f018.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 3649,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "timeline",
+   "name": "Timeline",
+   "paintMs": 273,
+   "wallMs": 1477,
+   "longTasks": 2,
+   "longTaskMs": 274,
+   "longest": 209,
+   "textNodes": 930,
+   "groups": 87,
+   "low": [
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|25|700|0.78",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 25,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 1,
+     "large": true,
+     "n": 5,
+     "samples": [
+      "20°",
+      "21°",
+      "24°"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|11|800|0.78",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 1,
+     "large": false,
+     "n": 10,
+     "samples": [
+      "5%",
+      "18",
+      "17%"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|25|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 25,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1,
+     "large": true,
+     "n": 3,
+     "samples": [
+      "25°",
+      "29°",
+      "22°"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|11|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "66%",
+      "17",
+      "76%"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(244, 241, 236)|rgb(248,246,244)|22|800|1.00",
+     "color": "rgb(244, 241, 236)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 22,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.05,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "01 Oct"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(244, 241, 236)|rgb(248,246,244)|19|800|1.00",
+     "color": "rgb(244, 241, 236)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 19,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.05,
+     "large": true,
+     "n": 5,
+     "samples": [
+      "Pre-start ▾",
+      "Drivers ▾",
+      "Install ▾"
+     ],
+     "sels": [
+      "span.dpt-w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(255, 255, 255, 0.72)|rgb(248,246,244)|10|600|1.00",
+     "color": "rgba(255, 255, 255, 0.72)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.06,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "to me · picture",
+      "to me · picture",
+      "to me · picture"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(255, 255, 255, 0.85)|rgb(248,246,244)|10|600|1.00",
+     "color": "rgba(255, 255, 255, 0.85)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "master plan",
+      "master plan",
+      "master plan"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|26|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 26,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": true,
+     "n": 5,
+     "samples": [
+      "GN03",
+      "WC44",
+      "WC60"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(248,246,244)|17|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 17,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.08,
+     "large": false,
+     "n": 10,
+     "samples": [
+      "Navigate",
+      "Text it",
+      "Navigate"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(244, 241, 236)|rgb(255,255,255)|14|400|0.78",
+     "color": "rgb(244, 241, 236)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 14,
+     "weight": 400,
+     "opacity": 0.78,
+     "ratio": 1.1,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Sunny · 20° / 17° · rain 5% · wind to 18 km/h — WeatherAPI f",
+      "Sunny · 21° / 18° · rain 17% · wind to 19 km/h — WeatherAPI ",
+      "Part cloud · 24° / 17° · rain 31% · wind to 21 km/h — Open-M"
+     ],
+     "sels": [
+      "span.sr"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(244, 241, 236)|rgb(255,255,255)|14|400|1.00",
+     "color": "rgb(244, 241, 236)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 14,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.13,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Drizzle · 25° / 18° · rain 66% · wind to 17 km/h · flagged W",
+      "Drizzle · 29° / 17° · rain 76% · wind to 21 km/h · flagged W",
+      "Cloudy · 22° / 17° · rain 49% · wind to 20 km/h — Open-Meteo"
+     ],
+     "sels": [
+      "span.sr"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(223, 228, 232)|rgb(248,246,244)|13|600|1.00",
+     "color": "rgb(223, 228, 232)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.19,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "S04",
+      "S05",
+      "S21"
+     ],
+     "sels": [
+      "span"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,255,255)|10|700|0.78",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 1.27,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Sunny",
+      "Sunny",
+      "Part cloud"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,106,19)|10|800|1.00",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.32,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,255,255)|10|700|1.00",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.37,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Drizzle",
+      "Drizzle",
+      "Cloudy"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(114, 227, 156)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(114, 227, 156)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.48,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "On site",
+      "On site",
+      "On site"
+     ],
+     "sels": [
+      "span.ld-sw.green"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(185, 193, 201)|rgb(255,106,19)|18|700|1.00",
+     "color": "rgb(185, 193, 201)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 18,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.58,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "17°"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(185, 193, 201)|rgb(255,255,255)|18|700|0.78",
+     "color": "rgb(185, 193, 201)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 18,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 1.58,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "17°",
+      "18°",
+      "17°"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,255,255)|10|800|0.78",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 1.79,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Forecast",
+      "Forecast",
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(185, 193, 201)|rgb(255,255,255)|18|700|1.00",
+     "color": "rgb(185, 193, 201)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 18,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.82,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "18°",
+      "17°",
+      "17°"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|12|400|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 11.5,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "1 page · ready",
+      "5 loads · 5 PDFs",
+      "5 loads · 5 PDFs"
+     ],
+     "sels": [
+      "span.dpt-s"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|11|600|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "no carrier",
+      "no carrier",
+      "moved from 7/10"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|12|500|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "30kva",
+      "FWF ×2",
+      "Toilet Block 6m ×2"
+     ],
+     "sels": [
+      "span.ld-w"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|13|500|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 12.5,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "near",
+      "near",
+      "near"
+     ],
+     "sels": [
+      "i.ld-near"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,106,19)|10|600|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 2.05,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "km/h"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,106,19)|10|700|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.05,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "WeatherAPI"
+     ],
+     "sels": [
+      "span.wxo"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,106,19)|10|700|1.00",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.1,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Sunny"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,255,255)|10|800|1.00",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 2.17,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Forecast",
+      "Forecast",
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(244, 241, 236)|rgb(255,106,19)|14|400|1.00",
+     "color": "rgb(244, 241, 236)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 14,
+     "weight": 400,
+     "opacity": 1,
+     "ratio": 2.55,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Sunny · 20° / 17° · rain 17% · wind to 18 km/h — WeatherAPI "
+     ],
+     "sels": [
+      "span.sr"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.66,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "Day documents",
+      "Load",
+      "Load"
+     ],
+     "sels": [
+      "span.dplate-k",
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,106,19)|25|700|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 25,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.87,
+     "large": true,
+     "n": 1,
+     "samples": [
+      "20°"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,106,19)|11|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 2.87,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "17%",
+      "18"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(29, 95, 196)|rgb(227,237,251)|10|600|0.78",
+     "color": "rgb(29, 95, 196)",
+     "bg": "rgb(227,237,251)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 3.43,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "moved off"
+     ],
+     "sels": [
+      "span.dchip.mv"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|600|0.78",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 3.62,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "km/h",
+      "km/h",
+      "km/h"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|700|0.78",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 3.62,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "WeatherAPI",
+      "WeatherAPI",
+      "Open-Meteo"
+     ],
+     "sels": [
+      "span.wxo",
+      "span.wxo.ol"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(154, 61, 5)|rgb(255,243,232)|10|600|0.78",
+     "color": "rgb(154, 61, 5)",
+     "bg": "rgb(255,243,232)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 4.03,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "King's Birthday"
+     ],
+     "sels": [
+      "span.dchip.hol"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|11|600|0.78",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 4.21,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "Nothing scheduled",
+      "Nothing scheduled",
+      "Nothing scheduled"
+     ],
+     "sels": [
+      "span.dq"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(154, 63, 10)|rgb(255,255,255)|11|700|0.78",
+     "color": "rgb(154, 63, 10)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 4.24,
+     "large": false,
+     "n": 14,
+     "samples": [
+      "Sat",
+      "Sun",
+      "Sat"
+     ],
+     "sels": [
+      "span.dow"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.74)|rgb(255,106,19)|10|500|1.00",
+     "color": "rgba(27, 18, 7, 0.74)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 4.26,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "2026"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|0.78",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 11,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 4.34,
+     "large": false,
+     "n": 40,
+     "samples": [
+      "Tue",
+      "WEEK 6 · BUILD",
+      "Wed"
+     ],
+     "sels": [
+      "span.dow",
+      "span.dwk"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|800|0.78",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 4.34,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "Customer Focused",
+      "Be Our Best",
+      "One Team"
+     ],
+     "sels": [
+      "span.dmotto"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|500|0.78",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 500,
+     "opacity": 0.78,
+     "ratio": 4.41,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "2026",
+      "2026",
+      "2026"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|11|600|0.78",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 4.41,
+     "large": false,
+     "n": 22,
+     "samples": [
+      "the day has passed",
+      "the day has passed",
+      "the day has passed"
+     ],
+     "sels": [
+      "em.wxnw"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "small": [
+    {
+     "key": "rgb(21, 18, 12)|rgb(255,210,26)|8|900|1.00",
+     "color": "rgb(21, 18, 12)",
+     "bg": "rgb(255,210,26)",
+     "bgImg": false,
+     "size": 7.5,
+     "weight": 900,
+     "opacity": 1,
+     "ratio": 12.89,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "WET",
+      "WET"
+     ],
+     "sels": [
+      "span.wxflag.wet"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(168, 67, 10)|rgb(255,246,239)|10|800|1.00",
+     "color": "rgb(168, 67, 10)",
+     "bg": "rgb(255,246,239)",
+     "bgImg": false,
+     "size": 9.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 5.67,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "TODAY"
+     ],
+     "sels": [
+      "span.dtoday"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(255, 255, 255, 0.85)|rgb(248,246,244)|10|600|1.00",
+     "color": "rgba(255, 255, 255, 0.85)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.07,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "master plan",
+      "master plan",
+      "master plan"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(255, 255, 255, 0.72)|rgb(248,246,244)|10|600|1.00",
+     "color": "rgba(255, 255, 255, 0.72)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 9.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.06,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "to me · picture",
+      "to me · picture",
+      "to me · picture"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 106, 19)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(255, 106, 19)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.66,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "Day documents",
+      "Load",
+      "Load"
+     ],
+     "sels": [
+      "span.dplate-k",
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|500|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 40,
+     "samples": [
+      "2026",
+      "2026",
+      "2026"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|10|800|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 7.25,
+     "large": false,
+     "n": 108,
+     "samples": [
+      "Due in",
+      "Due out",
+      "On site"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(133, 77, 14)|rgb(254,243,199)|10|600|1.00",
+     "color": "rgb(133, 77, 14)",
+     "bg": "rgb(254,243,199)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 6.15,
+     "large": false,
+     "n": 16,
+     "samples": [
+      "ref missing",
+      "ref missing",
+      "refs missing"
+     ],
+     "sels": [
+      "span.dchip.gap"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|10|500|0.78",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 500,
+     "opacity": 0.78,
+     "ratio": 4.41,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "2026",
+      "2026",
+      "2026"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(30, 64, 175)|rgb(219,234,254)|10|600|1.00",
+     "color": "rgb(30, 64, 175)",
+     "bg": "rgb(219,234,254)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.15,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "loads",
+      "loads",
+      "loads"
+     ],
+     "sels": [
+      "span.dchip.load"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.74)|rgb(255,106,19)|10|500|1.00",
+     "color": "rgba(27, 18, 7, 0.74)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 500,
+     "opacity": 1,
+     "ratio": 4.26,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "2026"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,106,19)|10|800|1.00",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1.32,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,106,19)|10|700|1.00",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.1,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "Sunny"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,106,19)|10|600|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 2.05,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "km/h"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,106,19)|10|700|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 2.05,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "WeatherAPI"
+     ],
+     "sels": [
+      "span.wxo"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.68)|rgb(253,246,239)|10|800|1.00",
+     "color": "rgba(27, 18, 7, 0.68)",
+     "bg": "rgb(253,246,239)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 6.23,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Due in",
+      "Due out"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.7)|rgb(253,246,239)|10|800|1.00",
+     "color": "rgba(27, 18, 7, 0.7)",
+     "bg": "rgb(253,246,239)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 6.68,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "On site"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,255,255)|10|800|0.78",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 1.79,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Forecast",
+      "Forecast",
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,255,255)|10|700|0.78",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 1.27,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "Sunny",
+      "Sunny",
+      "Part cloud"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|600|0.78",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 3.62,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "km/h",
+      "km/h",
+      "km/h"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|700|0.78",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 0.78,
+     "ratio": 3.62,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "WeatherAPI",
+      "WeatherAPI",
+      "Open-Meteo"
+     ],
+     "sels": [
+      "span.wxo",
+      "span.wxo.ol"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(154, 61, 5)|rgb(255,243,232)|10|600|0.78",
+     "color": "rgb(154, 61, 5)",
+     "bg": "rgb(255,243,232)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 4.03,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "King's Birthday"
+     ],
+     "sels": [
+      "span.dchip.hol"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(29, 95, 196)|rgb(227,237,251)|10|600|0.78",
+     "color": "rgb(29, 95, 196)",
+     "bg": "rgb(227,237,251)",
+     "bgImg": false,
+     "size": 10,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 3.43,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "moved off"
+     ],
+     "sels": [
+      "span.dchip.mv"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(169, 177, 185)|rgb(255,255,255)|10|800|1.00",
+     "color": "rgb(169, 177, 185)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 2.17,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Forecast",
+      "Forecast",
+      "Forecast"
+     ],
+     "sels": [
+      "span.l"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(216, 221, 226)|rgb(255,255,255)|10|700|1.00",
+     "color": "rgb(216, 221, 226)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.37,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Drizzle",
+      "Drizzle",
+      "Cloudy"
+     ],
+     "sels": [
+      "span.wxc"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|600|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 5.87,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "km/h",
+      "km/h",
+      "km/h"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(91, 102, 112)|rgb(255,255,255)|10|700|1.00",
+     "color": "rgb(91, 102, 112)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.87,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Open-Meteo",
+      "Open-Meteo",
+      "Open-Meteo · outlook"
+     ],
+     "sels": [
+      "span.wxo",
+      "span.wxo.ol"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(114, 227, 156)|rgb(248,246,244)|10|700|1.00",
+     "color": "rgb(114, 227, 156)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 1.48,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "On site",
+      "On site",
+      "On site"
+     ],
+     "sels": [
+      "span.ld-sw.green"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|11|600|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 7.81,
+     "large": false,
+     "n": 37,
+     "samples": [
+      "the day has passed",
+      "the day has passed",
+      "the day has passed"
+     ],
+     "sels": [
+      "em.wxnw"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(248,246,244)|11|700|1.00",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.25,
+     "large": false,
+     "n": 29,
+     "samples": [
+      "/1",
+      "/6",
+      "/15"
+     ],
+     "sels": [
+      "i",
+      "span.ldcnt"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|800|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 40,
+     "samples": [
+      "Care Deeply",
+      "Competitive Spirit",
+      "Be Our Best"
+     ],
+     "sels": [
+      "span.dmotto"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(75, 83, 91)|rgb(255,255,255)|11|600|0.78",
+     "color": "rgb(75, 83, 91)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 0.78,
+     "ratio": 4.41,
+     "large": false,
+     "n": 22,
+     "samples": [
+      "the day has passed",
+      "the day has passed",
+      "the day has passed"
+     ],
+     "sels": [
+      "em.wxnw"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|800|0.78",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 4.34,
+     "large": false,
+     "n": 27,
+     "samples": [
+      "Customer Focused",
+      "Be Our Best",
+      "One Team"
+     ],
+     "sels": [
+      "span.dmotto"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,106,19)|11|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,106,19)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 2.87,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "17%",
+      "18"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgba(27, 18, 7, 0.6)|rgb(253,246,239)|11|700|1.00",
+     "color": "rgba(27, 18, 7, 0.6)",
+     "bg": "rgb(253,246,239)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 4.73,
+     "large": false,
+     "n": 1,
+     "samples": [
+      "/5"
+     ],
+     "sels": [
+      "i"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|11|800|0.78",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 0.78,
+     "ratio": 1,
+     "large": false,
+     "n": 10,
+     "samples": [
+      "5%",
+      "18",
+      "17%"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(255, 255, 255)|rgb(255,255,255)|11|800|1.00",
+     "color": "rgb(255, 255, 255)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 800,
+     "opacity": 1,
+     "ratio": 1,
+     "large": false,
+     "n": 6,
+     "samples": [
+      "66%",
+      "17",
+      "76%"
+     ],
+     "sels": [
+      "b"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(170, 179, 186)|rgb(248,246,244)|11|600|1.00",
+     "color": "rgb(170, 179, 186)",
+     "bg": "rgb(248,246,244)",
+     "bgImg": true,
+     "size": 10.5,
+     "weight": 600,
+     "opacity": 1,
+     "ratio": 1.97,
+     "large": false,
+     "n": 5,
+     "samples": [
+      "no carrier",
+      "no carrier",
+      "moved from 7/10"
+     ],
+     "sels": [
+      "em"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "af04e9d9dca2641075777757258bb779591078bb2df08d0f07334b6.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 2830,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "runsheet",
+   "name": "Running sheet",
+   "paintMs": 92,
+   "wallMs": 1296,
+   "longTasks": 1,
+   "longTaskMs": 65,
+   "longest": 65,
+   "textNodes": 232,
+   "groups": 16,
+   "low": [],
+   "small": [
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Weekday — 30 min unpaid break",
+      "to date and planned"
+     ],
+     "sels": [
+      "span.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "Person",
+      "Person"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 33,
+     "samples": [
+      "Type",
+      "Start",
+      "Finish"
+     ],
+     "sels": [
+      "th",
+      "th.num"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 526,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "questions",
+   "name": "Questions",
+   "paintMs": 163,
+   "wallMs": 1368,
+   "longTasks": 1,
+   "longTaskMs": 131,
+   "longest": 131,
+   "textNodes": 455,
+   "groups": 23,
+   "low": [],
+   "small": [
+    {
+     "key": "rgb(162, 80, 15)|rgb(253,240,230)|11|700|1.00",
+     "color": "rgb(162, 80, 15)",
+     "bg": "rgb(253,240,230)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.09,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "15 need an answer",
+      "15"
+     ],
+     "sels": [
+      "span.chip.act"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 52, 38)|rgb(244,239,233)|11|700|1.00",
+     "color": "rgb(74, 52, 38)",
+     "bg": "rgb(244,239,233)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 10.15,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "8 pending / later",
+      "Fencing · 4",
+      "Labour · 2"
+     ],
+     "sels": [
+      "span.chip.ref",
+      "a.chip.ref"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(31, 107, 58)|rgb(234,244,238)|11|700|1.00",
+     "color": "rgb(31, 107, 58)",
+     "bg": "rgb(234,244,238)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.79,
+     "large": false,
+     "n": 2,
+     "samples": [
+      "34 answered or history",
+      "34"
+     ],
+     "sels": [
+      "span.chip.ok"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [],
+   "canv": [],
+   "nodes": 666,
+   "wide": 0,
+   "goerr": null
+  },
+  {
+   "k": "about",
+   "name": "About this file",
+   "paintMs": 74,
+   "wallMs": 1280,
+   "longTasks": 1,
+   "longTaskMs": 55,
+   "longest": 55,
+   "textNodes": 365,
+   "groups": 33,
+   "low": [],
+   "small": [
+    {
+     "key": "rgb(74, 85, 96)|rgb(252,251,250)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(252,251,250)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.36,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "Light",
+      "State",
+      "Ref"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(74, 85, 96)|rgb(255,255,255)|11|700|1.00",
+     "color": "rgb(74, 85, 96)",
+     "bg": "rgb(255,255,255)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 7.61,
+     "large": false,
+     "n": 4,
+     "samples": [
+      "What it means",
+      "What it means",
+      "Item"
+     ],
+     "sels": [
+      "th"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(138, 90, 0)|rgb(253,245,227)|11|700|1.00",
+     "color": "rgb(138, 90, 0)",
+     "bg": "rgb(253,245,227)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.46,
+     "large": false,
+     "n": 31,
+     "samples": [
+      "Resolve before affected quantity/spec use",
+      "Resolve before affected quantity/spec use",
+      "Resolve before affected quantity/spec use"
+     ],
+     "sels": [
+      "span.chip.cand"
+     ],
+     "blur": [],
+     "shadow": []
+    },
+    {
+     "key": "rgb(179, 38, 30)|rgb(253,238,237)|11|700|1.00",
+     "color": "rgb(179, 38, 30)",
+     "bg": "rgb(253,238,237)",
+     "bgImg": false,
+     "size": 10.5,
+     "weight": 700,
+     "opacity": 1,
+     "ratio": 5.8,
+     "large": false,
+     "n": 3,
+     "samples": [
+      "critical",
+      "high",
+      "high"
+     ],
+     "sels": [
+      "span.chip.crit"
+     ],
+     "blur": [],
+     "shadow": []
+    }
+   ],
+   "blurred": [],
+   "imgs": [
+    {
+     "src": "1401239e7866448a8ad934db5a5cd69e95fda15f9874e2edccad95b.webp",
+     "nat": [
+      1800,
+      600
+     ],
+     "css": [
+      1408,
+      469
+     ],
+     "up": 1.56,
+     "rendering": "auto"
+    }
+   ],
+   "canv": [],
+   "nodes": 630,
+   "wide": 0,
+   "goerr": null
+  }
+ ],
+ "errors": []
+}

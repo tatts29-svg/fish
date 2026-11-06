@@ -1,0 +1,294 @@
+{
+ "author": "Andrew Fisher",
+ "page": "/tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/v1121_dry/page.html",
+ "mobile": false,
+ "passed": 22,
+ "failed": 0,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "page: layer present, one script, a second mount does not inject twice",
+   "ok": true,
+   "detail": {
+    "layer": "v11.17",
+    "one": 1,
+    "again": true
+   }
+  },
+  {
+   "name": "page: another explorer build (one script changed) is refused",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "name": "frame: layer mounted once, registration loaded, no pin yet",
+   "ok": true,
+   "detail": {
+    "mounted": true,
+    "scripts": 1,
+    "geo": true,
+    "state": {
+     "pin": null,
+     "card": false,
+     "pinShown": false,
+     "pressing": false
+    }
+   }
+  },
+  {
+   "name": "maths: P01 tag centre -> its recorded pin within 0.5 m",
+   "ok": true,
+   "detail": {
+    "got": [
+     -27.983446819387666,
+     153.4265801237699
+    ],
+    "known": [
+     -27.983447,
+     153.42658
+    ],
+    "off_m": "0.02"
+   }
+  },
+  {
+   "name": "maths: across the recorded pins the tags land on them (median under 1 m, most within 2 m)",
+   "ok": true,
+   "detail": {
+    "n": 39,
+    "median": 0.06,
+    "within2": 28,
+    "worst": [
+     [
+      "PG29",
+      98.91
+     ],
+     [
+      "PG01",
+      124.62
+     ],
+     [
+      "PG03",
+      124.62
+     ],
+     [
+      "PG05",
+      124.62
+     ],
+     [
+      "T0024",
+      663.24
+     ]
+    ]
+   }
+  },
+  {
+   "name": "drop: pin lands on P01 to 0.5 m and names P01 first",
+   "ok": true,
+   "detail": {
+    "lat": -27.983447,
+    "lon": 153.42658,
+    "near": [
+     {
+      "code": "P01",
+      "d": 0,
+      "b": 0
+     },
+     {
+      "code": "P05",
+      "d": 9,
+      "b": 215.2847998683426
+     }
+    ]
+   }
+  },
+  {
+   "name": "drop: the card shows the coordinates to six decimals and \"at P01\"",
+   "ok": true,
+   "detail": {
+    "ll": "-27.983447, 153.426580",
+    "near": "at P01 · 9 m south-west of P05"
+   }
+  },
+  {
+   "name": "words: coordinates, nearest references, a Maps link and the accuracy line",
+   "ok": true,
+   "detail": "GC500 spot: -27.983447, 153.426580\nat P01 · 9 m south-west of P05\nhttps://maps.google.com/?q=-27.983447,153.426580\nOff the plan on satellite, give or take a metre or two (not a survey). 22 Oct 2026 17:25 AEST."
+  },
+  {
+   "name": "drop: the pin is in view above the card",
+   "ok": true,
+   "detail": {
+    "y": 285.5,
+    "clearTo": 352,
+    "shown": true
+   }
+  },
+  {
+   "name": "picture: a PNG 1080 x 1270 of a sensible size",
+   "ok": true,
+   "detail": {
+    "size": 2353547,
+    "w": 1080,
+    "h": 1270
+   }
+  },
+  {
+   "name": "share: a share sheet that takes files gets the PNG and the words",
+   "ok": true,
+   "detail": {
+    "r": {
+     "files": "files",
+     "text": "text"
+    },
+    "filesPayload": {
+     "n": 1,
+     "type": "image/png",
+     "name": "GC500-spot--27.983447_153.426580.png",
+     "text": "GC500 spot: -27.983447, 153.426580\nat P01 · 9 m south-west of P05\nhttps://maps.google.com/?q=-27.983447,153.426580\nOff the plan on satellite, give or take a metre or two (not a survey). 22 Oct 2026 17:25 AEST.",
+     "title": "GC500 spot"
+    },
+    "textPayload": {
+     "hasFiles": false,
+     "text": "GC500 spot: -27.983447, 153.426580\nat P01 · 9 m south-west of P05\nhttps://maps.google.com/?q=-27.983447,153.426580\nOff the plan on satellite, give or take a metre or two (not a survey). 22 Oct 2026 17:25 AEST."
+    }
+   }
+  },
+  {
+   "name": "share: a text-only share sheet gets the words and the picture is saved",
+   "ok": true,
+   "detail": {
+    "r": {
+     "files": "files",
+     "text": "text"
+    },
+    "filesPayload": {
+     "n": 1,
+     "type": "image/png",
+     "name": "GC500-spot--27.983447_153.426580.png",
+     "text": "GC500 spot: -27.983447, 153.426580\nat P01 · 9 m south-west of P05\nhttps://maps.google.com/?q=-27.983447,153.426580\nOff the plan on satellite, give or take a metre or two (not a survey). 22 Oct 2026 17:25 AEST.",
+     "title": "GC500 spot"
+    },
+    "textPayload": {
+     "hasFiles": false,
+     "text": "GC500 spot: -27.983447, 153.426580\nat P01 · 9 m south-west of P05\nhttps://maps.google.com/?q=-27.983447,153.426580\nOff the plan on satellite, give or take a metre or two (not a survey). 22 Oct 2026 17:25 AEST."
+    }
+   }
+  },
+  {
+   "name": "gesture: press and hold drops the pin and opens the card; nothing selected underneath",
+   "ok": true,
+   "detail": {
+    "state": {
+     "pin": {
+      "x": 475.10736,
+      "y": 794.6092058685529,
+      "lat": -27.983447,
+      "lon": 153.426694,
+      "near": [
+       {
+        "code": "P05",
+        "d": 10,
+        "b": 143.15387481671758
+       },
+       {
+        "code": "P01",
+        "d": 11,
+        "b": 89.85696472534426
+       }
+      ]
+     },
+     "card": true,
+     "pinShown": true,
+     "pressing": false
+    },
+    "selected": null
+   }
+  },
+  {
+   "name": "gesture: a short tap does not drop a pin",
+   "ok": true,
+   "detail": {
+    "pin": null,
+    "card": false,
+    "pinShown": false,
+    "pressing": false
+   }
+  },
+  {
+   "name": "gesture: a drag (pan) does not drop a pin",
+   "ok": true,
+   "detail": {
+    "pin": null,
+    "card": false,
+    "pinShown": false,
+    "pressing": false
+   }
+  },
+  {
+   "name": "gesture: a right-click drops the pin",
+   "ok": true,
+   "detail": {
+    "pin": {
+     "x": 433.6039712138015,
+     "y": 804.7014440418977,
+     "lat": -27.983182,
+     "lon": 153.42662,
+     "near": [
+      {
+       "code": "T0024",
+       "d": 4,
+       "b": 331.25077970232235
+      },
+      {
+       "code": "EVL",
+       "d": 5,
+       "b": 120.12154701734431
+      }
+     ]
+    },
+    "card": true,
+    "pinShown": true,
+    "pressing": false
+   }
+  },
+  {
+   "name": "pin: moves with the map",
+   "ok": true,
+   "detail": {
+    "before1": "translate(553px, 165.5px)",
+    "after1": "translate(437.3px, 165.5px)"
+   }
+  },
+  {
+   "name": "card: Clear removes the pin and hides the card",
+   "ok": true,
+   "detail": {
+    "pin": null,
+    "card": false,
+    "pinShown": false,
+    "pressing": false
+   }
+  },
+  {
+   "name": "record unchanged by the whole run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 140,
+    "blocked": 0
+   }
+  }
+ ]
+}

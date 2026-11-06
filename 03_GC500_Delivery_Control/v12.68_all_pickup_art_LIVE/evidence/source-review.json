@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "reviewed_at_utc": "2026-10-30T22:49:05.274252+00:00",
+  "status": "PASS",
+  "scope": "Independent source and exact byte-boundary review; browser acceptance recorded separately",
+  "base": {
+    "version": "v12.66",
+    "sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+    "bytes": 16192520
+  },
+  "candidate": {
+    "version": "v12.68",
+    "sha256": "fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547",
+    "bytes": 16520784,
+    "added_bytes": 328264
+  },
+  "source_hashes": {
+    "patch_v1268.py": "553f79a6cbbb47841e5685224c17eccd4d6a1a1233d845b61915f011a143eef7",
+    "artwork1268_src.js": "0be30b3cd4f4a65d55b8b9992dd71e1eea7433e887d93bd6c6eb27f2ca4e01b6",
+    "artwork1268.css": "6bba3de2e34db7e0fe0c8626bf2dc8dc02bff6cdd61fe9e98a26c2a7ff476eac"
+  },
+  "checks": {
+    "exact_predecessor_hash": true,
+    "patch_matches_shared_candidate": true,
+    "thirteen_unique_replacements": true,
+    "inverse_replacements_restore_every_base_byte": true,
+    "wrong_base_rejected": true,
+    "double_application_rejected": true,
+    "five_css_atlases_embedded_once_each": true,
+    "all_identified_stamp_consumers_forward_typed_context": true,
+    "html_contains_only_fixed_enum_names": true,
+    "no_operational_or_financial_write_code_added": true,
+    "no_new_fetch_observer_event_listener_or_animation": true,
+    "unsupported_ambulant_alias_removed": true,
+    "special_atlas_windows_preserve_source_aspect": true
+  },
+  "atlases": {
+    "a": {
+      "sha256": "53732ed5fa62bc1d25b61a2c9e367bafdb4abb34681f7cd5af88e749fb0b9c83",
+      "bytes": 65848,
+      "width": 768,
+      "height": 512,
+      "has_alpha": true
+    },
+    "b": {
+      "sha256": "38182b6ac112b9e21a125d2f53e856e7db155abe214c286662991653858c7318",
+      "bytes": 53472,
+      "width": 768,
+      "height": 512,
+      "has_alpha": true
+    },
+    "c": {
+      "sha256": "02ce10e6a7be2ce27616f7f6749f769aaa26c07a4ac2e010489de6ff1951b7be",
+      "bytes": 33774,
+      "width": 768,
+      "height": 512,
+      "has_alpha": true
+    },
+    "d": {
+      "sha256": "c0852263e910a1407b6d3297a701eab287f50cace22c3d56ec835f551ebede8c",
+      "bytes": 53254,
+      "width": 768,
+      "height": 512,
+      "has_alpha": true
+    },
+    "e": {
+      "sha256": "06318c216a9d2ec23c0283b1bd6568ce5992cc8b50b44ffbf0f6bea9d5430b4f",
+      "bytes": 51188,
+      "width": 768,
+      "height": 512,
+      "has_alpha": true
+    }
+  },
+  "mapping_review": {
+    "own_item_over_category_or_reference_prose": true,
+    "attachments_map_separately_from_machines": true,
+    "paired_block_and_tank_has_combined_artwork": true,
+    "mixed_known_types_use_deduplicated_collage": true,
+    "any_unknown_type_keeps_clear_fallback": true,
+    "no_record_mutation": true
+  },
+  "preservation_review": {
+    "original_stamp_foreground_text_and_semantics_untouched": true,
+    "original_status_selection_untouched": true,
+    "decorative_frame_out_of_flow_and_noninteractive": true,
+    "print_hides_artwork": true,
+    "existing_motion_rules_unmodified": true
+  },
+  "limitations": [
+    "Artwork depicts equipment families, not the exact photographed or numbered unit.",
+    "Geometry, decoding, native records/models and performance require separate browser acceptance.",
+    "This is candidate source review and does not claim publication."
+  ]
+}

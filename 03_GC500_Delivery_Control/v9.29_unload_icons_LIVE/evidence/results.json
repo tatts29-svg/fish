@@ -1,0 +1,22 @@
+{
+ "laptop 1440": {
+  "days": 31,
+  "rows": 172,
+  "strips": 172,
+  "items": 188,
+  "tanks": 4,
+  "maxIconMs": 53.1,
+  "liveErrors": 0,
+  "fails": []
+ },
+ "phone 390": {
+  "days": 31,
+  "rows": 172,
+  "strips": 172,
+  "items": 188,
+  "tanks": 4,
+  "maxIconMs": 52.8,
+  "liveErrors": 0,
+  "fails": []
+ }
+}

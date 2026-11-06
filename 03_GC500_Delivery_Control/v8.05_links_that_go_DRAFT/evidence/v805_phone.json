@@ -1,0 +1,297 @@
+{
+ "author": "Andrew Fisher",
+ "mobile": true,
+ "results": [
+  {
+   "name": "every Coates Way link leaves The Coates Way",
+   "pass": true,
+   "detail": [
+    {
+     "kind": "pillar",
+     "label": "P People",
+     "tab": "prestarts",
+     "shown": "pane-prestarts",
+     "hash": "#prestarts"
+    },
+    {
+     "kind": "pillar",
+     "label": "O Operations",
+     "tab": "today",
+     "shown": "pane-today",
+     "hash": "#today"
+    },
+    {
+     "kind": "pillar",
+     "label": "A Assets",
+     "tab": "plant",
+     "shown": "pane-plant",
+     "hash": "#plant"
+    },
+    {
+     "kind": "pillar",
+     "label": "F Financials",
+     "tab": "costs",
+     "shown": "pane-costs",
+     "hash": "#costs"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Braced for scr",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Relocation: 13",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Removal: 0 of ",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Vehicle gates:",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Pedestrian gat",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — CCB — demarcat",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    }
+   ]
+  },
+  {
+   "name": "the page shown is the page the record says (no tab says Costs while Coates Way shows)",
+   "pass": true,
+   "detail": [
+    {
+     "kind": "pillar",
+     "label": "P People",
+     "tab": "prestarts",
+     "shown": "pane-prestarts",
+     "hash": "#prestarts"
+    },
+    {
+     "kind": "pillar",
+     "label": "O Operations",
+     "tab": "today",
+     "shown": "pane-today",
+     "hash": "#today"
+    },
+    {
+     "kind": "pillar",
+     "label": "A Assets",
+     "tab": "plant",
+     "shown": "pane-plant",
+     "hash": "#plant"
+    },
+    {
+     "kind": "pillar",
+     "label": "F Financials",
+     "tab": "costs",
+     "shown": "pane-costs",
+     "hash": "#costs"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Braced for scr",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Relocation: 13",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Removal: 0 of ",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Vehicle gates:",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — Pedestrian gat",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    },
+    {
+     "kind": "red",
+     "label": "Fencing behind the 2026 programme — CCB — demarcat",
+     "tab": "fencing",
+     "shown": "pane-fencing",
+     "hash": "#fencing"
+    }
+   ]
+  },
+  {
+   "name": "the pillars go to Pre-starts, Today (Where we are), Equipment (the register) and Costs",
+   "pass": true,
+   "detail": [
+    "prestarts",
+    "today",
+    "plant",
+    "costs"
+   ]
+  },
+  {
+   "name": "a link to #sheet/__explorer opens the explorer, and it is still there after Today and back",
+   "pass": true,
+   "detail": {
+    "a": {
+     "tab": "map",
+     "sheet": "__explorer",
+     "explorer": true,
+     "hash": "#sheet/__explorer"
+    },
+    "b": {
+     "tab": "map",
+     "sheet": "__explorer",
+     "explorer": true,
+     "hash": "#sheet/__explorer"
+    }
+   }
+  },
+  {
+   "name": "a link to #map opens the explorer, and it is still there after Today and back",
+   "pass": true,
+   "detail": {
+    "a": {
+     "tab": "map",
+     "sheet": "__explorer",
+     "explorer": true,
+     "hash": "#sheet/__explorer"
+    },
+    "b": {
+     "tab": "map",
+     "sheet": "__explorer",
+     "explorer": true,
+     "hash": "#sheet/__explorer"
+    }
+   }
+  },
+  {
+   "name": "a link to #sheet/AERIAL opens AERIAL",
+   "pass": true,
+   "detail": {
+    "want": "AERIAL",
+    "sheet": "AERIAL",
+    "explorer": false,
+    "hash": "#sheet/AERIAL"
+   }
+  },
+  {
+   "name": "a link to #sheet/D007 opens D007",
+   "pass": true,
+   "detail": {
+    "want": "D007",
+    "sheet": "D007",
+    "explorer": false,
+    "hash": "#sheet/D007"
+   }
+  },
+  {
+   "name": "a link to #sheet/D016 opens D016",
+   "pass": true,
+   "detail": {
+    "want": "D016",
+    "sheet": "D016",
+    "explorer": false,
+    "hash": "#sheet/D016"
+   }
+  },
+  {
+   "name": "a link to #sheet/__satellite3d opens MASTER",
+   "pass": true,
+   "detail": {
+    "want": "MASTER",
+    "sheet": "MASTER",
+    "explorer": false,
+    "hash": "#sheet/MASTER"
+   }
+  },
+  {
+   "name": "a link to #sheet/NOPE opens MASTER",
+   "pass": true,
+   "detail": {
+    "want": "MASTER",
+    "sheet": "MASTER",
+    "explorer": false,
+    "hash": "#sheet/MASTER"
+   }
+  },
+  {
+   "name": "a pending explorer request does not override a later drawing link",
+   "pass": true,
+   "detail": {
+    "key": "D022",
+    "sheet": "D022",
+    "explorer": false,
+    "hash": "#sheet/D022",
+    "flag": false
+   }
+  },
+  {
+   "name": "Today: \"Are we making money?\" is off the screen; its stream differences and caveat are in the stream card",
+   "pass": true,
+   "detail": {
+    "ledgerShown": false,
+    "m805Shown": true,
+    "hasStreamsDiff": true,
+    "hasCaveat": true,
+    "costTotalOnScreen": false,
+    "diffTotalOnScreen": false,
+    "link": true
+   }
+  },
+  {
+   "name": "the stream card's link opens Costs & charges",
+   "pass": true,
+   "detail": "costs"
+  },
+  {
+   "name": "paper: the Money card prints as before and the screen-only part does not",
+   "pass": true,
+   "detail": {
+    "ledger": true,
+    "m805": false
+   }
+  },
+  {
+   "name": "no page errors",
+   "pass": true,
+   "detail": []
+  }
+ ],
+ "errors": []
+}

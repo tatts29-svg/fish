@@ -1,0 +1,46 @@
+heard: Five thousand two hundred and twenty three mesh panels, eight thousand two hundred and thirty five feet. That's more feet than a centipede convention. Every panel carried, stood and squared up by hand, foot by foot around the whole circuit.
+match ratio 1.000
+"concrete" heard: False | "sixteen" heard: False
+    0.00   0.28  Five
+    0.28   0.62  thousand
+    0.62   1.20  two
+    1.20   1.66  hundred
+    1.66   2.02  and
+    2.02   2.48  twenty
+    2.48   3.00  three
+    3.00   3.36  mesh
+    3.36   4.02  panels,
+    4.86   5.06  eight
+    5.06   5.44  thousand
+    5.44   6.00  two
+    6.00   6.44  hundred
+    6.44   6.92  and
+    6.92   7.32  thirty
+    7.32   7.90  five
+    7.90   8.36  feet.
+    8.72   9.12  That's
+    9.12   9.36  more
+    9.36   9.70  feet
+    9.70  10.08  than
+   10.08  10.24  a
+   10.24  10.90  centipede
+   10.90  11.52  convention.
+   12.18  12.60  Every
+   12.60  13.00  panel
+   13.00  13.56  carried,
+   13.78  14.14  stood
+   14.14  14.54  and
+   14.54  14.94  squared
+   14.94  15.22  up
+   15.22  15.46  by
+   15.46  15.94  hand,
+   16.32  16.60  foot
+   16.60  16.88  by
+   16.88  17.34  foot
+   17.34  17.98  around
+   17.98  18.20  the
+   18.20  18.54  whole
+   18.54  19.16  circuit.
+level around the join (voice cut at 11.98 s, resumes 12.16 s):
+11.50:-14 11.52:-13 11.54:-15 11.56:-14 11.58:-14 11.60:-16 11.62:-31 11.64:-25 11.66:-23 11.68:-22 11.70:-21 11.72:-23 11.74:-37 11.76:-37 11.78:-38 11.80:-40 11.82:-42 11.84:-39 11.86:-40 11.88:-42 11.90:-41 11.92:-40 11.94:-39 11.96:-41 11.98:-42 12.00:-43 12.02:-42 12.04:-39 12.06:-39 12.08:-42 12.10:-40 12.12:-38 12.14:-40 12.16:-41 12.18:-40 12.20:-39 12.22:-18 12.24:-13 12.26:-15 12.28:-14 12.30:-13 12.32:-14 12.34:-19 12.36:-17 12.38:-24
+largest sample step near the join 0.3311; typical largest step elsewhere 0.3502

@@ -1,0 +1,30 @@
+/* v7.30 - walk-around, what turned up, short */
+.walkcard{margin-top:14px}
+.walkcard .invhead{justify-content:space-between}
+.wktop{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:8px 0 2px}
+.wktop label{font-size:12px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.wktop input{flex:1 1 170px;min-width:0}
+.wkall{display:inline-flex;margin-left:8px;font-weight:400}
+.wklist{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.wkrow{border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--paper,#fff);display:grid;gap:6px}
+.wkrow.done{opacity:.72}
+.wkh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.wkw{flex:1 1 150px;min-width:0;font-size:13.5px}
+.wknums{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 10px;color:var(--ink2,inherit)}
+.wksub{white-space:nowrap}
+.wkadd input{font-size:16px}
+.shortchip{white-space:normal}
+.chgottab{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.chgottab th,.chgottab td{padding:4px 6px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:middle}
+.chgottab th{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.chgottab .num{text-align:right}
+.chgottab input{width:4.6rem;text-align:right;font-size:15px}
+.ld-tk.sh{color:#b45309;font-style:normal;font-weight:800}
+@media print{.walkcard{display:none}}
+.chgot{min-width:0}
+.chgot .chgottab{min-width:0!important;max-width:100%;width:100%;table-layout:fixed}
+.chgottab th:first-child,.chgottab td:first-child{width:auto}
+.chgottab th:nth-child(2),.chgottab td:nth-child(2){width:4.2rem}
+.chgottab th:nth-child(3),.chgottab td:nth-child(3){width:5.4rem}
+.chgottab th:nth-child(4),.chgottab td:nth-child(4){width:6.6rem}
+.chgottab th,.chgottab td{white-space:normal;min-width:0!important}

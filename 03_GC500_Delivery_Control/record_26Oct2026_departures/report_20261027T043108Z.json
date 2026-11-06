@@ -1,0 +1,315 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T043108Z",
+ "finished": "2026-10-27T04:31:46.505Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (13:5x AEST): \"421107 leaving at 230pm\". 421107 is P67's only unit (Building 6m, Coates; ticked Ready by Andrew; read 13:55 AEST, not already left, no booking), so P67 left in full at 14:30 AEST. Its air conditioner 1300541 and fire extinguisher stay listed on P67 as gear that goes with it. Recorded after 14:30, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P67",
+    "at": "2026-10-27T14:30:00+10:00",
+    "nos": [
+     "421107"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9",
+ "version": {
+  "before": 11570,
+  "after": 11571
+ },
+ "updated": {
+  "before": "2026-10-27T04:12:15.810Z",
+  "after": "2026-10-27T04:31:45.684Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P67",
+   "at": "2026-10-27T14:30:00+10:00",
+   "nos": [
+    "421107"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T14:30:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 421107 - P67 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P67",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P67": {
+    "state": "on site",
+    "set_at": "2026-10-13T22:27:17.475Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-13T22:27:19.601Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-13T22:27:21.241Z",
+    "ready1238_units": {
+     "coates|421107": {
+      "on": true,
+      "at": "2026-10-26T20:16:47.645Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/1bca2285-dd34-42e2-b911-cd95f26177c5"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T22:27:17.475Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.069Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:27:17.475Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:27:17.475Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:27:19.601Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:27:21.241Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|421107",
+      "ready": true,
+      "at": "2026-10-26T20:16:47.645Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:04:36.055Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:03:58.035Z"
+     }
+    },
+    "_k": "P67"
+   }
+  },
+  "after": {
+   "delivery/P67": {
+    "state": "in transit",
+    "set_at": "2026-10-27T04:31:29.396Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-27T04:31:29.396Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-27T04:31:29.396Z",
+    "ready1238_units": {
+     "coates|421107": {
+      "on": true,
+      "at": "2026-10-26T20:16:47.645Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/1bca2285-dd34-42e2-b911-cd95f26177c5"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T04:31:29.396Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.069Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T22:27:17.475Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T04:31:29.396Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "ec5dc4c0-e1ca-4c35-8ebe-ec75bb59f41c",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T14:30:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T22:27:17.475Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P67\",\"coates\",\"native\",\"slot:1bca2285-dd34-42e2-b911-cd95f26177c5\"]"
+         ],
+         "numbers": [
+          "421107"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P67\",\"coates\",\"native\",\"slot:1bca2285-dd34-42e2-b911-cd95f26177c5\"]",
+           "number": "421107",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T22:27:17.475Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T04:31:29.396Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-13T22:27:19.601Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-27T04:31:29.396Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-13T22:27:21.241Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-27T04:31:29.396Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|421107",
+      "ready": true,
+      "at": "2026-10-26T20:16:47.645Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:04:36.055Z"
+    },
+    "loading872": {
+     "item:Building 6m": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:03:58.035Z"
+     }
+    },
+    "_k": "P67"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

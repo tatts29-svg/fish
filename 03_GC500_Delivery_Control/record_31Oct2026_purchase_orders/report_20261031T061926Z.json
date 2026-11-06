@@ -1,0 +1,447 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T061926Z",
+ "finished": "2026-10-31T06:19:44.059Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 (this chat), with the six PO PDFs: 'we have a few Purchase orders too Do you want to See These obviously go Against the branch let me know if you need more details with them', then their GL codes: 4670270 'Consumables - Held for Resale 201.NVAC.2144.0'; 4666720 and 4670876 'Consumables - Held for Resale 201.KINP.2144.0'; 4663216 and 4655573 'Consumables - Held for Resale 201.STPS.2144.0'; 4669481 'Consumables - Workshops 201.NVAC.2150.0'. Each order costed to the branch in its GL code at its ex-GST amount; the concert generator sync carries KINP as its revenue branch, where the V8s are charged for it (9994954).",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4666720",
+    "patch": {
+     "supplier_name": "BSF Mobile Cranes",
+     "stream": "other",
+     "what": "GC500 building unloads (crane)",
+     "branch": "KINP",
+     "revenue_branch": null,
+     "amount": 2896,
+     "confirmed": true,
+     "note": "GL 201.KINP.2144.0 Consumables - Held for Resale · PO 15 Oct 2026, completed order · 3,185.60 inc GST · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.KINP.2144.0, Consumables - Held for Resale) from the chat"
+   },
+   {
+    "op": "po_add",
+    "number": "4670876",
+    "patch": {
+     "supplier_name": "Bunnings",
+     "stream": "other",
+     "what": "Hand soap (30)",
+     "branch": "KINP",
+     "revenue_branch": null,
+     "amount": 180,
+     "confirmed": true,
+     "note": "GL 201.KINP.2144.0 Consumables - Held for Resale · PO 24 Oct 2026 · 198.00 inc GST · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.KINP.2144.0, Consumables - Held for Resale) from the chat"
+   },
+   {
+    "op": "po_add",
+    "number": "4663216",
+    "patch": {
+     "supplier_name": "CCI Supplies",
+     "stream": "other",
+     "what": "Cable ties for the GC500 fencing",
+     "branch": "STPS",
+     "revenue_branch": null,
+     "amount": 2538.64,
+     "confirmed": true,
+     "note": "GL 201.STPS.2144.0 Consumables - Held for Resale · PO 7 Oct 2026 · 2,792.50 inc GST · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.STPS.2144.0, Consumables - Held for Resale) from the chat"
+   },
+   {
+    "op": "po_add",
+    "number": "4655573",
+    "patch": {
+     "supplier_name": "Bunnings",
+     "stream": "other",
+     "what": "Star pickets 1200 mm (10)",
+     "branch": "STPS",
+     "revenue_branch": null,
+     "amount": 100,
+     "confirmed": true,
+     "note": "GL 201.STPS.2144.0 Consumables - Held for Resale · PO 18 Sep 2026 · 110.00 inc GST · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.STPS.2144.0, Consumables - Held for Resale) from the chat"
+   },
+   {
+    "op": "po_add",
+    "number": "4669481",
+    "patch": {
+     "supplier_name": "Bunnings",
+     "stream": "other",
+     "what": "Siphon hose (2)",
+     "branch": "NVAC",
+     "revenue_branch": null,
+     "amount": 42.34,
+     "confirmed": true,
+     "note": "GL 201.NVAC.2150.0 Consumables - Workshops · PO 26 Oct 2026, completed order · 46.56 inc GST · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.NVAC.2150.0, Consumables - Workshops) from the chat"
+   },
+   {
+    "op": "po_add",
+    "number": "4670270",
+    "patch": {
+     "supplier_name": "Event Elec",
+     "stream": "other",
+     "what": "Sync the concert generators",
+     "branch": "NVAC",
+     "revenue_branch": "KINP",
+     "amount": 579.68,
+     "confirmed": true,
+     "note": "GL 201.NVAC.2144.0 Consumables - Held for Resale · PO 23 Oct 2026, completed order · 637.65 inc GST · the V8s are charged for the sync on 9994954 (KINP) · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: the PO and its GL code (201.NVAC.2144.0, Consumables - Held for Resale) from the chat"
+   }
+  ]
+ },
+ "pageSha256": "038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb",
+ "version": {
+  "before": 12622,
+  "after": 12640
+ },
+ "updated": {
+  "before": "2026-10-31T03:36:30.485Z",
+  "after": "2026-10-31T06:19:43.061Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4666720",
+   "view": {
+    "supplier": "BSF Mobile Cranes",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 2896,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4670876",
+   "view": {
+    "supplier": "Bunnings",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 180,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4663216",
+   "view": {
+    "supplier": "CCI Supplies",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 2538.64,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4655573",
+   "view": {
+    "supplier": "Bunnings",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 100,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4669481",
+   "view": {
+    "supplier": "Bunnings",
+    "branch": "NVAC",
+    "revenue_branch": null,
+    "amount": 42.34,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  },
+  {
+   "op": "po_add",
+   "id": "4670270",
+   "view": {
+    "supplier": "Event Elec",
+    "branch": "NVAC",
+    "revenue_branch": "KINP",
+    "amount": 579.68,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - "
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4666720",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4670876",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4663216",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4655573",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4669481",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4670270",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4666720",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4670876",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4663216",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4655573",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4669481",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4670270",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4655573",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4663216",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4666720",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4669481",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4670270",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4670876",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4666720": null,
+   "stamps/po~2f~4670876": null,
+   "stamps/po~2f~4663216": null,
+   "stamps/po~2f~4655573": null,
+   "stamps/po~2f~4669481": null,
+   "stamps/po~2f~4670270": null,
+   "by/po~2f~4666720": null,
+   "by/po~2f~4670876": null,
+   "by/po~2f~4663216": null,
+   "by/po~2f~4655573": null,
+   "by/po~2f~4669481": null,
+   "by/po~2f~4670270": null,
+   "purchaseOrders/4655573": null,
+   "purchaseOrders/4663216": null,
+   "purchaseOrders/4666720": null,
+   "purchaseOrders/4669481": null,
+   "purchaseOrders/4670270": null,
+   "purchaseOrders/4670876": null
+  },
+  "after": {
+   "stamps/po~2f~4666720": {
+    "_k": "po/4666720",
+    "v": "2026-10-31T06:19:38.761Z"
+   },
+   "stamps/po~2f~4670876": {
+    "_k": "po/4670876",
+    "v": "2026-10-31T06:19:38.978Z"
+   },
+   "stamps/po~2f~4663216": {
+    "_k": "po/4663216",
+    "v": "2026-10-31T06:19:39.166Z"
+   },
+   "stamps/po~2f~4655573": {
+    "_k": "po/4655573",
+    "v": "2026-10-31T06:19:39.337Z"
+   },
+   "stamps/po~2f~4669481": {
+    "_k": "po/4669481",
+    "v": "2026-10-31T06:19:39.514Z"
+   },
+   "stamps/po~2f~4670270": {
+    "_k": "po/4670270",
+    "v": "2026-10-31T06:19:39.699Z"
+   },
+   "by/po~2f~4666720": {
+    "_k": "po/4666720",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4670876": {
+    "_k": "po/4670876",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4663216": {
+    "_k": "po/4663216",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4655573": {
+    "_k": "po/4655573",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4669481": {
+    "_k": "po/4669481",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4670270": {
+    "_k": "po/4670270",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4655573": {
+    "number": "4655573",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:39.337Z",
+    "supplier_name": "Bunnings",
+    "stream": "other",
+    "what": "Star pickets 1200 mm (10)",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 100,
+    "confirmed": true,
+    "note": "GL 201.STPS.2144.0 Consumables - Held for Resale · PO 18 Sep 2026 · 110.00 inc GST · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:39.337Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4655573"
+   },
+   "purchaseOrders/4663216": {
+    "number": "4663216",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:39.166Z",
+    "supplier_name": "CCI Supplies",
+    "stream": "other",
+    "what": "Cable ties for the GC500 fencing",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 2538.64,
+    "confirmed": true,
+    "note": "GL 201.STPS.2144.0 Consumables - Held for Resale · PO 7 Oct 2026 · 2,792.50 inc GST · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:39.166Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4663216"
+   },
+   "purchaseOrders/4666720": {
+    "number": "4666720",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:38.761Z",
+    "supplier_name": "BSF Mobile Cranes",
+    "stream": "other",
+    "what": "GC500 building unloads (crane)",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 2896,
+    "confirmed": true,
+    "note": "GL 201.KINP.2144.0 Consumables - Held for Resale · PO 15 Oct 2026, completed order · 3,185.60 inc GST · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:38.761Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4666720"
+   },
+   "purchaseOrders/4669481": {
+    "number": "4669481",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:39.514Z",
+    "supplier_name": "Bunnings",
+    "stream": "other",
+    "what": "Siphon hose (2)",
+    "branch": "NVAC",
+    "revenue_branch": null,
+    "amount": 42.34,
+    "confirmed": true,
+    "note": "GL 201.NVAC.2150.0 Consumables - Workshops · PO 26 Oct 2026, completed order · 46.56 inc GST · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:39.514Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4669481"
+   },
+   "purchaseOrders/4670270": {
+    "number": "4670270",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:39.699Z",
+    "supplier_name": "Event Elec",
+    "stream": "other",
+    "what": "Sync the concert generators",
+    "branch": "NVAC",
+    "revenue_branch": "KINP",
+    "amount": 579.68,
+    "confirmed": true,
+    "note": "GL 201.NVAC.2144.0 Consumables - Held for Resale · PO 23 Oct 2026, completed order · 637.65 inc GST · the V8s are charged for the sync on 9994954 (KINP) · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:39.699Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4670270"
+   },
+   "purchaseOrders/4670876": {
+    "number": "4670876",
+    "by": "Andrew Fisher",
+    "at": "2026-10-31T06:19:38.978Z",
+    "supplier_name": "Bunnings",
+    "stream": "other",
+    "what": "Hand soap (30)",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 180,
+    "confirmed": true,
+    "note": "GL 201.KINP.2144.0 Consumables - Held for Resale · PO 24 Oct 2026 · 198.00 inc GST · Andrew Fisher, 31 Oct 2026",
+    "updated_at": "2026-10-31T06:19:38.978Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4670876"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

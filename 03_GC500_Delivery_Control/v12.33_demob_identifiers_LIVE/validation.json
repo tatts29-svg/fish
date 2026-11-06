@@ -1,0 +1,69 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.33",
+  "state": "VERIFIED LIVE",
+  "implementation_source": "69115cdb9e33b227554163e6a432010767bf845b",
+  "base_sha256": "6987269676b8d9089742978032208ffc930ebc4165471d13296285f9c745cd6f",
+  "candidate_sha256": "c6b8141c32728a7f59914aa53c0032cb8770131e142407bc0d0e7f84a4a0cf45",
+  "candidate_bytes": 15514494,
+  "page_checker_scripts": 207,
+  "focused_renderer": {
+    "passed": 23,
+    "total": 23
+  },
+  "exact_preservation_and_guards": {
+    "passed": 6,
+    "total": 6
+  },
+  "independent_review": {
+    "renderer_cases": 15,
+    "preservation_and_guard_checks": 8,
+    "result": "PASS"
+  },
+  "viewports": {
+    "desktop": {
+      "native_checks": 812,
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "back": "PASS",
+      "page_errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0,
+      "sweep_evidence_sha256": "9e844d95977793ce13dc1a8098c37dcfe3ef1a928f7f3abd07ef3098753c3f19"
+    },
+    "phone": {
+      "native_checks": 812,
+      "tabs": 27,
+      "visible_panes": 19,
+      "deep_links": 7,
+      "back": "PASS",
+      "page_errors": 0,
+      "console_errors": 0,
+      "blocked_writes": 0,
+      "sweep_evidence_sha256": "959516f14d482cc589fe2366df7f594b91f811c612678e0c5e13d3f4f03347dc"
+    }
+  },
+  "phone_screenshot": "inspected",
+  "navigation_runner": "Shared sweep with diagnostic progress logging only; no steps changed or skipped. Earlier bounded attempts did not complete and were not counted as passes.",
+  "raw_evidence": "Private; no record-derived details or screenshots published.",
+  "ready_source": "2dd95862fc964f8ac94d00043d78adc4e6440ccc",
+  "uploaded_at_utc": "2026-10-26T02:11:07.575Z",
+  "independent_get_at_utc": "2026-10-26T02:11:55.682782Z",
+  "independent_readback": {
+    "http": 200,
+    "bytes_match": true,
+    "full_sha256_match": true,
+    "footer": "v12.33",
+    "identifier_functions_match": true
+  },
+  "post_publication_phone": {
+    "checks": 812,
+    "passed": 812,
+    "page_errors": 0,
+    "console_errors": 0,
+    "blocked_writes": 0,
+    "screenshot": "inspected",
+    "source_sha256": "c6b8141c32728a7f59914aa53c0032cb8770131e142407bc0d0e7f84a4a0cf45"
+  }
+}

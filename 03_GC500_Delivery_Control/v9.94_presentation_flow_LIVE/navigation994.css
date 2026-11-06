@@ -1,0 +1,5 @@
+/* Author: Andrew Fisher. Child exits stay readable and reachable on a phone. */
+.mkpick-h > b,.se-h > b{min-width:0;flex:1;overflow-wrap:anywhere}
+.mkpick-h > .nav934-back,.se-h > .nav934-back{margin-right:0}
+.mkpick-h > .close,.se-h > .se-x{flex:0 0 auto;min-width:44px;min-height:44px}
+.se-h > .se-x:focus-visible{outline:2px solid #ff964f;outline-offset:2px}

@@ -1,0 +1,52 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261101T005630Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 1 Nov 2026 (this chat): PO 4669481 as Coates' system has it (Siphon Hose, 2 at 21.1650 ex GST, 46.56 inc GST); asked whether to correct the record's 42.34 to 42.33: \"yes to 4669481\".",
+  "ops": [
+   {
+    "op": "po_set",
+    "number": "4669481",
+    "was": {
+     "amount": 42.34,
+     "supplier_name": "Bunnings",
+     "branch": "NVAC",
+     "stream": "other"
+    },
+    "patch": {
+     "amount": 42.33,
+     "note": "GL 201.NVAC.2150.0 Consumables - Workshops · PO 26 Oct 2026, completed order · 2 × 21.1650 = 42.33 ex GST, 46.56 inc GST · Andrew Fisher, 1 Nov 2026"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"yes to 4669481\" - the amount in Coates' system, 2 × 21.1650 = 42.33 ex GST (the printed PO rounds the unit cost to 21.17, which gave 42.34)"
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "po_set",
+   "id": "4669481",
+   "was": {
+    "amount": 42.34,
+    "supplier_name": "Bunnings",
+    "branch": "NVAC",
+    "stream": "other"
+   },
+   "view": {
+    "supplier": "Bunnings",
+    "branch": "NVAC",
+    "revenue_branch": null,
+    "amount": 42.33,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "changed - "
+  }
+ ],
+ "plan": [
+  "stamps/po~2f~4669481",
+  "purchaseOrders/4669481"
+ ]
+}

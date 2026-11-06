@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.95",
+  "source_commit": "3f41c4cc1680c834568db9ae82b16c946de8756f",
+  "sha256": "5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b",
+  "bytes": 21995841,
+  "public_get_at_utc": "2026-10-24T15:58:46.553198+00:00",
+  "exact_bytes": true,
+  "scene_module": true,
+  "footer": true
+}

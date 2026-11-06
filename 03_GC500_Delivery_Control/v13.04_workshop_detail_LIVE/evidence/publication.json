@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifestSha256": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98",
+  "candidateManifestSha256": "f139782e513a360ab87e05b7899defb02348355a4e7e09e7ae06fdfcedba9aad",
+  "changedFiles": {
+    "car-app.js": "c97d5589d82f56ce704bb76a57a38ec544268c592cada66380a156384306c9d9",
+    "index.html": "7450008a101546f896ceffebb59139511e77e08ddbdd3ab42205b47e79c05bdb",
+    "workshop-finish.js": "1c8ed4e06a3d456167fda5220f13ad924663927789cc59213864848d8b6a86db",
+    "workshop-lessons.js": "f8cea22ad2f8a7554efd855e5918a66966aaa839e7dafa18b6e45a2301b388dd",
+    "workshop-mechanic.js": "c0163dac3fbb8c6584050852ff469316d34bc745f1d835d99671cf58d57a82b8",
+    "workshop-render.js": "b3261db78f89718c22dc6cfc5f41484b9a4d5cd20d7c98ec57515d0d803cf33a",
+    "workshop-service.js": "e894be3e3c249b611f1969b92097374d9dc6be3266a13b0fd5336888eab35319",
+    "workshop-showcase.js": "fcbda2df66dd57212cdab4797b862394d0e6f9bd2d822c6b564a0c83b082bd01",
+    "workshop-ui.js": "f16a46418e99856757ba1cf8d5750c2a5ac5351bf59e289a7b7d321240c79797"
+  },
+  "addedFiles": {
+    "workshop-render.js": "b3261db78f89718c22dc6cfc5f41484b9a4d5cd20d7c98ec57515d0d803cf33a"
+  },
+  "stagedBlobs": 9,
+  "otherFilesPreserved": 237,
+  "totalFiles": 246,
+  "published": true,
+  "recordWrites": 0,
+  "serverPreflightPassed": true,
+  "dashboardBaseSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "testedDashboardSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "atomicCompareAndSwap": false,
+  "publicAssetsExact": true,
+  "reviewedServerBuild": "v5.94",
+  "inventoryStableBeforeRegistration": true,
+  "protectedBlobsFromHandover": [
+    "264363128b6c4bc1fd86b2fd6712400dd4c367b45a6ca195b7fb2ee1c8f21a14",
+    "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+    "76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684",
+    "8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46",
+    "9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98",
+    "b8d38b8f889baeffce25401a285f25286bbb4a6ae67f2c0f6e8a81eb214991dd",
+    "bdb058ffe1d7e269be978546581383a85f11bd7fc7078f569d41de33b6efe396",
+    "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+    "cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c",
+    "d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc",
+    "f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9"
+  ],
+  "postRegistrationInventoryExact": true,
+  "dashboardUnchanged": true,
+  "expectedOldCheckedImmediatelyBeforeRegistration": true
+}

@@ -1,0 +1,37 @@
+{"author":"Andrew Fisher","candidate_sha256":"6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce","base_sha256":"f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec"}
+PASS DATA is byte preserved
+PASS Existing path preserved: function attention(){
+PASS Existing path preserved: function exportRecord(){
+PASS Existing path preserved: let EXPORT_SEQ
+PASS Existing path preserved: function programmeDays(){
+PASS Existing path preserved: function programmeDaysBefore801(){
+PASS Existing path preserved: function unrefBlock(d, full){
+PASS Existing path preserved: function pack795(){
+PASS Existing path preserved: window.addEventListener('beforeprint', () => { /* registered before v7.95's
+PASS Export label follows 5 unexported changes {"text":"Export · 5 new","title":"5 changes on this device since the last export - Export keeps a separate file copy","red":true}
+PASS Export warning class follows 5 unexported changes
+PASS Export label follows 1 unexported changes {"text":"Export · 1 new","title":"1 change on this device since the last export - Export keeps a separate file copy","red":true}
+PASS Export warning class follows 1 unexported changes
+PASS Export label follows 0 unexported changes {"text":"Export","title":"Export keeps a separate file copy of the records on this device","red":false}
+PASS Export warning class follows 0 unexported changes
+PASS Export label follows 2 unexported changes {"text":"Export · 2 new","title":"2 changes on this device since the last export - Export keeps a separate file copy","red":true}
+PASS Export warning class follows 2 unexported changes
+PASS Brisbane day at 2026-10-02T13:59:59Z {"day":"2026-10-02"}
+PASS Due today gate at 2026-10-02 {"rendered":true}
+PASS Due today link targets 2026-10-02
+PASS Brisbane day at 2026-10-02T14:00:00Z {"day":"2026-10-03"}
+PASS Due today gate at 2026-10-03 {"rendered":false}
+PASS Brisbane day at 2026-10-06T14:00:00Z {"day":"2026-10-07"}
+PASS Due today gate at 2026-10-07 {"rendered":true}
+PASS Due today link targets 2026-10-07
+PASS Brisbane day at 2026-10-26T14:00:00Z {"day":"2026-10-27"}
+PASS Due today gate at 2026-10-27 {"rendered":true}
+PASS Due today link targets 2026-10-27
+PASS Brisbane day at 2026-10-27T14:00:00Z {"day":"2026-10-28"}
+PASS Due today gate at 2026-10-28 {"rendered":false}
+PASS No print-media widening is added
+{
+  "passed": 31,
+  "total": 31,
+  "failures": []
+}

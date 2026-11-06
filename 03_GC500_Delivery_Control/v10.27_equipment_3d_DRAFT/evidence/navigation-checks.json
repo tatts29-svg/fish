@@ -1,0 +1,289 @@
+{
+  "author": "Andrew Fisher",
+  "state": "PASS - final page sweeps and final affected 3D phone checks",
+  "standardSweeps": {
+    "desktop": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "tabs": 24,
+      "navigationLinks": 7,
+      "applicationErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "operationalWrites": 0,
+      "nativeRecordUnchanged": true,
+      "nativeVersion": 6562,
+      "pass": true
+    },
+    "phone": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "tabs": 24,
+      "navigationLinks": 7,
+      "applicationErrors": 0,
+      "unexpectedConsoleErrors": 0,
+      "operationalWrites": 0,
+      "nativeRecordUnchanged": true,
+      "nativeVersion": 6562,
+      "pass": true
+    }
+  },
+  "focusedBrowser": {
+    "desktop": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "machineFiles": {
+        "poc3d/equipment_viewer1027.js": "c02ab7479520d20cdded89a75e437535500d7e7ae89d0f879004112f7c0532ec",
+        "poc3d/equipment_layout1027.js": "fe955ad998d47386c558ae15f62470ee799c76de7d63d55d77887e760b555af1",
+        "poc3d/equipment_geometry1027.js": "040b6f1d15d9d5205783820380efa5d9edaca2bd5dd717d33ce4c2154c1f2abe",
+        "explorer/explorer-merge.js": "a65e50d95bc89ef8410fc4ed98e3ccf2a0581b85fd8300fe886e154af4957a8a"
+      },
+      "checks": [
+        {
+          "name": "Gate 6 renders all five recorded equipment groups",
+          "pass": true
+        },
+        {
+          "name": "WC49 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "WC49 has exactly its three recorded toilets in the model",
+          "pass": true
+        },
+        {
+          "name": "Rendered WC49 uses the exporter Y-up and X-forward axes",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve More info, selection and focus",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve the card scroll position",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve the exact camera",
+          "pass": true
+        },
+        {
+          "name": "A closed card stays closed across polling and pin refresh",
+          "pass": true
+        },
+        {
+          "name": "Equipment toggle hides the models and reports its state",
+          "pass": true
+        },
+        {
+          "name": "Equipment toggle restores the models",
+          "pass": true
+        },
+        {
+          "name": "WC51 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "WC51 keeps six FWF and one accessible toilet as distinct equipment",
+          "pass": true
+        },
+        {
+          "name": "Details opens the native WC51 drawer (Close)",
+          "pass": true
+        },
+        {
+          "name": "Native drawer Close retains the selected 3D equipment and camera",
+          "pass": true
+        },
+        {
+          "name": "Details opens the native WC51 drawer (Back)",
+          "pass": true
+        },
+        {
+          "name": "Native drawer Back retains the selected 3D equipment and camera",
+          "pass": true
+        },
+        {
+          "name": "2D to 3D reentry retains selected equipment and adjusted camera",
+          "pass": true
+        },
+        {
+          "name": "Selected equipment card stays within the 3D viewport",
+          "pass": true
+        },
+        {
+          "name": "Equipment buttons keep a 44 px touch target",
+          "pass": true
+        },
+        {
+          "name": "No equipment GLB load fails",
+          "pass": true
+        },
+        {
+          "name": "P63 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "P63 represents every sourced doorway with illustrative open leaves",
+          "pass": true
+        },
+        {
+          "name": "Open-door explanation distinguishes entry direction from live door state",
+          "pass": true
+        },
+        {
+          "name": "No operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "No browser JavaScript errors",
+          "pass": true
+        }
+      ],
+      "errors": 0,
+      "operationalWrites": 0,
+      "note": "Prior to final source-note and camera/phone-label refinements; their final affected coverage is in the 149 source checks and 33 phone checks. Actual-public desktop verification follows upload."
+    },
+    "phone": {
+      "pageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+      "machineFiles": {
+        "poc3d/equipment_viewer1027.js": "cbe5f853dd3b4b93450dfeaf38f44ec90f726da5bf90ea15de01220c600623b3",
+        "poc3d/equipment_layout1027.js": "b8c517cc15d31e9e2b087f53e097e1bb7a8ade5108f86e640239bfcfd66f496d",
+        "poc3d/equipment_geometry1027.js": "ffa730387851677ce8a01dc39c852b66d6acb0fa28dceeac005d8c9e9099dacf",
+        "explorer/explorer-merge.js": "c24cf6cfe6bdd18b67203edf3ca97cb29a9640a8cc6c448d36e9d35af7067385"
+      },
+      "checks": [
+        {
+          "name": "Gate 6 renders all five recorded equipment groups",
+          "pass": true
+        },
+        {
+          "name": "WC49 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "WC49 has exactly its three recorded toilets in the model",
+          "pass": true
+        },
+        {
+          "name": "Rendered WC49 uses the exporter Y-up and X-forward axes",
+          "pass": true
+        },
+        {
+          "name": "wc49-selected phone model remains above its information card",
+          "pass": true
+        },
+        {
+          "name": "wc49-selected phone card replaces the duplicate selected map label",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve More info, selection and focus",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve the card scroll position",
+          "pass": true
+        },
+        {
+          "name": "Phone exercises a genuinely scrolled More info card",
+          "pass": true
+        },
+        {
+          "name": "Refresh and identical pins preserve the exact camera",
+          "pass": true
+        },
+        {
+          "name": "A closed card stays closed across polling and pin refresh",
+          "pass": true
+        },
+        {
+          "name": "Equipment toggle hides the models and reports its state",
+          "pass": true
+        },
+        {
+          "name": "Equipment toggle restores the models",
+          "pass": true
+        },
+        {
+          "name": "WC51 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "WC51 keeps six FWF and one accessible toilet as distinct equipment",
+          "pass": true
+        },
+        {
+          "name": "WC51 discloses doorway positions adapted to the illustrative body",
+          "pass": true
+        },
+        {
+          "name": "wc51-mixed-equipment phone model remains above its information card",
+          "pass": true
+        },
+        {
+          "name": "wc51-mixed-equipment phone card replaces the duplicate selected map label",
+          "pass": true
+        },
+        {
+          "name": "Details opens the native WC51 drawer (Close)",
+          "pass": true
+        },
+        {
+          "name": "Native drawer Close retains the selected 3D equipment and camera",
+          "pass": true
+        },
+        {
+          "name": "Details opens the native WC51 drawer (Back)",
+          "pass": true
+        },
+        {
+          "name": "Native drawer Back retains the selected 3D equipment and camera",
+          "pass": true
+        },
+        {
+          "name": "2D to 3D reentry retains selected equipment and adjusted camera",
+          "pass": true
+        },
+        {
+          "name": "Selected equipment card stays within the 3D viewport",
+          "pass": true
+        },
+        {
+          "name": "Equipment buttons keep a 44 px touch target",
+          "pass": true
+        },
+        {
+          "name": "No equipment GLB load fails",
+          "pass": true
+        },
+        {
+          "name": "P63 quantity and explicit completion match the native record",
+          "pass": true
+        },
+        {
+          "name": "P63 represents every sourced doorway with illustrative open leaves",
+          "pass": true
+        },
+        {
+          "name": "Open-door explanation distinguishes entry direction from live door state",
+          "pass": true
+        },
+        {
+          "name": "p63-door-open phone model remains above its information card",
+          "pass": true
+        },
+        {
+          "name": "p63-door-open phone card replaces the duplicate selected map label",
+          "pass": true
+        },
+        {
+          "name": "No operational write attempts",
+          "pass": true
+        },
+        {
+          "name": "No browser JavaScript errors",
+          "pass": true
+        }
+      ],
+      "errors": 0,
+      "operationalWrites": 0
+    }
+  }
+}

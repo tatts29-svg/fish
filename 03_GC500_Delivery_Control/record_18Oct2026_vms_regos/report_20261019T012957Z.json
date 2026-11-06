@@ -1,0 +1,117 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T012957Z",
+ "finished": "2026-10-19T01:30:09.320Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: \"Gn25 has turned up.and is complete Asset 1244536\". GN25 is the 20kVA generator (T0137, 19 Oct; contract 9961976 NVAC line 18, 1244536, delivery 26134523).",
+  "ops": [
+   {
+    "op": "light",
+    "ref": "GN25",
+    "state": "on site",
+    "why": "Andrew, 19 Oct 2026: GN25 has turned up and is complete, asset 1244536."
+   },
+   {
+    "op": "number_on",
+    "ref": "GN25",
+    "no": "1244536"
+   },
+   {
+    "op": "complete",
+    "ref": "GN25"
+   }
+  ]
+ },
+ "pageSha256": "31f1a9f5ea7d46057ad84e5b210d8a76102192386f7e52a5496ab572f46e6922",
+ "version": {
+  "before": 9781,
+  "after": 9782
+ },
+ "updated": {
+  "before": "2026-10-19T01:27:35.453Z",
+  "after": "2026-10-19T01:30:08.007Z"
+ },
+ "stage": [
+  {
+   "op": "light",
+   "ref": "GN25",
+   "state": "on site",
+   "why": "Andrew, 19 Oct 2026: GN25 has turned up and is complete, asset 1244536.",
+   "result": "set on site"
+  },
+  {
+   "op": "number_on",
+   "ref": "GN25",
+   "no": "1244536",
+   "result": "already on"
+  },
+  {
+   "op": "complete",
+   "ref": "GN25",
+   "result": "complete"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN25",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/GN25": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:15.367Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.367Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "GN25"
+   }
+  },
+  "after": {
+   "delivery/GN25": {
+    "state": "on site",
+    "set_at": "2026-10-19T01:30:05.189Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.367Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T01:30:05.189Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T01:30:05.729Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T01:30:05.729Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN25"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

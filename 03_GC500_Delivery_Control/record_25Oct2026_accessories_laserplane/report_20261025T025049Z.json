@@ -1,0 +1,685 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261025T025049Z",
+ "finished": "2026-10-25T02:51:39.049Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 25 Oct 2026, on the items Coates' delivery dockets name that our record did not hold: \"yes onsite please add\" - the P05 microwave, the CP1 fridge and urn, the P09 boiling-water unit, and the laserplane (1065384) on the plant contract. Through the page's own controls, as an editor would: the four building items attached through each drawer's Attach form with their numbers; the laserplane added as a new reference through the page's Add form (as EQ0001-EQ0005 were), filed under Other so it is not counted among the forklifts and access machines, its contract line as its note and branch MEAD, its quantity 1 and 1 of 1 received, its light on site and Complete ticked. Nothing else changes.",
+  "ops": [
+   {
+    "op": "acc_add",
+    "ref": "P05",
+    "type": "Microwave",
+    "no": "1320150",
+    "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+   },
+   {
+    "op": "acc_add",
+    "ref": "CP1",
+    "type": "Fridge",
+    "no": "1116687",
+    "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+   },
+   {
+    "op": "acc_add",
+    "ref": "CP1",
+    "type": "Urn",
+    "no": "119810",
+    "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026."
+   },
+   {
+    "op": "acc_add",
+    "ref": "P09",
+    "type": "Zip boiler",
+    "no": "1254390",
+    "desc": "Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026."
+   },
+   {
+    "op": "add_ref",
+    "ref": "EQ0006",
+    "disc": "Other",
+    "name": "Laserplane",
+    "type": "Laserplane",
+    "no": "1065384",
+    "note": "Rental 9987005, line 8.",
+    "branch": "MEAD"
+   },
+   {
+    "op": "set_qty",
+    "ref": "EQ0006",
+    "qty": 1
+   },
+   {
+    "op": "supplied",
+    "ref": "EQ0006",
+    "item": "Laserplane",
+    "qty": 1
+   },
+   {
+    "op": "light",
+    "ref": "EQ0006",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0006"
+   }
+  ]
+ },
+ "pageSha256": "91f9006070d1269eb6e9ae807076e9146e7e52e6fbfc68a01d840f5666559a11",
+ "version": {
+  "before": 10824,
+  "after": 10847
+ },
+ "updated": {
+  "before": "2026-10-25T02:33:49.788Z",
+  "after": "2026-10-25T02:51:37.202Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 241028.14,
+    "NVAC": 75154.36,
+    "STPS": 41142.65,
+    "MEAD": 16859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 241028.14,
+    "NVAC": 75154.36,
+    "STPS": 41142.65,
+    "MEAD": 16859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "acc_add",
+   "ref": "P05",
+   "type": "Microwave",
+   "no": "1320150",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+   "result": "added Microwave 1320150"
+  },
+  {
+   "op": "acc_add",
+   "ref": "CP1",
+   "type": "Fridge",
+   "no": "1116687",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+   "result": "added Fridge 1116687"
+  },
+  {
+   "op": "acc_add",
+   "ref": "CP1",
+   "type": "Urn",
+   "no": "119810",
+   "desc": "Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+   "result": "added Urn 119810"
+  },
+  {
+   "op": "acc_add",
+   "ref": "P09",
+   "type": "Zip boiler",
+   "no": "1254390",
+   "desc": "Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+   "result": "added Zip boiler 1254390"
+  },
+  {
+   "op": "add_ref",
+   "ref": "EQ0006",
+   "disc": "Other",
+   "name": "Laserplane",
+   "type": "Laserplane",
+   "no": "1065384",
+   "note": "Rental 9987005, line 8.",
+   "branch": "MEAD",
+   "result": "added EQ0006 (Other, Laserplane, 1065384, branch MEAD)"
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 1,
+   "result": "quantity undefined -> 1"
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0006",
+   "item": "Laserplane",
+   "qty": 1,
+   "result": "Laserplane supplied 1"
+  },
+  {
+   "op": "light",
+   "ref": "EQ0006",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0006",
+   "result": "complete"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~EQ0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~EQ0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~EQ0006~2f~Laserplane",
+   "status": 200
+  },
+  {
+   "key": "notes/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-2",
+   "status": 200
+  },
+  {
+   "key": "supplied/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "accessories/P09",
+   "status": 200
+  },
+  {
+   "key": "accessories/CP1",
+   "status": 200
+  },
+  {
+   "key": "accessories/P05",
+   "status": 200
+  },
+  {
+   "key": "branch/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~EQ0006",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~EQ0006",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~EQ0006~2f~Laserplane",
+   "status": 200
+  },
+  {
+   "key": "added/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "qtys/EQ0006",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0006": null,
+   "stamps/branch~2f~EQ0006": null,
+   "stamps/qtys~2f~EQ0006": null,
+   "stamps/supplied~2f~EQ0006~2f~Laserplane": null,
+   "notes/EQ0006": null,
+   "deleted/back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z": null,
+   "deleted/back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z": null,
+   "deleted/back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z": null,
+   "deleted/back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-2": null,
+   "supplied/EQ0006": null,
+   "accessories/P09": {
+    "_k": "P09",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270403",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:39.309Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.771Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328958",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:24.972Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Urn",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Urn",
+      "asset_no": "1284061",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:51.706Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/CP1": {
+    "_k": "CP1",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:31.973Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P05": {
+    "_k": "P05",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.033Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "branch/EQ0006": null,
+   "by/deleted~2f~back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z": null,
+   "by/deleted~2f~back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z": null,
+   "by/deleted~2f~back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z": null,
+   "by/deleted~2f~back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7": null,
+   "by/branch~2f~EQ0006": null,
+   "by/qtys~2f~EQ0006": null,
+   "by/supplied~2f~EQ0006~2f~Laserplane": null,
+   "added/EQ0006": null,
+   "qtys/EQ0006": null
+  },
+  "after": {
+   "delivery/EQ0006": {
+    "state": "on site",
+    "set_at": "2026-10-25T02:51:19.447Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-25T02:51:19.447Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-25T02:51:21.318Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-25T02:51:21.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0006"
+   },
+   "stamps/branch~2f~EQ0006": {
+    "_k": "branch/EQ0006",
+    "v": "2026-10-25T02:51:16.280Z"
+   },
+   "stamps/qtys~2f~EQ0006": {
+    "_k": "qtys/EQ0006",
+    "v": "2026-10-25T02:51:16.991Z"
+   },
+   "stamps/supplied~2f~EQ0006~2f~Laserplane": {
+    "_k": "supplied/EQ0006/Laserplane",
+    "v": "2026-10-25T02:51:18.920Z"
+   },
+   "notes/EQ0006": {
+    "_k": "EQ0006",
+    "v": "Rental 9987005, line 8."
+   },
+   "deleted/back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z": {
+    "_k": "back/acc/P05/Microwave|Microwave — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:06.910Z",
+    "v": "2026-10-25T02:51:06.910Z"
+   },
+   "deleted/back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z": {
+    "_k": "back/acc/CP1/Fridge|Fridge — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:09.427Z",
+    "v": "2026-10-25T02:51:09.427Z"
+   },
+   "deleted/back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z": {
+    "_k": "back/acc/CP1/Urn|Urn — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:11.678Z",
+    "v": "2026-10-25T02:51:11.678Z"
+   },
+   "deleted/back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-2": {
+    "_k": "back/acc/P09/Zip boiler|Zip boiler — Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:14.027Z",
+    "v": "2026-10-25T02:51:14.027Z"
+   },
+   "supplied/EQ0006": {
+    "items": [
+     {
+      "asked": "Laserplane",
+      "supplied": "Laserplane",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "EQ0006"
+   },
+   "accessories/P09": {
+    "_k": "P09",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270403",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:39.309Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.771Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328958",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:24.972Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Urn",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Urn",
+      "asset_no": "1284061",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:51.706Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler — Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+      "asset_no": "1254390",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-25T02:51:14.027Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/CP1": {
+    "_k": "CP1",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:31.973Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge — Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+      "asset_no": "1116687",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-25T02:51:09.427Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Urn",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Urn — Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+      "asset_no": "119810",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-25T02:51:11.678Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P05": {
+    "_k": "P05",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.033Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Microwave",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Microwave — Confirmed on site by Andrew Fisher, 25 Oct 2026.",
+      "asset_no": "1320150",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-25T02:51:06.910Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "branch/EQ0006": {
+    "_k": "EQ0006",
+    "v": "MEAD"
+   },
+   "by/deleted~2f~back~2f~acc~2f~P05~2f~Microwave~7c~Microwave~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:06.910Z": {
+    "_k": "deleted/back/acc/P05/Microwave|Microwave — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:06.910Z",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~acc~2f~CP1~2f~Fridge~7c~Fridge~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:09.427Z": {
+    "_k": "deleted/back/acc/CP1/Fridge|Fridge — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:09.427Z",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~acc~2f~CP1~2f~Urn~7c~Urn~20~~2014~~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7c~2026-10-25T02:51:11.678Z": {
+    "_k": "deleted/back/acc/CP1/Urn|Urn — Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:11.678Z",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~acc~2f~P09~2f~Zip~20~boiler~7c~Zip~20~boiler~20~~2014~~20~Boiling-water~20~unit.~20~Confirmed~20~on~20~site~20~by~20~Andrew~20~Fisher~2c~~20~25~20~Oct~20~2026.~7": {
+    "_k": "deleted/back/acc/P09/Zip boiler|Zip boiler — Boiling-water unit. Confirmed on site by Andrew Fisher, 25 Oct 2026.|2026-10-25T02:51:14.027Z",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~EQ0006": {
+    "_k": "branch/EQ0006",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~EQ0006": {
+    "_k": "qtys/EQ0006",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~EQ0006~2f~Laserplane": {
+    "_k": "supplied/EQ0006/Laserplane",
+    "v": "Andrew Fisher"
+   },
+   "added/EQ0006": {
+    "key": "EQ0006",
+    "discipline": "Other",
+    "name": "Laserplane",
+    "item_types": [
+     "Laserplane"
+    ],
+    "asset_numbers": [
+     "1065384"
+    ],
+    "accessories": [],
+    "first_date": null,
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-25T02:51:16.280Z",
+    "added_by": "Andrew Fisher",
+    "_k": "EQ0006"
+   },
+   "qtys/EQ0006": {
+    "_k": "EQ0006",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "EQ0006",
+     "firstQuantity": 1,
+     "items": [
+      {
+       "item": "Laserplane",
+       "quantity": 1,
+       "received": 0,
+       "installed": 0,
+       "receipts": [],
+       "receiptAt": "",
+       "supplied": null,
+       "suppliedAt": "",
+       "on": false,
+       "onAt": "",
+       "done": false,
+       "doneAt": "",
+       "install": false,
+       "installAt": "",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T02:51:16.991Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

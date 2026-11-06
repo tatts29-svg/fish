@@ -1,0 +1,47 @@
+{
+ "wc09": {
+  "movedAway": false,
+  "givenRef": false,
+  "shown": 0,
+  "takenOff": 2,
+  "tombed": [
+   true,
+   true
+  ],
+  "gone": [
+   false,
+   false
+  ],
+  "contentsNumbers": 0,
+  "unitsNotContents": 0,
+  "unitsLabels": [],
+  "recordKeysWithAcc": 22
+ },
+ "view": {
+  "AA": {
+   "folds": [
+    "history",
+    "contents",
+    "driver"
+   ],
+   "accFormInDom": true,
+   "accInputsDisabled": false
+  },
+  "WC09": {
+   "folds": [
+    "history",
+    "contents",
+    "driver"
+   ],
+   "accFormInDom": true,
+   "accInputsDisabled": false
+  }
+ },
+ "errors": [],
+ "consoleErr": [],
+ "counts": {
+  "page": 1,
+  "live": 72,
+  "blocked": 0
+ }
+}

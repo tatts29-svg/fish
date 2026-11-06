@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 23 Oct 2026 12:58, on the three Questions-tab items left after v11.53: \"EQ0005 fork extensions arrived yes they did and P34 pad chairs are here just add the qty no assets on these chairs you have the Gn24 numbers 1277089\". Through the page's own controls, as an editor would: the fork extensions' light on site and 1 of 1 received; the two pad chairs received (no asset numbers - chairs are counted by quantity); 1277089, already on GN24 as its unit record but identified as the old 80kva item, re-identified as the 60kva the reference now is. Nothing else changes.",
+ "ops": [
+  {
+   "op": "light",
+   "ref": "EQ0005",
+   "state": "on site"
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0005",
+   "item": "Fork Extensions 2.4m",
+   "qty": 1
+  },
+  {
+   "op": "supplied",
+   "ref": "P34",
+   "item": "Pad Chair",
+   "qty": 2
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "GN24",
+   "no": "1277089",
+   "item": "60kva",
+   "owner": "coates"
+  }
+ ]
+}

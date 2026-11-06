@@ -1,0 +1,87 @@
+/* Author: Andrew Fisher. v11.99 - Build cards: the delivery window on the day cards and on every load, and the cards lifted. */
+/* one colour per kind of gear, the same on the day's time line, its key and each load */
+:is(#pane-timeline,#pane-demob) .cat-bld{--gear:#ff8a3d;--gear2:#ffb072}
+:is(#pane-timeline,#pane-demob) .cat-wc{--gear:#39b8f0;--gear2:#8fd8ff}
+:is(#pane-timeline,#pane-demob) .cat-vms{--gear:#a77bff;--gear2:#cdb2ff}
+:is(#pane-timeline,#pane-demob) .cat-wb{--gear:#1fd1b0;--gear2:#7ff0db}
+:is(#pane-timeline,#pane-demob) .cat-fl{--gear:#f5c542;--gear2:#ffe08a}
+:is(#pane-timeline,#pane-demob) .cat-tm{--gear:#8fcf5a;--gear2:#c2ec9c}
+:is(#pane-timeline,#pane-demob) .cat-pl{--gear:#f27aa8;--gear2:#ffb3cf}
+:is(#pane-timeline,#pane-demob) .cat-oth{--gear:#8fa4b0;--gear2:#c3d2da}
+
+/* the card lifted: the closed-day stamp moves into the gap beside the date; whole build as a segmented rev bar; on time as a ring */
+:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 48px);inset-inline-start:calc(50% + 48px);top:115px;width:142px;opacity:.88!important;z-index:3} /* Andrew: "Does the stamp go in the gap", "Needs to look centred in that gap more" - the seal sits centred between the date and the card's edge, under CLOSED and above the weather */
+@media(max-width:360px){:is(#pane-timeline,#pane-demob) .day .bc984-card>.bc984-stamp{left:calc(50% + 43px);inset-inline-start:calc(50% + 43px);width:124px}}
+:is(#pane-timeline,#pane-demob) .bc984-progress .bc984-rail{height:9px;margin-top:10px;border-radius:2px;background:repeating-linear-gradient(90deg,#ffffff17 0 7px,transparent 7px 9px);overflow:hidden}
+:is(#pane-timeline,#pane-demob) .bc984-progress .bc984-rail i{height:100%;border-radius:0;background:linear-gradient(90deg,#b8551a,#ff8a3d 55%,#ffd27a);-webkit-mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px);mask:repeating-linear-gradient(90deg,#000 0 7px,transparent 7px 9px);filter:drop-shadow(0 0 6px #ff8a3daa)}
+:is(#pane-timeline,#pane-demob) .bc984-load-count.bw1197-ring{position:relative;display:flex;justify-content:center;align-items:baseline;flex:none;width:64px;height:64px;font-size:22px;line-height:64px;border-radius:50%;background:radial-gradient(closest-side,#0b1b2399 70%,transparent 72%)}
+:is(#pane-timeline,#pane-demob) .bc984-load-count.bw1197-ring::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--ring,#3ddc8b) calc(var(--p) * 1%),#ffffff1c 0);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4.5px));filter:drop-shadow(0 0 4px var(--ring,#3ddc8b))}
+:is(#pane-timeline,#pane-demob) .ot1056-good .bw1197-ring{--ring:#3ddc8b}
+:is(#pane-timeline,#pane-demob) .ot1056-mid .bw1197-ring{--ring:#ffb347}
+:is(#pane-timeline,#pane-demob) .ot1056-bad .bw1197-ring{--ring:#ff6b5b}
+:is(#pane-timeline,#pane-demob) .bc984-load-count.bw1197-ring small{font-size:.5em;margin-left:1px}
+
+/* the day card row: straight after DAY'S DELIVERIES, in the card's own type and rules */
+:is(#pane-timeline,#pane-demob) .bc984-card>.bw1197-row{position:relative;z-index:3;flex-shrink:0;display:block;min-width:0;margin:0 22px;padding:12px 0 13px;border-bottom:1px solid #758d9938}
+:is(#pane-timeline,#pane-demob) .bw1197-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:30px}
+:is(#pane-timeline,#pane-demob) .bw1197-span{display:block;font:700 italic 28px/1 var(--bc984-race);font-variant-numeric:tabular-nums;color:#f0f5f2;white-space:nowrap;text-shadow:0 1px 4px #06111ff5,0 0 12px #39b8f033}
+:is(#pane-timeline,#pane-demob) .bw1197-span i{font-style:normal;color:#ff8a3d;margin:0 3px}
+:is(#pane-timeline,#pane-demob) .bw1197-chart{position:relative;display:block;margin-top:10px;padding:18px 6px 4px;border-radius:7px;background:linear-gradient(180deg,#081720cc,#0b1d2699);box-shadow:inset 0 0 0 1px #3d5c6a59,inset 0 10px 24px #0000004d}
+:is(#pane-timeline,#pane-demob) .bw1197-grid{position:absolute;inset:0 6px;display:block;pointer-events:none}
+:is(#pane-timeline,#pane-demob) .bw1197-hr{position:absolute;top:15px;bottom:4px;width:1px;background:#8fb0bd26;display:block}
+:is(#pane-timeline,#pane-demob) .bw1197-hr em{position:absolute;top:-12px;left:0;transform:translateX(-50%);font:600 9px/1 'Inter',var(--sans,system-ui,sans-serif);font-style:normal;letter-spacing:.04em;color:#9db4bf;font-variant-numeric:tabular-nums}
+:is(#pane-timeline,#pane-demob) .bw1197-lane{position:relative;display:block;height:7px;margin:0 0 4px}
+:is(#pane-timeline,#pane-demob) .bw1197-bar{position:absolute;top:0;height:7px;min-width:3px;border-radius:4px;background:linear-gradient(90deg,var(--gear,#2d7d96),var(--gear2,#5cc3e0));box-shadow:0 0 0 1px #0a171d99,0 0 8px color-mix(in srgb,var(--gear,#39b8f0) 45%,transparent)}
+:is(#pane-timeline,#pane-demob) .bw1197-bar.notext{background:transparent;box-shadow:inset 0 0 0 1.5px var(--gear,#8fb9c9);opacity:.95}
+:is(#pane-timeline,#pane-demob) .bw1197-bar.aside{background:repeating-linear-gradient(45deg,#5a6a71 0 3px,#3c4a51 3px 6px);box-shadow:none;opacity:.8}
+:is(#pane-timeline,#pane-demob) .bw1197-tail{position:absolute;top:2.5px;height:0;border-top:2px dotted #ffcc33;display:block}
+:is(#pane-timeline,#pane-demob) .bw1197-tail.later{border-top-style:dashed}
+:is(#pane-timeline,#pane-demob) .bw1197-dot{position:absolute;top:-2.5px;width:12px;height:12px;margin-left:-6px;border-radius:50%;box-sizing:border-box;border:2px solid #0b1820;display:block}
+:is(#pane-timeline,#pane-demob) .bw1197-dot.in{background:#3ddc8b;box-shadow:0 0 0 1px #c9ffe0,0 0 8px #3ddc8bcc}
+:is(#pane-timeline,#pane-demob) .bw1197-dot.late{background:#ffcc33;box-shadow:0 0 0 1px #fff1c2,0 0 8px #ffcc33cc}
+:is(#pane-timeline,#pane-demob) .bw1197-x{position:absolute;top:-3px;width:13px;height:13px;margin-left:-6.5px;display:block}
+:is(#pane-timeline,#pane-demob) .bw1197-x::before,:is(#pane-timeline,#pane-demob) .bw1197-x::after{content:'';position:absolute;left:50%;top:50%;width:12px;height:3px;border-radius:1px;background:#ff6b5b;box-shadow:0 0 6px #ff6b5bcc;transform:translate(-50%,-50%) rotate(45deg)}
+:is(#pane-timeline,#pane-demob) .bw1197-x::after{transform:translate(-50%,-50%) rotate(-45deg)}
+:is(#pane-timeline,#pane-demob) .bw1197-arrow{position:absolute;right:-1px;top:-2px;width:0;height:0;border-top:5.5px solid transparent;border-bottom:5.5px solid transparent;border-left:9px solid #ffcc33;display:block}
+:is(#pane-timeline,#pane-demob) .bw1197-key{display:flex;flex-direction:column;gap:5px;margin-top:9px;font:500 10px/1.35 'Inter',var(--sans,system-ui,sans-serif);color:#b4c6d0}
+:is(#pane-timeline,#pane-demob) .bw1197-key-cats,:is(#pane-timeline,#pane-demob) .bw1197-key-done{display:flex;flex-wrap:wrap;gap:4px 12px}
+:is(#pane-timeline,#pane-demob) .bw1197-key-cats>span,:is(#pane-timeline,#pane-demob) .bw1197-key-done>span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+:is(#pane-timeline,#pane-demob) .bw1197-cat i{display:inline-block;width:12px;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--gear),var(--gear2));flex:none}
+:is(#pane-timeline,#pane-demob) .bw1197-cat b{font-weight:700;color:#e9f1f4}
+:is(#pane-timeline,#pane-demob) .bw1197-key-done i{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+:is(#pane-timeline,#pane-demob) .bw1197-key-in i{background:#3ddc8b}
+:is(#pane-timeline,#pane-demob) .bw1197-key-late i{background:#ffcc33}
+:is(#pane-timeline,#pane-demob) .bw1197-key-later i{width:0;height:0;border-radius:0;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;border-left:8px solid #ffcc33}
+:is(#pane-timeline,#pane-demob) .bw1197-key-failed i{border-radius:1px;background:linear-gradient(45deg,transparent 40%,#ff6b5b 40%,#ff6b5b 60%,transparent 60%),linear-gradient(-45deg,transparent 40%,#ff6b5b 40%,#ff6b5b 60%,transparent 60%)}
+:is(#pane-timeline,#pane-demob) .bw1197-key-notext i{width:12px;height:7px;border-radius:4px;box-shadow:inset 0 0 0 1.5px #8fb9c9}
+:is(#pane-timeline,#pane-demob) .bw1197-key-aside i{width:12px;height:7px;border-radius:4px;background:repeating-linear-gradient(45deg,#5a6a71 0 3px,#3c4a51 3px 6px)}
+@media(max-width:360px){:is(#pane-timeline,#pane-demob) .bc984-card>.bw1197-row{margin-inline:17px}:is(#pane-timeline,#pane-demob) .bw1197-span{font-size:23px}}
+
+/* the load: "Delivery booked between HH:MM and HH:MM", what was done, and the window on the day's track */
+#pane-timeline .bw1197-band{position:relative;display:flex;flex-direction:column;gap:6px;flex:1 1 100%;grid-column:1/-1;width:100%;box-sizing:border-box;margin-top:10px;padding:10px 13px 11px 38px;border:1px solid #2e5868;border-left:3px solid #39b8f0;border-radius:8px;background:linear-gradient(100deg,#123a4a,#0e2a36 60%,#0c2430);box-shadow:inset 0 1px 0 #ffffff12,0 6px 18px #00000033;color:#d5e8f0;font:500 13px/1.4 'Inter',Arial,sans-serif;text-align:left;letter-spacing:0;text-transform:none;white-space:normal}
+#pane-timeline .bw1197-band .bw1197-clock{position:absolute;left:12px;top:12px;width:17px;height:17px;fill:none;stroke:#7fd6f5;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px #39b8f088)}
+#pane-timeline .bw1197-say{display:block}
+#pane-timeline .bw1197-say+.bw1197-say{padding-top:8px;border-top:1px solid #ffffff14}
+#pane-timeline .bw1197-line{display:block}
+#pane-timeline .bw1197-say b{font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+#pane-timeline .bw1197-what{font-weight:700;color:#eef7fa}
+#pane-timeline .bw1197-of{color:#b9cfd8}
+#pane-timeline .bw1197-done{display:inline-flex;align-items:center;gap:6px;margin-top:7px;padding:3px 10px 3px 8px;border-radius:999px;font:700 12px/1.35 'Inter',Arial,sans-serif;letter-spacing:.01em}
+#pane-timeline .bw1197-done::before{font-weight:900}
+#pane-timeline .bw1197-done.in{background:#163d2b;color:#86f2b8;box-shadow:inset 0 0 0 1px #2f7a55}
+#pane-timeline .bw1197-done.in::before{content:'✓'}
+#pane-timeline .bw1197-done.late{background:#3f3215;color:#ffd978;box-shadow:inset 0 0 0 1px #8a6a2c}
+#pane-timeline .bw1197-done.late::before{content:'!'}
+#pane-timeline .bw1197-done.failed{background:#45201c;color:#ffb3aa;box-shadow:inset 0 0 0 1px #9a4a40}
+#pane-timeline .bw1197-done.failed::before{content:'✕'}
+#pane-timeline .bw1197-track{position:relative;display:block;height:8px;margin:20px 2px 2px;border-radius:4px;background:#081820;box-shadow:inset 0 0 0 1px #2c4a57}
+#pane-timeline .bw1197-tick{position:absolute;top:-3px;bottom:-3px;width:1px;background:#3b5a6688}
+#pane-timeline .bw1197-tick em{position:absolute;top:-14px;left:0;transform:translateX(-50%);font:600 9px/1 'Inter',Arial,sans-serif;font-style:normal;color:#8fb0bd;font-variant-numeric:tabular-nums}
+#pane-timeline .bw1197-win{position:absolute;top:0;bottom:0;min-width:3px;border-radius:4px;background:linear-gradient(90deg,var(--gear,#2d7d96),var(--gear2,#5cc3e0));box-shadow:0 0 10px color-mix(in srgb,var(--gear,#39b8f0) 55%,transparent)}
+#pane-timeline .bw1197-band .bw1197-tail{top:3px}
+#pane-timeline .bw1197-band .bw1197-dot{top:-3px;width:14px;height:14px;margin-left:-7px}
+#pane-timeline .bw1197-band .bw1197-x{top:-3px}
+#pane-timeline .bw1197-re{display:block;margin-top:2px;font-size:12px;color:#ffd29e}
+#pane-timeline .bw1197-band.none{padding:8px 12px 8px 38px;border-left-color:#6f8791;background:#14252d;box-shadow:none;color:#a9bec8}
+#pane-timeline .bw1197-band.none .bw1197-clock{top:9px;stroke:#8ea3ad;filter:none}
+@media print{#pane-timeline .bw1197-band{background:none;border-color:#999;box-shadow:none;color:#000}#pane-timeline .bw1197-say b{color:#000}#pane-timeline .bw1197-track{display:none}}

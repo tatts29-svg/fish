@@ -1,0 +1,49 @@
+Counted from Data\ exports at 03 Sep 2026 21:44 - none of the report code involved.
+
+FIGURE                                             THIS COUNT   ON TODAY'S PAGE
+----------------------------------------------------------------------
+register: rows                                          8,184   
+register: on hire                                       3,561   
+register: available for hire                            4,607   
+gas: fleet on register                                    878   MATCHES
+gas: available in store                                   221   MATCHES
+gas: on hire                                              657   
+gas: came back since the last pull                         93   MATCHES
+gas: went out since the last pull                         207   MATCHES
+radio: radios on register                                 638   
+radio: batteries on register                              781   
+radio: radios available                                     5   MATCHES
+transactions: rows this year                           91,021   MATCHES
+transactions: same-day %                                   69   
+tooling: on hire (2026 tooling)                         1,496   MATCHES
+tooling: Q1 / Q2 / Q3                          140 / 531 / 825   
+tooling: pre-2026 rows excluded                           850   
+tooling: available (tooling)                            4,063   MATCHES
+tooling: rows on the Repairs account                       71   MATCHES
+store: on hire crossing 90 days by quarter close            316   MATCHES
+store: available items never moved this year            3,000   MATCHES
+transactions: closed inside 6 minutes                     469   MATCHES
+transactions: busiest counter hour                      05:00   MATCHES
+stocktake: countable items                              8,174   MATCHES
+stocktake: in store / on hire                   4,613 / 3,561   
+stocktake: departed lines excluded                      4,913   MATCHES
+rigging: register rows / distinct barcodes          905 / 889   MATCHES
+rigging: found in SiteIQ / not found                747 / 142   
+rigging: on hire (all accounts)                           311   
+calibration: assets on register                           347   MATCHES
+calibration: in cal / due 30 / overdue / no date 135 / 6 / 48 / 158   
+
+Former site name (display rule, disclosed on every data page):
+  raw SiteIQ lines still carrying it - register descriptions: 3,137
+  raw SiteIQ lines still carrying it - register company accounts: 4
+  printed on today's pages: 0 (checked 62 files)
+
+Values present (a priced page must carry dollar figures):
+  Stocktake/*Count_Worklist*.html            1356 dollar figures  MATCHES
+  Tooling/*Executive_Summary*.html            191 dollar figures  MATCHES
+  Radios/*.html                               786 dollar figures  MATCHES
+
+One dash style (the long dash must not print):
+  long dashes on today's pages: 0
+
+PASS - every checked figure on today's pages matches an independent count.

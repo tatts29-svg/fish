@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910",
+  "cases": [
+    {
+      "mode": "desktop",
+      "checks": {
+        "22 routes including established redirects": true,
+        "7 deep links": true,
+        "print overlay": true,
+        "Back returns Equipment": true,
+        "zero browser and console errors": true
+      },
+      "aliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today"
+      }
+    },
+    {
+      "mode": "phone",
+      "checks": {
+        "22 routes including established redirects": true,
+        "7 deep links": true,
+        "print overlay": true,
+        "Back returns Equipment": true,
+        "zero browser and console errors": true
+      },
+      "aliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today"
+      }
+    }
+  ]
+}

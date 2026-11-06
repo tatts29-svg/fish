@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf",
+  "mobile": true,
+  "pass": true,
+  "routes": 22,
+  "deepLinks": 7,
+  "back": {
+    "hash": "#plant",
+    "pane": "pane-plant"
+  },
+  "destinations": {
+    "today": "#today",
+    "progress": "#today",
+    "map": "#sheet/__explorer",
+    "docs": "#docs",
+    "register": "#plant",
+    "plant": "#plant",
+    "demob": "#demob",
+    "fencing": "#fencing",
+    "prestarts": "#prestarts",
+    "coatesway": "#coatesway",
+    "journal": "#today",
+    "breakdowns": "#today",
+    "variances": "#today",
+    "costs": "#costs",
+    "edit": "#today",
+    "change": "#change/2026-10-12",
+    "add": "#today",
+    "pricing": "#costs",
+    "timeline": "#day/2026-10-12",
+    "subhired": "#subhired",
+    "questions": "#questions",
+    "about": "#about"
+  },
+  "errors": 0,
+  "consoleErrors": 0,
+  "mapSessionFixtures": 1,
+  "scope": "Read-only local candidate; Google map-session/2D tile fixtures; does not certify map imagery."
+}

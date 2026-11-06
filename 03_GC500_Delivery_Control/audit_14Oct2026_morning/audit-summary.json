@@ -1,0 +1,61 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Read-only audit of 14 Oct 2026 so far",
+  "operational_financial_cutoff_aest": "14 Oct 2026 09:12 AEST",
+  "ui_cutoff_aest": "14 Oct 2026 09:15 AEST",
+  "native_version": 5874,
+  "baseline_version": 5814,
+  "public_page_sha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "public_page_bytes": 15164541,
+  "checks": {
+    "operational": 46,
+    "financial": 27,
+    "generator_independent": 68,
+    "generator_total_reconciliation": true,
+    "focused_phone_ui": 25,
+    "independent_workbook": 41
+  },
+  "physical_arrival_dates_inferred_from_edit_timestamps": false,
+  "morning_onsite_references": [
+    "P25",
+    "P65",
+    "P66",
+    "P67"
+  ],
+  "today_proposed_fwf": 24,
+  "today_new_fwf_receipts": 0,
+  "unallocated_fwf": 6,
+  "existing_rate_allocation_holds": 52,
+  "hold_reference_item_groups": 32,
+  "damage_waiver_excluded": true,
+  "cost_signoff": "OPEN: P66 and P65 allocation review, manual stairs, missing hours and existing rate/allocation gaps",
+  "no_operational_writes": true,
+  "no_application_or_rate_changes": true,
+  "workbook": {
+    "author": "Andrew Fisher",
+    "workbook": "/workspace/output/GC500_Today_Audit_14Oct2026.xlsx",
+    "sha256": "9a322bdafed8d6ea10971071a95b1d5eb352717e61cb8de17196441cef393bfc",
+    "sheets": {
+      "Existing": 30,
+      "Needs fixing": 39
+    },
+    "native_version": 5874,
+    "operational_financial_cutoff_aest": "14 Oct 2026 09:12 AEST",
+    "existing_hold_rows": 52,
+    "existing_hold_groups": 32,
+    "no_operational_writes": true
+  },
+  "evidence_sha256": {
+    "operations.json": "ab6aa17c0abc77870643b281a95124e7de5f2b56de679b5e12b4b4e815d72551",
+    "operational-findings.json": "ccec74351e920feb13e3ac955de9645864a2cca9d3589edbfa2c3566ee8440d8",
+    "finance/financial-audit-summary.json": "40ad96731b8da85804dd4934add3e4406f7545c09eaec3770fd9bb0bcb5da9a8",
+    "finance/allocation-probe.json": "ada97d17374ecb8a788c7c27bae649b3f30cf59f0cce8e5b278aca43cbb5a641",
+    "ui/review.json": "6581e66212157edfd0080206f8a2b7f728fc35700e773d892044d908446e48df",
+    "independent-workbook-check.json": "b71c9b1b7a71d30977cee1ba0e0e0ef782d851350de492341d92b9ca0370ce15"
+  },
+  "limitations": [
+    "No edit Save writes exercised",
+    "Map tile-session loading excluded by GET-only guard",
+    "Passing controls do not certify unpriced inputs or source allocations"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.62",
+  "uploaded": false,
+  "bytes": 8552206,
+  "sha256": "9745d4e521aa222cf81400845956d1c4f35b78c39b4ef2436c656cfed21fa5e0",
+  "regression_checks": 83,
+  "browser_checks": {
+    "desktop": 54,
+    "phone": 54
+  },
+  "dry_run": "passed; edit capability confirmed; live base unchanged; nothing uploaded",
+  "sweeps": {
+    "desktop": {
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "tabs": 21,
+      "links": 7,
+      "errors": 0,
+      "console_errors": 0
+    }
+  },
+  "patch_guards": 2
+}

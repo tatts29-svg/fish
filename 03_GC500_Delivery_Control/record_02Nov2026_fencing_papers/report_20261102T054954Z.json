@@ -1,0 +1,239 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T054954Z",
+ "finished": "2026-11-02T05:50:11.706Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Advanced Temporary Fencing's papers photographed by Andrew on 2 Nov 2026 (\"Have some fencing dockets\"): red-book hire agreement 36784 (the S23 construction-zone fence, installed 30 Oct 2026) and blue-book collection forms 28603 (S11 construction zone) and 28604 (median strip north, including S14 construction zone), both removals on 30 Oct 2026. Every paper read twice at full size and by an independent reader working from the photographs alone, who agreed on every count, metre and date. Recorded through the page's own forms: recordHireAgreement (charged at the 2026 card and costed at Advanced's sheet by the page's own rules) and recordCollection (counts only, no charge, credit or metres inferred).",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36784",
+    "date": "2026-10-30",
+    "location": "S23 - C.2.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 60
+    },
+    "components": {
+     "mesh_panel": 24,
+     "base": 24,
+     "clamp": 23
+    },
+    "signed_by": "",
+    "note": "Mesh fence 60 m (24 panels), 24 bases, 23 clamps, installed 30 Oct 2026 at the S23 construction zone (written 'S23. C.2.'). No scrim or bracing written, so clean. Rates and amounts blank; no order number. Owner/site supervisor signed, date written above the box as '30-10-2' with the last digit not legible; installer signed, dated 30/10/26."
+   },
+   {
+    "op": "collection",
+    "collection_no": "28603",
+    "date": "2026-10-30",
+    "location": "S11 - C.2.",
+    "collected": {
+     "mesh_panel": 17,
+     "base": 15,
+     "clamp": 15
+    },
+    "note": "Collected from the S11 construction zone (written 'S11. C.2.'): 17 mesh panels, 15 bases, 15 clamps. Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced (a short dash in the Base row's No. Issued box, no figure). Owner/site supervisor signature dated 30/10/25 (the year as written), installer 30/10/26. S11's fence went in on 36781 (28 Oct 2026: 45 m, 18 panels, 15 bases, 15 clamps); this form collects 17 panels.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   },
+   {
+    "op": "collection",
+    "collection_no": "28604",
+    "date": "2026-10-30",
+    "location": "Medium strip - North",
+    "collected": {
+     "mesh_panel": 250,
+     "cc_barrier": 174,
+     "base": 621,
+     "clamp": 610,
+     "brace": 191,
+     "wheels": 6
+    },
+    "note": "Collected from the median strip north (written 'MEDIUM STRIP - NORTH.'): 250 mesh panels, 174 CC barriers, 621 bases, 610 clamps, 191 braces, 6 wheels. Comments: 'Included S14 C.2.' (the last letter of the first word could be read as 'Includes'; the S14 construction zone is in these counts). Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated '30.10.2' with the last digit not legible; installer signed, dated 30/10/26.",
+    "hire_agreements_written": "",
+    "signed_by": ""
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12846,
+  "after": 12853
+ },
+ "updated": {
+  "before": "2026-11-02T05:30:15.831Z",
+  "after": "2026-11-02T05:50:10.836Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36784",
+   "id": "F-AF-0081",
+   "charge": 969.64,
+   "paid": 600,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0081 - 60 clean - F-AF-0081 saved in this browser — $969.64 charged at the 2026 card, $600.00 paid. Export and rebuild to put it on the record. | Hire agreement 36784 recorded as F-AF-0081 - $969.64 charged at the 2026 card, $600.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "collection",
+   "no": "28603",
+   "id": "FC-AF-0039",
+   "result": "recorded as FC-AF-0039 - 17 mesh_panel, 15 base, 15 clamp - Collection form 28603 recorded: counts only; no charge or credit inferred."
+  },
+  {
+   "op": "collection",
+   "no": "28604",
+   "id": "FC-AF-0040",
+   "result": "recorded as FC-AF-0040 - 250 mesh_panel, 174 cc_barrier, 621 base, 610 clamp, 191 brace, 6 wheels - Collection form 28604 recorded: counts only; no charge or credit inferred."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0039",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCollections~2f~FC-AF-0040",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0039",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCollections~2f~FC-AF-0040",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0081",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0039",
+   "status": 200
+  },
+  {
+   "key": "fenceCollections/FC-AF-0040",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/fenceCollections~2f~FC-AF-0039": null,
+   "stamps/fenceCollections~2f~FC-AF-0040": null,
+   "by/fenceCollections~2f~FC-AF-0039": null,
+   "by/fenceCollections~2f~FC-AF-0040": null,
+   "fenceDockets/F-AF-0081": null,
+   "fenceCollections/FC-AF-0039": null,
+   "fenceCollections/FC-AF-0040": null
+  },
+  "after": {
+   "stamps/fenceCollections~2f~FC-AF-0039": {
+    "_k": "fenceCollections/FC-AF-0039",
+    "v": "2026-11-02T05:50:05.281Z"
+   },
+   "stamps/fenceCollections~2f~FC-AF-0040": {
+    "_k": "fenceCollections/FC-AF-0040",
+    "v": "2026-11-02T05:50:06.402Z"
+   },
+   "by/fenceCollections~2f~FC-AF-0039": {
+    "_k": "fenceCollections/FC-AF-0039",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCollections~2f~FC-AF-0040": {
+    "_k": "fenceCollections/FC-AF-0040",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0081": {
+    "id": "F-AF-0081",
+    "date": "2026-10-30",
+    "week": "Demob Week 1",
+    "docket_no": "36784",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S23 - C.2.",
+    "quantities": {
+     "clean": 60
+    },
+    "note": "Mesh fence 60 m (24 panels), 24 bases, 23 clamps, installed 30 Oct 2026 at the S23 construction zone (written 'S23. C.2.'). No scrim or bracing written, so clean. Rates and amounts blank; no order number. Owner/site supervisor signed, date written above the box as '30-10-2' with the last digit not legible; installer signed, dated 30/10/26.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-02",
+    "components": {
+     "mesh_panel": 24,
+     "base": 24,
+     "clamp": 23
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36784, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0081"
+   },
+   "fenceCollections/FC-AF-0039": {
+    "id": "FC-AF-0039",
+    "collection_no": "28603",
+    "date": "2026-10-30",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "S11 - C.2.",
+    "removal_time": null,
+    "note": "Collected from the S11 construction zone (written 'S11. C.2.'): 17 mesh panels, 15 bases, 15 clamps. Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced (a short dash in the Base row's No. Issued box, no figure). Owner/site supervisor signature dated 30/10/25 (the year as written), installer 30/10/26. S11's fence went in on 36781 (28 Oct 2026: 45 m, 18 panels, 15 bases, 15 clamps); this form collects 17 panels.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28603, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-02",
+    "collected": {
+     "mesh_panel": 17,
+     "base": 15,
+     "clamp": 15
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0039"
+   },
+   "fenceCollections/FC-AF-0040": {
+    "id": "FC-AF-0040",
+    "collection_no": "28604",
+    "date": "2026-10-30",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing",
+    "location": "Medium strip - North",
+    "removal_time": null,
+    "note": "Collected from the median strip north (written 'MEDIUM STRIP - NORTH.'): 250 mesh panels, 174 CC barriers, 621 bases, 610 clamps, 191 braces, 6 wheels. Comments: 'Included S14 C.2.' (the last letter of the first word could be read as 'Includes'; the S14 construction zone is in these counts). Removal date written 30/10/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated '30.10.2' with the last digit not legible; installer signed, dated 30/10/26.",
+    "order_no": null,
+    "signed_by": null,
+    "source": "Advanced Temporary Fencing collection form / charge sheet 28604, signed paper photographed on site",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-02",
+    "collected": {
+     "mesh_panel": 250,
+     "cc_barrier": 174,
+     "base": 621,
+     "clamp": 610,
+     "brace": 191,
+     "wheels": 6
+    },
+    "issued": null,
+    "hire_agreements_written": null,
+    "matches": [],
+    "book": "blue",
+    "scope": "programme",
+    "_k": "FC-AF-0040"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

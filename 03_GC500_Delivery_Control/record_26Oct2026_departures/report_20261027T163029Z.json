@@ -1,0 +1,221 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T163029Z",
+ "finished": "2026-10-27T16:31:08.689Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026, on his red-ink Baseplan (8) answers: \"Premiair VMS/container: move the P&L, don't recode\" (\"Moving P&L will be easier changing will make dockets a mess\") and \"WB03 installed 18/09 night shift\"; then \"Do 1. 2 3\". The Premiair boards on references of their own go to the branch that sub-hires them: VMS-01 (VMS21) and VMS-02 (VMS22) to KINP, VMS-03 (VMS24) to NVAC; container T0266 to STPS. References, units and numbers are not changed. WB03 needs no record change: its contract line already starts 18 Sep 2026, the night it went in (\"WB03 installed 18/09 night shift\").",
+  "ops": [
+   {
+    "op": "branch",
+    "ref": "VMS-01",
+    "code": "KINP"
+   },
+   {
+    "op": "branch",
+    "ref": "VMS-02",
+    "code": "KINP"
+   },
+   {
+    "op": "branch",
+    "ref": "VMS-03",
+    "code": "NVAC"
+   },
+   {
+    "op": "branch",
+    "ref": "T0266",
+    "code": "STPS"
+   }
+  ]
+ },
+ "pageSha256": "318de672389be59015d1b3f6fb99de6a0837628fca49b384410aeca69ae022b6",
+ "version": {
+  "before": 11621,
+  "after": 11630
+ },
+ "updated": {
+  "before": "2026-10-27T12:58:06.295Z",
+  "after": "2026-10-27T16:31:07.826Z"
+ },
+ "money": {
+  "before": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 250936.14,
+    "STPS": 73942.65,
+    "NVAC": 39725.89,
+    "MEAD": 18859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 972058.5,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 180300.43,
+   "cost": 448019.57,
+   "difference": 524038.93,
+   "branches": {
+    "KINP": 249508.14,
+    "STPS": 75370.65,
+    "NVAC": 39725.89,
+    "MEAD": 18859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "branch",
+   "ref": "VMS-01",
+   "code": "KINP",
+   "result": "branch KINP"
+  },
+  {
+   "op": "branch",
+   "ref": "VMS-02",
+   "code": "KINP",
+   "result": "branch KINP"
+  },
+  {
+   "op": "branch",
+   "ref": "VMS-03",
+   "code": "NVAC",
+   "result": "branch NVAC"
+  },
+  {
+   "op": "branch",
+   "ref": "T0266",
+   "code": "STPS",
+   "result": "branch STPS"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/branch~2f~VMS-01",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~VMS-02",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~VMS-03",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~T0266",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-01",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-02",
+   "status": 200
+  },
+  {
+   "key": "branch/VMS-03",
+   "status": 200
+  },
+  {
+   "key": "branch/T0266",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~T0266",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/branch~2f~VMS-01": {
+    "_k": "branch/VMS-01",
+    "v": "2026-10-26T19:19:09.101Z"
+   },
+   "stamps/branch~2f~VMS-02": {
+    "_k": "branch/VMS-02",
+    "v": "2026-10-26T19:19:15.871Z"
+   },
+   "stamps/branch~2f~VMS-03": {
+    "_k": "branch/VMS-03",
+    "v": "2026-10-26T19:19:22.563Z"
+   },
+   "stamps/branch~2f~T0266": null,
+   "branch/VMS-01": {
+    "_k": "VMS-01",
+    "v": "STPS"
+   },
+   "branch/VMS-02": {
+    "_k": "VMS-02",
+    "v": "STPS"
+   },
+   "branch/VMS-03": {
+    "_k": "VMS-03",
+    "v": "STPS"
+   },
+   "branch/T0266": null,
+   "by/branch~2f~T0266": null
+  },
+  "after": {
+   "stamps/branch~2f~VMS-01": {
+    "_k": "branch/VMS-01",
+    "v": "2026-10-27T16:30:50.916Z"
+   },
+   "stamps/branch~2f~VMS-02": {
+    "_k": "branch/VMS-02",
+    "v": "2026-10-27T16:30:51.103Z"
+   },
+   "stamps/branch~2f~VMS-03": {
+    "_k": "branch/VMS-03",
+    "v": "2026-10-27T16:30:51.293Z"
+   },
+   "stamps/branch~2f~T0266": {
+    "_k": "branch/T0266",
+    "v": "2026-10-27T16:30:51.479Z"
+   },
+   "branch/VMS-01": {
+    "_k": "VMS-01",
+    "v": "KINP"
+   },
+   "branch/VMS-02": {
+    "_k": "VMS-02",
+    "v": "KINP"
+   },
+   "branch/VMS-03": {
+    "_k": "VMS-03",
+    "v": "NVAC"
+   },
+   "branch/T0266": {
+    "_k": "T0266",
+    "v": "STPS"
+   },
+   "by/branch~2f~T0266": {
+    "_k": "branch/T0266",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

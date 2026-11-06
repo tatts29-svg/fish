@@ -1,0 +1,29 @@
+{
+  "method": "GET only",
+  "top_level_fields": [
+    "files"
+  ],
+  "files_is_array": true,
+  "file_count": 323,
+  "photo_count": 188,
+  "photo_field_names": [
+    "branch",
+    "by",
+    "bytes",
+    "id",
+    "invoice_no",
+    "kind",
+    "name",
+    "note",
+    "ref",
+    "sha256",
+    "thumb",
+    "title",
+    "type",
+    "uploaded"
+  ],
+  "photos_with_valid_sha256": 188,
+  "photos_with_string_name_and_id": 188,
+  "photos_name_equals_id": 188,
+  "photos_name_matches_generated_pattern": 188
+}

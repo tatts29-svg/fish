@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "sha256": "db0a3c517de2de287da6f385c3f5858fd5a54e48d259b03180cf1116aafdb6b7",
+  "priorSimulationCandidate": "072e565075025471ffb9bd765f2ca4887f5ce4982ec988e0321d960774e14a06",
+  "changedInlineScripts": [
+    34,
+    53,
+    56
+  ],
+  "unchangedInlineScripts": 54,
+  "scope": "Final edits only reorder/fold supplier components and fit charge columns to phones. Showcase dynamics, renderer and audio scripts remain byte-identical to desktop/phone full-lap/render and 13 offline-audio checks. Final required navigation, UI/PDF and financial checks rerun."
+}

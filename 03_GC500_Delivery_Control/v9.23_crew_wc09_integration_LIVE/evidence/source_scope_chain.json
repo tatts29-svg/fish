@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "runtime_test_candidate_sha256": "3d2c69859ba80b32168094a6b7dcadbb00fcb485b745d4748b0af71fd668727a",
+  "chain": [
+    {
+      "base_sha256": "3d2c69859ba80b32168094a6b7dcadbb00fcb485b745d4748b0af71fd668727a",
+      "candidate_sha256": "04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09",
+      "scripts_before": 36,
+      "scripts_after": 36,
+      "changed_scripts": [
+        {
+          "index": 33,
+          "tag": "<script id=\"units925-script\">",
+          "before_sha256": "823034e5d0cb102ec9d4450c39b71997c9c94947efe3ab7501d10da567ce901c",
+          "after_sha256": "d773e024ac51384cbffd035c2f7b16c484c2aa652d7320e17390d9ee348a8527"
+        }
+      ],
+      "data_byte_identical": true,
+      "style_blocks_identical": true
+    },
+    {
+      "base_sha256": "04b40af60cf151b4a0c4467abcdabc31d9a688f01e8197b355e3a3d64ccb0a09",
+      "candidate_sha256": "592e73b38e8c5fb1d5bf98d00915c49550ab860b322f82fb957a99acc0369093",
+      "scripts_before": 36,
+      "scripts_after": 36,
+      "changed_scripts": [
+        {
+          "index": 2,
+          "tag": "<script>",
+          "before_sha256": "f8aab08f2e4a1ae1cd7e0c04a199be850304e667658836c1cc03021b6d7387a7",
+          "after_sha256": "1bb90139b94c8df494fe56f4263e0fc565e5ab4a0882850ae39d39636bdbff8a"
+        },
+        {
+          "index": 15,
+          "tag": "<script id=\"transport888-script\">",
+          "before_sha256": "8ba23c64e7eaeefc642a69348f85962a68fcee0f2dda3090bd04dea736f6275c",
+          "after_sha256": "40bdf6f4435ec8555b711769e3e8eeb077ee313d5452d81790fe5dadd2f1caec"
+        }
+      ],
+      "data_byte_identical": true,
+      "style_blocks_identical": true
+    }
+  ]
+}

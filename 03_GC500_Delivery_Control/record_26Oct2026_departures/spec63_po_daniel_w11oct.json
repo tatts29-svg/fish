@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 09:27 AEST: \"4665091 Daniel Sun 11 Oct 6-9 Oct\" (one purchase order per person per week; Daniel's 6-9 Oct shifts, 42 h, are on the page's Workforce Costs roster)",
+  "ops": [
+    {"op": "po", "number": "4665091", "supplier_name": "Job Connect", "stream": "labour", "what": "Daniel Gough - week ending 11 Oct 2026", "period": "w/e 11 Oct 2026", "branch": "KINP", "revenue_branch": "KINP", "confirmed": true}
+  ]
+}

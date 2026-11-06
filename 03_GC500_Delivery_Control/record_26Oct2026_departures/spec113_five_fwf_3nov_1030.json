@@ -1,0 +1,11 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 10:3x AEST: \"Left 1030 / 1200595 1083300 1211958 1002565 1211976\". Five Coates FWF toilets on contract 9968955 (KINP), each ticked Emptied: 1200595 and 1083300 on WC07 (L33, L41; pick-up booked by Brenden Meek for 3 Nov 10:00), 1211958 on WC01 (L46), 1002565 on WC12 (L17) and 1211976 on WC11 (L23). They left site at 10:30 on 3 Nov through the page's own Record departure form in his name; the other units on WC07, WC01, WC12 and WC11 stay, so each stays on site. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC07", "at": "2026-11-03T10:30:00+10:00", "nos": ["1200595", "1083300"], "unnumbered": [], "complete": false},
+  {"op": "depart", "ref": "WC01", "at": "2026-11-03T10:30:00+10:00", "nos": ["1211958"], "unnumbered": [], "complete": false},
+  {"op": "depart", "ref": "WC12", "at": "2026-11-03T10:30:00+10:00", "nos": ["1002565"], "unnumbered": [], "complete": false},
+  {"op": "depart", "ref": "WC11", "at": "2026-11-03T10:30:00+10:00", "nos": ["1211976"], "unnumbered": [], "complete": false}
+ ]
+}

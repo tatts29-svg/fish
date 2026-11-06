@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:5x AEST: \"To258 left 11am\". T0258 is the 3.0m Container (Coates 1134386, Helen Park, craned in 7 Oct), its reference's only unit: it left in full at 11:00. Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+    {"op": "depart", "ref": "T0258", "at": "2026-10-30T11:00:00+10:00", "nos": ["1134386"], "unnumbered": [], "complete": true}
+  ]
+}

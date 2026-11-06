@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 11:3x AEST: \"Leaving at 1145 / 1317644\". 1317644 is WC01's Accessible Toilet (Coates; WC01 also holds two FWF, 1211958 and 1211967, which stay). It left site at 11:45 on 2 Nov, through the page's own Record departure form in his name; WC01 stays on site with its two FWF still to leave. The runner refuses a departure still in the future, so this runs after 11:45. Applied only if the dry run shows the P&L unchanged. The 11:46 dry run stopped at the page's emptied gate (\"the Record departure form did not open for WC01\": no Emptied tick). On Andrew's word of 30 Oct 2026 11:1x AEST, \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (the word that carried WC09's tick in run 80 and WC20's in run 90), WC01 gets the Emptied tick through the page's own setEmptied816 first: WC01 (2 x FWF 1211958, 1211967; 1 x Accessible Toilet 1317644) is on the servicing tracker, area 4 Commodore Park & The Hill entry, covered by the final-night pump-out of Sun 25 Oct.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "WC01",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\" (final-night pump-out, Sun 25 Oct; WC01 on the servicing tracker, area 4)"
+  },
+  {
+   "op": "depart",
+   "ref": "WC01",
+   "at": "2026-11-02T11:45:00+10:00",
+   "nos": [
+    "1317644"
+   ],
+   "unnumbered": [],
+   "complete": false
+  }
+ ]
+}

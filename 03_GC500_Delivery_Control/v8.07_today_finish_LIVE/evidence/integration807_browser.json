@@ -1,0 +1,693 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "candidateSha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+  "checks": [
+    {
+      "name": "base806 normal branch capture keeps nested More info collapsed (desktop)",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "base806 desktop has no page errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "base806 desktop has no console errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "base806 desktop attempts no service writes",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 141,
+        "blocked": 0
+      }
+    },
+    {
+      "name": "Jump draws By branch immediately while animation frames are held (desktop)",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "lazy": false,
+        "connected": true,
+        "heldFrameCallbacks": 4
+      }
+    },
+    {
+      "name": "Jump draws On site immediately while animation frames are held (desktop)",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "lazy": false,
+        "connected": true,
+        "heldFrameCallbacks": 4
+      }
+    },
+    {
+      "name": "candidate807 normal branch capture keeps nested More info collapsed (desktop)",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "candidate807 desktop has no page errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "candidate807 desktop has no console errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "candidate807 desktop attempts no service writes",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 143,
+        "blocked": 0
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: today",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 1229,
+          "sha256": "33af8a8ffb6bf0c9c084c696b4df6af4c45b12f3af959f050084be3c5143828f"
+        },
+        "candidate": {
+          "lineCount": 1229,
+          "sha256": "33af8a8ffb6bf0c9c084c696b4df6af4c45b12f3af959f050084be3c5143828f"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: costs",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 1606,
+          "sha256": "fb84b13fd4afd7eb64c484e06a22ee4bfc2f3981b7d0295948be37dbfa0e94a9"
+        },
+        "candidate": {
+          "lineCount": 1606,
+          "sha256": "fb84b13fd4afd7eb64c484e06a22ee4bfc2f3981b7d0295948be37dbfa0e94a9"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: fencing",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 1308,
+          "sha256": "97c3b5ddf19d4ebd956ab75509bd6b05b224784508b0ec691320a8ffe37273db"
+        },
+        "candidate": {
+          "lineCount": 1308,
+          "sha256": "97c3b5ddf19d4ebd956ab75509bd6b05b224784508b0ec691320a8ffe37273db"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: questions",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 380,
+          "sha256": "d93430da0d35bc304abb36ed4c9a7605cd5fcb380958d69fc9236d1c7267991d"
+        },
+        "candidate": {
+          "lineCount": 380,
+          "sha256": "d93430da0d35bc304abb36ed4c9a7605cd5fcb380958d69fc9236d1c7267991d"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: coatesway",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 130,
+          "sha256": "050b7fc92ddd4f02f8f32dec97dac62ed12a0d8ad664c7fdbd69494c29c70198"
+        },
+        "candidate": {
+          "lineCount": 130,
+          "sha256": "050b7fc92ddd4f02f8f32dec97dac62ed12a0d8ad664c7fdbd69494c29c70198"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: runsheet",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 44,
+          "sha256": "b3a12fea688754e957fc54a3dcba07a037fa5e3197028f2ba42ece07cb9f3032"
+        },
+        "candidate": {
+          "lineCount": 44,
+          "sha256": "b3a12fea688754e957fc54a3dcba07a037fa5e3197028f2ba42ece07cb9f3032"
+        }
+      }
+    },
+    {
+      "name": "Every displayed line including repeat counts is unchanged: plant",
+      "pass": true,
+      "detail": {
+        "base": {
+          "lineCount": 1815,
+          "sha256": "d3c674eafb380a4deaf6db50a53fc7fa94696975fd99b71f85819823cad26bc4"
+        },
+        "candidate": {
+          "lineCount": 1815,
+          "sha256": "d3c674eafb380a4deaf6db50a53fc7fa94696975fd99b71f85819823cad26bc4"
+        }
+      }
+    },
+    {
+      "name": "Real PDF page count unchanged: closed/ctrl-p",
+      "pass": true,
+      "detail": {
+        "base": 18,
+        "candidate": 18
+      }
+    },
+    {
+      "name": "Real PDF words unchanged: closed/ctrl-p",
+      "pass": true,
+      "detail": {
+        "base": "b27db6c31a170c24c142505a8f2879795ade2c5e4dc9b945ccd7e65376e2df7c",
+        "candidate": "b27db6c31a170c24c142505a8f2879795ade2c5e4dc9b945ccd7e65376e2df7c"
+      }
+    },
+    {
+      "name": "Real PDF page count unchanged: closed/a4-report",
+      "pass": true,
+      "detail": {
+        "base": 14,
+        "candidate": 14
+      }
+    },
+    {
+      "name": "Real PDF words unchanged: closed/a4-report",
+      "pass": true,
+      "detail": {
+        "base": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+        "candidate": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9"
+      }
+    },
+    {
+      "name": "Real PDF page count unchanged: open/ctrl-p",
+      "pass": true,
+      "detail": {
+        "base": 18,
+        "candidate": 18
+      }
+    },
+    {
+      "name": "Real PDF words unchanged: open/ctrl-p",
+      "pass": true,
+      "detail": {
+        "base": "3ad012d59c36e018c3a35b6334ea6aca06889d4038c730ba791ff68940e95e45",
+        "candidate": "3ad012d59c36e018c3a35b6334ea6aca06889d4038c730ba791ff68940e95e45"
+      }
+    },
+    {
+      "name": "Real PDF page count unchanged: open/a4-report",
+      "pass": true,
+      "detail": {
+        "base": 14,
+        "candidate": 14
+      }
+    },
+    {
+      "name": "Real PDF words unchanged: open/a4-report",
+      "pass": true,
+      "detail": {
+        "base": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+        "candidate": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9"
+      }
+    },
+    {
+      "name": "Jump draws By branch immediately while animation frames are held (phone)",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "lazy": false,
+        "connected": true,
+        "heldFrameCallbacks": 4
+      }
+    },
+    {
+      "name": "Jump draws On site immediately while animation frames are held (phone)",
+      "pass": true,
+      "detail": {
+        "open": true,
+        "lazy": false,
+        "connected": true,
+        "heldFrameCallbacks": 4
+      }
+    },
+    {
+      "name": "candidate807 normal branch capture keeps nested More info collapsed (phone)",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "candidate807 phone has no page errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "candidate807 phone has no console errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "candidate807 phone attempts no service writes",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 124,
+        "blocked": 0
+      }
+    },
+    {
+      "name": "Phone keeps a single column without sideways overflow",
+      "pass": true,
+      "detail": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    }
+  ],
+  "runs": [
+    {
+      "tag": "base806",
+      "mobile": false,
+      "sha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+      "figures": {
+        "today": {
+          "lineCount": 1229,
+          "sha256": "33af8a8ffb6bf0c9c084c696b4df6af4c45b12f3af959f050084be3c5143828f"
+        },
+        "costs": {
+          "lineCount": 1606,
+          "sha256": "fb84b13fd4afd7eb64c484e06a22ee4bfc2f3981b7d0295948be37dbfa0e94a9"
+        },
+        "fencing": {
+          "lineCount": 1308,
+          "sha256": "97c3b5ddf19d4ebd956ab75509bd6b05b224784508b0ec691320a8ffe37273db"
+        },
+        "questions": {
+          "lineCount": 380,
+          "sha256": "d93430da0d35bc304abb36ed4c9a7605cd5fcb380958d69fc9236d1c7267991d"
+        },
+        "coatesway": {
+          "lineCount": 130,
+          "sha256": "050b7fc92ddd4f02f8f32dec97dac62ed12a0d8ad664c7fdbd69494c29c70198"
+        },
+        "runsheet": {
+          "lineCount": 44,
+          "sha256": "b3a12fea688754e957fc54a3dcba07a037fa5e3197028f2ba42ece07cb9f3032"
+        },
+        "plant": {
+          "lineCount": 1815,
+          "sha256": "d3c674eafb380a4deaf6db50a53fc7fa94696975fd99b71f85819823cad26bc4"
+        }
+      },
+      "prints": {
+        "closed/ctrl-p": {
+          "pages": 18,
+          "pdfSha256": "5dac036f69d6e444e4ed226acb6ce413263dcebb2a131f61e328c2360d1a1693",
+          "textSha256": "b27db6c31a170c24c142505a8f2879795ade2c5e4dc9b945ccd7e65376e2df7c",
+          "characters": 30604
+        },
+        "closed/a4-report": {
+          "pages": 14,
+          "pdfSha256": "62182db2a0257f61083c7c112690b3c81f384ba83788ececd1b398bf5bcb8e9e",
+          "textSha256": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+          "characters": 30949
+        },
+        "open/ctrl-p": {
+          "pages": 18,
+          "pdfSha256": "e0123705ebaf58fd3cdea96707c302bbb0cbf9b9c4d6bfdb1388a66993898620",
+          "textSha256": "3ad012d59c36e018c3a35b6334ea6aca06889d4038c730ba791ff68940e95e45",
+          "characters": 30422
+        },
+        "open/a4-report": {
+          "pages": 14,
+          "pdfSha256": "7a174d2eb9373379848c697b8c0d76bfe498401a6f2ebd154cc5a95352517de6",
+          "textSha256": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+          "characters": 30949
+        }
+      },
+      "screenshots": [
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-normal-desktop-top.png",
+          "sha256": "64d562139295c67615cb7f30ce245cd844b022646ae16a266aab6fab20f16555"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-normal-desktop-branches-top.png",
+          "sha256": "f0da3f5de453f6adeeef8b64719f2c6ffeb273b76fe411458ce63dc49e93a5be"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-normal-desktop-branches-bottom.png",
+          "sha256": "4d4ba46724f82e0f9f5193a2031ba9050b0bb13b6de092d839125d1330ba7e93"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-desktop-closed.png",
+          "sha256": "8c9c6f717837601743bb43fbbd737231e394b80af84d3c6ee203f3f06e5ad2ad"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-desktop-open.png",
+          "sha256": "1de79dabd0be42e50e46e67e378b80dd7e16ab457e43c03285353c28ac1b1e6d"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/base806-desktop-branches.png",
+          "sha256": "f92dde04ce91d7cfe6404182ea0fa6694332a9be3964e0b15b974ef0bc0ad4f0"
+        }
+      ],
+      "consoleErrors": [],
+      "recordVersion": null,
+      "normalClosedLayout": {
+        "height": 3906,
+        "sections": {
+          "By group": {
+            "height": 1214,
+            "emptyPct": 19.1
+          }
+        }
+      },
+      "normalBranchLayout": {
+        "height": 4861,
+        "sections": {
+          "By group": {
+            "height": 1214,
+            "emptyPct": 19.1
+          },
+          "By branch": {
+            "height": 944,
+            "emptyPct": 33.2
+          }
+        }
+      },
+      "normalNestedDetailsOpen": 0,
+      "closedLayout": {
+        "height": 3906,
+        "sections": {
+          "By group": {
+            "height": 1214,
+            "emptyPct": 19.1
+          }
+        }
+      },
+      "speed": {
+        "today": {
+          "medianMs": 253.6,
+          "samplesMs": [
+            248.4,
+            265.8,
+            277.5,
+            240.3,
+            249.8,
+            257.5
+          ]
+        },
+        "plant": {
+          "medianMs": 90.5,
+          "samplesMs": [
+            109.3,
+            83.2,
+            98.6,
+            92.2,
+            82.8,
+            88.7
+          ]
+        }
+      },
+      "openLayout": {
+        "height": 17247,
+        "sections": {
+          "By group": {
+            "height": 1816,
+            "emptyPct": 18.1
+          },
+          "By branch": {
+            "height": 1590,
+            "emptyPct": 29.6
+          }
+        }
+      },
+      "viewport": {
+        "width": 1440,
+        "scrollWidth": 1440
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 141,
+        "blocked": 0
+      }
+    },
+    {
+      "tag": "candidate807",
+      "mobile": false,
+      "sha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+      "figures": {
+        "today": {
+          "lineCount": 1229,
+          "sha256": "33af8a8ffb6bf0c9c084c696b4df6af4c45b12f3af959f050084be3c5143828f"
+        },
+        "costs": {
+          "lineCount": 1606,
+          "sha256": "fb84b13fd4afd7eb64c484e06a22ee4bfc2f3981b7d0295948be37dbfa0e94a9"
+        },
+        "fencing": {
+          "lineCount": 1308,
+          "sha256": "97c3b5ddf19d4ebd956ab75509bd6b05b224784508b0ec691320a8ffe37273db"
+        },
+        "questions": {
+          "lineCount": 380,
+          "sha256": "d93430da0d35bc304abb36ed4c9a7605cd5fcb380958d69fc9236d1c7267991d"
+        },
+        "coatesway": {
+          "lineCount": 130,
+          "sha256": "050b7fc92ddd4f02f8f32dec97dac62ed12a0d8ad664c7fdbd69494c29c70198"
+        },
+        "runsheet": {
+          "lineCount": 44,
+          "sha256": "b3a12fea688754e957fc54a3dcba07a037fa5e3197028f2ba42ece07cb9f3032"
+        },
+        "plant": {
+          "lineCount": 1815,
+          "sha256": "d3c674eafb380a4deaf6db50a53fc7fa94696975fd99b71f85819823cad26bc4"
+        }
+      },
+      "prints": {
+        "closed/ctrl-p": {
+          "pages": 18,
+          "pdfSha256": "80fd15b6d8cb2992e64dd4311ee2f60c192f868d291994dd6a703ec17b702148",
+          "textSha256": "b27db6c31a170c24c142505a8f2879795ade2c5e4dc9b945ccd7e65376e2df7c",
+          "characters": 30604
+        },
+        "closed/a4-report": {
+          "pages": 14,
+          "pdfSha256": "86f1f67e6f2530764e958bffb6cac82831f84300bca69a73601f6d6e8c2c2e7d",
+          "textSha256": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+          "characters": 30949
+        },
+        "open/ctrl-p": {
+          "pages": 18,
+          "pdfSha256": "23a63041565194054d20d685dadd8692f817792b6fcbc536891c1e82782762dd",
+          "textSha256": "3ad012d59c36e018c3a35b6334ea6aca06889d4038c730ba791ff68940e95e45",
+          "characters": 30422
+        },
+        "open/a4-report": {
+          "pages": 14,
+          "pdfSha256": "f1e92268bc2130791de360f8fbbb26acf95e3ed343f6b2c59ca32081adc6ea72",
+          "textSha256": "307dd9a29880e872a0810232a451cb7da06f3fe60ff0c4fd3a9f6ad1279c54c9",
+          "characters": 30949
+        }
+      },
+      "screenshots": [
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-normal-desktop-top.png",
+          "sha256": "c064348f1eb38185b53c6809bd4edd3f98555e891b9f3aa4e1dde5b750c44e96"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-normal-desktop-branches-top.png",
+          "sha256": "835da83c8d490b3f73de88eba5cfbd1404b6a6a2a17bf51729ffaf59d9ea588f"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-normal-desktop-branches-bottom.png",
+          "sha256": "13b9e59559abdd260e0efaa6864f7f9251f3f7e7eb1481aeddab6b3f9743286e"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-desktop-closed.png",
+          "sha256": "45e4a6c8682bb207e6d1186a4777d9293dbf8ce03959de1541e3ad35e5f88f4d"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-desktop-open.png",
+          "sha256": "3de3793c4c64f71c4322f7c33b7f46b8e47d3ed33ed5b40567707ea744776cec"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-desktop-branches.png",
+          "sha256": "e45387ec6beb1cfa9df5705c4b1f80a773b9d371f831f7edd32d94d2ab6bbdfc"
+        }
+      ],
+      "consoleErrors": [],
+      "recordVersion": null,
+      "normalClosedLayout": {
+        "height": 3798,
+        "sections": {
+          "By group": {
+            "height": 1106,
+            "emptyPct": 11.2
+          }
+        }
+      },
+      "normalBranchLayout": {
+        "height": 4753,
+        "sections": {
+          "By group": {
+            "height": 1106,
+            "emptyPct": 11.2
+          },
+          "By branch": {
+            "height": 944,
+            "emptyPct": 33.2
+          }
+        }
+      },
+      "normalNestedDetailsOpen": 0,
+      "closedLayout": {
+        "height": 3798,
+        "sections": {
+          "By group": {
+            "height": 1106,
+            "emptyPct": 11.2
+          }
+        }
+      },
+      "speed": {
+        "today": {
+          "medianMs": 204.7,
+          "samplesMs": [
+            242.3,
+            225.6,
+            209.7,
+            199.7,
+            185.9,
+            183.9
+          ]
+        },
+        "plant": {
+          "medianMs": 101.3,
+          "samplesMs": [
+            133.4,
+            109.6,
+            93.3,
+            96.6,
+            88.6,
+            106
+          ]
+        }
+      },
+      "openLayout": {
+        "height": 16789,
+        "sections": {
+          "By group": {
+            "height": 1642,
+            "emptyPct": 9.5
+          },
+          "By branch": {
+            "height": 1590,
+            "emptyPct": 29.6
+          }
+        }
+      },
+      "viewport": {
+        "width": 1440,
+        "scrollWidth": 1440
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 143,
+        "blocked": 0
+      }
+    },
+    {
+      "tag": "candidate807",
+      "mobile": true,
+      "sha256": "35024d43405947d59c106e858221f8c40ed9629bcf6b19b1081f87c4da6799ed",
+      "figures": {},
+      "prints": {},
+      "screenshots": [
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-normal-phone-top.png",
+          "sha256": "020c3a3ccbdb89e1076890ad2cb331de2d8414da67ed6fd3dc1a8022e32b25e9"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-normal-phone-branches-top.png",
+          "sha256": "21d3610a94c0f8d4c19acf55e24f99743527c8bce9d7aeef8426bdfedd8e8dd8"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-phone-closed.png",
+          "sha256": "cf10dc6d355b50a4b8f39db38f04d7cc673ca9c9c000be8409b2e96d8dcc35d0"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-phone-open.png",
+          "sha256": "0a8da7864bf76ea5f10ab5167a4be9060d6963b3045a6694548270b0aaff3cb8"
+        },
+        {
+          "path": "/workspace/private-v807-final-35024d43/candidate807-phone-branches.png",
+          "sha256": "1844165bca05d723521d29497d2b587d2e112fcf66120d76579cbf2049bac273"
+        }
+      ],
+      "consoleErrors": [],
+      "recordVersion": null,
+      "normalClosedLayout": {
+        "height": 10934,
+        "sections": {
+          "By group": {
+            "height": 4533,
+            "emptyPct": 3.1
+          }
+        }
+      },
+      "normalBranchLayout": {
+        "height": 13686,
+        "sections": {
+          "By group": {
+            "height": 4533,
+            "emptyPct": 3.1
+          },
+          "By branch": {
+            "height": 2740,
+            "emptyPct": 2
+          }
+        }
+      },
+      "normalNestedDetailsOpen": 0,
+      "viewport": {
+        "width": 390,
+        "scrollWidth": 390
+      },
+      "errors": [],
+      "requests": {
+        "page": 1,
+        "live": 124,
+        "blocked": 0
+      }
+    }
+  ],
+  "passed": 32,
+  "total": 32
+}

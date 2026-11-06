@@ -1,0 +1,5 @@
+v12.64 desktop: 8/8 checks passed
+no-rate lines carried elsewhere on the page: 9961265|44 Event Labour Charge (5924.1)
+lines different from Baseplan (11) on 9961265 and 9972648: 9972648|3 page 1364.08 vs (11) 280.84
+page-only lines on those contracts: 9961265|15 536.1 · 9961265|16 589.71
+charge to the V8s: v12.63 1011691.46 -> v12.64 1012101.16 (409.70)

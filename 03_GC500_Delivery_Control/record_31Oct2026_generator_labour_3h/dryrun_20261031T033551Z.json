@@ -1,0 +1,357 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T033551Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 (this chat): 'Lets go 1.5 hrs for generator so total for each we can allocate 3 hrs. If aaron is not on that day we use alfie' and 'Lets allocate 3 hrs to each use alfie or if no alfie use daniel. This is is labour to install and demob this is the labour charge why should kinp get the lot. Other branches need that share'. Each generator 1.5 h on the day it came on site and 1.5 h on the day it left, against its contract and branch, on the first of Aaron, Alfie, Daniel rostered that day with room in the day; replaces this morning's one hour per move. Notes only: no hours, starts or finishes change.",
+  "record_version_read": 12600,
+  "ops": [
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-28",
+    "from_note": "Generators 9961976 NVAC · 1 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN01 in, 1.5 h",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-09-30",
+    "from_note": "Generators 9961976 NVAC · 1 h · GN20-A mob · Generators 9961976 NVAC · 2 h · GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 4.5 h · GN20-A mob, GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN20-A, GN21 and GN23 in, 1.5 h each",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-01",
+    "from_note": "Generators 9961976 NVAC · 1 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN03 in, 1.5 h",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-07",
+    "from_note": "Generators 9961976 NVAC · 1 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN18 in, 1.5 h",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-12",
+    "from_note": "Generators 9961976 NVAC · 1 h · GN13 mob · Generators 9994954 KINP · 1 h · GN? mob · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN13 mob · Generators 9994954 KINP · 3 h · GN? mob (2 units) · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN13 in, 1.5 h; the concert pair GN? in, two generators, 3 h on KINP",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-15",
+    "from_note": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 1 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 1.5 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN06 in, 1.5 h",
+    "hours_on_row": 14
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-19",
+    "from_note": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 7.5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: five generators in, 1.5 h each",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-26",
+    "from_note": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 demob, GN06 demob, GN10 demob, GN13 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026",
+    "fields": {
+     "note": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 6 h · GN04 demob, GN06 demob, GN10 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: four generators out, 1.5 h each; with 4 h on the barriers the fifth does not fit his 11 h and goes to Alfie",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-26",
+    "from_note": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN13 demob · KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN13 out (13:02), 1.5 h: Aaron was on, but his day was full",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Aaron Zelvis",
+    "date": "2026-10-28",
+    "from_note": "Generators 9961976 NVAC · 4 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob · Generators 9961976 NVAC · 1 h · GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 7.5 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob, GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: five generators out, 1.5 h each",
+    "hours_on_row": 11
+   },
+   {
+    "op": "labour_set",
+    "person": "Alfie Harris",
+    "date": "2026-10-30",
+    "from_note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "fields": {
+     "note": "Generators 9961976 NVAC · 1.5 h · GN01 demob · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+    },
+    "why": "Andrew Fisher, 31 Oct 2026: GN01 out (14:30), 1.5 h: Aaron did not work Friday (Andrew, 31 Oct 2026), Alfie was on",
+    "hours_on_row": 10.5
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20260928",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN01 mob · KINP labour, the rest of the day · 9968862 in: P06 · 9968955 in: WC01 · 9994954 in: P38, P39, P42 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20260928 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20260930",
+   "person": "Aaron Zelvis",
+   "date": "2026-09-30",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN20-A mob · Generators 9961976 NVAC · 2 h · GN21 mob, GN23 mob · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20260930 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261001",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-01",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN03 mob · KINP labour, the rest of the day · 9968955 in: WC60 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261001 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261007",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-07",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN18 mob · KINP labour, the rest of the day · 9968862 in: P52, P54, P55, P56, P57 · 9968955 in: WC20, WC86 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261007 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261012",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-12",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 1 h · GN13 mob · Generators 9994954 KINP · 1 h · GN? mob · KINP labour, the rest of the day · 9968862 in: P45, P69 · 9994954 in: GN? · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261012 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261015",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-15",
+   "usable": true,
+   "problems": [],
+   "hours": 14,
+   "start": "03:00",
+   "finish": "17:00",
+   "was": {
+    "start": "03:00",
+    "finish": "17:00",
+    "hours": 14,
+    "note": "Water barriers 9972648 STPS · 8 h · WB06 Macintosh Park (154) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 1 h · GN06 mob · KINP labour, the rest of the day · 9968862, 9968955 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 14 h 03:00-17:00) -> 14 h 03:00-17:00 - W-L-aaron-zelvis-20261015 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261019",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-19",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 2 h · WB13 (10) · install · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 mob, GN10 mob, GN19 mob, GN24 mob, GN25 mob · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261019 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261026",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Water barriers 9972648 STPS · 4 h · WB13 (10) · demob · days · Andrew Fisher, 31 Oct 2026 · Generators 9961976 NVAC · 5 h · GN04 demob, GN06 demob, GN10 demob, GN13 demob, GN24 demob · KINP labour, rest of day · 9968955 · AF 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-alfie-harris-20261026",
+   "person": "Alfie Harris",
+   "date": "2026-10-26",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "KINP labour, the rest of the day · 9968955 out: WC24, WC46, WC55 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-alfie-harris-20261026 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-aaron-zelvis-20261028",
+   "person": "Aaron Zelvis",
+   "date": "2026-10-28",
+   "usable": true,
+   "problems": [],
+   "hours": 11,
+   "start": "06:00",
+   "finish": "17:00",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "note": "Generators 9961976 NVAC · 4 h · GN03 demob, GN21 demob, GN23 demob, GN25 demob · Generators 9961976 NVAC · 1 h · GN20-A demob · KINP labour, the rest of the day · 9968862 out: P45, P69 · 9968955 out: PG03, WC85 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 11 h 06:00-17:00) -> 11 h 06:00-17:00 - W-L-aaron-zelvis-20261028 changed by Andrew Fisher."
+  },
+  {
+   "op": "labour_set",
+   "id": "W-L-alfie-harris-20261030",
+   "person": "Alfie Harris",
+   "date": "2026-10-30",
+   "usable": true,
+   "problems": [],
+   "hours": 10.5,
+   "start": "06:30",
+   "finish": "17:00",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "changed the record row: note (was 10.5 h 06:30-17:00) -> 10.5 h 06:30-17:00 - W-L-alfie-harris-20261030 changed by Andrew Fisher."
+  }
+ ],
+ "plan": [
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261015",
+  "stamps/ourcost~2f~W-L-alfie-harris-20261026",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261019",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261026",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20260928",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20260930",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261001",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261007",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261012",
+  "stamps/ourcost~2f~W-L-aaron-zelvis-20261028",
+  "stamps/ourcost~2f~W-L-alfie-harris-20261030",
+  "costs/W-L-aaron-zelvis-20261015",
+  "costs/W-L-alfie-harris-20261026",
+  "costs/W-L-aaron-zelvis-20261019",
+  "costs/W-L-aaron-zelvis-20261026",
+  "costs/W-L-aaron-zelvis-20260928",
+  "costs/W-L-aaron-zelvis-20260930",
+  "costs/W-L-aaron-zelvis-20261001",
+  "costs/W-L-aaron-zelvis-20261007",
+  "costs/W-L-aaron-zelvis-20261012",
+  "costs/W-L-aaron-zelvis-20261028",
+  "costs/W-L-alfie-harris-20261030"
+ ]
+}

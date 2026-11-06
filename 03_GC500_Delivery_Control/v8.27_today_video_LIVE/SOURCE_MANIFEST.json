@@ -1,0 +1,75 @@
+{
+  "author": "Andrew Fisher",
+  "status": "LIVE 4 Oct 2026 at 02:16 AEST; actual public playback smoke 15/15",
+  "base_sha256": "cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e",
+  "candidate_sha256": "f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f",
+  "private_inputs": [
+    {
+      "kind": "completed v8.26 page",
+      "sha256": "cde8d4295b58d6f0ec85d46b49091698afd847bc4f49a4bad90a2c14d17c595e",
+      "required": true,
+      "publish": false
+    }
+  ],
+  "public_safe_files": {
+    "README.md": "3d1bd87fd79980bacbb239e9f795355935389d0c55e0480e20b85ca94cf37295",
+    "RELEASE_REVIEW.txt": "a318ff7643cd037c1daad1c08a81e37229e3c80336d778edbc5564b2bf678040",
+    "TESTING.md": "79ce16f57c07950d9f96e8fbe502d7dc23578e5656d8068baffd81fb50ad4481",
+    "main_video_patch.py": "f2eae8aa0ef0580b5621b82493d80dc74166348a593e43b372dade7a14e58f60",
+    "patch_v827.py": "df5785876c15babef6b1dfb200fe455de8c2bfe5e7581ea167925f4decc74664",
+    "tests/test_build_boundaries.py": "a3fac6558b1d0e6778d794b0b4e71741c24ec997e61656a786aadf6a028ce984",
+    "tests/test_controller.cjs": "23f54f7e44edd406144266bf81cfc290376ac1a1d333e411a0914d7e4e65dbad",
+    "tests/test_media_lifecycle.cjs": "cc3cc7d86c0242dfee64520953fe254026c1a9f627edded08aa7329a5eede64b",
+    "tests/test_native_media.cjs": "923cec072f9683f92c764d565d6496a7df5f522314eb86a31507bb1e91b76107",
+    "tests/test_public_smoke.cjs": "1b5f9394b965247b89ee9979746271a2b0935cd8f177ef7dd3cf8c498ecddbf9",
+    "tests/test_retry_recovery.cjs": "4b5a3926b17a3421c37842ee75c8ce2dc6dfd4d53b5fddb58235dbec2b34b0d1"
+  },
+  "verification": {
+    "controller_cpu": {
+      "passed": 53,
+      "total": 53
+    },
+    "build_guards": {
+      "passed": 14,
+      "total": 14
+    },
+    "real_media": {
+      "passed": 18,
+      "total": 18
+    },
+    "retry_recovery": {
+      "passed": 6,
+      "total": 6
+    },
+    "video_lifecycle": {
+      "passed": 11,
+      "total": 11
+    },
+    "today": {
+      "desktop": 23,
+      "phone": 18
+    },
+    "selected_card_motion": {
+      "desktop": 16,
+      "phone": 16
+    },
+    "sweeps": {
+      "viewports": 2,
+      "tabs_each": 22,
+      "links_each": 7,
+      "back": true
+    },
+    "scope": "Affected Today/video and required navigation checks only; unchanged wider v8.26 source preserved byte-for-byte.",
+    "actual_public_smoke": {
+      "passed": 15,
+      "total": 15,
+      "local_html_override": false
+    },
+    "public_smoke": {
+      "passed": 15,
+      "total": 15,
+      "local_html_substitution": false,
+      "operational_writes": 0
+    }
+  }
+}

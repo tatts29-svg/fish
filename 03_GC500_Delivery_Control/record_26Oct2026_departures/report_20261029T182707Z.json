@@ -1,0 +1,1293 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261029T182707Z",
+ "finished": "2026-10-29T18:27:47.400Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 30 Oct 2026 (03:0x and 04:2x AEST, twice): \"All barriers should now be off hired apart from s08 is that correct looking at this. But you should be showing correct areas on maps where these are.\" The record had departures for WB01, WB05, WB06 and WB17 only (run 54, 27 Oct 19:30); the other Coates runs still read Still to leave. Each leaves in full at the programme's removal date and time (TP02-26003-03, 29/10/26 updates): WB14 Turn 4 25 Oct 19:00, WB13 S15 bracing 26 Oct 10:00, WB15 Turn 11 27 Oct 07:00, WB04 Helen Park and WB07 Admiralty Drive 27 Oct 09:00, WB16 Gate 2 and WB18 T2 kerbs 27 Oct 17:00. WB03 Turn 2 (30): the programme has them stored behind the T2 circuit barriers from 19 Oct 22:00 and put back out as WB20 on 26 Oct, removed 29 Oct 19:00 - the same 30 barriers, so WB03 leaves site at 29 Oct 19:00, their real departure; WB20 was never recorded as delivered (not on site on the record), so nothing to depart there. S08 left alone: WB02 (34) and WB19 (34, 3 to 6 Nov) stay as they are. Barriers are counted: where the reference has the one TL2 code (ARMORZONMASHTL2) it is ticked plus the rest unnumbered, as run 54; WB13 and WB07 carry no number on the record, so their count is unnumbered. No money moves.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WB14",
+    "at": "2026-10-25T19:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 1
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB13",
+    "at": "2026-10-26T10:00:00+10:00",
+    "nos": [],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 10
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB15",
+    "at": "2026-10-27T07:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 3
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB04",
+    "at": "2026-10-27T09:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 13
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB07",
+    "at": "2026-10-27T09:00:00+10:00",
+    "nos": [],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 17
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB16",
+    "at": "2026-10-27T17:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 12
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB18",
+    "at": "2026-10-27T17:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 1
+     }
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WB03",
+    "at": "2026-10-29T19:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 29
+     }
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "cb27d7c56a41c0d5b2fcd19294800b5095fe690da0fe3c91937e8ed9babbdc5c",
+ "version": {
+  "before": 11984,
+  "after": 11992
+ },
+ "updated": {
+  "before": "2026-10-29T05:10:13.989Z",
+  "after": "2026-10-29T18:27:45.752Z"
+ },
+ "money": {
+  "before": {
+   "charge": 998997,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 551026.93,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 998997,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 447970.07,
+   "difference": 551026.93,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WB14",
+   "at": "2026-10-25T19:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 1
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-25T19:00:00+10:00, recorded by Andrew Fisher: 2 x TL2 ARMORZONMASHTL2 - WB14 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB13",
+   "at": "2026-10-26T10:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 10
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-26T10:00:00+10:00, recorded by Andrew Fisher: 10 x TL2 - WB13 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB15",
+   "at": "2026-10-27T07:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 3
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T07:00:00+10:00, recorded by Andrew Fisher: 4 x TL2 ARMORZONMASHTL2 - WB15 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB04",
+   "at": "2026-10-27T09:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 13
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T09:00:00+10:00, recorded by Andrew Fisher: 14 x TL2 ARMORZONMASHTL2 - WB04 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB07",
+   "at": "2026-10-27T09:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 17
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T09:00:00+10:00, recorded by Andrew Fisher: 17 x TL2 - WB07 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB16",
+   "at": "2026-10-27T17:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 12
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T17:00:00+10:00, recorded by Andrew Fisher: 13 x TL2 ARMORZONMASHTL2 - WB16 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB18",
+   "at": "2026-10-27T17:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 1
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T17:00:00+10:00, recorded by Andrew Fisher: 2 x TL2 ARMORZONMASHTL2 - WB18 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WB03",
+   "at": "2026-10-29T19:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 29
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-10-29T19:00:00+10:00, recorded by Andrew Fisher: 30 x TL2 ARMORZONMASHTL2 - WB03 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WB03",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB04",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB14",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB16",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB15",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB18",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB07",
+   "status": 200
+  },
+  {
+   "key": "delivery/WB13",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WB03": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:04:39.464Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:04:39.464Z",
+    "eta": "20:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:04:39.464Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:04:39.464Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T08:00:10.055Z"
+    },
+    "_k": "WB03"
+   },
+   "delivery/WB04": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:25:20.773Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:25:20.773Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.760Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:25:20.773Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:25:20.773Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB04"
+   },
+   "delivery/WB14": {
+    "state": "on site",
+    "set_at": "2026-10-21T00:35:36.354Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-20T14:00:00.000Z",
+    "done_date_only": true,
+    "done_effective_date": "2026-10-21",
+    "done_recorded_at": "2026-10-21T00:35:36.920Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.532Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:36.354Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-20T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:35:36.920Z"
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-20T14:00:00.000Z",
+     "by": "Andrew Fisher via Codex",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-20T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:36.610Z",
+       "date_only": true,
+       "effective_date": "2026-10-21"
+      }
+     ],
+     "recorded_at": "2026-10-21T00:35:36.610Z",
+     "date_only": true,
+     "effective_date": "2026-10-21"
+    },
+    "_k": "WB14"
+   },
+   "delivery/WB16": {
+    "state": "on site",
+    "set_at": "2026-10-21T02:14:55.484Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-21T02:14:55.484Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.850Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T02:14:55.484Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T02:14:55.484Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WB16"
+   },
+   "delivery/WB15": {
+    "state": "on site",
+    "set_at": "2026-10-21T00:35:37.203Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-20T14:00:00.000Z",
+    "done_date_only": true,
+    "done_effective_date": "2026-10-21",
+    "done_recorded_at": "2026-10-21T00:35:37.720Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.688Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:37.203Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-20T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:35:37.720Z"
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-20T14:00:00.000Z",
+     "by": "Andrew Fisher via Codex",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-20T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:37.461Z",
+       "date_only": true,
+       "effective_date": "2026-10-21"
+      }
+     ],
+     "recorded_at": "2026-10-21T00:35:37.461Z",
+     "date_only": true,
+     "effective_date": "2026-10-21"
+    },
+    "_k": "WB15"
+   },
+   "delivery/WB18": {
+    "state": "on site",
+    "set_at": "2026-10-21T22:08:22.744Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T22:08:23.415Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.169Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:22.744Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T22:08:23.415Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB18"
+   },
+   "delivery/WB07": {
+    "state": "on site",
+    "set_at": "2026-10-21T00:35:35.462Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-17T14:00:00.000Z",
+    "done_date_only": true,
+    "done_effective_date": "2026-10-18",
+    "done_recorded_at": "2026-10-21T00:35:36.072Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:35.462Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-17T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-18",
+      "recorded_at": "2026-10-21T00:35:36.072Z"
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-17T14:00:00.000Z",
+     "by": "Andrew Fisher via Codex",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-17T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:35.793Z",
+       "date_only": true,
+       "effective_date": "2026-10-18"
+      }
+     ],
+     "recorded_at": "2026-10-21T00:35:35.793Z",
+     "date_only": true,
+     "effective_date": "2026-10-18"
+    },
+    "_k": "WB07"
+   },
+   "delivery/WB13": {
+    "state": "on site",
+    "set_at": "2026-10-19T04:29:08.634Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T04:29:08.634Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.377Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:29:08.634Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:08.634Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB13"
+   }
+  },
+  "after": {
+   "delivery/WB03": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:31.210Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:31.210Z",
+    "eta": "20:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:04:39.464Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:31.210Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c9e526a6-e6f7-4aed-9b49-788941152ab6",
+       "date": "2026-10-29",
+       "departedAt1211": "2026-10-29T19:00:00+10:00",
+       "programmeDate": "2026-10-19",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-23T02:04:39.464Z",
+       "requiredKey": "[[\"tl2\",30]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 30,
+         "unitIds": [
+          "[\"WB03\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB03\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:04:39.464Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:31.210Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T08:00:10.055Z"
+    },
+    "_k": "WB03"
+   },
+   "delivery/WB04": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:27.439Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:27.439Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.760Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:25:20.773Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:27.439Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "719fff27-febb-4349-abd5-c003a1e1aad4",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T09:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:25:20.773Z",
+       "requiredKey": "[[\"tl2\",14]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 14,
+         "unitIds": [
+          "[\"WB04\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB04\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:25:20.773Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:27.439Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "WB04"
+   },
+   "delivery/WB14": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:24.951Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:24.951Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.532Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:36.354Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:24.951Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1b9691ab-6025-4283-b824-ffe21c659c1a",
+       "date": "2026-10-25",
+       "departedAt1211": "2026-10-25T19:00:00+10:00",
+       "programmeDate": "2026-10-25",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T00:35:36.354Z",
+       "requiredKey": "[[\"tl2\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 2,
+         "unitIds": [
+          "[\"WB14\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB14\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-20T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:35:36.920Z"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:24.951Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-29T18:27:24.952Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-20T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:36.610Z",
+       "date_only": true,
+       "effective_date": "2026-10-21"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-29T18:27:24.952Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-29T18:27:24.952Z"
+      }
+     ],
+     "recorded_at": "2026-10-29T18:27:24.952Z"
+    },
+    "_k": "WB14"
+   },
+   "delivery/WB16": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:29.268Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:29.268Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.850Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T02:14:55.484Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:29.268Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c23f14b3-29ea-4114-927a-0134d4f6ef29",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T17:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T02:14:55.484Z",
+       "requiredKey": "[[\"tl2\",13]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 13,
+         "unitIds": [
+          "[\"WB16\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB16\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T02:14:55.484Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:29.268Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "WB16"
+   },
+   "delivery/WB15": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:26.693Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:26.693Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.688Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:37.203Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:26.693Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "86d16951-8653-4e82-9907-3bad702908a4",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T07:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T00:35:37.203Z",
+       "requiredKey": "[[\"tl2\",4]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 4,
+         "unitIds": [
+          "[\"WB15\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB15\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-20T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:35:37.720Z"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:26.693Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-29T18:27:26.693Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-20T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:37.461Z",
+       "date_only": true,
+       "effective_date": "2026-10-21"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-29T18:27:26.693Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-29T18:27:26.693Z"
+      }
+     ],
+     "recorded_at": "2026-10-29T18:27:26.693Z"
+    },
+    "_k": "WB15"
+   },
+   "delivery/WB18": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:30.202Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:30.202Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:26.169Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T22:08:22.744Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:30.202Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "059bd46b-24bc-4211-9cac-8081878c47ce",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T17:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T22:08:22.744Z",
+       "requiredKey": "[[\"tl2\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 2,
+         "unitIds": [
+          "[\"WB18\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB18\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T22:08:23.415Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:30.202Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "WB18"
+   },
+   "delivery/WB07": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:28.176Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:28.176Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-21T00:35:35.462Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:28.176Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "a12fa27d-fb6c-48a3-9e5a-c450dfbe123c",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T09:00:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T00:35:35.462Z",
+       "requiredKey": "[[\"tl2\",17]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 17,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-17T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "date_only": true,
+      "effective_date": "2026-10-18",
+      "recorded_at": "2026-10-21T00:35:36.072Z"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:28.176Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "timeline841": {
+     "stage": 0,
+     "at": "2026-10-29T18:27:28.176Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-17T14:00:00.000Z",
+       "by": "Andrew Fisher via Codex",
+       "recorded_at": "2026-10-21T00:35:35.793Z",
+       "date_only": true,
+       "effective_date": "2026-10-18"
+      },
+      {
+       "stage": 0,
+       "at": "2026-10-29T18:27:28.176Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-29T18:27:28.176Z"
+      }
+     ],
+     "recorded_at": "2026-10-29T18:27:28.176Z"
+    },
+    "_k": "WB07"
+   },
+   "delivery/WB13": {
+    "state": "in transit",
+    "set_at": "2026-10-29T18:27:25.837Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-29T18:27:25.837Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:25.377Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T04:29:08.634Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-29T18:27:25.837Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f0040045-91d7-4702-be67-76ba4d0e9cf8",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T10:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T04:29:08.634Z",
+       "requiredKey": "[[\"tl2\",10]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 10,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T04:29:08.634Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-29T18:27:25.837Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "WB13"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

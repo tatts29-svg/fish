@@ -1,0 +1,862 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU checks; browser appearance and actual context recovery require integration",
+  "inputHtml": {
+    "path": "build/GC500_v7.94/GC500_Delivery_Control_hosted.html",
+    "sha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe"
+  },
+  "sourceSha256": "935ab0155eeb5ccc7e97c1e51e6d97fb9e3832036ccfe504e6ccc2b863a04292",
+  "elapsedMs": 284.83742900000016,
+  "checks": [
+    {
+      "name": "all 26 actual nominal envelopes produce open structure",
+      "pass": true,
+      "detail": 26
+    },
+    {
+      "name": "each shell has exact original roof and four-wall ownership",
+      "pass": true,
+      "detail": {
+        "ranges": 130,
+        "triangles": 260
+      }
+    },
+    {
+      "name": "original CPU index and edge arrays remain retained",
+      "pass": true
+    },
+    {
+      "name": "filtered indices are exactly the original non-pit subsequence",
+      "pass": true
+    },
+    {
+      "name": "filtered edges are exactly the original non-pit subsequence",
+      "pass": true
+    },
+    {
+      "name": "source geometry list route lane stands car cameras and obstruction map unchanged",
+      "pass": true
+    },
+    {
+      "name": "same detail batch no additional GPU resource or upload while building",
+      "pass": true
+    },
+    {
+      "name": "all scene detail vertices finite indices valid and strides correct",
+      "pass": true
+    },
+    {
+      "name": "no degenerate faces and winding agrees with unit normals",
+      "pass": true
+    },
+    {
+      "name": "all generated vertices remain within every original pit footprint",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "all generated heights remain inside each original source envelope",
+      "pass": true
+    },
+    {
+      "name": "two solid decks two roof slopes and connected framing per module",
+      "pass": true,
+      "detail": {
+        "version": "v7.94",
+        "modules": 26,
+        "triangles": 11544,
+        "triangleBudget": 14000,
+        "genuineOpenBays": true,
+        "opaqueFacadePanels": 0,
+        "sourceRowsUnchanged": true,
+        "sourceFootprintsUnchanged": true,
+        "sourceTopHeightsUnchanged": true,
+        "cameraObstructionUnchanged": true,
+        "originalArraysRetained": true,
+        "newGPUResources": 0,
+        "newDrawCalls": 0,
+        "perFrameGeometryWork": 0,
+        "bufferUploadsPerTransition": 2,
+        "decks": 52,
+        "roofSlopes": 52,
+        "steelColumns": 208,
+        "joists": 208,
+        "rails": 208,
+        "braces": 208,
+        "anchors": [
+          {
+            "sourceIndex": 2704,
+            "frontageEdge": 0,
+            "frontageLengthM": 23.147344232511724,
+            "laneDistanceM": 4.034691659264865,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 0,
+            "vertexEnd": 888,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2705,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.76857758205148,
+            "laneDistanceM": 5.046919516927075,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 888,
+            "vertexEnd": 1776,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2706,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.76857758205063,
+            "laneDistanceM": 5.046919516926669,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 1776,
+            "vertexEnd": 2664,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2707,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.76857758205063,
+            "laneDistanceM": 5.046919516926805,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 2664,
+            "vertexEnd": 3552,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2708,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.68169357814745,
+            "laneDistanceM": 5.106285708468717,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 3552,
+            "vertexEnd": 4440,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2709,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.69290801246361,
+            "laneDistanceM": 5.0469195169271925,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 4440,
+            "vertexEnd": 5328,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2710,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.69290801246361,
+            "laneDistanceM": 5.0469195169271925,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 5328,
+            "vertexEnd": 6216,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2711,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.69290801246361,
+            "laneDistanceM": 5.0469195169272085,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 6216,
+            "vertexEnd": 7104,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2712,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.69290801246361,
+            "laneDistanceM": 5.0469195169272005,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 7104,
+            "vertexEnd": 7992,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2713,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.888243257098484,
+            "laneDistanceM": 5.044772081982228,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 7992,
+            "vertexEnd": 8880,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2714,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.634331276589112,
+            "laneDistanceM": 5.044723708083001,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 8880,
+            "vertexEnd": 9768,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2715,
+            "frontageEdge": 0,
+            "frontageLengthM": 19.981460644294046,
+            "laneDistanceM": 5.246891279705925,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 9768,
+            "vertexEnd": 10656,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2716,
+            "frontageEdge": 0,
+            "frontageLengthM": 19.9648315717342,
+            "laneDistanceM": 5.046919516927046,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 10656,
+            "vertexEnd": 11544,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2717,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.07813519409607,
+            "laneDistanceM": 4.501767664993397,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 11544,
+            "vertexEnd": 12432,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2718,
+            "frontageEdge": 0,
+            "frontageLengthM": 20.3268717495124,
+            "laneDistanceM": 4.8827587447387835,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 12432,
+            "vertexEnd": 13320,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2719,
+            "frontageEdge": 0,
+            "frontageLengthM": 19.05774298122324,
+            "laneDistanceM": 5.046919516927359,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 13320,
+            "vertexEnd": 14208,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2720,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.72605321147771,
+            "laneDistanceM": 4.873561072486895,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 14208,
+            "vertexEnd": 15096,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2721,
+            "frontageEdge": 0,
+            "frontageLengthM": 22.212207432431015,
+            "laneDistanceM": 5.046919516927183,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 15096,
+            "vertexEnd": 15984,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2722,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.294482684440595,
+            "laneDistanceM": 4.499796608016199,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 15984,
+            "vertexEnd": 16872,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2723,
+            "frontageEdge": 0,
+            "frontageLengthM": 20.227681833791113,
+            "laneDistanceM": 5.137915698293881,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 16872,
+            "vertexEnd": 17760,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2724,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.580608576404355,
+            "laneDistanceM": 5.046919516927124,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 17760,
+            "vertexEnd": 18648,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2725,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.580608576405627,
+            "laneDistanceM": 5.046919516927057,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 18648,
+            "vertexEnd": 19536,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2726,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.724175825099813,
+            "laneDistanceM": 5.000631730586948,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 19536,
+            "vertexEnd": 20424,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2727,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.85770928566975,
+            "laneDistanceM": 5.046919516926806,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 20424,
+            "vertexEnd": 21312,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2728,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.85770928566847,
+            "laneDistanceM": 5.046919516927443,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 21312,
+            "vertexEnd": 22200,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          },
+          {
+            "sourceIndex": 2729,
+            "frontageEdge": 0,
+            "frontageLengthM": 21.85770928566975,
+            "laneDistanceM": 5.046919516926816,
+            "sourceTop": 1.2,
+            "triangles": 444,
+            "vertexStart": 22200,
+            "vertexEnd": 23088,
+            "sourceBase": 0.030315522069818544,
+            "openLowerStorey": true,
+            "openUpperStorey": true
+          }
+        ],
+        "suppressedShellTriangles": 260,
+        "suppressedEdgeSegments": 104
+      }
+    },
+    {
+      "name": "pit triangle budget enforced for all 26 modules",
+      "pass": true,
+      "detail": 11544
+    },
+    {
+      "name": "both storeys are geometrically open rather than dark panels",
+      "pass": true,
+      "detail": {
+        "openRays": 234,
+        "totalRays": 260,
+        "minOpen": 9
+      }
+    },
+    {
+      "name": "repeated scenery installation is idempotent",
+      "pass": true
+    },
+    {
+      "name": "successful detail installation swaps only two existing GPU buffers",
+      "pass": true
+    },
+    {
+      "name": "filtered draws use retained buffers and filtered counts",
+      "pass": true
+    },
+    {
+      "name": "stable rendering and sync cause no extra GPU upload",
+      "pass": true
+    },
+    {
+      "name": "detail off restores full original buffers and original draw functions",
+      "pass": true
+    },
+    {
+      "name": "context loss performs no invalid GPU uploads",
+      "pass": true
+    },
+    {
+      "name": "restoration can return unchanged original rendering",
+      "pass": true
+    },
+    {
+      "name": "all lifecycle operations preserve source and obstruction metadata",
+      "pass": true
+    },
+    {
+      "name": "missing ownership metadata refuses substitution without geometry mutation",
+      "pass": true
+    },
+    {
+      "name": "incomplete shell ownership retains original render without adding geometry",
+      "pass": true
+    },
+    {
+      "name": "invalid source heights refuse substitution without changing source or output",
+      "pass": true
+    },
+    {
+      "name": "missing open helper retains the original bounded relief and all stand detail",
+      "pass": true
+    },
+    {
+      "name": "candidate includes current pit helper",
+      "pass": true
+    }
+  ],
+  "stats": {
+    "version": "v7.94",
+    "modules": 26,
+    "triangles": 11544,
+    "triangleBudget": 14000,
+    "genuineOpenBays": true,
+    "opaqueFacadePanels": 0,
+    "sourceRowsUnchanged": true,
+    "sourceFootprintsUnchanged": true,
+    "sourceTopHeightsUnchanged": true,
+    "cameraObstructionUnchanged": true,
+    "originalArraysRetained": true,
+    "newGPUResources": 0,
+    "newDrawCalls": 0,
+    "perFrameGeometryWork": 0,
+    "bufferUploadsPerTransition": 2,
+    "decks": 52,
+    "roofSlopes": 52,
+    "steelColumns": 208,
+    "joists": 208,
+    "rails": 208,
+    "braces": 208,
+    "anchors": [
+      {
+        "sourceIndex": 2704,
+        "frontageEdge": 0,
+        "frontageLengthM": 23.147344232511724,
+        "laneDistanceM": 4.034691659264865,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 0,
+        "vertexEnd": 888,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2705,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205148,
+        "laneDistanceM": 5.046919516927075,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 888,
+        "vertexEnd": 1776,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2706,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926669,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 1776,
+        "vertexEnd": 2664,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2707,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.76857758205063,
+        "laneDistanceM": 5.046919516926805,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 2664,
+        "vertexEnd": 3552,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2708,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.68169357814745,
+        "laneDistanceM": 5.106285708468717,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 3552,
+        "vertexEnd": 4440,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2709,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 4440,
+        "vertexEnd": 5328,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2710,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169271925,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 5328,
+        "vertexEnd": 6216,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2711,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272085,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 6216,
+        "vertexEnd": 7104,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2712,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.69290801246361,
+        "laneDistanceM": 5.0469195169272005,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 7104,
+        "vertexEnd": 7992,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2713,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.888243257098484,
+        "laneDistanceM": 5.044772081982228,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 7992,
+        "vertexEnd": 8880,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2714,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.634331276589112,
+        "laneDistanceM": 5.044723708083001,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 8880,
+        "vertexEnd": 9768,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2715,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.981460644294046,
+        "laneDistanceM": 5.246891279705925,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 9768,
+        "vertexEnd": 10656,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2716,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.9648315717342,
+        "laneDistanceM": 5.046919516927046,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 10656,
+        "vertexEnd": 11544,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2717,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.07813519409607,
+        "laneDistanceM": 4.501767664993397,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 11544,
+        "vertexEnd": 12432,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2718,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.3268717495124,
+        "laneDistanceM": 4.8827587447387835,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 12432,
+        "vertexEnd": 13320,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2719,
+        "frontageEdge": 0,
+        "frontageLengthM": 19.05774298122324,
+        "laneDistanceM": 5.046919516927359,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 13320,
+        "vertexEnd": 14208,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2720,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.72605321147771,
+        "laneDistanceM": 4.873561072486895,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 14208,
+        "vertexEnd": 15096,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2721,
+        "frontageEdge": 0,
+        "frontageLengthM": 22.212207432431015,
+        "laneDistanceM": 5.046919516927183,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 15096,
+        "vertexEnd": 15984,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2722,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.294482684440595,
+        "laneDistanceM": 4.499796608016199,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 15984,
+        "vertexEnd": 16872,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2723,
+        "frontageEdge": 0,
+        "frontageLengthM": 20.227681833791113,
+        "laneDistanceM": 5.137915698293881,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 16872,
+        "vertexEnd": 17760,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2724,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576404355,
+        "laneDistanceM": 5.046919516927124,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 17760,
+        "vertexEnd": 18648,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2725,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.580608576405627,
+        "laneDistanceM": 5.046919516927057,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 18648,
+        "vertexEnd": 19536,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2726,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.724175825099813,
+        "laneDistanceM": 5.000631730586948,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 19536,
+        "vertexEnd": 20424,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2727,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926806,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 20424,
+        "vertexEnd": 21312,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2728,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566847,
+        "laneDistanceM": 5.046919516927443,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 21312,
+        "vertexEnd": 22200,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      },
+      {
+        "sourceIndex": 2729,
+        "frontageEdge": 0,
+        "frontageLengthM": 21.85770928566975,
+        "laneDistanceM": 5.046919516926816,
+        "sourceTop": 1.2,
+        "triangles": 444,
+        "vertexStart": 22200,
+        "vertexEnd": 23088,
+        "sourceBase": 0.030315522069818544,
+        "openLowerStorey": true,
+        "openUpperStorey": true
+      }
+    ],
+    "suppressedShellTriangles": 260,
+    "suppressedEdgeSegments": 104
+  }
+}

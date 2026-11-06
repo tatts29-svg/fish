@@ -1,0 +1,283 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 50,
+  "details": [
+    "flat-feet programme metre line is represented with42m",
+    "flat-feet19pieces are separate from standard barriers and bases",
+    "green-only physical work is typed and counted once",
+    "S10scrim is already recorded from24472 and must not be added again",
+    "shared Fencing overview counts all measured CCB3987m exactly once",
+    "measured unclassified10m has no raw category and is counted once overall",
+    "as-of dates exclude each later operation and source measurement",
+    "physical-relocation-24469 rejects changed 24469 id",
+    "physical-relocation-24469 rejects changed 24469 note_no",
+    "physical-relocation-24469 rejects changed 24469 date",
+    "physical-relocation-24469 rejects changed 24469 week",
+    "physical-relocation-24469 rejects changed 24469 usable",
+    "physical-relocation-24469 rejects changed 24469 location",
+    "physical-relocation-24469 rejects changed 24469 note",
+    "physical-relocation-24469 rejects changed 24469 crew_note",
+    "physical-relocation-24469 rejects changed 24469 labour_hours",
+    "physical-relocation-24469 rejects changed 24469 metres",
+    "physical-relocation-24469 rejects missing/changed source 24469.jpg",
+    "physical-relocation-24469 rejects added overlapping red work",
+    "physical-relocation-24469 rejects duplicated physical operation",
+    "physical-relocation-24474 rejects changed 24474 id",
+    "physical-relocation-24474 rejects changed 24474 note_no",
+    "physical-relocation-24474 rejects changed 24474 date",
+    "physical-relocation-24474 rejects changed 24474 week",
+    "physical-relocation-24474 rejects changed 24474 usable",
+    "physical-relocation-24474 rejects changed 24474 location",
+    "physical-relocation-24474 rejects changed 24474 note",
+    "physical-relocation-24474 rejects changed 24474 crew_note",
+    "physical-relocation-24474 rejects changed 24474 labour_hours",
+    "physical-relocation-24474 rejects changed 24474 metres",
+    "physical-relocation-24474 rejects missing/changed source 24474.jpg",
+    "physical-relocation-24474 rejects added overlapping red work",
+    "physical-relocation-24474 rejects duplicated physical operation",
+    "36595 rejects changed id",
+    "36595 rejects changed docket_no",
+    "36595 rejects changed date",
+    "36595 rejects changed week",
+    "36595 rejects changed scope",
+    "36595 rejects changed usable",
+    "36595 rejects changed quantities",
+    "36595 rejects changed components",
+    "36595 rejects changed location",
+    "36595 rejects changed note",
+    "36595 rejects missing source and duplicated identity",
+    "missing CCB source withholds percentage rather than silently reporting zero",
+    "counts stay gross: collections are separate, not subtracted from installations",
+    "finite bounded overall percentage and no false completion",
+    "all physical readers leave native records and source data untouched",
+    "actual charging and forecast functions remain identical to v958",
+    "all inline scripts parse"
+  ],
+  "quantities": {
+    "rows": [
+      {
+        "id": "clean",
+        "planned": 8222.5,
+        "recorded": 7655,
+        "pct": 93.1
+      },
+      {
+        "id": "scrim",
+        "planned": 4394.5,
+        "recorded": 1507.5,
+        "pct": 34.3
+      },
+      {
+        "id": "v_gates",
+        "planned": 135,
+        "recorded": 0,
+        "pct": 0
+      },
+      {
+        "id": "ped_gates",
+        "planned": 34,
+        "recorded": 7,
+        "pct": 20.59
+      },
+      {
+        "id": "ccb_event",
+        "planned": 2163,
+        "recorded": 755,
+        "pct": null
+      },
+      {
+        "id": "ccb_demarc",
+        "planned": 5205,
+        "recorded": 3180,
+        "pct": null
+      },
+      {
+        "id": "relocation",
+        "planned": 989,
+        "recorded": 370,
+        "pct": 37.41
+      },
+      {
+        "id": "removal",
+        "planned": 1133,
+        "recorded": 227.5,
+        "pct": 20.08
+      },
+      {
+        "id": "flat_feet",
+        "planned": 256,
+        "recorded": 42,
+        "pct": 16.41
+      },
+      {
+        "id": "fence_blocks",
+        "planned": null,
+        "recorded": 216,
+        "pct": null
+      },
+      {
+        "id": "labour",
+        "planned": null,
+        "recorded": 0,
+        "pct": null
+      },
+      {
+        "id": "ccb_unclassified",
+        "planned": null,
+        "recorded": 10,
+        "pct": null
+      }
+    ],
+    "overall": {
+      "asOf": "2026-10-09",
+      "health": {
+        "ready": true,
+        "loading": false,
+        "stale": false
+      },
+      "state": "ready",
+      "unit": "m",
+      "total": 22363,
+      "recorded": 13747,
+      "credited": {
+        "min": 13747,
+        "max": 13747
+      },
+      "left": {
+        "min": 8616,
+        "max": 8616
+      },
+      "pct": {
+        "min": 61.47,
+        "max": 61.47
+      },
+      "lampPct": 61.47,
+      "provisional": true,
+      "classificationPending": true,
+      "allGreen": false,
+      "rows": [
+        {
+          "id": "clean",
+          "label": "Clean fence",
+          "total": 8222.5,
+          "recorded": 7655,
+          "totalRange": null,
+          "recordedRange": null,
+          "credited": 7655,
+          "left": 567.5,
+          "provisional": true,
+          "classificationPending": false
+        },
+        {
+          "id": "scrim",
+          "label": "Braced for scrim",
+          "total": 4394.5,
+          "recorded": 1507.5,
+          "totalRange": null,
+          "recordedRange": null,
+          "credited": 1507.5,
+          "left": 2887,
+          "provisional": true,
+          "classificationPending": false
+        },
+        {
+          "id": "relocation",
+          "label": "Relocations",
+          "total": 989,
+          "recorded": 370,
+          "totalRange": null,
+          "recordedRange": null,
+          "credited": 370,
+          "left": 619,
+          "provisional": true,
+          "classificationPending": false
+        },
+        {
+          "id": "removal",
+          "label": "Removed or stacked down",
+          "total": 1133,
+          "recorded": 227.5,
+          "totalRange": null,
+          "recordedRange": null,
+          "credited": 227.5,
+          "left": 905.5,
+          "provisional": false,
+          "classificationPending": false
+        },
+        {
+          "id": "ccb_event",
+          "label": "Crowd control · event",
+          "total": 2163,
+          "recorded": 755,
+          "totalRange": null,
+          "recordedRange": {
+            "min": 755,
+            "max": 765
+          },
+          "credited": null,
+          "left": null,
+          "provisional": true,
+          "classificationPending": true
+        },
+        {
+          "id": "ccb_demarc",
+          "label": "Crowd control · demarcation",
+          "total": 5205,
+          "recorded": 3180,
+          "totalRange": null,
+          "recordedRange": {
+            "min": 3180,
+            "max": 3190
+          },
+          "credited": null,
+          "left": null,
+          "provisional": false,
+          "classificationPending": true
+        },
+        {
+          "id": "flat_feet",
+          "label": "CCB flat feet",
+          "total": 256,
+          "recorded": 42,
+          "totalRange": null,
+          "recordedRange": null,
+          "credited": 42,
+          "left": 214,
+          "provisional": true,
+          "classificationPending": false
+        }
+      ],
+      "gates": [
+        {
+          "id": "v_gates",
+          "label": "Vehicle gates",
+          "total": 135,
+          "done": 0,
+          "left": 135,
+          "provisional": true,
+          "unit": "programme gates"
+        },
+        {
+          "id": "ped_gates",
+          "label": "Pedestrian gates",
+          "total": 34,
+          "done": 7,
+          "left": 27,
+          "provisional": true,
+          "unit": "programme gates"
+        }
+      ],
+      "issues": [
+        "The pending CCB quantity is shared once between Event and Demarcation. The range preserves every possible allocation without counting both upper bounds.",
+        "One or more current programme totals are provisional. This reading is not a confirmed physical completion sign-off."
+      ],
+      "basis": "Build + Event programme work metres. Each activity counts up to its own current programme total. Extra work cannot cover another activity’s shortfall. This measures work recorded, not unique standing fence length or whole-job physical completion. Demob, gate counts, components, hours and reinstatement without a programme total are separate.",
+      "excess": {
+        "min": 0,
+        "max": 0
+      }
+    }
+  },
+  "stateUnchanged": true
+}

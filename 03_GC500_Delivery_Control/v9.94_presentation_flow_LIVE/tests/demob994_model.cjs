@@ -1,0 +1,21 @@
+// Author: Andrew Fisher. Actual native email renderer with explicit mixed-branch load fixtures.
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const html=fs.readFileSync(process.env.PAGE,'utf8');
+const start=html.indexOf('function mail816('),end=html.indexOf('function wireDemob816(',start);
+assert(start>0&&end>start,'Native email renderer found');
+const row=(key,branch)=>({key,branch,zone:'z',src:'plan',a:{item_types:['FWF']},empty:false,ownerUnk:0});
+const a=row('A-MIX','KINP'),b=row('B-MIX','NVAC'),other=row('B-ONLY','NVAC'),own=row('A-OWN','KINP');
+const load=(id,n,stream,rows)=>({id,n,stream,units:rows.length,cap:24,rows:rows.map(r=>({r,n:1}))});
+const mixed=load('mixed',1,'sub',[a,b]),pure=load('other',2,'sub',[other]),coates=load('own',3,'coates',[own]);
+const all=[mixed,pure,coates],before=JSON.stringify(all);
+const ctx={DM816:{order:['z'],name:{z:'Fixture area'}},dayWords816:x=>x,demob816:()=>({day:{day:{loads:all}}}),DP_MAIL_MAX:100000,encodeURIComponent,kindWord:()=>'',console};
+vm.createContext(ctx);vm.runInContext(html.slice(start,end),ctx);
+const body=(branch,rows,loads)=>decodeURIComponent(ctx.mail816('day',branch,rows,loads.map(toilet=>({toilet}))).split('&body=')[1]);
+const filtered=body('KINP',[a,own],[mixed,coates]);
+assert(filtered.includes('A-MIX x1')&&filtered.includes('B-MIX x1'),'Matching mixed load remains complete');
+assert(filtered.includes('A-OWN x1'),'Matching Coates load retained');
+assert(!filtered.includes('B-ONLY'),'Unrelated branch load excluded');
+assert(body('all',[a,b,other,own],all).includes('B-ONLY x1'),'All branches retains every load');
+assert(!body('KINP',[a],[]).includes('Load 1'),'No selected truck loads does not invent a toilet run');
+assert.equal(JSON.stringify(all),before,'Physical load fixtures unchanged');
+console.log(JSON.stringify({author:'Andrew Fisher',checks:6,pass:true,scope:'native mail renderer; mixed-branch fixture'}));

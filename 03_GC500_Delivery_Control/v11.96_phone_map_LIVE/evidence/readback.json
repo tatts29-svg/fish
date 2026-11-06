@@ -1,0 +1,14 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.96",
+  "source_commit": "b711815480033ab1e55ac75e6e54bb520d306af1",
+  "sha256": "f8a93ce25459abd4493e65a28d9e9170d031237302b35af2ea1cf419bca08b68",
+  "bytes": 21999025,
+  "public_get_at_utc": "2026-10-24T16:16:14.856108+00:00",
+  "http_status": 200,
+  "exact_bytes": true,
+  "map_viewport_module": true,
+  "showcase_scene": true,
+  "truck_module": true,
+  "footer": true
+}

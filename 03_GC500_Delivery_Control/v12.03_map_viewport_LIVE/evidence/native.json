@@ -1,0 +1,574 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "map still loads only when opened",
+      "ok": true
+    },
+    {
+      "name": "ultrawide map stage exceeds 500px instead of 282px",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 2226,
+          "height": 595,
+          "bottom": 649
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 2528,
+          "height": 651,
+          "bottom": 1026.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 2526,
+          "height": 649,
+          "bottom": 1025.53125
+        },
+        "full": {
+          "x": 2430.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "height choice and Full screen are visible above the map",
+      "ok": true
+    },
+    {
+      "name": "Large increases the map by at least 200px",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 2226,
+          "height": 830,
+          "bottom": 884
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 2528,
+          "height": 886,
+          "bottom": 1261.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 2526,
+          "height": 884,
+          "bottom": 1260.53125
+        },
+        "full": {
+          "x": 2430.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "Extra tall gives a larger scrollable map",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 2226,
+          "height": 1186,
+          "bottom": 1240
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 2528,
+          "height": 1242,
+          "bottom": 1617.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 2526,
+          "height": 1240,
+          "bottom": 1616.53125
+        },
+        "full": {
+          "x": 2430.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "height change retains the same explorer and device preference",
+      "ok": true
+    },
+    {
+      "name": "scrolling and repeated sizing do not grow the map",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 2226,
+          "height": 1186,
+          "bottom": 1240
+        },
+        "wrap": {
+          "x": 16,
+          "y": 125.53125,
+          "width": 2528,
+          "height": 1242,
+          "bottom": 1367.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 126.53125,
+          "width": 2526,
+          "height": 1240,
+          "bottom": 1366.53125
+        },
+        "full": {
+          "x": 2430.3125,
+          "y": -5.46875,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 38.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 250
+      }
+    },
+    {
+      "name": "Fit screen restores the original usable height",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          2560,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 2226,
+          "height": 595,
+          "bottom": 649
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 2528,
+          "height": 651,
+          "bottom": 1026.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 2526,
+          "height": 649,
+          "bottom": 1025.53125
+        },
+        "full": {
+          "x": 2430.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 2560,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "1280px screen fits a usable map",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          1280,
+          720
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 946,
+          "height": 312,
+          "bottom": 366
+        },
+        "wrap": {
+          "x": 16,
+          "y": 298.53125,
+          "width": 1248,
+          "height": 368,
+          "bottom": 666.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 299.53125,
+          "width": 1246,
+          "height": 366,
+          "bottom": 665.53125
+        },
+        "full": {
+          "x": 1150.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "1920px screen fits a usable map",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          1920,
+          1080
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 1586,
+          "height": 595,
+          "bottom": 649
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 1888,
+          "height": 651,
+          "bottom": 1026.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 1886,
+          "height": 649,
+          "bottom": 1025.53125
+        },
+        "full": {
+          "x": 1790.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "3440px screen fits a usable map",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          3440,
+          1440
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 3106,
+          "height": 955,
+          "bottom": 1009
+        },
+        "wrap": {
+          "x": 16,
+          "y": 375.53125,
+          "width": 3408,
+          "height": 1011,
+          "bottom": 1386.53125
+        },
+        "frame": {
+          "x": 17,
+          "y": 376.53125,
+          "width": 3406,
+          "height": 1009,
+          "bottom": 1385.53125
+        },
+        "full": {
+          "x": 3310.3125,
+          "y": 244.53125,
+          "width": 113.6875,
+          "height": 44,
+          "bottom": 288.53125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 3440,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "Full screen fills the window without clipping",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          3440,
+          1440
+        ],
+        "stage": {
+          "x": 300,
+          "y": 54,
+          "width": 3118,
+          "height": 1225,
+          "bottom": 1279
+        },
+        "wrap": {
+          "x": 10,
+          "y": 149,
+          "width": 3420,
+          "height": 1281,
+          "bottom": 1430
+        },
+        "frame": {
+          "x": 11,
+          "y": 150,
+          "width": 3418,
+          "height": 1279,
+          "bottom": 1429
+        },
+        "full": {
+          "x": 3290.640625,
+          "y": 8,
+          "width": 139.359375,
+          "height": 44,
+          "bottom": 52
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 3440,
+          "height": 131,
+          "bottom": 131
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "exit remains visible and height choice is hidden in Full screen",
+      "ok": true
+    },
+    {
+      "name": "Escape inside the embedded map exits and returns focus",
+      "ok": true
+    },
+    {
+      "name": "native zoom control remains usable",
+      "ok": true
+    },
+    {
+      "name": "other tabs restore the event header",
+      "ok": true
+    },
+    {
+      "name": "returning to Map retains chosen height",
+      "ok": true
+    },
+    {
+      "name": "reloading retains the device-only height preference",
+      "ok": true
+    },
+    {
+      "name": "phone keeps its existing map workspace",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          390,
+          844
+        ],
+        "stage": {
+          "x": 0,
+          "y": 58,
+          "width": 372,
+          "height": 355,
+          "bottom": 413
+        },
+        "wrap": {
+          "x": 8,
+          "y": 382.03125,
+          "width": 374,
+          "height": 415,
+          "bottom": 797.03125
+        },
+        "frame": {
+          "x": 9,
+          "y": 383.03125,
+          "width": 372,
+          "height": 413,
+          "bottom": 796.03125
+        },
+        "full": {
+          "x": 284.3125,
+          "y": 330.03125,
+          "width": 97.6875,
+          "height": 44,
+          "bottom": 374.03125
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 148.5,
+          "bottom": 148.5
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "phone full-screen still fits",
+      "ok": true,
+      "detail": {
+        "viewport": [
+          390,
+          844
+        ],
+        "stage": {
+          "x": 0,
+          "y": 58,
+          "width": 368,
+          "height": 706,
+          "bottom": 764
+        },
+        "wrap": {
+          "x": 10,
+          "y": 68,
+          "width": 370,
+          "height": 766,
+          "bottom": 834
+        },
+        "frame": {
+          "x": 11,
+          "y": 69,
+          "width": 368,
+          "height": 764,
+          "bottom": 833
+        },
+        "full": {
+          "x": 256.640625,
+          "y": 16,
+          "width": 123.359375,
+          "height": 44,
+          "bottom": 60
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 148.5,
+          "bottom": 148.5
+        },
+        "overflow": false,
+        "mainScroll": 0
+      }
+    },
+    {
+      "name": "phone embedded-map Escape closes expanded view",
+      "ok": true
+    },
+    {
+      "name": "shared record unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors and attempted writes",
+      "ok": true,
+      "detail": {
+        "errors": [],
+        "writes": 0
+      }
+    }
+  ]
+}

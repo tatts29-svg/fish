@@ -1,0 +1,2979 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T022802Z",
+ "finished": "2026-11-02T02:28:52.225Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\". Every toilet and waste-tank reference still on site without the Emptied tick (17 of the 23; WC01, WC09, WC20, WC67, WC81 and T0024 already carry it) gets it through the page's own setEmptied816 in his name, so the page's emptied gate no longer holds their departure forms shut. Read from the live record 12802. Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "emptied",
+    "ref": "WC02",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC04",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC05",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC06",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC07",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC100",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC11",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC12",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC15",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC16",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC17",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC21",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC27",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC31",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC50",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "WC60",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   },
+   {
+    "op": "emptied",
+    "ref": "T0243",
+    "on": true,
+    "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")"
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12809,
+  "after": 12826
+ },
+ "updated": {
+  "before": "2026-11-02T02:27:27.916Z",
+  "after": "2026-11-02T02:28:51.156Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "emptied",
+   "ref": "WC02",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:21.542Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC04",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:22.349Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC05",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:23.282Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC06",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:24.076Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC07",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:25.114Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC100",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:25.994Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC11",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:26.729Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC12",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:27.502Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC15",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:28.235Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC16",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:29.141Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC17",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:30.068Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC21",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:30.922Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC27",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:31.614Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC31",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:32.324Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC50",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:33.116Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC60",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:33.949Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "T0243",
+   "on": true,
+   "why": "Andrew Fisher, 2 Nov 2026 12:xx AEST: \"All Toilets are meant to be stated as Puimped out already\" (and 30 Oct 2026: \"all toilets have been pumped out this was done on sunday night via servicing\")",
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-11-02T02:28:34.696Z"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC16",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC21",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC12",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC11",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC100",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC05",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC17",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC02",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC04",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC07",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC50",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC06",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC15",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC27",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC31",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0243",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC60",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC16": {
+    "state": "on site",
+    "set_at": "2026-09-14T00:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:17.764Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:30:23.555Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-16T06:52:22.553Z",
+    "eta": "07:00",
+    "note": "1322588 on site 08:00 · 1322587 on site 10:30 · both landed · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T00:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-16T06:52:20.924Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-16T06:52:22.553Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:18.591Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-16T06:52:20.924Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     },
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:30:17.764Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:30:23.555Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:22.950Z"
+    },
+    "loading872": {
+     "u1322587": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:53:17.791Z"
+     },
+     "u1322588": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:53:26.466Z"
+     }
+    },
+    "_k": "WC16"
+   },
+   "delivery/WC21": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 6 of 6 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:47.009Z"
+    },
+    "loading872": {
+     "u1002747": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:27.212Z"
+     },
+     "u1103497": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:31.239Z"
+     },
+     "u1212172": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:35.680Z"
+     },
+     "u1211964": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:42.962Z"
+     },
+     "u1211971": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:47.117Z"
+     },
+     "u1211977": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:51.849Z"
+     }
+    },
+    "_k": "WC21"
+   },
+   "delivery/WC12": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:10.801Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 4 of 4 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:56.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:10.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:50:23.056Z"
+    },
+    "loading872": {
+     "u1002565": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:04.629Z"
+     },
+     "u1200601": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:08.289Z"
+     },
+     "u1211961": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:11.214Z"
+     },
+     "u1211963": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:15.836Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1002565": {
+      "on": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1200601": {
+      "on": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211961": {
+      "on": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211963": {
+      "on": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1002565",
+      "ready": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1200601",
+      "ready": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211961",
+      "ready": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211963",
+      "ready": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC12"
+   },
+   "delivery/WC11": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:04.144Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-28T04:02:03.894Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T21:30:08.156Z",
+    "eta": "07:00",
+    "note": "Both here 12:00 · 2 of 2 asked for · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-17T21:30:08.156Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:54.080Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T21:35:00.764Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T04:02:03.894Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:36.816Z"
+    },
+    "loading872": {
+     "u1211976": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:06.955Z"
+     },
+     "u1211969": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:11.331Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1211969": {
+      "on": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1211969",
+      "ready": true,
+      "at": "2026-11-02T02:26:48.551Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211969",
+      "ready": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC11"
+   },
+   "delivery/WC100": {
+    "state": "on site",
+    "set_at": "2026-09-14T03:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:37.213Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both trailers put down 13:30 and in place · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:02.902Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:37.213Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:41:48.299Z"
+    },
+    "loading872": {
+     "u1248439": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:55:59.406Z"
+     }
+    },
+    "_k": "WC100"
+   },
+   "delivery/WC05": {
+    "state": "on site",
+    "set_at": "2026-09-14T06:45:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:54.659Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-16T06:51:56.273Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T06:45:00Z",
+    "eta": "07:00",
+    "note": "Toilet block and waste tank both here · TIME ON SITE NOT RECORDED — stamped at the moment it was entered · entered 14 Sep 16:45 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:54.659Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-16T06:51:56.273Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:47:46.024Z"
+    },
+    "loading872": {
+     "u1097377": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:47:32.450Z"
+     }
+    },
+    "_k": "WC05"
+   },
+   "delivery/WC17": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:19:18.199Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-18T00:09:03.051Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-22T05:34:01.431Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:19:18.199Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-18T00:09:03.051Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-22T05:34:01.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:40:09.779Z"
+    },
+    "loading872": {
+     "u1327223": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:57.538Z"
+     },
+     "u1327224": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:40:02.138Z"
+     }
+    },
+    "_k": "WC17"
+   },
+   "delivery/WC02": {
+    "state": "on site",
+    "set_at": "2026-09-22T01:12:34.934Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:04:11.908Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:55.116Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T01:12:34.934Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:55.116Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T02:04:09.480Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:04:11.908Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T08:05:09.703Z"
+    },
+    "loading872": {
+     "u1058086": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T08:05:25.001Z"
+     }
+    },
+    "_k": "WC02"
+   },
+   "delivery/WC04": {
+    "state": "on site",
+    "set_at": "2026-09-22T01:13:36.499Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:56.009Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T01:13:36.499Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:56.009Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1212502": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T08:03:37.102Z"
+     }
+    },
+    "_k": "WC04"
+   },
+   "delivery/WC07": {
+    "state": "on site",
+    "set_at": "2026-09-22T06:10:22.490Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-22T06:10:22.490Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:36:02.178Z"
+    },
+    "loading872": {
+     "u1181004": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:40.045Z"
+     },
+     "u1002538": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:51.245Z"
+     },
+     "u1317647": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:06.084Z"
+     },
+     "u1212552": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:12.171Z"
+     },
+     "u1002566": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:18.906Z"
+     },
+     "u1083300": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:26.412Z"
+     },
+     "u1200595": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:30.941Z"
+     },
+     "u1317652": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:38.556Z"
+     },
+     "u1211959": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:10.552Z"
+     },
+     "u1002715": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:18.882Z"
+     },
+     "u1002651": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:24.146Z"
+     },
+     "u1317658": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:29.098Z"
+     },
+     "u1192643": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:36.426Z"
+     },
+     "u1317632": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:41.470Z"
+     },
+     "u1317649": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:49.152Z"
+     },
+     "u1317743": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:00.325Z"
+     },
+     "u1317641": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:09.349Z"
+     },
+     "u1317648": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:15.988Z"
+     },
+     "u1317626": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:22.056Z"
+     },
+     "u1317640": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:29.616Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1212552": {
+      "on": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317640": {
+      "on": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317632": {
+      "on": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317641": {
+      "on": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317643": {
+      "on": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317647": {
+      "on": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317648": {
+      "on": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317649": {
+      "on": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317652": {
+      "on": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317658": {
+      "on": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1212552",
+      "ready": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317640",
+      "ready": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317632",
+      "ready": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317641",
+      "ready": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317643",
+      "ready": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317647",
+      "ready": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317648",
+      "ready": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317649",
+      "ready": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317652",
+      "ready": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317658",
+      "ready": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC07"
+   },
+   "delivery/WC50": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:22.627Z",
+    "by": "Andrew Fisher",
+    "date": "2026-09-21",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-09-26T19:34:37.971Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:22.627Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:20.621Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:22.627Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:22.627Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC50"
+   },
+   "delivery/WC06": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:57.141Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:57.141Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:57.141Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:57.141Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC06"
+   },
+   "delivery/WC15": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:13:32.209Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:47:59.666Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:05.698Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T03:13:39.421Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:13:32.209Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T03:13:39.421Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:47:59.666Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:05.698Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:42:49.030Z"
+    },
+    "loading872": {
+     "u1327226": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:26.354Z"
+     },
+     "u1303835": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:29.583Z"
+     }
+    },
+    "_k": "WC15"
+   },
+   "delivery/WC27": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:14:51.205Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:48:34.143Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:45.256Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:12:37.342Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:14:51.205Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:12:37.342Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:48:34.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:45.256Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:41:50.288Z"
+    },
+    "loading872": {
+     "u1119484": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:39:04.071Z"
+     }
+    },
+    "_k": "WC27"
+   },
+   "delivery/WC31": {
+    "state": "on site",
+    "set_at": "2026-09-25T06:13:00.232Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-09",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-08T02:14:03.807Z",
+    "pickup1238_units": {
+     "coates|1317645": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:32.013Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:13:00.232Z",
+    "note": "Event Portables 16-pan block 74 is on site and in place, confirmed by Andrew Fisher on 9 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317645",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:32.013Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-09T01:49:35.515Z"
+    },
+    "_k": "WC31"
+   },
+   "delivery/T0243": {
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-27T17:47:12.974Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:47:12.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0243"
+   },
+   "delivery/WC60": {
+    "state": "on site",
+    "set_at": "2026-10-01T04:03:44.722Z",
+    "by": "Andrew Fisher via Codex",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher via Codex",
+    "levelled_at": "2026-10-01T04:03:44.722Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher via Codex",
+    "steps_at": "2026-10-01T04:03:44.849Z",
+    "ready1238_units": {
+     "coates|1087500": {
+      "on": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1119489": {
+      "on": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T04:03:44.722Z",
+    "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-01T04:03:44.849Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1087500",
+      "ready": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1119489",
+      "ready": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC60"
+   }
+  },
+  "after": {
+   "delivery/WC16": {
+    "state": "on site",
+    "set_at": "2026-09-14T00:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:17.764Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:30:23.555Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-16T06:52:22.553Z",
+    "eta": "07:00",
+    "note": "1322588 on site 08:00 · 1322587 on site 10:30 · both landed · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T00:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-16T06:52:20.924Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-16T06:52:22.553Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:18.591Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-16T06:52:20.924Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     },
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:30:17.764Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:30:23.555Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:22.950Z"
+    },
+    "loading872": {
+     "u1322587": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:53:17.791Z"
+     },
+     "u1322588": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:53:26.466Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:29.141Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:29.141Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC16"
+   },
+   "delivery/WC21": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 6 of 6 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:47.009Z"
+    },
+    "loading872": {
+     "u1002747": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:27.212Z"
+     },
+     "u1103497": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:31.239Z"
+     },
+     "u1212172": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:35.680Z"
+     },
+     "u1211964": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:42.962Z"
+     },
+     "u1211971": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:47.117Z"
+     },
+     "u1211977": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:49:51.849Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:30.922Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:30.922Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC21"
+   },
+   "delivery/WC12": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:10.801Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here 12:00 · 4 of 4 asked for, all numbered · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:56.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:10.801Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:50:23.056Z"
+    },
+    "loading872": {
+     "u1002565": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:04.629Z"
+     },
+     "u1200601": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:08.289Z"
+     },
+     "u1211961": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:11.214Z"
+     },
+     "u1211963": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:50:15.836Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1002565": {
+      "on": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1200601": {
+      "on": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211961": {
+      "on": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1211963": {
+      "on": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1002565",
+      "ready": true,
+      "at": "2026-11-02T02:27:07.718Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1200601",
+      "ready": true,
+      "at": "2026-11-02T02:27:11.921Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211961",
+      "ready": true,
+      "at": "2026-11-02T02:27:16.455Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211963",
+      "ready": true,
+      "at": "2026-11-02T02:27:25.785Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:27.502Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:27.502Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC12"
+   },
+   "delivery/WC11": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:30:04.144Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-28T04:02:03.894Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T21:30:08.156Z",
+    "eta": "07:00",
+    "note": "Both here 12:00 · 2 of 2 asked for · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-17T21:30:08.156Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:29:54.080Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-17T21:30:04.144Z",
+      "by": "Andrew Fisher",
+      "because": "complete un-ticked"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T21:35:00.764Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T04:02:03.894Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:36.816Z"
+    },
+    "loading872": {
+     "u1211976": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:06.955Z"
+     },
+     "u1211969": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:42:11.331Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1211969": {
+      "on": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1211969",
+      "ready": true,
+      "at": "2026-11-02T02:26:48.551Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1211969",
+      "ready": false,
+      "at": "2026-11-02T02:26:58.570Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:26.729Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:26.729Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC11"
+   },
+   "delivery/WC100": {
+    "state": "on site",
+    "set_at": "2026-09-14T03:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:37.213Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both trailers put down 13:30 and in place · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:02.902Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:37.213Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:41:48.299Z"
+    },
+    "loading872": {
+     "u1248439": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:55:59.406Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.994Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.994Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC100"
+   },
+   "delivery/WC05": {
+    "state": "on site",
+    "set_at": "2026-09-14T06:45:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:54.659Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-16T06:51:56.273Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T06:45:00Z",
+    "eta": "07:00",
+    "note": "Toilet block and waste tank both here · TIME ON SITE NOT RECORDED — stamped at the moment it was entered · entered 14 Sep 16:45 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:54.659Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-16T06:51:56.273Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:47:46.024Z"
+    },
+    "loading872": {
+     "u1097377": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:47:32.450Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:23.282Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:23.282Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC05"
+   },
+   "delivery/WC17": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:19:18.199Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-18T00:09:03.051Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-22T05:34:01.431Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:19:18.199Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-18T00:09:03.051Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-22T05:34:01.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:40:09.779Z"
+    },
+    "loading872": {
+     "u1327223": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:57.538Z"
+     },
+     "u1327224": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:40:02.138Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:30.068Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:30.068Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC17"
+   },
+   "delivery/WC02": {
+    "state": "on site",
+    "set_at": "2026-09-22T01:12:34.934Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:04:11.908Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:55.116Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T01:12:34.934Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:55.116Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-23T02:04:09.480Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:04:11.908Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T08:05:09.703Z"
+    },
+    "loading872": {
+     "u1058086": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T08:05:25.001Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:21.542Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:21.542Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC02"
+   },
+   "delivery/WC04": {
+    "state": "on site",
+    "set_at": "2026-09-22T01:13:36.499Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:56.009Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T01:13:36.499Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:56.009Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1212502": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T08:03:37.102Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:22.349Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:22.349Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC04"
+   },
+   "delivery/WC07": {
+    "state": "on site",
+    "set_at": "2026-09-22T06:10:22.490Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-22T06:10:22.490Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-22T06:10:22.490Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:36:02.178Z"
+    },
+    "loading872": {
+     "u1181004": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:40.045Z"
+     },
+     "u1002538": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:34:51.245Z"
+     },
+     "u1317647": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:06.084Z"
+     },
+     "u1212552": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:12.171Z"
+     },
+     "u1002566": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:18.906Z"
+     },
+     "u1083300": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:26.412Z"
+     },
+     "u1200595": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:30.941Z"
+     },
+     "u1317652": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:35:38.556Z"
+     },
+     "u1211959": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:10.552Z"
+     },
+     "u1002715": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:18.882Z"
+     },
+     "u1002651": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:24.146Z"
+     },
+     "u1317658": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:29.098Z"
+     },
+     "u1192643": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:36.426Z"
+     },
+     "u1317632": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:41.470Z"
+     },
+     "u1317649": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:36:49.152Z"
+     },
+     "u1317743": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:00.325Z"
+     },
+     "u1317641": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:09.349Z"
+     },
+     "u1317648": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:15.988Z"
+     },
+     "u1317626": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:22.056Z"
+     },
+     "u1317640": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:37:29.616Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1212552": {
+      "on": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317640": {
+      "on": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317632": {
+      "on": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317641": {
+      "on": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317643": {
+      "on": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317647": {
+      "on": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317648": {
+      "on": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317649": {
+      "on": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317652": {
+      "on": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1317658": {
+      "on": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1212552",
+      "ready": true,
+      "at": "2026-11-02T02:24:45.495Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317640",
+      "ready": true,
+      "at": "2026-11-02T02:24:51.609Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317632",
+      "ready": true,
+      "at": "2026-11-02T02:24:55.996Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317641",
+      "ready": true,
+      "at": "2026-11-02T02:24:59.409Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317643",
+      "ready": true,
+      "at": "2026-11-02T02:25:02.859Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317647",
+      "ready": true,
+      "at": "2026-11-02T02:25:06.389Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317648",
+      "ready": true,
+      "at": "2026-11-02T02:25:14.499Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317649",
+      "ready": true,
+      "at": "2026-11-02T02:25:18.858Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317652",
+      "ready": true,
+      "at": "2026-11-02T02:25:42.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1317658",
+      "ready": true,
+      "at": "2026-11-02T02:25:48.786Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.114Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.114Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC07"
+   },
+   "delivery/WC50": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:22.627Z",
+    "by": "Andrew Fisher",
+    "date": "2026-09-21",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-09-26T19:34:37.971Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:22.627Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-22T15:57:20.621Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:22.627Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:22.627Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:33.116Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:33.116Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC50"
+   },
+   "delivery/WC06": {
+    "state": "on site",
+    "set_at": "2026-09-23T02:02:57.141Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-23T02:02:57.141Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-23T02:02:57.141Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:02:57.141Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:24.076Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:24.076Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC06"
+   },
+   "delivery/WC15": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:13:32.209Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:47:59.666Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:05.698Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T03:13:39.421Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:13:32.209Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T03:13:39.421Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:47:59.666Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:05.698Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:42:49.030Z"
+    },
+    "loading872": {
+     "u1327226": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:26.354Z"
+     },
+     "u1303835": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:29.583Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:28.235Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:28.235Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC15"
+   },
+   "delivery/WC27": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:14:51.205Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:48:34.143Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:45.256Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:12:37.342Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:14:51.205Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:12:37.342Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:48:34.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:45.256Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:41:50.288Z"
+    },
+    "loading872": {
+     "u1119484": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:39:04.071Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:31.614Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:31.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC27"
+   },
+   "delivery/WC31": {
+    "state": "on site",
+    "set_at": "2026-09-25T06:13:00.232Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-09",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-08T02:14:03.807Z",
+    "pickup1238_units": {
+     "coates|1317645": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:32.013Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:13:00.232Z",
+    "note": "Event Portables 16-pan block 74 is on site and in place, confirmed by Andrew Fisher on 9 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317645",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:32.013Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-09T01:49:35.515Z"
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:32.324Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:32.324Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC31"
+   },
+   "delivery/T0243": {
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-27T17:47:12.974Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:47:12.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:34.696Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:34.696Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0243"
+   },
+   "delivery/WC60": {
+    "state": "on site",
+    "set_at": "2026-10-01T04:03:44.722Z",
+    "by": "Andrew Fisher via Codex",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher via Codex",
+    "levelled_at": "2026-10-01T04:03:44.722Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher via Codex",
+    "steps_at": "2026-10-01T04:03:44.849Z",
+    "ready1238_units": {
+     "coates|1087500": {
+      "on": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1119489": {
+      "on": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T04:03:44.722Z",
+    "note": "Toilet block 1119489 with waste tank 1328980; toilet block 1087500 with waste tank 1328981 — both installed and levelled, stairs on. Andrew Fisher, 1 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-01T04:03:44.722Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-01T04:03:44.849Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1087500",
+      "ready": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1119489",
+      "ready": true,
+      "at": "2026-10-26T20:16:53.695Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:33.949Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:33.949Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC60"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

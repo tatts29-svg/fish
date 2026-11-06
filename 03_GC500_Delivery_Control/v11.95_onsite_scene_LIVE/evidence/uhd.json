@@ -1,0 +1,33 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b",
+  "passed": 5,
+  "checks": [
+    {
+      "name": "native 3840 by 2160 target and four-sample smoothing",
+      "ok": true
+    },
+    {
+      "name": "fifth-lap scene renders with two wordmarks and no GL error",
+      "ok": true
+    },
+    {
+      "name": "saved preview is genuinely 3840 by 2160",
+      "ok": true
+    },
+    {
+      "name": "Close frees the scene and shared record stays unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors or writes",
+      "ok": true
+    }
+  ],
+  "frame": [
+    3840,
+    2160
+  ],
+  "samples": 4,
+  "method": "Read-only Chromium software GPU, bounded frame; shadows and reflections disabled. No physical-device FPS claim."
+}

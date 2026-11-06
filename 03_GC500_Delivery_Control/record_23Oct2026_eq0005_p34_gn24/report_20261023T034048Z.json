@@ -1,0 +1,274 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261023T034048Z",
+ "finished": "2026-10-23T03:41:09.607Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 23 Oct 2026 12:58, on the three Questions-tab items left after v11.53: \"EQ0005 fork extensions arrived yes they did and P34 pad chairs are here just add the qty no assets on these chairs you have the Gn24 numbers 1277089\". Through the page's own controls, as an editor would: the fork extensions' light on site and 1 of 1 received; the two pad chairs received (no asset numbers - chairs are counted by quantity); 1277089, already on GN24 as its unit record but identified as the old 80kva item, re-identified as the 60kva the reference now is. Nothing else changes.",
+  "ops": [
+   {
+    "op": "light",
+    "ref": "EQ0005",
+    "state": "on site"
+   },
+   {
+    "op": "supplied",
+    "ref": "EQ0005",
+    "item": "Fork Extensions 2.4m",
+    "qty": 1
+   },
+   {
+    "op": "supplied",
+    "ref": "P34",
+    "item": "Pad Chair",
+    "qty": 2
+   },
+   {
+    "op": "unit_reidentify",
+    "ref": "GN24",
+    "no": "1277089",
+    "item": "60kva",
+    "owner": "coates"
+   }
+  ]
+ },
+ "pageSha256": "d23c1278283e5c7225d946d81f7372796f3d53d86fa6410cc811b08abe6be410",
+ "version": {
+  "before": 10545,
+  "after": 10557
+ },
+ "updated": {
+  "before": "2026-10-22T03:37:02.512Z",
+  "after": "2026-10-23T03:41:08.725Z"
+ },
+ "stage": [
+  {
+   "op": "light",
+   "ref": "EQ0005",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "supplied",
+   "ref": "EQ0005",
+   "item": "Fork Extensions 2.4m",
+   "qty": 1,
+   "result": "Fork Extensions 2.4m supplied 1"
+  },
+  {
+   "op": "supplied",
+   "ref": "P34",
+   "item": "Pad Chair",
+   "qty": 2,
+   "result": "Pad Chair supplied 2"
+  },
+  {
+   "op": "unit_reidentify",
+   "ref": "GN24",
+   "no": "1277089",
+   "item": "60kva",
+   "owner": "coates",
+   "result": "identified as 60kva"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0005",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~P34~2f~Pad~20~Chair",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~83679959-81a7-4f36-8927-e46539bd9243",
+   "status": 200
+  },
+  {
+   "key": "supplied/EQ0005",
+   "status": 200
+  },
+  {
+   "key": "supplied/P34",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~P34~2f~Pad~20~Chair",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/EQ0005": null,
+   "stamps/loads~2f~unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd": {
+    "_k": "loads/unit925/2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "v": "2026-10-19T04:24:35.670Z"
+   },
+   "stamps/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m": null,
+   "stamps/supplied~2f~P34~2f~Pad~20~Chair": null,
+   "stamps/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": null,
+   "loads/unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd": {
+    "ref": "GN24",
+    "owner": "coates",
+    "assetNo": "1277089",
+    "item": "80kva",
+    "label": "80kva",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "nativeId": "slot:2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "transportId": "[\"GN24\",\"coates\",\"native\",\"slot:2b6d44f0-93cc-40d6-831c-6873c9b6b2bd\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T04:24:35.670Z",
+    "_k": "unit925/2b6d44f0-93cc-40d6-831c-6873c9b6b2bd"
+   },
+   "loads/unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": null,
+   "supplied/EQ0005": null,
+   "supplied/P34": null,
+   "by/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m": null,
+   "by/supplied~2f~P34~2f~Pad~20~Chair": null,
+   "by/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": null
+  },
+  "after": {
+   "delivery/EQ0005": {
+    "state": "on site",
+    "set_at": "2026-10-23T03:40:54.902Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-23T03:40:54.902Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0005"
+   },
+   "stamps/loads~2f~unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd": {
+    "_k": "loads/unit925/2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "v": "2026-10-23T03:40:55.798Z"
+   },
+   "stamps/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m": {
+    "_k": "supplied/EQ0005/Fork Extensions 2.4m",
+    "v": "2026-10-23T03:40:55.622Z"
+   },
+   "stamps/supplied~2f~P34~2f~Pad~20~Chair": {
+    "_k": "supplied/P34/Pad Chair",
+    "v": "2026-10-23T03:40:55.703Z"
+   },
+   "stamps/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": {
+    "_k": "loads/unit925/83679959-81a7-4f36-8927-e46539bd9243",
+    "v": "2026-10-23T03:40:56.472Z"
+   },
+   "loads/unit925~2f~2b6d44f0-93cc-40d6-831c-6873c9b6b2bd": {
+    "ref": "GN24",
+    "owner": "coates",
+    "assetNo": "1277089",
+    "item": "80kva",
+    "label": "80kva",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "nativeId": "slot:2b6d44f0-93cc-40d6-831c-6873c9b6b2bd",
+    "transportId": "[\"GN24\",\"coates\",\"native\",\"slot:2b6d44f0-93cc-40d6-831c-6873c9b6b2bd\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": false,
+    "by": "Andrew Fisher",
+    "at": "2026-10-23T03:40:55.798Z",
+    "suppressNative1006": false,
+    "removedBy": "Andrew Fisher",
+    "removedAt": "2026-10-23T03:40:55.798Z",
+    "_k": "unit925/2b6d44f0-93cc-40d6-831c-6873c9b6b2bd"
+   },
+   "loads/unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": {
+    "ref": "GN24",
+    "owner": "coates",
+    "assetNo": "1277089",
+    "item": "60kva",
+    "label": "60kva",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "83679959-81a7-4f36-8927-e46539bd9243",
+    "nativeId": "slot:83679959-81a7-4f36-8927-e46539bd9243",
+    "transportId": "[\"GN24\",\"coates\",\"native\",\"slot:83679959-81a7-4f36-8927-e46539bd9243\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-23T03:40:56.472Z",
+    "_k": "unit925/83679959-81a7-4f36-8927-e46539bd9243"
+   },
+   "supplied/EQ0005": {
+    "items": [
+     {
+      "asked": "Fork Extensions 2.4m",
+      "supplied": "Fork Extensions 2.4m",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "EQ0005"
+   },
+   "supplied/P34": {
+    "items": [
+     {
+      "asked": "Pad Chair",
+      "supplied": "Pad Chair",
+      "qty_supplied": 2
+     }
+    ],
+    "_k": "P34"
+   },
+   "by/supplied~2f~EQ0005~2f~Fork~20~Extensions~20~2.4m": {
+    "_k": "supplied/EQ0005/Fork Extensions 2.4m",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~P34~2f~Pad~20~Chair": {
+    "_k": "supplied/P34/Pad Chair",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~83679959-81a7-4f36-8927-e46539bd9243": {
+    "_k": "loads/unit925/83679959-81a7-4f36-8927-e46539bd9243",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,535 @@
+{
+ "texts": 335,
+ "span": [
+  "2026-09-08T09:39:55",
+  "2026-10-16T15:14:56"
+ ],
+ "orders": 109,
+ "delivered": 95,
+ "counts": {
+  "on time": 42,
+  "early": 10,
+  "in revised window": 16,
+  "late": 26,
+  "delivered a later day": 1
+ },
+ "pct_first_window": 54.7,
+ "late": [
+  {
+   "day": "2026-09-25",
+   "item": "WC50 Toilet Portable - Fresh Water Flush",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "2026-09-28T12:49",
+   "late_min": 4490,
+   "result": "delivered a later day"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 12.0M x 3.0M - Cycl + 1 items",
+   "window": "04:30-07:30",
+   "final": "09:00-14:00",
+   "delivered": "2026-09-14T13:59",
+   "late_min": 390,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "Portable Building Shell 4.8M x 2.4M",
+   "window": "06:00-09:00",
+   "final": "07:00-11:00",
+   "delivered": "2026-09-21T14:39",
+   "late_min": 340,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-15",
+   "item": "Trakmat - 2.4M x 1.1M - TM4496",
+   "window": "07:00-10:00",
+   "final": "07:00-13:00",
+   "delivered": "2026-09-15T15:29",
+   "late_min": 330,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-08",
+   "item": "Variable Message Board - Colour - Senior",
+   "window": "07:00-10:00",
+   "final": "07:00-13:00",
+   "delivered": "2026-10-08T15:09",
+   "late_min": 310,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC31 Toilet - Accessible",
+   "window": "07:00-10:00",
+   "final": "07:00-14:00",
+   "delivered": "2026-10-08T15:10",
+   "late_min": 310,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-15",
+   "item": "Portable Building Shell 4.8M x 3.0M",
+   "window": "07:30-10:30",
+   "final": "07:30-16:00",
+   "delivered": "2026-09-15T15:29",
+   "late_min": 300,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-25",
+   "item": "WC27 Sewage Holding Tank 6.0M x 2.4M",
+   "window": "07:00-10:00",
+   "final": "07:00-12:00",
+   "delivered": "2026-09-25T13:49",
+   "late_min": 230,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "WC05 Sewage Holding Tank 6.0M x 2.4M",
+   "window": "08:00-12:30",
+   "final": "08:00-12:30",
+   "delivered": "2026-09-14T16:09",
+   "late_min": 220,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-17",
+   "item": "Portable Building Shell 6.0M x 3.0M",
+   "window": "09:00-09:30",
+   "final": "07:00-10:00",
+   "delivered": "2026-09-17T12:49",
+   "late_min": 200,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-01",
+   "item": "Toilet Block 6.0M x 3.0M - Male/Female",
+   "window": "07:00-10:00",
+   "final": "08:30-11:00",
+   "delivered": "2026-10-01T13:09",
+   "late_min": 190,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-06",
+   "item": "Forklift 5.0t Diesel",
+   "window": "07:00-10:00",
+   "final": "07:00-13:00",
+   "delivered": "2026-10-06T13:09",
+   "late_min": 190,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-01",
+   "item": "WC60 Toilet Block 6.0M x 3.0M",
+   "window": "07:00-10:00",
+   "final": "07:00-12:00",
+   "delivered": "2026-10-01T12:49",
+   "late_min": 170,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "WC06 Toilet Portable - Fresh Water Flush",
+   "window": "09:00-12:00",
+   "final": "12:00-15:00",
+   "delivered": "2026-09-21T14:39",
+   "late_min": 160,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-25",
+   "item": "Toilet Block 6.0M x 3.0M - Male/Female",
+   "window": "08:30-11:30",
+   "final": "08:30-11:30",
+   "delivered": "2026-09-25T13:49",
+   "late_min": 140,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Toilet Block 6.0M x 3.0M",
+   "window": "08:30-11:30",
+   "final": "08:30-13:00",
+   "delivered": "2026-09-14T13:39",
+   "late_min": 130,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "WC06 Toilet Portable - Fresh Water Flush",
+   "window": "09:00-12:00",
+   "final": "12:00-15:00",
+   "delivered": "2026-09-21T13:59",
+   "late_min": 120,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-10-13",
+   "item": "Container 6.0M x 2.4M",
+   "window": "12:00-15:00",
+   "final": "12:00-15:00",
+   "delivered": "2026-10-13T16:59",
+   "late_min": 120,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 6.0M x 3.0M + 5 items",
+   "window": "08:30-11:30",
+   "final": "08:30-13:00",
+   "delivered": "2026-09-14T13:14",
+   "late_min": 105,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 12.0M x 3.0M - Cycl + 1 items",
+   "window": "04:30-07:30",
+   "final": "09:00-14:00",
+   "delivered": "2026-09-14T09:09",
+   "late_min": 100,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-25",
+   "item": "Toilet Block Male Female Cyclone Rated 6m x",
+   "window": "09:00-12:00",
+   "final": "09:30-12:30",
+   "delivered": "2026-09-25T13:39",
+   "late_min": 100,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 12.0M x 3.0M - Cycl + 1 items",
+   "window": "04:30-07:30",
+   "final": "09:00-14:00",
+   "delivered": "2026-09-14T08:49",
+   "late_min": 80,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 9.6M x 3.0M + 2 items",
+   "window": "09:30-12:30",
+   "final": "09:30-14:00",
+   "delivered": "2026-09-14T13:49",
+   "late_min": 80,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "WC100 Toilet Portable - With Trailer + 1 items",
+   "window": "09:00-12:00",
+   "final": "09:00-15:00",
+   "delivered": "2026-09-14T13:14",
+   "late_min": 75,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "WC12 Toilet Portable - Fresh Water Flush + 5 items",
+   "window": "09:00-12:00",
+   "final": "09:00-16:00",
+   "delivered": "2026-09-14T13:15",
+   "late_min": 75,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "WC21 Toilet Portable - Fresh Water Flush + 5 items",
+   "window": "09:00-12:00",
+   "final": "09:00-16:00",
+   "delivered": "2026-09-14T13:15",
+   "late_min": 75,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-25",
+   "item": "Toilet Block Male Female Cyclone Rated 6m x",
+   "window": "09:00-12:00",
+   "final": "09:30-12:30",
+   "delivered": "2026-09-25T13:14",
+   "late_min": 75,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Portable Building Shell 6.0M x 3.0M - Cyclo + 5 items",
+   "window": "05:00-08:00",
+   "final": "05:00-10:00",
+   "delivered": "2026-09-14T09:09",
+   "late_min": 70,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-16",
+   "item": "Portable Building Shell Cyclone Rated 9.6m",
+   "window": "11:00-14:00",
+   "final": "11:00-14:00",
+   "delivered": "2026-09-16T15:09",
+   "late_min": 70,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "Portable Building Shell 4.8M x 2.4M",
+   "window": "06:00-09:00",
+   "final": "07:00-11:00",
+   "delivered": "2026-09-21T10:09",
+   "late_min": 70,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "Barrier - Crash Rated Water filled - Armorz",
+   "window": "06:30-09:30",
+   "final": "06:30-10:00",
+   "delivered": "2026-09-21T10:29",
+   "late_min": 60,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-22",
+   "item": "WC07 Toilet Portable - Fresh Water Flush + 19 items",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "2026-09-22T10:54",
+   "late_min": 55,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "Portable Building Shell 4.8M x 2.4M",
+   "window": "06:00-09:00",
+   "final": "07:00-11:00",
+   "delivered": "2026-09-21T09:39",
+   "late_min": 40,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "WC02 Toilet Portable - Fresh Water Flush",
+   "window": "06:00-09:00",
+   "final": "06:00-09:00",
+   "delivered": "2026-09-21T09:39",
+   "late_min": 40,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-12",
+   "item": "P69 Portable Building Shell 6.0M x 3.0M",
+   "window": "09:00-12:00",
+   "final": "09:00-12:00",
+   "delivered": "2026-10-12T12:39",
+   "late_min": 40,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-15",
+   "item": "Ticket Office 4.8Mx2.4M",
+   "window": "05:30-08:30",
+   "final": "05:30-08:30",
+   "delivered": "2026-10-15T09:09",
+   "late_min": 40,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC09 Toilet Block 6.0M x 3.0M",
+   "window": "08:30-11:30",
+   "final": "08:30-12:30",
+   "delivered": "2026-10-08T12:05",
+   "late_min": 36,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-10-08",
+   "item": "WC09 Toilet Block 6.0M x 3.0M",
+   "window": "08:30-11:30",
+   "final": "08:30-12:30",
+   "delivered": "2026-10-08T11:59",
+   "late_min": 30,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-10-12",
+   "item": "Forklift 2.5t Dual Fuel",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "2026-10-12T10:29",
+   "late_min": 30,
+   "result": "late"
+  },
+  {
+   "day": "2026-10-12",
+   "item": "Telehandler Fork Extension 1800mm",
+   "window": "07:00-10:00",
+   "final": "07:00-12:00",
+   "delivered": "2026-10-12T10:29",
+   "late_min": 30,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-10-01",
+   "item": "Steps Toilet Block + 1 items",
+   "window": "08:00-11:00",
+   "final": "08:00-12:00",
+   "delivered": "2026-10-01T11:19",
+   "late_min": 20,
+   "result": "in revised window"
+  },
+  {
+   "day": "2026-09-21",
+   "item": "WC04 Toilet Portable - Fresh Water Flush",
+   "window": "07:00-10:00",
+   "final": "07:00-10:00",
+   "delivered": "2026-09-21T10:09",
+   "late_min": 10,
+   "result": "late"
+  },
+  {
+   "day": "2026-09-14",
+   "item": "Toilet Block Male Female Cyclone Rated 6m x",
+   "window": "10:00-13:00",
+   "final": "06:00-12:00",
+   "delivered": "2026-09-14T13:06",
+   "late_min": 7,
+   "result": "late"
+  }
+ ],
+ "failed": [
+  {
+   "day": "2026-09-15",
+   "item": "Portable Building Shell 4.8M x 3.0M + 1 items",
+   "failed_at": "2026-09-15T15:49",
+   "delivered": null
+  }
+ ],
+ "no_booking_text": [
+  "P06 Portable Building Shell 6.0M x 3.0M + 4 items 2026-09-28T13:14",
+  "Portable Building Shell 6.0M x 3.0M - Cyclo + 1 items 2026-09-28T11:29",
+  "Portable Building Shell 6.0M x 3.0M - Cyclo + 1 items 2026-09-28T11:44",
+  "Portable Building Shell 6.0M x 3.0M - Cyclo + 1 items 2026-09-28T12:29",
+  "WC01 Toilet - Accessible + 1 items 2026-09-28T12:39"
+ ],
+ "no_delivered_text": [
+  "Portable Building Shell 6.0M x 3.0M + 5 items 2026-09-14 08:30-11:30",
+  "Portable Building Shell 6.0M x 3.0M 2026-09-23 08:30-11:30",
+  "Commentary Booth 6.0M x 3.0M 2026-09-23 09:30-12:30",
+  "Toilet Block Male Female Cyclone Rated 6m x 2026-09-23 11:00-14:00",
+  "WC60 Sewage Holding Tank 6.0M x 2.4M + 1 items 2026-10-01 07:00-10:00"
+ ],
+ "window_revised": 53,
+ "widened": 44,
+ "lead_h_median": 54.2,
+ "lead_h_min": 2.0,
+ "lead_h_max": 121.4,
+ "onway_to_delivered_min_median": 110,
+ "onway_to_delivered_min_range": [
+  8,
+  265
+ ],
+ "by_day": {
+  "2026-09-14": {
+   "n": 13,
+   "on_time": 1,
+   "late_min": 1407
+  },
+  "2026-09-15": {
+   "n": 5,
+   "on_time": 3,
+   "late_min": 630
+  },
+  "2026-09-16": {
+   "n": 6,
+   "on_time": 5,
+   "late_min": 70
+  },
+  "2026-09-17": {
+   "n": 6,
+   "on_time": 5,
+   "late_min": 200
+  },
+  "2026-09-21": {
+   "n": 8,
+   "on_time": 0,
+   "late_min": 840
+  },
+  "2026-09-22": {
+   "n": 2,
+   "on_time": 1,
+   "late_min": 55
+  },
+  "2026-09-25": {
+   "n": 5,
+   "on_time": 0,
+   "late_min": 5035
+  },
+  "2026-09-28": {
+   "n": 1,
+   "on_time": 1,
+   "late_min": 0
+  },
+  "2026-09-30": {
+   "n": 1,
+   "on_time": 1,
+   "late_min": 0
+  },
+  "2026-10-01": {
+   "n": 4,
+   "on_time": 1,
+   "late_min": 380
+  },
+  "2026-10-06": {
+   "n": 4,
+   "on_time": 3,
+   "late_min": 190
+  },
+  "2026-10-07": {
+   "n": 11,
+   "on_time": 11,
+   "late_min": 0
+  },
+  "2026-10-08": {
+   "n": 4,
+   "on_time": 0,
+   "late_min": 686
+  },
+  "2026-10-12": {
+   "n": 4,
+   "on_time": 1,
+   "late_min": 100
+  },
+  "2026-10-13": {
+   "n": 2,
+   "on_time": 1,
+   "late_min": 120
+  },
+  "2026-10-14": {
+   "n": 4,
+   "on_time": 4,
+   "late_min": 0
+  },
+  "2026-10-15": {
+   "n": 4,
+   "on_time": 3,
+   "late_min": 40
+  },
+  "2026-10-16": {
+   "n": 11,
+   "on_time": 11,
+   "late_min": 0
+  }
+ },
+ "not_yet_due": [
+  "Barrier - Crash Rated Water filled - Armorz 2026-10-19 07:00-10:00",
+  "Scissor Lift With Operator Protection 43ft 2026-10-19 08:00-11:00",
+  "Variable Message Board Senior + 1 items 2026-10-19 09:00-12:00"
+ ]
+}

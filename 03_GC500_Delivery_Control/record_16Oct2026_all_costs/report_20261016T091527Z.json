@@ -1,0 +1,229 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T091527Z",
+ "finished": "2026-10-16T09:15:38.907Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "clear": [
+   "P12|Portable buildings|Building 4.8m|fire_ext",
+   "P08|Portable buildings|Building 6m|fire_ext",
+   "P05|Portable buildings|Building 6m|fire_ext",
+   "P13|Portable buildings|Building 4.8m|fire_ext",
+   "CP1|Portable buildings|Building 6m|fire_ext",
+   "P11|Portable buildings|Building 4.8m|fire_ext",
+   "P09|Portable buildings|Building 6m|fire_ext",
+   "P10|Portable buildings|Building 4.8m|fire_ext",
+   "HRP|Portable buildings|Building 6m|fire_ext",
+   "P15|Portable buildings|Building 4.8m|fire_ext",
+   "P01|Portable buildings|Building 12m|fire_ext",
+   "P06|Portable buildings|Building 6m|fire_ext",
+   "P03|Portable buildings|Building 12m|fire_ext",
+   "P14|Portable buildings|Building 4.8m|fire_ext",
+   "AA|Portable buildings|Building 6m|fire_ext",
+   "P04|Portable buildings|Building 12m|fire_ext"
+  ],
+  "lines": [
+   "none"
+  ],
+  "refs": []
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 8131,
+  "after": 8147
+ },
+ "updated": {
+  "before": "2026-10-16T09:11:09.042Z",
+  "after": "2026-10-16T09:15:38.143Z"
+ },
+ "stage": [
+  {
+   "k": "plan",
+   "ticked": true,
+   "now": "0 ticks on 16 references · {} · at the card $0 {} · complete ticked on 0 · stamps cleared 16 · left off as a person set: 0 ticks, complete off on 0",
+   "refs": [
+    "P12",
+    "P08",
+    "P05",
+    "P13",
+    "CP1",
+    "P11",
+    "P09",
+    "P10",
+    "HRP",
+    "P15",
+    "P01",
+    "P06",
+    "P03",
+    "P14",
+    "AA",
+    "P04"
+   ],
+   "done": [],
+   "offList": [],
+   "doneOff": [],
+   "sample": []
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/AA|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:26.041Z"
+   },
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:26.608Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:28.401Z"
+   },
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": {
+    "_k": "labour/P01|Portable buildings|Building 12m|fire_ext",
+    "v": "2026-10-16T09:09:28.833Z"
+   },
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": {
+    "_k": "labour/P03|Portable buildings|Building 12m|fire_ext",
+    "v": "2026-10-16T09:09:29.347Z"
+   },
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": {
+    "_k": "labour/P04|Portable buildings|Building 12m|fire_ext",
+    "v": "2026-10-16T09:09:29.849Z"
+   },
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/P05|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:30.262Z"
+   },
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/P06|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:30.730Z"
+   },
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/P08|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:31.226Z"
+   },
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": {
+    "_k": "labour/P09|Portable buildings|Building 6m|fire_ext",
+    "v": "2026-10-16T09:09:31.897Z"
+   },
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:32.377Z"
+   },
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:32.798Z"
+   },
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:33.326Z"
+   },
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:33.718Z"
+   },
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:34.101Z"
+   },
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": {
+    "_k": "labour/P15|Portable buildings|Building 4.8m|fire_ext",
+    "v": "2026-10-16T09:09:34.598Z"
+   }
+  },
+  "after": {
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": null,
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": null,
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~fire_ext": null,
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~fire_ext": null,
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null,
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null,
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null,
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null,
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null,
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~fire_ext": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

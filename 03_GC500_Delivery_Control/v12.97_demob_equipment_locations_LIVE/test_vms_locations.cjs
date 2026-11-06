@@ -1,0 +1,20 @@
+/* Author: Andrew Fisher. Synthetic VMS identity and position fixtures only. */
+'use strict';
+const assert=require('node:assert/strict'),V=require('./vms_locations1297_src.js'),P=require('./pickup_locations1297_src.js');
+const copy=x=>JSON.parse(JSON.stringify(x));
+const key='SYN-V',u={id:'opaque:a',ref:key,physical:true,assetNo:'00123',owner:'coates',item:'VMS',label:'VMS 99'};
+const p={pos:'01',lat:-28,lon:153.4,how:'Pinned on site',association1103:'board-key'};
+const model={boards:[{key:'physical-board-a',fleet:'00123',co:'Coates',positions:[p]}]};
+const owner=x=>String(x||'').toLowerCase()==='coates'?'coates':String(x||'').toLowerCase()==='premiair'?'prem-air-hire':'unknown';
+let checks=0;const test=(name,fn)=>{fn();checks++;};
+const read=(m=model,rows=[u])=>V.read(key,rows,m,owner);
+test('physical fleet/owner resolves its own position despite stale card label',()=>{const r=read();assert.equal(r[u.id].location.label,'VMS 01');assert.equal(r[u.id].location.lat,-28);});
+test('different fleet, owner or type gets no unit context',()=>{for(const patch of [{assetNo:'123'},{owner:'prem-air-hire'},{item:'Building'}])assert.equal(Object.keys(read(model,[{...u,...patch}])).length,0);});
+test('duplicate canonical board identity is unresolved',()=>{assert.equal(Object.keys(read({boards:[model.boards[0],copy(model.boards[0])]})).length,0);});
+test('multiple canonical positions are not chosen by list order',()=>{const m=copy(model);m.boards[0].positions.push({...p,pos:'01a',lat:-28.1});assert.equal(Object.keys(read(m)).length,0);});
+test('a conflicting or unassociated position is rejected',()=>{for(const patch of [{canonicalIdentityConflict1103:true},{positions:[{...p,association1103:''}]}]){const m={boards:[{...model.boards[0],...patch}]};assert.equal(Object.keys(read(m)).length,0);}});
+test('duplicate current physical number or ID is unresolved',()=>{assert.equal(Object.keys(read(model,[u,{...u,id:'other'}])).length,0);assert.equal(Object.keys(read(model,[u,{...u,assetNo:'other'}])).length,0);});
+test('missing owner converter and missing/invalid position are rejected',()=>{assert.equal(Object.keys(V.read(key,[u],model,null)).length,0);for(const positions of [[],[{...p,lat:NaN}],[null]])assert.equal(Object.keys(read({boards:[{...model.boards[0],positions}]})).length,0);});
+test('source model stays unchanged and saved context is immutable JSON',()=>{const m=copy(model),before=JSON.stringify(m),r=read(m);assert.equal(JSON.stringify(m),before);assert.throws(()=>{r[u.id].location.lat=0;},TypeError);assert.equal(copy(r)[u.id].identity.number,'00123');});
+test('capture consumes the proven context and omits an ambiguous context',()=>{const ctx={capturedAt:'2030-01-05T00:00:00Z',arrivalAt:'2030-01-01T00:00:00Z',units:[u],fixes:{},unitLocations:read(),location:{kind:'asset',lat:-28.5,lon:153.5,how:'Reference plan location'}};assert.equal(P.capture(key,ctx).units[u.id].location.lat,-28);ctx.unitLocations=read({boards:[{...model.boards[0],positions:[p,{...p,pos:'01a'}]}]});assert.equal(P.capture(key,ctx).units[u.id],undefined);assert.equal(P.capture(key,ctx).reference.scope,'reference');});
+console.log(checks+' VMS pickup position checks PASS');

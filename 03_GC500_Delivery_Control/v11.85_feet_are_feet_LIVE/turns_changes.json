@@ -1,0 +1,19 @@
+{
+ "schema": "gc500-broadcast-revoice-v1",
+ "base": "v11.84",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "flow": "Qc1iMoJTLhlFZqKutDwx",
+ "how": "no new voicing: the v11.83 take 30a with \"Two hundred and sixteen concrete blocks\" cut out (cut_turn30.py), mixed as v11.83",
+ "figures_from": "Andrew, 24 Oct 2026: the blocks are the feet. The 216 were docket 36566's feet, already inside the 8,235 the turn says.",
+ "turns": [
+  {
+   "slot": 30,
+   "scene": "fence_panels1090",
+   "old": "[rapid-fire] Five thousand two hundred and twenty-three mesh panels! [fast] Eight thousand two hundred and thirty-five feet! [laughs] That's more feet than a centipede convention! [building] Two hundred and sixteen concrete blocks — every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "text": "[rapid-fire] Five thousand two hundred and twenty-three mesh panels! [fast] Eight thousand two hundred and thirty-five feet! [laughs] That's more feet than a centipede convention! [building] Every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "loop": false
+  }
+ ]
+}

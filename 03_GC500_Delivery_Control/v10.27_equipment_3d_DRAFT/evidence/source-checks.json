@@ -1,0 +1,32 @@
+{
+  "author": "Andrew Fisher",
+  "basePageSha256": "66878d12b8f4a98c177b3bf07f30efcce501da46f56b3244b92da94e458b320f",
+  "candidatePageSha256": "39e2bec4595d018a36c2ded5b2afa33b1bda4b0dc07e88606cfbbd36fbc3560b",
+  "candidateBytes": 17787588,
+  "unchangedExistingCodeAndData": false,
+  "method": "Removing the read-only adapter, reverting the footer and reversing the one-space identity-helper fix restores exact base bytes.",
+  "focusedTests": {
+    "geometry": 49,
+    "layout": 28,
+    "viewer": 32,
+    "height": 6,
+    "navigation": 5,
+    "publisher": 17,
+    "adapterSpecifications": 12
+  },
+  "snapshotValidation": {
+    "mappedReferences": 149,
+    "modelGroups": 124,
+    "geometryOrCountErrors": 0
+  },
+  "state": "READY TO UPLOAD",
+  "exactBaseRecoverable": true,
+  "boundedNativeFix": "returnJSON.stringify to return JSON.stringify in fingerprintUnit",
+  "focusedTotal": 149,
+  "doorSourceReview": {
+    "doorwaysReviewed": 117,
+    "adaptedPositionsLabelled": 8,
+    "passed": true
+  },
+  "implementationCommit": "d9afa6a2d02b8d16995c6cbc63a32f467bd569bc"
+}

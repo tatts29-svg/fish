@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "pageSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "bytes": 9074112,
+  "baseSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "sourceChecks": 31,
+  "packingChecks": 29,
+  "navigationCpuChecks": 21,
+  "focusedBrowserChecks": 28,
+  "removalChecks": 34,
+  "standingAssertions": 248,
+  "standingRuns": 15,
+  "sweeps": [
+    {
+      "name": "sweep_desktop",
+      "tabs": 21,
+      "links": 7,
+      "pass": true
+    },
+    {
+      "name": "sweep_phone",
+      "tabs": 21,
+      "links": 7,
+      "pass": true
+    }
+  ],
+  "actualPhoneShowcase": true,
+  "visualReview": "visual814_review.json",
+  "publication": "pending guarded upload"
+}

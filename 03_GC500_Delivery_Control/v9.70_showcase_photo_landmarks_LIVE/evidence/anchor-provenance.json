@@ -1,0 +1,273 @@
+{
+  "author": "Andrew Fisher",
+  "purpose": "Illustrative Showcase landmark placement only; no operational pins or circuit geometry edits.",
+  "source": {
+    "master": "D001-26003-03-MASTER.pdf",
+    "masterSha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+    "masterGeoreferencing": "D001-26003-03 registered master georeferencing.json",
+    "osm": "arrival_plan_14Oct2026 source/osm.json",
+    "osmSha256": "039c350c7e087d5286c2bec3b2704bbee5f06baccc5a8b1d9b41544c3b207e7a",
+    "showcase": "GC500 v9.69 hosted page",
+    "showcaseSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5"
+  },
+  "method": "Reuses existing main-plan sheet-to-z18 transform and Showcase scale/rotation; origin recovered from explicit shared OSM node10168056545 on packed pit way179722656. Latitude\u221227.99 is a local ground-scale approximation. No image matching, photo GPS estimate or optimisation performed.",
+  "limits": [
+    "Original gc3d_registration.json translation is unavailable; this is a validated approximate recovery, not the lost original matrix.",
+    "Twelve packed pit points reproduce saved OSM points within0.676m; this does not remove the schematic circuit registration error (recorded median1.378m, p95 5.456m, max17.507m).",
+    "Master aerial registration reports main-plan held-out maximum1.611m; not suitable for set-out.",
+    "Map endpoints provide along-track anchor and crossing direction, not surveyed bridge dimensions. Deck clearance and actual barrier ends must use current scene boundaries.",
+    "Coordinates are already in current scene points. Multiplying/dividing by a6m fallback would misplace them; the active scale is5.937552372855356m per scene point."
+  ],
+  "scaleMetresPerWorldPoint": 5.937552372855356,
+  "worldOriginKeyPlan": [
+    1283.165,
+    1546.125
+  ],
+  "sheetToWorld": [
+    [
+      0.11944865433078629,
+      -0.0002700879846241465,
+      -118.70819027626135
+    ],
+    [
+      0.00029367360815313293,
+      0.11895261588304608,
+      -89.05829883412571
+    ]
+  ],
+  "primaryWayChecks": [
+    {
+      "packedIndex": 0,
+      "osmNode": 10168056545,
+      "errorMetres": 0.0
+    },
+    {
+      "packedIndex": 1,
+      "osmNode": 10168056544,
+      "errorMetres": 0.17829390885501598
+    },
+    {
+      "packedIndex": 2,
+      "osmNode": 10168056543,
+      "errorMetres": 0.14984464246147836
+    },
+    {
+      "packedIndex": 3,
+      "osmNode": 10168056541,
+      "errorMetres": 0.25351706014516545
+    },
+    {
+      "packedIndex": 4,
+      "osmNode": 1901514649,
+      "errorMetres": 0.10759880184590477
+    },
+    {
+      "packedIndex": 5,
+      "osmNode": 10168056540,
+      "errorMetres": 0.4447578219250863
+    },
+    {
+      "packedIndex": 6,
+      "osmNode": 1901514651,
+      "errorMetres": 0.34961648604028855
+    },
+    {
+      "packedIndex": 7,
+      "osmNode": 4049512028,
+      "errorMetres": 0.45852447849991884
+    },
+    {
+      "packedIndex": 8,
+      "osmNode": 4049512062,
+      "errorMetres": 0.475088499489571
+    },
+    {
+      "packedIndex": 9,
+      "osmNode": 5536986414,
+      "errorMetres": 0.4471594768324505
+    },
+    {
+      "packedIndex": 10,
+      "osmNode": 3015636478,
+      "errorMetres": 0.6753234551573173
+    },
+    {
+      "packedIndex": 11,
+      "osmNode": 1901514658,
+      "errorMetres": 0.4791424416340202
+    }
+  ],
+  "maxRecoveryErrorMetres": 0.6753234551573173,
+  "independentSecondWayErrorsMetres": [
+    0.4471594768324505,
+    0.6527134324204704
+  ],
+  "landmarks": {
+    "PB3": {
+      "sheetEnds": [
+        [
+          326.27,
+          1074.33
+        ],
+        [
+          354.35,
+          1112.43
+        ]
+      ],
+      "basis": "Centreline between midpoints of original PB3 walkway end edges: (324.86,1075.38)-(327.68,1073.28) and (352.94,1113.48)-(355.76,1111.38); black path160731.",
+      "worldEnds": [
+        [
+          -80.02584145227696,
+          38.8318818756393
+        ],
+        [
+          -76.68201359088266,
+          43.372222895700304
+        ]
+      ],
+      "worldMid": [
+        -78.3539275215798,
+        41.1020523856698
+      ],
+      "projectedDrawingSpanMetres": 33.48057339564209,
+      "spanStatus": "Projection of drawing endpoints only; not a verified physical dimension. Use current scene boundaries for visual support positions and clearance."
+    },
+    "OT5": {
+      "sheetEnds": [
+        [
+          622.0399780273438,
+          867.9000244140625
+        ],
+        [
+          639.5599975585938,
+          890.2200317382812
+        ]
+      ],
+      "basis": "Exact black OT5 crossing vector, drawing paths110423/141531.",
+      "worldEnds": [
+        [
+          -44.640761329392504,
+          14.363356119649367
+        ],
+        [
+          -42.5540469383306,
+          17.023524544744603
+        ]
+      ],
+      "worldMid": [
+        -43.59740413386155,
+        15.693440332196985
+      ],
+      "projectedDrawingSpanMetres": 20.074611684808705,
+      "spanStatus": "Projection of drawing endpoints only; not a verified physical dimension. Use current scene boundaries for visual support positions and clearance."
+    },
+    "PB2": {
+      "sheetEnds": [
+        [
+          161.65999603271484,
+          643.3500061035156
+        ],
+        [
+          199.09999084472656,
+          642.2400054931641
+        ]
+      ],
+      "basis": "Walkway axis between outer-end edge midpoints; source black paths123343/123346 (left deck end),123103/123088(right deck end). Adjacent outer flights143..161 and199..217 are stairs, excluded.",
+      "kind": "pedestrian_bridge",
+      "artwork": "Red/magenta GOLDCOAST. white letters; white clad stairs both sides",
+      "bestPhoto": "21110.jpg",
+      "worldEnds": [
+        [
+          -99.57188239758975,
+          -12.482657405409924
+        ],
+        [
+          -95.09942560131555,
+          -12.603699743277332
+        ]
+      ],
+      "worldMid": [
+        -97.33565399945265,
+        -12.543178574343628
+      ],
+      "projectedDrawingSpanMetres": 26.56517004802187
+    },
+    "OT4": {
+      "sheetEnds": [
+        [
+          227.239990234375,
+          976.6799926757812
+        ],
+        [
+          250.75999450683594,
+          983.4000244140625
+        ]
+      ],
+      "basis": "Exact black crossing line paths110262/123086; vertical support caps paths110247/110261.",
+      "kind": "advertising_gantry",
+      "artwork": "Pale grey/white unbranded viewed face with vertical seams; no stairs",
+      "bestPhoto": "21134.jpg",
+      "worldEnds": [
+        [
+          -91.82846876346876,
+          27.187075563141562
+        ],
+        [
+          -89.02085090309777,
+          27.993348121745683
+        ]
+      ],
+      "worldMid": [
+        -90.42465983328327,
+        27.590211842443622
+      ],
+      "projectedDrawingSpanMetres": 17.344151997215704
+    },
+    "PB1": {
+      "sheetEnds": [
+        [
+          1056.02001953125,
+          325.38006591796875
+        ],
+        [
+          1054.6400146484375,
+          367.86004638671875
+        ]
+      ],
+      "basis": "Deck end-edge midpoints of original black path125184 long quad; source corners upper(1054.1600341796875,325.320068359375)/(1057.8800048828125,325.4400634765625), lower(1052.780029296875,367.800048828125)/(1056.5,367.9200439453125).",
+      "kind": "pedestrian_bridge",
+      "artwork": "Blue fascia; white DELIVERING FOR QUEENSLAND | Queensland Government crest/text; pale stair wraps both sides.",
+      "bestPhoto": "21074.jpg",
+      "mappingConfidence": "Strong source/location match: only coastal temporary pedestrian bridge on Main Beach Parade beside Narrowneck Beach; yellow lifesaving tower/ocean on photo right, grassy viewing mound left; independent PB2/PB3 inland identification. No photo GPS inferred.",
+      "worldEnds": [
+        [
+          7.344098756876463,
+          -50.04336362756767
+        ],
+        [
+          7.167785698342911,
+          -44.990664099162366
+        ]
+      ],
+      "worldMid": [
+        7.255942227609687,
+        -47.51701386336502
+      ],
+      "projectedDrawingSpanMetres": 30.018927654867024
+    }
+  },
+  "sceneUnits": {
+    "scenePoints": "Key-plan PDF points after subtraction of [1283.165,1546.125].",
+    "metresPerScenePoint": 5.937552372855356,
+    "verifiedConstant": "G.M_PER_PT = 5.937552372855356;",
+    "sixMetreFallbackUsed": false,
+    "anchorCoordinatesAlreadyInScenePoints": true,
+    "doNotRescaleBySix": true
+  },
+  "photoMappingEvidence": {
+    "PB2": "21105\u201321110 bridge then T12 left onto Serisier Ave, T13 right onto Hill Pde beside Contessa, matching master Breaker St/Pacific St/PB2.",
+    "OT4": "21126\u201321134 water left, highrise right on Hill Pde; simple plain gantry before end turn matches sole OT4 crossing on master.",
+    "limits": "Photo appearance only; source axes from plan; no photo GPS or surveyed dimensions.",
+    "PB1": "Strong source/location match: only coastal temporary pedestrian bridge on Main Beach Parade beside Narrowneck Beach; yellow lifesaving tower/ocean on photo right, grassy viewing mound left; independent PB2/PB3 inland identification. No photo GPS inferred."
+  }
+}

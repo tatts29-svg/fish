@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "f2a4abfd1d483840cc5e1346acddba62b9e1c9d6de1c1fdd6766bae90441c6fb",
+  "passed": 10,
+  "results": [
+    {
+      "name": "only notes belonging to this load are included",
+      "pass": true
+    },
+    {
+      "name": "line endings normalise and line breaks remain",
+      "pass": true
+    },
+    {
+      "name": "repeated reference rows are listed once",
+      "pass": true
+    },
+    {
+      "name": "independent notes retain their own references",
+      "pass": true
+    },
+    {
+      "name": "note and reference HTML is escaped",
+      "pass": true
+    },
+    {
+      "name": "empty or unavailable notes add no print markup",
+      "pass": true
+    },
+    {
+      "name": "removal sheets never reuse earlier delivery instructions",
+      "pass": true
+    },
+    {
+      "name": "long text is never truncated",
+      "pass": true
+    },
+    {
+      "name": "drv uses recorded note in existing location section and preserves sheet parts",
+      "pass": true
+    },
+    {
+      "name": "ins uses recorded note in existing location section and preserves sheet parts",
+      "pass": true
+    }
+  ]
+}

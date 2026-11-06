@@ -1,0 +1,275 @@
+{
+  "author": "Andrew Fisher",
+  "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "scope": "Final combined v10.12 candidate; GET-only browser with isolated fixtures, exact shared record restored.",
+  "numbers": {
+    "author": "Andrew Fisher",
+    "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "passed": 29,
+    "browserErrors": [],
+    "network": {
+      "page": 1,
+      "live": 13,
+      "blocked": 0
+    },
+    "recordRestored": true,
+    "checks": [
+      {
+        "name": "Every active typed inventory and map quantity matches the shared charge-line scope",
+        "pass": true
+      },
+      {
+        "name": "Cancelled and moved references are excluded from inventory quantities",
+        "pass": true
+      },
+      {
+        "name": "Active reference keys are unique",
+        "pass": true
+      },
+      {
+        "name": "Seven-category index averages dimensionless percentages, not metres plus pieces",
+        "pass": true
+      },
+      {
+        "name": "All fully identified on-site item groups use the same typed ownership as the reference drawer",
+        "pass": true
+      },
+      {
+        "name": "Quantity edit reaches reference charge lines and map immediately",
+        "pass": true
+      },
+      {
+        "name": "Quantity edit reaches Today reference and category denominator",
+        "pass": true
+      },
+      {
+        "name": "Quantity edit reaches Inventory and Demob scope",
+        "pass": true
+      },
+      {
+        "name": "Quantity edit reaches supplier outstanding run sheet",
+        "pass": true
+      },
+      {
+        "name": "Two received of six stays a partial receipt, not six installed",
+        "pass": true
+      },
+      {
+        "name": "Partial receipt reaches Inventory and supplier outstanding quantity",
+        "pass": true
+      },
+      {
+        "name": "Partial receipt does not mark today delivery or final completion complete",
+        "pass": true
+      },
+      {
+        "name": "Full receipt fulfills delivery while installation remains incomplete",
+        "pass": true
+      },
+      {
+        "name": "Confirmed completion reaches Today, map and supplier installed count once",
+        "pass": true
+      },
+      {
+        "name": "Completed receipt leaves no supplier delivery balance",
+        "pass": true
+      },
+      {
+        "name": "Removing physical completion removes map check and Today completion",
+        "pass": true
+      },
+      {
+        "name": "Typed partial collection reduces current stock and remaining pickup quantity",
+        "pass": true
+      },
+      {
+        "name": "Partial collection does not imply completed Demob",
+        "pass": true
+      },
+      {
+        "name": "Supplier current stock follows same typed collection",
+        "pass": true
+      },
+      {
+        "name": "Single-item typed supplier identities reach inventory ownership totals",
+        "pass": true
+      },
+      {
+        "name": "Described item with blank quantity is one across charge lines, map, inventory, Today and labour",
+        "pass": true
+      },
+      {
+        "name": "Explicit description quantity three reaches every shared quantity reader",
+        "pass": true
+      },
+      {
+        "name": "Explicit recorded four takes precedence over description three everywhere",
+        "pass": true
+      },
+      {
+        "name": "Separate descriptions count one each and do not inherit another item\u2019s quantity",
+        "pass": true
+      },
+      {
+        "name": "Dimensions and asset numbers never inflate a described item quantity",
+        "pass": true
+      },
+      {
+        "name": "Known quantities retain normal priceable presentation without a missing-quantity flag",
+        "pass": true
+      },
+      {
+        "name": "Truly invalid explicit quantity is unpriced and never becomes one in Inventory",
+        "pass": true
+      },
+      {
+        "name": "Invalid quantity keeps an accessible reference correction button",
+        "pass": true
+      },
+      {
+        "name": "Every in-memory fixture restored the exact original shared record",
+        "pass": true
+      }
+    ],
+    "failed": []
+  },
+  "percentage": {
+    "author": "Andrew Fisher",
+    "sourceSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+    "passed": 30,
+    "browserErrors": [],
+    "network": {
+      "page": 1,
+      "live": 13,
+      "blocked": 0
+    },
+    "operationalWrites": 0,
+    "viewport": "desktop",
+    "checks": [
+      {
+        "name": "Integrated precise percentage helper loaded",
+        "pass": true
+      },
+      {
+        "name": "99.9 raw fencing completion remains false",
+        "pass": true
+      },
+      {
+        "name": "99.9 overall cannot turn green",
+        "pass": true
+      },
+      {
+        "name": "99.9 real Where card does not display completed 100",
+        "pass": true
+      },
+      {
+        "name": "99.9 real category chip does not round up to 100",
+        "pass": true
+      },
+      {
+        "name": "99.999 raw fencing completion remains false",
+        "pass": true
+      },
+      {
+        "name": "99.999 overall cannot turn green",
+        "pass": true
+      },
+      {
+        "name": "99.999 real Where card does not display completed 100",
+        "pass": true
+      },
+      {
+        "name": "99.999 real category chip does not round up to 100",
+        "pass": true
+      },
+      {
+        "name": "rounded-zero-left raw fencing completion remains false",
+        "pass": true
+      },
+      {
+        "name": "rounded-zero-left overall cannot turn green",
+        "pass": true
+      },
+      {
+        "name": "rounded-zero-left real Where card does not display completed 100",
+        "pass": true
+      },
+      {
+        "name": "rounded-zero-left real category chip does not round up to 100",
+        "pass": true
+      },
+      {
+        "name": "Exact completed source quantities give five green lamps",
+        "pass": true
+      },
+      {
+        "name": "Near100 arithmetic remains below100",
+        "pass": true
+      },
+      {
+        "name": "Near100 real overall display shows99.99",
+        "pass": true
+      },
+      {
+        "name": "Past-day card shares the same99.99 reading",
+        "pass": true
+      },
+      {
+        "name": "Category denominator and Done/Left retained",
+        "pass": true
+      },
+      {
+        "name": "Category raw ratio and displayed rounding cannot finish one remaining unit",
+        "pass": true
+      },
+      {
+        "name": "Provisional VMS scope keeps separate lower-bound uncertainty",
+        "pass": true
+      },
+      {
+        "name": "Real VMS chip retains minimum symbol",
+        "pass": true
+      },
+      {
+        "name": "Sub-0.005 completion range stays real and cannot complete",
+        "pass": true
+      },
+      {
+        "name": "Real fencing chip retains the tiny-range minimum marker",
+        "pass": true
+      },
+      {
+        "name": "Past-day tiny range retains its minimum marker",
+        "pass": true
+      },
+      {
+        "name": "unknown prevents completed UI",
+        "pass": true
+      },
+      {
+        "name": "Unknown group keeps overall unavailable",
+        "pass": true
+      },
+      {
+        "name": "stale prevents completed UI",
+        "pass": true
+      },
+      {
+        "name": "All fixtures leave the shared record exactly unchanged",
+        "pass": true
+      },
+      {
+        "name": "Original model function restored",
+        "pass": true
+      },
+      {
+        "name": "Existing programme panel preserved",
+        "pass": true
+      }
+    ],
+    "failed": []
+  },
+  "activeTypedGroups": 182,
+  "fullyIdentifiedOnsiteGroups": 108,
+  "findings": []
+}

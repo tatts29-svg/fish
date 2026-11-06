@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 24,
+  "source_sha256": "2cd6313fb37f5ef48f1db0290d8b8f375db7ed869e39552217f07f606d6b2d69",
+  "checks": [
+    "Only unique active known-positive refs in denominator; unknown and zero retained separately",
+    "Malformed dates are rejected without throwing",
+    "Incoming amber, installed, pumpout and elapsed dates do not collect",
+    "Initial unknown/red cannot become a collected reference",
+    "Typed partial collection preserves uncollected quantity",
+    "Typed partial and final collection complete once with exact quantities",
+    "Duplicate ids cannot double count",
+    "Over-collection evidence is rejected",
+    "Future actual date relative to recorded-at cannot count",
+    "Re-arrival starts a new collection cycle",
+    "Partial typed on-site history is not a new arrival",
+    "Unknown remaining item prevents complete reference",
+    "Changed quantity exposes review issue; no fabricated zero or completion",
+    "Historical cutoff uses actual Brisbane date and retains provenance",
+    "Out-of-window refs count in overall scope; today has no historical percent",
+    "No recorded collection is unrecorded, not a fake 0 percent",
+    "Split physical load completes independently when exact portion is recorded",
+    "Whole-reference collection alone does not identify a split physical load",
+    "Native summary uses the identical positive scope and source counts",
+    "Canonical physical IDs and number metadata survive evidence replay",
+    "A physical unit cannot be collected again under a second event ID",
+    "Re-arrival removes previous-cycle quantity review blockers",
+    "Malformed fractional or over-numbered collection history remains unrecorded",
+    "A partial collection of one original portion cannot complete every derived physical load"
+  ]
+}

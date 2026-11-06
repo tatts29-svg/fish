@@ -1,0 +1,146 @@
+{
+  "author": "Andrew Fisher",
+  "sourceSha256": "87d2d08fa7a2f4de1b08791bb35641b55501beeda587e3296a50248ffeacd6eb",
+  "candidateSha256": "b3c38f0ad23a48936b20278f71153cb3399ba93f8146fdc1653d9ffd08382a91",
+  "passed": 34,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Current helper appears exactly once in candidate",
+      "pass": true
+    },
+    {
+      "name": "Explicit completed numeric EP receipts satisfy sole FWF",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \" \"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"UNALLOCATED\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"TBA\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"UNKNOWN\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"0\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid EP identifier cannot prove receipt: \"0000\"",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: -1",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: 1.5",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: Infinity",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: NaN",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: no",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: -1",
+      "pass": true
+    },
+    {
+      "name": "Invalid explicit supplied count blocks unit inference: 1.5",
+      "pass": true
+    },
+    {
+      "name": "Duplicate EP serial counts once",
+      "pass": true
+    },
+    {
+      "name": "No explicit arrival cannot infer receipt",
+      "pass": true
+    },
+    {
+      "name": "No Complete cannot infer receipt",
+      "pass": true
+    },
+    {
+      "name": "Off-site state cannot infer receipt",
+      "pass": true
+    },
+    {
+      "name": "Wrong supplier cannot infer receipt",
+      "pass": true
+    },
+    {
+      "name": "Mixed types cannot infer count from units",
+      "pass": true
+    },
+    {
+      "name": "Accessories cannot be treated as toilet units",
+      "pass": true
+    },
+    {
+      "name": "Explicit zero count remains a shortage",
+      "pass": true
+    },
+    {
+      "name": "Typed count disagreement requires reconciliation",
+      "pass": true
+    },
+    {
+      "name": "Different supplied type does not satisfy requested type",
+      "pass": true
+    },
+    {
+      "name": "Typed count works with unknown reference arrival status",
+      "pass": true
+    },
+    {
+      "name": "Excess receipts show an explicit discrepancy",
+      "pass": true
+    },
+    {
+      "name": "Each split load retains planned count and reference totals",
+      "pass": true
+    },
+    {
+      "name": "WC32 source cancellation is advisory without state mutation",
+      "pass": true
+    },
+    {
+      "name": "An already cancelled WC32 is not described as active",
+      "pass": true
+    },
+    {
+      "name": "Reference-wide Complete is labelled as reference status",
+      "pass": true
+    },
+    {
+      "name": "Booked subhire number only, not another truck number",
+      "pass": true
+    },
+    {
+      "name": "Unnumbered tank load cannot acquire block numbers",
+      "pass": true
+    }
+  ],
+  "scope": "Independent synthetic VM semantics. Native data/grouping and print rendering require separate exact-candidate browser/source evidence. No app, operational record or peer-owned source edits."
+}

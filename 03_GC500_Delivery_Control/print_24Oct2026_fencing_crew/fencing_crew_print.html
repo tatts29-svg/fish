@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>What you built — GC500 2026 fencing crew</title>
+<!-- Author: Andrew Fisher. The fencing crew's print-out of the GC500 2026 build, from the signed dockets on the live record
+     (read 24 Oct 2026, record 10804, page v11.81.1). No money on it. Render: node render.cjs -> fencing_crew_print.pdf -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{
+ --ink:#15191c; --char:#252b30; --char2:#323940; --mute:#5d6770; --line:#d9d4cd; --paper:#ffffff; --warm:#f4f1ec;
+ --hv:#ff6b1a; --hv-d:#e0540a; --hv-l:#ffe3d1;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper)}
+body{font-family:'Inter Print',Inter,'Helvetica Neue',Arial,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:9.5pt;line-height:1.35}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;background:var(--paper);display:flex;flex-direction:column}
+.page:last-child{page-break-after:auto}
+.cond{font-family:'Barlow Condensed','Arial Narrow',sans-serif}
+.k{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:8.6pt;color:var(--mute)}
+
+/* header band */
+.band{position:relative;background:var(--char);color:#fff;padding:10mm 13mm 8.5mm;overflow:hidden;flex:none}
+.band svg.mesh{position:absolute;inset:0;width:100%;height:100%;opacity:.16}
+.band .stripe{position:absolute;left:0;right:0;bottom:0;height:3.2mm;background:repeating-linear-gradient(135deg,var(--hv) 0 6mm,var(--hv-d) 6mm 12mm)}
+.band .eyebrow{position:relative;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.24em;font-size:9.5pt;color:#ffb487;text-transform:uppercase}
+.band h1{position:relative;font-family:'Barlow Condensed';font-weight:900;font-size:52pt;line-height:.86;letter-spacing:.005em;text-transform:uppercase;margin-top:3mm}
+.band h1 span{color:var(--hv)}
+.band .sub{position:relative;font-size:10.5pt;color:#dfe3e6;margin-top:3.2mm;max-width:118mm}
+.band .sub b{color:#fff;font-weight:700}
+.badge{position:absolute;right:13mm;top:11mm;width:37mm;height:37mm;border-radius:50%;background:var(--hv);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:0 0 0 2.2mm rgba(255,107,26,.25)}
+.badge .n{font-family:'Barlow Condensed';font-weight:900;font-size:40pt;line-height:.9}
+.badge .n small{font-size:20pt}
+.badge .t{font-family:'Barlow Condensed';font-weight:700;letter-spacing:.14em;font-size:9pt;text-transform:uppercase;margin-top:1mm}
+
+.wrap{padding:0 13mm;flex:1}
+/* hero */
+.hero{display:grid;grid-template-columns:auto 1fr;align-items:end;gap:7mm;padding:6mm 0 4mm;border-bottom:.35mm solid var(--line)}
+.hero .big{font-family:'Barlow Condensed';font-weight:900;font-size:84pt;line-height:.78;color:var(--ink);letter-spacing:-.01em}
+.hero .big span{color:var(--hv);font-size:46pt;margin-left:1.5mm}
+.hero .what{font-size:11.5pt;line-height:1.3;padding-bottom:1.5mm}
+.hero .what b{font-weight:800}
+.hero .what .fine{display:block;font-size:8.5pt;color:var(--mute);margin-top:1.6mm}
+
+/* three tiles */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin-top:4mm}
+.tile{background:var(--warm);border-radius:2.4mm;padding:3.6mm 4.2mm 3.4mm;position:relative;overflow:hidden}
+.tile:before{content:"";position:absolute;left:0;top:0;bottom:0;width:1.6mm;background:var(--hv)}
+.tile .k{color:var(--mute)}
+.tile .v{font-family:'Barlow Condensed';font-weight:800;font-size:30pt;line-height:.95;margin-top:1.2mm}
+.tile .v small{font-size:17pt;font-weight:700;margin-left:.8mm}
+.tile .d{font-size:8.6pt;color:var(--char2);margin-top:1.4mm}
+.tile .d b{font-weight:700;color:var(--ink)}
+
+/* gear */
+.sect{display:flex;align-items:baseline;gap:3mm;margin:5.2mm 0 2.6mm}
+.sect h2{font-family:'Barlow Condensed';font-weight:800;font-size:15.5pt;text-transform:uppercase;letter-spacing:.02em}
+.sect .rule{flex:1;height:.35mm;background:var(--line);transform:translateY(-1.2mm)}
+.sect .note{font-size:8.2pt;color:var(--mute)}
+.gear{display:grid;grid-template-columns:repeat(4,1fr);gap:2.8mm}
+.g{border:.35mm solid var(--line);border-radius:2.2mm;padding:2.4mm 3mm 2.2mm;display:grid;grid-template-columns:11mm 1fr;align-items:center;gap:2.6mm}
+.g svg{width:11mm;height:11mm}
+.g .v{font-family:'Barlow Condensed';font-weight:800;font-size:20pt;line-height:.95}
+.g .l{font-size:8pt;color:var(--mute);line-height:1.2}
+.gear-foot{font-size:7.8pt;color:var(--mute);margin-top:2.2mm}
+
+/* crew */
+.crew{display:grid;grid-template-columns:52mm 1fr;gap:5mm;margin-top:1mm;align-items:stretch}
+.lead{background:var(--char);color:#fff;border-radius:2.4mm;padding:3.8mm 4.2mm;position:relative;overflow:hidden}
+.lead .k{color:#ffb487}
+.lead .nm{font-family:'Barlow Condensed';font-weight:800;font-size:21pt;line-height:.95;margin-top:2mm}
+.lead .rl{font-size:8.6pt;color:#cfd5da;margin-top:1.2mm}
+.names{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4mm 4mm;align-content:center;border-top:.35mm solid var(--line);border-bottom:.35mm solid var(--line);padding:3mm 0}
+.names div{font-family:'Barlow Condensed';font-weight:700;font-size:12.5pt;line-height:1.1;display:flex;align-items:center;gap:2mm}
+.names div:before{content:"";width:1.8mm;height:1.8mm;background:var(--hv);border-radius:.3mm;flex:none}
+
+/* thanks */
+.thanks{margin:0 13mm 11mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:end;border-top:.6mm solid var(--ink);padding-top:3.6mm;flex:none}
+.thanks q{display:block;font-size:10pt;line-height:1.42;quotes:"“" "”" "‘" "’";font-weight:500}
+.thanks .by{font-size:8.6pt;color:var(--mute);margin-top:1.8mm}
+.thanks .by b{color:var(--ink)}
+.flag{width:22mm;height:14mm}
+.foot{position:absolute;left:13mm;right:13mm;bottom:5mm;font-size:6.8pt;color:#8a939b;display:flex;justify-content:space-between}
+.foot.flow{position:static;margin:2.6mm 13mm 5mm;flex:none}
+.p2 .sect{margin:4mm 0 2.2mm}
+
+/* page 2 */
+.band.slim{padding:9mm 13mm 8mm}
+.band.slim h1{font-size:40pt}
+.chart{margin-top:4.5mm}
+.chart svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:6mm;font-size:8.4pt;color:var(--char2);margin-top:1mm}
+.legend i{display:inline-block;width:3.2mm;height:3.2mm;border-radius:.6mm;margin-right:1.6mm;vertical-align:-.4mm}
+.recs{display:grid;grid-template-columns:repeat(4,1fr);gap:3.2mm}
+.rec{background:var(--warm);border-radius:2.2mm;padding:3mm 3.2mm 2.8mm}
+.rec .k{font-size:7.8pt}
+.rec .v{font-family:'Barlow Condensed';font-weight:800;font-size:21pt;line-height:.95;margin-top:1.2mm}
+.rec .v small{font-size:13pt;font-weight:700}
+.rec .d{font-size:7.7pt;color:var(--char2);margin-top:1mm;line-height:1.28}
+.two{display:grid;grid-template-columns:1.08fr 1fr;gap:5mm}
+.box{border:.35mm solid var(--line);border-radius:2.4mm;padding:3.2mm 4mm}
+.box h3{font-family:'Barlow Condensed';font-weight:800;font-size:12.5pt;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1.4mm}
+.rows div{display:flex;justify-content:space-between;align-items:baseline;padding:1.1mm 0;border-bottom:.25mm dashed var(--line);font-size:8.8pt}
+.rows div:last-child{border-bottom:0}
+.rows b{font-family:'Barlow Condensed';font-weight:800;font-size:13pt}
+.feet svg{width:100%;height:auto;margin:1mm 0 2mm}
+.feet .sum{font-size:8.4pt;line-height:1.45;color:var(--char2)}
+.feet .sum b{color:var(--ink)}
+.feet table{width:100%;border-collapse:collapse;font-size:8.5pt;margin-top:1.5mm}
+.feet td{padding:.8mm 0;border-bottom:.25mm dashed var(--line)}
+.feet td.n{text-align:right;font-family:'Barlow Condensed';font-weight:800;font-size:12pt}
+.feet tr.tot td{border-bottom:0;border-top:.45mm solid var(--ink);font-weight:700}
+.wx{display:grid;grid-template-columns:repeat(2,1fr);gap:2.4mm 4mm;margin-top:1mm}
+.wx div{border-left:1.2mm solid var(--hv);padding:.6mm 0 .6mm 2.6mm}
+.wx b{display:block;font-family:'Barlow Condensed';font-weight:800;font-size:16pt;line-height:1}
+.wx span{font-size:7.8pt;color:var(--mute)}
+.papers{display:flex;gap:4mm;align-items:center;margin-top:3.4mm;background:var(--char);color:#fff;border-radius:2.4mm;padding:4mm 5mm}
+.papers .v{font-family:'Barlow Condensed';font-weight:900;font-size:30pt;line-height:.9;color:var(--hv)}
+.papers .t{font-size:9pt;color:#dfe3e6}
+.papers .t b{color:#fff}
+.papers .split{margin-left:auto;display:flex;gap:6mm}
+.papers .split div{text-align:center}
+.papers .split b{display:block;font-family:'Barlow Condensed';font-weight:800;font-size:20pt;line-height:1}
+.papers .split span{font-size:7.6pt;color:#cfd5da}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <pattern id="mesh" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#fff" stroke-width="1"/></pattern>
+ </defs>
+</svg>
+
+<!-- PAGE 1 -->
+<section class="page">
+ <header class="band">
+  <svg class="mesh" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#mesh)"/></svg>
+  <div class="eyebrow">Boost Mobile Gold Coast 500 · 2026 build</div>
+  <h1>What<br>you <span>built</span></h1>
+  <p class="sub"><b>Advanced Temporary Fencing</b> — the fence crew on the Surfers Paradise street circuit, <b>Wed 9 September to Fri 23 October 2026</b>.</p>
+  <div class="badge"><div class="n">100<small>%</small></div><div class="t">of the build</div></div>
+  <div class="stripe"></div>
+ </header>
+
+ <div class="wrap">
+  <div class="hero">
+   <div class="big">20.8<span>km</span></div>
+   <div class="what"><b>of fence and crowd control put in</b> around the circuit, the grandstands, the compounds and the streets beside them — panel by panel, by hand.
+    <span class="fine">20,797.5 m on the signed dockets: 13,270 m of fence, 7,257.5 m of crowd-control barrier and 270 m of flat feet.</span></div>
+  </div>
+
+  <div class="tiles">
+   <div class="tile"><div class="k">Temporary fence</div><div class="v">13.3<small>km</small></div><div class="d"><b>13,270 m</b> put in — <b>653 m more</b> than the programme asked for.</div></div>
+   <div class="tile"><div class="k">Crowd-control barrier</div><div class="v">7.3<small>km</small></div><div class="d"><b>7,257.5 m</b> — 2.2 km on the event lines, 5.1 km of demarcation, plus <b>270 m</b> of flat feet.</div></div>
+   <div class="tile"><div class="k">Scrim</div><div class="v">4.4<small>km</small></div><div class="d"><b>4,405 m</b> of shade cloth — 3,977.5 m on braced fence, 427.5 m on fence already standing.</div></div>
+  </div>
+
+  <div class="sect"><h2>Every piece, carried by hand</h2><div class="rule"></div></div>
+  <div class="gear">
+   <div class="g"><svg viewBox="0 0 44 44"><rect x="5" y="7" width="34" height="27" rx="1.5" fill="none" stroke="#15191c" stroke-width="2.4"/><path d="M11.8 7v27M18.6 7v27M25.4 7v27M32.2 7v27M5 14h34M5 20.5h34M5 27h34" stroke="#15191c" stroke-width="1"/><path d="M7 34v4M37 34v4" stroke="#ff6b1a" stroke-width="3"/></svg><div><div class="v">5,223</div><div class="l">mesh panels</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><path d="M6 33l4-11h24l4 11z" fill="#ff6b1a"/><path d="M6 33h32v4H6z" fill="#e0540a"/><circle cx="17" cy="27" r="2" fill="#fff"/><circle cx="27" cy="27" r="2" fill="#fff"/><path d="M17 27V9M27 27V9" stroke="#15191c" stroke-width="2.4"/></svg><div><div class="v">8,235</div><div class="l">feet / bases on the dockets</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><path d="M15 6v32M29 6v32" stroke="#15191c" stroke-width="2.6"/><rect x="11" y="17" width="22" height="10" rx="3" fill="none" stroke="#ff6b1a" stroke-width="3"/><circle cx="22" cy="22" r="2" fill="#15191c"/></svg><div><div class="v">7,977</div><div class="l">clamps</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><path d="M10 6v30" stroke="#15191c" stroke-width="2.6"/><path d="M11 10l20 22h6" fill="none" stroke="#ff6b1a" stroke-width="3" stroke-linejoin="round"/><path d="M6 36h10M30 36h10" stroke="#15191c" stroke-width="3"/></svg><div><div class="v">1,426</div><div class="l">braces</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><path d="M6 12h32M6 30h32" stroke="#15191c" stroke-width="2.6"/><path d="M8 12v18M14 12v18M20 12v18M26 12v18M32 12v18M37 12v18" stroke="#15191c" stroke-width="1.3"/><path d="M8 30l-3 7M37 30l3 7M8 30l3 7M37 30l-3 7" stroke="#ff6b1a" stroke-width="2.4"/></svg><div><div class="v">2,903</div><div class="l">crowd-control barriers</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><rect x="6" y="8" width="30" height="24" rx="1.5" fill="none" stroke="#15191c" stroke-width="2.4"/><path d="M13.5 8v24M21 8v24M28.5 8v24M6 16h30M6 24h30" stroke="#15191c" stroke-width="1"/><circle cx="33" cy="36" r="4" fill="none" stroke="#ff6b1a" stroke-width="2.6"/></svg><div><div class="v">133</div><div class="l">vehicle gates</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><path d="M8 6v32M36 6v32" stroke="#15191c" stroke-width="2.6"/><rect x="12" y="12" width="20" height="20" rx="1.5" fill="none" stroke="#ff6b1a" stroke-width="2.6"/><path d="M17 12v20M22 12v20M27 12v20" stroke="#ff6b1a" stroke-width="1.2"/></svg><div><div class="v">22</div><div class="l">pedestrian gates</div></div></div>
+   <div class="g"><svg viewBox="0 0 44 44"><rect x="6" y="8" width="32" height="25" rx="1.5" fill="#ff6b1a"/><rect x="6" y="8" width="32" height="25" rx="1.5" fill="none" stroke="#15191c" stroke-width="2.4"/><path d="M9 33v4M35 33v4" stroke="#15191c" stroke-width="3"/><path d="M11 15h22M11 21h16" stroke="#fff" stroke-width="2"/></svg><div><div class="v">41</div><div class="l">hoarding panels</div></div></div>
+  </div>
+  <p class="gear-foot">Also: 117 flat-feet barriers and 278 gate wheels. Feet, bases and blocks are the same thing. Counted off the component boxes on the signed hire agreements.</p>
+
+  <div class="sect"><h2>The crew</h2><div class="rule"></div></div>
+  <div class="crew">
+   <div class="lead"><div class="k">Supervisor</div><div class="nm">Wayne Woods</div><div class="rl">Advanced Temporary Fencing</div></div>
+   <div class="names">
+    <div>Owen Cowell McPaul</div><div>Daniel Macleod</div><div>Cody Woods</div>
+    <div>Chase Hireni</div><div>Tahi Peni</div><div>Daniel Smith</div>
+    <div>Scott Hildebrand</div><div>Hayden McAvoy</div><div>Alonzo McAvoy</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="thanks">
+  <div>
+   <q>Fellas, this is what you built. 20.8 kilometres of fence and crowd control, put in by hand, in the wind and the rain — and done right. The public, the residents living right beside the circuit and V8 Supercars management had nothing but good things to say. Thank you.</q>
+   <div class="by"><b>Andrew Fisher</b> · Coates · GC500 2026</div>
+  </div>
+  <svg class="flag" viewBox="0 0 44 28"><defs><pattern id="chk" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="4" height="4" fill="#15191c"/><rect x="4" y="4" width="4" height="4" fill="#15191c"/></pattern></defs><path d="M2 2c10-3 20 3 40 0v20c-20 3-30-3-40 0z" fill="url(#chk)" stroke="#15191c" stroke-width="1.2"/><path d="M2 2v25" stroke="#ff6b1a" stroke-width="2"/></svg>
+ </div>
+ <div class="foot"><span>From the signed dockets on the GC500 Delivery Control record, read 24 Oct 2026. Build: 9 Sep – Fri 23 Oct 2026. Demob still to come.</span><span>1 / 2</span></div>
+</section>
+
+<!-- PAGE 2 -->
+<section class="page p2">
+ <header class="band slim">
+  <svg class="mesh" preserveAspectRatio="none"><rect width="100%" height="100%" fill="url(#mesh)"/></svg>
+  <div class="eyebrow">Advanced Temporary Fencing · GC500 2026</div>
+  <h1>The build, <span>week by week</span></h1>
+  <div class="stripe"></div>
+ </header>
+
+ <div class="wrap">
+  <div class="chart" id="chart"></div>
+  <div class="legend"><span><i style="background:#ff6b1a"></i>Temporary fence (m)</span><span><i style="background:#323940"></i>Crowd control and flat feet (m)</span><span style="margin-left:auto;color:#5d6770">Number on each bar: signed hire agreements that week</span></div>
+
+  <div class="sect"><h2>Record breakers</h2><div class="rule"></div></div>
+  <div class="recs">
+   <div class="rec"><div class="k">Biggest week</div><div class="v">5,645<small> m</small></div><div class="d">12–16 Oct: 3,685 m of fence and 1,960 m of crowd control in five days.</div></div>
+   <div class="rec"><div class="k">Biggest day</div><div class="v">1,430<small> m</small></div><div class="d">Mon 28 Sep, led by the Gold Coast Hwy median strip (north).</div></div>
+   <div class="rec"><div class="k">Biggest single job</div><div class="v">1,210<small> m</small></div><div class="d">Docket 36603, Tue 13 Oct: eastern residents and demarcation, Cable St to Gate 8A.</div></div>
+   <div class="rec"><div class="k">Event week</div><div class="v">45<small> dockets</small></div><div class="d">In five days, 19–23 Oct. Thu 22 Oct alone: 15.</div></div>
+  </div>
+
+  <div class="sect"><h2>The detail</h2><div class="rule"></div></div>
+  <div class="two">
+   <div class="box feet">
+    <h3>How the feet add up</h3>
+    <svg viewBox="0 0 360 104" aria-label="panels sharing feet, and a brace on two feet">
+     <g stroke="#15191c" fill="none">
+      <rect x="14" y="10" width="80" height="58" stroke-width="2.2"/><rect x="94" y="10" width="80" height="58" stroke-width="2.2"/><rect x="174" y="10" width="80" height="58" stroke-width="2.2"/>
+      <path d="M27.3 10v58M40.6 10v58M54 10v58M67.3 10v58M80.6 10v58M107.3 10v58M120.6 10v58M134 10v58M147.3 10v58M160.6 10v58M187.3 10v58M200.6 10v58M214 10v58M227.3 10v58M240.6 10v58M14 24.5h240M14 39h240M14 53.5h240" stroke-width=".7"/>
+      <path d="M254 14l58 52" stroke="#ff6b1a" stroke-width="3.2"/>
+     </g>
+     <g fill="#ff6b1a"><path d="M4 68h20l3 9H1z"/><path d="M84 68h20l3 9H81z"/><path d="M164 68h20l3 9h-26z"/><path d="M244 68h20l3 9h-26z"/><path d="M302 66h20l3 9h-26z"/><path d="M302 75h20l3 9h-26z" fill="#e0540a"/></g>
+     <g font-family="Barlow Condensed" font-weight="700" font-size="12" fill="#5d6770"><text x="2" y="98">a foot at every join, shared by two panels</text><text x="282" y="98">brace · 2 feet</text></g>
+    </svg>
+    <table>
+     <tr><td>5,264 panels (incl. 41 hoarding) × 1 foot</td><td class="n">5,264</td></tr>
+     <tr><td>1,426 braces × 2 feet</td><td class="n">2,852</td></tr>
+     <tr><td>Dropped at the iEDM compound</td><td class="n">300</td></tr>
+     <tr><td>Under flat-feet barriers, Club 500</td><td class="n">19</td></tr>
+     <tr class="tot"><td>From the gear (+1 at the end of each run)</td><td class="n">8,435+</td></tr>
+    </table>
+    <p class="sum" style="margin-top:2mm">Every bracing docket shows two feet a brace, and a foot is shared at each panel join. <b>8,235</b> feet are written on the dockets, plus about <b>260</b> on the 11 papers that left the box blank: about <b>8,495 feet</b> used in all.</p>
+   </div>
+   <div>
+    <div class="box">
+     <h3>The work you do twice</h3>
+     <div class="rows">
+      <div><span>Fence relocated when the plan moved</span><b>612.5 m</b></div>
+      <div><span>Taken down and stacked away</span><b>1,102.5 m</b></div>
+      <div><span>Put back up after a stack-down</span><b>32.5 m</b></div>
+      <div><span>Hours on service jobs (42 service notes)</span><b>108.5 h</b></div>
+     </div>
+    </div>
+    <div class="box" style="margin-top:3mm">
+     <h3>Built through it</h3>
+     <div class="wx">
+      <div><b>113.6 mm</b><span>of rain over the build</span></div>
+      <div><b>18</b><span>wet mornings</span></div>
+      <div><b>15</b><span>days of gusts over 50 km/h</span></div>
+      <div><b>63 km/h</b><span>the big one, 7 Oct</span></div>
+     </div>
+     <p style="font-size:7.4pt;color:#8a939b;margin-top:2mm">Bureau of Meteorology, Gold Coast Seaway, 7 Sep – 23 Oct 2026. 65 mm fell in event week alone.</p>
+    </div>
+   </div>
+  </div>
+
+  <div class="papers">
+   <div class="v">233</div>
+   <div class="t"><b>signed papers</b><br>over 32 working days on the dockets,<br>first in: Wed 9 Sep, Sea World Drive (36501)</div>
+   <div class="split"><div><b>166</b><span>hire agreements</span></div><div><b>42</b><span>service notes</span></div><div><b>25</b><span>collection forms</span></div></div>
+  </div>
+ </div>
+ <div class="foot flow"><span>From the signed dockets on the GC500 Delivery Control record, read 24 Oct 2026. Fence and crowd control by the week the docket was written.</span><span>2 / 2</span></div>
+</section>
+
+<script>
+/* the week-by-week bars, drawn from the dockets' own week tallies */
+(function () {
+ const W = [
+  {wk: '9–12 Sep', fence: 810, ccb: 0, n: 5},
+  {wk: '14–18 Sep', fence: 2015, ccb: 652.5, n: 29},
+  {wk: '21–25 Sep', fence: 1302.5, ccb: 1720, n: 23},
+  {wk: '28 Sep–2 Oct', fence: 2070, ccb: 1435, n: 14},
+  {wk: '6–9 Oct', fence: 1695, ccb: 179.5, n: 23},
+  {wk: '12–16 Oct', fence: 3685, ccb: 1960, n: 27},
+  {wk: '19–23 Oct', fence: 1692.5, ccb: 1580.5, n: 45, ev: true}
+ ];
+ const w = 640, h = 178, l = 40, r = 8, t = 16, b = 34, max = 6000, ch = h - t - b, bw = 48, step = (w - l - r) / W.length;
+ const y = v => t + ch - v / max * ch, f = n => n.toLocaleString('en-AU');
+ let s = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" font-family="Barlow Condensed">`;
+ for (let g = 0; g <= max; g += 1000) s += `<line x1="${l}" x2="${w - r}" y1="${y(g)}" y2="${y(g)}" stroke="#e5e0d9" stroke-width="${g ? .8 : 1.4}"/><text x="${l - 6}" y="${y(g) + 3.5}" text-anchor="end" font-size="10" fill="#8a939b">${g ? f(g) : '0'}</text>`;
+ W.forEach((d, i) => {
+  const x = l + i * step + (step - bw) / 2, tot = d.fence + d.ccb;
+  s += `<rect x="${x}" y="${y(d.fence)}" width="${bw}" height="${y(0) - y(d.fence)}" fill="#ff6b1a" rx="2"/>`;
+  if (d.ccb) s += `<rect x="${x}" y="${y(tot)}" width="${bw}" height="${y(d.fence) - y(tot)}" fill="#323940" rx="2"/>`;
+  s += `<text x="${x + bw / 2}" y="${y(tot) - 5}" text-anchor="middle" font-size="14" font-weight="800" fill="#15191c">${f(tot)}</text>`;
+  s += `<circle cx="${x + bw / 2}" cy="${y(0) - 12}" r="9" fill="#fff"/><text x="${x + bw / 2}" y="${y(0) - 8.5}" text-anchor="middle" font-size="11" font-weight="800" fill="#15191c">${d.n}</text>`;
+  s += `<text x="${x + bw / 2}" y="${h - b + 15}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#252b30">${d.wk}</text>`;
+  if (d.ev) s += `<text x="${x + bw / 2}" y="${h - b + 28}" text-anchor="middle" font-size="10" font-weight="700" fill="#e0540a" letter-spacing="1">EVENT WEEK</text>`;
+ });
+ s += `<text x="${l}" y="10" font-size="10" fill="#8a939b" letter-spacing="1">METRES PUT IN</text></svg>`;
+ document.getElementById('chart').innerHTML = s;
+})();
+</script>
+</body>
+</html>

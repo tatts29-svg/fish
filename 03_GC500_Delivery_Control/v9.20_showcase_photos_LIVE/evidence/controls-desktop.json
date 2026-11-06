@@ -1,0 +1,179 @@
+{
+  "author": "Andrew Fisher",
+  "phone": false,
+  "checks": [
+    {
+      "name": "balanced opening",
+      "pass": true
+    },
+    {
+      "name": "loop default",
+      "pass": true
+    },
+    {
+      "name": "open 0",
+      "pass": true
+    },
+    {
+      "name": "cleanup 0",
+      "pass": true
+    },
+    {
+      "name": "open 1",
+      "pass": true
+    },
+    {
+      "name": "cleanup 1",
+      "pass": true
+    },
+    {
+      "name": "open 2",
+      "pass": true
+    },
+    {
+      "name": "cleanup 2",
+      "pass": true
+    },
+    {
+      "name": "quality floor keeps scene",
+      "pass": true
+    },
+    {
+      "name": "manual quality remains available",
+      "pass": true
+    },
+    {
+      "name": "pace works",
+      "pass": true
+    },
+    {
+      "name": "camera hero",
+      "pass": true
+    },
+    {
+      "name": "camera auto",
+      "pass": true
+    },
+    {
+      "name": "camera onboard",
+      "pass": true
+    },
+    {
+      "name": "camera chase",
+      "pass": true
+    },
+    {
+      "name": "camera heli",
+      "pass": true
+    },
+    {
+      "name": "camera top",
+      "pass": true
+    },
+    {
+      "name": "camera wide",
+      "pass": true
+    },
+    {
+      "name": "camera detail",
+      "pass": true
+    },
+    {
+      "name": "camera frontdetail",
+      "pass": true
+    },
+    {
+      "name": "vehicle car",
+      "pass": true
+    },
+    {
+      "name": "vehicle car_vms",
+      "pass": true
+    },
+    {
+      "name": "vehicle car_loo",
+      "pass": true
+    },
+    {
+      "name": "vehicle forklift",
+      "pass": true
+    },
+    {
+      "name": "vehicle boom",
+      "pass": true
+    },
+    {
+      "name": "vehicle scissor",
+      "pass": true
+    },
+    {
+      "name": "vehicle tractor",
+      "pass": true
+    },
+    {
+      "name": "figures reveal",
+      "pass": true
+    },
+    {
+      "name": "car focus returns",
+      "pass": true
+    },
+    {
+      "name": "deferred redraw",
+      "pass": true
+    },
+    {
+      "name": "still open and playing",
+      "pass": true
+    },
+    {
+      "name": "visibility preparation active",
+      "pass": true
+    },
+    {
+      "name": "context loss explained",
+      "pass": true
+    },
+    {
+      "name": "automatic context recovery",
+      "pass": true
+    },
+    {
+      "name": "retry mounts scene",
+      "pass": true
+    },
+    {
+      "name": "Back closes",
+      "pass": true
+    },
+    {
+      "name": "catch-up queued once",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    },
+    {
+      "name": "no operational writes",
+      "pass": true
+    }
+  ],
+  "closedHeapMB": [
+    239.68812942504883,
+    241.5757179260254,
+    242.8029899597168
+  ],
+  "visibility": {
+    "prepared": 13,
+    "submitted": 13320360,
+    "total": 29779638,
+    "sourceGeometryPreserved": true
+  },
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 85,
+    "blocked": 0
+  }
+}

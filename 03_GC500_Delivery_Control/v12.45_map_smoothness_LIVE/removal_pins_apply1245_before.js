@@ -1,0 +1,1 @@
+ const gp = svg.querySelector('g.pins'); if (gp) gp.innerHTML = pinsHtml(svg);

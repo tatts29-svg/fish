@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "serverSha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "serverBytes": 289090,
+  "productionCardSha256": "953233d43de21949f5a7704ee19c973c94b9864a789c86aef9f6d90437a85842",
+  "syntheticCardSha256": "725ab776a6c5df64a041d6825397e1efe60316a56e54bc770deff0cc23bb4e16",
+  "syntheticUpdatedCardSha256": "41e65e1973aa72d99c6785b5e996c16fe2f3eb4190f77ce3e2b1231197610deb",
+  "checks": 23,
+  "errors": 0,
+  "externalRequests": 0,
+  "jobRecordUnchanged": true
+}

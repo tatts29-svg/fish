@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "what": "16 Oct 2026, 10:34 AEST: after the de-duplication the page tidied the surviving records back to their plain ids, and 36592's corrected copy (F-AFV-0035·2904) was renamed onto the plain id F-AFV-0035, which the de-duplication had just tombstoned by setting the old copy aside under it. The tombstone won: 36592 dropped off the live list. Put the old copy back through the page's own Put back (that lifts the tombstone), then correct it to the corrected reading (137.5 m, 55 panels, 53 bases, 53 clamps) with the note unchanged, so F-AFV-0035 is the corrected record again.",
+ "ops": [
+  {
+   "op": "docket_putback",
+   "docket_no": "36592",
+   "id": "F-AFV-0035",
+   "why": "lifts the tombstone on the plain id; corrected in the next op"
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36592",
+   "quantities": {
+    "clean": 137.5
+   },
+   "components": {
+    "mesh_panel": 55,
+    "base": 53,
+    "clamp": 53
+   },
+   "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+   "recorded_by": "Andrew Fisher via Codex"
+  }
+ ]
+}

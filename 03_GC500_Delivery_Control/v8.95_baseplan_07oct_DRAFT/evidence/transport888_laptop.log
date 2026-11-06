@@ -1,0 +1,30 @@
+PASS  Everything reconciles sits directly under At a glance
+PASS  every tie-out is tied in the model and on the page (17 tie-outs)
+PASS  the tie-outs cover the P&L, Transport and the operational tabs
+PASS  Costs nav keeps its five sections and adds Transport
+PASS  Transport view mounts from the Costs nav, with its own heading and the button pressed
+PASS  every reference with a transport fact in the source is on the Transport view
+PASS  every fencing semi and every schedule row with no reference is on it
+PASS  every carrier named in the source has a row; every branch on a load has a row, plus the unconfirmed loads
+PASS  one row per load on the page (132)
+PASS  grand total to date equals the P&L, Costs to job end, the business’s lines and the Finance handover
+PASS  per-branch totals add to the grand total; per-carrier totals add to it; the loads add to it
+PASS  forecast still to come equals Costs to job end, the business’s lines and the handover, and adds by branch and by load
+PASS  the Finance handover column is the handover’s own split, branch for branch, and adds to its job figure
+PASS  Transport Revenue equals the P&L, the business’s lines and the by-branch table, line for line
+PASS  provisional transport revenue to come equals Costs to job end and the Additional transport forecast by branch
+PASS  the load counts agree: by branch, by carrier, with a figure, on a Coates truck
+PASS  demob transport in the handover is the Transport view’s cut of the P&L
+PASS  the words: tied, unconfirmed where unknown, demob legs named as not in the P&L, the rules, the carrier plan, the author; no phone number or email
+PASS  reference and Timeline links are drawn
+PASS  a reference link opens the reference drawer
+PASS  a Timeline link opens that day on the Timeline
+PASS  coming back to Costs opens the summary whole, and the Transport button reopens the view
+PASS  the With a figure filter shows exactly the loads with a figure
+PASS  laptop: table layout, four metric tiles across, no page-wide horizontal overflow
+PASS  an injected mismatch is flagged on the exact tie-out, and the real figures tie again afterwards
+PASS  the line opens itself and says how many do not tie
+PASS  a redraw changes no figure
+PASS  no page errors
+PASS  no writes attempted
+1440 px: 29/29

@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "121d183a400d95d997bfbf4db07b5cb5872b57a8e3ec80d163adc4eaec1dd91e",
+  "base_sha256": "d592847abc0d774502f53fc568f1bfaaff1706be7dd23a3a54a70a1552a4c367",
+  "protected_prefix_bytes": 7647181,
+  "same_offset": true,
+  "prefix_unchanged": true
+}

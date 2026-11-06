@@ -1,0 +1,208 @@
+{
+ "viewFolds": {
+  "AA": {
+   "accForm": {
+    "fold": "contents",
+    "editonly": false,
+    "open": false,
+    "shown": true
+   },
+   "fireTick": {
+    "fold": "charges",
+    "editonly": true,
+    "open": false,
+    "shown": false
+   },
+   "foldsShown": [
+    "history",
+    "contents",
+    "driver"
+   ]
+  },
+  "WC09": {
+   "accForm": {
+    "fold": "contents",
+    "editonly": false,
+    "open": false,
+    "shown": true
+   },
+   "fireTick": null,
+   "foldsShown": [
+    "history",
+    "contents",
+    "driver"
+   ]
+  }
+ },
+ "editFolds": {
+  "AA": {
+   "accForm": {
+    "fold": "contents",
+    "title": "Inside it and asset numbers3 inside · 1 asset number",
+    "editonly": false,
+    "open": false
+   },
+   "fireTick": {
+    "fold": "charges",
+    "title": "Contract & charges editors onlyrental, rates, hire start, labour",
+    "editonly": true,
+    "open": false
+   },
+   "folds": [
+    "photos*",
+    "history",
+    "contents",
+    "driver",
+    "charges*",
+    "supplied*",
+    "sub744*"
+   ]
+  },
+  "WC09": {
+   "accForm": {
+    "fold": "contents",
+    "title": "Inside it and asset numbers2 asset numbers",
+    "editonly": false,
+    "open": false
+   },
+   "fireTick": null,
+   "folds": [
+    "photos*",
+    "history",
+    "contents",
+    "driver",
+    "charges*",
+    "supplied*",
+    "sub744*"
+   ]
+  },
+  "GN01": {
+   "accForm": null,
+   "fireTick": null,
+   "folds": [
+    "photos*",
+    "history",
+    "contents",
+    "driver",
+    "charges*",
+    "supplied*",
+    "sub744*"
+   ]
+  },
+  "T0001": {
+   "accForm": null,
+   "fireTick": null,
+   "folds": [
+    "photos*",
+    "history",
+    "contents",
+    "driver",
+    "charges*",
+    "supplied*",
+    "sub744*"
+   ]
+  }
+ },
+ "shape": {
+  "wc09Rows": [
+   {
+    "keys": [
+     "_added",
+     "added_at",
+     "added_by",
+     "as_written",
+     "asset_no",
+     "asset_no_state",
+     "origin",
+     "qty",
+     "qty_stated",
+     "source_task",
+     "type"
+    ],
+    "type": "Air conditioner",
+    "qty": 1,
+    "qty_stated": true,
+    "asset_no_present": true,
+    "asset_no_state": "entered here",
+    "origin": "added in this page",
+    "as_written": "Air conditioner",
+    "has_added_by": true,
+    "has_added_at": true
+   },
+   {
+    "keys": [
+     "_added",
+     "added_at",
+     "added_by",
+     "as_written",
+     "asset_no",
+     "asset_no_state",
+     "origin",
+     "qty",
+     "qty_stated",
+     "source_task",
+     "type"
+    ],
+    "type": "Air conditioner",
+    "qty": 1,
+    "qty_stated": true,
+    "asset_no_present": true,
+    "asset_no_state": "entered here",
+    "origin": "added in this page",
+    "as_written": "Air conditioner",
+    "has_added_by": true,
+    "has_added_at": true
+   }
+  ],
+  "rowsWithNoAssetNo": 1,
+  "rowsTotal": 48,
+  "addedHere": 48,
+  "dpAccWC09": [],
+  "distinctFireRatesOnCard": 1,
+  "syncOn": true,
+  "firstHasAcc": true,
+  "docIdWC09": "WC09"
+ },
+ "before": {
+  "fireTicks": 0,
+  "accTotalNull": false,
+  "assetTotalNull": true
+ },
+ "after": {
+  "docsWritten": [
+   "accessories/…",
+   "by/…",
+   "deleted/…"
+  ],
+  "docCount": 3,
+  "newRow": {
+   "type": "Other",
+   "qty": 2,
+   "as_written": "2x Other — Fire extinguisher",
+   "asset_no": null,
+   "asset_no_state": "not supplied"
+  },
+  "labourSame": true,
+  "chargeTotalSame": true,
+  "fireTicksSame": true,
+  "fireAmtSame": true,
+  "accTotalNowNull": true,
+  "accTotalBeforeNull": false,
+  "assetTotalNowNull": true,
+  "assetTotalBeforeNull": true,
+  "knownSame": true,
+  "dpAccWC09": [
+   "2 × 2x Other — Fire extinguisher"
+  ],
+  "drawerShows": [
+   "Other ×2 added here as written: “2x Other — Fire extinguisher” no asset no. Edit Take off"
+  ]
+ },
+ "errors": [],
+ "consoleErr": [],
+ "counts": {
+  "page": 1,
+  "live": 96,
+  "blocked": 0
+ }
+}

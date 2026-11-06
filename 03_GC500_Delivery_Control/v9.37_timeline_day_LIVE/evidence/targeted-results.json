@@ -1,0 +1,239 @@
+{
+  "sha256": "8cb0f776869f04a638d5da9603768c64efabdac1d1e359e00688daaaa9f73c57",
+  "checks": [
+    {
+      "name": "390 fresh Timeline selected day visible",
+      "pass": true,
+      "data": {
+        "date": "2026-10-09"
+      }
+    },
+    {
+      "name": "390 fresh Timeline does not scroll document",
+      "pass": true
+    },
+    {
+      "name": "390 refresh retains visible selected day",
+      "pass": true
+    },
+    {
+      "name": "390 fresh explicit day link is honoured and visible",
+      "pass": true
+    },
+    {
+      "name": "390 Prev selects visible day",
+      "pass": true
+    },
+    {
+      "name": "390 Prev preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 200,
+          "doc": 0
+        },
+        "after": {
+          "main": 200,
+          "doc": 0,
+          "maxMain": 3089
+        }
+      }
+    },
+    {
+      "name": "390 Next selects visible day",
+      "pass": true
+    },
+    {
+      "name": "390 Next preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 200,
+          "doc": 0
+        },
+        "after": {
+          "main": 200,
+          "doc": 0,
+          "maxMain": 486
+        }
+      }
+    },
+    {
+      "name": "390 Today selects visible day",
+      "pass": true
+    },
+    {
+      "name": "390 Today preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 200,
+          "doc": 0
+        },
+        "after": {
+          "main": 200,
+          "doc": 0,
+          "maxMain": 7914
+        }
+      }
+    },
+    {
+      "name": "390 rapid Next uses final selected day",
+      "pass": true
+    },
+    {
+      "name": "390 return from Today preserves selected day",
+      "pass": true
+    },
+    {
+      "name": "390 reveal moves only strip, preserving focus",
+      "pass": true
+    },
+    {
+      "name": "390 resize after leaving stays on Today",
+      "pass": true
+    },
+    {
+      "name": "390 operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "390 no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "1440 fresh Timeline selected day visible",
+      "pass": true,
+      "data": {
+        "date": "2026-10-09"
+      }
+    },
+    {
+      "name": "1440 fresh Timeline does not scroll document",
+      "pass": true
+    },
+    {
+      "name": "1440 refresh retains visible selected day",
+      "pass": true
+    },
+    {
+      "name": "1440 fresh explicit day link is honoured and visible",
+      "pass": true
+    },
+    {
+      "name": "1440 Prev selects visible day",
+      "pass": true
+    },
+    {
+      "name": "1440 Prev preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 200,
+          "doc": 0
+        },
+        "after": {
+          "main": 200,
+          "doc": 0,
+          "maxMain": 1623
+        }
+      }
+    },
+    {
+      "name": "1440 Next selects visible day",
+      "pass": true
+    },
+    {
+      "name": "1440 Next preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 200,
+          "doc": 0
+        },
+        "after": {
+          "main": 75,
+          "doc": 0,
+          "maxMain": 75
+        }
+      }
+    },
+    {
+      "name": "1440 Today selects visible day",
+      "pass": true
+    },
+    {
+      "name": "1440 Today preserves document/main scroll",
+      "pass": true,
+      "data": {
+        "before": {
+          "main": 75,
+          "doc": 0
+        },
+        "after": {
+          "main": 75,
+          "doc": 0,
+          "maxMain": 4454
+        }
+      }
+    },
+    {
+      "name": "1440 rapid Next uses final selected day",
+      "pass": true
+    },
+    {
+      "name": "1440 return from Today preserves selected day",
+      "pass": true
+    },
+    {
+      "name": "1440 reveal moves only strip, preserving focus",
+      "pass": true
+    },
+    {
+      "name": "1440 resize after leaving stays on Today",
+      "pass": true
+    },
+    {
+      "name": "1440 operational record unchanged",
+      "pass": true
+    },
+    {
+      "name": "1440 no runtime errors",
+      "pass": true
+    }
+  ],
+  "sessions": [
+    {
+      "width": 390,
+      "errors": [],
+      "requests": {
+        "page": 3,
+        "live": 101,
+        "blocked": 1,
+        "blockedPaths": [
+          {
+            "method": "POST",
+            "origin": "https://tile.googleapis.com",
+            "path": "/v1/createSession"
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "errors": [],
+      "requests": {
+        "page": 3,
+        "live": 96,
+        "blocked": 1,
+        "blockedPaths": [
+          {
+            "method": "POST",
+            "origin": "https://tile.googleapis.com",
+            "path": "/v1/createSession"
+          }
+        ]
+      }
+    }
+  ]
+}

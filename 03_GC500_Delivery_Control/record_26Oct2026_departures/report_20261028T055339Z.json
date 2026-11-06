@@ -1,0 +1,317 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T055339Z",
+ "finished": "2026-10-28T05:54:17.727Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026, asked whether the distribution board on GN23's units (1189078, Distribution Board Lifeguard 17) went with the 150 kVA generator at 09:45: \"yes its that one\". GN23's departure form offers only the generator, so the board's departure goes in GN23's note.",
+  "ops": [
+   {
+    "op": "note_append",
+    "ref": "GN23",
+    "text": "Distribution board 1189078 (Lifeguard 17) left site with the 150 kVA generator 1297157, 28 Oct 2026 09:45 AEST (Andrew Fisher, 28 Oct 2026)."
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11690,
+  "after": 11693
+ },
+ "updated": {
+  "before": "2026-10-28T05:38:33.669Z",
+  "after": "2026-10-28T05:54:16.877Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "note_append",
+   "ref": "GN23",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN23",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~GN23",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~GN23",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN23": {
+    "state": "in transit",
+    "set_at": "2026-10-28T00:05:20.004Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1297157": {
+      "on": true,
+      "at": "2026-10-27T06:05:21.749Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1297157": {
+      "at": "2026-10-28T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:35:20.360Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T00:05:20.004Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-30T00:28:24.083Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T00:05:20.004Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d91aff81-ec03-4574-ba4f-c3e3ef9bc867",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T09:45:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-30T00:28:24.083Z",
+       "requiredKey": "[[\"150kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "150kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN23\",\"coates\",\"asset\",\"1297157\"]"
+         ],
+         "numbers": [
+          "1297157"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN23\",\"coates\",\"asset\",\"1297157\"]",
+           "number": "1297157",
+           "owner": "coates",
+           "item": "150kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T00:28:24.083Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T00:05:20.004Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1297157",
+      "ready": true,
+      "at": "2026-10-27T06:05:21.749Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1297157",
+      "pickup": "2026-10-28T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:35:20.360Z"
+     }
+    ],
+    "_k": "GN23"
+   },
+   "stamps/dnote~2f~GN23": null,
+   "by/dnote~2f~GN23": null
+  },
+  "after": {
+   "delivery/GN23": {
+    "state": "in transit",
+    "set_at": "2026-10-28T00:05:20.004Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1297157": {
+      "on": true,
+      "at": "2026-10-27T06:05:21.749Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1297157": {
+      "at": "2026-10-28T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T21:35:20.360Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T00:05:20.004Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-30T00:28:24.083Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T00:05:20.004Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d91aff81-ec03-4574-ba4f-c3e3ef9bc867",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T09:45:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-30T00:28:24.083Z",
+       "requiredKey": "[[\"150kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "150kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN23\",\"coates\",\"asset\",\"1297157\"]"
+         ],
+         "numbers": [
+          "1297157"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN23\",\"coates\",\"asset\",\"1297157\"]",
+           "number": "1297157",
+           "owner": "coates",
+           "item": "150kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-30T00:28:24.083Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T00:05:20.004Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1297157",
+      "ready": true,
+      "at": "2026-10-27T06:05:21.749Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1297157",
+      "pickup": "2026-10-28T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T21:35:20.360Z"
+     }
+    ],
+    "note": "Distribution board 1189078 (Lifeguard 17) left site with the 150 kVA generator 1297157, 28 Oct 2026 09:45 AEST (Andrew Fisher, 28 Oct 2026).",
+    "_k": "GN23"
+   },
+   "stamps/dnote~2f~GN23": {
+    "_k": "dnote/GN23",
+    "v": "2026-10-28T05:54:00.888Z"
+   },
+   "by/dnote~2f~GN23": {
+    "_k": "dnote/GN23",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

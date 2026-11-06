@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "basis": "Andrew Fisher, 2 Nov 2026 (this chat), asked whether Daniel had a PO for week ending 01/11/2026 (none on the record), then: \"4674741 W/E is this one for Daniel\" and \"P/O o gave you os for daniel\". Job Connect labour hire, Daniel Gough, week ending 1 Nov 2026, costed to KINP like his other weeks. No amount given, so none is entered (as his October POs on the record); the week stays at the running sheet in the P&L until invoiced. Applied only if the P&L does not move.",
+ "ops": [
+  {
+   "op": "po_add",
+   "number": "4674741",
+   "patch": {
+    "supplier_name": "Job Connect",
+    "stream": "labour",
+    "what": "Daniel Gough - week ending 1 Nov 2026",
+    "period": "w/e 1 Nov 2026",
+    "branch": "KINP",
+    "revenue_branch": "KINP",
+    "confirmed": true
+   },
+   "why": "Andrew Fisher, 2 Nov 2026: \"P/O o gave you os for daniel\" (4674741, w/e 1 Nov)"
+  }
+ ]
+}

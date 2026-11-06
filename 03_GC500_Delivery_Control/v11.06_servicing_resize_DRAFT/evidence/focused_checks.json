@@ -1,0 +1,389 @@
+{
+  "author": "Andrew Fisher",
+  "status": "Focused checks passed; official sweeps and independent review pending",
+  "candidate_sha256": "7c3f21cef9a5d161bcd1dbf317465707b7f93df9e70fa873c3f1505e32e94716",
+  "base_sha256": "56fcb00987640d249e363936a61fefed8574e2a03c17933dca32b1e8c20b985c",
+  "presentation": {
+    "passed": 42,
+    "checks": [
+      {
+        "name": "original4K drawing still decodes",
+        "pass": true
+      },
+      {
+        "name": "hydration sender held",
+        "pass": true
+      },
+      {
+        "name": "normal view has one visible whole-night score",
+        "pass": true
+      },
+      {
+        "name": "canonical area identities match map and print data",
+        "pass": true
+      },
+      {
+        "name": "zero fixture has no completed glowing cards",
+        "pass": true
+      },
+      {
+        "name": "fullscreen has one visible whole-night score",
+        "pass": true
+      },
+      {
+        "name": "fullscreen preserves GC500 branding",
+        "pass": true
+      },
+      {
+        "name": "fullscreen keeps selected-night controls",
+        "pass": true
+      },
+      {
+        "name": "1920 whole-night score is large and visible",
+        "pass": true
+      },
+      {
+        "name": "1920 every area and unlocated scope visible together",
+        "pass": true
+      },
+      {
+        "name": "1920 no horizontal overflow",
+        "pass": true
+      },
+      {
+        "name": "1920 area lamps are at least32px",
+        "pass": true
+      },
+      {
+        "name": "1920 full area names fit",
+        "pass": true
+      },
+      {
+        "name": "1920 zero glyphs do not overlap lamps",
+        "pass": true
+      },
+      {
+        "name": "refresh reads fixture",
+        "pass": true
+      },
+      {
+        "name": "saved partial leaves overall incomplete",
+        "pass": true
+      },
+      {
+        "name": "saved first area lights only its saved result",
+        "pass": true
+      },
+      {
+        "name": "refresh reads fixture",
+        "pass": true
+      },
+      {
+        "name": "saved full night displays100",
+        "pass": true
+      },
+      {
+        "name": "all saved areas show completion",
+        "pass": true
+      },
+      {
+        "name": "completed card uses opacity-only pulse",
+        "pass": true
+      },
+      {
+        "name": "lit area lamp dots use their own mapcolour",
+        "pass": true
+      },
+      {
+        "name": "saved card highlight keeps its own area colour",
+        "pass": true
+      },
+      {
+        "name": "selected tile, chooser and map region use the same colour",
+        "pass": true
+      },
+      {
+        "name": "completed percentage is vividgreen",
+        "pass": true
+      },
+      {
+        "name": "1920 complete100 glyphs never overlap lamps",
+        "pass": true
+      },
+      {
+        "name": "1440 complete100 glyphs never overlap lamps",
+        "pass": true
+      },
+      {
+        "name": "4K all areas and whole-night are legible and in viewport",
+        "pass": true
+      },
+      {
+        "name": "4K lamps are at least64px",
+        "pass": true
+      },
+      {
+        "name": "reduced-motion retains savedcolour without cardpulse",
+        "pass": true
+      },
+      {
+        "name": "hidden document pausescardpulse",
+        "pass": true
+      },
+      {
+        "name": "fullscreen exit preserves selectednight and keyboard focus",
+        "pass": true
+      },
+      {
+        "name": "phone mainpercentage andstatus fit initialviewport abovefooter",
+        "pass": true
+      },
+      {
+        "name": "phone mainpercentage precedes daychips",
+        "pass": true
+      },
+      {
+        "name": "phone has no horizontal overflow",
+        "pass": true
+      },
+      {
+        "name": "phone has one visible whole-night score",
+        "pass": true
+      },
+      {
+        "name": "phone duplicate overall is hidden",
+        "pass": true
+      },
+      {
+        "name": "refresh reads fixture",
+        "pass": true
+      },
+      {
+        "name": "undo removes savedcompletion glow",
+        "pass": true
+      },
+      {
+        "name": "pending100 never shows savedgreen",
+        "pass": true
+      },
+      {
+        "name": "no mutating network requests",
+        "pass": true
+      },
+      {
+        "name": "no browser errors",
+        "pass": true
+      }
+    ],
+    "mutating_requests": 0,
+    "browser_errors": []
+  },
+  "resize_and_identity": {
+    "passed": 42,
+    "checks": [
+      {
+        "name": "height-only case keeps fit factor",
+        "pass": true
+      },
+      {
+        "name": "height-only resize centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "height-only resize relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "height-only resize area/day retained",
+        "pass": true
+      },
+      {
+        "name": "height-only resize persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "phone portrait resize centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "phone portrait resize relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "phone portrait resize area/day retained",
+        "pass": true
+      },
+      {
+        "name": "phone portrait resize persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "phone landscape resize centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "phone landscape resize relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "phone landscape resize area/day retained",
+        "pass": true
+      },
+      {
+        "name": "phone landscape resize persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "portrait return centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "portrait return relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "portrait return area/day retained",
+        "pass": true
+      },
+      {
+        "name": "portrait return persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "repeated rotation centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "repeated rotation relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "repeated rotation area/day retained",
+        "pass": true
+      },
+      {
+        "name": "repeated rotation persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "fullscreen enter centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "fullscreen enter relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "fullscreen enter area/day retained",
+        "pass": true
+      },
+      {
+        "name": "fullscreen enter persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "fullscreen exit centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "fullscreen exit relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "fullscreen exit area/day retained",
+        "pass": true
+      },
+      {
+        "name": "fullscreen exit persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "hidden resize return centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "hidden resize return relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "hidden resize return area/day retained",
+        "pass": true
+      },
+      {
+        "name": "hidden resize return persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "hidden resize returns finite positive matrix",
+        "pass": true
+      },
+      {
+        "name": "unchanged refresh centre below0.05 screenpixel drift",
+        "pass": true
+      },
+      {
+        "name": "unchanged refresh relative zoom retained",
+        "pass": true
+      },
+      {
+        "name": "unchanged refresh area/day retained",
+        "pass": true
+      },
+      {
+        "name": "unchanged refresh persistent map/images/focus",
+        "pass": true
+      },
+      {
+        "name": "nonsequential canonical IDs7,2,0 match full labels",
+        "pass": true
+      },
+      {
+        "name": "reordered areas retain canonical numbering and name",
+        "pass": true
+      },
+      {
+        "name": "zero networkrequests",
+        "pass": true
+      },
+      {
+        "name": "zero browsererrors",
+        "pass": true
+      }
+    ],
+    "network_requests": 0,
+    "browser_errors": []
+  },
+  "release_guard_checks": 8,
+  "synthetic_completion_screenshots": true,
+  "live_completion_claim": false,
+  "source_sha256": {
+    "patch_servicing_style_v1106.py": "8ef53a4f7afac1ec142a1e580e556d2f6f092d0614b52f9dd9f966ec5861b9a5",
+    "test_servicingRace1106.cjs": "efa79046869df0d61942e0d70f83d157223cdfc2b2870103783fc6da421b137e",
+    "patch_v1106.py": "ba8fcfaa7c9ec410037bf430da3e9a24a64777f668c2e39ff1ebe0c95b361836",
+    "test_patch1106.py": "48522d54f8e5c6c7bf20bf406cd0dd47e693d223913ecb0e98889796f026f677",
+    "patch_servicing_resize_v1106.py": "f2b7afe4fa4575633895da3e8f11136403dd505fa8c2cb7e97f2c94d72528a86",
+    "test_resize1106.cjs": "65b1289092050ebab55998e78e9d5a80ae68af62e35c857d9ec3b5419d00042d",
+    "resize1106_src.js": "8311e2e863ad02659b2f082359fe271bc7021098182415ebe15b2bdd211fcdd4",
+    "servicingRace1106_src.css": "d01c0a382c20b3950b8fa07d8a157d9c32e84e506040d343c21fbb2371efea15",
+    "areaIdentity1106_src.js": "266d710e62b835f74825daa7fe3019bb4f9ad9ac138f39e402495ccf198af16f"
+  },
+  "official_build": {
+    "sha256": "7c3f21cef9a5d161bcd1dbf317465707b7f93df9e70fa873c3f1505e32e94716",
+    "bytes": 21050643,
+    "scripts": 153
+  },
+  "navigation_sweeps": {
+    "desktop": {
+      "sections": 25,
+      "links": 7,
+      "back": true,
+      "errors": 0
+    },
+    "phone": {
+      "sections": 25,
+      "links": 7,
+      "back": true,
+      "errors": 0
+    }
+  }
+}

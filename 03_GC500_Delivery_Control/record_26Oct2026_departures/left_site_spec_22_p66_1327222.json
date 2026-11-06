@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (before 11:39 AEST): \"1327222 leaving 12PM\". 1327222 is P66's only unit (Support Category Scrutineers, Building 6m, Coates; ticked Ready by Andrew; read 11:39 AEST, not already left). The number was taken off P53 and P36 earlier (the page's own number-off tombstones), so P66 is the only reference holding it. P66 left in full at 12:00 AEST. Its air conditioner 1372940, fire extinguisher and fridge 131190 stay listed on P66 as gear that goes with it. Recorded after 12:00, as a departure is only recorded once its time has come.",
+  "ops": [
+    {"op": "depart", "ref": "P66", "at": "2026-10-27T12:00:00+10:00", "nos": ["1327222"], "complete": true}
+  ]
+}

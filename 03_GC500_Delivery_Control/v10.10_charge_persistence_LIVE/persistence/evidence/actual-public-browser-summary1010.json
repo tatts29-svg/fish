@@ -1,0 +1,306 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE \u2014 actual public page, phone and desktop.",
+  "verifiedAtUtc": "2026-10-13T18:01:42.787566+00:00",
+  "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026/",
+  "publicSha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+  "bytes": 15123821,
+  "checks": 64,
+  "corePersistenceChecks": 58,
+  "publicBuildAndFeedbackChecks": 6,
+  "allPassed": true,
+  "browserErrors": 0,
+  "operationalWrites": 0,
+  "localPageSubstitutions": 0,
+  "viewports": [
+    {
+      "label": "phone",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "receivedPublicResponses": [
+    {
+      "viewport": "phone",
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "bytes": 15123821,
+      "localPageSubstitutions": 0
+    },
+    {
+      "viewport": "desktop",
+      "sha256": "6bc40d8d46b1ca5f936731f17c9d75738c0436c9d1a928e37c94c391a08d0258",
+      "bytes": 15123821,
+      "localPageSubstitutions": 0
+    }
+  ],
+  "captureMethod": "Actual uncached public GET response captured by the read-only harness during browser navigation; no local candidate HTML supplied.",
+  "persistenceJavaScriptSha256": "7c7faf4671f339cbe460fa39d7549bc61fe6ba6c1536dcc76e75ee525dc23c74",
+  "publishedScriptMatchesFrozenSource": true,
+  "savePractice": "Native metadata and note save handlers exercised with service writes captured locally. No operational records submitted.",
+  "saveFeedback": "Neutral note guidance and pending on-device-only Save toast verified on both viewports. Shared acknowledgement remains separate.",
+  "visualReview": "Published phone notes section inspected; lower position retained and duplicate static delivery note absent in edit practice.",
+  "privacy": "Only labels, booleans, counts and hashes retained. No record values, photos, screenshots, source attachments or credentials.",
+  "results": [
+    {
+      "name": "phone exact public build received without local substitution",
+      "passed": true
+    },
+    {
+      "name": "phone asset original unit has first metadata Save fixture",
+      "passed": true
+    },
+    {
+      "name": "phone note guidance makes no unconditional shared-save claim",
+      "passed": true
+    },
+    {
+      "name": "phone asset first metadata Save keeps nested details open",
+      "passed": true
+    },
+    {
+      "name": "phone asset metadata Save stays at reading position",
+      "passed": true
+    },
+    {
+      "name": "phone native Save kept result remains observable",
+      "passed": true
+    },
+    {
+      "name": "phone asset lower note Save remains open and scrolled",
+      "passed": true
+    },
+    {
+      "name": "phone asset note reaches local native record once",
+      "passed": true
+    },
+    {
+      "name": "phone pending note Save reports on-device status only",
+      "passed": true
+    },
+    {
+      "name": "phone asset later document/remote refresh keeps lower section",
+      "passed": true
+    },
+    {
+      "name": "phone queued layout correction yields to fresh scroll intent",
+      "passed": true
+    },
+    {
+      "name": "phone queued asset layout correction cannot move another reference",
+      "passed": true
+    },
+    {
+      "name": "phone Back returns normally and stays closed after refresh",
+      "passed": true
+    },
+    {
+      "name": "phone timeline local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone timeline local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone today local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone today local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone costs local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone costs local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone demob local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone demob local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone fencing local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone fencing local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone workforce local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone workforce local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "phone independent dialog and nested body scroller remain open",
+      "passed": true
+    },
+    {
+      "name": "phone explicitly closed independent dialog stays closed",
+      "passed": true
+    },
+    {
+      "name": "phone body-scrolling responsive surface retains reading position",
+      "passed": true
+    },
+    {
+      "name": "phone deliberately closed disclosure stays closed",
+      "passed": true
+    },
+    {
+      "name": "phone explicit Close is not undone after Save or sync",
+      "passed": true
+    },
+    {
+      "name": "phone metadata and notes native writes captured locally",
+      "passed": true
+    },
+    {
+      "name": "desktop exact public build received without local substitution",
+      "passed": true
+    },
+    {
+      "name": "desktop asset original unit has first metadata Save fixture",
+      "passed": true
+    },
+    {
+      "name": "desktop note guidance makes no unconditional shared-save claim",
+      "passed": true
+    },
+    {
+      "name": "desktop asset first metadata Save keeps nested details open",
+      "passed": true
+    },
+    {
+      "name": "desktop asset metadata Save stays at reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop native Save kept result remains observable",
+      "passed": true
+    },
+    {
+      "name": "desktop asset lower note Save remains open and scrolled",
+      "passed": true
+    },
+    {
+      "name": "desktop asset note reaches local native record once",
+      "passed": true
+    },
+    {
+      "name": "desktop pending note Save reports on-device status only",
+      "passed": true
+    },
+    {
+      "name": "desktop asset later document/remote refresh keeps lower section",
+      "passed": true
+    },
+    {
+      "name": "desktop queued layout correction yields to fresh scroll intent",
+      "passed": true
+    },
+    {
+      "name": "desktop queued asset layout correction cannot move another reference",
+      "passed": true
+    },
+    {
+      "name": "desktop Back returns normally and stays closed after refresh",
+      "passed": true
+    },
+    {
+      "name": "desktop timeline local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop timeline local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop today local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop today local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop costs local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop costs local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop demob local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop demob local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop fencing local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop fencing local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop workforce local Save preserves open disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop workforce local Save preserves reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop independent dialog and nested body scroller remain open",
+      "passed": true
+    },
+    {
+      "name": "desktop explicitly closed independent dialog stays closed",
+      "passed": true
+    },
+    {
+      "name": "desktop body-scrolling responsive surface retains reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop deliberately closed disclosure stays closed",
+      "passed": true
+    },
+    {
+      "name": "desktop explicit Close is not undone after Save or sync",
+      "passed": true
+    },
+    {
+      "name": "desktop metadata and notes native writes captured locally",
+      "passed": true
+    },
+    {
+      "name": "zero browser errors",
+      "passed": true
+    },
+    {
+      "name": "zero operational writes",
+      "passed": true
+    }
+  ]
+}

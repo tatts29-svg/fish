@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "baseBytes": 9074112,
+  "sections": {
+    "assetHold": {
+      "startLine": 7634,
+      "sha256": "8f2e366c9fcb44cb88c17eba84926333828c19688e8df2ac5ca910828a89194e",
+      "source": "let ASSETS_HELD = null;\nconst HELD_MEMO = new Map();\n/* v7.75 - a save inside a hold makes the held list and memo stale; the next read rebuilds them once, so the rest of\n   that draw shows the record as it now is. A draw with no save in it builds once, as before. */\nlet HELD_STALE775 = false;\nfunction heldFresh775(){ if (ASSETS_HELD && HELD_STALE775) { HELD_STALE775 = false; HELD_MEMO.clear(); ASSETS_HELD = buildAllAssets(); } } /* the memo is emptied first, so the rebuilt list's own lookups (rentalOf) are fresh too */\nfunction heldMemo(k, f){ if (!ASSETS_HELD) return f(); heldFresh775(); if (HELD_MEMO.has(k)) return HELD_MEMO.get(k); const v = f(); HELD_MEMO.set(k, v); return v; }\n\nfunction allAssets(){ heldFresh775(); return ASSETS_HELD || buildAllAssets(); }\n/* Run `fn` with the asset list built once. Nested calls keep the outer hold \u2014 one pass, one list. */\nfunction holdAssets(fn){\nif (ASSETS_HELD) { heldFresh775(); return fn(); }\n ASSETS_HELD = buildAllAssets(); HELD_MEMO.clear(); HELD_STALE775 = false;\n try { return fn(); } finally { ASSETS_HELD = null; HELD_MEMO.clear(); HELD_STALE775 = false; }\n}\n"
+    },
+    "docketNoInName": {
+      "startLine": 14372,
+      "sha256": "11bc4c8b874069c2340611a87b38bd8b8458c8b573db28f55da7e13ddfb878c6",
+      "source": "function docketNoInName(nm){\n const s = String(nm || ''); if (!s) return null;\n /* v5.81 \u2014 all three books: a hire agreement (red), a service note (green) or a collection form (blue) */\n const got = bookNumbers().find(n => { const no = String(n || '').trim();\n if (!/^\\d{4,7}$/.test(no)) return false;\n if (allAssets().some(a => (a.asset_numbers || []).some(x => String(x).trim() === no))) return false;\n return new RegExp('(^|\\\\D)' + no + '(\\\\D|$)').test(s); });\n return got ? String(got).trim() : null;\n}\n"
+    },
+    "applyRemote": {
+      "startLine": 39478,
+      "sha256": "80cd310d47ecd4726baa599051a230cce19a3287fee9d9bdf0d691c179c0558a",
+      "source": "function applyRemote(name, snap){\n const docs = {}; snap.docs.forEach(d => { const b = d.data(); if (b) docs[d.id] = b; });\n if (!SYNC.first.has(name)) {\n SYNC.pending[name] = docs;\n if (Object.keys(SYNC.pending).length >= Object.keys(SYNC_COLLS).length) syncFirst();\n else if (!SYNC.ftimer) SYNC.ftimer = setTimeout(syncFirst, 6000);\n return;\n }\n if (syncFold(name, docs)) { persist(); syncRedraw(); }\n}\n"
+    },
+    "syncFold": {
+      "startLine": 39488,
+      "sha256": "217abae045f6cd740d50b59b109f00363894099e72dfed9405d0c10312e49973",
+      "source": "function syncFold(name, docs){\n const c = SYNC_COLLS[name];\n const last = {}; Object.entries(docs).forEach(([id, b]) => last[id] = JSON.stringify(b));\n SYNC.last[name] = last;\n const shown = Object.assign({}, docs);\n if (!SYNC.readonly) Object.entries(SYNC.queue[name] || {}).forEach(([id, body]) => { if (body === null) delete shown[id]; else shown[id] = body; });\n const next = fromDocs(name, shown);\n if (JSON.stringify(next) === JSON.stringify(c.get())) return false;\n c.set(next);\n return true;\n}\n"
+    },
+    "syncRedraw": {
+      "startLine": 39529,
+      "sha256": "31a1dd03e3f39b8b4eafcf7d806a69098711a1fb0dc0d90c2e3032705dae70e2",
+      "source": "function syncRedraw(){\n clearTimeout(SYNC.rtimer);\n SYNC.rtimer = setTimeout(() => {\n const el = document.activeElement;\n const typing = el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) && el.type !== 'button' && el.type !== 'date' && el.type !== 'time' && el.id !== 'q'\n && !(el.tagName === 'INPUT' && state.tab === 'change' && el.closest('#pane-change')); /* v7.02 - Change deliveries keeps the box across its redraw */\n if (typing) { SYNC.rtimer = setTimeout(syncRedraw, 1500); return; }\n try { render(); if (state.sel && document.querySelector('#drawer').classList.contains('on')) openAsset(state.sel, {keep: true}); } catch (e) {}\n syncFooter();\n }, 250);\n}\n"
+    },
+    "docsRedraw": {
+      "startLine": 33513,
+      "sha256": "6b0631e6c0b69d4f3f1ecb3344a406ec3a6e564f77d517c3ecf846951bcac95c",
+      "source": "function docsRedraw(){ if (state.tab === 'docs' && typeof renderDocs === 'function') renderDocs(true); }\n"
+    }
+  },
+  "renderChain": {
+    "renderCallsHoldAssets": true,
+    "docsTabCallsRenderDocs": true,
+    "filesRefreshFinallyRedraws": true
+  }
+}

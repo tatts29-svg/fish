@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "actualPublicPage": true,
+  "candidateInterception": false,
+  "stateInterception": false,
+  "sha256": "82d23168b4df656016bc8be2e7da74e58ac09a585eaebca3418f87bc4656291f",
+  "bytes": 12770567,
+  "nativeVersion": 5167,
+  "finalNativeVersion": 5167,
+  "sameReviewedRecord": true,
+  "recordUnchangedDuringCheck": true,
+  "requiresReview": false,
+  "checks": [
+    "Saved native ownership is six installed Event Portables panels",
+    "Public Inventory recognises quantity-only supplier stock",
+    "No individual Pee Panel fleet numbers were created",
+    "Supplier identities and quantity stock retain separate totals",
+    "Recorded receipt and installation totals remain unchanged",
+    "Public supplier view shows the six quantity-only panels",
+    "Public drawer identifies supplier without requesting fleet numbers"
+  ],
+  "checksPassed": 7,
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: net::ERR_FAILED"
+  ],
+  "blockedRequests": [
+    {
+      "method": "POST",
+      "origin": "https://tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "liveRecordWriteAttempts": 0,
+  "pass": true
+}

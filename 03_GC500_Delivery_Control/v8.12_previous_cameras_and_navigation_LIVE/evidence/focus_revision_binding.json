@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "previousSha256": "33d61cd71fa409b34f23ba0c7badbbdf7c4ae61ed5a4b8f080bea63e5d492cc0",
+  "candidateSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "onlyChange": "Tools entry remembers visible moreBtn as Showcase return target",
+  "exactSingleReplacement": true,
+  "renderingAndAllOtherPageBytesUnchanged": true
+}

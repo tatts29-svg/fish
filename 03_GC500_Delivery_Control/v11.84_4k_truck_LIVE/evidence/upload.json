@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v11.84",
+  "guarded_upload": true,
+  "http_status": 200,
+  "uploaded_at_utc": "2026-10-24T04:59:02.177Z",
+  "bytes": 21865452,
+  "sha256": "6ec05a3a3516de14d9780d375899290be094e42f8b2f0ffee5b640d2b77aa012",
+  "guard_base": "5d9b7650b701440f4b7fa20eb99aa3274d476bb74c0951078ade8e9dbc192d87",
+  "ready_source": "2c098c2f0996e709878e0c58413e8eef7b72aa85"
+}

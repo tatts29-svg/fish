@@ -1,0 +1,17 @@
+L-0.75  identical    0  different    6  only-live   0  only-new   0  changed px   263427 | drawing offset median [0.006, -0.002] pt, p95 0.009 pt, max 0.009 pt | tiles with >1% strong change 3
+L-0.5   identical    0  different   12  only-live   0  only-new   0  changed px   353953 | drawing offset median [0.005, -0.001] pt, p95 0.01 pt, max 0.01 pt | tiles with >1% strong change 3
+L-0.25  identical    0  different   12  only-live   0  only-new   0  changed px   474412 | drawing offset median [0.007, -0.002] pt, p95 0.011 pt, max 0.012 pt | tiles with >1% strong change 4
+L0      identical    0  different   20  only-live   0  only-new   0  changed px   616744 | drawing offset median [0.006, -0.002] pt, p95 0.012 pt, max 0.013 pt | tiles with >1% strong change 6
+L0.25   identical    0  different   24  only-live   0  only-new   0  changed px   800583 | drawing offset median [0.007, -0.003] pt, p95 0.013 pt, max 0.014 pt | tiles with >1% strong change 8
+L0.5    identical    0  different   35  only-live   0  only-new   0  changed px  1036172 | drawing offset median [0.006, -0.003] pt, p95 0.013 pt, max 0.017 pt | tiles with >1% strong change 11
+L0.75   identical    0  different   48  only-live   0  only-new   0  changed px  1330958 | drawing offset median [0.007, -0.002] pt, p95 0.016 pt, max 0.018 pt | tiles with >1% strong change 9
+L1      identical    0  different   70  only-live   0  only-new   0  changed px  1693452 | drawing offset median [0.006, -0.002] pt, p95 0.017 pt, max 0.02 pt | tiles with >1% strong change 18
+L1.25   identical    2  different   88  only-live   0  only-new   1  changed px  2159783 | drawing offset median [0.007, -0.003] pt, p95 0.018 pt, max 0.072 pt | tiles with >1% strong change 21
+L1.5    identical    2  different  130  only-live   0  only-new   7  changed px  2743711 | drawing offset median [0.006, -0.003] pt, p95 0.02 pt, max 0.353 pt | tiles with >1% strong change 30
+L1.75   identical    0  different  176  only-live   0  only-new   0  changed px  3463499 | drawing offset median [0.006, -0.002] pt, p95 0.017 pt, max 0.023 pt | tiles with >1% strong change 36
+L2      identical    7  different  240  only-live   0  only-new   0  changed px  4360748 | drawing offset median [0.007, -0.003] pt, p95 0.02 pt, max 63.727 pt | tiles with >1% strong change 45
+L2.25   identical   18  different  336  only-live   0  only-new   1  changed px  5800407 | drawing offset median [0.007, -0.003] pt, p95 0.021 pt, max 53.595 pt | tiles with >1% strong change 76
+L2.5    identical   33  different  463  only-live   0  only-new  12  changed px  7485336 | drawing offset median [0.007, -0.003] pt, p95 0.025 pt, max 45.065 pt | tiles with >1% strong change 143
+L2.75   identical   64  different  620  only-live   0  only-new  13  changed px  9456308 | drawing offset median [0.007, -0.003] pt, p95 0.026 pt, max 0.149 pt | tiles with >1% strong change 222
+L3      identical  119  different  845  only-live   0  only-new   1  changed px 11986786 | drawing offset median [0.007, -0.003] pt, p95 0.035 pt, max 32.127 pt | tiles with >1% strong change 314
+L3.25   identical  215  different 1152  only-live   0  only-new   1  changed px 15436640 | drawing offset median [0.007, -0.003] pt, p95 0.067 pt, max 26.803 pt | tiles with >1% strong change 427

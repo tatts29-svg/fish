@@ -1,0 +1,171 @@
+{
+  "author": "Andrew Fisher",
+  "testedAtUTC": "2026-10-09T18:33:30.406754+00:00",
+  "candidateSHA256": "ee6690ad9c33a2ee6dcbc721f30962f15e7ed43efecaf6e2b5f06aecb3232cb4",
+  "candidateBytes": 12897509,
+  "scope": "Exact final candidate navigation and GET-only prose phone checks. Root separately binds later CSS-only Qty header adjustment.",
+  "sourceSHA256": {
+    "toolchain/harness/sweep.js": "258eb0cdc7dbab558c260f04ebebc649c82394ff366162127f642a31c169e86e",
+    "toolchain/harness/open_page.js": "8f14e39d8a66e8db8f3827a010ccc5eb82e3ac855202b0b0331ff9a1d31bf724",
+    "v9.76_fencing_actual_forecast_DRAFT/tests/prose976_actual.cjs": "36e52a3fbb1ca040c7c38fbcbc4ed193c17e7f6af5e1a7262156cbbec2a3fe20"
+  },
+  "mapFixture": {
+    "localOnly": true,
+    "remotePOSTs": 0,
+    "description": "v9.73 read-only local map session and tiny PNG tiles; navigation proof only, no actual satellite visual proof."
+  },
+  "sweeps": {
+    "desktop": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "backPass": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "nativeWriteAttempts": 0,
+      "localMapSessions": 1,
+      "routesByHash": {
+        "today": "#today",
+        "progress": "#today",
+        "map": "#sheet/__explorer",
+        "docs": "#docs",
+        "register": "#plant",
+        "plant": "#plant",
+        "demob": "#demob",
+        "fencing": "#fencing",
+        "prestarts": "#prestarts",
+        "coatesway": "#coatesway",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "costs": "#costs",
+        "edit": "#today",
+        "change": "#change/2026-10-12",
+        "add": "#today",
+        "pricing": "#costs",
+        "timeline": "#day/2026-10-12",
+        "subhired": "#subhired",
+        "questions": "#questions",
+        "about": "#about"
+      },
+      "intentionalAliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today",
+        "progress": "today",
+        "pricing": "costs"
+      },
+      "rawSHA256": "900c35510dfbf3872ea93415c2b0806a15435e13c0c4eaf8240c56cb782fe3b1"
+    },
+    "phone": {
+      "pass": true,
+      "routes": 22,
+      "deepLinks": 7,
+      "backPass": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "nativeWriteAttempts": 0,
+      "localMapSessions": 1,
+      "routesByHash": {
+        "today": "#today",
+        "progress": "#today",
+        "map": "#sheet/__explorer",
+        "docs": "#docs",
+        "register": "#plant",
+        "plant": "#plant",
+        "demob": "#demob",
+        "fencing": "#fencing",
+        "prestarts": "#prestarts",
+        "coatesway": "#coatesway",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "costs": "#costs",
+        "edit": "#today",
+        "change": "#change/2026-10-12",
+        "add": "#today",
+        "pricing": "#costs",
+        "timeline": "#day/2026-10-12",
+        "subhired": "#subhired",
+        "questions": "#questions",
+        "about": "#about"
+      },
+      "intentionalAliases": {
+        "register": "plant",
+        "journal": "today",
+        "breakdowns": "today",
+        "variances": "today",
+        "edit": "today",
+        "add": "today",
+        "progress": "today",
+        "pricing": "costs"
+      },
+      "rawSHA256": "d2ca82248aace9a5312b822250dde60586b54b4091f61b1856592a058e1d94fb"
+    }
+  },
+  "rawEvidenceLocation": "/workspace/private-final977-navigation",
+  "prose": {
+    "author": "Andrew Fisher",
+    "rows": [
+      {
+        "tab": "today",
+        "folds": 0,
+        "paragraphsFolded": 0,
+        "allClosed": true,
+        "controlsFolded": 0,
+        "figuresFolded": 0,
+        "nativeUnchanged": true
+      },
+      {
+        "tab": "plant",
+        "folds": 0,
+        "paragraphsFolded": 0,
+        "allClosed": true,
+        "controlsFolded": 0,
+        "figuresFolded": 0,
+        "nativeUnchanged": true
+      },
+      {
+        "tab": "subhired",
+        "folds": 1,
+        "paragraphsFolded": 1,
+        "allClosed": true,
+        "controlsFolded": 0,
+        "figuresFolded": 0,
+        "nativeUnchanged": true
+      },
+      {
+        "tab": "timeline",
+        "folds": 0,
+        "paragraphsFolded": 0,
+        "allClosed": true,
+        "controlsFolded": 0,
+        "figuresFolded": 0,
+        "nativeUnchanged": true
+      },
+      {
+        "tab": "about",
+        "folds": 7,
+        "paragraphsFolded": 10,
+        "allClosed": true,
+        "controlsFolded": 0,
+        "figuresFolded": 0,
+        "nativeUnchanged": true
+      }
+    ],
+    "pageErrors": [],
+    "nativeWrites": 0
+  },
+  "phoneScreenshot": {
+    "inspected": true,
+    "sha256": "28a67ff5e959790fdbba2ab1506a7c3ee6d476dc86ca7ad79f8e9794f7ae50fe",
+    "finding": "390px Companies More info closed; supplier unit/status/cost controls visible without horizontal cut-off."
+  },
+  "initialGETOnlyRetry": {
+    "reason": "External map session POST deliberately aborted caused one browser resource error on each sweep; no native writes. Superseded by local-only map fixture runs.",
+    "productFinding": false
+  }
+}

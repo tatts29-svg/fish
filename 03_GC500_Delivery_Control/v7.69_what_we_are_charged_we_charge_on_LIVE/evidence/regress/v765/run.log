@@ -1,0 +1,157 @@
+{
+ "pass": true,
+ "checks": {
+  "glancePresent": true,
+  "oneFlowInOrder": true,
+  "glanceRevenueIsTheCards": true,
+  "glanceCostsAreTheCards": true,
+  "glanceDifferenceIsThePLs": true,
+  "glanceMonthEndIsTheAccruals": true,
+  "oldLedgerOffTheTab": true,
+  "theWorkingFolded": true,
+  "visibleTextShorter": true,
+  "controlsStillReachable": true,
+  "readOnly": true,
+  "foldRemembers": true,
+  "filterOpensTheLines": true,
+  "jumpReachesTheSection": true,
+  "v764_cardStillReconciles": true,
+  "v763_everyMonthStillAddsToRevenue": true,
+  "wordsPresent": true,
+  "noBrokenValues": true,
+  "noMarginClaimed": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "noWriteLeftThePage": true
+ },
+ "order": [
+  [
+   "costs765",
+   18
+  ],
+  [
+   "pl752",
+   65
+  ],
+  [
+   "costs764",
+   350
+  ],
+  [
+   "cj765monthend",
+   882
+  ],
+  [
+   "accruals761",
+   884
+  ],
+  [
+   "finance745",
+   1446
+  ],
+  [
+   "cj765detail",
+   1815
+  ]
+ ],
+ "tiles": [
+  {
+   "label": "Revenue",
+   "now": "$571,967",
+   "end": "$820,777"
+  },
+  {
+   "label": "Direct costs",
+   "now": "$235,372",
+   "end": "$444,411"
+  },
+  {
+   "label": "Difference",
+   "now": "$336,595",
+   "nowB": "$336,595",
+   "end": "$344,542",
+   "endB": "$344,542"
+  },
+  {
+   "label": "Month-end for Finance",
+   "now": "$176,968",
+   "end": "$70,331"
+  }
+ ],
+ "glance": {
+  "record": "$571,967",
+  "job": "$820,777",
+  "known": "$235,372",
+  "costJob": "$444,411",
+  "diffNow": "$336,595",
+  "diffEnd": "$344,542",
+  "accRev": "$176,968",
+  "toAccrue": "$70,331",
+  "month": "September 2026"
+ },
+ "folds": {
+  "n": 3,
+  "closed": 3,
+  "keys": [
+   "costs765|cats",
+   "costs765|branch",
+   "costs765|lines"
+  ],
+  "cats": {
+   "key": "costs765|cats",
+   "open": false
+  },
+  "transport": {
+   "key": "costs765|cats",
+   "open": false
+  },
+  "workforce": {
+   "key": "costs765|cats",
+   "open": false
+  },
+  "branch": {
+   "key": "costs765|branch",
+   "open": false
+  },
+  "lines": {
+   "key": "costs765|lines",
+   "open": false,
+   "hasTable": true
+  }
+ },
+ "text": {
+  "visible": 42624,
+  "opened": 71454
+ },
+ "controls": {
+  "fin745Month": true,
+  "acc761Month": true,
+  "ourForm": true,
+  "filters": 4,
+  "jumps": 6
+ },
+ "h3s": [
+  "Month-end — for Finance",
+  "The working"
+ ],
+ "fold": {
+  "openedByClick": true,
+  "stillOpen": true,
+  "closedAgain": true
+ },
+ "filter": {
+  "open": true,
+  "filter": "problems",
+  "rows": 1,
+  "staysOpenAfter": true,
+  "filterAfter": "all",
+  "closesByHand": true
+ },
+ "jump": {
+  "top": 370,
+  "vh": 1000
+ },
+ "errors": [],
+ "console": [],
+ "overflow": 0
+}

@@ -1,0 +1,132 @@
+{
+ "at": "2026-10-23T01:04:01.477Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the card: one bright colour on every line (core #ff1fd4 on a dark edge), a solid line with no halo, glow or filter, round caps and joins, the width the engine sets (16 pt on the plan on a desktop, 4 px on the screen on a phone), the zoom and base buttons, Plan on, a legend of one with the dot in the same colour, no colour names, no agent names",
+   "ok": true,
+   "detail": {
+    "lines": 16,
+    "parts": true,
+    "noGlow": true,
+    "coreStroke": "rgb(255, 31, 212)",
+    "edgeStroke": "rgb(58, 0, 48)",
+    "coreW": 28.72,
+    "edgeW": 41.65,
+    "corePx": 3.999597315436241,
+    "cap": "round",
+    "join": "round",
+    "ve": "none",
+    "sameColour": true,
+    "vb": [
+     0,
+     -1.735,
+     2384,
+     1687.47
+    ],
+    "pct": 100,
+    "lw": 28.72289156626506,
+    "buttons": [
+     "out",
+     "in",
+     "fit",
+     "plan",
+     "sat"
+    ],
+    "planOn": true,
+    "legend": 1,
+    "dot": "rgb(255, 31, 212)",
+    "sub": "The fence closure lines from the project manager's marked plan of 23 Oct 2026, drawn on the 2026 master layout (D001-26003-03) along the footpaths as marked: one bright colour, straight runs, no numbers. Plan or satellite under the lines; pinch, scroll or use the buttons to zoom to 16000%; drag to move; double-tap to zoom in.",
+    "noAgent": true,
+    "noColours": true
+   }
+  },
+  {
+   "name": "the lines are straight runs that cover the marked streets: few vertices for their length (under 2.2 per 100 pt), no segment shorter than 5 pt, about 5,000 to 5,600 pt in all, and a line within 12 pt of eleven named spots read off the marked plan",
+   "ok": true,
+   "detail": {
+    "verts": 87,
+    "total": 5218,
+    "minSeg": 11.1,
+    "miss": [],
+    "lines": 16
+   }
+  },
+  {
+   "name": "at 400% the line is held between 4 and 14 px on the screen (14 px on a desktop: its plan width falls), the same width the engine reports",
+   "ok": true,
+   "detail": {
+    "pct": 400,
+    "w": 16,
+    "px": 8.912751677852349,
+    "lw": 16
+   }
+  },
+  {
+   "name": "Satellite: Esri tiles under the lines at the fit zoom (15 to 17), the credit shown, the lines the top layer with the dark edge stronger on imagery",
+   "ok": true,
+   "detail": {
+    "base": "sat",
+    "cls": true,
+    "n": 12,
+    "z": 16,
+    "credit": true,
+    "linesAfter": true,
+    "edgeOp": "0.7"
+   }
+  },
+  {
+   "name": "1600% on satellite at the Esplanade: Esri tiles at zoom 19 or 20, the line still 14 px on the screen",
+   "ok": true,
+   "detail": {
+    "pct": 1600,
+    "z": 20,
+    "n": 16,
+    "px": 13.99731543624161
+   }
+  },
+  {
+   "name": "16000% on Breaker St on satellite: the view 15 pt wide, Esri tiles at zoom 20 (the sharpest real imagery), a couple of dozen at most",
+   "ok": true,
+   "detail": {
+    "pct": 16000,
+    "z": 20,
+    "n": 16,
+    "w": "14.9"
+   }
+  },
+  {
+   "name": "Plan brings the drawing back and empties the satellite layer",
+   "ok": true,
+   "detail": {
+    "base": "plan",
+    "cls": false,
+    "n": 0,
+    "creditHidden": true,
+    "pct": 100
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 113,
+    "blocked": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T213344Z",
+ "finished": "2026-10-16T21:33:55.537Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat: \"Yes correct cancel p47\" and \"Make sure these numbers dont pop up again and cause confusion\" (after \"If they are cancelled remove records of them please\"). P47 (QPS Amenities Crib Room) was cancelled on the page by Andrew 6 Oct 12:27, 'No longer needed' (and his words that morning: \"P47 is cancelled ... p46. Then p51 then p08\"). Its only number, 1327217, is P65's building (Baseplan 9968862 line 110, P65, Delivered), which is on site with Andrew's passenger door side. Tested in page memory: every charge unchanged; 1327217 then shows on P65 only.",
+  "refs": [
+   "P47"
+  ],
+  "ops": [
+   {
+    "op": "asset_delete",
+    "ref": "P47",
+    "why": "Cancelled 6 Oct 2026 by Andrew - No longer needed; confirmed and removed on his word 17 Oct. Its planned 1327217 is P65's building."
+   }
+  ]
+ },
+ "pageSha256": "03ebb3cc0f1e4e4d630da2ea5792a9920212f9ca244773a5629f56cc2e4a8a72",
+ "version": {
+  "before": 9602,
+  "after": 9607
+ },
+ "updated": {
+  "before": "2026-10-16T21:25:20.940Z",
+  "after": "2026-10-16T21:33:54.636Z"
+ },
+ "stage": [
+  {
+   "op": "asset_delete",
+   "ref": "P47",
+   "why": "Cancelled 6 Oct 2026 by Andrew - No longer needed; confirmed and removed on his word 17 Oct. Its planned 1327217 is P65's building.",
+   "result": "deleted for good - Cancelled 6 Oct 2026 by Andrew - No longer needed; confirmed and removed on his word 17 Oct. Its planned 1327217 is P65's building."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/notes~2f~asset~2f~P47",
+   "status": 200
+  },
+  {
+   "key": "notes/asset~2f~P47",
+   "status": 200
+  },
+  {
+   "key": "deleted/asset~2f~P47",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~asset~2f~P47",
+   "status": 200
+  },
+  {
+   "key": "by/notes~2f~asset~2f~P47",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/notes~2f~asset~2f~P47": null,
+   "notes/asset~2f~P47": null,
+   "deleted/asset~2f~P47": null,
+   "by/deleted~2f~asset~2f~P47": null,
+   "by/notes~2f~asset~2f~P47": null
+  },
+  "after": {
+   "stamps/notes~2f~asset~2f~P47": {
+    "_k": "notes/asset/P47",
+    "v": "2026-10-16T21:33:51.973Z"
+   },
+   "notes/asset~2f~P47": {
+    "_k": "asset/P47",
+    "v": "Deleted 17 Oct 07:33 by Andrew Fisher — Cancelled 6 Oct 2026 by Andrew - No longer needed; confirmed and removed on his word 17 Oct. Its planned 1327217 is P65's building."
+   },
+   "deleted/asset~2f~P47": {
+    "_k": "asset/P47",
+    "v": "2026-10-16T21:33:51.973Z"
+   },
+   "by/deleted~2f~asset~2f~P47": {
+    "_k": "deleted/asset/P47",
+    "v": "Andrew Fisher"
+   },
+   "by/notes~2f~asset~2f~P47": {
+    "_k": "notes/asset/P47",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

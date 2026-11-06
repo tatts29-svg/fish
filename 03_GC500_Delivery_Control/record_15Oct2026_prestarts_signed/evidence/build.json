@@ -1,0 +1,1062 @@
+{
+ "author": "Andrew Fisher",
+ "built": "2026-10-14T15:56:39.258Z",
+ "signed": "2026-10-15",
+ "form": "GC500-PS-INS-01 v1",
+ "page_version": "v10.18",
+ "record_read_at": "2026-10-14T15:56:20.592Z",
+ "page_file": {
+  "name": "live_now.html",
+  "sha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "bytes": 15286087
+ },
+ "records": [
+  {
+   "crew": "coates",
+   "day": "2026-09-28",
+   "words": "Mon 28 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-09-28_Signed.pdf",
+   "attendees": [],
+   "count": 5,
+   "basis": "4 buildings on · 4 toilets on · 1 generator on · loads 0 · fencing dockets that day 3",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-28_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 905,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170666,
+   "sha256": "b65e9d7cedd4888c22cb2e353c10c74c951923bfa5e7cafb1895c17fa92535d4"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-29",
+   "words": "Tue 29 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-09-29_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ],
+   "count": 4,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 4",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-29_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 847,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 167519,
+   "sha256": "d6520444589b0547689e50b69553b779440b90d2eb4fbf83669d3f970da5e309"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-30",
+   "words": "Wed 30 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-09-30_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul"
+   ],
+   "count": 5,
+   "basis": "3 generators on · loads 0 · fencing dockets that day 2",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-30_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 870,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168203,
+   "sha256": "ef43e0df63013386c8fb9c80fbdeb8fcd9bb166114f01c5439ebbf70a3f5894e"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-01",
+   "words": "Thu 01 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-01_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul",
+    "Wayne Crimmin"
+   ],
+   "count": 6,
+   "basis": "7 toilets on · 1 generator on · loads 0 · fencing dockets that day 1",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-10-01_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 880,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168782,
+   "sha256": "13e090cbbb82e8395f122a5b24ebfd22423f436d8b6508c127a2cf15ba2f7150"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-02",
+   "words": "Fri 02 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-02_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul"
+   ],
+   "count": 5,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 4",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-10-02_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 860,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 167122,
+   "sha256": "f4674fd9311ff3b6bd60b05e16ff9f2fa85a8a2d0946e3b3a65b893f22ce95b9"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-06",
+   "words": "Tue 06 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-06_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ],
+   "count": 4,
+   "basis": "3 buildings on · loads 0 · fencing dockets that day 6",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 867,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168495,
+   "sha256": "03451d847657c470a4287257af8b973ae299c3df79090f970c72b5fa121e9015"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-07",
+   "words": "Wed 07 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-07_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ],
+   "count": 4,
+   "basis": "6 buildings on · 2 toilets on · 1 generator on · loads 11 · fencing dockets that day 4",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 988,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 171538,
+   "sha256": "b6aeb45cedaa41a9a9672891339bceef3a809318b1eea48267ba98bb973d9e3a"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-08",
+   "words": "Thu 08 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-08_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Daniel Gough",
+    "Andrew Fisher"
+   ],
+   "count": 4,
+   "basis": "1 toilet on · loads 2 · fencing dockets that day 4",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 877,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168330,
+   "sha256": "9c697fc105a3d2b1bafb2e38bc1e04666ee666eccf18bff8f3272923d3c543bf"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-09",
+   "words": "Fri 09 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-09_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ],
+   "count": 4,
+   "basis": "2 toilets on · loads 0 · fencing dockets that day 9",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 876,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168650,
+   "sha256": "9a25087dfdcceb0cb5fead095e98e0a40e87907ef219cb0cb036d13893e32b87"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-12",
+   "words": "Mon 12 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-12_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ],
+   "count": 3,
+   "basis": "2 buildings on · 2 toilets on · 2 generators on · loads 4 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 909,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169200,
+   "sha256": "24230d8b67d40d20a9479765bb91ce6e75f48b44f866be23bcd7538f65dec0a1"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-13",
+   "words": "Tue 13 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-13_Signed.pdf",
+   "attendees": [
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Kyle Gover"
+   ],
+   "count": 3,
+   "basis": "1 building on · 10 toilets on · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 867,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168230,
+   "sha256": "2ba2b009d1528f89b413a3f6402ea9f4e330630993d1b7df602e3924faec970d"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-14",
+   "words": "Wed 14 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-14_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Daniel Gough",
+    "Andrew Fisher",
+    "Eric Lucian"
+   ],
+   "count": 4,
+   "basis": "4 buildings on · 6 toilets on · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 857,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 167800,
+   "sha256": "5185846568ac8d922ce07b51b5e202d6faed6803409e6b12300a21bda898aaa9"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-10-15",
+   "words": "Thu 15 Oct 2026",
+   "file": "pdfs/GC500_Prestart_Coates_2026-10-15_Signed.pdf",
+   "attendees": [
+    "Aaron Zelvis",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Kyle Gover"
+   ],
+   "count": 4,
+   "basis": "3 buildings on · 10 toilets on · 1 generator on · loads 0 · fencing dockets that day 0",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 859,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168168,
+   "sha256": "d7ef01af4e10285ac65a59e00933f4025f38aed0955a47f676aa360f386cc3c6"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-09",
+   "words": "Wed 09 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-09_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "1 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-09_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 878,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 167168,
+   "sha256": "edd053379d16ef888f7f70689fc3972af953ecbb82249b19093b97b7c0e38990"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-11",
+   "words": "Fri 11 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-11_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "3 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-11_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 926,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169709,
+   "sha256": "e7f5e471c67a8b7a9981501568727b530228d818db88f35405377af9fee3f4c8"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-21",
+   "words": "Mon 21 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-21_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "3 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-21_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 916,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169161,
+   "sha256": "c7e136ed21df77eceb1264aacfbfffc53e50268ce41487dc72272794913efc57"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-22",
+   "words": "Tue 22 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-22_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "4 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-22_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 926,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169251,
+   "sha256": "822e3cd903872d952ab29ea4f16451fa5fd65e65520bf60cfb3c5eca083afee7"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-23",
+   "words": "Wed 23 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-23_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "7 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-23_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 956,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170352,
+   "sha256": "59677c69b6e0eccc3a4d7938e84b5fb7a7b7e6ef68333c1207c31af8cef53d93"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-24",
+   "words": "Thu 24 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-24_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "6 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-24_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 946,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 171163,
+   "sha256": "ddc9f8e4ca5d7b39cc3113e58ea3845335a71237c9b1ce31a8ff13ae8dcc6e86"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-25",
+   "words": "Fri 25 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-25_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "3 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-25_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 926,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169562,
+   "sha256": "6effa05b06fad6f8d2bca499eed8e4129d08ba26622c79050d5a206fb376ab90"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-28",
+   "words": "Mon 28 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-28_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "3 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-28_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 952,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170954,
+   "sha256": "e7f890b23041de6bbd3441bf7199634796b1ffe9f0eea76a942c48d1eec4c4f8"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-29",
+   "words": "Tue 29 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-29_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "4 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-29_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 935,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170760,
+   "sha256": "b65abe2c1a86ac614739f2daa9ce6f4d87f2a75c17a6b03ca6c92266e807a821"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-30",
+   "words": "Wed 30 Sep 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-09-30_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "2 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-09-30_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 897,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168608,
+   "sha256": "d9a60b53d8e1a6d51869fdd7e41ef466be092392c768e10214aa3dc8ecda2a5c"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-01",
+   "words": "Thu 01 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-01_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "1 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-10-01_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 896,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 168844,
+   "sha256": "dba22d8f15d6b2d5e72c29d867b606c618459c1c3481e3f264922ccf8169ba12"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-02",
+   "words": "Fri 02 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-02_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "4 signed docket(s)",
+   "replaces": [
+    "GC500_Prestart_ATF_2026-10-02_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 917,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 169583,
+   "sha256": "ed0a8d28ee98dd02f1cf2e121e1a3545b00ecef6972f814c7fd904a46b599496"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-06",
+   "words": "Tue 06 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-06_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "6 signed docket(s)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 946,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170270,
+   "sha256": "4ba80ad8e9be6738686e1d631a26407cdcc68673635e10e3b555b96da4fb5abb"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-07",
+   "words": "Wed 07 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-07_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand"
+   ],
+   "count": 8,
+   "basis": "4 signed docket(s) + 1 service note(s)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 988,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 171211,
+   "sha256": "4fff57d976cbb7def16a681f30b64463b517df71055d7b77f7f3560b31a27d23"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-08",
+   "words": "Thu 08 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-08_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "4 signed docket(s)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 930,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 170430,
+   "sha256": "308fabd2de989e41b0ed9c038180b33cbb5df0b1c8aaeedae032330bfea48cf1"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-09",
+   "words": "Fri 09 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-09_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "9 signed docket(s)",
+   "replaces": [],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 998,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 172702,
+   "sha256": "62034bf455f9e4de30c7788af754dfa676aa42cab96320287c33e40b1d4651a0"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-12",
+   "words": "Mon 12 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-12_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "9 installation-plan row(s) (CON WK1 rev 9 Oct 2026)",
+   "replaces": [],
+   "confirm": "Andrew to confirm the fencing crew worked",
+   "fit": {
+    "avail": 1070,
+    "height": 1063,
+    "zoom": 0.99,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 174369,
+   "sha256": "c3a7881179b051ad1fb4bbdcc93b00a618f8a2a6a7a367a069f243caa1e1f814"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-13",
+   "words": "Tue 13 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-13_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "10 installation-plan row(s) (CON WK1 rev 9 Oct 2026)",
+   "replaces": [],
+   "confirm": "Andrew to confirm the fencing crew worked",
+   "fit": {
+    "avail": 1070,
+    "height": 1065,
+    "zoom": 0.989,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 172795,
+   "sha256": "5c2be420f65f6d8250bef224a821cdc093613f7df4c23c44e97484bc30a3a035"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-14",
+   "words": "Wed 14 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-14_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "16 installation-plan row(s) (CON WK1 rev 9 Oct 2026)",
+   "replaces": [],
+   "confirm": "Andrew to confirm the fencing crew worked",
+   "fit": {
+    "avail": 1070,
+    "height": 1201,
+    "zoom": 0.877,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 175211,
+   "sha256": "f274dc1413d8825272c080f7f824ac5a19f327b489570343cf30e8fb0094c95b"
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-10-15",
+   "words": "Thu 15 Oct 2026",
+   "file": "pdfs/GC500_Prestart_ATF_2026-10-15_Signed.pdf",
+   "attendees": [
+    "Wayne Woods",
+    "Owen Cowell McPaul",
+    "Daniel Macleod",
+    "Cody Woods",
+    "Chase Hireni",
+    "Tahi Peni",
+    "Daniel Smith",
+    "Scott Hildebrand",
+    "Hayden Mcavoy"
+   ],
+   "count": 9,
+   "basis": "16 installation-plan row(s) (CON WK1 rev 9 Oct 2026)",
+   "replaces": [],
+   "confirm": "Andrew to confirm the fencing crew worked",
+   "fit": {
+    "avail": 1070,
+    "height": 1116,
+    "zoom": 0.944,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 176338,
+   "sha256": "813b78bf06feb86c2bb8dabe29b229c5ed7294b7501a2fca03503dc794a641e2"
+  }
+ ],
+ "skipped": [
+  {
+   "crew": "coates",
+   "day": "2026-09-07",
+   "reason": "no Coates crew recorded for the day (the record holds 1 variable message signs on, loads from Kingston: 0)",
+   "unsigned_left": [
+    "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-08",
+   "reason": "no Coates crew recorded for the day (nothing on the record for the day)",
+   "unsigned_left": [
+    "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-09",
+   "reason": "no Coates crew recorded for the day (nothing on the record for the day)",
+   "unsigned_left": [
+    "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-10",
+   "reason": "no Coates crew recorded for the day (nothing on the record for the day)",
+   "unsigned_left": [
+    "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-11",
+   "reason": "no Coates crew recorded for the day (the record holds 1 lighting towers on, 1 access & plant on, 2 other on, loads from Kingston: 0)",
+   "unsigned_left": [
+    "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-07",
+   "reason": "nothing on the record for the fencing crew that day: no docket dated that day and no installation-plan row dated that day",
+   "unsigned_left": [
+    "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-08",
+   "reason": "nothing on the record for the fencing crew that day: no docket dated that day and no installation-plan row dated that day",
+   "unsigned_left": [
+    "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-10",
+   "reason": "nothing on the record for the fencing crew that day: no docket dated that day and no installation-plan row dated that day",
+   "unsigned_left": [
+    "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf"
+   ]
+  },
+  {
+   "crew": "fencing",
+   "day": "2026-09-12",
+   "reason": "the only docket that day is a stock transfer to the yard (36511 Yatala — Morayfield (Phillip Island / Morayfield), region Yatala), not an installation",
+   "unsigned_left": []
+  }
+ ]
+}

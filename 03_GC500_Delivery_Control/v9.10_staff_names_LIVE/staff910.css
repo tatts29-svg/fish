@@ -1,0 +1,27 @@
+/* Author: Andrew Fisher. Existing Crew fields and actions remain readable on their dark cards. */
+.crew883 .staff910-names{display:grid;gap:12px;min-width:0}
+.crew883 .staff910-name{display:grid;gap:5px;min-width:0}
+.crew883 .staff910-name small,.crew883 .staff910-names p{font-size:12px;line-height:1.5;color:#c4d4d9;margin:0}
+.crew883 .staff910-message{font-size:13px;line-height:1.5;color:#ffceaa;overflow-wrap:anywhere}
+.crew883 .staff910-message:empty{display:none}
+.crew883 [hidden]{display:none!important}
+.crew883 :is(input:not([type=checkbox]):not([type=radio]),select,textarea),.crew883 select.time907{
+  color-scheme:dark;color:#f2f7f8;background:#10262d;border:1px solid #68848b;border-radius:7px;
+  min-width:0;max-width:100%;box-sizing:border-box;min-height:44px;padding:9px 10px;font:inherit;
+}
+.crew883 select option{color:#f2f7f8;background:#10262d}
+.crew883 select option:checked{color:#fff;background:#29454f}
+.crew883 input::placeholder,.crew883 textarea::placeholder{color:#b9ccd2;opacity:1}
+.crew883 :is(input,select,textarea):disabled{color:#c3d2d6;background-color:#183038;opacity:1}
+.crew883 :is(input,select,textarea):focus-visible{outline:2px solid #ffad70;outline-offset:2px}
+.crew883 input:is([type=checkbox],[type=radio]){accent-color:#ff964f}
+.crew883 button.btn,#pane-timeline .ld.tl846 .crew883 button.btn{
+  color:#edf5f7;background:#29424d;border:1px solid #68848b;border-radius:7px;min-height:44px;
+  padding:9px 12px;font:700 13px/1.4 Inter,system-ui,sans-serif;white-space:normal;max-width:100%;box-sizing:border-box;
+}
+.crew883 button.btn:hover,#pane-timeline .ld.tl846 .crew883 button.btn:hover{color:#fff;background:#355561;border-color:#ffad70}
+.crew883 button.btn:is([data-crew883-save],[data-crew883-day-save]),#pane-timeline .ld.tl846 .crew883 button.btn:is([data-crew883-save],[data-crew883-day-save]){color:#132b33;background:#ff964f;border-color:#ff964f}
+.crew883 button.btn:is([data-crew883-save],[data-crew883-day-save]):hover,#pane-timeline .ld.tl846 .crew883 button.btn:is([data-crew883-save],[data-crew883-day-save]):hover{color:#132b33;background:#ffad75;border-color:#ffad75}
+.crew883 button.btn:disabled,#pane-timeline .ld.tl846 .crew883 button.btn:disabled{color:#edf5f7;background:#435b66;border-color:#68848b;opacity:1}
+.crew883 button.btn:focus-visible,#pane-timeline .ld.tl846 .crew883 button.btn:focus-visible{outline:2px solid #ffad70;outline-offset:3px}
+.crew883 :is(button,input,select,textarea):disabled,#pane-timeline .ld.tl846 .crew883 button.btn:disabled{transition:none}

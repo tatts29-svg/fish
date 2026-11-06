@@ -1,0 +1,207 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "v10.13 focused native flow regression",
+  "candidateSha256": "ddf49187248e7e2f47b79b4ca15f16ce1463ab633c59e7aaee7d9ca8f6c25dc7",
+  "sourceSha256": "f59b17e427c2deaccbea6cd270527c2ab44059aa6f952a96593b404da98dd272",
+  "patchSha256": "2f0f402c25f9413092b785970df240e467851209a19521b27dd8efa961a06d57",
+  "result": {
+    "checks": 44,
+    "passed": 44,
+    "runtimeErrors": 0,
+    "operationalWriteAttempts": 0
+  },
+  "viewports": [
+    {
+      "name": "phone",
+      "nativeVersionStart": 6061,
+      "nativeVersionEnd": 6061,
+      "checks": [
+        {
+          "name": "Shared flow module installed",
+          "passed": true
+        },
+        {
+          "name": "plant photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "plant photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "costs photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "costs photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "subhired photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "subhired photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "today discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "today deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "costs discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "costs deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "subhired discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "subhired deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "Photo refresh retains an unsubmitted editable draft and focus",
+          "passed": true
+        },
+        {
+          "name": "Draft preservation invokes no native writes",
+          "passed": true
+        },
+        {
+          "name": "Inventory Close returns focus to its originating quantity",
+          "passed": true
+        },
+        {
+          "name": "Delayed Inventory reference reveal yields to newer scrolling",
+          "passed": true
+        },
+        {
+          "name": "Deferred Equipment results reveal yields to newer scrolling",
+          "passed": true
+        },
+        {
+          "name": "Drawer Back stays closed after both refresh paths",
+          "passed": true
+        },
+        {
+          "name": "Browser Back retains native route behaviour",
+          "passed": true
+        },
+        {
+          "name": "No runtime errors",
+          "passed": true
+        },
+        {
+          "name": "No operational writes attempted",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "desktop",
+      "nativeVersionStart": 6061,
+      "nativeVersionEnd": 6061,
+      "checks": [
+        {
+          "name": "Shared flow module installed",
+          "passed": true
+        },
+        {
+          "name": "plant photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "plant photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "costs photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "costs photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "subhired photo-registry update retains the open section",
+          "passed": true
+        },
+        {
+          "name": "subhired photo-registry update retains position and records",
+          "passed": true
+        },
+        {
+          "name": "today discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "today deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "costs discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "costs deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "subhired discarded large-pane sections return open",
+          "passed": true
+        },
+        {
+          "name": "subhired deliberately closed sections stay closed on return",
+          "passed": true
+        },
+        {
+          "name": "Photo refresh retains an unsubmitted editable draft and focus",
+          "passed": true
+        },
+        {
+          "name": "Draft preservation invokes no native writes",
+          "passed": true
+        },
+        {
+          "name": "Inventory Close returns focus to its originating quantity",
+          "passed": true
+        },
+        {
+          "name": "Delayed Inventory reference reveal yields to newer scrolling",
+          "passed": true
+        },
+        {
+          "name": "Deferred Equipment results reveal yields to newer scrolling",
+          "passed": true
+        },
+        {
+          "name": "Drawer Back stays closed after both refresh paths",
+          "passed": true
+        },
+        {
+          "name": "Browser Back retains native route behaviour",
+          "passed": true
+        },
+        {
+          "name": "No runtime errors",
+          "passed": true
+        },
+        {
+          "name": "No operational writes attempted",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "method": "Actual native application handlers, live shared records read via GET, private exact-source candidate. Editable draft test overrides capability only within one synchronous browser call and traps SDK writes; it does not dispatch native Save. Large-pane disposal uses a clearly labelled DOM-only threshold fixture. Financial amounts and native records are not edited.",
+  "privacy": "Raw records and screenshots retained only in private workspace evidence."
+}

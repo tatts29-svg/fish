@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.85",
+  "candidateSha256": "2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297",
+  "summaryOnly": true,
+  "desktop": {
+    "tabs": 21,
+    "deepLinks": 7,
+    "errors": [],
+    "consoleErrors": [],
+    "navigationErrors": []
+  },
+  "phone": {
+    "tabs": 21,
+    "deepLinks": 7,
+    "errors": [],
+    "consoleErrors": [],
+    "navigationErrors": []
+  }
+}

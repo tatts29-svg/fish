@@ -1,0 +1,79 @@
+<title>GC500 Circuit Preview</title>
+<meta name="description" content="A live preview of the draft Three.js backdrop for the GC500 Showcase - decoration only, not the record.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{--rail:#0d0a09;--rail2:#1b1613;--ink:#f4efe9;--mute:#9b918a;--orange:#ff6a13;--rule:#3a322c;--display:'Barlow Condensed','Arial Narrow',Impact,sans-serif;--body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--rail);color:var(--ink);font:14px/1.5 var(--body);padding-inline:16px;padding-block:18px 32px}
+.wrap{max-width:1400px;margin:0 auto;display:grid;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 24px;border-bottom:1px solid var(--rule);padding-bottom:10px}
+header h1{margin:0;font:800 italic 30px/1 var(--display);letter-spacing:.01em}
+header h1 small{display:block;font:600 11px/1.4 var(--body);letter-spacing:.3em;text-transform:uppercase;color:#d9d1c9;margin-bottom:6px;font-style:normal}
+header p{margin:0;color:var(--mute);max-width:70ch;font-size:13px}
+.show{position:relative;background:#131a1b;border:1px solid var(--rule);border-radius:9px 0 9px 0;overflow:hidden}
+.shplate{position:relative;aspect-ratio:16/9;max-width:100%;background:#131a1b}
+.shplate canvas.shlaps{position:absolute;inset:0;width:100%;height:100%;display:block}
+.shscene{position:absolute;inset:0;pointer-events:none}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:var(--rail2);border:1px solid var(--rule);border-radius:9px 0 9px 0;padding:10px 14px}
+.ctl label{display:flex;align-items:center;gap:6px;font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.ctl select,.ctl button{font:600 13px var(--body);color:var(--ink);background:#26201c;border:1px solid var(--rule);border-radius:9px 0 9px 0;padding:7px 10px;cursor:pointer}
+.ctl button.primary{background:var(--orange);border-color:var(--orange);color:#1b1207}
+.ctl select:focus-visible,.ctl button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+.ctl .stat{margin-left:auto;font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--mute)}
+.note{font-size:12.5px;color:var(--mute);border-left:3px solid var(--orange);padding:6px 12px;background:var(--rail2)}
+.note a{color:var(--ink)}
+.fail{display:none;padding:14px;border:1px solid #7a2e22;background:#2a1411;color:#f4d5cf;border-radius:9px 0 9px 0}
+@media (max-width:640px){.ctl .stat{margin-left:0;width:100%}}
+/*__CSS__*/
+</style>
+<div class="wrap">
+ <header>
+ <div><h1><small>Coates Industrial Solutions · GC500 2026</small>The circuit in Three.js — preview</h1>
+ <p>The draft v7.53 backdrop for the Showcase, running on your own screen. Decoration only: it reads no record and nothing on the live page changes until you say yes. Cameras, looks and quality below; the strip at the foot of the plate is race control.</p></div>
+ <a class="note" href="https://gc500-production.up.railway.app/v/Coates-GC500-2026" target="_blank" rel="noopener">Open the live page (view only) to compare with the current backdrop →</a>
+ </header>
+ <section class="show car-focus" id="show" data-back="circuit3d_day">
+ <div class="shplate" id="showPlate"><canvas class="shlaps" id="lapsCv" width="16" height="9"></canvas><div class="shscene"></div></div>
+ </section>
+ <div class="ctl">
+ <label>Look <select id="look"><option value="day">Day</option><option value="dusk">Sunset</option><option value="dark">Night</option></select></label>
+ <label>Camera <select id="view"></select></label>
+ <label>Quality <select id="quality"><option value="auto">Auto</option><option value="ultra">Ultra</option><option value="high">High</option><option value="balanced">Balanced</option></select></label>
+ <label>Car <select id="vehicle"><option value="car">Coates #26</option><option value="forklift">Forklift</option><option value="boom">Boom lift</option><option value="scissor">Scissor lift</option><option value="tractor">Tractor</option></select></label>
+ <button id="pause" type="button">Pause</button><button id="restart" type="button" class="primary">Restart the lap</button>
+ <span class="stat" id="stat">loading three.js …</span>
+ </div>
+ <div class="fail" id="fail"></div>
+ <p class="note" style="border-left-color:#7b8590">What you are judging: the road at its measured width, kerbs, concrete blocks and hoardings (Coates and event words only), debris fencing, gantries, floods, grandstands, Surfers Paradise from OpenStreetMap; the Coates #26 with a rival to pass; the director's cuts (follow, trackside, helicopter, overhead, onboard, detail). Scene by iEDM key plan K220 · buildings, roads and water © OpenStreetMap contributors (ODbL). Author: Andrew Fisher.</p>
+</div>
+<script>/*__DATA__*/</script>
+<script>
+window.GC3D = {ver: 'preview'};
+window.LAPS = {cv: document.getElementById('lapsCv'), raf: 0, ctx: null, dirty: 0};
+window.lapsFrame = function(){};
+function lapsSize(){}
+</script>
+<script>/*__ENGINE__*/</script>
+<script>
+(function(){
+ var G = window.GC3D, X = G.X, stat = document.getElementById('stat'), fail = document.getElementById('fail');
+ var sel = function(id){ return document.getElementById(id); };
+ G.VIEWS.forEach(function(v){ var o = document.createElement('option'); o.value = v[0]; o.textContent = v[1]; sel('view').appendChild(o); });
+ sel('view').value = 'auto';
+ function start(){
+ LAPS.raf = requestAnimationFrame(function(){});
+ var r = G.mount(DATA.surrounds, sel('look').value);
+ if (!/mounted/.test(String(r))) { fail.style.display = 'block'; fail.textContent = 'The preview could not start here: ' + r; stat.textContent = 'not running'; return; }
+ stat.textContent = 'building the scene …';
+ }
+ var ready = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('800 italic 40px "Barlow Condensed"'), document.fonts.load('700 20px Inter')]).catch(function(){}) : Promise.resolve();
+ ready.then(start);
+ sel('look').onchange = function(){ var S = G.S; if (S && S.world) { X.applyLook(S, X.lookOf(this.value)); sel('view').dispatchEvent(new Event('change')); } document.getElementById('show').dataset.back = this.value === 'day' ? 'circuit3d_day' : this.value === 'dusk' ? 'circuit3d_dusk' : 'circuit3d'; };
+ sel('view').onchange = function(){ G.setView(this.value); };
+ sel('quality').onchange = function(){ G.setQuality(this.value); };
+ sel('vehicle').onchange = function(){ G.setVehicle(this.value); };
+ sel('pause').onclick = function(){ var S = G.S; if (!S) return; S.paused = !S.paused; S.needsRender = true; this.textContent = S.paused ? 'Play' : 'Pause'; };
+ sel('restart').onclick = function(){ G.simReset(); };
+ setInterval(function(){ var S = G.S; if (!S) { if (G.failed) { fail.style.display = 'block'; fail.textContent = 'The preview stopped: ' + G.failed; stat.textContent = 'not running'; } return; } if (!S.world || !S.world.built) return; var R = G.sceneReport(); stat.textContent = (S.fps ? S.fps + ' fps · ' : '') + S.quality.name + ' · ' + (R.shot || '').toUpperCase() + ' · ' + R.kmh + ' km/h · lap ' + ((R.lap || 0) + 1); }, 500);
+})();
+</script>

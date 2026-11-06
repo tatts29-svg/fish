@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 08:1x AEST: \"1276416 and 1247787 picked up 8:15am\". 1247787 is the Forklift 2.5T RT on T0005 (Coates; back out 20 Oct on docket 26142467, contract 9961976 line 35; pick-up booked 2 Nov 09:30); 1276416 is the generator unit on GN19 (Coates; ticked Ready 30 Oct). Both left site at 08:15 on 2 Nov, through the page's own Record departure form in his name. T0005 holds two Forklift 2.5T RT (1247787 and 1312577): only 1247787 left, so T0005 stays on site with 1312577 still to leave; GN19's only unit is 1276416, so GN19 leaves in full. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0005",
+   "at": "2026-11-02T08:15:00+10:00",
+   "nos": [
+    "1247787"
+   ],
+   "unnumbered": [],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "GN19",
+   "at": "2026-11-02T08:15:00+10:00",
+   "nos": [
+    "1276416"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

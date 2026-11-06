@@ -1,0 +1,116 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T210950Z",
+ "finished": "2026-10-27T21:10:29.993Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026, on the toilet-block labour against Baseplan (8)/(9) (15 blocks × $707.88 = $10,618.20; our ticks $10,462.05): \"can we make our ticks match baseplan\". WC60's two blocks (1119489 with tank 1328980, 1087500 with tank 1328981; installed, levelled, stairs on, 1 Oct 2026) carry install, steps, levelling and demob each, and cleaning on 1119489 only. The missing tick is cleaning on block 1087500 ($156.15), ticked here through the page's own labour control.",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "WC60",
+    "unit": "1087500",
+    "disc": "Toilets & amenities",
+    "item": "Toilet Block 6m",
+    "line": "cleaning"
+   }
+  ]
+ },
+ "pageSha256": "ff5eed20cc6c4022c3c7731715196bc11e9dbea4b404cd45f1024fd3cdd60475",
+ "version": {
+  "before": 11631,
+  "after": 11633
+ },
+ "updated": {
+  "before": "2026-10-27T20:29:11.002Z",
+  "after": "2026-10-27T21:10:29.092Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1019696.81,
+   "labour": 72870.41,
+   "labour_ticks": 497,
+   "card_hire": 183491.71,
+   "cost": 448019.57,
+   "difference": 571677.24,
+   "branches": {
+    "KINP": 287614.69,
+    "STPS": 76406.67,
+    "NVAC": 41333.25,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1019852.96,
+   "labour": 73026.56,
+   "labour_ticks": 497,
+   "card_hire": 183491.71,
+   "cost": 448019.57,
+   "difference": 571833.39,
+   "branches": {
+    "KINP": 287614.69,
+    "STPS": 76406.67,
+    "NVAC": 41333.25,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "WC60",
+   "unit": "1087500",
+   "disc": "Toilets & amenities",
+   "item": "Toilet Block 6m",
+   "line": "cleaning",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "labour/WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning": {
+    "_k": "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|cleaning",
+    "v": "2026-10-01T05:22:05.928Z"
+   },
+   "labour/WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning": null
+  },
+  "after": {
+   "stamps/labour~2f~WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning": {
+    "_k": "labour/WC60/u1087500|Toilets & amenities|Toilet Block 6m|cleaning",
+    "v": "2026-10-27T21:10:11.870Z"
+   },
+   "labour/WC60~2f~u1087500~7c~Toilets~20~~26~~20~amenities~7c~Toilet~20~Block~20~6m~7c~cleaning": {
+    "_k": "WC60/u1087500|Toilets & amenities|Toilet Block 6m|cleaning",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

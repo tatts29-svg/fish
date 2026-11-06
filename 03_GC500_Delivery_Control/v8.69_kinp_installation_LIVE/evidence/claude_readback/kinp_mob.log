@@ -1,0 +1,18 @@
+PASS  a person line takes a home branch, cleaned to the code
+PASS  wages by person add to the wages priced, to the cent, as the record stands
+PASS  each person carries the home branch given
+PASS  looking a person up ignores case
+PASS  setting a branch keeps the person’s employment type
+PASS  with branches set, wages by person still add to the wages priced, to the cent
+PASS  wages by home branch add to the total
+PASS  home branch to KINP Installation: every row adds to its home total, and the table to the total
+PASS  all labour destinations are KINP, including same-branch allocations
+PASS  a new code (NTSP) joins the branch list and the home rows
+PASS  the costs by branch table is unchanged by home branches
+PASS  handover shows wages by person and the home-to-revenue table, with no notes
+PASS  CSV carries the wages by person and the move table, and keeps its four sections
+PASS  running sheet shows the home branch to a view link, with no box to type in
+PASS  on a view-only link setting a branch does not go through
+PASS  no page errors
+PASS  no writes attempted
+phone: 17/17 pass

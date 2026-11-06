@@ -1,0 +1,63 @@
+[
+  {
+    "name": "real UHD framebuffer, render target and four-sample smoothing",
+    "ok": true,
+    "detail": {
+      "buffer": [
+        3840,
+        2160
+      ],
+      "target": [
+        3840,
+        2160
+      ],
+      "samples": 4,
+      "view": "quarter",
+      "vehicle": "fencing_truck",
+      "error": 0,
+      "bank": 0.48,
+      "grounded": 2,
+      "stats": {
+        "kind": "Advanced Temporary Fencing truck",
+        "quality": "high",
+        "triangles": 35515,
+        "parts": 30,
+        "newTextures": 0,
+        "geometryBuiltOnce": true,
+        "illustrative": true,
+        "brandVersion": 1180,
+        "loadVersion": 1182,
+        "detailVersion": 1192,
+        "roundStock": true,
+        "stockLoaded": true,
+        "loadType": "separate dense panel stacks and central palletised base blocks",
+        "logoTriangles": 3417,
+        "logoCopies": 3
+      }
+    }
+  },
+  {
+    "name": "loaded truck in actual quarter camera with no GL error",
+    "ok": true
+  },
+  {
+    "name": "saved image is exactly 3840 by 2160",
+    "ok": true
+  },
+  {
+    "name": "clean close and shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "no page errors or attempted writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 114,
+        "blocked": 0
+      }
+    }
+  }
+]

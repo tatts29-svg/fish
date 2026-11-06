@@ -1,0 +1,11 @@
+/* Author: Andrew Fisher. Paired, readable loading selection and Save controls. */
+[data-loading1012-editor] .loading1012-controls{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid #81949c66}
+[data-loading1012-editor] .loading1012-controls button,[data-loading1012-editor] button[data-loading1012-clear]{background:#193640!important;color:#fff!important;border:1px solid #78929d!important;min-height:42px;opacity:1}
+[data-loading1012-editor] .loading1012-controls button[data-loading1012-save]{background:#ff852f!important;color:#152c34!important;border-color:#e26919!important;font-weight:800}
+[data-loading1012-editor] .loading1012-controls button:disabled,[data-loading1012-editor] button[data-loading1012-clear]:disabled{background:#dfe5e8!important;color:#44545b!important;border-color:#95a3aa!important;cursor:not-allowed}
+[data-loading1012-editor] .loading1012-controls button:focus-visible,[data-loading1012-editor] button[data-loading1012-clear]:focus-visible{outline:3px solid var(--control-focus1012,#9a3f0a);outline-offset:3px}
+[data-loading1012-result]{flex:1 1 180px;padding:6px 8px;border-radius:5px;font-size:13px;font-weight:700;color:#213742;background:#e8edf0;line-height:1.4}
+[data-loading1012-result]:empty{display:none}
+[data-loading1012-result][data-save1012="shared"]{color:#075434;background:#ddf7e8}
+[data-loading1012-result][data-save1012="error"],[data-loading1012-result][data-save1012="changed"]{color:#802a18;background:#ffebe2}
+[data-loading1012-result][data-save1012="dirty"],[data-loading1012-result][data-save1012="pending"],[data-loading1012-result][data-save1012="offline"]{color:#604000;background:#fff0c5}

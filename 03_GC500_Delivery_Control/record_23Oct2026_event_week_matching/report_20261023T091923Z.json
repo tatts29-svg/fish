@@ -1,0 +1,695 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261023T091923Z",
+ "finished": "2026-10-23T09:19:52.817Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Seven hire agreements corrected on the event week's match-up (Andrew, 23 Oct 2026: 'We need to make sure we match things up. Use previous data to ensure we price right. Make sure everything is updated correctly. We make sure we match schedule. This needs to be accurate and correct. And at the end of the day its ok. As dockets are matched to the cent next to invoice which i share with you when i get'): scrim added on the metres Advanced's own signed papers say were scrimmed (notes 24484, 24487, 24488 against the fences they name: 36609, 36759, 36761, 36643, 36629), on the same metres as the fence as the 2 Oct convention has it; two CC barrier lines moved to the class the programme request and the earlier record give them (36635 to Event, 36634 to Demarcation). Through the page's own docket correction, by Andrew Fisher; every other document unchanged.",
+  "ops": [
+   {
+    "op": "docket_fix",
+    "docket_no": "36609",
+    "quantities": {
+     "clean": 420,
+     "scrim": 420
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 420 m added on the same metres as the fence (the 2 Oct convention). Advanced's week 1 sheet (19 Oct) already billed 125 m of this fence as braced for scrim, and their signed scrim-labour note 24487 of 22 Oct records 'Porsche to Staghorn St - 420 m' scrimmed after hire agreement 36644 (21 Oct) braced it; the iEDM request of 14 Oct was overtaken. Advanced's sheet for the event week decides the metres to the cent.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36759",
+    "quantities": {
+     "clean": 72.5,
+     "scrim": 72.5
+    },
+    "note": "Mesh fence 72.5 m (29 panels), 78 bases, 76 clamps, 25 braces, 1 wheel (a single slanted stroke in the Wheels box, read as 1 by one reader and as a stroke, not clearly a number, by the other). Braces on most panels but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. The site address reads 'Rhapsody Sales Office - walk threw'. Programme EVENT WEEK row 23 (20 Oct) is Demarcation CCB - Rhapsody, 133 m, a different job; no mesh-fence row for the sales office walk-through. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 72.5 m added on the same metres as the fence: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Ferny Ave - 72.5 m, Rhapsody walk through' - this fence, the same metres. The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36761",
+    "quantities": {
+     "clean": 35,
+     "scrim": 32.5
+    },
+    "note": "Mesh fence 35 m (14 panels), 24 bases, 24 clamps, 6 braces. Programme EVENT WEEK row 40 (21 Oct): Perimeter Fence - Cleanaway Compactor, rear of the Pit Building, 26 m braced for scrim and 1 vehicle gate planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 32.5 m added: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Rubbish Compactor - 32.5' (13 of the 14 panels). The programme planned this fence braced for scrim (EVENT WEEK row 40). The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36643",
+    "quantities": {
+     "clean": 32.5,
+     "ccb_event": 20,
+     "scrim": 47.5
+    },
+    "note": "Mesh fence 32.5 m (13 panels), CC barrier 20 m (8 barriers), 2 wheels, 29 bases, 27 clamps, 8 braces. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components; no bracing metres and no scrim written, so clean is recorded. Programme EVENT WEEK row 54 (22 Oct): Perimeter Fence - Club 500 Stage, 55 m braced for scrim, 95 m relocation, 2 vehicle gates and 1 pedestrian gate planned. The CCB is read as Event, as the other Club 500 barriers (36591, 36594); Advanced's sheet decides. Installation date written 21-10-26. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 47.5 m added: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Club 500 - 47.5 m', more than this paper's 32.5 m of new fence - the balance is the relocated panels of the Club 500 stage (programme EVENT WEEK row 54: 55 m braced for scrim and 95 m relocation; service note 24486 of 20 Oct relocates panels from the creek protection to Club 500). The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36629",
+    "quantities": {
+     "ccb_demarc": 182.5,
+     "ccb_event": 237.5,
+     "scrim": 80
+    },
+    "note": "CC barrier 420 m (168 barriers) at PB03 - Gate 1 - Helen Park on 20 Oct 2026, plus 11 braces: the note reads 'Added braces to fence B.O.H - Helen Park. Used bases & clamps from C.Z relocation Helen Park. Braced & Scrim' with a tick. The CCB is split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB - PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (182 m, recorded as Demarcation 182.5 m, to the barrier), CCB - Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m, is recorded as Event) - Advanced's sheet decides the lines when it comes. The braced-and-scrimmed back-of-house fence carries no metres on this paper (service note 24484 of the same day: 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'); the 11 braces are recorded as components and no scrim is charged from this paper. A small mark, read as a stray 8, sits in the Bracing box; Base and Clamp blank (used from the C.Z relocation). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 80 m added for the back-of-house fence this paper braced ('Braced & Scrim' with a tick): Advanced's signed service note 24484 of the same day records 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'. The relocated panels' fence metres were charged on their original paper; only the scrim is added here. The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36635",
+    "quantities": {
+     "ccb_event": 37.5,
+     "flat_feet": 35
+    },
+    "note": "CC barrier 37.5 m (15 barriers) and flat-feet CC barrier 35 m (16 pieces, the installer's added item row 'Flat feet CCB's 16' and the note 'Flat feet mtrs - 35 m'), Esplanade north to the Triangle, installed 20 Oct 2026. The Esplanade-Triangle run is the programme's demarcation (its removal rows read 'CCB Removal - The Esplanade Triangle Demarcation'), so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Demarcation to Event: the programme's own line for it (EVENT WEEK row 55, 22 Oct, The Esplanade, 'Demarcation CCB - Support Category Circuit Entry') carries its 32 m in the Event column, and the Esplanade's CCB of 16 Oct (36619, programme row 63) is Event on the record. The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36634",
+    "quantities": {
+     "ccb_demarc": 12.5
+    },
+    "note": "CC barrier 12.5 m (5 barriers) at the S07 viewing mound on 20 Oct 2026: crowd control at a spectator mound, recorded as Event - no viewing-mound row in the EVENT WEEK programme; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Event to Demarcation: the viewing mound's CCB of 22 Sep (36542, Viewing mound, 60 m) is Demarcation on the record, and this is the same kind of line at S07. The sheet decides.",
+    "recorded_by": "Andrew Fisher"
+   }
+  ]
+ },
+ "pageSha256": "e17bd3d868b00f421f23a249c39f39c94801c05b57533ae8d4bfcd7674cf683f",
+ "version": {
+  "before": 10698,
+  "after": 10719
+ },
+ "updated": {
+  "before": "2026-10-23T09:01:15.986Z",
+  "after": "2026-10-23T09:19:51.952Z"
+ },
+ "stage": [
+  {
+   "op": "docket_fix",
+   "no": "36609",
+   "id": "F-AF-0009",
+   "charge": 17510.09,
+   "paid": 6100,
+   "result": "quantities {\"clean\":420} -> {\"clean\":420,\"scrim\":420}; $17,510.09 charged at the 2026 card, $6,100.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36759",
+   "id": "F-AF-0035",
+   "charge": 3022.58,
+   "paid": 2494,
+   "result": "quantities {\"clean\":72.5} -> {\"clean\":72.5,\"scrim\":72.5}; $3,022.58 charged at the 2026 card, $2,494.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36761",
+   "id": "F-AF-0037",
+   "charge": 1395.35,
+   "paid": 1143,
+   "result": "quantities {\"clean\":35} -> {\"clean\":35,\"scrim\":32.5}; $1,395.35 charged at the 2026 card, $1,143.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36643",
+   "id": "F-AF-0060",
+   "charge": 1888.1,
+   "paid": 1592,
+   "result": "quantities {\"clean\":32.5,\"ccb_event\":20} -> {\"clean\":32.5,\"ccb_event\":20,\"scrim\":47.5}; $1,888.10 charged at the 2026 card, $1,592.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36629",
+   "id": "F-AF-0047",
+   "charge": 6213.13,
+   "paid": 4220,
+   "result": "quantities {\"ccb_demarc\":182.5,\"ccb_event\":237.5} -> {\"ccb_demarc\":182.5,\"ccb_event\":237.5,\"scrim\":80}; $6,213.13 charged at the 2026 card, $4,220.00 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36635",
+   "id": "F-AF-0053",
+   "charge": 619.42,
+   "paid": 391.5,
+   "result": "quantities {\"ccb_demarc\":37.5,\"flat_feet\":35} -> {\"ccb_event\":37.5,\"flat_feet\":35}; $619.42 charged at the 2026 card, $391.50 paid"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36634",
+   "id": "F-AF-0052",
+   "charge": 163.5,
+   "paid": 67.5,
+   "result": "quantities {\"ccb_event\":12.5} -> {\"ccb_demarc\":12.5}; $163.50 charged at the 2026 card, $67.50 paid"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0009",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0060",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0047",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0053",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceDockets~2f~F-AF-0052",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0009",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0060",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0047",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0053",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AF-0052",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0009",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0037",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0035",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0047",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0052",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0053",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0060",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AF-0009": {
+    "_k": "fenceDockets/F-AF-0009",
+    "v": "2026-10-20T15:13:42.834Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0035": null,
+   "stamps/fenceDockets~2f~F-AF-0037": null,
+   "stamps/fenceDockets~2f~F-AF-0060": null,
+   "stamps/fenceDockets~2f~F-AF-0047": null,
+   "stamps/fenceDockets~2f~F-AF-0053": null,
+   "stamps/fenceDockets~2f~F-AF-0052": null,
+   "by/fenceDockets~2f~F-AF-0009": {
+    "_k": "fenceDockets/F-AF-0009",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/fenceDockets~2f~F-AF-0035": null,
+   "by/fenceDockets~2f~F-AF-0037": null,
+   "by/fenceDockets~2f~F-AF-0060": null,
+   "by/fenceDockets~2f~F-AF-0047": null,
+   "by/fenceDockets~2f~F-AF-0053": null,
+   "by/fenceDockets~2f~F-AF-0052": null,
+   "fenceDockets/F-AF-0009": {
+    "id": "F-AF-0009",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36609",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Esplanade south of Meriton - Porsche Lounge CZ",
+    "quantities": {
+     "clean": 420
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 168,
+     "base": 265,
+     "clamp": 264,
+     "brace": 50,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36609, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0009"
+   },
+   "fenceDockets/F-AF-0037": {
+    "id": "F-AF-0037",
+    "date": "2026-10-22",
+    "week": "Event Week",
+    "docket_no": "36761",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rubbish Compactor (Cleanaway)",
+    "quantities": {
+     "clean": 35
+    },
+    "note": "Mesh fence 35 m (14 panels), 24 bases, 24 clamps, 6 braces. Programme EVENT WEEK row 40 (21 Oct): Perimeter Fence - Cleanaway Compactor, rear of the Pit Building, 26 m braced for scrim and 1 vehicle gate planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 14,
+     "base": 24,
+     "clamp": 24,
+     "brace": 6
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36761, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0037"
+   },
+   "fenceDockets/F-AF-0035": {
+    "id": "F-AF-0035",
+    "date": "2026-10-22",
+    "week": "Event Week",
+    "docket_no": "36759",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rhapsody Sales Office - walk through",
+    "quantities": {
+     "clean": 72.5
+    },
+    "note": "Mesh fence 72.5 m (29 panels), 78 bases, 76 clamps, 25 braces, 1 wheel (a single slanted stroke in the Wheels box, read as 1 by one reader and as a stroke, not clearly a number, by the other). Braces on most panels but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. The site address reads 'Rhapsody Sales Office - walk threw'. Programme EVENT WEEK row 23 (20 Oct) is Demarcation CCB - Rhapsody, 133 m, a different job; no mesh-fence row for the sales office walk-through. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 29,
+     "base": 78,
+     "clamp": 76,
+     "brace": 25,
+     "wheels": 1
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36759, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0035"
+   },
+   "fenceDockets/F-AF-0047": {
+    "id": "F-AF-0047",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36629",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "PB03 - Gate 1 - Helen Park",
+    "quantities": {
+     "ccb_demarc": 182.5,
+     "ccb_event": 237.5
+    },
+    "note": "CC barrier 420 m (168 barriers) at PB03 - Gate 1 - Helen Park on 20 Oct 2026, plus 11 braces: the note reads 'Added braces to fence B.O.H - Helen Park. Used bases & clamps from C.Z relocation Helen Park. Braced & Scrim' with a tick. The CCB is split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB - PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (182 m, recorded as Demarcation 182.5 m, to the barrier), CCB - Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m, is recorded as Event) - Advanced's sheet decides the lines when it comes. The braced-and-scrimmed back-of-house fence carries no metres on this paper (service note 24484 of the same day: 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'); the 11 braces are recorded as components and no scrim is charged from this paper. A small mark, read as a stray 8, sits in the Bracing box; Base and Clamp blank (used from the C.Z relocation). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 168,
+     "brace": 11
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36629, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0047"
+   },
+   "fenceDockets/F-AF-0052": {
+    "id": "F-AF-0052",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36634",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S07 viewing mound",
+    "quantities": {
+     "ccb_event": 12.5
+    },
+    "note": "CC barrier 12.5 m (5 barriers) at the S07 viewing mound on 20 Oct 2026: crowd control at a spectator mound, recorded as Event - no viewing-mound row in the EVENT WEEK programme; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 5
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36634, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0052"
+   },
+   "fenceDockets/F-AF-0053": {
+    "id": "F-AF-0053",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36635",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Esplanade north to the Triangle",
+    "quantities": {
+     "ccb_demarc": 37.5,
+     "flat_feet": 35
+    },
+    "note": "CC barrier 37.5 m (15 barriers) and flat-feet CC barrier 35 m (16 pieces, the installer's added item row 'Flat feet CCB's 16' and the note 'Flat feet mtrs - 35 m'), Esplanade north to the Triangle, installed 20 Oct 2026. The Esplanade-Triangle run is the programme's demarcation (its removal rows read 'CCB Removal - The Esplanade Triangle Demarcation'), so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 15,
+     "flat_feet_ccb": 16
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36635, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0053"
+   },
+   "fenceDockets/F-AF-0060": {
+    "id": "F-AF-0060",
+    "date": "2026-10-21",
+    "week": "Event Week",
+    "docket_no": "36643",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500",
+    "quantities": {
+     "clean": 32.5,
+     "ccb_event": 20
+    },
+    "note": "Mesh fence 32.5 m (13 panels), CC barrier 20 m (8 barriers), 2 wheels, 29 bases, 27 clamps, 8 braces. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components; no bracing metres and no scrim written, so clean is recorded. Programme EVENT WEEK row 54 (22 Oct): Perimeter Fence - Club 500 Stage, 55 m braced for scrim, 95 m relocation, 2 vehicle gates and 1 pedestrian gate planned. The CCB is read as Event, as the other Club 500 barriers (36591, 36594); Advanced's sheet decides. Installation date written 21-10-26. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 13,
+     "cc_barrier": 8,
+     "base": 29,
+     "clamp": 27,
+     "brace": 8,
+     "wheels": 2
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36643, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0060"
+   }
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AF-0009": {
+    "_k": "fenceDockets/F-AF-0009",
+    "v": "2026-10-23T09:19:31.209Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0035": {
+    "_k": "fenceDockets/F-AF-0035",
+    "v": "2026-10-23T09:19:33.209Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0037": {
+    "_k": "fenceDockets/F-AF-0037",
+    "v": "2026-10-23T09:19:35.767Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0060": {
+    "_k": "fenceDockets/F-AF-0060",
+    "v": "2026-10-23T09:19:37.976Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0047": {
+    "_k": "fenceDockets/F-AF-0047",
+    "v": "2026-10-23T09:19:40.708Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0053": {
+    "_k": "fenceDockets/F-AF-0053",
+    "v": "2026-10-23T09:19:43.477Z"
+   },
+   "stamps/fenceDockets~2f~F-AF-0052": {
+    "_k": "fenceDockets/F-AF-0052",
+    "v": "2026-10-23T09:19:45.776Z"
+   },
+   "by/fenceDockets~2f~F-AF-0009": {
+    "_k": "fenceDockets/F-AF-0009",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0035": {
+    "_k": "fenceDockets/F-AF-0035",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0037": {
+    "_k": "fenceDockets/F-AF-0037",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0060": {
+    "_k": "fenceDockets/F-AF-0060",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0047": {
+    "_k": "fenceDockets/F-AF-0047",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0053": {
+    "_k": "fenceDockets/F-AF-0053",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceDockets~2f~F-AF-0052": {
+    "_k": "fenceDockets/F-AF-0052",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0009": {
+    "id": "F-AF-0009",
+    "date": "2026-10-14",
+    "week": "Week 1",
+    "docket_no": "36609",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Esplanade south of Meriton - Porsche Lounge CZ",
+    "quantities": {
+     "clean": 420,
+     "scrim": 420
+    },
+    "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 420 m added on the same metres as the fence (the 2 Oct convention). Advanced's week 1 sheet (19 Oct) already billed 125 m of this fence as braced for scrim, and their signed scrim-labour note 24487 of 22 Oct records 'Porsche to Staghorn St - 420 m' scrimmed after hire agreement 36644 (21 Oct) braced it; the iEDM request of 14 Oct was overtaken. Advanced's sheet for the event week decides the metres to the cent.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-16",
+    "components": {
+     "mesh_panel": 168,
+     "base": 265,
+     "clamp": 264,
+     "brace": 50,
+     "wheels": 4
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36609, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0009"
+   },
+   "fenceDockets/F-AF-0037": {
+    "id": "F-AF-0037",
+    "date": "2026-10-22",
+    "week": "Event Week",
+    "docket_no": "36761",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rubbish Compactor (Cleanaway)",
+    "quantities": {
+     "clean": 35,
+     "scrim": 32.5
+    },
+    "note": "Mesh fence 35 m (14 panels), 24 bases, 24 clamps, 6 braces. Programme EVENT WEEK row 40 (21 Oct): Perimeter Fence - Cleanaway Compactor, rear of the Pit Building, 26 m braced for scrim and 1 vehicle gate planned; the paper writes mesh fence only, no bracing metres and no scrim, so clean is recorded - Advanced's sheet decides. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 32.5 m added: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Rubbish Compactor - 32.5' (13 of the 14 panels). The programme planned this fence braced for scrim (EVENT WEEK row 40). The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 14,
+     "base": 24,
+     "clamp": 24,
+     "brace": 6
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36761, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0037"
+   },
+   "fenceDockets/F-AF-0035": {
+    "id": "F-AF-0035",
+    "date": "2026-10-22",
+    "week": "Event Week",
+    "docket_no": "36759",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Rhapsody Sales Office - walk through",
+    "quantities": {
+     "clean": 72.5,
+     "scrim": 72.5
+    },
+    "note": "Mesh fence 72.5 m (29 panels), 78 bases, 76 clamps, 25 braces, 1 wheel (a single slanted stroke in the Wheels box, read as 1 by one reader and as a stroke, not clearly a number, by the other). Braces on most panels but no bracing metres and no scrim written, so clean is recorded - Advanced's sheet decides. The site address reads 'Rhapsody Sales Office - walk threw'. Programme EVENT WEEK row 23 (20 Oct) is Demarcation CCB - Rhapsody, 133 m, a different job; no mesh-fence row for the sales office walk-through. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 72.5 m added on the same metres as the fence: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Ferny Ave - 72.5 m, Rhapsody walk through' - this fence, the same metres. The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 29,
+     "base": 78,
+     "clamp": 76,
+     "brace": 25,
+     "wheels": 1
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36759, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0035"
+   },
+   "fenceDockets/F-AF-0047": {
+    "id": "F-AF-0047",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36629",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "PB03 - Gate 1 - Helen Park",
+    "quantities": {
+     "ccb_demarc": 182.5,
+     "ccb_event": 237.5,
+     "scrim": 80
+    },
+    "note": "CC barrier 420 m (168 barriers) at PB03 - Gate 1 - Helen Park on 20 Oct 2026, plus 11 braces: the note reads 'Added braces to fence B.O.H - Helen Park. Used bases & clamps from C.Z relocation Helen Park. Braced & Scrim' with a tick. The CCB is split on the programme's request for the Gate 1 entry (EVENT WEEK rows 13-16, 19 Oct): Demarcation CCB - PB03 to S23 Grandstand 131 m and PB03 to Median Strip 51 m (182 m, recorded as Demarcation 182.5 m, to the barrier), CCB - Gate 1 Queueing 110 m and Gate 1 Entry, Volunteer Sign-on & Ticket Box 98 m (Event; the balance of the paper, 237.5 m, is recorded as Event) - Advanced's sheet decides the lines when it comes. The braced-and-scrimmed back-of-house fence carries no metres on this paper (service note 24484 of the same day: 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'); the 11 braces are recorded as components and no scrim is charged from this paper. A small mark, read as a stray 8, sits in the Bracing box; Base and Clamp blank (used from the C.Z relocation). Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 80 m added for the back-of-house fence this paper braced ('Braced & Scrim' with a tick): Advanced's signed service note 24484 of the same day records 'Relocated panels from Helen Park C.Z to B.O.H. Braced & Scrim, 80 m'. The relocated panels' fence metres were charged on their original paper; only the scrim is added here. The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 168,
+     "brace": 11
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36629, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0047"
+   },
+   "fenceDockets/F-AF-0052": {
+    "id": "F-AF-0052",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36634",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S07 viewing mound",
+    "quantities": {
+     "ccb_demarc": 12.5
+    },
+    "note": "CC barrier 12.5 m (5 barriers) at the S07 viewing mound on 20 Oct 2026: crowd control at a spectator mound, recorded as Event - no viewing-mound row in the EVENT WEEK programme; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Event to Demarcation: the viewing mound's CCB of 22 Sep (36542, Viewing mound, 60 m) is Demarcation on the record, and this is the same kind of line at S07. The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 5
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36634, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0052"
+   },
+   "fenceDockets/F-AF-0053": {
+    "id": "F-AF-0053",
+    "date": "2026-10-20",
+    "week": "Event Week",
+    "docket_no": "36635",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Esplanade north to the Triangle",
+    "quantities": {
+     "ccb_event": 37.5,
+     "flat_feet": 35
+    },
+    "note": "CC barrier 37.5 m (15 barriers) and flat-feet CC barrier 35 m (16 pieces, the installer's added item row 'Flat feet CCB's 16' and the note 'Flat feet mtrs - 35 m'), Esplanade north to the Triangle, installed 20 Oct 2026. The Esplanade-Triangle run is the programme's demarcation (its removal rows read 'CCB Removal - The Esplanade Triangle Demarcation'), so Demarcation; Advanced's sheet decides the line when it comes. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): the CC barrier moved from Demarcation to Event: the programme's own line for it (EVENT WEEK row 55, 22 Oct, The Esplanade, 'Demarcation CCB - Support Category Circuit Entry') carries its 32 m in the Event column, and the Esplanade's CCB of 16 Oct (36619, programme row 63) is Event on the record. The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "cc_barrier": 15,
+     "flat_feet_ccb": 16
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36635, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0053"
+   },
+   "fenceDockets/F-AF-0060": {
+    "id": "F-AF-0060",
+    "date": "2026-10-21",
+    "week": "Event Week",
+    "docket_no": "36643",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Club 500",
+    "quantities": {
+     "clean": 32.5,
+     "ccb_event": 20,
+     "scrim": 47.5
+    },
+    "note": "Mesh fence 32.5 m (13 panels), CC barrier 20 m (8 barriers), 2 wheels, 29 bases, 27 clamps, 8 braces. No gate line on the paper: the 2 wheels (a vehicle gate) are recorded as components; no bracing metres and no scrim written, so clean is recorded. Programme EVENT WEEK row 54 (22 Oct): Perimeter Fence - Club 500 Stage, 55 m braced for scrim, 95 m relocation, 2 vehicle gates and 1 pedestrian gate planned. The CCB is read as Event, as the other Club 500 barriers (36591, 36594); Advanced's sheet decides. Installation date written 21-10-26. Owner/site supervisor signature present, name not written; contact Brendan. Prices and totals blank on the paper. CORRECTED 23 Oct 2026 (Andrew: use the previous data to price it right; match it up): scrim 47.5 m added: Advanced's signed scrim-labour note 24488 of 22 Oct records 'Club 500 - 47.5 m', more than this paper's 32.5 m of new fence - the balance is the relocated panels of the Club 500 stage (programme EVENT WEEK row 54: 55 m braced for scrim and 95 m relocation; service note 24486 of 20 Oct relocates panels from the creek protection to Club 500). The sheet decides.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-23",
+    "components": {
+     "mesh_panel": 13,
+     "cc_barrier": 8,
+     "base": 29,
+     "clamp": 27,
+     "brace": 8,
+     "wheels": 2
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36643, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0060"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

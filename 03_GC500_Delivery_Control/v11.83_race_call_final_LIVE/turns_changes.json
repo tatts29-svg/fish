@@ -1,0 +1,67 @@
+{
+ "schema": "gc500-broadcast-revoice-v1",
+ "base": "v11.81.1",
+ "voice": "GC500 Race Caller",
+ "voice_id": "DJgcuhDNrdWm8i2kZYZN",
+ "model": "eleven_v3",
+ "flow": "Qc1iMoJTLhlFZqKutDwx",
+ "figures_from": "the live record to race weekend (Fri 23 Oct 2026), read 24 Oct 2026 on live v11.79, with v11.81's build-complete ruling, 36766/36768 confirmed CCB Event and 24492's 30 m relocation",
+ "turns": [
+  {
+   "slot": 28,
+   "scene": "fence_length1090",
+   "old": "[fast, building] THIRTEEN POINT TWO KILOMETRES of temporary fence put in! [punchy] Thirteen thousand one hundred and eighty-seven and a half metres — [rapid] five hundred and seventy metres MORE than the programme asked for! [laughs] Walk that lot end to end and you'd want a packed lunch! [shouting] THIRTEEN POINT TWO K!",
+   "text": "[fast, building] THIRTEEN POINT THREE KILOMETRES of temporary fence put in! [punchy] Thirteen thousand two hundred and seventy metres — [rapid] six hundred and fifty-three metres MORE than the programme asked for! [laughs] Walk that lot end to end and you'd want a packed lunch! [shouting] THIRTEEN POINT THREE K!",
+   "loop": false
+  },
+  {
+   "slot": 29,
+   "scene": "fence",
+   "old": "[rapid] A hundred and sixty-two dockets! [fast] Thirty-one days of fencing, from the ninth of September to the twenty-second of October! [building] And in event week alone — forty dockets in four days! [shouting] Forty in four — that is FLYING!",
+   "text": "[rapid] A hundred and sixty-six signed hire agreements! Forty-two labour notes! Twenty-five collection forms! [fast] Thirty-two days of fencing, from the ninth of September to the twenty-third of October! [building] And in event week alone — forty-five dockets in five days! [shouting] Forty-five in five — that is FLYING!",
+   "loop": false
+  },
+  {
+   "slot": 30,
+   "scene": "fence_panels1090",
+   "old": "[rapid-fire] Five thousand one hundred and ninety mesh panels! [fast] Eight thousand two hundred and ten feet! [laughs] That's more feet than a centipede convention! [building] Two hundred and sixteen concrete blocks — every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "text": "[rapid-fire] Five thousand two hundred and twenty-three mesh panels! [fast] Eight thousand two hundred and thirty-five feet! [laughs] That's more feet than a centipede convention! [building] Two hundred and sixteen concrete blocks — every panel carried, stood and squared up by hand — [shouting] foot by foot, around the whole circuit!",
+   "loop": false
+  },
+  {
+   "slot": 31,
+   "scene": "fence_fixings1090",
+   "old": "[fast] Seven thousand nine hundred and thirty-six clamps! Fourteen hundred and twenty-six braces! [punchy] A hundred and twenty-eight vehicle gates! Twenty-two pedestrian gates! Forty-one hoarding panels! [fast] Every gate hung, every wheel on, every one swinging — [shouting] the small pieces, the BIG effort!",
+   "text": "[fast] Seven thousand nine hundred and seventy-seven clamps! Fourteen hundred and twenty-six braces! [punchy] A hundred and thirty-three vehicle gates! Twenty-two pedestrian gates! Forty-one hoarding panels! [fast] Every gate hung, every wheel on, every one swinging — [shouting] the small pieces, the BIG effort!",
+   "loop": false
+  },
+  {
+   "slot": 32,
+   "scene": "fence_ccb1090",
+   "old": "[driving] Then the crowd control! [rapid] Seven point two kilometres of crowd-control barrier — two thousand eight hundred and seventy-nine barrier units! [fast] Two point one kilometres on the event lines, five point one of demarcation, and two hundred and seventy metres of flat feet where the ground said so! [shouting] Every section in — every section STANDING!",
+   "text": "[driving] Then the crowd control! [rapid] Seven point three kilometres of crowd-control barrier — two thousand nine hundred and three barrier units! [fast] Two point two kilometres on the event lines, five point one of demarcation, and two hundred and seventy metres of flat feet where the ground said so! [shouting] Every section in — every section STANDING!",
+   "loop": false
+  },
+  {
+   "slot": 35,
+   "scene": "fenceprog",
+   "old": "[fast, summing up] Put it all together — thirteen point two K of fence, seven point two of crowd control, two hundred and seventy metres of flat feet — [building] TWENTY POINT SEVEN kilometres of fencing work around the precinct! [punchy] And four point four K of scrim on top of that! [shouting] Wayne Woods and the Advanced crew — in the wind, in the rain, and done RIGHT!",
+   "text": "[fast, summing up] Put it all together — thirteen point three K of fence, seven point three of crowd control, two hundred and seventy metres of flat feet — [building] TWENTY POINT EIGHT kilometres of fencing work around the precinct — ONE HUNDRED PER CENT of the build! [punchy] And four point four K of scrim on top of that! [shouting] Wayne Woods and the Advanced crew — in the wind, in the rain, and done RIGHT!",
+   "loop": false
+  },
+  {
+   "slot": 42,
+   "scene": "complete",
+   "old": "[proud, over the roar] Buildings — one hundred per cent! Toilets — one hundred per cent! Water barriers — one hundred per cent! [rapid] Generators! Lights! Message boards! Forklifts and access! [building] One hundred, one hundred, one hundred! [shouting] SEVEN areas at one hundred per cent!",
+   "text": "[proud, over the roar] Buildings — one hundred per cent! Toilets — one hundred per cent! Fencing — one hundred per cent! Water barriers — one hundred per cent! [rapid] Generators! Lights! Message boards! Forklifts and access! [building] One hundred, one hundred, one hundred! [shouting] EIGHT areas at one hundred per cent!",
+   "loop": false
+  },
+  {
+   "slot": 43,
+   "scene": "complete",
+   "old": "[building, awed] Seven hundred and twenty-seven pieces of equipment — every one booked for race weekend — ON SITE! [fast] Thirteen point two kilometres of fence! Seven point two of crowd control! Four point four of scrim! [building] Twenty point seven kilometres of fence and crowd control, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "text": "[building, awed] Seven hundred and twenty-seven pieces of equipment — every one booked for race weekend — ON SITE! [fast] Thirteen point three kilometres of fence! Seven point three of crowd control! Four point four of scrim! [building] Twenty point eight kilometres of fence and crowd control, all up! [slower, letting it land] Stop and think about that for a second... [shouting] WE did that!",
+   "loop": false
+  }
+ ]
+}

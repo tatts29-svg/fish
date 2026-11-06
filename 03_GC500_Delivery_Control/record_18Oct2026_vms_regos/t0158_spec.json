@@ -1,0 +1,19 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {
+   "op": "light",
+   "ref": "T0158",
+   "state": "on site",
+   "at": "2026-10-16T02:09:00.000Z",
+   "why": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+  },
+  {
+   "op": "labour_on",
+   "ref": "T0158",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install"
+  }
+ ]
+}

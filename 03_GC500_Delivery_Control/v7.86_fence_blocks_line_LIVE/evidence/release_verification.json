@@ -1,0 +1,53 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.86",
+  "status": "verified live",
+  "uploaded_utc": "2026-10-01T22:45:41.798Z",
+  "live_aest": "2 Oct 2026 08:45 AEST",
+  "independently_verified_utc": "2026-10-01T22:47:08.193481+00:00",
+  "page": {
+    "public_view": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+    "bytes": 8838586,
+    "sha256": "0513542de21e7e00b2498c2416d90941ca7ded90e965fa1540ac50fc55e2e425",
+    "byte_identical_to_reviewed_candidate": true,
+    "base_sha256": "2e73ac04d3c8f8105db6ff801998bbd8016a0e60b70374acfe9e4dad3e09c297"
+  },
+  "record": {
+    "before_version": 3527,
+    "after_version": 3527,
+    "updated": "2026-10-01T19:18:38.691Z",
+    "unchanged": true
+  },
+  "machine": {
+    "ready": true,
+    "version": "v7.82-explorer-done-markers",
+    "label": "The Coates Way machine and GC500 map explorer",
+    "built": null,
+    "entry": "index.html",
+    "files": 219,
+    "bytes": 172170689,
+    "registered": "2026-10-01T19:23:19.329Z",
+    "sha256": "1436f85afdfe6d8da043a0b4d134eb8f054c9fe4a28c23d8c2103299ad25c490"
+  },
+  "machine_unchanged_from_prior_verification": true,
+  "checks_file": "independent_review.json",
+  "record_writes": 0,
+  "journals_posted": 0,
+  "messages_sent": 0,
+  "scope": [
+    "Hide incomplete Track detail until a whole-lap upgrade is ready",
+    "Add settled Fence blocks line without changing existing dockets"
+  ],
+  "preserved": [
+    "Existing full-circuit Showcase",
+    "MP4 car and weather",
+    "Speedos",
+    "Driving simulation and camera controls",
+    "Map explorer"
+  ],
+  "limits": [
+    "Track-detail code retained but unavailable in normal controls",
+    "Whole-lap visual improvement remains separate and unfinished",
+    "Phone checks use emulation, not physical-device performance measurements"
+  ]
+}

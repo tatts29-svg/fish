@@ -1,0 +1,30 @@
+{
+  "baseSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "candidateSha256": "63673ae8ecd6f8bb7013a4a3767be57979648ad83bfa6a085e22cf50f981ba6b",
+  "checks": [
+    {
+      "name": "Canonical DATA bytes are unchanged by controls",
+      "pass": true
+    },
+    {
+      "name": "Exact frozen component sources are embedded once",
+      "pass": true
+    },
+    {
+      "name": "Release advances once from v8.03 to v8.04",
+      "pass": true
+    },
+    {
+      "name": "Applying guarded patch to official v8.03 reproduces exact candidate",
+      "pass": true
+    },
+    {
+      "name": "Repeat application is rejected without writing",
+      "pass": true
+    },
+    {
+      "name": "Missing plan prerequisite is rejected without writing",
+      "pass": true
+    }
+  ]
+}

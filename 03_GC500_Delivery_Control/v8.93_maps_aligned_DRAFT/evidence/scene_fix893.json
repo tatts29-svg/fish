@@ -1,0 +1,12 @@
+{
+ "author": "Andrew Fisher",
+ "source_sha256": "5c6a6ae3050767533184bf4aa65011d36377278f14a6b459c8b7c443f8a82e54",
+ "sha256": "84e7872ac15766e31e7943c85ac151151f5a29d70d964ea56f4559892d3508b1",
+ "bytes": 14340982,
+ "clips_moved": 1059,
+ "west_edge_pt": {
+  "was": 49.46,
+  "now": 74.96000000000001
+ },
+ "records": 301253
+}

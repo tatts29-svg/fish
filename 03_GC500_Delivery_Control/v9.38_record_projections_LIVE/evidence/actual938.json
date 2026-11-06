@@ -1,0 +1,39 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha": "35ff0ab8c354de151f96da4502e8958d1de88662e9d459e20bff55b1e28adcf0",
+  "candidateSha": "d151cc09a83d3af8097557e3502694495243fbe16cddfde2361aed9b4f39af4b",
+  "recordVersion": 4702,
+  "references": 182,
+  "changedReferenceFields": [
+    {
+      "ref": "WC31",
+      "field": "doors"
+    },
+    {
+      "ref": "WC31",
+      "field": "physical"
+    }
+  ],
+  "operationalStateUnchanged": true,
+  "moneyUnchanged": true,
+  "allInventoryQuantitiesUnchanged": true,
+  "onlyInventoryReferenceChanged": "T0103",
+  "legacyJournalPreserved": true,
+  "desktopErrors": [],
+  "phoneErrors": [],
+  "desktopDenied": [
+    {
+      "method": "POST",
+      "origin": "https://tile.googleapis.com",
+      "path": "/v1/createSession"
+    }
+  ],
+  "phoneDenied": [],
+  "phoneAndDesktopInspected": true,
+  "phoneDrawerBounds": {
+    "left": 0,
+    "right": 390,
+    "width": 390
+  },
+  "visualNote": "Stable phone recapture completed after opening transition; product source unchanged."
+}

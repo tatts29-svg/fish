@@ -1,0 +1,7 @@
+flicker then load - 24 hunks, all found once c854f232f04b
+load then flicker - 24 hunks, all found once c854f232f04b
+  same page either order: True
+flicker then idle - 23 hunks, all found once f8bbaca99f9d
+idle then flicker - 23 hunks, all found once f8bbaca99f9d
+  same page either order: True
+SEAM OK

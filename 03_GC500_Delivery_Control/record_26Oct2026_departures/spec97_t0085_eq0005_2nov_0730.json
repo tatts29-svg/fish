@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 08:2x AEST: \"1262224 and  1272166 left at 730am\". 1272166 is the forklift on T0085 (Coates; the page lists it as 3.5T Forklift Std; contract 9987005 line 1, MEAD); 1262224 is the Fork Extensions 2.4m on EQ0005 (Coates). Both left site at 07:30 on 2 Nov, through the page's own Record departure form in his name. Each is its reference's only unit, so T0085 and EQ0005 leave in full. Applied only if the dry run shows the P&L unchanged. First apply (2 Nov 08:25 AEST): EQ0005 written and acknowledged (record 12769 -> 12770); the page's write of delivery/T0085 did not land and its automatic retry was refused by the runner, so the run stopped with T0085 unchanged on the service. T0085 goes again on its own in spec97b.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0085",
+   "at": "2026-11-02T07:30:00+10:00",
+   "nos": [
+    "1272166"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "EQ0005",
+   "at": "2026-11-02T07:30:00+10:00",
+   "nos": [
+    "1262224"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,129 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b",
+  "liveAt": "12 Oct 2026 07:55 AEST",
+  "recordVersion": 5324,
+  "noOperationalWrites": true,
+  "viewports": {
+    "desktop": {
+      "checks": 55,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-14",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-17",
+          "units": [
+            3
+          ],
+          "nativeUnits": [
+            3
+          ]
+        }
+      ],
+      "recordVersion": 5324,
+      "pageSubstitutions": 0,
+      "errors": 0,
+      "nativeWrites": 0
+    },
+    "phone": {
+      "checks": 49,
+      "groups": [
+        {
+          "date": "2026-10-13",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-14",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "units": [
+            24
+          ],
+          "nativeUnits": [
+            24
+          ]
+        },
+        {
+          "date": "2026-10-17",
+          "units": [
+            3
+          ],
+          "nativeUnits": [
+            3
+          ]
+        }
+      ],
+      "recordVersion": 5324,
+      "pageSubstitutions": 0,
+      "errors": 0,
+      "nativeWrites": 0
+    }
+  },
+  "pdfChecks": {
+    "check_count": 858,
+    "failed": 0,
+    "pdf_count": 6,
+    "qr_decoded_count": 82,
+    "record_version": 5324
+  },
+  "phoneAndPrintVisuallyInspected": true,
+  "deliveredPdfs": {
+    "GC500-Event-Portables-Daily-Run-Sheets-with-QR-12-Oct-2026.pdf": "d142e290b607fc63b47a291cd972aa582ad7ff65f098f3ef079419740b2cd2f5",
+    "GC500-Water-Barrier-Schedule-with-QR-12-Oct-2026.pdf": "6bf82c046430880e77c8f3605531ac2c49ab69d3db48468e6d611b30814d4773"
+  }
+}

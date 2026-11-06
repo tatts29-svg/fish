@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "status": "DRAFT",
+  "running_build": "v5.93",
+  "base_sha256": "8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46",
+  "server_sha256": "9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98",
+  "bytes": 307975,
+  "built": "2026-10-27T05:55+10:00",
+  "sources": {
+    "patch_server_v594.py": "8e5d26ddcb26651a2473c7c72108a81e91b13c78f82e2e0fb1ce70bedf41f357",
+    "guard594.js": "2465be22c83f14957c6763ae08532dc97efb87be5521b4f96e8ab108359b6e70",
+    "snap594.js": "be1f4c7aa3eaafbdbd3b8693cbc1913a677db57d7e73bb88041fcdbade0eb3ee",
+    "test_field_guard.cjs": "788219d7165ab5712874a74bb8ee77ae057757602f2c019492855ca0644eeae6",
+    "run_legacy.py": "b03a46877cf8e32bc255bc9595424ec150c28a3663f52c6d4eecaf491258b94b"
+  },
+  "checks": {
+    "focused_field_guard": 81,
+    "retained_v590_suites": 205,
+    "v593_focused_declarations": 50,
+    "failed": 0,
+    "mutations_caught": 14,
+    "incident_replay_private": {
+      "documents_written": 214,
+      "v5.93_docs_losing_ready1231": 3,
+      "v5.94_docs_losing_ready1231": 0,
+      "v5.94_docs_equal_to_backup_fields": 214,
+      "v5.94_docs_equal_to_backup_key_order": 211,
+      "v5.94_docs_reading_back_through_page_unchanged": 214,
+      "first_build_docs_reading_back_through_page_unchanged": 211
+    }
+  },
+  "local_only": true,
+  "live_requests": 0,
+  "railway_requests": 0,
+  "deploy": {
+    "SERVER_FILE": "9857a9786c875e6f2ffe75bc0f09e0c05500712188222fcb86b9fccc4a6d4b98",
+    "SERVER_FILE_KEEP_front": "8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46",
+    "rollback_SERVER_FILE": "8764451d3768fcfbfc493da48fb9901503dcd6af0f8df247478aa53fb9428f46"
+  },
+  "first_build_sha256": "6057f04e01ba919b8b2b3872fdac6edf2f1577cb86efe84e5ce4a42ec4a97f02",
+  "review_fixes": [
+    "kept fields go in front of _k, so a completed document reads back through the page fromDocs/toDocs unchanged (checks 10a-10b, 16a-16e)",
+    "ready1238_history and pickup1238_history joined by the page keepUnits rule (checks 20a-20i)"
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at_utc": "2026-10-18T01:30:56.123944+00:00",
+  "state": "READY_TO_STAGE",
+  "server_sha256": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+  "server_bytes": 292090,
+  "base_v590_sha256": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "native_page_sha256": "4b5b727b781992e251968f81503ee064a3dbd3414a6087260258871ad83a0ec6",
+  "assertions_passed": 282,
+  "assertions_failed": 0,
+  "reproducibility_checks": 3,
+  "live_writes": 0,
+  "browser_runs": 0,
+  "tests": {
+    "native_export_vm_and_http": {
+      "passed": 32,
+      "test_sha256": "de500b3352b5e1b07c832d81a0175f1edc851baac1e14e934ffa2dc989281fcb",
+      "checks": [
+        "exact v5.90 base and native page identity",
+        "only export folding and two version markers change",
+        "56 native synced collections,55 exportable",
+        "empty record exact native records",
+        "empty record complete native record-less aliases",
+        "empty record leaves source unchanged and excludes credentials",
+        "all native kinds with false/zero/null/arrays exact native records",
+        "all native kinds with false/zero/null/arrays complete native record-less aliases",
+        "all native kinds with false/zero/null/arrays leaves source unchanged and excludes credentials",
+        "fenceQuote empty quote stays null",
+        "atomic quantity metadata exact native records",
+        "atomic quantity metadata complete native record-less aliases",
+        "atomic quantity metadata leaves source unchanged and excludes credentials",
+        "valid scope is materialized only in loads,ordinary loads retained",
+        "invalid atomic metadata case 0 matches native rejection",
+        "invalid atomic metadata case 1 matches native rejection",
+        "invalid atomic metadata case 2 matches native rejection",
+        "invalid atomic metadata case 3 matches native rejection",
+        "invalid atomic metadata case 4 matches native rejection",
+        "invalid atomic metadata case 5 matches native rejection",
+        "invalid atomic metadata case 6 matches native rejection",
+        "invalid atomic metadata case 7 matches native rejection",
+        "atomic typed null matches native",
+        "atomic typed undefined matches native",
+        "atomic typed 0 matches native",
+        "atomic typed false matches native",
+        "atomic typed 4 matches native",
+        "local candidate health v5.91",
+        "edit HTTP export matches native",
+        "view HTTP export matches native",
+        "export keeps authentication requirement",
+        "GET exports preserve exact state and record bytes"
+      ]
+    },
+    "legacy_http": {
+      "passed": 205,
+      "runner_sha256": "63e7d5653f4bcbb70c8c88223669fbba350e3070520640d68a458183268cd038",
+      "adaptation": "Version-label literals only; original assertions retained.",
+      "suites": [
+        {
+          "test": "test_tracker.js",
+          "original_sha256": "7d7e1076fede36a04d33b42d247f7503a8749d6bff3a10e37d638ba5710e1162",
+          "adapted_sha256": "c92027f0054f93820c939bad743f75971b9a48b807c0f05d092e26a94a30b2d3",
+          "passed": 84,
+          "exit_code": 0
+        },
+        {
+          "test": "test_tracker590.js",
+          "original_sha256": "cb53a6680ae2d505dc12d82557ff2ec8df834d179392d537bd8bda1b9468bedd",
+          "adapted_sha256": "6748b1b059cb486a65b7c42cde50d8faebd540c638703a5f7c8201ae2d9d5260",
+          "passed": 25,
+          "exit_code": 0
+        },
+        {
+          "test": "test_delivery_v586_on_v590.js",
+          "original_sha256": "87fd80fb92a3d06254b0eacec04fa463f7539470a34b15e3c6925e2cf52ee0f1",
+          "adapted_sha256": "ccc39b243d4f48a8b90390f6b5df7c2dd2881e9afba463a90bf7657f6734cf1c",
+          "passed": 45,
+          "exit_code": 0
+        },
+        {
+          "test": "test_mms_sender_v587_on_v590.js",
+          "original_sha256": "04e6013ec4665317c9c7bf69e3b53e149a6c3e5c79fc603da2db0ffbb3bbb918",
+          "adapted_sha256": "d81a9a33e24546471308e30be80e4f9fd0888a44725447b7e99b496621259b37",
+          "passed": 14,
+          "exit_code": 0
+        },
+        {
+          "test": "test_mms_v585_on_v590.js",
+          "original_sha256": "a2d5c9e0fefee1c3b87acdb81667694495a7d29c1aa8b79b4028611c7aac7782",
+          "adapted_sha256": "a48f480deaa5584e9a19c1abae7d4f8eee2364b21ddda5cca8a81fa804b5a6e7",
+          "passed": 37,
+          "exit_code": 0
+        }
+      ]
+    },
+    "rollback_590_591_590_591": {
+      "passed": 31,
+      "test_sha256": "058eb54673c5db128079523f1a570ed593c05252ea235663ffb703fd3e2b8276",
+      "record_bytes_unchanged": true,
+      "fresh_signed_tick_accepted_on_rollback": true,
+      "signatures_and_voids_retained": true,
+      "export_restored_on_rollforward": true,
+      "checks": [
+        "0. the live server is v5.90 cb32d00e\u2026",
+        "export rehearsal: v5.90 GET preserves exact stored docs and bytes",
+        "export rehearsal: v5.90 excludes hosted credentials and tracker secrets",
+        "1. before: v5.90 boots from its blob (the start command line names it)",
+        "2. stage: the v5.91 blob goes up under its SHA-256 and the inventory lists it beside v5.90",
+        "3. a blob whose bytes do not match its name is refused (a cut-short upload cannot be booted)",
+        "export rehearsal: v5.91 GET preserves exact stored docs and bytes",
+        "export rehearsal: v5.91 excludes hosted credentials and tracker secrets",
+        "export rehearsal: v5.91 restores notes, zero rate, paper array and atomic scope",
+        "4. after the redeploy: the deploy log line names the v5.91 blob and sha256sum matches it",
+        "5. /health: ok, build v5.91, the record version unchanged, nothing recovered, no ticks yet",
+        "6. the banner names v5.91, keeps the server blobs off the public set, and says nothing was recovered",
+        "7. a view key cannot see the tracker list (403)",
+        "8. on v5.91 the tracker is made and WC07 is ticked",
+        "8a. v5.91 saves a void audit while retaining the original signature",
+        "export rehearsal: v5.90 GET preserves exact stored docs and bytes",
+        "export rehearsal: v5.90 excludes hosted credentials and tracker secrets",
+        "export rehearsal: v5.90 round trip preserves identical exported records",
+        "9. ROLLBACK: v5.90 boots from its blob on the same volume, record version unchanged",
+        "10. ...the tracker card and its saved ticks remain available on v5.90",
+        "10a. v5.90 reads the v5.91 void history and signing links without repair",
+        "10b. v5.90 accepts a fresh signed tick against the v5.91 store",
+        "11. ...and the v5.91 blob is still on the volume for the roll forward",
+        "export rehearsal: v5.91 GET preserves exact stored docs and bytes",
+        "export rehearsal: v5.91 excludes hosted credentials and tracker secrets",
+        "export rehearsal: v5.91 round trip preserves identical exported records",
+        "export rehearsal: v5.91 restores notes, zero rate, paper array and atomic scope",
+        "12. roll forward: both active ticks survive and the original printed signature accepts another tick",
+        "12a. roll forward retains the void audit and unchanged signing link",
+        "12b. all four boots preserve the exact operational record bytes and version",
+        "13. a typo in SERVER_FILE: there is no such blob, and the live start command would boot the old SERVER_B64 server (roll back at once)"
+      ]
+    },
+    "unchanged_worker": {
+      "passed": 14,
+      "test_sha256": "a3101f529fa7238ff54a7042d5a3a7f9c388a1adbb38722c01e014f907054907"
+    }
+  },
+  "source_boundary": "Every byte outside require_fold and BUILD/health version labels matches exact v5.90.",
+  "native_export_collections": 55,
+  "intentional_exclusion": "mapKeys; native export/import privacy contract. Tracker secrets and unknown collections excluded.",
+  "independent_review": "Source diff and actual-native VM oracle reviewed; no source blocker.",
+  "limitations": [
+    "All HTTP writes were synthetic local fixtures; no real operating record or carrier was used.",
+    "No staging, Railway switch or live read-back was performed.",
+    "The legacy runner initially lacked the unchanged worker fixture; that harness setup was corrected and the affected suites passed without changing production source."
+  ]
+}

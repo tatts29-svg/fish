@@ -1,0 +1,466 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a",
+  "at": "2026-10-12T04:26:16.210Z",
+  "checks": [
+    {
+      "name": "Generator actual/forecast unchanged",
+      "pass": true
+    },
+    {
+      "name": "P&L and branch figures reconcile",
+      "pass": true
+    },
+    {
+      "name": "Every generator group has one row",
+      "pass": true
+    },
+    {
+      "name": "GN01 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN01 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN01 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN01 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN01 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN01 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN03 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN03 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN03 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN03 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN03 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN03 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN04 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN04 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN04 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN04 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN04 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN04 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN06 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN06 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN06 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN06 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN06 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN06 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN10 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN10 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN10 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN10 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN10 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN10 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN13 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN13 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN13 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN13 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN13 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN13 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN18 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN18 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN18 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN18 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN18 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN18 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN19 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN19 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN19 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN19 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN19 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN19 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN20 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN20 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN20 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN20 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN20 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN20 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN21 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN21 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN21 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN21 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN21 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN21 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN23 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN23 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN23 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN23 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN23 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN23 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN24 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN24 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN24 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN24 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN24 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN24 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "GN25 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "GN25 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "GN25 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "GN25 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "GN25 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "GN25 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "Concert all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "Concert rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "Concert actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "Concert end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "Concert inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "Concert total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "T0268 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "T0268 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "T0268 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "T0268 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "T0268 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "T0268 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 32 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 all five facts visible without expanding More info",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 rate is per unit/day",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 actual or planned start",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 end is day before race Friday",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 inclusive calendar days",
+      "pass": true
+    },
+    {
+      "name": "9961976 · line 39 total already includes quantity",
+      "pass": true
+    },
+    {
+      "name": "Race-Friday arrival has zero days and no reversed dates",
+      "pass": true
+    },
+    {
+      "name": "Unknown actual date does not borrow planned date or show zero",
+      "pass": true
+    },
+    {
+      "name": "Rendering did not change native state",
+      "pass": true
+    },
+    {
+      "name": "No horizontal clipping",
+      "pass": true
+    },
+    {
+      "name": "No page errors or attempted writes",
+      "pass": true
+    }
+  ],
+  "totals": {
+    "actual": 28196.4,
+    "remaining": 9333.73,
+    "total": 37530.13,
+    "standdown": 25017.27
+  },
+  "concert": {
+    "qty": 2,
+    "start": "2026-10-12",
+    "days": 11,
+    "rate": 182.2791,
+    "total": 4010.14
+  },
+  "errors": [],
+  "counts": {
+    "page": 0,
+    "live": 53,
+    "blocked": 0
+  }
+}

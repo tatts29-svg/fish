@@ -1,0 +1,16 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v12.18",
+  "release_source": "1a8ea606bf339e35810781afc3b71f22315c23ba",
+  "release_sha256": "677b41fce24fafdc1795259a272b4770c5d719e1dd2b3be245909ee484d0b4d4",
+  "checks_passed": 41,
+  "checks_total": 41,
+  "native_page_errors": 0,
+  "record_write_attempts": 0,
+  "product_changed": false,
+  "original_baseplan_export_review": "blocked: original private source unavailable",
+  "comparison_workbook": "read; current branch totals reconciled",
+  "fencing_owner": "Claude",
+  "fencing_status": "v12.19 claimed at 8a145563; no v12.19 live verification in this audit",
+  "financial_reports": "private; not committed"
+}

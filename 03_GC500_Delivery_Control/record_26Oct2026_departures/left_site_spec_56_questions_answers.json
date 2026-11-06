@@ -1,0 +1,31 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026, late evening, on the Questions tab's five open items: \"I see there is questions. You should be able to answer all of these.\" Each answer is read from the latest Baseplan export, the live P&L and the record; no quantity, rate or state changes.",
+ "ops": [
+  {
+   "op": "answer",
+   "id": "br-norate-KINP",
+   "text": "No rate is missing. Baseplan prices labour, pump-out, cleaning, accommodation and consumable lines by Price x Quantity (Prebill Amount) and leaves the hire-rate column blank, which is what this check reads. The 21 priced lines are already in the P&L: pump-outs 9968955/141-143 $72,391.14 and accommodation 9968862/140 + 9968955/163 $27,700 equal it to the cent; install, demob and event labour sit in Installation (1047). The $0 lines are spares (9968929/8-12), the extinguisher stillage (9968862/137), consumables billed on 10000506 (9968955/150) and cable inside the generator rate (9994954/12)."
+  },
+  {
+   "op": "answer",
+   "id": "br-norate-STPS",
+   "text": "9961265 line 44 Event Labour Charge, 65 h x $91.14 = $5,924.10 (STPS-INS, from 25 Oct): Baseplan prices it by Price x Quantity with no hire rate, which is what this check reads. The 65 VMS event hours are charged on the page at Baseplan's hours (event people release of 28 Oct) and sit in Installation (1047). Nothing to enter. Andrew Fisher, 28 Oct 2026."
+  },
+  {
+   "op": "answer",
+   "id": "br-norate-MEAD",
+   "text": "9987005 line 8 Laserplane 1065384 (MEAD-HIR, delivered 16 Oct, docket 26135873, booked back 17 Oct, location note: for the V8s install): the branch's own instrument used by our crew to set out the build, on the internal MEAD rental at $0, the same as the own-use forklifts. No customer charge; tracked as EQ0006. Andrew Fisher, 28 Oct 2026."
+  },
+  {
+   "op": "answer",
+   "id": "sp-short",
+   "text": "EQ0002 knuckle boom 1300290 and EQ0003 straight boom 1286482 are not short. Both arrived 21 Oct 2026 (rental 9992300 lines 5 and 12, lights on site 22 Oct 04:26 AEST) and left again on 26 Oct (EQ0002 12:47, EQ0003 13:30, Record departure entries). Their quantity records never took a receipt before the machines left, so this check still reads 0 of 1. Nothing to chase. Andrew Fisher, 28 Oct 2026."
+  },
+  {
+   "op": "answer",
+   "id": "sp-nums",
+   "text": "EQ0007 AT009 rough-terrain forklift 2.5 t: no Coates fleet number exists for it. Baseplan 9961976 line 34 carries it as a miscellaneous item named AT009 at $0 (NVAC, docket 26083924, 17 Sep), not as a numbered asset; the docket shows no number either. AT009 is its identity on the record; own use, no customer charge. Nothing further to record unless the branch issues a number. Andrew Fisher, 28 Oct 2026."
+  }
+ ]
+}

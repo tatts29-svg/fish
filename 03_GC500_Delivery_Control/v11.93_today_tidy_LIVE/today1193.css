@@ -1,0 +1,15 @@
+/* Author: Andrew Fisher. v11.93 Today: Available staff and Who to call fold to their title row (the screen only; paper prints
+   both in full). The Show / Hide button matches the Build complete bar's. */
+@media screen {
+  html:not([data-t1193-staff="open"]) #pane-today > .staff988 > :not(.staff988-heading) { display: none !important; }
+  html:not([data-t1193-team="open"]) #pane-today > .hub > .teamhub > :not(.hubtitle) { display: none !important; }
+  html:not([data-t1193-staff="open"]) #pane-today > .staff988 > .staff988-heading { grid-column: 1 / -1; }
+  #pane-today .t1193-head { cursor: pointer; }
+  #pane-today > .staff988 > .staff988-heading > strong { margin-left: auto; }
+  #pane-today > .hub > .teamhub > .hubtitle > .chip { margin-left: auto; }
+}
+#pane-today .t1193-btn { flex: none; margin: 0; padding: 6px 12px; border: 1px solid currentColor; border-radius: 8px; background: none; color: inherit; font: inherit; font-size: 12px; font-weight: 700; line-height: 1.2; white-space: nowrap; cursor: pointer; opacity: .9; }
+#pane-today > .staff988 .t1193-btn { border-color: #617f8d; opacity: 1; }
+#pane-today .t1193-btn:focus-visible { outline: 2px solid #ff8125; outline-offset: 2px; }
+#pane-today .hubwho b[role="button"] { cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+@media print { #pane-today .t1193-btn { display: none !important; } }

@@ -1,0 +1,327 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 4808,
+  "afterVersion": 4872,
+  "movedFrom": "WC40",
+  "WC69": [
+    "0152",
+    "0078",
+    "0010",
+    "0070",
+    "0958",
+    "0647"
+  ],
+  "WC09": [
+    "0085",
+    "0551",
+    "0450",
+    "0585"
+  ],
+  "WC31": {
+    "asset": "74",
+    "supplier": "Event Portables",
+    "item": "16Pan Block",
+    "status": "On site and in place, confirmed by Andrew",
+    "arrived16PanBlocks": 2
+  },
+  "unrelatedDocumentsUnchanged": true,
+  "changes": [
+    {
+      "collection": "units",
+      "key": "WC40",
+      "removed": true
+    },
+    {
+      "collection": "units",
+      "key": "WC09",
+      "removed": false
+    },
+    {
+      "collection": "units",
+      "key": "WC69",
+      "removed": false
+    },
+    {
+      "collection": "units",
+      "key": "WC31",
+      "removed": false
+    },
+    {
+      "collection": "supplied",
+      "key": "WC31",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC09/0085",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC09/0585",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0958",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC09/0450",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC31/74",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC09/0551",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0010",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0152",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0078",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0647",
+      "removed": false
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC69/0070",
+      "removed": false
+    },
+    {
+      "collection": "subhire",
+      "key": "WC69",
+      "removed": false
+    },
+    {
+      "collection": "subhire",
+      "key": "WC40",
+      "removed": true
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/bd4f0c95-5102-4c7d-af5b-c0bc6632006d",
+      "removed": false
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/c0426c7a-a8cd-43e4-9646-6ff29860f788",
+      "removed": false
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/f365a2d2-3c0c-4cc1-9b05-c86c052064ff",
+      "removed": false
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/61ac75b8-42c0-4390-98f6-25ea772f6432",
+      "removed": false
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/ecf86375-fdff-4641-b8f5-f615809d81cb",
+      "removed": false
+    },
+    {
+      "collection": "delivery",
+      "key": "WC31",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "subhire/WC69",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC69",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC31",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "subhire/WC40",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC40",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/c0426c7a-a8cd-43e4-9646-6ff29860f788",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "units/WC09",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/bd4f0c95-5102-4c7d-af5b-c0bc6632006d",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/61ac75b8-42c0-4390-98f6-25ea772f6432",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "dnote/WC31",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/f365a2d2-3c0c-4cc1-9b05-c86c052064ff",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "supplied/WC31/16Pan Block",
+      "removed": false
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/ecf86375-fdff-4641-b8f5-f615809d81cb",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC09/0551",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "subhire/WC69",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "units/WC69",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0070",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "units/WC31",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC09/0085",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0152",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0958",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/c0426c7a-a8cd-43e4-9646-6ff29860f788",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "units/WC09",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/bd4f0c95-5102-4c7d-af5b-c0bc6632006d",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0010",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/61ac75b8-42c0-4390-98f6-25ea772f6432",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "dnote/WC31",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0647",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/f365a2d2-3c0c-4cc1-9b05-c86c052064ff",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC69/0078",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC31/74",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC09/0450",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "supplied/WC31/16Pan Block",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/ecf86375-fdff-4641-b8f5-f615809d81cb",
+      "removed": false
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC09/0585",
+      "removed": false
+    }
+  ],
+  "freshPublicNativeReadbackVerified": true
+}

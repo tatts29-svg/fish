@@ -1,0 +1,108 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "mode": "Saved GET-only capture comparison",
+  "checks": [
+    {
+      "name": "baseline has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "baseline makes no operational write requests",
+      "pass": true
+    },
+    {
+      "name": "candidate has no runtime errors",
+      "pass": true
+    },
+    {
+      "name": "candidate makes no operational write requests",
+      "pass": true
+    },
+    {
+      "name": "Both snapshots read the same shared record version",
+      "pass": true
+    },
+    {
+      "name": "Complete native shared records are unchanged",
+      "pass": true
+    },
+    {
+      "name": "pl financial model remains equal except the exact optional-waiver text change",
+      "pass": true
+    },
+    {
+      "name": "money financial model remains equal except the exact optional-waiver text change",
+      "pass": true
+    },
+    {
+      "name": "branch financial model remains equal except the exact optional-waiver text change",
+      "pass": true
+    },
+    {
+      "name": "contract financial model remains equal except the exact optional-waiver text change",
+      "pass": true
+    },
+    {
+      "name": "labour financial model remains equal except the exact optional-waiver text change",
+      "pass": true
+    },
+    {
+      "name": "Original source has seven current physical units",
+      "pass": true
+    },
+    {
+      "name": "Moved source identity remains nonphysical history",
+      "pass": true
+    },
+    {
+      "name": "Original source still has eight planned units",
+      "pass": true
+    },
+    {
+      "name": "Moved unit does not become a missing unidentified unit",
+      "pass": true
+    },
+    {
+      "name": "Destination retains two physical units",
+      "pass": true
+    },
+    {
+      "name": "Inventory counts nine unique current onsite VMS units",
+      "pass": true
+    },
+    {
+      "name": "Moved asset finder returns only its current destination",
+      "pass": true
+    },
+    {
+      "name": "T0001 original delivery receipt and charge lines remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "T0001 other current unit identities remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "T0103 original delivery receipt and charge lines remain unchanged",
+      "pass": true
+    },
+    {
+      "name": "T0103 other current unit identities remain unchanged",
+      "pass": true
+    }
+  ],
+  "result": {
+    "checks": 22,
+    "passed": 22
+  },
+  "pureFixtures": {
+    "checks": 18,
+    "passed": 18
+  },
+  "patchGuards": {
+    "checks": 4,
+    "passed": 4
+  },
+  "limitations": "No native writes. Combined comparison permits only the exact optional-waiver basis/optional metadata transition; every financial amount and other model field must remain equal. Historical replacement events cannot be reconstructed from current identity records. Full private snapshots include financial and operational records and must not be committed."
+}

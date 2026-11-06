@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "old_candidate": "1e45f6f25f7aae300a3ec64caa06abcf94f218c815f8a2c86c5752ac6e386375",
+  "final_candidate": "1eda8a422b7098189c404d2af71394ab013bb4d6d413ff58855ad828c02a77cc",
+  "rebase_delta_matches_live_delta_exactly": true,
+  "changed_regions": 3,
+  "new_base": "v11.81.1"
+}

@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "final cumulative v10.69\u2013v10.71 canonical regression",
+  "candidateSha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+  "candidateBytes": 18506356,
+  "candidateBaseSha256": "851197de50912e51e5715c16d6a21271691593588ebba5bb0a0dd60608374534",
+  "verifiedAtUtc": "2026-10-18T02:39:42.441548+00:00",
+  "transport": "live API and original cached/network assets; unchanged canonical harness; observation-only error probe",
+  "canonicalSweepSha256": "51de9ee3765aa00a0a6c5fd8dbe00035a59a0dc523e12c5706b14306abe6c743",
+  "strongAssertionCheckerSha256": "16cef1c9492e52c1e3d46e173d04ede9c48626e9855342b9bbf2fa0f9e7cf87e",
+  "strongAssertionExit": 0,
+  "viewports": {
+    "desktop": {
+      "pass": true,
+      "tabRoutes": 24,
+      "exactDeepLinks": 7,
+      "intentionalAliasesVerified": true,
+      "backToEquipment": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "earlyPageErrors": 0,
+      "failedNetworkResponses": 0,
+      "operationalWriteAttempts": 0
+    },
+    "phone": {
+      "pass": true,
+      "tabRoutes": 24,
+      "exactDeepLinks": 7,
+      "intentionalAliasesVerified": true,
+      "backToEquipment": true,
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "earlyPageErrors": 0,
+      "failedNetworkResponses": 0,
+      "operationalWriteAttempts": 0
+    }
+  },
+  "pass": true,
+  "publication": "Not performed by this validation task; official build must match this exact candidate."
+}

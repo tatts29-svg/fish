@@ -1,0 +1,31 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026: 10:2x AEST \"0585 0450 0085 0531 - Left at 11am\"; 10:3x \"Im grabbing all fwf from wc09\"; 11:1x, asked whether WC09's ten were pumped out before loading: \"Really.. all toilets have been pumped out this was done on sunday night via servicing\". So WC09 gets its Emptied tick (the final-night pump-out, Sun 25 Oct, through the page's own setEmptied816 in his name) and all ten of its numbered Event Portables FWF (0081, 0085, 0089, 0140, 0450, 0551, 0553, 0584, 0585, 0993) leave at 11:00 through the page's own Record departure form; the six pee-panel slots and the two Coates toilet blocks stay, so WC09 stays on site. The 11:03 dry run without the tick stopped at the page's emptied gate (the form did not open). 0531 is not a WC09 number (recorded gone from WC71 on 27 Oct); 0551 is among the ten. Applied only if the dry run shows the P&L unchanged.",
+ "ops": [
+  {
+   "op": "emptied",
+   "ref": "WC09",
+   "on": true,
+   "why": "Andrew Fisher, 30 Oct 2026: all toilets were pumped out on Sunday night 25 Oct by the servicing"
+  },
+  {
+   "op": "depart",
+   "ref": "WC09",
+   "at": "2026-10-30T11:00:00+10:00",
+   "nos": [
+    "0081",
+    "0085",
+    "0089",
+    "0140",
+    "0450",
+    "0551",
+    "0553",
+    "0584",
+    "0585",
+    "0993"
+   ],
+   "unnumbered": [],
+   "complete": false
+  }
+ ]
+}

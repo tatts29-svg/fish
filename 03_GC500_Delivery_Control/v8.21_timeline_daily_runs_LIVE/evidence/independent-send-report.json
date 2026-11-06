@@ -1,0 +1,164 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Isolated real Chromium with mock-only API; no live backend calls",
+  "sourceSha256": "3bbb5ffeb3dc566a1a6f3dfc745908f835aa2601bbfb70eb9c8fe88f6c8f64a5",
+  "rendererSha256": "63493735d72d44eb13f17bc8cfc049462bf166233100cc2e13d009aa5ebdac5a",
+  "passed": 38,
+  "total": 38,
+  "externalRequests": [],
+  "errors": [],
+  "results": [
+    {
+      "name": "Installer contact projection filters group, validates and deduplicates mobiles",
+      "pass": true
+    },
+    {
+      "name": "Choosing installer alone never publishes a card or sends SMS",
+      "pass": true
+    },
+    {
+      "name": "Preview is read-only: no card or SMS publication",
+      "pass": true
+    },
+    {
+      "name": "Explicit Send works without requiring a separate Preview",
+      "pass": true
+    },
+    {
+      "name": "Missing operator blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "View-only capability blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Server edit permission downgrade blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Local/server record mismatch blocks publication and send",
+      "pass": true
+    },
+    {
+      "name": "Card HTTP failure cannot fall through into SMS",
+      "pass": true
+    },
+    {
+      "name": "Card network failure cannot fall through into SMS",
+      "pass": true
+    },
+    {
+      "name": "Malformed card success cannot send a broken link",
+      "pass": true
+    },
+    {
+      "name": "Cross-origin card URL is rejected before SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedVersion prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedCapability prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Card-in-flight changedRecipient prevents stale SMS",
+      "pass": true
+    },
+    {
+      "name": "Double click during card publication starts only one card and SMS",
+      "pass": true
+    },
+    {
+      "name": "Double click during SMS submission cannot submit a duplicate",
+      "pass": true
+    },
+    {
+      "name": "unknown SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "throw SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "http500 SMS response stays locked through reload",
+      "pass": true
+    },
+    {
+      "name": "Storage failure prevents an unpersisted SMS duplicate lock",
+      "pass": true
+    },
+    {
+      "name": "Silent storage drop is detected before SMS",
+      "pass": true
+    },
+    {
+      "name": "Read status performs no new POST and distinguishes delivered",
+      "pass": true
+    },
+    {
+      "name": "Day HTML contains selected day only, no contacts/records/encoded app links",
+      "pass": true
+    },
+    {
+      "name": "Card metadata uses date, unique refs, expiry and no contact directory",
+      "pass": true
+    },
+    {
+      "name": "More than40refs refuses publication before server truncation",
+      "pass": true
+    },
+    {
+      "name": "Oversize HTML refuses publication before server body limit",
+      "pass": true
+    },
+    {
+      "name": "Expired optional preview is rejected before publication",
+      "pass": true
+    },
+    {
+      "name": "Reviewed preview cannot be reused for another selected day",
+      "pass": true
+    },
+    {
+      "name": "Empty daily schedule cannot publish or send",
+      "pass": true
+    },
+    {
+      "name": "unconfigured blocks direct one-click Send",
+      "pass": true
+    },
+    {
+      "name": "noQuota blocks direct one-click Send",
+      "pass": true
+    },
+    {
+      "name": "SMS timeout uses unknown-result lock without retry",
+      "pass": true
+    },
+    {
+      "name": "Rendered day HTML escapes executable content and has no active external subresources",
+      "pass": true
+    },
+    {
+      "name": "Card timeout clears busy and late completion never sends SMS",
+      "pass": true
+    },
+    {
+      "name": "Confirmed delivered survives a weaker unknown status lookup",
+      "pass": true
+    },
+    {
+      "name": "Confirmed failed survives a weaker pending status lookup",
+      "pass": true
+    },
+    {
+      "name": "Restoring an unknown result is quiet and never queues automatic work",
+      "pass": true
+    }
+  ]
+}

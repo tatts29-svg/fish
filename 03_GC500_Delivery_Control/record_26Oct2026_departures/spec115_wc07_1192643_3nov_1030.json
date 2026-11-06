@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 10:4x AEST: \"1192643 / 1058086 1003651 1181004 1002566 1192643 1058086 1002715 1212552 / I may of given you to many we should have total 16\". New in this list: Coates FWF 1192643 (WC07, contract 9968955 L42, KINP; pick-up booked by Brenden Meek for 3 Nov 10:00; WC07 ticked Emptied), leaving with the 10:30 load. 1058086, 1181004, 1002566, 1002715 and 1212552 are already recorded at 10:30 (runs 113-114) and are not recorded twice. 1003651 is on no reference or contract line; the one unit a digit away is 1002651 (WC07 L43, booked for 10:00, still on site), which would make 16: asked Andrew. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC07", "at": "2026-11-03T10:30:00+10:00", "nos": ["1192643"], "unnumbered": [], "complete": false}
+ ]
+}

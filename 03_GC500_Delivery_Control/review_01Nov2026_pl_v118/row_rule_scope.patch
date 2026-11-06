@@ -1,0 +1,28 @@
+--- a/03_GC500_Delivery_Control/v12.78_finance_fingerprint/patch_v1278.py
++++ b/03_GC500_Delivery_Control/v12.78_finance_fingerprint/patch_v1278.py
+@@ -8,2 +8,5 @@
+-This release fingerprints only the pay rules that set that row's pay, and only where they differ from the standard figure:
+-  Coates wages: cna_ord, ot_x15, sat_x15, wd_break · labour hire: lh_ord, ot_x15, sat_x15, wd_break · salary: wd_break (paid hours).
++This release fingerprints only the rules used by that row's calculation branch, and only where they differ from the standard figure:
++  Weekday Coates wages: cna_ord, ot_x15; weekday labour hire: lh_ord, ot_x15; Saturday wages/hire: sat_x15; Sunday: none.
++  wd_break applies only to a valid timed weekday shift without an explicit break; salary uses no split rules. Quoted crew use none.
++  This preserves standard-rule {} hashes and relevant non-default values. Legacy hashes with a nonempty irrelevant-rule map are
++  not migrated: saved review events are never rewritten or accepted from a reduced snapshot alone.
+@@ -21 +24 @@
+-NEW = "payRules: fin745PayRules1278(type)};"
++NEW = "payRules: fin745PayRules1278(type, c)};"
+@@ -25,2 +28,12 @@
+-function fin745PayRules1278(type) {
+- const keys = type === 'hire' ? ['lh_ord', 'ot_x15', 'sat_x15', 'wd_break'] : type === 'salary' ? ['wd_break'] : ['cna_ord', 'ot_x15', 'sat_x15', 'wd_break'];
++function fin745PayRules1278(type, row) {
++ let keys = type === 'hire' ? ['lh_ord', 'ot_x15', 'sat_x15', 'wd_break'] : type === 'salary' ? ['wd_break'] : ['cna_ord', 'ot_x15', 'sat_x15', 'wd_break'];
++ if (row) {
++  /* Finance supplies the source row. Calls without it retain the conservative type-only diagnostic.
++     Quoted event-crew shifts use supplierHours/split and do not read the employee rules. */
++  const quoted = typeof Workforce1010 !== 'undefined' && Workforce1010.isShift(row);
++  const day = new Date(String(row.date) + 'T00:00:00').getDay();
++  const timed = !!(row.start && row.finish && shiftHours(row.start, row.finish, 0) != null);
++  const explicitBreak = row.break_min != null && String(row.break_min).trim() !== '' && Number.isFinite(Number(row.break_min));
++  keys = quoted ? [] : keys.filter(k => k === 'wd_break' ? timed && !explicitBreak && day !== 0 && day !== 6
++   : k === 'sat_x15' ? day === 6 : day !== 0 && day !== 6);
++ }

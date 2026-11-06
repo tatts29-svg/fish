@@ -1,0 +1,3 @@
+{"by": "Andrew Fisher", "why": "Andrew, 20 Oct 2026: \"Wc31 16pan asset No should have cleaning ticked 16 pans get the install and leveling ,cleaninbg\" - block 12 already has levelling and cleaning and the 16-pan install is ticked; block 74 gets levelling and cleaning to match.",
+ "ops": [{"op": "labour_on", "ref": "WC31", "unit": "74", "disc": "Toilets & amenities", "item": "16Pan Block", "line": "levelling"},
+         {"op": "labour_on", "ref": "WC31", "unit": "74", "disc": "Toilets & amenities", "item": "16Pan Block", "line": "cleaning"}]}

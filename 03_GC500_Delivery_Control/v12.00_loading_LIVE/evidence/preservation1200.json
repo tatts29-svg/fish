@@ -1,0 +1,78 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "every non-media DATA field unchanged",
+      "ok": true
+    },
+    {
+      "name": "manifest matches the entire page media table",
+      "ok": true
+    },
+    {
+      "name": "manifest meets existing 2000-file guard",
+      "ok": true
+    },
+    {
+      "name": "retained descriptors and permissions unchanged",
+      "ok": true
+    },
+    {
+      "name": "all 56 extracted source files retained byte for byte",
+      "ok": true
+    },
+    {
+      "name": "every extracted reference uses its exact content-addressed file",
+      "ok": true
+    },
+    {
+      "name": "only finder module appended",
+      "ok": true
+    },
+    {
+      "name": "only planned scripts changed",
+      "ok": true
+    },
+    {
+      "name": "script 75 only relocates identical media",
+      "ok": true
+    },
+    {
+      "name": "script 124 only relocates identical media",
+      "ok": true
+    },
+    {
+      "name": "script 126 only relocates identical media",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseIncident1195 source unchanged",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseTruck1192 source unchanged",
+      "ok": true
+    },
+    {
+      "name": "ShowcaseClarity1182 source unchanged",
+      "ok": true
+    },
+    {
+      "name": "MapViewport1196 source unchanged",
+      "ok": true
+    },
+    {
+      "name": "PL1194 source unchanged",
+      "ok": true
+    },
+    {
+      "name": "servicing and crew-card script unchanged",
+      "ok": true
+    },
+    {
+      "name": "HTML transfer source reduced by at least 30 percent",
+      "ok": true
+    }
+  ],
+  "passed": 18
+}

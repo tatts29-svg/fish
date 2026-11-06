@@ -1,0 +1,36 @@
+// Author: Andrew Fisher. v8.19 copy of v7.99_today_faster_fuller_DRAFT/evidence/results796_tests.cjs, with one bounded
+// correction (the no-record shortcut; see below) and its output in v8.19's own regress folder. Reproduce shortcuts through real controls; every live-record write is blocked by the harness.
+const fs=require('fs'),crypto=require('crypto');const {open}=require('../../toolchain/harness/open_page');
+(async()=>{const mobile=process.env.MOB==='1',h=await open({pageFile:process.env.PAGE,W:mobile?390:1440,H:mobile?844:900,dpr:mobile?2:1,mobile,gl:false}),p=h.page,tests=[];
+const check=(name,pass,detail)=>{tests.push({name,pass:!!pass,detail});console.log((pass?'PASS ':'FAIL ')+name+' '+JSON.stringify(detail));};
+const settle=()=>p.waitForTimeout(1200);
+const state=()=>p.evaluate(()=>{const d=document.querySelector('#pane-plant .eqrefs'),m=document.querySelector('main');return{tab:state.tab,light:state.light,group:state.plantGroup,query:state.q,referenceCount:state.list.length,open:d?.open,rows:d?[...d.querySelectorAll('tbody tr')].filter(x=>x.getClientRects().length&&!x.closest('details:not([open])')).length:0,top:d?Math.round(d.getBoundingClientRect().top-m.getBoundingClientRect().top):null};});
+try{await p.waitForFunction(()=>SYNC.status==='live'&&SYNC.first.size===Object.keys(SYNC_COLLS).length,null,{timeout:240000});await p.emulateMedia({reducedMotion:'reduce'});await settle();
+await p.evaluate(()=>{const original=window.inv87Hydrate;window.__review796Hydrations=0;window.inv87Hydrate=function(...args){window.__review796Hydrations++;return original.apply(this,args);};});await p.locator('#tab-plant').click();await settle();let x=await state();check('routine first Equipment visit keeps Every reference closed',!x.open,x);
+await p.locator('#tg782').scrollIntoViewIfNeeded();await settle();const hydration=await p.evaluate(()=>({calls:window.__review796Hydrations,codes:document.querySelectorAll('#tg782 [data-qr87][data-done="1"] svg').length}));check('Inventory hydrates once and visible navigation QR codes render',hydration.calls===1&&hydration.codes>0,hydration);
+/* v8.19 bounded correction (Codex's method in its v8.20 release evidence): the original fixture hard-coded 116, the
+   number of references with nothing recorded when it was written. Before pressing, the current record decides which
+   references the no-record control must show - lightMatches with state.light 'none': not cancelled and nothing
+   recorded (deliveryOf(key).recorded false). Then the exact keys, their count, the visible rows and the landing
+   position are asserted. The original failed run is kept in regress/results_*_on_865c1f2_original.log. */
+const want819=await p.evaluate(()=>allAssets().filter(a=>!a._cancelled&&!deliveryOf(a.key).recorded).map(a=>a.key).sort());
+await p.locator('#tab-today').click();await settle();await p.locator('#pane-today .lights [data-lf-go="none"]').click();await settle();x=await state();
+const got819=await p.evaluate(()=>state.list.map(a=>typeof a==='string'?a:a&&a.key).sort());   /* state.list holds reference keys */
+const rowk819=await p.evaluate(()=>[...document.querySelectorAll('#pane-plant .eqrefs tbody tr')].filter(x=>x.getClientRects().length&&!x.closest('details:not([open])')).map(r=>r.cells[0].textContent.trim().split(/\s/)[0]).sort());
+check('Today no-record control opens filtered references and lands them in view',x.tab==='plant'&&x.light==='none'&&!x.group&&want819.length>0&&JSON.stringify(got819)===JSON.stringify(want819)&&x.referenceCount===want819.length&&x.open&&x.rows===want819.length&&JSON.stringify(rowk819)===JSON.stringify(want819)&&Math.abs(x.top-12)<30,Object.assign({want:want819,got:got819,visibleRows:rowk819},x));
+await p.locator('#pane-plant .eqrefs>summary').click();await settle();await p.evaluate(()=>render());await settle();x=await state();check('record redraw respects a manually closed filtered-results fold',!x.open,x);
+await p.locator('#tab-today').click();await settle();await p.locator('#pane-today .lights [data-lf-go="none"]').click();await settle();x=await state();check('pressing the same shortcut again reveals the results again',x.open&&x.rows>0&&Math.abs(x.top-12)<30,x);
+await p.evaluate(()=>{state.light=null;state.q='';state.plantGroup=null;eq796s.s=null;go('plant');});await settle();if(mobile){await p.locator('#searchBtn').click();}await p.locator('#q').fill('WC');await p.locator('#q').press('Tab');await settle();x=await state();check('typing a search opens the matching reference rows',x.query==='WC'&&x.open&&x.rows>0,x);
+await p.locator('#pane-plant .eqrefs>summary').click();await settle();await p.evaluate(()=>render());await settle();x=await state();check('search redraw preserves a subsequently closed fold',!x.open,x);
+await p.evaluate(()=>{state.q='';document.querySelector('#q').value='';eq796s.s=null;openAsset('P03');});await settle();
+/* v8.19 bounded correction 2: since v8.16 the drawer keeps "Equipment page" (#toPlant) in its More menu, so the original
+   click timed out on the live page too (regress/basecmp/). Open More with its own control, then press the same button.
+   The expected rows come from the page's own rule (showPlantGroup: the reference's product group) instead of a
+   hard-coded 56. */
+const grp819=await p.evaluate(()=>{const g=x=>PLANT_GROUP_WORDS[x.product]||x.product||x.discipline;const a=allAssets().find(x=>x.key==='P03');const G=g(a);return{G,want:allAssets().filter(x=>g(x)===G).map(x=>x.key).sort()};});
+if(!(await p.locator('#toPlant').isVisible()))await p.locator('#drawer .more816>summary').click();await settle();
+await p.locator('#toPlant').click();await settle();x=await state();const got2=await p.evaluate(()=>state.list.map(a=>typeof a==='string'?a:a&&a.key).sort());
+check('Equipment from a reference drawer opens its existing reference rows',x.tab==='plant'&&x.group===grp819.G&&grp819.G==='Portable buildings'&&JSON.stringify(got2)===JSON.stringify(grp819.want)&&x.referenceCount===grp819.want.length&&x.open&&x.rows===grp819.want.length&&Math.abs(x.top-12)<30,Object.assign({want:grp819.want.length,got:got2.length},x));
+check('no page errors',h.errors.length===0,h.errors);
+const result={author:'Andrew Fisher',mobile,sha256:crypto.createHash('sha256').update(fs.readFileSync(process.env.PAGE)).digest('hex'),passed:tests.filter(t=>t.pass).length,total:tests.length,tests,requests:h.counts};fs.writeFileSync(__dirname+'/regress/review796_results_'+(mobile?'phone':'desktop')+'.json',JSON.stringify(result,null,2));if(result.passed!==result.total)process.exitCode=1;
+}finally{await h.browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "checks": {
+    "public footer names v10.16": true,
+    "release modules present": true,
+    "fresh shared reference opens at its own address": true,
+    "all current numbered contents searchable": true,
+    "replacement fridge finds current reference": true,
+    "moved fridge finds destination only": true,
+    "Today requested scope and actual completion reconcile": true,
+    "supplier remaining and separate accessible scope reconcile": true,
+    "current VMS inventory excludes reviewed departure": true,
+    "moved VMS retained as history": true,
+    "moved VMS search has one current destination": true,
+    "saved financial totals equal tested candidate": true,
+    "saved branch model equals tested candidate": true,
+    "P&L branch and Finance checks reconcile": true,
+    "generator totals reconcile and commercial hire stops Sunday": true,
+    "optional waiver remains uncharged and not a required hold": true,
+    "saved P/O and dockets still reconcile": true,
+    "reading all models preserves native record": true,
+    "actual public page without replacement": true,
+    "no errors or operational write attempts": true
+  },
+  "nativeVersion": 6075,
+  "accessories": 76,
+  "pass": true,
+  "counts": {
+    "page": 0,
+    "live": 28,
+    "blocked": 0,
+    "blockedMapSessions": 0
+  }
+}

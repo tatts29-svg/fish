@@ -1,0 +1,16 @@
+{
+  "cesiumVersion": "1.131",
+  "engineVersion": "18.3.0",
+  "source": {
+    "utility": "https://raw.githubusercontent.com/CesiumGS/cesium/1.131/packages/engine/Source/Scene/Model/ModelUtility.js",
+    "axis": "https://raw.githubusercontent.com/CesiumGS/cesium/1.131/packages/engine/Source/Scene/Axis.js",
+    "model": "https://raw.githubusercontent.com/CesiumGS/cesium/1.131/packages/engine/Source/Scene/Model/Model.js"
+  },
+  "defaultCorrection": "local[x,y,z] becomes [-y,x,z]: unintended +90 degrees yaw",
+  "fixedCorrection": "local[x,y,z] remains [x,y,z]",
+  "fix": {
+    "upAxis": "Cesium.Axis.Y",
+    "forwardAxis": "Cesium.Axis.X"
+  },
+  "author": "Andrew Fisher"
+}

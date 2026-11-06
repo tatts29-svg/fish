@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "display pixel workload; no hardware FPS claim",
+  "software_renderer": true,
+  "baseline": {
+    "resolution": [
+      3840,
+      1858
+    ],
+    "samples": 4,
+    "shadowMap": 2048,
+    "buildMs": 14956,
+    "completedGpuFramesInSample": 0,
+    "errors": null
+  },
+  "candidate": {
+    "resolution": [
+      1440,
+      697
+    ],
+    "samples": 4,
+    "shadowMap": 2048,
+    "buildMs": 15383,
+    "completedGpuFramesInSample": 0,
+    "errors": null
+  }
+}

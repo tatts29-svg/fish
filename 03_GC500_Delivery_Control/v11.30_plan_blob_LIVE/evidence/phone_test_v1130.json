@@ -1,0 +1,94 @@
+{
+ "at": "2026-10-22T15:59:13.905Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template fetches the plan as a blob, keeps a copy, never points the image at the URL",
+   "ok": true,
+   "detail": {
+    "len": 146569
+   }
+  },
+  {
+   "name": "with no origin to fetch from, the map carries no image and says the plan loads with signal; the pins are still there",
+   "ok": true,
+   "detail": {
+    "state": "failed",
+    "src": "",
+    "img": false,
+    "note": "Plan loads with signal",
+    "pins": 14
+   }
+  },
+  {
+   "name": "once the plan is in hand the map draws it as the image under the pins, full sheet size, and the note goes",
+   "ok": true,
+   "detail": {
+    "href": "data:image/png",
+    "note": false,
+    "w": "1192",
+    "h": "842"
+   }
+  },
+  {
+   "name": "with nothing kept, a reload fetches again (and fails here, with no plan to be had)",
+   "ok": true,
+   "detail": {
+    "state": "loading",
+    "src": ""
+   }
+  },
+  {
+   "name": "a kept copy in local storage is used first on the next open, without a fetch, and the map draws it",
+   "ok": true,
+   "detail": {
+    "state": "kept",
+    "src": "data:image/png",
+    "drawn": "data:image/png"
+   }
+  },
+  {
+   "name": "PG01, PG03 and PG05, which share one pin on the record, are spread so each label can be read",
+   "ok": true,
+   "detail": {
+    "p1": [
+     501.5,
+     287.1
+    ],
+    "p3": [
+     517.9,
+     315.6
+    ],
+    "p5": [
+     485,
+     315.6
+    ],
+    "d13": 32.8817578605524,
+    "d15": 32.931747600150224,
+    "d35": 32.89999999999998
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 73,
+    "blocked": 0
+   }
+  }
+ ]
+}

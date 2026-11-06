@@ -1,0 +1,29 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "sha256": "db0a3c517de2de287da6f385c3f5858fd5a54e48d259b03180cf1116aafdb6b7",
+  "checks": [
+    "All arrived FWF install/demob without cleaning",
+    "WC09 all five applicable charges",
+    "Six pee panels retain own item scope",
+    "Remaining supplier deliveries35",
+    "Charge data visible in view mode",
+    "Per-unit stairs controls in capture-only edit mode",
+    "Native unchanged",
+    "Zero operational writes/errors"
+  ],
+  "observations": {
+    "rows": 89,
+    "fwf": 21,
+    "fwfCorrect": true,
+    "blockKeys": [
+      "cleaning",
+      "demob",
+      "install",
+      "levelling",
+      "steps"
+    ],
+    "zeroFake": true,
+    "remaining": 35
+  }
+}

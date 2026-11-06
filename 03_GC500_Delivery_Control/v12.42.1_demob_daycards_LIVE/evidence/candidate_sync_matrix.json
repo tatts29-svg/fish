@@ -1,0 +1,130 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "05e574bf284c0c165e2ba1c9475cab799a0c90f9db8c0d7b69e95a7127d53dcb",
+  "candidateFooter": "v12.42",
+  "moduleRelease": "v12.42.1",
+  "nativeFunctions": [
+    "docIdOf",
+    "toDocs",
+    "fromDocs",
+    "syncPush",
+    "syncStage",
+    "syncStageLive",
+    "syncFold"
+  ],
+  "module": "singles1238-script",
+  "synthetic": true,
+  "networkAndRecordWrites": 0,
+  "passed": 19,
+  "total": 19,
+  "failed": 0,
+  "results": [
+    {
+      "id": "ready.queue-empty-union",
+      "ok": true
+    },
+    {
+      "id": "ready.pending-queue-union",
+      "ok": true
+    },
+    {
+      "id": "booking.queue-empty-union",
+      "ok": true
+    },
+    {
+      "id": "booking.pending-queue-union",
+      "ok": true
+    },
+    {
+      "id": "histories.queue-empty-union",
+      "ok": true
+    },
+    {
+      "id": "histories.pending-queue-union",
+      "ok": true
+    },
+    {
+      "id": "histories.exact-duplicates-once",
+      "ok": true
+    },
+    {
+      "id": "ready.newer-remote-untick-queue-empty",
+      "ok": true
+    },
+    {
+      "id": "ready.newer-remote-untick-pending",
+      "ok": true
+    },
+    {
+      "id": "ready.newer-local-untick-pending",
+      "ok": true
+    },
+    {
+      "id": "booking.newer-remote-clear-queue-empty",
+      "ok": true
+    },
+    {
+      "id": "booking.newer-remote-clear-pending",
+      "ok": true
+    },
+    {
+      "id": "booking.newer-local-clear-pending",
+      "ok": true
+    },
+    {
+      "id": "unrelated-fields.keep-local-pending-fields",
+      "ok": true
+    },
+    {
+      "id": "unrelated-fields.keep-server-fields-without-queue",
+      "ok": true
+    },
+    {
+      "id": "deletion.pending-null-must-not-resurrect",
+      "ok": true
+    },
+    {
+      "id": "new-reference.local-pending-create-retained",
+      "ok": true
+    },
+    {
+      "id": "view.server-wins-no-local-repair",
+      "ok": true
+    },
+    {
+      "id": "view.ignores-pending-local-document",
+      "ok": true
+    }
+  ],
+  "observations": [
+    {
+      "id": "equal-clock.queue-empty",
+      "requiresOwnerConfirmation": true,
+      "record": {
+        "ready1238_units": {
+          "synthetic|A": {
+            "on": false,
+            "at": "2026-01-01T10:00:00.000Z",
+            "by": "Phone B",
+            "why": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "equal-clock.pending",
+      "requiresOwnerConfirmation": true,
+      "record": {
+        "ready1238_units": {
+          "synthetic|A": {
+            "on": false,
+            "at": "2026-01-01T10:00:00.000Z",
+            "by": "Phone B",
+            "why": ""
+          }
+        }
+      }
+    }
+  ],
+  "limitation": "This proves only offline fold/stage preservation. Browser, service, multi-device and release checks remain required."
+}

@@ -1,0 +1,211 @@
+{
+  "author": "Andrew Fisher",
+  "passed": 51,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Current generator financial parity 0",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 1",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 2",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 3",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 4",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 5",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 6",
+      "pass": true
+    },
+    {
+      "name": "Current generator financial parity 7",
+      "pass": true
+    },
+    {
+      "name": "Current card rates remain byte-identical data",
+      "pass": true
+    },
+    {
+      "name": "Shared day proxy supports arrays, iteration, JSON and enumerable keys",
+      "pass": true
+    },
+    {
+      "name": "Current event fields match existing source",
+      "pass": true
+    },
+    {
+      "name": "Current demobilisation source window retained",
+      "pass": true
+    },
+    {
+      "name": "Inputs are not changed by validation",
+      "pass": true
+    },
+    {
+      "name": "Current supplier coverage and financial parity 13",
+      "pass": true
+    },
+    {
+      "name": "Current supplier coverage and financial parity 14",
+      "pass": true
+    },
+    {
+      "name": "Current supplier coverage and financial parity 15",
+      "pass": true
+    },
+    {
+      "name": "Current supplier coverage and financial parity 16",
+      "pass": true
+    },
+    {
+      "name": "Current whole-event invoice month unchanged",
+      "pass": true
+    },
+    {
+      "name": "Current workforce projection retains all output and source evidence",
+      "pass": true
+    },
+    {
+      "name": "Workforce source quotation retained",
+      "pass": true
+    },
+    {
+      "name": "In-place event array change updates metadata without reload",
+      "pass": true
+    },
+    {
+      "name": "Shifted 3-day event uses its arrival and standdown window",
+      "pass": true
+    },
+    {
+      "name": "Shifted card charge preserves published rate precision",
+      "pass": true
+    },
+    {
+      "name": "Shifted prose and allocation month follow current event",
+      "pass": true
+    },
+    {
+      "name": "Supplier actual covers shifted event, not the previous event",
+      "pass": true
+    },
+    {
+      "name": "Supplier unbilled whole event belongs to shifted month",
+      "pass": true
+    },
+    {
+      "name": "Workforce dates getter follows in-place replacement",
+      "pass": true
+    },
+    {
+      "name": "Shifted crew produces six people and eighteen individual shifts",
+      "pass": true
+    },
+    {
+      "name": "Old crew source dates remain unchanged, not moved into a new event",
+      "pass": true
+    },
+    {
+      "name": "Cross-month event requires an explicit invoice month",
+      "pass": true
+    },
+    {
+      "name": "Cross-month charge is visibly unpriced rather than zero",
+      "pass": true
+    },
+    {
+      "name": "Cross-month supplier estimate is held and month allocation unknown",
+      "pass": true
+    },
+    {
+      "name": "Explicit cross-month invoice allocation restores pricing",
+      "pass": true
+    },
+    {
+      "name": "Whole-event contract price spreads over configured day count once",
+      "pass": true
+    },
+    {
+      "name": "Typed event override uses the same configured divisor",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 35",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 36",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 37",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 38",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 39",
+      "pass": true
+    },
+    {
+      "name": "Invalid/missing dates hold all derived generator and supplier amounts 40",
+      "pass": true
+    },
+    {
+      "name": "Missing configuration never invents default GC500 dates",
+      "pass": true
+    },
+    {
+      "name": "Invalid invoice month is not silently derived",
+      "pass": true
+    },
+    {
+      "name": "Invalid demob range remains unresolved",
+      "pass": true
+    },
+    {
+      "name": "Overlong demob window is held instead of truncated",
+      "pass": true
+    },
+    {
+      "name": "In-place date/holiday edits invalidate cached reads once",
+      "pass": true
+    },
+    {
+      "name": "Current Demob day list retains fifteen working days",
+      "pass": true
+    },
+    {
+      "name": "In-place Demob date change replaces cached dates",
+      "pass": true
+    },
+    {
+      "name": "Holiday change refreshes the same Demob cache without reload",
+      "pass": true
+    },
+    {
+      "name": "Missing Demob configuration returns no invented proposed dates",
+      "pass": true
+    },
+    {
+      "name": "Source data block stays byte-identical",
+      "pass": true
+    }
+  ]
+}

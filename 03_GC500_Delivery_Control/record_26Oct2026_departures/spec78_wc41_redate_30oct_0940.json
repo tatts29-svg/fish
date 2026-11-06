@@ -1,0 +1,13 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 30 Oct 2026 09:4x AEST: \"Picked up 940am\" listing WC41's ten Event Portables toilets (0065, 0651, 0517, 0518, 0643, 0191, 0682, 0521, 0669, 0996), which the record had leaving Tue 28 Oct 12:15 (his own entry through the page, 28 Oct 12:20). Held at first: the dry run showed the redate alone made the Event Portables supplier estimate incomplete (known cost -20,475.00). Diagnosed 30 Oct 10:0x-10:3x AEST: the page reads a departure only once it is no earlier than the entry that recorded it, so a redate to a later time left the page ignoring WC41's departure altogether (ten toilets counted as still on site, hire quote Q6845 unreconciled) - a reading artefact, not a price. Andrew, 10:1x AEST: \"It should not change any pricing\". The runner now re-records the entry at the time of the correction when the new departure is later (entryWas kept); dry run with that: WC41 still 10 collected and complete, departure 30 Oct 09:40, every Event Portables quote complete, P&L identical. Applied only on a dry run showing the P&L unchanged.",
+ "ops": [
+  {
+   "op": "collection_redate",
+   "ref": "WC41",
+   "no": "0521",
+   "at": "2026-10-30T09:40:00+10:00",
+   "why": "Andrew Fisher, 30 Oct 2026: the ten toilets were picked up Thu 30 Oct at 09:40, not 28 Oct 12:15"
+  }
+ ]
+}

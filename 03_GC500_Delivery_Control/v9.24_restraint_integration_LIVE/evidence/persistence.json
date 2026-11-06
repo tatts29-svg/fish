@@ -1,0 +1,5 @@
+{
+  "checks": 8,
+  "passed": 8,
+  "note": "Native save failure injection, no operational records changed."
+}

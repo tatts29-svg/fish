@@ -1,0 +1,66 @@
+{
+  "author": "Andrew Fisher",
+  "source": "0106085127fbb27dd15942261925c667cf4db429e28f45ac540776252095ce18",
+  "at": "2026-10-13T10:57:10.341Z",
+  "nativeVersion": 5796,
+  "checkedItemGroups": 185,
+  "arrivedItemGroups": 117,
+  "controlsPassed": 17,
+  "controlsTotal": 17,
+  "serviceAutoIncluded": {
+    "install": {
+      "item_groups": 104,
+      "pieces": 269,
+      "amount": 20606.69
+    },
+    "levelling": {
+      "item_groups": 57,
+      "pieces": 71,
+      "amount": 5205.0
+    },
+    "cleaning": {
+      "item_groups": 57,
+      "pieces": 71,
+      "amount": 8900.55
+    },
+    "demob": {
+      "item_groups": 104,
+      "pieces": 269,
+      "amount": 20606.69
+    }
+  },
+  "manualStairs": true,
+  "transport": {
+    "arrivedHeldLegs": 32,
+    "arrivedHeldReferences": 17,
+    "pendingHeldLegs": 46,
+    "pendingHeldReferences": 23,
+    "includedArrivedAdditional": 92160,
+    "remainingAdditional": 21220
+  },
+  "onsitePricedSubtotal": 380578.98,
+  "onsiteDisplayedHolds": 48,
+  "hireAllocationHolds": 10,
+  "serviceScopeNotProvenFree": 5,
+  "onsitePeeHireForecastClassification": 0.0,
+  "labourDirectCosts": {
+    "missingHours": 17,
+    "missingHoursPastOrCurrent": 2,
+    "missingHoursFuture": 15,
+    "shiftsWithHoursButNoCostRate": 92,
+    "pastOrCurrentUnpricedShifts": 43,
+    "futureUnpricedShifts": 49,
+    "staleOrOrphanReviews": 15
+  },
+  "exclusions": [
+    "Stairs require manual selection.",
+    "FWF card has install and demob only; no extra level or cleaning rate.",
+    "Forklift card labour is N/A; do not invent installation.",
+    "T0023 hire is approved Coates own use.",
+    "Included waste tank hire is not a second toilet-block hire.",
+    "Damage waiver was not authorised or added.",
+    "Supplier quotations are Direct costs, not customer rates."
+  ],
+  "privateRegister": "/workspace/private-gc500-finance1007/coverage-register.json",
+  "verdict": "Applicable priced arrived services reconcile, but coverage is partial: rate/scope/quantity/allocation gaps remain. Existing pee-panel hire is included in arrived Revenue once."
+}

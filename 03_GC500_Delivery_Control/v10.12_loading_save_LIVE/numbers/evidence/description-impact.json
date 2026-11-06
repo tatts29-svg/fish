@@ -1,0 +1,128 @@
+{
+  "author": "Andrew Fisher",
+  "before": "/workspace/private-argon-review-14Oct2026/live.html",
+  "after": "/workspace/private-numbers1012/description-candidate.html",
+  "source": [
+    "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+    "0915fcc66223823249f89c05b93ec73652fe993651cfc2acf3662e64a0e2ade1"
+  ],
+  "counts": [
+    191,
+    191
+  ],
+  "money": [
+    {
+      "current": 789908.36,
+      "job": 1066859.61,
+      "cost": 317708.4,
+      "onsite": 384101.58,
+      "labour": 64323.58
+    },
+    {
+      "current": 789908.36,
+      "job": 1066859.61,
+      "cost": 317708.4,
+      "onsite": 384101.58,
+      "labour": 64323.58
+    }
+  ],
+  "changed": [],
+  "eventChanges": [
+    {
+      "ref": "P09",
+      "id": "T0027",
+      "item": "Building 6m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P13",
+      "id": "T0041",
+      "item": "Building 4.8m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P14",
+      "id": "T0042",
+      "item": "Building 4.8m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P15",
+      "id": "T0043",
+      "item": "Building 4.8m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P16",
+      "id": "T0044",
+      "item": "Building 4.8m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P41",
+      "id": "T0052",
+      "item": "Building 6m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P44",
+      "id": "T0050",
+      "item": "Building 6m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "P58",
+      "id": "T0051",
+      "item": "Building 6m",
+      "q": 1,
+      "display": "1"
+    },
+    {
+      "ref": "WC05",
+      "id": "T0012",
+      "item": "Toilet Block 6m",
+      "q": 1,
+      "display": "1"
+    }
+  ],
+  "added": [
+    {
+      "ref": "FL01",
+      "items": [
+        "Forklift 5T"
+      ],
+      "typed": null
+    },
+    {
+      "ref": "FL02",
+      "items": [
+        "Forklift 2.5T"
+      ],
+      "typed": null
+    }
+  ],
+  "errors": [
+    [],
+    []
+  ],
+  "network": [
+    {
+      "page": 1,
+      "live": 13,
+      "blocked": 0
+    },
+    {
+      "page": 1,
+      "live": 13,
+      "blocked": 0
+    }
+  ],
+  "scope": "Same shared-record snapshot, base versus quantity rule; final added invalid-only guard cannot alter these all-valid known lines. Financial totals unchanged."
+}

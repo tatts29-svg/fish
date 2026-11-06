@@ -1,0 +1,34 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "67dc74f271b2c3927eb8ebaaa65d849b5879c9827fa382358194a20effe2cc7b",
+  "sweeps": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "back": true,
+      "pageErrors": 0,
+      "consoleErrors": 0
+    }
+  },
+  "desktopFocused": 55,
+  "phoneFocused": 49,
+  "allocatorChecks": 35,
+  "packingChecks": 9,
+  "pdfChecks": {
+    "check_count": 858,
+    "failed": 0,
+    "pdf_count": 6,
+    "qr_decoded_count": 82,
+    "record_version": 5324
+  },
+  "phoneScreenshotInspected": true,
+  "pdfPages2To4Inspected": true,
+  "nativeWrites": 0
+}

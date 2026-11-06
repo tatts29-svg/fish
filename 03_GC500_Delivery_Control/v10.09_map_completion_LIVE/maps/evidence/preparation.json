@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifestSha256": "8e791df7c83ebe1fac2a67b55f589fbfe3c51e77bef9986ff4f535c028a664ba",
+  "candidateManifestSha256": "ad9297e85cc923d22b31656fe795ebbb576dc921335e6e15bebf1a4c203af654",
+  "changedFiles": {
+    "explorer/explorer.js": "3ced06d864cd1e060c76cb7f7841c66f942c1194e676892f29a9430782ca36a1",
+    "explorer/explorer-merge.js": "00f88dcf8d18529cc1a20ab6c729a5921a7d87ff65d411d9bc92c7ceef2c7ac3",
+    "explorer/index.html": "00a0075219d89ef8d2fd95513e9e84c164dca5a53ae0b4de160288977575cbfe"
+  },
+  "otherFilesPreserved": 230,
+  "published": false,
+  "recordWrites": 0
+}

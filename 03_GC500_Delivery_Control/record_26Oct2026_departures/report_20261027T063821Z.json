@@ -1,0 +1,2676 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T063821Z",
+ "finished": "2026-10-27T06:39:04.865Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (16:3x AEST): \"Picked up 430PM\" with a list from the crew: 0765 0573 0941 0647 0438 0994 0990 0632 0562 0554 0947 0549 0673 0542 0086. Read 16:37 AEST, all Event Portables FWF, Emptied, every one Ready, none already left, no booking: WC73 0765 (0192 stays); PG29 0573, BJR01 0941, PG05 0438, T0162 0990 (each the reference's only unit, so each leaves in full); WC69 0647 (nine stay); T0176 0994 (0576 stays); WC45 0632 0562 0947 0549 0673 0542 0086 (0544 stays). 0554 left at 10:00 on WC33 (Andrew's 10am list) and is held for Andrew. Recorded after 16:30.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC73",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0765"
+    ],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "PG29",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0573"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "BJR01",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0941"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WC69",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0647"
+    ],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "PG05",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0438"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "T0176",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0994"
+    ],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "T0162",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0990"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "WC45",
+    "at": "2026-10-27T16:30:00+10:00",
+    "nos": [
+     "0632",
+     "0562",
+     "0947",
+     "0549",
+     "0673",
+     "0542",
+     "0086"
+    ],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "20c0978543b3bc16c6663a68a3bae3cc699ca7498219bda3f390e6a7094174e9",
+ "version": {
+  "before": 11589,
+  "after": 11597
+ },
+ "updated": {
+  "before": "2026-10-27T06:34:46.907Z",
+  "after": "2026-10-27T06:39:04.021Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC73",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0765"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0765 - still to leave: 1 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "PG29",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0573"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0573 - PG29 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "BJR01",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0941"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0941 - BJR01 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WC69",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0647"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0647 - still to leave: 9 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "PG05",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0438"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0438 - PG05 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "T0176",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0994"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0994 - still to leave: 1 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "T0162",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0990"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 1 x FWF 0990 - T0162 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "WC45",
+   "at": "2026-10-27T16:30:00+10:00",
+   "nos": [
+    "0632",
+    "0562",
+    "0947",
+    "0549",
+    "0673",
+    "0542",
+    "0086"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-27T16:30:00+10:00, recorded by Andrew Fisher: 7 x FWF 0542, 0086, 0947, 0632, 0562, 0549, 0673 - still to leave: 1 x FWF"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0162",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG05",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG29",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0176",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC45",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC69",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC73",
+   "status": 200
+  },
+  {
+   "key": "delivery/BJR01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0162": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:54.192Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:53.758Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:57.318Z",
+    "ready1238_units": {
+     "event-portables|0990": {
+      "on": true,
+      "at": "2026-10-26T18:18:56.227Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c4ec808d-fe19-4da3-9089-d35976460e96"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:54.192Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:57.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0990",
+      "ready": true,
+      "at": "2026-10-26T10:26:30.715Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0990",
+      "ready": true,
+      "at": "2026-10-26T18:18:56.227Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0162"
+   },
+   "delivery/PG05": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:51.953Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:51.435Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:24.352Z",
+    "ready1238_units": {
+     "event-portables|0438": {
+      "on": true,
+      "at": "2026-10-26T18:18:48.184Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/d359569e-a8e3-4aa9-9b7f-759a1b81ac49"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:51.953Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.157Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:24.352Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0438",
+      "ready": true,
+      "at": "2026-10-26T10:26:22.809Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0438",
+      "ready": true,
+      "at": "2026-10-26T18:18:48.184Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG05"
+   },
+   "delivery/PG29": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:33:56.931Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:33:56.491Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:34.888Z",
+    "ready1238_units": {
+     "event-portables|0573": {
+      "on": true,
+      "at": "2026-10-26T18:18:50.338Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ed7fdffb-9c15-4cb0-826a-b3c9953f3a9b"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:33:56.931Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.462Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:34.888Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0573",
+      "ready": true,
+      "at": "2026-10-26T10:26:24.701Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0573",
+      "ready": true,
+      "at": "2026-10-26T18:18:50.338Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG29"
+   },
+   "delivery/T0176": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:31:03.988Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:03.491Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:08.143Z",
+    "ready1238_units": {
+     "event-portables|0576": {
+      "on": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a83415b7-931c-4f1d-ad16-aba439253997"
+     },
+     "event-portables|0994": {
+      "on": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:03.988Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:08.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0576",
+      "ready": true,
+      "at": "2026-10-26T10:26:32.437Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0994",
+      "ready": true,
+      "at": "2026-10-26T10:26:32.437Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0576",
+      "ready": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0994",
+      "ready": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/WC45": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:54:51.775Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:54:51.363Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:21.631Z",
+    "ready1238_units": {
+     "event-portables|0086": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/55464a7c-53cf-4581-b5a6-f8509a79787d"
+     },
+     "event-portables|0542": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/0dc1cb04-a135-4d69-945b-060e56daac3f"
+     },
+     "event-portables|0544": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/7d6b3bf2-49ab-416a-bb52-70f819a66c1f"
+     },
+     "event-portables|0549": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c36a9a1c-bbb0-4b4c-8f0a-a4f1fbc1f909"
+     },
+     "event-portables|0562": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/bc159408-eac2-4868-a6e5-0b946d6a6833"
+     },
+     "event-portables|0632": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/aaa59548-da70-4645-bfb9-2a19120651e7"
+     },
+     "event-portables|0673": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/e8f2d3d0-4a90-4c03-afc6-a75e340d3899"
+     },
+     "event-portables|0947": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/69d8c648-7e70-4b1c-8b45-ad2d49150e78"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:54:51.775Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.895Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:21.631Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0086",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0542",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0544",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0549",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0562",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0632",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0673",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0947",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0086",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0542",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0544",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0549",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0562",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0632",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0673",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0947",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC45"
+   },
+   "delivery/WC69": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:32:13.474Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:25.782Z",
+    "ready1238_units": {
+     "event-portables|0010": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0070": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0078": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0123": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0152": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0432": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0592": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0622": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0647": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0679": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0692": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0958": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:33:00.831Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.910Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.284Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:50:00.898Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:24:00.429Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:32:13.474Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:13:19.910Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d82172d8-dd7f-42bd-821d-c6dc9a99b5f1",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T15:30:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T02:32:13.474Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 2,
+         "unitIds": [
+          "[\"WC69\",\"event-portables\",\"asset\",\"0078\"]",
+          "[\"WC69\",\"event-portables\",\"asset\",\"0010\"]"
+         ],
+         "numbers": [
+          "0078",
+          "0010"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC69\",\"event-portables\",\"asset\",\"0078\"]",
+           "number": "0078",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC69\",\"event-portables\",\"asset\",\"0010\"]",
+           "number": "0010",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:33:00.831Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:25.782Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0010",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0070",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0078",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0123",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0152",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0432",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0592",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0622",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0647",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0679",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0692",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0958",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0010",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0070",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0078",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0123",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0152",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0432",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0592",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0622",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0647",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0679",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0692",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0958",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-13T02:29:04.302Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-13T02:29:04.302Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-13T02:29:04.302Z"
+      }
+     ],
+     "recorded_at": "2026-10-13T02:29:04.302Z"
+    },
+    "_k": "WC69"
+   },
+   "delivery/WC73": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:33:41.848Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:11.932Z",
+    "ready1238_units": {
+     "event-portables|0192": {
+      "on": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ce901776-c58c-40f5-8613-0f1f6b671c00"
+     },
+     "event-portables|0765": {
+      "on": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/2900311c-dfd8-4c4f-9b3e-e416c007e352"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:33:41.848Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.741Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:11.932Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0192",
+      "ready": true,
+      "at": "2026-10-26T10:27:55.929Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0765",
+      "ready": true,
+      "at": "2026-10-26T10:27:55.929Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0192",
+      "ready": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0765",
+      "ready": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC73"
+   },
+   "delivery/BJR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:29:14.982Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:19:50.277Z",
+    "ready1238_units": {
+     "event-portables|0941": {
+      "on": true,
+      "at": "2026-10-26T18:18:41.745Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:29:15.368Z",
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:29:15.368Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:19:50.277Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0941",
+      "ready": true,
+      "at": "2026-10-26T10:26:16.206Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0941",
+      "ready": true,
+      "at": "2026-10-26T18:18:41.745Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "BJR01"
+   }
+  },
+  "after": {
+   "delivery/T0162": {
+    "state": "in transit",
+    "set_at": "2026-10-27T06:38:47.149Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:53.758Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:57.318Z",
+    "ready1238_units": {
+     "event-portables|0990": {
+      "on": true,
+      "at": "2026-10-26T18:18:56.227Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c4ec808d-fe19-4da3-9089-d35976460e96"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T06:38:47.149Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T06:38:47.149Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "7292f22d-a29e-414b-92f1-0065a9c2e562",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:27:54.192Z",
+       "requiredKey": "[[\"fwf\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"T0162\",\"event-portables\",\"native\",\"slot:c4ec808d-fe19-4da3-9089-d35976460e96\"]"
+         ],
+         "numbers": [
+          "0990"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0162\",\"event-portables\",\"native\",\"slot:c4ec808d-fe19-4da3-9089-d35976460e96\"]",
+           "number": "0990",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T06:38:47.149Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:57.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0990",
+      "ready": true,
+      "at": "2026-10-26T10:26:30.715Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0990",
+      "ready": true,
+      "at": "2026-10-26T18:18:56.227Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0162"
+   },
+   "delivery/PG05": {
+    "state": "in transit",
+    "set_at": "2026-10-27T06:38:45.533Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:51.435Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:24.352Z",
+    "ready1238_units": {
+     "event-portables|0438": {
+      "on": true,
+      "at": "2026-10-26T18:18:48.184Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/d359569e-a8e3-4aa9-9b7f-759a1b81ac49"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T06:38:45.533Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.157Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T06:38:45.533Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c6b7bb6c-427a-44b4-9b5d-8b3f8ed71a58",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:27:51.953Z",
+       "requiredKey": "[[\"fwf\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"PG05\",\"event-portables\",\"native\",\"slot:d359569e-a8e3-4aa9-9b7f-759a1b81ac49\"]"
+         ],
+         "numbers": [
+          "0438"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"PG05\",\"event-portables\",\"native\",\"slot:d359569e-a8e3-4aa9-9b7f-759a1b81ac49\"]",
+           "number": "0438",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T06:38:45.533Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:24.352Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0438",
+      "ready": true,
+      "at": "2026-10-26T10:26:22.809Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0438",
+      "ready": true,
+      "at": "2026-10-26T18:18:48.184Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG05"
+   },
+   "delivery/PG29": {
+    "state": "in transit",
+    "set_at": "2026-10-27T06:38:42.944Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:33:56.491Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:34.888Z",
+    "ready1238_units": {
+     "event-portables|0573": {
+      "on": true,
+      "at": "2026-10-26T18:18:50.338Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ed7fdffb-9c15-4cb0-826a-b3c9953f3a9b"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T06:38:42.944Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.462Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T06:38:42.944Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "258a133b-214e-4102-a6c4-10eebcda48a7",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:33:56.931Z",
+       "requiredKey": "[[\"fwf\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"PG29\",\"event-portables\",\"native\",\"slot:ed7fdffb-9c15-4cb0-826a-b3c9953f3a9b\"]"
+         ],
+         "numbers": [
+          "0573"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"PG29\",\"event-portables\",\"native\",\"slot:ed7fdffb-9c15-4cb0-826a-b3c9953f3a9b\"]",
+           "number": "0573",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T06:38:42.944Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:34.888Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0573",
+      "ready": true,
+      "at": "2026-10-26T10:26:24.701Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0573",
+      "ready": true,
+      "at": "2026-10-26T18:18:50.338Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "PG29"
+   },
+   "delivery/T0176": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:31:03.988Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:03.491Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:08.143Z",
+    "ready1238_units": {
+     "event-portables|0576": {
+      "on": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a83415b7-931c-4f1d-ad16-aba439253997"
+     },
+     "event-portables|0994": {
+      "on": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:03.988Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:38:46.337Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "554378d3-c2a8-41ba-a86c-e972ab836422",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:31:03.988Z",
+       "requiredKey": "[[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"T0176\",\"event-portables\",\"native\",\"slot:a5bae3cd-2a82-4555-b51a-45f1d76e52a7\"]"
+         ],
+         "numbers": [
+          "0994"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0176\",\"event-portables\",\"native\",\"slot:a5bae3cd-2a82-4555-b51a-45f1d76e52a7\"]",
+           "number": "0994",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:08.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0576",
+      "ready": true,
+      "at": "2026-10-26T10:26:32.437Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0994",
+      "ready": true,
+      "at": "2026-10-26T10:26:32.437Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0576",
+      "ready": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0994",
+      "ready": true,
+      "at": "2026-10-26T18:18:58.040Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/WC45": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:54:51.775Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:54:51.363Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:21.631Z",
+    "ready1238_units": {
+     "event-portables|0086": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/55464a7c-53cf-4581-b5a6-f8509a79787d"
+     },
+     "event-portables|0542": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/0dc1cb04-a135-4d69-945b-060e56daac3f"
+     },
+     "event-portables|0544": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/7d6b3bf2-49ab-416a-bb52-70f819a66c1f"
+     },
+     "event-portables|0549": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/c36a9a1c-bbb0-4b4c-8f0a-a4f1fbc1f909"
+     },
+     "event-portables|0562": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/bc159408-eac2-4868-a6e5-0b946d6a6833"
+     },
+     "event-portables|0632": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/aaa59548-da70-4645-bfb9-2a19120651e7"
+     },
+     "event-portables|0673": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/e8f2d3d0-4a90-4c03-afc6-a75e340d3899"
+     },
+     "event-portables|0947": {
+      "on": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/69d8c648-7e70-4b1c-8b45-ad2d49150e78"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:54:51.775Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.895Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:38:47.909Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "bc699b61-8428-4c1f-af41-370af9c2aa62",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:54:51.775Z",
+       "requiredKey": "[[\"fwf\",8]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 7,
+         "unitIds": [
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:0dc1cb04-a135-4d69-945b-060e56daac3f\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:55464a7c-53cf-4581-b5a6-f8509a79787d\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:69d8c648-7e70-4b1c-8b45-ad2d49150e78\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:aaa59548-da70-4645-bfb9-2a19120651e7\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:bc159408-eac2-4868-a6e5-0b946d6a6833\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:c36a9a1c-bbb0-4b4c-8f0a-a4f1fbc1f909\"]",
+          "[\"WC45\",\"event-portables\",\"native\",\"slot:e8f2d3d0-4a90-4c03-afc6-a75e340d3899\"]"
+         ],
+         "numbers": [
+          "0542",
+          "0086",
+          "0947",
+          "0632",
+          "0562",
+          "0549",
+          "0673"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:0dc1cb04-a135-4d69-945b-060e56daac3f\"]",
+           "number": "0542",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:55464a7c-53cf-4581-b5a6-f8509a79787d\"]",
+           "number": "0086",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:69d8c648-7e70-4b1c-8b45-ad2d49150e78\"]",
+           "number": "0947",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:aaa59548-da70-4645-bfb9-2a19120651e7\"]",
+           "number": "0632",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:bc159408-eac2-4868-a6e5-0b946d6a6833\"]",
+           "number": "0562",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:c36a9a1c-bbb0-4b4c-8f0a-a4f1fbc1f909\"]",
+           "number": "0549",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC45\",\"event-portables\",\"native\",\"slot:e8f2d3d0-4a90-4c03-afc6-a75e340d3899\"]",
+           "number": "0673",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:21.631Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0086",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0542",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0544",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0549",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0562",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0632",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0673",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0947",
+      "ready": true,
+      "at": "2026-10-26T10:27:15.424Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0086",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0542",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0544",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0549",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0562",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0632",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0673",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0947",
+      "ready": true,
+      "at": "2026-10-26T18:19:37.415Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC45"
+   },
+   "delivery/WC69": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:32:13.474Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:25.782Z",
+    "ready1238_units": {
+     "event-portables|0010": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0070": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0078": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0123": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0152": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0432": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0592": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0622": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0647": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0679": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0692": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "event-portables|0958": {
+      "on": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:33:00.831Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.910Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.284Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:50:00.898Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:24:00.429Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:32:13.474Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:13:19.910Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d82172d8-dd7f-42bd-821d-c6dc9a99b5f1",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T15:30:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T02:32:13.474Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 2,
+         "unitIds": [
+          "[\"WC69\",\"event-portables\",\"asset\",\"0078\"]",
+          "[\"WC69\",\"event-portables\",\"asset\",\"0010\"]"
+         ],
+         "numbers": [
+          "0078",
+          "0010"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC69\",\"event-portables\",\"asset\",\"0078\"]",
+           "number": "0078",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC69\",\"event-portables\",\"asset\",\"0010\"]",
+           "number": "0010",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:38:44.687Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "0c954737-62cf-4a1d-8581-9ceb81e50aed",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T02:32:13.474Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC69\",\"event-portables\",\"asset\",\"0647\"]"
+         ],
+         "numbers": [
+          "0647"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC69\",\"event-portables\",\"asset\",\"0647\"]",
+           "number": "0647",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:33:00.831Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:25.782Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0010",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0070",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0078",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0123",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0152",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0432",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0592",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0622",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0647",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0679",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0692",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0958",
+      "ready": true,
+      "at": "2026-10-26T10:27:46.991Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0010",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0070",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0078",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0123",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0152",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0432",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0592",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0622",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0647",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0679",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0692",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0958",
+      "ready": true,
+      "at": "2026-10-26T18:20:05.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-13T02:29:04.302Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-13T02:29:04.302Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-13T02:29:04.302Z"
+      }
+     ],
+     "recorded_at": "2026-10-13T02:29:04.302Z"
+    },
+    "_k": "WC69"
+   },
+   "delivery/WC73": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:33:41.848Z",
+    "by": "Andrew Fisher",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:11.932Z",
+    "ready1238_units": {
+     "event-portables|0192": {
+      "on": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/ce901776-c58c-40f5-8613-0f1f6b671c00"
+     },
+     "event-portables|0765": {
+      "on": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/2900311c-dfd8-4c4f-9b3e-e416c007e352"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:33:41.848Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.741Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-27T06:38:41.984Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "80ce2cfb-762b-447e-8357-3b63cb83cb1d",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-13T03:33:41.848Z",
+       "requiredKey": "[[\"fwf\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC73\",\"event-portables\",\"native\",\"slot:2900311c-dfd8-4c4f-9b3e-e416c007e352\"]"
+         ],
+         "numbers": [
+          "0765"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC73\",\"event-portables\",\"native\",\"slot:2900311c-dfd8-4c4f-9b3e-e416c007e352\"]",
+           "number": "0765",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:11.932Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0192",
+      "ready": true,
+      "at": "2026-10-26T10:27:55.929Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0765",
+      "ready": true,
+      "at": "2026-10-26T10:27:55.929Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0192",
+      "ready": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0765",
+      "ready": true,
+      "at": "2026-10-26T18:20:13.402Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "WC73"
+   },
+   "delivery/BJR01": {
+    "state": "in transit",
+    "set_at": "2026-10-27T06:38:43.727Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:29:14.982Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:19:50.277Z",
+    "ready1238_units": {
+     "event-portables|0941": {
+      "on": true,
+      "at": "2026-10-26T18:18:41.745Z",
+      "by": "Andrew Fisher",
+      "why": "",
+      "doc": "unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T06:38:43.727Z",
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T06:38:43.727Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "55dd620e-ac33-404d-93d3-b94613f51a19",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T16:30:00+10:00",
+       "programmeDate": "2026-11-02",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T01:28:42.719Z",
+       "requiredKey": "[[\"fwf\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"BJR01\",\"event-portables\",\"native\",\"slot:5d0f29cd-d71a-4063-9e34-3bb884bfeeb3\"]"
+         ],
+         "numbers": [
+          "0941"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"BJR01\",\"event-portables\",\"native\",\"slot:5d0f29cd-d71a-4063-9e34-3bb884bfeeb3\"]",
+           "number": "0941",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:29:15.368Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T06:38:43.727Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:19:50.277Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "event-portables|0941",
+      "ready": true,
+      "at": "2026-10-26T10:26:16.206Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "event-portables|0941",
+      "ready": true,
+      "at": "2026-10-26T18:18:41.745Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "BJR01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

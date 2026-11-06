@@ -1,0 +1,349 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T052942Z",
+ "finished": "2026-11-02T05:30:16.656Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 15:xx AEST: \"2 x 200kva generators leaving at 315pm\". The two 200 kVA concert generators are reference GN? (\"Concert\", 2 x 200kva & cables; contract 9994954, KINP), Coates 1316182 and 1316183, its only units (both ticked Ready 2 Nov): they left site at 15:15 on 2 Nov, so GN? leaves in full, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN?",
+    "at": "2026-11-02T15:15:00+10:00",
+    "nos": [
+     "1316182",
+     "1316183"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12845,
+  "after": 12846
+ },
+ "updated": {
+  "before": "2026-11-02T05:02:47.081Z",
+  "after": "2026-11-02T05:30:15.831Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN?",
+   "at": "2026-11-02T15:15:00+10:00",
+   "nos": [
+    "1316182",
+    "1316183"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T15:15:00+10:00, recorded by Andrew Fisher: 2 x 200kva & cables 1316182, 1316183 - GN? has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN~3f~",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN~3f~": {
+    "state": "on site",
+    "set_at": "2026-10-12T03:16:58.541Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1316183": {
+      "on": true,
+      "at": "2026-11-02T01:54:37.456Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1316182": {
+      "on": true,
+      "at": "2026-11-02T01:54:39.618Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1316182": {
+      "at": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:43:57.012Z"
+     },
+     "coates|1316183": {
+      "at": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:44:13.910Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-12T03:16:58.541Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.532Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T03:16:58.541Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-12T03:16:58.541Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1316183",
+      "ready": true,
+      "at": "2026-11-02T01:54:37.456Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1316182",
+      "ready": true,
+      "at": "2026-11-02T01:54:39.618Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1316182",
+      "pickup": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:43:57.012Z"
+     },
+     {
+      "unit": "coates|1316183",
+      "pickup": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:44:13.910Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:41:49.049Z"
+    },
+    "_k": "GN?"
+   }
+  },
+  "after": {
+   "delivery/GN~3f~": {
+    "state": "in transit",
+    "set_at": "2026-11-02T05:30:01.576Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1316183": {
+      "on": true,
+      "at": "2026-11-02T01:54:37.456Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1316182": {
+      "on": true,
+      "at": "2026-11-02T01:54:39.618Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1316182": {
+      "at": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:43:57.012Z"
+     },
+     "coates|1316183": {
+      "at": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:44:13.910Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T05:30:01.576Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:15.532Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T03:16:58.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T05:30:01.576Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1389da1a-0904-4ff0-9929-5ef85d22e349",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T15:15:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-12T03:16:58.541Z",
+       "requiredKey": "[[\"200kva & cables\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "200kva & cables",
+         "n": 2,
+         "unitIds": [
+          "[\"GN?\",\"coates\",\"asset\",\"1316182\"]",
+          "[\"GN?\",\"coates\",\"asset\",\"1316183\"]"
+         ],
+         "numbers": [
+          "1316182",
+          "1316183"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN?\",\"coates\",\"asset\",\"1316182\"]",
+           "number": "1316182",
+           "owner": "coates",
+           "item": "200kva & cables"
+          },
+          {
+           "id": "[\"GN?\",\"coates\",\"asset\",\"1316183\"]",
+           "number": "1316183",
+           "owner": "coates",
+           "item": "200kva & cables"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-12T03:16:58.541Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T05:30:01.576Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1316183",
+      "ready": true,
+      "at": "2026-11-02T01:54:37.456Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1316182",
+      "ready": true,
+      "at": "2026-11-02T01:54:39.618Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1316182",
+      "pickup": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:43:57.012Z"
+     },
+     {
+      "unit": "coates|1316183",
+      "pickup": "2026-11-02T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:44:13.910Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-12T04:41:49.049Z"
+    },
+    "_k": "GN?"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

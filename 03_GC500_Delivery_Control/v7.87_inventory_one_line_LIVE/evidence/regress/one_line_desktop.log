@@ -1,0 +1,13 @@
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.evaluate: TypeError: Cannot read properties of undefined (reading 'dataset')
+    at eval (eval at evaluate (:311:30), <anonymous>:1:82)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /home/user/fish/03_GC500_Delivery_Control/v7.87_inventory_one_line_DRAFT/evidence/one_line_tests.js:47:22 {
+  log: []
+}
+
+Node.js v22.22.2

@@ -1,0 +1,7093 @@
+{
+ "read_at": "2026-10-14T15:56:20.592Z",
+ "today": "2026-10-15",
+ "days": {
+  "2026-09-07": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Mon 07 Sep 2026",
+   "on": {
+    "Variable message signs": 1
+   },
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-08": {
+   "in_programme": true,
+   "empty": true,
+   "words": "Tue 08 Sep 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-09": {
+   "in_programme": true,
+   "empty": true,
+   "words": "Wed 09 Sep 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-10": {
+   "in_programme": true,
+   "empty": true,
+   "words": "Thu 10 Sep 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-11": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Fri 11 Sep 2026",
+   "on": {
+    "Lighting towers": 1,
+    "Access & plant": 1,
+    "Other": 2
+   },
+   "off": {},
+   "counts": "1 light tower on",
+   "sectors": [],
+   "ticks": [
+    "power",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-12": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Sat 12 Sep 2026",
+   "on": {
+    "Access & plant": 1
+   },
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": null,
+    "names": []
+   },
+   "roster": []
+  },
+  "2026-09-21": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Mon 21 Sep 2026",
+   "on": {
+    "Portable buildings": 4,
+    "Water-filled barriers": 1,
+    "Toilets & amenities": 4
+   },
+   "off": {},
+   "counts": "4 buildings on · 4 toilets on · 1 water barrier on",
+   "sectors": [
+    [
+     "S02",
+     4
+    ],
+    [
+     "S08",
+     1
+    ],
+    [
+     "S10",
+     1
+    ],
+    [
+     "S11",
+     1
+    ],
+    [
+     "S18",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "barriers",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": []
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher"
+   ]
+  },
+  "2026-09-22": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Tue 22 Sep 2026",
+   "on": {
+    "Toilets & amenities": 1
+   },
+   "off": {},
+   "counts": "1 toilet on",
+   "sectors": [
+    [
+     "S11",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ]
+  },
+  "2026-09-23": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Wed 23 Sep 2026",
+   "on": {
+    "Portable buildings": 3,
+    "Toilets & amenities": 1
+   },
+   "off": {},
+   "counts": "3 buildings on · 1 toilet on",
+   "sectors": [
+    [
+     "S10",
+     1
+    ],
+    [
+     "S04",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ]
+  },
+  "2026-09-24": {
+   "in_programme": true,
+   "empty": true,
+   "words": "Thu 24 Sep 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ]
+  },
+  "2026-09-25": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Fri 25 Sep 2026",
+   "on": {
+    "Toilets & amenities": 2
+   },
+   "off": {},
+   "counts": "2 toilets on",
+   "sectors": [
+    [
+     "S01",
+     1
+    ],
+    [
+     "S08",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Kyle Gover",
+     "Andrew Fisher"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ]
+  },
+  "2026-09-28": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Mon 28 Sep 2026",
+   "on": {
+    "Generators": 1,
+    "Portable buildings": 4,
+    "Toilets & amenities": 4
+   },
+   "off": {},
+   "counts": "4 buildings on · 4 toilets on · 1 generator on",
+   "sectors": [
+    [
+     "S10",
+     2
+    ],
+    [
+     "S13",
+     1
+    ],
+    [
+     "S11",
+     1
+    ],
+    [
+     "S14",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 5,
+    "names": []
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-09-29": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Tue 29 Sep 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-09-30": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Wed 30 Sep 2026",
+   "on": {
+    "Generators": 3
+   },
+   "off": {},
+   "counts": "3 generators on",
+   "sectors": [
+    [
+     "S13",
+     2
+    ],
+    [
+     "S02",
+     1
+    ]
+   ],
+   "ticks": [
+    "power",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 5,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough",
+     "Jayden Paul"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul"
+   ]
+  },
+  "2026-10-01": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Thu 01 Oct 2026",
+   "on": {
+    "Generators": 1,
+    "Toilets & amenities": 7
+   },
+   "off": {},
+   "counts": "7 toilets on · 1 generator on",
+   "sectors": [
+    [
+     "S23",
+     2
+    ],
+    [
+     "S04",
+     1
+    ],
+    [
+     "S21",
+     1
+    ],
+    [
+     "S07",
+     1
+    ],
+    [
+     "S05",
+     1
+    ],
+    [
+     "S18",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_toilets",
+    "power",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 6,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough",
+     "Jayden Paul",
+     "Wayne Crimmin"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul",
+    "Wayne Crimmin"
+   ]
+  },
+  "2026-10-02": {
+   "in_programme": true,
+   "empty": true,
+   "words": "Fri 02 Oct 2026",
+   "on": {},
+   "off": {},
+   "counts": "",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "load_building",
+    "unload_toilets",
+    "load_toilets",
+    "level",
+    "blocks",
+    "stairs",
+    "escort",
+    "drive",
+    "forklift",
+    "relocate",
+    "power",
+    "move_toilets",
+    "spotting",
+    "barriers"
+   ],
+   "ticks_basis": "no scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 5,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough",
+     "Jayden Paul"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Jayden Paul"
+   ]
+  },
+  "2026-10-06": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Tue 06 Oct 2026",
+   "on": {
+    "Portable buildings": 3,
+    "Access & plant": 1
+   },
+   "off": {},
+   "counts": "3 buildings on",
+   "sectors": [
+    [
+     "S10",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-10-07": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Wed 07 Oct 2026",
+   "on": {
+    "Generators": 1,
+    "Portable buildings": 6,
+    "Toilets & amenities": 2
+   },
+   "off": {},
+   "counts": "6 buildings on · 2 toilets on · 1 generator on",
+   "sectors": [
+    [
+     "S23",
+     6
+    ],
+    [
+     "S04",
+     2
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [
+    {
+     "item": "1 × Ticket Box 6m",
+     "time": "05:00",
+     "eta": "",
+     "early": true,
+     "booking": true,
+     "refs": [
+      "P55"
+     ],
+     "drop": "P55 - Gate 1 Ticket Box",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Building 3.6m",
+     "time": "05:00",
+     "eta": "",
+     "early": true,
+     "booking": true,
+     "refs": [
+      "P56"
+     ],
+     "drop": "P56 - Gate 1 Ticket BOH",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Building 6m",
+     "time": "05:30",
+     "eta": "",
+     "early": true,
+     "booking": true,
+     "refs": [
+      "P54"
+     ],
+     "drop": "P54 - Accred Centre BOH",
+     "carrier": "READYS"
+    },
+    {
+     "item": "1 × Accessible Toilet + 1 × 3.0m Cont",
+     "time": "05:30",
+     "eta": "",
+     "early": true,
+     "booking": true,
+     "refs": [
+      "WC86",
+      "T0258"
+     ],
+     "drop": "WC86 - Toilet + Helen Park",
+     "carrier": "IRWINS"
+    },
+    {
+     "item": "1 × Building 9.6m",
+     "time": "08:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "P57"
+     ],
+     "drop": "P57 - Radio Distribution Office",
+     "carrier": "READYS"
+    },
+    {
+     "item": "1 × Building 12m",
+     "time": "08:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "P52"
+     ],
+     "drop": "P52 - Gate 1 Volunteer Check-In",
+     "carrier": "READYS"
+    },
+    {
+     "item": "1 × Waste tank",
+     "time": "06:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC20"
+     ],
+     "drop": "WC20",
+     "carrier": "KEV"
+    },
+    {
+     "item": "1 × Waste tank",
+     "time": "07:00",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC20"
+     ],
+     "drop": "WC20",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Toilet Block 6m",
+     "time": "09:00",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC20"
+     ],
+     "drop": "WC20 - Toilets (Tank Mounted)",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Toilet Block 6m",
+     "time": "09:00",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC20"
+     ],
+     "drop": "WC20 - Toilets (Tank Mounted)",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × 50kva",
+     "time": "09:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "GN18"
+     ],
+     "drop": "GN18 - Generator",
+     "carrier": "KEV"
+    }
+   ],
+   "loads_table": "<table class=\"lds\"><thead><tr><th class=\"n\">DD ORDER</th><th>LOAD</th><th>LOAD AT KINGSTON</th><th>DUE ON SITE</th><th></th><th>REFERENCES ON THE LOAD</th><th>DROP POINT</th></tr></thead><tbody><tr><td class=\"n\">1st</td><td>1 × Ticket Box 6m</td><td>05:00</td><td></td><td>early</td><td>P55</td><td>P55 - Gate 1 Ticket Box</td></tr><tr><td class=\"n\">2nd</td><td>1 × Building 3.6m</td><td>05:00</td><td></td><td>early</td><td>P56</td><td>P56 - Gate 1 Ticket BOH</td></tr><tr><td class=\"n\">3rd</td><td>1 × Building 6m</td><td>05:30</td><td></td><td>early</td><td>P54</td><td>P54 - Accred Centre BOH</td></tr><tr><td class=\"n\">4th</td><td>1 × Accessible Toilet + 1 × 3.0m Cont</td><td>05:30</td><td></td><td>early</td><td>WC86, T0258</td><td>WC86 - Toilet + Helen Park</td></tr><tr><td class=\"n\">5th</td><td>1 × Building 9.6m</td><td>08:30</td><td></td><td></td><td>P57</td><td>P57 - Radio Distribution Office</td></tr><tr><td class=\"n\">6th</td><td>1 × Building 12m</td><td>08:30</td><td></td><td></td><td>P52</td><td>P52 - Gate 1 Volunteer Check-In</td></tr><tr><td class=\"n\">7th</td><td>1 × Waste tank</td><td>06:30</td><td></td><td></td><td>WC20</td><td>WC20</td></tr><tr><td class=\"n\">7th</td><td>1 × Waste tank</td><td>07:00</td><td></td><td></td><td>WC20</td><td>WC20</td></tr><tr><td class=\"n\">8th</td><td>1 × Toilet Block 6m</td><td>09:00</td><td></td><td></td><td>WC20</td><td>WC20 - Toilets (Tank Mounted)</td></tr><tr><td class=\"n\">8th</td><td>1 × Toilet Block 6m</td><td>09:00</td><td></td><td></td><td>WC20</td><td>WC20 - Toilets (Tank Mounted)</td></tr><tr><td class=\"n\">Not supplied</td><td>1 × 50kva</td><td>09:30</td><td></td><td></td><td>GN18</td><td>GN18 - Generator</td></tr></tbody></table>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-10-08": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Thu 08 Oct 2026",
+   "on": {
+    "Toilets & amenities": 1,
+    "Variable message signs": 1
+   },
+   "off": {},
+   "counts": "1 toilet on",
+   "sectors": [],
+   "ticks": [
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [
+    {
+     "item": "1 × Toilet Block 6m",
+     "time": "09:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC09"
+     ],
+     "drop": "Toilets",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Toilet Block 6m",
+     "time": "10:00",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "WC09"
+     ],
+     "drop": "Toilets",
+     "carrier": "SFL"
+    }
+   ],
+   "loads_table": "<table class=\"lds\"><thead><tr><th class=\"n\">DD ORDER</th><th>LOAD</th><th>LOAD AT KINGSTON</th><th>DUE ON SITE</th><th></th><th>REFERENCES ON THE LOAD</th><th>DROP POINT</th></tr></thead><tbody><tr><td class=\"n\">Not supplied</td><td>1 × Toilet Block 6m</td><td>09:30</td><td></td><td></td><td>WC09</td><td>Toilets</td></tr><tr><td class=\"n\">Not supplied</td><td>1 × Toilet Block 6m</td><td>10:00</td><td></td><td></td><td>WC09</td><td>Toilets</td></tr></tbody></table>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Daniel Gough",
+     "Andrew Fisher"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-10-09": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Fri 09 Oct 2026",
+   "on": {
+    "Toilets & amenities": 2
+   },
+   "off": {},
+   "counts": "2 toilets on",
+   "sectors": [
+    [
+     "S25",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Alfie Harris",
+     "Andrew Fisher",
+     "Daniel Gough"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Alfie Harris",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-10-12": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Mon 12 Oct 2026",
+   "on": {
+    "Generators": 2,
+    "Portable buildings": 2,
+    "Access & plant": 1,
+    "Toilets & amenities": 2
+   },
+   "off": {},
+   "counts": "2 buildings on · 2 toilets on · 2 generators on",
+   "sectors": [
+    [
+     "Concert",
+     1
+    ],
+    [
+     "S22A",
+     1
+    ],
+    [
+     "S23",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [
+    {
+     "item": "1 × Building 6m",
+     "time": "08:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "P45"
+     ],
+     "drop": "St John First Aid",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × Building 6m",
+     "time": "09:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "P69"
+     ],
+     "drop": "Supply Building",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × 200kva & cables",
+     "time": "11:00",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "GN?"
+     ],
+     "drop": "Concert",
+     "carrier": "SFL"
+    },
+    {
+     "item": "1 × 200kva & cables",
+     "time": "11:30",
+     "eta": "",
+     "early": false,
+     "booking": true,
+     "refs": [
+      "GN?"
+     ],
+     "drop": "Concert",
+     "carrier": "SFL"
+    }
+   ],
+   "loads_table": "<table class=\"lds\"><thead><tr><th class=\"n\">DD ORDER</th><th>LOAD</th><th>LOAD AT KINGSTON</th><th>DUE ON SITE</th><th></th><th>REFERENCES ON THE LOAD</th><th>DROP POINT</th></tr></thead><tbody><tr><td class=\"n\">1st</td><td>1 × Building 6m</td><td>08:30</td><td></td><td></td><td>P45</td><td>St John First Aid</td></tr><tr><td class=\"n\">2nd</td><td>1 × Building 6m</td><td>09:30</td><td></td><td></td><td>P69</td><td>Supply Building</td></tr><tr><td class=\"n\">Not supplied</td><td>1 × 200kva &amp; cables</td><td>11:00</td><td></td><td></td><td>GN?</td><td>Concert</td></tr><tr><td class=\"n\">Not supplied</td><td>1 × 200kva &amp; cables</td><td>11:30</td><td></td><td></td><td>GN?</td><td>Concert</td></tr></tbody></table>",
+   "crew": {
+    "count": 3,
+    "names": [
+     "Aaron Zelvis",
+     "Andrew Fisher",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Andrew Fisher",
+    "Kyle Gover"
+   ]
+  },
+  "2026-10-13": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Tue 13 Oct 2026",
+   "on": {
+    "Portable buildings": 1,
+    "Toilets & amenities": 10
+   },
+   "off": {},
+   "counts": "1 building on · 10 toilets on",
+   "sectors": [
+    [
+     "S23",
+     5
+    ],
+    [
+     "S10",
+     2
+    ],
+    [
+     "S01",
+     1
+    ],
+    [
+     "S02",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 3,
+    "names": [
+     "Andrew Fisher",
+     "Daniel Gough",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Andrew Fisher",
+    "Daniel Gough",
+    "Kyle Gover"
+   ]
+  },
+  "2026-10-14": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Wed 14 Oct 2026",
+   "on": {
+    "Portable buildings": 4,
+    "Furniture": 1,
+    "Toilets & amenities": 6
+   },
+   "off": {},
+   "counts": "4 buildings on · 6 toilets on",
+   "sectors": [],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Daniel Gough",
+     "Andrew Fisher",
+     "Eric Lucian"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  },
+  "2026-10-15": {
+   "in_programme": true,
+   "empty": false,
+   "words": "Thu 15 Oct 2026",
+   "on": {
+    "Generators": 1,
+    "Portable buildings": 3,
+    "Toilets & amenities": 10
+   },
+   "off": {},
+   "counts": "3 buildings on · 10 toilets on · 1 generator on",
+   "sectors": [
+    [
+     "S15",
+     3
+    ],
+    [
+     "S05",
+     1
+    ]
+   ],
+   "ticks": [
+    "unload_building",
+    "level",
+    "blocks",
+    "stairs",
+    "power",
+    "unload_toilets",
+    "forklift",
+    "spotting",
+    "drive",
+    "escort"
+   ],
+   "ticks_basis": "scope",
+   "loads": [],
+   "loads_table": "<p class=\"none\">No loads are held against this day in the transport plan.</p>",
+   "crew": {
+    "count": 4,
+    "names": [
+     "Aaron Zelvis",
+     "Andrew Fisher",
+     "Daniel Gough",
+     "Kyle Gover"
+    ]
+   },
+   "roster": [
+    "Aaron Zelvis",
+    "Andrew Fisher",
+    "Daniel Gough"
+   ]
+  }
+ },
+ "dockets": [
+  {
+   "id": "F001",
+   "docket_no": "36501",
+   "date": "2026-09-09",
+   "week": "Week 6",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Sea World Drive, Main Beach",
+   "quantities": {
+    "clean": 247.5
+   },
+   "components": {
+    "mesh_panel": 99,
+    "base": 100,
+    "clamp": 118,
+    "wheels": 9
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK6",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F002",
+   "docket_no": "36502",
+   "date": "2026-09-11",
+   "week": "Week 6",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Phillip Park (Advanced compound)",
+   "quantities": {
+    "clean": 257.5
+   },
+   "components": {
+    "mesh_panel": 103,
+    "base": 101,
+    "clamp": 109,
+    "wheels": 3
+   },
+   "signed_by": "Brenden",
+   "scope": "compound",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK6",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F003",
+   "docket_no": "36503",
+   "date": "2026-09-11",
+   "week": "Week 6",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Sea World Drive, Main Beach",
+   "quantities": {},
+   "components": {
+    "base": 16,
+    "clamp": 16,
+    "brace": 8
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK6",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F004",
+   "docket_no": "36504",
+   "date": "2026-09-11",
+   "week": "Week 6",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Helen Park, BSF compound",
+   "quantities": {
+    "clean": 72.5,
+    "scrim": 72.5
+   },
+   "components": {
+    "mesh_panel": 29,
+    "base": 52,
+    "clamp": 52,
+    "brace": 12,
+    "wheels": 2
+   },
+   "signed_by": "Brenden",
+   "scope": "compound",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK6",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F011",
+   "docket_no": "36511",
+   "date": "2026-09-12",
+   "week": "Week 6",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Yatala — Morayfield (Phillip Island / Morayfield), region Yatala",
+   "quantities": {
+    "labour": 8.5
+   },
+   "components": {},
+   "signed_by": "Andrew Fisher",
+   "scope": "yard",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK6",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F035",
+   "docket_no": "36536",
+   "date": "2026-09-21",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S08 C.Z. — construction zone",
+   "quantities": {
+    "clean": 172.5
+   },
+   "components": {
+    "mesh_panel": 69,
+    "base": 72,
+    "clamp": 70,
+    "wheels": 2
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F036",
+   "docket_no": "36537",
+   "date": "2026-09-21",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S04 C.Z. — construction zone",
+   "quantities": {
+    "clean": 172.5
+   },
+   "components": {
+    "mesh_panel": 69,
+    "base": 71,
+    "clamp": 70,
+    "wheels": 2
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F037",
+   "docket_no": "36538",
+   "date": "2026-09-21",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S.O.5 grandstand walkway",
+   "quantities": {
+    "clean": 32.5
+   },
+   "components": {
+    "mesh_panel": 13
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F038",
+   "docket_no": "36539",
+   "date": "2026-09-22",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Cypress Carpark",
+   "quantities": {
+    "scrim": 97.5
+   },
+   "components": {
+    "base": 32,
+    "clamp": 32,
+    "brace": 16
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F039",
+   "docket_no": "36540",
+   "date": "2026-09-22",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "The Hill",
+   "quantities": {
+    "ccb_demarc": 370
+   },
+   "components": {
+    "cc_barrier": 148
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F040",
+   "docket_no": "36541",
+   "date": "2026-09-22",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "The Hill — green bays",
+   "quantities": {
+    "ccb_event": 25
+   },
+   "components": {
+    "cc_barrier": 10
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F041",
+   "docket_no": "36542",
+   "date": "2026-09-22",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Viewing mound",
+   "quantities": {
+    "ccb_demarc": 60
+   },
+   "components": {
+    "cc_barrier": 24
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F042",
+   "docket_no": "36543",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "PB02 stair protection",
+   "quantities": {
+    "clean": 20
+   },
+   "components": {
+    "mesh_panel": 8,
+    "base": 8,
+    "clamp": 8
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F043",
+   "docket_no": "36544",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "K01 kitchen compound fencing",
+   "quantities": {
+    "clean": 52.5,
+    "ped_gates": 1
+   },
+   "components": {
+    "mesh_panel": 21,
+    "base": 57,
+    "clamp": 54,
+    "brace": 17
+   },
+   "signed_by": "Andrew",
+   "scope": "compound",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F044",
+   "docket_no": "36545",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Race admin",
+   "quantities": {
+    "clean": 10
+   },
+   "components": {
+    "mesh_panel": 4,
+    "base": 12,
+    "clamp": 12
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F045",
+   "docket_no": "36546",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S.O.4 C.Z. — construction zone",
+   "quantities": {
+    "clean": 22.5
+   },
+   "components": {
+    "mesh_panel": 9,
+    "base": 13,
+    "clamp": 8
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F046",
+   "docket_no": "36547",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "PB01 footings",
+   "quantities": {
+    "clean": 72.5
+   },
+   "components": {
+    "mesh_panel": 29,
+    "base": 53,
+    "clamp": 52,
+    "brace": 12
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F047",
+   "docket_no": "36548",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "PB01 to Kapalua",
+   "quantities": {
+    "clean": 475
+   },
+   "components": {
+    "mesh_panel": 190,
+    "base": 185,
+    "clamp": 185
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F048",
+   "docket_no": "36549",
+   "date": "2026-09-23",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "PB02 footings — north side",
+   "quantities": {
+    "clean": 32.5
+   },
+   "components": {
+    "mesh_panel": 13,
+    "base": 13,
+    "clamp": 13
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F049",
+   "docket_no": "36550",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Axis — Hill Prd",
+   "quantities": {
+    "clean": 62.5
+   },
+   "components": {
+    "mesh_panel": 25,
+    "base": 23,
+    "clamp": 23,
+    "wheels": 4
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F050",
+   "docket_no": "36551",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Breaker St / Serisier Ave — T12 to T14",
+   "quantities": {
+    "ccb_demarc": 510
+   },
+   "components": {
+    "cc_barrier": 204
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F051",
+   "docket_no": "36552",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Telstra C.O.W.",
+   "quantities": {
+    "clean": 25
+   },
+   "components": {
+    "mesh_panel": 10,
+    "base": 8,
+    "clamp": 9,
+    "wheels": 2
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F052",
+   "docket_no": "36553",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "PB01 to Kapalua",
+   "quantities": {
+    "clean": 12.5
+   },
+   "components": {
+    "mesh_panel": 5,
+    "base": 7,
+    "clamp": 6
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F053",
+   "docket_no": "36554",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Main Beach Rd — supply compound to S22",
+   "quantities": {
+    "ccb_demarc": 352.5
+   },
+   "components": {
+    "cc_barrier": 141
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F054",
+   "docket_no": "36555",
+   "date": "2026-09-24",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "P.B.02 footings (south)",
+   "quantities": {
+    "clean": 30
+   },
+   "components": {
+    "mesh_panel": 12,
+    "base": 12,
+    "clamp": 11
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F055",
+   "docket_no": "36556",
+   "date": "2026-09-25",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Narrow Neck to S.O.8 grandstand",
+   "quantities": {
+    "ccb_demarc": 402.5
+   },
+   "components": {
+    "cc_barrier": 161
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F056",
+   "docket_no": "36557",
+   "date": "2026-09-25",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S.O.8 pedestrian walkway",
+   "quantities": {
+    "clean": 100
+   },
+   "components": {
+    "mesh_panel": 40
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F057",
+   "docket_no": "36558",
+   "date": "2026-09-25",
+   "week": "Week 4",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Oceanway C.Z. — concrete barrier infill",
+   "quantities": {
+    "clean": 10
+   },
+   "components": {
+    "mesh_panel": 4,
+    "base": 3,
+    "clamp": 3
+   },
+   "signed_by": "Andrew",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK4",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0001",
+   "docket_no": "36559",
+   "date": "2026-09-28",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S.08 to Midwater, Castle St",
+   "quantities": {
+    "clean": 130,
+    "ccb_demarc": 202.5
+   },
+   "components": {
+    "mesh_panel": 52,
+    "cc_barrier": 81,
+    "base": 52,
+    "clamp": 50,
+    "wheels": 10
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0002",
+   "docket_no": "36560",
+   "date": "2026-09-28",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "GC Hwy median strip (north)",
+   "quantities": {
+    "clean": 507.5,
+    "ccb_demarc": 447.5,
+    "ped_gates": 1
+   },
+   "components": {
+    "mesh_panel": 203,
+    "cc_barrier": 179,
+    "base": 538,
+    "clamp": 547,
+    "brace": 171,
+    "wheels": 6
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0003",
+   "docket_no": "36561",
+   "date": "2026-09-28",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Ocean Way carpark and construction zone",
+   "quantities": {
+    "clean": 142.5
+   },
+   "components": {
+    "mesh_panel": 57,
+    "base": 50,
+    "clamp": 54,
+    "wheels": 6
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0004",
+   "docket_no": "36562",
+   "date": "2026-09-29",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S.01 to Gate 6 (beach run)",
+   "quantities": {
+    "clean": 327.5
+   },
+   "components": {
+    "mesh_panel": 131,
+    "base": 127,
+    "clamp": 126
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0005",
+   "docket_no": "36563",
+   "date": "2026-09-29",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S18 grandstand to Meriton",
+   "quantities": {
+    "ccb_demarc": 150
+   },
+   "components": {
+    "cc_barrier": 60
+   },
+   "signed_by": "Brenden",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0006",
+   "docket_no": "36564",
+   "date": "2026-09-29",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "WC15 - rear fencing (toilets)",
+   "quantities": {
+    "clean": 40,
+    "scrim": 40
+   },
+   "components": {
+    "mesh_panel": 16,
+    "base": 32,
+    "clamp": 29,
+    "brace": 8
+   },
+   "signed_by": "Andrew (2 Oct 2026)",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0007",
+   "docket_no": "36565",
+   "date": "2026-09-29",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S04 to S05 pedestrian bridge",
+   "quantities": {
+    "clean": 25
+   },
+   "components": {
+    "mesh_panel": 10,
+    "base": 9,
+    "clamp": 9
+   },
+   "signed_by": "Andrew (2 Oct 2026)",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0008",
+   "docket_no": "36566",
+   "date": "2026-09-30",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Rear of pit building / rear of Puppet Theatre",
+   "quantities": {
+    "fence_blocks": 216
+   },
+   "components": {
+    "base": 216,
+    "clamp": 216,
+    "brace": 108
+   },
+   "signed_by": "Andrew (2 Oct 2026)",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0009",
+   "docket_no": "36567",
+   "date": "2026-09-30",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Smoking zones - trackwide",
+   "quantities": {
+    "ccb_event": 215
+   },
+   "components": {
+    "cc_barrier": 86
+   },
+   "signed_by": "Andrew (2 Oct 2026)",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0010",
+   "docket_no": "36568",
+   "date": "2026-10-01",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "GC Hwy median strip (south)",
+   "quantities": {
+    "clean": 462.5,
+    "ccb_demarc": 420,
+    "scrim": 462.5
+   },
+   "components": {
+    "mesh_panel": 185,
+    "cc_barrier": 168,
+    "base": 474,
+    "clamp": 487,
+    "wheels": 6
+   },
+   "signed_by": "Andrew (2 Oct 2026)",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0011",
+   "docket_no": "36569",
+   "date": "2026-10-02",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Event - ELEC",
+   "quantities": {
+    "clean": 82.5,
+    "scrim": 82.5
+   },
+   "components": {
+    "mesh_panel": 33,
+    "base": 83,
+    "clamp": 85,
+    "brace": 26,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0012",
+   "docket_no": "36570",
+   "date": "2026-10-02",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Telstra COW",
+   "quantities": {
+    "scrim": 25
+   },
+   "components": {
+    "base": 8,
+    "clamp": 8,
+    "brace": 4
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0013",
+   "docket_no": "36571",
+   "date": "2026-10-02",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Triangle to Gate 6 beach run",
+   "quantities": {
+    "clean": 337.5
+   },
+   "components": {
+    "mesh_panel": 135,
+    "base": 129,
+    "clamp": 128,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0014",
+   "docket_no": "36572",
+   "date": "2026-10-02",
+   "week": "Week 3",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S14 construction zone",
+   "quantities": {
+    "clean": 15
+   },
+   "components": {
+    "mesh_panel": 6,
+    "base": 4,
+    "clamp": 5,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK3",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0015",
+   "docket_no": "36573",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Paradise Waters — Gate 2 entry",
+   "quantities": {
+    "clean": 97.5
+   },
+   "components": {
+    "mesh_panel": 39,
+    "base": 32,
+    "clamp": 31
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0016",
+   "docket_no": "36574",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "TV parking",
+   "quantities": {
+    "clean": 177.5
+   },
+   "components": {
+    "mesh_panel": 71,
+    "base": 76,
+    "clamp": 80,
+    "brace": 4,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0017",
+   "docket_no": "36575",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S01–S02 — stairs",
+   "quantities": {
+    "clean": 135,
+    "scrim": 135
+   },
+   "components": {
+    "mesh_panel": 54,
+    "clamp": 24,
+    "wheels": 6
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0018",
+   "docket_no": "36576",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S01 — toilet infill",
+   "quantities": {
+    "clean": 2.5,
+    "scrim": 2.5
+   },
+   "components": {
+    "mesh_panel": 1,
+    "base": 6,
+    "clamp": 4,
+    "brace": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0019",
+   "docket_no": "36577",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Club 500 storage — perimeter fence",
+   "quantities": {
+    "clean": 30,
+    "scrim": 30
+   },
+   "components": {
+    "mesh_panel": 12,
+    "base": 25,
+    "clamp": 25,
+    "brace": 7,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0020",
+   "docket_no": "36578",
+   "date": "2026-10-06",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "TV compound perimeter fence",
+   "quantities": {
+    "clean": 75
+   },
+   "components": {
+    "mesh_panel": 30,
+    "base": 30,
+    "clamp": 20
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0021",
+   "docket_no": "36579",
+   "date": "2026-10-07",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Commodore Park",
+   "quantities": {
+    "clean": 177.5,
+    "scrim": 177.5,
+    "ped_gates": 2
+   },
+   "components": {
+    "mesh_panel": 71,
+    "base": 163,
+    "clamp": 160,
+    "brace": 49,
+    "wheels": 8
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0022",
+   "docket_no": "36580",
+   "date": "2026-10-07",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S17–S20 — walk through (grandstands)",
+   "quantities": {
+    "clean": 150
+   },
+   "components": {
+    "mesh_panel": 60
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0023",
+   "docket_no": "36582",
+   "date": "2026-10-07",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Race Admin — double stack — C.2",
+   "quantities": {
+    "clean": 82.5
+   },
+   "components": {
+    "mesh_panel": 33,
+    "base": 31,
+    "clamp": 30,
+    "wheels": 2
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0025",
+   "docket_no": "36581",
+   "date": "2026-10-07",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S04 — Corporate",
+   "quantities": {},
+   "components": {
+    "base": 58,
+    "clamp": 58,
+    "brace": 29
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0026",
+   "docket_no": null,
+   "date": "2026-10-07",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S10 compound",
+   "quantities": {
+    "scrim": 150
+   },
+   "components": null,
+   "signed_by": null,
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": "service-work",
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": {
+    "note_no": "24472",
+    "date": "2026-10-07",
+    "location": "S10",
+    "crew_note": "4 men × 1 hr each",
+    "labour_hours": 4
+   }
+  },
+  {
+   "id": "F-AFV-0024",
+   "docket_no": "36583",
+   "date": "2026-10-08",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Helen Park C.2 + perimeter fence",
+   "quantities": {
+    "clean": 215
+   },
+   "components": {
+    "mesh_panel": 86,
+    "base": 129,
+    "clamp": 128,
+    "brace": 22,
+    "wheels": 6
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0027",
+   "docket_no": "36584",
+   "date": "2026-10-08",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "North S01 — Infill",
+   "quantities": {
+    "clean": 7.5,
+    "scrim": 7.5
+   },
+   "components": {
+    "mesh_panel": 3,
+    "base": 6,
+    "clamp": 3,
+    "brace": 1
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0028",
+   "docket_no": "36585",
+   "date": "2026-10-08",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Podium",
+   "quantities": {
+    "clean": 45,
+    "scrim": 45,
+    "ped_gates": 1
+   },
+   "components": {
+    "mesh_panel": 18,
+    "base": 53,
+    "clamp": 51,
+    "brace": 17
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0029",
+   "docket_no": "36586",
+   "date": "2026-10-08",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Teams Area",
+   "quantities": {
+    "clean": 25,
+    "scrim": 25
+   },
+   "components": {
+    "mesh_panel": 10,
+    "base": 30,
+    "clamp": 30,
+    "brace": 10
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0030",
+   "docket_no": "36587",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Event Operations — perimeter fence",
+   "quantities": {
+    "clean": 30
+   },
+   "components": {
+    "mesh_panel": 12,
+    "base": 20,
+    "clamp": 20,
+    "brace": 5,
+    "wheels": 3
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0031",
+   "docket_no": "36588",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Club 500 Toilets",
+   "quantities": {
+    "clean": 95,
+    "scrim": 95
+   },
+   "components": {
+    "mesh_panel": 38,
+    "base": 85,
+    "clamp": 65,
+    "brace": 25
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0032",
+   "docket_no": "36589",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S04 Corporate Toilets",
+   "quantities": {
+    "clean": 15,
+    "scrim": 15
+   },
+   "components": {
+    "mesh_panel": 6,
+    "base": 12,
+    "clamp": 12,
+    "brace": 3
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0033",
+   "docket_no": "36590",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Club 500 exclusion zone CZ",
+   "quantities": {
+    "clean": 107.5
+   },
+   "components": {
+    "mesh_panel": 43,
+    "base": 40,
+    "clamp": 29,
+    "wheels": 4
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0034",
+   "docket_no": "36591",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Club 500 Creek Protection",
+   "quantities": {
+    "ccb_event": 105,
+    "flat_feet": 42
+   },
+   "components": {
+    "cc_barrier": 42,
+    "base": 19,
+    "flat_feet_ccb": 19
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0035",
+   "docket_no": "36592",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "The Hill — Monster CZ",
+   "quantities": {
+    "clean": 137.5
+   },
+   "components": {
+    "mesh_panel": 55,
+    "base": 53,
+    "clamp": 53
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0036",
+   "docket_no": "36593",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "S21 Grandstand — Walk through",
+   "quantities": {
+    "clean": 90
+   },
+   "components": {
+    "mesh_panel": 36
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0037",
+   "docket_no": "36594",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Smoking Zones — The Hill / Club 500",
+   "quantities": {
+    "ccb_event": 22.5
+   },
+   "components": {
+    "cc_barrier": 9
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  },
+  {
+   "id": "F-AFV-0038",
+   "docket_no": "36595",
+   "date": "2026-10-09",
+   "week": "Week 2",
+   "crew": "Advanced Temporary Fencing",
+   "location": "Rear of S20 — Shower",
+   "quantities": {},
+   "components": {
+    "cc_barrier": 4
+   },
+   "signed_by": "Andrew Fisher",
+   "scope": "programme",
+   "origin": "captured",
+   "record_type": null,
+   "programme_sheet": "CON WK2",
+   "usable": true,
+   "service_note": null
+  }
+ ],
+ "programme": {
+  "2026-09-09": [
+   {
+    "source": "programme",
+    "sheet": "CON WK6",
+    "row": 7,
+    "location": "The Spit",
+    "description": "Perimeter Fence - McMahon's/HTH/Fuel Bund Compound",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 285,
+     "Vehicle Gates": 4
+    },
+    "notes": [],
+    "included": true
+   }
+  ],
+  "2026-09-11": [
+   {
+    "source": "programme",
+    "sheet": "CON WK6",
+    "row": 9,
+    "location": "Phillip Park",
+    "description": "Perimeter Fence - Coates/Advanced Fencing Compound",
+    "quantities": {},
+    "notes": [
+     "Charged to Coates/Advanced - 240LM (1 x VG)"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK6",
+    "row": 10,
+    "location": "Helen Park",
+    "description": "Perimeter Fence - BSF Compound",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 67,
+     "Vehicle Gates": 1
+    },
+    "notes": [],
+    "included": true
+   }
+  ],
+  "2026-09-21": [
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 6,
+    "location": "S08 Corporate Facility",
+    "description": "Exclusion Zone - S08 Corporate Facility CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 155,
+     "Temporary Fence (m) — Relocation": 25,
+     "Vehicle Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 7,
+    "location": "S05 - Internal Fencing",
+    "description": "Lightweight Fencing - Installation to stop access under grandstand",
+    "quantities": {},
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 8,
+    "location": "S04 Corporate Facility",
+    "description": "S04 Compound Fence Completion",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 196,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Additional required due to the delay with the debris fences"
+    ],
+    "included": true
+   }
+  ],
+  "2026-09-22": [
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 10,
+    "location": "Hill Parade",
+    "description": "Demarcation CCB - T13 DL to S10 Accessible Stand",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 410
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 11,
+    "location": "Cypress Avenue Carpark",
+    "description": "Additional Bracing on SignEvent Compound",
+    "quantities": {},
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 12,
+    "location": "S07 Grandstand",
+    "description": "CCB - S07 Grandstand Hill Protection",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 55
+    },
+    "notes": [
+     "Star pickets required."
+    ],
+    "included": true
+   }
+  ],
+  "2026-09-23": [
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 14,
+    "location": "PB02",
+    "description": "Stockpile Fence - PB02 Footings",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 20
+    },
+    "notes": [
+     "Brace may not be required as it attaches to the structures"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 15,
+    "location": "PB2 North Footing",
+    "description": "Perimeter - PB02 Footing",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 70
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 16,
+    "location": "PB01",
+    "description": "Perimeter Fence - PB01 Footings",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 70
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 17,
+    "location": "Pit Building/Paddock Area",
+    "description": "Perimeter Fence - K01 Kitchen",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 55,
+     "Ped. Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 18,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - PB01 to Kapalua - Western Side of existing Coastal Fence",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 566
+    },
+    "notes": [
+     "6 x Gates required across beach openings."
+    ],
+    "included": true
+   }
+  ],
+  "2026-09-24": [
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 20,
+    "location": "Breaker St & Serisier Ave",
+    "description": "Demarcation CCB - Contessa",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 145
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 21,
+    "location": "Axis - Marine Parade",
+    "description": "Residents Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 50,
+     "Vehicle Gates": 2
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 22,
+    "location": "T12 Runoff to T14 DR",
+    "description": "Demarcation CCB - T12 Runoff to T14 DR",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 375
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 23,
+    "location": "Narrowneck Beach",
+    "description": "Demarcation CCB - S21  to Supply Compound",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 292
+    },
+    "notes": [
+     "Reduced from previous years due to inclusion of S20 again - TBC"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 24,
+    "location": "Telstra COW - PB01",
+    "description": "Perimeter Fence - Telstra COW",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 25,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Installed PM.",
+     "Needs to be scrimmed"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 24,
+    "location": "Contessa - Marine Parade",
+    "description": "Residents Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 2
+    },
+    "notes": [],
+    "included": false
+   }
+  ],
+  "2026-09-25": [
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 25,
+    "location": "PB02",
+    "description": "Perimeter Fence - PB02",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 90
+    },
+    "notes": [
+     "Reserve parking spaces in advance (iEDM).",
+     "Needs to be scrimmed"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 27,
+    "location": "T6 Madison Point to Footbridge",
+    "description": "Demarcation Installation",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 210
+    },
+    "notes": [
+     "Follow as far as possible"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 28,
+    "location": "S07 Construction Zone",
+    "description": "CZ Fence Removal - Close up steps",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 20,
+     "Temporary Fence (m) — Removal": 145
+    },
+    "notes": [
+     "To take place after 9am"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK4",
+    "row": 29,
+    "location": "S08 Corporate Facility",
+    "description": "Fence Relocation - Required to open walkway - to be decided onsite",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 117
+    },
+    "notes": [
+     "Following structure completion - fence to be attached to inside of walkunder"
+    ],
+    "included": true
+   }
+  ],
+  "2026-09-28": [
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 6,
+    "location": "Narrowneck Beach",
+    "description": "Partial Exclusion Fence - Oceanway CZ Phase 1",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100
+    },
+    "notes": [
+     "20m stockpiled at Northern End in anticipation of install Wednesday"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 7,
+    "location": "S08 to Midwater",
+    "description": "Perimeter Fence - S08 to Midwater",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 125,
+     "Vehicle Gates": 4,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 8,
+    "location": "S08 to Midwater",
+    "description": "Demarcation CCB - S07 to Cable St",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 283
+    },
+    "notes": [
+     "Installed under BSF traffic control - was 190LM"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 9,
+    "location": "GC HWY Median Strip North",
+    "description": "CCB - Triangles Around Light Poles - Stockpile",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 200
+    },
+    "notes": [
+     "NEED TO VERIFY THIS AMOUNT"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 10,
+    "location": "GC HWY Median Strip North",
+    "description": "CCB - Smoking Zones",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "notes": [
+     "4 x Smoking Zones - 3 CCB per enclosure"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 11,
+    "location": "GC HWY Median Strip North",
+    "description": "Perimeter Fence - GC HWY Median Strip North",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 20,
+     "Temporary Fence (m) — Braced for Scrim": 520,
+     "Vehicle Gates": 4
+    },
+    "notes": [
+     "70% Scrim",
+     "Scrim to be installed during McMahon's Lane closure, and extend the lane closure North for the section that they didn’t get to on Monday"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 12,
+    "location": "GC HWY Median Strip North",
+    "description": "Demarcation CCB - GC HWY Median Strip North",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 311
+    },
+    "notes": [
+     "Stockpile 15m at S12 and 50m at S13 Grandstands."
+    ],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Narrowneck Beach",
+    "description": "Partial Exclusion Fence - Oceanway CZ Phase 1",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "S08 to Midwater",
+    "description": "Perimeter Fence - S08 to Midwater",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 125,
+     "Vehicle Gates": 4,
+     "Ped. Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "S08 to Midwater",
+    "description": "Demarcation CCB - S07 to Cable St",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 283
+    },
+    "note": null,
+    "flag": "the plan’s own comment says this was 190 m; it is 283 m now",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip North",
+    "description": "CCB - Triangles Around Light Poles - Stockpile",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 200
+    },
+    "note": null,
+    "flag": "the plan’s own comment: NEED TO VERIFY THIS AMOUNT",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip North",
+    "description": "CCB - Smoking Zones",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip North",
+    "description": "Perimeter Fence - GC HWY Median Strip North",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 20,
+     "Temporary Fence (m) — Braced for Scrim": 520,
+     "Vehicle Gates": 4
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip North",
+    "description": "Demaraction CCB - GC HWY Median Strip North",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 311
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 40,
+    "location": "Helen Park",
+    "description": "Fence Relocation - S23 Granstand CZ",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 60
+    },
+    "notes": [
+     "CZ made smaller and footpath opened - Phase 2 PMP to be implemented"
+    ],
+    "included": false
+   }
+  ],
+  "2026-09-29": [
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 14,
+    "location": "S18 - CZ Fencing",
+    "description": "Fence Removal / Relocation - S18",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 15,
+     "Temporary Fence (m) — Removal": 115
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 15,
+    "location": "S04 - S05 Footbridge",
+    "description": "Bridge Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 35
+    },
+    "notes": [
+     "Blocks & Fencing cable tied into existing fencing"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 16,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - Gate 6 to PB01- Western Side of existing Coastal Fence",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 600
+    },
+    "notes": [
+     "5 x Gates required across beach openings - NEED TO CONFIRM WHERE THE BOYS GOT TO.",
+     "Made it to Meriton"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 17,
+    "location": "Narrowneck Beach",
+    "description": "S18 to Meriton",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 151
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 18,
+    "location": "MacIntosh Island Park",
+    "description": "Perimeter Fence - WC15 Toilets",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 25
+    },
+    "notes": [
+     "Braced so that Dicko can run pipework to waste",
+     "Check with Dicko what has been done works for him"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 19,
+    "location": "MacIntosh Island Park",
+    "description": "Perimeter Fence - Boost Mobile DJ Deck/WC15 Toilets",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 30
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Pit Building Compound",
+    "description": "Remaining Bracing Installation",
+    "quantities": {},
+    "note": null,
+    "flag": "no figures on the plan — based on stock levels; the row is highlighted on the weekly summary",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "S18 - CZ Fencing",
+    "description": "Fence Removal / Relocation - S18",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 15,
+     "Temporary Fence (m) — Removal": 115
+    },
+    "note": null,
+    "flag": "TBC if this can happen on this day — the row is highlighted on the weekly summary",
+    "requirements": []
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 41,
+    "location": "Helen Park",
+    "description": "Fence Removal/Relocation - Helen Park",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 20,
+     "Temporary Fence (m) — Relocation": 20,
+     "Temporary Fence (m) — Removal": 10
+    },
+    "notes": [
+     "Removed by 7am and relocation to take place after building installation - was 481LM"
+    ],
+    "included": false
+   }
+  ],
+  "2026-09-30": [
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 21,
+    "location": "S01 & S02 Catering Compound",
+    "description": "Perimeter Fence - S01 & S02 Catering Compound",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 85,
+     "Vehicle Gates": 3
+    },
+    "notes": [
+     "AWAITING CONFIRMATION FROM GEMA ON THEIR FENCING SCOPE",
+     "NOT IN iEDM SCOPE"
+    ],
+    "included": false
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 22,
+    "location": "Site Wide",
+    "description": "CCB - Smoking Zones (Drop Only)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 267.5
+    },
+    "notes": [
+     "Completed all areas except for Median Strip"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 23,
+    "location": "Pit Building Compound",
+    "description": "Remaining Bracing Installation",
+    "quantities": {},
+    "notes": [
+     "Based on stock levels - S04 Relocation to outside of the bollards"
+    ],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - Gate 6 to PB01- Western Side of existing Coastal Fence",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 600
+    },
+    "note": null,
+    "flag": "the comment asks for 5 gates across the beach openings; the gate columns carry none",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Narrowneck Beach",
+    "description": "S18 to Meriton",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 151
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-01": [
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 25,
+    "location": "GC HWY Median Strip South",
+    "description": "Perimeter Fence - GC HWY Median Strip South",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 330,
+     "Vehicle Gates": 3
+    },
+    "notes": [
+     "70% Scrim - Works cannot commence till 10am."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 26,
+    "location": "GC HWY Median Strip South",
+    "description": "Demarcation CCB - GC HWY Median Strip South",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 340
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 27,
+    "location": "GC HWY Median Strip South",
+    "description": "CCB - Smoking Zones",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "notes": [
+     "4 x Smoking Zones - 3 CCB per enclosure"
+    ],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Mac Park - EVL Compound",
+    "description": "Perimeter Fence - Event Elec",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 68
+    },
+    "note": null,
+    "flag": "the comment says 68 m and 1 vehicle gate, not billed to iEDM / SC; the gate is in the comment, not the Vehicle Gates column",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip South",
+    "description": "Perimeter Fence - GC HWY Median Strip South",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 330,
+     "Vehicle Gates": 3
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip South",
+    "description": "Demarcation CCB - GC HWY Median Strip South",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 340
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "GC HWY Median Strip South",
+    "description": "CCB - Smoking Zones",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-02": [
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 29,
+    "location": "Mac Park - EVL Compound",
+    "description": "Perimeter Fence - Event Elec",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 85,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "85LM / 1 VG - Not billed to iEDM / SC"
+    ],
+    "included": false
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK3",
+    "row": 30,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - Gate 6 to PB01- Western Side of existing Coastal Fence",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 350
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter Fence - S01 & S02 Stairs",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 128
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Pit Building/Paddock",
+    "description": "Exclusion Zone - S01 Fire Hydrant",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 14
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "Pit Building/Paddock",
+    "description": "Perimiter Fence - S01 Toilet Infill",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 2.5
+    },
+    "note": null,
+    "flag": "printed as 3 in the plan’s cells, which show whole metres; the plan’s own week total (1,048.5 m) and the programme workbook’s row both carry 2.5 m, so 2.5 m is carried",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "S10 Accessible Stand",
+    "description": "Fence Removal - S10 Accessible Stand",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 25
+    },
+    "note": null,
+    "flag": "the plan’s own clarification: this was 15 m; it is 25 m now",
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK3",
+    "title": "Construction Week 3 — Fencing Installation Plan",
+    "revision": null,
+    "created": "25 Sep 2026 15:22 (AEST)",
+    "id": null,
+    "location": "S08 Corporate Facility",
+    "description": "Fence Relocation - S08 Coporate Facility",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 117
+    },
+    "note": null,
+    "flag": "tagged week C4 on the weekly summary and the Friday table (pages 1 and 12) and C3 on its own page (15); dated Friday 2 Oct either way — and the comment says it may move to Wednesday",
+    "requirements": []
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 42,
+    "location": "S10 Accessible Stand",
+    "description": "Fence Removal - S10 Accessible Stand",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 25
+    },
+    "notes": [
+     "CLARIFICATION - was 15LM"
+    ],
+    "included": false
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 43,
+    "location": "S08 Corporate Facility",
+    "description": "Fence Relocation - S08 Coporate Facility",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 117
+    },
+    "notes": [
+     "Following structure completion - Pre 3pm - POTENTIALLY MOVE TO WEDNESDAY"
+    ],
+    "included": false
+   }
+  ],
+  "2026-10-06": [
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 8,
+    "location": "Paradise Waters Park",
+    "description": "Perimeter Fence - TV Parking",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 200,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Reduced in size from 2025 as Helipad not required"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 9,
+    "location": "Gate 2 Entry",
+    "description": "Perimeter Fence - Gate 2 Entry",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 110
+    },
+    "notes": [
+     "MOVED FROM TUESDAY 7th OCTOBER - REDUCED TO 110LM"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 10,
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter Fence - S01 & S02 Stairs",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 128
+    },
+    "notes": [
+     "*Hardhat zone - AFTERNOON DEPENDING ON IF APPROVED"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 11,
+    "location": "Pit Building/Paddock",
+    "description": "Exclusion Zone - S01 Fire Hydrant",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 14
+    },
+    "notes": [
+     "*Hardhat zone."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 12,
+    "location": "Pit Building/Paddock",
+    "description": "Perimiter Fence - S01 Toilet Infill",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 2.5
+    },
+    "notes": [
+     "*Hardhat zone."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 13,
+    "location": "Club 500",
+    "description": "Perimeter Fence - Club 500 Storage",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 40,
+     "Vehicle Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 14,
+    "location": "Club 500",
+    "description": "CCB - Club 500 Creek Protection",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 87,
+     "Crowd Control Barriers (m) — Flat Feet": 45
+    },
+    "notes": [
+     "45m of flat feet CCB + 20 blocks and \"f\" brackets. Starpickets required in section behind S01."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 15,
+    "location": "S04 Corporate",
+    "description": "Demarcation CCB - S04 Corporate",
+    "quantities": {},
+    "notes": [
+     "From Stockpile"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 16,
+    "location": "S04 Corporate",
+    "description": "Fence Relocation - S04 Corporate CZ",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 100
+    },
+    "notes": [
+     "Fencing used for flower bed fencing - Scrim if  you would like"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 17,
+    "location": "TV Compound",
+    "description": "Perimeter Fence - TV Compound Garden Bed",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 42
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 44,
+    "location": "S07 CZ Fence",
+    "description": "Installation of sections to complete CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 10
+    },
+    "notes": [
+     "NOT REQUIRED - CZ FENCING ENCLOSES FULL STRUCTURE"
+    ],
+    "included": false
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "tv-parking",
+    "location": "Paradise Waters Park",
+    "description": "Perimeter fence — TV parking",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 200,
+     "Vehicle Gates": 1
+    },
+    "note": "Reduced from 2025; the helipad is not required.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "gate2",
+    "location": "Gate 2 Entry",
+    "description": "Perimeter fence — Gate 2 entry",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 110
+    },
+    "note": "Moved to Tuesday 6 October and reduced to 110 m. Source comment says “Tuesday 7th”; the dated row is 6 October.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "pit-stairs",
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter fence — S01 and S02 stairs",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 128
+    },
+    "note": "Afternoon, depending on approval.",
+    "flag": null,
+    "requirements": [
+     "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+     "Hard hat zone — active construction site."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "fire-hydrant",
+    "location": "Pit Building/Paddock",
+    "description": "Exclusion zone — S01 fire hydrant",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 14
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+     "Hard hat zone — active construction site."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "toilet-infill",
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter fence — S01 toilet infill",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 3
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "Confirm with Ben / Cliftons that the structures have been signed off structurally.",
+     "Hard hat zone — active construction site."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "club-storage",
+    "location": "Club 500",
+    "description": "Perimeter fence — Club 500 storage",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 40,
+     "Vehicle Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "Confirm whether storage remains throughout and whether it should be scrimmed."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "club-creek",
+    "location": "Club 500",
+    "description": "CCB — Club 500 creek protection",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 87,
+     "Crowd Control Barriers (m) — Flat Feet": 45
+    },
+    "note": "45 m flat-feet CCB with 20 blocks and F brackets. Star pickets required behind S01.",
+    "flag": null,
+    "requirements": [
+     "Check flat-feet CCB availability. The plan allows that portion to be completed later if it is not on site; install the available work."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s04-demarc",
+    "location": "S04 Corporate",
+    "description": "Demarcation CCB — S04 Corporate",
+    "quantities": {},
+    "note": "From stockpile; quantity not supplied.",
+    "flag": null,
+    "requirements": [
+     "JB to work through the S04 / TV compound changes with the crew."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s04-relocate",
+    "location": "S04 Corporate",
+    "description": "Fence relocation — S04 Corporate CZ",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 100
+    },
+    "note": "Fencing used for flower-bed fencing; scrim if wanted.",
+    "flag": null,
+    "requirements": [
+     "JB to work through the S04 / TV compound changes with the crew."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "tv-garden",
+    "location": "TV Compound",
+    "description": "Perimeter fence — TV compound garden bed",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 42
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "JB to work through the S04 / TV compound changes with the crew."
+    ]
+   }
+  ],
+  "2026-10-07": [
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 19,
+    "location": "Commodore Park",
+    "description": "Perimeter Fence - QPS",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 100,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 2
+    },
+    "notes": [
+     "Only QPS Compound to start with - GEMA & COW once items installed"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 20,
+    "location": "S19 Walkthrough - TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "notes": [
+     "Cable tie panels to structure - Fortress - Hardhat Zone"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 21,
+    "location": "S20 Walkthrough - TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "notes": [
+     "Cable tie panels to structure - Fortress - Hardhat Zone"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 22,
+    "location": "S21 Walkthrough - TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "notes": [
+     "Cable tie panels to structure - Fortress - Hardhat Zone"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 23,
+    "location": "Site Wide",
+    "description": "Scrim - Available Fencelines",
+    "quantities": {},
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 45,
+    "location": "Narrowneck Beach",
+    "description": "Exclusion Fence - Oceanway CZ - Phase 2",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 125,
+     "Vehicle Gates": 3
+    },
+    "notes": [
+     "To be installed as early as possible Wednesday AM."
+    ],
+    "included": false
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "qps",
+    "location": "Commodore Park",
+    "description": "Perimeter fence — QPS",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 100,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 2
+    },
+    "note": "QPS compound first. The page 9 yellow confirmation note is incomplete in the supplied PDF.",
+    "flag": null,
+    "requirements": [
+     "Only start the QPS compound first. GEMA and COW fencing follows once their items are installed."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s19-walkthrough",
+    "location": "S19 Walkthrough — TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "note": "Cable-tie panels to the Fortress structure.",
+    "flag": null,
+    "requirements": [
+     "Contractor confirmation of structural sign-off is required before these works.",
+     "Hard hat zone."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s20-walkthrough",
+    "location": "S20 Walkthrough — TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "note": "Cable-tie panels to the Fortress structure.",
+    "flag": null,
+    "requirements": [
+     "Contractor confirmation of structural sign-off is required before these works.",
+     "Hard hat zone."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s21-walkthrough",
+    "location": "S21 Walkthrough — TBC",
+    "description": "Fencing for scrim",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 40
+    },
+    "note": "Cable-tie panels to the Fortress structure.",
+    "flag": null,
+    "requirements": [
+     "Contractor confirmation of structural sign-off is required before these works.",
+     "Hard hat zone."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "scrim-wed",
+    "location": "Site wide",
+    "description": "Scrim — available fencelines",
+    "quantities": {},
+    "note": "Listed in the weekly summary; no quantity supplied.",
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-08": [
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 25,
+    "location": "Helen Park",
+    "description": "Perimeter Fence - Helen Park",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 61,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "DATE CHANGED FROM CW5"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 26,
+    "location": "Helen Park",
+    "description": "Fencing Reconfiguration / CCB Stockpile",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 6,
+     "Temporary Fence (m) — Braced for Scrim": 43,
+     "Temporary Fence (m) — Relocation": 83,
+     "Crowd Control Barriers (m) — Event": 47.5
+    },
+    "notes": [
+     "Relocation of fencing due to configuration of buildings and finalised installation of infrastructure"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 27,
+    "location": "Helen Park",
+    "description": "Exclusion Zone - S23 Grandstand CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 141,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "DATE CHANGED FROM CW5"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 28,
+    "location": "S04 Corporate Facility",
+    "description": "Perimeter Fence - WC20 Toilets & GEMA Kitchen",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 33,
+     "Temporary Fence (m) — Relocation": 40,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 29,
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter Fence - S01 North Infill",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 10
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 30,
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter Fence - Podium",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 36,
+     "Ped. Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 31,
+    "location": "Teams Area - Behind S02 PB",
+    "description": "Perimeter Fence - Teams Area",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 30
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "helen-perimeter",
+    "location": "Helen Park",
+    "description": "Perimeter fence — Helen Park",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 61,
+     "Vehicle Gates": 1
+    },
+    "note": "Date moved from CW5; one current task on 8 October.",
+    "flag": null,
+    "requirements": [
+     "Keep gates open; implement CCB when the construction zone is closed."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "helen-reconfigure",
+    "location": "Helen Park",
+    "description": "Fencing reconfiguration / CCB stockpile",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 6,
+     "Temporary Fence (m) — Braced for Scrim": 43,
+     "Temporary Fence (m) — Relocation": 83,
+     "Crowd Control Barriers (m) — Event": 48
+    },
+    "note": "CCB stockpile serves the ticketing booth and sign-on marquee.",
+    "flag": null,
+    "requirements": [
+     "Confirm building configuration and completed infrastructure installation before reconfiguring the fence.",
+     "Keep gates open; implement CCB when the construction zone is closed."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s23-cz",
+    "location": "Helen Park",
+    "description": "Exclusion zone — S23 Grandstand CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 141,
+     "Vehicle Gates": 1
+    },
+    "note": "Date moved from CW5; one current task on 8 October.",
+    "flag": null,
+    "requirements": [
+     "Keep gates open; implement CCB when the construction zone is closed."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "wc20-kitchen",
+    "location": "S04 Corporate Facility",
+    "description": "Perimeter fence — WC20 toilets and GEMA kitchen",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 33,
+     "Temporary Fence (m) — Relocation": 40,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "s01-north",
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter fence — S01 north infill",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 10
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "podium",
+    "location": "Pit Building/Paddock",
+    "description": "Perimeter fence — podium",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 36,
+     "Ped. Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "teams",
+    "location": "Teams Area — Behind S02 PB",
+    "description": "Perimeter fence — teams area",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 30
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-09": [
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 33,
+    "location": "Event Operations",
+    "description": "Perimeter Fence - Event Operations",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 27,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Double-wide vehicle gate required (3 wheels)."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 34,
+    "location": "Club 500",
+    "description": "Exclusion Zone - Club 500 CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100,
+     "Vehicle Gates": 2
+    },
+    "notes": [
+     "Gates to remain be zip-tied open"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 35,
+    "location": "Site Wide",
+    "description": "Scrim - Available Fencelines",
+    "quantities": {},
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK2",
+    "row": 46,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - S19",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 45
+    },
+    "notes": [
+     "Cable tied to circuit facing grandstand underpasses."
+    ],
+    "included": false
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "event-ops",
+    "location": "Event Operations",
+    "description": "Perimeter fence — event operations",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 27,
+     "Vehicle Gates": 1
+    },
+    "note": "Double-wide vehicle gate required, with three wheels.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "club-cz",
+    "location": "Club 500",
+    "description": "Exclusion zone — Club 500 CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100,
+     "Vehicle Gates": 2
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "Keep CZ fencing gates cable-tied open for the weekend."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK2",
+    "title": "Construction Week 2 — Fencing Installation Plan",
+    "revision": "2026-10-02",
+    "created": "2 Oct 2026 13:54 (AEST)",
+    "id": "scrim-fri",
+    "location": "Site wide",
+    "description": "Scrim — available fencelines",
+    "quantities": {},
+    "note": "No quantity supplied. Page 15 heading says Friday 10th and Macintosh Park CZ fencing for stage build; the dated tables, weekly summary and page 14 say Friday 9 October, with Event Operations, Club 500 CZ and Site Wide work. Date follows the dated tables; the conflicting heading is retained for review.",
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-12": [
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 6,
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Rhapsody",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 7.5,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 7,
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Seacrest to Pacific Point",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 221,
+     "Vehicle Gates": 6,
+     "Ped. Gates": 4
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 8,
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Seacrest to Pacific Point",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 228
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 9,
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Maddison Point",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 98,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 10,
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Maddison Point",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 91
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 11,
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Ferny Avenue (East)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 60
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 12,
+    "location": "Ferny Ave",
+    "description": "Residents Fence - Equinox",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 19,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control - REDUCED FROM 40LM"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 13,
+    "location": "Ferny Ave",
+    "description": "Residents Fence - Pacific Point to Narrowneck",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control - REDUCED FROM 160LM - STOCKPILE AS ROAD ACCESS NEEDS TO REMAIN"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 14,
+    "location": "Supply Compound",
+    "description": "Perimeter Fence - Supply Compound",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 130,
+     "Vehicle Gates": 2
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-6",
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Rhapsody",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 8,
+     "Ped. Gates": 1
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-7",
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Seacrest to Pacific Point (Hutchinson Construction Site)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 145,
+     "Vehicle Gates": 4,
+     "Ped. Gates": 4
+    },
+    "note": "Installed under BSF traffic control - only up to Hutchinson Construction Site Only up to the Hutchinson construction site; the shortened extent replaces the earlier task, not an additional fence run.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-8",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Seacrest to Ferny Avenue",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 240
+    },
+    "note": "Installed under BSF traffic control. PDF extent is Seacrest to Ferny Avenue; the earlier programme says Seacrest to Pacific Point. Keep the source extents distinguishable.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-9",
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Maddison Point",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 98,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-10",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Maddison Point - THIS MAY HAVE BEEN DONE",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 91
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-11",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Ferny Avenue (East) - THIS HAS BEEN STROCKPILED",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 60
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-12",
+    "location": "Ferny Ave",
+    "description": "Residents Fence - Equinox",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100,
+     "Vehicle Gates": 1
+    },
+    "note": "Installed under BSF traffic control - INCREASED FROM 40LM PDF says increased from 40 m; the earlier programme actually records 19 m. The current PDF specifies 100 m.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-13",
+    "location": "Ferny Ave",
+    "description": "Narrowneck Lodge to Narrowneck Court",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 137,
+     "Vehicle Gates": 3,
+     "Ped. Gates": 1
+    },
+    "note": "PDF specifies Narrowneck Lodge to Narrowneck Court; prior programme describes Pacific Point to Narrowneck. One updated task, not two overlapping allowances.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-14",
+    "location": "Supply Compound",
+    "description": "Perimeter Fence - Supply Compound",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 130,
+     "Vehicle Gates": 2
+    },
+    "note": "Gates may be installed first (p. 5).",
+    "flag": null,
+    "requirements": [
+     "Carpark fully clear before completing remaining fence."
+    ]
+   }
+  ],
+  "2026-10-13": [
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 16,
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Amira to Norfolk",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 165,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control. - ADDITIONAL 30LM FOR SILVERPOINT"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 17,
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Cable St to Breaker St",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 155
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 18,
+    "location": "Main Beach Pde",
+    "description": "Residents / Demarcation CCB - Ocean Isles to 3515",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 71,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 1,
+     "Crowd Control Barriers (m) — Demarcation": 102
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 19,
+    "location": "Main Beach Pde",
+    "description": "Residents Fencing - Amani to SLS Tower",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 80,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 20,
+    "location": "Breaker St",
+    "description": "Demarcation CCB - T11 DL",
+    "quantities": {
+     "Crowd Control Barriers (m) — Flat Feet": 90
+    },
+    "notes": [
+     "Flat feet CCB required - Resident Fencing & Demarcation"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 21,
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - T11 Runoff",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 30,
+     "Vehicle Gates": 1,
+     "Crowd Control Barriers (m) — Demarcation": 155
+    },
+    "notes": [
+     "Installed under BSF traffic control. - WAS 155LM DEMARCATION & 30M 1.8M"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 22,
+    "location": "Breaker St",
+    "description": "Residents Fence - Norfolk to Decks",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 55,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 23,
+    "location": "Breaker St",
+    "description": "Demarcation CCB - Norfolk to Decks",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 60
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 25,
+    "location": "Main Beach Pde / Breaker St",
+    "description": "Residents Fence - Bougainvillea to Sunbird (West)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 152,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 2
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 26,
+    "location": "Main Beach Pde / Breaker St",
+    "description": "Demarcation Fence (Ocean Resort - Sunbird (West)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 295
+    },
+    "notes": [
+     "Installed under BSF traffic control."
+    ],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-16",
+    "location": "Main Beach Pde",
+    "description": "Residents Fence - Amira to Norfolk",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 165,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "note": "Installed under BSF traffic control. - ADDITIONAL 30LM FOR SILVERPOINT Additional 30 m for Silverpoint is already within the shown 165 m; do not add it again.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-17",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Cable St to Breaker St",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 155
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-18",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - Ocean Isles to Amani",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 71,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 1,
+     "Crowd Control Barriers (m) — Demarcation": 102
+    },
+    "note": "Installed under BSF traffic control. Keep this 71 m clean / 102 m demarcation task distinct from the next residents run, as separately listed on pp. 6–7.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-19",
+    "location": "Main Beach Pde",
+    "description": "Residents Fencing - Ocean Isles to Amani to SLS Tower",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 152,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "note": "Installed under BSF traffic control. Updated extent is Ocean Isles–Amani–SLS Tower; 152 m replaces the earlier 80 m Amani–SLS task.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-20",
+    "location": "Breaker St",
+    "description": "Demarcation CCB - T11 DL",
+    "quantities": {
+     "Crowd Control Barriers (m) — Flat Feet": 90
+    },
+    "note": "Flat feet CCB required - Resident Fencing & Demarcation",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-21",
+    "location": "Main Beach Pde",
+    "description": "Demarcation CCB - T11 Runoff",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 30,
+     "Vehicle Gates": 1,
+     "Crowd Control Barriers (m) — Demarcation": 155
+    },
+    "note": "Installed under BSF traffic control. - WAS 155LM DEMARCATION & 30M 1.8M The source note says “WAS” but supplies the same 30 m clean and 155 m demarcation; no unstated replacement inferred.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-22",
+    "location": "Breaker St",
+    "description": "Residents Fence - Norfolk to Decks",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 55,
+     "Vehicle Gates": 1,
+     "Ped. Gates": 1
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-23",
+    "location": "Breaker St",
+    "description": "Demarcation CCB - Norfolk to Decks",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 60
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-25",
+    "location": "Main Beach Pde / Breaker St",
+    "description": "Residents Fence - Bougainvillea to Sunbird (West)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 152,
+     "Vehicle Gates": 2,
+     "Ped. Gates": 2
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-26",
+    "location": "Main Beach Pde / Breaker St",
+    "description": "Demarcation Fence (Ocean Resort - Sunbird (West)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 320
+    },
+    "note": "Installed under BSF traffic control.",
+    "flag": null,
+    "requirements": [
+     "If possible, both sides of the road on one day under BSF traffic control (p. 7)."
+    ]
+   }
+  ],
+  "2026-10-14": [
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 28,
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - S21 Grandstands",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 45
+    },
+    "notes": [
+     "Cable tied to circuit facing grandstand underpasses."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 29,
+    "location": "Serisier Ave",
+    "description": "Residents Fence - Contessa West",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 2
+    },
+    "notes": [
+     "\"No Parking\" bollards in place - can use existing No Parking bollards outside COntessa"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 30,
+    "location": "Hill Pde",
+    "description": "Residents Fence - Axis",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 48,
+     "Vehicle Gates": 2
+    },
+    "notes": [
+     "\"No Parking\" bollards installed nearby to allow for parking."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 31,
+    "location": "Breaker St",
+    "description": "Residents Fence - Aloha Lane - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 36
+    },
+    "notes": [
+     "\"No Parking\" bollards installed nearby to allow for parking."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 32,
+    "location": "Breaker St",
+    "description": "Residents Fence - Fishermans Walk - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 10,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "\"No Parking\" bollards installed nearby to allow for parking."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 33,
+    "location": "Breaker St",
+    "description": "Demarcation CCB - Aloha Lane to T12 Runoff",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 139
+    },
+    "notes": [
+     "\"No Parking\" bollards installed nearby to allow for parking."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 34,
+    "location": "Breaker St",
+    "description": "Residents Fence - Main Beach Tower",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 38,
+     "Ped. Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 35,
+    "location": "Breaker St",
+    "description": "Residents Fence - Axis to Malibu - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 123,
+     "Vehicle Gates": 4,
+     "Ped. Gates": 1
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 36,
+    "location": "Pacific / Cronin Ave",
+    "description": "Residents Fence - Aloha Lane & Crest & Fishermans Walk (Cronin)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 150,
+     "Ped. Gates": 2
+    },
+    "notes": [
+     "Leave gate at the back of Crest fully open"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 37,
+    "location": "Breaker St / Serisier",
+    "description": "Residents Fence - Inlet (Serisier)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "notes": [
+     "Additional request from Bree Andrews (17/10)"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 38,
+    "location": "The Esplanade",
+    "description": "Demarcation CCB - S18 Grandstand to The Esplanade",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 117
+    },
+    "notes": [
+     "Stockpile 75m of CCB within triangle & 37.5m behind S18."
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 39,
+    "location": "The Esplanade",
+    "description": "Exclusion Zone - Porsche Lounge CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 35,
+     "Vehicle Gates": 3
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 40,
+    "location": "The Esplanade",
+    "description": "Perimeter Fence - Support Categories",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 135
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 41,
+    "location": "The Esplanade",
+    "description": "Perimeter Fence - Support Categories",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 180
+    },
+    "notes": [
+     "Gates to be left open"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 42,
+    "location": "S21, S22A & S22B",
+    "description": "Demarcations CCB",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 25
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-29",
+    "location": "Serisier Ave",
+    "description": "Residents Fence - Contessa West",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 2
+    },
+    "note": "\"No Parking\" bollards in place - can use existing No Parking bollards outside COntessa Use existing No Parking bollards outside Contessa; other highlighted no-parking spots are intended to aid installation (p. 9).",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-30",
+    "location": "Hill Pde",
+    "description": "Residents Fence - Axis",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 48,
+     "Vehicle Gates": 2
+    },
+    "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-31",
+    "location": "Breaker St",
+    "description": "Residents Fence - Aloha Lane - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 36
+    },
+    "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-32",
+    "location": "Breaker St",
+    "description": "Residents Fence - Fishermans Walk - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 10,
+     "Ped. Gates": 1
+    },
+    "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-33",
+    "location": "Breaker St",
+    "description": "Demarcation CCB - Aloha Lane to T12 Runoff",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 139
+    },
+    "note": "\"No Parking\" bollards installed nearby to allow for parking.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-34",
+    "location": "Breaker St",
+    "description": "Residents Fence - Main Beach Tower",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 38,
+     "Ped. Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-35",
+    "location": "Breaker St",
+    "description": "Residents Fence - Axis to Malibu - Breaker Street",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 123,
+     "Vehicle Gates": 4,
+     "Ped. Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-36",
+    "location": "Pacific / Cronin Ave",
+    "description": "Residents Fence - Aloha Lane & Crest & Fishermans Walk (Cronin)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 150,
+     "Ped. Gates": 2
+    },
+    "note": "Leave gate at the back of Crest fully open",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-37",
+    "location": "Breaker St / Serisier",
+    "description": "Residents Fence - Inlet (Serisier)",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 30
+    },
+    "note": "Additional request from Bree Andrews (17/10)",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-39",
+    "location": "The Esplanade",
+    "description": "Exclusion Zone - Porsche Lounge CZ",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 35,
+     "Vehicle Gates": 3
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-40",
+    "location": "The Esplanade",
+    "description": "Perimeter Fence - Support Categories",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 185
+    },
+    "note": "Braced and scrimmed now, per supplied email; category and 185 m updated from the previous 135 m clean.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-41",
+    "location": "The Esplanade",
+    "description": "Perimeter Fence - Support Categories",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 190
+    },
+    "note": "Gates to be left open Braced and scrimmed now, per supplied email; 190 m replaces the previous 180 m clean. Gates to be left open.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-triangle",
+    "location": "Triangle CZ Fencing",
+    "description": "Construction Zone",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 126
+    },
+    "note": "Prefer Fortress because this zone is removed early the following week (p. 11); no stock allocation inferred.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-28",
+    "location": "Narrowneck Beach",
+    "description": "Perimeter Fence - S21 Grandstands",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 45
+    },
+    "note": "Cable tied to circuit facing grandstand underpasses.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-38",
+    "location": "The Esplanade",
+    "description": "Demarcation CCB - S18 Grandstand to The Esplanade",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 117
+    },
+    "note": "Stockpile 75m of CCB within triangle & 37.5m behind S18.",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-42",
+    "location": "S21, S22A & S22B",
+    "description": "Demarcations CCB",
+    "quantities": {
+     "Crowd Control Barriers (m) — Demarcation": 25
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   }
+  ],
+  "2026-10-15": [
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 44,
+    "location": "Cable St & Pacific St",
+    "description": "Residents Fence - Cable St & Pacific St",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 300,
+     "Vehicle Gates": 10,
+     "Ped. Gates": 2
+    },
+    "notes": [
+     "First task - c.06:30 start - Under traffic control"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 45,
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "Perimeter Fence - Hi Surf (West)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Installed under traffic control - after 12pm"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 46,
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "CCB - Hi Surf (West) to Ocean Ave",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 115
+    },
+    "notes": [
+     "Installed under traffic control - after 12pm"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 47,
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "Perimeter Fence - SPLRS",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100
+    },
+    "notes": [
+     "Installed under traffic control - after 12pm"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 48,
+    "location": "S05 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {},
+    "notes": [
+     "TBC on quantities - JB to work through plan at 7am"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 49,
+    "location": "S07 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 10,
+     "Temporary Fence (m) — Removal": 153
+    },
+    "notes": [
+     "All fencing removed - just cover access stairs"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 50,
+    "location": "S18 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 23,
+     "Temporary Fence (m) — Removal": 100
+    },
+    "notes": [
+     "All fencing removed - just cover access stairs"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 51,
+    "location": "The Hill",
+    "description": "Monster Energy CZ Compound Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 135,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "NEW - CZ Fencing for Monster Energy build from Monday"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 52,
+    "location": "Super Sedans BOH",
+    "description": "Compound Fence",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 27,
+     "Vehicle Gates": 1
+    },
+    "notes": [
+     "Installed post infrastructure installation"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 53,
+    "location": "MacIntosh Island Park",
+    "description": "Fence Removal - Track Infrastructure Storage",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 81
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 54,
+    "location": "S10 Accessible Stand",
+    "description": "Perimeter Fence - QFES",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 15,
+     "Ped. Gates": 1
+    },
+    "notes": [
+     "No internal bracing required"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 55,
+    "location": "S10 Accessible Stand",
+    "description": "Fence Removal - S10 Accessible Stand",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 15
+    },
+    "notes": [
+     "TBC - will discuss"
+    ],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 56,
+    "location": "Club 500",
+    "description": "Perimeter Fence - Club 500 Toilets",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 85
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "programme",
+    "sheet": "CON WK1",
+    "row": 57,
+    "location": "S14 Compound",
+    "description": "CZ Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 29
+    },
+    "notes": [],
+    "included": true
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-44",
+    "location": "Cable St & Pacific St",
+    "description": "Residents Fence - Cable St & Pacific St",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 300,
+     "Vehicle Gates": 10,
+     "Ped. Gates": 2
+    },
+    "note": "Page 13 title says Helen Park, but its map and table show Cable/Pacific residents.",
+    "flag": null,
+    "requirements": [
+     "First task, circa 06:30; traffic control and restricted vehicle access."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-45",
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "Perimeter Fence - Hi Surf (West)",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 70,
+     "Vehicle Gates": 1
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "After Cable Street works and after 12:00; traffic control required."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-46",
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "CCB - Hi Surf (West) to Ocean Ave",
+    "quantities": {
+     "Crowd Control Barriers (m) — Event": 115
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "After Cable Street works and after 12:00; traffic control required."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-47",
+    "location": "Surfers Paradise Light Rail Station",
+    "description": "Perimeter Fence - SPLRS",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 100
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "After Cable Street works and after 12:00; traffic control required."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-gate6",
+    "location": "The Esplanade",
+    "description": "Gate 6 Compound",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 45,
+     "Temporary Fence (m) — Braced for Scrim": 45
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-51",
+    "location": "The Hill",
+    "description": "Monster Energy CZ Compound Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 135,
+     "Vehicle Gates": 1
+    },
+    "note": "NEW - CZ Fencing for Monster Energy build from Monday",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-57",
+    "location": "S14 Compound",
+    "description": "CZ Fencing",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 29
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "Wait for barriers and fences; exact metres depend on barrier position. May need split crews."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-61",
+    "location": "Pit Building/Paddock",
+    "description": "Removal/Reinstatement - Pit Building CZ",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 45,
+     "Temporary Fence (m) — Removal": 220,
+     "Vehicle Gates": 3
+    },
+    "note": null,
+    "flag": null,
+    "requirements": [
+     "End of Thursday; two double-wide vehicle gates (three wheels) plus one vehicle gate."
+    ]
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-48",
+    "location": "S05 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {},
+    "note": "TBC on quantities - JB to work through plan at 7am",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-49",
+    "location": "S07 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 10,
+     "Temporary Fence (m) — Removal": 153
+    },
+    "note": "All fencing removed - just cover access stairs",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-50",
+    "location": "S18 Compound",
+    "description": "Fence Removal / Relocation",
+    "quantities": {
+     "Temporary Fence (m) — Relocation": 23,
+     "Temporary Fence (m) — Removal": 100
+    },
+    "note": "All fencing removed - just cover access stairs",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-52",
+    "location": "Super Sedans BOH",
+    "description": "Compound Fence",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 27,
+     "Vehicle Gates": 1
+    },
+    "note": "Installed post infrastructure installation",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-53",
+    "location": "MacIntosh Island Park",
+    "description": "Fence Removal - Track Infrastructure Storage",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 81
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-54",
+    "location": "S10 Accessible Stand",
+    "description": "Perimeter Fence - QFES",
+    "quantities": {
+     "Temporary Fence (m) — Clean": 15,
+     "Ped. Gates": 1
+    },
+    "note": "No internal bracing required",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-55",
+    "location": "S10 Accessible Stand",
+    "description": "Fence Removal - S10 Accessible Stand",
+    "quantities": {
+     "Temporary Fence (m) — Removal": 15
+    },
+    "note": "TBC - will discuss",
+    "flag": null,
+    "requirements": []
+   },
+   {
+    "source": "plan_update",
+    "sheet": "CON WK1",
+    "title": "Construction Week 1 — Fencing Installation Plan",
+    "revision": "2026-10-09",
+    "created": "9 Oct 2026 10:27 AEST",
+    "id": "cw1-programme-56",
+    "location": "Club 500",
+    "description": "Perimeter Fence - Club 500 Toilets",
+    "quantities": {
+     "Temporary Fence (m) — Braced for Scrim": 85
+    },
+    "note": null,
+    "flag": null,
+    "requirements": []
+   }
+  ]
+ },
+ "files": [
+  {
+   "id": "GC500_Prestart_Installers.pdf",
+   "title": null,
+   "kind": "pack",
+   "bytes": 1389134,
+   "sha256": "caa16f3eb1fc85229ef111027e18d429bbcb17c547fe80c81e54fc5e8432670f",
+   "uploaded": "2026-09-21T22:26:37.414Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-14.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-14",
+   "kind": "pack",
+   "bytes": 162214,
+   "sha256": "f24f722cd62ae05f0f7a4f4781193967dfdb417e9086fe4db9ec02265aeb099e",
+   "uploaded": "2026-09-22T00:59:12.810Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-15.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-15",
+   "kind": "pack",
+   "bytes": 159188,
+   "sha256": "086aeee3a1b993578dcc4eaeb9afe7cb62bc86e6d7a0c9a5b0c01a05dd3ed0fc",
+   "uploaded": "2026-09-22T00:59:20.200Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-16.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-16",
+   "kind": "pack",
+   "bytes": 168614,
+   "sha256": "8e03699c808120143fb21b4e507a40fbfe62e6a804f6cf7b471ab1cb6b7bf3b7",
+   "uploaded": "2026-09-22T00:59:29.915Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-17.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-17",
+   "kind": "pack",
+   "bytes": 168173,
+   "sha256": "793cd89a18eac674178026e7e5fd70556ac91ed2387a4a9cb125ac059c55c656",
+   "uploaded": "2026-09-22T00:59:37.545Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-18.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-18",
+   "kind": "pack",
+   "bytes": 166650,
+   "sha256": "c8279014963e118685e9b1cdd4aace20655fff7a143f8543fbeb795a2e63977d",
+   "uploaded": "2026-09-22T00:59:47.099Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-14.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-14",
+   "kind": "pack",
+   "bytes": 170401,
+   "sha256": "a3dbaae13ad17ca32e9d9e8cc49c6d8eb8bee70edb1e338d0267fce13c16b7c2",
+   "uploaded": "2026-09-22T01:00:13.659Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-15.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-15",
+   "kind": "pack",
+   "bytes": 170634,
+   "sha256": "37bb5b51ceb38d459796c28c10eb034e392d772adeb77bf57034e532bfe92c95",
+   "uploaded": "2026-09-22T01:00:27.083Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-16.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-16",
+   "kind": "pack",
+   "bytes": 170902,
+   "sha256": "55bcd53727219acb6fe1d7969b139476ad6e571407ff18d2dfb2ad9f8567924b",
+   "uploaded": "2026-09-22T01:00:37.595Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-17.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-17",
+   "kind": "pack",
+   "bytes": 170991,
+   "sha256": "e8a84ded9484317d4f7c688e4d396e3d7cecb01ff47334dba2db67c8d1c003f6",
+   "uploaded": "2026-09-22T01:00:46.199Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-18.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-18",
+   "kind": "pack",
+   "bytes": 169401,
+   "sha256": "f00843c79ef0a3bf586e53c7577af3a8ac942022e2a73a0a262bba3512a2ff3d",
+   "uploaded": "2026-09-22T01:00:54.407Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-21.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-21",
+   "kind": "pack",
+   "bytes": 169644,
+   "sha256": "2f3a040323951fb03c4733a53f5f21f661be7ee605634e0f3b6af4abbe529bc2",
+   "uploaded": "2026-09-25T06:14:25.072Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-22.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-22",
+   "kind": "pack",
+   "bytes": 167608,
+   "sha256": "16e95469d50e8845e686fc3a7add4e1822cd4089eefcf3502bf5d7d0a8097718",
+   "uploaded": "2026-09-25T06:14:42.362Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-23.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-23",
+   "kind": "pack",
+   "bytes": 168639,
+   "sha256": "3ac9dda55bc55563a8045bc11002063712372d17f09967cfe16837c61d2919bd",
+   "uploaded": "2026-09-25T06:14:52.307Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-24.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-24",
+   "kind": "pack",
+   "bytes": 167062,
+   "sha256": "9c724dbd7003e7f6798e742350905e7fcb453b2ef8107c83e715208846042cd1",
+   "uploaded": "2026-09-25T06:15:01.649Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-25.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-25",
+   "kind": "pack",
+   "bytes": 168089,
+   "sha256": "16e5e411146aaf6ec1d169430169fddf450442bbdf0082dd4e681f1ffb5651a2",
+   "uploaded": "2026-09-25T06:15:08.927Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-07 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 93335,
+   "sha256": "28f8606756b4539a2b1c1ae8884f07d83a43c99af8f3ab690ff8a4f2e06218a2",
+   "uploaded": "2026-10-05T01:50:50.095Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-08 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 88256,
+   "sha256": "00a2c4f003708653e8c245c7278f1f311b2da80bd8ffdbc9fbf15364b5c97b91",
+   "uploaded": "2026-10-05T01:50:51.493Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-09 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 88078,
+   "sha256": "d66ea45db52236b74abb402fc5d93994ae7c782876b355ab8fe4a8d47196b7aa",
+   "uploaded": "2026-10-05T01:50:52.681Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-10 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 88141,
+   "sha256": "caf0cb683ae4dc90584fef01a99ec9d4dbfc6590b24325284dde43fd1a26361d",
+   "uploaded": "2026-10-05T01:50:54.071Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-11 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 93575,
+   "sha256": "852cd524f1f697ba980329d324108bdd788e007ef79f81ca52a474e37bfe2b76",
+   "uploaded": "2026-10-05T01:50:55.267Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-28_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-28 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 94073,
+   "sha256": "1774f1df827660b3d23796a1b1839f7cd161be69acccf9b547243ddc880ca96b",
+   "uploaded": "2026-10-05T01:50:56.850Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-29_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-29 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 88078,
+   "sha256": "3f7d80d36f37db41e1e1ae4de87dca5504b7d23fc9308389dd460c2363ca1e4a",
+   "uploaded": "2026-10-05T01:50:58.148Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-09-30_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-09-30 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 93560,
+   "sha256": "b629dd9c5a3f7c500851b972f43cbd62b9a9a74b145e661a9fa76333f231c463",
+   "uploaded": "2026-10-05T01:50:59.321Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-10-01_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-10-01 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 93521,
+   "sha256": "dc12ab2c92c30e078e91788f0f8956cf527a42b0077fde0dcb4fa59ae9cb2f54",
+   "uploaded": "2026-10-05T01:51:00.744Z"
+  },
+  {
+   "id": "GC500_Prestart_Coates_2026-10-02_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Coates Installs · 2026-10-02 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87999,
+   "sha256": "f8760f287fea4d309525ae19a2dba70662bed4cfc33c54e6ceecea6e1aded526",
+   "uploaded": "2026-10-05T01:51:02.529Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-07_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-07 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 83599,
+   "sha256": "54bcd0d5ecdd063a1ddd336f7b971e0e3590ca18c18b7d6bfa3e83a17dc6179c",
+   "uploaded": "2026-10-05T01:51:04.370Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-08_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-08 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 83701,
+   "sha256": "28aeb6c0cd03de63c9c3dfbca7598552f00f032274301d149eff978dcf63a905",
+   "uploaded": "2026-10-05T01:51:05.573Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-09_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-09 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 85607,
+   "sha256": "5f89e5826b9904607b78de44d0b2f299fa22f6c11ad9df388e188451134cb966",
+   "uploaded": "2026-10-05T01:51:06.716Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-10_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-10 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 83594,
+   "sha256": "057f6280d7a259f050715b81fb3f61958539fde13573d46e8b460e6ec683ed67",
+   "uploaded": "2026-10-05T01:51:07.991Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-11_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-11 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87048,
+   "sha256": "d1fb18d9754df203b0b07ebc29025b2dc7739d1380319a0313a7253b5fbf9816",
+   "uploaded": "2026-10-05T01:51:09.145Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-21_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-21 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87085,
+   "sha256": "ccf15a7a3dc46c793bf7e439c26fdf20bb11cc8e17c78a7c014d2e6e129f3e79",
+   "uploaded": "2026-10-05T01:51:10.374Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-22_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-22 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87633,
+   "sha256": "4eecdf8c6030e61df3545bd55cd6106bb1fc49e692e7d3970e8ec372debc82b2",
+   "uploaded": "2026-10-05T01:51:11.556Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-23_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-23 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 89473,
+   "sha256": "970b25292cbac61a76c2ed3014361ffa96c0df1a33338e39f6d99f8e96e003ac",
+   "uploaded": "2026-10-05T01:51:12.705Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-24_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-24 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 89067,
+   "sha256": "1424ff0aa3f8204a9cf907a4cdbfbd5c781c6b9983c7d2f1801e528b70296137",
+   "uploaded": "2026-10-05T01:51:13.920Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-25_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-25 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87358,
+   "sha256": "362a9aff705f531e52ba7958a35534fa4e6eb4543797826975e01e3a0ba18825",
+   "uploaded": "2026-10-05T01:51:15.177Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-28_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-28 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 91155,
+   "sha256": "01d0f339638ddbd92bdc45efa4a424f74b1f59fc5fc650c2b37bc94cc0c85e1e",
+   "uploaded": "2026-10-05T01:51:16.805Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-29_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-29 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 88511,
+   "sha256": "0bc66b91af19117b1b781abac999927a65721fe95cc66bf3732d298847403353",
+   "uploaded": "2026-10-05T01:51:18.111Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-09-30_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-09-30 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87535,
+   "sha256": "269ef4a603d4d69490ebad25f49d2b2475c1e31d2e18a5589f34876622595916",
+   "uploaded": "2026-10-05T01:51:19.366Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-10-01_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-10-01 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87990,
+   "sha256": "46b8ffb8b512d9176361f209cb84ac68c57a8f86ea9d0f6285ddd2e03a2b4c7c",
+   "uploaded": "2026-10-05T01:51:20.555Z"
+  },
+  {
+   "id": "GC500_Prestart_ATF_2026-10-02_Retrospective_Unsigned.pdf",
+   "title": "Pre-start · Advanced Temporary Fencing · 2026-10-02 · Retrospective prefill — unsigned",
+   "kind": "pack",
+   "bytes": 87522,
+   "sha256": "b2394e66235e243b70dfc749e3656c32c6d19cc3be656958d915f3d8aadaa6b6",
+   "uploaded": "2026-10-05T01:51:21.946Z"
+  }
+ ],
+ "page_version": "v10.18",
+ "record_version": null,
+ "PS7": {
+  "work": [
+   [
+    "unload_building",
+    "Unload a building (crane)",
+    0
+   ],
+   [
+    "load_building",
+    "Load a building for removal",
+    1
+   ],
+   [
+    "unload_toilets",
+    "Unload portaloos",
+    2
+   ],
+   [
+    "load_toilets",
+    "Load portaloos",
+    3
+   ],
+   [
+    "level",
+    "Position and level a building",
+    0
+   ],
+   [
+    "blocks",
+    "Blocks and packers under skids",
+    1
+   ],
+   [
+    "stairs",
+    "Fit stairs and landings",
+    2
+   ],
+   [
+    "escort",
+    "Escort a truck through the park",
+    3
+   ],
+   [
+    "drive",
+    "Drive the track / Macintosh Park",
+    0
+   ],
+   [
+    "forklift",
+    "Forklift work",
+    1
+   ],
+   [
+    "relocate",
+    "Move a building (relocation)",
+    2
+   ],
+   [
+    "power",
+    "Power-on check with the electrician",
+    3
+   ],
+   [
+    "move_toilets",
+    "Move toilets",
+    0
+   ],
+   [
+    "spotting",
+    "Spotting",
+    1
+   ],
+   [
+    "barriers",
+    "Move water barriers",
+    2
+   ]
+  ],
+  "hazards": [
+   [
+    "Crane lifts — buildings and toilets",
+    "Exclusion zone under the hook goes up; ground checked — in doubt, stop and ask. Nobody walks or stands under a suspended building. Licensed dogger and operator; no lift when wind exceeds the chart.",
+    "SWMS TSV500.1 · crane install"
+   ],
+   [
+    "Forklift — unloading, loading, carrying",
+    "LF licence, pre-start done. Spotter in the Safe Zone, out of the line of fire. Loads restrained, never one on one. Reverse when the load blocks the view. Anyone in the zone: stop, lower, brake.",
+    "SEQ-SWMS-009.01g · steps 2, 6"
+   ],
+   [
+    "Jacking and levelling — the supervisor checks it first",
+    "Never under a building on jacks unless on an approved support; watch jacks for pressure. Pushers place the packers, hands out of pinch points. Operator stays in the seat while it is on the tynes.",
+    "SWMS TSV500.1 · jacking, levelling"
+   ],
+   [
+    "Blocks and packers and the 20 kg limit",
+    "Two-person lift or the forklift; work to the lay-down plan. No body part between skids and ground. Cut-5 gloves; never lift with snakes sitting under packers. Bite kit on the truck.",
+    "SWMS TSV500.1 · blocks"
+   ],
+   [
+    "Stairs and landings",
+    "Stairs to AS 1657, fitted and fixed before anyone uses the building; treads and handrails checked. No building is handed over without its steps — tick <b>Steps installed</b> in the page.",
+    "SWMS TSV500.1 · the page"
+   ],
+   [
+    "Spotting — every load, every reverse",
+    "One named spotter, agreed hand signals before the lift, and never inside the line of fire. If the spotter loses sight of the load or the driver loses sight of the spotter, everything stops.",
+    "SEQ-SWMS-009.01g · steps 2, 6"
+   ],
+   [
+    "Water barriers — moving and placing",
+    "Drained before they move unless the plan says otherwise; a full barrier is a different lift. Placed to the barrier drawing, not by eye. Hands clear of the joins; never straddle a barrier being pushed.",
+    "SWMS TSV500.1 · iEDM key plan K220"
+   ],
+   [
+    "Driving the track and Macintosh Park",
+    "40 km/h on track, 10 km/h in Macintosh Park. Pre-set routes; follow the traffic controllers. Beacon on; give way to pedestrians and plant. <b>Nobody drives through the park unescorted</b> — a truck waits at the gate.",
+    "D007-26003-02 · 009.01g · Crane driver rule"
+   ],
+   [
+    "Escorting a truck",
+    "Escort leads on the agreed route at a pace the truck can hold, beacon on; the driver follows the escort, not the sat-nav. Slow right down near the public — they have right of way. Light rail zone: permit first.",
+    "009.01g · iEDM rules · SEQ-RM-010d"
+   ],
+   [
+    "Trucks — tray access and restraint",
+    "Fall controls before anyone gets on a tray. Rated straps or chains on every load. A building leaves only with its pre-transit checklist done — doors and loose items secured, aircons restrained.",
+    "SAF-PRO-075 · TRAN-WI-R1.2 · 009.01g"
+   ],
+   [
+    "Take 5 — before every task",
+    "Stop and do a Take 5 before each new task and again whenever the job or the conditions change — a new drop, a new spot, a new crew member, rain, a crowd. Two minutes, every time: it is the Coates risk assessment tool at the task.",
+    "Coates Take 5 · Life Saving Rule: Risk Assessment · added 27 Sep 2026"
+   ],
+   [
+    "Congested areas and low branches",
+    "The precinct is busy — public, other contractors, event vehicles and the tram. Walk the route before the truck does, walking pace, barricade the drop spot. <b>Look up before every lift and every move</b>: branches, awnings, signs, wires.",
+    "SEQ-SWMS-009.01g · walk the route first · added 27 Sep 2026"
+   ],
+   [
+    "Tight spots",
+    "Plan the placement before the unit arrives: measure the gap, clear the path, a spotter on every tight manoeuvre, hands out of pinch points. If it does not fit as planned, stop and re-plan — never force it.",
+    "SWMS TSV500.1 · the placement plan · added 27 Sep 2026"
+   ],
+   [
+    "High communication at all times",
+    "Radio or phone on and charged. Say what you are about to do before you do it; one voice directs each lift and each reverse; any change to the plan goes to the whole crew straight away.",
+    "Site communication · contacts under 08 · added 27 Sep 2026"
+   ]
+  ],
+  "rules": [
+   "iEDM site induction done — every person, before starting",
+   "Site hours 07:00–17:00 Monday to Friday unless iEDM approves otherwise",
+   "Report to the Coates contact and site office on arrival",
+   "WC · LF · DG · RA · C1 · CV · WP — held by the person doing it",
+   "Crane Lift Plan · Traffic Management Plan · Permit to Work",
+   "SWMS signed: SEQ-SWMS-x TSV500.1 · SEQ-SWMS-009.01g",
+   "Pre-transit checklist TRAN-WI-R1.2 · SAF-PRO-075 for every move",
+   "Power on by a licensed electrician only — test & tag, RCD",
+   "Record it in the page: arrival, levelled, steps, photos, numbers",
+   "Water, hat, breaks · spotter near the public · report it straight away",
+   "Take 5 before every new task, and again when anything changes",
+   "PPE on before the gate: hi-vis, hard hat, glasses, gloves, boots, long sleeves, sun",
+   "SWMS reviewed together before work starts — today’s task not in it, stop",
+   "<b>Unsure? Ask the question. Everyone has the right to stop the job</b>"
+  ],
+  "life": [
+   [
+    "Risk Assessment",
+    "lsr-a",
+    "I will not commence any work that I am unfamiliar with, that is non-routine, potentially hazardous or impacted by changing conditions without first completing the appropriate Coates risk assessment tool to identify, assess and control risks."
+   ],
+   [
+    "High-Risk Work",
+    "lsr-b",
+    "I will not commence any High-Risk Work without a risk assessment being completed and without having signed onto the applicable Safe Work Method Statement (SWMS)."
+   ],
+   [
+    "Training and Competency",
+    "lsr-c",
+    "I will be inducted, trained, competent andhold the required certification and licences to conduct the task."
+   ],
+   [
+    "Fit for Work",
+    "lsr-d",
+    "When I commence work, I will be physically fit, and not impaired by fatigue, injury, distraction, drugs or alcohol. I will wear the required personal protective equipment (PPE) as identified for the task or site rules."
+   ],
+   [
+    "Tools and Equipment",
+    "lsr-e",
+    "I will only use tools and equipment that are fit for purpose and for which I am trained, competent and authorised. I will ensure that damaged or defective equipment is tagged out and removed from service."
+   ],
+   [
+    "Critical Risk Non-Negotiables",
+    "lsr-f",
+    "When I commence a work activity related to a Coates Top 10 Critical Risk, I will always ensure that I review and strictly adhere to the non-negotiable rules and controls for that Critical Risk to protect me, my workmates and others from serious harm."
+   ]
+  ],
+  "emg_primary": "000",
+  "emg": [
+   {
+    "name": "Gold Coast University Hospital",
+    "phone": "(07) 5687 0000"
+   },
+   {
+    "name": "Surfers Paradise Police Station",
+    "phone": "(07) 5570 7888"
+   },
+   {
+    "name": "Fire & Rescue — Southport Station",
+    "phone": "(07) 5656 9333"
+   }
+  ],
+  "coates": [
+   {
+    "name": "Andrew Fisher",
+    "role": "Events Project Manager",
+    "mobile": "0429 352 788"
+   }
+  ],
+  "iedm": [
+   {
+    "name": "David Wilde",
+    "role": "Project Safety Manager",
+    "phone": "0421 206 124"
+   },
+   {
+    "name": "Steve Haines",
+    "role": "Safety & Traffic Coordinator",
+    "phone": "0407 734 398"
+   },
+   {
+    "name": "Matt Koleczko",
+    "role": "Lead Project Manager",
+    "phone": "0481 122 096"
+   },
+   {
+    "name": "John Brett",
+    "role": "Site Manager",
+    "phone": "0433 809 117"
+   }
+  ],
+  "evac": "D004-26003-01",
+  "venue": "Surfers Paradise Street Circuit",
+  "crew": [
+   {
+    "name": "Andrew Fisher",
+    "role": "Events Project Manager"
+   },
+   {
+    "name": "Aaron Zelvis",
+    "role": "Installer"
+   },
+   {
+    "name": "Alfie Harris",
+    "role": "Installer"
+   },
+   {
+    "name": "Kyle Gover",
+    "role": "Installer"
+   },
+   {
+    "name": "Daniel Gough",
+    "role": "Installer"
+   }
+  ]
+ },
+ "css": "#dayprint .ps7, #dayprint .ps7 *{box-sizing:border-box;}\n#dayprint .ps7{font:7.2pt/1.16 \"Calibri\",\"Segoe UI\",system-ui,sans-serif; color:#15181a; margin:0;}\n#dayprint .ps7.ps{page-break-inside:avoid;}\n#dayprint .ps7.ps{page-break-inside:avoid;}\n#dayprint .ps7 .brk{page-break-before:always;}\n#dayprint .ps7 .psh{display:flex; align-items:center; gap:10px; background:#15181a; color:#fff; padding:3px 8px;}\n#dayprint .ps7 .psh-l b{font-size:13.5pt; letter-spacing:.2px; display:block; line-height:1;}\n#dayprint .ps7 .psh-l span{font-size:6pt; letter-spacing:1.6px; color:#c9cfd2;}\n#dayprint .ps7 .psh-m{flex:1; text-align:center;}\n#dayprint .ps7 .psh-m .kicker{font-size:6.4pt; letter-spacing:2.1px; color:#f07c2a; display:block;}\n#dayprint .ps7 .psh-m h1{font-size:11pt; margin:0; font-weight:700;}\n#dayprint .ps7 .psh-r{text-align:right; font-size:6.6pt; letter-spacing:.9px; color:#c9cfd2;}\n#dayprint .ps7 .psh-r b{display:block; font-size:9pt; color:#fff; letter-spacing:.6px;}\n#dayprint .ps7 .psh-r span{display:block;}\n#dayprint .ps7 .lede{margin:1px 0 2px; font-size:7pt; color:#3b4246; display:flex; align-items:center; gap:8px;}\n#dayprint .ps7 .lede b{color:#15181a;}\n#dayprint .ps7 .tag{margin-left:auto; border:1px solid #f07c2a; color:#b4521a; font-size:6.6pt; letter-spacing:1.1px;\n padding:2px 7px; white-space:nowrap;}\n#dayprint .ps7 h2{font-size:6.8pt; letter-spacing:.5px; margin:2px 0 1.5px; border-bottom:1px solid #15181a; padding-bottom:2px;\n display:flex; align-items:baseline; gap:6px; font-weight:700;}\n#dayprint .ps7 h2 i{font-style:normal; color:#f07c2a; font-size:7.4pt;}\n#dayprint .ps7 h2 em{margin-left:auto; font-style:italic; font-weight:400; font-size:7pt; color:#6b757a;}\n#dayprint .ps7 .swmsh{border:1px solid #f07c2a; border-left:2.5px solid #f07c2a; padding:1.5px 5px; margin:1px 0 2px;\n background:#fff8f3;}\n#dayprint .ps7 .swmsh p{margin:0; font-size:5.8pt; line-height:1.2; color:#3b4246;}\n#dayprint .ps7 .swmsh b{color:#15181a;}\n#dayprint .ps7 .swmsh p i{color:#8b9498; font-style:italic;}\n#dayprint .ps7 .swmsh .bx{width:6.2px; height:6.2px; margin:0 2px 0 5px;}\n#dayprint .ps7 .swmsh .bx.checked::after{font-size:5pt; left:.4px; top:-1.8px;}\n#dayprint .ps7 .today{display:grid; grid-template-columns:repeat(5,1fr); gap:4px;}\n#dayprint .ps7 .today div{border:1px solid #b9c1c5; padding:2px 4px; min-height:24px;}\n#dayprint .ps7 .today label{display:block; font-size:6.2pt; letter-spacing:.8px; color:#6b757a;}\n#dayprint .ps7 .today b{display:block; font-size:7.6pt; margin-top:1px;}\n#dayprint .ps7 .today span{display:block; font-size:6pt; color:#8b9498; font-style:italic; margin-top:1px;}\n#dayprint .ps7 .work{display:grid; grid-template-columns:repeat(4,1fr); gap:0 9px;}\n#dayprint .ps7 .wk, #dayprint .ps7 .rl{display:flex; align-items:flex-start; gap:3px; font-size:6.5pt; padding:.2px 0;}\n#dayprint .ps7 .bx{width:8.5px; height:8.5px; border:1px solid #6b757a; display:inline-block; flex:none; margin-top:1.5px;}\n#dayprint .ps7 .bx.checked{background:#15181a; border-color:#15181a; position:relative;}\n#dayprint .ps7 .bx.checked::after{content:\"✓\"; color:#fff; font-size:7pt; position:absolute; left:.6px; top:-1.4px;}\n#dayprint .ps7 .hzs{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 7px;}\n#dayprint .ps7 .hzs.hz4{grid-template-columns:1fr 1fr 1fr 1fr; gap:0 6px;}\n#dayprint .ps7 .hz4 .hz p{font-size:5.5pt; line-height:1.14;}\n#dayprint .ps7 .hz{border-left:2px solid #f07c2a; padding:1px 0 1px 5px;}\n#dayprint .ps7 .hz label{display:flex; gap:3px; align-items:flex-start; font-size:6.5pt;}\n#dayprint .ps7 .hz p{margin:0 0 0 10px; font-size:5.7pt; line-height:1.17; color:#3b4246;}\n#dayprint .ps7 .hz span{display:block; margin-left:10px; font-size:5pt; color:#8b9498;}\n#dayprint .ps7 .rules{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 9px;}\n#dayprint .ps7 .rules.rl4{grid-template-columns:1fr 1fr 1fr 1fr; gap:0 7px;}\n#dayprint .ps7 .rl4 .rl{font-size:6.2pt;}\n#dayprint .ps7 .emg{display:grid; grid-template-columns:1.35fr 1fr 1fr; gap:5px;}\n#dayprint .ps7 .emg>div{border:1px solid #b9c1c5; padding:3px 6px;}\n#dayprint .ps7 .emg-000{border:1.4px solid #c0392b !important;}\n#dayprint .ps7 .emg-h{font-size:6.2pt; letter-spacing:1.1px; color:#6b757a; margin-bottom:2px;}\n#dayprint .ps7 .emg-n{font-size:12pt; font-weight:700; color:#c0392b; line-height:1;}\n#dayprint .ps7 .emg-s{font-size:6pt; color:#3b4246; margin-top:1px;}\n#dayprint .ps7 .emg-r{display:flex; justify-content:space-between; gap:6px; font-size:6.2pt; padding:.3px 0;}\n#dayprint .ps7 .emg-r b{white-space:nowrap;}\n#dayprint .ps7 .rule{display:inline-block; width:78px; border-bottom:1px solid #6b757a;}\n#dayprint .ps7 .so{width:100%; border-collapse:collapse; table-layout:fixed;}\n#dayprint .ps7 .so th{font-size:5.9pt; letter-spacing:.7px; color:#6b757a; text-align:left; border-bottom:1px solid #15181a;\n padding:2px 3px; font-weight:600;}\n#dayprint .ps7 .so td{border-bottom:1px solid #d5dadd; height:9px; padding:0 3px;}\n#dayprint .ps7 .so tbody tr:nth-child(even){background:#f4f6f7;}\n#dayprint .ps7 .so col{}\n#dayprint .ps7 .so .n{width:14px; color:#8b9498; font-size:6.4pt;}\n#dayprint .ps7 .so .fit{white-space:nowrap;}\n#dayprint .ps7 .so .fit i{vertical-align:-1px;}\n#dayprint .ps7 .so .fit span{font-size:6.2pt; color:#6b757a; margin:0 5px 0 2px;}\n#dayprint .ps7 .confirm{font-size:5.2pt; line-height:1.18; color:#3b4246; margin:1.5px 0 1px;}\n#dayprint .ps7 .raise{display:grid; grid-template-columns:2.6fr 1fr 1fr .6fr; gap:5px;}\n#dayprint .ps7 .raise div{border:1px solid #b9c1c5; min-height:24px; padding:2px 4px;}\n#dayprint .ps7 .raise label{font-size:5.8pt; letter-spacing:.6px; color:#6b757a;}\n#dayprint .ps7 .foot{font-size:5pt; color:#8b9498; margin:1.5px 0 0; border-top:1px solid #d5dadd; padding-top:1.5px;}\n#dayprint .ps7 .story{margin:1px 0 2px; padding:0 0 0 10px; font-size:6.1pt; line-height:1.2;}\n#dayprint .ps7 .story li{margin:0 0 1px;}\n#dayprint .ps7 .story b{color:#15181a;}\n#dayprint .ps7 .lds{width:100%; border-collapse:collapse; font-size:5.7pt; margin:1px 0 1.5px;}\n#dayprint .ps7 .lds th{background:#eef1f2; text-align:left; padding:1px 4px; border:1px solid #cfd5d8; font-size:5.8pt;\n letter-spacing:.3px; text-transform:uppercase; color:#5d686d;}\n#dayprint .ps7 .lds td{padding:.5px 3px; border:1px solid #d5dadd; vertical-align:top;}\n#dayprint .ps7 .lds td.n{text-align:center; color:#8b9498;}\n#dayprint .ps7 .none{font-size:7pt; color:#5d686d; margin:2px 0 4px;}\n#dayprint .ps7 .rl2{color:#8b9498; font-size:5.6pt;}\n#dayprint .ps7 .sotwo{display:grid; grid-template-columns:1fr 1fr; gap:0 10px;}\n#dayprint .ps7 .lsr{display:grid; grid-template-columns:1fr 1fr; gap:1px 6px; margin:1px 0 2px;}\n#dayprint .ps7 .lsrow{display:flex; align-items:stretch; border:1px solid #d5dadd; border-radius:3px; overflow:hidden;}\n#dayprint .ps7 .lsrn{flex:0 0 26%; display:flex; align-items:center; padding:2px 5px; color:#fff; font-weight:700;\n font-size:6pt; line-height:1.1; letter-spacing:.1px;}\n#dayprint .ps7 .lsrt{flex:1 1 auto; padding:2px 5px; font-size:5.8pt; line-height:1.2; background:#f4f6f7;}\n#dayprint .ps7 .lsrt .bx{float:left; margin:.5pt 4px 0 0;}\n#dayprint .ps7 .lsr-a{background:#c8463c;}\n#dayprint .ps7 .lsr-b{background:#8a8352;}\n#dayprint .ps7 .lsr-c{background:#3c4247;}\n#dayprint .ps7 .lsr-d{background:#ef6b1e;}\n#dayprint .ps7 .lsr-e{background:#4d7141;}\n#dayprint .ps7 .lsr-f{background:#1f3a5f;}\n#dayprint .ps7 .so{page-break-inside:avoid;}\n#dayprint .ps7 .hold{page-break-inside:avoid;}\n#dayprint .ps7.ps.fen{font-size:6.85pt;}\n#dayprint .ps7.fen .hzs.hz4 .hz p{font-size:5.25pt; line-height:1.12;}\n#dayprint .ps7.fen .hzs.hz4 .hz label{font-size:6.2pt;}\n#dayprint .ps7.fen .hzs.hz4 .hz span{font-size:4.8pt;}\n#dayprint .ps7.fen .so td, #dayprint .ps7.fen .so th{padding-top:.4px; padding-bottom:.4px; font-size:6.1pt;}\n#dayprint .ps7.fen .so .rl2{font-size:5.5pt;}\n#dayprint .ps7.fen .today div{min-height:21px;}\n#dayprint .ps7.fen .emg>div{padding-top:2px; padding-bottom:2px;}\n#dayprint .ps7.fen .emg{font-size:6.4pt;}\n#dayprint .ps7.fen .lsr{font-size:6.2pt;}\n#dayprint .ps7.fen h2{margin:1.5px 0 1px;}\n#dayprint .ps7.fen .confirm, #dayprint .ps7.fen .foot{font-size:5.4pt; line-height:1.15;}\n#dayprint .ps7 .today.mfill{grid-template-columns:repeat(3,1fr);}\n#dayprint .ps7 .today.mfill div{min-height:26px;}\n#dayprint .ps7 .wl{display:block; border-bottom:1px solid #98a3a8; height:11px; margin-top:3px;}\n#dayprint .ps7 .mlines{display:grid; gap:7px; margin:2px 0 3px;}\n#dayprint .ps7 .mlines .wl{height:13px;}\n#dayprint .ps7.fen .lds{font-size:5.5pt;}\n#dayprint .ps7.fen .lds td{padding-top:.2px; padding-bottom:.2px;}\n#dayprint .ps7.fen .lds th{padding-top:.4px; padding-bottom:.4px;}\n#dayprint .ps7.fen .story{font-size:5.9pt; line-height:1.17;}\n#dayprint .ps7.fen .wk{font-size:6.2pt;}\n#dayprint .ps7 .hzs.hz4{display:block;column-count:4;column-gap:6px} #dayprint .ps7 .hzs.hz4 .hz{break-inside:avoid;margin-bottom:1.5px}\n#dayprint .ps7 .sotwo{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} #dayprint .ps7 .sotwo>table{min-width:0;width:100%}",
+ "FCOL": [
+  {
+   "key": "clean",
+   "name": "Clean",
+   "programme_type": "Temporary Fence (m) — Clean",
+   "unit": "m"
+  },
+  {
+   "key": "scrim",
+   "name": "Scrim",
+   "programme_type": "Temporary Fence (m) — Braced for Scrim",
+   "unit": "m"
+  },
+  {
+   "key": "relocation",
+   "name": "Relocation",
+   "programme_type": "Temporary Fence (m) — Relocation",
+   "unit": "m"
+  },
+  {
+   "key": "removal",
+   "name": "removal",
+   "programme_type": "Temporary Fence (m) — Removal",
+   "unit": "m"
+  },
+  {
+   "key": "v_gates",
+   "name": "V Gates",
+   "programme_type": "Vehicle Gates",
+   "unit": "each"
+  },
+  {
+   "key": "ped_gates",
+   "name": "Ped Gates",
+   "programme_type": "Ped. Gates",
+   "unit": "each"
+  },
+  {
+   "key": "ccb_event",
+   "name": "CCB Event",
+   "programme_type": "Crowd Control Barriers (m) — Event",
+   "unit": "m"
+  },
+  {
+   "key": "ccb_demarc",
+   "name": "CCB Demarc",
+   "programme_type": "Crowd Control Barriers (m) — Demarcation",
+   "unit": "m"
+  },
+  {
+   "key": "labour",
+   "name": "Labour",
+   "programme_type": null,
+   "unit": "hr"
+  },
+  {
+   "key": "team_leader",
+   "name": "team leader",
+   "programme_type": null,
+   "unit": null
+  },
+  {
+   "key": "flat_feet",
+   "name": "CCB flat feet",
+   "programme_type": "Crowd Control Barriers (m) — Flat Feet",
+   "unit": "m"
+  },
+  {
+   "key": "fence_blocks",
+   "name": "Fence blocks",
+   "programme_type": null,
+   "unit": "each"
+  }
+ ],
+ "team": [
+  {
+   "name": "Andrew Fisher",
+   "event_role": "Events Project Manager",
+   "group": "site",
+   "company": null,
+   "title": "Shutdown Manager"
+  },
+  {
+   "name": "Krystal Stephens",
+   "event_role": "Transport coordinator",
+   "group": "transport",
+   "company": null,
+   "title": "Transport Coordinator – Customer Contact Centre"
+  },
+  {
+   "name": "Aaron Zelvis",
+   "event_role": "Installer",
+   "group": "install",
+   "company": null,
+   "title": "Operations Installer"
+  },
+  {
+   "name": "Alfie Harris",
+   "event_role": "Installer",
+   "group": "install",
+   "company": null,
+   "title": "Operations Installer"
+  },
+  {
+   "name": "Kyle Gover",
+   "event_role": "Installer",
+   "group": "install",
+   "company": null,
+   "title": "Operations Installer"
+  },
+  {
+   "name": "Daniel Gough",
+   "event_role": "Installer",
+   "group": "install",
+   "company": null,
+   "title": null
+  },
+  {
+   "name": "Corey Machado",
+   "event_role": "Account manager",
+   "group": "account",
+   "company": null,
+   "title": "Regional Sales Manager – SEQ"
+  },
+  {
+   "name": "Ross Saxelby",
+   "event_role": "Office administration",
+   "group": "office",
+   "company": null,
+   "title": "Branch Supervisor – MEAD"
+  },
+  {
+   "name": "Abraham Tibble",
+   "event_role": "Office administration",
+   "group": "office",
+   "company": null,
+   "title": "Branch Manager – Kingston"
+  },
+  {
+   "name": "Wayne Woods",
+   "event_role": "Fencing crew — supervisor",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Owen Cowell McPaul",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Daniel Macleod",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Cody Woods",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Chase Hireni",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Tahi Peni",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Daniel Smith",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Scott Hildebrand",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Hayden Mcavoy",
+   "event_role": "Fencing crew",
+   "group": "fencing",
+   "company": "Advanced Temporary Fencing",
+   "title": null
+  },
+  {
+   "name": "Rob Simmons",
+   "event_role": "Supporting the iEDM site lead this year",
+   "group": "other",
+   "company": null,
+   "title": null
+  }
+ ],
+ "harness": {
+  "blocked_writes": 0,
+  "live_requests": 81,
+  "page_errors": []
+ },
+ "page_file": {
+  "name": "live_now.html",
+  "sha256": "2d09fa44794596c52c54d41aed6f98d16fbb6f5ff1ccf608f9d275874559785d",
+  "bytes": 15286087
+ }
+}

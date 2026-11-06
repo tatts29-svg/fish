@@ -1,0 +1,28 @@
+PASS RaceCrew1227: 18 shifts, 216 h, $30672 — the same as the live page's running-sheet rows for Fencing 1–6 (18, 216 h, $30672)
+PASS checked again: 216 h planned × $142 (quote 27172) = $30,672.00, all forecast (no race-day docket on the record); V8 Fence team $19412.82
+PASS the words say planned, forecast, no dockets yet, and the V8 charge
+PASS direct costs known unchanged 417803.57; difference so far unchanged 577537.65
+PASS P&L 2142 Installation — external contractors: today 21100 (unchanged), to job end 21100 -> 51772; basis names the crew and the V8 charge
+PASS P&L direct costs today unchanged, to job end +$30672
+PASS gross margin to job end 592352.79 -> 561680.79 (55%); difference to job end unchanged 479993.8; wages to job end 82113.1 -> 51441.1
+PASS fencing category (known so far) unchanged 255218.2, names the crew's forecast; Fencing 1–6 out of the hours-only external labour (798.8 -> 582.8 h)
+PASS fencing stream: known cost unchanged, note names the crew; the People stream unchanged
+PASS Costs to job end: fencing line still to come 10350 -> 41022, names the crew
+PASS Costs to job end lists Advanced's race-day dockets as the thing to confirm: 18 shifts are the planned roster, 216 h, forecast at quote 27172 ($142.00/h, 4 h minimum) — $30,672.00; Advanced bills from signed daily event dockets, and none for the race days are on the record yet
+PASS Costs to job end: labour hire 67413.1 -> 36741.1; known unchanged; job +$30672
+PASS Finance handover: total unchanged 541869.82; fencing +$30672, labour hire and people -$30672; costCheck true, peopleCheck true
+PASS reconciliation ties: 17/17 on the build (live 17/17)
+PASS direct costs known tie four ways to the cent: categories 417803.57, streams 417803.57, Costs to job end 417803.57, P&L lines 417803.57
+PASS by branch: costs with wages, today and to job end, unchanged
+PASS wages note: 74 -> 56 hired-in shifts, $67413.1 -> $36741.1; says where the crew went
+PASS labour card: the crew on its own row; total labour cost unchanged ($82,113.10)
+PASS Questions: the labour note names the race crew as not wages, forecast
+PASS wages hours outside the P&L 2494.3 -> 2278.3
+PASS revenue unchanged: 995341.22 on the record, 1021863.62 to job end, every revenue line
+PASS every other P&L cost line and Costs to job end line unchanged
+PASS on screen: the new 2142 job-end figure and the crew line are on the Costs tab
+PASS footer .20 · v12.27
+PASS base 0 errors 0 writes; build 0 page errors, 0 record writes
+crew words: race-day crew (Fencing 1–6), 18 shifts, 216 h planned at Advanced’s quote 27172 ($142.00/h, 4 h minimum) — $30,672.00 forecast; Advanced’s race-day dockets are not on the record yet · the V8s pay for this crew in the event labour scope: Fence team 213 h at $91.14 = $19,412.82
+wages note: wages — 56 hired-in shifts at the rates on the record, $36,741.10; Coates wages and salary 1,467.5 h tracked in hours only, no hourly rate (the project manager, 23 Oct 2026). The “Actuals, forecast & Finance journals” section keeps verified costs, past estimates and forecasts apart; none of these wages are added to this P&L. The Advanced race crew, 18 shifts $30,672.00 forecast, is what we pay Advanced: on this P&L under Installation — external contractors, not wages
+25/25 phone

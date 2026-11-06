@@ -1,0 +1,64 @@
+{
+  "author": "Andrew Fisher",
+  "method": "6 synchronous go() samples per tab, reduced motion, one browser at a time",
+  "runs": [
+    {
+      "tag": "base",
+      "sha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+      "metrics": {
+        "today": {
+          "medianMs": 197.8,
+          "samplesMs": [
+            235.7,
+            197,
+            197.1,
+            197.5,
+            198.1,
+            218.9
+          ]
+        },
+        "plant": {
+          "medianMs": 86.5,
+          "samplesMs": [
+            113.7,
+            86.3,
+            84.5,
+            91.9,
+            86.6,
+            78.1
+          ]
+        }
+      },
+      "errors": []
+    },
+    {
+      "tag": "candidate",
+      "sha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+      "metrics": {
+        "today": {
+          "medianMs": 181,
+          "samplesMs": [
+            191.5,
+            178,
+            169.2,
+            183.9,
+            172.1,
+            238.1
+          ]
+        },
+        "plant": {
+          "medianMs": 94.4,
+          "samplesMs": [
+            109.6,
+            81.4,
+            96.8,
+            93.5,
+            95.4,
+            84.3
+          ]
+        }
+      },
+      "errors": []
+    }
+  ]
+}

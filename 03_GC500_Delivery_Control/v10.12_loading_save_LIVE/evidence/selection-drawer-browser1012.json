@@ -1,0 +1,332 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "v10.12 native reference drawer Save confirmation and persistence",
+  "candidateSha256": "e2141352dd769a223814e2f228627978cbf1e8d332ce57c22bdfe54bd967e61c",
+  "testedGenericScriptSha256": "fd39e36d5e8d2380b735ba8d74c0be3a2421b2d21bc7a187b6b917d8f422c874",
+  "currentGenericScriptSha256": "ffd5ef64a384f58882c05007914399af32a5858df17fd623a460743845b140c7",
+  "genericStyleSha256": "69a04c2b99548cc35b7ba0805c7db65677fc6f054718639ac194993bcad53997",
+  "method": "Real application handlers in isolated browser contexts. Service SDK writes intercepted into browser memory. A browser-only practice rental option exercises the native rental selector; no production records changed. Expected documents are acknowledged only inside each test context.",
+  "viewports": [
+    {
+      "name": "phone",
+      "width": 390,
+      "height": 844,
+      "checksPassed": 36
+    },
+    {
+      "name": "desktop",
+      "width": 1440,
+      "height": 1000,
+      "checksPassed": 36
+    }
+  ],
+  "result": {
+    "checks": 72,
+    "passed": 72,
+    "runtimeErrors": 0,
+    "nativeServiceWrites": 0
+  },
+  "coverage": [
+    "Asset branch",
+    "Contract/rental",
+    "Supplied quantity and rejected invalid quantity",
+    "Manual stairs selection and mirrored controls",
+    "Exact current-document acknowledgement",
+    "No duplicate native mutation on repeat Save",
+    "Specialist forms retain their own single Save control",
+    "Drawer, disclosures, focus and scroll retained on Save and Reload"
+  ],
+  "positionResult": "All Save positions remained stable. Phone Reload retained exactly the same scroll and field position. Desktop Reload remained at its bottom boundary after 25 px of validation feedback disappeared; this is the expected clamp to the new maximum scroll.",
+  "successorEquivalence": "After this browser run, generic script changed from fd39e36d to ffd5ef64 only by adding synchronous mount() in render finally. The drawer hook, mutation handlers, acknowledgement logic, and CSS are unchanged. Main-page successor coverage belongs to the separate native main-page suite; this report does not claim a browser run of the successor hash.",
+  "checks": [
+    {
+      "name": "phone asset-branch has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch typed draft is not falsely saved",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone asset-branch repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "phone rental has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "phone rental native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "phone rental waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "phone rental Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone rental Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "phone rental exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone rental repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "phone supplied has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "phone supplied typed draft is not falsely saved",
+      "passed": true
+    },
+    {
+      "name": "phone supplied native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "phone supplied waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "phone supplied Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone supplied Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "phone supplied exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone supplied repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "phone invalid supplied quantity stays visibly unsaved",
+      "passed": true
+    },
+    {
+      "name": "phone field Reload restores native value without closing disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone field Reload keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "phone charge-selection repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "phone specialised forms receive no duplicate generic Save",
+      "passed": true
+    },
+    {
+      "name": "phone native drawer checks have no runtime errors",
+      "passed": true
+    },
+    {
+      "name": "phone no service write escaped isolated capture",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch typed draft is not falsely saved",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop asset-branch repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "desktop rental has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "desktop rental native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "desktop rental waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "desktop rental Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop rental Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop rental exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop rental repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied typed draft is not falsely saved",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop supplied repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "desktop invalid supplied quantity stays visibly unsaved",
+      "passed": true
+    },
+    {
+      "name": "desktop field Reload restores native value without closing disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop field Reload keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection has one native field Save",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection native handler captured exact changed documents",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection waiting for acknowledgement is device-only",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection Save retains open drawer and disclosures",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection Save keeps reading position",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection exact acknowledgement reports shared Saved",
+      "passed": true
+    },
+    {
+      "name": "desktop charge-selection repeat Save never replays native change",
+      "passed": true
+    },
+    {
+      "name": "desktop specialised forms receive no duplicate generic Save",
+      "passed": true
+    },
+    {
+      "name": "desktop native drawer checks have no runtime errors",
+      "passed": true
+    },
+    {
+      "name": "desktop no service write escaped isolated capture",
+      "passed": true
+    }
+  ],
+  "privacy": "No operational record bodies, financial values, asset identifiers, or screenshots included."
+}

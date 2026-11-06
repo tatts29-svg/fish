@@ -1,0 +1,208 @@
+{
+  "author": "Andrew Fisher",
+  "sourceCommit": "e540cbc31bef88500f9b781688c53f8693932514",
+  "proposalSha256": "5dc03396df0c9dd49a236d7f367a0852ce344b34ace0aaf1d0737631e30fbd42",
+  "originalSourceSha256": "99b24b0ffe9abebf893004e51c074dfdde572bb4a61e5c2555f38597e9c42e10",
+  "sourceFiles": {
+    "docs815_src.js": "038e6fd2966c374a27b70a0d3195c50f27346e9c7f32f59a607bba6618093168",
+    "patch_v815.py": "2d0a8457f22049123ecf437c6ef05fcf9bdd781e98c8e3508783e1744ea2c161",
+    "v815.css": "81c2bf72a6438adf8aaa8c6dd4072629671f01b8be4b1d4a8f34952798cd4e21"
+  },
+  "baselineSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baselineExcerptSha256": "6ff6b78ac55daf080952bd3792d1e192158db60a9dbffa2207e62cd7056c76f7",
+  "patchReplacementsExecuted": [
+    "twins in docCollection",
+    "finder doc ids",
+    "finder docday ids",
+    "finder pick lands on the item"
+  ],
+  "currentBaseSha256": "6365fd0965e1ae1fcf75fdd6aad076b2662697443addfae49a3d6016a39f9fce",
+  "currentBaseExcerptSha256": "842a878f0108ac4bd0a3639d5e2bd66377115f6e5592c2a4045954c414ab3278",
+  "originalPositiveChecks": {
+    "passed": 28,
+    "total": 28
+  },
+  "proposalChecks": {
+    "passed": 15,
+    "total": 15
+  },
+  "method": "Fresh independent private clone patched with the proposal; actual corrected functions and remote/redraw helpers, synthetic data and DOM/timer/asset doubles.",
+  "limits": "No browser/PDF/visual or elapsed-time performance validation. Focus-helper CPU checks do not replace real keyboard/browser checks. No owner-source, service or operational-record mutation.",
+  "passed": 43,
+  "total": 43,
+  "failures": [],
+  "checks": [
+    {
+      "name": "Five intended twins still merge once",
+      "pass": true
+    },
+    {
+      "name": "All catalogue notes and per-day pages survive merging",
+      "pass": true
+    },
+    {
+      "name": "Uploaded file identity and title alias are retained",
+      "pass": true
+    },
+    {
+      "name": "Retained note and uploaded title remain searchable",
+      "pass": true
+    },
+    {
+      "name": "Retained note has a Details control and reachable note span",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "map retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference TEST42 and its open action",
+      "pass": true
+    },
+    {
+      "name": "invoice retains recorded reference UNKNOWN99 and its open action",
+      "pass": true
+    },
+    {
+      "name": "Reference handler calls existing drawer action",
+      "pass": true
+    },
+    {
+      "name": "Details handler reveals the note and updates semantics",
+      "pass": true
+    },
+    {
+      "name": "Details handler closes the note again",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route selects Drawings",
+      "pass": true
+    },
+    {
+      "name": "Existing fencing plan route lands on plan subgroup",
+      "pass": true
+    },
+    {
+      "name": "Signed docket route remains separate",
+      "pass": true
+    },
+    {
+      "name": "Header twin result opens the uploaded file",
+      "pass": true
+    },
+    {
+      "name": "Header file opens with existing safe new-window options",
+      "pass": true
+    },
+    {
+      "name": "Header per-day result preserves the uploaded file and page anchor",
+      "pass": true
+    },
+    {
+      "name": "Missing header result clears unrelated category and selects its title",
+      "pass": true
+    },
+    {
+      "name": "Missing header result is rendered in the destination",
+      "pass": true
+    },
+    {
+      "name": "Missing selected row receives current/focus/scroll treatment",
+      "pass": true
+    },
+    {
+      "name": "Full print list is present on initial render without a button",
+      "pass": true
+    },
+    {
+      "name": "Print list includes every nonphoto exactly once",
+      "pass": true
+    },
+    {
+      "name": "Print list represents photos by reference and has no collapsed details",
+      "pass": true
+    },
+    {
+      "name": "Screen query/category does not restrict the complete print list",
+      "pass": true
+    },
+    {
+      "name": "Native print CSS exposes the persistent list and hides screen results",
+      "pass": true
+    },
+    {
+      "name": "Print button calls native printing without mutating screen state",
+      "pass": true
+    },
+    {
+      "name": "Print failure leaves screen category/query/folds unchanged",
+      "pass": true
+    },
+    {
+      "name": "Public Documents search explicitly permits the existing read-only guard",
+      "pass": true
+    },
+    {
+      "name": "Obsolete collection cache and seed are absent",
+      "pass": true
+    },
+    {
+      "name": "Each partial redraw reads a fresh current collection",
+      "pass": true
+    },
+    {
+      "name": "Each partial redraw still builds assets only once",
+      "pass": true
+    },
+    {
+      "name": "Synthetic numbered picture begins as a photo before its book record exists",
+      "pass": true
+    },
+    {
+      "name": "Actual incoming record changes while a focused Documents search defers full rendering",
+      "pass": true
+    },
+    {
+      "name": "Next partial redraw immediately classifies the new book paper as a docket",
+      "pass": true
+    },
+    {
+      "name": "Generated docket explanation is immediately searchable",
+      "pass": true
+    },
+    {
+      "name": "Actual search-results markup includes the newly classified document",
+      "pass": true
+    },
+    {
+      "name": "Fresh classification with a populated book still uses one asset build",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw leaves source data, file registry and applied records unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pending full render remains correct after focus is released",
+      "pass": true
+    },
+    {
+      "name": "Partial redraw restores the previously focused category without scrolling",
+      "pass": true
+    },
+    {
+      "name": "Full redraw also restores the previously focused category",
+      "pass": true
+    },
+    {
+      "name": "Redraw does not move focus when no category owned it",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (10:0x AEST): \"Leaving at  10am  142514\". 142514 is AA's only unit (Coates portable building; ticked Ready 4 Nov; no booking on the record; read 10:08 AEST, not already left), so AA left in full at 10:00 AEST on Thu 5 Nov 2026. Its fire extinguisher stays listed on AA as gear that goes with it. Recorded after 10:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "AA",
+   "at": "2026-11-05T10:00:00+10:00",
+   "nos": [
+    "142514"
+   ],
+   "complete": true
+  }
+ ]
+}

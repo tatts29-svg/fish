@@ -1,0 +1,440 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T013053Z",
+ "finished": "2026-10-16T01:31:10.067Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "owner": "event-portables",
+  "item": "FWF",
+  "partial": false,
+  "rows": [
+   {
+    "ref": "SVP01",
+    "numbers": [
+     "0939"
+    ]
+   },
+   {
+    "ref": "T0176",
+    "numbers": [
+     "0994",
+     "0576"
+    ]
+   }
+  ]
+ },
+ "pageSha256": "d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd",
+ "version": {
+  "before": 7239,
+  "after": 7262
+ },
+ "updated": {
+  "before": "2026-10-16T01:30:32.944Z",
+  "after": "2026-10-16T01:31:08.380Z"
+ },
+ "stage": [
+  {
+   "ref": "SVP01",
+   "unit": "0939",
+   "key": "unit925/d1038fcf-92fe-41cf-8c77-c2937eb4b5f4"
+  },
+  {
+   "ref": "SVP01",
+   "supplied": 1
+  },
+  {
+   "ref": "SVP01",
+   "install": true
+  },
+  {
+   "ref": "SVP01",
+   "date": "2026-10-16",
+   "complete": true,
+   "plan": "2026-10-22"
+  },
+  {
+   "ref": "T0176",
+   "unit": "0994",
+   "key": "unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7"
+  },
+  {
+   "ref": "T0176",
+   "unit": "0576",
+   "key": "unit925/a83415b7-931c-4f1d-ad16-aba439253997"
+  },
+  {
+   "ref": "T0176",
+   "supplied": 2
+  },
+  {
+   "ref": "T0176",
+   "install": true
+  },
+  {
+   "ref": "T0176",
+   "date": "2026-10-16",
+   "complete": true,
+   "plan": "2026-10-22"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0176",
+   "status": 200
+  },
+  {
+   "key": "delivery/SVP01",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~SVP01~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~T0176~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997",
+   "status": 200
+  },
+  {
+   "key": "supplied/SVP01",
+   "status": 200
+  },
+  {
+   "key": "supplied/T0176",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~SVP01~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~T0176~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0176": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:23.889Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/SVP01": {
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:30:30.142Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:30:30.594Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:30:30.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "stamps/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": null,
+   "stamps/supplied~2f~SVP01~2f~FWF": null,
+   "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "stamps/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": null,
+   "stamps/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": null,
+   "stamps/supplied~2f~T0176~2f~FWF": null,
+   "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "loads/unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": null,
+   "loads/unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": null,
+   "loads/unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": null,
+   "supplied/SVP01": null,
+   "supplied/T0176": null,
+   "by/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": null,
+   "by/supplied~2f~SVP01~2f~FWF": null,
+   "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "by/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": null,
+   "by/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": null,
+   "by/supplied~2f~T0176~2f~FWF": null,
+   "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null
+  },
+  "after": {
+   "delivery/T0176": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:31:03.988Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:03.491Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:03.988Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/SVP01": {
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:01.062Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:30:30.594Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:30:30.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:01.479Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:01.479Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "stamps/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": {
+    "_k": "loads/unit925/d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+    "v": "2026-10-16T01:31:00.022Z"
+   },
+   "stamps/supplied~2f~SVP01~2f~FWF": {
+    "_k": "supplied/SVP01/FWF",
+    "v": "2026-10-16T01:31:00.502Z"
+   },
+   "stamps/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/SVP01|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T01:31:00.572Z"
+   },
+   "stamps/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": {
+    "_k": "loads/unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+    "v": "2026-10-16T01:31:01.997Z"
+   },
+   "stamps/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": {
+    "_k": "loads/unit925/a83415b7-931c-4f1d-ad16-aba439253997",
+    "v": "2026-10-16T01:31:02.529Z"
+   },
+   "stamps/supplied~2f~T0176~2f~FWF": {
+    "_k": "supplied/T0176/FWF",
+    "v": "2026-10-16T01:31:02.961Z"
+   },
+   "stamps/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/T0176|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T01:31:03.021Z"
+   },
+   "loads/unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": {
+    "ref": "SVP01",
+    "owner": "event-portables",
+    "assetNo": "0939",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 16 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+    "nativeId": "slot:d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+    "transportId": "[\"SVP01\",\"event-portables\",\"native\",\"slot:d1038fcf-92fe-41cf-8c77-c2937eb4b5f4\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T01:31:00.022Z",
+    "_k": "unit925/d1038fcf-92fe-41cf-8c77-c2937eb4b5f4"
+   },
+   "loads/unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": {
+    "ref": "T0176",
+    "owner": "event-portables",
+    "assetNo": "0994",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 16 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+    "nativeId": "slot:a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+    "transportId": "[\"T0176\",\"event-portables\",\"native\",\"slot:a5bae3cd-2a82-4555-b51a-45f1d76e52a7\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T01:31:01.997Z",
+    "_k": "unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7"
+   },
+   "loads/unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": {
+    "ref": "T0176",
+    "owner": "event-portables",
+    "assetNo": "0576",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 16 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "a83415b7-931c-4f1d-ad16-aba439253997",
+    "nativeId": "slot:a83415b7-931c-4f1d-ad16-aba439253997",
+    "transportId": "[\"T0176\",\"event-portables\",\"native\",\"slot:a83415b7-931c-4f1d-ad16-aba439253997\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T01:31:02.529Z",
+    "_k": "unit925/a83415b7-931c-4f1d-ad16-aba439253997"
+   },
+   "supplied/SVP01": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "supplied/T0176": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 2
+     }
+    ],
+    "_k": "T0176"
+   },
+   "by/loads~2f~unit925~2f~d1038fcf-92fe-41cf-8c77-c2937eb4b5f4": {
+    "_k": "loads/unit925/d1038fcf-92fe-41cf-8c77-c2937eb4b5f4",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~SVP01~2f~FWF": {
+    "_k": "supplied/SVP01/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/SVP01|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~a5bae3cd-2a82-4555-b51a-45f1d76e52a7": {
+    "_k": "loads/unit925/a5bae3cd-2a82-4555-b51a-45f1d76e52a7",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~a83415b7-931c-4f1d-ad16-aba439253997": {
+    "_k": "loads/unit925/a83415b7-931c-4f1d-ad16-aba439253997",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~T0176~2f~FWF": {
+    "_k": "supplied/T0176/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/T0176|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/SVP01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "SVP01|Toilets & amenities|FWF|install",
+    "v": true
+   },
+   "labour/T0176~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "T0176|Toilets & amenities|FWF|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

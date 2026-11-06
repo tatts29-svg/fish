@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026, on the Today screen reading 98.31% with VMS 23/24 and Equipment 12/13: \"this needs to be fixed\". VMS: board 1211356 (contract 9961265 line 43) was on no delivery, so it read 'Still to come'; Andrew's 20 Oct entry put it on T0001 as VMS05 with rego ER9244 under a separate register key the page does not show; Andrew gave VMS05 as asset 1211356 on 20 Oct. Equipment: EQ0007, the AT009 rough-terrain forklift, has been on site and working since its delivery docket 26083924 (17 Sep 2026 13:42 AEST), but its Complete tick was only pressed on 27 Oct, after the progress cut-off of Fri 23 Oct, so the index counted it as not complete; its complete is dated to its arrival on the record.",
+ "ops": [
+  {
+   "op": "vms_board",
+   "key": "1211356",
+   "fleet": "1211356",
+   "rego": "ER9244",
+   "on": "T0001"
+  },
+  {
+   "op": "date_back",
+   "ref": "EQ0007",
+   "done_at": "2026-09-17T03:42:25.000Z",
+   "item": "Forklift Rough Terrain 2.5t",
+   "disc": "Access & plant",
+   "why": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026)."
+  }
+ ]
+}

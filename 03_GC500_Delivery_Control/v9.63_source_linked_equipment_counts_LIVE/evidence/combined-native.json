@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "version": 5155,
+  "existingDocketsUnchanged": 96,
+  "actualCustomerRevenueUnchanged": true,
+  "scope": "source task forecast attribution and cross-category truth reconciliation",
+  "candidateSha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "forecastRevenueRemoved": 5685,
+  "forecastDirectCostRemoved": 4249,
+  "matchedProgrammeTasks": 8,
+  "actualCostsUnchanged": true,
+  "recordUnchanged": true,
+  "papers": 16,
+  "linkedPhotos": 17,
+  "errors": []
+}

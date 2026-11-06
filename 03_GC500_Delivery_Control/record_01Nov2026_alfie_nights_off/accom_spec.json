@@ -1,0 +1,24 @@
+{
+ "by": "Andrew Fisher",
+ "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\".",
+ "ops": [
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-23",
+   "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+  },
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-24",
+   "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+  },
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-25",
+   "why": "Alfie Harris did not work 23-25 Oct, so there were no accommodation nights for him then. Andrew, 1 Nov 2026: \"alfie nevere worked 23-25\"."
+  }
+ ]
+}

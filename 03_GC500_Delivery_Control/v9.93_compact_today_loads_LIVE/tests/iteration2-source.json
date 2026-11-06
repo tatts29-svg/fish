@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "previewOnly": true,
+  "published": false,
+  "candidateSha256": "747936f9bc9ffd1151ab812c696f3e377aa4d7b6ba8a9fc2df7eecb4d7609676",
+  "bytes": 14770461,
+  "inlineScripts": 79,
+  "baseSha256": "0460e6f2306946c0e7262600414ff65b0824b0a086e618dbce28d7c66669e890",
+  "nativeSourceExactlyPreserved": true,
+  "duplicateApplicationGuard": true,
+  "wrongBaseGuard": true,
+  "buildSyntaxAttributionSecrets": "passed"
+}

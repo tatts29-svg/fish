@@ -1,0 +1,217 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T013630Z",
+ "finished": "2026-10-16T01:36:42.526Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "owner": "event-portables",
+  "item": "FWF",
+  "partial": false,
+  "rows": [
+   {
+    "ref": "WC85",
+    "numbers": [
+     "0135"
+    ]
+   }
+  ]
+ },
+ "pageSha256": "d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd",
+ "version": {
+  "before": 7272,
+  "after": 7282
+ },
+ "updated": {
+  "before": "2026-10-16T01:34:00.644Z",
+  "after": "2026-10-16T01:36:41.549Z"
+ },
+ "stage": [
+  {
+   "ref": "WC85",
+   "unit": "0135",
+   "key": "unit925/a76e42a2-0bba-4fba-a7b0-b82780972be7"
+  },
+  {
+   "ref": "WC85",
+   "supplied": 1
+  },
+  {
+   "ref": "WC85",
+   "install": true
+  },
+  {
+   "ref": "WC85",
+   "date": "2026-10-16",
+   "complete": true,
+   "plan": "2026-10-20"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC85",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~WC85~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7",
+   "status": 200
+  },
+  {
+   "key": "supplied/WC85",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~WC85~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC85": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:37.011Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.011Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC85"
+   },
+   "stamps/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": null,
+   "stamps/supplied~2f~WC85~2f~FWF": null,
+   "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "loads/unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": null,
+   "supplied/WC85": null,
+   "by/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": null,
+   "by/supplied~2f~WC85~2f~FWF": null,
+   "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null
+  },
+  "after": {
+   "delivery/WC85": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:36:39.086Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.011Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:36:38.640Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:36:39.086Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC85"
+   },
+   "stamps/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": {
+    "_k": "loads/unit925/a76e42a2-0bba-4fba-a7b0-b82780972be7",
+    "v": "2026-10-16T01:36:37.559Z"
+   },
+   "stamps/supplied~2f~WC85~2f~FWF": {
+    "_k": "supplied/WC85/FWF",
+    "v": "2026-10-16T01:36:38.097Z"
+   },
+   "stamps/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC85|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T01:36:38.161Z"
+   },
+   "loads/unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": {
+    "ref": "WC85",
+    "owner": "event-portables",
+    "assetNo": "0135",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 16 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "a76e42a2-0bba-4fba-a7b0-b82780972be7",
+    "nativeId": "slot:a76e42a2-0bba-4fba-a7b0-b82780972be7",
+    "transportId": "[\"WC85\",\"event-portables\",\"native\",\"slot:a76e42a2-0bba-4fba-a7b0-b82780972be7\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T01:36:37.559Z",
+    "_k": "unit925/a76e42a2-0bba-4fba-a7b0-b82780972be7"
+   },
+   "supplied/WC85": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "WC85"
+   },
+   "by/loads~2f~unit925~2f~a76e42a2-0bba-4fba-a7b0-b82780972be7": {
+    "_k": "loads/unit925/a76e42a2-0bba-4fba-a7b0-b82780972be7",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~WC85~2f~FWF": {
+    "_k": "supplied/WC85/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC85|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC85~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "WC85|Toilets & amenities|FWF|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

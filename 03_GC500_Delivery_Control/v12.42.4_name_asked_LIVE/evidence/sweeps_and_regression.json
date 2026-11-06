@@ -1,0 +1,42 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "errors": 0,
+  "allErrors": [],
+  "counts": {
+   "page": 1,
+   "live": 556,
+   "blocked": 0
+  }
+ },
+ "phone": {
+  "tabs": 27,
+  "shown": 19,
+  "errors": 0,
+  "allErrors": [],
+  "counts": {
+   "page": 1,
+   "live": 460,
+   "blocked": 0
+  }
+ },
+ "regression_failures": {
+  "r2_desktop": [
+   "v12.42.1: a day ahead with nothing booked says its pick-ups are to come (no \"Booked 0\", no schedule plan)",
+   "v12.42.1: a day ahead with nothing on it says nothing is picked up yet and lists nothing from the schedule",
+   "v12.42: a booking moves the day ahead: tomorrow's card says where its bookings take the demob if every one goes"
+  ],
+  "r2_phone": [
+   "v12.42.1: a day ahead with nothing booked says its pick-ups are to come (no \"Booked 0\", no schedule plan)",
+   "v12.42.1: a day ahead with nothing on it says nothing is picked up yet and lists nothing from the schedule",
+   "v12.42: a booking moves the day ahead: tomorrow's card says where its bookings take the demob if every one goes"
+  ],
+  "rlive_desktop": [
+   "v12.42.1: a day ahead with nothing booked says its pick-ups are to come (no \"Booked 0\", no schedule plan)",
+   "v12.42.1: a day ahead with nothing on it says nothing is picked up yet and lists nothing from the schedule",
+   "v12.42: a booking moves the day ahead: tomorrow's card says where its bookings take the demob if every one goes"
+  ]
+ },
+ "same_three_on_live_v12423": true
+}

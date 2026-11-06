@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"P58 door to driver\". P58 has one unit, 1273656; no door side was recorded.",
+ "refs": [
+  "P58"
+ ],
+ "ops": [
+  {
+   "op": "door",
+   "ref": "P58",
+   "id": "u1273656",
+   "side": "driver",
+   "why": "Andrew, 17 Oct 2026: P58 door to driver"
+  }
+ ]
+}

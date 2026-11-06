@@ -1,0 +1,73 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "selection1305",
+  "passed": true,
+  "checks": 3118,
+  "maxSegments": 3912,
+  "samples": [
+    {
+      "id": "crankshaft",
+      "segments": 744
+    },
+    {
+      "id": "piston-1",
+      "segments": 488
+    },
+    {
+      "id": "connecting-rod-1",
+      "segments": 294
+    },
+    {
+      "id": "camshaft-near",
+      "segments": 1568
+    },
+    {
+      "id": "intake-valve-1",
+      "segments": 62
+    },
+    {
+      "id": "timing-belt",
+      "segments": 2604
+    },
+    {
+      "id": "timing-tensioner",
+      "segments": 622
+    },
+    {
+      "id": "oil-pan",
+      "segments": 3912
+    },
+    {
+      "id": "oil-pump",
+      "segments": 462
+    },
+    {
+      "id": "oil-galleries",
+      "segments": 3808
+    },
+    {
+      "id": "distributor",
+      "segments": 2001
+    },
+    {
+      "id": "accessory-belt",
+      "segments": 1192
+    },
+    {
+      "id": "water-pump",
+      "segments": 1016
+    },
+    {
+      "id": "cooling-system",
+      "segments": 1364
+    },
+    {
+      "id": "alternator",
+      "segments": 1378
+    },
+    {
+      "id": "starter-motor",
+      "segments": 284
+    }
+  ]
+}

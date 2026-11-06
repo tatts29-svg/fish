@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 6 Nov 2026 (08:5x AEST): \"We had the coates event container leaving at 830am\". T0023 is the Event Container from EAGS (Coates 1257261, island west parkland entry by the merch strip, on site since 15 Sep 2026), the only container still on site: T0258 (3.0m container) and T0266 (refrigerator container) left 30 Oct, and T0023's own 30 Oct entry was withdrawn (run 88) because the container that left that day was T0266. It left in full at 08:30 AEST on Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 08:30, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0023",
+   "at": "2026-11-06T08:30:00+10:00",
+   "nos": [
+    "1257261"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+[
+  {
+    "name": "quality preference migration respects later explicit choices",
+    "ok": true
+  },
+  {
+    "name": "UHD sizing preserves aspect and honours GPU limit",
+    "ok": true
+  },
+  {
+    "name": "v11.82 company vehicle source present",
+    "ok": true
+  },
+  {
+    "name": "garage visible after paused mount",
+    "ok": true
+  },
+  {
+    "name": "eight vehicle choices",
+    "ok": true
+  },
+  {
+    "name": "truck selected and retained",
+    "ok": true
+  },
+  {
+    "name": "hero render has no graphics error",
+    "ok": true
+  },
+  {
+    "name": "native scene retains UHD resolution and multisampling without glow",
+    "ok": true,
+    "detail": {
+      "report": {
+        "version": "1.8",
+        "quality": "crisp",
+        "samples": 4,
+        "shadowMap": 0,
+        "resolution": [
+          2160,
+          3267
+        ],
+        "facades": "recessed glass and concrete",
+        "ambientContact": false,
+        "carStyle": "solid",
+        "steppedDownTo": null,
+        "bloom": false,
+        "reflections": false,
+        "shadowOn": false,
+        "drawnAt": "4K clarity",
+        "resolutionLocked": true,
+        "antiAliasing": 4
+      },
+      "quality": "crisp",
+      "bloom": false,
+      "size": [
+        2160,
+        3267
+      ]
+    }
+  },
+  {
+    "name": "quality reduction preserves chosen resolution and safe GPU wrapper",
+    "ok": true
+  },
+  {
+    "name": "loaded truck with company logo stays within geometry budget",
+    "ok": true,
+    "detail": {
+      "stats": {
+        "kind": "Advanced Temporary Fencing truck",
+        "quality": "high",
+        "triangles": 19319,
+        "parts": 28,
+        "newTextures": 0,
+        "geometryBuiltOnce": true,
+        "illustrative": true,
+        "brandVersion": 1180,
+        "loadVersion": 1182,
+        "stockLoaded": true,
+        "loadType": "separate dense panel stacks and central palletised base blocks",
+        "logoTriangles": 3417,
+        "logoCopies": 3
+      },
+      "frames": true,
+      "parts": 28
+    }
+  },
+  {
+    "name": "whole truck and load fit native camera",
+    "ok": true
+  },
+  {
+    "name": "explicit Balanced remains available",
+    "ok": true
+  },
+  {
+    "name": "quarter render has no graphics error",
+    "ok": true
+  },
+  {
+    "name": "chase render has no graphics error",
+    "ok": true
+  },
+  {
+    "name": "onboard render has no graphics error",
+    "ok": true
+  },
+  {
+    "name": "Day and scenery retained",
+    "ok": true
+  },
+  {
+    "name": "truck advances on the existing circuit",
+    "ok": true
+  },
+  {
+    "name": "existing tow choice retained",
+    "ok": true
+  },
+  {
+    "name": "Close releases scene and truck cache",
+    "ok": true
+  },
+  {
+    "name": "shared record untouched",
+    "ok": true
+  },
+  {
+    "name": "no page errors or attempted writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 105,
+        "blocked": 0
+      }
+    }
+  }
+]

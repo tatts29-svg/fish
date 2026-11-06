@@ -1,0 +1,114 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.13",
+  "sha256": "8b524dbcb293d487c04465734d03df5182a74ef75a8214c03559bf674a2066cf",
+  "bytes": 15337257,
+  "base_sha256": "d01878c99c7d8972beb8c6b76e16775d7c53f20551c4c3d41f422404d1616a67",
+  "toolchain_inline_scripts": 196,
+  "navigation_boundaries": {
+    "passed": 7,
+    "total": 7
+  },
+  "data_boundaries": {
+    "passed": 11,
+    "total": 11
+  },
+  "transport_boundaries": {
+    "passed": 13,
+    "total": 13
+  },
+  "preservation": {
+    "exact_live_base": true,
+    "only_two_scripts_changed": true,
+    "outside_scripts_exact": true,
+    "departure_selection_and_transport_models_exact": true,
+    "other_map_modules_exact": true,
+    "function selected": true,
+    "function selectedSnapshot": true,
+    "function download": true,
+    "original_area_picture_exact": true,
+    "global_twinsteer_rules_exact": true,
+    "second_application_refused": true,
+    "wrong_base_refused": true
+  },
+  "native": {
+    "details": {
+      "passed": 10,
+      "total": 10
+    },
+    "desktop": {
+      "passed": 36,
+      "total": 36
+    },
+    "phone": {
+      "passed": 36,
+      "total": 36
+    }
+  },
+  "pdf": {
+    "details/checked": {
+      "passed": 20,
+      "total": 20,
+      "pages": 5,
+      "qr_pages": 1
+    },
+    "details/unchecked": {
+      "passed": 20,
+      "total": 20,
+      "pages": 5,
+      "qr_pages": 1
+    },
+    "desktop": {
+      "passed": 20,
+      "total": 20,
+      "pages": 3,
+      "qr_pages": 1
+    },
+    "phone": {
+      "passed": 20,
+      "total": 20,
+      "pages": 3,
+      "qr_pages": 1
+    },
+    "layout/single": {
+      "passed": 20,
+      "total": 20,
+      "pages": 3,
+      "qr_pages": 1
+    },
+    "layout/multiple-long": {
+      "passed": 21,
+      "total": 21,
+      "pages": 9,
+      "qr_pages": 2
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    },
+    "phone": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "errors": 0,
+      "console_errors": 0,
+      "attempted_writes": 0,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      }
+    }
+  },
+  "independent_review": false,
+  "record_writes": 0
+}

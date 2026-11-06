@@ -1,0 +1,141 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Affected UI template/handler CPU probes only, using minimal DOM stubs. No browser. Unchanged planner/date checks were not rerun.",
+  "candidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "passed": 20,
+  "failed": 0,
+  "results": [
+    {
+      "name": "coates_load_card_shows_actual_capacity_12",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "coates_email_identifies_capacity_12",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "coates_load_card_identifies_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_on_pickup_row",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_in_toilet_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "unknown_owner_explained_in_email",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_no_midnight_times_in_truck_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_actual_wired_print_selects_one_list",
+      "pass": true,
+      "observed": "1",
+      "expected": "1"
+    },
+    {
+      "name": "supplier_print_has_no_midnight_or_kingston_departure",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_print_includes_asset_and_empty_requirement",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "printing_does_not_change_shared_record",
+      "pass": true,
+      "observed": "{\"delivery\":{}}",
+      "expected": "{\"delivery\":{}}"
+    },
+    {
+      "name": "same_day_stream_buttons_have_distinct_ids",
+      "pass": true,
+      "observed": [
+        "sub1",
+        "coates1"
+      ],
+      "expected": [
+        "sub1",
+        "coates1"
+      ]
+    },
+    {
+      "name": "wired_sub1_prints_only_its_selected_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "wired_coates1_prints_only_its_selected_stream",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_tank_dependency_visible_in_truck_view",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "supplier_tank_dependency_visible_in_sheet",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "capacity_handler_writes_selected_device_key",
+      "pass": true,
+      "observed": "8",
+      "expected": "8"
+    },
+    {
+      "name": "capacity_change_does_not_change_shared_record",
+      "pass": true,
+      "observed": "{\"delivery\":{}}",
+      "expected": "{\"delivery\":{}}"
+    },
+    {
+      "name": "reduced_truck_capacity_never_exceeds_accepted_capacity",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    },
+    {
+      "name": "reduced_truck_capacity_is_not_labelled_full_without_overload_warning",
+      "pass": true,
+      "observed": true,
+      "expected": true
+    }
+  ],
+  "fixtureProvenance": "8c821da439027bd09b01d4dbc2e84b53c966c397",
+  "fixtureRunDemobSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedSourceCommit": "uncommitted working tree on 1382e98 (demob816_src.js 3f18954e; drawer, patch and css as committed in a57de005)",
+  "testedJsSha256": "3f18954e509eafd35c81f1c466963eaea886c23a68a570d1574bf8c72a740afc",
+  "testedDrawerSha256": "6f87a42c4ac481bbbbceaab8c33e96adfd0f5b91fa7bc1780618a082d0882125",
+  "base": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770"
+}

@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Print-only overview heading clearance",
+  "source_sha256": "2baeb47d1973fa8a53fd92348ca6b745af42d0e3873e24ea2ab4861dda4f7948",
+  "test_source_sha256": "d60856ed0f1db556c796d9579a3ab97f4bf705f04e8e8c0de41eff43c85c1e15",
+  "synthetic_render_cases": 3,
+  "minimum_statistics_gap_mm": 6,
+  "minimum_allowed_title_font_pt": 10,
+  "oversized_heading_rejected": true,
+  "actual_pdf_bounds_checked": true,
+  "status": "passed",
+  "operational_inputs_included": false,
+  "qr_or_data_logic_changed": false,
+  "physical_phone_scans_claimed": false
+}

@@ -1,0 +1,90 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T000924Z",
+ "finished": "2026-10-20T00:09:34.280Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026: \"vms11 pinned location is -27.986124517327926, 153.42846712323328\" (rounded to 6 places as the page keeps it); VMS plan position 11, Macintosh Island Park, western end of the bridge.",
+  "ops": [
+   {
+    "op": "vms_plan",
+    "pos": "11",
+    "lat": -27.986125,
+    "lon": 153.428467,
+    "how": "Andrew Fisher's pinned location for VMS11, 20 Oct 2026"
+   }
+  ]
+ },
+ "pageSha256": "6a509831956221160fc78798a28b5fcee3eb3bd0740709b6f12f77b4efbcc478",
+ "version": {
+  "before": 10012,
+  "after": 10015
+ },
+ "updated": {
+  "before": "2026-10-20T00:08:59.081Z",
+  "after": "2026-10-20T00:09:33.428Z"
+ },
+ "stage": [
+  {
+   "op": "vms_plan",
+   "pos": "11",
+   "lat": -27.986125,
+   "lon": 153.428467,
+   "how": "Andrew Fisher's pinned location for VMS11, 20 Oct 2026",
+   "result": "VMS plan 11 pinned at -27.986125, 153.428467"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/loads~2f~vms1024~2f~11",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~11",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~11",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/loads~2f~vms1024~2f~11": null,
+   "loads/vms1024~2f~11": null,
+   "by/loads~2f~vms1024~2f~11": null
+  },
+  "after": {
+   "stamps/loads~2f~vms1024~2f~11": {
+    "_k": "loads/vms1024/11",
+    "v": "2026-10-20T00:09:30.852Z"
+   },
+   "loads/vms1024~2f~11": {
+    "lat": -27.986125,
+    "lon": 153.428467,
+    "posHow": "Andrew Fisher's pinned location for VMS11, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:09:30.851Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "11",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:09:30.852Z",
+    "_k": "vms1024/11"
+   },
+   "by/loads~2f~vms1024~2f~11": {
+    "_k": "loads/vms1024/11",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

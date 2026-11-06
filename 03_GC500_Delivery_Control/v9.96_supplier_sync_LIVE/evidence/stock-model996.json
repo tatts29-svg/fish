@@ -1,0 +1,59 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Unchanged arrival produces original three charges",
+      "pass": true
+    },
+    {
+      "name": "Original light-only arrival bug reproduced",
+      "pass": true
+    },
+    {
+      "name": "Validated full collection preserves all original arrival charge rows and amounts",
+      "pass": true
+    },
+    {
+      "name": "Same collection removes current stock",
+      "pass": true
+    },
+    {
+      "name": "Historical day before collection never borrows later collected units",
+      "pass": true
+    },
+    {
+      "name": "Typed collection cannot supply unrelated item receipt",
+      "pass": true
+    },
+    {
+      "name": "Existing larger receipt remains authoritative and not doubled",
+      "pass": true
+    },
+    {
+      "name": "Unknown native receipt is not coerced into confirmed quantity",
+      "pass": true
+    },
+    {
+      "name": "Scope change holds typed floor",
+      "pass": true
+    },
+    {
+      "name": "Re-arrival does not borrow collection from previous cycle",
+      "pass": true
+    },
+    {
+      "name": "No global receipt wrapper or altered pricing",
+      "pass": true
+    },
+    {
+      "name": "Shared operational state unchanged",
+      "pass": true
+    },
+    {
+      "name": "Pee-panel hire forecast remains4033.01 after full collection; no additional receipt patch needed",
+      "pass": true
+    }
+  ],
+  "networkCalls": 0
+}

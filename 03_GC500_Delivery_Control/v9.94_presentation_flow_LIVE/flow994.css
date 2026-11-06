@@ -1,0 +1,7 @@
+/* Author: Andrew Fisher. Native controls with clear return and focus states. */
+.flow994-costback.btn{min-height:44px;margin:0 0 10px}
+.flow994-dochead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.flow994-dochead .btn{min-height:44px;flex-shrink:0}
+.flow994-cwopen{border:0;background:transparent;padding:0;color:inherit;font:inherit;font-weight:700;text-align:left;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:44px}
+.flow994-cwopen:focus-visible{outline:3px solid var(--orange,#ff7900);outline-offset:3px;border-radius:3px}
+@media print{.flow994-costback,.flow994-dochead .btn{display:none!important}.flow994-cwopen{text-decoration:none;min-height:0}}

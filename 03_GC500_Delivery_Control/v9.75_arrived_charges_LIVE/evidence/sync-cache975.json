@@ -1,0 +1,50 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Immediate shared-record cache invalidation; no new native records or mapping",
+  "fixture": "Actual Chromium candidate using live GET collections and photoIndex ready; no page/state native substitution",
+  "baseline": {
+    "remainingBeforeManualCacheClear": [
+      "T0022",
+      "T0023",
+      "T0159",
+      "T0169",
+      "T0170",
+      "T0224"
+    ],
+    "remainingAfterManualCacheClear": [
+      "T0159",
+      "T0169",
+      "T0170"
+    ]
+  },
+  "patched": {
+    "remainingBeforeManualCacheClear": [
+      "T0159",
+      "T0169",
+      "T0170"
+    ],
+    "remainingAfterManualCacheClear": [
+      "T0159",
+      "T0169",
+      "T0170"
+    ],
+    "pageErrors": 0,
+    "operationalWrites": 0
+  },
+  "function_checks": {
+    "passed": 13,
+    "cases": [
+      "Hydrated fixes invalidate stale native pin and financial caches immediately",
+      "Active held asset snapshot markedstale",
+      "Unheld memo cleared",
+      "Unchangedpoll avoids unnecessaryinvalidation",
+      "Changedpoll refreshes cacheddata",
+      "Read-onlyinitialhydration preservesnativevalues and sendsnothing",
+      "Editableinitialmerge preservesexisting sendpath andinvalidatesmemos"
+    ]
+  },
+  "patch_guard_checks": 2,
+  "private_candidate_sha256": "f32f72cac7e3ad67847279ad0d3ae4b1584e23abe15fcf68ed92d53be2a174ff",
+  "source_sha256": "a508457d9079577e1a837059840dbb6aff769d5f8df6814e8d23b2587656341c",
+  "result": "NativeGPSalreadyexists forT0022andT0023; linkedremovalT0224 resolvesfromT0023. ThreegenuineVMSdifferences arestablewithoutmanualcacheclear."
+}

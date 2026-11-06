@@ -1,0 +1,34 @@
+// Author: Andrew Fisher. Movement allocation and primary product regressions.
+const assert=require('assert/strict'),S=require('../movement942.js');let checks=0;function test(f){f();checks++;}
+const shape={components:[{kind:'toilet_block',source:'master'},{kind:'waste_tank',source:'master'},{kind:'building',source:'master'},{kind:'toilet',source:'master'},{kind:'pee_panel',source:'master'}]};
+const a={key:'REF'},u=(no,item)=>({id:'native-'+no,assetNo:no,item,physical:true,loadingId:'u'+no,owner:'coates'}),base={shapes:{shape:()=>shape},units:a=>a.us||[],rows:a=>(a.us||[]).map(u=>({id:u.loadingId,no:u.assetNo,item:u.item})),side:()=> 'driver',items:r=>r.items};
+const go=(us,items,extra={})=>S.movementModel({rows:[{a:{...a,us,...extra},items}]},base)[0].products;
+test(()=>assert.equal(S.kind('Toilet Block 6m — Set 1 (waste tank 1234567)'),'toilet_block'));
+test(()=>assert.equal(S.kind('Toilet Block 6m – Set 2 (waste tank AB-123)'),'toilet_block'));
+test(()=>assert.equal(S.kind('Waste tank — Set 1'),'waste_tank'));
+test(()=>assert.equal(S.kind('Sewage Holding Tank'),'waste_tank'));
+test(()=>assert.equal(S.kind('Waste tank under toilet block'),'waste_tank'));
+test(()=>assert.equal(S.primaryItem942('Generator with tank'),'Generator with tank'));
+test(()=>{const x=go([u('123','Toilet Block 6m — Set 1 (waste tank 456)')],[{item:'Toilet Block 6m',qty:'1'}],{_bookingNumbers801:['123']})[0];assert.equal(x.units[0].id,'native-123');assert.equal(x.units[0].loadingId,'u123');assert.equal(x.units[0].side,'driver');assert.equal(x.units[0].evidence.kind,'toilet_block');});
+test(()=>{const x=go([u('123','Toilet Block 6m'),u('456','Toilet Block 6m')],[{item:'FWF',qty:'4'},{item:'Pee Panel',qty:'6'}]);assert.deepEqual(x.map(p=>p.units),[[],[]]);assert.deepEqual(x.map(p=>p.qty),['4','6']);});
+test(()=>{const x=go([u('123','Building 6m'),u('456','Building 6m')],[{item:'Building 6m',qty:'1'}])[0];assert.deepEqual(x.units,[]);assert.equal(x.qty,'1');assert.equal(x.drawing.exact,false);assert.equal(x.drawing.door,'none');});
+test(()=>assert.equal(go([u('123','Building 6m'),u('456','Building 6m')],[{item:'Building 6m',qty:'2'}])[0].units.length,2));
+test(()=>assert.equal(go([u('123','Building 6m')],[{item:'Building 6m',qty:'2'}])[0].units.length,0));
+test(()=>assert.equal(go([u('123','Building 6m')],[{item:'Building 6m',qty:''}])[0].units.length,0));
+test(()=>assert.equal(go([u('123','Building 6m')],[{item:'Building 6m',qty:''}],{_bookingNumbers801:['123']})[0].units.length,1));
+test(()=>assert.equal(go([],[{item:'Building 6m',qty:'1'}],{_bookingNumbers801:[]})[0].units.length,0));
+test(()=>assert.equal(go([u('123','Building 6m')],[{item:'Building 6m',qty:'0'}])[0].units.length,0));
+test(()=>assert.equal(go([u('123','60kva')],[{item:'80kva',qty:'1'}])[0].units.length,0));
+test(()=>{const x=go([u('123','Building 6m'),u('456','Aircon')],[{item:'Building 6m',qty:'1'}]);assert.equal(x[0].units.length,1);assert.equal(x[0].units[0].assetNo,'123');});
+test(()=>{const r={a:{...a,us:[u('123','Building 6m')]},items:[{item:'Building 6m',qty:'1'}]},x=S.movementModel({rows:[r,r]},base);assert(x.every(r=>r.products[0].units.length===0));});
+test(()=>{const us=[u('123','Building 6m')],items=[{item:'Building 6m',qty:'1'}],before=JSON.stringify({us,items});go(us,items);assert.equal(JSON.stringify({us,items}),before);});
+test(()=>{const x=go([u('123','Building 6m')],[{item:'Building 6m',qty:'unknown'}])[0];assert.equal(x.units.length,0);assert.equal(x.qty,'unknown');});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m — Set 1 (waste tank 456)'),loadingId:''}]},env={...base,rows:()=>[{id:'u123',no:'123',item:'Toilet Block 6m'}]};const x=S.unitModel(a,env)[0];assert.equal(x.loadingId,'u123');assert.equal(x.side,'driver');});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m — Set 1 (waste tank 456)'),loadingId:''}]},env={...base,rows:()=>[{id:'u123',no:'123',item:'Waste tank'}]};assert.equal(S.unitModel(a,env)[0].loadingId,null);});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m'),loadingId:''},{...u('123','Toilet Block 6m'),id:'supplier-123',owner:'event-portables',loadingId:''}]},env={...base,rows:()=>[{id:'u123',no:'123',item:'Toilet Block 6m'}]};assert(S.unitModel(a,env).every(x=>x.loadingId===null));});
+test(()=>{const a={key:'REF',us:[{...u('123','Waste tank'),loadingId:''}]},env={...base,rows:()=>[{id:'u123',no:'123',item:'Waste tank'}]};assert.equal(S.unitModel(a,env)[0].loadingId,null);});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m'),loadingId:''}]},env={...base,rows:()=>[{id:'a',no:'123',item:'Toilet Block 6m'},{id:'b',no:'123',item:'Toilet Block 6m'}]};assert.equal(S.unitModel(a,env)[0].loadingId,null);});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m — Set 1 (waste tank 456)'),loadingId:''}]},calls=[],env={...base,asset:()=>a,rows:()=>[{id:'u123',no:'123',item:'Toilet Block 6m'}],can:()=>true,kept:()=>true,set:(...x)=>{calls.push(x);return true;}};const r=S.saveDoor('REF','native-123','passenger','driver',env);assert.equal(r.kept,true);assert.deepEqual(calls,[['REF','u123','passenger']]);});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m'),loadingId:''}]},env={...base,asset:()=>a,rows:()=>[{id:'u123',no:'123',item:'Toilet Block 6m'}],can:()=>false,set:()=>{throw Error('must not write')}};assert.equal(S.saveDoor('REF','native-123','passenger','driver',env).accepted,false);});
+test(()=>{const a={key:'REF',us:[{...u('123','Toilet Block 6m'),loadingId:''}]},env={...base,asset:()=>a,rows:()=>[{id:'u123',no:'123',item:'Toilet Block 6m'}],can:()=>true,set:()=>{throw Error('must not write')}};assert.equal(S.saveDoor('REF','native-123','passenger','na',env).accepted,false);});
+console.log(JSON.stringify({checks,passed:true}));

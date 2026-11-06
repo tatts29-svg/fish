@@ -1,0 +1,51 @@
+{
+  "author": "Andrew Fisher",
+  "tag": "live802closed",
+  "mobile": false,
+  "sha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+  "screenshots": [
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-today-desktop-top.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-today-desktop-middle.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-today-desktop-bottom.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-plant-desktop-top.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-plant-desktop-middle.png",
+    "/tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/shots/live802closed-plant-desktop-bottom.png"
+  ],
+  "measures": {
+    "today": {
+      "paneHeightPx": 3906,
+      "mainScrollHeightPx": 3949,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {
+        "Instruments": {
+          "heightPx": 835,
+          "emptyPct": 3.5
+        },
+        "Today's work": {
+          "heightPx": 686,
+          "emptyPct": 10.8
+        },
+        "By group": {
+          "heightPx": 1214,
+          "emptyPct": 18
+        }
+      },
+      "totalEmptyPct": 11.8
+    },
+    "plant": {
+      "paneHeightPx": 3459,
+      "mainScrollHeightPx": 3505,
+      "viewportWidth": 1440,
+      "pageScrollWidth": 1440,
+      "sections": {},
+      "totalEmptyPct": null
+    }
+  },
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 133,
+    "blocked": 0
+  }
+}

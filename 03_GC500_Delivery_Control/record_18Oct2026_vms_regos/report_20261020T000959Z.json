@@ -1,0 +1,90 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T000959Z",
+ "finished": "2026-10-20T00:10:10.397Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026, board pins in chat: VMS15 -27.991937, 153.429354 (plan 15).",
+  "ops": [
+   {
+    "op": "vms_plan",
+    "pos": "15",
+    "lat": -27.991937,
+    "lon": 153.429354,
+    "how": "Andrew Fisher's pinned location for VMS15, 20 Oct 2026"
+   }
+  ]
+ },
+ "pageSha256": "6a509831956221160fc78798a28b5fcee3eb3bd0740709b6f12f77b4efbcc478",
+ "version": {
+  "before": 10015,
+  "after": 10018
+ },
+ "updated": {
+  "before": "2026-10-20T00:09:33.428Z",
+  "after": "2026-10-20T00:10:09.441Z"
+ },
+ "stage": [
+  {
+   "op": "vms_plan",
+   "pos": "15",
+   "lat": -27.991937,
+   "lon": 153.429354,
+   "how": "Andrew Fisher's pinned location for VMS15, 20 Oct 2026",
+   "result": "VMS plan 15 pinned at -27.991937, 153.429354"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/loads~2f~vms1024~2f~15",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~15",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~15",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/loads~2f~vms1024~2f~15": null,
+   "loads/vms1024~2f~15": null,
+   "by/loads~2f~vms1024~2f~15": null
+  },
+  "after": {
+   "stamps/loads~2f~vms1024~2f~15": {
+    "_k": "loads/vms1024/15",
+    "v": "2026-10-20T00:10:06.986Z"
+   },
+   "loads/vms1024~2f~15": {
+    "lat": -27.991937,
+    "lon": 153.429354,
+    "posHow": "Andrew Fisher's pinned location for VMS15, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:10:06.984Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "15",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:10:06.986Z",
+    "_k": "vms1024/15"
+   },
+   "by/loads~2f~vms1024~2f~15": {
+    "_k": "loads/vms1024/15",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

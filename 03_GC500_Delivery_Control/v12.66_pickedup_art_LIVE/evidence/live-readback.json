@@ -1,0 +1,17 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "verified_at_utc": "2026-10-30T21:00:48.306407+00:00",
+  "version": "v12.66",
+  "source_commit": "67678a0e12ccf23138ccb5509bd8218bff050e1e",
+  "ready_commit": "0cac25cf51b036f1a853ae8aa4a5568c47442181",
+  "sha256": "7a745c28b0f66d3d0062255cde90e15b393b111d3b54df8c7dbff18479935e1c",
+  "bytes": 16192520,
+  "guarded_upload": true,
+  "full_cache_busted_public_bytes_equal_tested_candidate": true,
+  "exact_release_footer_present": true,
+  "exact_helper_and_inline_orange_asset_present": true,
+  "exact_scoped_style_present": true,
+  "operational_state_unchanged_since_preupload": true,
+  "reviewer": "Codex uploader read-back; Claude live review pending"
+}

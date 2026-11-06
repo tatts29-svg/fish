@@ -1,0 +1,179 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Private exact component assembly, protected source and CPU proof; no browser or live writes",
+  "base": {
+    "path": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v8.02/base_live.html",
+    "sha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11"
+  },
+  "candidate": {
+    "path": "/workspace/private-v802-official70-reconstruction.html",
+    "sha256": "07d618803b0b6ee97b27265ce4eeadd0390190a4a61dd25a7c1d428ca1bc2992",
+    "bytes": 9070571
+  },
+  "checkedOfficialFinal": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/build/GC500_v8.02/GC500_Delivery_Control_hosted.html",
+  "acceptedVisualReference": {
+    "path": "/workspace/private-v802-final-visual.html",
+    "sha256": "85adb462803e6830e1a7162a88f20d25fcd678fc854ad2c70d8b95335ae21467",
+    "nonBusinessInlineScripts": [
+      "3fb4ed58ff85c0445d942ad860a50cf20a4db7ff67f0442d48cab4175dc270ca",
+      "1996fdb6fce5c118ef4ba9243a064e6a95076d48aab6b5424a12c6b89fd81f3d",
+      "a90b42909d80964269ef6d5f3d1e4a5a7e2a4c263a5d2a76a9e7151901343262",
+      "e6551fcdc32f09d6853b2c5126d18d01d9447e0da618a41a11ebeee0f6c20d54",
+      "14243ffd22488bc5bac892dde2c5d1519adfd89663fb4e6db72d16fd363fc7af",
+      "ce1c3d44f8d033c387f408eb819f77af9a1bf7e01282036b7afd99995ace6bbf",
+      "12026e5f57320bc48eb21212211d87eb4e27d41806c88c83c35baf8db4bfe15c"
+    ]
+  },
+  "sources": {
+    "v7.94_showcase_lap_cameras_DRAFT/architecture794_src.js": "2134722c2ce418842311d422ef30dd0905624aa8a0da61f6f0d28dea31cef02b",
+    "v7.94_showcase_lap_cameras_DRAFT/camera794_src.js": "a41dc01d0281caa0e5813f93d789c804a5e3accec0ca090d23fa945ca6589c85",
+    "v7.94_showcase_lap_cameras_DRAFT/corridor794_src.js": "cfaf3e0a4e2dbccceb594e1be3d87c2bf45ec9a5fd1eedf19175a335cbaab210",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_checks.py": "c4076019a48a7993fde0700ade1fb159b3562cbae38c8a37607d9eca3181853e",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_edges.glsl": "93bbd09abc4ff44069807f61bfb5c864983320fa9b1d58ff70f091da36bc9db3",
+    "v7.94_showcase_lap_cameras_DRAFT/finish794_patch.py": "301043193db92acfc80dc68c37bcb54adfd48f11d396e1dfa37cee4110152860",
+    "v7.94_showcase_lap_cameras_DRAFT/kerb794_src.js": "ca541d87c6e6b0dc728045addf96dac38f92797fe6fc6cfed57a4603b67f1599",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_architecture794.py": "ef04334049eba72669ff0d9b1ae425b73dbe3d44b4b951ff54ec2c6a51c17083",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_corridor794.py": "0a19f0c00e8254864a42d3d73ae011a0f6d8c24077c6ab64d85ba393ba7f018d",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_kerb794.py": "951fad6e909b13ca93a27006230b774d0a2ae3e5d0164d443aaaa1d861039e09",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_pit794.py": "ca7e37f55e9a98b27bb0847684534f2f8b84f5c4de9c9982563baf0fa1aa872c",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_presentation794.py": "fc91b2cc58e8637c82d75111bb7a5e67337f6066ab49413f7d4206c0e064bc71",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_v794.py": "f60c6fdbd6217b3716e504b5b08b76a8cee23b69da8b9e751a42fbeaefa7de7e",
+    "v7.94_showcase_lap_cameras_DRAFT/patch_vegetation794.py": "4bdfeb34e586bbde71fa25c87da6caa1a839c79a5ae02de291b544f16bf14f2a",
+    "v7.94_showcase_lap_cameras_DRAFT/pit794_src.js": "935ab0155eeb5ccc7e97c1e51e6d97fb9e3832036ccfe504e6ccc2b863a04292",
+    "v7.94_showcase_lap_cameras_DRAFT/playback794_src.js": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
+    "v7.94_showcase_lap_cameras_DRAFT/scenery794_src.js": "f1c47bac922eac694876de1489f94efdbc8f2968c966d5102495e1150bb06f87",
+    "v7.94_showcase_lap_cameras_DRAFT/showcase794_src.css": "49ab68004899774848ef2b3ee3ac58b906cbbfeeef496f994cd5be41dbb5aec2",
+    "v7.94_showcase_lap_cameras_DRAFT/showcase794_src.js": "f4341ccf7d8da66389a32355da8862d23c48e6ccc94b48bef800c0c73c37f0fa",
+    "v7.94_showcase_lap_cameras_DRAFT/vegetation794_src.js": "8993b038a6c0abf37bf2607d87372aef8f31a52205b4111e83479fb64a3510ee",
+    "v8.00_vehicle_visuals_DRAFT/camera800_src.js": "34c657399b172e01047e3c9f7a8a10af7b9789504c13f0335b6d5ca3a00d4428",
+    "v8.00_vehicle_visuals_DRAFT/material800_src.glsl": "03b4229b455ee3ca42a40bc3020ddf698e3d0b628196e65ef8ef50dbb5e968c3",
+    "v8.00_vehicle_visuals_DRAFT/patch_camera800.py": "38d58f0549f841b6ad173ff9e520c6c9575e845d481cec12875a1f3806295768",
+    "v8.00_vehicle_visuals_DRAFT/patch_material800.py": "ddd1b34db5ac40b05d1def3f96b5485e41f84ddefef9aec4ebeb329281183f41",
+    "v8.00_vehicle_visuals_DRAFT/patch_plant800.py": "b5a3a477cf085124be10a2b965ad368ece9f3494fa6a820946d6e1195beec1ba",
+    "v8.00_vehicle_visuals_DRAFT/patch_racecar800.py": "451180b4e1a66b1b2ccda315a964fa2c90462aa231808344ffd405a5fef34e8c",
+    "v8.00_vehicle_visuals_DRAFT/patch_v800.py": "0468910e357c75fde3eee8ed18005c15b4aec00c9385e2125da820e293413a95",
+    "v8.00_vehicle_visuals_DRAFT/plant800_src.js": "0d4f961085ae1d2ae16570d3c03e8cbadd5edb0acd33c28470f88541e9159841",
+    "v8.00_vehicle_visuals_DRAFT/racecar800_src.js": "90ff54453c4ba4e3176d3223b5d13cdd0d6f05374a917f791ee1d19361886931",
+    "v8.02_showcase_vehicle_finish_DRAFT/aa802_src.js": "ce52076e10c3dacbd3a7c2809f5549b273ba0376fa97974cfb88a07ea1247f2e",
+    "v8.02_showcase_vehicle_finish_DRAFT/patch_aa802.py": "725cfb00af3910075d7fa53d3c69614b043d869cdf3a3de8e8a7a690e134e5b0",
+    "v8.02_showcase_vehicle_finish_DRAFT/patch_v802.py": "d305741c3fcfad5ac33a8ff13a9e7275111f7c6d59e3f7fa5953925fdaab8a63"
+  },
+  "stages": [
+    {
+      "name": "00_base801",
+      "path": "/workspace/private-v802-official70-stages/00_base801.html",
+      "sha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+      "bytes": 8950159
+    },
+    {
+      "name": "01_showcase794",
+      "path": "/workspace/private-v802-official70-stages/01_showcase794.html",
+      "sha256": "d3a142f3302669c285cae3948857f5aa1959d11abadfb402f657d7eaaaff7f9c",
+      "bytes": 9039193
+    },
+    {
+      "name": "02_race800",
+      "path": "/workspace/private-v802-official70-stages/02_race800.html",
+      "sha256": "8731e315bc64a6eb33471cebf1e21a018a5cad16a011ba4edf115ec54e00eb15",
+      "bytes": 9043481
+    },
+    {
+      "name": "03_plant800",
+      "path": "/workspace/private-v802-official70-stages/03_plant800.html",
+      "sha256": "173bd884f5dda37fcd442ff7de5a8c908f198eb204982cec4875b442a8f542a2",
+      "bytes": 9055514
+    },
+    {
+      "name": "04_material800",
+      "path": "/workspace/private-v802-official70-stages/04_material800.html",
+      "sha256": "79e5d41900eaf519c2a49be1c86f0e3caf05489989731e1f8ef105aa5546ee21",
+      "bytes": 9058057
+    },
+    {
+      "name": "05_camera800",
+      "path": "/workspace/private-v802-official70-stages/05_camera800.html",
+      "sha256": "4facd278e70006e999057784ed4ad6cd95b3fd8bdf8220d5072bd9a8f89606c1",
+      "bytes": 9069914
+    },
+    {
+      "name": "06_metadata800",
+      "path": "/workspace/private-v802-official70-stages/06_metadata800.html",
+      "sha256": "a1a068a1b0e149b1c7c9a5cde1fdb8f55175aff3df0a208df474e877412ce5b4",
+      "bytes": 9069998
+    },
+    {
+      "name": "07_aa802",
+      "path": "/workspace/private-v802-official70-stages/07_aa802.html",
+      "sha256": "0b7380086cb4d441bba6c07825a6ed2e94d6b372e8a6d3557a132476409f1e07",
+      "bytes": 9070522
+    },
+    {
+      "name": "08_release802_raw",
+      "path": "/workspace/private-v802-official70-stages/08_release802_raw.html",
+      "sha256": "f4bde2e64321906480b3f86d8dd92b17ce94d7206247769535dac3c102f5c860",
+      "bytes": 9070565
+    }
+  ],
+  "checks": [
+    {
+      "name": "base is the complete v8.01 booking and reliability release",
+      "pass": true
+    },
+    {
+      "name": "root aggregate equals the exact isolated components and metadata",
+      "pass": true
+    },
+    {
+      "name": "private reconstruction equals the supplied official final bytes",
+      "pass": true
+    },
+    {
+      "name": "final metadata names v8.02 exactly once",
+      "pass": true
+    },
+    {
+      "name": "all embedded operational records and booking quantities are byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "the complete business inline script is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "all business source before the renderer is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "driving hull is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "physics, suspension, marks and particle generation is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "fixed-step frame loop is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "selection and tuning is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "rigid vehicle transform is byte-preserved",
+      "pass": true
+    },
+    {
+      "name": "all non-business inline scripts exactly match the accepted GPU candidate",
+      "pass": true
+    },
+    {
+      "name": "all five component suites, AA guards and final static check pass",
+      "pass": true
+    },
+    {
+      "name": "all product sources stayed frozen throughout verification",
+      "pass": true
+    }
+  ]
+}

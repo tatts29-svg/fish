@@ -1,0 +1,60 @@
+/* Author: Andrew Fisher. Existing race-light appearance, compact servicing percentages. */
+.svc1102-meter,.svc1102-meter *{box-sizing:border-box}
+.svc1102-meter{display:grid;gap:10px;min-width:0;width:100%;font-variant-numeric:tabular-nums;color:#183143}
+.svc1102-meter .svc1102-head{display:flex;align-items:center;justify-content:space-between;gap:14px;min-width:0}
+.svc1102-meter .svc-big{display:block;min-width:0}
+.svc1102-meter .svc-pct{display:block;font:italic 800 46px/.95 'Barlow Condensed','Arial Narrow',Arial,sans-serif;letter-spacing:-.02em;white-space:nowrap;text-align:left;grid-column:auto;grid-row:auto;color:#183143}
+.svc1102-meter .svc1102-caption{display:block;margin-top:5px;font:700 11px/1.2 Inter,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#536775}
+.svc1102-meter .svc1102-counts{display:grid;gap:4px;text-align:right;font:500 12px/1.3 Inter,Arial,sans-serif;color:#536775}
+.svc1102-meter .svc1102-counts strong{color:#183143;font-weight:800}
+.svc1102-meter .svc1102-lights{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;padding:9px 7px 7px;border:1px solid #526168;border-bottom:3px solid #05090c;border-radius:9px;background:linear-gradient(#081013,#142127);box-shadow:inset 0 3px 8px #0008,0 2px 3px #0002;max-width:360px;width:100%}
+.svc1102-meter .svc1102-unit{display:flex;min-width:0;flex-direction:column;align-items:center;gap:5px}
+.svc1102-meter .svc1102-unit small{font:650 11px/1.2 Inter,Arial,sans-serif;color:#d0dbdf;white-space:nowrap}
+.svc1102-meter .svc1102-lamp{display:block;position:relative;width:40px;max-width:100%;aspect-ratio:1;border-radius:50%;background:linear-gradient(#68747b,#202b31 48%,#060c10);isolation:isolate}
+.svc1102-meter .svc1102-lamp svg{display:block;position:relative;z-index:1;width:100%;height:100%;fill:none;stroke:none;filter:none;transform:none}
+.svc1102-meter .svc1102-tint{fill:#142025}
+.svc1102-meter .svc1102-dots{fill:#304149;stroke:#081015;stroke-width:.5;transition:fill .18s ease,stroke .18s ease}
+.svc1102-meter .svc1102-lamp.is-on .svc1102-tint{fill:#36191b}
+.svc1102-meter .svc1102-lamp.is-on .svc1102-dots{fill:#ff514c;stroke:#ffc0b8;stroke-width:.65}
+.svc1102-meter .svc1102-lamp.is-finished .svc1102-tint{fill:#123b26}
+.svc1102-meter .svc1102-lamp.is-on.is-finished .svc1102-dots{fill:#43d982;stroke:#d0ffdf;stroke-width:.7}
+.svc1102-meter .svc1102-halo{position:absolute;inset:8%;border-radius:50%;opacity:0;pointer-events:none;transition:opacity .18s ease}
+.svc1102-meter .svc1102-lamp.is-on .svc1102-halo{opacity:.45;background:radial-gradient(circle,#ff716d33,transparent 72%);box-shadow:0 0 9px #ff716d33}
+.svc1102-meter .svc1102-lamp.is-finished .svc1102-halo{background:radial-gradient(circle,#61ef9e33,transparent 72%);box-shadow:0 0 9px #51ee9640}
+.svc1102-meter.is-complete .svc-pct,.svc1102-meter.is-complete .svc1102-caption{color:#007d51}
+.svc1102-meter.is-complete .svc1102-lights{border-color:#4e8866}
+.svc1102-meter.is-complete .svc1102-unit small{color:#b4edc9}
+.svc1102-meter.svc1102-area{gap:7px}
+.svc1102-meter.svc1102-area .svc-pct{font-size:29px}
+.svc1102-meter.svc1102-area .svc1102-caption{font-size:10px;margin-top:3px}
+.svc1102-meter.svc1102-area .svc1102-counts{font-size:11px;gap:1px}
+.svc1102-meter.svc1102-area .svc1102-lights{padding:5px 5px 4px;gap:4px;max-width:300px;border-radius:7px}
+.svc1102-meter.svc1102-area .svc1102-lamp{width:23px}
+.svc1102-meter.svc1102-area .svc1102-unit{gap:3px}
+.svc1102-meter.svc1102-area .svc1102-unit small{font-size:9px}
+/* Keep the native details and their reference table. Only the summary meter changes. */
+#svc1067 .svc-all{display:block;padding:14px 0}
+#svc1067 .svc-all .svc1102-meter{max-width:520px}
+#svc1067 .svc1102-meter .svc-pct{grid-column:auto;grid-row:auto;text-align:left}
+#svc1067 .svc1102-meter .svc1102-caption{font-size:11px;letter-spacing:.04em;margin-top:5px}
+#svc1067 .svc-area>summary{grid-template-columns:30px minmax(0,1fr) 12px;gap:6px 10px;padding:12px 0}
+#svc1067 .svc-area>summary .svc-n{grid-column:1;grid-row:1/span 2;align-self:start;margin-top:3px}
+#svc1067 .svc-area>summary .svc-name{grid-column:2;grid-row:1}
+#svc1067 .svc-area>summary .svc1102-meter{grid-column:2;grid-row:2;max-width:520px}
+#svc1067 .svc-area>summary::after{grid-column:3;grid-row:1;align-self:center}
+#svc1067 .svc-area>summary .svc1102-finished{grid-column:2;grid-row:3}
+#svc1067 .svc1102-finished{display:block;margin-top:5px;font-size:11px;line-height:1.3;color:var(--green,#007d51)}
+#svc1067 .svc1102-meter.svc1102-area .svc-big b{font-size:29px}
+#svc1067 .svc1102-meter.svc1102-area .svc1102-caption{font-size:10px;margin-top:3px}
+.svc1102-paused .svc1102-dots,.svc1102-paused .svc1102-halo{transition:none!important}
+@media(prefers-reduced-motion:reduce){.svc1102-meter .svc1102-dots,.svc1102-meter .svc1102-halo{transition:none!important}}
+@media(max-width:650px){.svc1102-meter .svc-pct{font-size:42px}.svc1102-meter .svc1102-counts{font-size:11px}.svc1102-meter .svc1102-lamp{width:34px}.svc1102-meter.svc1102-area .svc1102-lamp{width:21px}.svc1102-meter.svc1102-area .svc-pct{font-size:28px}#svc1067 .svc1102-meter.svc1102-area .svc-big b{font-size:28px}#svc1067 .svc-area>summary{grid-template-columns:26px minmax(0,1fr) 10px;gap:5px 7px}.svc1102-meter .svc1102-head{gap:8px}}
+/* Area meters keep the percentage beside the lights, avoiding a tall card per area. */
+.svc1102-meter.svc1102-area{grid-template-columns:minmax(84px,.27fr) minmax(0,1fr);gap:4px 9px;align-items:center}
+.svc1102-meter.svc1102-area .svc1102-head{display:contents}
+.svc1102-meter.svc1102-area .svc-big{grid-column:1;grid-row:1/span 2;align-self:center}
+.svc1102-meter.svc1102-area .svc1102-lights{grid-column:2;grid-row:1}
+.svc1102-meter.svc1102-area .svc1102-counts{grid-column:2;grid-row:2;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1px 7px;text-align:left;font-size:10px}
+@media(max-width:650px){#svc1067 .svc1102-meter.svc1102-overall .svc-big b{font-size:42px}}
+
+.svc1099-overall .svc1102-meter{max-width:520px}

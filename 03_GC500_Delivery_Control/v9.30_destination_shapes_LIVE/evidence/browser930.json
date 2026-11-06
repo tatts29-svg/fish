@@ -1,0 +1,150 @@
+[
+  {
+    "W": 1440,
+    "setup": {
+      "day": "2026-10-08",
+      "ids": [
+        "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+        "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312"
+      ]
+    },
+    "first": {
+      "selected": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+      "pins": [
+        {
+          "id": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+          "n": "1",
+          "refs": "WC09",
+          "w": 78,
+          "h": 44,
+          "background": "rgba(0, 0, 0, 0)",
+          "selected": "true"
+        },
+        {
+          "id": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+          "n": "2",
+          "refs": "WC09",
+          "w": 78,
+          "h": 44,
+          "background": "rgba(0, 0, 0, 0)",
+          "selected": "false"
+        }
+      ],
+      "outlines": 12,
+      "shape": "0.2830715,0.3619901",
+      "overflow": false
+    },
+    "zoom": {
+      "text": "16,000%",
+      "shapeSame": true,
+      "buttons": 2
+    },
+    "keyboard": {
+      "focus": true,
+      "selected": "true"
+    },
+    "dense": {
+      "day": "2026-10-19",
+      "count": 29
+    },
+    "denseRead": {
+      "labels": 19,
+      "rows": 29,
+      "overlaps": [],
+      "recordSame": true,
+      "bumps": 0,
+      "overflow": false
+    },
+    "wide": {
+      "width": 3432,
+      "loads": 19,
+      "obstacles": 42,
+      "meanPlanningMs": 0.7760000014305115,
+      "forcedGeometryReads": false
+    },
+    "errors": [],
+    "requests": {
+      "page": 1,
+      "live": 253,
+      "blocked": 1,
+      "denied": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ]
+    }
+  },
+  {
+    "W": 390,
+    "setup": {
+      "day": "2026-10-08",
+      "ids": [
+        "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+        "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312"
+      ]
+    },
+    "first": {
+      "selected": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+      "pins": [
+        {
+          "id": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115316",
+          "n": "1",
+          "refs": "WC09",
+          "w": 78,
+          "h": 44,
+          "background": "rgba(0, 0, 0, 0)",
+          "selected": "true"
+        },
+        {
+          "id": "2026-10-08|deliveries|booking:schedule875-T0102-dd-26115312",
+          "n": "2",
+          "refs": "WC09",
+          "w": 78,
+          "h": 44,
+          "background": "rgba(0, 0, 0, 0)",
+          "selected": "false"
+        }
+      ],
+      "outlines": 12,
+      "shape": "0.2830715,0.3619901",
+      "overflow": false
+    },
+    "zoom": {
+      "text": "16,000%",
+      "shapeSame": true,
+      "buttons": 2
+    },
+    "keyboard": {
+      "focus": true,
+      "selected": "true"
+    },
+    "dense": {
+      "day": "2026-10-19",
+      "count": 29
+    },
+    "denseRead": {
+      "labels": 19,
+      "rows": 29,
+      "overlaps": [],
+      "recordSame": true,
+      "bumps": 0,
+      "overflow": false
+    },
+    "wide": null,
+    "errors": [],
+    "requests": {
+      "page": 1,
+      "live": 228,
+      "blocked": 1,
+      "denied": [
+        {
+          "method": "POST",
+          "origin": "https://tile.googleapis.com",
+          "path": "/v1/createSession"
+        }
+      ]
+    }
+  }
+]

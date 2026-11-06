@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "url": "https://gc500-production.up.railway.app/v/Coates-GC500-2026",
+  "checked_at_utc": "2026-10-24T20:28:08.310149+00:00",
+  "sha256": "682fcc85862c2ba91c2d201b4406901d8d881f4d9e64bdc8e3ef30d00c1c0e69",
+  "bytes": 15180045,
+  "exact_candidate_match": true,
+  "footer_v12_03": true,
+  "ready_source": "3e2305a6220c4109b3833e0c1e522cb09d1f7483",
+  "guarded_upload_at_utc": "2026-10-24T20:27:49.943Z"
+}

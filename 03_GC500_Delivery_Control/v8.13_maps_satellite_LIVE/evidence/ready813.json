@@ -1,0 +1,28 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD",
+  "basePageSha256": "cd3159be30b7ec931d5ffa907b90b585e6851a2210a2e7230d3fde74b0b46bee",
+  "hostSha256": "f07e92cc79ad416e75f0db2b6cfa1c302d1789cf7c93ff0da8142afc6dc8a7ec",
+  "baseManifestSha256": "d53a38c6e4f51dce99aae0ab9ce2420408c2c6b6135ddaecac93c785533645cf",
+  "machineFiles": {
+    "explorer/explorer.js": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+    "explorer/explorer-merge.js": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+    "poc3d/index.html": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4",
+    "explorer/index.html": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572"
+  },
+  "checks": {
+    "standingPacks": 8,
+    "standingPass": true,
+    "navigationCpu": 21,
+    "hostChecks": 13,
+    "unresolvedReproducedUiFailures": 0
+  },
+  "reviews": [
+    "ui813_summary.json",
+    "entry813_independent_review.json",
+    "three813_summary.json",
+    "performance813_summary.json",
+    "visual813_review.json"
+  ],
+  "scope": "Maps only. Measurements and known limits remain documented; no universal speed, physical-device FPS, higher provider resolution or faultlessness claim."
+}

@@ -1,0 +1,82 @@
+{
+  "author": "Andrew Fisher",
+  "state": "Owner checks complete; independent final verification and guarded upload remain",
+  "base_sha256": "f3bb490b0a6a23ef820dc71d359b5e246a443778e0d1baef35dcf3393a259000",
+  "candidate_sha256": "c45062efb28840fa6221d8a16dd428eabd4b4deaf3de0a30e4a2eb8a7944e6d8",
+  "candidate_bytes": 9293143,
+  "source_sha256": {
+    "patch_v820.py": "7bb5b6058505aca0411f27c9fa44c904def3b57154ff65ce9cfa1103d3389513",
+    "today820_src.css": "d291c2b91f9d268a31ba31a95bdf6d6ac6e87762bb3ba9b30d8d0343fc7d485d",
+    "today820_src.js": "235aa6b0a846be77cfbc395e456ede8aba9563fa57411c9eb47cc9e93ef3f6d1",
+    "check_today820.py": "b316a64af5c1f918806df65a1b5d7abf4c18f6428b70adbf1d8455fae0f744d2",
+    "check_today820.cjs": "ca14b2fdc48ce72dc2feea89aa03660aebcfab553d9ff036de3591d8d87421ae"
+  },
+  "checks": [
+    {
+      "suite": "source",
+      "passed": 7,
+      "checks": [
+        "One scoped release marker, stylesheet and controller",
+        "Production controller name and no preview payload",
+        "Original page byte-equivalent after reversing explicit insertions/footer",
+        "Native rendering and data sources untouched",
+        "Today-scoped CSS and active-only preference guard",
+        "Patch refuses double installation without changing candidate",
+        "Patch refuses a base without required release/native renderer"
+      ]
+    },
+    {
+      "suite": "desktop",
+      "passed": 16,
+      "checks": [
+        "No initial selection, automatic animation or preference timer",
+        "Native status tallies and delivery geometry remain accurate",
+        "Only selected card animates; explicit pause stops guard and effects",
+        "Reduced motion switches off active effects and does not resume automatically",
+        "Global Motion Off stops active effects without changing selection facts",
+        "A real Today rerender retains selection, cancels detached effects and never replays readings",
+        "Visible card replacement retains active ambient motion without replaying the reading",
+        "Native red-status filter still opens Equipment; returning stays paused",
+        "Native programme day action opens the correct Timeline day",
+        "Keyboard Enter and Space play/pause the native control",
+        "Print and document hidden events stop active motion without replay",
+        "Offscreen card stops and does not restart when scrolled back",
+        "Main scroll clipping behind the fixed header stops selected motion",
+        "320, 390 and 1440 pixel Today cards and buttons remain contained",
+        "Repeated controller installation does not duplicate controls or listeners",
+        "No page errors or attempted operational writes"
+      ]
+    },
+    {
+      "suite": "phone",
+      "passed": 16,
+      "checks": [
+        "No initial selection, automatic animation or preference timer",
+        "Native status tallies and delivery geometry remain accurate",
+        "Only selected card animates; explicit pause stops guard and effects",
+        "Reduced motion switches off active effects and does not resume automatically",
+        "Global Motion Off stops active effects without changing selection facts",
+        "A real Today rerender retains selection, cancels detached effects and never replays readings",
+        "Visible card replacement retains active ambient motion without replaying the reading",
+        "Native red-status filter still opens Equipment; returning stays paused",
+        "Native phone programme link still opens embedded Where we are",
+        "Keyboard Enter and Space play/pause the native control",
+        "Print and document hidden events stop active motion without replay",
+        "Offscreen card stops and does not restart when scrolled back",
+        "Main scroll clipping behind the fixed header stops selected motion",
+        "320, 390 and 1440 pixel Today cards and buttons remain contained",
+        "Repeated controller installation does not duplicate controls or listeners",
+        "No page errors or attempted operational writes"
+      ]
+    }
+  ],
+  "page_errors": 0,
+  "attempted_operational_writes": 0,
+  "visual_review": "Desktop instrument layout and actual phone viewports for lights, delivery upper/lower and programme inspected; no overflow or overlap in changed cards. Private images are excluded.",
+  "limits": [
+    "Software Chromium cannot establish physical-device frame rates.",
+    "Document-hidden and print events simulated.",
+    "Full native redraw can pause when reflow moves the card out of view; selected identity remains, no automatic restart.",
+    "Candidate must rebuild and repeat relevant checks if another page release lands first."
+  ]
+}

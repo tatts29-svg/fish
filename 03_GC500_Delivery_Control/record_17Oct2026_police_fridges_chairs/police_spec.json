@@ -1,0 +1,17 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {"op": "acc_off", "ref": "P46", "type": "Fridge", "no": "1311992"},
+  {"op": "acc_off", "ref": "P46", "type": "Fridge", "no": "1283996"},
+  {"op": "number_on", "ref": "P26", "no": "1311992"},
+  {"op": "number_on", "ref": "P28", "no": "1283996"},
+  {"op": "desc", "ref": "P26", "text": "Fridge · Police 2-storey building"},
+  {"op": "desc", "ref": "P28", "text": "Fridge · Police 2-storey building"},
+  {"op": "light", "ref": "P26", "state": "on site"},
+  {"op": "light", "ref": "P28", "state": "on site"},
+  {"op": "light", "ref": "P34", "state": "on site"},
+  {"op": "note", "ref": "P26", "text": "Fridge 1311992 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1311992 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct."},
+  {"op": "note", "ref": "P28", "text": "Fridge 1283996 for the Police, in the 2-storey building. It came on 14 Oct 2026, the day it was due, with T0265's four fridges; it was put on P46 (QPS Command Post) on 15 Oct and moved here 17 Oct. Andrew, 17 Oct 2026: \"1283996 - These were for the Police\" ... \"The ones for police can go in 2 story building are P26 & P28\" ... \"So did the fridges\" (turned up on the correct day). Recorded on site 17 Oct; on site since 14 Oct."},
+  {"op": "note", "ref": "P34", "text": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct."}
+ ]
+}

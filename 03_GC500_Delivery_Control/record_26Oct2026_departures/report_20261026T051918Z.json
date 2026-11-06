@@ -1,0 +1,4348 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261026T051918Z",
+ "finished": "2026-10-26T05:28:43.523Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 26 Oct 2026. (1) \"Yes its that number\" (14:53 AEST): the 0988 in his 11:04 list (\"Here is more 0935 0497 0442 0988 0445 ...\") is 0088, a WC56 Event Portables FWF on the record, still on site, so 0088 left with the other six WC56 units at 11:04 AEST (WC56 then 7 of 12 gone; 0721, 0491, 0190, 0294 and 0970 stay). (2) \"Picked up 130PM / Asset no 1286482\": 1286482 is EQ0003's only unit (Straight Boom 60ft - Diesel, Coates), so EQ0003 left in full at 13:30 AEST. (3) \"recors shows 100% done\", with the Servicing night report for Sunday 25 October into Monday 26 October (night 3 of 3, final night, lock-up: 100%, pump out 250 of 250 units, all 74 locations, finished 01:39); then (14:54 AEST) \"i want all Event Portaloo's Showing Ready part from the 16Pan. this is organised through Eventportaloos to pick up not coates\". The servicing tracker holds the final night's pump-out, done and not undone, at each of these 43 locations whose every unit is Event Portables' and which had no Emptied tick and had not left (none has a Ready or Not ready tick): BJR01 00:31; PG01 22:53; PG03 22:31; PG05 22:34; PG29 22:40; SVP01 00:31; T0162 00:31; T0176 22:22; WC10 01:23; WC13 21:29; WC19 20:28; WC25 20:21; WC26 20:20; WC28 19:38; WC29 19:34; WC30 19:21; WC34 01:31; WC35 22:30; WC38 18:56; WC39 18:56; WC40 18:57; WC41 20:29; WC42 19:56; WC43 21:37; WC44 20:59; WC45 21:38; WC47 20:30; WC48 19:16; WC49 22:02; WC53 19:12; WC54 19:25; WC57 21:48; WC61 20:52; WC62 19:06; WC65 19:32; WC68 19:59; WC69 20:00; WC70 20:10; WC71 19:33; WC72 19:44; WC73 00:32; WC81 01:31; WC85 01:30 (AEST, service night 25 Oct; times after midnight are 26 Oct). Each is ticked Emptied on that record, so it reads Ready for collection (Event Portables collect, their own transport). Not ticked: WC31 (the 16Pan Block, Andrew's exception); the four locations holding Event Portables and Coates units together (WC09, WC51, WC67, T0024), held for Andrew; and Coates' own toilets, which Andrew did not include. Recorded through the page's own Emptied tick and Record departure form.",
+  "ops": [
+   {
+    "op": "emptied",
+    "ref": "BJR01",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "PG01",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "PG03",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "PG05",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "PG29",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "SVP01",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "T0162",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "T0176",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC10",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC13",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC19",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC25",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC26",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC28",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC29",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC30",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC34",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC35",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC38",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC39",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC40",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC41",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC42",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC43",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC44",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC45",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC47",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC48",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC49",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC53",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC54",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC57",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC61",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC62",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC65",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC68",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC69",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC70",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC71",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC72",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC73",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC81",
+    "on": true
+   },
+   {
+    "op": "emptied",
+    "ref": "WC85",
+    "on": true
+   },
+   {
+    "op": "depart",
+    "ref": "WC56",
+    "at": "2026-10-26T11:04:00+10:00",
+    "nos": [
+     "0088"
+    ],
+    "complete": false
+   },
+   {
+    "op": "depart",
+    "ref": "EQ0003",
+    "at": "2026-10-26T13:30:00+10:00",
+    "nos": [
+     "1286482"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "10a21fc080d8e55d141318fcc53ef7d4c43aa600388531453d5126a692061476",
+ "version": {
+  "before": 11024,
+  "after": 11069
+ },
+ "updated": {
+  "before": "2026-10-26T04:44:16.565Z",
+  "after": "2026-10-26T05:28:42.518Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "emptied",
+   "ref": "BJR01",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:19:50.277Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "PG01",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:02.456Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "PG03",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:13.607Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "PG05",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:24.352Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "PG29",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:34.888Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "SVP01",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:45.950Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "T0162",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:20:57.318Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "T0176",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:08.143Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC10",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:18.800Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC13",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:29.331Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC19",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:39.433Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC25",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:49.167Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC26",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:21:59.120Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC28",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:22:09.348Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC29",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:22:19.436Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC30",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:22:29.288Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC34",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:22:39.455Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC35",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:22:50.524Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC38",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:01.621Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC39",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:13.234Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC40",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:23.998Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC41",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:35.329Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC42",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:46.655Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC43",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:23:58.552Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC44",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:24:10.084Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC45",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:24:21.631Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC47",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:24:32.495Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC48",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:24:43.711Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC49",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:24:54.893Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC53",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:25:06.730Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC54",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:25:17.879Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC57",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:25:28.934Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC61",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:25:40.311Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC62",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:25:51.882Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC65",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:26:03.105Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC68",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:26:14.536Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC69",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:26:25.782Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC70",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:26:36.699Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC71",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:26:49.396Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC72",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:27:00.641Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC73",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:27:11.932Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC81",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:27:22.852Z"
+  },
+  {
+   "op": "emptied",
+   "ref": "WC85",
+   "on": true,
+   "result": "emptied (pumped out), recorded by Andrew Fisher at 2026-10-26T05:27:33.901Z"
+  },
+  {
+   "op": "depart",
+   "ref": "WC56",
+   "at": "2026-10-26T11:04:00+10:00",
+   "nos": [
+    "0088"
+   ],
+   "complete": false,
+   "result": "left site 2026-10-26T11:04:00+10:00, recorded by Andrew Fisher: 1 x FWF 0088 - still to leave: 5 x FWF"
+  },
+  {
+   "op": "depart",
+   "ref": "EQ0003",
+   "at": "2026-10-26T13:30:00+10:00",
+   "nos": [
+    "1286482"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-26T13:30:00+10:00, recorded by Andrew Fisher: 1 x Straight Boom 60ft - Diesel 1286482 - EQ0003 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC81",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC41",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC42",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC43",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC56",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC71",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC44",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0162",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG01",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG05",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG29",
+   "status": 200
+  },
+  {
+   "key": "delivery/PG03",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0176",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC10",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC19",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC13",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC28",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC26",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC29",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC25",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC45",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC48",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC47",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC35",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC38",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC30",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC69",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC65",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC49",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC54",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC68",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC34",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC40",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC53",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC62",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC85",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC70",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC72",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC39",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC57",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC61",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC73",
+   "status": 200
+  },
+  {
+   "key": "delivery/BJR01",
+   "status": 200
+  },
+  {
+   "key": "delivery/SVP01",
+   "status": 200
+  },
+  {
+   "key": "delivery/EQ0003",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC81": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:26.921Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T02:00:00Z",
+    "eta": "07:00",
+    "note": "On site 12:00 · SUBHIRED — no Coates asset number, and none is expected · SEPARATE ITEM, not part of WC81: a hydration station also went to the Cypress carpark, subhired, no asset number · entered 14 Sep 19:52 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:13.777Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:26.921Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:15.000Z"
+    },
+    "loading872": {
+     "u0124": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:44:42.007Z"
+     }
+    },
+    "_k": "WC81"
+   },
+   "delivery/WC41": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:50:22.336Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T02:50:23.782Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-28T02:50:20.664Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:22.336Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T02:50:23.782Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC41"
+   },
+   "delivery/WC42": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:51:00.850Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T21:51:02.586Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:51:00.850Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T21:51:02.586Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC42"
+   },
+   "delivery/WC43": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:52:43.587Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T03:30:29.201Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:52:43.587Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:30:29.201Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC43"
+   },
+   "delivery/WC56": {
+    "state": "on site",
+    "set_at": "2026-10-01T04:03:42.730Z",
+    "by": "Andrew Fisher via Codex",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T02:19:19.998Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T04:03:42.730Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T04:03:42.730Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-26T02:19:29.769Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d6f6f85f-050c-489a-b003-62a1e3350657",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T11:04:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-01T04:03:42.730Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 6,
+         "unitIds": [
+          "[\"WC56\",\"event-portables\",\"asset\",\"0974\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0004\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0003\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0445\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0442\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0009\"]"
+         ],
+         "numbers": [
+          "0974",
+          "0004",
+          "0003",
+          "0445",
+          "0442",
+          "0009"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0974\"]",
+           "number": "0974",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0004\"]",
+           "number": "0004",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0003\"]",
+           "number": "0003",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0445\"]",
+           "number": "0445",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0442\"]",
+           "number": "0442",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0009\"]",
+           "number": "0009",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T04:03:42.730Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T02:19:19.998Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC56"
+   },
+   "delivery/WC71": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:03.709Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T05:06:03.709Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:03.709Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:03.709Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC71"
+   },
+   "delivery/WC44": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:01.806Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T05:06:01.806Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:01.806Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:01.806Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC44"
+   },
+   "delivery/T0162": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:54.192Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:53.758Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:54.192Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0162"
+   },
+   "delivery/PG01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:49.855Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:49.450Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:49.855Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.538Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG01"
+   },
+   "delivery/PG05": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:51.953Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:51.435Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:51.953Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.157Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG05"
+   },
+   "delivery/PG29": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:33:56.931Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:33:56.491Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:33:56.931Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.462Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG29"
+   },
+   "delivery/PG03": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:48:39.426Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:48:39.036Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:48:39.426Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.846Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:48:39.426Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:48:39.426Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG03"
+   },
+   "delivery/T0176": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:31:03.988Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:03.491Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:03.988Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/WC10": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:56:09.098Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:56:09.098Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.145Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:56:09.098Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:56:09.098Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC10"
+   },
+   "delivery/WC19": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:48:27.252Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:48:26.826Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:48:27.252Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.780Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:48:27.252Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:48:27.252Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC19"
+   },
+   "delivery/WC13": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:06.091Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:05.705Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:06.091Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.453Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:06.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:06.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC13"
+   },
+   "delivery/WC28": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:16:01.629Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:16:01.239Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:16:01.629Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.533Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC28"
+   },
+   "delivery/WC26": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:04.269Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:03.960Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:04.269Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.246Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:04.269Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:04.269Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC26"
+   },
+   "delivery/WC29": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:15:59.987Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:15:59.649Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:15:59.987Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.824Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:47.346Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC29"
+   },
+   "delivery/WC25": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:09:58.278Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:09:57.966Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:09:58.278Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:28.960Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:09:58.278Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:09:58.278Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC25"
+   },
+   "delivery/WC45": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:54:51.775Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:54:51.363Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:54:51.775Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.895Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC45"
+   },
+   "delivery/WC48": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:37.895Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:36.955Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:37.895Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:32.844Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:37.895Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:37.895Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC48"
+   },
+   "delivery/WC47": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:02.877Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:02.511Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:02.877Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:32.541Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:02.877Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:02.877Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC47"
+   },
+   "delivery/WC35": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:26.217Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:25.806Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:40:26.217Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.709Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:26.217Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:26.217Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC35"
+   },
+   "delivery/WC38": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:53:15.119Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:45.419Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:53:15.119Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.004Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:02.081Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:53:15.119Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:53:15.119Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC38"
+   },
+   "delivery/WC30": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:32.783Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:58:25.935Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:58:26.333Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.113Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:32.783Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:32.783Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-16T00:48:40.332Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-16T00:58:26.333Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC30"
+   },
+   "delivery/WC69": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:32:13.474Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:33:00.831Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.910Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.284Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:50:00.898Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:24:00.429Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:32:13.474Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:33:00.831Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-13T02:29:04.302Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-13T02:29:04.302Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-13T02:29:04.302Z"
+      }
+     ],
+     "recorded_at": "2026-10-13T02:29:04.302Z"
+    },
+    "_k": "WC69"
+   },
+   "delivery/WC65": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:31:23.223Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T02:31:22.773Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T02:31:23.223Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:31:23.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T02:31:23.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC65"
+   },
+   "delivery/WC49": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:44.134Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:43.117Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:44.134Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.134Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:44.134Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:44.134Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC49"
+   },
+   "delivery/WC54": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:53.127Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:52.167Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:53.127Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.978Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:53.127Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:53.127Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC54"
+   },
+   "delivery/WC68": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:40:40.781Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:40:40.781Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.632Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:46.223Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:40:40.781Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:40:40.781Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC68"
+   },
+   "delivery/WC34": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:40:18.814Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:44.833Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:40:18.814Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.411Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:04.367Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:40:18.814Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:40:18.814Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC34"
+   },
+   "delivery/WC40": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:42:48.372Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:46.622Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:42:48.372Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.591Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:03.648Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:42:48.372Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:42:48.372Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC40"
+   },
+   "delivery/WC53": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:23.999Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:23.099Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:23.999Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.705Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC53"
+   },
+   "delivery/WC62": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:24.403Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:23.995Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:40:24.403Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.076Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:24.403Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:24.403Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC62"
+   },
+   "delivery/WC85": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:36:39.086Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:36:38.640Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:36:39.086Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.011Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC85"
+   },
+   "delivery/WC70": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:00:07.247Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:00:07.247Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.186Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.737Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:00:07.247Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:00:07.247Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC70"
+   },
+   "delivery/WC72": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:39:26.838Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:39:26.838Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.471Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:46.715Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:39:26.838Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:39:26.838Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC72"
+   },
+   "delivery/WC39": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:50:22.001Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:46.011Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:50:22.001Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.298Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:02.824Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:50:22.001Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:50:22.001Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC39"
+   },
+   "delivery/WC57": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:18.276Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:17.259Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:18.276Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:34.526Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:06.001Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:18.276Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:18.276Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC57"
+   },
+   "delivery/WC61": {
+    "state": "on site",
+    "set_at": "2026-10-11T20:49:59.339Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:47.219Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-11T20:50:00.452Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:34.804Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:05.163Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:49:59.339Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-11T20:50:00.452Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC61"
+   },
+   "delivery/WC73": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:33:41.848Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:33:41.848Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.741Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC73"
+   },
+   "delivery/BJR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:29:14.982Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:29:15.368Z",
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:29:15.368Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "delivery/SVP01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:30:30.594Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:01.062Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:01.479Z",
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:30:30.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:01.479Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "delivery/EQ0003": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:49.019Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:49.767Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:49.019Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:49.767Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0003"
+   }
+  },
+  "after": {
+   "delivery/WC81": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:26.921Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T02:00:00Z",
+    "eta": "07:00",
+    "note": "On site 12:00 · SUBHIRED — no Coates asset number, and none is expected · SEPARATE ITEM, not part of WC81: a hydration station also went to the Cypress carpark, subhired, no asset number · entered 14 Sep 19:52 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:13.777Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:26.921Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:45:15.000Z"
+    },
+    "loading872": {
+     "u0124": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T22:44:42.007Z"
+     }
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:22.852Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:22.852Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC81"
+   },
+   "delivery/WC41": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:50:22.336Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T02:50:23.782Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-09-28T02:50:20.664Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:22.336Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T02:50:23.782Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:35.329Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:35.329Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC41"
+   },
+   "delivery/WC42": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:51:00.850Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T21:51:02.586Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:51:00.850Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T21:51:02.586Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:46.655Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:46.655Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC42"
+   },
+   "delivery/WC43": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:52:43.587Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T03:30:29.201Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:52:43.587Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:30:29.201Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:58.552Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:58.552Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC43"
+   },
+   "delivery/WC56": {
+    "state": "on site",
+    "set_at": "2026-10-01T04:03:42.730Z",
+    "by": "Andrew Fisher via Codex",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T02:19:19.998Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T04:03:42.730Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T04:03:42.730Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-26T02:19:29.769Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d6f6f85f-050c-489a-b003-62a1e3350657",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T11:04:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-01T04:03:42.730Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 6,
+         "unitIds": [
+          "[\"WC56\",\"event-portables\",\"asset\",\"0974\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0004\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0003\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0445\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0442\"]",
+          "[\"WC56\",\"event-portables\",\"asset\",\"0009\"]"
+         ],
+         "numbers": [
+          "0974",
+          "0004",
+          "0003",
+          "0445",
+          "0442",
+          "0009"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0974\"]",
+           "number": "0974",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0004\"]",
+           "number": "0004",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0003\"]",
+           "number": "0003",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0445\"]",
+           "number": "0445",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0442\"]",
+           "number": "0442",
+           "owner": "event-portables",
+           "item": "FWF"
+          },
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0009\"]",
+           "number": "0009",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-26T05:27:44.531Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "9122a73e-093a-4a77-b5e1-f0c87201e799",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T11:04:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-01T04:03:42.730Z",
+       "requiredKey": "[[\"fwf\",12]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF",
+         "n": 1,
+         "unitIds": [
+          "[\"WC56\",\"event-portables\",\"asset\",\"0088\"]"
+         ],
+         "numbers": [
+          "0088"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC56\",\"event-portables\",\"asset\",\"0088\"]",
+           "number": "0088",
+           "owner": "event-portables",
+           "item": "FWF"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T04:03:42.730Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T02:19:19.998Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC56"
+   },
+   "delivery/WC71": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:03.709Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T05:06:03.709Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:03.709Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:03.709Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:49.396Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:49.396Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC71"
+   },
+   "delivery/WC44": {
+    "state": "on site",
+    "set_at": "2026-10-01T05:06:01.806Z",
+    "by": "Andrew Fisher via Codex",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-01T05:06:01.806Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T05:06:01.806Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T05:06:01.806Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:10.084Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:10.084Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC44"
+   },
+   "delivery/T0162": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:54.192Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:53.758Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:54.192Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.225Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:54.192Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:57.318Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:57.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0162"
+   },
+   "delivery/PG01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:49.855Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:49.450Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:49.855Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.538Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:49.855Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:02.456Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:02.456Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG01"
+   },
+   "delivery/PG05": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:27:51.953Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:27:51.435Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:27:51.953Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.157Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:27:51.953Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:24.352Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:24.352Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG05"
+   },
+   "delivery/PG29": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:33:56.931Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:33:56.491Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:33:56.931Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.462Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:33:56.931Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:34.888Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:34.888Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG29"
+   },
+   "delivery/PG03": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:48:39.426Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:48:39.036Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:48:39.426Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:21.846Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:48:39.426Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:48:39.426Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:13.607Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:13.607Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "PG03"
+   },
+   "delivery/T0176": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:31:03.988Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:03.491Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:03.988Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:23.889Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:03.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:08.143Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:08.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0176"
+   },
+   "delivery/WC10": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:56:09.098Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:56:09.098Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.145Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:56:09.098Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:56:09.098Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:18.800Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:18.800Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC10"
+   },
+   "delivery/WC19": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:48:27.252Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:48:26.826Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:48:27.252Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.780Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:48:27.252Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:48:27.252Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:39.433Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:39.433Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC19"
+   },
+   "delivery/WC13": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:06.091Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:05.705Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:06.091Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:27.453Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:06.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:06.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:29.331Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:29.331Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC13"
+   },
+   "delivery/WC28": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:16:01.629Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:16:01.239Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:16:01.629Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.533Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:22:09.348Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:22:09.348Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC28"
+   },
+   "delivery/WC26": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:04.269Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:03.960Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:04.269Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.246Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:04.269Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:04.269Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:59.120Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:59.120Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC26"
+   },
+   "delivery/WC29": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:15:59.987Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:15:59.649Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:15:59.987Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.824Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:47.346Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:22:19.436Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:22:19.436Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC29"
+   },
+   "delivery/WC25": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:09:58.278Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:09:57.966Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:09:58.278Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:28.960Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:09:58.278Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:09:58.278Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:21:49.167Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:21:49.167Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC25"
+   },
+   "delivery/WC45": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:54:51.775Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:54:51.363Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:54:51.775Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.895Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:54:51.775Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:21.631Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:21.631Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC45"
+   },
+   "delivery/WC48": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:37.895Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:36.955Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:37.895Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:32.844Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:37.895Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:37.895Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:43.711Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:43.711Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC48"
+   },
+   "delivery/WC47": {
+    "state": "on site",
+    "set_at": "2026-10-15T03:10:02.877Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T03:10:02.511Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T03:10:02.877Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:32.541Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T03:10:02.877Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T03:10:02.877Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:32.495Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:32.495Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC47"
+   },
+   "delivery/WC35": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:26.217Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:25.806Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:40:26.217Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.709Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:26.217Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:26.217Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:22:50.524Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:22:50.524Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC35"
+   },
+   "delivery/WC38": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:53:15.119Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:45.419Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:53:15.119Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.004Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:02.081Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:53:15.119Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:53:15.119Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:01.621Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:01.621Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC38"
+   },
+   "delivery/WC30": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:32.783Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:58:25.935Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:58:26.333Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.113Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:32.783Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:32.783Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-16T00:48:40.332Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-10-16T00:58:26.333Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:22:29.288Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:22:29.288Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC30"
+   },
+   "delivery/WC69": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:32:13.474Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:33:00.831Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.910Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.284Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:50:00.898Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:24:00.429Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:32:13.474Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:33:00.831Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "timeline841": {
+     "stage": 4,
+     "at": "2026-10-13T02:29:04.302Z",
+     "by": "Andrew Fisher",
+     "history": [
+      {
+       "stage": 4,
+       "at": "2026-10-13T02:29:04.302Z",
+       "by": "Andrew Fisher",
+       "recorded_at": "2026-10-13T02:29:04.302Z"
+      }
+     ],
+     "recorded_at": "2026-10-13T02:29:04.302Z"
+    },
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:25.782Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:25.782Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC69"
+   },
+   "delivery/WC65": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:31:23.223Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T02:31:22.773Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T02:31:23.223Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:31:23.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T02:31:23.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:03.105Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:03.105Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC65"
+   },
+   "delivery/WC49": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:44.134Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:43.117Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:44.134Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.134Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:44.134Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:44.134Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:24:54.893Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:24:54.893Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC49"
+   },
+   "delivery/WC54": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:53.127Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:52.167Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:53.127Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.978Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:53.127Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:53.127Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:17.879Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:17.879Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC54"
+   },
+   "delivery/WC68": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:40:40.781Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:40:40.781Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.632Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:46.223Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:40:40.781Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:40:40.781Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:14.536Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:14.536Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC68"
+   },
+   "delivery/WC34": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:40:18.814Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:44.833Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:40:18.814Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:30.411Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:04.367Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:40:18.814Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:40:18.814Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:22:39.455Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:22:39.455Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC34"
+   },
+   "delivery/WC40": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:42:48.372Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:46.622Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:42:48.372Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.591Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:03.648Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:42:48.372Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:42:48.372Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:23.998Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:23.998Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC40"
+   },
+   "delivery/WC53": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:23.999Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:23.099Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:23.999Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:33.705Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:23.999Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:06.730Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:06.730Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC53"
+   },
+   "delivery/WC62": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:24.403Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:23.995Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T00:40:24.403Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:35.076Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:24.403Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T00:40:24.403Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:51.882Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:51.882Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC62"
+   },
+   "delivery/WC85": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:36:39.086Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:36:38.640Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:36:39.086Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:37.011Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:36:39.086Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:33.901Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:33.901Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC85"
+   },
+   "delivery/WC70": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:00:07.247Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:00:07.247Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.186Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:45.737Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:00:07.247Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:00:07.247Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:26:36.699Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:26:36.699Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC70"
+   },
+   "delivery/WC72": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:39:26.838Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:39:26.838Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.471Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:46.715Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:39:26.838Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:39:26.838Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:00.641Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:00.641Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC72"
+   },
+   "delivery/WC39": {
+    "state": "on site",
+    "set_at": "2026-10-13T02:50:22.001Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:46.011Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T02:50:22.001Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:31.298Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:02.824Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T02:50:22.001Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T02:50:22.001Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:23:13.234Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:23:13.234Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC39"
+   },
+   "delivery/WC57": {
+    "state": "on site",
+    "set_at": "2026-10-13T23:40:18.276Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-14",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-13T23:40:17.259Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-13T23:40:18.276Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:34.526Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:06.001Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T23:40:18.276Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T23:40:18.276Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:28.934Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:28.934Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC57"
+   },
+   "delivery/WC61": {
+    "state": "on site",
+    "set_at": "2026-10-11T20:49:59.339Z",
+    "by": "Andrew Fisher via Codex",
+    "date": "2026-10-13",
+    "date_by": "Andrew Fisher via Codex",
+    "date_at": "2026-10-09T01:16:47.219Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-11T20:50:00.452Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:34.804Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:29:05.163Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-09"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-11T20:49:59.339Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-11T20:50:00.452Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:25:40.311Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:25:40.311Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC61"
+   },
+   "delivery/WC73": {
+    "state": "on site",
+    "set_at": "2026-10-13T03:33:41.848Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-13T03:33:41.848Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:36.741Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-13T03:33:41.848Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:27:11.932Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:27:11.932Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC73"
+   },
+   "delivery/BJR01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:29:14.982Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:29:15.368Z",
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:29:15.368Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:19:50.277Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:19:50.277Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "delivery/SVP01": {
+    "state": "on site",
+    "set_at": "2026-10-16T01:30:30.594Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:31:01.062Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:31:01.479Z",
+    "note": "Shell V-Power's FWF (Schedule 7, Event Week row 50, Event Portables request EP-S7-EW50, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0939, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:30:30.594Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:31:01.479Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-10-26T05:20:45.950Z",
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-10-26T05:20:45.950Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "SVP01"
+   },
+   "delivery/EQ0003": {
+    "state": "in transit",
+    "set_at": "2026-10-26T05:27:56.844Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-26T05:27:56.844Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:49.019Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-26T05:27:56.844Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "12322690-fd65-44b9-93ae-0917b8d17de3",
+       "date": "2026-10-26",
+       "departedAt1211": "2026-10-26T13:30:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T18:26:49.019Z",
+       "requiredKey": "[[\"straight boom 60ft - diesel\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Straight Boom 60ft - Diesel",
+         "n": 1,
+         "unitIds": [
+          "[\"EQ0003\",\"coates\",\"asset\",\"1286482\"]"
+         ],
+         "numbers": [
+          "1286482"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"EQ0003\",\"coates\",\"asset\",\"1286482\"]",
+           "number": "1286482",
+           "owner": "coates",
+           "item": "Straight Boom 60ft - Diesel"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:49.767Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-26T05:27:56.844Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "EQ0003"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

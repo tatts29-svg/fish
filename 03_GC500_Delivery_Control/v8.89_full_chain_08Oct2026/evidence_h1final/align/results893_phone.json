@@ -1,0 +1,1440 @@
+{
+ "results": [
+  {
+   "name": "D001 picture is the v8.93 render of the aligned scene (2600 x 1837) and the v8.89 / 17 Sep pictures left the media list",
+   "pass": true,
+   "detail": {
+    "sheet": true,
+    "px": [
+     2600,
+     1837
+    ],
+    "url": "bc9c1dd15df65fb3a718070a0.webp"
+   }
+  },
+  {
+   "name": "CP1, T0265 and WC81 are back on their 17 Sep positions (the inset did not move on the paper)",
+   "pass": true,
+   "detail": {
+    "CP1": {
+     "pt": [
+      0.90642,
+      0.76348
+     ],
+     "back": true
+    },
+    "WC81": {
+     "pt": [
+      0.90659,
+      0.74246
+     ],
+     "back": true
+    },
+    "T0265": {
+     "pt": [
+      0.89304,
+      0.85273
+     ],
+     "back": true
+    }
+   }
+  },
+  {
+   "name": "every pin picture is in the media list; close-ups 771 x 491 and context pictures 937 x 613 load",
+   "pass": true,
+   "detail": {
+    "thumbs": {
+     "P45": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "WC81": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "CP1": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "WC51": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ],
+     "P60": [
+      [
+       771,
+       491
+      ],
+      [
+       937,
+       613
+      ]
+     ]
+    },
+    "served": 11
+   }
+  },
+  {
+   "name": "navigation pins as v8.89 set them: P45, WC51, WC38, WC39 and WC10 on the 2 Oct master, every other pin as live (masterFixFor = ll for every unit-tagged pin; T0265 is a label, not a tag, so it has no master fix, as on live)",
+   "pass": true,
+   "detail": {
+    "P45": {
+     "ll": [
+      -27.988119,
+      153.4300493
+     ],
+     "fix": [
+      -27.988119,
+      153.4300493
+     ],
+     "unit": true
+    },
+    "WC51": {
+     "ll": [
+      -27.9928571,
+      153.4304602
+     ],
+     "fix": [
+      -27.9928571,
+      153.4304602
+     ],
+     "unit": true
+    },
+    "WC38": {
+     "ll": [
+      -27.9835978,
+      153.4241101
+     ],
+     "fix": [
+      -27.9835978,
+      153.4241101
+     ],
+     "unit": true
+    },
+    "WC39": {
+     "ll": [
+      -27.9836022,
+      153.423968
+     ],
+     "fix": [
+      -27.9836022,
+      153.423968
+     ],
+     "unit": true
+    },
+    "WC10": {
+     "ll": [
+      -27.9845026,
+      153.4277044
+     ],
+     "fix": [
+      -27.9845026,
+      153.4277044
+     ],
+     "unit": true
+    },
+    "CP1": {
+     "ll": [
+      -27.99749,
+      153.428257
+     ],
+     "fix": [
+      -27.99749,
+      153.428257
+     ],
+     "unit": true
+    },
+    "WC81": {
+     "ll": [
+      -27.997491,
+      153.42851
+     ],
+     "fix": [
+      -27.997491,
+      153.42851
+     ],
+     "unit": true
+    },
+    "T0265": {
+     "ll": [
+      -27.99729,
+      153.427182
+     ],
+     "fix": null,
+     "unit": false
+    },
+    "P60": {
+     "ll": [
+      -27.994054,
+      153.430612
+     ],
+     "fix": [
+      -27.994054,
+      153.430612
+     ],
+     "unit": true
+    },
+    "WC48": {
+     "ll": [
+      -27.993745,
+      153.430484
+     ],
+     "fix": [
+      -27.993745,
+      153.430484
+     ],
+     "unit": true
+    }
+   }
+  },
+  {
+   "name": "page-side fencing geometry still binds to the 17 Sep frame (37792f0a...)",
+   "pass": true,
+   "detail": {
+    "geometry": 127,
+    "masters": [
+     "37792f0a9d32"
+    ]
+   }
+  },
+  {
+   "name": "MASTER markers sit where MASTER_LOC puts them, within the page's own 0.05 CSS px rounding of the data position at this stage width (26 references read from the page's own layout; worst 0.05 px)",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "name": "every checked tag pin is on its 2 Oct tag (24 with a tag: the inset pins, the flagged set, the moved set and every 9th tag pin)",
+   "pass": true,
+   "detail": {}
+  },
+  {
+   "name": "the inset cluster: WC81 on its tag, P68 tag beside it, CP1 (leader line from D022, no tag) and T0265 (OP42 label) back where the 17 Sep issue had them",
+   "pass": true,
+   "detail": {
+    "WC81": {
+     "marker": [
+      0.9066265060240963,
+      0.7426330252966138
+     ],
+     "sheet_pt": [
+      2161.4,
+      1250.6
+     ],
+     "label_boxes": 1,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.012,
+      0.041
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "CP1": {
+     "marker": [
+      0.9063253012048192,
+      0.7635222435741879
+     ],
+     "sheet_pt": [
+      2160.7,
+      1285.8
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.031,
+      0.01
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "T0265": {
+     "marker": [
+      0.8930722891566265,
+      0.8526211541866978
+     ],
+     "sheet_pt": [
+      2129.1,
+      1435.8
+     ],
+     "label_boxes": 0,
+     "off_pt": null,
+     "off_m": null,
+     "on_label": null,
+     "tag": false,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.011,
+      0.026
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "P68_from_WC81_pt": 8.5
+   }
+  },
+  {
+   "name": "the first diff's flagged references (P60, P62, P63, WC48, WC49, WC51, WC81) each sit on their 2 Oct tag",
+   "pass": true,
+   "detail": {
+    "P60": {
+     "marker": [
+      0.8981927710843373,
+      0.15048763371395216
+     ],
+     "sheet_pt": [
+      2141.3,
+      253.4
+     ],
+     "label_boxes": 2,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.016,
+      0.03
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "P62": {
+     "marker": [
+      0.888855421686747,
+      0.15091394429104552
+     ],
+     "sheet_pt": [
+      2119,
+      254.1
+     ],
+     "label_boxes": 2,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.032,
+      0.037
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "P63": {
+     "marker": [
+      0.8843373493975905,
+      0.15134025486813885
+     ],
+     "sheet_pt": [
+      2108.3,
+      254.9
+     ],
+     "label_boxes": 2,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.034,
+      0.007
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "WC48": {
+     "marker": [
+      0.8777108433734939,
+      0.16071908756419254
+     ],
+     "sheet_pt": [
+      2092.5,
+      270.7
+     ],
+     "label_boxes": 2,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.046,
+      0.021
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "WC49": {
+     "marker": [
+      0.8927710843373493,
+      0.1436666644804586
+     ],
+     "sheet_pt": [
+      2128.4,
+      241.9
+     ],
+     "label_boxes": 2,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.024,
+      0.018
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "WC51": {
+     "marker": [
+      0.8192771084337349,
+      0.16242432987256594
+     ],
+     "sheet_pt": [
+      1953.2,
+      273.5
+     ],
+     "label_boxes": 1,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.037,
+      0.041
+     ],
+     "matches_data": true,
+     "drawn": true
+    },
+    "WC81": {
+     "marker": [
+      0.9066265060240963,
+      0.7426330252966138
+     ],
+     "sheet_pt": [
+      2161.4,
+      1250.6
+     ],
+     "label_boxes": 1,
+     "off_pt": 0,
+     "off_m": 0,
+     "on_label": true,
+     "tag": true,
+     "read": "transform",
+     "stage_px": 332,
+     "off_css_px": [
+      0.012,
+      0.041
+     ],
+     "matches_data": true,
+     "drawn": true
+    }
+   }
+  },
+  {
+   "name": "marker positions on screen agree with their data (bounding boxes against style, for the markers laid out)",
+   "pass": true,
+   "detail": {
+    "seen": 26,
+    "agree": 26
+   }
+  },
+  {
+   "name": "D001 sector labels sit on their 2 Oct text (20 sectors, all within 1 pt)",
+   "pass": true,
+   "detail": {
+    "S01": 0,
+    "S02": 0,
+    "S04": 0,
+    "S05": 0,
+    "S07": 0,
+    "S08": 0,
+    "S10": 0,
+    "S11": 0,
+    "S12": 0,
+    "S13": 0,
+    "S14": 0,
+    "S15": 0,
+    "S18": 0,
+    "S19": 0,
+    "S20": 0,
+    "S21": 0,
+    "S22": 0,
+    "S22A": 0,
+    "S23": 0,
+    "S25": 0
+   }
+  },
+  {
+   "name": "D001 gate markers sit on their 2 Oct gate text (8 gates with text on the 2 Oct sheet)",
+   "pass": true,
+   "detail": {
+    "G1": 0,
+    "G2": 0,
+    "G3": 0,
+    "G4": 0,
+    "G6": 0,
+    "G8": 0,
+    "G8a": 0,
+    "G9": 0
+   }
+  },
+  {
+   "name": "explorer scene is the 2 Oct issue in the 17 Sep frame with the v8.93 window clip; pyramid files carry the v8.93 token",
+   "pass": true,
+   "detail": {
+    "sha": "8753d875cf90",
+    "records": 301253,
+    "levels": 26,
+    "files": [
+     "Llow-84e7872ac157.bin",
+     "L-0.75-84e7872ac157.bin"
+    ]
+   }
+  },
+  {
+   "name": "tiles held in every explorer mode",
+   "pass": true,
+   "detail": {
+    "hybrid": {
+     "tiles": 25,
+     "mode": "hybrid"
+    },
+    "satellite": {
+     "tiles": 25,
+     "mode": "satellite"
+    },
+    "original": {
+     "tiles": 25,
+     "mode": "original"
+    }
+   }
+  },
+  {
+   "name": "plan_items.json (Plan on satellite in its own window) carries the v8.93 pins: inset trio at 17 Sep, WC10 placed, P45 at its 2 Oct place",
+   "pass": true,
+   "detail": {
+    "CP1": [
+     0.90642,
+     0.76348
+    ],
+    "WC81": [
+     0.90659,
+     0.74246
+    ],
+    "T0265": [
+     0.89304,
+     0.85273
+    ],
+    "WC10": [
+     0.26896,
+     0.38855
+    ],
+    "items": 161
+   }
+  },
+  {
+   "name": "explorer search lands on WC81 (inset), P45 and WC10 where the 2 Oct sheet prints them",
+   "pass": true,
+   "detail": {
+    "WC81": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      2161,
+      1250
+     ]
+    },
+    "P45": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      1210,
+      329
+     ]
+    },
+    "WC10": {
+     "found": true,
+     "inView": true,
+     "centre": [
+      641,
+      654
+     ]
+    }
+   }
+  },
+  {
+   "name": "the page picture and the explorer render agree: best correlation at (0, 0) for the main plan and for the inset (within one sample, under 3 picture px)",
+   "pass": true,
+   "detail": {
+    "main": {
+     "best": {
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9707476075781785
+     },
+     "r0": 0.9707476075781785,
+     "shift_picture_px": [
+      0,
+      0
+     ],
+     "sample_px": 2.21,
+     "W": 480,
+     "H": 614
+    },
+    "inset": {
+     "best": {
+      "dx": 0,
+      "dy": 0,
+      "r": 0.9936010632947053
+     },
+     "r0": 0.9936010632947053,
+     "shift_picture_px": [
+      0,
+      0
+     ],
+     "sample_px": 2.32,
+     "W": 480,
+     "H": 614
+    }
+   }
+  },
+  {
+   "name": "3D proof units: WC10 added from the 2 Oct drawing; P45, WC51, WC38, WC39 follow the 2 Oct master (v8.89 ll); CP1 unchanged",
+   "pass": true,
+   "detail": {
+    "n": 261,
+    "WC10": {
+     "k": "WC10",
+     "n": "Toilets",
+     "t": "toilets",
+     "ll": [
+      -27.9845026,
+      153.4277044
+     ],
+     "a": 0,
+     "x": 0,
+     "note": "New on the master D001-26003-03 issued 2 Oct 2026; position read off that drawing."
+    },
+    "served": 1
+   }
+  },
+  {
+   "name": "no page errors (dashboard or explorer)",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "name": "no failed requests (every 4xx/5xx listed)",
+   "pass": true,
+   "detail": {
+    "bad": []
+   }
+  },
+  {
+   "name": "no writes attempted (counts.blocked is 0); explorer served locally",
+   "pass": true,
+   "detail": {
+    "blocked": 0,
+    "liveExplorer": 0,
+    "missing": [],
+    "local": 156,
+    "mediaServed": 18
+   }
+  }
+ ],
+ "refs": {
+  "CP1": {
+   "marker": [
+    0.9063253012048192,
+    0.7635222435741879
+   ],
+   "sheet_pt": [
+    2160.7,
+    1285.8
+   ],
+   "label_boxes": 0,
+   "off_pt": null,
+   "off_m": null,
+   "on_label": null,
+   "tag": false,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.031,
+    0.01
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC81": {
+   "marker": [
+    0.9066265060240963,
+    0.7426330252966138
+   ],
+   "sheet_pt": [
+    2161.4,
+    1250.6
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.041
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "T0265": {
+   "marker": [
+    0.8930722891566265,
+    0.8526211541866978
+   ],
+   "sheet_pt": [
+    2129.1,
+    1435.8
+   ],
+   "label_boxes": 0,
+   "off_pt": null,
+   "off_m": null,
+   "on_label": null,
+   "tag": false,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.011,
+    0.026
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P60": {
+   "marker": [
+    0.8981927710843373,
+    0.15048763371395216
+   ],
+   "sheet_pt": [
+    2141.3,
+    253.4
+   ],
+   "label_boxes": 2,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.016,
+    0.03
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P62": {
+   "marker": [
+    0.888855421686747,
+    0.15091394429104552
+   ],
+   "sheet_pt": [
+    2119,
+    254.1
+   ],
+   "label_boxes": 2,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.032,
+    0.037
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P63": {
+   "marker": [
+    0.8843373493975905,
+    0.15134025486813885
+   ],
+   "sheet_pt": [
+    2108.3,
+    254.9
+   ],
+   "label_boxes": 2,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.034,
+    0.007
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC48": {
+   "marker": [
+    0.8777108433734939,
+    0.16071908756419254
+   ],
+   "sheet_pt": [
+    2092.5,
+    270.7
+   ],
+   "label_boxes": 2,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.046,
+    0.021
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC49": {
+   "marker": [
+    0.8927710843373493,
+    0.1436666644804586
+   ],
+   "sheet_pt": [
+    2128.4,
+    241.9
+   ],
+   "label_boxes": 2,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.024,
+    0.018
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC51": {
+   "marker": [
+    0.8192771084337349,
+    0.16242432987256594
+   ],
+   "sheet_pt": [
+    1953.2,
+    273.5
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.037,
+    0.041
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P45": {
+   "marker": [
+    0.5075301204819277,
+    0.19567655488584715
+   ],
+   "sheet_pt": [
+    1210,
+    329.5
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.05,
+    0.03
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC38": {
+   "marker": [
+    0.20903614457831327,
+    0.6855074079661051
+   ],
+   "sheet_pt": [
+    498.3,
+    1154.4
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.049,
+    0.021
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC39": {
+   "marker": [
+    0.20903614457831327,
+    0.6970177935476255
+   ],
+   "sheet_pt": [
+    498.3,
+    1173.8
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.038,
+    0.033
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC10": {
+   "marker": [
+    0.26897590361445783,
+    0.38836893573204084
+   ],
+   "sheet_pt": [
+    641.2,
+    654
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.005,
+    0.042
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "AA": {
+   "marker": [
+    0.42078313253012045,
+    0.34403263571433257
+   ],
+   "sheet_pt": [
+    1003.1,
+    579.4
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.008,
+    0.05
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P10": {
+   "marker": [
+    0.40722891566265057,
+    0.3538377789874796
+   ],
+   "sheet_pt": [
+    970.8,
+    595.9
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.037,
+    0.023
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P19": {
+   "marker": [
+    0.29638554216867474,
+    0.45572600691278997
+   ],
+   "sheet_pt": [
+    706.6,
+    767.4
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.02
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P39": {
+   "marker": [
+    0.2780120481927711,
+    0.4011582530448413
+   ],
+   "sheet_pt": [
+    662.8,
+    675.6
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.011,
+    0.05
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P54": {
+   "marker": [
+    0.058734939759036146,
+    0.6991493464330922
+   ],
+   "sheet_pt": [
+    140,
+    1177.4
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.012,
+    0.033
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "P66": {
+   "marker": [
+    0.7268072289156627,
+    0.16498219333512604
+   ],
+   "sheet_pt": [
+    1732.7,
+    277.8
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.014,
+    0.037
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC09": {
+   "marker": [
+    0.28463855421686746,
+    0.36705340687737337
+   ],
+   "sheet_pt": [
+    678.6,
+    618.1
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.009,
+    0.003
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC20": {
+   "marker": [
+    0.4641566265060241,
+    0.3500009837936394
+   ],
+   "sheet_pt": [
+    1106.5,
+    589.4
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.034,
+    0
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC30": {
+   "marker": [
+    0.12981927710843374,
+    0.3764322395734271
+   ],
+   "sheet_pt": [
+    309.5,
+    633.9
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.026,
+    0.025
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC41": {
+   "marker": [
+    0.2897590361445783,
+    0.5239356992477259
+   ],
+   "sheet_pt": [
+    690.8,
+    882.3
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.026,
+    0.044
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC50": {
+   "marker": [
+    0.6156626506024097,
+    0.2135815991237678
+   ],
+   "sheet_pt": [
+    1467.7,
+    359.7
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.047,
+    0.024
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC61": {
+   "marker": [
+    0.24457831325301205,
+    0.21486053085504783
+   ],
+   "sheet_pt": [
+    583.1,
+    361.8
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.044,
+    0.009
+   ],
+   "matches_data": true,
+   "drawn": true
+  },
+  "WC73": {
+   "marker": [
+    0.4310240963855422,
+    0.3546904001416663
+   ],
+   "sheet_pt": [
+    1027.6,
+    597.3
+   ],
+   "label_boxes": 1,
+   "off_pt": 0,
+   "off_m": 0,
+   "on_label": true,
+   "tag": true,
+   "read": "transform",
+   "stage_px": 332,
+   "off_css_px": [
+    0.019,
+    0
+   ],
+   "matches_data": true,
+   "drawn": true
+  }
+ },
+ "secs": {
+  "S01": 0,
+  "S02": 0,
+  "S04": 0,
+  "S05": 0,
+  "S07": 0,
+  "S08": 0,
+  "S10": 0,
+  "S11": 0,
+  "S12": 0,
+  "S13": 0,
+  "S14": 0,
+  "S15": 0,
+  "S18": 0,
+  "S19": 0,
+  "S20": 0,
+  "S21": 0,
+  "S22": 0,
+  "S22A": 0,
+  "S23": 0,
+  "S25": 0
+ },
+ "gates": {
+  "G1": 0,
+  "G2": 0,
+  "G3": 0,
+  "G4": 0,
+  "G6": 0,
+  "G8": 0,
+  "G8a": 0,
+  "G9": 0
+ },
+ "agree": {
+  "main": {
+   "best": {
+    "dx": 0,
+    "dy": 0,
+    "r": 0.9707476075781785
+   },
+   "r0": 0.9707476075781785,
+   "shift_picture_px": [
+    0,
+    0
+   ],
+   "sample_px": 2.21,
+   "W": 480,
+   "H": 614
+  },
+  "inset": {
+   "best": {
+    "dx": 0,
+    "dy": 0,
+    "r": 0.9936010632947053
+   },
+   "r0": 0.9936010632947053,
+   "shift_picture_px": [
+    0,
+    0
+   ],
+   "sample_px": 2.32,
+   "W": 480,
+   "H": 614
+  }
+ },
+ "finds": {
+  "WC81": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    2161,
+    1250
+   ]
+  },
+  "P45": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    1210,
+    329
+   ]
+  },
+  "WC10": {
+   "found": true,
+   "inView": true,
+   "centre": [
+    641,
+    654
+   ]
+  }
+ },
+ "modes": {
+  "hybrid": {
+   "tiles": 25,
+   "mode": "hybrid"
+  },
+  "satellite": {
+   "tiles": 25,
+   "mode": "satellite"
+  },
+  "original": {
+   "tiles": 25,
+   "mode": "original"
+  }
+ },
+ "poc": {
+  "n": 261,
+  "WC10": {
+   "k": "WC10",
+   "n": "Toilets",
+   "t": "toilets",
+   "ll": [
+    -27.9845026,
+    153.4277044
+   ],
+   "a": 0,
+   "x": 0,
+   "note": "New on the master D001-26003-03 issued 2 Oct 2026; position read off that drawing."
+  },
+  "P45": [
+   -27.988119,
+   153.4300493
+  ],
+  "WC51": [
+   -27.9928571,
+   153.4304602
+  ],
+  "WC38": [
+   -27.9835978,
+   153.4241101
+  ],
+  "WC39": [
+   -27.9836022,
+   153.423968
+  ],
+  "CP1": [
+   -27.99749,
+   153.428257
+  ],
+  "source": "Master plan D001-26003-03 positions (v6.89) and the other sheets laid on it; image registration, not survey; P45, WC51, WC38, WC39 and the new WC10 follow the master issued 2 Oct 2026 (v8.93)"
+ },
+ "counts": {
+  "page": 1,
+  "live": 54,
+  "blocked": 0,
+  "local": 156,
+  "ranges": 69,
+  "missing": [],
+  "localPaths": 92,
+  "liveExplorer": 0,
+  "badResponses": []
+ }
+}

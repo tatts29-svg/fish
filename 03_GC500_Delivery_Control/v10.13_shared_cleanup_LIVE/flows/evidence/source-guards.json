@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "candidateSha256": "ddf49187248e7e2f47b79b4ca15f16ce1463ab633c59e7aaee7d9ca8f6c25dc7",
+  "checks": [
+    {
+      "name": "Repeat guard",
+      "pass": true
+    },
+    {
+      "name": "Required source guard",
+      "pass": true
+    },
+    {
+      "name": "Native operational data remains byte-identical",
+      "pass": true,
+      "comparedBytes": 3683916
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T210626Z",
+ "finished": "2026-10-16T21:06:42.545Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 17 Oct 2026, in chat, as typed: \"T0266 can be what ever\". The door side does not matter for this container, recorded as not applicable (as T0258's container is). T0266 has no unit number; its one row is the item 6.0m Refrigerator Cont.",
+  "refs": [
+   "T0266"
+  ],
+  "ops": [
+   {
+    "op": "door",
+    "ref": "T0266",
+    "id": "item:6.0m Refrigerator Cont",
+    "side": "na",
+    "why": "Andrew, 17 Oct 2026: T0266 can be whatever - door side not applicable"
+   }
+  ]
+ },
+ "pageSha256": "0cfe02f8dd823bae3c89f3600db8343b2d384f432c8884bc0188323bc44c0b36",
+ "version": {
+  "before": 9576,
+  "after": 9577
+ },
+ "updated": {
+  "before": "2026-10-16T21:05:38.514Z",
+  "after": "2026-10-16T21:06:39.287Z"
+ },
+ "stage": [
+  {
+   "op": "door",
+   "ref": "T0266",
+   "id": "item:6.0m Refrigerator Cont",
+   "side": "na",
+   "why": "Andrew, 17 Oct 2026: T0266 can be whatever - door side not applicable",
+   "result": "door side na"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0266",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0266": {
+    "state": "on site",
+    "set_at": "2026-10-12T14:00:00.000Z",
+    "by": "Andrew Fisher via Codex",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-15T09:14:52.171Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-14T00:00:36.634Z",
+    "note": "Arrived 13 Oct 2026; exact arrival time not supplied. Asset 920584, subhired from United Rentals (Royal Wolf). Arrival date confirmed by Andrew Fisher on 14 Oct; the date-boundary timestamp represents the day only.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.389Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "recorded_at": "2026-10-14T00:00:36.634Z",
+      "date_only": true,
+      "effective_date": "2026-10-13",
+      "note": "Arrival date confirmed; exact time not supplied."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T00:00:36.634Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:52.171Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0266"
+   }
+  },
+  "after": {
+   "delivery/T0266": {
+    "state": "on site",
+    "set_at": "2026-10-12T14:00:00.000Z",
+    "by": "Andrew Fisher via Codex",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-15T09:14:52.171Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-14T00:00:36.634Z",
+    "note": "Arrived 13 Oct 2026; exact arrival time not supplied. Asset 920584, subhired from United Rentals (Royal Wolf). Arrival date confirmed by Andrew Fisher on 14 Oct; the date-boundary timestamp represents the day only.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.389Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "recorded_at": "2026-10-14T00:00:36.634Z",
+      "date_only": true,
+      "effective_date": "2026-10-13",
+      "note": "Arrival date confirmed; exact time not supplied."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T00:00:36.634Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:52.171Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "item:6.0m Refrigerator Cont": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:06:36.423Z"
+     }
+    },
+    "_k": "T0266"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

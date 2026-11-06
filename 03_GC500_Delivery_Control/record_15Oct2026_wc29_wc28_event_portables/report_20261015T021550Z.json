@@ -1,0 +1,692 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T021550Z",
+ "finished": "2026-10-15T02:16:06.999Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-15",
+  "by": "Andrew Fisher",
+  "owner": "event-portables",
+  "item": "FWF",
+  "rows": [
+   {
+    "ref": "WC29",
+    "numbers": [
+     "0598",
+     "0044",
+     "0707",
+     "0441",
+     "0546",
+     "0564",
+     "0079"
+    ]
+   },
+   {
+    "ref": "WC28",
+    "numbers": [
+     "0102"
+    ]
+   }
+  ],
+  "note": "Andrew, 15 Oct 2026 about 11:35 AEST in Claude chat: Toilets here and complete, event portables WC29 0598 0044 0707 0441 0546 0564 0079; WC28 0102"
+ },
+ "pageSha256": "681da5c7c631a5ccefe25a0f294020feb79a204e2e89211ebb7ff191a9e73dac",
+ "version": {
+  "before": 6187,
+  "after": 6225
+ },
+ "updated": {
+  "before": "2026-10-15T01:20:04.685Z",
+  "after": "2026-10-15T02:16:06.285Z"
+ },
+ "stage": [
+  {
+   "ref": "WC29",
+   "unit": "0598",
+   "key": "unit925/f92bea15-e071-4c8f-aa81-443a6c1077d8"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0044",
+   "key": "unit925/a0a6cbca-5382-4c14-bf79-d24c2bd220c2"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0707",
+   "key": "unit925/36837a82-dd3a-4b1e-a8cf-397564432be8"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0441",
+   "key": "unit925/c7b61771-f903-4cc8-936d-78addf785086"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0546",
+   "key": "unit925/16679715-4374-4cdb-aacf-030acf539b8a"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0564",
+   "key": "unit925/535c8600-97a6-49e9-80a8-ad6d6e659230"
+  },
+  {
+   "ref": "WC29",
+   "unit": "0079",
+   "key": "unit925/049ed3c9-9599-429b-b6c4-b9bf05849998"
+  },
+  {
+   "ref": "WC29",
+   "supplied": 7
+  },
+  {
+   "ref": "WC29",
+   "install": true
+  },
+  {
+   "ref": "WC29",
+   "date": "2026-10-15",
+   "complete": true
+  },
+  {
+   "ref": "WC28",
+   "unit": "0102",
+   "key": "unit925/3c387693-1200-4767-bc92-07110c64562d"
+  },
+  {
+   "ref": "WC28",
+   "supplied": 1
+  },
+  {
+   "ref": "WC28",
+   "install": true
+  },
+  {
+   "ref": "WC28",
+   "date": "2026-10-15",
+   "complete": true
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC28",
+   "status": 200
+  },
+  {
+   "key": "delivery/WC29",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~WC29~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~WC28~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~c7b61771-f903-4cc8-936d-78addf785086",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~3c387693-1200-4767-bc92-07110c64562d",
+   "status": 200
+  },
+  {
+   "key": "supplied/WC29",
+   "status": 200
+  },
+  {
+   "key": "supplied/WC28",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~WC29~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~WC28~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/WC28": {
+    "state": "not on site",
+    "set_at": "2026-10-03T10:28:29.533Z",
+    "by": "Andrew Fisher via Codex",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.533Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "_k": "WC28"
+   },
+   "delivery/WC29": {
+    "state": "in transit",
+    "set_at": "2026-10-05T10:30:47.346Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.824Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:47.346Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     }
+    ],
+    "_k": "WC29"
+   },
+   "stamps/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": null,
+   "stamps/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": null,
+   "stamps/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": null,
+   "stamps/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": null,
+   "stamps/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": null,
+   "stamps/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": null,
+   "stamps/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": null,
+   "stamps/supplied~2f~WC29~2f~FWF": null,
+   "stamps/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "stamps/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d": null,
+   "stamps/supplied~2f~WC28~2f~FWF": null,
+   "stamps/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "loads/unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": null,
+   "loads/unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": null,
+   "loads/unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": null,
+   "loads/unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": null,
+   "loads/unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": null,
+   "loads/unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": null,
+   "loads/unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": null,
+   "loads/unit925~2f~3c387693-1200-4767-bc92-07110c64562d": null,
+   "supplied/WC29": null,
+   "supplied/WC28": null,
+   "by/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": null,
+   "by/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": null,
+   "by/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": null,
+   "by/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": null,
+   "by/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": null,
+   "by/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": null,
+   "by/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": null,
+   "by/supplied~2f~WC29~2f~FWF": null,
+   "by/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "by/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d": null,
+   "by/supplied~2f~WC28~2f~FWF": null,
+   "by/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null
+  },
+  "after": {
+   "delivery/WC28": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:16:01.629Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.533Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:16:01.239Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:16:01.629Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:16:01.629Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC28"
+   },
+   "delivery/WC29": {
+    "state": "on site",
+    "set_at": "2026-10-15T02:15:59.987Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:29.824Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-05T10:30:47.346Z",
+      "by": "Andrew Fisher",
+      "because": "Run sheet print requested",
+      "print_day": "2026-10-13"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "date": "2026-10-15",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-15T02:15:59.649Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-15T02:15:59.987Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T02:15:59.987Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WC29"
+   },
+   "stamps/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": {
+    "_k": "loads/unit925/f92bea15-e071-4c8f-aa81-443a6c1077d8",
+    "v": "2026-10-15T02:15:56.390Z"
+   },
+   "stamps/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": {
+    "_k": "loads/unit925/a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+    "v": "2026-10-15T02:15:56.767Z"
+   },
+   "stamps/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": {
+    "_k": "loads/unit925/36837a82-dd3a-4b1e-a8cf-397564432be8",
+    "v": "2026-10-15T02:15:57.152Z"
+   },
+   "stamps/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": {
+    "_k": "loads/unit925/c7b61771-f903-4cc8-936d-78addf785086",
+    "v": "2026-10-15T02:15:57.539Z"
+   },
+   "stamps/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": {
+    "_k": "loads/unit925/16679715-4374-4cdb-aacf-030acf539b8a",
+    "v": "2026-10-15T02:15:57.899Z"
+   },
+   "stamps/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": {
+    "_k": "loads/unit925/535c8600-97a6-49e9-80a8-ad6d6e659230",
+    "v": "2026-10-15T02:15:58.226Z"
+   },
+   "stamps/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": {
+    "_k": "loads/unit925/049ed3c9-9599-429b-b6c4-b9bf05849998",
+    "v": "2026-10-15T02:15:58.695Z"
+   },
+   "stamps/supplied~2f~WC29~2f~FWF": {
+    "_k": "supplied/WC29/FWF",
+    "v": "2026-10-15T02:15:59.111Z"
+   },
+   "stamps/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC29|Toilets & amenities|FWF|install",
+    "v": "2026-10-15T02:15:59.199Z"
+   },
+   "stamps/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d": {
+    "_k": "loads/unit925/3c387693-1200-4767-bc92-07110c64562d",
+    "v": "2026-10-15T02:16:00.405Z"
+   },
+   "stamps/supplied~2f~WC28~2f~FWF": {
+    "_k": "supplied/WC28/FWF",
+    "v": "2026-10-15T02:16:00.748Z"
+   },
+   "stamps/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC28|Toilets & amenities|FWF|install",
+    "v": "2026-10-15T02:16:00.834Z"
+   },
+   "loads/unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0598",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "f92bea15-e071-4c8f-aa81-443a6c1077d8",
+    "nativeId": "slot:f92bea15-e071-4c8f-aa81-443a6c1077d8",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:f92bea15-e071-4c8f-aa81-443a6c1077d8\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:56.390Z",
+    "_k": "unit925/f92bea15-e071-4c8f-aa81-443a6c1077d8"
+   },
+   "loads/unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0044",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+    "nativeId": "slot:a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:a0a6cbca-5382-4c14-bf79-d24c2bd220c2\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:56.767Z",
+    "_k": "unit925/a0a6cbca-5382-4c14-bf79-d24c2bd220c2"
+   },
+   "loads/unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0707",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "36837a82-dd3a-4b1e-a8cf-397564432be8",
+    "nativeId": "slot:36837a82-dd3a-4b1e-a8cf-397564432be8",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:36837a82-dd3a-4b1e-a8cf-397564432be8\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:57.152Z",
+    "_k": "unit925/36837a82-dd3a-4b1e-a8cf-397564432be8"
+   },
+   "loads/unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0441",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "c7b61771-f903-4cc8-936d-78addf785086",
+    "nativeId": "slot:c7b61771-f903-4cc8-936d-78addf785086",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:c7b61771-f903-4cc8-936d-78addf785086\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:57.539Z",
+    "_k": "unit925/c7b61771-f903-4cc8-936d-78addf785086"
+   },
+   "loads/unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0546",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "16679715-4374-4cdb-aacf-030acf539b8a",
+    "nativeId": "slot:16679715-4374-4cdb-aacf-030acf539b8a",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:16679715-4374-4cdb-aacf-030acf539b8a\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:57.899Z",
+    "_k": "unit925/16679715-4374-4cdb-aacf-030acf539b8a"
+   },
+   "loads/unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0564",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "535c8600-97a6-49e9-80a8-ad6d6e659230",
+    "nativeId": "slot:535c8600-97a6-49e9-80a8-ad6d6e659230",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:535c8600-97a6-49e9-80a8-ad6d6e659230\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:58.226Z",
+    "_k": "unit925/535c8600-97a6-49e9-80a8-ad6d6e659230"
+   },
+   "loads/unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": {
+    "ref": "WC29",
+    "owner": "event-portables",
+    "assetNo": "0079",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "049ed3c9-9599-429b-b6c4-b9bf05849998",
+    "nativeId": "slot:049ed3c9-9599-429b-b6c4-b9bf05849998",
+    "transportId": "[\"WC29\",\"event-portables\",\"native\",\"slot:049ed3c9-9599-429b-b6c4-b9bf05849998\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:15:58.695Z",
+    "_k": "unit925/049ed3c9-9599-429b-b6c4-b9bf05849998"
+   },
+   "loads/unit925~2f~3c387693-1200-4767-bc92-07110c64562d": {
+    "ref": "WC28",
+    "owner": "event-portables",
+    "assetNo": "0102",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 15 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "3c387693-1200-4767-bc92-07110c64562d",
+    "nativeId": "slot:3c387693-1200-4767-bc92-07110c64562d",
+    "transportId": "[\"WC28\",\"event-portables\",\"native\",\"slot:3c387693-1200-4767-bc92-07110c64562d\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T02:16:00.405Z",
+    "_k": "unit925/3c387693-1200-4767-bc92-07110c64562d"
+   },
+   "supplied/WC29": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 7
+     }
+    ],
+    "_k": "WC29"
+   },
+   "supplied/WC28": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "WC28"
+   },
+   "by/loads~2f~unit925~2f~f92bea15-e071-4c8f-aa81-443a6c1077d8": {
+    "_k": "loads/unit925/f92bea15-e071-4c8f-aa81-443a6c1077d8",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~a0a6cbca-5382-4c14-bf79-d24c2bd220c2": {
+    "_k": "loads/unit925/a0a6cbca-5382-4c14-bf79-d24c2bd220c2",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~36837a82-dd3a-4b1e-a8cf-397564432be8": {
+    "_k": "loads/unit925/36837a82-dd3a-4b1e-a8cf-397564432be8",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~c7b61771-f903-4cc8-936d-78addf785086": {
+    "_k": "loads/unit925/c7b61771-f903-4cc8-936d-78addf785086",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~16679715-4374-4cdb-aacf-030acf539b8a": {
+    "_k": "loads/unit925/16679715-4374-4cdb-aacf-030acf539b8a",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~535c8600-97a6-49e9-80a8-ad6d6e659230": {
+    "_k": "loads/unit925/535c8600-97a6-49e9-80a8-ad6d6e659230",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~049ed3c9-9599-429b-b6c4-b9bf05849998": {
+    "_k": "loads/unit925/049ed3c9-9599-429b-b6c4-b9bf05849998",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~WC29~2f~FWF": {
+    "_k": "supplied/WC29/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC29|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "by/loads~2f~unit925~2f~3c387693-1200-4767-bc92-07110c64562d": {
+    "_k": "loads/unit925/3c387693-1200-4767-bc92-07110c64562d",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~WC28~2f~FWF": {
+    "_k": "supplied/WC28/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/WC28|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC29~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "WC29|Toilets & amenities|FWF|install",
+    "v": true
+   },
+   "labour/WC28~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "WC28|Toilets & amenities|FWF|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

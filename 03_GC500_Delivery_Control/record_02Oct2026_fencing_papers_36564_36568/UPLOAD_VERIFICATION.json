@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "verified_at": "2026-10-01T21:42:46.826442+00:00",
+  "originals_verified": 15,
+  "byte_exact": true,
+  "thumbnails_open": 15,
+  "existing_files_unchanged": 308,
+  "record_version_before": 3527,
+  "record_version_after": 3527,
+  "record_unchanged": true,
+  "paper_number_matches": 15,
+  "matching_check": "Unchanged page matching function evaluated against the fresh uploaded-file index.",
+  "source_review": "All 15 original photographs visually checked for paper identity and signed evidence; this operation does not transcribe or reprice the papers.",
+  "uploaded_through": "Live Documents page; kind Fencing docket; original numbered filenames retained.",
+  "recorded_as": "Andrew Fisher via Codex",
+  "financial_entries_changed": false,
+  "originals_or_password_in_repository": false,
+  "private_audit": "Backup file index, record snapshots, request log, source checksums and original read-back proof retained outside the public repository.",
+  "verification_note": "The upload browser completed all 30 authorised file/thumbnail requests; final verification used independent fresh GETs after the browser remained busy. No successful final browser UI test is claimed."
+}

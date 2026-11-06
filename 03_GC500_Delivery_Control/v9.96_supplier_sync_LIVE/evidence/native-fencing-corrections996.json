@@ -1,0 +1,41 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "beforeVersion": 5300,
+  "afterVersion": 5306,
+  "operations": 2,
+  "put200": 6,
+  "allOtherSharedFieldsUnchanged": true,
+  "dockets": [
+    {
+      "number": "36589",
+      "base": 12,
+      "clamp": 12,
+      "revenueDelta": 0,
+      "directCostsDelta": 0
+    },
+    {
+      "number": "36560",
+      "pedestrianGates": 1,
+      "revenueDelta": 36.18,
+      "directCostsDelta": 36
+    }
+  ],
+  "actualDelta": {
+    "revenue": 36.18,
+    "directCosts": 36
+  },
+  "remainingForecastDelta": {
+    "revenue": -36.18,
+    "directCosts": -36.0
+  },
+  "wholeJobForecastDelta": {
+    "revenue": 0.0,
+    "directCosts": 0.0
+  },
+  "operator": "Andrew Fisher via Codex",
+  "privateBackupRecorded": true,
+  "freshSourceRegistryUnchanged": true,
+  "appliedUtc": "2026-10-11T16:38:38Z",
+  "publicSha256": "dc648c02fa4d083a78a7068c08526f31e8ad3adfaf3a6beffce4ba326a71a551"
+}

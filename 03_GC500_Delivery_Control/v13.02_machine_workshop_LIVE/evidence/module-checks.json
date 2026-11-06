@@ -1,0 +1,46 @@
+{
+  "author": "Andrew Fisher",
+  "recordedAt": "2026-11-05T11:32:57.981522+00:00",
+  "results": {
+    "engine-lift-preview": {
+      "passed": true,
+      "assertions": 31386,
+      "engineObjects": 101,
+      "progressSamples": 101,
+      "directions": 2,
+      "sourceSha256": "22bb51c1a3143f1ca655e48e9784201815ed119553fd6292cd2afcc75be4c3e6"
+    },
+    "workshop-finish": {
+      "passed": true,
+      "changedMeshes": 178,
+      "detailDraws": 10,
+      "instances": 91,
+      "cyclicCanvasTextureRegression": "passed",
+      "sourceSha256": "9147ba92af3ea69ba5f195f88203f9c658ad9e28db2fad538933f5bfadeb510d"
+    },
+    "crew-polish": {
+      "passed": true,
+      "assertions": 75,
+      "people": 8,
+      "addedDraws": 0,
+      "addedTriangles": 16384,
+      "bodyAndPalmTransformDifference": 0,
+      "sourceSha256": "fb4e0917ae61c790c8f84ce7e7c9d75820876e8b10cd9a49dcba4d56b244a6c1"
+    },
+    "workshop-learning": {
+      "passed": true,
+      "assertions": 4877,
+      "components": 16,
+      "crankPoses": 24,
+      "oilPaths": 7,
+      "coolantRoutes": 4,
+      "faultExamples": 2,
+      "sourceSha256": "63114b4594cf8df016f95fae2b898d00b0177e77ac406b95df7965bfcb46511a"
+    }
+  },
+  "releaseGuardTests": {
+    "passed": true,
+    "tests": 24,
+    "networkWrites": 0
+  }
+}

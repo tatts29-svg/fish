@@ -1,0 +1,204 @@
+{
+ "mobile": false,
+ "checks": {
+  "cardUnderCostsToJobEnd": true,
+  "toiletsAreTheKinpCellPlusServicing": true,
+  "forkliftsAreLines31And34": true,
+  "subLinesEachCounted": true,
+  "fencingIsThePLsAndTheProgramme": true,
+  "fencingGearNotInstallation": true,
+  "totalsAdd": true,
+  "fourBranches": true,
+  "othersListed": true,
+  "glanceLinksToIt": true,
+  "everyLineInOnePlace": true,
+  "readOnly": true,
+  "andrewsWords": true,
+  "neverPartners": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "noWriteLeftThePage": true
+ },
+ "data": {
+  "order": {
+   "costs764": 350,
+   "rehire766": 612,
+   "monthend": 882
+  },
+  "groups": [
+   {
+    "branch": "KINP",
+    "what": "Toilets — Event Portables",
+    "lines": 132,
+    "units": 251,
+    "rev": 168144.01,
+    "revToCome": 0,
+    "revJob": 168144.01,
+    "cost": 118575,
+    "costToCome": 0,
+    "costJob": 118575,
+    "missing": 0
+   },
+   {
+    "branch": "KINP",
+    "what": "Sub-hired — Container - Refrigerated 6.0M x 2.4M",
+    "lines": 1,
+    "units": 1,
+    "rev": 1428,
+    "revToCome": 0,
+    "revJob": 1428,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "MEAD",
+    "what": "Sub-hired — Forklift Attachment - Extension",
+    "lines": 1,
+    "units": 1,
+    "rev": 9.3,
+    "revToCome": 0,
+    "revJob": 9.3,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "NVAC",
+    "what": "Forklifts — sub-hired",
+    "lines": 2,
+    "units": 2,
+    "rev": 12248.1,
+    "revToCome": 0,
+    "revJob": 12248.1,
+    "cost": null,
+    "costToCome": 0,
+    "costJob": null,
+    "missing": 1
+   },
+   {
+    "branch": "STPS",
+    "what": "Fencing — Advanced Temporary Fencing",
+    "lines": 63,
+    "units": null,
+    "rev": 120913.08,
+    "revToCome": 248809.54,
+    "revJob": 369722.62,
+    "cost": 75021.5,
+    "costToCome": 180090.1,
+    "costJob": 255111.6,
+    "missing": 0
+   }
+  ],
+  "toilets": {
+   "rev": 168144.01,
+   "expect": 168144.01,
+   "lines": 132,
+   "toiletLines": 132,
+   "cost": 118575,
+   "kRehire": 118575
+  },
+  "forks": {
+   "n": 2,
+   "expectN": 2,
+   "rev": 12248.1,
+   "expectRev": 12248.1,
+   "cost": null,
+   "lines": [
+    31,
+    34
+   ]
+  },
+  "subs": {
+   "n": 2,
+   "expectN": 2,
+   "kLines": 2
+  },
+  "fence": {
+   "rev": 120913.08,
+   "expectRev": 120913.08,
+   "revToCome": 248809.54,
+   "expectRevTC": 248809.54,
+   "cost": 75021.5,
+   "expectCost": 75021.5,
+   "installation": 2100,
+   "expectInstall": 2100,
+   "plCategory": 77121.5,
+   "costToCome": 180090.1,
+   "expectCostTC": 180090.1
+  },
+  "totals": {
+   "T": {
+    "rev": 302742.49,
+    "revToCome": 248809.54,
+    "cost": 193596.5,
+    "costToCome": 180090.1,
+    "costMissing": 3,
+    "lines": 199,
+    "revJob": 551552.03,
+    "costJob": 373686.6,
+    "share": 0.6719879313336738,
+    "shareNow": 0.5293004851764651
+   },
+   "sumRev": 302742.49,
+   "sumCost": 193596.5,
+   "sumRevTC": 248809.54,
+   "sumCostTC": 180090.1,
+   "revenueJob": 820776.69,
+   "xJob": 820776.69,
+   "revenueNow": 571967.15,
+   "cTotal": 571967.15
+  },
+  "others": 8,
+  "byBranch": [
+   {
+    "branch": "STPS",
+    "groups": 1,
+    "revJob": 369722.62,
+    "costJob": 255111.6,
+    "costMissing": 0
+   },
+   {
+    "branch": "KINP",
+    "groups": 2,
+    "revJob": 169572.01,
+    "costJob": 118575,
+    "costMissing": 1
+   },
+   {
+    "branch": "NVAC",
+    "groups": 1,
+    "revJob": 12248.1,
+    "costJob": 0,
+    "costMissing": 1
+   },
+   {
+    "branch": "MEAD",
+    "groups": 1,
+    "revJob": 9.3,
+    "costJob": 0,
+    "costMissing": 1
+   }
+  ],
+  "glanceLink": true,
+  "readOnly": true
+ },
+ "coverage": {
+  "lines": 297,
+  "inGroups": 136,
+  "notCounted": 55,
+  "coatesOwn": 106,
+  "adds": true,
+  "expectLines": 297,
+  "sumGroupLines": 136,
+  "othersLines": 55
+ },
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "blocked": 0,
+ "pass": true
+}

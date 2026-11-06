@@ -1,0 +1,15 @@
+{
+  "author": "Andrew Fisher",
+  "checked_at_utc": "2026-10-18T03:09:04.000715+00:00",
+  "healthy_v591": true,
+  "page_sha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+  "page_unchanged": true,
+  "full_shared_state_unchanged": true,
+  "machine_unchanged": true,
+  "all_inventory_retained": true,
+  "unauthenticated_ticks_status": 401,
+  "server_inventory_sha256": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+  "server_inventory_bytes": 292090,
+  "running_file_evidence": "Claude boot-log read-back in PR1 comment6244962648; not independently accessed by Codex",
+  "readback_limitation": "GET of admin machine blob endpoint is unsupported (404); stage PUT acknowledgement and exact inventory retained."
+}

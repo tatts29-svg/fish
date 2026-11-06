@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "state": "VERIFIED LIVE",
+  "implementationSource": "abf34dbdddbd058628e23e6778218185f066dab3",
+  "baseSha256": "567b19b3b767b66a273d0956aced913b942808f98e8f0c1f6075114c17f87261",
+  "candidateSha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
+  "candidateBytes": 17042608,
+  "inlineScripts": 224,
+  "focusedNodeTests": 14,
+  "wrongBaseAndRepeatRefused": true,
+  "scopeGuardPassed": true,
+  "nativeUi": {
+    "desktop": {
+      "passed": true,
+      "coordinatesChecked": true,
+      "pulseChecked": true,
+      "reducedMotionChecked": true,
+      "hiddenAndOffscreenChecked": true,
+      "cachedReentryChecked": true,
+      "canvasDrawAndEncodeDelta": 0,
+      "imageRequestDelta": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    "phone": {
+      "passed": true,
+      "coordinatesChecked": true,
+      "pulseChecked": true,
+      "reducedMotionChecked": true,
+      "hiddenAndOffscreenChecked": true,
+      "cachedReentryChecked": true,
+      "canvasDrawAndEncodeDelta": 0,
+      "imageRequestDelta": 0,
+      "errors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    },
+    "phone": {
+      "passed": true,
+      "tabs": 27,
+      "deepLinks": 7,
+      "back": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "blockedWrites": 0,
+      "routingMatchesPreviousLive": true
+    }
+  },
+  "publication": {
+    "uploaded": "2026-11-04T17:18:07.321Z",
+    "publicReadback": {
+      "page": {
+        "sha256": "ec4640ad3d8e8f99250247f40c98958d0b123b590e7c431973460f715f00d24d",
+        "bytes": 17042608
+      },
+      "machine": {
+        "sha256": "e2f534a85dcc5b69dcffa4e489486d1241d48a62a84b5e7e21fed49f58fe6a67",
+        "bytes": 287
+      },
+      "state": {
+        "sha256": "b5f4af586a35dac7e9025fe8ebedaac4a9563d88522b3d8bae70603122681ee9",
+        "bytes": 2176609
+      },
+      "machineReleaseSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+      "recordUnchangedAcrossPublication": true,
+      "featurePresentOnce": true,
+      "checkedAt": "2026-11-04T17:19:23Z"
+    },
+    "nativePublicPhoneUiPassed": true,
+    "noPageOverride": true,
+    "runtimeErrors": 0,
+    "consoleErrors": 0,
+    "attemptedWrites": 0
+  },
+  "readySource": "4c511cd87cca72a1d85944630f436b7854a66281"
+}

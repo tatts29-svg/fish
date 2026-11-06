@@ -1,0 +1,76 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T095944Z",
+ "finished": "2026-10-18T09:59:53.873Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "T0001",
+    "unit": "1182999",
+    "disc": "Variable message signs",
+    "item": "VMS",
+    "line": "install"
+   }
+  ]
+ },
+ "pageSha256": "34a6b81b4f5adc76a46c2d28670d24d1f72e0233092d13dd3445f8b0805b1df2",
+ "version": {
+  "before": 9728,
+  "after": 9730
+ },
+ "updated": {
+  "before": "2026-10-18T09:22:17.347Z",
+  "after": "2026-10-18T09:59:52.964Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "T0001",
+   "unit": "1182999",
+   "disc": "Variable message signs",
+   "item": "VMS",
+   "line": "install",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1182999|Variable message signs|VMS|install",
+    "v": "2026-10-16T19:28:50.699Z"
+   },
+   "labour/T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": null
+  },
+  "after": {
+   "stamps/labour~2f~T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "labour/T0001/u1182999|Variable message signs|VMS|install",
+    "v": "2026-10-18T09:59:50.507Z"
+   },
+   "labour/T0001~2f~u1182999~7c~Variable~20~message~20~signs~7c~VMS~7c~install": {
+    "_k": "T0001/u1182999|Variable message signs|VMS|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

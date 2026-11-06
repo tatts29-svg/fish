@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "files": {
+    "README.txt": {
+      "sha256": "dd48e3df878b8d0128d357d2fa3c98eaeffb63ae962e7780e0b50a3b1b0f09dc",
+      "bytes": 2306
+    },
+    "coverage829_src.js": {
+      "sha256": "5c276c9849b2894aacb81793692a1d6c0ecb258d0362d5c71efc574b7ef26d7f",
+      "bytes": 2794
+    },
+    "estimate829.css": {
+      "sha256": "a7cfcf45de0953a1c70319a035d102ae8969bd17d4a606c2304550ef69939962",
+      "bytes": 1156
+    },
+    "estimate_model.js": {
+      "sha256": "600b2262e29999e50a754fdc295d5d8d9b5583151f24491c3edbfdf44cd74ff3",
+      "bytes": 7909
+    },
+    "patch_fencing829.py": {
+      "sha256": "ec1d9ced795a9b90bf17e0d23b00791c05d7229c2e46e2b74f7a0f591cd9a02a",
+      "bytes": 4463
+    },
+    "patch_v829_release.py": {
+      "sha256": "81e13eda995dec1f5ef40fffc1bdb6c13967e106887ed2d2a07801aa9761e346",
+      "bytes": 4652
+    }
+  },
+  "shared_rep_sha256": "2cd061a81284c9a157a108be1a3d01a0f45dc5e40ceacccdc394f3474513acc9"
+}

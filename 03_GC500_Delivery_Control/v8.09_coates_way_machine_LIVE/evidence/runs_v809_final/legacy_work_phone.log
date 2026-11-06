@@ -1,0 +1,23 @@
+PASS  phone: loads ready (loading cover gone, no graphics fallback)
+PASS  phone: #tour drawn, on top, text ≥ 11 px  — {"id":"tour","w":18,"h":40,"x":273,"y":10,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #sound drawn, on top, text ≥ 11 px  — {"id":"sound","w":56,"h":40,"x":292,"y":10,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #fullscreen drawn, on top, text ≥ 11 px  — {"id":"fullscreen","w":29,"h":40,"x":348,"y":10,"font":22,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #view-3d drawn, on top, text ≥ 11 px  — {"id":"view-3d","w":28,"h":27,"x":18,"y":84,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #view-front drawn, on top, text ≥ 11 px  — {"id":"view-front","w":42,"h":27,"x":46,"y":84,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #view-back drawn, on top, text ≥ 11 px  — {"id":"view-back","w":44,"h":27,"x":88,"y":84,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #gearbox drawn, on top, text ≥ 11 px  — {"id":"gearbox","w":55,"h":27,"x":132,"y":84,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #zoom-out drawn, on top, text ≥ 11 px  — {"id":"zoom-out","w":27,"h":29,"x":291,"y":460,"font":20,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #zoom-in drawn, on top, text ≥ 11 px  — {"id":"zoom-in","w":27,"h":29,"x":318,"y":460,"font":20,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #motor drawn, on top, text ≥ 11 px  — {"id":"motor","w":116,"h":41,"x":88,"y":543,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #quality drawn, on top, text ≥ 11 px  — {"id":"quality","w":84,"h":15,"x":192,"y":1910,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #reference drawn, on top, text ≥ 11 px  — {"id":"reference","w":80,"h":16,"x":290,"y":1910,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #help drawn, on top, text ≥ 11 px  — {"id":"help","w":60,"h":15,"x":310,"y":1935,"font":11,"shown":true,"onTop":true,"inView":true}
+PASS  phone: #part-register drawn, on top, text ≥ 11 px  — {"id":"part-register","w":316,"h":24,"x":37,"y":967,"font":13,"shown":true,"onTop":true,"inView":true}
+PASS  phone: help opens #info; #info-close ≥ 44 × 44, wholly on screen, on top  — {"id":"info-close","w":44,"h":44,"x":305,"y":1185,"font":22,"shown":true,"onTop":true,"inView":true}
+PASS  phone: a tap on #info-close closes #info
+PASS  phone: part-register opens #parts-dialog; #register-close ≥ 44 × 44, wholly on screen, on top  — {"id":"register-close","w":44,"h":44,"x":313,"y":616,"font":22,"shown":true,"onTop":true,"inView":true}
+PASS  phone: a tap on #register-close closes #parts-dialog
+PASS  phone: no legacy control moved or resized against the live copy (legacy_base_phone.json)  — []
+PASS  phone: no page or console errors
+
+21/21 checks passed (work, phone)

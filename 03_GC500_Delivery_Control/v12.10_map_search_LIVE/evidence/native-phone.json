@@ -1,0 +1,158 @@
+[
+  {
+    "name": "reviewed drawing identity and all 110 source occurrences available",
+    "ok": true
+  },
+  {
+    "name": "source landmarks have clean labels without unknown equipment icons",
+    "ok": true
+  },
+  {
+    "name": "actual parent search shows all first-aid locations",
+    "ok": true
+  },
+  {
+    "name": "Find fits every match instead of opening the first drawer",
+    "ok": true
+  },
+  {
+    "name": "Find hides the results so the map regains screen space",
+    "ok": true
+  },
+  {
+    "name": "all six first-aid markers fit the current map",
+    "ok": true
+  },
+  {
+    "name": "information finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "police finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "photographer finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "broadcast camera finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "cameras finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "MP finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "YFR finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "emergency egress finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "FH finds every source location without substring or legend duplicates",
+    "ok": true
+  },
+  {
+    "name": "toilets are not truncated to ten or twenty matches",
+    "ok": true
+  },
+  {
+    "name": "unplaced references never become pit-lane equipment pins",
+    "ok": true
+  },
+  {
+    "name": "stand 5 keeps exact reference semantics",
+    "ok": true
+  },
+  {
+    "name": "turn 2 keeps exact reference semantics",
+    "ok": true
+  },
+  {
+    "name": "stand 26 keeps exact reference semantics",
+    "ok": true
+  },
+  {
+    "name": "turn 16 keeps exact reference semantics",
+    "ok": true
+  },
+  {
+    "name": "gate 6 retains spaced reference matching",
+    "ok": true
+  },
+  {
+    "name": "VMS 10 retains spaced reference matching",
+    "ok": true
+  },
+  {
+    "name": "WC 41 retains spaced reference matching",
+    "ok": true
+  },
+  {
+    "name": "every current VMS and removal spot retains its exact existing coordinates",
+    "ok": true
+  },
+  {
+    "name": "all Armco positions exclude the legend sample",
+    "ok": true
+  },
+  {
+    "name": "native search input lists all matches and the Show all control",
+    "ok": true
+  },
+  {
+    "name": "native Show all keeps all markers",
+    "ok": true
+  },
+  {
+    "name": "legend category chip highlights all 25 marshal posts",
+    "ok": true
+  },
+  {
+    "name": "every symbol type and turn can be individually selected",
+    "ok": true
+  },
+  {
+    "name": "changed drawing stands down the extra source positions",
+    "ok": true
+  },
+  {
+    "name": "repeated native refresh does not duplicate symbols or chips",
+    "ok": true
+  },
+  {
+    "name": "free-text drawing search keeps all locations and excludes legend text",
+    "ok": true
+  },
+  {
+    "name": "clearing the search clears stale markers",
+    "ok": true
+  },
+  {
+    "name": "unknown search creates no location",
+    "ok": true
+  },
+  {
+    "name": "phone and desktop map controls do not overflow horizontally",
+    "ok": true
+  },
+  {
+    "name": "Showcase version and prior area sharing preserved",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page or console errors and attempted writes",
+    "ok": true
+  }
+]

@@ -1,0 +1,227 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T033437Z",
+ "finished": "2026-10-28T03:35:15.816Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026: \"Gn03 picked.up 130pm\". GN03 (30 kVA generator; the departure form offers its one unit, Coates 1320829) left in full. Left site 28 Oct 2026 13:30 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "GN03",
+    "at": "2026-10-28T13:30:00+10:00",
+    "nos": [
+     "1320829"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11666,
+  "after": 11667
+ },
+ "updated": {
+  "before": "2026-10-28T03:04:38.778Z",
+  "after": "2026-10-28T03:35:14.905Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "GN03",
+   "at": "2026-10-28T13:30:00+10:00",
+   "nos": [
+    "1320829"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T13:30:00+10:00, recorded by Andrew Fisher: 1 x 30kva 1320829 - GN03 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN03",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN03": {
+    "state": "on site",
+    "set_at": "2026-10-01T03:58:45.090Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1320829": {
+      "at": "2026-10-28T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T04:01:05.042Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-01T03:58:45.090Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T03:58:45.090Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T03:58:45.090Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1320829",
+      "pickup": "2026-10-28T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T04:01:05.042Z"
+     }
+    ],
+    "_k": "GN03"
+   }
+  },
+  "after": {
+   "delivery/GN03": {
+    "state": "in transit",
+    "set_at": "2026-10-28T03:34:58.760Z",
+    "by": "Andrew Fisher",
+    "pickup1238_units": {
+     "coates|1320829": {
+      "at": "2026-10-28T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T04:01:05.042Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T03:34:58.760Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-01T03:58:45.090Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T03:34:58.760Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "290b9b2d-88ec-4220-b493-81d01f14faee",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T13:30:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-01T03:58:45.090Z",
+       "requiredKey": "[[\"30kva\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "30kva",
+         "n": 1,
+         "unitIds": [
+          "[\"GN03\",\"coates\",\"asset\",\"1320829\"]"
+         ],
+         "numbers": [
+          "1320829"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"GN03\",\"coates\",\"asset\",\"1320829\"]",
+           "number": "1320829",
+           "owner": "coates",
+           "item": "30kva"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-01T03:58:45.090Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T03:34:58.760Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1320829",
+      "pickup": "2026-10-28T12:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T04:01:05.042Z"
+     }
+    ],
+    "_k": "GN03"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

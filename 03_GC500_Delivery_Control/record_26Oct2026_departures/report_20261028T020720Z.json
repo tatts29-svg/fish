@@ -1,0 +1,512 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261028T020720Z",
+ "finished": "2026-10-28T02:07:58.856Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 28 Oct 2026: \"1224791 1224783 Leaving 12pm\". 1224783 is LT05 and 1224791 is LT06 (Coates light tower pods, each its reference's only unit; both booked for pick-up with GN25). Left site 28 Oct 2026 12:00 AEST.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "LT05",
+    "at": "2026-10-28T12:00:00+10:00",
+    "nos": [
+     "1224783"
+    ],
+    "complete": true
+   },
+   {
+    "op": "depart",
+    "ref": "LT06",
+    "at": "2026-10-28T12:00:00+10:00",
+    "nos": [
+     "1224791"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+ "version": {
+  "before": 11658,
+  "after": 11660
+ },
+ "updated": {
+  "before": "2026-10-28T01:22:14.533Z",
+  "after": "2026-10-28T02:07:57.924Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1025473.88,
+   "labour": 73174.28,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 448019.57,
+   "difference": 577454.31,
+   "branches": {
+    "KINP": 282011.86,
+    "STPS": 82579.12,
+    "NVAC": 44272.04,
+    "MEAD": 25851.5
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "LT05",
+   "at": "2026-10-28T12:00:00+10:00",
+   "nos": [
+    "1224783"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T12:00:00+10:00, recorded by Andrew Fisher: 1 x Light Tower 1224783 - LT05 has left in full, light in transit"
+  },
+  {
+   "op": "depart",
+   "ref": "LT06",
+   "at": "2026-10-28T12:00:00+10:00",
+   "nos": [
+    "1224791"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-28T12:00:00+10:00, recorded by Andrew Fisher: 1 x Light Tower 1224791 - LT06 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/LT06",
+   "status": 200
+  },
+  {
+   "key": "delivery/LT05",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/LT06": {
+    "state": "on site",
+    "set_at": "2026-10-19T23:32:20.849Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T03:48:16.663Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1224791": {
+      "on": true,
+      "at": "2026-10-26T18:20:22.982Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1224791": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:53:21.222Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T23:32:21.326Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:16.569Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T23:32:20.849Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T23:32:21.326Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T03:48:16.663Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1224791",
+      "ready": true,
+      "at": "2026-10-26T18:20:22.982Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1224791",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:53:21.222Z"
+     }
+    ],
+    "_k": "LT06"
+   },
+   "delivery/LT05": {
+    "state": "on site",
+    "set_at": "2026-10-19T23:32:22.111Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T03:48:11.034Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1224783": {
+      "on": true,
+      "at": "2026-10-26T18:20:20.893Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1224783": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:42:44.759Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-19T23:32:22.483Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:16.407Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T23:32:22.111Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T23:32:22.483Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T03:48:11.034Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1224783",
+      "ready": true,
+      "at": "2026-10-26T18:20:20.893Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1224783",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:42:44.759Z"
+     }
+    ],
+    "_k": "LT05"
+   }
+  },
+  "after": {
+   "delivery/LT06": {
+    "state": "in transit",
+    "set_at": "2026-10-28T02:07:41.721Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T03:48:16.663Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1224791": {
+      "on": true,
+      "at": "2026-10-26T18:20:22.982Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1224791": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:53:21.222Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T02:07:41.721Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:16.569Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T23:32:20.849Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T02:07:41.721Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "581c5272-ae2f-42fb-8e34-1117a28d5ec6",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T12:00:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T23:32:20.849Z",
+       "requiredKey": "[[\"light tower\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Light Tower",
+         "n": 1,
+         "unitIds": [
+          "[\"LT06\",\"coates\",\"asset\",\"1224791\"]"
+         ],
+         "numbers": [
+          "1224791"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"LT06\",\"coates\",\"asset\",\"1224791\"]",
+           "number": "1224791",
+           "owner": "coates",
+           "item": "Light Tower"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T23:32:21.326Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T02:07:41.721Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T03:48:16.663Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1224791",
+      "ready": true,
+      "at": "2026-10-26T18:20:22.982Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1224791",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:53:21.222Z"
+     }
+    ],
+    "_k": "LT06"
+   },
+   "delivery/LT05": {
+    "state": "in transit",
+    "set_at": "2026-10-28T02:07:40.748Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-10-26T03:48:11.034Z",
+    "ready1231_why": "",
+    "ready1238_units": {
+     "coates|1224783": {
+      "on": true,
+      "at": "2026-10-26T18:20:20.893Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1224783": {
+      "at": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "set": "2026-10-27T03:42:44.759Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-28T02:07:40.748Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:16.407Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-19T23:32:22.111Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-28T02:07:40.748Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "8540f982-b758-4d3c-b333-fdb79b5a6f4a",
+       "date": "2026-10-28",
+       "departedAt1211": "2026-10-28T12:00:00+10:00",
+       "programmeDate": "2026-10-28",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-19T23:32:22.111Z",
+       "requiredKey": "[[\"light tower\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Light Tower",
+         "n": 1,
+         "unitIds": [
+          "[\"LT05\",\"coates\",\"asset\",\"1224783\"]"
+         ],
+         "numbers": [
+          "1224783"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"LT05\",\"coates\",\"asset\",\"1224783\"]",
+           "number": "1224783",
+           "owner": "coates",
+           "item": "Light Tower"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-19T23:32:22.483Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-28T02:07:40.748Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-10-26T03:48:11.034Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1224783",
+      "ready": true,
+      "at": "2026-10-26T18:20:20.893Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1224783",
+      "pickup": "2026-10-28T07:00:00+10:00",
+      "note": "with GN25",
+      "by": "Brenden Meek",
+      "at": "2026-10-27T03:42:44.759Z"
+     }
+    ],
+    "_k": "LT05"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

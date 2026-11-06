@@ -1,0 +1,66 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent source review only; no browser, no source edits. Native responsive click and overflow proof belongs to the actual-page auditor.",
+  "candidateSHA256": "9a137e51d2505af11d20f1865d1aa3d9129c602112e230786dfec84900b1f9b4",
+  "cssSHA256": "41f44a628b287b72131373fbdf1ca8d181e58d3e50cd9fd5eab727a852997ec3",
+  "checks": [
+    {
+      "id": "final frozen index hash",
+      "pass": true
+    },
+    {
+      "id": "final frozen CSS hash",
+      "pass": true
+    },
+    {
+      "id": "all four direction button elements unchanged",
+      "pass": true
+    },
+    {
+      "id": "readout and As drawn control unchanged",
+      "pass": true
+    },
+    {
+      "id": "existing direction handlers unchanged in separate script",
+      "pass": true
+    },
+    {
+      "id": "source hash wraps without clipping or removal",
+      "pass": true
+    },
+    {
+      "id": "short arrangement scoped by iframe viewport height and width",
+      "pass": true
+    },
+    {
+      "id": "short direction buttons remain 44px",
+      "pass": true
+    },
+    {
+      "id": "normal phone toolbar stays 44px",
+      "pass": true
+    },
+    {
+      "id": "wide short zoom input has reserved HUD space",
+      "pass": true
+    },
+    {
+      "id": "3D mode still hides parent compass with stronger rule",
+      "pass": true
+    },
+    {
+      "id": "child 3D iframe selectors are untouched",
+      "pass": true
+    },
+    {
+      "id": "release entry equals reviewed source except script content-version addresses",
+      "pass": true
+    }
+  ],
+  "passed": 13,
+  "priorFinding": "Short desktop HUD reserve increased320\u2192390px to retain zoom input room.",
+  "issues": [],
+  "releaseEntrySHA256": "e2f0f9bfbfc9b5f707a2ead734b99cb0569c11f68bf15e0303d7021eac9e0572",
+  "sourcePreservationChecks": 20,
+  "result": "PASS for source scope. Actual phone/desktop click, overflow and responsive proof is separately owned by the browser reviewer."
+}

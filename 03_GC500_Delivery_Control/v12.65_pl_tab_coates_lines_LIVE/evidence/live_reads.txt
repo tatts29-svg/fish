@@ -1,0 +1,3 @@
+Live reads on the public view link after the 17:25 AEST upload: no PAGE, so the harness loads https://gc500-production.up.railway.app/v/Coates-GC500-2026 itself with the live record; every write aborted.
+2026-10-30T07:28:27Z desktop: v12.65 desktop: 21/21 checks passed
+2026-10-30T07:28:40Z phone: v12.65 phone: 21/21 checks passed

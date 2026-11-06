@@ -1,0 +1,131 @@
+{
+ "author": "Andrew Fisher",
+ "built": "2026-10-28T06:19:28.499Z",
+ "signed": "2026-10-15",
+ "form": "GC500-PS-INS-01 v1",
+ "page_version": null,
+ "record_read_at": "2026-10-28T06:18:56.274Z",
+ "page_file": {
+  "name": "live2.html",
+  "sha256": "524115a3c9f910b8af4f56ce5c7ce1ab55379a9415fad36df51d9e4a4f535005",
+  "bytes": 16028642
+ },
+ "records": [
+  {
+   "crew": "coates",
+   "day": "2026-09-07",
+   "words": "Mon 07 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-09-07.pdf",
+   "attendees": [],
+   "count": null,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-07_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 151451,
+   "sha256": "eeabc02fcd2f4f5cf6a1b5160b33c005f10ddad99d95f1c04d062ce0654ced70"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-08",
+   "words": "Tue 08 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-09-08.pdf",
+   "attendees": [],
+   "count": null,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-08_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 151465,
+   "sha256": "01123e538ab711389a0ad65d59aac177764530e891c7336148ded36e2f9cf59d"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-09",
+   "words": "Wed 09 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-09-09.pdf",
+   "attendees": [],
+   "count": null,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 1",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-09_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 151456,
+   "sha256": "70781a42e60a83db723937ba949094b220a70b8acf6f2bf7d55268ae1f7b9a4f"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-10",
+   "words": "Thu 10 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-09-10.pdf",
+   "attendees": [],
+   "count": null,
+   "basis": "no drops dated this day · loads 0 · fencing dockets that day 0",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-10_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 151452,
+   "sha256": "49a66239a3fb00c3a69a700e42a38f0d87ac74abd8896a8b3dcf9632c1532d84"
+  },
+  {
+   "crew": "coates",
+   "day": "2026-09-11",
+   "words": "Fri 11 Sep 2026",
+   "file": "pdfs/GC500_Prestart_Coates_Installs_2026-09-11.pdf",
+   "attendees": [],
+   "count": null,
+   "basis": "1 light tower on · loads 0 · fencing dockets that day 3",
+   "replaces": [
+    "GC500_Prestart_Coates_2026-09-11_Retrospective_Unsigned.pdf"
+   ],
+   "confirm": null,
+   "fit": {
+    "avail": 1070,
+    "height": 842,
+    "zoom": 1,
+    "fonts": [
+     "Carlito, Calibri, \"Segoe UI\", system-ui, sans-serif"
+    ]
+   },
+   "bytes": 151835,
+   "sha256": "5bc51183c287a6b73b916d7cded50dd6112ff03a2fff74a03d715bc9ed793ab3"
+  }
+ ],
+ "skipped": []
+}

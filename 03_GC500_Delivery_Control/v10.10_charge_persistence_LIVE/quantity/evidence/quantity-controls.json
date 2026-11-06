@@ -1,0 +1,146 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Single verified complete shows6/6",
+      "pass": true
+    },
+    {
+      "name": "Single incomplete showsQty6 withoutinventedzero",
+      "pass": true
+    },
+    {
+      "name": "Unknown completion still shows known typed quantity",
+      "pass": true
+    },
+    {
+      "name": "WC09 keeps four FWF, six pee panels and two toilet blocks separate",
+      "pass": true
+    },
+    {
+      "name": "One fleetnumber cannot overwrite six quantity-only panels",
+      "pass": true
+    },
+    {
+      "name": "Repeated typed description combines same scope",
+      "pass": true
+    },
+    {
+      "name": "One missing quantity keeps group unknown",
+      "pass": true
+    },
+    {
+      "name": "Blank quantity isnotzero",
+      "pass": true
+    },
+    {
+      "name": "Negative andnonfinite quantities areunknown",
+      "pass": true
+    },
+    {
+      "name": "No line doesnotdefaulttoone",
+      "pass": true
+    },
+    {
+      "name": "Unnamed description remainsvisible forreview",
+      "pass": true
+    },
+    {
+      "name": "Explicit zero quantity remainsQty0 not0/0complete",
+      "pass": true
+    },
+    {
+      "name": "Recorded partial installation shownas2/6installed",
+      "pass": true
+    },
+    {
+      "name": "Partial installation doesnotbecomefinalComplete",
+      "pass": true
+    },
+    {
+      "name": "Incomplete record doesnotclaiminstalledascomplete",
+      "pass": true
+    },
+    {
+      "name": "Conflicting installation count isnotdisplayed",
+      "pass": true
+    },
+    {
+      "name": "Receipt scope mismatch cannotborrowcount",
+      "pass": true
+    },
+    {
+      "name": "Zero installed withoutproof isnotinvented",
+      "pass": true
+    },
+    {
+      "name": "Explicit installationzero remainsvalidrecordedcount",
+      "pass": true
+    },
+    {
+      "name": "Moreinstalledthanorder isnotdisplayed",
+      "pass": true
+    },
+    {
+      "name": "23itemtypes fitthreecompactquantitylines",
+      "pass": true
+    },
+    {
+      "name": "Mixed unknownqty staysindividuallyexplicit",
+      "pass": true
+    },
+    {
+      "name": "Unavailable batch hidesunverifiedquantityclaims",
+      "pass": true
+    },
+    {
+      "name": "Olderparent missingquantity givesclearunknown",
+      "pass": true
+    },
+    {
+      "name": "Noncomplete state cannot use suppliedcompletedfield",
+      "pass": true
+    },
+    {
+      "name": "Fractional suppliedscope ispreservedwithout rounding",
+      "pass": true
+    },
+    {
+      "name": "Quantity failure returns unknown without throwing away physical status",
+      "pass": true
+    },
+    {
+      "name": "Known single-item map reference gets bracketed quantity",
+      "pass": true
+    },
+    {
+      "name": "Mixed reference brackets retain each quantity without adding unlike items",
+      "pass": true
+    },
+    {
+      "name": "Unknown quantity omits brackets",
+      "pass": true
+    },
+    {
+      "name": "Partly unknown mixed quantity omits the bracket rather than a partial total",
+      "pass": true
+    },
+    {
+      "name": "Unavailable quantities omit brackets",
+      "pass": true
+    },
+    {
+      "name": "Bracket quantity does not imply complete status",
+      "pass": true
+    },
+    {
+      "name": "Long mixed labels truncate whole quantity terms, preserving the full model",
+      "pass": true
+    },
+    {
+      "name": "Label hit targets cover the complete drawn box and preserve topmost priority",
+      "pass": true
+    }
+  ]
+}

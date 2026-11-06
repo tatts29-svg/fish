@@ -1,0 +1,44 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "candidateSha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "nativeRecord": 5155,
+  "financialInvariants": {
+    "passed": 153,
+    "total": 153
+  },
+  "nativeTies": {
+    "passed": 17,
+    "failed": 0,
+    "total": 17
+  },
+  "allModelCallsPassed": true,
+  "recordUnchanged": true,
+  "baselineRecordIdentical": true,
+  "actualAndSourceNumericModelsPreserved": [
+    "pl752",
+    "ticks",
+    "money",
+    "fenceSplit",
+    "fence",
+    "green",
+    "source949",
+    "supplierCosts",
+    "contracts"
+  ],
+  "forecastDeltaMatchesReviewedFencingAttribution": true,
+  "captionCounts": {
+    "lines": 15,
+    "missingActual": 15,
+    "forecast": 9,
+    "missingRate": 6,
+    "held": 0,
+    "unavailable": 0
+  },
+  "errors": {
+    "page": 0,
+    "console": 0,
+    "attemptedWrites": 0
+  },
+  "captureBasis": "Every sync collection loaded; photo registry ready; RENDER_MEMO cleared before one native asset hold; GET-only against exact supplied frozen API state. Rechecked after the final unrelated-item completion correction."
+}

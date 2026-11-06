@@ -1,0 +1,28 @@
+{
+  "pass": true,
+  "replayedChecks": 47,
+  "independentChecks": 8,
+  "details": [
+    "recorded metre delta exactly42flat+10unclassified+17.5relocation+25relocation",
+    "existing24472scrim charge and physicalwork kept once",
+    "all category allocations unchanged; unknown10m exists only once inpendingpool",
+    "pendingpool cap bounds reconcile against all eleven integer allocations",
+    "duplicate and stale unclassified evidence withhold whole comparison",
+    "future new metre type cannot disappear from denominator",
+    "actualpricing and958forecast helper functions are byte-identical",
+    "physicaloperation guard engine is unchanged"
+  ],
+  "candidateSha256": "2a51f8008fe0fd77d6003985e5736e9414f9ef53f085ab7fbb48245c10f48579",
+  "recorded": 13747,
+  "total": 22363,
+  "percentage": {
+    "min": 61.47,
+    "max": 61.47
+  },
+  "originalSourceChecks": [
+    "24469.jpg exact source and17.5m relocation visually verified",
+    "24474.jpg exactsource and25m relocation previously visuallyverified",
+    "24472.jpg and36532-server.jpg exactsources visually verified; physicalworkalreadyexists"
+  ],
+  "author": "Andrew Fisher"
+}

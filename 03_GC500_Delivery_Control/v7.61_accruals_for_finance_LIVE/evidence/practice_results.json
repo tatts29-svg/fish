@@ -1,0 +1,546 @@
+{
+ "mobile": false,
+ "checks": {
+  "defaultIsLastCompleteMonth": true,
+  "everyMonthAddsToThePLRevenue": true,
+  "baseplanBilledColumnsRead": true,
+  "sepFencingRevenueIsAllDocketsAtTheCard": true,
+  "sepFencingCostIncurredIsDocketsAtTheirSheetPlusLabourShare": true,
+  "sepFencingInvoicedIsTheConfirmedPOs": true,
+  "sepFencingAccrueIsIncurredLessInvoiced": true,
+  "sepHasWipQuestion": true,
+  "labourPerPieceEqualsThePlan": true,
+  "labourTickedEqualsThePL": true,
+  "monthSwitchRedraws": true,
+  "csvExported": true,
+  "copyTextCarriesTheFigures": true,
+  "noWriteLeftThePage": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true
+ },
+ "present": true,
+ "defaultMonth": {
+  "selected": "2026-09",
+  "expected": "2026-09",
+  "months": [
+   "2026-09",
+   "2026-10",
+   "2026-11"
+  ]
+ },
+ "model": {
+  "months": {
+   "2026-09": {
+    "label": "September 2026",
+    "revenueTotal": 177968.05,
+    "revenue": [
+     {
+      "stream": "Hire charged from the day it goes in",
+      "branch": "STPS",
+      "amount": 26316.28,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged from the day it goes in — from the card",
+      "branch": "NVAC",
+      "amount": 11655.87,
+      "action": "accrue"
+     },
+     {
+      "stream": "Transport Revenue — the delivery and transport lines",
+      "branch": "KINP",
+      "amount": 2000,
+      "action": "accrue"
+     },
+     {
+      "stream": "Fencing — Rehire Revenue, dockets at the 2026 card",
+      "branch": "STPS",
+      "amount": 120913.08,
+      "action": "accrue"
+     },
+     {
+      "stream": "Labour ticked per piece",
+      "branch": "KINP",
+      "amount": 16458.22,
+      "action": "accrue"
+     },
+     {
+      "stream": "Labour ticked per piece",
+      "branch": "NVAC",
+      "amount": 624.6,
+      "action": "accrue"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Fencing — Advanced Temporary Fencing, rehire cost",
+      "branch": "STPS",
+      "incurred": 74605.72,
+      "invoiced": 42662,
+      "accrue": 31943.72,
+      "action": "accrue",
+      "evidence": "62 dockets dated in September 2026 at Advanced's own sheet $73,397 + their labour and truck hours $1,209 (the green book, apportioned by the dockets) · invoices recorded: 4918492 $8,992 (PO 4647508, Construction week 6); 4922398 $33,670 (PO 4647509, Construction week 5) · 2 POs for the month with no invoice yet (4647515, 4658850)"
+     },
+     {
+      "stream": "Toilets — Event Portables Australia Q6845, rehire cost",
+      "branch": "KINP",
+      "incurred": 21950.24,
+      "invoiced": 0,
+      "accrue": 21950.24,
+      "action": "decide",
+      "evidence": "$54,230 ex GST on the quote (Toilet Hire) · Mon 14 Sep 2026 to Sun 25 Oct 2026 · 17 of 42 days fall in September 2026, so $21,950 is the day-share — a suggestion, not the quote's wording · approved on Andrew’s word · no invoice and no purchase order on the record"
+     },
+     {
+      "stream": "Transport (cartage) — carriers’ charges",
+      "branch": "the job",
+      "incurred": 22011.39,
+      "invoiced": null,
+      "accrue": 22011.39,
+      "action": "check",
+      "evidence": "37 loads dated in September 2026 with a figure on the schedule’s TPORT COST column (35 marked “and more”) · 24 Coates-truck loads, no carrier charge · whether each carrier has invoiced is not on the record"
+     },
+     {
+      "stream": "Labour hire — the hours at their rates",
+      "branch": "the job",
+      "incurred": 6284.85,
+      "invoiced": null,
+      "accrue": 6284.85,
+      "action": "check",
+      "evidence": "105 paid hours in September 2026 by Kyle Gover, Daniel Gough · the running sheet’s hourly pay rates · 12 of 12 shifts confirmed"
+     },
+     {
+      "stream": "Coates people — wages",
+      "branch": "the job",
+      "incurred": null,
+      "invoiced": null,
+      "accrue": null,
+      "action": "none",
+      "evidence": "565 paid hours in September 2026 by Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul · 55 of 55 shifts confirmed · no cost rate on the record for Coates people"
+     },
+     {
+      "stream": "Accommodation — on the tracker",
+      "branch": "the job",
+      "incurred": 5475.84,
+      "invoiced": null,
+      "accrue": 5475.84,
+      "action": "check",
+      "evidence": "29 lines dated in September 2026 · 4 with no figure yet · cards and expense claims"
+     },
+     {
+      "stream": "Meals away from home — on the tracker",
+      "branch": "the job",
+      "incurred": 1380.83,
+      "invoiced": null,
+      "accrue": 1380.83,
+      "action": "check",
+      "evidence": "4 lines dated in September 2026 · cards and expense claims"
+     },
+     {
+      "stream": "Other expenses — on the tracker",
+      "branch": "the job",
+      "incurred": 718.7,
+      "invoiced": null,
+      "accrue": 718.7,
+      "action": "check",
+      "evidence": "4 lines dated in September 2026 · cards and expense claims"
+     }
+    ],
+    "costAccrue": 67815.33,
+    "costDecide": 21950.24,
+    "invoiced": 42662,
+    "wip": [
+     {
+      "what": "Fencing — Advanced Temporary Fencing’s invoices in hand $42,662 against the fencing charge to the V8s $120,913, none of it billed by STPS yet",
+      "words": "Finance’s call: accrue the fencing revenue for the month (matches the cost already paid), or hold the paid cost as WIP until the branch bills"
+     }
+    ],
+    "decisions": 2
+   },
+   "2026-10": {
+    "label": "October 2026",
+    "revenueTotal": 362591.25,
+    "revenue": [
+     {
+      "stream": "Toilets — Event Portables rehire, at our rates",
+      "branch": "KINP",
+      "amount": 69092.26,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged over the three race days",
+      "branch": "KINP",
+      "amount": 65564.17,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged from the day it goes in",
+      "branch": "STPS",
+      "amount": 39361.69,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged from the day it goes in — from the card",
+      "branch": "NVAC",
+      "amount": 23620.43,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged over the three race days — from the card",
+      "branch": "NVAC",
+      "amount": 11676.42,
+      "action": "accrue"
+     },
+     {
+      "stream": "Transport Revenue — the delivery and transport lines",
+      "branch": "MEAD",
+      "amount": 4000,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged from the day it goes in",
+      "branch": "MEAD",
+      "amount": 3240,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged from the day it goes in — from the card",
+      "branch": "MEAD",
+      "amount": 1483.2,
+      "action": "accrue"
+     },
+     {
+      "stream": "Rehire Revenue — the SUB lines",
+      "branch": "KINP",
+      "amount": 1428,
+      "action": "accrue"
+     },
+     {
+      "stream": "Transport Revenue — the delivery and transport lines",
+      "branch": "KINP",
+      "amount": 835.17,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged over the three race days",
+      "branch": "MEAD",
+      "amount": 820,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged over the three race days",
+      "branch": "NVAC",
+      "amount": 339,
+      "action": "accrue"
+     },
+     {
+      "stream": "Transport Revenue — the delivery and transport lines",
+      "branch": "STPS",
+      "amount": 103.3,
+      "action": "accrue"
+     },
+     {
+      "stream": "Hire charged over the three race days",
+      "branch": "STPS",
+      "amount": 100,
+      "action": "accrue"
+     },
+     {
+      "stream": "Rehire Revenue — the SUB lines",
+      "branch": "MEAD",
+      "amount": 9.3,
+      "action": "accrue"
+     },
+     {
+      "stream": "Toilet servicing and cleaning — Rehire Revenue at our pump-out rates",
+      "branch": "KINP",
+      "amount": 85101.75,
+      "action": "accrue"
+     },
+     {
+      "stream": "Event labour — the scope",
+      "branch": "the job",
+      "amount": 55816.56,
+      "action": "accrue"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Toilets — Event Portables Australia Q6845, rehire cost",
+      "branch": "KINP",
+      "incurred": 32279.76,
+      "invoiced": 0,
+      "accrue": 32279.76,
+      "action": "decide",
+      "evidence": "$54,230 ex GST on the quote (Toilet Hire) · Mon 14 Sep 2026 to Sun 25 Oct 2026 · 25 of 42 days fall in October 2026, so $32,280 is the day-share — a suggestion, not the quote's wording · approved on Andrew’s word · no invoice and no purchase order on the record"
+     },
+     {
+      "stream": "Toilets — Event Portables Australia Q6844, rehire cost",
+      "branch": "KINP",
+      "incurred": 56145,
+      "invoiced": 0,
+      "accrue": 56145,
+      "action": "decide",
+      "evidence": "$56,145 ex GST on the quote (Toilet Hire) · Fri 23 Oct 2026 to Sun 25 Oct 2026 · approved on Andrew’s word · no invoice and no purchase order on the record"
+     },
+     {
+      "stream": "Toilets — Event Portables Australia Q6847, rehire cost",
+      "branch": "KINP",
+      "incurred": 3350,
+      "invoiced": 0,
+      "accrue": 3350,
+      "action": "decide",
+      "evidence": "$3,350 ex GST on the quote (Luxury VIP · Toilet Hire) · Thu 22 Oct 2026 to Thu 22 Oct 2026 · approved on Andrew’s word · no invoice and no purchase order on the record"
+     },
+     {
+      "stream": "Labour hire — the hours at their rates",
+      "branch": "the job",
+      "incurred": 19133.63,
+      "invoiced": null,
+      "accrue": 19133.63,
+      "action": "check",
+      "evidence": "272 paid hours in October 2026 by Daniel Gough, Kyle Gover · the running sheet’s hourly pay rates · 0 of 27 shifts confirmed"
+     },
+     {
+      "stream": "Coates people — wages",
+      "branch": "the job",
+      "incurred": null,
+      "invoiced": null,
+      "accrue": null,
+      "action": "none",
+      "evidence": "756 paid hours in October 2026 by Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul, Wayne Crimmin · 0 of 74 shifts confirmed · no cost rate on the record for Coates people"
+     },
+     {
+      "stream": "Accommodation — on the tracker",
+      "branch": "the job",
+      "incurred": 7181.31,
+      "invoiced": null,
+      "accrue": 7181.31,
+      "action": "check",
+      "evidence": "51 lines dated in October 2026 · 19 with no figure yet · cards and expense claims"
+     }
+    ],
+    "costAccrue": 26314.94,
+    "costDecide": 91774.76,
+    "invoiced": 0,
+    "wip": [],
+    "decisions": 1
+   },
+   "2026-11": {
+    "label": "November 2026",
+    "revenueTotal": 15370.65,
+    "revenue": [
+     {
+      "stream": "Hire charged from the day it goes in",
+      "branch": "STPS",
+      "amount": 15370.65,
+      "action": "accrue"
+     }
+    ],
+    "costs": [
+     {
+      "stream": "Labour hire — the hours at their rates",
+      "branch": "the job",
+      "incurred": 6405.5,
+      "invoiced": null,
+      "accrue": 6405.5,
+      "action": "check",
+      "evidence": "100 paid hours in November 2026 by Daniel Gough · the running sheet’s hourly pay rates · 0 of 10 shifts confirmed"
+     },
+     {
+      "stream": "Coates people — wages",
+      "branch": "the job",
+      "incurred": null,
+      "invoiced": null,
+      "accrue": null,
+      "action": "none",
+      "evidence": "305 paid hours in November 2026 by Aaron Zelvis, Alfie Harris, Andrew Fisher · 0 of 30 shifts confirmed · no cost rate on the record for Coates people"
+     },
+     {
+      "stream": "Accommodation — on the tracker",
+      "branch": "the job",
+      "incurred": 2907.19,
+      "invoiced": null,
+      "accrue": 2907.19,
+      "action": "check",
+      "evidence": "21 lines dated in November 2026 · 8 with no figure yet · cards and expense claims"
+     }
+    ],
+    "costAccrue": 9312.69,
+    "costDecide": 0,
+    "invoiced": 0,
+    "wip": [],
+    "decisions": 0
+   }
+  },
+  "pl": {
+   "total": 555929.94,
+   "delivery": 6938.47,
+   "fencing": 120913.08,
+   "labour": 17082.81,
+   "servicing": 85101.75,
+   "race": 55816.56,
+   "contracts": 277015.74,
+   "card_hire": 200944.92
+  },
+  "allMonthsRevenue": 555929.95,
+  "reconcileTarget": 555929.94,
+  "reconciles": true,
+  "baseplan": {
+   "n": 307,
+   "billed": 0,
+   "supplied_on": "2026-09-24"
+  }
+ },
+ "sep": {
+  "fenceRev": 120913.08,
+  "fenceCost": {
+   "stream": "Fencing — Advanced Temporary Fencing, rehire cost",
+   "branch": "STPS",
+   "incurred": 74605.72,
+   "invoiced": 42662,
+   "accrue": 31943.72,
+   "action": "accrue",
+   "evidence": "62 dockets dated in September 2026 at Advanced's own sheet $73,397 + their labour and truck hours $1,209 (the green book, apportioned by the dockets) · invoices recorded: 4918492 $8,992 (PO 4647508, Construction week 6); 4922398 $33,670 (PO 4647509, Construction week 5) · 2 POs for the month with no invoice yet (4647515, 4658850)"
+  },
+  "revenueTotal": 177968.05,
+  "costAccrue": 67815.33,
+  "invoiced": 42662,
+  "decisions": 2,
+  "wip": 1
+ },
+ "labour": {
+  "groups": {
+   "install": {
+    "charged": 17082.81,
+    "expected": 5277.87,
+    "tocome": 20278.68,
+    "later": 27222.15,
+    "n": 570,
+    "total": 69861.51
+   },
+   "cleaning": {
+    "charged": 0,
+    "expected": 0,
+    "tocome": 0,
+    "later": 8484.15,
+    "n": 67,
+    "total": 8484.15
+   },
+   "fire_ext": {
+    "charged": 0,
+    "expected": 1665.6,
+    "tocome": 936.9,
+    "later": 0,
+    "n": 50,
+    "total": 2602.5
+   },
+   "other": {
+    "charged": 0,
+    "expected": 0,
+    "tocome": 0,
+    "later": 0,
+    "n": 0,
+    "total": 0
+   }
+  },
+  "demob": {
+   "charged": 0,
+   "expected": 0,
+   "tocome": 0,
+   "later": 27222.15,
+   "n": 219,
+   "total": 27222.15
+  },
+  "per": {
+   "charged": 17082.81,
+   "expected": 6943.47,
+   "tocome": 21215.58,
+   "later": 35706.3,
+   "n": 687,
+   "total": 80948.16
+  },
+  "scope": 55816.56,
+  "scopeHours": 368.92,
+  "months": {
+   "2026-09": {
+    "cna": 382.5,
+    "salary": 182.5,
+    "hire": 105,
+    "hours": 670,
+    "cost": 6284.85,
+    "unpriced": 565,
+    "shifts": 67,
+    "future": 0
+   },
+   "2026-10": {
+    "cna": 515,
+    "salary": 241,
+    "hire": 272,
+    "hours": 1028,
+    "cost": 19133.63,
+    "unpriced": 756,
+    "shifts": 101,
+    "future": 95
+   },
+   "2026-11": {
+    "cna": 205,
+    "salary": 100,
+    "hire": 100,
+    "hours": 405,
+    "cost": 6405.5,
+    "unpriced": 305,
+    "shifts": 40,
+    "future": 40
+   }
+  },
+  "all": {
+   "cna": 1102.5,
+   "salary": 523.5,
+   "hire": 477,
+   "hours": 2103,
+   "cost": 31823.98,
+   "unpriced": 1626,
+   "shifts": 208,
+   "future": 135
+  },
+  "plan": {
+   "charged": 17082.81,
+   "expected": 6943.469999999999,
+   "tocome": 21215.57999999999,
+   "later": 35706.3000000001,
+   "n": {
+    "charged": 165,
+    "expected": 62,
+    "tocome": 174,
+    "later": 286
+   },
+   "unpriced": 0
+  },
+  "perEqualsPlan": true,
+  "chargedEqualsPL": true
+ },
+ "octShown": {
+  "month": "2026-10",
+  "eyebrow": "ACCRUALS FOR FINANCE · OCTOBER 2026 · AUD EX GST"
+ },
+ "csv": {
+  "type": "text/csv;charset=utf-8",
+  "size": 6431,
+  "head": [
+   "\"Author: Andrew Fisher\"",
+   "\"Boost Mobile Gold Coast 500 — Accruals for Finance — proposals only, nothing posted\"",
+   "\"Work month\",\"2026-09\"",
+   "\"As at\",\"2026-10-01\"",
+   "",
+   "\"Baseplan contract lines billed\",\"0\",\"of\",\"307\",\"export\",\"2026-09-24\"",
+   "",
+   "\"Section\",\"Stream\",\"Branch\",\"Incurred / earned AUD ex GST\",\"Supplier invoices recorded AUD\",\"To accrue AUD\",\"Basis / evidence\",\"What Finance does\""
+  ]
+ },
+ "copyText": "Boost Mobile Gold Coast 500 · Accruals for Finance · work month September 2026 · as at Thu 01 Oct 2026 · AUD ex GST\nAuthor: Andrew Fisher · from the GC500 record; proposals for Finance, nothing posted\n\nBaseplan billing columns (export Thu 24 Sep 2026): 0 of 307 contract lines billed — no branch has billed yet\n\n1. REVENUE EARNED IN THE MONTH, NOT YET BILLED (accrued revenue / WIP) — $177,968\n • Hire charged from the day it goes in · STPS · $26,316 — 23 contract lines (Barrier - Crash Rated Water , Variable Message Board Senio, Variable Message Board - Col, Variable Message Board Junio, …) · the rate a day × the days on hire in September 2026 (22 run past the month). Accrue as unbilled revenue until the branch bills it.\n • Hire charged from the day it goes in — from the card · NVAC · $11,656 — 6 contract lines (Forklift 3.0t Container Dies, Forklift Rough Terrain 2.5t , Forklift Rough Terrain 4WD W, 5T FORKLIFT 1.8TYNNES, …) · the rate a day × the days on hire in September 2026 (4 run past the month). Accrue as unbilled revenue until the branch bills it.\n • Transport Revenue — the delivery and transport lines · KINP · $2,000 — 2 contract lines (Delivery each way per contai, Pickup each way per Containe) · the price on the line, in the month it went in. Accrue as unbilled revenue until the branch bills the delivery.\n • Fencing — Rehire Revenue, dockets at the 2026 card · STPS · $120,913 — 59 dockets dated in September 2026 · hire and installation in one card rate. Accrue as unbilled revenue until the branch bills it.\n • Labour ticked per piece · KINP · $16,458 — 161 ticks on 49 references that went in during September 2026 · the card's per-piece rates. Accrue as unbilled revenue until the branch bills it.\n • Labour ticked per piece · NVAC · $625 — 4 ticks on 4 references that went in during September 2026 · the card's per-piece rates. Accrue as unbilled revenue until the branch bills it.\n\n2. COSTS INCURRED IN THE MONTH — INVOICE IN, OR STILL TO COME (accrued expense)\n • Fencing — Advanced Temporary Fencing, rehire cost · STPS · incurred $74,606 · invoiced $42,662 · to accrue $31,944 — 62 dockets dated in September 2026 at Advanced's own sheet $73,397 + their labour and truck hours $1,209 (the green book, apportioned by the dockets) · invoices recorded: 4918492 $8,992 (PO 4647508, Construction week 6); 4922398 $33,670 (PO 4647509, Construction week 5) · 2 POs for the month with no invoice yet (4647515, 4658850). Accrue $31,944 — dockets in hand, invoice still to come.\n • Toilets — Event Portables Australia Q6845, rehire cost · KINP · incurred $21,950 · to accrue $21,950 — $54,230 ex GST on the quote (Toilet Hire) · Mon 14 Sep 2026 to Sun 25 Oct 2026 · 17 of 42 days fall in September 2026, so $21,950 is the day-share — a suggestion, not the quote's wording · approved on Andrew’s word · no invoice and no purchase order on the record. Finance’s call: accrue the September 2026 share, or hold the whole quote to the event’s month with its revenue.\n • Transport (cartage) — carriers’ charges · the job · incurred $22,011 · to accrue $22,011 — 37 loads dated in September 2026 with a figure on the schedule’s TPORT COST column (35 marked “and more”) · 24 Coates-truck loads, no carrier charge · whether each carrier has invoiced is not on the record. Accrue any load whose carrier invoice is not in by cut-off.\n • Labour hire — the hours at their rates · the job · incurred $6,285 · to accrue $6,285 — 105 paid hours in September 2026 by Kyle Gover, Daniel Gough · the running sheet’s hourly pay rates · 12 of 12 shifts confirmed. Accrue the weeks their invoice has not covered by cut-off.\n • Coates people — wages · the job — 565 paid hours in September 2026 by Aaron Zelvis, Alfie Harris, Andrew Fisher, Jayden Paul · 55 of 55 shifts confirmed · no cost rate on the record for Coates people. Payroll — no accrual; hours for information.\n • Accommodation — on the tracker · the job · incurred $5,476 · to accrue $5,476 — 29 lines dated in September 2026 · 4 with no figure yet · cards and expense claims. Accrue any not on a card statement or claim by cut-off.\n • Meals away from home — on the tracker · the job · incurred $1,381 · to accrue $1,381 — 4 lines dated in September 2026 · cards and expense claims. Accrue any not on a card statement or claim by cut-off.\n • Other expenses — on the tracker · the job · incurred $719 · to accrue $719 — 4 lines dated in September 2026 · cards and expense claims. Accrue any not on a card statement or claim by cut-off.\n To accrue: $67,815 · Finance’s decision: $21,950 · supplier invoices recorded for the month: $42,662\n\n3. PAID AHEAD OF THE REVENUE — THE WIP QUESTION\n • Fencing — Advanced Temporary Fencing’s invoices in hand $42,662 against the fencing charge to the V8s $120,913, none of it billed by STPS yet. Finance’s call: accrue the fencing revenue for the month (matches the cost already paid), or hold the paid cost as WIP until the branch bills.\n\n4. LABOUR — THE FORECAST, BOTH SIDES (whole job)\n • Labour Install (install, steps, levelling, demob): ticked so far $17,083 · expected on site, not ticked $5,278 · to come $20,279 · later (demob, cleaning) $27,222 · forecast $69,862\n • Cleaning (not labour): ticked so far $0 · expected on site, not ticked $0 · to come $0 · later (demob, cleaning) $8,484 · forecast $8,484\n • Fire extinguishers (a hire charge): ticked so far $0 · expected on site, not ticked $1,666 · to come $937 · later (demob, cleaning) $0 · forecast $2,603\n • Per piece, from the card: ticked so far $17,083 · expected on site, not ticked $6,943 · to come $21,216 · later (demob, cleaning) $35,706 · forecast $80,948\n • Event labour — the scope: $55,817 for 368.9 h over the three race days\n Labour to charge, all in: $136,765 (Labour Install + the scope $125,678)\n Labour cost — hours on the running sheet: September 2026 670 h ($6,285 priced) · October 2026 1,028 h ($19,134 priced) · November 2026 405 h ($6,406 priced) · whole job 2,103 h, priced $31,824 (labour hire only), 1,626 h with no wage rate — PARTIAL\n\nTerms: accrual = book it in the month the work happened, invoice to follow · unbilled revenue / WIP = work done, not yet invoiced to the customer · deferral / prepayment = paid now, belongs to a later month · reclass = move a cost to the right branch or code · reversing accrual = booked now, unwound when the invoice posts · cut-off = the month-end line.",
+ "blocked": 0,
+ "overflow": 0,
+ "errors": [],
+ "console": [],
+ "pass": true
+}

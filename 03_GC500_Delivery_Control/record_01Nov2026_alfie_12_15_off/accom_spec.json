@@ -1,0 +1,30 @@
+{
+ "author": "Andrew Fisher",
+ "by": "Andrew Fisher",
+ "ops": [
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-12",
+   "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+  },
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-13",
+   "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+  },
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-14",
+   "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+  },
+  {
+   "op": "accom_remove",
+   "person": "Alfie Harris",
+   "date": "2026-10-15",
+   "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+  }
+ ]
+}

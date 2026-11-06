@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "candidateSha256": "3056702a2a5664050eb9b8cf8592bc2f700ea5faf705829d97f471b83f38e412",
+  "nativeVersion": 5385,
+  "sharedRawVariantCount": 2,
+  "projected": [
+    {
+      "id": "F-AFV-0002",
+      "quantities": {
+        "clean": 507.5,
+        "ccb_demarc": 447.5,
+        "ped_gates": 1
+      },
+      "cost_total": 14091.04,
+      "paid_total": 7527.5
+    }
+  ],
+  "initialAndRepeatNoticeCount": 0,
+  "errors": [],
+  "writes": 0
+}

@@ -1,0 +1,135 @@
+{
+ "at": "2026-10-22T15:39:26.488Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "card template carries the plan map, the map on the code card and the status page, and the done colours",
+   "ok": true,
+   "detail": {
+    "len": 144041
+   }
+  },
+  {
+   "name": "pin maths: PG01 lands on the plan pixel worked out independently from the explorer registration (within 0.3 px)",
+   "ok": true,
+   "detail": [
+    501.49106645584106,
+    306.10470901057124
+   ]
+  },
+  {
+   "name": "area map for PG01: a crop inside the plan, the plan image, a navigation pin per reference of Area 1 (14), PG01 white with a pulsing halo inside the crop, the others hi-vis, legend and Where am I",
+   "ok": true,
+   "detail": {
+    "px": [
+     501.49106645584106,
+     306.10470901057124
+    ],
+    "vb": [
+     339.7,
+     247.6,
+     230,
+     165.6
+    ],
+    "img": "/w/Coates-GC500-2026/explorer/assets/sheet-overview.webp",
+    "pins": 14,
+    "hrefs": true,
+    "classes": [
+     "me togo",
+     "togo"
+    ],
+    "me": {
+     "label": "PG01",
+     "halo": true,
+     "haloAnim": "svc-mapme",
+     "pinFill": "rgb(255, 255, 255)",
+     "cx": 501.5,
+     "cy": 306.1
+    },
+    "togoFill": "rgb(255, 179, 71)",
+    "legend": "PG01 · you scanned thisdoneto gotap a pin to navigateWhere am I",
+    "locate": true,
+    "h3": "Area 1 · Pit Lane, Paddock & Teams · on the plan",
+    "areaRefsWithPins": 0
+   }
+  },
+  {
+   "name": "Where am I: a phone a few metres away is the blue dot; one 2 km north reads the distance and direction instead; a refusal says location is off",
+   "ok": true,
+   "detail": {
+    "nearDot": true,
+    "nearText": "You are the blue dot",
+    "farDot": false,
+    "farText": "You are about 2224 m north of PG01, off this crop.",
+    "denied": "PG01 · you scanned thisdoneto gotap a pin to navigateLocation is off for this browser"
+   }
+  },
+  {
+   "name": "the status page after Save & close carries the area map between the area section and Show every area",
+   "ok": true,
+   "detail": {
+    "map": 1,
+    "order": "card saved | card status-ref | card status-area | card amap | showall"
+   }
+  },
+  {
+   "name": "the code's card draws the map under the reference's details, before its jobs",
+   "ok": true
+  },
+  {
+   "name": "a done Pump out lights hi-vis (border, tick box, Completed line), a done Water neon blue, a done Clean & restock green; the label icon stays drawn in each",
+   "ok": true,
+   "detail": {
+    "pump": {
+     "border": "rgb(255, 179, 71)",
+     "bg": "linear-gradient(rgb(58, 37, 16), rgb(42,",
+     "jbox": "rgb(255, 179, 71)",
+     "tick": "rgb(42, 26, 11)",
+     "small": "rgb(255, 208, 138)",
+     "icon": "rgb(255, 208, 138)",
+     "iconDash": "none"
+    },
+    "clean": {
+     "border": "rgb(46, 240, 171)",
+     "bg": "linear-gradient(rgb(18, 58, 45), rgb(12,",
+     "jbox": "rgb(46, 240, 171)",
+     "tick": "rgb(4, 21, 13)",
+     "small": "rgb(125, 255, 208)",
+     "icon": "rgb(125, 255, 208)",
+     "iconDash": "none"
+    },
+    "refill": {
+     "border": "rgb(95, 180, 255)",
+     "bg": "linear-gradient(rgb(15, 45, 77), rgb(10,",
+     "jbox": "rgb(95, 180, 255)",
+     "tick": "rgb(6, 26, 46)",
+     "small": "rgb(159, 216, 255)",
+     "icon": "rgb(159, 216, 255)",
+     "iconDash": "none"
+    }
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 73,
+    "blocked": 0
+   }
+  }
+ ]
+}

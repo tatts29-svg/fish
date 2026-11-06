@@ -1,0 +1,255 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T014803Z",
+ "finished": "2026-10-30T01:48:33.821Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:3x AEST: \"Aircon container left 1130am\", then 11:4x, when run 85 had read that as the EAGS event container T0023: \"Recrigertor building it should be u should have a record do you not\". The record has T0266, the 6.0m Refrigerator Container (United Rentals / Royal Wolf unit 920584, Helen Park, pit lane entry), its reference's only unit: it left in full at 11:30. T0023's departure of run 85 is withdrawn separately (run 88). Through the page's own Record departure form in his name; applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0266",
+    "at": "2026-10-30T11:30:00+10:00",
+    "nos": [
+     "920584"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12133,
+  "after": 12134
+ },
+ "updated": {
+  "before": "2026-10-30T01:34:44.804Z",
+  "after": "2026-10-30T01:48:33.035Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0266",
+   "at": "2026-10-30T11:30:00+10:00",
+   "nos": [
+    "920584"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-10-30T11:30:00+10:00, recorded by Andrew Fisher: 1 x 6.0m Refrigerator Cont 920584 - T0266 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0266",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0266": {
+    "state": "on site",
+    "set_at": "2026-10-12T14:00:00.000Z",
+    "by": "Andrew Fisher via Codex",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-15T09:14:52.171Z",
+    "done": true,
+    "done_by": "Andrew Fisher via Codex",
+    "done_at": "2026-10-14T00:00:36.634Z",
+    "note": "Arrived 13 Oct 2026; exact arrival time not supplied. Asset 920584, subhired from United Rentals (Royal Wolf). Arrival date confirmed by Andrew Fisher on 14 Oct; the date-boundary timestamp represents the day only.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.389Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "recorded_at": "2026-10-14T00:00:36.634Z",
+      "date_only": true,
+      "effective_date": "2026-10-13",
+      "note": "Arrival date confirmed; exact time not supplied."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T00:00:36.634Z",
+      "by": "Andrew Fisher via Codex"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:52.171Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "item:6.0m Refrigerator Cont": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:06:36.423Z"
+     }
+    },
+    "_k": "T0266"
+   }
+  },
+  "after": {
+   "delivery/T0266": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:48:20.497Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:48:20.497Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:48:20.497Z",
+    "note": "Arrived 13 Oct 2026; exact arrival time not supplied. Asset 920584, subhired from United Rentals (Royal Wolf). Arrival date confirmed by Andrew Fisher on 14 Oct; the date-boundary timestamp represents the day only.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:24.389Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-12T14:00:00.000Z",
+      "by": "Andrew Fisher via Codex",
+      "recorded_at": "2026-10-14T00:00:36.634Z",
+      "date_only": true,
+      "effective_date": "2026-10-13",
+      "note": "Arrival date confirmed; exact time not supplied."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:48:20.497Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b11922d8-5204-4c14-a19a-094016816a6e",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:30:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-12T14:00:00.000Z",
+       "requiredKey": "[[\"6.0m refrigerator cont\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "6.0m Refrigerator Cont",
+         "n": 1,
+         "unitIds": [
+          "[\"T0266\",\"other:united-rentals-royal-wolf\",\"native\",\"slot:2879a5b3-279a-4d2f-b992-8a462b649d10\"]"
+         ],
+         "numbers": [
+          "920584"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0266\",\"other:united-rentals-royal-wolf\",\"native\",\"slot:2879a5b3-279a-4d2f-b992-8a462b649d10\"]",
+           "number": "920584",
+           "owner": "other:united-rentals-royal-wolf",
+           "item": "6.0m Refrigerator Cont"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T00:00:36.634Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:48:20.497Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-15T09:14:52.171Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:48:20.497Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "loading872": {
+     "item:6.0m Refrigerator Cont": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:06:36.423Z"
+     }
+    },
+    "_k": "T0266"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

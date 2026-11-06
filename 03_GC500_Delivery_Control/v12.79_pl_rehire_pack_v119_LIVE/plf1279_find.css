@@ -1,0 +1,44 @@
+/* v12.79 - find in the P&L: its own styles, after plf1279.css (spliced by patch_v1279.py): the answer line, the tools, the groups, the suggestions */
+.plx-ans{grid-column:1 / -1;margin:2px 0 4px;font-size:14px;line-height:1.5;color:#1c252c}
+.plx-ans b{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plx-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 10px}
+.plx-tools .plx-tsp{flex:1 1 auto}
+.plx-jump,.plx-csv,.plx-copy,.plx-open{font:inherit;cursor:pointer;border:1px solid #c5ced5;border-radius:6px;background:#fff;color:#1d5f8a;font-weight:600}
+.plx-jump{padding:4px 9px;font-size:12px}
+.plx-csv,.plx-copy{padding:5px 12px;font-size:12.5px;color:#1c252c}
+.plx-jump:hover,.plx-csv:hover,.plx-copy:hover,.plx-open:hover,.plx-jump:focus-visible,.plx-csv:focus-visible,.plx-copy:focus-visible,.plx-open:focus-visible{border-color:#1d5f8a;outline:none}
+.plx-g{margin:14px 0 4px;scroll-margin-top:72px}
+.plx-gh{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px}
+.plx-gh .fin745-eyebrow{margin:0!important}
+.plx-open{padding:3px 9px;font-size:12px;white-space:nowrap}
+.plx-of{border-style:dashed}
+.plx-gt{min-width:520px}
+.plx-gt td small{display:block;color:#6b7681;font-size:11.5px;font-weight:400}
+.plx-gt td small.plx-tag{color:#1d7a46;font-weight:600}
+.plx-gt td:last-child{width:1%;text-align:right}
+.plx-gt td.num{white-space:nowrap}
+.plx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.plx-more{margin:2px 0 0}
+.plx-more>summary{cursor:pointer;color:#1d5f8a;font-size:12.5px;font-weight:600;padding:6px 2px}
+.plx-chips{display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;margin:6px 0 2px}
+.plx-chips>span{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#5a6670;margin-right:8px;min-width:150px}
+.plx-chip{all:unset;cursor:pointer;display:inline-block;margin:2px 8px 2px 0;padding:3px 10px;border:1px solid #c5ced5;border-radius:6px;background:#fff;color:#1d5f8a;font-size:12.5px;font-weight:600}
+.plx-chip:hover,.plx-chip:focus-visible{border-color:#1d5f8a}
+.plx-empty{margin:10px 2px 4px;font-size:13.5px;color:#5a6670}
+.plx-cats td small{display:block;color:#6b7681;font-size:11.5px;font-weight:400;margin-top:2px}
+.plx-try{margin:8px 0 2px}
+.plx-tryh{margin:0 0 2px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#1c252c}
+mark.plx-hl{background:#fff3b0;color:inherit;padding:0 1px;border-radius:2px}
+@keyframes plxflash{from{background:#fff3b0}to{background:transparent}}
+.plx-flash,.plx-flash>td{animation:plxflash 2s ease-out}
+@media (max-width:720px){
+  .plx-ans{font-size:14px}
+  .plx-tools .plx-tsp{display:none}
+  .plx-jump,.plx-open{min-height:40px;padding:6px 10px}
+  .plx-csv,.plx-copy{min-height:42px;flex:1 1 100%}
+  .plx-chips>span{min-width:0;flex:1 1 100%}
+  .plx-chips .plx-go,.plx-chip{min-height:40px;line-height:32px;padding:4px 12px}
+  .plx-more>summary{min-height:40px;line-height:28px}
+  #pl1267-fp .plx-gt td:first-child{min-width:170px}
+}
+@media print{.plx-tools,.plx-g,.plx-ans{display:none!important}}

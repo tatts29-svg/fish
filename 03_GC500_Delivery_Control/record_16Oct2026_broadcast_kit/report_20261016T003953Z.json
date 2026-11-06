@@ -1,0 +1,436 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T003953Z",
+ "finished": "2026-10-16T00:40:08.505Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "branch": "MEAD",
+  "rows": [
+   {
+    "key": "FL03",
+    "disc": "Other",
+    "type": "Forklift 5T",
+    "no": "1321364",
+    "loc": "TV compound",
+    "from": "2026-10-17",
+    "name": "Forklift 5T · TV compound (broadcast)",
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct."
+   },
+   {
+    "key": "FL04",
+    "disc": "Other",
+    "type": "Forklift 2.5T",
+    "no": "1298390",
+    "loc": "TV compound",
+    "from": "2026-10-17",
+    "name": "Forklift 2.5T · TV compound (broadcast)",
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 2, Forklift Rough Terrain 2.5t 4WD Diesel, dd 26133373, with fork extensions line 3); the order said 17 Oct."
+   },
+   {
+    "key": "TM01",
+    "disc": "Ground protection",
+    "type": "Trakmat",
+    "no": "",
+    "qty": 10,
+    "loc": "TV compound",
+    "from": "2026-10-17",
+    "name": "Trakmat × 10 · TV compound (broadcast)",
+    "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct."
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6932,
+  "after": 6956
+ },
+ "updated": {
+  "before": "2026-10-16T00:39:46.577Z",
+  "after": "2026-10-16T00:40:07.691Z"
+ },
+ "stage": [
+  {
+   "key": "FL03",
+   "added": true,
+   "type": "Forklift 5T",
+   "no": "1321364"
+  },
+  {
+   "key": "FL03",
+   "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct."
+  },
+  {
+   "key": "FL03",
+   "dated": true,
+   "date": "2026-10-16",
+   "light": "on site"
+  },
+  {
+   "key": "FL04",
+   "added": true,
+   "type": "Forklift 2.5T",
+   "no": "1298390"
+  },
+  {
+   "key": "FL04",
+   "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 2, Forklift Rough Terrain 2.5t 4WD Diesel, dd 26133373, with fork extensions line 3); the order said 17 Oct."
+  },
+  {
+   "key": "FL04",
+   "dated": true,
+   "date": "2026-10-16",
+   "light": "on site"
+  },
+  {
+   "key": "TM01",
+   "added": true,
+   "type": "Trakmat",
+   "no": null
+  },
+  {
+   "key": "TM01",
+   "supplied": 10
+  },
+  {
+   "key": "TM01",
+   "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct."
+  },
+  {
+   "key": "TM01",
+   "dated": true,
+   "date": "2026-10-16",
+   "light": "on site"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/FL03",
+   "status": 200
+  },
+  {
+   "key": "delivery/FL04",
+   "status": 200
+  },
+  {
+   "key": "delivery/TM01",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~FL03",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~FL03",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~FL04",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~FL04",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~TM01~2f~Trakmat",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "supplied/TM01",
+   "status": 200
+  },
+  {
+   "key": "branch/FL03",
+   "status": 200
+  },
+  {
+   "key": "branch/FL04",
+   "status": 200
+  },
+  {
+   "key": "branch/TM01",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~FL03",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~FL03",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~FL04",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~FL04",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~TM01~2f~Trakmat",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~TM01",
+   "status": 200
+  },
+  {
+   "key": "added/FL03",
+   "status": 200
+  },
+  {
+   "key": "added/FL04",
+   "status": 200
+  },
+  {
+   "key": "added/TM01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/FL03": null,
+   "delivery/FL04": null,
+   "delivery/TM01": null,
+   "stamps/branch~2f~FL03": null,
+   "stamps/dnote~2f~FL03": null,
+   "stamps/branch~2f~FL04": null,
+   "stamps/dnote~2f~FL04": null,
+   "stamps/branch~2f~TM01": null,
+   "stamps/supplied~2f~TM01~2f~Trakmat": null,
+   "stamps/dnote~2f~TM01": null,
+   "supplied/TM01": null,
+   "branch/FL03": null,
+   "branch/FL04": null,
+   "branch/TM01": null,
+   "by/branch~2f~FL03": null,
+   "by/dnote~2f~FL03": null,
+   "by/branch~2f~FL04": null,
+   "by/dnote~2f~FL04": null,
+   "by/branch~2f~TM01": null,
+   "by/supplied~2f~TM01~2f~Trakmat": null,
+   "by/dnote~2f~TM01": null,
+   "added/FL03": null,
+   "added/FL04": null,
+   "added/TM01": null
+  },
+  "after": {
+   "delivery/FL03": {
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 1, Forklift Rough Terrain 5.0t 4WD Diesel, dd 26133345); the order said 17 Oct.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:00.879Z",
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:01.297Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:01.297Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FL03"
+   },
+   "delivery/FL04": {
+    "note": "Turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 2, Forklift Rough Terrain 2.5t 4WD Diesel, dd 26133373, with fork extensions line 3); the order said 17 Oct.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:02.103Z",
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:02.503Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:02.503Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FL04"
+   },
+   "delivery/TM01": {
+    "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:03.476Z",
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:03.932Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:03.932Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "TM01"
+   },
+   "stamps/branch~2f~FL03": {
+    "_k": "branch/FL03",
+    "v": "2026-10-16T00:40:00.372Z"
+   },
+   "stamps/dnote~2f~FL03": {
+    "_k": "dnote/FL03",
+    "v": "2026-10-16T00:40:00.466Z"
+   },
+   "stamps/branch~2f~FL04": {
+    "_k": "branch/FL04",
+    "v": "2026-10-16T00:40:01.739Z"
+   },
+   "stamps/dnote~2f~FL04": {
+    "_k": "dnote/FL04",
+    "v": "2026-10-16T00:40:01.806Z"
+   },
+   "stamps/branch~2f~TM01": {
+    "_k": "branch/TM01",
+    "v": "2026-10-16T00:40:02.943Z"
+   },
+   "stamps/supplied~2f~TM01~2f~Trakmat": {
+    "_k": "supplied/TM01/Trakmat",
+    "v": "2026-10-16T00:40:03.035Z"
+   },
+   "stamps/dnote~2f~TM01": {
+    "_k": "dnote/TM01",
+    "v": "2026-10-16T00:40:03.109Z"
+   },
+   "supplied/TM01": {
+    "items": [
+     {
+      "asked": "Trakmat",
+      "supplied": "Trakmat",
+      "qty_supplied": 10
+     }
+    ],
+    "_k": "TM01"
+   },
+   "branch/FL03": {
+    "_k": "FL03",
+    "v": "MEAD"
+   },
+   "branch/FL04": {
+    "_k": "FL04",
+    "v": "MEAD"
+   },
+   "branch/TM01": {
+    "_k": "TM01",
+    "v": "MEAD"
+   },
+   "by/branch~2f~FL03": {
+    "_k": "branch/FL03",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~FL03": {
+    "_k": "dnote/FL03",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~FL04": {
+    "_k": "branch/FL04",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~FL04": {
+    "_k": "dnote/FL04",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~TM01": {
+    "_k": "branch/TM01",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~TM01~2f~Trakmat": {
+    "_k": "supplied/TM01/Trakmat",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~TM01": {
+    "_k": "dnote/TM01",
+    "v": "Andrew Fisher"
+   },
+   "added/FL03": {
+    "key": "FL03",
+    "discipline": "Other",
+    "name": "Forklift 5T · TV compound (broadcast)",
+    "item_types": [
+     "Forklift 5T"
+    ],
+    "asset_numbers": [
+     "1321364"
+    ],
+    "accessories": [],
+    "first_date": "2026-10-17",
+    "last_date": null,
+    "locations": [
+     "TV compound"
+    ],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-16T00:40:00.372Z",
+    "added_by": "Andrew Fisher",
+    "_k": "FL03"
+   },
+   "added/FL04": {
+    "key": "FL04",
+    "discipline": "Other",
+    "name": "Forklift 2.5T · TV compound (broadcast)",
+    "item_types": [
+     "Forklift 2.5T"
+    ],
+    "asset_numbers": [
+     "1298390"
+    ],
+    "accessories": [],
+    "first_date": "2026-10-17",
+    "last_date": null,
+    "locations": [
+     "TV compound"
+    ],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-16T00:40:01.739Z",
+    "added_by": "Andrew Fisher",
+    "_k": "FL04"
+   },
+   "added/TM01": {
+    "key": "TM01",
+    "discipline": "Ground protection",
+    "name": "Trakmat × 10 · TV compound (broadcast)",
+    "item_types": [
+     "Trakmat"
+    ],
+    "asset_numbers": [],
+    "accessories": [],
+    "first_date": "2026-10-17",
+    "last_date": null,
+    "locations": [
+     "TV compound"
+    ],
+    "asset_no_state": "not supplied",
+    "source_row": null,
+    "added_at": "2026-10-16T00:40:02.943Z",
+    "added_by": "Andrew Fisher",
+    "_k": "TM01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

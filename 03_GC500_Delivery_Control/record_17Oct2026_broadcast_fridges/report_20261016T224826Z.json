@@ -1,0 +1,276 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T224826Z",
+ "finished": "2026-10-16T22:48:40.816Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-17",
+  "by": "Andrew Fisher",
+  "branch": "KINP",
+  "rows": [
+   {
+    "key": "FR01",
+    "disc": "Furniture",
+    "type": "Fridge",
+    "no": "1318501",
+    "loc": "TV compound",
+    "from": "2026-10-14",
+    "in": "2026-10-14",
+    "name": "Fridge · TV compound (broadcast)",
+    "note": "Fridge 1318501 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+   },
+   {
+    "key": "FR02",
+    "disc": "Furniture",
+    "type": "Fridge",
+    "no": "1260164",
+    "loc": "TV compound",
+    "from": "2026-10-14",
+    "in": "2026-10-14",
+    "name": "Fridge · TV compound (broadcast)",
+    "note": "Fridge 1260164 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+   }
+  ]
+ },
+ "pageSha256": "03ebb3cc0f1e4e4d630da2ea5792a9920212f9ca244773a5629f56cc2e4a8a72",
+ "version": {
+  "before": 9622,
+  "after": 9636
+ },
+ "updated": {
+  "before": "2026-10-16T22:46:12.612Z",
+  "after": "2026-10-16T22:48:40.078Z"
+ },
+ "stage": [
+  {
+   "key": "FR01",
+   "added": true,
+   "type": "Fridge",
+   "no": "1318501"
+  },
+  {
+   "key": "FR01",
+   "note": "Fridge 1318501 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+  },
+  {
+   "key": "FR01",
+   "dated": true,
+   "date": "2026-10-14",
+   "light": "on site"
+  },
+  {
+   "key": "FR02",
+   "added": true,
+   "type": "Fridge",
+   "no": "1260164"
+  },
+  {
+   "key": "FR02",
+   "note": "Fridge 1260164 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct."
+  },
+  {
+   "key": "FR02",
+   "dated": true,
+   "date": "2026-10-14",
+   "light": "on site"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/FR01",
+   "status": 200
+  },
+  {
+   "key": "delivery/FR02",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~FR01",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~FR01",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~FR02",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~FR02",
+   "status": 200
+  },
+  {
+   "key": "branch/FR01",
+   "status": 200
+  },
+  {
+   "key": "branch/FR02",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~FR01",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~FR01",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~FR02",
+   "status": 200
+  },
+  {
+   "key": "by/dnote~2f~FR02",
+   "status": 200
+  },
+  {
+   "key": "added/FR01",
+   "status": 200
+  },
+  {
+   "key": "added/FR02",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/FR01": null,
+   "delivery/FR02": null,
+   "stamps/branch~2f~FR01": null,
+   "stamps/dnote~2f~FR01": null,
+   "stamps/branch~2f~FR02": null,
+   "stamps/dnote~2f~FR02": null,
+   "branch/FR01": null,
+   "branch/FR02": null,
+   "by/branch~2f~FR01": null,
+   "by/dnote~2f~FR01": null,
+   "by/branch~2f~FR02": null,
+   "by/dnote~2f~FR02": null,
+   "added/FR01": null,
+   "added/FR02": null
+  },
+  "after": {
+   "delivery/FR01": {
+    "note": "Fridge 1318501 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct.",
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:35.106Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:35.106Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FR01"
+   },
+   "delivery/FR02": {
+    "note": "Fridge 1260164 for the broadcast compound (TV compound). It came on 14 Oct 2026 with T0265's four fridges (record_14Oct2026_fridges); T0265 was cancelled (Andrew, 15 Oct) and its other two fridges, 1311992 and 1283996, went to P46. Andrew, 17 Oct 2026: \"the other 2 fridges are for broadcast\". Recorded on site 17 Oct; on site since 14 Oct.",
+    "state": "on site",
+    "set_at": "2026-10-16T22:48:36.658Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T22:48:36.658Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "FR02"
+   },
+   "stamps/branch~2f~FR01": {
+    "_k": "branch/FR01",
+    "v": "2026-10-16T22:48:33.987Z"
+   },
+   "stamps/dnote~2f~FR01": {
+    "_k": "dnote/FR01",
+    "v": "2026-10-16T22:48:34.097Z"
+   },
+   "stamps/branch~2f~FR02": {
+    "_k": "branch/FR02",
+    "v": "2026-10-16T22:48:35.688Z"
+   },
+   "stamps/dnote~2f~FR02": {
+    "_k": "dnote/FR02",
+    "v": "2026-10-16T22:48:35.803Z"
+   },
+   "branch/FR01": {
+    "_k": "FR01",
+    "v": "KINP"
+   },
+   "branch/FR02": {
+    "_k": "FR02",
+    "v": "KINP"
+   },
+   "by/branch~2f~FR01": {
+    "_k": "branch/FR01",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~FR01": {
+    "_k": "dnote/FR01",
+    "v": "Andrew Fisher"
+   },
+   "by/branch~2f~FR02": {
+    "_k": "branch/FR02",
+    "v": "Andrew Fisher"
+   },
+   "by/dnote~2f~FR02": {
+    "_k": "dnote/FR02",
+    "v": "Andrew Fisher"
+   },
+   "added/FR01": {
+    "key": "FR01",
+    "discipline": "Furniture",
+    "name": "Fridge · TV compound (broadcast)",
+    "item_types": [
+     "Fridge"
+    ],
+    "asset_numbers": [
+     "1318501"
+    ],
+    "accessories": [],
+    "first_date": "2026-10-14",
+    "last_date": null,
+    "locations": [
+     "TV compound"
+    ],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-16T22:48:33.987Z",
+    "added_by": "Andrew Fisher",
+    "_k": "FR01"
+   },
+   "added/FR02": {
+    "key": "FR02",
+    "discipline": "Furniture",
+    "name": "Fridge · TV compound (broadcast)",
+    "item_types": [
+     "Fridge"
+    ],
+    "asset_numbers": [
+     "1260164"
+    ],
+    "accessories": [],
+    "first_date": "2026-10-14",
+    "last_date": null,
+    "locations": [
+     "TV compound"
+    ],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-16T22:48:35.688Z",
+    "added_by": "Andrew Fisher",
+    "_k": "FR02"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

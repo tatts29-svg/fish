@@ -1,0 +1,211 @@
+{
+ "page": "/home/user/fish/03_GC500_Delivery_Control/build/GC500_v7.83/GC500_Delivery_Control_hosted.html",
+ "mobile": false,
+ "passed": 31,
+ "of": 31,
+ "tests": [
+  {
+   "name": "the card is on the Costs tab",
+   "pass": true,
+   "detail": "rows 23"
+  },
+  {
+   "name": "revenue lines add to the Forecast P&L revenue, to the cent",
+   "pass": true,
+   "detail": "572466.83 vs 572466.83"
+  },
+  {
+   "name": "revenue to job end is the Costs to job end card figure",
+   "pass": true,
+   "detail": "831050.2 vs 831050.2"
+  },
+  {
+   "name": "cost lines plus the below-the-line costs add to direct costs known, to the cent",
+   "pass": true,
+   "detail": "235371.76 vs 235371.76"
+  },
+  {
+   "name": "costs to job end are the Costs to job end card figure",
+   "pass": true,
+   "detail": "444411.03 vs 444411.03"
+  },
+  {
+   "name": "the four quotes split by kitty add to the rehire figure",
+   "pass": true,
+   "detail": "{\"pump\":56145,\"cons\":4850,\"rehire\":57580}"
+  },
+  {
+   "name": "Toilet Pumpout Costs is Q6844 whole; Consumables is Q6846 whole; Rehire is Q6845 and Q6847",
+   "pass": true,
+   "detail": "56145/56145 4850/4850 57580/57580"
+  },
+  {
+   "name": "Hire Revenue includes fire extinguishers, apart from installation",
+   "pass": true,
+   "detail": "187299.61"
+  },
+  {
+   "name": "Rehire Revenue is the hired-in lines plus the fencing dockets",
+   "pass": true,
+   "detail": "203690.74"
+  },
+  {
+   "name": "Transport Revenue is the delivery lines",
+   "pass": true,
+   "detail": "6938.47"
+  },
+  {
+   "name": "Toilet Pumpouts and Consumables together are the servicing line; the water truck and pre-fill sit with the pump-outs",
+   "pass": true,
+   "detail": "94701.75 + 4350 vs 99051.75"
+  },
+  {
+   "name": "Installation contains install work and event people only",
+   "pass": true,
+   "detail": "56384.66"
+  },
+  {
+   "name": "event accommodation and travel remain Revenue with no assigned ledger code",
+   "pass": true,
+   "detail": "19101.6"
+  },
+  {
+   "name": "Damage Waiver carries no figure and says the branch sets the rate",
+   "pass": true,
+   "detail": "not on the 2026 contracts yet — the branch’s rate"
+  },
+  {
+   "name": "Difference so far is the Forecast P&L figure (to the dollar)",
+   "pass": true,
+   "detail": "337095 vs 337095"
+  },
+  {
+   "name": "Difference to job end is the At a glance figure after priced wages",
+   "pass": true,
+   "detail": "354815.19 vs 354815.18999999994"
+  },
+  {
+   "name": "partial difference is revenue less the known ledger lines and is not called a margin",
+   "pass": true,
+   "detail": "354180.94"
+  },
+  {
+   "name": "Rehire Recovery waits for matching scope and complete supplier costs",
+   "pass": true,
+   "detail": "not readable yet: fencing Revenue includes installation while the Rehire cost contains gear only; the branch must supply the Revenue split; supplier costs are missing. The ratio needs matching scope and complete supplier costs. The Rehire by branch card shows the separate combined cover against known costs."
+  },
+  {
+   "name": "Transport Recovery groups the pump-outs with cartage and names cartage alone in words",
+   "pass": true,
+   "detail": "cartage alone: $6,938 of delivery and pickup on the contracts against $22,011 to pay the carriers so far (×0.32), $44,376 to job end (×0.16) — the pump-outs carry the group; the transport charge lines are the branch’s to add to the contracts"
+  },
+  {
+   "name": "Installation Recovery is not readable yet and says why",
+   "pass": true,
+   "detail": "not readable yet: $56,385 charged against $2,100 to pay Advanced’s crew — our own people’s install hours carry no wage rate (1,626 h) and the fencing install sits inside the fence rate"
+  },
+  {
+   "name": "Consumables Recovery says what is not charged on when under one",
+   "pass": true,
+   "detail": "0.8969072164948454 the water is charged on at the quote’s line figures; the quote’s delivery and pickup ($500) are not charged on yet"
+  },
+  {
+   "name": "four recovery rows",
+   "pass": true,
+   "detail": "4"
+  },
+  {
+   "name": "no NaN, undefined, null or template leftovers in the card text",
+   "pass": true,
+   "detail": "THE FORECAST P&L IN THE BUSINESS’S LINES · AUD EX GST · AS AT FRI 02 OCT 2026\n\nT"
+  },
+  {
+   "name": "nothing from another year on the card",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "the P&L codes read on the card",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "the card bridges to the Rehire by branch card and never calls the difference a margin",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "the direct costs tile is the Costs to job end figure",
+   "pass": true,
+   "detail": "444411.03"
+  },
+  {
+   "name": "the At a glance flow links to the card",
+   "pass": true,
+   "detail": "In the business’s lines"
+  },
+  {
+   "name": "the Forecast P&L revenue tile is unchanged by the card",
+   "pass": true,
+   "detail": "$572,467 vs 572466.83"
+  },
+  {
+   "name": "the card does not widen the page",
+   "pass": true,
+   "detail": "section 1408 of 1440; page 1440"
+  },
+  {
+   "name": "no page errors, no console errors",
+   "pass": true,
+   "detail": "0 / 0"
+  }
+ ],
+ "figures": {
+  "revNow": 572466.83,
+  "revJob": 831050.2,
+  "direct": 218285.89,
+  "directJob": 420740.45,
+  "over": 17085.87,
+  "overJob": 23670.58,
+  "costNow": 235371.76,
+  "costJob": 444411.03,
+  "gm": {
+   "now": 354180.94,
+   "job": 410309.75,
+   "pcNow": 0.618692510097048,
+   "pcJob": 0.4937243863246769
+  },
+  "diff": {
+   "now": 337095,
+   "job": 354815.19,
+   "pcNow": 0.5888463441628575
+  },
+  "qk": {
+   "pump": 56145,
+   "cons": 4850,
+   "rehire": 57580
+  },
+  "rec": [
+   {
+    "name": "Rehire Recovery",
+    "now": null,
+    "job": null
+   },
+   {
+    "name": "Transport Recovery",
+    "now": 1.3004722966349904,
+    "job": 1.0111356997080705
+   },
+   {
+    "name": "Consumables Recovery",
+    "now": 0.8969072164948454,
+    "job": 0.8969072164948454
+   },
+   {
+    "name": "Installation Recovery",
+    "now": null,
+    "job": null
+   }
+  ]
+ }
+}

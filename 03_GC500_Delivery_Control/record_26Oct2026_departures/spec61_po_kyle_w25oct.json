@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 11:00 AEST: \"and this will be Kyle Week Ending 25/10/2026 4671825\" (one purchase order per person per week; Kyle's week on the record: 19-22 Oct days, 23-25 Oct nights, 78.78 h)",
+  "ops": [
+    {"op": "po", "number": "4671825", "supplier_name": "Job Connect", "stream": "labour", "what": "Kyle Gover - week ending 25 Oct 2026", "period": "w/e 25 Oct 2026", "branch": "KINP", "revenue_branch": "KINP", "confirmed": true}
+  ]
+}

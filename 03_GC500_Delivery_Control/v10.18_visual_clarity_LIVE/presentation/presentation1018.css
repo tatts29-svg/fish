@@ -1,0 +1,49 @@
+/* Author: Andrew Fisher. Native text and control edges stay sharp at every device pixel ratio. */
+@media screen {
+  /* Selection is persistent; the short independent halo only acknowledges activation. */
+  :where(button,a.btn,[role="button"],[role="tab"]):is([aria-pressed="true"],[aria-selected="true"],[aria-current="page"],.picked):not(:disabled) {
+    outline:2px solid var(--control-focus1012,var(--orange-ink,#9a3f0a));
+    outline-offset:2px;
+  }
+  /* Existing tab/day/picked/status glows keep their authored layers. Other
+     selected controls, checked labels and expanded disclosures gain a steady
+     edge glow; it has no animation and does not alter dimensions. */
+  :where(button,a.btn,[role="button"],[role="tab"]):is([aria-pressed="true"],[aria-selected="true"],[aria-current="page"]):not(:disabled):not(.picked,.day,.lb,.tickbtn,.sig,.mk):not(nav.tabs button),
+  :where(main,#drawer,dialog,[role="dialog"]) details[open] > summary,
+  :where(main,#drawer,dialog,[role="dialog"]) select:focus,
+  :where(main,#drawer,dialog,[role="dialog"]) input:is([type="checkbox"],[type="radio"]):checked,
+  :where(main,#drawer,dialog,[role="dialog"]) label:has(> input:is([type="checkbox"],[type="radio"]):checked):not(.lb),
+  :where(main,#drawer,dialog,[role="dialog"]) input:is([type="checkbox"],[type="radio"]):checked + label {
+    box-shadow:0 0 0 1px rgba(154,63,10,.55),0 0 9px 1px rgba(255,106,19,.3);
+  }
+  #pane-timeline .arrival943 > details > p > a {color:#9a3f0a;text-decoration:underline;text-underline-offset:2px}
+  nav.tabs {--control-focus1012:#ffb27a}
+  nav.tabs button[aria-selected="true"] {outline-offset:-3px;text-shadow:none}
+  :where(main,#drawer,dialog,[role="dialog"]) :is(a[href],summary,[role="button"],[role="tab"]):focus-visible {
+    outline:2px solid var(--control-focus1012,var(--orange-ink,#9a3f0a));
+    outline-offset:3px;
+  }
+  /* Tables contain working figures, not illuminated instrument lettering. */
+  .tblwrap :is(th,td), :where(main,#drawer,dialog) :is(input,select,textarea) {text-shadow:none}
+  .tblwrap .num {font-variant-numeric:tabular-nums lining-nums}
+  #interaction-halo1018 {
+    position:fixed;box-sizing:border-box;z-index:2147483000;
+    pointer-events:none!important;user-select:none;touch-action:none;
+    border:2px solid #ff9a4d;
+    box-shadow:0 0 0 1px #71300d,0 0 12px 3px rgba(255,106,19,.48);
+    background:transparent;contain:strict;opacity:1;
+  }
+  #interaction-halo1018[data-kind="selected"] {box-shadow:0 0 0 1px #71300d,0 0 15px 4px rgba(255,106,19,.5)}
+}
+@media print {#interaction-halo1018 {display:none!important}}
+@media screen and (max-width:700px) {
+  /* Small standalone phone actions measured 24–25px high. Keep their existing
+     flex rows and labels, with room for a reliable finger tap. */
+  #pane-plant .regviewsw .btn,
+  #pane-plant .eqtools .btn,
+  #pane-docs button.linkish.plateb,
+  #pane-docs li.hubrow.row815 > span.w > span.anos > button.linkish {
+    min-width:44px;
+    min-height:44px;
+  }
+}

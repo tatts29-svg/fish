@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Read-only standdown presentation/date/quantity/source review",
+  "reviewer": "Scoped collaborating agent",
+  "candidateSha256": "65bba5cb7477816d587cb72025ff256f2eb8c2dbc65eb4087dccc5ad49f4622a",
+  "findings": [],
+  "conclusion": "No blockers: shared calculations unchanged, per-unit rate and quantity-inclusive total, actual/planned start, inclusive end/days, zero/missing cases and duplicate-date suppression correct. Browser checks owned by root."
+}

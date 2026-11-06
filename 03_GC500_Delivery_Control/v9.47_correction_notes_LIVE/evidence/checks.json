@@ -1,0 +1,94 @@
+{
+  "author": "Andrew Fisher",
+  "pageSHA": "1974c9a7ae49b8768cf87490c2d6d59a2e7fdbe15eb2d169938431d1846401c4",
+  "results": [
+    {
+      "W": 1440,
+      "initial": {
+        "modern": true,
+        "recognised": true,
+        "folded": true,
+        "completeEvidence": true,
+        "reconstruction": true,
+        "rawLength": 3428,
+        "recordSame": true
+      },
+      "measure": {
+        "drawerOverflow": false,
+        "evidenceOverflow": false,
+        "readOnly": true,
+        "editableNoteVisible": false
+      },
+      "fallback": {
+        "whole": true,
+        "folds": 0
+      },
+      "edit": {
+        "fullValue": true,
+        "capturedWhole": true,
+        "storedSame": true,
+        "foldedEditor": false
+      },
+      "recordUnchanged": true,
+      "errors": [],
+      "warnings": [
+        "Allow attribute will take precedence over 'allowfullscreen'."
+      ],
+      "requests": {
+        "page": 1,
+        "live": 66,
+        "blocked": 1
+      }
+    },
+    {
+      "W": 390,
+      "initial": {
+        "modern": true,
+        "recognised": true,
+        "folded": true,
+        "completeEvidence": true,
+        "reconstruction": true,
+        "rawLength": 3428,
+        "recordSame": true
+      },
+      "measure": {
+        "drawerOverflow": false,
+        "evidenceOverflow": false,
+        "readOnly": true,
+        "editableNoteVisible": false
+      },
+      "fallback": {
+        "whole": true,
+        "folds": 0
+      },
+      "edit": {
+        "fullValue": true,
+        "capturedWhole": true,
+        "storedSame": true,
+        "foldedEditor": false
+      },
+      "recordUnchanged": true,
+      "errors": [],
+      "warnings": [
+        "Allow attribute will take precedence over 'allowfullscreen'."
+      ],
+      "requests": {
+        "page": 1,
+        "live": 66,
+        "blocked": 1
+      }
+    }
+  ],
+  "status": "READY for final integration; not published",
+  "modelChecks": 17,
+  "inlineScripts": 43,
+  "baseSHA": "c9142184568cf1311f709fecf077d2a923774df933abbede66ef2e2b871b4d7f",
+  "focusedBaseRelease": "9.41",
+  "finalBaseRelease": "9.46",
+  "independentSourceReview": "Passed: marker validation, plain text rendering, native details keyboard and unchanged editing",
+  "screenshotsInspected": [
+    390,
+    1440
+  ],
+  "operationalWrites": 0
+}

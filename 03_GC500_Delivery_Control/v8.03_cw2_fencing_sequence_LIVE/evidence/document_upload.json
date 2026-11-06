@@ -1,0 +1,42 @@
+{
+  "author": "Andrew Fisher",
+  "mode": "apply",
+  "name": "05_CW2_Fencing Installation Plan.pdf",
+  "title": "CW2 Fencing Installation Plan · 2 Oct 2026",
+  "kind": "map",
+  "operator": "Andrew Fisher via Codex",
+  "sha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "bytes": 1150492,
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/v1/createSession"
+    }
+  ],
+  "posts": [
+    {
+      "kind": "original",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "livePageSha256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+  "saved": {
+    "id": "05_CW2_Fencing_Installation_Plan.pdf",
+    "name": "05_CW2_Fencing Installation Plan.pdf",
+    "kind": "map",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "CW2 Fencing Installation Plan · 2 Oct 2026",
+    "note": null,
+    "bytes": 1150492,
+    "sha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+    "type": "application/pdf",
+    "uploaded": "2026-10-02T05:26:22.674Z",
+    "by": "Andrew Fisher via Codex"
+  },
+  "readbackSha256": "c6d7f4ec14d8853d4901a700c3328207265d18a53fcca626995c680699c5cbf0",
+  "operationalDocsUnchanged": true,
+  "outcome": "Original uploaded once and metadata/PDF checksum verified"
+}

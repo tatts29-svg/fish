@@ -1,0 +1,47 @@
+{
+  "author": "Andrew Fisher",
+  "release": "v7.84",
+  "verified_utc": "2026-10-01T20:29:22.019508+00:00",
+  "verified_aest": "2026-10-02T06:29:22.019508+10:00",
+  "page": {
+    "bytes": 8767811,
+    "sha256": "c9958a42085aef90aab8f7e81fdafddf6e49859669bf2b15fecff5818139a725"
+  },
+  "base": {
+    "release": "v7.83",
+    "sha256": "f654426216d6da4bee1c20958a4d37531dd76bbd4df791793b4b83729f33543e"
+  },
+  "machine": {
+    "ready": true,
+    "version": "v7.82-explorer-done-markers",
+    "label": "The Coates Way machine and GC500 map explorer",
+    "built": null,
+    "entry": "index.html",
+    "files": 219,
+    "bytes": 172170689,
+    "registered": "2026-10-01T19:23:19.329Z",
+    "sha256": "1436f85afdfe6d8da043a0b4d134eb8f054c9fe4a28c23d8c2103299ad25c490"
+  },
+  "record_version_before": 3527,
+  "record_version_after": 3527,
+  "record_writes": 0,
+  "real_messages_sent": 0,
+  "showcase": "unchanged; preview remains unpublished",
+  "checks": {
+    "static": "PASS",
+    "upload_dry_run": "PASS",
+    "fresh_base_guard": "PASS",
+    "independent_ways_in": {
+      "desktop": "10/10",
+      "phone": "10/10"
+    },
+    "independent_phone_visual": "PASS; 390 px viewport, zero overflow, zero page errors or attempted writes",
+    "implementation_regression": "Final c9958a42 handover at 335886e: current suites and both 21-tab/7-link sweeps pass; legacy v7.79 expectations documented as superseded"
+  },
+  "result": "PASS: public page byte for byte; machine manifest and record version unchanged",
+  "limits": [
+    "Phone viewport is emulated.",
+    "No SMS/MMS was sent.",
+    "Unanswered access decisions remain open."
+  ]
+}

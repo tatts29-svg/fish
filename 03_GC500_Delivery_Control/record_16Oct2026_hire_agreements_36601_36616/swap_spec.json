@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Hire agreement 36592 (The Hill - Monster CZ, 9 Oct 2026): the two copies were set aside the wrong way round on 16 Oct (record 6693 -> 6699). The corrected record is F-AFV-0035~2904 (137.5 m, 55 panels, 53 bases, 53 clamps: the single copy on the record at 6128 before the 14 Oct re-keying brought the old reading back as F-AFV-0035~1e26 at 132.5 m, 53 panels). Put the corrected copy back; set the old copy aside. Andrew, 16 Oct 2026: the duplicate was known and is being removed.",
+ "ops": [
+  {"op": "docket_putback", "docket_no": "36592", "id": "F-AFV-0035·2904", "why": "the corrected record (137.5 m, 55 panels), the single copy on the record before the 14 Oct re-keying"},
+  {"op": "docket_aside", "docket_no": "36592", "id": "F-AFV-0035·1e26", "why": "the old 9 Oct reading (132.5 m, 53 panels) that came back with the 14 Oct re-keying; the duplicate Andrew asked to remove"}
+ ]
+}

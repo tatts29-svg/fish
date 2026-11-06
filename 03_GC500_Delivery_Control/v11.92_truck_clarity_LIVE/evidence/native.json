@@ -1,0 +1,103 @@
+[
+  {
+    "name": "whole load fits exterior cameras across five viewport shapes and circuit positions",
+    "ok": true,
+    "detail": {
+      "samples": 550,
+      "failures": []
+    }
+  },
+  {
+    "name": "framing does not move a clear camera into scenery",
+    "ok": true,
+    "detail": {
+      "failures": []
+    }
+  },
+  {
+    "name": "moving truck stays framed through steering and body movement",
+    "ok": true,
+    "detail": {
+      "lost": 0,
+      "minRoll": -0.42082859936642314,
+      "maxRoll": 0.1667570459142956,
+      "maxFovStep": 2.4280792477784985,
+      "s": 1771.5838634488775,
+      "finite": true,
+      "distance": 1673.5600151424462
+    }
+  },
+  {
+    "name": "driver view keeps its cab perspective",
+    "ok": true
+  },
+  {
+    "name": "vehicle-neutral camera choices use existing controls",
+    "ok": true
+  },
+  {
+    "name": "phone-detail render is valid",
+    "ok": true
+  },
+  {
+    "name": "phone-front-bank render is valid",
+    "ok": true
+  },
+  {
+    "name": "desktop-detail-bank render is valid",
+    "ok": true
+  },
+  {
+    "name": "phone-clarity-bank render is valid",
+    "ok": true
+  },
+  {
+    "name": "4K clarity retains native resolution and four-sample smoothing",
+    "ok": true,
+    "detail": {
+      "version": "1.8",
+      "quality": "crisp",
+      "samples": 4,
+      "shadowMap": 2048,
+      "resolution": [
+        2160,
+        3267
+      ],
+      "facades": "recessed glass and concrete",
+      "ambientContact": false,
+      "carStyle": "solid",
+      "steppedDownTo": null,
+      "bloom": false,
+      "reflections": false,
+      "shadowOn": true,
+      "drawnAt": "4K clarity",
+      "resolutionLocked": true,
+      "antiAliasing": 4,
+      "nativeFinish": 1
+    }
+  },
+  {
+    "name": "existing towing option clears truck-only fit",
+    "ok": true
+  },
+  {
+    "name": "clean Close",
+    "ok": true
+  },
+  {
+    "name": "shared record unchanged",
+    "ok": true
+  },
+  {
+    "name": "zero page errors and writes",
+    "ok": true,
+    "detail": {
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 111,
+        "blocked": 0
+      }
+    }
+  }
+]

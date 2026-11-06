@@ -1,0 +1,36 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    "Three main players load and stop after one play; marker-size examples use static SVGs",
+    "Replay restarts visible main examples",
+    "Still view stops animation and disables replay",
+    "Three editable project downloads work",
+    "Phone fits 390px with offscreen animation paused",
+    "Marker-size SVGs fit their 44px boxes",
+    "System reduced motion settles all players without an override",
+    "Self-contained preview makes zero HTTP requests",
+    "All three native projects import into actual Creator and export exact layers"
+  ],
+  "errors": [],
+  "externalRequests": [
+    "https://gc500-production.up.railway.app/cdn-cgi/challenge-platform/scripts/jsd/main.js"
+  ],
+  "creator": [
+    {
+      "asset": "equipment-selected",
+      "layers": 10,
+      "actualEditorExportLayersExact": true
+    },
+    {
+      "asset": "equipment-complete",
+      "layers": 13,
+      "actualEditorExportLayersExact": true
+    },
+    {
+      "asset": "photo-saved",
+      "layers": 11,
+      "actualEditorExportLayersExact": true
+    }
+  ],
+  "previewExternalRequests": []
+}

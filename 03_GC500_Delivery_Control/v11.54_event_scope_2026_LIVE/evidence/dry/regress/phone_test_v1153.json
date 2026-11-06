@@ -1,0 +1,197 @@
+{
+ "at": "2026-10-23T02:42:28.615Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "the identity check runs: no failed check and no identity error; the fleet numbers on the record are counted (at least 30 received lines covered)",
+   "ok": true,
+   "detail": {
+    "fails": [],
+    "identityError": false,
+    "identities": {
+     "pending": 2,
+     "covered": 165
+    }
+   }
+  },
+  {
+   "name": "the asset-number question counts received units numbered and lists only the lines still short (under a dozen), the Pit Garage toilets with their numbers no longer among them",
+   "ok": true,
+   "detail": {
+    "st": "open",
+    "q": "2 received equipment lines still need fleet numbers",
+    "rows": [
+     "P34 · Pad Chair: 0 of 2 received units numbered; 2 still needed",
+     "GN24 · 60kva: 0 of 1 received units numbered; 1 still needed"
+    ],
+    "n": 2
+   }
+  },
+  {
+   "name": "the nine settled questions sit in Answered or history with their decision, the saved notes kept",
+   "ok": true,
+   "detail": [
+    {
+     "id": "fe-quote",
+     "st": "done",
+     "q": "Advanced’s fencing — paid on measured dockets, no lump-sum quote",
+     "note": true
+    },
+    {
+     "id": "fe-closure",
+     "st": "done",
+     "q": "Fence closures — the marks read, and drawn",
+     "note": true
+    },
+    {
+     "id": "fe-gap",
+     "st": "done",
+     "q": "Fencing on the record vs the plan — read against the programme",
+     "note": true
+    },
+    {
+     "id": "fe-rate-team_leader",
+     "st": "done",
+     "q": "Team leader — no separate customer rate",
+     "note": true
+    },
+    {
+     "id": "oi-R30",
+     "st": "done",
+     "q": "R30 - VMS plan VMS001-26003-01 — the plan governs",
+     "note": true
+    },
+    {
+     "id": "oi-R10",
+     "st": "done",
+     "q": "Office and lunchroom - pick-up 13 Nov",
+     "note": true
+    },
+    {
+     "id": "oi-R26",
+     "st": "done",
+     "q": "Generator \"028\" on drawing D024 - a reference note, not a generator",
+     "note": true
+    },
+    {
+     "id": "oi-R29",
+     "st": "done",
+     "q": "Fencing plan changes on 11 Sep - on the dockets",
+     "note": true
+    },
+    {
+     "id": "oi-TX03",
+     "st": "done",
+     "q": "Two buildings linked to two loads each - one movement each",
+     "note": true
+    }
+   ]
+  },
+  {
+   "name": "labour cost basis is Pending / later with the payroll words; it is not in Needs an answer",
+   "ok": true,
+   "detail": {
+    "st": "later",
+    "need": "The cost rate of 6 Coates staff on salary is a payroll figure finance supplies (the 30 Sep review left it blank); the la"
+   }
+  },
+  {
+   "name": "NVAC has no unpriced contract line: the four 9961976 lines carry their treatment at nought and the P&L counts no unrated line for them",
+   "ok": true,
+   "detail": {
+    "nvac": {
+     "st": "done",
+     "q": "NVAC — no unpriced contract lines remain"
+    },
+    "rows": [
+     {
+      "line": 37,
+      "status": "Pending",
+      "amount": 0,
+      "how": "Pending — no charge unless delivered",
+      "kind": "pending_no_charge"
+     },
+     {
+      "line": 41,
+      "status": "Delivered",
+      "amount": 0,
+      "how": "Inside the generator card rate",
+      "kind": "in_card_rate"
+     },
+     {
+      "line": 45,
+      "status": "Pending",
+      "amount": 0,
+      "how": "generator standdown",
+      "kind": "pending_no_charge"
+     },
+     {
+      "line": 47,
+      "status": "Delivered",
+      "amount": 0,
+      "how": "Inside the generator card rate",
+      "kind": "in_card_rate"
+     }
+    ],
+    "unknown": 0
+   }
+  },
+  {
+   "name": "Needs an answer is down to the questions the record cannot answer yet (at most three), none of them the settled ones",
+   "ok": true,
+   "detail": {
+    "open": [
+     "lb-nights-alfie-harris",
+     "sp-nums",
+     "sp-short"
+    ],
+    "later": [
+     "tr-miss-transport-only-the-loads-with-a-figure-are-in-loads-from-the",
+     "lb-rates"
+    ]
+   }
+  },
+  {
+   "name": "the tab says Questions reviewed · 23 Oct 2026 and the handle names the settled questions",
+   "ok": true,
+   "detail": {
+    "reviewed": true,
+    "handle": 9
+   }
+  },
+  {
+   "name": "the pane shows no \"checks didn’t run\" warning, its counts match (need ≤ 3, answered ≥ 50) and it reads 23 Oct 2026",
+   "ok": true,
+   "detail": {
+    "warn": false,
+    "counts": [
+     3,
+     2,
+     51
+    ]
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 58,
+    "blocked": 0
+   }
+  }
+ ]
+}

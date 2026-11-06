@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 25 Oct 2026: \"please add GN20 Back and all costs please add all this data back in\". GN20-A (the 350 kVA 1276701, added this morning for GN20, deleted in error) carries GN20's own dates on our record: complete 30 Sep 12:45, received with it, install labour 30 Sep 22:40 (its arrival already reads 30 Sep 07:23). The page's progress views are cut off at Fri 23 Oct, so with today's dates it read 0 received there. Then its quantity cleared and set to 1 again, the page's own way to take a fresh received/installed baseline. Nothing else changes.",
+ "ops": [
+  {
+   "op": "date_back",
+   "ref": "GN20-A",
+   "item": "350kva",
+   "disc": "Generators",
+   "done_at": "2026-09-30T02:45:42.687Z",
+   "supplied_at": "2026-09-30T02:45:42.687Z",
+   "install_at": "2026-09-30T12:40:02.909Z",
+   "why": "GN20's own dates on our record (complete 30 Sep 12:45, install 30 Sep 22:40), carried over from the deleted reference."
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": ""
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 1
+  }
+ ]
+}

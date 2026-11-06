@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (14:2x AEST): \"Wc60 toilets and tanks leave at 220pm\". WC60 holds two Coates 6 m toilet blocks (1119489, 1087500; ticked Ready 27 Oct; Brenden Meek's bookings for 5 Nov 12:00 on the record) and their two waste tanks (1328980, 1328981); read 14:25 AEST, none already left, so WC60 left in full at 14:20 AEST on Thu 5 Nov 2026. Recorded after 14:20, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC60",
+   "at": "2026-11-05T14:20:00+10:00",
+   "nos": [
+    "1119489",
+    "1087500",
+    "1328980",
+    "1328981"
+   ],
+   "complete": true
+  }
+ ]
+}

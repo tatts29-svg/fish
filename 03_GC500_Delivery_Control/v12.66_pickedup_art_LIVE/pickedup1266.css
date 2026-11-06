@@ -1,0 +1,23 @@
+/* Author: Andrew Fisher. Orange equipment; original green status stamp. */
+#pane-demob .stp1238 > .pickedup1266-art {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  width: 44%;
+  height: 92%;
+  max-width: none;
+  object-fit: contain;
+  opacity: .20;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 16%, #000 91%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 16%, #000 91%, transparent);
+}
+#pane-demob .stp1238 > .pickedup1266-art ~ * {
+  position: relative;
+  z-index: 1;
+}
+@media print {
+  #pane-demob .stp1238 > .pickedup1266-art { display: none; }
+}

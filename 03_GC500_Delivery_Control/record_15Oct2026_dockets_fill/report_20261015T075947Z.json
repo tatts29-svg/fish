@@ -1,0 +1,249 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T075947Z",
+ "finished": "2026-10-15T07:59:57.674Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "To run once v10.26 is live: its contract lines (Baseplan 15 Oct) carry these numbers on their references as the units, so the hand-made unit records and typed numbers for the same numbers would read as duplicates. Each is set aside (archived, who and when) and the line's own row stands, as it does for P52 and WC07. WC31 is left alone: its typed 1317645 would be hidden by a take-off tombstone on the line's row too.",
+  "ops": [
+   {
+    "op": "unit_archive",
+    "ref": "P63",
+    "no": "960719",
+    "why": "Baseplan line 121, Delivered"
+   },
+   {
+    "op": "unit_archive",
+    "ref": "P65",
+    "no": "1327217",
+    "why": "Baseplan line 110, Delivered"
+   },
+   {
+    "op": "unit_archive",
+    "ref": "P66",
+    "no": "1327222",
+    "why": "Baseplan line 113, Delivered"
+   }
+  ]
+ },
+ "pageSha256": "665f8d1b84c567181e4ba48882991c1f029643bb97904f087c38e9b6d7bed330",
+ "version": {
+  "before": 6562,
+  "after": 6568
+ },
+ "updated": {
+  "before": "2026-10-15T06:49:52.055Z",
+  "after": "2026-10-15T07:59:56.878Z"
+ },
+ "stage": [
+  {
+   "op": "unit_archive",
+   "ref": "P63",
+   "no": "960719",
+   "why": "Baseplan line 121, Delivered",
+   "result": "unit record set aside; 1 row left (Building 6m)"
+  },
+  {
+   "op": "unit_archive",
+   "ref": "P65",
+   "no": "1327217",
+   "why": "Baseplan line 110, Delivered",
+   "result": "unit record set aside; 1 row left (Building 6m)"
+  },
+  {
+   "op": "unit_archive",
+   "ref": "P66",
+   "no": "1327222",
+   "why": "Baseplan line 113, Delivered",
+   "result": "unit record set aside; 1 row left (Building 6m)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/loads~2f~unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/loads~2f~unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5": {
+    "_k": "loads/unit925/676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "v": "2026-10-13T22:30:05.272Z"
+   },
+   "stamps/loads~2f~unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180": {
+    "_k": "loads/unit925/337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "v": "2026-10-13T22:32:39.300Z"
+   },
+   "stamps/loads~2f~unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b": {
+    "_k": "loads/unit925/b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "v": "2026-10-14T21:22:44.825Z"
+   },
+   "loads/unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5": {
+    "ref": "P65",
+    "owner": "coates",
+    "assetNo": "1327217",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "nativeId": "slot:676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "transportId": "[\"P65\",\"coates\",\"native\",\"slot:676df1d3-87be-4375-9c4b-806f4d6f40b5\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-13T22:30:05.272Z",
+    "_k": "unit925/676df1d3-87be-4375-9c4b-806f4d6f40b5"
+   },
+   "loads/unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180": {
+    "ref": "P66",
+    "owner": "coates",
+    "assetNo": "1327222",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "nativeId": "slot:337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "transportId": "[\"P66\",\"coates\",\"native\",\"slot:337adc84-0cbc-47db-88bf-99ccbff5d180\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-13T22:32:39.300Z",
+    "_k": "unit925/337adc84-0cbc-47db-88bf-99ccbff5d180"
+   },
+   "loads/unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b": {
+    "ref": "P63",
+    "owner": "coates",
+    "assetNo": "960719",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "nativeId": "slot:b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "transportId": "[\"P63\",\"coates\",\"native\",\"slot:b5b2bac6-50c4-45d4-bed7-2e7879d6a02b\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-14T21:22:44.824Z",
+    "_k": "unit925/b5b2bac6-50c4-45d4-bed7-2e7879d6a02b"
+   }
+  },
+  "after": {
+   "stamps/loads~2f~unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5": {
+    "_k": "loads/unit925/676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "v": "2026-10-15T07:59:54.293Z"
+   },
+   "stamps/loads~2f~unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180": {
+    "_k": "loads/unit925/337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "v": "2026-10-15T07:59:54.678Z"
+   },
+   "stamps/loads~2f~unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b": {
+    "_k": "loads/unit925/b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "v": "2026-10-15T07:59:53.774Z"
+   },
+   "loads/unit925~2f~676df1d3-87be-4375-9c4b-806f4d6f40b5": {
+    "ref": "P65",
+    "owner": "coates",
+    "assetNo": "1327217",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "nativeId": "slot:676df1d3-87be-4375-9c4b-806f4d6f40b5",
+    "transportId": "[\"P65\",\"coates\",\"native\",\"slot:676df1d3-87be-4375-9c4b-806f4d6f40b5\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": false,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T07:59:54.293Z",
+    "suppressNative1006": false,
+    "removedBy": "Andrew Fisher",
+    "removedAt": "2026-10-15T07:59:54.293Z",
+    "_k": "unit925/676df1d3-87be-4375-9c4b-806f4d6f40b5"
+   },
+   "loads/unit925~2f~337adc84-0cbc-47db-88bf-99ccbff5d180": {
+    "ref": "P66",
+    "owner": "coates",
+    "assetNo": "1327222",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "nativeId": "slot:337adc84-0cbc-47db-88bf-99ccbff5d180",
+    "transportId": "[\"P66\",\"coates\",\"native\",\"slot:337adc84-0cbc-47db-88bf-99ccbff5d180\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": false,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T07:59:54.678Z",
+    "suppressNative1006": false,
+    "removedBy": "Andrew Fisher",
+    "removedAt": "2026-10-15T07:59:54.678Z",
+    "_k": "unit925/337adc84-0cbc-47db-88bf-99ccbff5d180"
+   },
+   "loads/unit925~2f~b5b2bac6-50c4-45d4-bed7-2e7879d6a02b": {
+    "ref": "P63",
+    "owner": "coates",
+    "assetNo": "960719",
+    "item": "Building 6m",
+    "label": "Building 6m",
+    "branch": "",
+    "note": "",
+    "kind": "unit925-record",
+    "uuid": "b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "nativeId": "slot:b5b2bac6-50c4-45d4-bed7-2e7879d6a02b",
+    "transportId": "[\"P63\",\"coates\",\"native\",\"slot:b5b2bac6-50c4-45d4-bed7-2e7879d6a02b\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": false,
+    "by": "Andrew Fisher",
+    "at": "2026-10-15T07:59:53.774Z",
+    "suppressNative1006": false,
+    "removedBy": "Andrew Fisher",
+    "removedAt": "2026-10-15T07:59:53.774Z",
+    "_k": "unit925/b5b2bac6-50c4-45d4-bed7-2e7879d6a02b"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

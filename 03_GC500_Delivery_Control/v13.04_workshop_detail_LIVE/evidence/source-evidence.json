@@ -1,0 +1,53 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifest": "380d057f6eee18c948c29741a0ab5d431801ff7f796fef9b5c158170214c5c98",
+  "dashboardBaseSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "releaseScopeSha256": "71437f3f9ce3966f19c67861df45f9ec1e4683d5c16be50e444c639b597c09a8",
+  "files": {
+    "car-app.js": {
+      "base": "585deb2b5eea6ccc2d9464cbb60cdc7a29afdd1e9c02cd0ad62bd26a2930c3f2",
+      "sha256": "c97d5589d82f56ce704bb76a57a38ec544268c592cada66380a156384306c9d9",
+      "bytes": 153509
+    },
+    "index.html": {
+      "base": "83bc23b84c2cb2c215f464502093af4267a39d99e8c988af2905395048225c09",
+      "sha256": "7450008a101546f896ceffebb59139511e77e08ddbdd3ab42205b47e79c05bdb",
+      "bytes": 11531
+    },
+    "workshop-finish.js": {
+      "base": "9147ba92af3ea69ba5f195f88203f9c658ad9e28db2fad538933f5bfadeb510d",
+      "sha256": "1c8ed4e06a3d456167fda5220f13ad924663927789cc59213864848d8b6a86db",
+      "bytes": 17851
+    },
+    "workshop-lessons.js": {
+      "base": "5eea0fa89248b6eec23056ec492278a5f699898236a78c2e779d88357e8836a6",
+      "sha256": "f8cea22ad2f8a7554efd855e5918a66966aaa839e7dafa18b6e45a2301b388dd",
+      "bytes": 21271
+    },
+    "workshop-mechanic.js": {
+      "base": "5b6540c9298ea63fc54a9614f7376e3b656da1c44260b8ffaf06ed2d560789d7",
+      "sha256": "c0163dac3fbb8c6584050852ff469316d34bc745f1d835d99671cf58d57a82b8",
+      "bytes": 25487
+    },
+    "workshop-render.js": {
+      "base": null,
+      "sha256": "b3261db78f89718c22dc6cfc5f41484b9a4d5cd20d7c98ec57515d0d803cf33a",
+      "bytes": 7695
+    },
+    "workshop-service.js": {
+      "base": "b80c1309bced31e8e4d7492f1fe2da7627aedb5b0b795c80123eb1ad2010209e",
+      "sha256": "e894be3e3c249b611f1969b92097374d9dc6be3266a13b0fd5336888eab35319",
+      "bytes": 21974
+    },
+    "workshop-showcase.js": {
+      "base": "f21572ad60df42c8851fa0d7b47a091984d0cc450647e8bbeee949f0d862c953",
+      "sha256": "fcbda2df66dd57212cdab4797b862394d0e6f9bd2d822c6b564a0c83b082bd01",
+      "bytes": 14025
+    },
+    "workshop-ui.js": {
+      "base": "3b9f7fdef33e2537afea0c5bee5137227d32daa32fc57f1055b468b3b22a4a74",
+      "sha256": "f16a46418e99856757ba1cf8d5750c2a5ac5351bf59e289a7b7d321240c79797",
+      "bytes": 29060
+    }
+  }
+}

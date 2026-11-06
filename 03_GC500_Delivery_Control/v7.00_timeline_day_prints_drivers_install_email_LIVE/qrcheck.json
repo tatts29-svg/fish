@@ -1,0 +1,943 @@
+{
+ "summary": {
+  "GC500_Driver_2026-09-28.pdf": {
+   "pages": 7,
+   "codes": 28,
+   "decoded_ok": 28,
+   "by_kind": {
+    "navigate": 9,
+    "unload": 7,
+    "transport": 4,
+    "pretransit": 4,
+    "hs81": 4
+   }
+  },
+  "GC500_Driver_2026-10-07.pdf": {
+   "pages": 13,
+   "codes": 47,
+   "decoded_ok": 47,
+   "by_kind": {
+    "navigate": 13,
+    "unload": 13,
+    "transport": 7,
+    "pretransit": 7,
+    "hs81": 7
+   }
+  },
+  "GC500_Installer_2026-09-28.pdf": {
+   "pages": 7,
+   "codes": 23,
+   "decoded_ok": 23,
+   "by_kind": {
+    "navigate": 9,
+    "pbt": 7,
+    "unload": 7
+   }
+  },
+  "GC500_Installer_2026-10-07.pdf": {
+   "pages": 13,
+   "codes": 39,
+   "decoded_ok": 39,
+   "by_kind": {
+    "navigate": 13,
+    "pbt": 13,
+    "unload": 13
+   }
+  }
+ },
+ "pages": {
+  "GC500_Driver_2026-09-28.pdf": [
+   {
+    "page": 1,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984590,153.427601&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 2,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984640,153.427550&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 3,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984541,153.427654&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 4,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.985974,153.426924&travelmode=driving"
+     },
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983425,153.425250&travelmode=driving"
+     },
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983295,153.424824&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 5,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984233,153.427739&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 6,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984821,153.426070&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 7,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986363,153.427238&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   }
+  ],
+  "GC500_Driver_2026-10-07.pdf": [
+   {
+    "page": 1,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983572,153.424180&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 2,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981311,153.424032&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 3,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981318,153.423936&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 4,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 5,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981305,153.423889&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 6,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981319,153.424194&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 7,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981235,153.423761&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 8,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     },
+     {
+      "kind": "transport",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Safe_Transport_of_Portable_Buildings.pdf"
+     },
+     {
+      "kind": "pretransit",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/Site_Accommodation_Pre-Transit_Checklist_Work_Instruction.pdf"
+     },
+     {
+      "kind": "hs81",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/HS_81_Portable_Buildings_-_Guidance_Sheet_for_Lifting_Portable_Buildings.pdf"
+     }
+    ]
+   },
+   {
+    "page": 9,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983631,153.424238&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 10,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983559,153.423886&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 11,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983644,153.424458&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 12,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984129,153.429805&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 13,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.987660,153.428216&travelmode=driving"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   }
+  ],
+  "GC500_Installer_2026-09-28.pdf": [
+   {
+    "page": 1,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984590,153.427601&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 2,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984640,153.427550&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 3,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984541,153.427654&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 4,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.985974,153.426924&travelmode=driving"
+     },
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983425,153.425250&travelmode=driving"
+     },
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983295,153.424824&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 5,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984233,153.427739&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 6,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984821,153.426070&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 7,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.986363,153.427238&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   }
+  ],
+  "GC500_Installer_2026-10-07.pdf": [
+   {
+    "page": 1,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983572,153.424180&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 2,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981311,153.424032&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 3,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981318,153.423936&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 4,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981347,153.423803&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 5,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981305,153.423889&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 6,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981319,153.424194&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 7,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.981235,153.423761&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 8,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.987468,153.428179&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 9,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983631,153.424238&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 10,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983559,153.423886&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 11,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.983644,153.424458&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 12,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.984129,153.429805&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   },
+   {
+    "page": 13,
+    "codes": [
+     {
+      "kind": "navigate",
+      "ok": true,
+      "url": "https://www.google.com/maps/dir/?api=1&destination=-27.987660,153.428216&travelmode=driving"
+     },
+     {
+      "kind": "pbt",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Portable_Buildings_and_Toilets.pdf"
+     },
+     {
+      "kind": "unload",
+      "ok": true,
+      "url": "https://gc500-production.up.railway.app/f/Coates-GC500-2026/GC500_SWMS_-_Loading_and_Unloading_at_Third_Party_Sites.pdf"
+     }
+    ]
+   }
+  ]
+ }
+}

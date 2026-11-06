@@ -1,0 +1,153 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "before and after are actual public reads",
+      "pass": true
+    },
+    {
+      "name": "both reads have no errors or write attempts",
+      "pass": true
+    },
+    {
+      "name": "both reads leave native data unchanged",
+      "pass": true
+    },
+    {
+      "name": "native version advances for authorised update",
+      "pass": true
+    },
+    {
+      "name": "rate cards and entered rates unchanged",
+      "pass": true
+    },
+    {
+      "name": "every source contract row unchanged",
+      "pass": true
+    },
+    {
+      "name": "every current contract charge amount unchanged",
+      "pass": true
+    },
+    {
+      "name": "all actual customer charges unchanged",
+      "pass": true
+    },
+    {
+      "name": "all current customer charge categories unchanged",
+      "pass": true
+    },
+    {
+      "name": "all recorded Direct costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "unposted card transport comparison grows only with planned scope",
+      "pass": true
+    },
+    {
+      "name": "P&L current revenue and Direct cost unchanged",
+      "pass": true
+    },
+    {
+      "name": "all P&L actual ledger amounts unchanged",
+      "pass": true
+    },
+    {
+      "name": "rehire forecast equals independently extended source rates",
+      "pass": true
+    },
+    {
+      "name": "install forecast equals independently extended source rates",
+      "pass": true
+    },
+    {
+      "name": "transport forecast equals independently extended source rates",
+      "pass": true
+    },
+    {
+      "name": "other forecast revenue ledgers unchanged",
+      "pass": true
+    },
+    {
+      "name": "job revenue increases by six units once",
+      "pass": true
+    },
+    {
+      "name": "Costs forecast agrees with P&L",
+      "pass": true
+    },
+    {
+      "name": "supplier Direct-cost job forecast unchanged",
+      "pass": true
+    },
+    {
+      "name": "WC09 received charges and mixed-item quantities unchanged",
+      "pass": true
+    },
+    {
+      "name": "WC09 supplier entry and physical identities unchanged",
+      "pass": true
+    },
+    {
+      "name": "six FWF are remaining in supplier fulfilment",
+      "pass": true
+    },
+    {
+      "name": "dated supplier receipts unchanged",
+      "pass": true
+    },
+    {
+      "name": "generator pricing and input rows unchanged",
+      "pass": true
+    },
+    {
+      "name": "fencing and source-approved supplier pricing unchanged",
+      "pass": true
+    },
+    {
+      "name": "before pl reconciles",
+      "pass": true
+    },
+    {
+      "name": "before branch reconciles",
+      "pass": true
+    },
+    {
+      "name": "before finance reconciles",
+      "pass": true
+    },
+    {
+      "name": "after pl reconciles",
+      "pass": true
+    },
+    {
+      "name": "after branch reconciles",
+      "pass": true
+    },
+    {
+      "name": "after finance reconciles",
+      "pass": true
+    },
+    {
+      "name": "contract split is four received and six planned",
+      "pass": true
+    },
+    {
+      "name": "planned hire has one EP Rehire allocation to KINP",
+      "pass": true
+    },
+    {
+      "name": "all branch actual revenues unchanged",
+      "pass": true
+    },
+    {
+      "name": "additional customer forecast assigned once to KINP",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "beforeVersion": 6075,
+  "afterVersion": 6078,
+  "source": "Actual public browser captures; every operational write blocked"
+}

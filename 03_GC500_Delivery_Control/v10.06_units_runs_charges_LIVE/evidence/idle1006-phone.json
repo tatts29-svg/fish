@@ -1,0 +1,154 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T08:29:34.753Z",
+  "viewport": "phone",
+  "checks": [
+    {
+      "name": "Background callback keeps add-unit fold open",
+      "pass": true
+    },
+    {
+      "name": "Unfocused asset number survives background redraw",
+      "pass": true
+    },
+    {
+      "name": "Unsubmitted name and note survive background redraw",
+      "pass": true
+    },
+    {
+      "name": "Existing item details remain expanded",
+      "pass": true
+    },
+    {
+      "name": "Open gallery remains open",
+      "pass": true
+    },
+    {
+      "name": "Drawer and body scroll retained",
+      "pass": true
+    },
+    {
+      "name": "Background refresh neither closes drawer nor replaces document",
+      "pass": true
+    },
+    {
+      "name": "Photo outbox refresh keeps unit draft and fold",
+      "pass": true
+    },
+    {
+      "name": "Photo registry refresh keeps unit draft and fold",
+      "pass": true
+    },
+    {
+      "name": "Native 20-second reports polling refresh keeps unit draft and fold",
+      "pass": true
+    },
+    {
+      "name": "Name-only focused field and selection survive",
+      "pass": true
+    },
+    {
+      "name": "Explicit local redraw still resets successful-add form",
+      "pass": true
+    },
+    {
+      "name": "Untouched name-only field keeps focus without restoring old values",
+      "pass": true
+    },
+    {
+      "name": "Presentation refresh changes no native record",
+      "pass": true
+    },
+    {
+      "name": "Dirty draft preserves note through remote field change",
+      "pass": true
+    },
+    {
+      "name": "Clean field receives the newer remote value",
+      "pass": true
+    },
+    {
+      "name": "Native stale-write guard retains both original tokens",
+      "pass": true
+    },
+    {
+      "name": "Changed item gives a concise reopening instruction",
+      "pass": true
+    },
+    {
+      "name": "A removed form is not resurrected",
+      "pass": true
+    },
+    {
+      "name": "A closed drawer is not reopened",
+      "pass": true
+    },
+    {
+      "name": "Capture of closed drawer is empty",
+      "pass": true
+    },
+    {
+      "name": "Dirty transport amount and note survive remote refresh",
+      "pass": true
+    },
+    {
+      "name": "Untouched transport amount accepts remote value",
+      "pass": true
+    },
+    {
+      "name": "Transport fold stays open",
+      "pass": true
+    },
+    {
+      "name": "Transport original expected and source tokens remain for stale guard",
+      "pass": true
+    },
+    {
+      "name": "Stale transport draft gives charge-specific reopening instruction",
+      "pass": true
+    },
+    {
+      "name": "Transport draft never restores into a unit form with identical ref/doc",
+      "pass": true
+    },
+    {
+      "name": "GN20 unchanged-source redraw keeps dirty rates explicitly unsaved",
+      "pass": true
+    },
+    {
+      "name": "GN20 native transport editor survives background redraw",
+      "pass": true
+    },
+    {
+      "name": "GN20 native editor remains open with original concurrency tokens",
+      "pass": true
+    },
+    {
+      "name": "GN20 native editor makes stale scope explicit",
+      "pass": true
+    },
+    {
+      "name": "GN20 native save rejects retained stale source without recording rates",
+      "pass": true
+    },
+    {
+      "name": "GN20 shared view cannot save a transport rate",
+      "pass": true
+    },
+    {
+      "name": "No horizontal overflow on phone",
+      "pass": true
+    },
+    {
+      "name": "No page errors or attempted operational writes",
+      "pass": true
+    }
+  ],
+  "nativeUnchanged": true,
+  "errors": [],
+  "counts": {
+    "page": 1,
+    "live": 67,
+    "blocked": 0
+  }
+}

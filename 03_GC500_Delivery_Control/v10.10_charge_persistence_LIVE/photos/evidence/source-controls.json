@@ -1,0 +1,76 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Original equipment data unchanged",
+      "pass": true
+    },
+    {
+      "name": "Other item photo/quantity model unchanged",
+      "pass": true
+    },
+    {
+      "name": "One-document photo read/write/tombstone functions unchanged",
+      "pass": true
+    },
+    {
+      "name": "Durable outbox functions unchanged",
+      "pass": true
+    },
+    {
+      "name": "Original remove-link path unchanged",
+      "pass": true
+    },
+    {
+      "name": "Physical-unit model unchanged",
+      "pass": true
+    },
+    {
+      "name": "Physical photo aliases and identity unchanged",
+      "pass": true
+    },
+    {
+      "name": "Existing individual photo guard unchanged",
+      "pass": true
+    },
+    {
+      "name": "Typed quantity source unchanged",
+      "pass": true
+    },
+    {
+      "name": "No new collection or native setter",
+      "pass": true
+    },
+    {
+      "name": "FWF always has one photo path and keeps individual details",
+      "pass": true
+    },
+    {
+      "name": "Other item photo controls preserved",
+      "pass": true
+    },
+    {
+      "name": "Aggregated photos not repeated under unassigned",
+      "pass": true
+    },
+    {
+      "name": "Native upload revalidates FWF group after image processing",
+      "pass": true
+    },
+    {
+      "name": "Original caption editor and photo tools remain",
+      "pass": true
+    },
+    {
+      "name": "Repeated patch refused",
+      "pass": true
+    },
+    {
+      "name": "Every inline script parses",
+      "pass": true
+    }
+  ],
+  "base": "60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b",
+  "standaloneCandidate": "7154b512616da1c0e3abf5f4afac5070df38ad10d72ac12d9709f4cfb0cccb16"
+}

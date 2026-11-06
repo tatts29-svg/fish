@@ -1,0 +1,190 @@
+[
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "zoom_fencingOff",
+  "raf": {
+   "n": 189,
+   "mean": 20.11,
+   "p50": 16.7,
+   "p95": 33.4,
+   "max": 66.6,
+   "over50": 2,
+   "over33": 32
+  },
+  "draw": {
+   "n": 156,
+   "mean": 2.12,
+   "p50": 0.5,
+   "p95": 6.3,
+   "max": 42.4,
+   "over50": 0,
+   "over33": 5
+  },
+  "fencePaint": {
+   "n": 0
+  },
+  "fencePaintTotalMs": 0,
+  "canvasResizes": 2,
+  "light": {
+   "moving": false,
+   "next": true
+  },
+  "taskMs": 2957
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "pan_fencingOff",
+  "raf": {
+   "n": 138,
+   "mean": 17.63,
+   "p50": 16.7,
+   "p95": 16.7,
+   "max": 133.3,
+   "over50": 1,
+   "over33": 2
+  },
+  "draw": {
+   "n": 44,
+   "mean": 2.71,
+   "p50": 0.5,
+   "p95": 20.7,
+   "max": 33.6,
+   "over50": 0,
+   "over33": 1
+  },
+  "fencePaint": {
+   "n": 0
+  },
+  "fencePaintTotalMs": 0,
+  "canvasResizes": 2,
+  "light": {
+   "moving": false,
+   "next": true
+  },
+  "taskMs": 840
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "zoom_fencingOn",
+  "raf": {
+   "n": 208,
+   "mean": 17.07,
+   "p50": 16.7,
+   "p95": 16.8,
+   "max": 33.4,
+   "over50": 0,
+   "over33": 5
+  },
+  "draw": {
+   "n": 172,
+   "mean": 0.9,
+   "p50": 0.3,
+   "p95": 1,
+   "max": 35,
+   "over50": 0,
+   "over33": 1
+  },
+  "fencePaint": {
+   "n": 173,
+   "mean": 0.53,
+   "p50": 0.5,
+   "p95": 1,
+   "max": 2.9,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 91.8,
+  "canvasResizes": 2,
+  "light": {
+   "moving": false,
+   "next": true
+  },
+  "taskMs": 1828
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "pan_fencingOn",
+  "raf": {
+   "n": 151,
+   "mean": 17.22,
+   "p50": 16.7,
+   "p95": 16.8,
+   "max": 33.4,
+   "over50": 0,
+   "over33": 5
+  },
+  "draw": {
+   "n": 40,
+   "mean": 3.4,
+   "p50": 0.5,
+   "p95": 30.2,
+   "max": 35.9,
+   "over50": 0,
+   "over33": 1
+  },
+  "fencePaint": {
+   "n": 41,
+   "mean": 0.76,
+   "p50": 0.7,
+   "p95": 1.2,
+   "max": 2.8,
+   "over50": 0,
+   "over33": 0
+  },
+  "fencePaintTotalMs": 31.3,
+  "canvasResizes": 2,
+  "light": {
+   "moving": false,
+   "next": true
+  },
+  "taskMs": 720
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "stuckPointer",
+  "tapped": true,
+  "selected": "cw3-p11-x53-median-south-red-run",
+  "mapFollowedMouse": false,
+  "pointersLeft": 0,
+  "gestureLeft": false
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "escapePressesToCloseFencing",
+  "pick": true,
+  "presses": 1,
+  "closed": true
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "hidden10s",
+  "taskMs": 280,
+  "doneCalls": 0,
+  "snapCalls": 0,
+  "framesDrawn": 0,
+  "parked": false,
+  "frameLogLen": 512
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "fencingIdle10s",
+  "taskMs": 122,
+  "snapCalls": 0
+ },
+ {
+  "tag": "v887",
+  "device": "phone",
+  "measure": "errors",
+  "pageErrors": 0,
+  "blocked": 0,
+  "local": 7
+ }
+]

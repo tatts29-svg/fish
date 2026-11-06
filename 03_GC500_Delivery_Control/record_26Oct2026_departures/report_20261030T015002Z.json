@@ -1,0 +1,240 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T015002Z",
+ "finished": "2026-10-30T01:50:31.903Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 30 Oct 2026 11:3x AEST: \"Aircon container left 1130am\"; run 85 read that as T0023, the EAGS event container, and recorded it left at 11:30. Andrew, 11:4x: \"Recrigertor building it should be u should have a record do you not\" - the container that left was T0266, the 6.0m Refrigerator Container (run 87). T0023 did not leave: its departure of 11:32 (collection 461895df...) is withdrawn, the light back on site since 15 Sep, Complete and Levelled back on as they were. Applied only if the dry run shows the P&L unchanged.",
+  "ops": [
+   {
+    "op": "collection_withdraw",
+    "ref": "T0023",
+    "id": "461895df-2536-43f8-8abb-ba223fa69fe9",
+    "why": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn"
+   }
+  ]
+ },
+ "pageSha256": "ddd1bd7adaf8c9a3749404829d01493c7373e67a43762b8391a1568cf239ba90",
+ "version": {
+  "before": 12134,
+  "after": 12135
+ },
+ "updated": {
+  "before": "2026-10-30T01:48:33.035Z",
+  "after": "2026-10-30T01:50:30.957Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1011691.46,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 455995.07,
+   "difference": 555696.39,
+   "branches": {
+    "KINP": 284587.62,
+    "STPS": 79773.44,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "collection_withdraw",
+   "ref": "T0023",
+   "id": "461895df-2536-43f8-8abb-ba223fa69fe9",
+   "why": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn",
+   "result": "withdrew the departure 2026-10-30T11:30:00+10:00 (entered 2026-10-30T01:32:03.637Z); T0023 back on site since 2026-09-15T07:15:31.323Z"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0023",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0023": {
+    "state": "in transit",
+    "set_at": "2026-10-30T01:32:03.637Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-30T01:32:03.637Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-30T01:32:03.637Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:15:31.323Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-30T01:32:03.637Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "461895df-2536-43f8-8abb-ba223fa69fe9",
+       "date": "2026-10-30",
+       "departedAt1211": "2026-10-30T11:30:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:15:31.323Z",
+       "requiredKey": "[[\"event container\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Event Container",
+         "n": 1,
+         "unitIds": [
+          "[\"T0023\",\"coates\",\"asset\",\"1257261\"]"
+         ],
+         "numbers": [
+          "1257261"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0023\",\"coates\",\"asset\",\"1257261\"]",
+           "number": "1257261",
+           "owner": "coates",
+           "item": "Event Container"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:41.952Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-30T01:32:03.637Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:53:03.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-30T01:32:03.637Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "loading872": {
+     "u1257261": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:10.993Z"
+     }
+    },
+    "_k": "T0023"
+   }
+  },
+  "after": {
+   "delivery/T0023": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:15:31.323Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:53:03.232Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:18:41.952Z",
+    "eta": "12:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:15:31.323Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:18:41.952Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:53:03.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1257261": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:42:10.993Z"
+     }
+    },
+    "withdrawn1211": [
+     {
+      "id": "461895df-2536-43f8-8abb-ba223fa69fe9",
+      "departedAt": "2026-10-30T11:30:00+10:00",
+      "entryAt": "2026-10-30T01:32:03.637Z",
+      "why": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn",
+      "at": "2026-10-30T01:50:18.788Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "note": "Andrew Fisher, 30 Oct 2026: the aircon container that left at 11:30 was the refrigerator container T0266, not this one; departure withdrawn",
+    "_k": "T0023"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

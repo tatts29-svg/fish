@@ -1,0 +1,1300 @@
+{
+  "author": "Andrew Fisher",
+  "suite": "machine1305",
+  "viewport": "desktop",
+  "passed": true,
+  "checks": [
+    {
+      "name": "machine initialises",
+      "pass": true
+    },
+    {
+      "name": "bench opens supported engine with selection enabled",
+      "pass": true
+    },
+    {
+      "name": "Space in bench controls does not start the hidden refit action",
+      "pass": true
+    },
+    {
+      "name": "desktop bench keeps its sidebar location",
+      "pass": true
+    },
+    {
+      "name": "component selector reaches the registered alternator",
+      "pass": true
+    },
+    {
+      "name": "compact hand crank changes actual engine angle",
+      "pass": true
+    },
+    {
+      "name": "cycle retains its fixed component and rejects picking",
+      "pass": true
+    },
+    {
+      "name": "cycle keyboard input still drives the actual lesson",
+      "pass": true
+    },
+    {
+      "name": "isolated component selection remains available",
+      "pass": true
+    },
+    {
+      "name": "rotation controls retain the actual isolated part",
+      "pass": true
+    },
+    {
+      "name": "reduced motion settles manual inspection without flight",
+      "pass": true
+    },
+    {
+      "name": "workshop Home remains enabled",
+      "pass": true
+    },
+    {
+      "name": "native Home returns to workshop overview without changing service position",
+      "pass": true
+    },
+    {
+      "name": "Lift returns from the bench without changing service position",
+      "pass": true
+    },
+    {
+      "name": "Lift restores the actual refit control",
+      "pass": true
+    },
+    {
+      "name": "native refit starts reverse service motion",
+      "pass": true
+    },
+    {
+      "name": "native refit can be paused before exit",
+      "pass": true
+    },
+    {
+      "name": "exit restores layout and cancels inspection flight",
+      "pass": true
+    },
+    {
+      "name": "inspection native suite starts outside the workshop",
+      "pass": true
+    },
+    {
+      "name": "manual Inspect starts an actual camera transition",
+      "pass": true
+    },
+    {
+      "name": "manual inspection camera settles at a new finite view",
+      "pass": true
+    },
+    {
+      "name": "inspection lighting reuses original lights and quality settings",
+      "pass": true
+    },
+    {
+      "name": "tap fixture leaves a different selection under the native close view",
+      "pass": true
+    },
+    {
+      "name": "visible registered component has a real canvas tap target",
+      "pass": true
+    },
+    {
+      "name": "native tap selects the actual registered component",
+      "pass": true
+    },
+    {
+      "name": "selection follows depth-tested component geometry",
+      "pass": true
+    },
+    {
+      "name": "native orbit drag never selects another component",
+      "pass": true
+    },
+    {
+      "name": "native exit restores original lights and exposure exactly",
+      "pass": true
+    },
+    {
+      "name": "inspection suite restores the original machine controls",
+      "pass": true
+    },
+    {
+      "name": "normal animation loop reaches paused workshop idle",
+      "pass": true
+    },
+    {
+      "name": "native input invalidation is followed by an actual draw",
+      "pass": true
+    },
+    {
+      "name": "native crank draws the new pose and shadow",
+      "pass": true
+    },
+    {
+      "name": "native rotation draws the new pose and shadow",
+      "pass": true
+    },
+    {
+      "name": "native exit restores normal drawing mode",
+      "pass": true
+    },
+    {
+      "name": "workshop button present",
+      "pass": true
+    },
+    {
+      "name": "enter",
+      "pass": true
+    },
+    {
+      "name": "actual engine assembly",
+      "pass": true
+    },
+    {
+      "name": "drive locked",
+      "pass": true
+    },
+    {
+      "name": "no cockpit or suspension lifted",
+      "pass": true
+    },
+    {
+      "name": "existing dock kept out of preview",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.075",
+      "pass": true
+    },
+    {
+      "name": "tool reaches original hose clamp",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.53",
+      "pass": true
+    },
+    {
+      "name": "mechanic stays clear of moving load",
+      "pass": true
+    },
+    {
+      "name": "original mechanic posed 0.86",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.5304",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.5304",
+      "pass": true
+    },
+    {
+      "name": "finite pose 0.66",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 0.66",
+      "pass": true
+    },
+    {
+      "name": "finite pose 1",
+      "pass": true
+    },
+    {
+      "name": "rendered stage 1",
+      "pass": true
+    },
+    {
+      "name": "close inspection available",
+      "pass": true
+    },
+    {
+      "name": "overview restored",
+      "pass": true
+    },
+    {
+      "name": "engine lifts vertically",
+      "pass": true
+    },
+    {
+      "name": "engine traverses",
+      "pass": true
+    },
+    {
+      "name": "engine lowers to cradle",
+      "pass": true
+    },
+    {
+      "name": "play advances",
+      "pass": true
+    },
+    {
+      "name": "pause holds",
+      "pass": true
+    },
+    {
+      "name": "clamps progress",
+      "pass": true
+    },
+    {
+      "name": "conflicting keyboard paths blocked",
+      "pass": true
+    },
+    {
+      "name": "no horizontal document overflow",
+      "pass": true
+    },
+    {
+      "name": "panel within viewport",
+      "pass": true
+    },
+    {
+      "name": "exit releases drive lock",
+      "pass": true
+    },
+    {
+      "name": "original dock restored",
+      "pass": true
+    },
+    {
+      "name": "crew upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "finish upgrade installed",
+      "pass": true
+    },
+    {
+      "name": "bench opens supported engine",
+      "pass": true
+    },
+    {
+      "name": "fault buttons hidden until challenge",
+      "pass": true
+    },
+    {
+      "name": "bench controls enabled",
+      "pass": true
+    },
+    {
+      "name": "all 16 components available",
+      "pass": true
+    },
+    {
+      "name": "manual crank turns 45 degrees",
+      "pass": true
+    },
+    {
+      "name": "oil route shown",
+      "pass": true
+    },
+    {
+      "name": "flow summary key preserves bench",
+      "pass": true
+    },
+    {
+      "name": "coolant limitation clear",
+      "pass": true
+    },
+    {
+      "name": "timing-belt fault starts",
+      "pass": true
+    },
+    {
+      "name": "timing-belt cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "timing-belt inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "timing-belt repaired",
+      "pass": true
+    },
+    {
+      "name": "oil-pump fault starts",
+      "pass": true
+    },
+    {
+      "name": "oil-pump cannot repair before inspection",
+      "pass": true
+    },
+    {
+      "name": "oil-pump inspection identifies fault",
+      "pass": true
+    },
+    {
+      "name": "oil-pump repaired",
+      "pass": true
+    },
+    {
+      "name": "bench no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "four-stroke lesson active",
+      "pass": true
+    },
+    {
+      "name": "actual phase intake",
+      "pass": true
+    },
+    {
+      "name": "actual phase compression",
+      "pass": true
+    },
+    {
+      "name": "actual phase power",
+      "pass": true
+    },
+    {
+      "name": "actual phase exhaust",
+      "pass": true
+    },
+    {
+      "name": "cycle play explicitly advances",
+      "pass": true
+    },
+    {
+      "name": "isolated original-model component rotates",
+      "pass": true
+    },
+    {
+      "name": "connection reference visible",
+      "pass": true
+    },
+    {
+      "name": "wide component fits above controls",
+      "pass": true
+    },
+    {
+      "name": "refit closes bench first",
+      "pass": true
+    },
+    {
+      "name": "refit moves towards car",
+      "pass": true
+    },
+    {
+      "name": "tour starts explicitly",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.1",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.35",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.57",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.7",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.82",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.98",
+      "pass": true
+    },
+    {
+      "name": "tour seeks 0.12",
+      "pass": true
+    },
+    {
+      "name": "tour resume advances",
+      "pass": true
+    },
+    {
+      "name": "orbit pauses tour",
+      "pass": true
+    },
+    {
+      "name": "manual lesson takes over tour without losing mode",
+      "pass": true
+    },
+    {
+      "name": "manual isolation takes over tour",
+      "pass": true
+    },
+    {
+      "name": "refit direction survives tour handoff",
+      "pass": true
+    },
+    {
+      "name": "exit tour keeps workshop under manual control",
+      "pass": true
+    },
+    {
+      "name": "reduced motion preference applied",
+      "pass": true
+    },
+    {
+      "name": "fault exit restores engine and releases lock",
+      "pass": true
+    },
+    {
+      "name": "cockpit view still works",
+      "pass": true
+    },
+    {
+      "name": "actual complete engine fits the inspection view",
+      "pass": true
+    },
+    {
+      "name": "service action width stays stable across all states",
+      "pass": true
+    },
+    {
+      "name": "compact service buttons retain complete accessible action names",
+      "pass": true
+    },
+    {
+      "name": "service range names the current percentage and phase",
+      "pass": true
+    },
+    {
+      "name": "small original component fills a useful close inspection area",
+      "pass": true
+    },
+    {
+      "name": "small-part zoom stops outside the near clipping plane",
+      "pass": true
+    },
+    {
+      "name": "cycle slider announces phase and angle",
+      "pass": true
+    },
+    {
+      "name": "native cycle slider receives keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "native cycle ArrowRight changes the actual lesson angle",
+      "pass": true
+    },
+    {
+      "name": "native cycle keyboard change is drawn",
+      "pass": true
+    },
+    {
+      "name": "no page errors",
+      "pass": true
+    },
+    {
+      "name": "no write attempts",
+      "pass": true
+    },
+    {
+      "name": "no late browser errors after close",
+      "pass": true
+    },
+    {
+      "name": "no late write attempts after close",
+      "pass": true
+    }
+  ],
+  "poses": [
+    {
+      "active": true,
+      "progress": 0,
+      "direction": 1,
+      "stage": "Rigging aligned over the engine",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        0,
+        0,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 1.651952935984055,
+        "hook": 2.7906400012791157
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        0.47952000130116945,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.809359998720884,
+        5.809359998720884
+      ],
+      "rigging": {
+        "attached": 0,
+        "clear": 1,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.4799999999999999,
+      "direction": 1,
+      "stage": "Lift clear of the bay",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        0,
+        1.9594594594594597,
+        0
+      ],
+      "crane": {
+        "x": -0.9880475002205371,
+        "z": 0.0019529359840550486,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -0.9880475002205371,
+        1.9295200013011695,
+        0.0019529359840550486
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.289359998720884,
+        5.289359998720884
+      ],
+      "rigging": {
+        "attached": 1,
+        "clear": 0,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 0.75,
+      "direction": 1,
+      "stage": "Lower onto the service bench",
+      "benchReady": false,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        1.9594594594594597,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 2.851952935984055,
+        "hook": 3.3106400012791157
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.9295200013011695,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.289359998720884,
+        5.289359998720884
+      ],
+      "rigging": {
+        "attached": 1,
+        "clear": 0,
+        "handles": false,
+        "handleIndex": 1
+      },
+      "driveLocked": true
+    },
+    {
+      "active": true,
+      "progress": 1,
+      "direction": 1,
+      "stage": "Engine supported on the service bench",
+      "benchReady": true,
+      "reducedMotion": false,
+      "partCount": 101,
+      "lift": [
+        -1.9594594594594599,
+        0.8848648635237607,
+        3.851351351351352
+      ],
+      "crane": {
+        "x": -2.438047500220537,
+        "z": 4.501952935984055,
+        "hook": 3.4454400002866987
+      },
+      "loadWorld": [
+        -2.438047500220537,
+        1.1343200003087524,
+        2.851952935984055
+      ],
+      "cradleWorld": [
+        -2.438047500220537,
+        0,
+        2.851952935984055
+      ],
+      "hoistLengths": [
+        5.154559999713301,
+        5.154559999713301
+      ],
+      "rigging": {
+        "attached": 0,
+        "clear": 1,
+        "handles": false,
+        "handleIndex": 2
+      },
+      "driveLocked": true
+    }
+  ],
+  "controls1304": {
+    "actions": [
+      {
+        "width": 112,
+        "track": 750,
+        "label": "Start",
+        "accessible": "Start service",
+        "progress": "0 percent · Disconnect engine connections"
+      },
+      {
+        "width": 112,
+        "track": 750,
+        "label": "Continue",
+        "accessible": "Continue service",
+        "progress": "53 percent · Lift engine to the bench"
+      },
+      {
+        "width": 112,
+        "track": 743.078125,
+        "label": "Refit engine",
+        "accessible": "Refit engine",
+        "progress": "100 percent · Engine ready for service"
+      }
+    ],
+    "valve": {
+      "id": "intake-valve-1",
+      "distance": 0.46140045317627065,
+      "width": 0.3170332524817916,
+      "height": 0.7330306411584285,
+      "minDistance": 0.05399999999999999,
+      "near": 0.018,
+      "finite": true
+    },
+    "nativeSlider": {
+      "before": {
+        "value": 450,
+        "step": 1,
+        "max": 720,
+        "focused": true,
+        "angle": 450.0000000000001,
+        "draws": 200
+      },
+      "input": {
+        "value": 451,
+        "angle": 451.0000000000001,
+        "draws": 200
+      },
+      "drawn": {
+        "angle": 451.0000000000001,
+        "draws": 201
+      }
+    }
+  },
+  "render1304": {
+    "idle": {
+      "active": true,
+      "idle": true,
+      "requested": 143,
+      "draws": 142,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 107,
+      "lastReason": "inspection-lighting",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "beforeInput": {
+      "active": true,
+      "idle": true,
+      "requested": 145,
+      "draws": 144,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 107,
+      "lastReason": "inspection-lighting",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "afterPointer": {
+      "active": true,
+      "idle": true,
+      "requested": 145,
+      "draws": 144,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 108,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "input": {
+      "active": true,
+      "idle": false,
+      "requested": 146,
+      "draws": 145,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 108,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "beforeCrank": {
+      "active": true,
+      "idle": false,
+      "requested": 146,
+      "draws": 145,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 110,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "afterCrank": {
+      "active": true,
+      "idle": true,
+      "requested": 148,
+      "draws": 147,
+      "reused": 1,
+      "shadowUpdates": 105,
+      "pendingShadow": false,
+      "invalidations": 113,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0.7853981633974483,
+      "rotation": 0,
+      "shadowDirty": true
+    },
+    "crank": {
+      "active": true,
+      "idle": false,
+      "requested": 149,
+      "draws": 148,
+      "reused": 1,
+      "shadowUpdates": 106,
+      "pendingShadow": false,
+      "invalidations": 113,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0.7853981633974483,
+      "rotation": 0,
+      "shadowDirty": false
+    },
+    "beforeRotation": {
+      "active": true,
+      "idle": true,
+      "requested": 151,
+      "draws": 150,
+      "reused": 1,
+      "shadowUpdates": 106,
+      "pendingShadow": false,
+      "invalidations": 116,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0.7853981633974483,
+      "rotation": 0,
+      "shadowDirty": true
+    },
+    "afterRotation": {
+      "active": true,
+      "idle": false,
+      "requested": 153,
+      "draws": 152,
+      "reused": 1,
+      "shadowUpdates": 108,
+      "pendingShadow": false,
+      "invalidations": 119,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0.7853981633974483,
+      "rotation": 0.7853981633974483,
+      "shadowDirty": true
+    },
+    "rotation": {
+      "active": true,
+      "idle": false,
+      "requested": 154,
+      "draws": 153,
+      "reused": 1,
+      "shadowUpdates": 109,
+      "pendingShadow": false,
+      "invalidations": 119,
+      "lastReason": "input",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0.7853981633974483,
+      "rotation": 0.7853981633974483,
+      "shadowDirty": false
+    },
+    "exit": {
+      "active": false,
+      "idle": false,
+      "requested": 156,
+      "draws": 155,
+      "reused": 1,
+      "shadowUpdates": 111,
+      "pendingShadow": false,
+      "invalidations": 123,
+      "lastReason": "inspection-lighting",
+      "settleMs": 1000,
+      "refreshMs": 250,
+      "shadowMs": 66,
+      "idleReuse": true,
+      "disposed": false,
+      "dpr": 0.9999999999999999,
+      "crankAngle": 0,
+      "rotation": 0,
+      "shadowDirty": true
+    }
+  },
+  "inspection1305": {
+    "layout": {
+      "viewport": {
+        "x": 310,
+        "y": 64,
+        "right": 1440,
+        "bottom": 926,
+        "width": 1130,
+        "height": 862
+      },
+      "panel": {
+        "x": 334,
+        "y": 703,
+        "right": 1416,
+        "bottom": 884,
+        "width": 1082,
+        "height": 181
+      },
+      "sceneVisible": true,
+      "compact": false,
+      "canSelect": true,
+      "scrollY": 0,
+      "documentWidth": 1440,
+      "windowWidth": 1440,
+      "innerWidth": 1440,
+      "trayParent": "",
+      "separated": false,
+      "trayScroll": 0
+    }
+  },
+  "nativeInspection1305": {
+    "layouts": {
+      "Bench": {
+        "compact": false,
+        "canvas": {
+          "x": 310,
+          "y": 64,
+          "width": 1130,
+          "height": 862
+        },
+        "visibleWidth": 1130,
+        "visibleHeight": 862,
+        "canvasHit": true,
+        "control": {
+          "x": 23,
+          "y": 625.578125,
+          "width": 113.453125,
+          "height": 44
+        },
+        "controlVisible": true
+      },
+      "Cycle": {
+        "compact": false,
+        "canvas": {
+          "x": 310,
+          "y": 64,
+          "width": 1130,
+          "height": 862
+        },
+        "visibleWidth": 1130,
+        "visibleHeight": 862,
+        "canvasHit": true,
+        "control": {
+          "x": 25,
+          "y": 831.578125,
+          "width": 263,
+          "height": 36
+        },
+        "controlVisible": true
+      }
+    },
+    "originalLighting": {
+      "lights": [
+        {
+          "uuid": "8e6c9946-d79f-461b-87c6-898cfcf865dd",
+          "intensity": 5.2,
+          "color": [
+            1,
+            0.8713671191959567,
+            0.7529422167708612
+          ],
+          "position": [
+            -3.4,
+            5.2,
+            5.2
+          ],
+          "shadow": true,
+          "map": [
+            2048,
+            2048
+          ]
+        },
+        {
+          "uuid": "03f08a0f-d8e5-4986-9c94-f9687b8c44d6",
+          "intensity": 1.15,
+          "color": [
+            0.5647115056965487,
+            0.7304607400847158,
+            1
+          ],
+          "position": [
+            4,
+            3,
+            3
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        },
+        {
+          "uuid": "6808eddb-63a5-4848-91d2-13a79821c0a0",
+          "intensity": 3.8,
+          "color": [
+            0.7156935005005721,
+            0.8069522576650873,
+            1
+          ],
+          "position": [
+            2,
+            4,
+            -4
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        }
+      ],
+      "exposure": 1.02
+    },
+    "cameraBefore": [
+      -14.353657632982294,
+      8.157204863119809,
+      18.59467696370186
+    ],
+    "cameraStarted": {
+      "moving": true,
+      "position": [
+        -14.35365763298229,
+        8,
+        18.59467696370186
+      ]
+    },
+    "cameraAfter": [
+      -3.777666020184286,
+      1.710234054226353,
+      3.3248808788820505
+    ],
+    "inspectionLighting": {
+      "lights": [
+        {
+          "uuid": "8e6c9946-d79f-461b-87c6-898cfcf865dd",
+          "intensity": 4.888,
+          "color": [
+            1,
+            0.8713671191959567,
+            0.7529422167708612
+          ],
+          "position": [
+            -3.4,
+            5.2,
+            5.2
+          ],
+          "shadow": true,
+          "map": [
+            2048,
+            2048
+          ]
+        },
+        {
+          "uuid": "03f08a0f-d8e5-4986-9c94-f9687b8c44d6",
+          "intensity": 1.4375,
+          "color": [
+            0.5647115056965487,
+            0.7304607400847158,
+            1
+          ],
+          "position": [
+            4,
+            3,
+            3
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        },
+        {
+          "uuid": "6808eddb-63a5-4848-91d2-13a79821c0a0",
+          "intensity": 3.9139999999999997,
+          "color": [
+            0.7156935005005721,
+            0.8069522576650873,
+            1
+          ],
+          "position": [
+            2,
+            4,
+            -4
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        }
+      ],
+      "exposure": 1.02
+    },
+    "lightingDiagnostics": {
+      "active": true,
+      "transitioning": false,
+      "amount": 1,
+      "target": 1,
+      "duration": 0.35,
+      "disposed": false,
+      "intensityOnly": true,
+      "lightCount": 3,
+      "gains": {
+        "key": 0.94,
+        "fill": 1.25,
+        "rim": 1.03
+      },
+      "baseline": {
+        "key": 5.2,
+        "fill": 1.15,
+        "rim": 3.8
+      }
+    },
+    "tapFixture": {
+      "setup": true,
+      "selected": "crankshaft",
+      "camera": [
+        -3.545109951973305,
+        1.271539035106393,
+        3.283282948247286
+      ]
+    },
+    "pickTarget": {
+      "x": 966.4309032681257,
+      "y": 285.64156300507796,
+      "id": "alternator",
+      "before": "crankshaft",
+      "attempts": 1
+    },
+    "highlight": {
+      "type": "LineSegments",
+      "line": true,
+      "visible": true,
+      "depthTest": true,
+      "depthWrite": false,
+      "vertices": 2756,
+      "diagnostics": {
+        "vertices": 2756,
+        "segments": 1378,
+        "draws": 1,
+        "cachedGeometries": 13,
+        "rebuilds": 57,
+        "topologyChanges": 9,
+        "disposed": false
+      }
+    },
+    "afterDrag": {
+      "id": "alternator",
+      "selections": 1
+    },
+    "restoredLighting": {
+      "lights": [
+        {
+          "uuid": "8e6c9946-d79f-461b-87c6-898cfcf865dd",
+          "intensity": 5.2,
+          "color": [
+            1,
+            0.8713671191959567,
+            0.7529422167708612
+          ],
+          "position": [
+            -3.4,
+            5.2,
+            5.2
+          ],
+          "shadow": true,
+          "map": [
+            2048,
+            2048
+          ]
+        },
+        {
+          "uuid": "03f08a0f-d8e5-4986-9c94-f9687b8c44d6",
+          "intensity": 1.15,
+          "color": [
+            0.5647115056965487,
+            0.7304607400847158,
+            1
+          ],
+          "position": [
+            4,
+            3,
+            3
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        },
+        {
+          "uuid": "6808eddb-63a5-4848-91d2-13a79821c0a0",
+          "intensity": 3.8,
+          "color": [
+            0.7156935005005721,
+            0.8069522576650873,
+            1
+          ],
+          "position": [
+            2,
+            4,
+            -4
+          ],
+          "shadow": false,
+          "map": [
+            512,
+            512
+          ]
+        }
+      ],
+      "exposure": 1.02
+    }
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "recordWrites": 0,
+  "dashboardSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "machineManifestSha256": "b4cf3f0b2b768031f26d7463bdb8c7168506a1faee048f046407d8d1103b75b2",
+  "machineFiles": {
+    "car-app.js": "6302e14ce2b46feb25f6a55116e6c8d31f3b28a5d4b33fffb6713f2ed1070ddc",
+    "index.html": "beee6f7c2d096c156a699dfeb190714a47292e0a447c82c4a80886d32b5ed4b4",
+    "workshop-camera.js": "f85eb03715d2d9decb280d9c832832955cc4f6c989aa7195a2dc1ba4b58092a6",
+    "workshop-learning.js": "e2fe1fa2c609733b47fe2c72f52ec728ac94ff536845fd95b8964de5a3a0aa0a",
+    "workshop-lighting.js": "730d77c1fc5e9ceae1846c169453d886407f988ba479b8ab791e81d81945e58f",
+    "workshop-selection.js": "fd0eedb71307bcab099f4b1644517d062335097f1cb10963270dbe388bd7a131",
+    "workshop-ui.js": "88bfbeb876d51036c8e8b1b1f72ab320451d1d998402946299d23e8a39c3c1b9"
+  }
+}

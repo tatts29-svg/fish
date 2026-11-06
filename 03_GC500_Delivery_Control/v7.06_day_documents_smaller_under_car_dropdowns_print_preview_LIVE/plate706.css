@@ -1,0 +1,47 @@
+/* v7.06 - the day's documents: one slim Coates plate under the banner, four tiles, no empty space */
+.dplate{--pl-ink:#f4f1ec;--pl-mute:#aab3ba;--pl-edge:#2d353b;--pl-or:#ff6a13;
+ position:relative;z-index:20;margin:0 0 14px;padding:10px 12px 10px 20px;border-radius:12px;color:var(--pl-ink);
+ display:grid;grid-template-columns:auto repeat(4,minmax(0,1fr));gap:10px;align-items:stretch;
+ background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 5px),linear-gradient(160deg,#222a2f,#121517 72%);
+ border:1px solid var(--pl-edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 8px 20px rgba(0,0,0,.16)}
+.dplate::before{content:'';position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,#ff8a3d,var(--pl-or))}
+.dplate-k{display:flex;flex-direction:column;justify-content:center;padding-right:4px;font:700 10px/1.1 'Inter',var(--sans,system-ui,sans-serif);letter-spacing:.18em;text-transform:uppercase;color:var(--pl-or)}
+.dplate-k b{display:block;margin-top:5px;font:800 22px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.04em;color:var(--pl-ink)}
+.dpt{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:10px;row-gap:2px;align-items:center;width:100%;height:100%;text-align:left;
+ padding:8px 10px;border-radius:9px;min-height:56px;cursor:pointer;font:inherit;color:var(--pl-ink);
+ background:linear-gradient(180deg,#252c31,#1a1f23);border:1px solid #353e45;border-top:3px solid var(--pl-or);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .12s,background .12s}
+.dpt:hover{border-color:#4b565e;border-top-color:#ff8a3d;background:linear-gradient(180deg,#2a3238,#1c2226)}
+.dpt:focus-visible{outline:2px solid var(--pl-or);outline-offset:2px}
+.dpt-i{grid-row:1 / span 2;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:rgba(255,106,19,.15);color:var(--pl-or)}
+.dpt-i svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.dpt-w{font:800 19px/1 'Barlow Condensed','Arial Narrow',var(--sans,system-ui,sans-serif);letter-spacing:.05em;text-transform:uppercase;align-self:end;white-space:nowrap}
+.dpt-s{font-size:11.5px;line-height:1.2;color:var(--pl-mute);align-self:start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dpt.dp-off{opacity:.55;cursor:not-allowed;border-top-color:#5b656d}
+.dpt.dp-off .dpt-i{background:rgba(255,255,255,.06);color:#8f99a1}
+.dplate details{display:block;position:relative;min-width:0}
+.dplate details > summary.dpt{display:grid;list-style:none;user-select:none}
+.dplate details > summary.dpt::-webkit-details-marker{display:none}
+.dplate details[open] > summary.dpt{border-color:var(--pl-or)}
+.dplate .dpmail-m{left:0;right:auto;min-width:260px;max-height:min(60vh,460px);overflow:auto}
+.dpm-r{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;row-gap:1px;width:100%;font:inherit;text-align:left;cursor:pointer;background:none;border:0;color:inherit;border-radius:8px;padding:8px 10px}
+.dpm-r + .dpm-r{border-top:1px solid var(--rule)}
+.dpm-r:hover,.dpm-r:focus-visible{background:rgba(255,106,19,.12);outline:none}
+.dpm-r b{font-weight:800;white-space:nowrap}
+.dpm-r span{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dpm-r em{grid-column:2;font-style:normal;font-size:12px;color:var(--mute)}
+.dpm-all b{color:var(--orange-ink,#c2570c)}
+/* the row under the day strip holds the same controls: while the plate is on the page it is their one home */
+#pane-timeline.has-dplate .dprow.tlday-ctl{display:none !important}
+/* the preview on a phone: scaled to the screen, on screen only */
+@media screen{ body.dpbar-on.printing-day #dayprint{zoom:var(--dpz,1)} }
+@media (max-width:760px){
+ .dplate{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px 9px 9px 16px;margin-bottom:12px}
+ .dplate-k{grid-column:1 / -1;flex-direction:row;align-items:baseline;gap:8px;padding:0}
+ .dplate-k b{margin:0;font-size:17px}
+ .dpt{min-height:52px;padding:7px 8px;column-gap:8px}
+ .dpt-i{width:28px;height:28px}.dpt-i svg{width:17px;height:17px}
+ .dpt-w{font-size:17px}
+ .dplate .dpmail-m{min-width:0;width:min(92vw,340px)}
+}
+@media print{.dplate{display:none !important}}

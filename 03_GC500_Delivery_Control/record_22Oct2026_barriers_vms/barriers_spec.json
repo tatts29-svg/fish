@@ -1,0 +1,12 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 22 Oct 2026 (AEST), the day before the first race day: \"Barriers all done\"; \"We mention vms boards there is 24 in total everyone is towed around the track and set to location\". Today's Water barriers group read 303 of 311 because WB17 (6 racing kerbs, T6/7/8/9) and WB18 (2 racing kerbs, T2) had stood 'not on site' since 3 Oct, and the VMS boards group read 23 of 24 because VMS21 (plan position 21, contract 9961265 line 28) had its 21 Oct arrival withdrawn to 'not confirmed'. Each is set through the page's own controls: the delivery light (on site) and Complete for WB17 and WB18; the VMS plan's in-place tick and complete tick for VMS21. No arrival day is invented: the light and the arrival are dated when they are pressed.",
+ "ops": [
+  {"op": "light", "ref": "WB17", "state": "on site"},
+  {"op": "complete", "ref": "WB17"},
+  {"op": "light", "ref": "WB18", "state": "on site"},
+  {"op": "complete", "ref": "WB18"},
+  {"op": "vms_inplace", "pos": "21", "board": "VMS21"},
+  {"op": "vms_complete", "pos": "21", "board": "VMS21"}
+ ]
+}

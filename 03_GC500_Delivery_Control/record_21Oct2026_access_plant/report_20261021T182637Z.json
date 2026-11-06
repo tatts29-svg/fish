@@ -1,0 +1,231 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261021T182637Z",
+ "finished": "2026-10-21T18:27:05.446Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026 (AEST): \"Also equipment is wrong. That should read 100% all of that has turned up\". The Today card's Equipment group read 8 of 12 machines because the four access & plant references added on 21 Oct (EQ0001 scissor lift 1220903, EQ0002 knuckle boom 1300290, EQ0003 straight boom 1286482, EQ0004 forklift 1210921) had no delivery record. Each is set on site and complete through the page's own light and Complete controls. No arrival day is invented: the light is dated when it is pressed.",
+  "ops": [
+   {
+    "op": "light",
+    "ref": "EQ0001",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0001"
+   },
+   {
+    "op": "light",
+    "ref": "EQ0002",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0002"
+   },
+   {
+    "op": "light",
+    "ref": "EQ0003",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0003"
+   },
+   {
+    "op": "light",
+    "ref": "EQ0004",
+    "state": "on site"
+   },
+   {
+    "op": "complete",
+    "ref": "EQ0004"
+   }
+  ]
+ },
+ "pageSha256": "dc6418352db789ea41fdc78242191e98394ba03399f4fdcb5da3e0ab99d30d3d",
+ "version": {
+  "before": 10476,
+  "after": 10480
+ },
+ "updated": {
+  "before": "2026-10-21T05:34:45.054Z",
+  "after": "2026-10-21T18:27:04.439Z"
+ },
+ "stage": [
+  {
+   "op": "light",
+   "ref": "EQ0001",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0001",
+   "result": "complete"
+  },
+  {
+   "op": "light",
+   "ref": "EQ0002",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0002",
+   "result": "complete"
+  },
+  {
+   "op": "light",
+   "ref": "EQ0003",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0003",
+   "result": "complete"
+  },
+  {
+   "op": "light",
+   "ref": "EQ0004",
+   "state": "on site",
+   "result": "set on site"
+  },
+  {
+   "op": "complete",
+   "ref": "EQ0004",
+   "result": "complete"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0001",
+   "status": 200
+  },
+  {
+   "key": "delivery/EQ0002",
+   "status": 200
+  },
+  {
+   "key": "delivery/EQ0003",
+   "status": 200
+  },
+  {
+   "key": "delivery/EQ0004",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/EQ0001": null,
+   "delivery/EQ0002": null,
+   "delivery/EQ0003": null,
+   "delivery/EQ0004": null
+  },
+  "after": {
+   "delivery/EQ0001": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:45.511Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:45.511Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:46.347Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:46.347Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0001"
+   },
+   "delivery/EQ0002": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:47.091Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:47.091Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:48.167Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:48.167Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0002"
+   },
+   "delivery/EQ0003": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:49.019Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:49.019Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:49.767Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:49.767Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0003"
+   },
+   "delivery/EQ0004": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:50.510Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:50.510Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:51.330Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:51.330Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0004"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

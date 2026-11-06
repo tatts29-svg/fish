@@ -1,0 +1,243 @@
+{
+ "page": "GC500_Delivery_Control_hosted.html",
+ "checks": [
+  {
+   "name": "1 #today draws the Work progress board and the Milestones section under it",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "board": true,
+    "section": true
+   }
+  },
+  {
+   "name": "1 every area at 100% by the board’s count carries the 100% badge with its day, no other card does",
+   "ok": true,
+   "detail": {
+    "reached": [
+     "buildings",
+     "equipment"
+    ],
+    "cards": [
+     {
+      "id": "buildings",
+      "badge": "100%15 Oct 2026",
+      "canvas": false
+     },
+     {
+      "id": "toilets",
+      "badge": null,
+      "canvas": false
+     },
+     {
+      "id": "fencing",
+      "badge": null,
+      "canvas": false
+     },
+     {
+      "id": "generators",
+      "badge": null,
+      "canvas": false
+     },
+     {
+      "id": "lighting",
+      "badge": null,
+      "canvas": false
+     },
+     {
+      "id": "vms",
+      "badge": null,
+      "canvas": false
+     },
+     {
+      "id": "equipment",
+      "badge": "100%6 Oct 2026",
+      "canvas": false
+     }
+    ]
+   }
+  },
+  {
+   "name": "1 the burst played once on first sight, is remembered for this browser, and is gone after",
+   "ok": true,
+   "detail": {
+    "burst": true,
+    "seen": {
+     "buildings": "2026-10-14T22:56:37.938Z",
+     "equipment": "2026-10-06T03:26:45.619Z"
+    }
+   }
+  },
+  {
+   "name": "1 the section lists every area with a percent; the reached ones open with facts, the by-day table, a print link and a replay",
+   "ok": true,
+   "detail": {
+    "listed": [
+     "buildings",
+     "equipment",
+     "toilets",
+     "generators",
+     "lighting",
+     "vms"
+    ],
+    "pcts": [
+     "100%",
+     "100%",
+     "78%",
+     "56%",
+     "71%",
+     "42%"
+    ],
+    "open": true,
+    "factRows": 15,
+    "dayRows": 15,
+    "replay": 2,
+    "printLinks": 7
+   }
+  },
+  {
+   "name": "1 Buildings: the facts agree with an independent read of the delivery documents (complete count, the 100% moment)",
+   "ok": true,
+   "detail": {
+    "total": 52,
+    "complete": 52,
+    "reached": true,
+    "reachedAt": "2026-10-14T22:56:37.938Z",
+    "reachedKey": "P60",
+    "pct": 100,
+    "byDay": 15,
+    "firstOn": "P01",
+    "days": 31,
+    "keys": 52,
+    "indepDone": 52,
+    "indepLastAt": "2026-10-14T22:56:37.938Z"
+   }
+  },
+  {
+   "name": "1 nothing on the section is a word a person or a model wrote: no names of agents, no undefined/NaN",
+   "ok": true,
+   "detail": {
+    "len": 3213
+   }
+  },
+  {
+   "name": "1 footer v10.25, no page errors, no writes",
+   "ok": true,
+   "detail": {
+    "footer": "v10.25",
+    "errors": [],
+    "blocked": 0
+   }
+  },
+  {
+   "name": "1 a redraw of the Today tab does not play the burst again",
+   "ok": true,
+   "detail": {
+    "again": false
+   }
+  },
+  {
+   "name": "2 #print/milestone/buildings lands on the Today tab with the bar ready and one sheet",
+   "ok": true,
+   "detail": {
+    "bar": "Milestone summary · Buildings · 1 page",
+    "sheets": 1
+   }
+  },
+  {
+   "name": "2 the sheet: the Buildings title, the facts table, the by-day table, the source line, fits one page",
+   "ok": true,
+   "detail": {
+    "title": "Buildings · 100% complete",
+    "rows": 15,
+    "days": 15,
+    "zoom": "1"
+   }
+  },
+  {
+   "name": "2 #print/milestone/all: one sheet per reached area, a page break before each after the first, every one fitted",
+   "ok": true,
+   "detail": {
+    "sheets": 2,
+    "brk": 1,
+    "minZoom": 1,
+    "reached": 2,
+    "bar": "Milestone summary · 2 pages"
+   }
+  },
+  {
+   "name": "2 an unknown area says so on the bar and the page stays up",
+   "ok": true,
+   "detail": {
+    "bar": "Nothing to print for that area.",
+    "tab": "today"
+   }
+  },
+  {
+   "name": "2 Close puts the page back; no page errors on the print path",
+   "ok": true,
+   "detail": {
+    "closed": {
+     "bar": false,
+     "printing": false
+    },
+    "errors": []
+   }
+  },
+  {
+   "name": "3 #plant still routes",
+   "ok": true,
+   "detail": {
+    "tab": "plant",
+    "on": true,
+    "section": null
+   }
+  },
+  {
+   "name": "3 #nights still routes",
+   "ok": true,
+   "detail": {
+    "tab": "nights",
+    "on": true,
+    "section": null
+   }
+  },
+  {
+   "name": "3 #vms still routes",
+   "ok": true,
+   "detail": {
+    "tab": "vms",
+    "on": true,
+    "section": null
+   }
+  },
+  {
+   "name": "3 #map still routes",
+   "ok": true,
+   "detail": {
+    "tab": "map",
+    "on": true,
+    "section": null
+   }
+  },
+  {
+   "name": "3 #today still routes and the Milestones section is back",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "on": true,
+    "section": true
+   }
+  },
+  {
+   "name": "3 no page errors after routing through the other tabs; no writes",
+   "ok": true,
+   "detail": {
+    "errors": [],
+    "blocked": 0
+   }
+  }
+ ],
+ "fails": [],
+ "result": "PASS"
+}

@@ -1,0 +1,194 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T003913Z",
+ "finished": "2026-10-16T00:39:24.283Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "16 Oct 2026, 10:34 AEST: after the de-duplication the page tidied the surviving records back to their plain ids, and 36592's corrected copy (F-AFV-0035·2904) was renamed onto the plain id F-AFV-0035, which the de-duplication had just tombstoned by setting the old copy aside under it. The tombstone won: 36592 dropped off the live list. Put the old copy back through the page's own Put back (that lifts the tombstone), then correct it to the corrected reading (137.5 m, 55 panels, 53 bases, 53 clamps) with the note unchanged, so F-AFV-0035 is the corrected record again.",
+  "ops": [
+   {
+    "op": "docket_putback",
+    "docket_no": "36592",
+    "id": "F-AFV-0035",
+    "why": "lifts the tombstone on the plain id; corrected in the next op"
+   },
+   {
+    "op": "docket_fix",
+    "docket_no": "36592",
+    "quantities": {
+     "clean": 137.5
+    },
+    "components": {
+     "mesh_panel": 55,
+     "base": 53,
+     "clamp": 53
+    },
+    "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "recorded_by": "Andrew Fisher via Codex"
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6892,
+  "after": 6899
+ },
+ "updated": {
+  "before": "2026-10-16T00:34:53.496Z",
+  "after": "2026-10-16T00:39:23.560Z"
+ },
+ "stage": [
+  {
+   "op": "docket_putback",
+   "no": "36592",
+   "id": "F-AFV-0035",
+   "result": "put back F-AFV-0035 ({\"clean\":132.5}, {\"mesh_panel\":53,\"base\":53,\"clamp\":53}) - lifts the tombstone on the plain id; corrected in the next op"
+  },
+  {
+   "op": "docket_fix",
+   "no": "36592",
+   "id": "F-AFV-0035",
+   "charge": 2222.1,
+   "paid": 1375,
+   "result": "quantities {\"clean\":132.5} {\"mesh_panel\":53,\"base\":53,\"clamp\":53} -> {\"clean\":137.5} {\"mesh_panel\":55,\"base\":53,\"clamp\":53}; $2,222.10 charged at the 2026 card, $1,375.00 paid"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceDockets~2f~F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "stamps/aside~2f~F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "by/fenceDockets~2f~F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AFV-0035",
+   "status": 200
+  },
+  {
+   "key": "aside/F-AFV-0035",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceDockets~2f~F-AFV-0035": {
+    "_k": "fenceDockets/F-AFV-0035",
+    "v": "2026-10-14T04:55:20.396Z"
+   },
+   "stamps/aside~2f~F-AFV-0035": {
+    "_k": "aside/F-AFV-0035",
+    "v": "2026-10-16T00:33:32.844Z"
+   },
+   "deleted/back~2f~F-AFV-0035": null,
+   "by/fenceDockets~2f~F-AFV-0035": {
+    "_k": "fenceDockets/F-AFV-0035",
+    "v": "Andrew Fisher via Codex"
+   },
+   "by/deleted~2f~back~2f~F-AFV-0035": null,
+   "fenceDockets/F-AFV-0035": null,
+   "aside/F-AFV-0035": {
+    "_k": "F-AFV-0035",
+    "v": {
+     "coll": "fenceDockets",
+     "rec": {
+      "id": "F-AFV-0035",
+      "date": "2026-10-09",
+      "week": "Week 2",
+      "docket_no": "36592",
+      "crew": "Advanced Temporary Fencing",
+      "map_ref": null,
+      "location": "The Hill — Monster CZ",
+      "quantities": {
+       "clean": 132.5
+      },
+      "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+      "recorded_by": "Andrew Fisher via Codex",
+      "recorded_on": "2026-10-09",
+      "components": {
+       "mesh_panel": 53,
+       "base": 53,
+       "clamp": 53
+      },
+      "signed_by": "Andrew Fisher",
+      "scope": "programme",
+      "source": "Advanced Temporary Fencing hire agreement 36592, signed paper photographed on site",
+      "origin": "captured"
+     },
+     "at": "2026-10-16T00:33:32.844Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  },
+  "after": {
+   "stamps/fenceDockets~2f~F-AFV-0035": {
+    "_k": "fenceDockets/F-AFV-0035",
+    "v": "2026-10-16T00:39:20.655Z"
+   },
+   "stamps/aside~2f~F-AFV-0035": {
+    "_k": "aside/F-AFV-0035",
+    "v": "2026-10-16T00:39:19.591Z"
+   },
+   "deleted/back~2f~F-AFV-0035": {
+    "_k": "back/F-AFV-0035",
+    "v": "2026-10-16T00:39:19.591Z"
+   },
+   "by/fenceDockets~2f~F-AFV-0035": {
+    "_k": "fenceDockets/F-AFV-0035",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~F-AFV-0035": {
+    "_k": "deleted/back/F-AFV-0035",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AFV-0035": {
+    "id": "F-AFV-0035",
+    "date": "2026-10-09",
+    "week": "Week 2",
+    "docket_no": "36592",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "The Hill — Monster CZ",
+    "quantities": {
+     "clean": 137.5
+    },
+    "note": "No scrim completion written. Rates/amounts blank on paper; existing 2026 card and supplier rates apply only to supported categories.",
+    "recorded_by": "Andrew Fisher via Codex",
+    "recorded_on": "2026-10-09",
+    "components": {
+     "mesh_panel": 55,
+     "base": 53,
+     "clamp": 53
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36592, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AFV-0035"
+   },
+   "aside/F-AFV-0035": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

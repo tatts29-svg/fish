@@ -1,0 +1,2203 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T091719Z",
+ "finished": "2026-10-16T09:17:59.197Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "lines": [
+   "demob",
+   "pickup"
+  ],
+  "ours": [
+   "P11|Portable buildings|Building 4.8m|demob",
+   "P06|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|demob",
+   "GN?|Generators|200kva & cables|pickup",
+   "P13|Portable buildings|Building 4.8m|pickup",
+   "GN03|Generators|30kva|pickup",
+   "CP1|Portable buildings|Building 6m|demob",
+   "P03|Portable buildings|Building 12m|pickup",
+   "P03|Portable buildings|Building 12m|demob",
+   "P08|Portable buildings|Building 6m|demob",
+   "P10|Portable buildings|Building 4.8m|demob",
+   "P05|Portable buildings|Building 6m|demob",
+   "HRP|Portable buildings|Building 6m|demob",
+   "AA|Portable buildings|Building 6m|demob",
+   "P08|Portable buildings|Building 6m|pickup",
+   "GN21|Generators|60kva|pickup",
+   "GN23|Generators|150kva|pickup",
+   "HRP|Portable buildings|Building 6m|pickup",
+   "AA|Portable buildings|Building 6m|pickup",
+   "P04|Portable buildings|Building 12m|demob",
+   "P12|Portable buildings|Building 4.8m|demob",
+   "P11|Portable buildings|Building 4.8m|pickup",
+   "P09|Portable buildings|Building 6m|demob",
+   "P14|Portable buildings|Building 4.8m|demob",
+   "GN06|Generators|50kva|pickup",
+   "P14|Portable buildings|Building 4.8m|pickup",
+   "GN01|Generators|60kva|pickup",
+   "P13|Portable buildings|Building 4.8m|demob",
+   "P10|Portable buildings|Building 4.8m|pickup",
+   "P05|Portable buildings|Building 6m|pickup",
+   "GN18|Generators|50kva|pickup",
+   "P12|Portable buildings|Building 4.8m|pickup",
+   "P06|Portable buildings|Building 6m|demob",
+   "P04|Portable buildings|Building 12m|pickup",
+   "CP1|Portable buildings|Building 6m|pickup",
+   "GN13|Generators|45kva|pickup",
+   "P09|Portable buildings|Building 6m|pickup",
+   "P01|Portable buildings|Building 12m|pickup"
+  ],
+  "max": 40
+ },
+ "pageSha256": "43c1c13be6fa5abc4ea66900d2202422972da11328fe7e41a088e9e1fdfd1204",
+ "version": {
+  "before": 8177,
+  "after": 8393
+ },
+ "updated": {
+  "before": "2026-10-16T09:17:18.662Z",
+  "after": "2026-10-16T09:17:58.435Z"
+ },
+ "stage": [
+  {
+   "k": "plan",
+   "ticked": true,
+   "now": "72 ticks on 40 references · {\"demob\":32,\"pickup\":40} · at the card $26213.68 {\"demob\":4663.68,\"pickup\":21550} · complete ticked on 0 · stamps cleared 0 · left off as a person set: 0 ticks, complete off on 0",
+   "refs": [
+    "AA",
+    "CP1",
+    "GN01",
+    "GN03",
+    "GN06",
+    "GN13",
+    "GN18",
+    "GN21",
+    "GN23",
+    "GN?",
+    "HRP",
+    "P01",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13",
+    "P14",
+    "P15",
+    "P16",
+    "P17",
+    "P18",
+    "P19",
+    "P20",
+    "P21",
+    "P25",
+    "P33",
+    "P36",
+    "P37",
+    "P38",
+    "P39",
+    "P41",
+    "P42",
+    "P44",
+    "P45"
+   ],
+   "done": [],
+   "offList": [],
+   "doneOff": [],
+   "sample": [
+    "AA Building 6m demob",
+    "AA Building 6m pickup",
+    "CP1 Building 6m demob",
+    "CP1 Building 6m pickup",
+    "GN01 60kva pickup",
+    "GN03 30kva pickup",
+    "GN06 50kva pickup",
+    "GN13 45kva pickup",
+    "GN18 50kva pickup",
+    "GN21 60kva pickup",
+    "GN23 150kva pickup",
+    "GN? 200kva & cables pickup"
+   ]
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN01~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN03~7c~Generators~7c~30kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN06~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN13~7c~Generators~7c~45kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN18~7c~Generators~7c~50kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN21~7c~Generators~7c~60kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN23~7c~Generators~7c~150kva~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  },
+  {
+   "key": "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob",
+   "status": 200
+  },
+  {
+   "key": "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/AA|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:26.295Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/AA|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:26.455Z"
+   },
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:26.751Z"
+   },
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:26.906Z"
+   },
+   "stamps/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup": {
+    "_k": "labour/GN03|Generators|30kva|pickup",
+    "v": "2026-10-16T09:09:27.228Z"
+   },
+   "stamps/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN01|Generators|60kva|pickup",
+    "v": "2026-10-16T09:09:27.049Z"
+   },
+   "stamps/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN06|Generators|50kva|pickup",
+    "v": "2026-10-16T09:09:27.429Z"
+   },
+   "stamps/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN18|Generators|50kva|pickup",
+    "v": "2026-10-16T09:09:27.782Z"
+   },
+   "stamps/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup": {
+    "_k": "labour/GN13|Generators|45kva|pickup",
+    "v": "2026-10-16T09:09:27.599Z"
+   },
+   "stamps/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN21|Generators|60kva|pickup",
+    "v": "2026-10-16T09:09:27.950Z"
+   },
+   "stamps/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup": {
+    "_k": "labour/GN23|Generators|150kva|pickup",
+    "v": "2026-10-16T09:09:28.104Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:28.541Z"
+   },
+   "stamps/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": {
+    "_k": "labour/GN?|Generators|200kva & cables|pickup",
+    "v": "2026-10-16T09:09:28.244Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:28.689Z"
+   },
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P01|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:09:29.012Z"
+   },
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P01|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:09:29.170Z"
+   },
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P03|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:09:29.719Z"
+   },
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P03|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:09:29.518Z"
+   },
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P04|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:09:29.982Z"
+   },
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P04|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:09:30.119Z"
+   },
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P05|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:30.421Z"
+   },
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P05|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:30.576Z"
+   },
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P06|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:31.056Z"
+   },
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P06|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:30.909Z"
+   },
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P08|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:31.420Z"
+   },
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P08|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:31.695Z"
+   },
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P09|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:09:32.186Z"
+   },
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P09|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:09:32.042Z"
+   },
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:09:32.663Z"
+   },
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:09:32.530Z"
+   },
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:09:33.190Z"
+   },
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:09:32.991Z"
+   },
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:09:33.457Z"
+   },
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:09:33.594Z"
+   },
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:09:33.844Z"
+   },
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:09:33.970Z"
+   },
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:09:34.270Z"
+   },
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:09:34.436Z"
+   },
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup": null,
+   "by/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup": null,
+   "by/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup": null,
+   "by/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup": null,
+   "by/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup": null,
+   "by/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup": null,
+   "by/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup": null,
+   "by/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": null,
+   "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/GN01~7c~Generators~7c~60kva~7c~pickup": null,
+   "labour/GN03~7c~Generators~7c~30kva~7c~pickup": null,
+   "labour/GN06~7c~Generators~7c~50kva~7c~pickup": null,
+   "labour/GN13~7c~Generators~7c~45kva~7c~pickup": null,
+   "labour/GN18~7c~Generators~7c~50kva~7c~pickup": null,
+   "labour/GN21~7c~Generators~7c~60kva~7c~pickup": null,
+   "labour/GN23~7c~Generators~7c~150kva~7c~pickup": null,
+   "labour/GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": null,
+   "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": null,
+   "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": null,
+   "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": null,
+   "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": null,
+   "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": null,
+   "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null,
+   "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": null,
+   "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": null
+  },
+  "after": {
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/AA|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:27.577Z"
+   },
+   "stamps/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/AA|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:27.954Z"
+   },
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:28.115Z"
+   },
+   "stamps/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:28.274Z"
+   },
+   "stamps/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup": {
+    "_k": "labour/GN03|Generators|30kva|pickup",
+    "v": "2026-10-16T09:17:28.590Z"
+   },
+   "stamps/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN01|Generators|60kva|pickup",
+    "v": "2026-10-16T09:17:28.438Z"
+   },
+   "stamps/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN06|Generators|50kva|pickup",
+    "v": "2026-10-16T09:17:28.867Z"
+   },
+   "stamps/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN18|Generators|50kva|pickup",
+    "v": "2026-10-16T09:17:29.410Z"
+   },
+   "stamps/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup": {
+    "_k": "labour/GN13|Generators|45kva|pickup",
+    "v": "2026-10-16T09:17:29.147Z"
+   },
+   "stamps/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN21|Generators|60kva|pickup",
+    "v": "2026-10-16T09:17:29.624Z"
+   },
+   "stamps/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup": {
+    "_k": "labour/GN23|Generators|150kva|pickup",
+    "v": "2026-10-16T09:17:29.816Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:30.134Z"
+   },
+   "stamps/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": {
+    "_k": "labour/GN?|Generators|200kva & cables|pickup",
+    "v": "2026-10-16T09:17:29.982Z"
+   },
+   "stamps/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:30.294Z"
+   },
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P01|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:17:30.465Z"
+   },
+   "stamps/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P01|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:17:30.712Z"
+   },
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P03|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:17:31.132Z"
+   },
+   "stamps/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P03|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:17:30.962Z"
+   },
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P04|Portable buildings|Building 12m|demob",
+    "v": "2026-10-16T09:17:31.304Z"
+   },
+   "stamps/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P04|Portable buildings|Building 12m|pickup",
+    "v": "2026-10-16T09:17:31.461Z"
+   },
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P05|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:31.637Z"
+   },
+   "stamps/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P05|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:31.882Z"
+   },
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P06|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:32.309Z"
+   },
+   "stamps/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P06|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:32.127Z"
+   },
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P08|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:32.452Z"
+   },
+   "stamps/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P08|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:32.596Z"
+   },
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P09|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:32.963Z"
+   },
+   "stamps/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P09|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:32.788Z"
+   },
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:33.296Z"
+   },
+   "stamps/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:33.131Z"
+   },
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:33.585Z"
+   },
+   "stamps/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:33.438Z"
+   },
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:33.726Z"
+   },
+   "stamps/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:33.869Z"
+   },
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:34.015Z"
+   },
+   "stamps/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:34.156Z"
+   },
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:34.300Z"
+   },
+   "stamps/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:34.451Z"
+   },
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P15|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:34.609Z"
+   },
+   "stamps/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P15|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:34.758Z"
+   },
+   "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P16|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:34.929Z"
+   },
+   "stamps/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P16|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:35.113Z"
+   },
+   "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "labour/P17|Portable buildings|Building 9.6m|demob",
+    "v": "2026-10-16T09:17:35.308Z"
+   },
+   "stamps/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "labour/P17|Portable buildings|Building 9.6m|pickup",
+    "v": "2026-10-16T09:17:35.537Z"
+   },
+   "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P18|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:35.761Z"
+   },
+   "stamps/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P18|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:35.927Z"
+   },
+   "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P19|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:36.063Z"
+   },
+   "stamps/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P19|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:36.244Z"
+   },
+   "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P20|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:36.383Z"
+   },
+   "stamps/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P20|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:36.522Z"
+   },
+   "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P21|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:36.660Z"
+   },
+   "stamps/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P21|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:36.806Z"
+   },
+   "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P25|Portable buildings|Building 4.8m|demob",
+    "v": "2026-10-16T09:17:37.035Z"
+   },
+   "stamps/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P25|Portable buildings|Building 4.8m|pickup",
+    "v": "2026-10-16T09:17:37.181Z"
+   },
+   "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "labour/P33|Portable buildings|Building 9.6m|demob",
+    "v": "2026-10-16T09:17:37.344Z"
+   },
+   "stamps/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "labour/P33|Portable buildings|Building 9.6m|pickup",
+    "v": "2026-10-16T09:17:37.539Z"
+   },
+   "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P36|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:37.780Z"
+   },
+   "stamps/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P36|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:37.990Z"
+   },
+   "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P37|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:38.130Z"
+   },
+   "stamps/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P37|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:38.276Z"
+   },
+   "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P38|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:38.498Z"
+   },
+   "stamps/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P38|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:38.708Z"
+   },
+   "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P39|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:38.870Z"
+   },
+   "stamps/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P39|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:39.045Z"
+   },
+   "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P41|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:39.192Z"
+   },
+   "stamps/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P41|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:39.341Z"
+   },
+   "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P42|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:39.505Z"
+   },
+   "stamps/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P42|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:39.745Z"
+   },
+   "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P44|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:39.939Z"
+   },
+   "stamps/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P44|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:40.101Z"
+   },
+   "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P45|Portable buildings|Building 6m|demob",
+    "v": "2026-10-16T09:17:40.255Z"
+   },
+   "stamps/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P45|Portable buildings|Building 6m|pickup",
+    "v": "2026-10-16T09:17:40.400Z"
+   },
+   "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/AA|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/AA|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/CP1|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN01~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN01|Generators|60kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN03~7c~Generators~7c~30kva~7c~pickup": {
+    "_k": "labour/GN03|Generators|30kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN06~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN06|Generators|50kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN13~7c~Generators~7c~45kva~7c~pickup": {
+    "_k": "labour/GN13|Generators|45kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN18~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "labour/GN18|Generators|50kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN21~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "labour/GN21|Generators|60kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN23~7c~Generators~7c~150kva~7c~pickup": {
+    "_k": "labour/GN23|Generators|150kva|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": {
+    "_k": "labour/GN?|Generators|200kva & cables|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/HRP|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P01|Portable buildings|Building 12m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P01|Portable buildings|Building 12m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P03|Portable buildings|Building 12m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P03|Portable buildings|Building 12m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "labour/P04|Portable buildings|Building 12m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "labour/P04|Portable buildings|Building 12m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P05|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P05|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P06|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P06|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P08|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P08|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P09|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P09|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P10|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P11|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P12|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P13|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P14|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P15|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P15|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P16|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P16|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "labour/P17|Portable buildings|Building 9.6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "labour/P17|Portable buildings|Building 9.6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P18|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P18|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P19|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P19|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P20|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P20|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P21|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P21|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "labour/P25|Portable buildings|Building 4.8m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "labour/P25|Portable buildings|Building 4.8m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "labour/P33|Portable buildings|Building 9.6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "labour/P33|Portable buildings|Building 9.6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P36|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P36|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P37|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P37|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P38|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P38|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P39|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P39|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P41|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P41|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P42|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P42|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P44|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P44|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "labour/P45|Portable buildings|Building 6m|demob",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "labour/P45|Portable buildings|Building 6m|pickup",
+    "v": "Andrew Fisher"
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "AA|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/AA~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "AA|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "CP1|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/CP1~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "CP1|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/GN01~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "GN01|Generators|60kva|pickup",
+    "v": true
+   },
+   "labour/GN03~7c~Generators~7c~30kva~7c~pickup": {
+    "_k": "GN03|Generators|30kva|pickup",
+    "v": true
+   },
+   "labour/GN06~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "GN06|Generators|50kva|pickup",
+    "v": true
+   },
+   "labour/GN13~7c~Generators~7c~45kva~7c~pickup": {
+    "_k": "GN13|Generators|45kva|pickup",
+    "v": true
+   },
+   "labour/GN18~7c~Generators~7c~50kva~7c~pickup": {
+    "_k": "GN18|Generators|50kva|pickup",
+    "v": true
+   },
+   "labour/GN21~7c~Generators~7c~60kva~7c~pickup": {
+    "_k": "GN21|Generators|60kva|pickup",
+    "v": true
+   },
+   "labour/GN23~7c~Generators~7c~150kva~7c~pickup": {
+    "_k": "GN23|Generators|150kva|pickup",
+    "v": true
+   },
+   "labour/GN~3f~~7c~Generators~7c~200kva~20~~26~~20~cables~7c~pickup": {
+    "_k": "GN?|Generators|200kva & cables|pickup",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "HRP|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/HRP~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "HRP|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "P01|Portable buildings|Building 12m|demob",
+    "v": true
+   },
+   "labour/P01~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "P01|Portable buildings|Building 12m|pickup",
+    "v": true
+   },
+   "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "P03|Portable buildings|Building 12m|demob",
+    "v": true
+   },
+   "labour/P03~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "P03|Portable buildings|Building 12m|pickup",
+    "v": true
+   },
+   "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~demob": {
+    "_k": "P04|Portable buildings|Building 12m|demob",
+    "v": true
+   },
+   "labour/P04~7c~Portable~20~buildings~7c~Building~20~12m~7c~pickup": {
+    "_k": "P04|Portable buildings|Building 12m|pickup",
+    "v": true
+   },
+   "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P05|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P05~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P05|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P06|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P06~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P06|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P08|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P08~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P08|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P09|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P09~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P09|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P10|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P10~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P10|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P11|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P11~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P11|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P12|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P12~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P12|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P13|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P13~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P13|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P14|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P14~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P14|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P15|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P15~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P15|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P16|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P16~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P16|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "P17|Portable buildings|Building 9.6m|demob",
+    "v": true
+   },
+   "labour/P17~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "P17|Portable buildings|Building 9.6m|pickup",
+    "v": true
+   },
+   "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P18|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P18~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P18|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P19|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P19~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P19|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P20|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P20~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P20|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P21|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P21~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P21|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~demob": {
+    "_k": "P25|Portable buildings|Building 4.8m|demob",
+    "v": true
+   },
+   "labour/P25~7c~Portable~20~buildings~7c~Building~20~4.8m~7c~pickup": {
+    "_k": "P25|Portable buildings|Building 4.8m|pickup",
+    "v": true
+   },
+   "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~demob": {
+    "_k": "P33|Portable buildings|Building 9.6m|demob",
+    "v": true
+   },
+   "labour/P33~7c~Portable~20~buildings~7c~Building~20~9.6m~7c~pickup": {
+    "_k": "P33|Portable buildings|Building 9.6m|pickup",
+    "v": true
+   },
+   "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P36|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P36~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P36|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P37|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P37~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P37|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P38|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P38~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P38|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P39|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P39~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P39|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P41|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P41~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P41|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P42|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P42~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P42|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P44|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P44~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P44|Portable buildings|Building 6m|pickup",
+    "v": true
+   },
+   "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~demob": {
+    "_k": "P45|Portable buildings|Building 6m|demob",
+    "v": true
+   },
+   "labour/P45~7c~Portable~20~buildings~7c~Building~20~6m~7c~pickup": {
+    "_k": "P45|Portable buildings|Building 6m|pickup",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

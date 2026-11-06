@@ -1,0 +1,54 @@
+{
+ "at": "2026-10-23T02:46:55.878Z",
+ "live": true,
+ "people": 37642.87,
+ "at_": 19101.6,
+ "total": 56744.47,
+ "hours": 372.58,
+ "race": 56744.47,
+ "revenue_total": 893614.47,
+ "lines": [
+  {
+   "key": "pm",
+   "rate": 150.11,
+   "hours": 30.75,
+   "amount": 4615.88
+  },
+  {
+   "key": "gentech",
+   "rate": 150.11,
+   "hours": 27.25,
+   "amount": 4090.5
+  },
+  {
+   "key": "fence",
+   "rate": 91.14,
+   "hours": 213,
+   "amount": 19412.82
+  },
+  {
+   "key": "toilets",
+   "rate": 91.14,
+   "hours": 27.25,
+   "amount": 2483.57
+  },
+  {
+   "key": "vms",
+   "rate": 91.14,
+   "hours": 65.3333,
+   "amount": 5954.48
+  },
+  {
+   "key": "gentech_ent",
+   "rate": 150.11,
+   "hours": 4.5,
+   "amount": 675.5
+  },
+  {
+   "key": "toilets_ent",
+   "rate": 91.14,
+   "hours": 4.5,
+   "amount": 410.13
+  }
+ ]
+}

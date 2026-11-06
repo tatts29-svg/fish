@@ -1,0 +1,30 @@
+{
+  "author": "Andrew Fisher",
+  "candidate": "1eda8a422b7098189c404d2af71394ab013bb4d6d413ff58855ad828c02a77cc",
+  "results": {
+    "desktop": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console": 0,
+      "blocked_writes": 0
+    },
+    "phone": {
+      "routes": 27,
+      "direct_panes": 19,
+      "deep_links": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "errors": 0,
+      "console": 0,
+      "blocked_writes": 0
+    }
+  }
+}

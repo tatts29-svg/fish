@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "source": "04b39247275b6b99475185560e43828f1c8fdcec",
+  "changedMeshes": 186,
+  "families": {
+    "cast": 8,
+    "darkSteel": 20,
+    "machined": 77,
+    "brushed": 58,
+    "rubber": 11,
+    "stainless": 4,
+    "ceramic": 8
+  },
+  "detailGroups": 6,
+  "detailDraws": 11,
+  "detailInstances": 95,
+  "detailTriangles": 16416,
+  "detailVisible": 6,
+  "surfaceMaps": 4,
+  "surfaceBytes": 262144,
+  "disposed": false
+}

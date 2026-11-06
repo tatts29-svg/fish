@@ -1,0 +1,102 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Independent camera source and moving comparison summary; raw frames stay private",
+  "files": {
+    "comparison.json": {
+      "sha256": "853cbb145ec08cefc1a3bc457be2e6e3a6895f57d2b8cd25c195b567ef6d6d82",
+      "author": "Andrew Fisher",
+      "baselineSHA256": "70ed0c49213a910ae33dd062ecd3ada5f1752a69b0c1665c19c6bb25bcea1f11",
+      "testedSHA256": "fe38d887a52b1cf16ac240eb47580ca94f29bc43f73818991e87ad24ccfee8d2",
+      "finalSourceSHA256": "b9a8d98a0d2a189df5e6523923d8a332ee3b914fdf50734792c575c29dc3a576",
+      "exactWhitespaceDeltaBinding": true,
+      "checks": [
+        {
+          "name": "Source-tested native capture completed both devices42 frames",
+          "pass": true
+        },
+        {
+          "name": "All native camera and simulation states exactly match original page",
+          "pass": true
+        },
+        {
+          "name": "All original effective lens formulas retained at current canvas sizes",
+          "pass": true
+        },
+        {
+          "name": "All frames have no WebGL errors and no replaced camera active",
+          "pass": true
+        },
+        {
+          "name": "Original default, labels, nine choices and Car focus retained",
+          "pass": true
+        },
+        {
+          "name": "No page errors",
+          "pass": true
+        },
+        {
+          "name": "desktop consecutive native motion advances clock and position",
+          "pass": true
+        },
+        {
+          "name": "phone consecutive native motion advances clock and position",
+          "pass": true
+        }
+      ],
+      "limitations": [
+        "Native fixed-step captured motion proves original camera behaviour; this is not a physical-device frame-rate test.",
+        "Current canvas is slightly taller because newer retained controls are compact. Effective FOV uses the exact original formula at that aspect.",
+        "Original v801 Auto can use distant/partly fenced trackside shots; no new camera design or guarantee every old shot is unobstructed is implied.",
+        "Baseline diagnostic internal renderAt screenshots retain initial menu label; file/frame metadata identifies their actual camera. Restored captures use actual chooser selection."
+      ]
+    },
+    "restored_source_review.json": {
+      "sha256": "cfe00166f65636481c5a050d62961e5af1cb4550f63ebb906be1ddde5f657101",
+      "author": "Andrew Fisher",
+      "candidateSHA256": "fe38d887a52b1cf16ac240eb47580ca94f29bc43f73818991e87ad24ccfee8d2",
+      "checks": [
+        {
+          "name": "Original camera block byte-exact, including rigs/director/framing",
+          "pass": true
+        },
+        {
+          "name": "Original stored/default selection byte-exact",
+          "pass": true
+        },
+        {
+          "name": "Original car-focus controls retained",
+          "pass": true
+        },
+        {
+          "name": "Business script byte-exact807",
+          "pass": true
+        },
+        {
+          "name": "v794 override is absent",
+          "pass": true
+        },
+        {
+          "name": "v800 fit override and call sites absent",
+          "pass": true
+        },
+        {
+          "name": "Native full-lap playback preserved",
+          "pass": true
+        },
+        {
+          "name": "Entire pre-camera source807 retained",
+          "pass": true
+        }
+      ]
+    },
+    "source_delta_binding.json": {
+      "sha256": "6b68d4e3b9f028df344b137ec0f1b688df15f092ac46cff1a9bd556ed702a035",
+      "author": "Andrew Fisher",
+      "testedSHA256": "fe38d887a52b1cf16ac240eb47580ca94f29bc43f73818991e87ad24ccfee8d2",
+      "finalSourceSHA256": "b9a8d98a0d2a189df5e6523923d8a332ee3b914fdf50734792c575c29dc3a576",
+      "soleDelta": "One leading whitespace character restored before if(!map){; no runtime behaviour change",
+      "exactDeltaPass": true
+    }
+  },
+  "review": "Original camera restoration accepted; final integration controls tested separately."
+}

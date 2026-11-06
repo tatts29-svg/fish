@@ -1,0 +1,77 @@
+{
+ "author": "Andrew Fisher",
+ "utc": "20261014T220640Z",
+ "mode": "apply",
+ "manifest": "v10.24_vms_plan_DRAFT/manifest.json",
+ "options": {
+  "only": null,
+  "crew": null,
+  "no_remove": false
+ },
+ "plan": {
+  "uploads": [
+   {
+    "entry": 1,
+    "file": "/home/user/fish/03_GC500_Delivery_Control/v10.24_vms_plan_DRAFT/pdfs/GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "name": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "title": "VMS plan pack · 28 board sheets · 2026-10-15 · Issued",
+    "note": "One A4 sheet per VMS position on iEDM's VMS001-26003-01 plan (construction and event, the relocations, the five end-of-session boards, VMS 20's two messages): pin, four satellite views (exact spot, close-up, the area, the way in), the plan's map crop and photo, QR navigation, board, asset number, number plate, notes; issued by Andrew Fisher, Shutdown Manager, 15 Oct 2026; the live sheets are on the page's VMS boards tab",
+    "kind": "pack",
+    "day": "2026-10-15",
+    "crew": "vms",
+    "replaces": [],
+    "bytes": 20875244,
+    "sha256": "c1903e0b1311e2535ad5d5a886c9545ca56fa278ded71ae89b641dac06b8a03a",
+    "ok": true
+   }
+  ],
+  "removals": []
+ },
+ "key_check": {
+  "http": 200,
+  "level": "edit"
+ },
+ "attempted": true,
+ "uploads": [
+  {
+   "name": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+   "title": "VMS plan pack · 28 board sheets · 2026-10-15 · Issued",
+   "sha256": "c1903e0b1311e2535ad5d5a886c9545ca56fa278ded71ae89b641dac06b8a03a",
+   "bytes": 20875244,
+   "http": 200,
+   "id": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+   "answer": {
+    "id": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "name": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "kind": "pack",
+    "ref": null,
+    "branch": null,
+    "invoice_no": null,
+    "title": "VMS plan pack · 28 board sheets · 2026-10-15 · Issued",
+    "note": "One A4 sheet per VMS position on iEDM's VMS001-26003-01 plan (construction and event, the relocations, the five end-of-session boards, VMS 20's two messages): pin, four satellite views (exact spot, close-up, the area, the way in), the plan's map crop and photo, QR navigation, board, asset number, nu",
+    "bytes": 20875244,
+    "sha256": "c1903e0b1311e2535ad5d5a886c9545ca56fa278ded71ae89b641dac06b8a03a",
+    "type": "application/pdf",
+    "uploaded": "2026-10-14T22:06:43.190Z",
+    "by": "Andrew Fisher"
+   }
+  }
+ ],
+ "removals": [],
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "files": [
+   {
+    "id": "GC500_VMS_Plan_Pack_2026-10-15_Issued.pdf",
+    "title": "VMS plan pack · 28 board sheets · 2026-10-15 · Issued",
+    "by": "Andrew Fisher",
+    "kind": "pack",
+    "bytes": 20875244,
+    "sha256": "c1903e0b1311e2535ad5d5a886c9545ca56fa278ded71ae89b641dac06b8a03a",
+    "uploaded": "2026-10-14T22:06:43.190Z"
+   }
+  ]
+ },
+ "result": "VERIFIED"
+}

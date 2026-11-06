@@ -1,0 +1,45 @@
+{
+ "by": "Andrew Fisher",
+ "ops": [
+  {
+   "op": "vms_rego",
+   "key": "1211354",
+   "rego": "EX0017"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1211370",
+   "rego": "ES3206"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1271129",
+   "rego": "536UOO"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1191877",
+   "rego": "EM6306"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1211359",
+   "rego": "ER9247"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1182999",
+   "rego": "410UFQ"
+  },
+  {
+   "op": "vms_rego",
+   "key": "1211383",
+   "rego": "ER9381"
+  },
+  {
+   "op": "vms_rego",
+   "key": "VMS09",
+   "rego": "TF15JR"
+  }
+ ]
+}

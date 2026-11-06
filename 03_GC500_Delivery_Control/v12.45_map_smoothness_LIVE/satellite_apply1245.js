@@ -1,0 +1,1 @@
+ const t = tilesHtml(M, svg), gs = svg.querySelector('g.sat g.satw'); if (gs) { gs.parentNode.setAttribute('data-z', t.z); gs.setAttribute('data-z', t.z); tileImages1245(gs, t.tiles); }

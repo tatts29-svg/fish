@@ -1,0 +1,292 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261019T012723Z",
+ "finished": "2026-10-19T01:27:36.287Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 19 Oct 2026: \"Vms 19 rego TE02H0 ASSET NO 487T subhire premiair hire this is turned up.\" Contract 9961265 line 25 is \"VMS19 Variable Message Board Senior Premiair\" (SUB-2631, booked 19 Oct), one of the four boards still to come on T0158 (VMS x 9, 19 Oct).",
+  "ops": [
+   {
+    "op": "unit_reidentify",
+    "ref": "T0158",
+    "no": "487T",
+    "item": "VMS",
+    "owner": "prem-air-hire",
+    "label": "VMS19",
+    "note": "Arrival recorded by Andrew Fisher, 19 Oct 2026. Rego TE02H0. Premiair Hire sub-hire, contract 9961265 line 25."
+   },
+   {
+    "op": "supplied",
+    "ref": "T0158",
+    "item": "VMS",
+    "qty": 6
+   },
+   {
+    "op": "vms_board",
+    "key": "VMS19",
+    "fleet": "487T",
+    "rego": "TE02H0",
+    "on": "T0158"
+   },
+   {
+    "op": "note_append",
+    "ref": "T0158",
+    "text": "VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25)."
+   }
+  ]
+ },
+ "pageSha256": "31f1a9f5ea7d46057ad84e5b210d8a76102192386f7e52a5496ab572f46e6922",
+ "version": {
+  "before": 9771,
+  "after": 9781
+ },
+ "updated": {
+  "before": "2026-10-18T21:19:11.849Z",
+  "after": "2026-10-19T01:27:35.453Z"
+ },
+ "stage": [
+  {
+   "op": "unit_reidentify",
+   "ref": "T0158",
+   "no": "487T",
+   "item": "VMS",
+   "owner": "prem-air-hire",
+   "label": "VMS19",
+   "note": "Arrival recorded by Andrew Fisher, 19 Oct 2026. Rego TE02H0. Premiair Hire sub-hire, contract 9961265 line 25.",
+   "result": "identified as VMS"
+  },
+  {
+   "op": "supplied",
+   "ref": "T0158",
+   "item": "VMS",
+   "qty": 6,
+   "result": "VMS supplied 6"
+  },
+  {
+   "op": "vms_board",
+   "key": "VMS19",
+   "fleet": "487T",
+   "rego": "TE02H0",
+   "on": "T0158",
+   "result": "board saved",
+   "doc": {
+    "co": null,
+    "fleet": "487T",
+    "rego": "TE02H0",
+    "on": "T0158",
+    "line": "9961265/25",
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T01:27:32.011Z"
+   }
+  },
+  {
+   "op": "note_append",
+   "ref": "T0158",
+   "result": "note added to"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0158",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~T0158~2f~VMS",
+   "status": 200
+  },
+  {
+   "key": "stamps/dnote~2f~T0158",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+   "status": 200
+  },
+  {
+   "key": "stamps/vmsboard~2f~VMS19",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+   "status": 200
+  },
+  {
+   "key": "supplied/T0158",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS19",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS19",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-18T10:21:26.898Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "stamps/supplied~2f~T0158~2f~VMS": {
+    "_k": "supplied/T0158/VMS",
+    "v": "2026-10-16T00:39:42.197Z"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-16T00:39:42.262Z"
+   },
+   "stamps/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": null,
+   "stamps/vmsboard~2f~VMS19": null,
+   "loads/unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": null,
+   "supplied/T0158": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 5
+     }
+    ],
+    "_k": "T0158"
+   },
+   "by/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": null,
+   "by/vmsboard~2f~VMS19": null,
+   "vmsboard/VMS19": null
+  },
+  "after": {
+   "delivery/T0158": {
+    "state": "on site",
+    "set_at": "2026-10-16T02:09:00.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-18T10:21:26.898Z",
+    "note": "Came in 16 Oct 2026 for Monday 19 Oct: VMS13 Senior 1191957 rego EN3803 (Andrew wrote 1191657; the contract line reads 1191957, one digit apart, to be checked on the plate); VMS14 Junior 1201864 rego TD98VJ; VMS15 Senior 1211348 rego ER9217; VMS16 Senior 1211376 rego ES3211; VMS17 Senior 1211364 rego ER9410. Contract 9961265 lines 32, 34, 35, 37, 39. Regos as Andrew read them off the boards, 16 Oct. VMS19 arrived 19 Oct 2026: Premiair Hire sub-hire, fleet 487T, rego TE02H0 (contract 9961265 line 25).",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:22.919Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-16T02:09:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Andrew, 18 Oct: \"They are here already onsite. They turned up friday\". Dated by the regos he read off these five boards on site, Fri 16 Oct 12:09 AEST."
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-18T10:21:26.898Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "T0158"
+   },
+   "stamps/supplied~2f~T0158~2f~VMS": {
+    "_k": "supplied/T0158/VMS",
+    "v": "2026-10-19T01:27:31.932Z"
+   },
+   "stamps/dnote~2f~T0158": {
+    "_k": "dnote/T0158",
+    "v": "2026-10-19T01:27:32.485Z"
+   },
+   "stamps/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": {
+    "_k": "loads/unit925/a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+    "v": "2026-10-19T01:27:31.316Z"
+   },
+   "stamps/vmsboard~2f~VMS19": {
+    "_k": "vmsboard/VMS19",
+    "v": "2026-10-19T01:27:32.011Z"
+   },
+   "loads/unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": {
+    "ref": "T0158",
+    "owner": "prem-air-hire",
+    "assetNo": "487T",
+    "item": "VMS",
+    "label": "VMS19",
+    "branch": "",
+    "note": "Arrival recorded by Andrew Fisher, 19 Oct 2026. Rego TE02H0. Premiair Hire sub-hire, contract 9961265 line 25.",
+    "kind": "unit925-record",
+    "uuid": "a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+    "nativeId": "slot:a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+    "transportId": "[\"T0158\",\"prem-air-hire\",\"native\",\"slot:a7a63063-09f9-48a9-8477-4c7dd40a38b1\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T01:27:31.316Z",
+    "_k": "unit925/a7a63063-09f9-48a9-8477-4c7dd40a38b1"
+   },
+   "supplied/T0158": {
+    "items": [
+     {
+      "asked": "VMS",
+      "supplied": "VMS",
+      "qty_supplied": 6
+     }
+    ],
+    "_k": "T0158"
+   },
+   "by/loads~2f~unit925~2f~a7a63063-09f9-48a9-8477-4c7dd40a38b1": {
+    "_k": "loads/unit925/a7a63063-09f9-48a9-8477-4c7dd40a38b1",
+    "v": "Andrew Fisher"
+   },
+   "by/vmsboard~2f~VMS19": {
+    "_k": "vmsboard/VMS19",
+    "v": "Andrew Fisher"
+   },
+   "vmsboard/VMS19": {
+    "co": null,
+    "fleet": "487T",
+    "rego": "TE02H0",
+    "on": "T0158",
+    "line": "9961265/25",
+    "by": "Andrew Fisher",
+    "at": "2026-10-19T01:27:32.011Z",
+    "_k": "VMS19"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

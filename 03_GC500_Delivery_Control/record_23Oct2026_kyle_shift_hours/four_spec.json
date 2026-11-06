@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 23 Oct 2026, on the forecast's \"3 labour records missing hours (Kyle Gover)\": \"You should know this\". Kyle Gover's three shift records without times take his own recorded pattern: the build weekdays 20 and 21 Oct as his other build weekdays (06:30-17:00, as 22 Oct and every September day), the event night of 25 Oct as the two event nights already typed by Andrew on 15 Oct (23 Oct 18:06-06:00, 24 Oct 18:00-06:00): 18:00-06:00. Through the running sheet's own control (runSetShift). Nothing else changes.",
+ "ops": [
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-20",
+   "start": "06:30",
+   "finish": "17:00",
+   "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)"
+  },
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-21",
+   "start": "06:30",
+   "finish": "17:00",
+   "why": "his build weekday pattern (22 Oct and every September day: 06:30-17:00)"
+  },
+  {
+   "op": "shift_times",
+   "person": "Kyle Gover",
+   "date": "2026-10-25",
+   "start": "18:00",
+   "finish": "06:00",
+   "why": "the event night as typed for 24 Oct (18:00-06:00) and 23 Oct (18:06-06:00)"
+  }
+ ]
+}

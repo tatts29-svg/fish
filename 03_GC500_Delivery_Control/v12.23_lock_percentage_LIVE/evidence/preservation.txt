@@ -1,0 +1,14 @@
+PASS baseline is pinned by the release patch
+PASS Main servicing job list has exactly one baseline target
+PASS Scoped screen-only servicing display styles has exactly one baseline target
+PASS Release footer has exactly one baseline target
+PASS only the job list, scoped screen styles and footer changed; every remaining byte is identical
+PASS actual release patch reproduces the candidate exactly
+PASS native crew card and bundled tracker data are byte-for-byte unchanged
+PASS main servicing configuration is byte-for-byte unchanged
+PASS shared counting and cancellation model is byte-for-byte unchanged
+PASS declaration evidence model is byte-for-byte unchanged
+PASS servicing night report is byte-for-byte unchanged
+PASS wrong baseline is rejected by the hash guard
+PASS applying the patch twice is rejected
+{"checks": 13, "allowed_changes": ["main servicing job list", "scoped screen-only servicing display styles", "release footer"], "all_other_bytes_unchanged": true, "network_requests": 0, "operational_writes": 0}

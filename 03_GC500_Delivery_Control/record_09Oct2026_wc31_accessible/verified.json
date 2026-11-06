@@ -1,0 +1,192 @@
+{
+  "author": "Andrew Fisher",
+  "complete": true,
+  "beforeVersion": 4877,
+  "afterVersion": 4884,
+  "changes": [
+    {
+      "collection": "stamps",
+      "key": "units/WC31"
+    },
+    {
+      "collection": "stamps",
+      "key": "loads/unit925/9b83fd79-a08b-433f-b15a-31b9b3113280"
+    },
+    {
+      "collection": "units",
+      "key": "WC31"
+    },
+    {
+      "collection": "deleted",
+      "key": "back/unit/WC31/1317645"
+    },
+    {
+      "collection": "loads",
+      "key": "unit925/9b83fd79-a08b-433f-b15a-31b9b3113280"
+    },
+    {
+      "collection": "by",
+      "key": "deleted/back/unit/WC31/1317645"
+    },
+    {
+      "collection": "by",
+      "key": "loads/unit925/9b83fd79-a08b-433f-b15a-31b9b3113280"
+    }
+  ],
+  "check": {
+    "locations": [
+      {
+        "ref": "WC31",
+        "rows": [
+          {
+            "number": "12",
+            "item": "16Pan Block",
+            "owner": "event-portables"
+          },
+          {
+            "number": "74",
+            "item": "16Pan Block",
+            "owner": "event-portables"
+          },
+          {
+            "number": "1317645",
+            "item": "Accessible Toilet",
+            "owner": "coates"
+          }
+        ],
+        "date": "2026-10-09"
+      },
+      {
+        "ref": "WC09",
+        "rows": [
+          {
+            "number": "0085",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0551",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0450",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0585",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "1268858",
+            "item": "Toilet Block 6m",
+            "owner": "coates"
+          },
+          {
+            "number": "1311146",
+            "item": "Toilet Block 6m",
+            "owner": "coates"
+          }
+        ],
+        "date": "2026-10-08"
+      },
+      {
+        "ref": "WC61",
+        "rows": [
+          {
+            "number": "0645",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0105",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0945",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0977",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0547",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0290",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0038",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0015",
+            "item": "FWF",
+            "owner": "event-portables"
+          }
+        ],
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC69",
+        "rows": [
+          {
+            "number": "0152",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0078",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0010",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0070",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0958",
+            "item": "FWF",
+            "owner": "event-portables"
+          },
+          {
+            "number": "0647",
+            "item": "FWF",
+            "owner": "event-portables"
+          }
+        ],
+        "date": "2026-10-13"
+      },
+      {
+        "ref": "WC40",
+        "rows": [],
+        "date": "2026-10-13"
+      }
+    ],
+    "matches": [
+      {
+        "ref": "WC31",
+        "item": "Accessible Toilet",
+        "owner": "coates"
+      }
+    ]
+  },
+  "errors": []
+}

@@ -1,0 +1,9 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "f182b59f07ea6f2fbd0a2b09d2efc4e219ef44c9c16a0109304f0f6e89437c5a",
+  "baseSha256": "a271015a9cf6d099b1665d3bcef71bb6fe5b2671d7081739c91b0f04d52205b5",
+  "wrongBaseRejected": true,
+  "reapplicationRejected": true,
+  "inlineScripts": 51,
+  "nativeWrites": 0
+}

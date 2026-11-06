@@ -1,0 +1,2 @@
+{"by": "Andrew Fisher", "why": "Andrew, 20 Oct 2026: \"Set T0024 to 2 FWF\" - after the quantity went to 2 the reference read 1 of 2 received. Both FWF are on site at T0024 (Coates 1211968 and Event Portables 0164, EVL toilet symbol, Andrew's pin -27.983217, 153.426642), so 2 supplied and the reference complete again.",
+ "ops": [{"op": "supplied", "ref": "T0024", "item": "FWF", "qty": 2}, {"op": "complete_again", "ref": "T0024"}]}

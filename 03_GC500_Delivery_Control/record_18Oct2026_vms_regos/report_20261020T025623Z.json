@@ -1,0 +1,2521 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T025623Z",
+ "finished": "2026-10-20T02:56:52.350Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"add a fire extinguisher to every building and tick as complete. all of these must have 1 attached Building 6m, Building 4.8m, Building 12m, Building 9.6m, Building 3.6m, Ticket Box 4.8m, Ticket Box 6m ... approved to do and go live\" - the 39 without one get one (sheet: ../record_20Oct2026_fire_extinguishers/). Also step 2 of 2 for WC31: the Accessible Toilet install back on, dated after today's receipt (\"wc31 accesbale toilet is installed\").",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "WC31",
+    "disc": "Toilets & amenities",
+    "item": "Accessible Toilet",
+    "line": "install"
+   },
+   {
+    "op": "fire_ext",
+    "ref": "AA",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "CP1",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "HRP",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P01",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P03",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P04",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P05",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P06",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P09",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P10",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P11",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P12",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P13",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P14",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P15",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P16",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P17",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P18",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P19",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P20",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P21",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P33",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P36",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P37",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P38",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P39",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P41",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P42",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P44",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P55",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P56",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P58",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P60",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P62",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P63",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P65",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "P67",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "T0021",
+    "qty": 1
+   },
+   {
+    "op": "fire_ext",
+    "ref": "T0022",
+    "qty": 1
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10144,
+  "after": 10185
+ },
+ "updated": {
+  "before": "2026-10-20T02:54:09.413Z",
+  "after": "2026-10-20T02:56:51.575Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "WC31",
+   "disc": "Toilets & amenities",
+   "item": "Accessible Toilet",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "AA",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "CP1",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "HRP",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P01",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P03",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P04",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P05",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P06",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P09",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P10",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P11",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P12",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P13",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P14",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P15",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P16",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P17",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P18",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P19",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P20",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P21",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P33",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P36",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P37",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P38",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P39",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P41",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P42",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P44",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P55",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P56",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P58",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P60",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P62",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P63",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P65",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "P67",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "T0021",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  },
+  {
+   "op": "fire_ext",
+   "ref": "T0022",
+   "qty": 1,
+   "result": "fire extinguishers 1"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install",
+   "status": 200
+  },
+  {
+   "key": "accessories/P33",
+   "status": 200
+  },
+  {
+   "key": "accessories/P19",
+   "status": 200
+  },
+  {
+   "key": "accessories/P09",
+   "status": 200
+  },
+  {
+   "key": "accessories/P20",
+   "status": 200
+  },
+  {
+   "key": "accessories/P18",
+   "status": 200
+  },
+  {
+   "key": "accessories/P58",
+   "status": 200
+  },
+  {
+   "key": "accessories/P41",
+   "status": 200
+  },
+  {
+   "key": "accessories/P44",
+   "status": 200
+  },
+  {
+   "key": "accessories/T0022",
+   "status": 200
+  },
+  {
+   "key": "accessories/P42",
+   "status": 200
+  },
+  {
+   "key": "accessories/P38",
+   "status": 200
+  },
+  {
+   "key": "accessories/P39",
+   "status": 200
+  },
+  {
+   "key": "accessories/P06",
+   "status": 200
+  },
+  {
+   "key": "accessories/P55",
+   "status": 200
+  },
+  {
+   "key": "accessories/P56",
+   "status": 200
+  },
+  {
+   "key": "accessories/P67",
+   "status": 200
+  },
+  {
+   "key": "accessories/P65",
+   "status": 200
+  },
+  {
+   "key": "accessories/P63",
+   "status": 200
+  },
+  {
+   "key": "accessories/P62",
+   "status": 200
+  },
+  {
+   "key": "accessories/P60",
+   "status": 200
+  },
+  {
+   "key": "accessories/AA",
+   "status": 200
+  },
+  {
+   "key": "accessories/CP1",
+   "status": 200
+  },
+  {
+   "key": "accessories/HRP",
+   "status": 200
+  },
+  {
+   "key": "accessories/P01",
+   "status": 200
+  },
+  {
+   "key": "accessories/P03",
+   "status": 200
+  },
+  {
+   "key": "accessories/P04",
+   "status": 200
+  },
+  {
+   "key": "accessories/P05",
+   "status": 200
+  },
+  {
+   "key": "accessories/P10",
+   "status": 200
+  },
+  {
+   "key": "accessories/P11",
+   "status": 200
+  },
+  {
+   "key": "accessories/P12",
+   "status": 200
+  },
+  {
+   "key": "accessories/P13",
+   "status": 200
+  },
+  {
+   "key": "accessories/P14",
+   "status": 200
+  },
+  {
+   "key": "accessories/P15",
+   "status": 200
+  },
+  {
+   "key": "accessories/P16",
+   "status": 200
+  },
+  {
+   "key": "accessories/P17",
+   "status": 200
+  },
+  {
+   "key": "accessories/P21",
+   "status": 200
+  },
+  {
+   "key": "accessories/P36",
+   "status": 200
+  },
+  {
+   "key": "accessories/P37",
+   "status": 200
+  },
+  {
+   "key": "accessories/T0021",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "2026-10-20T02:54:06.943Z"
+   },
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1238952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P19": {
+    "_k": "P19",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1295810",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:18:53.341Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1295810",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:23:47.318Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P09": {
+    "_k": "P09",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270403",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:39.309Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328958",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:24.972Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Urn",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Urn",
+      "asset_no": "1284061",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:51.706Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P20": {
+    "_k": "P20",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1180683",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:25:55.076Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1180683",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:27:08.293Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P18": {
+    "_k": "P18",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": null,
+      "asset_no_state": "not supplied",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-17T22:49:35.487Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P58": {
+    "_k": "P58",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1201945",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-22T22:11:40.157Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P41": {
+    "_k": "P41",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189899",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:31:05.760Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189908",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:31:34.083Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P44": {
+    "_k": "P44",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1183134",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:43:04.453Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/T0022": {
+    "_k": "T0022",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272753",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:53:08.964Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1254399",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:53:28.616Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P42": {
+    "_k": "P42",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327939",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:15:09.636Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272746",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:19:23.888Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P38": {
+    "_k": "P38",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327934",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:25:10.828Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272755",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:24:30.464Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P39": {
+    "_k": "P39",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1272737",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:29:07.665Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327936",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:29:28.792Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P06": {
+    "_k": "P06",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1097209",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:37:19.259Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272749",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:36:47.560Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Microwave",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Microwave",
+      "asset_no": "1284012",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:36:23.359Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1173374",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:38:08.068Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P55": {
+    "_k": "P55",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1320175",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-07T00:53:37.998Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P56": {
+    "_k": "P56",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270437",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-07T01:00:49.283Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P67": {
+    "_k": "P67",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1300541",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:28:25.132Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P65": {
+    "_k": "P65",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327935",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:31:24.963Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1283982",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:49:30.849Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P63": {
+    "_k": "P63",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1219157",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T21:23:28.075Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1219156",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T21:23:58.378Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P62": {
+    "_k": "P62",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189912",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:39:15.125Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189908",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:39:44.407Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1254221",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:41:43.702Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P60": {
+    "_k": "P60",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1267597",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:00:37.345Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Swivel chair",
+      "qty": 4,
+      "qty_stated": true,
+      "as_written": "4x Swivel chair",
+      "asset_no": null,
+      "asset_no_state": "not supplied",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:05:58.866Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/AA": null,
+   "accessories/CP1": null,
+   "accessories/HRP": null,
+   "accessories/P01": null,
+   "accessories/P03": null,
+   "accessories/P04": null,
+   "accessories/P05": null,
+   "accessories/P10": null,
+   "accessories/P11": null,
+   "accessories/P12": null,
+   "accessories/P13": null,
+   "accessories/P14": null,
+   "accessories/P15": null,
+   "accessories/P16": null,
+   "accessories/P17": null,
+   "accessories/P21": null,
+   "accessories/P36": null,
+   "accessories/P37": null,
+   "accessories/T0021": null,
+   "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": null
+  },
+  "after": {
+   "stamps/labour~2f~WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "labour/WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": "2026-10-20T02:56:30.892Z"
+   },
+   "accessories/P33": {
+    "_k": "P33",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1286611",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:41.233Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1127296",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:51.923Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1238952",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:03.943Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1066777",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:14:20.848Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:39.714Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P19": {
+    "_k": "P19",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1295810",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:18:53.341Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1295810",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:23:47.318Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:38.619Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P09": {
+    "_k": "P09",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270403",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:39.309Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1328958",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:24.972Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Urn",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Urn",
+      "asset_no": "1284061",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:21:51.706Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.771Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P20": {
+    "_k": "P20",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1180683",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:25:55.076Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1180683",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-16T02:27:08.293Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:38.978Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P18": {
+    "_k": "P18",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": null,
+      "asset_no_state": "not supplied",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-17T22:49:35.487Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:38.248Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P58": {
+    "_k": "P58",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1201945",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-22T22:11:40.157Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:43.507Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P41": {
+    "_k": "P41",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189899",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:31:05.760Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189908",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:31:34.083Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:41.623Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P44": {
+    "_k": "P44",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1183134",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:43:04.453Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:42.359Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/T0022": {
+    "_k": "T0022",
+    "v": [
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272753",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:53:08.964Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1254399",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-23T22:53:28.616Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:46.202Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P42": {
+    "_k": "P42",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327939",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:15:09.636Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272746",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:19:23.888Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:41.998Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P38": {
+    "_k": "P38",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327934",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:25:10.828Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272755",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:24:30.464Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:40.910Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P39": {
+    "_k": "P39",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1272737",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:29:07.665Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327936",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:29:28.792Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:41.274Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P06": {
+    "_k": "P06",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1097209",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:37:19.259Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1272749",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:36:47.560Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Microwave",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Microwave",
+      "asset_no": "1284012",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:36:23.359Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Zip boiler",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Zip boiler",
+      "asset_no": "1173374",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-09-28T03:38:08.068Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.397Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P55": {
+    "_k": "P55",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1320175",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-07T00:53:37.998Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:42.767Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P56": {
+    "_k": "P56",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1270437",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-07T01:00:49.283Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:43.147Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P67": {
+    "_k": "P67",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1300541",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:28:25.132Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:45.445Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P65": {
+    "_k": "P65",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1327935",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:31:24.963Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1283982",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-13T22:49:30.849Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:45.072Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P63": {
+    "_k": "P63",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1219157",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T21:23:28.075Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1219156",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T21:23:58.378Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:44.706Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P62": {
+    "_k": "P62",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189912",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:39:15.125Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1189908",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:39:44.407Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fridge",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fridge",
+      "asset_no": "1254221",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T22:41:43.702Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:44.271Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P60": {
+    "_k": "P60",
+    "v": [
+     {
+      "type": "Air conditioner",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Air conditioner",
+      "asset_no": "1267597",
+      "asset_no_state": "entered here",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:00:37.345Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Swivel chair",
+      "qty": 4,
+      "qty_stated": true,
+      "as_written": "4x Swivel chair",
+      "asset_no": null,
+      "asset_no_state": "not supplied",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-14T23:05:58.866Z",
+      "added_by": "Andrew Fisher"
+     },
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:43.847Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/AA": {
+    "_k": "AA",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:31.540Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/CP1": {
+    "_k": "CP1",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:31.973Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/HRP": {
+    "_k": "HRP",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:32.390Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P01": {
+    "_k": "P01",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:32.824Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P03": {
+    "_k": "P03",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:33.200Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P04": {
+    "_k": "P04",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:33.618Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P05": {
+    "_k": "P05",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:34.033Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P10": {
+    "_k": "P10",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:35.203Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P11": {
+    "_k": "P11",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:35.612Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P12": {
+    "_k": "P12",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:35.977Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P13": {
+    "_k": "P13",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:36.336Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P14": {
+    "_k": "P14",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:36.684Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P15": {
+    "_k": "P15",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:37.044Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P16": {
+    "_k": "P16",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:37.484Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P17": {
+    "_k": "P17",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:37.874Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P21": {
+    "_k": "P21",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:39.359Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P36": {
+    "_k": "P36",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:40.074Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/P37": {
+    "_k": "P37",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:40.447Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "accessories/T0021": {
+    "_k": "T0021",
+    "v": [
+     {
+      "type": "Fire extinguisher",
+      "qty": 1,
+      "qty_stated": true,
+      "as_written": "Fire extinguisher",
+      "asset_no": null,
+      "asset_no_state": "not numbered — counted by quantity",
+      "origin": "added in this page",
+      "source_task": null,
+      "_added": true,
+      "added_at": "2026-10-20T02:56:45.826Z",
+      "added_by": "Andrew Fisher"
+     }
+    ]
+   },
+   "labour/WC31~7c~Toilets~20~~26~~20~amenities~7c~Accessible~20~Toilet~7c~install": {
+    "_k": "WC31|Toilets & amenities|Accessible Toilet|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

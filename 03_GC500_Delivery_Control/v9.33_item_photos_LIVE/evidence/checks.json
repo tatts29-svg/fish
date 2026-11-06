@@ -1,0 +1,18 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY for combined integration",
+  "sources": {
+    "items933.js": "83d221e90e85b17466ee5e9c3c92c3c82b82492e4d4b5dbf082668ee8c8a56e2",
+    "items933.css": "a9c968b01e6a5f7fc5f46492bffde4796d337afd637ca51c8a0d04b4bb40f26f",
+    "rows933.js": "1d58016c4bc1bcb35ce55d5f19bd0c6cb76326f7e2a2fca503b7d0cbb0563285",
+    "patch_v933.py": "4db0d3b00f6ea6fd2fd0f01045b964973ccd3615158abb8b3fc516c7b8a0a990"
+  },
+  "tests": {
+    "identityAssociation": 12,
+    "nativeFreshness": 11,
+    "historyRemoval": 5,
+    "independentSource": 10
+  },
+  "pageScripts": 37,
+  "serviceWrites": 0
+}

@@ -1,0 +1,217 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261016T012907Z",
+ "finished": "2026-10-16T01:29:18.643Z",
+ "mode": "apply",
+ "spec": {
+  "day": "2026-10-16",
+  "by": "Andrew Fisher",
+  "owner": "event-portables",
+  "item": "FWF",
+  "partial": false,
+  "rows": [
+   {
+    "ref": "BJR01",
+    "numbers": [
+     "0941"
+    ]
+   }
+  ]
+ },
+ "pageSha256": "d181b29e1c93713e494466dea3f24ee200729c72e7af61097342d657ea81f2dd",
+ "version": {
+  "before": 7222,
+  "after": 7232
+ },
+ "updated": {
+  "before": "2026-10-16T01:28:45.068Z",
+  "after": "2026-10-16T01:29:17.703Z"
+ },
+ "stage": [
+  {
+   "ref": "BJR01",
+   "unit": "0941",
+   "key": "unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3"
+  },
+  {
+   "ref": "BJR01",
+   "supplied": 1
+  },
+  {
+   "ref": "BJR01",
+   "install": true
+  },
+  {
+   "ref": "BJR01",
+   "date": "2026-10-16",
+   "complete": true,
+   "plan": "2026-10-22"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/BJR01",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~BJR01~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "loads/unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+   "status": 200
+  },
+  {
+   "key": "supplied/BJR01",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~BJR01~2f~FWF",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/BJR01": {
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:28:42.255Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "stamps/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": null,
+   "stamps/supplied~2f~BJR01~2f~FWF": null,
+   "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "loads/unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": null,
+   "supplied/BJR01": null,
+   "by/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": null,
+   "by/supplied~2f~BJR01~2f~FWF": null,
+   "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null,
+   "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": null
+  },
+  "after": {
+   "delivery/BJR01": {
+    "note": "Brad Jones Racing's FWF (Schedule 7, Event Week row 49, Event Portables request EP-S7-EW49, planned 22 Oct) turned up and was installed 16 Oct 2026: unit 0941, as Andrew recorded it. The schedule row carries no reference, so this one was added for it.",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T01:29:14.982Z",
+    "state": "on site",
+    "set_at": "2026-10-16T01:28:42.719Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T01:28:42.719Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:29:15.368Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:29:15.368Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "stamps/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": {
+    "_k": "loads/unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+    "v": "2026-10-16T01:29:13.988Z"
+   },
+   "stamps/supplied~2f~BJR01~2f~FWF": {
+    "_k": "supplied/BJR01/FWF",
+    "v": "2026-10-16T01:29:14.456Z"
+   },
+   "stamps/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/BJR01|Toilets & amenities|FWF|install",
+    "v": "2026-10-16T01:29:14.512Z"
+   },
+   "loads/unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": {
+    "ref": "BJR01",
+    "owner": "event-portables",
+    "assetNo": "0941",
+    "item": "FWF",
+    "label": "FWF",
+    "branch": "",
+    "note": "Arrival and installation confirmed by Andrew Fisher, 16 Oct 2026.",
+    "kind": "unit925-record",
+    "uuid": "5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+    "nativeId": "slot:5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+    "transportId": "[\"BJR01\",\"event-portables\",\"native\",\"slot:5d0f29cd-d71a-4063-9e34-3bb884bfeeb3\"]",
+    "sourceKey": "",
+    "sourceSnapshot": "",
+    "active": true,
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T01:29:13.988Z",
+    "_k": "unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3"
+   },
+   "supplied/BJR01": {
+    "items": [
+     {
+      "asked": "FWF",
+      "supplied": "FWF",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "BJR01"
+   },
+   "by/loads~2f~unit925~2f~5d0f29cd-d71a-4063-9e34-3bb884bfeeb3": {
+    "_k": "loads/unit925/5d0f29cd-d71a-4063-9e34-3bb884bfeeb3",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~BJR01~2f~FWF": {
+    "_k": "supplied/BJR01/FWF",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "labour/BJR01|Toilets & amenities|FWF|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/BJR01~7c~Toilets~20~~26~~20~amenities~7c~FWF~7c~install": {
+    "_k": "BJR01|Toilets & amenities|FWF|install",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,267 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T002804Z",
+ "finished": "2026-11-02T00:28:37.289Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 2 Nov 2026 10:2x AEST: \"Scissor lift left at 1015am\". The only scissor lift on the record is EQ0001, Scissor Lift With Operator Protection 43ft (13.0M) - Diesel, Coates 1220903 (contract 9992300 line 4; ticked Ready 30 Oct; pick-up booked 2 Nov 09:00), its reference's only unit: it left in full at 10:15 on 2 Nov, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "EQ0001",
+    "at": "2026-11-02T10:15:00+10:00",
+    "nos": [
+     "1220903"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12782,
+  "after": 12783
+ },
+ "updated": {
+  "before": "2026-11-02T00:23:21.005Z",
+  "after": "2026-11-02T00:28:36.306Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1012101.16,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 456889.59,
+   "difference": 522673.65,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "EQ0001",
+   "at": "2026-11-02T10:15:00+10:00",
+   "nos": [
+    "1220903"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T10:15:00+10:00, recorded by Andrew Fisher: 1 x Scissor Lift With Operator Protection 43ft (13.0M) - Diesel 1220903 - EQ0001 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0001",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0001": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:45.511Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1220903": {
+      "on": true,
+      "at": "2026-10-30T04:22:25.612Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1220903": {
+      "at": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T20:50:53.691Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:46.347Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:45.511Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:46.347Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1220903",
+      "ready": true,
+      "at": "2026-10-30T04:22:25.612Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1220903",
+      "pickup": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T20:50:53.691Z"
+     }
+    ],
+    "_k": "EQ0001"
+   }
+  },
+  "after": {
+   "delivery/EQ0001": {
+    "state": "in transit",
+    "set_at": "2026-11-02T00:28:22.789Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1220903": {
+      "on": true,
+      "at": "2026-10-30T04:22:25.612Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1220903": {
+      "at": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T20:50:53.691Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-02T00:28:22.789Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:45.511Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-02T00:28:22.789Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "699ba753-1a8e-4ab3-a61b-670882139023",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T10:15:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T18:26:45.511Z",
+       "requiredKey": "[[\"scissor lift with operator protection 43ft (13.0m) - diesel\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Scissor Lift With Operator Protection 43ft (13.0M) - Diesel",
+         "n": 1,
+         "unitIds": [
+          "[\"EQ0001\",\"coates\",\"asset\",\"1220903\"]"
+         ],
+         "numbers": [
+          "1220903"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"EQ0001\",\"coates\",\"asset\",\"1220903\"]",
+           "number": "1220903",
+           "owner": "coates",
+           "item": "Scissor Lift With Operator Protection 43ft (13.0M) - Diesel"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:46.347Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-02T00:28:22.789Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1220903",
+      "ready": true,
+      "at": "2026-10-30T04:22:25.612Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1220903",
+      "pickup": "2026-11-02T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T20:50:53.691Z"
+     }
+    ],
+    "_k": "EQ0001"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

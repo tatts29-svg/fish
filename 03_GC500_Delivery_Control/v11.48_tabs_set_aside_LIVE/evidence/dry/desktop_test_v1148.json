@@ -1,0 +1,112 @@
+{
+ "at": "2026-10-23T00:41:03.375Z",
+ "live": false,
+ "results": [
+  {
+   "name": "footer says the expected release",
+   "ok": true
+  },
+  {
+   "name": "Event nights and Change deliveries are in the set-aside set; the earlier set-asides stay; both panes keep their names in TABS so taking them out of the set restores them",
+   "ok": true,
+   "detail": {
+    "nights": true,
+    "change": true,
+    "still": true,
+    "inTabs": true
+   }
+  },
+  {
+   "name": "no Event nights or Change deliveries button anywhere in the navigation; Servicing and VMS boards still offered",
+   "ok": true,
+   "detail": {
+    "n": 39,
+    "nights": [],
+    "change": [],
+    "servicing": true,
+    "vms": true
+   }
+  },
+  {
+   "name": "a link to Event nights lands on Today and says the page has been set aside",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "hash": "#today",
+    "said": [
+     "Gold Coast time, 10:40.",
+     "Gold Coast time, 10:40."
+    ],
+    "bodyHas": true
+   }
+  },
+  {
+   "name": "a link to Change deliveries lands on Today and says the page has been set aside",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "hash": "#today",
+    "said": [
+     "Gold Coast time, 10:40.",
+     "Gold Coast time, 10:40."
+    ],
+    "bodyHas": true
+   }
+  },
+  {
+   "name": "the Event nights print link lands on Today too",
+   "ok": true,
+   "detail": {
+    "tab": "today",
+    "hash": "#print/nights/2026-10-23"
+   }
+  },
+  {
+   "name": "the Build tab draws its day cards with no \"Edit · Change deliveries\" button",
+   "ok": true,
+   "detail": {
+    "cards": 1,
+    "chg": 0,
+    "edit": 0,
+    "txt": 30544
+   }
+  },
+  {
+   "name": "the Servicing tab still opens with its heading and carries the tracker panel and publish code (the fold itself shows on an editing link only)",
+   "ok": true,
+   "detail": {
+    "tab": "servicing",
+    "head": true,
+    "txt": 318,
+    "admin": true,
+    "hostCode": true
+   }
+  },
+  {
+   "name": "VMS removals, next to the set-aside Event nights in the list, still opens",
+   "ok": true,
+   "detail": {
+    "tab": "vmsoff",
+    "head": 1
+   }
+  },
+  {
+   "name": "record unchanged by the run",
+   "ok": true
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "name": "no writes attempted",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "live": 84,
+    "blocked": 0
+   }
+  }
+ ]
+}

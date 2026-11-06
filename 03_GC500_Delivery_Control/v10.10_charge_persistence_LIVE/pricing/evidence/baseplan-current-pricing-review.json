@@ -1,0 +1,88 @@
+{
+  "author": "Andrew Fisher",
+  "source": {
+    "file": "Baseplan SuperCars (1).xlsx",
+    "sha256": "6f6a20a3567d99ff0f1e0e97c8387d5a94907a358711c7d52cf5b1043e54956d"
+  },
+  "method": "Direct openpyxl read of all 11 original sheets, matched against fresh v10.09 contract snapshot by contract and line. Actual site identity and arrival remain authoritative. No native record edits.",
+  "counts": {
+    "originalRows": 295,
+    "embeddedRows": 320,
+    "differentRows": 121,
+    "addedSourceRows": 8,
+    "absentSourceRows": 33,
+    "changedMatchedRate1OrPrice": 0
+  },
+  "verifiedFindings": [
+    {
+      "scope": "Buildings P03/P51/P46",
+      "action": "Reconcile source allocations 4/94/100 together, keeping each Rate1 1951.46 and quantity1. Do not drop94 in isolation.",
+      "sourceCells": [
+        "9968862-KINP!D4",
+        "9968862-KINP!D62",
+        "9968862-KINP!D64"
+      ],
+      "financialEffect": "No combined hire reduction; fixes item-to-contract identity."
+    },
+    {
+      "scope": "P65/P67",
+      "action": "Keep approved building quantity1 each and source1426.07 each as forecast. Hold duplicated physical allocations until separately confirmed.",
+      "financialEffect": "Move2852.14 from actual hire to remaining forecast; job total unchanged."
+    },
+    {
+      "scope": "P45",
+      "action": "New source contract9968862 line131, original row83, qty1 Rate1 1426.07. Current site confirms one6m building107135 arrived12Oct. Existing drawer shows card fallback but P&L has no separately matching source hire. Add same source-backed hire once, preserving site identity and date.",
+      "sourceCells": [
+        "9968862-KINP!A83",
+        "9968862-KINP!F83",
+        "9968862-KINP!G83",
+        "9968862-KINP!J83"
+      ]
+    },
+    {
+      "scope": "WC41/WC43",
+      "action": "Each ten individual source rows is consolidated into one quantity10. Same unit90.07; do not add quantity10 on top of ten old rows.",
+      "financialEffect": "No quantity or price change from restructure."
+    },
+    {
+      "scope": "WB06",
+      "action": "Old quantity154 split into60+60+34 on same dates/rate1.18; do not reduce to60 or keep154 plus new94.",
+      "financialEffect": "No quantity or price change from restructure."
+    },
+    {
+      "scope": "GN13",
+      "action": "New source44 replaces old12. Current model already correctly charges requested45kVA using confirmed1276503 and12Oct arrival:1494.68. Preserve this single hire; do not append another generator.",
+      "financialEffect": "Identity correction only."
+    },
+    {
+      "scope": "Concert cable sets",
+      "action": "Parent9961976:46 is2sets of5 cables. Rate1=115.14,Rate2=104.03,W, min1, expected12\u201313Oct; card Powerlock row82 POA. Commercial basis and period not established, so do not assert230.28 fullhire or use source preview total as invoice.",
+      "sourceCells": [
+        "9961976-NVAC!A36",
+        "9961976-NVAC!G36",
+        "9961976-NVAC!J36",
+        "9961976-NVAC!K36"
+      ],
+      "hold": "Parent rate period/allocation needs confirmation."
+    },
+    {
+      "scope": "Ten120mm cables",
+      "action": "Source9961976:47 explicitly BundleLineNumber46, samePackage CABLETOSUIT200KVA, quantity10=2sets\u00d75. Preserve included child contents; no additional separate hire charge or quantity.",
+      "sourceCells": [
+        "9961976-NVAC!G37",
+        "9961976-NVAC!AV37",
+        "9961976-NVAC!AW37"
+      ]
+    },
+    {
+      "scope": "Forklift1281615",
+      "action": "Current T0109 physical number matches, but site STD/NVAC and28Sep arrival conflict with sourceRT/MEAD booked13Oct on new9987005:7. Do not automatically charge another rental or overwrite type/date/branch.",
+      "hold": "Reconcile requested type, customer pricing and rental period before using185.40/day."
+    }
+  ],
+  "limits": [
+    "33 source absences are not automatic cancellations. Site-approved retained scope wins; do not wholesale replace current contracts.",
+    "No changes to matching nonzero Rate1/Price were found, but date/rate-type policies and source grouping can still affect charges.",
+    "This is source review; implementation must prove same counts and totals across item drawers, Costs, P&L and branch models."
+  ]
+}

@@ -1,0 +1,12 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+  const page = await (await browser.newContext({viewport: {width: 1200, height: 700}, reducedMotion: 'reduce'})).newPage();
+  await page.goto(process.argv[2] + '#progress', {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(2500);
+  await page.click('#showStart'); await page.waitForTimeout(1500);
+  await page.selectOption('#showBackdrop', 'circuit3d_day'); await page.waitForTimeout(9000);
+  const s = await page.evaluate(() => { const plate = document.querySelector('#showPlate'); const S = GC3D.S;
+    const cvs = [...plate.querySelectorAll('canvas')].map(c => { const cs = getComputedStyle(c); const r = c.getBoundingClientRect(); return {cls: c.className, w: c.width, h: c.height, disp: cs.display, op: cs.opacity, vis: cs.visibility, z: cs.zIndex, box: [Math.round(r.width), Math.round(r.height)]}; });
+    const kids = [...plate.children].map(e => e.tagName + '.' + e.className.toString().slice(0, 30) + ':' + getComputedStyle(e).display + ':' + getComputedStyle(e).opacity);
+    return {plateCls: plate.className, dataBuilt: plate.dataset.built, cvs, kids, beatAt: S.beatAt, needsRender: S.needsRender, paused: S.paused, lost: S.lost, suspended: S.suspended, raf: S.raf, frames: S.frames, look: S.look && S.look.name, htmlMotion: document.documentElement.dataset.motion}; });
+  console.log(JSON.stringify(s, null, 1));
+  await browser.close(); })();

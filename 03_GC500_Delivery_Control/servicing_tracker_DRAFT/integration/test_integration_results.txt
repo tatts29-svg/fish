@@ -1,0 +1,154 @@
+
+== 0. the server under test
+PASS server.js is the deployed v5.89 (283062 bytes, sha256 cb32d00e0d4b…)
+
+== 1. making the tracker card through POST /api/cards (server clock Sun 18 Oct 08:00)
+PASS v5.89 starts on 127.0.0.1 (build v5.89, 0 ticks)
+PASS POST /api/cards with the generator's HTML and tracker block: 200, a 32-character token, 75 signed links
+PASS the server kept the generator's 83 lines and 4 days, keys and targets []
+PASS every link is base64url(HMAC-SHA256(secret, token:REF)) cut to 16
+PASS GET /d/<token> serves the generator's HTML byte for byte
+PASS the card CSP pins the generator's script hash (sha256-MhZpWsESLDVUL…), connect-src self only
+PASS GET /d/<token>/ticks: now (the server's), epoch, seq 0, the 4 days, no ticks, service day 2026-10-18 (08:00 starts it)
+
+== 1b. the print pack (make_sheets.py --links) made from the server's answer; QR codes read off the PDF
+PASS make_sheets.py builds the live-format pack from {token, links} (55 pages, LIVE QR codes)
+PASS the completion QRs printed for WC06, WC07 and WC20 decode to exactly /d/<this token>#r=REF.<the server's sig>
+PASS area 5 and area 2 print a completion QR for each of their references and no other
+PASS their location QRs are the contract's Google Maps pin for each pinned reference
+
+== 1c. a phone before the event (server clock 18 Oct)
+PASS before the event (server 18 Oct): the card opens on Friday, every job shut "Opens Fri 23 08:00"
+PASS ...and says servicing has not started
+PASS the server refuses a Friday tick on 18 Oct (400 future_day)
+
+== 2. Friday 23 Oct 22:00 — phone A on WC06, phone B on WC07 (both area 5)
+PASS restarted on the same port with the clock at Fri 22:00: the tracker card is still there
+PASS the epoch survived the restart, service day is Friday
+PASS A: WC06 big, Area 5, "2 units at WC06", its asset numbers, Navigate to the pin
+PASS B: WC07, "20 units at WC07", all 20 asset numbers
+PASS both open on the server's day (Fri 23) with Friday's jobs in Andrew's words: Pumped out · Fresh water refilled · Cleaned & restocked
+PASS nothing ticked: A reads 0% / 0%, 0 of 2 references · 0 of 66 jobs
+PASS A's tap reached the server once: WC06 · WC06-FWF · pump · Fri 23 · done, with the tap time
+PASS A's button: "Done 22:00"
+PASS A after its tap: area 5 3%, everything 0% (0 of 75 references · 2 of 760 jobs)
+PASS B shows A's tick within one 15 s poll (15 s): area 5 3%
+PASS B ticks WC07 pump + water (20 units each): B reads area 5 63%, everything 5%
+PASS A reads the same: area 5 63% · 0 of 2 references · 42 of 66 jobs
+PASS area 5 all done: A reads 100% and "Area finished 22:00" (its last job), everything 8%
+PASS B reads the same: 100%, Area finished 22:00
+PASS tapping a done job asks before it undoes
+PASS the undo reached the server as done:false naming exactly A's clean tick
+PASS after the undo: A reads area 5 96%, no finish time
+PASS B follows the undo: 96%
+
+== 3. phone B offline while phone A ticks newer; B reconnects after a server restart (clock to 22:30)
+PASS B (offline) queues an untick naming only its own tick b1
+PASS B: "No signal · 2 ticks waiting"
+PASS server back at Fri 22:30 (same port, same data)
+PASS the server holds A's untick of b1 and A's newer pump-out a2 (22:30)
+PASS B's queue drained: its late untick (naming b1 only) and its WC06 clean are on the server
+PASS B's clean keeps B's tap time (22:00), not its arrival (22:30)
+PASS main page rule: WC07 pump-out still done, at A's newer time 22:30 (B's late untick cancelled only b1)
+PASS main page rule: WC06 clean done at the earliest uncancelled tap, B's 22:00
+PASS B (on WC07): Pumped out done at 22:30, not wiped
+PASS A (on WC06): Cleaned & restocked done at B's earlier 22:00
+PASS A: area 5 100% again, "Area finished 22:30" (its latest job, A's 22:30), everything 8%
+PASS B: the same, 100% · Area finished 22:30 · 2 of 2 references · 66 of 66 jobs
+
+== 4. a forged completion code is refused
+PASS WC06's code used on WC41: the server refuses it (403), stores nothing, the card says "Not saved" and drops the tick
+PASS a made-up 16-character code: refused, nothing stored
+PASS straight to the API: another reference's code 403 bad_sig, no code 403, WC07's code on WC06's line 400 line
+PASS ...and none of them stored anything
+PASS a code with no signature: view only, no tick buttons
+
+== 4b. Sat 24 Oct 07:59:35 → 08:00 on the server's own clock: the day moves on; a crew still finishing Friday can stay on it
+PASS 07:59 Saturday is still Friday's service: A opens on Fri 23, "Open now · closes 08:00 Sat 24"
+PASS a tick at 07:59 lands on Friday
+PASS at 08:00 the server says Saturday (2026-10-24) and A moves on by itself: "Now Saturday 24's service"
+PASS A ticked in the last hour, so it is offered "Stay on Friday 23"
+PASS staying: loud banner "You are on Friday 23's service"
+PASS a late Friday tick after 08:00 is accepted by the server (a past day)
+PASS back on Saturday: the same job is Saturday's now, a tick of its own
+
+== 5. Sunday 25 Oct 21:00 — locked & confirmed empty added, no water; tanks pumped out only
+PASS server back at Sun 21:00
+PASS B, left open since Friday, moves itself to Sunday from the server's clock and says so
+PASS B (WC07 FWF) on Sunday: Pumped out · Cleaned & restocked · Locked & confirmed empty — no water
+PASS A opens WC20 on Sunday; the window says last night
+PASS WC20 toilet block: Pumped out · Cleaned & restocked · Locked & confirmed empty
+PASS WC20 waste tank: Pumped out only
+PASS no water anywhere on Sunday
+PASS the server takes Locked & confirmed empty on Sunday (block and FWF) and the tank's pump-out
+PASS the server refuses water on Sunday, a clean on a waste tank, and the lock on Friday (400 task)
+PASS A: area 2 6% and everything 3% — Sunday counts 777 jobs
+PASS B: area 5 on Sunday 30% · 0 of 75 references · 24 of 777 jobs
+PASS B picks Friday: loud banner, and Friday's area 5 still reads 100% finished 22:30 from the server
+PASS "Back to Sunday 25"
+
+== 6. the main page's panel (panel_render.js + state.js) drawn from GET /api/ticks on the edit link
+PASS panel, Friday: area 5 100%, "2 of 2 locations · finished Fri 22:30" — what both phones showed
+PASS panel, Sunday: everything 3% and area 2 6% — the same as phone A
+PASS panel, Friday fold: WC07 Pumped out shows 22:30 (A's newer tick, after B's late untick)
+
+== 7. a TEST tracker on another load: its tick voided on the edit link, then the card withdrawn
+PASS a TEST tracker on load servicing-tracker:TEST is made beside the real one (own token, own 75 codes)
+PASS the real tracker's WC12 code does not work on the TEST card (403)
+PASS W's tick is on the TEST tracker only; the real one is untouched
+PASS the edit link voids it: one void line, the epoch moves on
+PASS W drops the voided tick (area 1 11% -> 0%); the server still holds it, voided, and nothing new
+PASS after the void W re-sent its tick at most once (answered already + voided) and then stopped (1 post)
+PASS withdrawn on the edit link: W stops ("This tracker has been withdrawn"), its jobs shut
+PASS ...and makes no more requests, even on signal back
+PASS the real tracker still answers (200) with every tick
+
+== 7b. parity: ../card/mock_server.js answers the edit link with the live v5.89 shapes and codes
+PASS the mock's edit-link answers have the live keys and codes (POST /api/cards tracker block; GET /api/ticks?token=; a tick in it; a voided tick; a void; POST /api/ticks/void; GET /api/ticks (no token); unknown token; second tracker for a load; a bad tracker; DELETE /api/cards/<t>)
+
+== 8. 429 from the real limiter: the card waits as told, then sends (about a minute)
+PASS (60 junk posts from R's address use its minute; the 61st is 429 with Retry-After 60 s)
+PASS R: "Busy · trying again in … s", the tick kept
+PASS R sends it by itself once the server allows (60 s), stored once
+PASS R opened /d/<token>/ and its ticks went to /d/<token>/ticks (never //ticks)
+
+== 9. rollback: v5.87 on the same data answers /ticks with its HTML 404; the card waits, then sends on v5.89
+PASS v5.87 starts on v5.89's data (build v5.87)
+PASS v5.87 still serves the tracker card page
+PASS B: "Service being updated · 1 tick waiting", the tick kept, the card not stopped
+PASS back on v5.89
+PASS B carries on by itself (58 s): the tick stored once, Live again
+
+== 10. Tue 27 Oct 00:30: the tracker has finished (410)
+PASS both phones: "Servicing has finished", ticking stops
+PASS the card page is 410 "has finished", a tick is 410 expired
+PASS the edit link still reads every tick for the main page (expired: true)
+
+== 11. the record untouched, the secret kept, the pages clean
+PASS records.json byte for byte the same (sha256 b4bd0e3f4a9d…)
+PASS /api/version unchanged (record version 77)
+PASS writes.log holds only card and tracker lines: card made, card open, card withdrawn, tracker ticks, tracker ticks voided
+PASS neither tracker's secret is in a phone answer, a listing (cards, ticks), a card answer, cards.json, writes.log or the server log
+PASS no completion code is handed back to a phone (no sig in any /ticks answer)
+PASS A: no Content-Security-Policy violation
+PASS A: every request stayed on 127.0.0.1:33651
+PASS A: no script errors
+PASS A: localStorage holds only gc500.svc1063.* keys
+PASS B: no Content-Security-Policy violation
+PASS B: every request stayed on 127.0.0.1:33651
+PASS B: no script errors
+PASS B: localStorage holds only gc500.svc1063.* keys
+PASS W: no Content-Security-Policy violation
+PASS W: every request stayed on 127.0.0.1:33651
+PASS W: no script errors
+PASS W: localStorage holds only gc500.svc1063.* keys
+PASS R: no Content-Security-Policy violation
+PASS R: every request stayed on 127.0.0.1:33651
+PASS R: no script errors
+PASS R: localStorage holds only gc500.svc1063.* keys
+PASS ticks the phones sent carry only the contract keys (no names): day, done, id, line, ref, sig, tapped_at, task, undoes
+PASS every post the phones made stayed under 2 KB
+PASS the server never stopped by itself
+
+119 passed, 0 failed in 202 s
+(throw-away DATA_DIR: /tmp/claude-0/-home-user-fish/b3d08fad-688f-5986-9fd9-2f1442b3bb1a/scratchpad/gc500-integration-3MwcTZ)

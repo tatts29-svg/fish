@@ -1,0 +1,39 @@
+{
+ "pass": true,
+ "checks": {
+  "pricedByUsSaid": true,
+  "servicingWorkingShown": true,
+  "ruleSaid": true,
+  "unpricedNamedWithSibling": true,
+  "linkToEachLine": true,
+  "noFigureMoved": true,
+  "readOnly": true,
+  "jumpOpensTheFold": true,
+  "noBrokenValues": true,
+  "noHorizontalOverflow": true,
+  "noErrors": true,
+  "noWriteLeftThePage": true
+ },
+ "unpriced": {
+  "n": 2,
+  "words": [
+   "SUPPLY- Telehandler Fork Extension 1800mm (NVAC) — MEAD’s own line SUB-2527 carries Rate 1 $9.30 a week for the nearest thing on the contracts — a forklift extension with no size stated: a starting point for the branch to confirm (the size and the period), not a rate to copy",
+   "COATES-Forklift Tyne Rotator (NVAC) — no rate for it anywhere on the contracts or the card"
+  ],
+  "short": "1 with a sibling rate on the contracts for the branch to confirm",
+  "sib": 1
+ },
+ "servicing": [
+  85101.75,
+  85101.75,
+  46545
+ ],
+ "jump": {
+  "foldOpen": true,
+  "top": 254,
+  "vh": 844
+ },
+ "errors": [],
+ "console": [],
+ "overflow": 0
+}

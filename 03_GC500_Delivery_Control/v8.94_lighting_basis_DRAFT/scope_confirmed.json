@@ -1,0 +1,8 @@
+{"towers": 6, "by": "Andrew Fisher", "on": "2026-10-08", "words": "What ever the map says. If its 6 its 6",
+ "about": "how many lighting towers the GC500 job needs (7 on record, D024 keys 6); asked and answered in the lead builder's chat with Andrew, 8 Oct 2026 about 04:55 AEST",
+ "basis": "D024-26003-02 keyed lighting towers (the map is the scope)",
+ "surplus": {"by": "Andrew Fisher", "on": "2026-10-08", "words": "Lets go by d024", "about": "the fifth tower T0002 delivered to the BSF storage yard, Molendinar, where D024 keys 4: surplus to the plan"},
+ "groups": [
+  {"name": "BSF storage yard, Molendinar", "callouts": ["LT01", "LT02", "LT03", "LT04"], "scope": 4, "records": ["T0002"]},
+  {"name": "Seaway car park transporter compound", "callouts": ["LT05", "LT06"], "scope": 2, "records": ["LT05", "LT06"]}
+ ]}

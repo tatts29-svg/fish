@@ -1,0 +1,12 @@
+# v8.19 checks · source commit 1cd16dcdc67a62299c7ca244cea5fa87dadeadcc · candidate sha256 0630371d2c662cbff820d429aec87f0142da24a947d7b3ef4441dd5671d7bf6c (9356879 bytes) · base (live at build) sha256 88a7b6b110194133ab59f5efa17b169f937f8fa21cb551dfd38f96eab6597919 (9293149 bytes) · run 2026-10-03T14:14:13Z
+# suite: assign · command: python3 v8.19_meet_points_ep_plan_DRAFT/evidence/assign_check819.py /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/v819/probe819.json /tmp/claude-0/-home-user-fish/710a1764-23a1-5338-9fe8-299f94961e8a/scratchpad/event_portables/work
+131 of 131 master-plan references and WC toilets (all 65 WC among them): page = assign.py unchanged (0 differ)
+70 of 70 other references (pinned, confirmed, description, report, none): page = the same rule with pinned/confirmed included (0 differ)
+201 of 201 references in all
+by meet point: {"COMMODORE": 9, "HELEN_PARK": 12, "HILL_A47": 5, "ISLAND_NORTH": 21, "ISLAND_WEST_PARK": 13, "MAIN_BEACH": 5, "MBP_LANDSIDE": 2, "MEDIAN_PITSTOP": 24, "PITLANE": 108, "SEASIDE_NORTH": 2}
+by kind: {"confirmed": 1, "desc": 15, "master": 128, "none": 1, "pinned": 2, "report": 54}
+  WC references with no master-plan position (no pin under both): [('WC10', 'report'), ('WC100', None), ('WC85', 'report')]
+PASS T0022 -> ISLAND_WEST_PARK (want ISLAND_WEST_PARK)
+PASS T0023 -> ISLAND_WEST_PARK (want ISLAND_WEST_PARK)
+PASS P47 -> COMMODORE (want COMMODORE)
+71 of 71 plan meet points (loads and on-site lists) = the page

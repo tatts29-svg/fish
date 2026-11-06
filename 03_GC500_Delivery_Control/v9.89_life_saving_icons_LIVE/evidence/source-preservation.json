@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "baseSha256": "40dc8f6c66079d8910ef5eaa3dd6e98a80b778960f70659d5c2447676d1c6175",
+  "candidateSha256": "4773efd9433b7bf50b824f1c4f3966bfa4e009b99bbd2231ffa0a2c1f35612bf",
+  "bytes": 14721174,
+  "literalPresentationChanges": [
+    "Driver and team sheet outlines",
+    "Generated pre-start outlines",
+    "Selected rule artwork",
+    "Share Build motion lifecycle",
+    "Daily rule artwork",
+    "Version"
+  ],
+  "newModules": [
+    "icons989-script",
+    "icons989-style"
+  ],
+  "allOtherPageBytesPreserved": true,
+  "scope": "Exact reversal of icon-only insertions and display substitutions recovers the complete live v9.88 source, including all data and financial logic."
+}

@@ -1,0 +1,113 @@
+{
+ "sheet_px": [
+  2384,
+  1684
+ ],
+ "note": "areas lifted off the marked 2019 plate onto the 2026 sheet D001-26003-03 by homography (SIFT/RANSAC, 122 inliers, median 1.1 px); printed colour told from the pen by the sheet itself; coordinates in 2x sheet pixels (1 px = 0.5 sheet pt)",
+ "areas": [
+  {
+   "colour": "pink",
+   "mark": "3",
+   "where": "north-east \u2014 Gate 6 / Pacific Plaza, Surfers Paradise",
+   "bbox": [
+    1574,
+    238,
+    721,
+    195
+   ],
+   "centroid": [
+    1912.6,
+    309.8
+   ],
+   "area_px": 19130
+  },
+  {
+   "colour": "pink",
+   "mark": "5",
+   "where": "west \u2014 Gate 8 / Aloha Lane",
+   "bbox": [
+    108,
+    437,
+    326,
+    201
+   ],
+   "centroid": [
+    239.2,
+    491.2
+   ],
+   "area_px": 4445
+  },
+  {
+   "colour": "teal",
+   "mark": "2",
+   "where": "Main Beach Pde at Mustang / Beachcrest",
+   "bbox": [
+    1354,
+    378,
+    417,
+    59
+   ],
+   "centroid": [
+    1548.9,
+    388.7
+   ],
+   "area_px": 3149
+  },
+  {
+   "colour": "teal",
+   "mark": "4",
+   "where": "Main Beach \u2014 Ocean Towers / Cable Beach",
+   "bbox": [
+    250,
+    401,
+    412,
+    233
+   ],
+   "centroid": [
+    417.1,
+    557.4
+   ],
+   "area_px": 4079
+  },
+  {
+   "colour": "orange",
+   "mark": "1",
+   "where": "Main Beach Pde at Madison Point / Narrowneck Court",
+   "bbox": [
+    770,
+    353,
+    725,
+    142
+   ],
+   "centroid": [
+    1187.3,
+    397.8
+   ],
+   "area_px": 5304
+  },
+  {
+   "colour": "orange",
+   "mark": "7",
+   "where": "south-west \u2014 Main Beach Tower / Axis, toward Gate 10",
+   "bbox": [
+    197,
+    479,
+    145,
+    441
+   ],
+   "centroid": [
+    263.7,
+    730.2
+   ],
+   "area_px": 3523
+  }
+ ],
+ "missing": [
+  {
+   "colour": "orange",
+   "mark": "6",
+   "where": "Main Beach \u2014 Norfolk / Silverpoint",
+   "why": "the pen is too faint on the photograph to lift; to be drawn by hand"
+  }
+ ]
+}

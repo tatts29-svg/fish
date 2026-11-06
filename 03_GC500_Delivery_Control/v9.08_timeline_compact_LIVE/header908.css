@@ -1,0 +1,73 @@
+/* Author: Andrew Fisher. Give the three native header instruments a full desktop row.
+   Their faces, graphic treatments, live values and handlers remain the existing components.
+   Phone, collapsed and print layouts keep their compact behaviour. */
+@media screen and (min-width:641px) and (min-height:601px) {
+ header.top:not(.slim89) .brandrow {
+  grid-template-columns:auto auto minmax(0,1fr)!important;
+  grid-template-areas:"lock tools search" "cluster cluster cluster"!important;
+  row-gap:10px!important;
+ }
+ header.top:not(.slim89) .hzcluster {
+  align-items:stretch;
+  gap:12px;
+ }
+}
+@media screen and (min-width:1024px) and (min-height:761px) {
+ header.top:not(.slim89) .hzcluster > :is(.tpodwrap,.hzcd,.recstrip) {
+  min-height:104px;
+  align-self:stretch;
+ }
+ header.top:not(.slim89) .hzcluster .tpcard,
+ header.top:not(.slim89) .hzcluster .tpcard > .face,
+ header.top:not(.slim89) .hzcluster .tphead {height:100%;}
+ header.top:not(.slim89) .hzcluster .tphead,
+ header.top:not(.slim89) .hzcluster > :is(.hzcd,.recstrip) {padding:12px 16px;}
+ header.top:not(.slim89) .hzcluster :is(.tpnum,.hzcd .num) {font-size:36px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rsw b {font-size:30px;}
+ header.top:not(.slim89) .hzcluster .tpk b,
+ header.top:not(.slim89) .hzcluster .hzcd .lab,
+ header.top:not(.slim89) .hzcluster .recstrip .rsw::before {font-size:11px;}
+ header.top:not(.slim89) .hzcluster :is(.tpdate,.hzcd .sub,.recstrip .rsw em) {font-size:11px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rslamps {left:16px;top:36px;}
+}
+@media screen and (min-width:1800px) and (min-height:1000px) {
+ header.top:not(.slim89) .hzcluster > :is(.tpodwrap,.hzcd,.recstrip) {min-height:156px;}
+ header.top:not(.slim89) .hzcluster .tphead,
+ header.top:not(.slim89) .hzcluster > :is(.hzcd,.recstrip) {padding:14px 18px;}
+ header.top:not(.slim89) .hzcluster :is(.tpnum,.hzcd .num) {font-size:50px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rsw b {font-size:42px;padding-left:84px;}
+ header.top:not(.slim89) .hzcluster .tpk b,
+ header.top:not(.slim89) .hzcluster .hzcd .lab,
+ header.top:not(.slim89) .hzcluster .recstrip .rsw::before {font-size:13px;}
+ header.top:not(.slim89) .hzcluster :is(.tpdate,.hzcd .sub,.recstrip .rsw em) {font-size:13px;}
+ header.top:not(.slim89) .hzcluster .hzcd .num small {font-size:14px;}
+ header.top:not(.slim89) .hzcluster .hzcd .num small.cdt {font-size:24px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rslamps {left:18px;top:42px;gap:7px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rslamps i {width:18px;height:18px;}
+}
+@media screen and (min-width:3000px) and (min-height:1200px) {
+ header.top:not(.slim89) .hzcluster > :is(.tpodwrap,.hzcd,.recstrip) {min-height:180px;}
+ header.top:not(.slim89) .hzcluster .tphead,
+ header.top:not(.slim89) .hzcluster > :is(.hzcd,.recstrip) {padding:16px 20px;}
+ header.top:not(.slim89) .hzcluster :is(.tpnum,.hzcd .num) {font-size:64px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rsw b {font-size:54px;padding-left:104px;}
+ header.top:not(.slim89) .hzcluster .tpk b,
+ header.top:not(.slim89) .hzcluster .hzcd .lab,
+ header.top:not(.slim89) .hzcluster .recstrip .rsw::before {font-size:15px;}
+ header.top:not(.slim89) .hzcluster :is(.tpdate,.hzcd .sub,.recstrip .rsw em) {font-size:14px;}
+ header.top:not(.slim89) .hzcluster .hzcd .num small {font-size:17px;}
+ header.top:not(.slim89) .hzcluster .hzcd .num small.cdt {font-size:30px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rslamps {left:20px;top:50px;gap:8px;}
+ header.top:not(.slim89) .hzcluster .recstrip .rslamps i {width:22px;height:22px;}
+}
+/* A sideways phone or short desktop needs the work area more than the instrument row. */
+@media screen and (max-height:600px) {
+ header.top .hzcluster {display:none!important;}
+}
+@media screen and (min-width:641px) and (max-height:600px) {
+ header.top .brandrow {
+  grid-template-columns:auto auto minmax(0,1fr)!important;
+  grid-template-areas:"lock tools search"!important;
+  row-gap:0!important;
+ }
+}

@@ -1,0 +1,497 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261025T031644Z",
+ "finished": "2026-10-25T03:17:22.851Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 25 Oct 2026: \"i made a error the gn20 is here sorry\", \"its this big one here 350A\", \"in pink\" (the big set on drawing D024 beside GN21), then \"please add GN20 Back and all costs please add all this data back in\". GN20 was deleted on 20 Oct and the page never re-uses a deleted reference, so the 350 kVA (1276701) goes back as GN20-A through the page's Add form, at GN20's own drawing callout (D024-26003-02, 020), on NVAC, its contract line as its note; on site from GN20's own arrival on our record (30 Sep 07:23), received, complete, its install labour ticked as GN20's was, quantity 1 (set 2 then 1 at the end, the page's own way to take a received/installed baseline after the arrival). Same run: EQ0006's quantity set 2 then 1 for the same reason (its 25 Oct baseline read 0 received). Nothing else changes.",
+  "ops": [
+   {
+    "op": "add_ref",
+    "ref": "GN20-A",
+    "disc": "Generators",
+    "name": "S01 (GN20)",
+    "type": "350kva",
+    "no": "1276701",
+    "note": "This is GN20 (S01, 350 kVA), deleted on 20 Oct in error. Andrew, 25 Oct: \"i made a error the gn20 is here\". Rental 9961976, line 6.",
+    "branch": "NVAC",
+    "sheet": "D024-26003-02",
+    "callout": "020"
+   },
+   {
+    "op": "set_qty",
+    "ref": "GN20-A",
+    "qty": 1
+   },
+   {
+    "op": "light",
+    "ref": "GN20-A",
+    "state": "on site",
+    "at": "2026-09-29T21:23:16.631Z",
+    "why": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference."
+   },
+   {
+    "op": "supplied",
+    "ref": "GN20-A",
+    "item": "350kva",
+    "qty": 1
+   },
+   {
+    "op": "complete",
+    "ref": "GN20-A"
+   },
+   {
+    "op": "labour_on",
+    "ref": "GN20-A",
+    "disc": "Generators",
+    "item": "350kva",
+    "line": "install"
+   },
+   {
+    "op": "set_qty",
+    "ref": "GN20-A",
+    "qty": 2
+   },
+   {
+    "op": "set_qty",
+    "ref": "GN20-A",
+    "qty": 1
+   },
+   {
+    "op": "set_qty",
+    "ref": "EQ0006",
+    "qty": 2
+   },
+   {
+    "op": "set_qty",
+    "ref": "EQ0006",
+    "qty": 1
+   }
+  ]
+ },
+ "pageSha256": "91f9006070d1269eb6e9ae807076e9146e7e52e6fbfc68a01d840f5666559a11",
+ "version": {
+  "before": 10848,
+  "after": 10865
+ },
+ "updated": {
+  "before": "2026-10-25T03:11:48.918Z",
+  "after": "2026-10-25T03:17:21.735Z"
+ },
+ "money": {
+  "before": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 241028.14,
+    "NVAC": 75154.36,
+    "STPS": 41142.65,
+    "MEAD": 16859.02
+   }
+  },
+  "after": {
+   "charge": null,
+   "cost": null,
+   "branches": {
+    "KINP": 241028.14,
+    "NVAC": 75154.36,
+    "STPS": 41142.65,
+    "MEAD": 16859.02
+   }
+  }
+ },
+ "stage": [
+  {
+   "op": "add_ref",
+   "ref": "GN20-A",
+   "disc": "Generators",
+   "name": "S01 (GN20)",
+   "type": "350kva",
+   "no": "1276701",
+   "note": "This is GN20 (S01, 350 kVA), deleted on 20 Oct in error. Andrew, 25 Oct: \"i made a error the gn20 is here\". Rental 9961976, line 6.",
+   "branch": "NVAC",
+   "sheet": "D024-26003-02",
+   "callout": "020",
+   "result": "added GN20-A (Generators, S01 (GN20), 1276701, branch NVAC)"
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 1,
+   "result": "quantity undefined -> 1"
+  },
+  {
+   "op": "light",
+   "ref": "GN20-A",
+   "state": "on site",
+   "at": "2026-09-29T21:23:16.631Z",
+   "why": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference.",
+   "result": "set on site at 2026-09-29T21:23:16.631Z"
+  },
+  {
+   "op": "supplied",
+   "ref": "GN20-A",
+   "item": "350kva",
+   "qty": 1,
+   "result": "350kva supplied 1"
+  },
+  {
+   "op": "complete",
+   "ref": "GN20-A",
+   "result": "complete"
+  },
+  {
+   "op": "labour_on",
+   "ref": "GN20-A",
+   "disc": "Generators",
+   "item": "350kva",
+   "line": "install",
+   "result": "ticked"
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 2,
+   "result": "quantity 1 -> 2"
+  },
+  {
+   "op": "set_qty",
+   "ref": "GN20-A",
+   "qty": 1,
+   "result": "quantity 2 -> 1"
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 2,
+   "result": "quantity 1 -> 2"
+  },
+  {
+   "op": "set_qty",
+   "ref": "EQ0006",
+   "qty": 1,
+   "result": "quantity 2 -> 1"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/GN20-A",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~EQ0006",
+   "status": 200
+  },
+  {
+   "key": "stamps/branch~2f~GN20-A",
+   "status": 200
+  },
+  {
+   "key": "stamps/qtys~2f~GN20-A",
+   "status": 200
+  },
+  {
+   "key": "stamps/supplied~2f~GN20-A~2f~350kva",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "notes/GN20-A",
+   "status": 200
+  },
+  {
+   "key": "supplied/GN20-A",
+   "status": 200
+  },
+  {
+   "key": "branch/GN20-A",
+   "status": 200
+  },
+  {
+   "key": "by/branch~2f~GN20-A",
+   "status": 200
+  },
+  {
+   "key": "by/qtys~2f~GN20-A",
+   "status": 200
+  },
+  {
+   "key": "by/supplied~2f~GN20-A~2f~350kva",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "labour/GN20-A~7c~Generators~7c~350kva~7c~install",
+   "status": 200
+  },
+  {
+   "key": "added/GN20-A",
+   "status": 200
+  },
+  {
+   "key": "qtys/EQ0006",
+   "status": 200
+  },
+  {
+   "key": "qtys/GN20-A",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/GN20-A": null,
+   "stamps/qtys~2f~EQ0006": {
+    "_k": "qtys/EQ0006",
+    "v": "2026-10-25T02:51:16.991Z"
+   },
+   "stamps/branch~2f~GN20-A": null,
+   "stamps/qtys~2f~GN20-A": null,
+   "stamps/supplied~2f~GN20-A~2f~350kva": null,
+   "stamps/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install": null,
+   "notes/GN20-A": null,
+   "supplied/GN20-A": null,
+   "branch/GN20-A": null,
+   "by/branch~2f~GN20-A": null,
+   "by/qtys~2f~GN20-A": null,
+   "by/supplied~2f~GN20-A~2f~350kva": null,
+   "by/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install": null,
+   "labour/GN20-A~7c~Generators~7c~350kva~7c~install": null,
+   "added/GN20-A": null,
+   "qtys/EQ0006": {
+    "_k": "EQ0006",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "EQ0006",
+     "firstQuantity": 1,
+     "items": [
+      {
+       "item": "Laserplane",
+       "quantity": 1,
+       "received": 0,
+       "installed": 0,
+       "receipts": [],
+       "receiptAt": "",
+       "supplied": null,
+       "suppliedAt": "",
+       "on": false,
+       "onAt": "",
+       "done": false,
+       "doneAt": "",
+       "install": false,
+       "installAt": "",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T02:51:16.991Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/GN20-A": null
+  },
+  "after": {
+   "delivery/GN20-A": {
+    "state": "on site",
+    "set_at": "2026-09-29T21:23:16.631Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-29T21:23:16.631Z",
+      "by": "Andrew Fisher",
+      "note": "GN20's own arrival on our record (30 Sep 07:23), carried over from the deleted reference."
+     }
+    ],
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-25T03:17:02.678Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-25T03:17:02.678Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "GN20-A"
+   },
+   "stamps/qtys~2f~EQ0006": {
+    "_k": "qtys/EQ0006",
+    "v": "2026-10-25T03:17:06.643Z"
+   },
+   "stamps/branch~2f~GN20-A": {
+    "_k": "branch/GN20-A",
+    "v": "2026-10-25T03:17:00.577Z"
+   },
+   "stamps/qtys~2f~GN20-A": {
+    "_k": "qtys/GN20-A",
+    "v": "2026-10-25T03:17:05.088Z"
+   },
+   "stamps/supplied~2f~GN20-A~2f~350kva": {
+    "_k": "supplied/GN20-A/350kva",
+    "v": "2026-10-25T03:17:02.564Z"
+   },
+   "stamps/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install": {
+    "_k": "labour/GN20-A|Generators|350kva|install",
+    "v": "2026-10-25T03:17:03.357Z"
+   },
+   "notes/GN20-A": {
+    "_k": "GN20-A",
+    "v": "This is GN20 (S01, 350 kVA), deleted on 20 Oct in error. Andrew, 25 Oct: \"i made a error the gn20 is here\". Rental 9961976, line 6."
+   },
+   "supplied/GN20-A": {
+    "items": [
+     {
+      "asked": "350kva",
+      "supplied": "350kva",
+      "qty_supplied": 1
+     }
+    ],
+    "_k": "GN20-A"
+   },
+   "branch/GN20-A": {
+    "_k": "GN20-A",
+    "v": "NVAC"
+   },
+   "by/branch~2f~GN20-A": {
+    "_k": "branch/GN20-A",
+    "v": "Andrew Fisher"
+   },
+   "by/qtys~2f~GN20-A": {
+    "_k": "qtys/GN20-A",
+    "v": "Andrew Fisher"
+   },
+   "by/supplied~2f~GN20-A~2f~350kva": {
+    "_k": "supplied/GN20-A/350kva",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~GN20-A~7c~Generators~7c~350kva~7c~install": {
+    "_k": "labour/GN20-A|Generators|350kva|install",
+    "v": "Andrew Fisher"
+   },
+   "labour/GN20-A~7c~Generators~7c~350kva~7c~install": {
+    "_k": "GN20-A|Generators|350kva|install",
+    "v": true
+   },
+   "added/GN20-A": {
+    "key": "GN20-A",
+    "discipline": "Generators",
+    "name": "S01 (GN20)",
+    "item_types": [
+     "350kva"
+    ],
+    "asset_numbers": [
+     "1276701"
+    ],
+    "accessories": [],
+    "first_date": null,
+    "last_date": null,
+    "locations": [],
+    "asset_no_state": "entered here",
+    "source_row": null,
+    "added_at": "2026-10-25T03:17:00.577Z",
+    "added_by": "Andrew Fisher",
+    "drawing_links": [
+     {
+      "sheet": "D024-26003-02",
+      "label": "020",
+      "source": "recorded on site"
+     }
+    ],
+    "linked_to_2026_sheet": true,
+    "position_state": "entered by hand at a drawing callout — confirm the exact spot on the ground",
+    "_k": "GN20-A"
+   },
+   "qtys/EQ0006": {
+    "_k": "EQ0006",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "EQ0006",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "Laserplane",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-25T02:51:18.920Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-25T02:51:18.920Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-25T02:51:18.920Z",
+       "on": true,
+       "onAt": "2026-10-25T02:51:19.447Z",
+       "done": true,
+       "doneAt": "2026-10-25T02:51:21.318Z",
+       "install": false,
+       "installAt": "2026-10-25T02:51:21.318Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T03:17:06.643Z",
+     "by": "Andrew Fisher"
+    }
+   },
+   "qtys/GN20-A": {
+    "_k": "GN20-A",
+    "v": 1,
+    "scope1017": {
+     "kind": "quantityScope1017",
+     "ref": "GN20-A",
+     "firstQuantity": 2,
+     "items": [
+      {
+       "item": "350kva",
+       "quantity": 2,
+       "received": 1,
+       "installed": 1,
+       "receipts": [
+        {
+         "at": "2026-10-25T03:17:02.564Z",
+         "quantity": 1
+        }
+       ],
+       "receiptAt": "2026-10-25T03:17:02.564Z",
+       "supplied": 1,
+       "suppliedAt": "2026-10-25T03:17:02.564Z",
+       "on": true,
+       "onAt": "2026-09-29T21:23:16.631Z",
+       "done": true,
+       "doneAt": "2026-10-25T03:17:02.678Z",
+       "install": true,
+       "installAt": "2026-10-25T03:17:03.357Z",
+       "rest": 0,
+       "unitWork": {}
+      }
+     ],
+     "typed": 1,
+     "at": "2026-10-25T03:17:05.088Z",
+     "by": "Andrew Fisher"
+    }
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

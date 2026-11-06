@@ -1,0 +1,14 @@
+{
+ "device": "phone",
+ "pass": true,
+ "rows": [
+  "Buildings 100% 52 of 52 buildings complete · reached 15 Oct 2026 08:56",
+  "Toilets 100% 262 of 262 toilet units complete · reached 16 Oct 2026 12:31",
+  "VMS boards 100% 16 of 16 boards complete · reached 18 Oct 2026 20:21",
+  "Equipment 100% 6 of 6 machines complete · reached 6 Oct 2026 13:26",
+  "Water barriers 69% 257 of 375 barriers complete",
+  "Generators 63% 10 of 16 generators complete",
+  "Lighting 71% 5 of 7 towers complete"
+ ],
+ "fails": []
+}

@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (15:0x AEST): \"1303835   toilet picked.up.left at.3pm\". 1303835 is one of WC15's two Coates toilet units (both ticked Ready 4 Nov; Brenden Meek's booking for 1303835 was 5 Nov 08:30); read 15:01 AEST, not already left. 1303835 left at 15:00 AEST on Thu 5 Nov 2026; WC15's other unit 1327226 stays on site, so WC15 is not left in full. Recorded after 15:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC15",
+   "at": "2026-11-05T15:00:00+10:00",
+   "nos": [
+    "1303835"
+   ],
+   "complete": false
+  }
+ ]
+}

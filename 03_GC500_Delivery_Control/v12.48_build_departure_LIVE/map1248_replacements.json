@@ -1,0 +1,11 @@
+{
+  "author": "Andrew Fisher",
+  "replacements": [
+    {
+      "name": "Preserve the native description glyph and expose authoritative departed count",
+      "old": " for(const name of ['referenceQuantity1010','fitReference1010']){const old=window[name];window[name]=function(it,status){const d=states.get(key(it));return d?.collected?it.code+' \u00b7 '+(d.issues.length?'review departure':d.complete?'OFF SITE':d.remaining+' to leave'+(d.unknown?' + ?':'')):old.apply(this,arguments);};}",
+      "new": " for(const name of ['referenceQuantity1010','fitReference1010']){const old=window[name];window[name]=function(it,status){const d=states.get(key(it)),native=old.apply(this,arguments);if(!d?.collected)return native;const own=window.MapUnits1147&&typeof MapUnits1147.reference==='function'?MapUnits1147.reference(it,status):native;return parent.MapDisplay1248?parent.MapDisplay1248.reference(own,it,d):native;};}"
+    }
+  ],
+  "append_script": "map1248_src.js"
+}

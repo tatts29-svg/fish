@@ -1,0 +1,12 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v12.09",
+  "sha256": "87102c753244e9243788c02f9eeabb652847b955a6ed5c733b71df651e4b5751",
+  "bytes": 15251664,
+  "read_at": "2026-10-24T22:34:13.955375+00:00",
+  "exact_match": true,
+  "ready_source": "b7244a2457b67ac3aa71f8601362eefb39c679eb",
+  "uploaded_at": "2026-10-24T22:33:53.676Z",
+  "public_native_checks": 9,
+  "public_native_failures": 0
+}

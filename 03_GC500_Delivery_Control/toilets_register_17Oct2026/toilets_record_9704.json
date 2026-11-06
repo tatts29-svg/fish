@@ -1,0 +1,3811 @@
+{
+ "version": 9704,
+ "at": "2026-10-17T10:02:51.863Z",
+ "rows": [
+  {
+   "key": "PG01",
+   "name": "Toilet (Pit Garage)",
+   "locs": [
+    "PG01 - Toilet (Pit Garage)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0285",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "area"
+  },
+  {
+   "key": "PG03",
+   "name": "Toilet (Pit Garage)",
+   "locs": [
+    "PG03 - Toilet (Pit Garage)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0100",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "area"
+  },
+  {
+   "key": "PG05",
+   "name": "Toilet (Pit Garage)",
+   "locs": [
+    "PG05 - Toilet (Pit Garage)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0438",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "area"
+  },
+  {
+   "key": "PG29",
+   "name": "Toilet (Pit Garage)",
+   "locs": [
+    "PG29 - Toilet (Pit Garage)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0573",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "area"
+  },
+  {
+   "key": "WC01",
+   "name": "Toilets",
+   "locs": [
+    "WC01 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Accessible Toilet",
+     "qty": 1
+    },
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1211958",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "coates",
+     "no": "1211967",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "coates",
+     "no": "1317644",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983425,
+    "lon": 153.42525,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S10",
+   "prec": "unit"
+  },
+  {
+   "key": "WC02",
+   "name": "Toilet",
+   "locs": [
+    "WC02 - Toilet"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1058086",
+     "item": "FWF",
+     "label": "Toilet"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983618,
+    "lon": 153.4257,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_WEST_PARK",
+    "name": "Island west parkland entry – by the merch strip",
+    "how": "area"
+   },
+   "sec": "S10",
+   "prec": "unit"
+  },
+  {
+   "key": "WC04",
+   "name": "Toilet - QAS",
+   "locs": [
+    "WC04 - Toilet - QAS"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1212502",
+     "item": "FWF",
+     "label": "Toilet - QAS"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983857,
+    "lon": 153.426516,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_WEST_PARK",
+    "name": "Island west parkland entry – by the merch strip",
+    "how": "area"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC05",
+   "name": "Event Operations Compound Toilet - Combo Block (Tanked)",
+   "locs": [
+    "WC05",
+    "WC05 - Event Operations Compound Toilet - Combo Block (Tanked)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1328978",
+     "item": "Waste tank",
+     "label": "Waste tank"
+    },
+    {
+     "owner": "coates",
+     "no": "1097377",
+     "item": "Toilet Block 6m",
+     "label": "Toilet block"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983608,
+    "lon": 153.426357,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_WEST_PARK",
+    "name": "Island west parkland entry – by the merch strip",
+    "how": "area"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC06",
+   "name": "Toilets - Race Admin",
+   "locs": [
+    "WC06 - Toilets - Race Admin"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1195658",
+     "item": "FWF",
+     "label": "Toilets - Race Admin"
+    },
+    {
+     "owner": "coates",
+     "no": "1212523",
+     "item": "FWF",
+     "label": "Toilets - Race Admin"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9846989,
+    "lon": 153.4265318,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "S11",
+   "prec": "unit"
+  },
+  {
+   "key": "WC07",
+   "name": "Toilets - Merch Area",
+   "locs": [
+    "WC07 - Toilets - Merch Area"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 20
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1181004",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1002538",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1212552",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1002566",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1083300",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1200595",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1211959",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1002715",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1192643",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1002651",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317649",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317658",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317632",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317743",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317641",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317640",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317626",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317648",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317652",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    },
+    {
+     "owner": "coates",
+     "no": "1317647",
+     "item": "FWF",
+     "label": "Toilets - Merch Area"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.984455,
+    "lon": 153.4268975,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "S11",
+   "prec": "unit"
+  },
+  {
+   "key": "WC09",
+   "name": "Toilets",
+   "locs": [
+    "WC09 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 10
+    },
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0085",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0551",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0450",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0585",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0993",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "coates",
+     "no": "1268858",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0553",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0140",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0089",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "coates",
+     "no": "1311146",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0584",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0081",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.984717,
+    "lon": 153.428026,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC10",
+   "name": "Toilets",
+   "locs": [
+    "WC10 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 3
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0488",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0677",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0119",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9844829,
+    "lon": 153.4277142,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "S01",
+   "prec": "unit"
+  },
+  {
+   "key": "WC100",
+   "name": "",
+   "locs": [
+    "1288823 at The Spit · 1248439 at S18"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF Trailer",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1248439",
+     "item": "FWF Trailer",
+     "label": "Coates unit"
+    },
+    {
+     "owner": "coates",
+     "no": "1288823",
+     "item": "FWF Trailer",
+     "label": "Coates unit"
+    }
+   ],
+   "pos": {
+    "kind": "none",
+    "label": "Position",
+    "line": "Not recorded"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  },
+  {
+   "key": "WC11",
+   "name": "Toilets",
+   "locs": [
+    "WC11 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1211969",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211976",
+     "item": "FWF",
+     "label": "Toilets"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9848882,
+    "lon": 153.4265754,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "S11",
+   "prec": "unit"
+  },
+  {
+   "key": "WC12",
+   "name": "Toilets",
+   "locs": [
+    "WC12 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 4
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1002565",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1200601",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211961",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211963",
+     "item": "FWF",
+     "label": "Toilets"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9854611,
+    "lon": 153.4273218,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "unit"
+  },
+  {
+   "key": "WC13",
+   "name": "Toilets",
+   "locs": [
+    "WC13 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0036",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0444",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9909565,
+    "lon": 153.4295185,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC15",
+   "name": "Toilets (Sewer Connect)",
+   "locs": [
+    "WC15 - Toilets (Sewer Connect)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1327226",
+     "item": "Toilet Block 6m",
+     "label": "Toilets (Sewer Connect)"
+    },
+    {
+     "owner": "coates",
+     "no": "1303835",
+     "item": "Toilet Block 6m",
+     "label": "Toilets (Sewer Connect)"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.986024,
+    "lon": 153.428091,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S01",
+   "prec": "unit"
+  },
+  {
+   "key": "WC16",
+   "name": "S01 Corporate Toilets - 1x Female, x Male (Sewer)",
+   "locs": [
+    "WC16 - S01 Corporate Toilets - 1x Female, x Male (Sewer)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1322587",
+     "item": "Toilet Block 6m",
+     "label": "S01 Corporate Toilets - 1x Female, x Male (Sewer)"
+    },
+    {
+     "owner": "coates",
+     "no": "1322588",
+     "item": "Toilet Block 6m",
+     "label": "S01 Corporate Toilets - 1x Female, x Male (Sewer)"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.985938,
+    "lon": 153.427692,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "precinct"
+   },
+   "sec": "S01",
+   "prec": "unit"
+  },
+  {
+   "key": "WC17",
+   "name": "S01 Corporate Toilets",
+   "locs": [
+    "WC17 - S01 Corporate Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1327224",
+     "item": "Toilet Block 6m",
+     "label": "S01 Corporate Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1327223",
+     "item": "Toilet Block 6m",
+     "label": "S01 Corporate Toilets"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.986529,
+    "lon": 153.428095,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S02",
+   "prec": "unit"
+  },
+  {
+   "key": "WC19",
+   "name": "Toilets",
+   "locs": [
+    "WC19 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0435",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.98824,
+    "lon": 153.428267,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S04",
+   "prec": "unit"
+  },
+  {
+   "key": "WC20",
+   "name": "Toilets (Tank Mounted)",
+   "locs": [
+    "WC20 - Toilets (Tank Mounted)",
+    "WC20"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1311341",
+     "item": "Waste tank",
+     "label": "Waste tank — Set 1 (toilet 1327228)"
+    },
+    {
+     "owner": "coates",
+     "no": "1327228",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m — Set 1 (waste tank 1311341)"
+    },
+    {
+     "owner": "coates",
+     "no": "1327225",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m — Set 2 (waste tank 1328982)"
+    },
+    {
+     "owner": "coates",
+     "no": "1328982",
+     "item": "Waste tank",
+     "label": "Waste tank — Set 2 (toilet 1327225)"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.987468,
+    "lon": 153.428179,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S04",
+   "prec": "unit"
+  },
+  {
+   "key": "WC21",
+   "name": "Toilets",
+   "locs": [
+    "WC21 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 6
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1002747",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1103497",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211964",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211971",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1211977",
+     "item": "FWF",
+     "label": "Toilets"
+    },
+    {
+     "owner": "coates",
+     "no": "1212172",
+     "item": "FWF",
+     "label": "Toilets"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9891589,
+    "lon": 153.4286192,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S05",
+   "prec": "unit"
+  },
+  {
+   "key": "WC23",
+   "name": "Toilets",
+   "locs": [
+    "WC23 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 5
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0992",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0968",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0960",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0107",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0969",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9895044,
+    "lon": 153.4291988,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S05",
+   "prec": "unit"
+  },
+  {
+   "key": "WC24",
+   "name": "Toilets",
+   "locs": [
+    "WC24 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0489",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.991038,
+    "lon": 153.429656,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC25",
+   "name": "Toilets",
+   "locs": [
+    "WC25 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0472",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.990061,
+    "lon": 153.428838,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S15",
+   "prec": "unit"
+  },
+  {
+   "key": "WC26",
+   "name": "Toilets",
+   "locs": [
+    "WC26 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0075",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.988803,
+    "lon": 153.429594,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC27",
+   "name": "Toilet (Tank Mounted)",
+   "locs": [
+    "WC27 - Toilet (Tank Mounted)",
+    "WC27"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1119484",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m"
+    },
+    {
+     "owner": "coates",
+     "no": "1328979",
+     "item": "Waste tank",
+     "label": "Waste tank"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.98524,
+    "lon": 153.429459,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MBP_LANDSIDE",
+    "name": "Main Beach Pde land side – by T8 / A19",
+    "how": "rule"
+   },
+   "sec": "S08",
+   "prec": "unit"
+  },
+  {
+   "key": "WC28",
+   "name": "Toilets",
+   "locs": [
+    "WC28 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0102",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983401,
+    "lon": 153.429161,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC29",
+   "name": "Toilets",
+   "locs": [
+    "WC29 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 7
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0079",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0546",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0707",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0564",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0044",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0441",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0598",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9835607,
+    "lon": 153.4285729,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC30",
+   "name": "Toilets",
+   "locs": [
+    "WC30 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 8
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0428",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0440",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0963",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0681",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0043",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0419",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0545",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0024",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9823908,
+    "lon": 153.42783,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC31",
+   "name": "Toilets",
+   "locs": [
+    "WC31 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Accessible Toilet",
+     "qty": 1
+    },
+    {
+     "item": "16Pan Block",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "12",
+     "item": "16Pan Block",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "74",
+     "item": "16Pan Block",
+     "label": "16-pan toilet block"
+    },
+    {
+     "owner": "coates",
+     "no": "1317645",
+     "item": "16Pan Block",
+     "label": "Accessible Toilet"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.982469,
+    "lon": 153.425324,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HILL_A47",
+    "name": "The Hill – entry point A47",
+    "how": "rule"
+   },
+   "sec": "S25",
+   "prec": "unit"
+  },
+  {
+   "key": "WC33",
+   "name": "Toilets",
+   "locs": [
+    "WC33 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 17
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0634",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0582",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0548",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0782",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0657",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0912",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0554",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0920",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0971",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0586",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0487",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0790",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0297",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0456",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0012",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0938",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0597",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9861074,
+    "lon": 153.429524,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MBP_LANDSIDE",
+    "name": "Main Beach Pde land side – by T8 / A19",
+    "how": "rule"
+   },
+   "sec": "S07",
+   "prec": "unit"
+  },
+  {
+   "key": "WC34",
+   "name": "Toilets",
+   "locs": [
+    "WC34 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0526",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.982306,
+    "lon": 153.425877,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HILL_A47",
+    "name": "The Hill – entry point A47",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC35",
+   "name": "Toilets",
+   "locs": [
+    "WC35 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0284",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.981799,
+    "lon": 153.427761,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC38",
+   "name": "Toilet",
+   "locs": [
+    "WC38 - Toilet"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0183",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9835934,
+    "lon": 153.4241296,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "COMMODORE",
+    "name": "Commodore Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S10",
+   "prec": "unit"
+  },
+  {
+   "key": "WC39",
+   "name": "Toilets",
+   "locs": [
+    "WC39 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0188",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0637",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983626,
+    "lon": 153.423993,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "COMMODORE",
+    "name": "Commodore Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC40",
+   "name": "Toilets",
+   "locs": [
+    "WC40 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 5
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0626",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0541",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0965",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0433",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0648",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.983659,
+    "lon": 153.4244496,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "COMMODORE",
+    "name": "Commodore Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S10",
+   "prec": "unit"
+  },
+  {
+   "key": "WC41",
+   "name": "Toilets",
+   "locs": [
+    "WC41 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 10
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0521",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0996",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0191",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0669",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0643",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0517",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0682",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0651",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0065",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0518",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9848352,
+    "lon": 153.4260544,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MEDIAN_PITSTOP",
+    "name": "Median strip meet-up – pit stop, by FOAM",
+    "how": "rule"
+   },
+   "sec": "S11",
+   "prec": "unit"
+  },
+  {
+   "key": "WC42",
+   "name": "Toilets",
+   "locs": [
+    "WC42 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0141",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9832804,
+    "lon": 153.4248399,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "COMMODORE",
+    "name": "Commodore Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S10",
+   "prec": "unit"
+  },
+  {
+   "key": "WC43",
+   "name": "Toilets",
+   "locs": [
+    "WC43 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 10
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0723",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0056",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0161",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0182",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0528",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0696",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0420",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0961",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0646",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0581",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9863713,
+    "lon": 153.4272242,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S14",
+   "prec": "unit"
+  },
+  {
+   "key": "WC44",
+   "name": "Toilets",
+   "locs": [
+    "WC44 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0146",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0037",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.988968,
+    "lon": 153.428254,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S05",
+   "prec": "unit"
+  },
+  {
+   "key": "WC45",
+   "name": "Toilets",
+   "locs": [
+    "WC45 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 8
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0542",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0086",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0947",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0544",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0632",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0562",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0549",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0673",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9907105,
+    "lon": 153.4283913,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S15",
+   "prec": "unit"
+  },
+  {
+   "key": "WC46",
+   "name": "Toilets",
+   "locs": [
+    "WC46 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0525",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9922233,
+    "lon": 153.4293799,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC47",
+   "name": "Toilets",
+   "locs": [
+    "WC47 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0949",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9901828,
+    "lon": 153.4283807,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S15",
+   "prec": "unit"
+  },
+  {
+   "key": "WC48",
+   "name": "Toilets",
+   "locs": [
+    "WC48 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 4
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0050",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0471",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0289",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0486",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9937499,
+    "lon": 153.4304576,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC49",
+   "name": "Toilets",
+   "locs": [
+    "WC49 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 3
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0919",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0907",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0084",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.993812,
+    "lon": 153.430597,
+    "label": "Revised Gate 6 · approximate",
+    "line": "iEDM layout · 14 Oct 2026 · approximate; master D001 not reissued"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC50",
+   "name": "Toilet",
+   "locs": [
+    "WC50 - Toilet"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1211974",
+     "item": "FWF",
+     "label": "Toilet"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.989786,
+    "lon": 153.429821,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S18",
+   "prec": "unit"
+  },
+  {
+   "key": "WC51",
+   "name": "Toilets",
+   "locs": [
+    "WC51 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Accessible Toilet",
+     "qty": 1
+    },
+    {
+     "item": "FWF",
+     "qty": 6
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0991",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0167",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0653",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "coates",
+     "no": "1197174",
+     "item": "Accessible Toilet",
+     "label": "Accessible Toilet"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0136",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0453",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0028",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9928571,
+    "lon": 153.4304602,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC53",
+   "name": "Toilets",
+   "locs": [
+    "WC53 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 3
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0952",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0951",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0074",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9926637,
+    "lon": 153.4302899,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC54",
+   "name": "Toilets",
+   "locs": [
+    "WC54 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 6
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0186",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0619",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0071",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0295",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0007",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0087",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9915876,
+    "lon": 153.4304584,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC55",
+   "name": "Toilets",
+   "locs": [
+    "WC55 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0650",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9912419,
+    "lon": 153.429832,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC56",
+   "name": "Toilets",
+   "locs": [
+    "WC56 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 12
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0721",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0491",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0190",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0294",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0970",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0974",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0004",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0003",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0445",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0088",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0442",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0009",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.98982,
+    "lon": 153.4300769,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "S18",
+   "prec": "unit"
+  },
+  {
+   "key": "WC57",
+   "name": "Toilets",
+   "locs": [
+    "WC57 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0915",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0008",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9882058,
+    "lon": 153.4300756,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MAIN_BEACH",
+    "name": "Main Beach seaside – by the supply compound",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC59",
+   "name": "Toilets",
+   "locs": [
+    "WC59 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 7
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0492",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0935",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0497",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0633",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0064",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0066",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0533",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9881826,
+    "lon": 153.4301687,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "MAIN_BEACH",
+    "name": "Main Beach seaside – by the supply compound",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC60",
+   "name": "Toilets (Tank Mounted)",
+   "locs": [
+    "WC60 - Toilets (Tank Mounted)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1087500",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m"
+    },
+    {
+     "owner": "coates",
+     "no": "1119489",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m"
+    },
+    {
+     "owner": "coates",
+     "no": "1328980",
+     "item": "Waste tank",
+     "label": "Waste tank"
+    },
+    {
+     "owner": "coates",
+     "no": "1328981",
+     "item": "Waste tank",
+     "label": "Waste tank"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.985279,
+    "lon": 153.430053,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "SEASIDE_NORTH",
+    "name": "Seaside north – between S21 and S22",
+    "how": "rule"
+   },
+   "sec": "S21",
+   "prec": "unit"
+  },
+  {
+   "key": "WC61",
+   "name": "Toilets",
+   "locs": [
+    "WC61 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 8
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0645",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0105",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0945",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0977",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0547",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0290",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0038",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0015",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9841222,
+    "lon": 153.4298238,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "SEASIDE_NORTH",
+    "name": "Seaside north – between S21 and S22",
+    "how": "rule"
+   },
+   "sec": "S22A",
+   "prec": "unit"
+  },
+  {
+   "key": "WC62",
+   "name": "Toilets",
+   "locs": [
+    "WC62 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0976",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0103",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.981667,
+    "lon": 153.429218,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC65",
+   "name": "Toilets",
+   "locs": [
+    "WC65 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0033",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.981478,
+    "lon": 153.426408,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HILL_A47",
+    "name": "The Hill – entry point A47",
+    "how": "rule"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC67",
+   "name": "Toilets",
+   "locs": [
+    "WC67 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0793",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0769",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9813908,
+    "lon": 153.4241664,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC68",
+   "name": "Toilets",
+   "locs": [
+    "WC68 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0426",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.981498,
+    "lon": 153.424438,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC69",
+   "name": "Toilets",
+   "locs": [
+    "WC69 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 12
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0152",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0078",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0010",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0070",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0958",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0647",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0622",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0123",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0432",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0692",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0679",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0592",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9814958,
+    "lon": 153.4241619,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC70",
+   "name": "Toilet",
+   "locs": [
+    "WC70 - Toilet"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0423",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.981659,
+    "lon": 153.424041,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC71",
+   "name": "Toilets",
+   "locs": [
+    "WC71 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 8
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0280",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0116",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0279",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0293",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0531",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0644",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0552",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0490",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9812828,
+    "lon": 153.4234837,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC72",
+   "name": "Toilets",
+   "locs": [
+    "WC72 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0699",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9821291,
+    "lon": 153.4240067,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "HELEN_PARK",
+    "name": "Helen Park drop point (red dot)",
+    "how": "rule"
+   },
+   "sec": "S23",
+   "prec": "unit"
+  },
+  {
+   "key": "WC73",
+   "name": "Toilets",
+   "locs": [
+    "WC73 - Toilets"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0765",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0192",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.9869615,
+    "lon": 153.4281016,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S02",
+   "prec": "unit"
+  },
+  {
+   "key": "WC81",
+   "name": "Toilet (Cypress)",
+   "locs": [
+    "WC81 - Toilet (Cypress)"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0124",
+     "item": "FWF",
+     "label": "Sub-hire: Event Portables"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.997509,
+    "lon": 153.428455,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "default"
+   },
+   "sec": "",
+   "prec": "unit"
+  },
+  {
+   "key": "WC85",
+   "name": "Toilets",
+   "locs": [
+    "Coates compound"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0135",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "none",
+    "label": "Position",
+    "line": "Not recorded"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  },
+  {
+   "key": "WC86",
+   "name": "Toilet",
+   "locs": [
+    "WC86 - Toilet"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "Accessible Toilet",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1296899",
+     "item": "Accessible Toilet",
+     "label": "Toilet"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.987704,
+    "lon": 153.428229,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S04",
+   "prec": "unit"
+  },
+  {
+   "key": "T0024",
+   "name": "FWF",
+   "locs": [],
+   "state": "",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1211968",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": "area"
+  },
+  {
+   "key": "T0243",
+   "name": "Toilet Block 6m · WC-TV (sewer connect)",
+   "locs": [
+    "WC-TV (sewer connect)"
+   ],
+   "state": "",
+   "lines": [
+    {
+     "item": "Toilet Block 6m",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "coates",
+     "no": "1311144",
+     "item": "Toilet Block 6m",
+     "label": "Toilet Block 6m · WC-TV (sewer connect)"
+    }
+   ],
+   "pos": {
+    "kind": "master",
+    "lat": -27.987534,
+    "lon": 153.428271,
+    "label": "Master-plan position",
+    "line": "From master plan D001 · not a phone pin"
+   },
+   "area": {
+    "id": "ISLAND_NORTH",
+    "name": "Island north – by FREIGHT",
+    "how": "rule"
+   },
+   "sec": "S04",
+   "prec": "unit"
+  },
+  {
+   "key": "T0162",
+   "name": "FWF · Blanchard Race",
+   "locs": [
+    "Blanchard Race"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0990",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  },
+  {
+   "key": "T0176",
+   "name": "FWF × 2 · Redbull",
+   "locs": [
+    "Redbull"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 2
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0994",
+     "item": "FWF",
+     "label": "FWF"
+    },
+    {
+     "owner": "event-portables",
+     "no": "0576",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  },
+  {
+   "key": "BJR01",
+   "name": "Brad Jones Racing",
+   "locs": [
+    "Brad Jones Racing"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0941",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  },
+  {
+   "key": "SVP01",
+   "name": "Shell V-Power",
+   "locs": [
+    "Shell V-Power"
+   ],
+   "state": "on site",
+   "lines": [
+    {
+     "item": "FWF",
+     "qty": 1
+    }
+   ],
+   "units": [
+    {
+     "owner": "event-portables",
+     "no": "0939",
+     "item": "FWF",
+     "label": "FWF"
+    }
+   ],
+   "pos": {
+    "kind": "report",
+    "lat": -27.984876,
+    "lon": 153.426644,
+    "label": "Report to the pit lane",
+    "line": "No drop-off set yet · site directs you from there"
+   },
+   "area": {
+    "id": "PITLANE",
+    "name": "Pit lane entry",
+    "how": "nopin"
+   },
+   "sec": "",
+   "prec": ""
+  }
+ ]
+}

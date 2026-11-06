@@ -1,0 +1,72 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "CPU lifecycle fault injection; no GPU or service calls",
+  "passed": 16,
+  "total": 16,
+  "checks": [
+    {
+      "name": "normal render installs once and retains original renderer",
+      "passed": true
+    },
+    {
+      "name": "track partial install failure disposes and renders original",
+      "passed": true
+    },
+    {
+      "name": "architecture partial install failure disposes and renders original",
+      "passed": true
+    },
+    {
+      "name": "vegetation partial install failure disposes and renders original",
+      "passed": true
+    },
+    {
+      "name": "installation failure is sticky without automatic retry",
+      "passed": true
+    },
+    {
+      "name": "explicit enable retries successfully after a fault",
+      "passed": true
+    },
+    {
+      "name": "bloom disabled before frame restores exact original foliage resources",
+      "passed": true
+    },
+    {
+      "name": "bloom disabled scene does not reinstall on every frame",
+      "passed": true
+    },
+    {
+      "name": "deliberate quality restoration reinstalls without altering drive or camera",
+      "passed": true
+    },
+    {
+      "name": "composite allocation failure during render redraws original exactly once",
+      "passed": true
+    },
+    {
+      "name": "enhanced draw error falls back once and is not retried every frame",
+      "passed": true
+    },
+    {
+      "name": "original renderer errors are not silently swallowed",
+      "passed": true
+    },
+    {
+      "name": "explicit detail off releases resources and remains off",
+      "passed": true
+    },
+    {
+      "name": "unmount disposes additions before the original lifecycle",
+      "passed": true
+    },
+    {
+      "name": "offline renderer without mount remains supported",
+      "passed": true
+    },
+    {
+      "name": "context lost scene does not allocate optional resources",
+      "passed": true
+    }
+  ]
+}

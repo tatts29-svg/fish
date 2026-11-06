@@ -1,0 +1,63 @@
+{
+  "author": "Andrew Fisher",
+  "status": "PASS for coverage and navigation; focused layout acceptance recorded separately",
+  "candidate_sha256": "fd7b26e9bb750d5ad6f630c00ecf1ee844324589a140c87ec67c743b4c630547",
+  "checked_at_utc": "2026-10-30T23:11:18.682092+00:00",
+  "coverage": {
+    "scope": "All native references and supplier contexts, including complete references not represented by the common card model",
+    "unresolved_or_mismatched_completed_stamps": 0,
+    "callers": [
+      "legacy Demob",
+      "Build",
+      "reference drawer",
+      "supplier units",
+      "supplier quantities"
+    ],
+    "operational_writes": 0,
+    "runtime_errors": 0,
+    "console_errors": 0,
+    "persisted_documents_preserved": true
+  },
+  "navigation": {
+    "desktop": {
+      "routes": 27,
+      "deep_links": 7,
+      "existing_aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "change": "#today",
+        "add": "#today",
+        "nights": "#today",
+        "vmsoff": "#today",
+        "fenceclose": "#today"
+      },
+      "back": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "operational_write_attempts": 0
+    },
+    "phone": {
+      "routes": 27,
+      "deep_links": 7,
+      "existing_aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "change": "#today",
+        "add": "#today",
+        "nights": "#today",
+        "vmsoff": "#today",
+        "fenceclose": "#today"
+      },
+      "back": true,
+      "runtime_errors": 0,
+      "console_errors": 0,
+      "operational_write_attempts": 0
+    }
+  }
+}

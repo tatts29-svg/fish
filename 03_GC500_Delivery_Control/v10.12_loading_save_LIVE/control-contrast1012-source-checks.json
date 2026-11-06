@@ -1,0 +1,79 @@
+{
+  "author": "Andrew Fisher",
+  "scope": "Control colours only; isolated CSS candidate followed by combined UI preview with new Save modules.",
+  "base_sha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "candidate_sha256": "987fcda479ba4895ebb0bccc36d4fe7c19eb0a66fc02485c30e7ba2c2bd1418b",
+  "css_sha256": "cf9d2d55ebfa27e603edd6307fa7587a4c2d02e13deec42a05c570c019b2b13b",
+  "baseline": {
+    "loading_and_unloading_clear_instances": 23,
+    "clear_contrast_ratio": 1.18,
+    "cancelled_table_group_failures": 8,
+    "cancelled_table_ratios": [
+      3.01,
+      3.05
+    ],
+    "machine_back_contrast_ratio": 2.87
+  },
+  "phone_light_edit": {
+    "checks": 46,
+    "all_passed": true,
+    "expanded_audits": 39,
+    "native_routes": 22,
+    "page_errors": 0,
+    "native_write_requests": 0,
+    "blocked_operational_requests": 0,
+    "private_evidence": "/workspace/private-contrast1012-phone-light-final2/",
+    "visually_reviewed": [
+      "build-loading.png",
+      "drawer-loading.png",
+      "progress-dialog.png"
+    ]
+  },
+  "isolated_helper": {
+    "body_and_scripts_unchanged": true,
+    "single_css_insertion": true,
+    "repeat_apply_rejected": true,
+    "wrong_source_rejected": true,
+    "combined_install_rejected": true
+  },
+  "combined_release": "Phone and desktop dark both passed on immutable c5685d83 UI preview. This is not a claim of final release/public verification; root owns final helper/source equivalence and publication.",
+  "final_css_sha256": "7a39d43d5d5666106ef4238515966f8018f22cc13633b69194ef712e994bfc07",
+  "combined_candidate_sha256": "c5685d83f0fafb71cdf18868c6123f9b9b2a9ffc9a15db71aa0a1cb341866572",
+  "combined_phone_dark_edit": {
+    "checks": 50,
+    "all_passed": true,
+    "expanded_audits": 43,
+    "native_routes": 22,
+    "page_errors": 0,
+    "native_write_requests": 0,
+    "blocked_operational_requests": 0,
+    "private_evidence": "/workspace/private-contrast1012-combined-phone-dark-final/",
+    "visually_reviewed": [
+      "build-loading.png",
+      "machine-header.png",
+      "drawer-loading.png"
+    ]
+  },
+  "combined_desktop_dark_edit": {
+    "checks": 50,
+    "all_passed": true,
+    "expanded_audits": 43,
+    "native_routes": 22,
+    "page_errors": 0,
+    "native_write_requests": 0,
+    "blocked_operational_requests": 0,
+    "private_evidence": "/workspace/private-contrast1012-combined-desktop-dark-final/",
+    "visually_reviewed": [
+      "build-loading.png",
+      "machine-header.png"
+    ]
+  },
+  "measured_final_contrast": {
+    "clear_default_hover_keyboard_focus": 12.78,
+    "clear_disabled": 6.2,
+    "selection_status_idle": 10.54,
+    "selection_status_dirty_local": 8.3,
+    "selection_status_shared": 7.97,
+    "selection_status_error_changed": 8.06
+  }
+}

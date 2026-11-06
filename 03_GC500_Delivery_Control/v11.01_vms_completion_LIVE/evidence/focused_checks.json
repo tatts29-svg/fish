@@ -1,0 +1,62 @@
+{
+  "author": "Andrew Fisher",
+  "status": "VERIFIED LIVE",
+  "base_sha256": "d4a10a7fe07637fdfbb97f31ff2a07f48af4a632479acce8fd29aeb9cf9c97d7",
+  "candidate_sha256": "eb8373a49087060adaf4fac26668c4ad02c87482dabfdcf14155ad3137322395",
+  "candidate_bytes": 20925976,
+  "pure_tests": 32,
+  "inline_script_parse_checks": 150,
+  "patch_guards": "Exact predecessor, repeated application refused, script tags preserved, only the intended three scripts changed, styles and embedded asset/charge data unchanged",
+  "native_browser_rehearsal": {
+    "mode": "GET-only; native outgoing document writes captured locally",
+    "checks_passed": 67,
+    "live_writes": 0,
+    "complete_live_record_unchanged": true,
+    "identity_arrival_installation_position_history_preserved": true,
+    "all_asset_charge_lines_costs_and_totals_preserved": true,
+    "today_register_plan_print_consistent": true,
+    "pending_boards_unchanged": true,
+    "phone_view_inspected": true,
+    "original_installation_display_timestamp_preserved": true
+  },
+  "source_sha256": {
+    "patch_v1101.py": "4443949955c09007e20b693d516afe21b0739222922d8d105dd59e462c3fd758",
+    "vms_completion1101_src.js": "745f876637daf7809474a12cdda048da6c7e9181644a017414c177e8413c91a3",
+    "test_vms_completion1101.cjs": "17c7135ecff1fcd315b4ed05c63a030fa20ee5c688fa6da2e92f1616e9b86033",
+    "test_patch_v1101.py": "81bc1aeec90fb4cd45e745be88d0925d82631f2e023906b4864261375d7f0ca9"
+  },
+  "source_commit": "f2e918c043ddef2e0e35baede082aad0c2cf3956",
+  "full_page_sweeps": {
+    "desktop": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    },
+    "phone": {
+      "routes": 25,
+      "links": 7,
+      "back": true,
+      "page_errors": 0,
+      "console_errors": 0
+    }
+  },
+  "published_at": "2026-10-21T02:36:32.754Z",
+  "guarded_exact_public_readback": true,
+  "independent_final_source_review": "passed",
+  "authorised_native_save": {
+    "checks_passed": 76,
+    "acknowledged": true,
+    "full_readback_exact_scope": true,
+    "identity_position_installation_and_charge_history_preserved": true
+  },
+  "independent_live_readback": {
+    "checked_at": "2026-10-21T02:39:39.335Z",
+    "exact_page_hash": true,
+    "fresh_full_record_exact": true,
+    "native_shared_views_agree": true,
+    "attempted_writes": 0,
+    "page_errors": 0
+  }
+}

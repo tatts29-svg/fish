@@ -1,0 +1,45 @@
+{
+  "author": "Andrew Fisher",
+  "state": "LIVE and actual-public browser verified",
+  "publishedAEST": "4 Oct 2026 02:45",
+  "publicSmokeCompletedAEST": "4 Oct 2026 02:49",
+  "sourceCheckpoint": "c256343b07b04ab3414633430a9187778b58dba7",
+  "baseSha256": "f7126dd4e0d3217bfc1eb926c401a7668aa3d72f14a9e670fd186d33a9f1c01f",
+  "hostSha256": "8af09119006f7fad218b4fad3146ccc49d5c7cb6546f5f8a2ab626304484ccbf",
+  "hostBytes": 10114758,
+  "assetManifestSha256": "d573ed4017f9ebf0c9c8502367b847f4409eac75c9f3d4f59d5977151ffb7b13",
+  "assets": {
+    "total": 229,
+    "unchangedDescriptors": 223,
+    "changed": 3,
+    "new": 3,
+    "changedAndNewPublicHashesVerified": 6
+  },
+  "checks": {
+    "fencingDesktop": 26,
+    "fencingPhone": 26,
+    "combinedMap": 18,
+    "navigationPerViewport": {
+      "tabs": 22,
+      "directLinks": 7,
+      "back": true
+    },
+    "actualPublicSmoke": 61
+  },
+  "publicSmoke": {
+    "localSourceSubstitution": false,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "operationalWriteAttempts": 0,
+    "allContextsClosed": true
+  },
+  "recordPreservation": {
+    "collectionsUnchanged": 33,
+    "versionBefore": 3736,
+    "versionAfter": 3736
+  },
+  "serverBuild": "v5.87",
+  "serverDeployment": false,
+  "claudeReviewClaimed": false,
+  "privateEvidenceIncluded": false
+}

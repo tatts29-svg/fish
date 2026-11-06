@@ -1,0 +1,86 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY FOR PREDECESSOR PUBLICATION",
+  "source_checks": {
+    "synthetic_projection_checks": 36,
+    "native_consumer_checks": 14,
+    "guarded_replacements": 59,
+    "inline_script_parses": 142,
+    "independent_source_review": "passed",
+    "independent_original_document_reconciliation": "passed; detailed evidence retained privately"
+  },
+  "financial_comparisons": [
+    {
+      "author": "Andrew Fisher",
+      "pass": true,
+      "financialPass": true,
+      "cleanNetwork": true,
+      "externalBlockers": [],
+      "mobile": false,
+      "baseSha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+      "candidateSha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0"
+    },
+    {
+      "author": "Andrew Fisher",
+      "pass": true,
+      "financialPass": true,
+      "cleanNetwork": true,
+      "externalBlockers": [],
+      "mobile": true,
+      "baseSha256": "6ae970ca79aea9b198aa93042d1a81ceea1589e404f66f552da70351d6967387",
+      "candidateSha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0"
+    }
+  ],
+  "canonical_sweeps": [
+    {
+      "form_factor": "desktop",
+      "tabs": 24,
+      "deep_links": 7,
+      "back_destination": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0,
+      "exact_destinations_validated_by": "assert_sweeps1068.cjs"
+    },
+    {
+      "form_factor": "phone",
+      "tabs": 24,
+      "deep_links": 7,
+      "back_destination": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "page_errors": 0,
+      "console_errors": 0,
+      "write_attempts": 0,
+      "exact_destinations_validated_by": "assert_sweeps1068.cjs"
+    }
+  ],
+  "phone_presentation": {
+    "pass": true,
+    "candidate_sha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0",
+    "native_context": "Costs supplier ledger",
+    "inspected": true,
+    "write_attempts": 0
+  },
+  "final_envelope": {
+    "version": "v10.68",
+    "original_sha256": "101797711b79fde90b2fa6cb1a267cd89360dc42486f28c072e61fa1cc9329a0",
+    "candidate_sha256": "851197de50912e51e5715c16d6a21271691593588ebba5bb0a0dd60608374534",
+    "original_bytes": 18486212,
+    "candidate_bytes": 18486244,
+    "comment_removal_exact": true,
+    "all_scripts_styles_data_and_other_bytes_identical": true,
+    "native_upload_envelope": true
+  },
+  "final_predecessor_sha256": "f32b39bcf42637fd246e03c6b64547b9dd203015659b768411e232e77ffcfc86",
+  "limitations": [
+    "Browser evidence remains bound to the original candidate hash; final upload comment has exact removal equivalence.",
+    "Tracker financial parity uses local reader/reducer responses; no signed completion or live tracker mutation.",
+    "Publication and exact live read-back remain the release owner's gate."
+  ],
+  "operational_values_or_financial_details_included": false
+}

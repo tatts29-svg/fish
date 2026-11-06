@@ -1,0 +1,7 @@
+{
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026: the 16:30 list carried 0554, which left at 10:00 on WC33. Asked whether it was 0544 (WC45's only FWF not on the list), Andrew: \"ok do that fix for me thank you\". 0544 is Emptied and Ready, not already left, so WC45 left in full at 16:30 AEST.",
+  "ops": [
+    {"op": "depart", "ref": "WC45", "at": "2026-10-27T16:30:00+10:00", "nos": ["0544"], "complete": true}
+  ]
+}

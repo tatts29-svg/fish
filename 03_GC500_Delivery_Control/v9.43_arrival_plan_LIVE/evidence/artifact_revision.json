@@ -1,0 +1,30 @@
+{
+  "scope": "Artifact-only correction; arrival943.js unchanged",
+  "artifactHashes": {
+    "Wed14Oct_Esplanade_arrival_plan_v3.pdf": "c5602fedceeb927729d8f95c7607235fc1f52934fa81479e78489e1842989250",
+    "Wed14Oct_arrival_plan_v3_p1.png": "d2bea50031303c3cdbfeaa823b8975f671c74a865e6a563925f77b2badf54632",
+    "Wed14Oct_arrival_plan_v3_p2.png": "aceacb8987317f1e0919f9f497f3ec599ce9cee60e54d1bb211d6b3efb50a7e4"
+  },
+  "supersededArtifactHashes": {
+    "Wed14Oct_Esplanade_arrival_plan_v3.pdf": "c655f46ef6c9409b850b4013ebbaeab313904cbc0436f50ecb8395c3b527851f",
+    "Wed14Oct_arrival_plan_v3_p1.png": "fce1546c4794fe31475dffdb0d9aa154b5e88ea4e22798e677959fd6f7a135d9",
+    "Wed14Oct_arrival_plan_v3_p2.png": "aceacb8987317f1e0919f9f497f3ec599ce9cee60e54d1bb211d6b3efb50a7e4"
+  },
+  "changes": [
+    "Overview holding path and HOLD label now use shared HOLDING943 endpoints; removed obsolete whole-road shading.",
+    "Moved close-up direction chevron to preserve queue marker 4 legibility."
+  ],
+  "checks": {
+    "two_A4_pages_fit": true,
+    "overview_closeup_visual_inspected": true,
+    "page2_byte_unchanged": true,
+    "combined947_four_native_print_cases_pass": true,
+    "combined947_arrival_desktop_phone_pass": true,
+    "final_corrected_artifact_native_driver_print_pass": true,
+    "driver_pages": 6,
+    "record_unchanged": true,
+    "stale_map_withheld": true
+  },
+  "test_context": "Explicit offline fixtures: print cases record4669; arrival record4705; Documents registry405. No network fallback or operational writes. Native integration source unchanged.",
+  "publication": "No v3 upload occurred before this corrected freeze; root owns upload/public readback."
+}

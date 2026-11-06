@@ -1,0 +1,416 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261105T053309Z",
+ "finished": "2026-11-05T05:33:43.456Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 5 Nov 2026 (15:2x AEST): \"Disabled toilet left at 320pm\". The record carries four accessible toilets (WC86 1296899, WC01 1317644, WC51 1197174, WC31 1317645); three left 2 Nov, so WC31's 1317645 is the only one still on site (ticked Ready; Brenden Meek's booking was 2 Nov 01:00). WC31's two 16-pan blocks left 3 Nov 09:30, so with 1317645 gone WC31 is left in full. 1317645 left at 15:20 AEST on Thu 5 Nov 2026. Recorded after 15:20, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC31",
+    "at": "2026-11-05T15:20:00+10:00",
+    "nos": [
+     "1317645"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+ "version": {
+  "before": 13058,
+  "after": 13059
+ },
+ "updated": {
+  "before": "2026-11-05T05:03:23.282Z",
+  "after": "2026-11-05T05:33:42.662Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC31",
+   "at": "2026-11-05T15:20:00+10:00",
+   "nos": [
+    "1317645"
+   ],
+   "complete": true,
+   "result": "left site 2026-11-05T15:20:00+10:00, recorded by Andrew Fisher: 1 x Accessible Toilet 1317645 - WC31 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC31",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC31": {
+    "state": "on site",
+    "set_at": "2026-09-25T06:13:00.232Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-09",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-08T02:14:03.807Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:32.324Z",
+    "ready1238_units": {
+     "coates|1317645": {
+      "on": true,
+      "at": "2026-11-03T03:19:30.604Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1317645": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:32.013Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:13:00.232Z",
+    "note": "Event Portables 16-pan block 74 is on site and in place, confirmed by Andrew Fisher on 9 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-02T23:33:46.205Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d697321d-263a-4cf9-a87e-453918c62935",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T09:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-25T06:13:00.232Z",
+       "requiredKey": "[[\"16pan block\",2],[\"accessible toilet\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "16Pan Block",
+         "n": 2,
+         "unitIds": [
+          "[\"WC31\",\"event-portables\",\"asset\",\"12\"]",
+          "[\"WC31\",\"event-portables\",\"asset\",\"74\"]"
+         ],
+         "numbers": [
+          "12",
+          "74"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC31\",\"event-portables\",\"asset\",\"12\"]",
+           "number": "12",
+           "owner": "event-portables",
+           "item": "16Pan Block"
+          },
+          {
+           "id": "[\"WC31\",\"event-portables\",\"asset\",\"74\"]",
+           "number": "74",
+           "owner": "event-portables",
+           "item": "16Pan Block"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:32.324Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1317645",
+      "ready": true,
+      "at": "2026-11-03T03:19:30.604Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317645",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:32.013Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-09T01:49:35.515Z"
+    },
+    "_k": "WC31"
+   }
+  },
+  "after": {
+   "delivery/WC31": {
+    "state": "in transit",
+    "set_at": "2026-11-05T05:33:28.847Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-09",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-08T02:14:03.807Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:32.324Z",
+    "ready1238_units": {
+     "coates|1317645": {
+      "on": true,
+      "at": "2026-11-03T03:19:30.604Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1317645": {
+      "at": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T23:46:32.013Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-05T05:33:28.847Z",
+    "note": "Event Portables 16-pan block 74 is on site and in place, confirmed by Andrew Fisher on 9 Oct 2026.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-02T23:33:46.205Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d697321d-263a-4cf9-a87e-453918c62935",
+       "date": "2026-11-03",
+       "departedAt1211": "2026-11-03T09:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-25T06:13:00.232Z",
+       "requiredKey": "[[\"16pan block\",2],[\"accessible toilet\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "16Pan Block",
+         "n": 2,
+         "unitIds": [
+          "[\"WC31\",\"event-portables\",\"asset\",\"12\"]",
+          "[\"WC31\",\"event-portables\",\"asset\",\"74\"]"
+         ],
+         "numbers": [
+          "12",
+          "74"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC31\",\"event-portables\",\"asset\",\"12\"]",
+           "number": "12",
+           "owner": "event-portables",
+           "item": "16Pan Block"
+          },
+          {
+           "id": "[\"WC31\",\"event-portables\",\"asset\",\"74\"]",
+           "number": "74",
+           "owner": "event-portables",
+           "item": "16Pan Block"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-05T05:33:28.847Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "14d2209b-e692-4496-b321-1b59ffe71d83",
+       "date": "2026-11-05",
+       "departedAt1211": "2026-11-05T15:20:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-25T06:13:00.232Z",
+       "requiredKey": "[[\"16pan block\",2],[\"accessible toilet\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Accessible Toilet",
+         "n": 1,
+         "unitIds": [
+          "[\"WC31\",\"coates\",\"asset\",\"1317645\"]"
+         ],
+         "numbers": [
+          "1317645"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC31\",\"coates\",\"asset\",\"1317645\"]",
+           "number": "1317645",
+           "owner": "coates",
+           "item": "Accessible Toilet"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC31",
+        "capturedAt": "2026-11-05T05:33:28.846Z",
+        "arrivalAt": "2026-09-25T06:13:00.232Z",
+        "reference": {
+         "lat": -27.982533,
+         "lon": 153.425151,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "reference",
+         "approximate": false,
+         "label": "WC31",
+         "tag": "WC31",
+         "what": "Toilets · Accessible Toilet, 16Pan Block",
+         "how": "position: Andrew’s pin",
+         "warn": "",
+         "source": "position: Andrew’s pin"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:13:00.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-05T05:33:28.847Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:32.324Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1317645",
+      "ready": true,
+      "at": "2026-11-03T03:19:30.604Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1317645",
+      "pickup": "2026-11-02T01:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T23:46:32.013Z"
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-09T01:49:35.515Z"
+    },
+    "_k": "WC31"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,10 @@
+const {open} = require('./open2.cjs');
+(async () => { for (const v of (process.env.VS || 'base,rec,base,rec').split(',')) { const s = await open({pageFile: __dirname + '/' + v + '.html'}); const p = s.page;
+  await p.waitForFunction(() => typeof SYNC !== 'undefined' && SYNC.status === 'live', null, {timeout: 300000, polling: 500}); await p.waitForTimeout(10000);
+  const r = await p.evaluate(() => { const T = f => { const t = performance.now(); f(); return +(performance.now() - t).toFixed(1); };
+    const complete = [T(() => gc500CompleteKeys897()), T(() => gc500CompleteKeys897()), T(() => gc500CompleteKeys897())];
+    const today = todayIso(), days = calendarDays().map(d => d.iso).filter(Boolean);
+    const workHeld = [T(() => holdAssets(() => days.forEach(iso => BuildWork986.day(iso, today)))), T(() => holdAssets(() => days.forEach(iso => BuildWork986.day(iso, today))))];
+    const models = [T(() => holdAssets(() => allAssets().forEach(a => gcModel925(a)))), T(() => holdAssets(() => allAssets().forEach(a => gcModel925(a))))];
+    return {complete, days: days.length, workHeld, models}; });
+  console.log(v, JSON.stringify(r), s.errors.length, s.counts.blocked); await s.browser.close(); } })();

@@ -1,0 +1,17 @@
+{
+  "by": "Andrew Fisher",
+  "why": "Andrew Fisher, 29 Oct 2026 10:50 AEST, giving the purchase order number for week ending 18 Oct: \"4667755\" for Eric Lucian, then \"he uses this too 4667755\" for Daniel Gough (one purchase order per person per week; Eric's shift on the record is Wed 14 Oct, 10.5 h; Daniel's hours for that week are not yet on the record)",
+  "ops": [
+    {
+      "op": "po",
+      "number": "4667755",
+      "supplier_name": "Job Connect",
+      "stream": "labour",
+      "what": "Eric Lucian and Daniel Gough - week ending 18 Oct 2026",
+      "period": "w/e 18 Oct 2026",
+      "branch": "KINP",
+      "revenue_branch": "KINP",
+      "confirmed": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "author": "Andrew Fisher",
+  "at": "2026-10-13T08:47:23.393Z",
+  "sha256": "fc7995c79cd5df18c47de4f2c05f1499382ba0313ae8b27dd23d783606a59068",
+  "nativeVersion": 5698,
+  "checks": 103,
+  "failures": [],
+  "totals": {
+    "actual": 28196.4,
+    "remaining": 9333.73,
+    "total": 37530.13,
+    "standdown": 25017.27,
+    "standdownActual": 21132.58,
+    "standdownRemaining": 3884.69,
+    "quantity": 18,
+    "actualQuantity": 9
+  },
+  "errors": [],
+  "writes": 0
+}

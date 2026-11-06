@@ -1,0 +1,37 @@
+// Author: Andrew Fisher. Generic model fixtures; source-match precision and bounds.
+const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
+const c={};vm.createContext(c);vm.runInContext(fs.readFileSync(path.join(__dirname,'transport956.js'),'utf8'),c);let checks=0;
+const held={known:false,reason:'Transport cost for this equipment is not priced'},plain=v=>JSON.parse(JSON.stringify(v));
+function row(ref='WC05'){const m=ref==='WC60'?{task:'T0203',qty:2,name:'Toilets (Tank Mounted)'}:{task:'T0225',qty:1,name:'Event Operations Compound Toilet - Combo Block (Tanked)'};return{src:'planned',key:ref,task:m.task,item:'Toilet Block 6m',qty:String(m.qty),e:{quantity_raw:m.qty},a:{key:ref,name:m.name},leg:'demob',movement:'remove'};}
+function env(r,extra={}){return Object.assign({demand:()=>held,lines:()=>[{item:r.item,qty:Number(r.qty),transport_cost:null}],matched:(x,rs,ls)=>({known:true,amount:ls[0].transport_cost*Number(x.qty),reason:'Card transport cost for explicit equipment'})},extra);}
+function test(name,fn){fn();checks++;console.log('PASS',name);}
+test('WC05 one tanked combo source cost',()=>{const r=row(),x=c.transport956Demand(r,[r],env(r));assert.equal(x.amount,328.9742068338);assert.equal(x.source956.cells,'L27');});
+test('WC60 two tank-mounted variants share exact cost',()=>{const r=row('WC60'),x=c.transport956Demand(r,[r],env(r));assert.equal(x.amount,657.9484136676);assert.equal(x.source956.cells,'L27:L29');});
+test('combined rounding uses original precision',()=>{const a=row(),b=row('WC60'),x=c.transport956Demand(a,[a],env(a)),y=c.transport956Demand(b,[b],env(b));assert.equal(Math.round((x.amount+y.amount)*100)/100,986.92);});
+test('known native rate wins including explicit zero',()=>{const r=row();for(const amount of [0,50]){const known={known:true,amount,reason:'new source'};assert.equal(c.transport956Demand(r,[r],env(r,{demand:()=>known})),known);}});
+test('WC09 and unknown references untouched',()=>{for(const ref of ['WC09','WC06']){const r=row();r.key=ref;r.a.key=ref;assert.equal(c.transport956Demand(r,[r],env(r)),held);}});
+test('exact product name required',()=>{const r=row();r.a.name='Toilet Block 6m';assert.equal(c.transport956Demand(r,[r],env(r)),held);});
+test('same reference different task untouched',()=>{const r=row();r.task='T9999';assert.equal(c.transport956Demand(r,[r],env(r)),held);});
+test('changed quantities never inherit source allowance',()=>{for(const q of [0,2,1.5,'','unknown']){const r=row();r.qty=String(q);r.e.quantity_raw=q;assert.equal(c.transport956Demand(r,[r],env(r)),held);}});
+test('changed source order quantity held',()=>{const r=row();assert.equal(c.transport956Demand(r,[r],env(r,{lines:()=>[{item:r.item,qty:2,transport_cost:null}]})),held);});
+test('duplicate item cost matches held',()=>{const r=row();assert.equal(c.transport956Demand(r,[r],env(r,{lines:()=>[{item:r.item,qty:1,transport_cost:null},{item:r.item,qty:1,transport_cost:null}]})),held);});
+test('cancelled off rest-of inbound and relocation excluded',()=>{for(const extra of [{cancelled:true},{off:true},{rest_of:true},{leg:'inbound'},{movement:'relocate'},{src:'asset'}]){const r=Object.assign(row(),extra);assert.equal(c.transport956Demand(r,[r],env(r)),held);}});
+test('wrong asset identity and item excluded',()=>{const r=row();r.a.key='WC09';assert.equal(c.transport956Demand(r,[r],env(r)),held);r.a.key=r.key;r.item='Waste tank';assert.equal(c.transport956Demand(r,[r],env(r)),held);});
+test('existing ambiguous or POA source value is not overwritten',()=>{const r=row();for(const cost of ['POA',50,0])assert.equal(c.transport956Demand(r,[r],env(r,{lines:()=>[{item:r.item,qty:1,transport_cost:cost}]})),held);});
+test('native scope rejection still wins',()=>{const r=row(),no={known:false,reason:'Overlap'};assert.equal(c.transport956Demand(r,[r],env(r,{matched:()=>no})),no);});
+test('source lines and record never mutated',()=>{const r=row(),lines=[{item:r.item,qty:1,transport_cost:null},{item:'Waste tank',qty:1,transport_cost:null}],before=plain({r,lines});c.transport956Demand(r,[r],env(r,{lines:()=>lines}));assert.deepEqual(plain({r,lines}),before);});
+c.transport888Build=()=>{};vm.runInContext(fs.readFileSync(path.join(__dirname,'../v9.53_transport_forecast_LIVE/transport953.js'),'utf8').replace('};additions.push(r);','};if(demand.source956)r.forecast.source956=demand.source956;additions.push(r);').replace('const top=cards.slice().sort','const top=transport956ResidualCards(cards).slice().sort'),c);
+function composed(r,rows=[],options={}){const T={rows,planned:[Object.assign({id:'plan',forecast:{kind:'planned',raw:0,amount:0}},r)],ourRefs:options.ourRefs||new Set(),forecast:{total:0},weights:{toDate:{},toDateNone:0},demob:{}};return c.transport953Reconcile(T,{off:()=>false,coverage:options.coverage||(()=>null),demand:(x,rs)=>c.transport956Demand(x,rs,env(x))});}
+test('composed duplicate actual or Internal load prevents allowance',()=>{for(const t of [{amount:80},{internal:true}]){const r=row(),actual=Object.assign({},r,{src:'asset',id:'actual',forecast:{kind:'figure',raw:0,amount:0},t});const T=composed(r,[actual]);assert.equal(T.forecast.total,0);assert.equal(T.planned[0].forecast.kind,'represented953');}});
+test('composed supplier quote coverage prevents allowance',()=>{const T=composed(row(),[],{coverage:()=>({state:'covered',reason:'quote pickup'})});assert.equal(T.forecast.total,0);assert.equal(T.planned[0].forecast.kind,'quote953');});
+test('composed typed reference cost prevents allowance',()=>{const T=composed(row(),[],{ourRefs:new Set(['WC05'])});assert.equal(T.forecast.total,0);});
+test('composed normal matched demand reaches forecast and demob',()=>{const T=composed(row());assert.equal(T.forecast.total,328.97);assert.equal(T.demob.total,328.97);});
+test('original rounding candidates unchanged without a new match',()=>{const cards=[{forecast:{amount:10}},{forecast:{amount:20}}];assert.equal(c.transport956ResidualCards(cards),cards);});
+test('fallback rounding works when only new matched costs exist',()=>{const cards=[{forecast:{source956:{},amount:10}}];assert.equal(c.transport956ResidualCards(cards),cards);});
+test('new matches preserve old cents, branch and demob delta',()=>{
+ const seed=()=>({rows:[650.01,50.004,50.004].map((n,i)=>Object.assign(row(),{key:'OLD'+i,task:'OLD'+i,src:'asset',id:'old'+i,branch:'NVAC',leg:'inbound',movement:'place',forecast:{kind:'card',raw:n,amount:Math.round(n*100)/100}})),planned:[],ourRefs:new Set(),forecast:{total:750.02},weights:{toDate:{NVAC:99},toDateNone:0},demob:{},toDate:99});
+ const e={off:()=>false,coverage:()=>null,demand:(r,rs)=>c.transport956Demand(r,rs,env(r))};
+ const before=c.transport953Reconcile(seed(),e),next=seed();next.planned=[row(),row('WC60')].map((r,i)=>Object.assign({id:'new'+i,branch:'KINP'},r));const after=c.transport953Reconcile(next,e);
+ assert.equal(Math.round((after.forecast.total-before.forecast.total)*100)/100,986.92);assert.equal(after.demob.total,986.92);assert.equal(after.weights.toCome.KINP,986.92);assert.equal(after.weights.toCome.NVAC,before.weights.toCome.NVAC);assert.equal(after.toDate,99);assert.deepEqual(plain(after.weights.toDate),plain(before.weights.toDate));assert.deepEqual(plain(after.rows.map(r=>r.forecast)),plain(before.rows.map(r=>r.forecast)));assert.equal(after.planned[1].forecast.amount,657.95);
+});
+console.log(`${checks}/${checks} checks passed`);

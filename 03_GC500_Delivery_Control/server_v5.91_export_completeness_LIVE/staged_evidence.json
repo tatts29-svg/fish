@@ -1,0 +1,25 @@
+{
+  "author": "Andrew Fisher",
+  "staged_at_utc": "2026-10-18T02:42:04.818351+00:00",
+  "source_commit": "4b106c0138e3d5706d58f274f8b966df3757db67",
+  "sha256": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+  "bytes": 292090,
+  "put_acknowledged": true,
+  "inventory_verified": true,
+  "prior_blobs_preserved": true,
+  "machine_unchanged": true,
+  "page_unchanged": true,
+  "server_still": "v5.90",
+  "record_version_unchanged": true,
+  "export_unchanged_except_timestamp": true,
+  "full_state_unchanged": true,
+  "server_file": "c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7",
+  "server_file_keep": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec,cb32d00e0d4beb90870685978981b1e14541a701c7b37cb1f180d848c134019c,d5a0d777da4871af1bf88804b4ef223354a29c2560213ab56f7897445b398fdc,f5b9a3f7efdf880b5f10d0ee339761d35adf9b9ff5bdd3a528505215be6b6fe9,76afbd997a9fcfd6e796eea4ead641a5249a1bad23114417c861fd1559057684,264363128b6c4bc1fd86b2fd6712400dd4c367b45a6ca195b7fb2ee1c8f21a14,b8d38b8f889baeffce25401a285f25286bbb4a6ae67f2c0f6e8a81eb214991dd",
+  "rollback_server_file": "55a19453304406e9fcf0891ae6151e8516357e83e22987fc334e2bf9428ad0ec",
+  "deployed": false,
+  "machine_imports": 0,
+  "page_publishes": 0,
+  "writes": [
+    "PUT /api/admin/machine/blob/c1b8bf9c999d4e548384b682592409507dbaf8bb7c4c62c590b62127b69c89b7"
+  ]
+}

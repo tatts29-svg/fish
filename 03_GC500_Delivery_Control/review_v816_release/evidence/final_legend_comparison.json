@@ -1,0 +1,27 @@
+{
+  "author": "Andrew Fisher",
+  "comparison": "Private reconstruction and byte comparison; no browser, network, shared product edit or live record access.",
+  "previousSourceCommit": "6837e9f773744ba009ba65706f9f258effa6968f",
+  "finalSourceCommit": "7f7d9066dbe6bda82eab12f1df0894410fd8845c",
+  "baseSha256": "35ab136643f9b7b0fb5b4e237c501c58cb27bc31e4faaded75df013dad0f7770",
+  "baseBytes": 9118422,
+  "previousCandidateSha256": "cf29603544e22000a5d421b7d7435f2c1f507d2bf80a46fcf4ad0c0540c15016",
+  "previousCandidateBytes": 9244173,
+  "rawPatchSha256": "cf29603544e22000a5d421b7d7435f2c1f507d2bf80a46fcf4ad0c0540c15016",
+  "attributionScrubNeededForExpectedPreviousHash": false,
+  "finalCandidateSha256": "7ae89da4e80b070ade2977ef4e47ed3e766be6dc7722bd610e21ad78ddaa77d0",
+  "finalCandidateBytes": 9244210,
+  "changedProductSourceFile": "demob816_src.js",
+  "changedSourceLine": 454,
+  "changedSourceLineCount": 1,
+  "oldLegend": "<p class=\"note816 leg816\">Lights on each day: orange outside the island \u00b7 blue Macintosh Island \u00b7 grey position to confirm \u00b7 WC: event-portable units on that day's toilet run, 24 to a load.</p>",
+  "newLegend": "<p class=\"note816 leg816\">Lights on each day: orange outside the island \u00b7 blue Macintosh Island \u00b7 grey position to confirm \u00b7 WC: event-portable units on that day's toilet runs (the supplier's up to 24 a load, Coates' 12\u201314).</p>",
+  "previousLegendOccurrences": 1,
+  "singleLegendSubstitutionEqualsFinalBytes": true,
+  "productFilesUnchangedSince6837e9f": [
+    "patch_v816.py",
+    "drawer816_src.js",
+    "v816.css",
+    "access_rules_qld.md"
+  ]
+}

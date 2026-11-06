@@ -1,0 +1,358 @@
+{
+  "author": "Andrew Fisher",
+  "reviewedAtUTC": "2026-10-02T03:49:17.136433+00:00",
+  "status": "Intermediate visual review; corrected corridor and final release acceptance pending",
+  "scope": "Independent visual inspection of 13 circuit-tour positions plus overhead and driver stills on each of desktop and phone. Reviewer opened every original screenshot; no GPU session was launched for this review.",
+  "candidateSha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe",
+  "sourceDirectory": "/workspace/private-v794-detail-first",
+  "imagesInspected": 30,
+  "referencePhotos": [
+    {
+      "filename": "20675.jpg",
+      "sha256": "8f80381a3a21163bc2882c6ca6402c324aad4b215bd0ef1071d8c1eacec1201d",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20677.jpg",
+      "sha256": "b9a02992632156210ed615aa5caad0f9a7ce629c4018fa8a9e36883876575cd2",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20682.jpg",
+      "sha256": "fca566a367f9f94d85781bd7ced20cebceabf81bbdee02659be4239c8983543b",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20687.jpg",
+      "sha256": "cf8f7d4eb316a4b00158c2fcfd91bf8a707ac91f448537304c84a14b097a8bc8",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20692.jpg",
+      "sha256": "28721e461eb66f83cdab053d58a7daae0fd5afbd6bdd33975ef7a97af4e140e1",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20701.jpg",
+      "sha256": "8bf192ea8b7f375e61b8c84a21cdf762ebff72dfc36a311978aef392a43296d5",
+      "visuallyInspected": true
+    },
+    {
+      "filename": "20702.jpg",
+      "sha256": "816df6ef3bf6e456335d4f9f4494e5dfd007af983f5d90cf0a58c4102faff1ca",
+      "visuallyInspected": true
+    }
+  ],
+  "images": [
+    {
+      "file": "desktop-onboard.png",
+      "sha256": "d03cfc3a01a4d8aaa9ddaece01a86fb736508246cfdb4b6b0ae8eefbe3be36e8",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Forward driver view shows genuine open pit structure and stronger skyline slab rhythm. Phone retains orange bonnet in lower frame; fine steel/fence aliasing remains."
+    },
+    {
+      "file": "desktop-top.png",
+      "sha256": "8fc15aab504dd2042b3bc7d7bb901b03cc10945849993e4799cbe9b2caf095fb",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Overhead circuit view and complete progress map. Independent captured-camera projection resolves the initial possible northern clipping concern: no route or source-contour vertex falls outside the viewport."
+    },
+    {
+      "file": "desktop-tour-00.png",
+      "sha256": "a02ea9a388f191ef69773389fe7d03c7b742c40ba20734c37f83608d45d8218c",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Broad circuit overview with legible route map. Independent projection of the captured phone camera confirms every route station and both source contours fit; cropped upper streets belong to surrounding city context."
+    },
+    {
+      "file": "desktop-tour-01.png",
+      "sha256": "d567aae1d95f57c6884729061d0e8d87eb10e0da9475615fa1a0ef4be6196221",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Low forward pass beneath start gantry. Desktop gantry intentionally crosses/crops the upper viewport; phone shows gantry and orange bonnet."
+    },
+    {
+      "file": "desktop-tour-02.png",
+      "sha256": "c1522678e2db706e7918c773e8316ebeba359e74d2ef4ef52b58172abb711f94",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Clear chase framing into a bend; pale balcony rhythm and dark glazing visible ahead. Wide road remains the known pre-corridor defect."
+    },
+    {
+      "file": "desktop-tour-03.png",
+      "sha256": "af59e5ad1b8e8a8989882cdfb542ef88f9aa505bfd4fd426a2529d76aab54bd1",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Side/chase drift view keeps complete car visible; soft smoke and black tyre trails extend rearward. Tower glazing has physical pale divisions."
+    },
+    {
+      "file": "desktop-tour-04.png",
+      "sha256": "cfd11eaf7f9fef5bf7347f4114166da13fa44d5b73f6aec524d1ec6307de8b5d",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Clear road-level corridor. Fa\u00e7ade slab edges, recessed glazing and differentiated tower sides are visible. Fine fence and palm aliasing remains."
+    },
+    {
+      "file": "desktop-tour-05.png",
+      "sha256": "05a983bd3aa5f6366cf2ea21645c37fa0ee4bd58ec66106ebb798a6b382063aa",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Elevated tracking view with complete car visible; broad source deck and fence setback conspicuous before corridor correction."
+    },
+    {
+      "file": "desktop-tour-06.png",
+      "sha256": "99fd2166ec6b67ea0a1c294740726101198cfce7b6bf22b1751b573ffb8a6782",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Chase view keeps car and upcoming bend visible; closer towers have pronounced slab relief. Road remains visually very wide."
+    },
+    {
+      "file": "desktop-tour-07.png",
+      "sha256": "21ea60ad819a30ab51132759ccbc6e0d3cee30df0991b68699fb1ae62dd568ac",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Chase view through shadow; car body remains readable, red-white kerb profile is continuous and nearby facade recesses are apparent."
+    },
+    {
+      "file": "desktop-tour-08.png",
+      "sha256": "6f366a97694968d9e625da107f6cd104f58b3670f96a0e1dff10abec5008ca0b",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Forward street view preserves stands and tower silhouettes. Repeated generic facade treatments remain obvious at this scale."
+    },
+    {
+      "file": "desktop-tour-09.png",
+      "sha256": "3b12074a0575a5dfddf8ac4fb187a07d14ff4a4b6c962727869a869354c7e2f1",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Forward view toward bend retains braking boards, signs and building context. Phone bonnet is offset during cornering; no car clipping beyond intentional onboard framing."
+    },
+    {
+      "file": "desktop-tour-10.png",
+      "sha256": "c6fafaf250cd551f771e045e3fa9ffd9d0e1113912c8654c7a9470cdf8872ab5",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Drift view retains visible car while dense twin smoke trails extend toward the viewer, especially on phone. No opaque block replacing the smoke."
+    },
+    {
+      "file": "desktop-tour-11.png",
+      "sha256": "6bb76421bf6c620bd84ca613181abdd34f189ec9df6b49ff0194b3cd8051a930",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "Pit-straight chase view shows open steel bays through the former solid pit shells. Dense pale members remain visually busy at distance."
+    },
+    {
+      "file": "desktop-tour-12.png",
+      "sha256": "6541663643e36e6ede0419b555b76907412b413f04379ebc256d025908b67967",
+      "width": 1280,
+      "height": 800,
+      "visuallyInspected": true,
+      "observation": "End-of-lap chase view retains car, gantry and open pit row, with 2.91 km completion visible."
+    },
+    {
+      "file": "phone-onboard.png",
+      "sha256": "fd56ba1fa053058fef159bc131850d00746f99058870954cc663dfb9fcd7d707",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Forward driver view shows genuine open pit structure and stronger skyline slab rhythm. Phone retains orange bonnet in lower frame; fine steel/fence aliasing remains."
+    },
+    {
+      "file": "phone-top.png",
+      "sha256": "d8d35b71181164de3f5b70be767ce5906ca393f12d97750a2d1ef7db035e564e",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Overhead circuit view and complete progress map. Independent captured-camera projection resolves the initial possible northern clipping concern: no route or source-contour vertex falls outside the viewport."
+    },
+    {
+      "file": "phone-tour-00.png",
+      "sha256": "395eaad836218c072cac3b100357e6e5403802f0eb7053716824d110e6bfad89",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Broad circuit overview with legible route map. Independent projection of the captured phone camera confirms every route station and both source contours fit; cropped upper streets belong to surrounding city context."
+    },
+    {
+      "file": "phone-tour-01.png",
+      "sha256": "6c8e1ded2c561b49a705729d876e62c42f529770f5ed9447b75709cdd7b3a9db",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Low forward pass beneath start gantry. Desktop gantry intentionally crosses/crops the upper viewport; phone shows gantry and orange bonnet."
+    },
+    {
+      "file": "phone-tour-02.png",
+      "sha256": "5f48f273cc712c0e1ab97c9601ad8489c06bbe43b70c778ca7cd4a6066de9140",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Clear chase framing into a bend; pale balcony rhythm and dark glazing visible ahead. Wide road remains the known pre-corridor defect."
+    },
+    {
+      "file": "phone-tour-03.png",
+      "sha256": "a891548c5ccaf5d375e4c5c49f83410c97e1790bb1dc8e1f85fdbf16d55d49c8",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Side/chase drift view keeps complete car visible; soft smoke and black tyre trails extend rearward. Tower glazing has physical pale divisions."
+    },
+    {
+      "file": "phone-tour-04.png",
+      "sha256": "bf736b428b432764a7b6d3274c40c5472fd27ab8860e0ebeff5a6711d2f03e12",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Clear road-level corridor. Fa\u00e7ade slab edges, recessed glazing and differentiated tower sides are visible. Fine fence and palm aliasing remains."
+    },
+    {
+      "file": "phone-tour-05.png",
+      "sha256": "98b9b71784c44cee5af2c95443c0a50fd3788a7d9dcd96584f992b8dd1cc236c",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Elevated tracking view with complete car visible; broad source deck and fence setback conspicuous before corridor correction."
+    },
+    {
+      "file": "phone-tour-06.png",
+      "sha256": "dd8cb6fe8f46df4d2a33bfa7ae0a1cd34aeef2db055ea4abf88a1a9163cfcdc6",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Chase view keeps car and upcoming bend visible; closer towers have pronounced slab relief. Road remains visually very wide."
+    },
+    {
+      "file": "phone-tour-07.png",
+      "sha256": "df2951e3e67f585cdc0f4962896966a9c581e38636dfc4543e20c301166f6c38",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Chase view through shadow; car body remains readable, red-white kerb profile is continuous and nearby facade recesses are apparent."
+    },
+    {
+      "file": "phone-tour-08.png",
+      "sha256": "c4a86c13d05a13bdab9af1f977996b8262860e9af4e325c2a44849f2c3de1232",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Forward street view preserves stands and tower silhouettes. Repeated generic facade treatments remain obvious at this scale."
+    },
+    {
+      "file": "phone-tour-09.png",
+      "sha256": "1785cba7e433183c33d352a9437540cba873004f44d38173ac2dfda12f39b0dc",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Forward view toward bend retains braking boards, signs and building context. Phone bonnet is offset during cornering; no car clipping beyond intentional onboard framing."
+    },
+    {
+      "file": "phone-tour-10.png",
+      "sha256": "1f7be312b733e4feeda9f91f672deabf185d3e74ab1031d8d98201ebed217dd1",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Drift view retains visible car while dense twin smoke trails extend toward the viewer, especially on phone. No opaque block replacing the smoke."
+    },
+    {
+      "file": "phone-tour-11.png",
+      "sha256": "76918e7fab565472fd0b805eb4dd55571ca69109aafd9432a83f36683beb8cbe",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "Pit-straight chase view shows open steel bays through the former solid pit shells. Dense pale members remain visually busy at distance."
+    },
+    {
+      "file": "phone-tour-12.png",
+      "sha256": "0b00270850989ac9b89b42138e67316f92b797136f436f217887b501f5a97f8b",
+      "width": 390,
+      "height": 844,
+      "visuallyInspected": true,
+      "observation": "End-of-lap chase view retains car, gantry and open pit row, with 2.91 km completion visible."
+    }
+  ],
+  "findings": [
+    {
+      "severity": "improvement",
+      "topic": "Architecture",
+      "detail": "Pale balcony edges, dark glazing, inset jambs and real slab relief are visible on closer towers on both layouts; compared with the prior broad flat grids this is a material improvement. Original unrefined sides and repeated generic profiles remain visible."
+    },
+    {
+      "severity": "improvement",
+      "topic": "Pit structures",
+      "detail": "Tour11/12 and driver stills show open two-storey steel bays, thin roofs and visible background through the structures. The original opaque blue nominal shells are absent from those enhanced views."
+    },
+    {
+      "severity": "improvement",
+      "topic": "Road and kerbs",
+      "detail": "Asphalt no longer shows the large cloudy mottling of the prior baseline. Red-white kerbs read as continuous low profiles. The now quieter road is nearly flat at medium and distant scale."
+    },
+    {
+      "severity": "known_pending",
+      "topic": "Corridor width",
+      "detail": "The source-deck/fence spacing is still visibly much broader than the measured driving-width paint. The upcoming corridor replacement must be reviewed separately; these captures do not certify it."
+    },
+    {
+      "severity": "limitation",
+      "topic": "Fine edge quality",
+      "detail": "Thin fence mesh, distant steel members, palm fronds and some facade lines still show visible stair-stepping or speckling. Still images do not establish whether they shimmer in motion."
+    },
+    {
+      "severity": "limitation",
+      "topic": "Smoke",
+      "detail": "Phone03/10 show long soft twin trails from the drift, with the car still legible. Source particle generation, lifetimes and physics remain, with reduced road-camera presentation size and opacity; the source driving photos do not support a claim of normal tyre smoke."
+    },
+    {
+      "severity": "resolved_check",
+      "topic": "Overview framing",
+      "detail": "An initial visual concern about northern phone framing was resolved by independently projecting the real source route and both contours through the captured phone camera eye, target, FOV and aspect. Zero vertices fall outside either viewport axis; cropped upper streets are surrounding city context."
+    }
+  ],
+  "limits": [
+    "Static daylight Balanced screenshots only; not a real-phone timing, full-motion, night-mode, context-recovery or dynamic aliasing assessment.",
+    "No new black frames, gross geometry tears, missing car bodies or invalid text were observed in these 30 stills.",
+    "Clean browser checks and reference-informed details do not establish a 10/10 visual rating, photorealism, surveyed architecture or surveyed event-barrier placement.",
+    "The private source photos and screenshot pixels remain outside the repository; this file contains only provenance hashes and review observations."
+  ],
+  "overviewProjectionCheck": {
+    "scope": "CPU projection through the actual recorded phone00 camera; source topology and recorded camera, no new GPU session",
+    "routeVertices": 546,
+    "routeOutside": 0,
+    "outerOutside": 0,
+    "innerOutside": 0,
+    "routeNDC": {
+      "x": [
+        -0.4593089603839318,
+        0.43736174977204345
+      ],
+      "y": [
+        -0.6814460561451541,
+        0.7631801678573799
+      ]
+    },
+    "outerNDC": {
+      "x": [
+        -0.49891647631286923,
+        0.4762670818431524
+      ],
+      "y": [
+        -0.7106199477233195,
+        0.7895734682251367
+      ]
+    }
+  }
+}

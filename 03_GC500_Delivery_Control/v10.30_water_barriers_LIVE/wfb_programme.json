@@ -1,0 +1,670 @@
+{
+ "schema": "wfb-programme-1030",
+ "source": "TP02-26003-03 - GC500 WFB PROGRAM (iEDM), sheet \"2026 GC500 Water Barriers\"",
+ "sha256": "ec099497d21566705ed872f08997aafe5974ce5992b03bc2e84b1d36d469fb47",
+ "read_on": "2026-10-16",
+ "supplied_by": "Andrew Fisher",
+ "header": "WATER FILLED BARRIER PROGRAM · Coates, Downer, City of Gold Coast · FMS use",
+ "weeks": [
+  "CW 5",
+  "CW 4",
+  "CW 3",
+  "CW 2",
+  "CW 1",
+  "CW 0",
+  "DW 1",
+  "DW 2",
+  "DW 3"
+ ],
+ "grid": {
+  "first": "2026-09-14",
+  "last": "2026-11-14"
+ },
+ "notes": [
+  "UPDATES 07/10/26"
+ ],
+ "rows": [
+  {
+   "ref": "WB01",
+   "zone": "9",
+   "location": "Gold Coast Highway (Northbound) - PB3 Footing/Stairs",
+   "quantity": 12,
+   "days_hire": 44,
+   "fms_quantity": 528,
+   "install": {
+    "date": "2026-09-14",
+    "time": "20:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "20:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "19:30",
+    "comment": "Traffic control required - Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-09-14",
+    "last": "2026-10-27",
+    "days": 44
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB03",
+   "zone": "10",
+   "location": "Gold Coast Highway (Turn 2) - Concrete small blocks",
+   "quantity": 30,
+   "days_hire": 32,
+   "fms_quantity": 960,
+   "install": {
+    "date": "2026-09-18",
+    "time": "22:30",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "23:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-19",
+    "time": "22:00",
+    "comment": "Coates to remove with their forklift and labour.\nStore behind T2 DL circuit barriers."
+   },
+   "grid": {
+    "first": "2026-09-18",
+    "last": "2026-10-19",
+    "days": 32
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB02",
+   "zone": "11",
+   "location": "S08 - Pedestrian Pathway along Main Beach Parade",
+   "quantity": 34,
+   "days_hire": 5,
+   "fms_quantity": 170,
+   "install": {
+    "date": "2026-09-21",
+    "time": "07:00",
+    "by": "Coates",
+    "comment": "Coates to install with their forklift and labour - Traffic Control under CW5 GCHWY RD CLOSURE"
+   },
+   "fill": {
+    "time": "07:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-09-25",
+    "time": "17:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-09-21",
+    "last": "2026-09-25",
+    "days": 5
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB06",
+   "zone": "1",
+   "location": "Gold Coast Highway Macintosh Park Turning Lane (Grandstand Barriers)",
+   "quantity": 154,
+   "days_hire": 13,
+   "fms_quantity": 2002,
+   "install": {
+    "date": "2026-10-15",
+    "time": "10:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour. Please only install 10x in the Admiralty Dr after traffic switch has taken place on Sunday Night."
+   },
+   "fill": {
+    "time": "10:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "19:00",
+    "comment": "Traffic control required - Coates to remove with their forklift and labour. Please remove 10 x in Admiralty need to be removed Monday night PW1."
+   },
+   "grid": {
+    "first": "2026-10-15",
+    "last": "2026-10-27",
+    "days": 13
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB04",
+   "zone": "9",
+   "location": "Helen Park - HVM",
+   "quantity": 13,
+   "days_hire": 12,
+   "fms_quantity": 156,
+   "install": {
+    "date": "2026-10-16",
+    "time": "08:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "08:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "09:00",
+    "comment": "Traffic control required - Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-16",
+    "last": "2026-10-27",
+    "days": 12
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB05",
+   "zone": "13",
+   "location": "Main Beach Light Rail - Bus Stop",
+   "quantity": 12,
+   "days_hire": 12,
+   "fms_quantity": 144,
+   "install": {
+    "date": "2026-10-16",
+    "time": "08:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "08:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "any time",
+    "comment": "Traffic control required - Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-16",
+    "last": "2026-10-27",
+    "days": 12
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB07",
+   "zone": "1",
+   "location": "Admiralty Drive Intersection (Through lane removed between centre islands)",
+   "quantity": 0,
+   "days_hire": 10,
+   "fms_quantity": 0,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Coates",
+    "comment": "Install during Downer road closure - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "20:30",
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "09:00",
+    "comment": "Coates to move these WFB into turning lane Sunday night. 10x Captured within WB05"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-27",
+    "days": 10
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB08",
+   "zone": "12",
+   "location": "Admiralty Drive middle turning lane onto GCHWY southbound",
+   "quantity": 17,
+   "days_hire": null,
+   "fms_quantity": null,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Downer",
+    "comment": "Downer to install"
+   },
+   "fill": {
+    "time": null,
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "comment": "Downer to remove"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-26",
+    "days": 9
+   },
+   "coates": false
+  },
+  {
+   "ref": "WB09",
+   "zone": "8",
+   "location": "Breaker Street / Rainkden Parade - (Implemented for One Way Direction)",
+   "quantity": 114,
+   "days_hire": null,
+   "fms_quantity": null,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Downer",
+    "comment": "Downer to install"
+   },
+   "fill": {
+    "time": null,
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "comment": "Downer to remove"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-26",
+    "days": 9
+   },
+   "coates": false
+  },
+  {
+   "ref": "WB10",
+   "zone": "8",
+   "location": "Gold Coast Highway - (Traffic Switch - Contraflow Event Week)",
+   "quantity": 54,
+   "days_hire": null,
+   "fms_quantity": null,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Downer",
+    "comment": "Downer to install"
+   },
+   "fill": {
+    "time": null,
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "comment": "Downer to remove"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-26",
+    "days": 9
+   },
+   "coates": false
+  },
+  {
+   "ref": "WB12",
+   "zone": "14",
+   "location": "Gold Coast Highway, Surfers Paradise  - Cypress Avenue turning lane southbound",
+   "quantity": 26,
+   "days_hire": null,
+   "fms_quantity": null,
+   "install": {
+    "date": "2026-10-18",
+    "time": "18:00",
+    "by": "Downer",
+    "comment": "Downer to install"
+   },
+   "fill": {
+    "time": null,
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "comment": "Downer to remove"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-26",
+    "days": 9
+   },
+   "coates": false
+  },
+  {
+   "ref": "WB21",
+   "zone": "13",
+   "location": "Main Beach Light Rail - Bus Stop",
+   "quantity": 0,
+   "days_hire": 10,
+   "fms_quantity": 0,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Coates",
+    "comment": "Install during Downer road closure - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "20:30",
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "09:00",
+    "comment": "Coates to move these WFB into turning lane Sunday night"
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-27",
+    "days": 10
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB22",
+   "zone": "10",
+   "location": "Marriot pedestrian crossing closure",
+   "quantity": 4,
+   "days_hire": 10,
+   "fms_quantity": 40,
+   "install": {
+    "date": "2026-10-18",
+    "time": "20:00",
+    "by": "Coates",
+    "comment": "Install during Downer road closure - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "20:30",
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "09:00",
+    "comment": "Coates to move these WFB into turning lane Sunday night."
+   },
+   "grid": {
+    "first": "2026-10-18",
+    "last": "2026-10-27",
+    "days": 10
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB13",
+   "zone": "10",
+   "location": "Fence bracing behind S15 + Ped Crossing",
+   "quantity": 10,
+   "days_hire": 8,
+   "fms_quantity": 80,
+   "install": {
+    "date": "2026-10-19",
+    "time": "09:00",
+    "by": "Coates",
+    "comment": "Fence bracing behind S15 - Coates to install"
+   },
+   "fill": {
+    "time": "09:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "10:00",
+    "comment": "Fence bracing behind S15"
+   },
+   "grid": {
+    "first": "2026-10-19",
+    "last": "2026-10-26",
+    "days": 8
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB11",
+   "zone": "5",
+   "location": "Budds Beach - Palm Avenue, Pine Avenue, Norfolk Avenue",
+   "quantity": 42,
+   "days_hire": null,
+   "fms_quantity": null,
+   "install": {
+    "date": "2026-10-21",
+    "time": "19:00",
+    "by": "Downer",
+    "comment": "Downer to install"
+   },
+   "fill": {
+    "time": null,
+    "by": "Downer"
+   },
+   "removal": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "comment": "Downer to remove"
+   },
+   "grid": {
+    "first": "2026-10-21",
+    "last": "2026-10-26",
+    "days": 6
+   },
+   "coates": false
+  },
+  {
+   "ref": "WB14",
+   "zone": "2",
+   "location": "MP4.0 Turn 4 Drivers Right",
+   "quantity": 2,
+   "days_hire": 5,
+   "fms_quantity": 10,
+   "install": {
+    "date": "2026-10-21",
+    "time": "07:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "07:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-25",
+    "time": "19:00",
+    "comment": "Collect when remove barriers at MP4.0 KDR light rail (on Sunday 26/10/2025)"
+   },
+   "grid": {
+    "first": "2026-10-21",
+    "last": "2026-10-25",
+    "days": 5
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB15",
+   "zone": "6",
+   "location": "Turn 11 Runoff (Main Beach Parade North) - HVM",
+   "quantity": 4,
+   "days_hire": 7,
+   "fms_quantity": 28,
+   "install": {
+    "date": "2026-10-21",
+    "time": "07:00",
+    "by": "Coates",
+    "comment": "Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "07:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "07:00",
+    "comment": "Traffic control required - Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-21",
+    "last": "2026-10-27",
+    "days": 7
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB16",
+   "zone": "9",
+   "location": "Gate 2 - HVM",
+   "quantity": 13,
+   "days_hire": 7,
+   "fms_quantity": 91,
+   "install": {
+    "date": "2026-10-21",
+    "time": "07:00",
+    "by": "Coates",
+    "comment": "Reinstate for DISMANTLE PERIOD - Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "07:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "17:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-21",
+    "last": "2026-10-27",
+    "days": 7
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB17",
+   "zone": null,
+   "location": "Racing kerbs (T6/7/8/9)",
+   "quantity": 6,
+   "days_hire": 6,
+   "fms_quantity": 36,
+   "install": {
+    "date": "2026-10-22",
+    "time": "17:00",
+    "by": "Coates",
+    "comment": "For Track Services Contractor to prevent cars from driving over race kerbs"
+   },
+   "fill": {
+    "time": "17:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "17:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-22",
+    "last": "2026-10-27",
+    "days": 6
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB18",
+   "zone": null,
+   "location": "Racing kerbs (T2)",
+   "quantity": 2,
+   "days_hire": 6,
+   "fms_quantity": 12,
+   "install": {
+    "date": "2026-10-22",
+    "time": "17:00",
+    "by": "Coates",
+    "comment": "For Track Services Contractor to prevent cars from driving over race kerbs"
+   },
+   "fill": {
+    "time": "17:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-27",
+    "time": "17:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-22",
+    "last": "2026-10-27",
+    "days": 6
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB20",
+   "zone": "10",
+   "location": "Gold Coast Highway (Turn 2)",
+   "quantity": 30,
+   "days_hire": 4,
+   "fms_quantity": 120,
+   "install": {
+    "date": "2026-10-26",
+    "time": "19:00",
+    "by": "Coates",
+    "comment": "Reinstate for DISMANTLE PERIOD - Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "19:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-10-29",
+    "time": "19:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-10-26",
+    "last": "2026-10-29",
+    "days": 4
+   },
+   "coates": true
+  },
+  {
+   "ref": "WB19",
+   "zone": "11",
+   "location": "S08 - Pedestrian Pathway along Main Beach Parade",
+   "quantity": 34,
+   "days_hire": 5,
+   "fms_quantity": 170,
+   "install": {
+    "date": "2026-11-02",
+    "time": "07:00",
+    "by": "Coates",
+    "comment": "Reinstate for DISMANTLE PERIOD - Traffic control required - Coates to install with their forklift and labour"
+   },
+   "fill": {
+    "time": "07:30",
+    "by": "City of Gold Coast"
+   },
+   "removal": {
+    "date": "2026-11-06",
+    "time": "17:00",
+    "comment": "Coates to remove with their forklift and labour"
+   },
+   "grid": {
+    "first": "2026-11-02",
+    "last": "2026-11-06",
+    "days": 5
+   },
+   "coates": true
+  }
+ ],
+ "coates_rows": 17,
+ "coates_barriers": 360,
+ "downer_rows": 5,
+ "downer_barriers": 253
+}

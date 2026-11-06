@@ -1,0 +1,94 @@
+{
+  "passed": 154,
+  "failed": 0,
+  "sourceSha256": "0d4f961085ae1d2ae16570d3c03e8cbadd5edb0acd33c28470f88541e9159841",
+  "candidatePageSha256": "3e8bd7ab65bee0e77cb635194184609e1f2de6f3db356f717f8c7b11b7c8c172",
+  "failures": [],
+  "models": [
+    {
+      "kind": "forklift",
+      "quality": "balanced",
+      "triangles": 17704,
+      "draws": 18,
+      "buildMs": 305
+    },
+    {
+      "kind": "boom",
+      "quality": "balanced",
+      "triangles": 17164,
+      "draws": 22,
+      "buildMs": 250
+    },
+    {
+      "kind": "scissor",
+      "quality": "balanced",
+      "triangles": 17692,
+      "draws": 18,
+      "buildMs": 211
+    },
+    {
+      "kind": "tractor",
+      "quality": "balanced",
+      "triangles": 17372,
+      "draws": 19,
+      "buildMs": 132
+    },
+    {
+      "kind": "vms",
+      "quality": "balanced",
+      "triangles": 14618,
+      "draws": 17,
+      "buildMs": 100
+    },
+    {
+      "kind": "loo",
+      "quality": "balanced",
+      "triangles": 16962,
+      "draws": 25,
+      "buildMs": 123
+    },
+    {
+      "kind": "forklift",
+      "quality": "high",
+      "triangles": 24668,
+      "draws": 18,
+      "buildMs": 192
+    },
+    {
+      "kind": "boom",
+      "quality": "high",
+      "triangles": 23692,
+      "draws": 22,
+      "buildMs": 209
+    },
+    {
+      "kind": "scissor",
+      "quality": "high",
+      "triangles": 23340,
+      "draws": 18,
+      "buildMs": 189
+    },
+    {
+      "kind": "tractor",
+      "quality": "high",
+      "triangles": 24488,
+      "draws": 19,
+      "buildMs": 176
+    },
+    {
+      "kind": "vms",
+      "quality": "high",
+      "triangles": 20106,
+      "draws": 17,
+      "buildMs": 122
+    },
+    {
+      "kind": "loo",
+      "quality": "high",
+      "triangles": 22710,
+      "draws": 25,
+      "buildMs": 157
+    }
+  ],
+  "output": "/workspace/gc500-showcase-full-lap/03_GC500_Delivery_Control/v8.00_vehicle_visuals_DRAFT/evidence/plant800_integrated_checks.json"
+}

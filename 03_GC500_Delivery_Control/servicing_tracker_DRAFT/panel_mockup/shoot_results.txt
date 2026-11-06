@@ -1,0 +1,52 @@
+
+== A. panel.html at 390 px
+PASS marked as example progress on the panel itself
+PASS title says it is the crews' tracker and track only
+PASS day chooser: Thu 22 if needed / Fri 23 / Sat 24 / Sun 25, Saturday picked by the example clock (Sat 23:20)
+PASS overall % and "u of 263 units" are SvcState's (61%, 104 of 263 units, 31 of 75 locations)
+PASS one row per area (14), each with SvcState's %, x of y locations and finished time / not finished
+PASS area 7 folded open: a table, one column per job in Andrew's words
+PASS each reference states its number and how many; each line its own row with each job's time (WC27: block + waste tank)
+PASS the line under it: nothing ticks the job record, a delivery or a charge; Event Portables count unchanged
+PASS every day button and area row is at least 44 px tall
+PASS light: no sideways scroll at 390 px
+PASS light: the page keeps its light paper in OS light mode, as the live page does (contrast1007css)
+PASS light: every piece of text in the panel clears WCAG AA contrast (699 checked, lowest 4.54:1)
+PASS light: no label breaks between a number and what it counts (92 of 92 pairs such as "6 m", "2 ×")
+PASS light: nothing in the panel sticks out past the card, and no text runs out of its cell
+PASS Fri 23: 100%, 263 of 263 units, All finished Sat 02:22, ended
+PASS Thu 22 (if needed): 0 of 263 units, "if needed · no ticks"
+PASS Sun 25: not started yet ("starts Sun 25 Oct 08:00"), 0%
+PASS Sun 25 jobs: FWF Pumped out, Cleaned & restocked, Locked & confirmed empty (no water); WC20 tank Pumped out only
+PASS no sideways scroll at 360 px either
+PASS hostile area, reference and job names are shown as text and run nothing
+PASS light: no request leaves the machine except the two Google Fonts hosts
+PASS light: no page errors, no console errors
+PASS dark: no sideways scroll at 390 px
+PASS dark: the page keeps its light paper in OS dark mode, as the live page does (contrast1007css)
+PASS dark: every piece of text in the panel clears WCAG AA contrast (699 checked, lowest 4.54:1)
+PASS dark: no label breaks between a number and what it counts (92 of 92 pairs such as "6 m", "2 ×")
+PASS dark: nothing in the panel sticks out past the card, and no text runs out of its cell
+PASS dark: no request leaves the machine except the two Google Fonts hosts
+PASS dark: no page errors, no console errors
+
+== B. the same panel on the real Event nights tab (live v10.60.1 build, read only)
+PASS light: panel drawn on the real tab with the page's own card and buttons (face rgb(255, 255, 255), ink rgb(20, 24, 29))
+PASS light: no sideways scroll on the real page at 390 px
+PASS light: every piece of panel text clears WCAG AA on the real page (699 checked, lowest 4.54:1)
+PASS light: no label breaks between a number and what it counts (92 of 92 pairs) on the real page
+PASS light: nothing sticks out past the card and no text runs out of its cell on the real page (its global table/th rules included)
+PASS light: the fold table keeps to the card (the page's table{min-width:640px} and sticky th overridden)
+PASS the run sheet's own redraw (Saturday night) wipes a panel put inside #pane-nights but not one in its own container: the build must use its own container
+PASS light: the harness aborted 0 write(s); nothing was sent to the live service
+PASS light: no page errors on the real page
+PASS dark: panel drawn on the real tab with the page's own card and buttons (face rgb(255, 255, 255), ink rgb(20, 24, 29))
+PASS dark: no sideways scroll on the real page at 390 px
+PASS dark: every piece of panel text clears WCAG AA on the real page (699 checked, lowest 4.54:1)
+PASS dark: no label breaks between a number and what it counts (92 of 92 pairs) on the real page
+PASS dark: nothing sticks out past the card and no text runs out of its cell on the real page (its global table/th rules included)
+PASS dark: the fold table keeps to the card (the page's table{min-width:640px} and sticky th overridden)
+PASS dark: the harness aborted 0 write(s); nothing was sent to the live service
+PASS dark: no page errors on the real page
+
+46 passed, 0 failed

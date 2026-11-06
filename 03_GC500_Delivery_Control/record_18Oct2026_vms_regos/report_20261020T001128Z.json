@@ -1,0 +1,90 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T001128Z",
+ "finished": "2026-10-20T00:11:38.442Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 20 Oct 2026, board pins in chat: VMS20 -27.99352, 153.430527 (plan 20).",
+  "ops": [
+   {
+    "op": "vms_plan",
+    "pos": "20",
+    "lat": -27.99352,
+    "lon": 153.430527,
+    "how": "Andrew Fisher's pinned location for VMS20, 20 Oct 2026"
+   }
+  ]
+ },
+ "pageSha256": "6a509831956221160fc78798a28b5fcee3eb3bd0740709b6f12f77b4efbcc478",
+ "version": {
+  "before": 10021,
+  "after": 10024
+ },
+ "updated": {
+  "before": "2026-10-20T00:10:36.465Z",
+  "after": "2026-10-20T00:11:37.678Z"
+ },
+ "stage": [
+  {
+   "op": "vms_plan",
+   "pos": "20",
+   "lat": -27.99352,
+   "lon": 153.430527,
+   "how": "Andrew Fisher's pinned location for VMS20, 20 Oct 2026",
+   "result": "VMS plan 20 pinned at -27.99352, 153.430527"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/loads~2f~vms1024~2f~20",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~20",
+   "status": 200
+  },
+  {
+   "key": "by/loads~2f~vms1024~2f~20",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/loads~2f~vms1024~2f~20": null,
+   "loads/vms1024~2f~20": null,
+   "by/loads~2f~vms1024~2f~20": null
+  },
+  "after": {
+   "stamps/loads~2f~vms1024~2f~20": {
+    "_k": "loads/vms1024/20",
+    "v": "2026-10-20T00:11:34.805Z"
+   },
+   "loads/vms1024~2f~20": {
+    "lat": -27.99352,
+    "lon": 153.430527,
+    "posHow": "Andrew Fisher's pinned location for VMS20, 20 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-20T00:11:34.804Z",
+    "acc": null,
+    "kind": "vms1024",
+    "pos": "20",
+    "by": "Andrew Fisher",
+    "at": "2026-10-20T00:11:34.805Z",
+    "_k": "vms1024/20"
+   },
+   "by/loads~2f~vms1024~2f~20": {
+    "_k": "loads/vms1024/20",
+    "v": "Andrew Fisher"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

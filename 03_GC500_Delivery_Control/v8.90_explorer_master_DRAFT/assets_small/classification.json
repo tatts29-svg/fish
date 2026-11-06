@@ -1,0 +1,8339 @@
+{
+ "source_pdf_sha256": "8753d875cf90682e09afefae8c774144d9e9725ece87f726707882fb3711c56d",
+ "frame_pdf_sha256": "37792f0a9d32e829f34d28ab41197fd2cf689fb62cd60a755aa89106cb5a0a2f",
+ "records_total": 301253,
+ "image_records": [
+  {
+   "id": 0,
+   "bbox": [
+    835.92,
+    720.28,
+    1067.8,
+    852.38
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 3 (483x275 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 6, 483x275 px)",
+   "context": 0,
+   "svg_bytes": 18027
+  },
+  {
+   "id": 1,
+   "bbox": [
+    74.88,
+    41.32,
+    2359.66,
+    1464.32
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 6 (4760x2965 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 7, 4760x2965 px)",
+   "context": 1,
+   "svg_bytes": 3744735
+  },
+  {
+   "id": 2,
+   "bbox": [
+    1446.6,
+    494.98,
+    1466.98,
+    539.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 44 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 2,
+   "svg_bytes": 2959
+  },
+  {
+   "id": 3,
+   "bbox": [
+    1600.68,
+    367.24,
+    2018.38,
+    550.76
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 12 (870x382 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 9, 870x382 px)",
+   "context": 3,
+   "svg_bytes": 27429
+  },
+  {
+   "id": 4,
+   "bbox": [
+    74.88,
+    649.18,
+    213.64,
+    1317.32
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 15 (289x1392 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 10, 342x1427 px)",
+   "context": 4,
+   "svg_bytes": 34864
+  },
+  {
+   "id": 5,
+   "bbox": [
+    1974.24,
+    261.64,
+    2320.66,
+    626.42
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 18 (722x760 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 11, 722x760 px)",
+   "context": 5,
+   "svg_bytes": 30143
+  },
+  {
+   "id": 6,
+   "bbox": [
+    2013.96,
+    393.76,
+    2308.24,
+    645.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 21 (613x524 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 12, 613x524 px)",
+   "context": 6,
+   "svg_bytes": 29501
+  },
+  {
+   "id": 7,
+   "bbox": [
+    988.8,
+    539.86,
+    1498.6,
+    677.0
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 24 (1062x286 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 13, 1062x286 px)",
+   "context": 7,
+   "svg_bytes": 24416
+  },
+  {
+   "id": 8,
+   "bbox": [
+    74.88,
+    1265.44,
+    159.22,
+    1351.04
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 27 (176x178 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 14, 229x209 px)",
+   "context": 8,
+   "svg_bytes": 5601
+  },
+  {
+   "id": 9,
+   "bbox": [
+    127.08,
+    1143.94,
+    275.44,
+    1279.22
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 30 (309x282 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 15, 309x282 px)",
+   "context": 9,
+   "svg_bytes": 12004
+  },
+  {
+   "id": 10,
+   "bbox": [
+    171.12,
+    723.82,
+    312.82,
+    1175.78
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 33 (295x942 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 16, 295x942 px)",
+   "context": 10,
+   "svg_bytes": 28303
+  },
+  {
+   "id": 11,
+   "bbox": [
+    212.16,
+    426.76,
+    484.42,
+    648.68
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 36 (567x462 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 17, 567x462 px)",
+   "context": 11,
+   "svg_bytes": 23419
+  },
+  {
+   "id": 12,
+   "bbox": [
+    1960.68,
+    862.36,
+    2120.8,
+    1117.58
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 39 (334x532 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 18, 334x532 px)",
+   "context": 12,
+   "svg_bytes": 19259
+  },
+  {
+   "id": 13,
+   "bbox": [
+    2083.32,
+    881.86,
+    2242.24,
+    1138.58
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 42 (331x535 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 19, 331x535 px)",
+   "context": 13,
+   "svg_bytes": 19418
+  },
+  {
+   "id": 14,
+   "bbox": [
+    1839.3,
+    831.58,
+    2005.3,
+    1095.5
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 45 (346x550 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 20, 346x550 px)",
+   "context": 14,
+   "svg_bytes": 20096
+  },
+  {
+   "id": 15,
+   "bbox": [
+    2201.4,
+    646.84,
+    2359.66,
+    1139.54
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 48 (330x1027 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 21, 277x1027 px)",
+   "context": 15,
+   "svg_bytes": 33824
+  },
+  {
+   "id": 16,
+   "bbox": [
+    1602.18,
+    713.5,
+    1900.9,
+    1022.48
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 51 (622x644 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 22, 622x644 px)",
+   "context": 16,
+   "svg_bytes": 37699
+  },
+  {
+   "id": 17,
+   "bbox": [
+    149.46,
+    1181.2,
+    291.28,
+    1298.12
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 54 (296x244 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 23, 295x244 px)",
+   "context": 17,
+   "svg_bytes": 9818
+  },
+  {
+   "id": 18,
+   "bbox": [
+    750.96,
+    712.24,
+    966.76,
+    858.44
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 57 (450x305 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 24, 450x305 px)",
+   "context": 18,
+   "svg_bytes": 14096
+  },
+  {
+   "id": 19,
+   "bbox": [
+    1498.32,
+    522.1,
+    1617.76,
+    592.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (119 x 70 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 19,
+   "svg_bytes": 8583
+  },
+  {
+   "id": 20,
+   "bbox": [
+    2325.78,
+    669.64,
+    2359.66,
+    1118.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (34 x 449 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 20,
+   "svg_bytes": 5293
+  },
+  {
+   "id": 21,
+   "bbox": [
+    2258.4,
+    412.06,
+    2359.66,
+    668.3
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 66 (211x534 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 27, 158x534 px)",
+   "context": 21,
+   "svg_bytes": 14329
+  },
+  {
+   "id": 22,
+   "bbox": [
+    1629.72,
+    572.68,
+    1974.46,
+    624.62
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 69 (718x108 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 28, 718x108 px)",
+   "context": 22,
+   "svg_bytes": 18643
+  },
+  {
+   "id": 23,
+   "bbox": [
+    1881.18,
+    620.44,
+    1952.08,
+    832.04
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 72 (148x441 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 29, 148x441 px)",
+   "context": 23,
+   "svg_bytes": 10071
+  },
+  {
+   "id": 24,
+   "bbox": [
+    1597.92,
+    571.78,
+    1636.6,
+    597.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (39 x 26 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 24,
+   "svg_bytes": 2627
+  },
+  {
+   "id": 25,
+   "bbox": [
+    942.54,
+    635.44,
+    1012.48,
+    728.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (70 x 94 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 25,
+   "svg_bytes": 7711
+  },
+  {
+   "id": 26,
+   "bbox": [
+    1200.78,
+    323.14,
+    1254.46,
+    359.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (54 x 36 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 26,
+   "svg_bytes": 3095
+  },
+  {
+   "id": 27,
+   "bbox": [
+    714.0,
+    645.34,
+    956.02,
+    817.1
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 84 (504x358 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 33, 504x358 px)",
+   "context": 27,
+   "svg_bytes": 16482
+  },
+  {
+   "id": 28,
+   "bbox": [
+    730.14,
+    677.98,
+    964.48,
+    831.74
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 87 (488x320 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 34, 488x320 px)",
+   "context": 28,
+   "svg_bytes": 14979
+  },
+  {
+   "id": 29,
+   "bbox": [
+    523.56,
+    800.08,
+    740.2,
+    980.06
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 90 (451x375 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 35, 451x375 px)",
+   "context": 29,
+   "svg_bytes": 15710
+  },
+  {
+   "id": 30,
+   "bbox": [
+    1029.9,
+    793.36,
+    1702.84,
+    1464.32
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 93 (1402x1398 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 36, 1402x1398 px)",
+   "context": 30,
+   "svg_bytes": 117603
+  },
+  {
+   "id": 31,
+   "bbox": [
+    1711.26,
+    281.02,
+    2043.04,
+    323.3
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 96 (691x88 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 37, 691x88 px)",
+   "context": 31,
+   "svg_bytes": 10180
+  },
+  {
+   "id": 32,
+   "bbox": [
+    263.58,
+    959.44,
+    538.66,
+    1180.16
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 99 (573x460 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 38, 573x460 px)",
+   "context": 32,
+   "svg_bytes": 20601
+  },
+  {
+   "id": 33,
+   "bbox": [
+    1346.46,
+    305.68,
+    1711.48,
+    384.2
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 102 (761x164 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 39, 761x164 px)",
+   "context": 33,
+   "svg_bytes": 16104
+  },
+  {
+   "id": 34,
+   "bbox": [
+    1654.86,
+    382.3,
+    1694.44,
+    483.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (40 x 102 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 34,
+   "svg_bytes": 5796
+  },
+  {
+   "id": 35,
+   "bbox": [
+    1312.08,
+    383.92,
+    1555.6,
+    537.38
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 108 (507x320 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 41, 507x320 px)",
+   "context": 35,
+   "svg_bytes": 15909
+  },
+  {
+   "id": 36,
+   "bbox": [
+    548.64,
+    844.84,
+    762.28,
+    1008.56
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 111 (445x341 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 42, 445x341 px)",
+   "context": 36,
+   "svg_bytes": 14930
+  },
+  {
+   "id": 37,
+   "bbox": [
+    2303.82,
+    210.82,
+    2359.66,
+    528.92
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 114 (116x663 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 43, 63x663 px)",
+   "context": 37,
+   "svg_bytes": 9088
+  },
+  {
+   "id": 38,
+   "bbox": [
+    467.58,
+    329.26,
+    1349.44,
+    442.64
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 117 (1837x236 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 44, 1837x236 px)",
+   "context": 38,
+   "svg_bytes": 35150
+  },
+  {
+   "id": 39,
+   "bbox": [
+    1868.76,
+    413.44,
+    2018.38,
+    433.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (150 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 39,
+   "svg_bytes": 4435
+  },
+  {
+   "id": 40,
+   "bbox": [
+    1005.66,
+    576.4,
+    1554.82,
+    704.48
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 123 (1144x267 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 46, 1144x267 px)",
+   "context": 40,
+   "svg_bytes": 25388
+  },
+  {
+   "id": 41,
+   "bbox": [
+    565.14,
+    835.9,
+    843.34,
+    1049.96
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 126 (580x446 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 47, 580x446 px)",
+   "context": 41,
+   "svg_bytes": 23047
+  },
+  {
+   "id": 42,
+   "bbox": [
+    187.26,
+    1035.22,
+    932.08,
+    1464.32
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 129 (1552x894 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 48, 1552x894 px)",
+   "context": 42,
+   "svg_bytes": 69535
+  },
+  {
+   "id": 43,
+   "bbox": [
+    518.4,
+    789.82,
+    719.5,
+    959.66
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 132 (419x354 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 49, 419x354 px)",
+   "context": 43,
+   "svg_bytes": 15178
+  },
+  {
+   "id": 44,
+   "bbox": [
+    74.88,
+    1283.98,
+    160.9,
+    1384.34
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 135 (179x209 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 50, 233x241 px)",
+   "context": 44,
+   "svg_bytes": 5992
+  },
+  {
+   "id": 45,
+   "bbox": [
+    278.16,
+    993.76,
+    556.84,
+    1202.24
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 138 (581x434 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 51, 581x434 px)",
+   "context": 45,
+   "svg_bytes": 20203
+  },
+  {
+   "id": 46,
+   "bbox": [
+    74.88,
+    399.58,
+    217.42,
+    661.1
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 141 (297x545 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 52, 350x545 px)",
+   "context": 46,
+   "svg_bytes": 13264
+  },
+  {
+   "id": 47,
+   "bbox": [
+    1997.64,
+    589.84,
+    2258.32,
+    887.6
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 144 (543x620 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 53, 543x620 px)",
+   "context": 47,
+   "svg_bytes": 24241
+  },
+  {
+   "id": 48,
+   "bbox": [
+    1156.44,
+    366.7,
+    1179.28,
+    398.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (23 x 32 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 48,
+   "svg_bytes": 2492
+  },
+  {
+   "id": 282,
+   "bbox": [
+    310.08,
+    411.04,
+    1340.44,
+    1059.56
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 150 (2147x1351 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 271, 2147x1351 px)",
+   "context": 50,
+   "svg_bytes": 128706
+  },
+  {
+   "id": 295,
+   "bbox": [
+    834.18,
+    320.44,
+    844.36,
+    321.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 52,
+   "svg_bytes": 1171
+  },
+  {
+   "id": 296,
+   "bbox": [
+    1422.36,
+    612.94,
+    1512.46,
+    652.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (90 x 40 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 53,
+   "svg_bytes": 5727
+  },
+  {
+   "id": 297,
+   "bbox": [
+    74.88,
+    112.36,
+    2359.66,
+    383.9
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 159 (4760x566 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 286, 4760x566 px)",
+   "context": 54,
+   "svg_bytes": 143517
+  },
+  {
+   "id": 298,
+   "bbox": [
+    746.52,
+    525.28,
+    808.42,
+    552.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (62 x 27 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 55,
+   "svg_bytes": 4614
+  },
+  {
+   "id": 299,
+   "bbox": [
+    74.88,
+    1328.02,
+    205.0,
+    1432.16
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 165 (271x217 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 288, 324x232 px)",
+   "context": 56,
+   "svg_bytes": 10579
+  },
+  {
+   "id": 300,
+   "bbox": [
+    243.9,
+    1177.6,
+    390.4,
+    1302.5
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 168 (305x260 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 289, 305x260 px)",
+   "context": 57,
+   "svg_bytes": 13614
+  },
+  {
+   "id": 301,
+   "bbox": [
+    408.54,
+    1102.66,
+    432.1,
+    1120.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (24 x 18 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 58,
+   "svg_bytes": 2395
+  },
+  {
+   "id": 302,
+   "bbox": [
+    1313.4,
+    575.5,
+    1335.88,
+    589.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (22 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 59,
+   "svg_bytes": 2269
+  },
+  {
+   "id": 303,
+   "bbox": [
+    389.52,
+    1046.98,
+    422.32,
+    1096.04
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (33 x 49 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 60,
+   "svg_bytes": 4740
+  },
+  {
+   "id": 304,
+   "bbox": [
+    74.88,
+    41.32,
+    2359.66,
+    285.14
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 180 (4760x508 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 293, 4760x510 px)",
+   "context": 61,
+   "svg_bytes": 84940
+  },
+  {
+   "id": 305,
+   "bbox": [
+    74.88,
+    623.86,
+    2359.66,
+    1464.32
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 183 (4760x1751 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 294, 4760x1752 px)",
+   "context": 62,
+   "svg_bytes": 377140
+  },
+  {
+   "id": 306,
+   "bbox": [
+    678.48,
+    577.78,
+    873.94,
+    699.56
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 186 (407x254 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 295, 407x254 px)",
+   "context": 63,
+   "svg_bytes": 28929
+  },
+  {
+   "id": 307,
+   "bbox": [
+    488.28,
+    643.9,
+    688.18,
+    808.04
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 189 (417x342 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 296, 417x342 px)",
+   "context": 64,
+   "svg_bytes": 25651
+  },
+  {
+   "id": 2999,
+   "bbox": [
+    791.58,
+    584.98,
+    821.62,
+    611.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (30 x 27 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 66,
+   "svg_bytes": 3114
+  },
+  {
+   "id": 4127,
+   "bbox": [
+    581.94,
+    1158.58,
+    600.76,
+    1182.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (19 x 24 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 68,
+   "svg_bytes": 2553
+  },
+  {
+   "id": 6590,
+   "bbox": [
+    74.88,
+    383.62,
+    75.34,
+    391.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (0 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 70,
+   "svg_bytes": 972
+  },
+  {
+   "id": 20837,
+   "bbox": [
+    975.3,
+    560.56,
+    987.82,
+    576.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 16 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 73,
+   "svg_bytes": 1834
+  },
+  {
+   "id": 50985,
+   "bbox": [
+    483.78,
+    1236.82,
+    484.36,
+    1237.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 75,
+   "svg_bytes": 943
+  },
+  {
+   "id": 50991,
+   "bbox": [
+    490.26,
+    1211.62,
+    490.84,
+    1212.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 77,
+   "svg_bytes": 943
+  },
+  {
+   "id": 50997,
+   "bbox": [
+    492.12,
+    1185.1,
+    492.7,
+    1185.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 79,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51003,
+   "bbox": [
+    487.86,
+    1150.0,
+    488.44,
+    1150.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 81,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51009,
+   "bbox": [
+    485.94,
+    1122.28,
+    486.52,
+    1122.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 83,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51015,
+   "bbox": [
+    497.82,
+    1095.22,
+    498.46,
+    1095.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 85,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51021,
+   "bbox": [
+    511.68,
+    1077.28,
+    512.32,
+    1077.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 87,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51027,
+   "bbox": [
+    519.06,
+    1061.56,
+    519.64,
+    1062.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 89,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51033,
+   "bbox": [
+    458.34,
+    1105.66,
+    458.92,
+    1106.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 91,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51039,
+   "bbox": [
+    455.28,
+    1124.56,
+    455.92,
+    1125.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 93,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51045,
+   "bbox": [
+    437.7,
+    1120.78,
+    438.28,
+    1121.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 95,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51051,
+   "bbox": [
+    417.18,
+    1135.78,
+    417.76,
+    1136.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 97,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51057,
+   "bbox": [
+    396.42,
+    1151.02,
+    397.0,
+    1151.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 99,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51063,
+   "bbox": [
+    376.02,
+    1166.38,
+    376.6,
+    1166.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 101,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51069,
+   "bbox": [
+    356.1,
+    1182.22,
+    356.68,
+    1182.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 103,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51075,
+   "bbox": [
+    336.24,
+    1198.18,
+    336.82,
+    1198.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 105,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51081,
+   "bbox": [
+    316.08,
+    1213.66,
+    316.66,
+    1214.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 107,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51087,
+   "bbox": [
+    295.5,
+    1228.84,
+    296.08,
+    1229.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 109,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51093,
+   "bbox": [
+    274.86,
+    1243.96,
+    275.44,
+    1244.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 111,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51099,
+   "bbox": [
+    254.28,
+    1259.08,
+    254.86,
+    1259.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 113,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51105,
+   "bbox": [
+    233.76,
+    1274.08,
+    234.34,
+    1274.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 115,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51111,
+   "bbox": [
+    213.18,
+    1289.14,
+    213.76,
+    1289.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 117,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51117,
+   "bbox": [
+    192.48,
+    1303.96,
+    193.06,
+    1304.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 119,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51123,
+   "bbox": [
+    171.42,
+    1318.24,
+    172.0,
+    1318.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 121,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51129,
+   "bbox": [
+    150.24,
+    1332.4,
+    150.82,
+    1332.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 123,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51135,
+   "bbox": [
+    129.06,
+    1346.62,
+    129.64,
+    1347.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 125,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51141,
+   "bbox": [
+    107.88,
+    1360.84,
+    108.46,
+    1361.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 127,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51147,
+   "bbox": [
+    86.7,
+    1375.06,
+    87.28,
+    1375.64
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 129,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51153,
+   "bbox": [
+    908.76,
+    780.76,
+    909.34,
+    781.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 131,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51159,
+   "bbox": [
+    1018.14,
+    724.36,
+    1018.72,
+    724.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 133,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51165,
+   "bbox": [
+    1259.58,
+    636.1,
+    1260.16,
+    636.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 135,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51171,
+   "bbox": [
+    1408.98,
+    614.68,
+    1409.56,
+    615.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 137,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51177,
+   "bbox": [
+    1434.72,
+    612.7,
+    1435.3,
+    613.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 139,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51183,
+   "bbox": [
+    1460.52,
+    611.56,
+    1461.1,
+    612.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 141,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51189,
+   "bbox": [
+    1486.98,
+    610.9,
+    1487.62,
+    611.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 143,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51195,
+   "bbox": [
+    1513.56,
+    610.3,
+    1514.2,
+    610.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 145,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51201,
+   "bbox": [
+    1537.5,
+    609.7,
+    1538.08,
+    610.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 147,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51207,
+   "bbox": [
+    1563.18,
+    609.94,
+    1563.76,
+    610.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 149,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51213,
+   "bbox": [
+    1585.74,
+    605.86,
+    1586.32,
+    606.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 151,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51219,
+   "bbox": [
+    478.98,
+    1090.36,
+    479.56,
+    1090.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 153,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51225,
+   "bbox": [
+    499.86,
+    1075.66,
+    500.44,
+    1076.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 155,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51231,
+   "bbox": [
+    531.24,
+    1059.58,
+    531.82,
+    1060.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 157,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51237,
+   "bbox": [
+    538.56,
+    1047.4,
+    539.14,
+    1047.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 159,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51243,
+   "bbox": [
+    570.3,
+    1024.54,
+    570.88,
+    1025.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 161,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51249,
+   "bbox": [
+    590.52,
+    1009.78,
+    591.1,
+    1010.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 163,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51255,
+   "bbox": [
+    611.64,
+    994.24,
+    612.22,
+    994.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 165,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51261,
+   "bbox": [
+    632.76,
+    978.76,
+    633.34,
+    979.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 167,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51267,
+   "bbox": [
+    653.94,
+    963.28,
+    654.52,
+    963.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 169,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51273,
+   "bbox": [
+    675.06,
+    947.74,
+    675.64,
+    948.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 171,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51279,
+   "bbox": [
+    696.24,
+    932.26,
+    696.82,
+    932.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 173,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51285,
+   "bbox": [
+    717.36,
+    916.78,
+    717.94,
+    917.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 175,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51291,
+   "bbox": [
+    738.54,
+    901.24,
+    739.12,
+    901.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 177,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51297,
+   "bbox": [
+    759.66,
+    885.76,
+    760.24,
+    886.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 179,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51303,
+   "bbox": [
+    780.84,
+    870.28,
+    781.42,
+    870.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 181,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51309,
+   "bbox": [
+    802.02,
+    854.74,
+    802.6,
+    855.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 183,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51315,
+   "bbox": [
+    823.14,
+    839.26,
+    823.72,
+    839.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 185,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51321,
+   "bbox": [
+    844.38,
+    823.9,
+    844.96,
+    824.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 187,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51327,
+   "bbox": [
+    865.98,
+    809.02,
+    866.56,
+    809.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 189,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51333,
+   "bbox": [
+    887.04,
+    794.62,
+    887.62,
+    795.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 191,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51339,
+   "bbox": [
+    930.72,
+    767.74,
+    931.3,
+    768.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 193,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51345,
+   "bbox": [
+    953.1,
+    755.44,
+    953.68,
+    756.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 195,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51351,
+   "bbox": [
+    972.6,
+    745.6,
+    973.18,
+    746.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 197,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51357,
+   "bbox": [
+    1040.88,
+    712.66,
+    1041.46,
+    713.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 199,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51363,
+   "bbox": [
+    1064.1,
+    701.98,
+    1064.68,
+    702.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 201,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51369,
+   "bbox": [
+    1087.74,
+    692.44,
+    1088.32,
+    693.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 203,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51375,
+   "bbox": [
+    1111.74,
+    683.44,
+    1112.32,
+    684.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 205,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51381,
+   "bbox": [
+    1132.2,
+    676.36,
+    1132.78,
+    676.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 207,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51387,
+   "bbox": [
+    1160.1,
+    666.94,
+    1160.74,
+    667.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 209,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51393,
+   "bbox": [
+    1184.4,
+    659.08,
+    1184.98,
+    659.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 211,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51399,
+   "bbox": [
+    1208.7,
+    651.4,
+    1209.34,
+    651.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 213,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51405,
+   "bbox": [
+    1233.36,
+    643.96,
+    1233.94,
+    644.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 215,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51411,
+   "bbox": [
+    1260.48,
+    639.28,
+    1261.06,
+    639.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 217,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51417,
+   "bbox": [
+    1281.42,
+    631.72,
+    1282.0,
+    632.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 219,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51423,
+   "bbox": [
+    1282.2,
+    634.9,
+    1282.78,
+    635.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 221,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51429,
+   "bbox": [
+    1303.56,
+    628.18,
+    1304.14,
+    628.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 223,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51435,
+   "bbox": [
+    1304.16,
+    631.42,
+    1304.74,
+    632.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 225,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51441,
+   "bbox": [
+    1333.14,
+    625.54,
+    1333.72,
+    626.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 227,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51447,
+   "bbox": [
+    1357.8,
+    620.98,
+    1358.38,
+    621.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 229,
+   "svg_bytes": 943
+  },
+  {
+   "id": 51453,
+   "bbox": [
+    1384.02,
+    617.38,
+    1384.6,
+    617.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (1 x 1 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 231,
+   "svg_bytes": 943
+  },
+  {
+   "id": 131998,
+   "bbox": [
+    165.36,
+    1120.3,
+    216.58,
+    1172.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (51 x 52 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 236,
+   "svg_bytes": 4631
+  },
+  {
+   "id": 131999,
+   "bbox": [
+    1138.14,
+    374.62,
+    1149.16,
+    383.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 237,
+   "svg_bytes": 1676
+  },
+  {
+   "id": 132000,
+   "bbox": [
+    1146.84,
+    363.28,
+    1153.3,
+    375.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 12 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 238,
+   "svg_bytes": 1509
+  },
+  {
+   "id": 132001,
+   "bbox": [
+    1096.56,
+    319.84,
+    1102.42,
+    323.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 239,
+   "svg_bytes": 944
+  },
+  {
+   "id": 132002,
+   "bbox": [
+    1576.2,
+    572.2,
+    1585.3,
+    576.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 240,
+   "svg_bytes": 1436
+  },
+  {
+   "id": 132003,
+   "bbox": [
+    734.94,
+    703.36,
+    744.04,
+    710.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 241,
+   "svg_bytes": 1481
+  },
+  {
+   "id": 132004,
+   "bbox": [
+    436.38,
+    900.04,
+    440.98,
+    906.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 242,
+   "svg_bytes": 1095
+  },
+  {
+   "id": 132005,
+   "bbox": [
+    189.12,
+    1194.4,
+    197.02,
+    1203.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 243,
+   "svg_bytes": 1517
+  },
+  {
+   "id": 132006,
+   "bbox": [
+    898.86,
+    574.54,
+    907.66,
+    578.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 244,
+   "svg_bytes": 1082
+  },
+  {
+   "id": 132007,
+   "bbox": [
+    694.56,
+    589.6,
+    706.18,
+    597.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 245,
+   "svg_bytes": 1501
+  },
+  {
+   "id": 132008,
+   "bbox": [
+    725.58,
+    707.2,
+    736.54,
+    715.64
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 246,
+   "svg_bytes": 1639
+  },
+  {
+   "id": 132009,
+   "bbox": [
+    673.32,
+    733.48,
+    684.28,
+    742.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 247,
+   "svg_bytes": 1708
+  },
+  {
+   "id": 132010,
+   "bbox": [
+    656.94,
+    742.36,
+    669.7,
+    753.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 12 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 248,
+   "svg_bytes": 1790
+  },
+  {
+   "id": 132011,
+   "bbox": [
+    655.38,
+    764.38,
+    660.16,
+    773.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 249,
+   "svg_bytes": 1172
+  },
+  {
+   "id": 132012,
+   "bbox": [
+    648.66,
+    907.6,
+    658.3,
+    916.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 250,
+   "svg_bytes": 1643
+  },
+  {
+   "id": 132013,
+   "bbox": [
+    322.98,
+    1078.78,
+    329.92,
+    1086.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 251,
+   "svg_bytes": 1290
+  },
+  {
+   "id": 132014,
+   "bbox": [
+    317.34,
+    1032.04,
+    326.68,
+    1044.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 13 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 252,
+   "svg_bytes": 1765
+  },
+  {
+   "id": 132015,
+   "bbox": [
+    348.72,
+    1062.7,
+    357.04,
+    1067.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 253,
+   "svg_bytes": 1286
+  },
+  {
+   "id": 132016,
+   "bbox": [
+    184.5,
+    1202.08,
+    192.04,
+    1211.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 254,
+   "svg_bytes": 1481
+  },
+  {
+   "id": 134236,
+   "bbox": [
+    1042.02,
+    608.32,
+    1046.92,
+    613.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 256,
+   "svg_bytes": 1213
+  },
+  {
+   "id": 134843,
+   "bbox": [
+    490.44,
+    1105.24,
+    497.5,
+    1111.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 258,
+   "svg_bytes": 1290
+  },
+  {
+   "id": 134876,
+   "bbox": [
+    457.8,
+    1003.0,
+    464.02,
+    1009.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 261,
+   "svg_bytes": 1286
+  },
+  {
+   "id": 134909,
+   "bbox": [
+    656.4,
+    780.58,
+    662.56,
+    786.74
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 263,
+   "svg_bytes": 1286
+  },
+  {
+   "id": 134942,
+   "bbox": [
+    459.66,
+    811.12,
+    465.52,
+    820.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 265,
+   "svg_bytes": 1379
+  },
+  {
+   "id": 134993,
+   "bbox": [
+    130.8,
+    1156.06,
+    135.76,
+    1161.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 267,
+   "svg_bytes": 1213
+  },
+  {
+   "id": 135026,
+   "bbox": [
+    146.04,
+    1171.36,
+    152.26,
+    1177.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 269,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135061,
+   "bbox": [
+    148.86,
+    1168.18,
+    155.08,
+    1174.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 271,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135072,
+   "bbox": [
+    151.62,
+    1165.0,
+    157.84,
+    1171.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 273,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135083,
+   "bbox": [
+    154.44,
+    1161.82,
+    160.6,
+    1168.04
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 275,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135094,
+   "bbox": [
+    157.2,
+    1158.64,
+    163.42,
+    1164.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 277,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135105,
+   "bbox": [
+    159.96,
+    1155.46,
+    166.18,
+    1161.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 279,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135116,
+   "bbox": [
+    185.76,
+    1218.58,
+    197.5,
+    1232.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 281,
+   "svg_bytes": 1790
+  },
+  {
+   "id": 135167,
+   "bbox": [
+    189.24,
+    1216.12,
+    200.98,
+    1230.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 283,
+   "svg_bytes": 1790
+  },
+  {
+   "id": 135178,
+   "bbox": [
+    207.12,
+    1197.94,
+    213.34,
+    1204.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 285,
+   "svg_bytes": 1282
+  },
+  {
+   "id": 135211,
+   "bbox": [
+    145.08,
+    916.54,
+    150.22,
+    921.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 287,
+   "svg_bytes": 1270
+  },
+  {
+   "id": 135244,
+   "bbox": [
+    927.12,
+    586.54,
+    935.74,
+    591.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 289,
+   "svg_bytes": 944
+  },
+  {
+   "id": 135296,
+   "bbox": [
+    927.12,
+    590.8,
+    935.74,
+    595.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 291,
+   "svg_bytes": 944
+  },
+  {
+   "id": 135306,
+   "bbox": [
+    927.12,
+    595.06,
+    935.74,
+    599.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 293,
+   "svg_bytes": 944
+  },
+  {
+   "id": 135316,
+   "bbox": [
+    942.24,
+    576.94,
+    946.72,
+    585.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 295,
+   "svg_bytes": 944
+  },
+  {
+   "id": 135368,
+   "bbox": [
+    937.98,
+    576.88,
+    942.52,
+    585.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 297,
+   "svg_bytes": 1058
+  },
+  {
+   "id": 135378,
+   "bbox": [
+    964.92,
+    574.96,
+    978.16,
+    585.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 299,
+   "svg_bytes": 1696
+  },
+  {
+   "id": 135429,
+   "bbox": [
+    967.26,
+    581.62,
+    980.5,
+    592.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 301,
+   "svg_bytes": 1696
+  },
+  {
+   "id": 135440,
+   "bbox": [
+    1006.74,
+    623.56,
+    1013.74,
+    633.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 303,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135492,
+   "bbox": [
+    1010.76,
+    622.18,
+    1017.76,
+    631.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 305,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135502,
+   "bbox": [
+    1014.78,
+    620.8,
+    1021.78,
+    630.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 307,
+   "svg_bytes": 1432
+  },
+  {
+   "id": 135512,
+   "bbox": [
+    1018.8,
+    619.42,
+    1025.8,
+    628.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 309,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135522,
+   "bbox": [
+    1022.82,
+    618.04,
+    1029.82,
+    627.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 311,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135532,
+   "bbox": [
+    1011.96,
+    612.58,
+    1018.9,
+    622.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 313,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135584,
+   "bbox": [
+    1015.98,
+    611.2,
+    1022.92,
+    620.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 315,
+   "svg_bytes": 1432
+  },
+  {
+   "id": 135594,
+   "bbox": [
+    1020.0,
+    609.82,
+    1026.94,
+    619.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 317,
+   "svg_bytes": 1420
+  },
+  {
+   "id": 135668,
+   "bbox": [
+    184.14,
+    1154.86,
+    190.3,
+    1161.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 319,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135703,
+   "bbox": [
+    187.08,
+    1157.86,
+    193.18,
+    1163.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 321,
+   "svg_bytes": 1278
+  },
+  {
+   "id": 135737,
+   "bbox": [
+    544.92,
+    820.9,
+    550.84,
+    826.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 323,
+   "svg_bytes": 1283
+  },
+  {
+   "id": 135772,
+   "bbox": [
+    541.08,
+    822.76,
+    547.0,
+    828.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 325,
+   "svg_bytes": 1283
+  },
+  {
+   "id": 135783,
+   "bbox": [
+    1726.14,
+    274.0,
+    1730.86,
+    278.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 327,
+   "svg_bytes": 1100
+  },
+  {
+   "id": 135818,
+   "bbox": [
+    1726.38,
+    278.26,
+    1731.16,
+    282.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 329,
+   "svg_bytes": 1100
+  },
+  {
+   "id": 136123,
+   "bbox": [
+    1823.28,
+    267.04,
+    1831.66,
+    282.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 331,
+   "svg_bytes": 1397
+  },
+  {
+   "id": 136174,
+   "bbox": [
+    1830.36,
+    266.5,
+    1838.74,
+    281.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 333,
+   "svg_bytes": 1397
+  },
+  {
+   "id": 136185,
+   "bbox": [
+    1837.44,
+    266.02,
+    1845.82,
+    281.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 335,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 136196,
+   "bbox": [
+    1844.52,
+    265.54,
+    1852.9,
+    280.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 337,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 136207,
+   "bbox": [
+    1851.54,
+    265.06,
+    1859.98,
+    280.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 339,
+   "svg_bytes": 1397
+  },
+  {
+   "id": 136218,
+   "bbox": [
+    1858.62,
+    264.58,
+    1867.06,
+    279.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 341,
+   "svg_bytes": 1397
+  },
+  {
+   "id": 137003,
+   "bbox": [
+    964.92,
+    574.96,
+    978.16,
+    585.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 343,
+   "svg_bytes": 1697
+  },
+  {
+   "id": 137054,
+   "bbox": [
+    967.26,
+    581.62,
+    980.5,
+    592.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 345,
+   "svg_bytes": 1697
+  },
+  {
+   "id": 139856,
+   "bbox": [
+    1805.76,
+    269.02,
+    1814.74,
+    274.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 347,
+   "svg_bytes": 1311
+  },
+  {
+   "id": 139879,
+   "bbox": [
+    754.26,
+    325.24,
+    763.24,
+    330.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 349,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 139902,
+   "bbox": [
+    764.46,
+    324.7,
+    773.38,
+    329.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 351,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 139925,
+   "bbox": [
+    753.0,
+    407.5,
+    762.1,
+    412.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 353,
+   "svg_bytes": 1311
+  },
+  {
+   "id": 139948,
+   "bbox": [
+    495.72,
+    838.78,
+    504.76,
+    843.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 355,
+   "svg_bytes": 1319
+  },
+  {
+   "id": 139971,
+   "bbox": [
+    1113.78,
+    571.72,
+    1120.78,
+    581.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 357,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 139994,
+   "bbox": [
+    953.34,
+    595.66,
+    958.78,
+    604.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 359,
+   "svg_bytes": 1393
+  },
+  {
+   "id": 140017,
+   "bbox": [
+    960.06,
+    596.44,
+    965.5,
+    605.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 361,
+   "svg_bytes": 1393
+  },
+  {
+   "id": 140040,
+   "bbox": [
+    673.86,
+    604.24,
+    681.52,
+    613.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 363,
+   "svg_bytes": 1470
+  },
+  {
+   "id": 140063,
+   "bbox": [
+    668.88,
+    606.52,
+    676.48,
+    616.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 365,
+   "svg_bytes": 1470
+  },
+  {
+   "id": 140086,
+   "bbox": [
+    326.52,
+    995.62,
+    331.06,
+    1000.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 367,
+   "svg_bytes": 1210
+  },
+  {
+   "id": 140118,
+   "bbox": [
+    960.06,
+    596.44,
+    965.5,
+    605.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 369,
+   "svg_bytes": 1393
+  },
+  {
+   "id": 140141,
+   "bbox": [
+    655.8,
+    596.32,
+    670.42,
+    611.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (15 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 371,
+   "svg_bytes": 2026
+  },
+  {
+   "id": 140259,
+   "bbox": [
+    314.46,
+    1083.76,
+    325.06,
+    1093.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 373,
+   "svg_bytes": 1718
+  },
+  {
+   "id": 140296,
+   "bbox": [
+    537.24,
+    693.34,
+    546.7,
+    702.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 375,
+   "svg_bytes": 1527
+  },
+  {
+   "id": 140347,
+   "bbox": [
+    760.86,
+    414.34,
+    766.3,
+    423.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 377,
+   "svg_bytes": 1372
+  },
+  {
+   "id": 140399,
+   "bbox": [
+    765.06,
+    413.8,
+    770.56,
+    422.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 379,
+   "svg_bytes": 1380
+  },
+  {
+   "id": 140409,
+   "bbox": [
+    769.32,
+    413.26,
+    774.76,
+    422.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 381,
+   "svg_bytes": 1372
+  },
+  {
+   "id": 140419,
+   "bbox": [
+    773.52,
+    412.78,
+    778.96,
+    421.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 383,
+   "svg_bytes": 1372
+  },
+  {
+   "id": 140429,
+   "bbox": [
+    812.94,
+    406.18,
+    822.58,
+    410.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 385,
+   "svg_bytes": 1164
+  },
+  {
+   "id": 140529,
+   "bbox": [
+    837.12,
+    672.4,
+    846.58,
+    681.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 387,
+   "svg_bytes": 1535
+  },
+  {
+   "id": 140581,
+   "bbox": [
+    834.48,
+    669.04,
+    843.94,
+    677.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 389,
+   "svg_bytes": 1543
+  },
+  {
+   "id": 140591,
+   "bbox": [
+    831.84,
+    665.74,
+    841.24,
+    674.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 391,
+   "svg_bytes": 1535
+  },
+  {
+   "id": 140667,
+   "bbox": [
+    1942.98,
+    269.56,
+    1946.86,
+    273.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 393,
+   "svg_bytes": 940
+  },
+  {
+   "id": 140711,
+   "bbox": [
+    1159.56,
+    554.92,
+    1166.62,
+    564.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 395,
+   "svg_bytes": 1433
+  },
+  {
+   "id": 140763,
+   "bbox": [
+    1163.58,
+    553.48,
+    1170.64,
+    563.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 397,
+   "svg_bytes": 1421
+  },
+  {
+   "id": 140773,
+   "bbox": [
+    1167.54,
+    552.04,
+    1174.6,
+    561.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 399,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 140803,
+   "bbox": [
+    860.58,
+    656.38,
+    868.42,
+    666.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 401,
+   "svg_bytes": 1449
+  },
+  {
+   "id": 140819,
+   "bbox": [
+    863.82,
+    647.86,
+    873.52,
+    655.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 403,
+   "svg_bytes": 1510
+  },
+  {
+   "id": 140836,
+   "bbox": [
+    875.94,
+    602.02,
+    884.8,
+    606.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 405,
+   "svg_bytes": 1141
+  },
+  {
+   "id": 140859,
+   "bbox": [
+    876.18,
+    595.3,
+    885.1,
+    600.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 407,
+   "svg_bytes": 1141
+  },
+  {
+   "id": 141243,
+   "bbox": [
+    667.32,
+    647.86,
+    678.88,
+    659.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 12 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 409,
+   "svg_bytes": 958
+  },
+  {
+   "id": 141304,
+   "bbox": [
+    1141.68,
+    580.24,
+    1146.04,
+    584.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 411,
+   "svg_bytes": 1082
+  },
+  {
+   "id": 141744,
+   "bbox": [
+    2089.74,
+    277.24,
+    2094.76,
+    286.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 413,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141796,
+   "bbox": [
+    2094.0,
+    276.94,
+    2099.02,
+    285.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 415,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141806,
+   "bbox": [
+    2098.2,
+    276.64,
+    2103.28,
+    285.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 417,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141816,
+   "bbox": [
+    2102.46,
+    276.34,
+    2107.54,
+    285.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 419,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141826,
+   "bbox": [
+    2106.72,
+    276.1,
+    2111.74,
+    284.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 421,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141836,
+   "bbox": [
+    2110.92,
+    275.8,
+    2116.0,
+    284.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 423,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141846,
+   "bbox": [
+    2115.18,
+    275.5,
+    2120.26,
+    284.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 425,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141856,
+   "bbox": [
+    2119.44,
+    275.2,
+    2124.46,
+    284.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 427,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141866,
+   "bbox": [
+    2123.7,
+    274.9,
+    2128.72,
+    283.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 429,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141876,
+   "bbox": [
+    2127.9,
+    274.6,
+    2132.98,
+    283.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 431,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141886,
+   "bbox": [
+    2132.16,
+    274.3,
+    2137.18,
+    283.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 433,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141896,
+   "bbox": [
+    2136.42,
+    274.0,
+    2141.44,
+    282.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 435,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141906,
+   "bbox": [
+    2140.62,
+    273.7,
+    2145.7,
+    282.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 437,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141916,
+   "bbox": [
+    2144.88,
+    273.4,
+    2149.9,
+    282.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 439,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141926,
+   "bbox": [
+    2149.14,
+    273.1,
+    2154.16,
+    282.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 441,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141936,
+   "bbox": [
+    2153.34,
+    272.8,
+    2158.42,
+    281.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 443,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141946,
+   "bbox": [
+    2157.6,
+    272.5,
+    2162.68,
+    281.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 445,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141956,
+   "bbox": [
+    2161.86,
+    272.2,
+    2166.88,
+    281.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 447,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141966,
+   "bbox": [
+    2166.06,
+    271.9,
+    2171.14,
+    280.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 449,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141976,
+   "bbox": [
+    2170.32,
+    271.6,
+    2175.4,
+    280.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 451,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141986,
+   "bbox": [
+    2174.58,
+    271.3,
+    2179.6,
+    280.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 453,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 141996,
+   "bbox": [
+    2178.84,
+    271.06,
+    2183.86,
+    279.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 455,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142006,
+   "bbox": [
+    2183.04,
+    270.76,
+    2188.12,
+    279.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 457,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142016,
+   "bbox": [
+    2187.3,
+    270.46,
+    2192.32,
+    279.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 459,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142026,
+   "bbox": [
+    2191.56,
+    270.16,
+    2196.58,
+    279.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 461,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142036,
+   "bbox": [
+    2195.76,
+    269.86,
+    2200.84,
+    278.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 463,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142046,
+   "bbox": [
+    2200.02,
+    269.56,
+    2205.04,
+    278.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 465,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142056,
+   "bbox": [
+    2204.28,
+    269.26,
+    2209.3,
+    278.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 467,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142066,
+   "bbox": [
+    2208.48,
+    268.96,
+    2213.56,
+    277.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 469,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142076,
+   "bbox": [
+    2212.74,
+    268.66,
+    2217.82,
+    277.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 471,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142086,
+   "bbox": [
+    2217.0,
+    268.36,
+    2222.02,
+    277.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 473,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142096,
+   "bbox": [
+    2221.2,
+    268.06,
+    2226.28,
+    276.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 475,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142106,
+   "bbox": [
+    2225.46,
+    267.76,
+    2230.54,
+    276.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 477,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142116,
+   "bbox": [
+    2229.72,
+    267.46,
+    2234.74,
+    276.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 479,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142126,
+   "bbox": [
+    2233.98,
+    267.16,
+    2239.0,
+    276.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 481,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142136,
+   "bbox": [
+    2238.18,
+    266.86,
+    2243.26,
+    275.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 483,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 142213,
+   "bbox": [
+    318.84,
+    987.82,
+    328.06,
+    993.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 485,
+   "svg_bytes": 1372
+  },
+  {
+   "id": 142247,
+   "bbox": [
+    315.42,
+    974.62,
+    324.7,
+    980.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 487,
+   "svg_bytes": 1372
+  },
+  {
+   "id": 142340,
+   "bbox": [
+    1109.46,
+    583.06,
+    1119.04,
+    589.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 489,
+   "svg_bytes": 1454
+  },
+  {
+   "id": 142520,
+   "bbox": [
+    909.54,
+    572.62,
+    921.52,
+    578.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 491,
+   "svg_bytes": 1510
+  },
+  {
+   "id": 142521,
+   "bbox": [
+    923.04,
+    561.58,
+    929.44,
+    573.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 12 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 492,
+   "svg_bytes": 1514
+  },
+  {
+   "id": 142538,
+   "bbox": [
+    831.66,
+    405.1,
+    843.34,
+    409.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 494,
+   "svg_bytes": 1091
+  },
+  {
+   "id": 142547,
+   "bbox": [
+    795.48,
+    406.0,
+    804.28,
+    410.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 496,
+   "svg_bytes": 949
+  },
+  {
+   "id": 142549,
+   "bbox": [
+    1131.42,
+    381.58,
+    1136.44,
+    386.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 498,
+   "svg_bytes": 1161
+  },
+  {
+   "id": 142551,
+   "bbox": [
+    1114.44,
+    319.6,
+    1118.92,
+    324.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 500,
+   "svg_bytes": 944
+  },
+  {
+   "id": 142553,
+   "bbox": [
+    1569.6,
+    570.64,
+    1574.5,
+    575.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 502,
+   "svg_bytes": 1096
+  },
+  {
+   "id": 142555,
+   "bbox": [
+    925.74,
+    554.86,
+    930.22,
+    561.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 504,
+   "svg_bytes": 1107
+  },
+  {
+   "id": 142557,
+   "bbox": [
+    746.82,
+    712.84,
+    756.22,
+    720.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 506,
+   "svg_bytes": 1328
+  },
+  {
+   "id": 142559,
+   "bbox": [
+    435.78,
+    907.12,
+    440.86,
+    916.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 508,
+   "svg_bytes": 1202
+  },
+  {
+   "id": 142561,
+   "bbox": [
+    196.86,
+    1183.0,
+    205.06,
+    1192.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 510,
+   "svg_bytes": 1364
+  },
+  {
+   "id": 142563,
+   "bbox": [
+    257.76,
+    633.88,
+    262.18,
+    638.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 512,
+   "svg_bytes": 944
+  },
+  {
+   "id": 142565,
+   "bbox": [
+    588.0,
+    368.26,
+    593.68,
+    373.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 514,
+   "svg_bytes": 1185
+  },
+  {
+   "id": 142567,
+   "bbox": [
+    759.84,
+    551.32,
+    764.56,
+    560.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 516,
+   "svg_bytes": 1112
+  },
+  {
+   "id": 142569,
+   "bbox": [
+    663.0,
+    899.74,
+    669.16,
+    905.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 518,
+   "svg_bytes": 1193
+  },
+  {
+   "id": 142571,
+   "bbox": [
+    457.26,
+    468.88,
+    462.7,
+    474.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 520,
+   "svg_bytes": 1161
+  },
+  {
+   "id": 145874,
+   "bbox": [
+    482.04,
+    813.22,
+    498.76,
+    826.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (17 x 13 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 522,
+   "svg_bytes": 1880
+  },
+  {
+   "id": 145880,
+   "bbox": [
+    529.68,
+    822.22,
+    538.9,
+    831.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 524,
+   "svg_bytes": 1588
+  },
+  {
+   "id": 145884,
+   "bbox": [
+    594.12,
+    644.62,
+    603.28,
+    653.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 526,
+   "svg_bytes": 1588
+  },
+  {
+   "id": 145888,
+   "bbox": [
+    1730.58,
+    273.7,
+    1735.54,
+    282.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 528,
+   "svg_bytes": 1230
+  },
+  {
+   "id": 145892,
+   "bbox": [
+    133.02,
+    1138.72,
+    147.34,
+    1145.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (14 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 530,
+   "svg_bytes": 1559
+  },
+  {
+   "id": 145898,
+   "bbox": [
+    486.18,
+    963.28,
+    495.76,
+    972.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 532,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 157073,
+   "bbox": [
+    891.24,
+    617.68,
+    900.28,
+    626.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 534,
+   "svg_bytes": 1169
+  },
+  {
+   "id": 158251,
+   "bbox": [
+    938.46,
+    591.1,
+    942.16,
+    599.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 536,
+   "svg_bytes": 945
+  },
+  {
+   "id": 158257,
+   "bbox": [
+    942.48,
+    589.66,
+    946.24,
+    598.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 538,
+   "svg_bytes": 945
+  },
+  {
+   "id": 158263,
+   "bbox": [
+    939.66,
+    566.62,
+    948.82,
+    571.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 540,
+   "svg_bytes": 1079
+  },
+  {
+   "id": 162766,
+   "bbox": [
+    437.94,
+    819.82,
+    447.04,
+    825.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 542,
+   "svg_bytes": 1295
+  },
+  {
+   "id": 163114,
+   "bbox": [
+    964.02,
+    565.18,
+    973.54,
+    571.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 544,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 163172,
+   "bbox": [
+    143.04,
+    1121.92,
+    152.32,
+    1127.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 546,
+   "svg_bytes": 1315
+  },
+  {
+   "id": 163682,
+   "bbox": [
+    1212.42,
+    324.4,
+    1221.22,
+    329.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 548,
+   "svg_bytes": 1047
+  },
+  {
+   "id": 163728,
+   "bbox": [
+    1718.4,
+    274.42,
+    1723.9,
+    283.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 550,
+   "svg_bytes": 1380
+  },
+  {
+   "id": 163799,
+   "bbox": [
+    965.1,
+    568.42,
+    974.62,
+    574.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 552,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 163805,
+   "bbox": [
+    962.88,
+    561.88,
+    972.4,
+    568.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 554,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 163811,
+   "bbox": [
+    714.96,
+    676.48,
+    721.18,
+    682.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 556,
+   "svg_bytes": 1283
+  },
+  {
+   "id": 164170,
+   "bbox": [
+    493.14,
+    935.62,
+    502.78,
+    944.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 558,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 164293,
+   "bbox": [
+    1043.52,
+    612.46,
+    1048.36,
+    617.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 560,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 164844,
+   "bbox": [
+    732.3,
+    774.76,
+    738.1,
+    780.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 562,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 164850,
+   "bbox": [
+    735.9,
+    772.24,
+    741.7,
+    777.74
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 564,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 164856,
+   "bbox": [
+    739.5,
+    769.72,
+    745.3,
+    775.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 566,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 164862,
+   "bbox": [
+    743.1,
+    767.2,
+    748.9,
+    772.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 568,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 164868,
+   "bbox": [
+    746.7,
+    764.68,
+    752.5,
+    770.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 570,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 164883,
+   "bbox": [
+    467.28,
+    803.38,
+    484.0,
+    816.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (17 x 13 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 572,
+   "svg_bytes": 1876
+  },
+  {
+   "id": 165843,
+   "bbox": [
+    1032.24,
+    615.64,
+    1037.14,
+    621.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 574,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 165849,
+   "bbox": [
+    490.08,
+    1123.24,
+    496.72,
+    1140.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 18 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 576,
+   "svg_bytes": 1604
+  },
+  {
+   "id": 166447,
+   "bbox": [
+    728.28,
+    778.9,
+    733.6,
+    784.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 578,
+   "svg_bytes": 1275
+  },
+  {
+   "id": 166453,
+   "bbox": [
+    726.12,
+    782.74,
+    731.44,
+    788.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 580,
+   "svg_bytes": 1271
+  },
+  {
+   "id": 166459,
+   "bbox": [
+    723.96,
+    786.58,
+    729.28,
+    792.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 582,
+   "svg_bytes": 1271
+  },
+  {
+   "id": 166465,
+   "bbox": [
+    717.36,
+    794.68,
+    723.16,
+    800.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 584,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 166471,
+   "bbox": [
+    720.78,
+    791.86,
+    726.52,
+    797.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 586,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 166659,
+   "bbox": [
+    473.16,
+    825.76,
+    490.9,
+    834.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (18 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 588,
+   "svg_bytes": 1774
+  },
+  {
+   "id": 166776,
+   "bbox": [
+    540.06,
+    696.88,
+    549.58,
+    705.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 590,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 166801,
+   "bbox": [
+    478.44,
+    1151.44,
+    487.66,
+    1157.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 592,
+   "svg_bytes": 1376
+  },
+  {
+   "id": 166805,
+   "bbox": [
+    479.04,
+    1156.36,
+    488.26,
+    1161.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 594,
+   "svg_bytes": 1336
+  },
+  {
+   "id": 166811,
+   "bbox": [
+    1904.04,
+    263.62,
+    1913.14,
+    267.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 596,
+   "svg_bytes": 1079
+  },
+  {
+   "id": 166817,
+   "bbox": [
+    479.88,
+    1166.56,
+    486.04,
+    1184.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 18 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 598,
+   "svg_bytes": 1563
+  },
+  {
+   "id": 166866,
+   "bbox": [
+    724.08,
+    568.72,
+    728.14,
+    577.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 600,
+   "svg_bytes": 1054
+  },
+  {
+   "id": 168246,
+   "bbox": [
+    1060.44,
+    592.12,
+    1065.64,
+    596.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 602,
+   "svg_bytes": 1148
+  },
+  {
+   "id": 168262,
+   "bbox": [
+    1065.84,
+    588.52,
+    1077.04,
+    595.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 604,
+   "svg_bytes": 1449
+  },
+  {
+   "id": 168695,
+   "bbox": [
+    130.2,
+    1160.26,
+    147.88,
+    1167.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (18 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 606,
+   "svg_bytes": 1718
+  },
+  {
+   "id": 168709,
+   "bbox": [
+    1031.7,
+    318.16,
+    1040.74,
+    323.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 608,
+   "svg_bytes": 1295
+  },
+  {
+   "id": 168738,
+   "bbox": [
+    1588.2,
+    328.24,
+    1597.48,
+    333.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 610,
+   "svg_bytes": 1352
+  },
+  {
+   "id": 168744,
+   "bbox": [
+    686.58,
+    789.82,
+    696.1,
+    798.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 612,
+   "svg_bytes": 1539
+  },
+  {
+   "id": 168748,
+   "bbox": [
+    459.66,
+    798.28,
+    469.3,
+    806.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 614,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 168752,
+   "bbox": [
+    419.88,
+    850.78,
+    425.2,
+    859.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 616,
+   "svg_bytes": 1364
+  },
+  {
+   "id": 168756,
+   "bbox": [
+    418.98,
+    841.72,
+    424.24,
+    850.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 618,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 168763,
+   "bbox": [
+    480.12,
+    965.2,
+    488.86,
+    974.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 620,
+   "svg_bytes": 1466
+  },
+  {
+   "id": 168981,
+   "bbox": [
+    1027.92,
+    607.36,
+    1032.82,
+    612.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 622,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 169470,
+   "bbox": [
+    967.74,
+    689.38,
+    983.44,
+    699.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 624,
+   "svg_bytes": 1770
+  },
+  {
+   "id": 169495,
+   "bbox": [
+    1189.32,
+    612.04,
+    1196.5,
+    615.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 626,
+   "svg_bytes": 1123
+  },
+  {
+   "id": 169511,
+   "bbox": [
+    1657.26,
+    338.02,
+    1661.08,
+    347.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 628,
+   "svg_bytes": 945
+  },
+  {
+   "id": 169543,
+   "bbox": [
+    697.2,
+    387.76,
+    704.44,
+    391.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 630,
+   "svg_bytes": 1119
+  },
+  {
+   "id": 169594,
+   "bbox": [
+    228.0,
+    1170.04,
+    244.12,
+    1177.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 632,
+   "svg_bytes": 1681
+  },
+  {
+   "id": 169619,
+   "bbox": [
+    274.32,
+    1097.56,
+    285.52,
+    1112.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 634,
+   "svg_bytes": 1762
+  },
+  {
+   "id": 169644,
+   "bbox": [
+    577.02,
+    857.62,
+    586.96,
+    865.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 636,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 169676,
+   "bbox": [
+    796.32,
+    545.44,
+    806.08,
+    553.64
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 638,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 169740,
+   "bbox": [
+    774.3,
+    736.9,
+    776.38,
+    743.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 640,
+   "svg_bytes": 941
+  },
+  {
+   "id": 192151,
+   "bbox": [
+    1769.82,
+    299.5,
+    1790.32,
+    304.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 642,
+   "svg_bytes": 1409
+  },
+  {
+   "id": 192152,
+   "bbox": [
+    1753.38,
+    301.78,
+    1757.98,
+    305.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 643,
+   "svg_bytes": 1091
+  },
+  {
+   "id": 192176,
+   "bbox": [
+    1758.84,
+    300.94,
+    1769.92,
+    305.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 645,
+   "svg_bytes": 1087
+  },
+  {
+   "id": 195577,
+   "bbox": [
+    714.0,
+    797.5,
+    719.74,
+    803.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 647,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 196789,
+   "bbox": [
+    1025.7,
+    565.06,
+    1035.64,
+    585.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 649,
+   "svg_bytes": 2010
+  },
+  {
+   "id": 196790,
+   "bbox": [
+    1036.26,
+    595.66,
+    1040.86,
+    600.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 650,
+   "svg_bytes": 1238
+  },
+  {
+   "id": 196814,
+   "bbox": [
+    1032.36,
+    584.38,
+    1039.18,
+    595.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 652,
+   "svg_bytes": 1449
+  },
+  {
+   "id": 197284,
+   "bbox": [
+    1922.22,
+    289.12,
+    1923.88,
+    293.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 654,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197286,
+   "bbox": [
+    1914.36,
+    263.44,
+    1916.5,
+    268.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 656,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197289,
+   "bbox": [
+    1598.16,
+    328.84,
+    1601.92,
+    330.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 658,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197291,
+   "bbox": [
+    780.0,
+    721.66,
+    784.66,
+    723.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 660,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197293,
+   "bbox": [
+    870.6,
+    757.12,
+    875.2,
+    759.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 662,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197295,
+   "bbox": [
+    1183.44,
+    615.94,
+    1187.5,
+    617.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 664,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197297,
+   "bbox": [
+    1578.24,
+    576.58,
+    1582.0,
+    578.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 666,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197299,
+   "bbox": [
+    2140.5,
+    270.7,
+    2144.38,
+    272.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 668,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197301,
+   "bbox": [
+    444.84,
+    789.16,
+    447.58,
+    793.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (3 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 670,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197412,
+   "bbox": [
+    920.82,
+    643.36,
+    922.9,
+    648.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 672,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197415,
+   "bbox": [
+    1657.68,
+    333.58,
+    1659.34,
+    337.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 674,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197435,
+   "bbox": [
+    1100.58,
+    313.84,
+    1104.34,
+    315.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 676,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197449,
+   "bbox": [
+    158.22,
+    1145.74,
+    167.2,
+    1154.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 678,
+   "svg_bytes": 1458
+  },
+  {
+   "id": 197455,
+   "bbox": [
+    429.48,
+    796.0,
+    438.04,
+    804.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 680,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 197461,
+   "bbox": [
+    550.68,
+    685.12,
+    559.0,
+    694.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 682,
+   "svg_bytes": 1417
+  },
+  {
+   "id": 197467,
+   "bbox": [
+    678.42,
+    582.28,
+    687.82,
+    587.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 684,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 197589,
+   "bbox": [
+    138.72,
+    1121.2,
+    143.86,
+    1130.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 686,
+   "svg_bytes": 1429
+  },
+  {
+   "id": 197595,
+   "bbox": [
+    135.3,
+    1120.6,
+    140.44,
+    1129.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 688,
+   "svg_bytes": 1429
+  },
+  {
+   "id": 197601,
+   "bbox": [
+    438.0,
+    839.86,
+    447.1,
+    844.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 690,
+   "svg_bytes": 1160
+  },
+  {
+   "id": 197607,
+   "bbox": [
+    1250.52,
+    323.56,
+    1254.34,
+    325.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 692,
+   "svg_bytes": 940
+  },
+  {
+   "id": 197609,
+   "bbox": [
+    696.48,
+    579.1,
+    705.76,
+    584.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 694,
+   "svg_bytes": 1352
+  },
+  {
+   "id": 197622,
+   "bbox": [
+    966.18,
+    571.72,
+    975.7,
+    578.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 696,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 197631,
+   "bbox": [
+    777.78,
+    723.58,
+    781.6,
+    730.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 698,
+   "svg_bytes": 941
+  },
+  {
+   "id": 197659,
+   "bbox": [
+    488.58,
+    830.98,
+    498.04,
+    836.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 700,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 197665,
+   "bbox": [
+    461.52,
+    844.66,
+    466.78,
+    854.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 702,
+   "svg_bytes": 1429
+  },
+  {
+   "id": 198243,
+   "bbox": [
+    499.56,
+    1144.84,
+    503.92,
+    1146.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 704,
+   "svg_bytes": 940
+  },
+  {
+   "id": 198257,
+   "bbox": [
+    547.74,
+    687.46,
+    556.06,
+    696.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 706,
+   "svg_bytes": 1417
+  },
+  {
+   "id": 198277,
+   "bbox": [
+    515.34,
+    700.24,
+    524.5,
+    708.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 708,
+   "svg_bytes": 1417
+  },
+  {
+   "id": 198283,
+   "bbox": [
+    553.62,
+    682.84,
+    561.94,
+    691.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 710,
+   "svg_bytes": 1417
+  },
+  {
+   "id": 198289,
+   "bbox": [
+    438.48,
+    827.02,
+    447.46,
+    830.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 712,
+   "svg_bytes": 945
+  },
+  {
+   "id": 198298,
+   "bbox": [
+    131.46,
+    1189.0,
+    140.8,
+    1194.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 714,
+   "svg_bytes": 1433
+  },
+  {
+   "id": 198304,
+   "bbox": [
+    280.68,
+    1097.8,
+    282.22,
+    1100.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 3 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 716,
+   "svg_bytes": 940
+  },
+  {
+   "id": 199487,
+   "bbox": [
+    693.3,
+    794.86,
+    705.46,
+    808.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 13 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 718,
+   "svg_bytes": 1726
+  },
+  {
+   "id": 199737,
+   "bbox": [
+    646.32,
+    838.66,
+    663.94,
+    854.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (18 x 16 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 720,
+   "svg_bytes": 2051
+  },
+  {
+   "id": 199738,
+   "bbox": [
+    671.16,
+    828.1,
+    676.66,
+    833.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 721,
+   "svg_bytes": 1238
+  },
+  {
+   "id": 199762,
+   "bbox": [
+    661.98,
+    831.64,
+    672.4,
+    841.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 723,
+   "svg_bytes": 1563
+  },
+  {
+   "id": 199776,
+   "bbox": [
+    998.28,
+    575.26,
+    1007.86,
+    582.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 725,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199780,
+   "bbox": [
+    975.6,
+    588.88,
+    985.24,
+    595.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 727,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199784,
+   "bbox": [
+    1001.76,
+    580.12,
+    1011.4,
+    587.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 729,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199788,
+   "bbox": [
+    966.84,
+    591.82,
+    976.48,
+    598.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 731,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199792,
+   "bbox": [
+    993.06,
+    583.06,
+    1002.7,
+    590.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 733,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199796,
+   "bbox": [
+    989.52,
+    578.2,
+    999.16,
+    585.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 735,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199800,
+   "bbox": [
+    980.76,
+    581.14,
+    990.4,
+    588.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 737,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199804,
+   "bbox": [
+    988.68,
+    559.9,
+    994.9,
+    569.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 739,
+   "svg_bytes": 1413
+  },
+  {
+   "id": 199810,
+   "bbox": [
+    1010.52,
+    577.18,
+    1020.16,
+    584.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 741,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199814,
+   "bbox": [
+    1006.98,
+    572.32,
+    1016.62,
+    579.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 743,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199818,
+   "bbox": [
+    1019.28,
+    574.24,
+    1028.92,
+    581.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 745,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 199822,
+   "bbox": [
+    984.3,
+    585.94,
+    993.94,
+    592.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 747,
+   "svg_bytes": 1425
+  },
+  {
+   "id": 200125,
+   "bbox": [
+    1225.62,
+    324.46,
+    1229.62,
+    333.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 749,
+   "svg_bytes": 945
+  },
+  {
+   "id": 200889,
+   "bbox": [
+    1714.02,
+    274.96,
+    1719.34,
+    284.06
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 751,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 200893,
+   "bbox": [
+    1735.92,
+    273.22,
+    1741.12,
+    282.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 753,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 200897,
+   "bbox": [
+    675.3,
+    812.98,
+    684.22,
+    822.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 755,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 200899,
+   "bbox": [
+    690.24,
+    799.84,
+    700.18,
+    810.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 757,
+   "svg_bytes": 1535
+  },
+  {
+   "id": 200927,
+   "bbox": [
+    140.1,
+    1192.66,
+    149.56,
+    1199.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 759,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 200931,
+   "bbox": [
+    134.82,
+    1181.14,
+    141.34,
+    1186.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 761,
+   "svg_bytes": 1271
+  },
+  {
+   "id": 201041,
+   "bbox": [
+    136.92,
+    1173.1,
+    142.72,
+    1182.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 763,
+   "svg_bytes": 1433
+  },
+  {
+   "id": 201048,
+   "bbox": [
+    1904.28,
+    267.04,
+    1913.38,
+    271.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 765,
+   "svg_bytes": 1079
+  },
+  {
+   "id": 201398,
+   "bbox": [
+    544.86,
+    689.8,
+    553.12,
+    698.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (8 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 767,
+   "svg_bytes": 1417
+  },
+  {
+   "id": 201744,
+   "bbox": [
+    784.56,
+    411.82,
+    789.34,
+    421.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 769,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 201750,
+   "bbox": [
+    788.28,
+    411.34,
+    793.06,
+    420.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 771,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 201756,
+   "bbox": [
+    780.9,
+    412.3,
+    785.62,
+    421.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 773,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 201766,
+   "bbox": [
+    774.72,
+    325.36,
+    781.42,
+    328.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 3 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 775,
+   "svg_bytes": 941
+  },
+  {
+   "id": 201907,
+   "bbox": [
+    1178.46,
+    559.84,
+    1183.84,
+    565.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 777,
+   "svg_bytes": 1222
+  },
+  {
+   "id": 201910,
+   "bbox": [
+    529.26,
+    689.5,
+    538.42,
+    697.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 779,
+   "svg_bytes": 1409
+  },
+  {
+   "id": 202594,
+   "bbox": [
+    557.64,
+    668.92,
+    566.2,
+    677.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 781,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 202600,
+   "bbox": [
+    956.04,
+    581.2,
+    962.38,
+    590.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 783,
+   "svg_bytes": 1413
+  },
+  {
+   "id": 202606,
+   "bbox": [
+    960.24,
+    579.52,
+    966.52,
+    589.04
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 785,
+   "svg_bytes": 1413
+  },
+  {
+   "id": 202660,
+   "bbox": [
+    961.5,
+    553.3,
+    970.96,
+    560.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 787,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 204019,
+   "bbox": [
+    653.1,
+    807.28,
+    659.2,
+    827.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 21 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 789,
+   "svg_bytes": 1738
+  },
+  {
+   "id": 204034,
+   "bbox": [
+    1033.68,
+    619.78,
+    1038.58,
+    625.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 791,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 204040,
+   "bbox": [
+    1035.12,
+    623.92,
+    1040.02,
+    629.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 793,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 204046,
+   "bbox": [
+    1044.96,
+    616.6,
+    1049.86,
+    622.1
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 795,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 204052,
+   "bbox": [
+    1046.4,
+    620.74,
+    1051.3,
+    626.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 797,
+   "svg_bytes": 1214
+  },
+  {
+   "id": 204058,
+   "bbox": [
+    706.62,
+    796.42,
+    712.36,
+    802.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 799,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 204064,
+   "bbox": [
+    709.8,
+    799.42,
+    715.6,
+    805.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 801,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 204070,
+   "bbox": [
+    703.38,
+    793.42,
+    709.18,
+    799.16
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 803,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 204153,
+   "bbox": [
+    842.82,
+    662.92,
+    851.92,
+    671.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 805,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 204159,
+   "bbox": [
+    827.22,
+    672.04,
+    832.18,
+    681.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 807,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 204464,
+   "bbox": [
+    819.78,
+    669.16,
+    826.84,
+    678.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 809,
+   "svg_bytes": 1429
+  },
+  {
+   "id": 205508,
+   "bbox": [
+    544.5,
+    913.18,
+    564.64,
+    933.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 811,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 205515,
+   "bbox": [
+    526.02,
+    924.04,
+    551.62,
+    948.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (26 x 25 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 813,
+   "svg_bytes": 2558
+  },
+  {
+   "id": 205522,
+   "bbox": [
+    557.64,
+    902.32,
+    577.78,
+    922.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 815,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 205529,
+   "bbox": [
+    570.6,
+    891.52,
+    590.8,
+    911.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 817,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 205536,
+   "bbox": [
+    750.3,
+    762.16,
+    756.1,
+    767.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 819,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 205882,
+   "bbox": [
+    2127.6,
+    252.34,
+    2131.96,
+    254.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 821,
+   "svg_bytes": 940
+  },
+  {
+   "id": 207352,
+   "bbox": [
+    681.84,
+    807.58,
+    690.76,
+    817.04
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 823,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 207354,
+   "bbox": [
+    678.6,
+    810.28,
+    687.52,
+    819.74
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 825,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 207379,
+   "bbox": [
+    583.5,
+    880.66,
+    603.7,
+    900.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 827,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 207386,
+   "bbox": [
+    596.16,
+    870.04,
+    616.36,
+    890.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 829,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 207393,
+   "bbox": [
+    609.0,
+    859.24,
+    629.2,
+    879.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 831,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 208121,
+   "bbox": [
+    833.76,
+    561.7,
+    849.34,
+    572.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 833,
+   "svg_bytes": 1766
+  },
+  {
+   "id": 209740,
+   "bbox": [
+    628.26,
+    337.36,
+    629.92,
+    341.3
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 835,
+   "svg_bytes": 940
+  },
+  {
+   "id": 209907,
+   "bbox": [
+    2114.64,
+    251.56,
+    2123.56,
+    256.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 837,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 209911,
+   "bbox": [
+    2136.96,
+    250.24,
+    2145.94,
+    255.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 839,
+   "svg_bytes": 1295
+  },
+  {
+   "id": 209915,
+   "bbox": [
+    2103.78,
+    252.1,
+    2112.76,
+    257.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 841,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 209951,
+   "bbox": [
+    1590.06,
+    330.88,
+    1616.68,
+    346.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (27 x 15 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 843,
+   "svg_bytes": 2103
+  },
+  {
+   "id": 209961,
+   "bbox": [
+    874.14,
+    610.96,
+    891.58,
+    638.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (17 x 27 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 845,
+   "svg_bytes": 2457
+  },
+  {
+   "id": 209972,
+   "bbox": [
+    695.46,
+    748.06,
+    707.44,
+    761.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 847,
+   "svg_bytes": 1734
+  },
+  {
+   "id": 209978,
+   "bbox": [
+    708.42,
+    769.12,
+    717.64,
+    778.4
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 849,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 209982,
+   "bbox": [
+    702.12,
+    762.52,
+    711.28,
+    771.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 851,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 209986,
+   "bbox": [
+    708.6,
+    756.16,
+    717.82,
+    765.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 853,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 209990,
+   "bbox": [
+    698.76,
+    766.0,
+    707.98,
+    775.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 855,
+   "svg_bytes": 1437
+  },
+  {
+   "id": 211806,
+   "bbox": [
+    922.26,
+    652.36,
+    929.5,
+    660.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (7 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 857,
+   "svg_bytes": 1299
+  },
+  {
+   "id": 232442,
+   "bbox": [
+    539.28,
+    817.06,
+    548.98,
+    824.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 859,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 232486,
+   "bbox": [
+    684.78,
+    819.22,
+    690.58,
+    824.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 861,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 232492,
+   "bbox": [
+    688.2,
+    816.46,
+    693.94,
+    822.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 863,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 232498,
+   "bbox": [
+    681.42,
+    822.04,
+    687.16,
+    827.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 865,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 232504,
+   "bbox": [
+    685.14,
+    804.82,
+    694.06,
+    814.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 867,
+   "svg_bytes": 1462
+  },
+  {
+   "id": 232518,
+   "bbox": [
+    642.54,
+    828.46,
+    652.06,
+    837.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 869,
+   "svg_bytes": 1604
+  },
+  {
+   "id": 232520,
+   "bbox": [
+    621.84,
+    848.26,
+    642.04,
+    868.46
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (20 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 871,
+   "svg_bytes": 2343
+  },
+  {
+   "id": 233029,
+   "bbox": [
+    159.12,
+    1143.22,
+    164.86,
+    1148.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 873,
+   "svg_bytes": 1275
+  },
+  {
+   "id": 233035,
+   "bbox": [
+    127.56,
+    1168.84,
+    136.18,
+    1178.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 875,
+   "svg_bytes": 1514
+  },
+  {
+   "id": 233175,
+   "bbox": [
+    492.54,
+    1141.48,
+    498.04,
+    1150.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 877,
+   "svg_bytes": 1380
+  },
+  {
+   "id": 233241,
+   "bbox": [
+    677.22,
+    808.66,
+    682.06,
+    813.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 879,
+   "svg_bytes": 1206
+  },
+  {
+   "id": 233266,
+   "bbox": [
+    849.78,
+    656.5,
+    859.3,
+    663.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 881,
+   "svg_bytes": 1368
+  },
+  {
+   "id": 234541,
+   "bbox": [
+    1588.74,
+    332.02,
+    1597.96,
+    336.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 883,
+   "svg_bytes": 1352
+  },
+  {
+   "id": 238502,
+   "bbox": [
+    873.66,
+    749.38,
+    883.06,
+    757.04
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 885,
+   "svg_bytes": 1441
+  },
+  {
+   "id": 238508,
+   "bbox": [
+    1206.66,
+    324.4,
+    1211.74,
+    333.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 887,
+   "svg_bytes": 1279
+  },
+  {
+   "id": 239113,
+   "bbox": [
+    856.68,
+    403.66,
+    866.92,
+    407.84
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 889,
+   "svg_bytes": 1087
+  },
+  {
+   "id": 239207,
+   "bbox": [
+    1229.58,
+    324.34,
+    1233.58,
+    333.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 891,
+   "svg_bytes": 945
+  },
+  {
+   "id": 239248,
+   "bbox": [
+    642.0,
+    657.34,
+    651.4,
+    666.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 893,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 239252,
+   "bbox": [
+    649.98,
+    664.18,
+    659.44,
+    673.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 895,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 239256,
+   "bbox": [
+    657.72,
+    670.9,
+    667.12,
+    679.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 897,
+   "svg_bytes": 1445
+  },
+  {
+   "id": 239669,
+   "bbox": [
+    1119.42,
+    320.32,
+    1128.16,
+    324.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 899,
+   "svg_bytes": 949
+  },
+  {
+   "id": 239674,
+   "bbox": [
+    1128.42,
+    320.32,
+    1138.6,
+    324.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 901,
+   "svg_bytes": 949
+  },
+  {
+   "id": 239727,
+   "bbox": [
+    572.16,
+    372.76,
+    577.6,
+    378.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 903,
+   "svg_bytes": 1267
+  },
+  {
+   "id": 239732,
+   "bbox": [
+    576.54,
+    370.24,
+    587.2,
+    376.34
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 905,
+   "svg_bytes": 1474
+  },
+  {
+   "id": 240652,
+   "bbox": [
+    1144.68,
+    386.62,
+    1148.5,
+    388.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 907,
+   "svg_bytes": 940
+  },
+  {
+   "id": 240662,
+   "bbox": [
+    822.48,
+    405.64,
+    831.4,
+    409.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 909,
+   "svg_bytes": 1274
+  },
+  {
+   "id": 240667,
+   "bbox": [
+    844.38,
+    404.14,
+    856.06,
+    408.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 911,
+   "svg_bytes": 1091
+  },
+  {
+   "id": 240672,
+   "bbox": [
+    886.14,
+    369.94,
+    892.18,
+    374.96
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 913,
+   "svg_bytes": 1153
+  },
+  {
+   "id": 240673,
+   "bbox": [
+    893.1,
+    370.24,
+    899.14,
+    375.26
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 914,
+   "svg_bytes": 1153
+  },
+  {
+   "id": 240762,
+   "bbox": [
+    901.38,
+    367.54,
+    903.16,
+    371.36
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 916,
+   "svg_bytes": 940
+  },
+  {
+   "id": 240764,
+   "bbox": [
+    460.68,
+    481.0,
+    466.72,
+    491.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 11 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 918,
+   "svg_bytes": 1490
+  },
+  {
+   "id": 240782,
+   "bbox": [
+    269.82,
+    634.06,
+    271.48,
+    637.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (2 x 4 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 920,
+   "svg_bytes": 940
+  },
+  {
+   "id": 241155,
+   "bbox": [
+    306.18,
+    1090.66,
+    315.58,
+    1097.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 922,
+   "svg_bytes": 1332
+  },
+  {
+   "id": 241161,
+   "bbox": [
+    315.12,
+    1063.3,
+    326.08,
+    1071.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 924,
+   "svg_bytes": 1628
+  },
+  {
+   "id": 241248,
+   "bbox": [
+    312.96,
+    1072.24,
+    319.18,
+    1081.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 926,
+   "svg_bytes": 1368
+  },
+  {
+   "id": 241254,
+   "bbox": [
+    309.3,
+    1070.86,
+    315.58,
+    1080.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 928,
+   "svg_bytes": 1368
+  },
+  {
+   "id": 241260,
+   "bbox": [
+    338.52,
+    1054.78,
+    349.12,
+    1064.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 930,
+   "svg_bytes": 1722
+  },
+  {
+   "id": 241265,
+   "bbox": [
+    324.6,
+    1043.38,
+    340.72,
+    1057.64
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 932,
+   "svg_bytes": 2079
+  },
+  {
+   "id": 241270,
+   "bbox": [
+    312.06,
+    1014.64,
+    320.74,
+    1032.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 18 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 934,
+   "svg_bytes": 1973
+  },
+  {
+   "id": 241275,
+   "bbox": [
+    436.14,
+    889.6,
+    440.86,
+    899.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 936,
+   "svg_bytes": 1120
+  },
+  {
+   "id": 241280,
+   "bbox": [
+    436.14,
+    882.52,
+    440.74,
+    889.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 938,
+   "svg_bytes": 1096
+  },
+  {
+   "id": 241285,
+   "bbox": [
+    436.2,
+    873.7,
+    440.8,
+    882.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 940,
+   "svg_bytes": 1145
+  },
+  {
+   "id": 241335,
+   "bbox": [
+    655.32,
+    753.76,
+    659.62,
+    764.0
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 10 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 942,
+   "svg_bytes": 1058
+  },
+  {
+   "id": 241461,
+   "bbox": [
+    748.56,
+    709.72,
+    757.96,
+    717.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 944,
+   "svg_bytes": 1328
+  },
+  {
+   "id": 241463,
+   "bbox": [
+    744.9,
+    716.14,
+    754.3,
+    723.56
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 946,
+   "svg_bytes": 1328
+  },
+  {
+   "id": 241925,
+   "bbox": [
+    705.24,
+    586.84,
+    714.22,
+    593.6
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 948,
+   "svg_bytes": 1506
+  },
+  {
+   "id": 241930,
+   "bbox": [
+    712.8,
+    581.56,
+    726.82,
+    590.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (14 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 950,
+   "svg_bytes": 1519
+  },
+  {
+   "id": 242279,
+   "bbox": [
+    727.86,
+    568.6,
+    731.92,
+    577.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 952,
+   "svg_bytes": 1054
+  },
+  {
+   "id": 242285,
+   "bbox": [
+    741.66,
+    560.62,
+    751.06,
+    568.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 8 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 954,
+   "svg_bytes": 1441
+  },
+  {
+   "id": 242291,
+   "bbox": [
+    906.24,
+    547.0,
+    915.58,
+    552.8
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 956,
+   "svg_bytes": 1486
+  },
+  {
+   "id": 242299,
+   "bbox": [
+    927.0,
+    577.12,
+    936.4,
+    582.5
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 958,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 242305,
+   "bbox": [
+    926.28,
+    573.7,
+    935.68,
+    579.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 960,
+   "svg_bytes": 1360
+  },
+  {
+   "id": 242311,
+   "bbox": [
+    1468.32,
+    474.88,
+    1471.6,
+    478.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (3 x 3 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 962,
+   "svg_bytes": 940
+  },
+  {
+   "id": 242313,
+   "bbox": [
+    1456.2,
+    465.82,
+    1462.0,
+    471.44
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 964,
+   "svg_bytes": 1181
+  },
+  {
+   "id": 242617,
+   "bbox": [
+    1099.68,
+    586.36,
+    1109.32,
+    593.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (10 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 966,
+   "svg_bytes": 1454
+  },
+  {
+   "id": 242946,
+   "bbox": [
+    709.86,
+    626.74,
+    716.08,
+    632.9
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 6 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 968,
+   "svg_bytes": 1287
+  },
+  {
+   "id": 259772,
+   "bbox": [
+    441.36,
+    795.04,
+    446.74,
+    804.14
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 970,
+   "svg_bytes": 1295
+  },
+  {
+   "id": 266230,
+   "bbox": [
+    480.0,
+    1589.2,
+    505.78,
+    1604.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (26 x 16 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 973,
+   "svg_bytes": 978
+  },
+  {
+   "id": 266232,
+   "bbox": [
+    474.42,
+    1489.42,
+    505.24,
+    1504.94
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (31 x 16 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 975,
+   "svg_bytes": 978
+  },
+  {
+   "id": 266771,
+   "bbox": [
+    576.42,
+    1491.22,
+    607.24,
+    1503.74
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (31 x 13 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 977,
+   "svg_bytes": 978
+  },
+  {
+   "id": 266777,
+   "bbox": [
+    588.6,
+    1544.32,
+    601.66,
+    1549.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (13 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 979,
+   "svg_bytes": 946
+  },
+  {
+   "id": 267195,
+   "bbox": [
+    1482.78,
+    873.34,
+    2334.16,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1655 (1774x1231 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224431, 1774x1231 px)",
+   "context": 981,
+   "svg_bytes": 701743
+  },
+  {
+   "id": 267196,
+   "bbox": [
+    2069.64,
+    1220.98,
+    2169.94,
+    1391.66
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1658 (209x356 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224432, 209x356 px)",
+   "context": 982,
+   "svg_bytes": 11047
+  },
+  {
+   "id": 267197,
+   "bbox": [
+    2276.34,
+    1224.94,
+    2334.16,
+    1263.2
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (58 x 38 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 983,
+   "svg_bytes": 2641
+  },
+  {
+   "id": 267198,
+   "bbox": [
+    2204.58,
+    1213.12,
+    2276.56,
+    1256.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (72 x 43 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 984,
+   "svg_bytes": 3859
+  },
+  {
+   "id": 267199,
+   "bbox": [
+    1482.78,
+    1071.64,
+    1499.14,
+    1255.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 184 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 985,
+   "svg_bytes": 2409
+  },
+  {
+   "id": 267200,
+   "bbox": [
+    1482.78,
+    966.04,
+    1801.36,
+    1330.88
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1670 (664x760 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224436, 664x760 px)",
+   "context": 986,
+   "svg_bytes": 26667
+  },
+  {
+   "id": 267201,
+   "bbox": [
+    1494.72,
+    1098.22,
+    1789.0,
+    1349.72
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1673 (613x524 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224437, 613x524 px)",
+   "context": 987,
+   "svg_bytes": 29775
+  },
+  {
+   "id": 267202,
+   "bbox": [
+    1722.72,
+    1351.3,
+    1889.5,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1676 (348x235 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224438, 348x235 px)",
+   "context": 988,
+   "svg_bytes": 10726
+  },
+  {
+   "id": 267203,
+   "bbox": [
+    1845.66,
+    1374.1,
+    2055.4,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1679 (437x188 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224439, 437x188 px)",
+   "context": 989,
+   "svg_bytes": 12713
+  },
+  {
+   "id": 267204,
+   "bbox": [
+    1889.52,
+    1146.94,
+    2105.08,
+    1399.64
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1682 (449x527 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224440, 449x527 px)",
+   "context": 990,
+   "svg_bytes": 25794
+  },
+  {
+   "id": 267205,
+   "bbox": [
+    1739.16,
+    1116.52,
+    1891.36,
+    1372.7
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1685 (317x534 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224441, 317x534 px)",
+   "context": 991,
+   "svg_bytes": 17320
+  },
+  {
+   "id": 267206,
+   "bbox": [
+    1482.78,
+    985.42,
+    1523.74,
+    1027.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (41 x 42 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 992,
+   "svg_bytes": 2648
+  },
+  {
+   "id": 267207,
+   "bbox": [
+    1784.58,
+    915.28,
+    2243.38,
+    1233.38
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1691 (956x663 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224443, 956x663 px)",
+   "context": 993,
+   "svg_bytes": 58525
+  },
+  {
+   "id": 267208,
+   "bbox": [
+    2010.54,
+    1369.36,
+    2334.16,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1694 (674x198 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224444, 674x198 px)",
+   "context": 994,
+   "svg_bytes": 20988
+  },
+  {
+   "id": 267209,
+   "bbox": [
+    1482.78,
+    1117.9,
+    1499.14,
+    1137.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (16 x 20 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 995,
+   "svg_bytes": 1884
+  },
+  {
+   "id": 267210,
+   "bbox": [
+    1482.78,
+    1294.3,
+    1739.08,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1700 (534x354 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224446, 534x354 px)",
+   "context": 996,
+   "svg_bytes": 16641
+  },
+  {
+   "id": 267211,
+   "bbox": [
+    2237.7,
+    924.34,
+    2334.16,
+    959.66
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (96 x 35 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 997,
+   "svg_bytes": 3782
+  },
+  {
+   "id": 267212,
+   "bbox": [
+    1482.78,
+    873.34,
+    2334.16,
+    1068.5
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1706 (1774x407 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224448, 1774x407 px)",
+   "context": 998,
+   "svg_bytes": 40387
+  },
+  {
+   "id": 267213,
+   "bbox": [
+    1482.78,
+    873.34,
+    2334.16,
+    977.18
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1709 (1774x216 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224449, 1774x217 px)",
+   "context": 999,
+   "svg_bytes": 14903
+  },
+  {
+   "id": 267214,
+   "bbox": [
+    1482.78,
+    1328.26,
+    2334.16,
+    1464.26
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1712 (1774x283 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 224450, 1774x284 px)",
+   "context": 1000,
+   "svg_bytes": 11759
+  },
+  {
+   "id": 271053,
+   "bbox": [
+    2100.0,
+    1384.12,
+    2111.56,
+    1391.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (12 x 7 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1002,
+   "svg_bytes": 1352
+  },
+  {
+   "id": 271060,
+   "bbox": [
+    2069.88,
+    1306.96,
+    2080.84,
+    1321.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (11 x 14 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1004,
+   "svg_bytes": 1596
+  },
+  {
+   "id": 290617,
+   "bbox": [
+    1570.44,
+    981.7,
+    1575.52,
+    990.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1006,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290669,
+   "bbox": [
+    1574.7,
+    981.4,
+    1579.78,
+    990.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1008,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290679,
+   "bbox": [
+    1578.96,
+    981.1,
+    1583.98,
+    990.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1010,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290689,
+   "bbox": [
+    1583.16,
+    980.8,
+    1588.24,
+    989.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1012,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290699,
+   "bbox": [
+    1587.42,
+    980.5,
+    1592.5,
+    989.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1014,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290709,
+   "bbox": [
+    1591.68,
+    980.2,
+    1596.7,
+    989.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1016,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290719,
+   "bbox": [
+    1595.94,
+    979.9,
+    1600.96,
+    988.82
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1018,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290729,
+   "bbox": [
+    1600.14,
+    979.6,
+    1605.22,
+    988.52
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1020,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290739,
+   "bbox": [
+    1604.4,
+    979.3,
+    1609.42,
+    988.22
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1022,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290749,
+   "bbox": [
+    1608.66,
+    979.0,
+    1613.68,
+    987.92
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1024,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290759,
+   "bbox": [
+    1612.86,
+    978.7,
+    1617.94,
+    987.62
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1026,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290769,
+   "bbox": [
+    1617.12,
+    978.46,
+    1622.2,
+    987.32
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1028,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290779,
+   "bbox": [
+    1621.38,
+    978.16,
+    1626.4,
+    987.02
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1030,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290789,
+   "bbox": [
+    1625.58,
+    977.86,
+    1630.66,
+    986.72
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1032,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290799,
+   "bbox": [
+    1629.84,
+    977.56,
+    1634.92,
+    986.42
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1034,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290809,
+   "bbox": [
+    1634.1,
+    977.26,
+    1639.12,
+    986.12
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1036,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290819,
+   "bbox": [
+    1638.36,
+    976.96,
+    1643.38,
+    985.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1038,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290829,
+   "bbox": [
+    1642.56,
+    976.66,
+    1647.64,
+    985.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1040,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290839,
+   "bbox": [
+    1646.82,
+    976.36,
+    1651.84,
+    985.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1042,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290849,
+   "bbox": [
+    1651.08,
+    976.06,
+    1656.1,
+    984.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1044,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290859,
+   "bbox": [
+    1655.28,
+    975.76,
+    1660.36,
+    984.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1046,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290869,
+   "bbox": [
+    1659.54,
+    975.46,
+    1664.62,
+    984.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1048,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290879,
+   "bbox": [
+    1663.8,
+    975.16,
+    1668.82,
+    984.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1050,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290889,
+   "bbox": [
+    1668.0,
+    974.86,
+    1673.08,
+    983.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1052,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290899,
+   "bbox": [
+    1672.26,
+    974.56,
+    1677.34,
+    983.48
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1054,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290909,
+   "bbox": [
+    1676.52,
+    974.26,
+    1681.54,
+    983.18
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1056,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290919,
+   "bbox": [
+    1680.78,
+    973.96,
+    1685.8,
+    982.88
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1058,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290929,
+   "bbox": [
+    1684.98,
+    973.66,
+    1690.06,
+    982.58
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1060,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290939,
+   "bbox": [
+    1689.24,
+    973.36,
+    1694.26,
+    982.28
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1062,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290949,
+   "bbox": [
+    1693.5,
+    973.12,
+    1698.52,
+    981.98
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1064,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290959,
+   "bbox": [
+    1697.7,
+    972.82,
+    1702.78,
+    981.68
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1066,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290969,
+   "bbox": [
+    1701.96,
+    972.52,
+    1706.98,
+    981.38
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1068,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290979,
+   "bbox": [
+    1706.22,
+    972.22,
+    1711.24,
+    981.08
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1070,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290989,
+   "bbox": [
+    1710.42,
+    971.92,
+    1715.5,
+    980.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1072,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 290999,
+   "bbox": [
+    1714.68,
+    971.62,
+    1719.76,
+    980.54
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1074,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 291009,
+   "bbox": [
+    1718.94,
+    971.32,
+    1723.96,
+    980.24
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (5 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1076,
+   "svg_bytes": 1291
+  },
+  {
+   "id": 293544,
+   "bbox": [
+    2159.16,
+    1258.42,
+    2165.02,
+    1267.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (6 x 9 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1078,
+   "svg_bytes": 1376
+  },
+  {
+   "id": 295466,
+   "bbox": [
+    1621.26,
+    975.16,
+    1625.08,
+    976.76
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1080,
+   "svg_bytes": 940
+  },
+  {
+   "id": 296436,
+   "bbox": [
+    1608.3,
+    956.74,
+    1612.72,
+    958.7
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (4 x 2 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1082,
+   "svg_bytes": 940
+  },
+  {
+   "id": 297921,
+   "bbox": [
+    1595.4,
+    955.96,
+    1604.26,
+    960.86
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1084,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 297925,
+   "bbox": [
+    1617.66,
+    954.7,
+    1626.7,
+    959.78
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1086,
+   "svg_bytes": 1295
+  },
+  {
+   "id": 297929,
+   "bbox": [
+    1584.54,
+    956.56,
+    1593.46,
+    961.46
+   ],
+   "category": "raster_symbol",
+   "confidence": "medium",
+   "evidence": "small image (9 x 5 pt): a symbol or lettering rendered as raster in the source; kept",
+   "context": 1088,
+   "svg_bytes": 1133
+  },
+  {
+   "id": 299558,
+   "bbox": [
+    1451.82,
+    1485.82,
+    1743.4,
+    1556.24
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1846 (608x147 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 252361, 608x147 px)",
+   "context": 1091,
+   "svg_bytes": 13403
+  },
+  {
+   "id": 300459,
+   "bbox": [
+    1821.54,
+    1482.7,
+    2036.32,
+    1555.04
+   ],
+   "category": "aerial_underlay",
+   "confidence": "high",
+   "evidence": "bbox matches PDF image xref 1848 (448x151 px) which is a placed aerial photograph patch; the 17 Sep issue has the same patch here (its record 253526, 448x151 px)",
+   "context": 1093,
+   "svg_bytes": 11400
+  }
+ ],
+ "large_white_fills_review": [],
+ "rule": "satellite modes lift only aerial_underlay records and the sheet-white backdrop; raster symbols, lettering, white fills and every vector stay; large_white_fills_review is reported, not acted on"
+}

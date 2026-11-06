@@ -1,0 +1,98 @@
+{
+  "author": "Andrew Fisher",
+  "sources": {
+    "index.html": "a805d465bfa60da5c091da385ac1f2c9015337360b18a3b0ae0f44eb3026fd94",
+    "explorer.js": "366897925de96b5f881485bec60c6a3a7263fd20d9b04d48231ac82d356020d0",
+    "explorer-merge.js": "261238402f3c4bf3dc94a661b3dc8378bb789b01cdfd77b4cfc9810d1236b67c",
+    "poc3d__index.html": "7edf7b5ac55c1cf5f60f35b72d577d8e257854e2e482b1b93796e498edcf5ac4"
+  },
+  "checks": [
+    {
+      "name": "wide touch context uses DPR2",
+      "pass": true
+    },
+    {
+      "name": "wide Auto view reaches settled current-camera imagery",
+      "pass": true
+    },
+    {
+      "name": "controlled actual contextloss available",
+      "pass": true
+    },
+    {
+      "name": "Retry is actual hit target without a second error overlay",
+      "pass": true,
+      "detail": {
+        "hit": true,
+        "overlays": 0,
+        "ready": false,
+        "error": "context",
+        "rendering": false
+      }
+    },
+    {
+      "name": "lost graphics remains unready and stopped",
+      "pass": true
+    },
+    {
+      "name": "actual Retry click opens exactly one replacement session",
+      "pass": true
+    },
+    {
+      "name": "replacement context resumes ready rendering",
+      "pass": true
+    },
+    {
+      "name": "no operational writes",
+      "pass": true
+    },
+    {
+      "name": "no page exceptions",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "blockedWrites": 0,
+  "childDocs": 2,
+  "childKeyRequests": 2,
+  "rootTileRequests": 2,
+  "limits": [
+    "Headless Chromium software renderer; no physical-device performance claim.",
+    "Google tile session POST allowed; operational writes blocked."
+  ],
+  "wide-auto-settled": {
+    "settled": true,
+    "metrics": {
+      "loaded": true,
+      "tilesLoaded": true,
+      "tilesReceived": 803,
+      "adapt": {
+        "moving": false,
+        "k": 0.6,
+        "res": 2,
+        "still": 2,
+        "sse": 4,
+        "msaa": 1,
+        "lowpower": true,
+        "autoUp": false
+      },
+      "quality": "auto",
+      "dpr": 2,
+      "canvas": {
+        "w": 2280,
+        "h": 1892,
+        "cssW": 1140,
+        "cssH": 946
+      },
+      "cameraHeight": 1400.0000000001046,
+      "requests": {
+        "pending": 0,
+        "processing": 0,
+        "ready": 749
+      }
+    }
+  },
+  "finished": "2026-10-02T09:46:09.334Z",
+  "passed": true
+}

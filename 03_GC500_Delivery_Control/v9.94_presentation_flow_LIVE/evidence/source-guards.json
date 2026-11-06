@@ -1,0 +1,19 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "382311bc1faf33ca1333d1431368a442dbdf651a6d23874b56ef65bae7ed8dd8",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Complete embedded source DATA exactly preserved",
+      "pass": true
+    },
+    {
+      "name": "reapply guard rejects without mutation",
+      "pass": true
+    },
+    {
+      "name": "wrong-base guard rejects without mutation",
+      "pass": true
+    }
+  ]
+}

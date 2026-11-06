@@ -1,0 +1,22 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "a37381b49fec5317fb9b354b7eee2e314f3c6e15215449314e9f1a14c9303557",
+  "checks": [
+    {
+      "name": "Exact reviewed rebuild",
+      "pass": true
+    },
+    {
+      "name": "Wrong base rejected",
+      "pass": true
+    },
+    {
+      "name": "Repeat rejected",
+      "pass": true
+    },
+    {
+      "name": "Only new scope script and footer changed",
+      "pass": true
+    }
+  ]
+}

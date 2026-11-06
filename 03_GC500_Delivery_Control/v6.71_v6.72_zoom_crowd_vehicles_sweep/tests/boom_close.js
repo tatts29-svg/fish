@@ -1,0 +1,14 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']});
+  const page = await (await browser.newContext({viewport: {width: 1200, height: 700}})).newPage();
+  await page.goto(process.argv[2] + '#progress', {waitUntil: 'load', timeout: 120000}); await page.waitForTimeout(2500);
+  await page.click('#showStart'); await page.waitForTimeout(1500);
+  await page.evaluate(() => { const s = document.querySelector('#showBackdrop'); s.value = 'circuit3d_day'; s.dispatchEvent(new Event('change', {bubbles: true})); }); await page.waitForTimeout(9000); await page.evaluate(() => document.querySelector('#showPause').click());
+  await page.evaluate(() => showVehicleSet('boom')); await page.waitForTimeout(2500);
+  const r = await page.evaluate(() => { const S = GC3D.S; S.paused = true; S.sim.s = (S.gridS + 30) % S.CL.L; S.sim.v = 0; for (let i = 0; i < 120; i++) GC3D.step(1 / 60);
+    const p = S.pose.pos, f = S.pose.fwd, rt = S.pose.rt, k = S.tune.carS || 1; return {p, f, rt, k, parts: (S.raceCarParts || []).map(x => x.name).filter(n => /basket|boom|jib|rotator/.test(n))}; });
+  console.log(JSON.stringify(r));
+  const {p, f, rt, k} = r; const at = (fx, up, side) => [p[0] + f[0] * fx * k + rt[0] * side * k, p[1] + up * k, p[2] + f[2] * fx * k + rt[2] * side * k];
+  await page.evaluate(([e, t]) => { const S = GC3D.S; S.camDebug = {eye: e, tgt: t, fov: 40}; GC3D.camStep(1 / 60); S.needsRender = true; }, [at(3.2, 1.6, 2.4), at(.9, .5, 0)]);
+  await page.waitForTimeout(1800); await page.screenshot({path: 'detail/boom_close.png', clip: {x: 0, y: 80, width: 1200, height: 390}});
+  await browser.close(); })();

@@ -1,0 +1,95 @@
+{
+  "author": "Andrew Fisher",
+  "source": "/workspace/gc500-current-release/03_GC500_Delivery_Control/build/GC500_v10.08/GC500_Delivery_Control_hosted.html",
+  "sha256": "1cdd454f842bf2467fbb928179f2570a6d16f8f88d7dfa49674b3d34fcac0910",
+  "pass": true,
+  "checks": [
+    {
+      "name": "Real adapter locally saves exactly one staff record",
+      "pass": true
+    },
+    {
+      "name": "Native record retains date and named author",
+      "pass": true
+    },
+    {
+      "name": "Unacknowledged actual save flash is not shared saved",
+      "pass": true
+    },
+    {
+      "name": "Render shows one persistent status",
+      "pass": true
+    },
+    {
+      "name": "Status sits outside the collapsing editor",
+      "pass": true
+    },
+    {
+      "name": "Render immediately shows local pending state",
+      "pass": true
+    },
+    {
+      "name": "Exact acknowledgement updates actual render to shared",
+      "pass": true
+    },
+    {
+      "name": "Second save with old acknowledgement stays pending",
+      "pass": true
+    },
+    {
+      "name": "Each real save uses newer timestamp",
+      "pass": true
+    },
+    {
+      "name": "Late stale ack cannot confirm second save through renderer",
+      "pass": true
+    },
+    {
+      "name": "Second actual exact ack confirms new saved payload",
+      "pass": true
+    },
+    {
+      "name": "Externally changed current document invalidates attempt confirmation",
+      "pass": true
+    },
+    {
+      "name": "Failed browser persistence makes save fail",
+      "pass": true
+    },
+    {
+      "name": "Failed actual persistence is visibly not saved",
+      "pass": true
+    },
+    {
+      "name": "Failed save never flashes success",
+      "pass": true
+    },
+    {
+      "name": "No permission prevents local mutation and bump",
+      "pass": true
+    },
+    {
+      "name": "Missing operator prevents mutation and bump",
+      "pass": true
+    },
+    {
+      "name": "Stale roster token rejected before writer",
+      "pass": true
+    },
+    {
+      "name": "Duplicate staff validation never invokes save",
+      "pass": true
+    },
+    {
+      "name": "Use programmed roster follows same truthful pending save path",
+      "pass": true
+    },
+    {
+      "name": "Synchronous captured exact acknowledgement may truthfully confirm save",
+      "pass": true
+    }
+  ],
+  "count": 21,
+  "noNetwork": true,
+  "noNativeWrites": true
+}

@@ -1,0 +1,5 @@
+/* Author: Andrew Fisher. Native Back and Close remain legible in light and dark overlays. */
+.nav934-back.btn{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:44px;min-width:64px;margin:0 6px 0 0;padding:8px 10px;font:600 13px/1.3 system-ui,sans-serif;color:inherit!important;-webkit-text-fill-color:currentColor;background:transparent!important;border:1px solid currentColor;border-radius:6px;white-space:nowrap;opacity:1}
+.nav934-back:focus-visible{outline:3px solid #ff964f;outline-offset:2px}
+.pdf7-hd>.pdf7-ht,.pdf7-hd>div:first-child{min-width:0;flex:1}
+@media print{.nav934-back{display:none!important}}

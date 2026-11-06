@@ -1,0 +1,13 @@
+{
+  "author": "Andrew Fisher",
+  "version": "v7.63",
+  "live_aest": "1 Oct 2026 13:57 AEST",
+  "bytes": 8572884,
+  "sha256": "e723a1fbe2ba001812d91e98d15d0c8761639bb4578d552e2e471e433b5a7fa3",
+  "approved_build_exact_match": true,
+  "validation_basis": "Rebuilt from live; matched approved, frozen candidate and reviewed recorded 33/33 desktop+phone tests and both 21-tab/7-link zero-error sweeps. Build checks rerun passed.",
+  "record_version_before": 3283,
+  "record_version_after": 3287,
+  "ledger_posts": 0,
+  "record_note": "Record version advanced during independent live activity; the deployment changes the page only. Record updates are audited separately."
+}

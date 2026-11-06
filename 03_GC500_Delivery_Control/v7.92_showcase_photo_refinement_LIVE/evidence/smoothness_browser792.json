@@ -1,0 +1,1090 @@
+{
+  "author": "Andrew Fisher",
+  "method": "Identical 640 × 360 Balanced track-level views; eight fixed-state renders per version after two warm-ups; each timed render includes gl.finish() and a one-pixel readback",
+  "limitations": [
+    "Chromium uses software SwiftShader, not a physical desktop or phone GPU",
+    "Times describe these bounded renders, not real-device FPS",
+    "Lifecycle callbacks use a controlled animation-frame queue; context loss/restoration uses the real WebGL extension"
+  ],
+  "files": {
+    "baseline": {
+      "bytes": 1139977,
+      "sha256": "a31ccb858829675a8ae1b9364107058b823a70b80ec23d1b0467e402ce5191db"
+    },
+    "candidate": {
+      "bytes": 1168436,
+      "sha256": "6373a7fe1782104a9f01f5df26d910631d6780910fa150a9f7384c4a5e6a33b6"
+    },
+    "hosted": {
+      "bytes": 8883495,
+      "sha256": "476f0dcca3d97de07d55c8eb7c85618a8672abf99f2c00f2892c11690b7bc265"
+    }
+  },
+  "checks": [
+    {
+      "name": "baseline: starts with the original drive and requested fixed view",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "clock": 19.999999999999506,
+        "s": 485.69349821493927,
+        "view": "onboard",
+        "quality": "balanced"
+      }
+    },
+    {
+      "name": "baseline: every measured render retains detail and has no GL error",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "ms": 836.7999999821186,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 863.0999999940395,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 977.5999999940395,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 969.3000000119209,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 942.9000000059605,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 928.8000000119209,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 952.1999999880791,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 969.8000000119209,
+            "pixel": [
+              223,
+              220,
+              214,
+              255
+            ],
+            "limitQueries": 2,
+            "bufferData": 12,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          }
+        ],
+        "medianMs": 947.5499999970198,
+        "p95Ms": 977.5999999940395,
+        "meanMs": 930.0625
+      }
+    },
+    {
+      "name": "baseline: repeated draws do not advance the simulation",
+      "pass": true
+    },
+    {
+      "name": "candidate: starts with the original drive and requested fixed view",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "clock": 19.999999999999506,
+        "s": 485.69349821493927,
+        "view": "onboard",
+        "quality": "balanced"
+      }
+    },
+    {
+      "name": "candidate: every measured render retains detail and has no GL error",
+      "pass": true,
+      "detail": {
+        "samples": [
+          {
+            "ms": 926,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 833.6999999880791,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 821.4000000059605,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 962.9000000059605,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 815.8000000119209,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 878.3999999761581,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 988.8000000119209,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          },
+          {
+            "ms": 929.6999999880791,
+            "pixel": [
+              143,
+              152,
+              158,
+              255
+            ],
+            "limitQueries": 0,
+            "bufferData": 0,
+            "glError": 0,
+            "resolution": [
+              640,
+              360
+            ],
+            "s": 485.69349821493927,
+            "clock": 19.999999999999506,
+            "detail": true
+          }
+        ],
+        "medianMs": 902.1999999880791,
+        "p95Ms": 988.8000000119209,
+        "meanMs": 894.5874999985099
+      }
+    },
+    {
+      "name": "candidate: repeated draws do not advance the simulation",
+      "pass": true
+    },
+    {
+      "name": "candidate: capability queries are absent after warm-up",
+      "pass": true,
+      "detail": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "candidate: dynamic buffers do not reallocate at a steady scene size",
+      "pass": true,
+      "detail": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "desktop: restarting while paused preserves the pause button and state",
+      "pass": true,
+      "detail": {
+        "paused": true,
+        "button": "Play",
+        "clock": 0
+      }
+    },
+    {
+      "name": "desktop: lost-context frame guard does not render or advance",
+      "pass": true
+    },
+    {
+      "name": "desktop: hidden time is excluded and resume starts without a simulation jump",
+      "pass": true,
+      "detail": {
+        "restart": {
+          "paused": true,
+          "button": "Play",
+          "clock": 0
+        },
+        "lostGuard": true,
+        "before": {
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "hidden": {
+          "paused": true,
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "resume": {
+          "paused": false,
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "next": {
+          "clock": 0.016666666666666666,
+          "s": 358.6631066816611
+        },
+        "bfcache": {
+          "stopped": 0,
+          "scheduled": 1,
+          "paused": true,
+          "clock": 0.016666666666666666,
+          "queue": 1
+        },
+        "ladder": [
+          {
+            "scale": 0.85,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.7,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.6,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.6,
+            "shadowOff": true,
+            "bloom": true,
+            "detail": true
+          }
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "name": "desktop: Back/Forward restoration restarts one callback while preserving pause",
+      "pass": true,
+      "detail": {
+        "stopped": 0,
+        "scheduled": 1,
+        "paused": true,
+        "clock": 0.016666666666666666,
+        "queue": 1
+      }
+    },
+    {
+      "name": "desktop: adaptive ladder reduces resolution before sunlight or detail",
+      "pass": true,
+      "detail": [
+        {
+          "scale": 0.85,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.7,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.6,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.6,
+          "shadowOff": true,
+          "bloom": true,
+          "detail": true
+        }
+      ]
+    },
+    {
+      "name": "desktop: real context-loss extension is available",
+      "pass": true
+    },
+    {
+      "name": "desktop: controls cannot render against a lost context",
+      "pass": true,
+      "detail": {
+        "disabled": true,
+        "state": "RESTORING GRAPHICS · 640 × 360"
+      }
+    },
+    {
+      "name": "desktop: graphics restoration retains lap position, view and pause without duplicate canvas/loop",
+      "pass": true,
+      "detail": {
+        "s": 358.6631066816611,
+        "clock": 0.016666666666666666,
+        "view": "onboard",
+        "paused": true,
+        "before": {
+          "s": 358.6631066816611,
+          "clock": 0.016666666666666666,
+          "view": "onboard",
+          "paused": true
+        },
+        "glError": 0,
+        "controls": true,
+        "detail": true,
+        "canvasCount": 1,
+        "queue": 1
+      }
+    },
+    {
+      "name": "phone: starts with the original drive and requested fixed view",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "clock": 19.999999999999506,
+        "s": 485.69349821493927,
+        "view": "onboard",
+        "quality": "balanced"
+      }
+    },
+    {
+      "name": "phone: restarting while paused preserves the pause button and state",
+      "pass": true,
+      "detail": {
+        "paused": true,
+        "button": "Play",
+        "clock": 0
+      }
+    },
+    {
+      "name": "phone: lost-context frame guard does not render or advance",
+      "pass": true
+    },
+    {
+      "name": "phone: hidden time is excluded and resume starts without a simulation jump",
+      "pass": true,
+      "detail": {
+        "restart": {
+          "paused": true,
+          "button": "Play",
+          "clock": 0
+        },
+        "lostGuard": true,
+        "before": {
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "hidden": {
+          "paused": true,
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "resume": {
+          "paused": false,
+          "clock": 0,
+          "s": 358.6631066816611
+        },
+        "next": {
+          "clock": 0.016666666666666666,
+          "s": 358.6631066816611
+        },
+        "bfcache": {
+          "stopped": 0,
+          "scheduled": 1,
+          "paused": true,
+          "clock": 0.016666666666666666,
+          "queue": 1
+        },
+        "ladder": [
+          {
+            "scale": 0.85,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.7,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.6,
+            "shadowOff": false,
+            "bloom": true,
+            "detail": true
+          },
+          {
+            "scale": 0.6,
+            "shadowOff": true,
+            "bloom": true,
+            "detail": true
+          }
+        ],
+        "unchanged": true
+      }
+    },
+    {
+      "name": "phone: Back/Forward restoration restarts one callback while preserving pause",
+      "pass": true,
+      "detail": {
+        "stopped": 0,
+        "scheduled": 1,
+        "paused": true,
+        "clock": 0.016666666666666666,
+        "queue": 1
+      }
+    },
+    {
+      "name": "phone: adaptive ladder reduces resolution before sunlight or detail",
+      "pass": true,
+      "detail": [
+        {
+          "scale": 0.85,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.7,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.6,
+          "shadowOff": false,
+          "bloom": true,
+          "detail": true
+        },
+        {
+          "scale": 0.6,
+          "shadowOff": true,
+          "bloom": true,
+          "detail": true
+        }
+      ]
+    },
+    {
+      "name": "phone: real context-loss extension is available",
+      "pass": true
+    },
+    {
+      "name": "phone: controls cannot render against a lost context",
+      "pass": true,
+      "detail": {
+        "disabled": true,
+        "state": "RESTORING GRAPHICS · 360 × 640"
+      }
+    },
+    {
+      "name": "phone: graphics restoration retains lap position, view and pause without duplicate canvas/loop",
+      "pass": true,
+      "detail": {
+        "s": 358.6631066816611,
+        "clock": 0.016666666666666666,
+        "view": "onboard",
+        "paused": true,
+        "before": {
+          "s": 358.6631066816611,
+          "clock": 0.016666666666666666,
+          "view": "onboard",
+          "paused": true
+        },
+        "glError": 0,
+        "controls": true,
+        "detail": true,
+        "canvasCount": 1,
+        "queue": 1
+      }
+    },
+    {
+      "name": "production: actual context restoration retains lap, camera, pause and quality",
+      "pass": true,
+      "detail": {
+        "before": {
+          "s": 447.93166253482684,
+          "clock": 14.999999999999789,
+          "view": "onboard",
+          "paused": true,
+          "scale": 1,
+          "quality": "balanced",
+          "cam": "{\"eye\":[57.113327905598474,0.4306182112190134,-22.62860658384228],\"tgt\":[60.74181154263673,0.3734321127691284,-22.928410863614083],\"fov\":63.46627792004345}"
+        },
+        "after": {
+          "s": 447.93166253482684,
+          "clock": 14.999999999999789,
+          "view": "onboard",
+          "paused": true,
+          "scale": 1,
+          "quality": "balanced",
+          "cam": "{\"eye\":[57.113327905598474,0.4306182112190134,-22.62860658384228],\"tgt\":[60.74181154263673,0.3734321127691284,-22.928410863614083],\"fov\":63.46627792004345}",
+          "glError": 0,
+          "detail": true,
+          "oldReleased": true
+        }
+      }
+    },
+    {
+      "name": "production: recovery test performs no service writes",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "live": 44,
+        "blocked": 0
+      }
+    },
+    {
+      "name": "no unexpected page, console or WebGL errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "cases": {
+    "baseline": {
+      "samples": [
+        {
+          "ms": 836.7999999821186,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 863.0999999940395,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 977.5999999940395,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 969.3000000119209,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 942.9000000059605,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 928.8000000119209,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 952.1999999880791,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 969.8000000119209,
+          "pixel": [
+            223,
+            220,
+            214,
+            255
+          ],
+          "limitQueries": 2,
+          "bufferData": 12,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        }
+      ],
+      "medianMs": 947.5499999970198,
+      "p95Ms": 977.5999999940395,
+      "meanMs": 930.0625
+    },
+    "candidate": {
+      "samples": [
+        {
+          "ms": 926,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 833.6999999880791,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 821.4000000059605,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 962.9000000059605,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 815.8000000119209,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 878.3999999761581,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 988.8000000119209,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        },
+        {
+          "ms": 929.6999999880791,
+          "pixel": [
+            143,
+            152,
+            158,
+            255
+          ],
+          "limitQueries": 0,
+          "bufferData": 0,
+          "glError": 0,
+          "resolution": [
+            640,
+            360
+          ],
+          "s": 485.69349821493927,
+          "clock": 19.999999999999506,
+          "detail": true
+        }
+      ],
+      "medianMs": 902.1999999880791,
+      "p95Ms": 988.8000000119209,
+      "meanMs": 894.5874999985099
+    }
+  },
+  "comparison": {
+    "medianRatio": 0.952139728764621,
+    "baselineMedianMs": 947.5499999970198,
+    "candidateMedianMs": 902.1999999880791
+  },
+  "complete": true
+}

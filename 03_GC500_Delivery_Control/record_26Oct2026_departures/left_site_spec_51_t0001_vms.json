@@ -1,0 +1,17 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026 (photo): \"1271129 F05419 / 1211356 ER9244 / 1182999 410UFQ / Left 230pm\" - three Coates VMS boards on T0001 (asset number and rego). Three boards stay (1211354, 1191877, 1211359). Left site 28 Oct 2026 14:30 AEST.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0001",
+   "at": "2026-10-28T14:30:00+10:00",
+   "nos": [
+    "1271129",
+    "1211356",
+    "1182999"
+   ],
+   "complete": false
+  }
+ ]
+}

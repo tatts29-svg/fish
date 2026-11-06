@@ -1,0 +1,57 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "720p native",
+      "ok": true
+    },
+    {
+      "name": "1080p native",
+      "ok": true
+    },
+    {
+      "name": "retina UHD",
+      "ok": true
+    },
+    {
+      "name": "native UHD",
+      "ok": true
+    },
+    {
+      "name": "5K bounded at UHD",
+      "ok": true
+    },
+    {
+      "name": "phone native",
+      "ok": true
+    },
+    {
+      "name": "portrait UHD",
+      "ok": true
+    },
+    {
+      "name": "texture capability limit",
+      "ok": true
+    },
+    {
+      "name": "720p removes eight of nine unseen UHD pixels",
+      "ok": true
+    },
+    {
+      "name": "four-sample smoothing and shadow detail retained",
+      "ok": true
+    },
+    {
+      "name": "export path delegates unchanged",
+      "ok": true
+    },
+    {
+      "name": "other quality choices delegate unchanged",
+      "ok": true
+    },
+    {
+      "name": "frame-rate guard cannot silently lower chosen native resolution",
+      "ok": true
+    }
+  ]
+}

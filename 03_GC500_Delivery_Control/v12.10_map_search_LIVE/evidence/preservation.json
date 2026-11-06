@@ -1,0 +1,34 @@
+[
+  {
+    "name": "all bytes outside map search, spot extension and footer unchanged",
+    "ok": true
+  },
+  {
+    "name": "one map module only",
+    "ok": true
+  },
+  {
+    "name": "catalog has exact drawing and frame source identities",
+    "ok": true
+  },
+  {
+    "name": "110 inspected source-symbol and label occurrences",
+    "ok": true
+  },
+  {
+    "name": "legend samples excluded from source catalog",
+    "ok": true
+  },
+  {
+    "name": "only explicitly labelled MP circles used as marshal posts",
+    "ok": true
+  },
+  {
+    "name": "wrong base refuses to patch",
+    "ok": true
+  },
+  {
+    "name": "already applied refuses to patch",
+    "ok": true
+  }
+]

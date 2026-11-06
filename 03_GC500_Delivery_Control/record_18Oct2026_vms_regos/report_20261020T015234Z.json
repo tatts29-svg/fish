@@ -1,0 +1,127 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261020T015234Z",
+ "finished": "2026-10-20T01:52:45.789Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "why": "Andrew, 20 Oct 2026: \"Wc31 16pan asset No should have cleaning ticked 16 pans get the install and leveling ,cleaninbg\" - block 12 already has levelling and cleaning and the 16-pan install is ticked; block 74 gets levelling and cleaning to match.",
+  "ops": [
+   {
+    "op": "labour_on",
+    "ref": "WC31",
+    "unit": "74",
+    "disc": "Toilets & amenities",
+    "item": "16Pan Block",
+    "line": "levelling"
+   },
+   {
+    "op": "labour_on",
+    "ref": "WC31",
+    "unit": "74",
+    "disc": "Toilets & amenities",
+    "item": "16Pan Block",
+    "line": "cleaning"
+   }
+  ]
+ },
+ "pageSha256": "396ea971e968e55182b054a936de316a82fa3751df6ba6d7cc566973d578bc0b",
+ "version": {
+  "before": 10070,
+  "after": 10076
+ },
+ "updated": {
+  "before": "2026-10-20T01:48:10.881Z",
+  "after": "2026-10-20T01:52:44.984Z"
+ },
+ "stage": [
+  {
+   "op": "labour_on",
+   "ref": "WC31",
+   "unit": "74",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "levelling",
+   "result": "ticked"
+  },
+  {
+   "op": "labour_on",
+   "ref": "WC31",
+   "unit": "74",
+   "disc": "Toilets & amenities",
+   "item": "16Pan Block",
+   "line": "cleaning",
+   "result": "ticked"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling",
+   "status": 200
+  },
+  {
+   "key": "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": null,
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": null,
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": null,
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": null,
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": null,
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": null
+  },
+  "after": {
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|levelling",
+    "v": "2026-10-20T01:52:41.480Z"
+   },
+   "stamps/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|cleaning",
+    "v": "2026-10-20T01:52:42.020Z"
+   },
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|levelling",
+    "v": "Andrew Fisher"
+   },
+   "by/labour~2f~WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": {
+    "_k": "labour/WC31/u74|Toilets & amenities|16Pan Block|cleaning",
+    "v": "Andrew Fisher"
+   },
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~levelling": {
+    "_k": "WC31/u74|Toilets & amenities|16Pan Block|levelling",
+    "v": true
+   },
+   "labour/WC31~2f~u74~7c~Toilets~20~~26~~20~amenities~7c~16Pan~20~Block~7c~cleaning": {
+    "_k": "WC31/u74|Toilets & amenities|16Pan Block|cleaning",
+    "v": true
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

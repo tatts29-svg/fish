@@ -1,0 +1,106 @@
+Author: Andrew Fisher
+GC500 v8.43 — an individual instrument for every supported type
+
+VERIFIED LIVE, 4 Oct 2026. Published at 23:06 AEST; public checks complete.
+READY checkpoint: 13f37b25. Public content matches the frozen candidate.
+Owner: Codex. Claude remains intentionally paused. The separate steering-wheel
+film is held and excluded.
+
+Verified base v8.42 SHA256:
+d3495d9221414c8997d8962fc83031b86b10b500458c9e477197926b337d154a
+
+Implementation checkpoint: c69a6ef0.
+Frozen candidate SHA256:
+6b1c0c142e3633b9a05727f2279fcb5a549969e86191c82e3dc7776f6c7fefb7
+10,629,304 bytes. Type model 7ed7435f; UI c6e3683a; CSS b24eaaff.
+Standard build passes all eleven inline-script checks. All 44 exact source and
+preservation checks pass. The type adapter passes 21 synthetic integration
+checks and 138 independent captured-native-input replay assertions.
+
+Resulting behaviour
+Each supported native item type has a visible instrument within its existing
+group, with its own Total, Done, Left, qualified completion percentage, LED bar,
+native On site / on hire reading and dated on-site plan comparison. Building
+sizes and toilet variants retain their exact source names. Equipment families
+remain distinct. Each fencing work type retains its native quantities and unit.
+
+Matching count buttons open only that type's references and explain source
+qualifications. Unknown physical quantities do not become guessed totals or
+percentages. Conflicting completion evidence retains a labelled lower-bound
+percentage and includes review quantities in Left. Tank scope and unresolved
+track-mat units remain explicit. The plan compares arrival records to due
+references; it does not invent installation deadlines. Mixed references can
+appear in more than one type, so their per-type plan counts are not additive.
+
+Old type tables are removed only after complete source coverage and reference
+reconciliation pass. Unique source, schedule and financial context stays within
+the group. Parent summaries, native records and financial calculations are
+unchanged. No operational status is inferred from decorative animation.
+
+One visible instrument carries the decorative LED motion. As the parent header
+leaves view, its selected category can hand motion to one visible type bar.
+Figures and labels stay still. Pause, reduced motion, global motion settings,
+dialogs, hidden views and printing retain their guards.
+
+Verification and publication requirements
+The standard live-base build, exact source preservation checks, independent
+type arithmetic, phone/laptop/4K layout and count drilldowns, motion guards,
+focus/scroll, and desktop/phone navigation sweeps must pass before publication.
+Publication uses the unchanged-base guard, exact public readback and actual
+public-browser checks. Shared-record fingerprints are compared before and after.
+Private snapshots, source quantities and browser captures remain outside Git.
+No backend, maps, media, SMS or operational-record deployment is in this change.
+
+Completed candidate verification
+- Independent visual review passes 1366px and 1280px laptops, 390px phone and
+  native 3840px. Root also inspected the phone Toilet and laptop Toilet/Fencing
+  captures. Type names, counts, units and qualified percentages remain legible.
+- Exact-candidate desktop and phone standard sweeps each pass 22 routes, seven
+  deep links and Back navigation. Existing route guards match their baseline.
+  No runtime/console errors or operational write attempts occurred. The only
+  blocked non-GET is the existing Google Maps session-creation request.
+- Source and candidate hashes are unchanged before and after these checks.
+
+Focused browser verification
+The initial run completed 358/359 assertions before a test helper queried the
+removed Today board after navigating to Timeline. The helper now handles an
+inactive pane. Original evidence is retained; no product change was required.
+The continuation reuses only the initial laptop's 123 successful exact-type
+Total/source/focus assertions, covering all native asset types. It completes
+all remaining cases across both laptop sizes, phone and 4K: 1506/1508 pass.
+
+The two remaining 4K assertions sampled cached motion state at fixed 100ms and
+200ms delays. A same-byte five-cycle native-event probe passes 30/30 checks.
+Reduced-motion CSS blocks effects immediately; each native media callback then
+clears the controller state. In four post-dialog repetitions the native scroll
+callback arrived 243–259ms after the scripted scroll and selected the visible
+child in that same event. Layout redraws also retain a visible animation target.
+The other repetition needed no scroll and retained its correct visible target.
+There is no remaining persistent motion defect in these checked paths. The
+original results and timing traces are retained, not relabelled as a full pass.
+
+Before integration and before publication, all 33 shared-record collections,
+record version and whole-record hash match. Fresh PR discussion and the remote
+Claude branch remain unchanged; Claude stays paused at dacf75dd. Publication
+and actual-public checks are the remaining actions owned by Codex.
+
+Publication and actual-public verification
+The standard upload confirmed the live base was unchanged, the edit capability
+was valid, existing media references were accepted, and the public page served
+exact candidate bytes. No force override was used. Published at 23:06 AEST on
+4 Oct 2026, full SHA256 and byte count as above.
+
+Actual-public checks pass 889/889 across 1366x768, 1280x800, 390x844 DPR2 and
+3840x2160. Exact upstream content and Chromium BOM-normalised body parity pass
+in each view, with zero local HTML substitutions. Independent quantities,
+qualified percentages, dated type plans, source detail, parent summaries and
+responsive layouts pass. No runtime errors, unexpected console errors or
+operational write attempts occurred. Root inspected the actual-public phone
+Toilet instruments. Shared-record and media snapshots remain unchanged.
+
+All 33 shared-record collections, record version and whole-record fingerprints
+match before integration, immediately before upload, after upload and after
+public verification. No backend, media, map or operational-record deployment
+occurred. Existing tabs need one reload to v8.43. Claude remains intentionally
+paused; the separate film remains held. Physical-device perfection is not
+claimed. Source folder is LIVE; private evidence stays private.

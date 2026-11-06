@@ -1,0 +1,13 @@
+/* Author: Andrew Fisher. Commercial detail inside the existing fencing register. */
+#pane-fencing .fp-trace-commercial837{min-width:0;overflow-wrap:anywhere}
+#pane-fencing .fp-trace-commercial837 h4{font-size:14px;line-height:1.4;margin:10px 0 6px}
+#pane-fencing .fp-trace-commercial837 details{margin:8px 0}
+#pane-fencing .fp-trace-commercial837 summary{cursor:pointer;min-height:36px;align-content:center;line-height:1.5}
+#pane-fencing .fp-trace-commercial837 div.fm-trace-allocation837{margin:10px 0;padding:12px;border:1px solid var(--fp-line);border-radius:7px;background:#fff}
+#pane-fencing .fp-trace-commercial837 .fm-trace-allocation837>b{display:block;line-height:1.5}
+#pane-fencing .fp-trace-commercial837 .fm-trace-allocation837>small{display:block;margin-top:6px;color:var(--fp-mute);line-height:1.5}
+#pane-fencing .fp-trace-commercial837 dl{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:14px;row-gap:10px;margin:12px 0}
+#pane-fencing .fp-trace-commercial837 dt,#pane-fencing .fp-trace-commercial837 dd{min-width:0;margin:0;line-height:1.5}
+#pane-fencing .fp-trace-commercial837 dd{font-size:12px;font-variant-numeric:tabular-nums}
+#pane-fencing .fp-trace-commercial837 .fm-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+#pane-fencing .fp-trace-commercial837 .fm-actions button,#pane-fencing .fp-trace-commercial837 .fm-actions a{display:inline-flex;align-items:center;min-height:44px;max-width:100%;padding:7px 9px;font:inherit;box-sizing:border-box}

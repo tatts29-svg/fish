@@ -1,0 +1,11 @@
+--- work/car-app.js
++++ work/car-app.js
+@@ -615,7 +615,7 @@
+  if(!DX.seated)m.update(dt);
+  const P=DX.phase,R=doorReach(),clear=Math.hypot(m.pos.x-R.x,m.pos.z-R.z)>R.len+.6;
+  if(DX.state==='exiting'){
+-  if(P==='door'&&DX.door>=1){m.place(DX_SILL[0],DX_SILL[1],Math.PI);m.post={kind:'crouch',k:1,want:1,stage:null,rate:1.4,seat:null,kneel:null};driverShow(true);DX.phase='crawlout';}
++  if(P==='door'&&DX.door>=1){m.place(DX_SILL[0],DX_SILL[1],Math.PI);m.post={kind:'crouch',k:1,want:1,stage:null,rate:1.4,seat:null,kneel:null};m.update(0);/* pose at the sill before the first visible frame */driverShow(true);DX.phase='crawlout';}
+   else if(P==='crawlout'&&!m.path){m.crouch(0);DX.phase='rise';}
+   /* stood up: straight on out of the door's reach, without stopping */
+   else if(P==='rise'&&m.post.kind==='stand'&&m.post.k<=0){crew.walk(m,R.out);DX.phase='stepout';}

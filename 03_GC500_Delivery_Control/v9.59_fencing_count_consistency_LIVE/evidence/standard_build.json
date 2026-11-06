@@ -1,0 +1,8 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "checks": 49,
+  "stateUnchanged": true,
+  "sourceGuardPreservedAfterStandardScrub": true,
+  "basis": "v9.61 standard combined build; final combined release is checked again before publication"
+}

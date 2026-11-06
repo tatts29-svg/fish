@@ -1,0 +1,361 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261027T003752Z",
+ "finished": "2026-10-27T00:38:27.113Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 27 Oct 2026 (10:3x AEST): \"1030Am 1189409 has just left\". 1189409 is P62's only unit (Gate 5 QFES Office, Building 6m, Coates; ticked Ready by Andrew and booked by him for pick-up 27 Oct 09:00; read 10:36 AEST, the only place the number is on the record, not already left), so P62 left in full at 10:30 AEST. Its air conditioners 1189912 and 1189908, fire extinguisher and fridge 1254221 stay listed on P62 as gear that goes with it.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P62",
+    "at": "2026-10-27T10:30:00+10:00",
+    "nos": [
+     "1189409"
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "c83f1a27a3995852437afe4890bf4dd43d253aecb3128baa52b12a61d9b704ba",
+ "version": {
+  "before": 11541,
+  "after": 11542
+ },
+ "updated": {
+  "before": "2026-10-27T00:02:35.921Z",
+  "after": "2026-10-27T00:38:26.318Z"
+ },
+ "money": {
+  "before": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 996131.92,
+   "labour": 72974.51,
+   "labour_ticks": 511,
+   "card_hire": 227966.52,
+   "cost": 448019.57,
+   "difference": 548112.35,
+   "branches": {
+    "KINP": 242338.66,
+    "NVAC": 81995.19,
+    "STPS": 73942.65,
+    "MEAD": 17859.02
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P62",
+   "at": "2026-10-27T10:30:00+10:00",
+   "nos": [
+    "1189409"
+   ],
+   "complete": true,
+   "result": "left site 2026-10-27T10:30:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1189409 - P62 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P62",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P62": {
+    "state": "on site",
+    "set_at": "2026-10-14T22:38:18.452Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-14T22:38:31.344Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:13.406Z",
+    "ready1238_units": {
+     "coates|1189409": {
+      "on": true,
+      "at": "2026-10-26T20:16:39.902Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1189409": {
+      "at": "2026-10-27T09:00:00+10:00",
+      "note": "",
+      "by": "Andrew Fisher",
+      "set": "2026-10-26T21:38:53.365Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-14T22:38:18.452Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.611Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:25.372Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-14T22:38:28.580Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:31.344Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:13.406Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1189409",
+      "ready": true,
+      "at": "2026-10-26T20:16:39.902Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1189409",
+      "pickup": "2026-10-27T09:00:00+10:00",
+      "note": "",
+      "by": "Andrew Fisher",
+      "at": "2026-10-26T21:38:53.365Z"
+     }
+    ],
+    "loading872": {
+     "u1189409": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.889Z"
+     }
+    },
+    "_k": "P62"
+   }
+  },
+  "after": {
+   "delivery/P62": {
+    "state": "in transit",
+    "set_at": "2026-10-27T00:38:11.774Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-10-27T00:38:11.774Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-21T23:03:13.406Z",
+    "ready1238_units": {
+     "coates|1189409": {
+      "on": true,
+      "at": "2026-10-26T20:16:39.902Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1189409": {
+      "at": "2026-10-27T09:00:00+10:00",
+      "note": "",
+      "by": "Andrew Fisher",
+      "set": "2026-10-26T21:38:53.365Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T00:38:11.774Z",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:20.611Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-10-27T00:38:11.774Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "047aade2-7b86-4139-bbe8-8d1137097e74",
+       "date": "2026-10-27",
+       "departedAt1211": "2026-10-27T10:30:00+10:00",
+       "programmeDate": "2026-10-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-14T22:38:18.452Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P62\",\"coates\",\"asset\",\"1189409\"]"
+         ],
+         "numbers": [
+          "1189409"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P62\",\"coates\",\"asset\",\"1189409\"]",
+           "number": "1189409",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-10-27T00:38:11.774Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:25.372Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-14T22:38:28.580Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": true,
+      "at": "2026-10-14T22:38:31.344Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-10-27T00:38:11.774Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-10-14T22:38:18.452Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-21T23:03:13.406Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1189409",
+      "ready": true,
+      "at": "2026-10-26T20:16:39.902Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1189409",
+      "pickup": "2026-10-27T09:00:00+10:00",
+      "note": "",
+      "by": "Andrew Fisher",
+      "at": "2026-10-26T21:38:53.365Z"
+     }
+    ],
+    "loading872": {
+     "u1189409": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T21:02:03.889Z"
+     }
+    },
+    "_k": "P62"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,6 @@
+/* Author: Andrew Fisher. Retain the existing map bar and make its choices explicit. */
+#expcard #map1147-controls > small{display:block}
+#map1147-controls .map1257-left{flex:0 1 auto;flex-direction:row;align-items:center;white-space:normal}
+#map1147-controls .map1257-left input{width:20px;height:20px;min-width:20px;margin:0;accent-color:#ff6a13}
+#map1257-offsheet{flex-basis:100%;font-size:12px;line-height:1.45;color:#d6e2e8;overflow-wrap:anywhere}
+#map1257-offsheet[hidden]{display:none}

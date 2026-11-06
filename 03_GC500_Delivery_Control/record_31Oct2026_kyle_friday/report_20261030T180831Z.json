@@ -1,0 +1,101 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261030T180831Z",
+ "finished": "2026-10-30T18:08:47.950Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew Fisher, 31 Oct 2026 ~04:2x AEST (this chat): 'Also no kyle friday either.' The labour-hire row for Friday 30 Oct (10.5 h on days, entered 25 Oct from the demob roster) is taken off through the page's own removeOurCost, which keeps it with a tombstone so the removal travels with the record; the KINP note written on it earlier today goes with it. The other three people rostered that Friday keep their rows and notes.",
+  "ops": [
+   {
+    "op": "labour_remove",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "why": "Andrew Fisher, 31 Oct 2026: did not work Friday 30 Oct"
+   }
+  ]
+ },
+ "pageSha256": "10e8e8c23468d593a40c7ca7b88abb0ceceba203cffc4f9956933e193f1d0f64",
+ "version": {
+  "before": 12493,
+  "after": 12496
+ },
+ "updated": {
+  "before": "2026-10-30T18:06:37.445Z",
+  "after": "2026-10-30T18:08:46.993Z"
+ },
+ "stage": [
+  {
+   "op": "labour_remove",
+   "id": "W-L-kyle-gover-20261030",
+   "person": "Kyle Gover",
+   "date": "2026-10-30",
+   "was": {
+    "hours": 10.5,
+    "start": "06:30",
+    "finish": "17:00",
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026. · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026"
+   },
+   "result": "taken off (was 10.5 h 06:30-17:00) - W-L-kyle-gover-20261030 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "writes": [
+  {
+   "key": "deleted/W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-kyle-gover-20261030",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-kyle-gover-20261030",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "deleted/W-L-kyle-gover-20261030": null,
+   "by/deleted~2f~W-L-kyle-gover-20261030": null,
+   "costs/W-L-kyle-gover-20261030": {
+    "id": "W-L-kyle-gover-20261030",
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "page",
+    "person": "Kyle Gover",
+    "date": "2026-10-30",
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "note": "Back on days for demob, 27–30 Oct and 2–6 Nov 2026. Confirmed by Andrew Fisher, 25 Oct 2026. · KINP labour, the rest of the day · 9968862 out: P52, P54, P55, P56, P57 · 9968955 out: PG01, WC09, WC19, WC20 · Andrew Fisher, 31 Oct 2026",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-10-25T07:36:07.621Z",
+    "at": "2026-10-25T07:36:07.621Z",
+    "by": "Andrew Fisher",
+    "updated_at": "2026-10-30T17:56:38.205Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-kyle-gover-20261030"
+   }
+  },
+  "after": {
+   "deleted/W-L-kyle-gover-20261030": {
+    "_k": "W-L-kyle-gover-20261030",
+    "v": "2026-10-30T18:08:44.471Z"
+   },
+   "by/deleted~2f~W-L-kyle-gover-20261030": {
+    "_k": "deleted/W-L-kyle-gover-20261030",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-kyle-gover-20261030": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

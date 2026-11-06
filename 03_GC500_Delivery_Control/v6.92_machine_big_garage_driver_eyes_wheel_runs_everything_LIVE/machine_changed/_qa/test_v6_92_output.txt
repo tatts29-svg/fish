@@ -1,0 +1,28 @@
+INFO car view renderer.info {"calls":1754,"triangles":1592950}
+PASS A1 the hall is ~1.5x the old 36 × 28 × 9 m  {"length":54,"width":42,"height":12}
+PASS A2 the roller door is shut and nothing of the garage stands outside its walls (every mesh bounds inside the hall)  {"meshes":153,"outside":[]}
+PASS A3 the background is a dark interior colour  #14181b
+PASS A4 the 360 ring: no pixel of outside from any reachable camera place (background seen nowhere)  {"views":102,"pixels":2550000,"magenta":0,"worst":0,"cameraFurthestPastAWall":-0.12}
+PASS A5 operating machinery: objects whose transforms change between frames  {"moved":27,"movers":28,"still":["balancer wheel"]}
+PASS A6 no machinery between the car view's camera and the car  {"rays":273,"blocked":0,"who":{},"camera":[-7.73,1.58,3.93]}
+PASS A6 no machinery between the engine view's camera and the car  {"rays":273,"blocked":0,"who":{},"camera":[-7.12,4.4,5.69]}
+PASS B1 cockpit camera at the driver's eye point (wheel together): distance < 0.02 m  {"distance":0,"eye":[0.39,1.02,-0.3],"controlsEnabled":false,"helmetVisible":false,"armsVisible":true}
+PASS B2 first person: helmet off the camera's head, own arms in view, orbit controls off  {"eye":[0.39,1.02,-0.3],"controlsEnabled":false,"helmetVisible":false,"armsVisible":true}
+PASS B3 no orbit, no zoom in the cockpit: a drag, the scroll wheel, the zoom buttons and − leave the camera where it was (< 5 mm) and at the eye  {"moved_m":0,"eyeDistance":0}
+PASS B4 the drag turned the driver's head instead (looking round works)  {"yawBefore":0,"yawAfter":0.493}
+PASS B5 head-turn limits: ±100° yaw, −50° … +30° pitch  {"max":{"yaw":1.7453292519943295,"pitch":0.5235987755982988},"min":{"yaw":-1.7453292519943295,"pitch":-0.8726646259971648}}
+PASS B6 cockpit camera at the driver's eye point with the wheel apart: distance < 0.02 m (no exhibit eye)  {"distance":0,"spread":1}
+PASS B7 the head leans with the steering (the eye point moves with it) and the camera follows  {"eyeMoved_m":0.0178}
+PASS C1 every cockpit control requests a sound when operated  {"controls":26,"silent":[]}
+PASS C2 each control's sound is a synthesised mechanical one that actually played (sound on)  {"withSynth":26,"of":26}
+INFO sounds per control [{"control":"panel:switch:IGN:key","sounds":["key","relay","fuel-prime","selftest"]},{"control":"panel:switch:FUEL:toggle","sounds":["toggle-on","relay","fuel-prime"]},{"control":"panel:switch:FAN:toggle","sounds":["toggle-on","fan-spool"]},{"control":"panel:switch:LIGHTS:toggle","sounds":["toggle-on","lamp"]},{"control":"panel:button:START:panel-button","sounds":["button","solenoid","v8-start","starter-pinion"]},{"control":"panel:button:PIT:panel-button","sounds":["button","pit-on"]},{"control":"panel:button:RADIO:panel-button","sounds":["button","radio-on"]},{"control":"panel:button:RADIO:panel-button","sounds":["button","radio-off"]},{"control":"panel:rotary:VOL:rotary","sounds":["rotary"]},{"control":"wheel:shift:1:paddle","sounds":["paddle","dog-engage","clang","dog"]},{"control":"wheel:shift:-1:paddle","sounds":["paddle","dog-engage","clang","dog"]},{"control":"wheel:button:RADIO:wheel-button","sounds":["button","radio-on"]},{"control":"wheel:button:PIT:wheel-button","sounds":["button","pit-off"]},{"control":"wheel:button:PAGE:wheel-button","sounds":["button"]},{"control":"wheel:button:NEUTRAL:wheel-button","sounds":["button","ui-denied"]},{"control":"wheel:button:START:wheel-button","sounds":["button","v8-stop"]},{"control":"wheel:switch:IGN:wheel-button","sounds":["button","relay"]},{"control":"wheel:switch:FUEL:wheel-button","sounds":["button","relay"]},{"control":"wheel:switch:FAN:wheel-button","sounds":["button","fan-stop"]},{"control":"wheel:switch:LIGHTS:wheel-button","sounds":["button","lamp"]},{"control":"wheel:switch:HBRAKE:wheel-button","sounds":["button","ratchet"]},{"control":"wheel:switch:FIRE:wheel-button","sounds":["button","guard-open","arm"]},{"control":"panel:switch:FIRE:guard","sounds":["toggle-off","guard-close","disarm"]},{"control":"panel:shift:-1:lever","sounds":["lever","ui-denied"]},{"control":"panel:shift:1:lever","sounds":["lever","dog-engage","clang","dog"]},{"control":"panel:switch:HBRAKE:handbrake","sounds":["hb-release"]}]
+PASS C3 the distinct mechanical sounds are all in use  ["arm","button","clang","disarm","dog","dog-engage","fan-spool","fan-stop","fuel-prime","guard-close","guard-open","hb-release","key","lamp","lever","paddle","pit-off","pit-on","radio-off","radio-on","ratchet","relay","rotary","selftest","solenoid","starter-pinion","toggle-off","toggle-on","ui-denied","v8-start","v8-stop"]
+PASS C4 the wheel operates everything: every system has a control on the wheel (and both shifts on its paddles)  ["UP","DOWN","RADIO","PIT","PAGE","NEUTRAL","START","IGN","FUEL","FAN","LIGHTS","HBRAKE","FIRE"]
+PASS C5 START from the wheel: button click, starter solenoid, then the starter and the V8  {"ids":["button","solenoid","v8-start","starter-pinion"],"running":true}
+PASS C6 ignition on runs the dash self-test and lights the IGN button on the wheel  {"testing":true,"ign":true,"capGlow":3.16,"capNow":2.2}
+PASS C7 RADIO plays assets/audio/coates-fm.mp3, fetched only after Sound on  {"fetchesBeforeSoundOn":0,"fetchesAfter":1,"ids":["button","radio-on"],"playing":true,"missing":false,"duck":0.316,"duckDb":-10,"cabin":true}
+PASS C8 the V8 is ducked about 10 dB under the radio  {"duckDb":-10}
+PASS C9 RADIO again: click-off, the music stops and the V8 comes back up  {"ids":["button","radio-off"],"playing":false,"duck":1}
+PASS D1 no page errors, no console errors  []
+
+24 / 24 checks passed

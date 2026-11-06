@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: 0714 and 172824 added to WC67, \"this will make the total 4 at this reference\". WC67 was already complete for its first two; the four at the reference are recorded as received and complete is pressed again so the page counts all four.",
+ "ops": [
+  {"op": "supplied", "ref": "WC67", "item": "FWF", "qty": 4},
+  {"op": "complete_again", "ref": "WC67"}
+ ]
+}

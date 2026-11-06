@@ -1,0 +1,22 @@
+// Author: Andrew Fisher. Actual saved centreline and independent geometric checks.
+const fs=require('fs'),vm=require('vm'),assert=require('assert');let checks=0;const ok=(v,m)=>{assert.ok(v,m);checks++;};
+const src=fs.readFileSync(__dirname+'/landmarks970.js','utf8');
+const scene=JSON.parse(fs.readFileSync(process.argv[2]||'/workspace/private-showcase970-audit/scene969.json'));
+const base=fs.readFileSync(process.argv[3]||'/workspace/gc500-current-release/03_GC500_Delivery_Control/build/GC500_v9.69/GC500_Delivery_Control_hosted.html','utf8');
+const font=base.slice(base.indexOf('const DRESS_FONT='),base.indexOf('G.dressCircuit=function'));
+const inPoly=(p,poly)=>{let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;};
+const ctx={G:{M_PER_PT:scene.m,inPoly},console};vm.createContext(ctx);vm.runInContext(font+'\nconst originalFont970=JSON.stringify(DRESS_FONT);\n'+src+'\nthis.font=DRESS_FONT;this.original=JSON.parse(originalFont970);',ctx);const H=ctx.G.photoLandmarks970;
+for(const [key,value]of Object.entries(ctx.original))ok(JSON.stringify(value)===JSON.stringify(ctx.font[key]),'old glyph preserved '+key);
+const S={CL:{p:scene.centre,cum:scene.cum,L:scene.length},outer:scene.outer,inner:scene.inner,standDecor:{i:[]},photoLabels792:[]};
+for(const [id,expected]of [['PB1',88.783],['PB2',211.687],['OT4',258.697],['PB3',295.757],['OT5',338.886]]){
+ const a=H.resolve(S,id);ok(a&&a.id===id,'resolved '+id);ok(Math.abs(a.s-expected)<.1,'source crossing s '+id);ok(a.face[0]*a.tangent[0]+a.face[1]*a.tangent[1]<-.9,'faces approaching car '+id);ok(a.worldEnds.every(p=>!inPoly(p,S.outer)||inPoly(p,S.inner)),'support outside road '+id);ok(a.span<12,'bounded illustrative span '+id);
+ const A=a.sourceWorldEnds[0],B=a.sourceWorldEnds[1];for(const p of a.worldEnds)ok(Math.abs((B[0]-A[0])*(p[1]-A[1])-(B[1]-A[1])*(p[0]-A[0]))<1e-9,'exact source crossing axis '+id);
+}
+ok(H.resolve(S,{id:'PB3',ends:[[0,0],[1,1]]})===null,'unreviewed anchor rejected');ok(H.resolve({...S,CL:null},'PB3')===null,'missing scene rejected');ctx.G.M_PER_PT=6;ok(H.resolve(S,'PB3')===null,'wrong scene scale rejected');ctx.G.M_PER_PT=scene.m;
+const quads=[],segs=[];const dquad=(...args)=>{quads.push(args);S.standDecor.i.push(0,1,2,0,2,3);};const text=(centre,face,text,px,colour,lift)=>{S.photoLabels792.push({centre,face,text,px,colour,lift});for(const ch of text){const glyph=ctx.font[ch]||ctx.font[ch.toUpperCase()];if(glyph)for(const row of glyph)for(const run of row.match(/#+/g)||[])S.standDecor.i.push(0,1,2,0,2,3);}};const panel=(c,f,w,h,col,lift)=>dquad(c,f,[w,h],col,lift);
+const k={dquad,ed:{seg:(...a)=>segs.push(a)},H:scene.deckH,text,panel},stats={};H.build(S,k,stats);ok(stats.photoLandmarks970.landmarks.length===5,'exactly five matched landmarks');ok(stats.bridges===3&&stats.photoGantries970===2,'three bridges and two separate advertising spans');ok(!stats.photoLandmarks970.skipped.length,'both landmarks built');ok(stats.photoLandmarks970.newDrawCalls===0&&stats.photoLandmarks970.newTextures===0,'existing batches/resources only');
+for(const l of S.photoLabels792)for(const ch of l.text)if(ch!==' ')assert.ok(ctx.font[ch]||ctx.font[ch.toUpperCase()],'missing fallback glyph '+ch);checks++;
+ok(S.standDecor.i.length/6<7500,'complete fallback geometry budget');ok(quads.length<400,'static decoration quad budget');ok(segs.length<420,'static metal segment budget');ok(S.photoLabels792.length===34,'bounded label count');const before=[quads.length,segs.length,S.photoLabels792.length];const firstSegments=segs.length;H.build(S,k,stats);ok(JSON.stringify(before)===JSON.stringify([quads.length,segs.length,S.photoLabels792.length]),'no duplicate emission on same batch');
+const stats2={};const S2={...S,standDecor:{i:[]},photoLabels792:[]};const q2=(...a)=>S2.standDecor.i.push(0,1,2,0,2,3);H.build(S2,{...k,dquad:q2,text:(...a)=>S2.photoLabels792.push(a),panel:()=>q2()},stats2);ok(stats2.photoLandmarks970.landmarks.length===5,'fresh batch rebuilds all five');
+ok(!/createTexture|createBuffer|requestAnimationFrame|addEventListener|localStorage|setInterval/.test(src),'no resource/per-frame/preferences operations');
+console.log(JSON.stringify({checks,quads:quads.length,segments:firstSegments,labels:S.photoLabels792.length,landmarks:stats.photoLandmarks970.landmarks},null,2));

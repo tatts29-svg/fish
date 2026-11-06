@@ -1,0 +1,14 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: \"We shouldn't have any spare now\" / \"Allocate it to eventco. Allocate it in here please\" (screenshot: Map explorer on the Event Operations Compound - EVL, ABD, OPS) / \"Wc85 goes here https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6\" / \"Add to this pinned locaction https://maps.google.com/?q=-27.986807,153.428013 ... pg05 pg29 pg01 pg03\". The record's only spare is Event Portables FWF 0164 (parked at Pit Lane, added 30 Sep); it goes onto WC05, the Event Operations Compound toilet. The WC85 link resolves to -27.9386358, 153.4264769.",
+ "allowRemove": ["spares/SP-munkjwps3tm6"],
+ "allowRemoveWhy": "spareUse takes the spare out of spares as it puts it on WC05 - the page's own move, Andrew's word",
+ "ops": [
+  {"op": "spare_use", "id": "SP-munkjwps3tm6", "no": "0164", "ref": "WC05"},
+  {"op": "place", "ref": "PG01", "lat": -27.986807, "lon": 153.428013, "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026", "source": "https://maps.google.com/?q=-27.986807,153.428013"},
+  {"op": "place", "ref": "PG03", "lat": -27.986807, "lon": 153.428013, "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026", "source": "https://maps.google.com/?q=-27.986807,153.428013"},
+  {"op": "place", "ref": "PG05", "lat": -27.986807, "lon": 153.428013, "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026", "source": "https://maps.google.com/?q=-27.986807,153.428013"},
+  {"op": "place", "ref": "PG29", "lat": -27.986807, "lon": 153.428013, "how": "Andrew Fisher's pinned location (Google Maps), 19 Oct 2026", "source": "https://maps.google.com/?q=-27.986807,153.428013"},
+  {"op": "place", "ref": "WC85", "lat": -27.938636, "lon": 153.426477, "how": "Andrew Fisher's Google Maps pin, 19 Oct 2026", "source": "https://maps.app.goo.gl/a5Ccvr1aXqedGv2K6"}
+ ]
+}

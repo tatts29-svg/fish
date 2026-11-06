@@ -1,0 +1,15 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 5 Nov 2026 (09:0x AEST): \"P17  leaving at 9am\". 1268887 is P17's only unit (Coates portable building; ticked Ready 3 Nov; Brenden Meek's booking for 5 Nov 10:00 on the record; read 09:06 AEST, not already left), so P17 left in full at 09:00 AEST on Thu 5 Nov 2026, an hour before that booking. Its fire extinguisher stays listed on P17 as gear that goes with it. Recorded after 09:00, as a departure is only recorded once its time has come.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P17",
+   "at": "2026-11-05T09:00:00+10:00",
+   "nos": [
+    "1268887"
+   ],
+   "complete": true
+  }
+ ]
+}

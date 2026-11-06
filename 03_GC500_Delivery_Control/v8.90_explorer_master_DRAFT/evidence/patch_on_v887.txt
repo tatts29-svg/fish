@@ -1,0 +1,28 @@
+input: the v8.87 prepared explorer files as found in ../v8.87_map_explorer_DRAFT/explorer/ at the time of this run (that folder is still being edited by its author; re-run at publish time), plus the unchanged v8.64 files it does not carry (fencing-map-core.js, fencing-map.css, scene-worker.js, explorer-fix864.css)
+d7041320fc3ff63a133cc8e3ce859bbce3e6dc669e2a990bb0fc5f7b27a7ac3b  explorer-fix864.js
+b64b6341ee142e33e21ef41651d8c0f9e2aeda4661b9f2621ff5b3895e52eb99  explorer-fix887.css
+6996471a6a0f568d9136d1165cccba84b411af85638674420fe360d223a44543  explorer-fix887.js
+161dabb105c15f5efca5a199c625191ed54343237f6af2d8c327c6d365921679  explorer-merge.js
+ff489a429abbdf14a37dff08d6e48ebf0bb36d76717f8c1968e598e5b81224f4  explorer.js
+0c26c3b7777f99573326123e264d4fb4e53196ee0a1882aaa6dd6aa7ea5393ff  fencing-map-core.js
+e3a4bef6c17d7288f0a51c14732129fba32f1f5bbf849d113c3124dc5b55739f  fencing-map-explorer.js
+a4f3e8688702c8dd80fc9522d039aab0c4ea4938f97b3384a8ae8134f18ced46  fencing-map.css
+2ce77cd5d396262836cb52e88eb5a45029bd5c8027b68205219dcf196cd844b8  index.html
+ec58b3bcb4f3b8594f3ab1304cf4d564dd581bf974f708cdea56203026e9bbae  scene-worker.js
+
+python3 tools/patch_explorer890.py code_v887_in out890/assets code_v887_out
+scene token 5c6a6ae30507 · explorer.js token 80e407e86503
+explorer-fix864.js               7399 d7041320fc3f
+explorer-fix887.css              4481 b64b6341ee14
+explorer-fix887.js               3240 6996471a6a0f
+explorer-merge.js               27134 161dabb105c1
+explorer.js                    143175 80e407e86503
+fencing-map-core.js             10357 0c26c3b7777f
+fencing-map-explorer.js         51564 e3a4bef6c17d
+fencing-map.css                  6118 a4f3e8688702
+index.html                      28136 a1529280ed88
+scene-worker.js                  7210 ec58b3bcb4f3
+
+second application:
+already applied
+exit 1

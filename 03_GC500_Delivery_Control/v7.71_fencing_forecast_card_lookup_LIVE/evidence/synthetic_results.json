@@ -1,0 +1,112 @@
+{
+  "author": "Andrew Fisher",
+  "fixture": "synthetic only",
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "patch accepts the current base",
+      "pass": true
+    },
+    {
+      "name": "second application refused without changing the candidate",
+      "pass": true
+    },
+    {
+      "name": "wrong base refused without changing it",
+      "pass": true
+    },
+    {
+      "name": "embedded records unchanged by the patch",
+      "pass": true
+    },
+    {
+      "name": "all three supported types add only forecast Revenue",
+      "pass": true
+    },
+    {
+      "name": "supported types no longer reported as missing a card rate",
+      "pass": true
+    },
+    {
+      "name": "all supplier-cost gaps remain identical",
+      "pass": true
+    },
+    {
+      "name": "unknown types still have both gaps",
+      "pass": true
+    },
+    {
+      "name": "existing docket line Revenue and cost preserved",
+      "pass": true
+    },
+    {
+      "name": "new row details identify forecast quantities and unknown cost",
+      "pass": true
+    },
+    {
+      "name": "week totals reconcile to their detail",
+      "pass": true
+    },
+    {
+      "name": "future weeks priced with the same rule",
+      "pass": true
+    },
+    {
+      "name": "week ending today remains a current forecast",
+      "pass": true
+    },
+    {
+      "name": "past-week behaviour and behind figures unchanged",
+      "pass": true
+    },
+    {
+      "name": "past weeks without remaining docket quantities remain omitted",
+      "pass": true
+    },
+    {
+      "name": "unconfirmed demob weeks remain excluded",
+      "pass": true
+    },
+    {
+      "name": "weeks without programme basis remain excluded",
+      "pass": true
+    },
+    {
+      "name": "a supported type with a docket column is counted once at its existing rate",
+      "pass": true
+    },
+    {
+      "name": "hourly supplier treatment untouched",
+      "pass": true
+    },
+    {
+      "name": "invalid or nonpositive quantities cannot create Revenue or fabricated gaps",
+      "pass": true
+    },
+    {
+      "name": "boolean quantity cannot be coerced into forecast work",
+      "pass": true
+    },
+    {
+      "name": "array quantity cannot be coerced into forecast work",
+      "pass": true
+    },
+    {
+      "name": "object quantity cannot be coerced into forecast work",
+      "pass": true
+    },
+    {
+      "name": "blank string quantity cannot be coerced into forecast work",
+      "pass": true
+    },
+    {
+      "name": "finite positive numeric strings remain supported",
+      "pass": true
+    },
+    {
+      "name": "multiple weeks reconcile and accumulate unknown cost quantities",
+      "pass": true
+    }
+  ]
+}

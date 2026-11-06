@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 15:xx AEST: \"2 x 200kva generators leaving at 315pm\". The two 200 kVA concert generators are reference GN? (\"Concert\", 2 x 200kva & cables; contract 9994954, KINP), Coates 1316182 and 1316183, its only units (both ticked Ready 2 Nov): they left site at 15:15 on 2 Nov, so GN? leaves in full, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "GN?",
+   "at": "2026-11-02T15:15:00+10:00",
+   "nos": [
+    "1316182",
+    "1316183"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

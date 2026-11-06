@@ -1,0 +1,68 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+  "nativeFixtureVersion": 5155,
+  "pass": true,
+  "phoneChecks": 21,
+  "phoneVisualsInspected": true,
+  "navigation": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "view": "desktop",
+      "sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+      "routes": 22,
+      "directPanes": 16,
+      "intentionalRedirects": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedRequests": 0,
+      "pass": true
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "view": "phone",
+      "sha256": "d98bfc4b6bb8461feec1f4af31a7d69fdd0711f2979d27bae4c324d7f8001ae6",
+      "routes": 22,
+      "directPanes": 16,
+      "intentionalRedirects": [
+        "register",
+        "journal",
+        "breakdowns",
+        "variances",
+        "edit",
+        "add"
+      ],
+      "deepLinks": 7,
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "pageErrors": 0,
+      "consoleErrors": 0,
+      "blockedRequests": 0,
+      "pass": true
+    }
+  },
+  "incomingRecordScenarios": 21,
+  "incomingRecordTabs": 7,
+  "receiptScenarios": 14,
+  "nativeFixtureRestored": true,
+  "unrelatedFencingAndFinancialModelsPreserved": true,
+  "pageErrors": 0,
+  "liveRecordWriteAttempts": 0,
+  "standardSweepConsoleErrors": 0,
+  "strictGetRigNote": "The targeted phone and sync rigs block Google tile-session POST. Each run recorded only that expected resource error; no native write request occurred.",
+  "publicVerification": "Prepared; awaiting publication confirmation."
+}

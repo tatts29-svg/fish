@@ -1,0 +1,1 @@
+ const gp = svg.querySelector('g.pins'); if (gp) paintPins1245(gp, pinsHtml(M, svg));

@@ -1,0 +1,269 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261022T010811Z",
+ "finished": "2026-10-22T01:08:32.654Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 22 Oct 2026 (AEST), by message: \"VMS 21 is in location Asset No 97T Rego T16922 PremiAir\". VMS21 is plan position 21 (Staghorn Ave / Surfers Paradise Boulevard, eastbound), contract 9961265 line 28, a Premiair sub-hire Senior board (SUB-2631); it was ticked in place and complete at 08:08 today. The board's identity goes on the VMS register the way the register form saves it: the Premiair fleet number 97T and the number plate T16922. The company stays as the contract line names it (Premiair). The delivery it came in on is not named, so that field is left alone. Andrew then sent the board's GPS location: -27.995097971010587, 153.42930565620875; it goes on the VMS plan as the pinned position (the page keeps six decimals), about 11 m north of the planned spot.",
+  "ops": [
+   {
+    "op": "vms_fleet",
+    "key": "VMS21",
+    "fleet": "97T"
+   },
+   {
+    "op": "vms_rego",
+    "key": "VMS21",
+    "rego": "T16922"
+   },
+   {
+    "op": "vms_plan",
+    "pos": "21",
+    "lat": -27.995098,
+    "lon": 153.429306,
+    "how": "GPS location sent by Andrew Fisher on site, 22 Oct 2026"
+   }
+  ]
+ },
+ "pageSha256": "8a19fcce4625eb204c2d5628bc5a885c2a4e799f11e8235ffa0b7c90cc1102ae",
+ "version": {
+  "before": 10494,
+  "after": 10499
+ },
+ "updated": {
+  "before": "2026-10-21T23:03:26.617Z",
+  "after": "2026-10-22T01:08:31.903Z"
+ },
+ "stage": [
+  {
+   "op": "vms_fleet",
+   "key": "VMS21",
+   "fleet": "97T",
+   "result": "fleet saved",
+   "doc": {
+    "co": null,
+    "fleet": "97T",
+    "rego": null,
+    "on": null,
+    "line": "9961265/28",
+    "by": "Andrew Fisher",
+    "at": "2026-10-22T01:08:19.565Z"
+   }
+  },
+  {
+   "op": "vms_rego",
+   "key": "VMS21",
+   "rego": "T16922",
+   "result": "rego saved",
+   "doc": {
+    "co": null,
+    "fleet": "97T",
+    "rego": "T16922",
+    "on": null,
+    "line": "9961265/28",
+    "by": "Andrew Fisher",
+    "at": "2026-10-22T01:08:20.233Z"
+   }
+  },
+  {
+   "op": "vms_plan",
+   "pos": "21",
+   "lat": -27.995098,
+   "lon": 153.429306,
+   "how": "GPS location sent by Andrew Fisher on site, 22 Oct 2026",
+   "result": "VMS plan 21 pinned at -27.995098, 153.429306"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/vmsboard~2f~VMS21",
+   "status": 200
+  },
+  {
+   "key": "stamps/loads~2f~vms1024~2f~21",
+   "status": 200
+  },
+  {
+   "key": "loads/vms1024~2f~21",
+   "status": 200
+  },
+  {
+   "key": "by/vmsboard~2f~VMS21",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS21",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/vmsboard~2f~VMS21": {
+    "_k": "vmsboard/VMS21",
+    "v": "2026-10-21T01:17:43.086Z"
+   },
+   "stamps/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "2026-10-21T22:08:25.134Z"
+   },
+   "loads/vms1024~2f~21": {
+    "lat": -27.9952,
+    "lon": 153.4293,
+    "posHow": "Planned position only — awaiting arrival",
+    "posBy": "Andrew Fisher via Codex",
+    "posAt": "2026-10-21T01:17:44.506Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:24.160Z",
+     "by": "Andrew Fisher"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:01.744Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:44.506Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": false
+     },
+     {
+      "state": "on site",
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "inPlace": true,
+      "sequence1101": 1
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "21",
+    "by": "Andrew Fisher",
+    "at": "2026-10-21T22:08:25.097Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:25.097Z",
+     "by": "Andrew Fisher",
+     "sequence1101": 2
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:25.097Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 2
+     }
+    ],
+    "_k": "vms1024/21"
+   },
+   "by/vmsboard~2f~VMS21": {
+    "_k": "vmsboard/VMS21",
+    "v": "Andrew Fisher via Codex"
+   },
+   "vmsboard/VMS21": null
+  },
+  "after": {
+   "stamps/vmsboard~2f~VMS21": {
+    "_k": "vmsboard/VMS21",
+    "v": "2026-10-22T01:08:20.233Z"
+   },
+   "stamps/loads~2f~vms1024~2f~21": {
+    "_k": "loads/vms1024/21",
+    "v": "2026-10-22T01:08:20.859Z"
+   },
+   "loads/vms1024~2f~21": {
+    "lat": -27.995098,
+    "lon": 153.429306,
+    "posHow": "GPS location sent by Andrew Fisher on site, 22 Oct 2026",
+    "posBy": "Andrew Fisher",
+    "posAt": "2026-10-22T01:08:20.826Z",
+    "acc": null,
+    "inPlace": true,
+    "arrival1098": {
+     "state": "on site",
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:24.160Z",
+     "by": "Andrew Fisher"
+    },
+    "events1098": [
+     {
+      "state": "on site",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T00:36:01.744Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": true
+     },
+     {
+      "state": "not confirmed",
+      "effective_date": "2026-10-21",
+      "recorded_at": "2026-10-21T01:17:44.506Z",
+      "by": "Andrew Fisher via Codex",
+      "inPlace": false
+     },
+     {
+      "state": "on site",
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:24.160Z",
+      "by": "Andrew Fisher",
+      "inPlace": true,
+      "sequence1101": 1
+     }
+    ],
+    "kind": "vms1024",
+    "pos": "21",
+    "by": "Andrew Fisher",
+    "at": "2026-10-22T01:08:20.827Z",
+    "completion1101": {
+     "done": true,
+     "effective_date": "2026-10-22",
+     "recorded_at": "2026-10-21T22:08:25.097Z",
+     "by": "Andrew Fisher",
+     "sequence1101": 2
+    },
+    "completionEvents1101": [
+     {
+      "done": true,
+      "effective_date": "2026-10-22",
+      "recorded_at": "2026-10-21T22:08:25.097Z",
+      "by": "Andrew Fisher",
+      "sequence1101": 2
+     }
+    ],
+    "_k": "vms1024/21"
+   },
+   "by/vmsboard~2f~VMS21": {
+    "_k": "vmsboard/VMS21",
+    "v": "Andrew Fisher"
+   },
+   "vmsboard/VMS21": {
+    "co": null,
+    "fleet": "97T",
+    "rego": "T16922",
+    "on": null,
+    "line": "9961265/28",
+    "by": "Andrew Fisher",
+    "at": "2026-10-22T01:08:20.233Z",
+    "_k": "VMS21"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

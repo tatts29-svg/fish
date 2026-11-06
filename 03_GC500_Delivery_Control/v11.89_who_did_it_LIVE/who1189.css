@@ -1,0 +1,25 @@
+/* Author: Andrew Fisher. v11.89 Who did it: the crew under the time in the area tables, tappable places, the sheet. */
+#svc1067 .svc-tbl td.ok small.who1189-names { display: block; margin-top: 2px; font-size: 10.5px; line-height: 1.2; font-weight: 600; white-space: normal; overflow-wrap: anywhere; opacity: .85; }
+#svc1067 .who1189-tbl tbody tr { cursor: pointer; }
+#svc1067 .who1189-tbl tbody tr:hover > * { background-image: linear-gradient(rgba(255,255,255,.04), rgba(255,255,255,.04)); }
+.who1189-ref { padding: 0; border: 0; background: none; color: inherit; font: inherit; font-weight: inherit; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.who1189-ref:focus-visible { outline: 2px solid #ff8125; outline-offset: 2px; }
+.teams1187-state .who1189-crew { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline dotted; text-underline-offset: 3px; }
+.svc1099-detail .who1189-detail { margin-right: 8px; }
+
+.who1189-drawer .who1189-area { margin: 0 0 10px; font-size: 13px; opacity: .8; }
+.who1189-drawer .who1189-line { margin: 0 0 12px; }
+.who1189-drawer .who1189-line h3 { margin: 0 0 6px; font-size: 13px; font-weight: 700; text-transform: none; letter-spacing: 0; }
+.who1189-drawer .who1189-jobs { margin: 0; padding: 0; list-style: none; border: 1px solid var(--line, #d6dde2); border-radius: 10px; overflow: hidden; }
+.who1189-drawer .who1189-job { padding: 9px 12px; border-top: 1px solid var(--line, #d6dde2); }
+.who1189-drawer .who1189-job:first-child { border-top: 0; }
+.who1189-drawer .who1189-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 12px; flex-wrap: wrap; }
+.who1189-drawer .who1189-top b { font-size: 14px; }
+.who1189-drawer .who1189-st { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.who1189-drawer .who1189-job.done .who1189-st { color: #0a8f5a; }
+.who1189-drawer .who1189-job.missed .who1189-st { color: #c2410c; }
+.who1189-drawer .who1189-job.todo .who1189-st, .who1189-drawer .who1189-job.pending .who1189-st { color: #8a6d1f; }
+.who1189-drawer .who1189-by { margin-top: 3px; font-size: 13px; line-height: 1.35; }
+.who1189-drawer .who1189-log { margin: 6px 0 0; padding: 0 0 0 18px; font-size: 12.5px; line-height: 1.5; opacity: .85; }
+.who1189-drawer .who1189-log time { font-variant-numeric: tabular-nums; font-weight: 700; }
+.who1189-drawer .who1189-note { margin: 6px 0 0; font-size: 12.5px; line-height: 1.45; opacity: .8; }

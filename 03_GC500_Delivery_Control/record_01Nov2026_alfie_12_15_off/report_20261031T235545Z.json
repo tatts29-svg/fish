@@ -1,0 +1,255 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T235545Z",
+ "finished": "2026-10-31T23:56:01.476Z",
+ "mode": "apply",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   },
+   {
+    "op": "accom_remove",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "why": "Andrew Fisher, 1 Nov 2026, answering whether Alfie Harris's 5 and 12–15 Oct nights should stay (none of those dates has a shift for him on the record): \"alfie never worked 12–15\""
+   }
+  ]
+ },
+ "pageSha256": "f3d686a3929c945e4a6b181eea2e6976425ccecd7205bd8589ca2826962ec49b",
+ "version": {
+  "before": 12715,
+  "after": 12727
+ },
+ "updated": {
+  "before": "2026-10-31T22:56:44.176Z",
+  "after": "2026-10-31T23:56:00.540Z"
+ },
+ "stage": [
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261012",
+   "person": "Alfie Harris",
+   "date": "2026-10-12",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261012 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261013",
+   "person": "Alfie Harris",
+   "date": "2026-10-13",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261013 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261014",
+   "person": "Alfie Harris",
+   "date": "2026-10-14",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261014 taken off by Andrew Fisher — the removal travels with the record."
+  },
+  {
+   "op": "accom_remove",
+   "id": "W-A-alfie-harris-20261015",
+   "person": "Alfie Harris",
+   "date": "2026-10-15",
+   "was": 223.63,
+   "amount": null,
+   "result": "took the night off (was 223.63) - W-A-alfie-harris-20261015 taken off by Andrew Fisher — the removal travels with the record."
+  }
+ ],
+ "writes": [
+  {
+   "key": "deleted/W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-A-alfie-harris-20261015",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-A-alfie-harris-20261015",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261012",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261013",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261014",
+   "status": 200
+  },
+  {
+   "key": "costs/W-A-alfie-harris-20261015",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "deleted/W-A-alfie-harris-20261012": null,
+   "deleted/W-A-alfie-harris-20261013": null,
+   "deleted/W-A-alfie-harris-20261014": null,
+   "deleted/W-A-alfie-harris-20261015": null,
+   "by/deleted~2f~W-A-alfie-harris-20261012": null,
+   "by/deleted~2f~W-A-alfie-harris-20261013": null,
+   "by/deleted~2f~W-A-alfie-harris-20261014": null,
+   "by/deleted~2f~W-A-alfie-harris-20261015": null,
+   "costs/W-A-alfie-harris-20261012": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261012",
+    "person": "Alfie Harris",
+    "date": "2026-10-12",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:40.673Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261012"
+   },
+   "costs/W-A-alfie-harris-20261013": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261013",
+    "person": "Alfie Harris",
+    "date": "2026-10-13",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:40.898Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261013"
+   },
+   "costs/W-A-alfie-harris-20261014": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261014",
+    "person": "Alfie Harris",
+    "date": "2026-10-14",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.063Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261014"
+   },
+   "costs/W-A-alfie-harris-20261015": {
+    "side": "ours",
+    "kind": "accommodation",
+    "category": "Accommodation",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-A-alfie-harris-20261015",
+    "person": "Alfie Harris",
+    "date": "2026-10-15",
+    "amount": 223.63,
+    "hotel": null,
+    "updated_at": "2026-10-31T18:35:41.281Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-A-alfie-harris-20261015"
+   }
+  },
+  "after": {
+   "deleted/W-A-alfie-harris-20261012": {
+    "_k": "W-A-alfie-harris-20261012",
+    "v": "2026-10-31T23:55:57.156Z"
+   },
+   "deleted/W-A-alfie-harris-20261013": {
+    "_k": "W-A-alfie-harris-20261013",
+    "v": "2026-10-31T23:55:57.422Z"
+   },
+   "deleted/W-A-alfie-harris-20261014": {
+    "_k": "W-A-alfie-harris-20261014",
+    "v": "2026-10-31T23:55:57.588Z"
+   },
+   "deleted/W-A-alfie-harris-20261015": {
+    "_k": "W-A-alfie-harris-20261015",
+    "v": "2026-10-31T23:55:57.741Z"
+   },
+   "by/deleted~2f~W-A-alfie-harris-20261012": {
+    "_k": "deleted/W-A-alfie-harris-20261012",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-A-alfie-harris-20261013": {
+    "_k": "deleted/W-A-alfie-harris-20261013",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-A-alfie-harris-20261014": {
+    "_k": "deleted/W-A-alfie-harris-20261014",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-A-alfie-harris-20261015": {
+    "_k": "deleted/W-A-alfie-harris-20261015",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-A-alfie-harris-20261012": null,
+   "costs/W-A-alfie-harris-20261013": null,
+   "costs/W-A-alfie-harris-20261014": null,
+   "costs/W-A-alfie-harris-20261015": null
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

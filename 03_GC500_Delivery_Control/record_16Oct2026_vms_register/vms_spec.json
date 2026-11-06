@@ -1,0 +1,9 @@
+{"by": "Andrew Fisher", "boards": [
+ {"key": "VMS11", "fleet": "467T", "rego": "TE97G", "on": "T0128"},
+ {"key": "VMS12", "expect_fleet": "1211646", "rego": "TF59LR", "on": "T0128"},
+ {"key": "VMS13", "expect_fleet": "1191957", "rego": "EN3803", "on": "T0158"},
+ {"key": "VMS14", "expect_fleet": "1201864", "rego": "TD98VJ", "on": "T0158"},
+ {"key": "VMS15", "expect_fleet": "1211348", "rego": "ER9217", "on": "T0158"},
+ {"key": "VMS16", "expect_fleet": "1211376", "rego": "ES3211", "on": "T0158"},
+ {"key": "VMS17", "expect_fleet": "1211364", "rego": "ER9410", "on": "T0158"}
+]}

@@ -1,0 +1,8 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 3 Nov 2026 10:5x AEST: \"1317649 1317637 1317652 1317648 / Same truck\" (the 10:30 truck). Coates FWF 1317649 (L27), 1317652 (L30) and 1317648 (L31) are on WC07 (contract 9968955, KINP; on Brenden Meek's 3 Nov 10:00 booking; WC07 ticked Emptied): recorded leaving at 10:30 through the page's own Record departure form in his name. 1317637 is on no reference or contract line; two WC07 units are one digit away (1317632 and 1317647), so it is not recorded until Andrew says which. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {"chargeDelta": 0, "costDelta": 0},
+ "ops": [
+  {"op": "depart", "ref": "WC07", "at": "2026-11-03T10:30:00+10:00", "nos": ["1317649", "1317652", "1317648"], "unnumbered": [], "complete": false}
+ ]
+}

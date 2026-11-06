@@ -1,0 +1,97 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261102T073445Z",
+ "finished": "2026-11-02T07:35:01.211Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Advanced Temporary Fencing's red-book hire agreement 36641 (Gate 1, installed 21 Oct 2026), recorded from Advanced's white head-office copy: page 24 of the 63-page event-week scan they sent with their PO 4647522 sheet (\"Fw: GC500 - EVENT - Commercial Approval\", 2 Nov 2026). The pink customer copy never reached us; 36641 was one of the numbers inside the runs missing from the record (31 Oct review). Andrew Fisher, 2 Nov 2026: \"Ok confirmed that is my siganture add to our dockets pleaee\". Recorded through the page's own recordHireAgreement.",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36641",
+    "date": "2026-10-21",
+    "location": "Gate 1",
+    "map_ref": "",
+    "quantities": {
+     "ccb_event": 25
+    },
+    "components": {
+     "cc_barrier": 10,
+     "base": 4,
+     "clamp": 4,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "note": "CC barrier 25 m (10 barriers), 4 bases, 4 clamps, 2 braces, installed 21 Oct 2026 at Gate 1 (written 'GATE 1'). Recorded from Advanced's white head-office copy (page 24 of the event-week scan sent with their PO 4647522 sheet, 2 Nov 2026); the pink customer copy never reached us. Owner/site supervisor signature confirmed by Andrew Fisher as his on 2 Nov 2026, dated '21/10/25' as written (year slip); installer signed 21/10/26. Advanced's office note on their copy reads 'Deducted from braced for scrim total': their sheet bills the 2 braces as 5 m braced for scrim less 5 m clean (net 72.00) beside the CCB (25 m at 5.40 = 135.00), 207.00 in all; the bracing goes on with their approved sheet, as on 36632, 36644 and 36763. The CCB is recorded as Event: the paper does not say; Gate 1's queueing and entry CCB is Event on the programme, and unspecified CCB has been recorded as Event (36766, 36768). Rates and amounts blank on the paper; no order number."
+   }
+  ]
+ },
+ "pageSha256": "3b17c3de36c8c3f2d99042b0c83dfd9fdc110ccb9db7a1c21ef6c9f72704a85b",
+ "version": {
+  "before": 12855,
+  "after": 12856
+ },
+ "updated": {
+  "before": "2026-11-02T06:25:25.296Z",
+  "after": "2026-11-02T07:35:00.151Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36641",
+   "id": "F-AF-0082",
+   "charge": 187.75,
+   "paid": 135,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0082 - 25 ccb_event - F-AF-0082 saved in this browser — $187.75 charged at the 2026 card, $135.00 paid. Export and rebuild to put it on the record. | Hire agreement 36641 recorded as F-AF-0082 - $187.75 charged at the 2026 card, $135.00 paid to Advanced. By Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "fenceDockets/F-AF-0082",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "fenceDockets/F-AF-0082": null
+  },
+  "after": {
+   "fenceDockets/F-AF-0082": {
+    "id": "F-AF-0082",
+    "date": "2026-10-21",
+    "week": "Event Week",
+    "docket_no": "36641",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Gate 1",
+    "quantities": {
+     "ccb_event": 25
+    },
+    "note": "CC barrier 25 m (10 barriers), 4 bases, 4 clamps, 2 braces, installed 21 Oct 2026 at Gate 1 (written 'GATE 1'). Recorded from Advanced's white head-office copy (page 24 of the event-week scan sent with their PO 4647522 sheet, 2 Nov 2026); the pink customer copy never reached us. Owner/site supervisor signature confirmed by Andrew Fisher as his on 2 Nov 2026, dated '21/10/25' as written (year slip); installer signed 21/10/26. Advanced's office note on their copy reads 'Deducted from braced for scrim total': their sheet bills the 2 braces as 5 m braced for scrim less 5 m clean (net 72.00) beside the CCB (25 m at 5.40 = 135.00), 207.00 in all; the bracing goes on with their approved sheet, as on 36632, 36644 and 36763. The CCB is recorded as Event: the paper does not say; Gate 1's queueing and entry CCB is Event on the programme, and unspecified CCB has been recorded as Event (36766, 36768). Rates and amounts blank on the paper; no order number.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-02",
+    "components": {
+     "cc_barrier": 10,
+     "base": 4,
+     "clamp": 4,
+     "brace": 2
+    },
+    "signed_by": "Andrew Fisher",
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36641, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0082"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

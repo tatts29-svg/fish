@@ -1,0 +1,69 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026: \"0116 0692 0123 0426 0699 0622 0679 0293 0280 0070 0279 0592 0432 / Leaving 10am\". Eleven are Event Portables FWF units on the record: WC69 0692, 0123, 0622, 0679, 0070, 0592, 0432 (0152, 0078, 0010, 0958 and 0647 stay); WC71 0116, 0293, 0280, 0279 (the page reads these as the last four at WC71, so WC71 leaves in full). 0426 is WC68 and 0699 is WC72 (each that location's only Event Portables unit), and Andrew added: \"0714 is another same time\" - WC67's 0714 (0793, 0769 and the Coates unit stay). All five locations were ticked Emptied on 26 Oct. Left site 28 Oct 2026 10:00 AEST. Andrew, 28 Oct 2026: \"150kva left 945am\" - GN23 is the 150 kVA generator (1297157, sync, hardwired); the page counts no other unit at GN23, so GN23 leaves in full. GN23 generator left site 28 Oct 2026 09:45 AEST.",
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC69",
+   "at": "2026-10-28T10:00:00+10:00",
+   "nos": [
+    "0692",
+    "0123",
+    "0622",
+    "0679",
+    "0070",
+    "0592",
+    "0432"
+   ],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "WC71",
+   "at": "2026-10-28T10:00:00+10:00",
+   "nos": [
+    "0116",
+    "0293",
+    "0280",
+    "0279"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC67",
+   "at": "2026-10-28T10:00:00+10:00",
+   "nos": [
+    "0714"
+   ],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "WC68",
+   "at": "2026-10-28T10:00:00+10:00",
+   "nos": [
+    "0426"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC72",
+   "at": "2026-10-28T10:00:00+10:00",
+   "nos": [
+    "0699"
+   ],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "GN23",
+   "at": "2026-10-28T09:45:00+10:00",
+   "nos": [
+    "1297157"
+   ],
+   "complete": true
+  }
+ ]
+}

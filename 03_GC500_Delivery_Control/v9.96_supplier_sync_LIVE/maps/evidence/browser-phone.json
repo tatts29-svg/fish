@@ -1,0 +1,89 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "Map parent carries current supplier numbers and ownership",
+      "pass": true
+    },
+    {
+      "name": "Unplaced spare retains known number and named destination",
+      "pass": true
+    },
+    {
+      "name": "Quantity-only pee panel ownership reaches map projection",
+      "pass": true
+    },
+    {
+      "name": "Embedded map finds leading-zero supplier number",
+      "pass": true
+    },
+    {
+      "name": "Embedded map finds unplaced asset number",
+      "pass": true
+    },
+    {
+      "name": "Every current parent reference is present in embedded map items",
+      "pass": true
+    },
+    {
+      "name": "Removed old supplier number disappears immediately",
+      "pass": true
+    },
+    {
+      "name": "New supplier number is immediately searchable",
+      "pass": true
+    },
+    {
+      "name": "Already-open header search refreshes on the same record render",
+      "pass": true
+    },
+    {
+      "name": "Selected marker is retained once after number change",
+      "pass": true
+    },
+    {
+      "name": "Refresh preserves map camera",
+      "pass": true
+    },
+    {
+      "name": "Open map card follows the same current identity",
+      "pass": true
+    },
+    {
+      "name": "Record restoration refreshes all search identities",
+      "pass": true
+    },
+    {
+      "name": "Native record is restored exactly",
+      "pass": true
+    },
+    {
+      "name": "No page exceptions",
+      "pass": true
+    },
+    {
+      "name": "No operational writes attempted",
+      "pass": true
+    }
+  ],
+  "writes": 0,
+  "errors": [],
+  "coverage": {
+    "parentReferences": 176,
+    "missing": []
+  },
+  "searchTimingsMs": [
+    36,
+    22.90000009536743,
+    22.5
+  ],
+  "pass": true,
+  "recordVersion": 5300,
+  "counts": {
+    "page": 1,
+    "live": 67,
+    "blocked": 0,
+    "localMapSessions": 1
+  },
+  "evidenceType": "Local candidate parent and exact candidate map files; live record read-only; satellite session/tiles local fixtures"
+}

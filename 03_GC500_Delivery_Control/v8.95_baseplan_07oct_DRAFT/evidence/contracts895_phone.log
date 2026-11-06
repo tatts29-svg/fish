@@ -1,0 +1,27 @@
+PASS  the contracts are the 7 Oct export: 323 lines on 11 contracts, supplement v8.95 bound by SHA-256
+PASS  the two new NVAC lines (9961976/42, 43) are on the page: 200 kVA generators, Pending, booked 12-26 Oct, no rate, joined to GN?
+PASS  how the page treats a Pending line: not on hire (no start date, GN? not on site by the rental system), but charged - a generator with no rate goes at the card's 200 kVA line once, for the three event days
+PASS  the two generators are a small share of NVAC's contract revenue and of the contracts total (4.57% of NVAC, 0.87% of the contracts, 0.37% of Revenue on the record) and count among NVAC's card-filled lines
+PASS  WC07's 20 FWF lines follow the 7 Oct export: Delivered, on hire from 22 Sep, each with its asset number
+PASS  Andrew's recorded numbers win on WC07: 19 lines join WC07, line 38 (1317643) does not; the page shows his 20 numbers with 1317743 and never 1317643
+PASS  the toilet lines' charge is the whole-event rate and did not move with the status (1.28% of KINP's contract revenue)
+PASS  P56 (9968862/89): Delivered, on hire from 7 Oct by the rental system, still joined to P56, charged once (whole event)
+PASS  the three Del Req lines carry their dockets and join WC31 and WC09 by them, not yet on hire
+PASS  the NVAC forklift line (9961976/27) now reads Forklift 3.5t Diesel and still goes by the card's day rate
+PASS  no contract line joins a reference that contradicts a number on Andrew's record (28 references with typed numbers)
+PASS  Andrew's record joins two more lines under his rule: 9968862/50 (1105053) to P37, on hire from 17 Sep by the rental system; 9968862/79 (1327211) to P52 beside its docket line; both charged once (whole event), no card fill
+PASS  P52 shows 1327211 everywhere (register, booking, as-supplied, its contract line, the page's numbers) and never 13227211 (Andrew, 8 Oct 2026: "1327211 is correct")
+PASS  every Pending line is off hire (v8.71's rule): none has a start date or is delivered (130 Pending lines)
+PASS  Everything reconciles: all 17 tie-outs tied
+PASS  the P&L reconciles (revenue, costs, job end) and the Finance handover's checks hold (costs, invoice, people)
+PASS  Revenue on the record and to job end read the same on the P&L, the business's lines and the Finance handover
+PASS  Transport to date, still to come and Transport Revenue read the same on the Transport view, the P&L, Costs to job end and the handover
+PASS  the branches' contract revenue (By branch) adds to the P&L's contracts charge, and their charge lines to Transport Revenue
+PASS  the Costs tab names the 7 Oct export and no longer the 6 Oct one; no phone number; the author line stands
+PASS  WC07's drawer opens on Equipment: on site since 22 Sep, Rental 9968955, his 20 asset numbers with 1317743, and never 1317643
+PASS  P52's drawer names 1327211 and never 13227211
+PASS  phone: no page-wide horizontal overflow on Costs or Equipment
+PASS  a redraw changes no figure
+PASS  no page errors
+PASS  no writes attempted
+phone: 26/26 pass

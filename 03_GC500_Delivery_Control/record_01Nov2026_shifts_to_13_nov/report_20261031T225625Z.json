@@ -1,0 +1,769 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261031T225625Z",
+ "finished": "2026-10-31T22:56:45.110Z",
+ "mode": "apply",
+ "spec": {
+  "author": "Andrew Fisher",
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-02",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-03",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-04",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-05",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-06",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-09",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-10",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-11",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-12",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_back",
+    "person": "Daniel Gough",
+    "date": "2026-11-13",
+    "expect": {
+     "start": "06:30",
+     "finish": "17:00"
+    },
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-02",
+    "fields": {
+     "start": "06:00"
+    },
+    "worked": 11,
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_set",
+    "person": "Alfie Harris",
+    "date": "2026-11-09",
+    "fields": {
+     "start": "06:00"
+    },
+    "worked": 11,
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\""
+   },
+   {
+    "op": "shift_off",
+    "person": "Aaron Zelvis",
+    "date": "2026-11-06",
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\" (06/11/2025 read as Friday 6 Nov 2026, the only 6 Nov in the job)"
+   },
+   {
+    "op": "shift_off",
+    "person": "Aaron Zelvis",
+    "date": "2026-11-13",
+    "why": "Andrew Fisher, 1 Nov 2026: \"Can we have Daniel Working Monday to Friday Up to 13/11/2026 Same with me and Alfie and Aaron.... and no Aaron on 30/10/2026 and 06/11/2025 and 13/11/2026 Mondays Alfie does 6:00Am - 17:00 other days he does 6:30-17:00 Aaron does 6:00-17:00 i do 6:00-17:00 and daniel does 6:30-17:00\" (06/11/2025 read as Friday 6 Nov 2026, the only 6 Nov in the job)"
+   }
+  ]
+ },
+ "pageSha256": "038bd277625bf5e3be5a47edaf7c2deb2eab34ffdec098bf4b2270870d6cbabb",
+ "version": {
+  "before": 12685,
+  "after": 12715
+ },
+ "updated": {
+  "before": "2026-10-31T22:11:15.427Z",
+  "after": "2026-10-31T22:56:44.176Z"
+ },
+ "stage": [
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261102",
+   "person": "Daniel Gough",
+   "date": "2026-11-02",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 02 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261103",
+   "person": "Daniel Gough",
+   "date": "2026-11-03",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 03 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261104",
+   "person": "Daniel Gough",
+   "date": "2026-11-04",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 04 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261105",
+   "person": "Daniel Gough",
+   "date": "2026-11-05",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 05 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261106",
+   "person": "Daniel Gough",
+   "date": "2026-11-06",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 06 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261109",
+   "person": "Daniel Gough",
+   "date": "2026-11-09",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 09 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261110",
+   "person": "Daniel Gough",
+   "date": "2026-11-10",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 10 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261111",
+   "person": "Daniel Gough",
+   "date": "2026-11-11",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 11 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261112",
+   "person": "Daniel Gough",
+   "date": "2026-11-12",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 12 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_back",
+   "id": "W-L-daniel-gough-20261113",
+   "person": "Daniel Gough",
+   "date": "2026-11-13",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "start": "06:30",
+   "finish": "17:00",
+   "result": "put back the tracker line 06:30-17:00 (10.5 h worked, 10 h paid) - Daniel Gough, 13 Nov: shift put back by Andrew Fisher.",
+   "sheet": {
+    "worked": 10.5,
+    "paid": 10,
+    "cost": 634.98,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_set",
+   "id": "W-L-alfie-harris-20261102",
+   "person": "Alfie Harris",
+   "date": "2026-11-02",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "usable": true,
+   "problems": [],
+   "start": "06:00",
+   "finish": "17:00",
+   "hours": 11,
+   "result": "set start on the tracker line: 06:30-17:00 (10.5 h) -> 06:00-17:00 (11 h worked, 10.5 h paid) - W-L-alfie-harris-20261102 changed by Andrew Fisher.",
+   "sheet": {
+    "worked": 11,
+    "paid": 10.5,
+    "cost": null,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_set",
+   "id": "W-L-alfie-harris-20261109",
+   "person": "Alfie Harris",
+   "date": "2026-11-09",
+   "was": {
+    "start": "06:30",
+    "finish": "17:00",
+    "hours": 10.5,
+    "worked": 10.5,
+    "paid": 10
+   },
+   "usable": true,
+   "problems": [],
+   "start": "06:00",
+   "finish": "17:00",
+   "hours": 11,
+   "result": "set start on the tracker line: 06:30-17:00 (10.5 h) -> 06:00-17:00 (11 h worked, 10.5 h paid) - W-L-alfie-harris-20261109 changed by Andrew Fisher.",
+   "sheet": {
+    "worked": 11,
+    "paid": 10.5,
+    "cost": null,
+    "status": "forecast"
+   }
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-aaron-zelvis-20261106",
+   "person": "Aaron Zelvis",
+   "date": "2026-11-06",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "worked": 11,
+    "paid": 10.5
+   },
+   "result": "took off the tracker line (was 06:00-17:00, 11 h worked) - Aaron Zelvis, 06 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  },
+  {
+   "op": "shift_off",
+   "id": "W-L-aaron-zelvis-20261113",
+   "person": "Aaron Zelvis",
+   "date": "2026-11-13",
+   "was": {
+    "start": "06:00",
+    "finish": "17:00",
+    "hours": 11,
+    "worked": 11,
+    "paid": 10.5
+   },
+   "result": "took off the tracker line (was 06:00-17:00, 11 h worked) - Aaron Zelvis, 13 Nov: shift taken off by Andrew Fisher — it is off every total and the forecast. Put back is on the row.",
+   "sheet": null
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261102",
+   "status": 200
+  },
+  {
+   "key": "stamps/ourcost~2f~W-L-alfie-harris-20261109",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261102",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261103",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261104",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261105",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261106",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261109",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261110",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261111",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261112",
+   "status": 200
+  },
+  {
+   "key": "deleted/back~2f~W-L-daniel-gough-20261113",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-aaron-zelvis-20261106",
+   "status": 200
+  },
+  {
+   "key": "deleted/W-L-aaron-zelvis-20261113",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261102",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261103",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261104",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261105",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261106",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261109",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261110",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261111",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261112",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~back~2f~W-L-daniel-gough-20261113",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261102",
+   "status": 200
+  },
+  {
+   "key": "by/ourcost~2f~W-L-alfie-harris-20261109",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-aaron-zelvis-20261106",
+   "status": 200
+  },
+  {
+   "key": "by/deleted~2f~W-L-aaron-zelvis-20261113",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261102",
+   "status": 200
+  },
+  {
+   "key": "costs/W-L-alfie-harris-20261109",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/ourcost~2f~W-L-alfie-harris-20261102": null,
+   "stamps/ourcost~2f~W-L-alfie-harris-20261109": null,
+   "deleted/back~2f~W-L-daniel-gough-20261102": null,
+   "deleted/back~2f~W-L-daniel-gough-20261103": null,
+   "deleted/back~2f~W-L-daniel-gough-20261104": null,
+   "deleted/back~2f~W-L-daniel-gough-20261105": null,
+   "deleted/back~2f~W-L-daniel-gough-20261106": null,
+   "deleted/back~2f~W-L-daniel-gough-20261109": null,
+   "deleted/back~2f~W-L-daniel-gough-20261110": null,
+   "deleted/back~2f~W-L-daniel-gough-20261111": null,
+   "deleted/back~2f~W-L-daniel-gough-20261112": null,
+   "deleted/back~2f~W-L-daniel-gough-20261113": null,
+   "deleted/W-L-aaron-zelvis-20261106": null,
+   "deleted/W-L-aaron-zelvis-20261113": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261102": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261103": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261104": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261105": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261106": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261109": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261110": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261111": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261112": null,
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261113": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261102": null,
+   "by/ourcost~2f~W-L-alfie-harris-20261109": null,
+   "by/deleted~2f~W-L-aaron-zelvis-20261106": null,
+   "by/deleted~2f~W-L-aaron-zelvis-20261113": null,
+   "costs/W-L-alfie-harris-20261102": null,
+   "costs/W-L-alfie-harris-20261109": null
+  },
+  "after": {
+   "stamps/ourcost~2f~W-L-alfie-harris-20261102": {
+    "_k": "ourcost/W-L-alfie-harris-20261102",
+    "v": "2026-10-31T22:56:38.599Z"
+   },
+   "stamps/ourcost~2f~W-L-alfie-harris-20261109": {
+    "_k": "ourcost/W-L-alfie-harris-20261109",
+    "v": "2026-10-31T22:56:38.783Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261102": {
+    "_k": "back/W-L-daniel-gough-20261102",
+    "v": "2026-10-31T22:56:36.626Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261103": {
+    "_k": "back/W-L-daniel-gough-20261103",
+    "v": "2026-10-31T22:56:36.841Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261104": {
+    "_k": "back/W-L-daniel-gough-20261104",
+    "v": "2026-10-31T22:56:37.037Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261105": {
+    "_k": "back/W-L-daniel-gough-20261105",
+    "v": "2026-10-31T22:56:37.225Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261106": {
+    "_k": "back/W-L-daniel-gough-20261106",
+    "v": "2026-10-31T22:56:37.415Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261109": {
+    "_k": "back/W-L-daniel-gough-20261109",
+    "v": "2026-10-31T22:56:37.619Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261110": {
+    "_k": "back/W-L-daniel-gough-20261110",
+    "v": "2026-10-31T22:56:37.838Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261111": {
+    "_k": "back/W-L-daniel-gough-20261111",
+    "v": "2026-10-31T22:56:38.036Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261112": {
+    "_k": "back/W-L-daniel-gough-20261112",
+    "v": "2026-10-31T22:56:38.239Z"
+   },
+   "deleted/back~2f~W-L-daniel-gough-20261113": {
+    "_k": "back/W-L-daniel-gough-20261113",
+    "v": "2026-10-31T22:56:38.440Z"
+   },
+   "deleted/W-L-aaron-zelvis-20261106": {
+    "_k": "W-L-aaron-zelvis-20261106",
+    "v": "2026-10-31T22:56:38.989Z"
+   },
+   "deleted/W-L-aaron-zelvis-20261113": {
+    "_k": "W-L-aaron-zelvis-20261113",
+    "v": "2026-10-31T22:56:39.156Z"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261102": {
+    "_k": "deleted/back/W-L-daniel-gough-20261102",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261103": {
+    "_k": "deleted/back/W-L-daniel-gough-20261103",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261104": {
+    "_k": "deleted/back/W-L-daniel-gough-20261104",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261105": {
+    "_k": "deleted/back/W-L-daniel-gough-20261105",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261106": {
+    "_k": "deleted/back/W-L-daniel-gough-20261106",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261109": {
+    "_k": "deleted/back/W-L-daniel-gough-20261109",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261110": {
+    "_k": "deleted/back/W-L-daniel-gough-20261110",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261111": {
+    "_k": "deleted/back/W-L-daniel-gough-20261111",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261112": {
+    "_k": "deleted/back/W-L-daniel-gough-20261112",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~back~2f~W-L-daniel-gough-20261113": {
+    "_k": "deleted/back/W-L-daniel-gough-20261113",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261102": {
+    "_k": "ourcost/W-L-alfie-harris-20261102",
+    "v": "Andrew Fisher"
+   },
+   "by/ourcost~2f~W-L-alfie-harris-20261109": {
+    "_k": "ourcost/W-L-alfie-harris-20261109",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-aaron-zelvis-20261106": {
+    "_k": "deleted/W-L-aaron-zelvis-20261106",
+    "v": "Andrew Fisher"
+   },
+   "by/deleted~2f~W-L-aaron-zelvis-20261113": {
+    "_k": "deleted/W-L-aaron-zelvis-20261113",
+    "v": "Andrew Fisher"
+   },
+   "costs/W-L-alfie-harris-20261102": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261102",
+    "person": "Alfie Harris",
+    "date": "2026-11-02",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-31T22:56:38.598Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261102"
+   },
+   "costs/W-L-alfie-harris-20261109": {
+    "side": "ours",
+    "kind": "labour",
+    "category": "Labour — hours",
+    "from": "tracker",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-09-24T00:00:00Z",
+    "id": "W-L-alfie-harris-20261109",
+    "person": "Alfie Harris",
+    "date": "2026-11-09",
+    "start": "06:00",
+    "finish": "17:00",
+    "break_min": null,
+    "hours": 11,
+    "updated_at": "2026-10-31T22:56:38.783Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "W-L-alfie-harris-20261109"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

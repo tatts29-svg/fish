@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "sha256": "b3c4ab269d79f0d2a1cbef5f834967769417e91a31a281f6fe4c3c46d63f514f",
+  "bytes": 12929848,
+  "scripts": 66,
+  "modelCalls": 15,
+  "allModelCallsPass": true,
+  "nativeVersion": 5201,
+  "nativeExact": true,
+  "preservationSectionsExact": 12,
+  "recordedRevenueAndCoatesCostsExact": true,
+  "sourceBackedMissingHireForecastOnce": true,
+  "sourceProjectionSuites": 6,
+  "onsiteGroups": 191,
+  "onsiteBranches": 3,
+  "onsiteHolds": 43,
+  "transportHolds": 32,
+  "onsiteValuesMatchPAndLFinanceItems": true,
+  "phoneWidth": 390,
+  "navigation": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "writes": 0,
+      "mapSessionFixtures": true
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "errors": 0,
+      "consoleErrors": 0,
+      "writes": 0,
+      "mapSessionFixtures": true
+    }
+  },
+  "pageErrors": 0,
+  "operationalWrites": 0
+}

@@ -1,0 +1,66 @@
+[
+ {
+  "slot": 28,
+  "take": "a",
+  "file": "takes/turn28.mp3",
+  "bytes": 251760,
+  "sha256": "05c7f9e9d491df82cd8aeaf6ea1c07dde700205e7e2e2a694ce6f179f0491314",
+  "measured_s": 20.95
+ },
+ {
+  "slot": 29,
+  "take": "a",
+  "file": "takes/turn29.mp3",
+  "bytes": 324799,
+  "sha256": "b5addc5816db4f5e6a56b3e5d158f64702d1413b04976776f148aecfdb6a746d",
+  "measured_s": 27.04
+ },
+ {
+  "slot": 30,
+  "take": "a",
+  "file": "takes/turn30.mp3",
+  "bytes": 277778,
+  "sha256": "b2e35358ec1b50c557d11082bedaf440a39435e62fcaf066c9eda586edceda39",
+  "measured_s": 23.12
+ },
+ {
+  "slot": 31,
+  "take": "b",
+  "file": "takes/turn31.mp3",
+  "bytes": 321978,
+  "sha256": "b933a3081dc0238b06b03d3d89142a7aab52945ba4ab54867e2b6d5ce22d3da3",
+  "measured_s": 26.8
+ },
+ {
+  "slot": 32,
+  "take": "a",
+  "file": "takes/turn32.mp3",
+  "bytes": 290317,
+  "sha256": "e453ae86527137a471a69998c2d873dfbab2ed127d17b1fe4a4fe6b8766c5b24",
+  "measured_s": 24.16
+ },
+ {
+  "slot": 35,
+  "take": "a",
+  "file": "takes/turn35.mp3",
+  "bytes": 381537,
+  "sha256": "2ad708ee7e487e95c3fd44589222131a2dce083c245deb431b555e21ca9c7676",
+  "measured_s": 31.76
+ },
+ {
+  "slot": 42,
+  "take": "a",
+  "file": "takes/turn42.mp3",
+  "bytes": 321037,
+  "sha256": "3dc208590adc06d6955d0e74e6e906a771780b8561cadf742db65645f8266041",
+  "measured_s": 26.72
+ },
+ {
+  "slot": 43,
+  "take": "a",
+  "file": "takes/turn43.mp3",
+  "bytes": 390000,
+  "sha256": "917fc5b0a5a0d98b54593f2e658381d166fcbc9f85482745fd8f449b9839449d",
+  "measured_s": 32.47
+ }
+]

@@ -1,0 +1,397 @@
+{
+  "author": "Andrew Fisher",
+  "test": "Actual hosted G.frame, G.step, route and original scheduler baseline; timer/DOM render stubs isolate playback lifecycle, not physical-device performance",
+  "baselineSha256": "4502f5f4d403ccb73433428971d3c8a863af372dd9c609eece227443a379d7fe",
+  "sourceSha256": "50a9c02318f6d8294a47218193f55fc7549cca0db29414e78401343d6d26019a",
+  "cases": [
+    {
+      "fps": 60,
+      "pace": 0.25,
+      "seconds": 255.967,
+      "distanceM": 2910.28,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 60,
+      "pace": 0.5,
+      "seconds": 131.017,
+      "distanceM": 2910.28,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 60,
+      "pace": 1,
+      "seconds": 90.1,
+      "distanceM": 4021.32,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 12,
+      "pace": 0.25,
+      "seconds": 426.667,
+      "distanceM": 2910.76,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 12,
+      "pace": 0.5,
+      "seconds": 218.417,
+      "distanceM": 2911.23,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 12,
+      "pace": 1,
+      "seconds": 112.667,
+      "distanceM": 2910.99,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 8,
+      "pace": 0.25,
+      "seconds": 640,
+      "distanceM": 2910.76,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 8,
+      "pace": 0.5,
+      "seconds": 327.625,
+      "distanceM": 2911.23,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    },
+    {
+      "fps": 8,
+      "pace": 1,
+      "seconds": 169,
+      "distanceM": 2910.99,
+      "lapLengthM": 2910.11,
+      "deckComplete": true,
+      "finished": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "complete lap and deck at 60 Hz / 0.25 pace",
+      "pass": true,
+      "detail": {
+        "fps": 60,
+        "pace": 0.25,
+        "seconds": 255.967,
+        "distanceM": 2910.28,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 60 Hz / 0.5 pace",
+      "pass": true,
+      "detail": {
+        "fps": 60,
+        "pace": 0.5,
+        "seconds": 131.017,
+        "distanceM": 2910.28,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 60 Hz / 1 pace",
+      "pass": true,
+      "detail": {
+        "fps": 60,
+        "pace": 1,
+        "seconds": 90.1,
+        "distanceM": 4021.32,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 12 Hz / 0.25 pace",
+      "pass": true,
+      "detail": {
+        "fps": 12,
+        "pace": 0.25,
+        "seconds": 426.667,
+        "distanceM": 2910.76,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 12 Hz / 0.5 pace",
+      "pass": true,
+      "detail": {
+        "fps": 12,
+        "pace": 0.5,
+        "seconds": 218.417,
+        "distanceM": 2911.23,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 12 Hz / 1 pace",
+      "pass": true,
+      "detail": {
+        "fps": 12,
+        "pace": 1,
+        "seconds": 112.667,
+        "distanceM": 2910.99,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 8 Hz / 0.25 pace",
+      "pass": true,
+      "detail": {
+        "fps": 8,
+        "pace": 0.25,
+        "seconds": 640,
+        "distanceM": 2910.76,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 8 Hz / 0.5 pace",
+      "pass": true,
+      "detail": {
+        "fps": 8,
+        "pace": 0.5,
+        "seconds": 327.625,
+        "distanceM": 2911.23,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "complete lap and deck at 8 Hz / 1 pace",
+      "pass": true,
+      "detail": {
+        "fps": 8,
+        "pace": 1,
+        "seconds": 169,
+        "distanceM": 2910.99,
+        "lapLengthM": 2910.11,
+        "deckComplete": true,
+        "finished": true
+      }
+    },
+    {
+      "name": "original hosted lifecycle reproduces half-lap cutoff",
+      "pass": true,
+      "detail": {
+        "seconds": 90.1,
+        "progress": 0.5293435545806808
+      }
+    },
+    {
+      "name": "final figure chapter waits while car continues",
+      "pass": true
+    },
+    {
+      "name": "explicit pause at final chapter holds route",
+      "pass": true
+    },
+    {
+      "name": "resume at final chapter retains route",
+      "pass": true
+    },
+    {
+      "name": "manual chapter navigation does not reset route",
+      "pass": true
+    },
+    {
+      "name": "Replay explicitly resets car, deck and completion",
+      "pass": true
+    },
+    {
+      "name": "manual chapter move preserves explicit pause",
+      "pass": true
+    },
+    {
+      "name": "Loop stays running beyond completed deck and laps",
+      "pass": true,
+      "detail": {
+        "active": true,
+        "distanceM": 9193.702212640628,
+        "lapLengthM": 2910.1086655413205,
+        "length": 2910.1086655413205,
+        "progress": 1,
+        "lapProgress": 0.15922986708486814,
+        "laps": 3.159229867084868,
+        "deckComplete": false,
+        "finished": false,
+        "playing": true,
+        "loop": true
+      }
+    },
+    {
+      "name": "turning Loop off permits finish at deck end",
+      "pass": true
+    },
+    {
+      "name": "appearance remount keeps drive and completion state",
+      "pass": true
+    },
+    {
+      "name": "paused appearance change remains paused",
+      "pass": true
+    },
+    {
+      "name": "context restoration retains partial route and paused ownership",
+      "pass": true
+    },
+    {
+      "name": "restored context still finishes complete lap",
+      "pass": true
+    },
+    {
+      "name": "lost context never advances the car",
+      "pass": true
+    },
+    {
+      "name": "deck may finish an already completed lap during context loss",
+      "pass": true
+    },
+    {
+      "name": "stale running snapshot cannot restart a finished show",
+      "pass": true
+    },
+    {
+      "name": "restored finished show remains stationary",
+      "pass": true
+    },
+    {
+      "name": "incomplete lap does not finish during context loss",
+      "pass": true
+    },
+    {
+      "name": "Pause pressed while context was lost wins on restoration",
+      "pass": true
+    },
+    {
+      "name": "reduced motion never forces playback or completion",
+      "pass": true
+    },
+    {
+      "name": "close cancels session and leaves it stopped",
+      "pass": true
+    },
+    {
+      "name": "Pause holds launch lamps and car",
+      "pass": true
+    },
+    {
+      "name": "Resume during launch resumes chapter schedule and completes",
+      "pass": true
+    },
+    {
+      "name": "broadcast starts car and owns chapter timing",
+      "pass": true
+    },
+    {
+      "name": "Pause holds silent commentary and car",
+      "pass": true
+    },
+    {
+      "name": "resume retains remaining commentary hold",
+      "pass": true
+    },
+    {
+      "name": "commentary advances after remaining hold",
+      "pass": true
+    },
+    {
+      "name": "broadcast keeps full lap moving without a deck timer race",
+      "pass": true
+    },
+    {
+      "name": "turning commentary off returns chapter timer ownership",
+      "pass": true
+    },
+    {
+      "name": "close stops broadcast and scheduled callbacks",
+      "pass": true
+    },
+    {
+      "name": "Pause stops active commentary audio",
+      "pass": true
+    },
+    {
+      "name": "Resume continues same take and offset",
+      "pass": true
+    },
+    {
+      "name": "failed audio cannot arm a timer behind Pause",
+      "pass": true
+    },
+    {
+      "name": "failed audio uses one bounded fallback hold on Resume",
+      "pass": true
+    },
+    {
+      "name": "Motion Off pauses active commentary and car immediately",
+      "pass": true
+    },
+    {
+      "name": "Motion On waits for explicit Resume of commentary",
+      "pass": true
+    },
+    {
+      "name": "explicit Resume restarts commentary after Motion On",
+      "pass": true
+    },
+    {
+      "name": "Motion Off cancels silent fallback countdown immediately",
+      "pass": true
+    },
+    {
+      "name": "Motion resume retains silent fallback remaining time",
+      "pass": true
+    },
+    {
+      "name": "silent commentary continues after remaining hold",
+      "pass": true
+    },
+    {
+      "name": "flat or unavailable scene completion makes no full-lap claim",
+      "pass": true
+    },
+    {
+      "name": "failed scene after partial travel makes no full-lap claim",
+      "pass": true
+    },
+    {
+      "name": "completed circuit and figures retain accurate completion label",
+      "pass": true
+    }
+  ]
+}

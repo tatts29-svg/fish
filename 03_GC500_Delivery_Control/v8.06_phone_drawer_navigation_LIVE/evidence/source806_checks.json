@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "baseSha256": "fa32b0a1937b329077923b960688a8927fbaaa2e6283d4d1ce2c6732eb98c213",
+  "candidateSha256": "eaf5182106015aa68c06452493c208f6ca9551b7f164d56089e343920b9dc8f9",
+  "checks": [
+    {
+      "name": "Every script is byte-for-byte unchanged",
+      "pass": true
+    },
+    {
+      "name": "Exactly the supplied two scoped CSS rules are embedded",
+      "pass": true
+    },
+    {
+      "name": "Reversing CSS and release marker restores every original byte including DATA",
+      "pass": true
+    },
+    {
+      "name": "Reapplying to official fresh base reproduces candidate bytes",
+      "pass": true
+    },
+    {
+      "name": "Repeat application is rejected without writing",
+      "pass": true
+    },
+    {
+      "name": "Wrong base is rejected without writing",
+      "pass": true
+    }
+  ]
+}

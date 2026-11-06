@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GC500 · Track detail preview</title>
+<meta name="author" content="Andrew Fisher">
+<style>
+:root{color-scheme:dark;font-family:Arial,Helvetica,sans-serif;color:#faf9f6;background:#101618}*{box-sizing:border-box}body{margin:0}button,select{font:inherit;color:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #ffa15d;outline-offset:4px}button:disabled{opacity:.45;cursor:default}
+.stage{position:fixed;inset:0;background:linear-gradient(#487ca7,#bbc6c7 65%,#353638)}.top{position:fixed;inset:0 0 auto;z-index:2;padding:28px 34px 58px;display:flex;justify-content:space-between;align-items:start;background:linear-gradient(#111a226b,transparent);pointer-events:none}.brand{font-size:15px;font-weight:800;letter-spacing:.18em}.brand b{color:#ff8329}.sub{margin-top:9px;font-size:11px;letter-spacing:.14em;color:#d1d8da}.tag{border:1px solid #ffffff40;border-radius:4px;padding:8px 12px;font-size:10px;letter-spacing:.15em;background:#12202a66}.title{position:fixed;z-index:2;left:34px;top:115px;pointer-events:none;text-shadow:0 2px 14px #0009}.title small{font-size:10px;letter-spacing:.2em;color:#ffc28f}.title h1{font-size:clamp(24px,3.5vw,48px);letter-spacing:-.035em;line-height:1;margin:10px 0}.title p{font-size:12px;color:#e3e7e8;margin:0;max-width:470px;line-height:1.6}.bottom{position:fixed;z-index:3;bottom:0;left:0;right:0;background:linear-gradient(transparent,#0c141af5 42%);padding:70px 34px 20px}.controls{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px 0;border-top:1px solid #ffffff3a}.group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.group button,select{border:1px solid #ffffff3d;background:#16232bcc;border-radius:5px;min-height:42px;padding:10px 15px;font-size:12px;font-weight:600}.group button[aria-pressed=true]{border-color:#ff8329;background:#e87924;color:#0c141a}.group button.primary{background:#ff8329;color:#171b1f;border-color:#ff8329}.caption{display:flex;gap:16px;justify-content:space-between;color:#a9b4ba;font-size:10px;line-height:1.6;letter-spacing:.02em}.caption span{max-width:800px}.start{position:fixed;inset:0;display:grid;place-content:center;z-index:4;text-align:center;background:#0d1619e8;padding:25px}.start[hidden]{display:none}.start h2{font-size:clamp(30px,5vw,60px);letter-spacing:-.04em;margin:0 0 16px}.start p{color:#bfc8cb;max-width:530px;line-height:1.6;font-size:15px;margin:0 auto 24px}.start button{justify-self:center;border:0;border-radius:5px;padding:17px 28px;font-weight:700;background:#ff8329;color:#151a1d}.help{position:fixed;right:34px;top:115px;z-index:2;background:#14212ad9;border:1px solid #ffffff30;border-radius:6px;padding:14px 16px;font-size:11px;max-width:250px;color:#cdd5d8;line-height:1.65}.help summary{cursor:pointer;color:white;font-weight:700}.help ul{padding-left:15px;margin-bottom:0}.state{min-width:110px;font-size:10px;color:#d2dade;letter-spacing:.08em;text-align:right}.progress{height:2px;background:#ffffff20}.progress i{display:block;width:0;height:100%;background:#ff8329}.error{color:#ffaf8c!important}
+@media(max-width:720px){.top{padding:20px}.title{left:20px;top:95px}.title p{max-width:260px}.tag{font-size:8px}.brand{font-size:12px}.sub{font-size:8px}.help{top:185px;right:20px;max-width:200px}.bottom{padding:65px 16px 14px}.controls{flex-wrap:wrap;gap:10px}.group{gap:5px}.group button,select{min-height:40px;padding:9px 10px;font-size:11px}.state{margin-left:auto}.caption{font-size:9px}.caption span:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style></head><body>
+<main id="stage" class="stage" aria-label="Interactive 3D track detail preview"></main>
+<header class="top"><div><div class="brand"><b>COATES</b> / GC500</div><div class="sub">TRACK DETAIL STUDY · 01</div></div><div class="tag">TRACK DETAIL · v7.85</div></header>
+<div class="title"><small>GOLD COAST · CIRCUIT ENVIRONMENT</small><h1>The pit straight.</h1><p id="lookLabel">Warm light. Real depth. Detail at track level.</p></div>
+<details class="help"><summary>What to look for</summary><ul><li>Slim advertising gantry and separate pedestrian bridge.</li><li>Barrier panel joins, branding and double-arm lights.</li><li>Garage fronts, shaded balconies and textured road.</li></ul></details>
+<section class="bottom" aria-label="Preview controls"><div class="progress" aria-hidden="true"><i id="progress"></i></div><div class="controls">
+<div class="group"><button id="play" class="primary" disabled>Pause</button><button id="restart" disabled>Replay section</button><button id="compare" aria-pressed="true" disabled>Detail on</button></div>
+<div class="group" aria-label="Camera"><button data-camera="chase" aria-pressed="true" disabled>Chase</button><button data-camera="onboard" aria-pressed="false" disabled>Track level</button><button data-camera="hero" aria-pressed="false" disabled>Car follow</button><button data-camera="heli" aria-pressed="false" disabled>Overhead</button></div>
+<div class="group"><label for="quality" class="sub">DETAIL</label><select id="quality" disabled><option value="balanced">Balanced</option><option value="high" selected>High</option><option value="ultra">Ultra</option></select><div class="state" id="state" aria-live="polite">READY TO START</div></div>
+</div><footer class="caption"><span>Visual preview only. Added structures are illustrative placements informed by track photographs. Circuit: iEDM key plan · © OpenStreetMap contributors (ODbL).</span><span>Author: Andrew Fisher · Offline review copy</span></footer></section>
+<section class="start" id="start"><h2>Closer to the circuit.</h2><p>A working 3D detail study using the existing Coates #26 car. Compare the current graphics with the new environment, then move between the cameras.</p><button id="launch">Open animated preview</button><p style="font-size:11px;margin-top:20px">One section · runs locally in your browser · no project records</p></section>
+<script>/* VISUAL_DATA_781 */
+/* RENDERER_781 */
+/* EXTENSIONS_781 */
+</script><script>
+/* Author: Andrew Fisher. Standalone, read-only visual study. */
+(function(){'use strict';
+const G=window.GC3D,$=s=>document.querySelector(s),rm=matchMedia('(prefers-reduced-motion: reduce)'),state=$('#state');
+let running=false,raf=0,last=0,frames=0,elapsed=0,slow=0,autoPaused=false;
+function paintState(){const S=G.S;if(!S)return;const label=(S.paused?'PAUSED':(S.fps?S.fps+' FPS':'RUNNING'))+' · '+S.cv.width+' × '+S.cv.height;if(state.textContent!==label)state.textContent=label;}
+function frame(t){if(!running)return;raf=requestAnimationFrame(frame);const S=G.S;if(document.hidden||!S)return;
+ G.frame(t);paintState();$('#progress').style.width=Math.min(100,Math.max(0,((S.sim.s-S.gridS)*(G.M_PER_PT||6)+80)/155*100))+'%';
+ if(!S.paused){if(last){elapsed+=t-last;frames++;}if(elapsed>1800&&frames>3){S.fps=Math.round(frames*1000/elapsed);if(S.fps<22)slow++;else slow=0;
+ if(slow>=2&&S.qualityChoice!=='manual'){if(S.quality.name==='ultra')G.setQuality('high',true);else if(S.quality.name==='high')G.setQuality('balanced',true);else if(S.o.ss>.65)S.o.ss=.65;slow=0;$('#quality').value=S.quality.name;}
+ frames=0;elapsed=0;paintState();}}last=S.paused?0:t;
+}
+function pause(on){const S=G.S;if(!S)return;S.paused=on;S.last=null;S.needsRender=true;$('#play').textContent=on?'Play':'Pause';paintState();}
+window.startPreview781=function(){
+ if(running)return true;
+ try{const C=DATA.circuit,P=DATA.surrounds;if(!G.init({look:'day',quality:'high',ring:C.ring,roadWidth:C.roadWidth,streets:[],buildings:[],pit:P.pit.map(r=>G.packPts(P,r,1)),tune:{tc:.5}}))throw Error('WebGL 2 is unavailable in this browser.');
+ G.loadPack(P);G.setStands(C.stands);G.attach($('#stage'));G.S.o.ss=1;G.S.tune.shiftX=0;G.S.tune.shiftY=0;G.S.detail781Enabled=true;
+ G.enablePreview781(true);G.setPace(.5);G.restartPreview781();G.S.paused=rm.matches;G.S.reducedMotion=rm.matches;
+ G.setQuality(innerWidth<700?'balanced':'high');$('#quality').value=G.S.quality.name;
+ $('#start').hidden=true;document.querySelectorAll('button,select').forEach(b=>b.disabled=false);running=true;pause(rm.matches);raf=requestAnimationFrame(frame);return true;
+ }catch(e){$('#start p').textContent=e.message;$('#start p').classList.add('error');$('#launch').textContent='Try again';return false;}
+};
+$('#launch').onclick=()=>{ $('#launch').textContent='Building the scene…';requestAnimationFrame(()=>setTimeout(window.startPreview781,0));};
+$('#play').onclick=()=>pause(!G.S.paused);
+$('#restart').onclick=()=>{G.restartPreview781();G.render();};
+$('#compare').onclick=()=>{const on=G.enablePreview781(!G.S.detail781Enabled);$('#compare').setAttribute('aria-pressed',String(on));$('#compare').textContent=on?'Detail on':'Original scene';$('#lookLabel').textContent=on?'Warm light. Real depth. Detail at track level.':'Original scene · includes its nominal garages and crowds.';G.render();};
+document.querySelectorAll('[data-camera]').forEach(b=>b.onclick=()=>{G.preview781.camera=b.dataset.camera;G.setView(b.dataset.camera);G.S.camBase=null;G.camStep(0);G.render();document.querySelectorAll('[data-camera]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
+$('#quality').onchange=()=>{G.setQuality($('#quality').value);G.S.qualityChoice='manual';G.render();paintState();};
+document.addEventListener('visibilitychange',()=>{if(!G.S)return;if(document.hidden){autoPaused=!G.S.paused;pause(true);}else if(autoPaused){autoPaused=false;pause(false);}});
+rm.addEventListener('change',()=>{if(G.S){G.S.reducedMotion=rm.matches;if(rm.matches)pause(true);}});
+window.addEventListener('resize',()=>{if(G.S){G.S.needsRender=true;paintState();}});
+window.addEventListener('pagehide',()=>{running=false;cancelAnimationFrame(raf);if(G.S){G.disposeTrackDetail781(G.S);G.disposeArchitecture781(G.S);if(G.disposeVegetation781)G.disposeVegetation781(G.S);G.disposeSky781(G.S);}});
+window.pausePreview781=pause;
+})();
+</script></body></html>

@@ -1,0 +1,422 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261105T050250Z",
+ "finished": "2026-11-05T05:03:24.298Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, 5 Nov 2026 (15:0x AEST): \"1303835   toilet picked.up.left at.3pm\". 1303835 is one of WC15's two Coates toilet units (both ticked Ready 4 Nov; Brenden Meek's booking for 1303835 was 5 Nov 08:30); read 15:01 AEST, not already left. 1303835 left at 15:00 AEST on Thu 5 Nov 2026; WC15's other unit 1327226 stays on site, so WC15 is not left in full. Recorded after 15:00, as a departure is only recorded once its time has come.",
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC15",
+    "at": "2026-11-05T15:00:00+10:00",
+    "nos": [
+     "1303835"
+    ],
+    "complete": false
+   }
+  ]
+ },
+ "pageSha256": "6b57277fbf79511339dcae3dc098b1697e4fc4d9722c18b46a78c2170309b4a3",
+ "version": {
+  "before": 13057,
+  "after": 13058
+ },
+ "updated": {
+  "before": "2026-11-05T04:26:54.049Z",
+  "after": "2026-11-05T05:03:23.282Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC15",
+   "at": "2026-11-05T15:00:00+10:00",
+   "nos": [
+    "1303835"
+   ],
+   "complete": false,
+   "result": "left site 2026-11-05T15:00:00+10:00, recorded by Andrew Fisher: 1 x Toilet Block 6m 1303835 - still to leave: 1 x Toilet Block 6m"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC15",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC15": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:13:32.209Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:47:59.666Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:05.698Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:28.235Z",
+    "ready1238_units": {
+     "coates|1303835": {
+      "on": true,
+      "at": "2026-11-04T12:53:43.948Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1327226": {
+      "on": true,
+      "at": "2026-11-04T12:53:49.622Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1303835": {
+      "at": "2026-11-05T08:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:57:01.906Z"
+     },
+     "coates|1327226": {
+      "at": "2026-11-05T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:57:15.331Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T03:13:39.421Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:13:32.209Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T03:13:39.421Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:47:59.666Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:05.698Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:28.235Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1303835",
+      "ready": true,
+      "at": "2026-11-04T12:53:43.948Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1327226",
+      "ready": true,
+      "at": "2026-11-04T12:53:49.622Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1303835",
+      "pickup": "2026-11-05T08:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:57:01.906Z"
+     },
+     {
+      "unit": "coates|1327226",
+      "pickup": "2026-11-05T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:57:15.331Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:42:49.030Z"
+    },
+    "loading872": {
+     "u1327226": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:26.354Z"
+     },
+     "u1303835": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:29.583Z"
+     }
+    },
+    "_k": "WC15"
+   }
+  },
+  "after": {
+   "delivery/WC15": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:13:32.209Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:47:59.666Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:05.698Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:28.235Z",
+    "ready1238_units": {
+     "coates|1303835": {
+      "on": true,
+      "at": "2026-11-04T12:53:43.948Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1327226": {
+      "on": true,
+      "at": "2026-11-04T12:53:49.622Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1303835": {
+      "at": "2026-11-05T08:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:57:01.906Z"
+     },
+     "coates|1327226": {
+      "at": "2026-11-05T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-03T03:57:15.331Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T03:13:39.421Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:13:32.209Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-05T05:03:09.471Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d7e83386-6ec1-4a45-97af-f3138b604095",
+       "date": "2026-11-05",
+       "departedAt1211": "2026-11-05T15:00:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-25T03:13:32.209Z",
+       "requiredKey": "[[\"toilet block 6m\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC15\",\"coates\",\"asset\",\"1303835\"]"
+         ],
+         "numbers": [
+          "1303835"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC15\",\"coates\",\"asset\",\"1303835\"]",
+           "number": "1303835",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC15",
+        "capturedAt": "2026-11-05T05:03:09.470Z",
+        "arrivalAt": "2026-09-25T03:13:32.209Z",
+        "reference": {
+         "lat": -27.986024,
+         "lon": 153.428091,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC15",
+         "tag": "WC15",
+         "what": "Toilets (Sewer Connect) · Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T03:13:39.421Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:47:59.666Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:05.698Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:28.235Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1303835",
+      "ready": true,
+      "at": "2026-11-04T12:53:43.948Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1327226",
+      "ready": true,
+      "at": "2026-11-04T12:53:49.622Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1303835",
+      "pickup": "2026-11-05T08:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:57:01.906Z"
+     },
+     {
+      "unit": "coates|1327226",
+      "pickup": "2026-11-05T09:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-03T03:57:15.331Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:42:49.030Z"
+    },
+    "loading872": {
+     "u1327226": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:26.354Z"
+     },
+     "u1303835": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:42:29.583Z"
+     }
+    },
+    "_k": "WC15"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

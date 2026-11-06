@@ -1,0 +1,52 @@
+/* Author: Andrew Fisher. Arrange the existing map controls around the drawing. */
+body.framed header > b,body.framed header > .sub{display:none}
+header .modes{margin-left:auto}
+header #navBtn{flex:none}
+aside{overscroll-behavior:contain}
+aside details.card{flex:none}
+aside details > summary{cursor:pointer;font:700 10px/1.4 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+aside details[open] > summary{margin-bottom:8px}
+#about813 > .aboutcontent813{display:flex;flex-direction:column;gap:10px}
+#about813 > .aboutcontent813 > .card{margin:0}
+.maphelp813{margin:8px 0 0;font-size:12px;color:var(--mute)}
+button:focus-visible,summary:focus-visible,a:focus-visible,#stage:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.console button{touch-action:manipulation}
+.console #fullBtn,.console #boxBtn{font-size:17px}
+#legend{z-index:30;overflow-wrap:anywhere}
+#legend [data-closelegend813]{position:sticky;top:0;width:auto;margin-left:auto;z-index:1}
+@media(min-width:901px){#navBtn{display:none}body.framed header{justify-content:flex-end}}
+@media(max-width:900px){
+  .app{grid-template-rows:58px 1fr}
+  header{gap:6px;padding:0 6px}
+  #navBtn{width:44px!important;height:44px;padding:0!important;justify-content:center;font-size:12px}
+  header .modes{gap:2px;padding:2px;min-width:0}
+  .modes button{min-width:44px;min-height:44px;padding:7px 7px}
+  aside{top:58px;width:min(340px,calc(100% - 16px));visibility:hidden;pointer-events:none;z-index:20}
+  body.nav aside{visibility:visible;pointer-events:auto}
+  .search input{min-height:44px}
+  aside summary{min-height:44px;display:list-item;align-content:center}
+  .ctl input[type=range]{min-height:44px}
+  .jump,.results button,.findlist button,.chip{min-height:44px}
+  .chk{min-height:44px}
+  .console{left:8px;right:8px;top:8px;gap:5px;justify-content:flex-end}
+  .console button{min-width:44px;height:44px;padding:0 7px}
+  .hud{top:62px}
+  .satban{top:104px}
+  .satban button{min-height:44px}
+  .legend .jump{min-height:44px}
+  .qual{max-width:calc(100% - 108px)}
+}
+@media(max-height:540px){.mini{display:none}.toast{bottom:12px}.legend{bottom:12px}}
+/* A short landscape frame keeps the same direction buttons, without the decorative dial over the zoom controls. */
+@media(max-height:300px) and (min-width:600px){
+  .rose{top:62px;bottom:auto;right:8px;flex-direction:row;gap:6px}
+  .dial{display:flex;gap:4px;width:188px;height:44px;border-radius:0;background:none;box-shadow:none;transform:none!important}
+  .dial::before,.dial .needle{display:none}
+  .dial button{position:static;flex:none;width:44px;height:44px;margin:0;transform:none!important;border:1px solid var(--rule);border-radius:8px;background:rgba(15,13,12,.88)}
+  .dial button b{line-height:42px;transform:none!important}
+  .rose #sheetBtn{min-height:44px}
+  .hud{top:8px;right:390px}
+  .hud .pill{max-width:100%;overflow-wrap:anywhere}
+  .qual{max-width:calc(100% - 432px)}
+}
+@media(max-width:360px){header{gap:4px;padding:0 4px}.modes button{padding:7px 5px}.console{left:6px;right:6px;gap:4px}.console button{padding:0 6px}}

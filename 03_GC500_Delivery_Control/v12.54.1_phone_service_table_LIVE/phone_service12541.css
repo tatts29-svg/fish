@@ -1,0 +1,4 @@
+/* Author: Andrew Fisher. Let the existing servicing table scroll fully on phones. */
+@media screen and (max-width:640px){
+ #card748 > .tblwrap:has(> table.t748 > thead > tr > th:nth-child(2).num) :is(th,td):first-child{position:static;box-shadow:none}
+}

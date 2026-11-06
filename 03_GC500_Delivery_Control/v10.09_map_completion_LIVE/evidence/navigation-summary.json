@@ -1,0 +1,37 @@
+{
+  "author": "Andrew Fisher",
+  "parentSha256": "60533337c67a77211e660f0737ca5c693d52c2108a18d79fb0fd8a9d48c46a8b",
+  "scope": "Parent navigation; final external map assets checked separately",
+  "viewports": {
+    "desktop": {
+      "routes": 22,
+      "deepLinks": 7,
+      "backToEquipment": true,
+      "browserErrors": 0,
+      "consoleErrors": 0,
+      "aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    },
+    "phone": {
+      "routes": 22,
+      "deepLinks": 7,
+      "backToEquipment": true,
+      "browserErrors": 0,
+      "consoleErrors": 0,
+      "aliases": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      }
+    }
+  }
+}

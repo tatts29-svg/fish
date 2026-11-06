@@ -1,0 +1,3 @@
+/* Author: Andrew Fisher. Water barrier programme card in the drawer, v10.30: the drawer's own kv style. */
+.wfb1030 dl.kv dd small{display:block;color:var(--mute);font-size:11.5px;margin-top:2px}
+.wfb1030 dl.kv dd b{font-weight:700}

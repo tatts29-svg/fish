@@ -1,0 +1,113 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261015T231236Z",
+ "finished": "2026-10-15T23:12:49.292Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "The supplier rates Advanced actually bill, as the Week 2 invoice totals sheet against purchase order 4647519 (commercial approval 13 Oct 2026) shows them, typed on the Fencing tab's own rate inputs (Andrew, 16 Oct 2026: 'We go by what we are being charged for; you have the purchase orders on how we are being charged'). Pedestrian gate incl one wheel $61 each (the cost tracker's rate row said $36). Flat-feet CCB: Advanced billed 36591's barriers as Demarcation CCB at $5.40 a metre with no separate flat-feet line, so flat feet are paid at the CCB rate until an invoice says otherwise.",
+  "ops": [
+   {
+    "op": "fence_cost",
+    "key": "ped_gates",
+    "rate": 61
+   },
+   {
+    "op": "fence_cost",
+    "key": "flat_feet",
+    "rate": 5.4
+   }
+  ]
+ },
+ "pageSha256": "d72e7f6198111f51d392cd910ea35abc56e06dee3c9b9c8b7cb6abd1b3aedb3a",
+ "version": {
+  "before": 6637,
+  "after": 6643
+ },
+ "updated": {
+  "before": "2026-10-15T21:31:20.293Z",
+  "after": "2026-10-15T23:12:48.552Z"
+ },
+ "stage": [
+  {
+   "op": "fence_cost",
+   "no": "ped_gates",
+   "result": "supplier rate ped_gates (tracker 36) -> 61 through the tab's input"
+  },
+  {
+   "op": "fence_cost",
+   "no": "flat_feet",
+   "result": "supplier rate flat_feet (tracker none) -> 5.4 through the tab's input"
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/fenceCosts~2f~ped_gates",
+   "status": 200
+  },
+  {
+   "key": "stamps/fenceCosts~2f~flat_feet",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCosts~2f~ped_gates",
+   "status": 200
+  },
+  {
+   "key": "by/fenceCosts~2f~flat_feet",
+   "status": 200
+  },
+  {
+   "key": "fenceCosts/ped_gates",
+   "status": 200
+  },
+  {
+   "key": "fenceCosts/flat_feet",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/fenceCosts~2f~ped_gates": null,
+   "stamps/fenceCosts~2f~flat_feet": null,
+   "by/fenceCosts~2f~ped_gates": null,
+   "by/fenceCosts~2f~flat_feet": null,
+   "fenceCosts/ped_gates": null,
+   "fenceCosts/flat_feet": null
+  },
+  "after": {
+   "stamps/fenceCosts~2f~ped_gates": {
+    "_k": "fenceCosts/ped_gates",
+    "v": "2026-10-15T23:12:44.642Z"
+   },
+   "stamps/fenceCosts~2f~flat_feet": {
+    "_k": "fenceCosts/flat_feet",
+    "v": "2026-10-15T23:12:46.014Z"
+   },
+   "by/fenceCosts~2f~ped_gates": {
+    "_k": "fenceCosts/ped_gates",
+    "v": "Andrew Fisher"
+   },
+   "by/fenceCosts~2f~flat_feet": {
+    "_k": "fenceCosts/flat_feet",
+    "v": "Andrew Fisher"
+   },
+   "fenceCosts/ped_gates": {
+    "_k": "ped_gates",
+    "v": "61"
+   },
+   "fenceCosts/flat_feet": {
+    "_k": "flat_feet",
+    "v": "5.4"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

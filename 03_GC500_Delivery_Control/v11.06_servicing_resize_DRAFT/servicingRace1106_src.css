@@ -1,0 +1,48 @@
+/* Author: Andrew Fisher. One overall score, canonical areas and larger saved-state race lights. */
+@media screen {
+/* Both existing meters remain bound; only the appropriate view is visible. */
+#svc1067 .svc1099-overall{display:none}
+#pane-servicing:fullscreen #svc1067 .svc1099-overall{display:flex}
+#svc1067 .svc1099-heading{grid-column:1/-1}
+#svc1067 .svc1099-area-chooser{grid-column:1/-1;border-left:4px solid var(--area-color,#ff8a32);padding-left:10px}
+#pane-servicing:fullscreen #svc1067 .svc1099-heading,#pane-servicing:fullscreen #svc1067 .svc1099-area-chooser{grid-column:1}
+#pane-servicing:fullscreen #svc1067-host .svc-win{display:none}
+/* Canonical area identity appears beside the full name, never inferred from order. */
+#svc1067 .svc1099-area>strong{display:flex;align-items:center;gap:8px;min-height:28px;font-size:12px;line-height:1.15;text-align:left}
+#svc1067 .svc1106-area-number{display:grid;place-items:center;flex:0 0 28px;min-height:28px;border-radius:7px;border:1px solid var(--area-color);background:color-mix(in srgb,var(--area-color) 32%,#15191b);color:#fff;font:900 17px/1 Inter,Arial,sans-serif;font-variant-numeric:tabular-nums;box-shadow:inset 0 0 0 1px #ffffff18}
+#svc1067 .svc1106-area-name{min-width:0;color:#f5f8fa}
+#svc1067 .svc1099 .svc1099-area{padding:8px 10px 11px;min-height:0;gap:5px;border-left:4px solid var(--area-color);border-color:color-mix(in srgb,var(--area-color) 60%,#303b40);background:linear-gradient(125deg,color-mix(in srgb,var(--area-color) 10%,#24282b),#141719);box-shadow:inset 0 1px #ffffff12;overflow:visible}
+#svc1067 .svc1099-area .svc1102-meter{display:grid;grid-template-columns:1fr;gap:3px;max-width:none}
+#svc1067 .svc1099-area .svc-big{grid-column:1;grid-row:1;display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+#svc1067 .svc1099-area .svc1102-meter.svc1102-area .svc-big b{font-size:42px;line-height:1;letter-spacing:-.035em;white-space:nowrap}
+#svc1067 .svc1099-area .svc1102-caption{font-size:9px;line-height:1.2;margin:0;text-align:right;letter-spacing:0}
+#svc1067 .svc1099-area .svc1102-lights{grid-column:1;grid-row:2;max-width:none;width:100%;padding:4px 5px 3px;gap:5px;border-color:color-mix(in srgb,var(--area-color) 58%,#465159);border-radius:8px;box-shadow:inset 0 3px 8px #0009}
+#svc1067 .svc1099-area .svc1102-lamp{width:32px;max-width:100%}
+#svc1067 .svc1099-area .svc1102-unit{gap:1px}
+#svc1067 .svc1099-area .svc1102-lamp.is-on .svc1102-dots{fill:var(--area-color);stroke:color-mix(in srgb,var(--area-color) 35%,#fff);stroke-width:.7}
+#svc1067 .svc1099-area .svc1102-lamp.is-on .svc1102-tint{fill:color-mix(in srgb,var(--area-color) 27%,#080d0f)}
+#svc1067 .svc1099-area .svc1102-lamp.is-on .svc1102-halo{background:radial-gradient(circle,color-mix(in srgb,var(--area-color) 40%,transparent),transparent 72%);box-shadow:0 0 12px color-mix(in srgb,var(--area-color) 55%,transparent)}
+#svc1067 .svc1099-area .svc1102-unit small{font-size:8px;line-height:1.1;color:#ccd5d9}
+#svc1067 .svc1099-area .svc1102-counts{grid-column:1;grid-row:3;display:flex;justify-content:space-between;gap:4px;margin-top:1px;font-size:9px;line-height:1.2}
+#svc1067 .svc1099 .svc1099-area[aria-pressed=true]{outline:3px solid var(--area-color);outline-offset:2px;background:linear-gradient(125deg,color-mix(in srgb,var(--area-color) 26%,#24282b),#141719);box-shadow:0 0 0 5px #ffffff13,inset 0 0 0 1px #fff6}
+#svc1067 .svc1099 .svc1099-area[aria-pressed=true] .svc1106-area-number{background:color-mix(in srgb,var(--area-color) 38%,#15191b);border-color:#fff}
+/* Ambient colour is static. Only native saved completion gets the pulsing light. */
+#svc1067 .svc1099 .svc1099-area.done{border-color:var(--area-color);border-left:4px solid var(--area-color);background:linear-gradient(125deg,color-mix(in srgb,var(--area-color) 21%,#1a2520),#111d18);box-shadow:0 0 15px color-mix(in srgb,var(--area-color) 28%,transparent),inset 0 0 16px color-mix(in srgb,var(--area-color) 12%,transparent)}
+#svc1067 .svc1099 .svc1099-area.done:after{background:var(--area-color);border-radius:0 0 7px 7px}
+#svc1067 .svc1099-area.done:before{inset:0;border:2px solid var(--area-color);border-radius:8px;box-shadow:0 0 16px color-mix(in srgb,var(--area-color) 55%,transparent),inset 0 0 18px color-mix(in srgb,var(--area-color) 24%,transparent);animation:svc1106-area-glow 3.1s ease-in-out infinite;opacity:.34}
+#svc1067 .svc1099-area.done .svc1102-lights{border-color:var(--area-color);box-shadow:inset 0 3px 8px #0009,0 0 9px color-mix(in srgb,var(--area-color) 24%,transparent)}
+#svc1067 .svc1100-region.done .svc1100-region-fill{fill:var(--area-color);fill-opacity:.23}
+#svc1067 .svc1100-region.done .svc1100-region-line{stroke:var(--area-color);stroke-opacity:1}
+#svc1067 .svc1100-region.done .svc1100-region-glow{stroke:var(--area-color);stroke-opacity:.65}
+#svc1067 .svc1100-region.selected .svc1100-region-line{stroke-width:calc(4px * var(--svc-stroke-scale,1));stroke-opacity:1}
+#svc1067 .svc1099-area-badge{background:color-mix(in srgb,var(--area-color) 64%,#101315)}
+#svc1067 .svc1099-area-badge.done{background:color-mix(in srgb,var(--area-color) 64%,#101315);color:#fff;box-shadow:0 0 0 3px color-mix(in srgb,var(--area-color) 35%,transparent),0 0 14px color-mix(in srgb,var(--area-color) 65%,transparent)}
+#svc1067 .svc1099-area-badge.selected{outline:2px solid #fff;outline-offset:2px}
+@keyframes svc1106-area-glow{0%,100%{opacity:.34}50%{opacity:.9}}
+@media(min-width:1200px) and (max-width:2399px){#pane-servicing:fullscreen{padding:12px}#pane-servicing:fullscreen #svc1067-host{padding:8px}#pane-servicing:fullscreen #svc1067 .svc1099{padding:12px;row-gap:8px}#pane-servicing:fullscreen #svc1067-host .svc-days{margin:0 0 4px}#pane-servicing:fullscreen #svc1067-host .svc-days .btn{min-height:40px;padding:5px 6px}#pane-servicing:fullscreen #svc1067 .svc1099 .svc1099-area{padding-bottom:8px}}
+@media(min-width:1700px){#svc1067 .svc1099-areas{gap:8px}#svc1067 .svc1099-view{height:780px}}
+@media(max-width:1199px){#svc1067 .svc1099-area-chooser{grid-column:1;grid-row:2}#svc1067 .svc1099-areas{grid-row:3}#svc1067 .svc1099-view{grid-row:4}#svc1067 .svc1099-map-help{grid-row:5}#svc1067 .svc1099-key{grid-row:6}#pane-servicing:fullscreen #svc1067 .svc1099-overall{grid-row:2}#pane-servicing:fullscreen #svc1067 .svc1099-area-chooser{grid-row:3}#pane-servicing:fullscreen #svc1067 .svc1099-areas{grid-row:4}#pane-servicing:fullscreen #svc1067 .svc1099-view{grid-row:5}#pane-servicing:fullscreen #svc1067 .svc1099-map-help{grid-row:6}#pane-servicing:fullscreen #svc1067 .svc1099-key{grid-row:7}}
+@media(max-width:650px){#svc1067 .svc1099 .svc1099-area{padding:9px 8px 11px;gap:7px}#svc1067 .svc1099-area>strong{align-items:flex-start;min-height:42px;gap:6px;font-size:11px;line-height:1.25}#svc1067 .svc1106-area-number{flex-basis:25px;min-height:25px;font-size:16px}#svc1067 .svc1099-area .svc-big{display:block}#svc1067 .svc1099-area .svc1102-caption{margin-top:3px;text-align:left;min-height:12px}#svc1067 .svc1099-area .svc1102-lights{padding:4px 2px;gap:1px}#svc1067 .svc1099-area .svc1102-lamp{width:24px}#svc1067 .svc1099-area .svc1102-unit small{font-size:7px}#svc1067 .svc1099-area .svc1102-counts{display:grid;gap:2px;font-size:9px}}
+@media(min-width:2400px){#svc1067 .svc1099 .svc1099-area{padding:16px 18px 18px;gap:8px}#svc1067 .svc1099-area>strong{font-size:21px;line-height:1.2;min-height:50px;gap:14px}#svc1067 .svc1106-area-number{flex-basis:46px;min-height:46px;font-size:27px;border-radius:10px}#svc1067 .svc1099-area .svc1102-meter{gap:7px}#svc1067 .svc1099-area .svc1102-meter.svc1102-area .svc-big b{font-size:76px}#svc1067 .svc1099-area .svc1102-caption{font-size:15px}#svc1067 .svc1099-area .svc1102-lamp{width:64px}#svc1067 .svc1099-area .svc1102-lights{padding:7px 10px 6px;gap:10px}#svc1067 .svc1099-area .svc1102-unit small{font-size:12px}#svc1067 .svc1099-area .svc1102-counts{font-size:14px}#svc1067 .svc1099-view{height:1370px}}
+@media(prefers-reduced-motion:reduce){#pane-servicing .svc1099-area:before{animation:none!important}}
+}

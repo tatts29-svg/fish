@@ -1,0 +1,157 @@
+ok   desktop: part 3 script present (v10.59)
+ok   desktop: v10.56 painter stands down when v10.57 runs (rep on its source)
+ok   desktop: completed Build cards carrying Coates on time: 18 of 40
+ok   desktop: no row on today's or upcoming cards
+ok   desktop: 15 Oct 75%, 3 OF 4: COATES ON TIME · 3 OF 4 1 late P60 Gate 5 Ticket Box · 26 min late 75%
+ok   desktop: 15 Oct P60 26 min late on the site record (08:56, Coates text 09:09)
+ok   desktop: 15 Oct WC51 inside 07:00-10:00 on its 08:34 site time
+ok   desktop: 15 Oct card: "1 late" then "P60 Gate 5 Ticket Box · 26 min late": 1 late | P60 Gate 5 Ticket Box · 26 min late
+ok   desktop: 15 Oct card button reads the figure out: elivered within the window given. 1 late: P60 Gate 5 Ticket Box, 26 minutes late. Weather: History unavailable
+ok   desktop: 21 Sep 22%, 2 OF 9 (P16 counted on its first window): COATES ON TIME · 2 OF 9 7 late WC02 Toilet · 39 min late WB02 S08 - Pedestrian Pathway along Main Beach Parade · 59 min late P14 Team Office - Grove Racing · 9 min late +4 more · More info 22%
+ok   desktop: P16 34 min late on 21 Sep (re-booked mid-window; site record 15:34); 22 Sep 0 of 1: COATES ON TIME · 0 OF 1 1 late WC07 Toilets - Merch Area · 54 min late 0%
+ok   desktop: 15 Sep WC17: "Both toilets turned up 08:00" times both units
+ok   desktop: 21 Sep per-unit windows: P14 9 min, P15 2 h 39 min, WC02 39 min, WB02 59 min
+ok   desktop: 14 Sep 31%, 4 OF 13: COATES ON TIME · 4 OF 13 9 late P01 iEDM Engineering Office · 30 min late P03 SCA Event Management Office · 1 h late P04 SCA Sales & Marketing Office · 4 h 30 min late +6 more · More info 31%
+ok   desktop: 14 Sep rests on WC16's note times (08:00 and 10:30 both inside)
+ok   desktop: 15 Sep 50%, 3 OF 6 with the failed T0021 counted: COATES ON TIME · 3 OF 6 2 late, 1 failed T0021 Building 4.8m · Office 4.8x3 · not delivered T0025 Trakmat × 20 · Trackmat Delivery - S18 · 4 h 30 min late T0022 Building 4.8m · Lunchroom 4.8x3 · 4 h late 50%
+ok   desktop: 15 Sep T0022 4 h and T0025 4 h 30 min (site notes "turned up 14:30")
+ok   desktop: 16 Sep P17 30 min late and P21 1 h late on their site notes (the site record wins over the 06:59 text), 4 of 6
+ok   desktop: 25 Sep 0 OF 4 with WC50 set aside: COATES ON TIME · 0 OF 4 4 late WC27 Toilet (Tank Mounted) · Waste tank · 3 h 14 min late WC27 Toilet (Tank Mounted) · Toilet block · 1 h 44 min late WC15 Toilets (Sewer Connect) · Toilet block · 1 h 13 min late WC15 Toilets (Sewer Connect) · Toilet block · 1 h 9 min late 0%
+ok   desktop: 8 Oct 1 of 4 with WC31 counted (5 h 10 min)
+ok   desktop: 30 Sep 100%, 1 OF 1: COATES ON TIME · 1 OF 1 ALL WITHIN THE WINDOW GIVEN 100%
+ok   desktop: 7 Oct 100%, 11 OF 11: COATES ON TIME · 11 OF 11 ALL WITHIN THE WINDOW GIVEN 100%
+ok   desktop: 16 Oct 100%, 11 OF 11: COATES ON TIME · 11 OF 11 ALL WITHIN THE WINDOW GIVEN 100%
+ok   desktop: 23 Sep: 4 bookings with no delivered text, listed and not counted (no card row)
+ok   desktop: row sits straight under DAY'S DELIVERIES, before the work block, never inside a row: after-deliveries,before-work,top
+ok   desktop: no row nested inside another row
+ok   desktop: the late lines fit on every card
+ok   desktop: 14 Sep card: three named late loads, then "+6 more · More info": P01 iEDM Engineering Office · 30 min late | P03 SCA Event Management Office · 1 h late | P04 SCA Sales & Marketing Office · 4 h 30 min late | +6 more · More info
+ok   desktop: 12 Oct card: a reference twice in a day says which item: T0109 2.5T Forklift STD · Events · 29 min late | T0109 2.5T Forklift STD · Events · Fork extension · 29 min late | P69 Supply Building · 39 min late
+ok   desktop: 21 Sep card: 7 late, named: 7 late | WC02 Toilet · 39 min late | WB02 S08 - Pedestrian Pathway along Main Beach Parade · 59 min late | P14 Team Office - Grove Racing · 9 min late | +4 more · More info
+ok   desktop: two redraws: exactly one row per card, there in the same draw (no repaint a frame later): {"cards":40,"one":18,"two":0,"with":18}
+ok   desktop: no row is ever painted in on its own after a redraw; mutation count steady (74 then 74)
+ok   desktop: in-memory P60 site time 08:25: 15 Oct turns 100%, 4 OF 4, no reason line: COATES ON TIME · 4 OF 4 ALL WITHIN THE WINDOW GIVEN 100%
+ok   desktop: and More info has no late line then
+ok   desktop: restored: back to 3 OF 4
+ok   desktop: 15 Oct More info headline: percentage on the window given, build to date
+ok   desktop: 15 Oct P60 line: reference and description, item, window given, time done, minutes late
+ok   desktop: no late reasons anywhere in More info, 7 Sep to 16 Oct (window given and time done only)
+ok   desktop: More info says how it is counted: within the window given, early is on time, time done from the site record
+ok   desktop: More info ends "Coates texts loaded to 16 Oct 2026 17:47"
+ok   desktop: never "left Kingston", "same truck" or "departed"
+ok   desktop: the v10.48 day-panel fold stands down (one figure per day)
+ok   desktop: 21 Sep P15 (its 15:34 tick is later than the text, so the text time stands)
+ok   desktop: 21 Sep WC06 1 h 59 min and P14 9 min
+ok   desktop: 21 Sep P16 is a late line (34 min), not a no-text booking; 22 Sep shows WC07 only
+ok   desktop: 15 Sep: failed T0021 not on time; T0022 done 14:30 on its site note, 4 h late
+ok   desktop: 16 Sep P17 30 min and P21 1 h on their site notes
+ok   desktop: 25 Sep WC50 set aside with every source named
+ok   desktop: 25 Sep WC27 tank 3 h 14 min; WC15 first unit 1 h 13 min
+ok   desktop: 8 Oct WC31 5 h 10 min
+ok   desktop: 1 Oct: 1 of 4
+ok   desktop: no attribution to a person in the shown text (the page's v5.97 rule)
+ok   desktop: 23 Sep More info lists the bookings with no delivered text, no figure
+ok   desktop: 7 Oct More info: 100%, on-time list with window given and time done, no late lines
+ok   desktop: 14 Sep: P01 and P03 named by their own site-note times (same window, so each one's lateness stands)
+ok   desktop: WC100 has no description on the record: its item stands in (never a location string with unit numbers)
+ok   desktop: a day after the export (19 Oct, once past): no card row, More info says no texts loaded after 16 Oct 17:47 and lists what was booked
+ok   desktop: the card label keeps the figure when the weather refresh rewrites "Weather: …": e Gover. Coates on time 75 percent: 3 of 4 delivered within the window given. 1 late: P60 Gate 5 Ticket Box, 26 minutes late. Weather: Clear
+ok   desktop: 16 Sep: P21's site note (on site 14:30) is shown against its 06:59 Coates text, not hidden: Site note and Coates text disagree P20: site note on site 10:00, Coates text 08:14 (window 09:00–12:00); counted on the site note (the site record): within the window either way · P21: site note on site 14:30, Coates text 06:59 (window 10:30–13:30); counted on
+ok   desktop: 13 Oct: T0266 named; the rough-terrain forklift is T0109, on time at 09:59
+ok   desktop: 12 Oct fork extension named by T0109 and its description
+ok   desktop: part B: the view link cannot enter an arrival day (not an edit link)
+FAIL desktop: part B: the 14 Oct card goes 11 / 14 -> 14 / 14 received with P26, P28 and P34 on site by 14 Oct
+FAIL desktop: part B: WHAT WENT IN on 14 Oct gains Furniture 4 (2 large fridges · 2 chairs)
+FAIL desktop: part B: one day-only entry each, in the record's existing form (00:00 that day, date_only, effective_date, recorded_at): {"state":"on site","at":"2026-10-13T14:00:00.000Z","by":"Andrew Fisher","recorded_at":"2026-10-17T03:30:36.558Z","date_only":true,"effective_date":"2026-10-14","note":"Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"}
+ok   desktop: part B: entering the same day again adds nothing
+ok   desktop: part B: refused for today, a bad date, a non-reference and a light the record does not hold itself (the day must be before today; today is recorded by the light itself / not a date / P27X is not a reference in this file / none: no rental-only reference to try)
+ok   desktop: part B: arrivals on 14 Oct read "time not recorded" (stamp and time column): P26 Wed 14 Oct 2026 · time not recorded Time not recorded | P28 Wed 14 Oct 2026 · time not recorded Time not recorded | P34 Wed 14 Oct 2026 · time not recorded Time not recorded
+ok   desktop: part B: the 17 Oct light set on P26/P28/P34 is not a second arrival; FR01/FR02 (came 17 Oct) are: FR01,FR02
+ok   desktop: part B: the day each went green: P26 2026-10-14 | P34 2026-10-14 | FR01 2026-10-17 | T0266 2026-10-13
+ok   desktop: part B: P26 replays not on site at 13 Oct close, on site from 14 Oct: 2026-10-13 not on site | 2026-10-14 on site | 2026-10-16 on site
+ok   desktop: part B: no "00:00" and no raw stamp in 14 Oct More info or the P26 drawer
+ok   desktop: part B: the P26 drawer reads In Wed 14 Oct, arrived, and keeps when the light was recorded (17 Oct 12:13)
+ok   desktop: part B: T0266 (the record's earlier day-only arrival) reads the same: T0266 · Received | T0266 · 6.0m Refrigerator Cont · Helen Park · 1 × 6.0m Refrigerator Cont | T0266 6.0m Refrigerator Cont · Helen Park · Container 6 m · window
+ok   desktop: part B: Coates on time for 14 Oct unchanged (100 4/4): 100 4/4
+ok   desktop: no sideways scroll
+ok   desktop: no page errors 
+ok   phone: part 3 script present (v10.59)
+ok   phone: v10.56 painter stands down when v10.57 runs (rep on its source)
+ok   phone: completed Build cards carrying Coates on time: 18 of 40
+ok   phone: no row on today's or upcoming cards
+ok   phone: 15 Oct 75%, 3 OF 4: COATES ON TIME · 3 OF 4 1 late P60 Gate 5 Ticket Box · 26 min late 75%
+ok   phone: 15 Oct P60 26 min late on the site record (08:56, Coates text 09:09)
+ok   phone: 15 Oct WC51 inside 07:00-10:00 on its 08:34 site time
+ok   phone: 15 Oct card: "1 late" then "P60 Gate 5 Ticket Box · 26 min late": 1 late | P60 Gate 5 Ticket Box · 26 min late
+ok   phone: 15 Oct card button reads the figure out: elivered within the window given. 1 late: P60 Gate 5 Ticket Box, 26 minutes late. Weather: History unavailable
+ok   phone: 21 Sep 22%, 2 OF 9 (P16 counted on its first window): COATES ON TIME · 2 OF 9 7 late WC02 Toilet · 39 min late WB02 S08 - Pedestrian Pathway along Main Beach Parade · 59 min late P14 Team Office - Grove Racing · 9 min late +4 more · More info 22%
+ok   phone: P16 34 min late on 21 Sep (re-booked mid-window; site record 15:34); 22 Sep 0 of 1: COATES ON TIME · 0 OF 1 1 late WC07 Toilets - Merch Area · 54 min late 0%
+ok   phone: 15 Sep WC17: "Both toilets turned up 08:00" times both units
+ok   phone: 21 Sep per-unit windows: P14 9 min, P15 2 h 39 min, WC02 39 min, WB02 59 min
+ok   phone: 14 Sep 31%, 4 OF 13: COATES ON TIME · 4 OF 13 9 late P01 iEDM Engineering Office · 30 min late P03 SCA Event Management Office · 1 h late P04 SCA Sales & Marketing Office · 4 h 30 min late +6 more · More info 31%
+ok   phone: 14 Sep rests on WC16's note times (08:00 and 10:30 both inside)
+ok   phone: 15 Sep 50%, 3 OF 6 with the failed T0021 counted: COATES ON TIME · 3 OF 6 2 late, 1 failed T0021 Building 4.8m · Office 4.8x3 · not delivered T0025 Trakmat × 20 · Trackmat Delivery - S18 · 4 h 30 min late T0022 Building 4.8m · Lunchroom 4.8x3 · 4 h late 50%
+ok   phone: 15 Sep T0022 4 h and T0025 4 h 30 min (site notes "turned up 14:30")
+ok   phone: 16 Sep P17 30 min late and P21 1 h late on their site notes (the site record wins over the 06:59 text), 4 of 6
+ok   phone: 25 Sep 0 OF 4 with WC50 set aside: COATES ON TIME · 0 OF 4 4 late WC27 Toilet (Tank Mounted) · Waste tank · 3 h 14 min late WC27 Toilet (Tank Mounted) · Toilet block · 1 h 44 min late WC15 Toilets (Sewer Connect) · Toilet block · 1 h 13 min late WC15 Toilets (Sewer Connect) · Toilet block · 1 h 9 min late 0%
+ok   phone: 8 Oct 1 of 4 with WC31 counted (5 h 10 min)
+ok   phone: 30 Sep 100%, 1 OF 1: COATES ON TIME · 1 OF 1 ALL WITHIN THE WINDOW GIVEN 100%
+ok   phone: 7 Oct 100%, 11 OF 11: COATES ON TIME · 11 OF 11 ALL WITHIN THE WINDOW GIVEN 100%
+ok   phone: 16 Oct 100%, 11 OF 11: COATES ON TIME · 11 OF 11 ALL WITHIN THE WINDOW GIVEN 100%
+ok   phone: 23 Sep: 4 bookings with no delivered text, listed and not counted (no card row)
+ok   phone: row sits straight under DAY'S DELIVERIES, before the work block, never inside a row: after-deliveries,before-work,top
+ok   phone: no row nested inside another row
+ok   phone: the late lines fit on every card
+ok   phone: 14 Sep card: three named late loads, then "+6 more · More info": P01 iEDM Engineering Office · 30 min late | P03 SCA Event Management Office · 1 h late | P04 SCA Sales & Marketing Office · 4 h 30 min late | +6 more · More info
+ok   phone: 12 Oct card: a reference twice in a day says which item: T0109 2.5T Forklift STD · Events · 29 min late | T0109 2.5T Forklift STD · Events · Fork extension · 29 min late | P69 Supply Building · 39 min late
+ok   phone: 21 Sep card: 7 late, named: 7 late | WC02 Toilet · 39 min late | WB02 S08 - Pedestrian Pathway along Main Beach Parade · 59 min late | P14 Team Office - Grove Racing · 9 min late | +4 more · More info
+ok   phone: two redraws: exactly one row per card, there in the same draw (no repaint a frame later): {"cards":40,"one":18,"two":0,"with":18}
+ok   phone: no row is ever painted in on its own after a redraw; mutation count steady (74 then 74)
+ok   phone: in-memory P60 site time 08:25: 15 Oct turns 100%, 4 OF 4, no reason line: COATES ON TIME · 4 OF 4 ALL WITHIN THE WINDOW GIVEN 100%
+ok   phone: and More info has no late line then
+ok   phone: restored: back to 3 OF 4
+ok   phone: 15 Oct More info headline: percentage on the window given, build to date
+ok   phone: 15 Oct P60 line: reference and description, item, window given, time done, minutes late
+ok   phone: no late reasons anywhere in More info, 7 Sep to 16 Oct (window given and time done only)
+ok   phone: More info says how it is counted: within the window given, early is on time, time done from the site record
+ok   phone: More info ends "Coates texts loaded to 16 Oct 2026 17:47"
+ok   phone: never "left Kingston", "same truck" or "departed"
+ok   phone: the v10.48 day-panel fold stands down (one figure per day)
+ok   phone: 21 Sep P15 (its 15:34 tick is later than the text, so the text time stands)
+ok   phone: 21 Sep WC06 1 h 59 min and P14 9 min
+ok   phone: 21 Sep P16 is a late line (34 min), not a no-text booking; 22 Sep shows WC07 only
+ok   phone: 15 Sep: failed T0021 not on time; T0022 done 14:30 on its site note, 4 h late
+ok   phone: 16 Sep P17 30 min and P21 1 h on their site notes
+ok   phone: 25 Sep WC50 set aside with every source named
+ok   phone: 25 Sep WC27 tank 3 h 14 min; WC15 first unit 1 h 13 min
+ok   phone: 8 Oct WC31 5 h 10 min
+ok   phone: 1 Oct: 1 of 4
+ok   phone: no attribution to a person in the shown text (the page's v5.97 rule)
+ok   phone: 23 Sep More info lists the bookings with no delivered text, no figure
+ok   phone: 7 Oct More info: 100%, on-time list with window given and time done, no late lines
+ok   phone: 14 Sep: P01 and P03 named by their own site-note times (same window, so each one's lateness stands)
+ok   phone: WC100 has no description on the record: its item stands in (never a location string with unit numbers)
+ok   phone: a day after the export (19 Oct, once past): no card row, More info says no texts loaded after 16 Oct 17:47 and lists what was booked
+ok   phone: the card label keeps the figure when the weather refresh rewrites "Weather: …": e Gover. Coates on time 75 percent: 3 of 4 delivered within the window given. 1 late: P60 Gate 5 Ticket Box, 26 minutes late. Weather: Clear
+ok   phone: 16 Sep: P21's site note (on site 14:30) is shown against its 06:59 Coates text, not hidden: Site note and Coates text disagree P20: site note on site 10:00, Coates text 08:14 (window 09:00–12:00); counted on the site note (the site record): within the window either way · P21: site note on site 14:30, Coates text 06:59 (window 10:30–13:30); counted on
+ok   phone: 13 Oct: T0266 named; the rough-terrain forklift is T0109, on time at 09:59
+ok   phone: 12 Oct fork extension named by T0109 and its description
+ok   phone: part B: the view link cannot enter an arrival day (not an edit link)
+FAIL phone: part B: the 14 Oct card goes 11 / 14 -> 14 / 14 received with P26, P28 and P34 on site by 14 Oct
+FAIL phone: part B: WHAT WENT IN on 14 Oct gains Furniture 4 (2 large fridges · 2 chairs)
+FAIL phone: part B: one day-only entry each, in the record's existing form (00:00 that day, date_only, effective_date, recorded_at): {"state":"on site","at":"2026-10-13T14:00:00.000Z","by":"Andrew Fisher","recorded_at":"2026-10-17T03:30:36.558Z","date_only":true,"effective_date":"2026-10-14","note":"Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"So did the fridges\"; \"Have it as those dates\")"}
+ok   phone: part B: entering the same day again adds nothing
+ok   phone: part B: refused for today, a bad date, a non-reference and a light the record does not hold itself (the day must be before today; today is recorded by the light itself / not a date / P27X is not a reference in this file / none: no rental-only reference to try)
+ok   phone: part B: arrivals on 14 Oct read "time not recorded" (stamp and time column): P26 Wed 14 Oct 2026 · time not recorded Time not recorded | P28 Wed 14 Oct 2026 · time not recorded Time not recorded | P34 Wed 14 Oct 2026 · time not recorded Time not recorded
+ok   phone: part B: the 17 Oct light set on P26/P28/P34 is not a second arrival; FR01/FR02 (came 17 Oct) are: FR01,FR02
+ok   phone: part B: the day each went green: P26 2026-10-14 | P34 2026-10-14 | FR01 2026-10-17 | T0266 2026-10-13
+ok   phone: part B: P26 replays not on site at 13 Oct close, on site from 14 Oct: 2026-10-13 not on site | 2026-10-14 on site | 2026-10-16 on site
+ok   phone: part B: no "00:00" and no raw stamp in 14 Oct More info or the P26 drawer
+ok   phone: part B: the P26 drawer reads In Wed 14 Oct, arrived, and keeps when the light was recorded (17 Oct 12:13)
+ok   phone: part B: T0266 (the record's earlier day-only arrival) reads the same: T0266 · Received | T0266 · 6.0m Refrigerator Cont · Helen Park · 1 × 6.0m Refrigerator Cont | T0266 6.0m Refrigerator Cont · Helen Park · Container 6 m · window
+ok   phone: part B: Coates on time for 14 Oct unchanged (100 4/4): 100 4/4
+ok   phone: no sideways scroll
+ok   phone: no page errors 
+screenshots in /home/user/fish/03_GC500_Delivery_Control/v10.59_late_desc_arrived_DRAFT/evidence
+desktop 74/77 · phone 74/77
+148/154 passed

@@ -1,0 +1,14 @@
+const {chromium} = require('playwright');
+(async () => { const b = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const p = await (await b.newContext({viewport: {width: 1400, height: 1000}})).newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e).slice(0, 200)));
+  await p.goto(process.argv[2] + '#map', {waitUntil: 'load', timeout: 120000}); await p.waitForTimeout(5000);
+  await p.click('[data-mapvms]'); await p.waitForTimeout(1000);
+  const v = await p.evaluate(() => ({on: [...document.querySelectorAll('#pane-map .mk:not(.off)')].filter(x => !x.classList.contains('mksec')).length}));
+  await p.screenshot({path: 'locfind/v687_vms.png'});
+  await p.click('[data-mapvms]'); await p.waitForTimeout(800);
+  await p.click('#pane-map .mk.mksec[data-mapsec="S02"]', {force: true}); await p.waitForTimeout(1000);
+  const s = await p.evaluate(() => ({sec: state.mapSec, ring: document.querySelectorAll('#pane-map .mk.secring').length}));
+  await p.click('.lightbar [data-mapdisc="Water-filled barriers"]'); await p.waitForTimeout(800);
+  const w = await p.evaluate(() => ({disc: state.mapDisc, on: document.querySelectorAll('#pane-map .mk.mkarea:not(.off)').length}));
+  await p.screenshot({path: 'locfind/v687_barriers.png'});
+  console.log(JSON.stringify({v, s, w, errs})); await b.close(); })();

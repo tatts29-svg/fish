@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "baseManifestSha256": "674404701b251917625f8589420d33896fbbf13d018da2a20591b3d31eb4e90a",
+  "dashboardBaseSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+  "candidateManifestSha256": "b4e46efb6726d18b807f8160d19199a40858f38fd93c2ab09bcd650c67b43cc7",
+  "sourceEvidenceSha256": "3dfb189a96e3d3c280e2caa6b0cb29cf0c1cbaeab6ff824fcac5f611a3b2898e",
+  "changedFiles": {
+    "car-app.js": "4284541268e9f01d443f2f3b4793f1713d1c1977ba882f0b1f7fd0aeb33d0625",
+    "crew-polish.js": "fb4e0917ae61c790c8f84ce7e7c9d75820876e8b10cd9a49dcba4d56b244a6c1",
+    "engine-lift-preview.js": "22bb51c1a3143f1ca655e48e9784201815ed119553fd6292cd2afcc75be4c3e6",
+    "index.html": "694e91bd40e328988a61161b0e06fffd988dbfd7b4b9cd7f4874af0eeac2bbee",
+    "workshop-finish.js": "9147ba92af3ea69ba5f195f88203f9c658ad9e28db2fad538933f5bfadeb510d",
+    "workshop-learning.js": "63114b4594cf8df016f95fae2b898d00b0177e77ac406b95df7965bfcb46511a",
+    "workshop-ui.js": "11d9a29c004de434bf2977b80deccaa693564dbab52f83d10684993a9b787737"
+  },
+  "retainedFiles": 234,
+  "totalFiles": 241,
+  "networkWrites": 0,
+  "browserChecksCompleted": true,
+  "browserReceipts": {
+    "desktop-checks.json": "2256dea8e72f15eda7169509efff845273179ec16aa244d545b2ba6c220c498f",
+    "phone-checks.json": "c45d588ce15ac67f4f24d96ca11cc88fc8e78efd69b81a4972d1b6501d69730d",
+    "dashboard-desktop.json": "348a04f43898ab9b718cb99be03718d280a6ec01db223fb9955a8fb4db422829",
+    "dashboard-phone.json": "dca4acbe579718ab66f4300c7699589cefe7269649c6a271661c569ed05ad7bd"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "author": "Andrew Fisher",
+  "candidate_sha256": "5868677a6bb4a59b4a9ffb6c8b2014a5be0b07661dfafeec74f8e149d1e3000b",
+  "passed": 19,
+  "checks": [
+    {
+      "name": "scene has an existing-barrier placement with clear racing line",
+      "ok": true
+    },
+    {
+      "name": "nothing is drawn before fifth lap",
+      "ok": true
+    },
+    {
+      "name": "real simulation crossing lap five triggers once",
+      "ok": true
+    },
+    {
+      "name": "automatic director presents the incident on approach",
+      "ok": true
+    },
+    {
+      "name": "driven vehicle actually approaches the same trackside location",
+      "ok": true
+    },
+    {
+      "name": "phone-incident frame draws the complete incident without GL errors",
+      "ok": true
+    },
+    {
+      "name": "crashed nose touches actual rendered concrete mesh",
+      "ok": true
+    },
+    {
+      "name": "desktop-incident frame draws the complete incident without GL errors",
+      "ok": true
+    },
+    {
+      "name": "desktop-incident-later frame draws the complete incident without GL errors",
+      "ok": true
+    },
+    {
+      "name": "manual camera is respected",
+      "ok": true
+    },
+    {
+      "name": "reduced motion does not force a camera cut",
+      "ok": true
+    },
+    {
+      "name": "reduced-motion frame draws the complete incident without GL errors",
+      "ok": true
+    },
+    {
+      "name": "reduced motion freezes procedural fire time on a fresh scene draw",
+      "ok": true
+    },
+    {
+      "name": "next lap clears, tenth lap recurs, restart frees resources",
+      "ok": true
+    },
+    {
+      "name": "phone Options remains usable",
+      "ok": true
+    },
+    {
+      "name": "truck clarity and stunt module retained",
+      "ok": true
+    },
+    {
+      "name": "clean Close",
+      "ok": true
+    },
+    {
+      "name": "shared record unchanged",
+      "ok": true
+    },
+    {
+      "name": "zero page errors and writes",
+      "ok": true
+    }
+  ]
+}

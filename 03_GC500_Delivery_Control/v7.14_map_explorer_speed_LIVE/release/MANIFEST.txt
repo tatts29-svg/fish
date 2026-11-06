@@ -1,0 +1,17 @@
+GC500 Map explorer - speed build (stage 5) on top of v6.99. Nothing here is deployed. Every file goes at the same path in
+the machine set (under the service's /w/<token>/ folder). Files not listed are unchanged: explorer/assets/plan_items.json,
+poc3d/index.html and every other asset stay as they are in machine set 01a460cbbe71.
+
+explorer/explorer-merge.js               14,161 bytes  md5 17276d709db5ac4e97cb8bcb4207a5c2  CHANGED  (live 11673 bytes, md5 601a853f7305edffed6228f0ac2a4355)
+explorer/explorer.js                    122,423 bytes  md5 f5c7ec1daa140613a622a0f1151067ae  CHANGED  (live 87050 bytes, md5 855886e08fef5f560df94d5e4714f0d9)
+explorer/index.html                      23,721 bytes  md5 0e58288f088748beb59019f3d967b2c3  CHANGED  (live 21583 bytes, md5 ecf982f755c87d4e163142cf358b7bee)
+explorer/scene-worker.js                  7,210 bytes  md5 9e81120e5b28a18624f484554501db43  CHANGED  (live 4206 bytes, md5 8a7c7046b8f65b5a5056d4d401eb7275)
+explorer/assets/sheet-overview.webp     178,670 bytes  md5 e3f3da804213e524727b94ff9a547fad  NEW      (not on the live service (HTTP 404))
+explorer/assets/vt/Llow.bin           2,752,294 bytes  md5 9c2eda084c25beae167cdd66599a6dbb  NEW      (not on the live service (HTTP 404))
+explorer/assets/vt/manifest.json        112,010 bytes  md5 7efb3aed9457c4e9c85d842d96298425  CHANGED  (live 109537 bytes, md5 ffbb77f0bacc1bec6bf645860671969c)
+
+Net growth of the machine set: 2,976,440 bytes (2.98 MB).
+Order does not matter within one deploy, but deploy all seven together: explorer.js (final: DPR fix, DPR 2 while moving on phones) reads the new manifest's low levels and
+boot block (it copes with an old manifest or a missing Llow.bin, more slowly), and explorer-merge.js's card fix is
+independent of the rest.
+Optional, not done: explorer/assets/original-preview.webp (2,447,122 bytes) is no longer asked for by the explorer.

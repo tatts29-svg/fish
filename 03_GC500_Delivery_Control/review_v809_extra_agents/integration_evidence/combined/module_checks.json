@@ -1,0 +1,948 @@
+{
+  "author": "Andrew Fisher",
+  "modules": 59,
+  "syntaxErrors": [],
+  "dependencies": [
+    {
+      "path": "app.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./vendor/OrbitControls.js",
+      "target": "vendor/OrbitControls.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./drive.js",
+      "target": "drive.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./gear-math.js",
+      "target": "gear-math.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./model.js",
+      "target": "model.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./content.js",
+      "target": "content.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./poses.js",
+      "target": "poses.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "app.js",
+      "specifier": "./parts-register.js",
+      "target": "parts-register.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-references.js",
+      "target": "car-references.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./part-connections.js",
+      "target": "part-connections.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/OrbitControls.js",
+      "target": "vendor/OrbitControls.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/addons/postprocessing/EffectComposer.js",
+      "target": "vendor/addons/postprocessing/EffectComposer.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/addons/postprocessing/RenderPass.js",
+      "target": "vendor/addons/postprocessing/RenderPass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/addons/postprocessing/GTAOPass.js",
+      "target": "vendor/addons/postprocessing/GTAOPass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./vendor/addons/postprocessing/OutputPass.js",
+      "target": "vendor/addons/postprocessing/OutputPass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./model.js",
+      "target": "model.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./drive.js",
+      "target": "drive.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./poses.js",
+      "target": "poses.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./gear-math.js",
+      "target": "gear-math.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./content.js",
+      "target": "content.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-body.js",
+      "target": "car-body.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-fit.js",
+      "target": "car-fit.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-powertrain.js",
+      "target": "car-powertrain.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-scene.js",
+      "target": "car-scene.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./v8-audio.js",
+      "target": "v8-audio.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-motion.js",
+      "target": "car-motion.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./cog-meanings.js",
+      "target": "cog-meanings.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./pit-garage.js",
+      "target": "pit-garage.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./car-cockpit.js",
+      "target": "car-cockpit.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./crew.js",
+      "target": "crew.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./exhaust-fx.js",
+      "target": "exhaust-fx.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-app.js",
+      "specifier": "./view-fx.js",
+      "target": "view-fx.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-body.js",
+      "specifier": "./car-gc500.js",
+      "target": "car-gc500.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-cockpit.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-cockpit.js",
+      "specifier": "./car-driver.js",
+      "target": "car-driver.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-cockpit.js",
+      "specifier": "./cockpit-surfaces.js",
+      "target": "cockpit-surfaces.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-cockpit.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-driver.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-driver.js",
+      "specifier": "./vendor/addons/utils/BufferGeometryUtils.js",
+      "target": "vendor/addons/utils/BufferGeometryUtils.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-fit.js",
+      "specifier": "./car-gc500.js",
+      "target": "car-gc500.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-fit.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-fit.js",
+      "specifier": "./car-cockpit.js",
+      "target": "car-cockpit.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-fit.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-gc500.js",
+      "specifier": "./assets/gc500/original-car.js",
+      "target": "assets/gc500/original-car.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-gc500.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./timing-drive.js",
+      "target": "timing-drive.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./front-drive.js",
+      "target": "front-drive.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./engine-accessories.js",
+      "target": "engine-accessories.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./engine-systems.js",
+      "target": "engine-systems.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./mech-register.js",
+      "target": "mech-register.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./mech-driveline.js",
+      "target": "mech-driveline.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./mech-brakes.js",
+      "target": "mech-brakes.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./mech-oil.js",
+      "target": "mech-oil.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-powertrain.js",
+      "specifier": "./car-gc500.js",
+      "target": "car-gc500.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-scene.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-scene.js",
+      "specifier": "./pit-garage.js",
+      "target": "pit-garage.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "car-scene.js",
+      "specifier": "./cockpit-surfaces.js",
+      "target": "cockpit-surfaces.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "cockpit-surfaces.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./vendor/addons/utils/BufferGeometryUtils.js",
+      "target": "vendor/addons/utils/BufferGeometryUtils.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./car-driver.js",
+      "target": "car-driver.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./people-atlas.js",
+      "target": "people-atlas.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./people-figure.js",
+      "target": "people-figure.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./pit-garage.js",
+      "target": "pit-garage.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "crew.js",
+      "specifier": "./car-motion.js",
+      "target": "car-motion.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "engine-accessories.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "engine-systems.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "front-drive.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "fx-quality.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-brakes.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-brakes.js",
+      "specifier": "./car-gc500.js",
+      "target": "car-gc500.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-driveline.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-driveline.js",
+      "specifier": "./car-gc500.js",
+      "target": "car-gc500.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-driveline.js",
+      "specifier": "./mech-brakes.js",
+      "target": "mech-brakes.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-oil.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mech-register.js",
+      "specifier": "./car-references.js",
+      "target": "car-references.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mechanics.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mechanics.js",
+      "specifier": "./gear-math.js",
+      "target": "gear-math.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mechanics.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "mechanics.js",
+      "specifier": "./service-parts.js",
+      "target": "service-parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "model.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "model.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "model.js",
+      "specifier": "./mechanics.js",
+      "target": "mechanics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "model.js",
+      "specifier": "./vendor/meshopt_decoder.module.js",
+      "target": "vendor/meshopt_decoder.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "part-connections.js",
+      "specifier": "./mech-register.js",
+      "target": "mech-register.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "parts-register.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "people-atlas.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "people-atlas.js",
+      "specifier": "./car-driver.js",
+      "target": "car-driver.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "people-figure.js",
+      "specifier": "./car-driver.js",
+      "target": "car-driver.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "people-figure.js",
+      "specifier": "./people-atlas.js",
+      "target": "people-atlas.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "people-figure.js",
+      "specifier": "./vendor/addons/utils/BufferGeometryUtils.js",
+      "target": "vendor/addons/utils/BufferGeometryUtils.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-garage.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-garage.js",
+      "specifier": "./vendor/addons/objects/Reflector.js",
+      "target": "vendor/addons/objects/Reflector.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-garage.js",
+      "specifier": "./vendor/addons/utils/BufferGeometryUtils.js",
+      "target": "vendor/addons/utils/BufferGeometryUtils.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-garage.js",
+      "specifier": "./pit-machinery.js",
+      "target": "pit-machinery.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-garage.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-machinery.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "pit-machinery.js",
+      "specifier": "./vendor/addons/utils/BufferGeometryUtils.js",
+      "target": "vendor/addons/utils/BufferGeometryUtils.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "poses.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "poses.js",
+      "specifier": "./gear-math.js",
+      "target": "gear-math.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "service-parts.js",
+      "specifier": "./vendor/three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "service-parts.js",
+      "specifier": "./parts.js",
+      "target": "parts.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "service-parts.js",
+      "specifier": "./cockpit-surfaces.js",
+      "target": "cockpit-surfaces.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "timing-drive.js",
+      "specifier": "./engine-kinematics.js",
+      "target": "engine-kinematics.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/OrbitControls.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/objects/Reflector.js",
+      "specifier": "../../three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/EffectComposer.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/EffectComposer.js",
+      "specifier": "../shaders/CopyShader.js",
+      "target": "vendor/addons/shaders/CopyShader.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/EffectComposer.js",
+      "specifier": "./ShaderPass.js",
+      "target": "vendor/addons/postprocessing/ShaderPass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/EffectComposer.js",
+      "specifier": "./MaskPass.js",
+      "target": "vendor/addons/postprocessing/MaskPass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "./Pass.js",
+      "target": "vendor/addons/postprocessing/Pass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "../shaders/GTAOShader.js",
+      "target": "vendor/addons/shaders/GTAOShader.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "../shaders/PoissonDenoiseShader.js",
+      "target": "vendor/addons/shaders/PoissonDenoiseShader.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "../shaders/CopyShader.js",
+      "target": "vendor/addons/shaders/CopyShader.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/GTAOPass.js",
+      "specifier": "../math/SimplexNoise.js",
+      "target": "vendor/addons/math/SimplexNoise.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/MaskPass.js",
+      "specifier": "./Pass.js",
+      "target": "vendor/addons/postprocessing/Pass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/OutputPass.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/OutputPass.js",
+      "specifier": "./Pass.js",
+      "target": "vendor/addons/postprocessing/Pass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/OutputPass.js",
+      "specifier": "../shaders/OutputShader.js",
+      "target": "vendor/addons/shaders/OutputShader.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/Pass.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/RenderPass.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/RenderPass.js",
+      "specifier": "./Pass.js",
+      "target": "vendor/addons/postprocessing/Pass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/ShaderPass.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/postprocessing/ShaderPass.js",
+      "specifier": "./Pass.js",
+      "target": "vendor/addons/postprocessing/Pass.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/shaders/GTAOShader.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/shaders/PoissonDenoiseShader.js",
+      "specifier": "three",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "vendor/addons/utils/BufferGeometryUtils.js",
+      "specifier": "../../three.module.js",
+      "target": "vendor/three.module.js",
+      "inUnion": true,
+      "local": true
+    },
+    {
+      "path": "view-fx.js",
+      "specifier": "./fx-quality.js",
+      "target": "fx-quality.js",
+      "inUnion": true,
+      "local": true
+    }
+  ],
+  "importsMissing": [],
+  "linkingErrors": [],
+  "evaluated": false
+}

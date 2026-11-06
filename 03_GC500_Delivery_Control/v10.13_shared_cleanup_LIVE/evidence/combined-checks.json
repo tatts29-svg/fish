@@ -1,0 +1,87 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "ab5fe3dc666b68b3b9ec27a731ff3edad06ba0fa3db4da3910ecbc11b9184143",
+  "nativeWrites": 0,
+  "checks": {
+    "finance": {
+      "count": 24,
+      "passed": 24,
+      "errors": [],
+      "nativeWrites": 0
+    },
+    "propagation": {
+      "count": 32,
+      "passed": 32,
+      "errors": [],
+      "nativeWrites": 0
+    },
+    "flows": {
+      "count": 22,
+      "passed": 22,
+      "errors": [],
+      "nativeWrites": 0
+    },
+    "information": {
+      "count": 15,
+      "passed": 15,
+      "errors": [],
+      "nativeWrites": 0
+    },
+    "loadingSave": {
+      "count": 38,
+      "passed": 38,
+      "errors": [],
+      "nativeWrites": 0
+    },
+    "desktopNavigation": {
+      "routes": 22,
+      "links": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "intentionalRedirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "navigationErrors": []
+    },
+    "phoneNavigation": {
+      "routes": 22,
+      "links": 7,
+      "errors": [],
+      "consoleErrors": [],
+      "back": {
+        "hash": "#plant",
+        "pane": "pane-plant"
+      },
+      "intentionalRedirects": {
+        "register": "#plant",
+        "journal": "#today",
+        "breakdowns": "#today",
+        "variances": "#today",
+        "edit": "#today",
+        "add": "#today"
+      },
+      "navigationErrors": []
+    },
+    "drawerSave": {
+      "count": 80,
+      "passed": 80,
+      "errors": [],
+      "nativeWrites": 0,
+      "viewports": [
+        "390x844 phone",
+        "1440x1000 desktop"
+      ],
+      "evidence": "../flows/evidence/drawer-save-diagnostic1013.json"
+    }
+  },
+  "limits": "All candidate checks listed here pass. The initial drawer practice failure was a test capability race; consistent edit-level version responses from navigation resolve it without application changes. Component-specific and independent checks are in their evidence folders. Missing commercial inputs remain explicit holds; actual-public verification follows guarded publication."
+}

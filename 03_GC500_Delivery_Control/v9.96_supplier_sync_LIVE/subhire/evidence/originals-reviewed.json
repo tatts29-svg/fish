@@ -1,0 +1,26 @@
+{
+  "author": "Andrew Fisher",
+  "originals": [
+    {
+      "name": "1-GC500_Event_Portables_Inventory_2026-10-06-2-1-.pdf",
+      "sha256": "d39cec54156eb3a00389c34696f51f58b50787d4f406610024f5a2357e77551f"
+    },
+    {
+      "name": "2-GC500_Event_Portables_Load-4_2026-10-19-1-.pdf",
+      "sha256": "c121f35b2ae2facb61d26b48ecf2a90793be5f73be2cd8dc39c49a76f29e5326"
+    },
+    {
+      "name": "3-GC500_Event_Portables_Load-2_2026-10-13-2-1-.pdf",
+      "sha256": "eadcb7d042377292042db6d4b6978d48400638ec1e90d3f290105c95c93ec278"
+    },
+    {
+      "name": "4-GC500_Event_Portables_Load-5_2026-10-19-1-.pdf",
+      "sha256": "e88c3bdacfbe799e0f39f48f4632f611ca4c4702e1fc2db8ed8101fe8b342b30"
+    },
+    {
+      "name": "5-GC500_Event_Portables_Load-3_2026-10-15-1-.pdf",
+      "sha256": "8afc5a9cae820a68035d68f696e5f8253064e97fe2ee26595f15b2cd32647ff0"
+    }
+  ],
+  "read": "Inventory text extracted; four scanned load sheets rendered and visually inspected. No arrival inferred from unsigned historical plans."
+}

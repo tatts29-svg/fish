@@ -1,0 +1,143 @@
+{
+ "by": "Andrew Fisher",
+ "what": "The sixteen week-1 agreements' notes say 'Owner sign-off: Andrew, 16 Oct 2026' instead of the full name, as the earlier papers' notes do (the page's own attribution rule rewrites the full name in prose it shows, and the reviewed-link snapshots must read exactly as the record). Quantities unchanged.",
+ "ops": [
+  {
+   "op": "docket_fix",
+   "docket_no": "36601",
+   "quantities": {
+    "clean": 25,
+    "scrim": 25
+   },
+   "note": "Braced & scrimmed (ticked). Mesh fence 25 m on the clean line; scrim 25 m, same as the fence. Owner sign-off: Andrew, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper; charged at the 2026 card by the page's rules."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36602",
+   "quantities": {
+    "clean": 45,
+    "scrim": 45
+   },
+   "note": "Braced & scrimmed (ticked). Mesh fence 45 m on the clean line; scrim 45 m, same as the fence. Owner sign-off: Andrew, 16 Oct 2026; installation date 12 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36603",
+   "quantities": {
+    "clean": 537.5,
+    "ccb_demarc": 672.5,
+    "ped_gates": 4
+   },
+   "note": "Install includes: Residents - Amira to Norfolk; Demarcation - Cable St to Breaker St; Demarcation - Ocean Isles to Amari; Residents - Ocean Isles to Amari to SLS Tower; Demarcation - T11 - DL; Demarcation - T11 - Runoff; Residents - Norfolk to Decks; Demarcation - Norfolk to Decks; Residents - Bougainvillea to Sunbird - West; Demarcation - Ocean Resort - Sunbird West. Mesh fence 537.5 m (residents) on the clean line; CC barrier 672.5 m recorded as demarcation, as the paper's notes say; 4 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36604",
+   "quantities": {
+    "flat_feet": 93
+   },
+   "note": "Flat feet CCBs: CC barrier (flat feet) 93 m, 42 pieces, on the flat-feet line. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36605",
+   "quantities": {
+    "clean": 95
+   },
+   "note": "Mesh fence 95 m (an earlier figure crossed out on the paper; 95 stands). Site address overwritten on the paper, reads Aloha Lane to Cronin St (Crest). Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36606",
+   "quantities": {
+    "clean": 10
+   },
+   "note": "Mesh fence 10 m. Owner sign-off: Andrew, 16 Oct 2026; installation date 13 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36607",
+   "quantities": {
+    "clean": 47.5
+   },
+   "note": "Mesh fence 47.5 m. Site address has words crossed out before Main Beach Tower. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36608",
+   "quantities": {
+    "clean": 117.5,
+    "ccb_demarc": 192.5
+   },
+   "note": "Demarcation - S05 to Ferny Ave (written on the paper). Mesh fence 117.5 m on the clean line; CC barrier 192.5 m recorded as demarcation as the paper says. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36609",
+   "quantities": {
+    "clean": 420
+   },
+   "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 420 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36610",
+   "quantities": {
+    "clean": 367.5,
+    "ccb_demarc": 200,
+    "ped_gates": 2
+   },
+   "note": "Install includes: Contessa West; Aris to Malibu; Aloha Lane - Breaker St; Demarcation - Aloha Lane to T12 run off. Mesh fence 367.5 m on the clean line; CC barrier 200 m recorded as demarcation as the paper's notes say; 2 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 14 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36611",
+   "quantities": {
+    "clean": 165,
+    "ccb_event": 130
+   },
+   "note": "Mesh fence 165 m on the clean line (programme CON WK1 rows 45 and 47: Hi Surf West 70 m and SPLRS 100 m). Paper says CC Barrier 130 m, event or demarcation not written; recorded as CCB Event on programme CON WK1 row 46 (CCB - Hi Surf (West) to Ocean Ave, 115 m Event, 15 Oct). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36612",
+   "quantities": {
+    "clean": 315,
+    "ped_gates": 3
+   },
+   "note": "Mesh fence 315 m (a figure after it crossed out on the paper; 315 stands); 3 pedestrian gates. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36613",
+   "quantities": {
+    "ccb_demarc": 70
+   },
+   "note": "Paper says CC Barrier 70 m, 28 barriers; event or demarcation not written - recorded as demarcation, to confirm (the Porsche Lounge corporate area may be an event line). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36614",
+   "quantities": {
+    "clean": 40
+   },
+   "note": "Mesh fence 40 m on the clean line; 2 wheels. The base count is written over on the paper and reads 18 (or 78) - 18 taken, to confirm. Named on service note 24481 (relocation 65 m and 120 m scrim at S08 BOH on the same day). Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36615",
+   "quantities": {
+    "clean": 110
+   },
+   "note": "Not scrimmed - as requested by John, IEDM (written on the paper). Mesh fence 110 m on the clean line, no scrim. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  },
+  {
+   "op": "docket_fix",
+   "docket_no": "36616",
+   "quantities": {
+    "clean": 147.5
+   },
+   "note": "Mesh fence 147.5 m on the clean line; 2 wheels. Owner sign-off: Andrew, 16 Oct 2026; installation date 15 Oct 2026. Prices and totals blank on the paper."
+  }
+ ]
+}

@@ -1,0 +1,134 @@
+{
+ "day": "#day/2026-10-01",
+ "lines": [
+  {
+   "go": true,
+   "cls": "ld go",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving",
+   "qr": "https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving",
+   "qrSvg": true,
+   "word": "master plan",
+   "refs": [
+    "GN03"
+   ]
+  },
+  {
+   "go": true,
+   "cls": "ld go",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.988994,153.428226&travelmode=driving",
+   "qr": "https://www.google.com/maps/dir/?api=1&destination=-27.988994,153.428226&travelmode=driving",
+   "qrSvg": true,
+   "word": "master plan",
+   "refs": [
+    "WC44"
+   ]
+  },
+  {
+   "go": true,
+   "cls": "ld go",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.985279,153.430053&travelmode=driving",
+   "qr": "https://www.google.com/maps/dir/?api=1&destination=-27.985279,153.430053&travelmode=driving",
+   "qrSvg": true,
+   "word": "master plan",
+   "refs": [
+    "WC60"
+   ]
+  },
+  {
+   "go": false,
+   "cls": "ld",
+   "nav": null,
+   "qr": null,
+   "qrSvg": false,
+   "word": null,
+   "refs": [
+    "WC66"
+   ]
+  },
+  {
+   "go": true,
+   "cls": "ld go",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.981388,153.424153&travelmode=driving",
+   "qr": "https://www.google.com/maps/dir/?api=1&destination=-27.981388,153.424153&travelmode=driving",
+   "qrSvg": true,
+   "word": "master plan",
+   "refs": [
+    "WC67"
+   ]
+  },
+  {
+   "go": true,
+   "cls": "ld go",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.981269,153.423502&travelmode=driving",
+   "qr": "https://www.google.com/maps/dir/?api=1&destination=-27.981269,153.423502&travelmode=driving",
+   "qrSvg": true,
+   "word": "master plan",
+   "refs": [
+    "WC71"
+   ]
+  }
+ ],
+ "hrefMatch": [
+  {
+   "keys": [
+    "GN03"
+   ],
+   "ok": true,
+   "want": "https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.988016,153.427920&travelmode=driving",
+   "qrSame": true
+  },
+  {
+   "keys": [
+    "WC44"
+   ],
+   "ok": true,
+   "want": "https://www.google.com/maps/dir/?api=1&destination=-27.988994,153.428226&travelmode=driving",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.988994,153.428226&travelmode=driving",
+   "qrSame": true
+  },
+  {
+   "keys": [
+    "WC60"
+   ],
+   "ok": true,
+   "want": "https://www.google.com/maps/dir/?api=1&destination=-27.985279,153.430053&travelmode=driving",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.985279,153.430053&travelmode=driving",
+   "qrSame": true
+  },
+  {
+   "keys": [
+    "WC67"
+   ],
+   "ok": true,
+   "want": "https://www.google.com/maps/dir/?api=1&destination=-27.981388,153.424153&travelmode=driving",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.981388,153.424153&travelmode=driving",
+   "qrSame": true
+  },
+  {
+   "keys": [
+    "WC71"
+   ],
+   "ok": true,
+   "want": "https://www.google.com/maps/dir/?api=1&destination=-27.981269,153.423502&travelmode=driving",
+   "nav": "https://www.google.com/maps/dir/?api=1&destination=-27.981269,153.423502&travelmode=driving",
+   "qrSame": true
+  }
+ ],
+ "toggle": {
+  "was": false,
+  "now": false
+ },
+ "opened": {
+  "on": true,
+  "body": true,
+  "goStill": true
+ },
+ "errors": [],
+ "phone": {
+  "goLines": 5,
+  "overflow": 0,
+  "qrShown": 44
+ },
+ "phoneErrors": []
+}

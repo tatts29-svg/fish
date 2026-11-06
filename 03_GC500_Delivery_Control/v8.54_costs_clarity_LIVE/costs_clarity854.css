@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Crisp native text; supporting notes stay folded. */
+.costs-note854{margin:8px 0;font-size:14px;line-height:1.5;border:1px solid #d8dde0;border-radius:8px;background:#fff;padding:8px 12px;color:#263238}
+.costs-note854 summary{cursor:pointer;font-weight:700;color:#a94700}
+.costs-note854 p{margin:8px 0!important}
+#pl770 td.acc761-why{min-width:190px;vertical-align:top}
+#pl770 .rh766-miss{display:block;margin-top:8px}
+#costs765 .cj765-now,#costs765 .cj765-end{font-variant-numeric:tabular-nums;letter-spacing:0;overflow-wrap:anywhere;min-width:0}
+@media(max-width:700px){#costs765 .cj765-now,#costs765 .cj765-end{font-size:clamp(17px,4.5vw,22px)}.costs-note854{font-size:14px}}
+@media print{.costs-note854{border:0}}

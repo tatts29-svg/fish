@@ -1,0 +1,7 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 28 Oct 2026, asked whether the distribution board on GN23's units (1189078, Distribution Board Lifeguard 17) went with the 150 kVA generator at 09:45: \"yes its that one\". GN23's departure form offers only the generator, so the board's departure goes in GN23's note.",
+ "ops": [
+  {"op": "note_append", "ref": "GN23", "text": "Distribution board 1189078 (Lifeguard 17) left site with the 150 kVA generator 1297157, 28 Oct 2026 09:45 AEST (Andrew Fisher, 28 Oct 2026)."}
+ ]
+}

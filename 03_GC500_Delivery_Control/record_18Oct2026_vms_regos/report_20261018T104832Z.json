@@ -1,0 +1,94 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261018T104832Z",
+ "finished": "2026-10-18T10:48:42.789Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "ops": [
+   {
+    "op": "vms_fleet",
+    "key": "VMS13",
+    "fleet": "1191657"
+   }
+  ]
+ },
+ "pageSha256": "ad9d7c0cdb4a63a55072712ea89c31fd88437bfd1b930b76a2feaa831894e587",
+ "version": {
+  "before": 9739,
+  "after": 9741
+ },
+ "updated": {
+  "before": "2026-10-18T10:47:01.127Z",
+  "after": "2026-10-18T10:48:41.961Z"
+ },
+ "stage": [
+  {
+   "op": "vms_fleet",
+   "key": "VMS13",
+   "fleet": "1191657",
+   "result": "fleet saved",
+   "doc": {
+    "co": null,
+    "fleet": "1191657",
+    "rego": "EN3803",
+    "on": "T0158",
+    "line": "9961265/32",
+    "by": "Andrew Fisher",
+    "at": "2026-10-18T10:48:39.174Z"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/vmsboard~2f~VMS13",
+   "status": 200
+  },
+  {
+   "key": "vmsboard/VMS13",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 1,
+ "docs": {
+  "before": {
+   "stamps/vmsboard~2f~VMS13": {
+    "_k": "vmsboard/VMS13",
+    "v": "2026-10-16T02:09:39.890Z"
+   },
+   "vmsboard/VMS13": {
+    "co": null,
+    "fleet": null,
+    "rego": "EN3803",
+    "on": "T0158",
+    "line": "9961265/32",
+    "by": "Andrew Fisher",
+    "at": "2026-10-16T02:09:39.890Z",
+    "_k": "VMS13"
+   }
+  },
+  "after": {
+   "stamps/vmsboard~2f~VMS13": {
+    "_k": "vmsboard/VMS13",
+    "v": "2026-10-18T10:48:39.175Z"
+   },
+   "vmsboard/VMS13": {
+    "co": null,
+    "fleet": "1191657",
+    "rego": "EN3803",
+    "on": "T0158",
+    "line": "9961265/32",
+    "by": "Andrew Fisher",
+    "at": "2026-10-18T10:48:39.174Z",
+    "_k": "VMS13"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,5 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 19 Oct 2026: \"COMPETED\", in answer to the milestone staying at 16 of 20 until VMS18 and VMS19 are set up in position. T0158 was already complete for its first five boards (VMS13-17); complete is pressed again so the page counts the seven received (VMS13-19) as installed.",
+ "ops": [{"op": "complete_again", "ref": "T0158"}]
+}

@@ -1,0 +1,11 @@
+{
+ "passed": 13,
+ "total": 13,
+ "mobile": true,
+ "counts": {
+  "page": 1,
+  "live": 358,
+  "blocked": 0
+ },
+ "errors": []
+}

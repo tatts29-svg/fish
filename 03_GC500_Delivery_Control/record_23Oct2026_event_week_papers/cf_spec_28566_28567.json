@@ -1,0 +1,36 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Two more Advanced Temporary Fencing collection forms from the event week, 28566 and 28567 (removals of 21 Oct 2026 from the Porsche and Triangle compound zones), signed and photographed (Andrew, 23 Oct 2026, sent without words after the forty-six papers of the same afternoon); recorded through the page's own form (recordCollection), counts only, no charge or credit inferred. Read twice at full size and by an independent reader.",
+ "ops": [
+  {
+   "op": "collection",
+   "collection_no": "28566",
+   "date": "2026-10-21",
+   "location": "Porsche C.Z.",
+   "collected": {
+    "mesh_panel": 12,
+    "base": 13,
+    "clamp": 10,
+    "wheels": 4
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected from the Porsche C.Z.: 12 mesh panels, 13 bases, 10 clamps, 4 wheels. Removal date written 21/10/26 (the owner/site supervisor's signature is dated 20/10/26, the installer's 21/10/26). No hire agreement number written; no comments."
+  },
+  {
+   "op": "collection",
+   "collection_no": "28567",
+   "date": "2026-10-21",
+   "location": "Triangle C.Z.",
+   "collected": {
+    "mesh_panel": 31,
+    "base": 27,
+    "clamp": 28,
+    "wheels": 2
+   },
+   "hire_agreements_written": "",
+   "signed_by": "",
+   "note": "Collected from the Triangle C.Z.: 31 mesh panels, 27 bases, 28 clamps, 2 wheels. Removal date written 21/10/26 (the owner/site supervisor's signature is dated 20/10/26, the installer's 21/10/26). No hire agreement number written; no comments."
+  }
+ ]
+}

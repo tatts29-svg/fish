@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew Fisher, 2 Nov 2026 11:xx AEST: \"Gn18 left at 11AM\". GN18 is the 50 kVA generator, Coates 1261273, its reference's only unit: it left in full at 11:00 on 2 Nov, through the page's own Record departure form in his name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "GN18",
+   "at": "2026-11-02T11:00:00+10:00",
+   "nos": [
+    "1261273"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

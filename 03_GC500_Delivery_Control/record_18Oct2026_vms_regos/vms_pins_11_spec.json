@@ -1,0 +1,13 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, 20 Oct 2026: \"vms11 pinned location is -27.986124517327926, 153.42846712323328\" (rounded to 6 places as the page keeps it); VMS plan position 11, Macintosh Island Park, western end of the bridge.",
+ "ops": [
+  {
+   "op": "vms_plan",
+   "pos": "11",
+   "lat": -27.986125,
+   "lon": 153.428467,
+   "how": "Andrew Fisher's pinned location for VMS11, 20 Oct 2026"
+  }
+ ]
+}

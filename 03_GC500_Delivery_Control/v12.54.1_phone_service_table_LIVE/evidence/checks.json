@@ -1,0 +1,40 @@
+{
+  "author": "Andrew Fisher",
+  "status": "READY TO UPLOAD; publication pending",
+  "baseSha256": "378d4b6632101ad6a1429f31b2241c567b3670ae0888f70b7df6f75109625a5c",
+  "candidateSha256": "20a81f75b8d47ed1c0d32cf3d5b5e5e79fe1bb5420b2fe459f9d4bbf94c771d5",
+  "bytes": 16106179,
+  "boundaryTests": 5,
+  "inlineScripts": 217,
+  "phoneMoneyVisibilityChecks": 33,
+  "phoneWidths": [
+    360,
+    390,
+    640
+  ],
+  "desktopWidths": [
+    641,
+    1440
+  ],
+  "adjacentTableIdentifiersPreserved": true,
+  "printPreserved": true,
+  "financialSourceRecordModelsPreserved": true,
+  "independentCodeReview": "PASS",
+  "desktopSweep": {
+    "routes": 27,
+    "deepLinks": 7,
+    "back": "PASS"
+  },
+  "phoneSweep": {
+    "routes": 27,
+    "deepLinks": 7,
+    "back": "PASS"
+  },
+  "runtimeErrors": 0,
+  "consoleErrors": 0,
+  "operationalWrites": 0,
+  "privateEvidence": "Detailed records, amounts and screenshots remain private",
+  "sourceCommit": "e32fe4954ffdbd191e1618bcea85cac19d050cf4",
+  "verifiedLiveBase": true,
+  "sharedBuildExact": true
+}

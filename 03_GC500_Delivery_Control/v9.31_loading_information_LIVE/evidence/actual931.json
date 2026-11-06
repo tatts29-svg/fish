@@ -1,0 +1,134 @@
+{
+  "generator": [
+    {
+      "item": "60kva",
+      "owner": "coates",
+      "facts": [
+        {
+          "label": "Delivered rating",
+          "values": [
+            "80 kVA"
+          ],
+          "source": "Hire contract 9961976"
+        },
+        {
+          "label": "Guide reference (skid-mounted) \u2014 ATLAS COPCO \u00b7 Generator - 80kVA (Diesel)",
+          "values": [
+            "2562 \u00d7 1031 \u00d7 1307 mm",
+            "1662 kg"
+          ],
+          "pages": [
+            45
+          ]
+        }
+      ]
+    }
+  ],
+  "wc09": [
+    {
+      "item": "FWF",
+      "owner": "event-portables",
+      "facts": [
+        {
+          "label": "Guide reference \u2014 MERLIN \u00b7 Toilet Portable - Fresh Water Flush",
+          "values": [
+            "1220 \u00d7 1200 \u00d7 2220 mm",
+            "117 kg"
+          ],
+          "pages": [
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "item": "Pee Panel",
+      "owner": "event-portables",
+      "facts": []
+    },
+    {
+      "item": "Toilet Block 6m",
+      "owner": "coates",
+      "facts": [
+        {
+          "label": "Contract-listed footprint",
+          "values": [
+            "6000 \u00d7 3000 mm"
+          ],
+          "source": "Hire contract 9968955"
+        }
+      ]
+    }
+  ],
+  "guideGuards": true,
+  "contrast": {
+    "label": "rgb(237, 244, 246)",
+    "parent": "rgb(237, 244, 246)",
+    "opacity": "0.85"
+  },
+  "print": {
+    "selection": {
+      "day": "2026-09-14",
+      "loadIndex": 7,
+      "products": 4
+    },
+    "native": {
+      "failed": 0,
+      "over": [],
+      "pages": 9
+    },
+    "pages": [
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true,
+        "controls": 0
+      },
+      {
+        "height": 1058,
+        "content": 1058,
+        "overflow": false,
+        "footerInside": true,
+        "controls": 0
+      }
+    ]
+  },
+  "unchanged": true,
+  "errors": [],
+  "requests": {
+    "page": 1,
+    "live": 71,
+    "blocked": 0
+  },
+  "candidateSha256": "71437b728ca42f0ba7e1592cf750f5f5007a1a0dd29e3f8243624457c0fda7c7",
+  "sourceFiles": {
+    "core924.js": "4d0c2379774fdfb9dc8376be5d5f7e8302a1649cc84f756bcb4787e750a4b7a5",
+    "information931.js": "37ede82fba6ce7d52ff306a63a168f1f4bdc2551c5410ffa4d51a002b91b4bd2",
+    "runtime931.js": "62cf1827fb35238c8b9cc054a6a4613d629741de3fbda44d0a3b4305fb266061",
+    "patch_v931.py": "8f27473bf3bfc8016001611b01f75384506ae9de37c8517f7d88b38f3b608b38"
+  },
+  "carryForwardChanges": [
+    "Drop sheet product scope uses actual movement events.",
+    "Disjoint guide sections have separate correct page links.",
+    "Accessible/Porta Lisa toilets cannot inherit small FWF figures or base method.",
+    "Unknown Demob quantity remains quantity-free and unallocated."
+  ],
+  "visualsInspected": [
+    "GN19-390.png",
+    "WC09-390.png",
+    "WC20-390.png",
+    "timeline-390.png",
+    "native-loading-page4.png"
+  ],
+  "privateEvidence": "/workspace/private-loading931-final/",
+  "finalComponentCandidateSha256": "285008c137e8b2fefcf74ce993ecc304d753e209c6a6e9281cd64b6460c280d4",
+  "finalPageCheck": {
+    "scripts": 36,
+    "bytes": 12257236,
+    "passed": true
+  },
+  "ownedModelChecks": 62,
+  "independentModelChecks": 23,
+  "independentSourceReview": "Passed frozen core4d0c2379 / information37ede82f / runtime62cf1827"
+}

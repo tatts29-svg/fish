@@ -1,0 +1,34 @@
+{
+ "desktop": {
+  "plates": "ok",
+  "plate_Access_plant": "ok",
+  "plate_Furniture": "ok",
+  "plate_Ground_protection": "ok",
+  "costs_pl": "ok",
+  "trackerPick": "no picker",
+  "tracker": {
+   "history": [],
+   "active": [],
+   "heading": null,
+   "flag": null
+  },
+  "tracker_strip": "not found",
+  "pageErrors": 0
+ },
+ "phone": {
+  "plates": "ok",
+  "plate_Access_plant": "ok",
+  "plate_Furniture": "ok",
+  "plate_Ground_protection": "ok",
+  "costs_pl": "ok",
+  "trackerPick": "no picker",
+  "tracker": {
+   "history": [],
+   "active": [],
+   "heading": null,
+   "flag": null
+  },
+  "tracker_strip": "not found",
+  "pageErrors": 0
+ }
+}

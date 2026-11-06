@@ -1,0 +1,10 @@
+const {chromium} = require('playwright');
+(async () => { const browser = await chromium.launch({executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox']});
+  const page = await (await browser.newContext({viewport: {width: 1280, height: 800}})).newPage(); await page.goto(process.argv[2], {waitUntil: 'load'}); await page.waitForTimeout(2500);
+  await page.evaluate(() => go('plant')); await page.waitForTimeout(1500);
+  const r = await page.evaluate(() => { const P = document.querySelector('#pane-plant');
+    const cards = [...P.children].map(c => ({cls: c.className, h3: (c.querySelector('h3')||{}).textContent?.slice(0,40), els: c.getElementsByTagName('*').length, kb: Math.round(c.outerHTML.length/1024)}));
+    const tags = {}; for (const e of P.getElementsByTagName('*')) tags[e.tagName] = (tags[e.tagName]||0)+1;
+    const tr = P.querySelector('tbody tr'); const td = tr ? [...tr.children].map(c => c.getElementsByTagName('*').length + ':' + Math.round(c.innerHTML.length/100)/10 + 'k') : [];
+    return {cards, tags: Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,12), td, sample: tr ? tr.children[1].innerHTML.slice(0, 1500) : ''}; });
+  console.log(JSON.stringify(r, null, 0)); await browser.close(); })();

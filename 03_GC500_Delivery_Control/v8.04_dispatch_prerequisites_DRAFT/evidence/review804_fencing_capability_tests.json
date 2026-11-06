@@ -1,0 +1,144 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "63673ae8ecd6f8bb7013a4a3767be57979648ad83bfa6a085e22cf50f981ba6b",
+  "sequenceSha256": "75ed1aef156124294416d9b27012f306a78ad0445a7db9fbaf81db62954a268d",
+  "dispatchSha256": "f53a1aaadeb75f4efb4f157f0902fa258964c8861fde77b0d3b6b748bc02ac2c",
+  "sequenceMatchesCandidate": true,
+  "dispatchMatchesCandidate": true,
+  "nativeFunctions": [
+    "docIdOf",
+    "toDocs",
+    "fromDocs",
+    "stampIt",
+    "setQAnswer",
+    "persist",
+    "save775Inner",
+    "syncPush",
+    "syncStage",
+    "syncStageLive",
+    "syncSend",
+    "syncSettled",
+    "syncWaiting",
+    "syncRetry",
+    "syncError",
+    "syncFold",
+    "applyRemote"
+  ],
+  "networkCalls": 0,
+  "serviceWrites": 0,
+  "checks": [
+    {
+      "name": "Both exact source files are embedded in this v8.04 candidate",
+      "pass": true
+    },
+    {
+      "name": "Native SYNC initialiser defaults durable capability to false",
+      "pass": true
+    },
+    {
+      "name": "Baseline acknowledgement satisfies fencing hold only with capability true",
+      "pass": true
+    },
+    {
+      "name": "Local durable capability undefined fails closed",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Local durable capability false fails closed",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Local durable capability true fails closed",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Local durable capability 1 fails closed",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Local durable capability null fails closed",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Strict capability true restores only the existing acknowledged confirmation",
+      "pass": true
+    },
+    {
+      "name": "Native REST pull accepts explicit boolean true from version endpoint",
+      "pass": true
+    },
+    {
+      "name": "Unchanged-version absent advertisement clears prior capability and confirmed state",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Unchanged-version absent gate does not depend on state download",
+      "pass": true
+    },
+    {
+      "name": "Unchanged-version false advertisement clears prior capability and confirmed state",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Unchanged-version false gate does not depend on state download",
+      "pass": true
+    },
+    {
+      "name": "Unchanged-version string true advertisement clears prior capability and confirmed state",
+      "pass": true,
+      "detail": {
+        "lastConfirmed": true,
+        "status": "Last known confirmation \u2014 reconnect to check"
+      }
+    },
+    {
+      "name": "Unchanged-version string true gate does not depend on state download",
+      "pass": true
+    },
+    {
+      "name": "Explicit true on unchanged version restores capability after server rollback ends",
+      "pass": true
+    },
+    {
+      "name": "Native syncStop clears capability and prevents cached confirmation from satisfying hold",
+      "pass": true
+    },
+    {
+      "name": "Reconnection does not reuse pre-stop capability before a fresh advertisement",
+      "pass": true
+    },
+    {
+      "name": "All simulated backend requests were read-only local fake version/state calls",
+      "pass": true
+    }
+  ],
+  "complete": true
+}

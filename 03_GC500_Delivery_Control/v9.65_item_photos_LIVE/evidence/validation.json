@@ -1,0 +1,31 @@
+{
+  "author": "Andrew Fisher",
+  "candidateSha256": "3aa19307ea9c1e48f922177e233f0b913cf6a0bac1d68b2431adad476a323c0b",
+  "nativeFixtureVersion": 5167,
+  "isolatedAssertions": 35,
+  "strictPatchChecks": 5,
+  "inlineScriptsParsed": 48,
+  "nativeChecks": [
+    "Nine mixed/quantity selections use correct headers, owners and upload targets",
+    "Canonical totals and physical identities unchanged",
+    "Native upload captures Pee Panel scope even when selector changes during image processing",
+    "Ownership change after image processing refuses upload",
+    "Existing physical photo upload remains attached to its own fleet identity",
+    "Native state byte-for-byte unchanged",
+    "Item site note persists through native three-document capture and reopen; other items, ownership, quantities and physical units unchanged"
+  ],
+  "pageErrors": [],
+  "realNetworkWrites": 0,
+  "capturedNativeNoteDocuments": 3,
+  "capturedPhotoOutboxEntries": 2,
+  "supplierBaseline": {
+    "units": 91,
+    "quantityOnly": 6,
+    "onSite": 79
+  },
+  "sourceHashes": {
+    "items965.js": "f14d034350a691848889fe4727a5f6e6b679d83148e7b1e4326489cf90e1de0d",
+    "patch_v965.py": "9ed680effbecf4a49ccdeeec9fae039af59347031dfbc382bdfe9f4e9b52a8ab"
+  },
+  "privateEvidence": "/workspace/private-item965/result.json"
+}

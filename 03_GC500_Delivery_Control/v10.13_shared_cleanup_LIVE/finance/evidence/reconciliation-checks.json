@@ -1,0 +1,117 @@
+{
+  "author": "Andrew Fisher",
+  "checks": [
+    {
+      "name": "same frozen native and date",
+      "pass": true
+    },
+    {
+      "name": "no operational or source mutations",
+      "pass": true
+    },
+    {
+      "name": "raw source rows unchanged",
+      "pass": true
+    },
+    {
+      "name": "only scoped source identity/addition projection",
+      "pass": true
+    },
+    {
+      "name": "P&L recorded equals Costs",
+      "pass": true
+    },
+    {
+      "name": "P&L job equals forecast",
+      "pass": true
+    },
+    {
+      "name": "P&L controls",
+      "pass": true
+    },
+    {
+      "name": "branch controls",
+      "pass": true
+    },
+    {
+      "name": "Direct costs unchanged",
+      "pass": true
+    },
+    {
+      "name": "supplier estimates unchanged",
+      "pass": true
+    },
+    {
+      "name": "P65 one central hire",
+      "pass": true
+    },
+    {
+      "name": "P65 arrived hire consistent",
+      "pass": true
+    },
+    {
+      "name": "P66 one central hire",
+      "pass": true
+    },
+    {
+      "name": "P66 arrived hire consistent",
+      "pass": true
+    },
+    {
+      "name": "container one existing hire",
+      "pass": true
+    },
+    {
+      "name": "container existing transport only",
+      "pass": true
+    },
+    {
+      "name": "fridge transport Included",
+      "pass": true
+    },
+    {
+      "name": "fridges missing hire recorded once",
+      "pass": true
+    },
+    {
+      "name": "recorded delta explained",
+      "pass": true
+    },
+    {
+      "name": "job delta explained",
+      "pass": true
+    },
+    {
+      "name": "P46 one existing physical fridge",
+      "pass": true
+    },
+    {
+      "name": "P51 one existing physical fridge",
+      "pass": true
+    },
+    {
+      "name": "P54 one existing physical fridge",
+      "pass": true
+    },
+    {
+      "name": "standalone financial scope remains bounded",
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "nativeVersion": 6052,
+  "simulatedGets": 5,
+  "delta": {
+    "recorded": -1191.89,
+    "job": -2617.96,
+    "onsite": 2428,
+    "transport": 0
+  },
+  "standalone": {
+    "ms": 2061,
+    "value": 800066.06
+  },
+  "runtimeSHA256": "e8c0ef1e6812fea570da4a42f417f3a88810d45726c5b52ead96de43d1002898",
+  "baseSHA256": "cde0aae30d5e528e85c2b16189bf0c0828397b87a7b3d10c1695362b19a58105",
+  "candidateSHA256": "d165f3f39f2d5506198384dfe74e361814bb576cabb97935c3187315b03a200c"
+}

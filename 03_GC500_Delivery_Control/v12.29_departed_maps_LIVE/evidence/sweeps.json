@@ -1,0 +1,28 @@
+{
+ "desktop": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "direct_panes": 7,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "allErrors": 0,
+  "console": 0,
+  "blocked": 0
+ },
+ "phone": {
+  "tabs": 27,
+  "shown": 19,
+  "tab_errors": 0,
+  "direct_panes": 7,
+  "back": {
+   "hash": "#plant",
+   "pane": "pane-plant"
+  },
+  "allErrors": 0,
+  "console": 0,
+  "blocked": 0
+ }
+}

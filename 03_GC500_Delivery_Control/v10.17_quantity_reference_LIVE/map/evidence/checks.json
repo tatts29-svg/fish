@@ -1,0 +1,79 @@
+{
+  "author": "Andrew Fisher",
+  "parentBaseSha256": "3cbfd0d5c9bd53f02d5a89b274e83ee0c2d2c8dc17b03da59b68cf3a3db8673c",
+  "modelChecks": 15,
+  "manifestChecks": 7,
+  "browser": {
+    "candidate-desktop": {
+      "nativeVersion": 6075,
+      "checks": 33,
+      "passed": true,
+      "failedNames": [],
+      "models": {
+        "active": 176,
+        "items": 378,
+        "categories": 23,
+        "masterEntries": 149,
+        "fallbackPins": 2,
+        "unplaced": 27,
+        "quantityDiff": [],
+        "statusDiff": [],
+        "missing": [],
+        "masterDiff": [],
+        "categoryDiff": [],
+        "duplicates": [],
+        "invalidBounds": []
+      },
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 224,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    },
+    "candidate-phone": {
+      "nativeVersion": 6075,
+      "checks": 33,
+      "passed": true,
+      "failedNames": [],
+      "models": {
+        "active": 176,
+        "items": 378,
+        "categories": 23,
+        "masterEntries": 149,
+        "fallbackPins": 2,
+        "unplaced": 27,
+        "quantityDiff": [],
+        "statusDiff": [],
+        "missing": [],
+        "masterDiff": [],
+        "categoryDiff": [],
+        "duplicates": [],
+        "invalidBounds": []
+      },
+      "errors": [],
+      "counts": {
+        "page": 1,
+        "live": 174,
+        "blocked": 0,
+        "blockedMapSessions": 1
+      }
+    }
+  },
+  "machinePreparation": {
+    "author": "Andrew Fisher",
+    "baseManifestSha256": "712e195b0207dc59690dab0978353091328d2a3b6d492e4019164a36e2c63587",
+    "candidateManifestSha256": "ca0b74da923e0955e6e4252a2dfe11bd076deec377585f3a1b48be0d6e5efdd0",
+    "changedFiles": {
+      "explorer/explorer.js": "d35ae04911e83dcb140dcc4f6eb23ed69dff39b0169609f7b2974dd5c9c12c69",
+      "explorer/explorer-merge.js": "8c321e5632f410df5ad17021f32cd50b70038e84ac419cb6ef3891115e691ef1",
+      "explorer/index.html": "08e131d11647c58239e4c21686274e3405f47127c929314eb5b1e8994cc9d05a"
+    },
+    "otherFilesPreserved": 230,
+    "published": false,
+    "restore": false,
+    "recordWrites": 0
+  },
+  "parentGuardChecks": 3
+}
