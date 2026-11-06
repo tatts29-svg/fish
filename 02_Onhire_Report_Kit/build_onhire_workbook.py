@@ -1288,10 +1288,10 @@ def undated_why(stock_date, short=False, sheet=False):
     if sheet:
         a, b = _window_words()
         if key == "after window":
-            return ("Went out after the export was cut{} - a TRANSACTIONS pull running "
-                    "to now dates it".format(" ({})".format(b) if b else ""))
+            return ("After the export was cut{} - re-pull TRANSACTIONS to now"
+                    .format(" ({})".format(b) if b else ""))
         if key == "before window":
-            return ("Went out before the export window opened{} - long out"
+            return ("Before the export window opened{} - long out"
                     .format(" ({})".format(a) if a else ""))
         return "No issue transaction inside the export window"
     return _UNDATED_WORDS[key][0 if short else 1]
@@ -1700,7 +1700,7 @@ def _build(base=HERE, when=None):
            "Issued (transaction start)", "Time", "Days on hire",
            "Issue transaction (or why there is none)", "SiteIQ stock date"],
           det, widths={0: 24, 1: 22, 2: 24, 3: 48, 4: 13, 5: 17, 6: 11,
-                       7: 12, 8: 52, 9: 15},
+                       7: 12, 8: 70, 9: 15},
           formats={5: DATE_FMT, 7: INT_FMT, 9: DATE_FMT},
           rules={4: "status", 7: "days"})
     tabs.append(("Detailed Onhire", len(det),
@@ -1845,7 +1845,7 @@ def _build(base=HERE, when=None):
     sheet(wb, "Coates Stock", title,
           ["Item number", "Description", "Status", "Issued (transaction start)",
            "Time", "Issue transaction (or why there is none)", "SiteIQ stock date"],
-          cs, widths={0: 26, 1: 56, 2: 18, 3: 17, 4: 11, 5: 52, 6: 15},
+          cs, widths={0: 26, 1: 56, 2: 18, 3: 17, 4: 11, 5: 70, 6: 15},
           formats={3: DATE_FMT, 6: DATE_FMT}, rules={2: "status"})
     tabs.append(("Coates Stock", len(cs),
                  "The fleet with the day each on-hire item was issued"))
@@ -2742,7 +2742,7 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
         co = _s(r[0]) or "(no company named)"
         who = person_name(r[1]) or "(nobody named on it)"
         p = roll.setdefault(co, {}).setdefault(
-            who, {"items": {}, "oldest": None, "n": 0, "undated": 0})
+            who, {"items": {}, "oldest": None, "n": 0, "undated": 0, "stock": []})
         desc = item_name(r[3]) or "(no description)"
         p["items"][desc] = p["items"].get(desc, 0) + 1
         p["n"] += 1
@@ -2750,6 +2750,8 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
             p["oldest"] = r[5]
         if not r[5]:
             p["undated"] += 1
+            if len(r) > 9:
+                p["stock"].append(r[9])
 
     on_hire_roll = []
     for co in sorted(roll, key=lambda c: c.upper()):
@@ -2762,6 +2764,8 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
                 "since": d["oldest"],
                 "days": days_out(when, d["oldest"]) if d["oldest"] else None,
                 "undated": d["undated"],
+                "why": undated_mix(d["stock"], short=True),
+                "why_long": undated_mix(d["stock"]),
                 #  Most-held first, then alphabetical.
                 "gear": sorted(d["items"].items(),
                                key=lambda kv: (-kv[1], kv[0].upper())),
