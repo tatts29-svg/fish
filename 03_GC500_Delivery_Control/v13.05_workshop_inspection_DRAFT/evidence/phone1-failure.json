@@ -1,0 +1,10 @@
+{
+  "author": "Andrew Fisher",
+  "candidateManifestSha256": "9d025b77ba6bc9df7df83524acd7274b1d9a0cbf5071a235453d7ad8f99c925f",
+  "passed": false,
+  "completedChecks": 16,
+  "failure": "inspection scene and tray fit 844 by 390",
+  "sequence": "Native bench inspection, component/crank/cycle controls, then phone viewport 320x700 followed by 844x390 with cycle range focused",
+  "runtimeErrors": [],
+  "status": "Investigating actual geometry and focus scrolling; not acceptance evidence"
+}

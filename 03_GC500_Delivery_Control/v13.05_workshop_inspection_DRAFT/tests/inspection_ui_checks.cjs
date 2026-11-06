@@ -1,11 +1,12 @@
 // Author: Andrew Fisher. Run on the uninterrupted native loop before pose review.
 module.exports=async function inspectionUIChecks({page,check,mobile}){
+  const fs=require('fs'),path=require('path');
   const settle=()=>page.waitForFunction(()=>__workshop.active&&!__workshop.cameraActive,null,{timeout:120000,polling:100});
   const geometry=()=>page.evaluate(()=>{
     const r=id=>{const b=document.getElementById(id).getBoundingClientRect();return {x:b.x,y:b.y,right:b.right,bottom:b.bottom,width:b.width,height:b.height};};
     const v=r('viewport'),p=r('workshop-panel'),sceneVisible=v.y>=-1&&v.bottom<=innerHeight+1&&v.width>=150&&v.height>=150;
     return {viewport:v,panel:p,sceneVisible,compact:__workshop.inspection.compact,canSelect:__workshop.inspection.canSelect,
-      scrollY,documentWidth:document.documentElement.scrollWidth,windowWidth:innerWidth,
+      scrollY,documentWidth:document.documentElement.scrollWidth,windowWidth:document.documentElement.clientWidth,innerWidth,
       trayParent:document.getElementById('workshop-bench').parentNode.id,
       separated:v.bottom<=p.y+2||v.right<=p.x+2,
       trayScroll:document.getElementById('bench-controls').scrollTop};
@@ -49,8 +50,13 @@ module.exports=async function inspectionUIChecks({page,check,mobile}){
     for(const size of [{width:320,height:700},{width:844,height:390}]){
       await page.setViewportSize(size);await page.waitForTimeout(200);await settle();
       await page.locator('#lesson-angle').focus({timeout:120000});layout=await geometry();
+      console.log(JSON.stringify({inspectionViewport:size,layout}));
       check(`inspection scene and tray fit ${size.width} by ${size.height}`,layout.compact&&layout.sceneVisible&&layout.separated&&layout.documentWidth<=layout.windowWidth+1);
       const target=await page.locator('#lesson-angle').boundingBox();check(`cycle slider retains a 44 px touch target at ${size.width}`,target.height>=44);
+      if(process.env.OUT){
+        fs.writeFileSync(path.join(process.env.OUT,`inspection-layout-${size.width}.json`),JSON.stringify({viewport:size,layout},null,2));
+        await page.screenshot({path:path.join(process.env.OUT,`inspection-layout-${size.width}.png`),timeout:120000});
+      }
     }
     await page.setViewportSize(saved);await page.waitForTimeout(200);await settle();
   }

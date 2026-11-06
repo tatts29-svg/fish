@@ -116,9 +116,11 @@ async function main() {
     harnessSha256: sha(fs.readFileSync(__filename)),
     sharedVerifierSha256: sha(fs.readFileSync(path.join(TOOLCHAIN, 'harness/release_sweep.cjs')))};
   let browser, inputs, closing = false, stage = 'freeze inputs';
+  const startedAt = Date.now();
   const pendingRoutes = new Set();
   const check = (name, condition) => {
     result.checks.push({name, passed: !!condition});
+    console.log(`[dashboard ${result.viewport} +${((Date.now() - startedAt) / 1000).toFixed(1)}s] ${condition ? 'PASS' : 'FAIL'} ${name}`);
     assert.ok(condition, name);
   };
   try {
