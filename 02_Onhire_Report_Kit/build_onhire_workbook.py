@@ -1251,6 +1251,78 @@ def company_file_labels(blocks):
     return labels
 
 
+#  Why an on-hire item carries no issue date. Never "not in export" -
+#  three plain cases, each with something the reader can do about it.
+_UNDATED_WORDS = {
+    "after window": ("after window", "went out after the export was cut"),
+    "before window": ("before window", "went out before the export window opened"),
+    "no transaction": ("no transaction", "no issue transaction inside the export window"),
+}
+
+
+def _window_words():
+    """('31 Oct 2026 05:00', '06 Nov 2026 04:59') off the printed period."""
+    per = _PRINT.get("period") or ""
+    if " to " in per:
+        a, b = per.split(" to ", 1)
+        return a.strip(), b.strip()
+    return "", ""
+
+
+def undated_key(stock_date):
+    start, end = (_PRINT.get("window") or (None, None))
+    try:
+        if stock_date and end and stock_date >= end:
+            return "after window"
+        if stock_date and start and stock_date < start:
+            return "before window"
+    except TypeError:
+        pass
+    return "no transaction"
+
+
+def undated_why(stock_date, short=False, sheet=False):
+    """The reason in words: short for a table cell, long for a sentence,
+    or the data-tab form that names the window edge and what to do."""
+    key = undated_key(stock_date)
+    if sheet:
+        a, b = _window_words()
+        if key == "after window":
+            return ("Went out after the export was cut{} - a TRANSACTIONS pull running "
+                    "to now dates it".format(" ({})".format(b) if b else ""))
+        if key == "before window":
+            return ("Went out before the export window opened{} - long out"
+                    .format(" ({})".format(a) if a else ""))
+        return "No issue transaction inside the export window"
+    return _UNDATED_WORDS[key][0 if short else 1]
+
+
+def undated_mix(stock_dates, short=False):
+    """One reason for a group of undated items: the most common one."""
+    from collections import Counter
+    keys = [undated_key(d) for d in stock_dates] or ["no transaction"]
+    key = Counter(keys).most_common(1)[0][0]
+    return _UNDATED_WORDS[key][0 if short else 1]
+
+
+def undated_tail(after, before):
+    """The sentence(s) that follow 'shown as undated' in a note: how many
+    went out after the export was cut (they date on the next pull) and
+    how many before its window opened (long out)."""
+    a, b = _window_words()
+    out = ""
+    if after:
+        out += (" {:,} of {} went out after the export was cut{}, so {} no date yet "
+                "and will date on the next report.".format(
+                    after, "it" if after == 1 else "them",
+                    " ({})".format(b) if b else "",
+                    "it has" if after == 1 else "they have"))
+    if before:
+        out += (" {:,} went out before the export window opened{} - long out, worth "
+                "a look.".format(before, " ({})".format(a) if a else ""))
+    return out
+
+
 def days_out(when, since):
     """Days an item has been out, never negative: an issue stamped later
     today than the report date is 'today', not '-1 days'."""
@@ -1606,6 +1678,9 @@ def _build(base=HERE, when=None):
     # ---- 2. Detailed Onhire -------------------------------------------
     #  Dated from the issue transaction (see above). The SiteIQ stock
     #  date rides along in the last column so the two can be compared.
+    #  The window is known from here on, so an undated item can say
+    #  whether it went out after the export was cut or before it opened.
+    _PRINT["window"] = transactions_window(p_trans)
     det = []
     for r in onhire:
         t = issue_of(r)
@@ -1615,16 +1690,17 @@ def _build(base=HERE, when=None):
                     _s(r.get("ITEM_STATUS")), since,
                     _s(t.get("TRAN_START_TIME")) if t else "",
                     days_out(when, since),
-                    _s(t.get("TRANSACTION_ID")) if t else "Not in this export",
+                    (_s(t.get("TRANSACTION_ID")) if t
+                     else undated_why(_date(r.get("ON_HIRE_DATE")), sheet=True)),
                     _date(r.get("ON_HIRE_DATE"))])
     det.sort(key=lambda x: (x[0], x[1], x[3]))
     undated = [r for r in det if r[5] is None]
     sheet(wb, "Detailed Onhire", title,
           ["Company", "Hirer", "Item number", "Description", "Status",
            "Issued (transaction start)", "Time", "Days on hire",
-           "Issue transaction", "SiteIQ stock date"],
+           "Issue transaction (or why there is none)", "SiteIQ stock date"],
           det, widths={0: 24, 1: 22, 2: 24, 3: 48, 4: 13, 5: 17, 6: 11,
-                       7: 12, 8: 19, 9: 15},
+                       7: 12, 8: 52, 9: 15},
           formats={5: DATE_FMT, 7: INT_FMT, 9: DATE_FMT},
           rules={4: "status", 7: "days"})
     tabs.append(("Detailed Onhire", len(det),
@@ -1762,14 +1838,14 @@ def _build(base=HERE, when=None):
                    _s(r.get("ITEM_STATUS")), since,
                    _s(t.get("TRAN_START_TIME")) if t else "",
                    (_s(t.get("TRANSACTION_ID")) if t else
-                    ("Not in this export" if _s(r.get("ITEM_STATUS")) == "On Hire"
-                     else "")),
+                    (undated_why(_date(r.get("ON_HIRE_DATE")), sheet=True)
+                     if _s(r.get("ITEM_STATUS")) == "On Hire" else "")),
                    _date(r.get("ON_HIRE_DATE"))])
     cs.sort(key=lambda x: (x[1], x[0]))
     sheet(wb, "Coates Stock", title,
           ["Item number", "Description", "Status", "Issued (transaction start)",
-           "Time", "Issue transaction", "SiteIQ stock date"],
-          cs, widths={0: 26, 1: 56, 2: 18, 3: 17, 4: 11, 5: 19, 6: 15},
+           "Time", "Issue transaction (or why there is none)", "SiteIQ stock date"],
+          cs, widths={0: 26, 1: 56, 2: 18, 3: 17, 4: 11, 5: 52, 6: 15},
           formats={3: DATE_FMT, 6: DATE_FMT}, rules={2: "status"})
     tabs.append(("Coates Stock", len(cs),
                  "The fleet with the day each on-hire item was issued"))
@@ -2519,6 +2595,9 @@ def email_parts(s, summary_rows, tu, cu, det, ctx, ca, coates_owned,
     _w_end = (_PRINT.get("window") or (None, None))[1]
     undated_late = [r for r in undated if len(r) > 9 and r[9] and _w_end and r[9] >= _w_end]
     _PRINT["undated_late"] = len(undated_late)
+    _w_start = (_PRINT.get("window") or (None, None))[0]
+    _PRINT["undated_early"] = len([r for r in undated if len(r) > 9 and r[9] and _w_start
+                                   and r[9] < _w_start])
     if undated_late:
         say("  WARN | {:,} item{} on hire went out after the TRANSACTIONS window ended ({} 04:59), "
             "so they cannot be dated from it. Pull TRANSACTIONS with the period running to now "
@@ -6316,7 +6395,7 @@ def email_html(s, when, asat, parts):
         for p in block["people"]:
             n_txt = "{} item{} out".format(_fmt(p["n"]), "" if p["n"] == 1 else "s")
             if p["days"] is None:
-                story = n_txt + " - no issue transaction in this export."
+                story = n_txt + " - " + p.get("why_long", "no issue transaction inside the export window") + "."
             else:
                 story = "{}, the oldest issued {} - {}.".format(
                     n_txt, p["since"].strftime("%d %b %Y"), _days_text(p["days"]))
@@ -6419,6 +6498,7 @@ def company_email_html(s, when, asat, parts, b):
             line += (" {} item{} no issue transaction inside the export window and {} "
                      "shown as undated.".format(b["undated"], " has" if b["undated"] == 1 else "s have",
                                                 "is" if b["undated"] == 1 else "are"))
+            line += undated_tail(b.get("after_window", 0), b.get("before_window", 0))
         ask = ("If any of it is finished with, bring it back to the counter and it comes off "
                "your name the same day - two scans and it is done. Anything you are still "
                "using, no action needed.")
@@ -6451,8 +6531,8 @@ def company_email_html(s, when, asat, parts, b):
                 listed += ", and {} more".format(len(top) - 4)
             rows.append([_lead(pp["who"], listed),
                          _num(_fmt(len(pp["items"]))),
-                         _plain(pp["since"].strftime("%d %b %Y") if pp["since"] else "not in export",
-                                "left", muted=True),
+                         _plain(pp["since"].strftime("%d %b %Y") if pp["since"]
+                                else pp.get("why", "undated"), "left", muted=True),
                          _pill(_days_text(pp["days"]) if pp["days"] is not None else "undated",
                                day_tone(pp["days"]) if pp["days"] is not None else "amber")])
         inner.append(_table(["Person", "Items", "Oldest issue", "Out"], rows,
@@ -6517,7 +6597,7 @@ def write_company_email(out_dir, s, when, asat, parts, b, pdf_path):
     for pp in b["people"]:
         text.append("  {} - {} item{}, oldest issued {}".format(
             pp["who"], len(pp["items"]), "" if len(pp["items"]) == 1 else "s",
-            pp["since"].strftime("%d %b %Y") if pp["since"] else "not in export"))
+            pp["since"].strftime("%d %b %Y") if pp["since"] else pp.get("why", "undated")))
     text += ["", "Your page of today's pack is attached. Reply with anything to chase or correct.",
              "", s.author or "Andrew Fisher", "Shutdown Tool Store | Coates"]
     msg.set_content("\n".join(text))
@@ -6620,10 +6700,13 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
                                           _s(r[3]).upper(), _s(r[2])))
             dated = [r for r in items if r[5]]
             oldest = min(r[5] for r in dated) if dated else None
+            und_dates = [r[9] for r in items if not r[5] and len(r) > 9]
             people.append({
                 "who": who, "items": items, "since": oldest,
                 "days": days_out(when, oldest) if oldest else None,
-                "undated": len(items) - len(dated)})
+                "undated": len(items) - len(dated),
+                "why": undated_mix(und_dates, short=True),
+                "why_long": undated_mix(und_dates)})
         all_items = [r for p in people for r in p["items"]]
         days = [r[7] for r in all_items if r[7] is not None]
         lines = sorted(cons.get(co, {}).items(),
@@ -6637,6 +6720,10 @@ def pack_blocks(det, ctx, tooling_tx, when, own=None, owner_of=None):
             "oldest_days": max(days) if days else None,
             "long_out": len([d for d in days if d >= LONG_OUT_DAYS]),
             "undated": len(all_items) - len(days),
+            "after_window": sum(1 for r in all_items if not r[5] and len(r) > 9
+                                and undated_key(r[9]) == "after window"),
+            "before_window": sum(1 for r in all_items if not r[5] and len(r) > 9
+                                 and undated_key(r[9]) == "before window"),
             "issues": issues.get(co, 0),
             #  items on hire that the customer owns (life jackets, drop mats)
             #  - managed through the counter, but not Coates gear
@@ -7015,7 +7102,8 @@ class _Pack(object):
             d.text(self.x0 + 380, self.y + 14, r[5].strftime("%d %b %Y"),
                    size=8.5, colour=P_MUTED)
         else:
-            d.text(self.x0 + 380, self.y + 14, "not in export", size=7.8,
+            d.text(self.x0 + 380, self.y + 14,
+                   undated_why(r[9] if len(r) > 9 else None, short=True), size=7.8,
                    italic=True, colour=E_RAG["amber"][1])
         self.chip(self.x1 - 8, self.y + 4.5, _days_text(r[7]), day_tone(r[7]))
         d.line(self.x0, self.y + h, self.x1, self.y + h, colour=P_LINE, lw=0.4)
@@ -7476,9 +7564,11 @@ class _Pack(object):
                 else "level with", prev["day"].strftime("%d %b")))
         if c.get("undated"):
             brief.append("{:,} on-hire item{} no issue transaction inside the export "
-                         "window and {} shown as undated.".format(
+                         "window and {} shown as undated.{}".format(
                              c["undated"], " has" if c["undated"] == 1 else "s have",
-                             "is" if c["undated"] == 1 else "are"))
+                             "is" if c["undated"] == 1 else "are",
+                             undated_tail(_PRINT.get("undated_late", 0),
+                                          _PRINT.get("undated_early", 0))))
         text = " ".join(brief)
         lines = d.wrap(text, 9.6, self.cw - 32)
         box_h = 34 + 13.5 * len(lines) + 6
@@ -8054,11 +8144,13 @@ class _Pack(object):
         if b["undated"]:
             self.callout("{} item{} on hire to {} {} no issue transaction inside "
                          "the transactions export ({}), so {} shown as undated "
-                         "rather than given a date nobody can stand behind."
+                         "rather than given a date nobody can stand behind.{}"
                          .format(b["undated"], "" if b["undated"] == 1 else "s", co,
                                  "has" if b["undated"] == 1 else "have",
                                  self.period or "this period",
-                                 "it is" if b["undated"] == 1 else "they are"),
+                                 "it is" if b["undated"] == 1 else "they are",
+                                 undated_tail(b.get("after_window", 0),
+                                              b.get("before_window", 0))),
                          "amber")
             self.y += 10
 
@@ -8473,8 +8565,9 @@ class _Pack(object):
         if self.y + 28 <= self.bottom:
             self.y = d.paragraph(
                 self.x0, self.y + 6, "Dates are the start of each item's issue "
-                "transaction in SiteIQ; the export covers {}. Undated means no "
-                "transaction inside that window. No costs anywhere in this pack - "
+                "transaction in SiteIQ; the export covers {}. Undated means no issue "
+                "transaction in that window - 'after window' went out after the export "
+                "was cut and dates on the next pull. No costs anywhere in this pack - "
                 "they are in the workbook.".format(self.period or "the export period"),
                 size=7.5, max_w=self.cw, colour=P_MUTED, leading=10.5, max_lines=2)
         self.doc.bookmark("Contents", 0, 60)

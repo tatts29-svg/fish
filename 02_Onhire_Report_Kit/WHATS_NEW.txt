@@ -110,6 +110,28 @@
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
 
+ UNDATED ITEMS SAY WHY (06 Nov 2026)
+ ----------------------------------
+   "Not in this export" is gone. An on-hire item with no issue
+   transaction inside the TRANSACTIONS window now says which of three
+   things happened, in the pack, the email, the company drafts and
+   the Detailed Onhire and Coates Stock tabs:
+
+     after window     it went out after the export was cut (the
+                      evening pull against a window that ended at
+                      04:59). A TRANSACTIONS pull with the period
+                      running to now dates it. Nothing to chase.
+     before window    it went out before the export window opened -
+                      long out, worth a look.
+     no transaction   no issue transaction inside the window at all.
+
+   The amber note on each company's page and in its chase email now
+   says how many of its undated items are "after window" and how many
+   "before window", so the reader knows which ones to care about. The
+   Detailed Onhire column is headed "Issue transaction (or why there
+   is none)" and spells the reason out with the window edge and the
+   fix.
+
  THE JOB NAME (06 Nov 2026)
  -------------------------
    The Weipa reports said "Weipa May26 Shutdown" because the SiteIQ
