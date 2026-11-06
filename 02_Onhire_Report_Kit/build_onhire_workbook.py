@@ -4767,7 +4767,7 @@ def forecast_tab(wb, s, when, asat, fc):
     NC = max(12, len(heads))
     for i in range(1, NC + 5):
         ws.column_dimensions[get_column_letter(i)].width = 13.5
-    ws.column_dimensions["A"].width = 16
+    ws.column_dimensions["A"].width = 19
     ws.column_dimensions["B"].width = 22
     band(ws, "{}  |  Shutdown Tool Store  |  Forecast - {}".format(
         s.short or s.customer or "Shutdown", fc["job"]), NC)
