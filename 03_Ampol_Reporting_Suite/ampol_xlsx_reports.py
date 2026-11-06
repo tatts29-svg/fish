@@ -406,6 +406,25 @@ def _yn(b):
     return "Yes" if b else "No"
 
 
+# WHY (06 Nov 2026, Andrew): the same naming rules as every page - a person
+# as "First Last" (a shared booking account under its label), one customer
+# one name, a SiteIQ account under its customer. The PDF pages apply these
+# as they print; the workbook tabs apply them as they are written.
+def _person(v):
+    import ampol_names
+    return ampol_names.display_person(v) if str(v or "").strip() else ""
+
+
+def _company(v):
+    import ampol_names
+    return ampol_names.display_company(v) if str(v or "").strip() else ""
+
+
+def _account(v):
+    import ampol_names
+    return ampol_names.account_label(v) if str(v or "").strip() else ""
+
+
 def _facts(asat_s, gen_s, extra=()):
     return [("As at", asat_s), ("Report date", dt.date.today().strftime("%d %b %Y")),
             ("Prepared by", "Andrew Fisher")] + list(extra) + [("Built", gen_s)]
@@ -477,16 +496,16 @@ def radio_workbook(d, F, INS, changes, cfg, asat_s, gen_s, path, prior_label, hi
         for kind, lst in (("Came back", changes["returned"]), ("Went out", changes["issued"]),
                           ("Changed hands", changes["moved"]), ("Crossed 30 days", changes["crossed"].get(30, []))):
             for r in lst:
-                rows.append([kind, r.get("company", ""), r.get("hirer", ""), r.get("barcode", ""), r.get("desc", ""),
-                             r.get("days_out"), r.get("from_hirer", ""), r.get("now", "")])
+                rows.append([kind, _company(r.get("company", "")), _person(r.get("hirer", "")), r.get("barcode", ""), r.get("desc", ""),
+                             r.get("days_out"), _person(r.get("from_hirer", "")), r.get("now", "")])
         wb.sheet("Since the last pull", ["Change", "Company", "Hirer", "Barcode", "Description", "Days out",
                                          "From hirer", "Now"], rows, formats={5: cx.INT},
                  note=f"Previous pull {changes['prev_time']:%d %b %Y %H:%M}; this pull {changes['cur_time']:%d %b %Y %H:%M}.",
                  what="What changed between the previous SiteIQ pull and this one")
     L24 = (changes or {}).get("last24") or {}
     if L24.get("available"):
-        rows = [["Issued", r["at"], r["company"], r["hirer"], r["barcode"], r["desc"]] for r in L24["issued"]] + \
-               [["Returned", r["at"], r["company"], r["hirer"], r["barcode"], r["desc"]] for r in L24["returned"]]
+        rows = [["Issued", r["at"], _company(r["company"]), _person(r["hirer"]), r["barcode"], r["desc"]] for r in L24["issued"]] + \
+               [["Returned", r["at"], _company(r["company"]), _person(r["hirer"]), r["barcode"], r["desc"]] for r in L24["returned"]]
         rows.sort(key=lambda r: r[1])
         ws_, we_ = L24["window"]
         wb.sheet("Last 24 hours", ["Movement", "At", "Company", "Hirer", "Barcode", "Description"], rows,
@@ -511,7 +530,7 @@ def radio_workbook(d, F, INS, changes, cfg, asat_s, gen_s, path, prior_label, hi
                       ("Out more than 90 days", [r["over90"] for r in nr])], colours=["2A313C", "E08A24", "D0342C"], legend="b")
         ho = (INS.get("holders") or {}).get("rows") or []
         wb.sheet("Who holds the gear", ["Hirer", "Company", "Units", "Replacement $", "Oldest days", "Also holds"],
-                 [[h["hirer"], h["company"], h["items"], h.get("rvalue", 0.0), h["oldest"], ", ".join(h.get("also", []))] for h in ho],
+                 [[_person(h["hirer"]), _company(h["company"]), h["items"], h.get("rvalue", 0.0), h["oldest"], ", ".join(h.get("also", []))] for h in ho],
                  formats={2: cx.INT, 3: cx.MONEY, 4: cx.INT}, what="Ranked by units held - the 80/20 of who has the radios")
         rw = (INS.get("rw") or {}).get("rows") or []
         if rw:
@@ -567,7 +586,7 @@ def stocktake_workbook(rows, d, a, fm, tx_window, band, cfg, asat_s, gen_s, path
              what="Coverage by home bay, biggest bays first - where the trolley goes next")
 
     def item_row(r, onhire=False):
-        return ([r["company"], r["hirer"]] if onhire else []) + [r["unit"], r["barcode"], r["desc"], r["cat"].title(),
+        return ([r["company"], _person(r["hirer"])] if onhire else []) + [r["unit"], r["barcode"], r["desc"], r["cat"].title(),
                 _d(r.get("ohd")) if onhire else None, _d(r["last"]), r["by"], r["days"], r["target"], r["value"]]
     tail = sorted(a["ins_over30"], key=lambda r: (0 if r["days"] is None else 1, -(r["days"] or 0)))
     wb.sheet("Shelf over 30 days", ["Bay", "Barcode", "Description", "Tier", "", "Last sighted", "By", "Days", "Target", "Value $"],
@@ -587,7 +606,7 @@ def stocktake_workbook(rows, d, a, fm, tx_window, band, cfg, asat_s, gen_s, path
              formats={1: cx.INT, 2: cx.INT, 3: cx.MONEY}, what="On-hire verification by company, most items first")
     mr = d["missed_returns"]
     wb.sheet("Possible missed returns", ["Barcode", "Description", "Bay seen in", "Hirer", "Company", "On hire since", "Last sighted", "By"],
-             [[r["barcode"], r["desc"], r["unit"], r["hirer"], r["company"], _d(r.get("ohd")), _d(r["last"]), r["by"]] for r in mr],
+             [[r["barcode"], r["desc"], r["unit"], _person(r["hirer"]), r["company"], _d(r.get("ohd")), _d(r["last"]), r["by"]] for r in mr],
              formats={5: cx.DATETIME, 6: cx.DATETIME},
              what="On hire in SiteIQ but sighted in a store bay after the hire began - scan them back in")
     wb.sheet("Not on live register", ["Barcode", "Description", "Bay", "Last sighted", "By"],
@@ -624,7 +643,7 @@ def stocktake_workbook(rows, d, a, fm, tx_window, band, cfg, asat_s, gen_s, path
     allrows = sorted(rows, key=lambda r: (r["onhire"], r["unit"], r["barcode"]))
     wb.sheet("All countable items", ["Bay", "Barcode", "Description", "Tier", "Status", "Company", "Hirer", "On hire since",
                                      "Last sighted", "By", "Days", "Target", "Value $"],
-             [[r["unit"], r["barcode"], r["desc"], r["cat"].title(), r["status"], r["company"], r["hirer"], _d(r.get("ohd")),
+             [[r["unit"], r["barcode"], r["desc"], r["cat"].title(), r["status"], r["company"], _person(r["hirer"]), _d(r.get("ohd")),
                _d(r["last"]), r["by"], r["days"], r["target"], r["value"]] for r in allrows],
              formats={7: cx.DATETIME, 8: cx.DATETIME, 10: cx.INT, 11: cx.INT, 12: cx.MONEY}, rules={4: "status", 10: ("days", 31, 91)},
              what="Every countable item on the stocktake export, with its sighting and its value")
@@ -681,7 +700,7 @@ def calibration_workbook(rows, d, S, cfg, asat_s, gen_s, path, hidden_note="", s
         live = r.get("live") or {}
         return ([r["asset"], r["desc"], r["serial"], r["cert"], _d(r.get("cal_date")), _d(r["due"])]
                 + ([r["now_status"]] if with_status else [])
-                + [r["now_days"], r["where"], r["live_hirer"], r["company"], _d(r.get("out")), live.get("unit", ""), r.get("notes", "")])
+                + [r["now_days"], r["where"], _person(r["live_hirer"]), _company(r["company"]), _d(r.get("out")), live.get("unit", ""), r.get("notes", "")])
     hdr = ["Asset", "Description", "Serial", "Certificate", "Calibrated", "Calibration due", "Days to due (neg = overdue)",
            "Where (SiteIQ)", "Hirer", "Company", "Out since", "Bay", "Notes"]
     od = d["now_overdue"]
@@ -692,7 +711,7 @@ def calibration_workbook(rows, d, S, cfg, asat_s, gen_s, path, hidden_note="", s
     for queue, groups in (("Hirer", d["now_chase_hirer"]), ("Repairs account", d["now_chase_repairs"])):
         for hirer, items in groups:
             for r in sorted(items, key=lambda r: r["now_days"]):
-                chase.append([hirer, queue, r["company"], r["asset"], r["desc"], _d(r["due"]), -(r["now_days"] or 0), _d(r.get("out"))])
+                chase.append([_person(hirer), queue, _company(r["company"]), r["asset"], r["desc"], _d(r["due"]), -(r["now_days"] or 0), _d(r.get("out"))])
     wb.sheet("Chase list", ["Hirer", "Queue", "Company", "Asset", "Description", "Calibration due", "Days overdue", "Out since"],
              chase, formats={5: cx.DATE, 6: cx.INT, 7: cx.DATETIME}, rules={6: ("days", 1, 30)},
              what="Overdue and out on hire in SiteIQ - by name, worst first inside each name")
@@ -707,7 +726,7 @@ def calibration_workbook(rows, d, S, cfg, asat_s, gen_s, path, hidden_note="", s
     kw_set = {id(l) for l in d["kw"]}
     nir = sorted(d["nir"], key=lambda l: (l["hirer"].upper(), l["desc"].upper()))
     wb.sheet("On hire, not in register", ["Barcode", "Description", "Hirer", "Company", "Out since", "Bay", "Calibration keyword"],
-             [[l["barcode"], l["desc"], l["hirer"], l["company"], _d(l.get("out")), l.get("unit", ""), _yn(id(l) in kw_set)] for l in nir],
+             [[l["barcode"], l["desc"], _person(l["hirer"]), _company(l["company"]), _d(l.get("out")), l.get("unit", ""), _yn(id(l) in kw_set)] for l in nir],
              formats={4: cx.DATETIME}, rules={6: "yes_no"},
              what="SiteIQ lines on hire that the register does not list - the keyword column flags likely calibrated gear")
     wb.sheet("Lapsed since maintained", hdr, [reg_row(r) for r in d["lapsed"]],
@@ -764,7 +783,7 @@ def rigging_workbook(d, rag, cfg, asat_s, gen_s, path, hidden_note="", sources=N
         tests = it.get("tests") or {}
         live = it.get("live") or {}
         return ([where_word.get(it["bucket"], it["bucket"])] if where else []) + [
-            it["company"], it["account"], it["hirer"], it["barcode"], it["desc"], it["cat"], it.get("serial", ""),
+            it["company"], _account(it["account"]), _person(it["hirer"]), it["barcode"], it["desc"], it["cat"], it.get("serial", ""),
             _d(it["since"]), it["held"], it["unit"], live.get("status", ""), _yn(it.get("has_test")), tests.get("Test Status", "")]
     hdr = ["Company", "Account", "Hirer", "Barcode", "Description", "Category", "Serial", "On hire since", "Days held",
            "Storage unit", "SiteIQ status", "Test record", "Test status"]
@@ -772,7 +791,7 @@ def rigging_workbook(d, rag, cfg, asat_s, gen_s, path, hidden_note="", sources=N
     wb.sheet("On hire", hdr, [it_row(it) for it in oh], formats={7: cx.DATETIME, 8: cx.INT}, rules={8: ("days", 90, 180), 11: "yes_no"},
              what="Register gear on hire to customers, by company, longest held first")
     wb.sheet("By company", ["Company", "Items", "Hirers", "Accounts", "Oldest since", "Oldest days", "Oldest item"],
-             [[c["co"], c["n"], c["hirers"], ", ".join(c["accounts"]), _d(c["oldest"]["since"]), c["oldest"]["held"],
+             [[c["co"], c["n"], c["hirers"], ", ".join(sorted({_account(a) for a in c["accounts"]})), _d(c["oldest"]["since"]), c["oldest"]["held"],
                f'{c["oldest"]["desc"]} ({c["oldest"]["barcode"]})'] for c in d["companies"]],
              formats={1: cx.INT, 2: cx.INT, 4: cx.DATETIME, 5: cx.INT}, what="Customer hire by company, A to Z")
     wb.sheet("In store", hdr, [it_row(it) for it in sorted(d["store"], key=lambda it: (it["unit"], it["barcode"]))],
@@ -799,7 +818,7 @@ def rigging_workbook(d, rag, cfg, asat_s, gen_s, path, hidden_note="", sources=N
              formats={0: cx.DATE, 1: cx.INT, 2: cx.INT, 3: cx.INT, 4: cx.PCT1}, what="Issues and returns of register barcodes, every week of the log")
     ho = (L.get("holders") or {}).get("rows") or []
     wb.sheet("Who holds the gear", ["Hirer", "Company", "Items", "Value $", "Oldest days", "Families held"],
-             [[h["hirer"], h["company"], h["items"], h["value"], h["oldest"], ", ".join(sorted(h["families"]))] for h in ho],
+             [[_person(h["hirer"]), _company(h["company"]), h["items"], h["value"], h["oldest"], ", ".join(sorted(h["families"]))] for h in ho],
              formats={2: cx.INT, 3: cx.MONEY, 4: cx.INT}, what="Ranked by items held")
     wb.sheet("Test record columns", ["Column", "Rows filled", "Of rows"], [[c, n, d["rows"]] for c, n in d["col_fill"]] +
              [["(Test Status: " + k + ")", n, d["rows"]] for k, n in d["test_status"].most_common()],
