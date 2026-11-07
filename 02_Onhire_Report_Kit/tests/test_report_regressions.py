@@ -276,7 +276,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(forecast['ref']['busy_share'], 1.0)
             self.assertIn('busiest at 08:00', forecast['ref_line'])
             self.assertNotIn('00:00', forecast['ref_line'])
-            self.assertIn('1 movement in 1 day', forecast['ref_line'])
+            self.assertIn('1 scan (issues, returns and draws) in 1 day', forecast['ref_line'])
             self.assertIn('1 day on site', forecast['brief'])
 
     def test_single_item_email_uses_singular_counts(self):

@@ -12,7 +12,7 @@ rem
 rem  Needs Outlook on this computer, opened at least once. Run button
 rem  2 first, so there is a report for today to draft.
 rem =====================================================================
-cd /d "%~dp0"
+cd /d "%~dp0" 2>nul
 if not exist "%~dp0MAKE_OUTLOOK_DRAFT.ps1" (
     echo  MAKE_OUTLOOK_DRAFT.ps1 is missing - extract the zip again.
     pause
@@ -21,5 +21,13 @@ if not exist "%~dp0MAKE_OUTLOOK_DRAFT.ps1" (
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0MAKE_OUTLOOK_DRAFT.ps1" %*
 set "RC=%errorlevel%"
 echo.
+if not "%RC%"=="0" (
+    echo ------------------------------------------------------------------
+    echo  THE DRAFT WAS NOT MADE. Read the message above. If it says Outlook
+    echo  or PowerShell is blocked on this laptop, open the .html in the
+    echo  Reports folder and copy it into a new message instead.
+    echo ------------------------------------------------------------------
+    echo.
+)
 pause
 exit /b %RC%
