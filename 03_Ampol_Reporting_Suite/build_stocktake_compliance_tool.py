@@ -50,7 +50,7 @@ PRIORITY DETERMINATION (stated on every output)
 """
 import sys, re
 from pathlib import Path
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from collections import defaultdict, Counter
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -90,10 +90,10 @@ TIERS = {
     # WHY (03 Sep 2026, Andrew): gas monitors, radios, radio batteries,
     # Milwaukee tools and Milwaukee batteries are sighted every two days -
     # the store's standard, set above the 30-day SOP. Was 7 / 7 / 14.
-    "gas":       ("Gas Monitors",             2,  "Safety-critical; bumped & charged before issue; sighted every 2 days"),
-    "radio":     ("Radios & Radio Batteries", 2,  "Safety-critical comms; high churn; sighted every 2 days"),
-    "milwaukee": ("Milwaukee Tools & Batteries", 2, "High value, high shrinkage risk; sighted every 2 days"),
-    "general":   ("All Other Tooling",        30, "30-day full-coverage SOP cycle"),
+    "gas":       ("Gas monitors",             2,  "Safety-critical; bumped & charged before issue; sighted every 2 days"),
+    "radio":     ("Radios and radio batteries", 2,  "Safety-critical comms; high churn; sighted every 2 days"),
+    "milwaukee": ("Milwaukee tools and batteries", 2, "High value, high shrinkage risk; sighted every 2 days"),
+    "general":   ("All other tooling",        30, "30-day full-coverage SOP cycle"),
 }
 
 # ---------------------------------------------------------------- utilities
@@ -177,8 +177,11 @@ def load_pricing(path, sheet=None):
         # WHY (02 Sep 2026): most_common() breaks a 1-vs-1 tie by file order,
         # which is luck, not a rule. Ties now take the LOWER value - the
         # conservative figure - and the Pricing Gaps tab says so.
+        # WHY (07 Nov 2026): one tie rule across the suite (ampol_master.
+        # unify_prices) - the most common price, a tie to the first in the
+        # master's row order. Counter keeps file order, so next() is first.
         top = max(prices.values())
-        exact[d] = min(v for v, n in prices.items() if n == top)
+        exact[d] = next(v for v, n in prices.items() if n == top)
     stripped = {}
     for d, p in exact.items():
         sd = strip_site_prefix(d)
@@ -196,9 +199,18 @@ def load_pricing(path, sheet=None):
 SERIAL_SUFFIX_RE = re.compile(r"\s*-?\s*[A-Z]{4}-\d{3,5}\s*$")
 FAMILY_QUALIFIER_RE = re.compile(r"\s*-\s*(T&I|MAINTENANCE|MAINT)\s*$")
 
+# WHY (07 Nov 2026, QA F73): Motorola radios carry their serial the same way
+# ('AMPOL MOTOROLA RADIO--MAINTENANCE- 122TYT0548'); the master prices the
+# family line (AMPOL MOTOROLA RADIO, $2,695) - the radio report's price.
+RADIO_SERIAL_RE = re.compile(r"\s*-+\s*(?:T&I|MAINTENANCE|MAINT|TURNAROUND|SHUTDOWN)?\s*-*\s*\d{3}[A-Z]{3}\d{4}\s*$")
+
+
 def family_keys(desc):
     """Candidate pricing keys for a serial-suffixed description; [] otherwise."""
     s = norm(desc)
+    if s and RADIO_SERIAL_RE.search(s):
+        base = RADIO_SERIAL_RE.sub("", s).strip(" -")
+        return [base] if base else []
     if not s or not SERIAL_SUFFIX_RE.search(s):
         return []
     base = FAMILY_QUALIFIER_RE.sub("", SERIAL_SUFFIX_RE.sub("", s)).strip(" -")
@@ -273,6 +285,35 @@ def load_master(path):
                 parse_dt(r[ix["ON_HIRE_DATE"]]))
     return m
 
+# WHY (07 Nov 2026, QA): one display rule for a hirer on every page and tab -
+# a person through ampol_names (no '-Shutdown' glued to a surname, McIvor,
+# O'Meara), a shared booking account marked "(account)", and a holding line
+# under Repairs or a company's own line ('Future Fuels', 'Ampol Operations')
+# marked as an account too - it is never one of the company's people.
+def show_hirer(company_raw, hirer_raw):
+    h = ampol_names.hirer_label(hirer_raw) if hirer_raw else ""
+    if not h:
+        return ""
+    co = ampol_names.display_company(company_raw) if company_raw else ""
+    if (h != ampol_names.AFTER_HOURS_LABEL and not h.lower().endswith("(account)") and
+            (str(company_raw or "").strip().upper() == "REPAIRS" or
+             (co and (h.upper() == co.upper() or h.upper().startswith(co.upper() + " "))))):
+        h += ampol_names.ACCOUNT_SUFFIX
+    return h
+
+
+def onhire_label(co_show, h_show):
+    """'Company - hirer'; a Dräger service line already names its company."""
+    if co_show and h_show and h_show.upper().startswith(co_show.upper()):
+        return h_show
+    return " - ".join(x for x in (co_show, h_show) if x)
+
+
+GHOST_LINES = []      # stocktake lines with the barcode in the description column (07 Nov 2026)
+PRICE_NOTES = {"filled_desc": 0, "filled_lines": 0, "conflicts": []}
+BARCODE_RE = re.compile(r"^[A-Z0-9&]{3,}[A-Z0-9&/\-]*\d$", re.I)
+
+
 def load(path, master, fixes, exact, stripped):
     bc_map, desc_map = fixes
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
@@ -286,11 +327,23 @@ def load(path, master, fixes, exact, stripped):
     hdr = [c for c in next(it)]
     ix = {h: i for i, h in enumerate(hdr)}
     rows, transit = [], 0
-    for r in it:
-        if not r[ix["TOOL_STORE"]]: continue
+    all_rows = [r for r in it if r[ix["TOOL_STORE"]]]
+    # WHY (07 Nov 2026, QA F38): SiteIQ wrote three lines with the barcode in
+    # the DESCRIPTION column and no barcode at all (AMP088/025 sighted 17 Jul);
+    # each barcode has its own proper line, sighted since. Counted, they set
+    # the shelf's "oldest 113 days" from an item that is on hire. A ghost line
+    # is left out when its barcode has its own line - and the data page says so.
+    own = {str(r[ix["LATEST_BARCODE"]] or "").strip().upper() for r in all_rows}
+    del GHOST_LINES[:]
+    for r in all_rows:
         status = str(r[ix["SIGHTED_STATUS"]] or "").upper()
         action = str(r[ix["LAST_SIGHTED_ACTION"]] or "").upper()
         bc = str(r[ix["LATEST_BARCODE"]] or "").strip()
+        d_raw = str(r[ix["DESCRIPTION"]] or "").strip()
+        if not bc and BARCODE_RE.match(d_raw) and d_raw.upper() in own:
+            GHOST_LINES.append({"barcode": d_raw.upper(), "unit": str(r[ix["STORAGE_UNIT"]] or "").strip().upper(),
+                                "last": parse_dt(r[ix["LAST_SIGHTED_DATE_TIME"]])})
+            continue
         # WHY (02 Sep 2026): "last action = Departure" alone dropped 17 items
         # the live register still shows on the shelf (RIGGING BAY, departed
         # 10 Mar). Departed stock is only out of scope when the register has
@@ -300,7 +353,8 @@ def load(path, master, fixes, exact, stripped):
             transit += 1; continue
         d = parse_dt(r[ix["LAST_SIGHTED_DATE_TIME"]])
         days = (export_dt - d).days if d else None
-        su = str(r[ix["STORAGE_UNIT"]] or "(no storage unit)").strip()
+        su = str(r[ix["STORAGE_UNIT"]] or "(no storage unit)").strip().upper()
+        bc = bc.upper()
         raw_desc = str(r[ix["DESCRIPTION"]] or "").strip()
         fixed = bc_map.get(norm(bc)) or desc_map.get(norm(raw_desc))
         desc = fixed or raw_desc
@@ -309,6 +363,7 @@ def load(path, master, fixes, exact, stripped):
         by_family = price is not None and priced_by_family(raw_desc, fixed, exact, stripped)
         mstatus, mcomp, mhirer, mhome, m_ohd = master.get(bc.upper(), ("", "", "", "", None))
         onhire_sys = mstatus == "On Hire"
+        mhome = (mhome or "").upper()
         home = mhome if mhome and mhome.upper() not in ONHIRE_UNITS else (su if su.upper() not in ONHIRE_UNITS else mhome or su)
         cat = categorise(bc, desc if fixed else raw_desc)
         # WHY (02 Sep 2026): the site is Ampol. SiteIQ still carries the
@@ -317,20 +372,43 @@ def load(path, master, fixes, exact, stripped):
         # the old one. Matching and pricing above used the raw text.
         desc = ampol_names.display_desc(desc, barcode=bc)
         mcomp_show = ampol_names.display_company(mcomp) if mcomp else ""
+        h_show = show_hirer(mcomp, mhirer)
         rows.append({"unit": su, "barcode": bc, "desc": desc, "raw_desc": raw_desc,
                      "former_name": ampol_names.carries_former_name(raw_desc),
                      "company": mcomp_show, "account": ampol_names.account_label(mcomp) if mcomp else "",
-                     "hirer": mhirer,
+                     "hirer": mhirer, "hirer_show": h_show, "company_raw": mcomp,
                      "fixed": bool(fixed), "price_family": by_family,
                      "qty": qty, "price": price,
                      "value": (price * qty) if price is not None else None,
                      "last": d, "by": str(r[ix["LAST_SIGHTED_BY"]] or "").strip(),
                      "days": days, "cat": cat, "target": TIERS[cat][1],
                      "onhire": onhire_sys,
-                     "onhire_to": (f"{mcomp_show} \u2013 {ampol_names.display_person(mhirer)}"
-                                   if mcomp or mhirer else "").strip(" \u2013"),
+                     "onhire_to": onhire_label(mcomp_show, h_show),
                      "home": home or "(no storage unit)",
                      "status": mstatus or "Not in master", "ohd": m_ohd})
+    # WHY (07 Nov 2026, QA F20/F73): one price per printed description
+    # (ampol_master.unify_prices) - SiteIQ spells one product several ways;
+    # once they print the same they carry one price, the master's own.
+    order = {k: i for i, k in enumerate(exact)}
+    pk = {}
+    for r_ in rows:
+        k = (r_["desc"], norm(r_["raw_desc"]))
+        if pk.get(k) is None:
+            pk[k] = r_["price"]
+    unified, conflicts, filled = ampol_master.unify_prices(
+        pk, lambda k: k[0], sorted(pk, key=lambda k: order.get(k[1], 10 ** 9)))
+    n_fill = 0
+    for r_ in rows:
+        k = (r_["desc"], norm(r_["raw_desc"]))
+        new = unified.get(k)
+        if new is not None and r_["price"] != new:
+            if r_["price"] is None:
+                n_fill += 1
+                r_["price_twin"] = True
+            r_["price"] = new
+            r_["value"] = new * r_["qty"]
+    PRICE_NOTES.update({"filled_desc": len({k[0] for k in filled}), "filled_lines": n_fill,
+                        "conflicts": conflicts})
     return rows, transit, export_dt
 
 # ---------------------------------------------------------------- shared derivations
@@ -365,10 +443,17 @@ def derive(rows, export_dt):
     d["crit_instore"] = sum(1 for r in d["instore"] if bucket(r["days"]) in ("critical", "never"))
     d["crit_onhire"] = sum(1 for r in d["onhire"] if bucket(r["days"]) in ("critical", "never"))
     d["not_on_register"] = [r for r in rows if r["status"] == "Not in master"]
+    d["ghost_lines"] = list(GHOST_LINES)
+    d["price_notes"] = dict(PRICE_NOTES)
     d["former_name_lines"] = sum(1 for r in rows if r.get("former_name"))
     d["awaiting_arrival"] = [r for r in rows if r["status"].upper() == "AWAITING ARRIVAL"]
     # activity - what's been done
-    d["done7"] = [r for r in rows if r["days"] is not None and r["days"] <= 7]
+    # WHY (07 Nov 2026, QA F33): 'days <= 7' reached back 7 days 23 hours, so
+    # the tile (1,180) never matched the chart's seven bars (1,160). The last
+    # 7 days are now the export day and the six before it - the chart's days.
+    d7_from = export_dt.date() - timedelta(days=6)
+    d["done7_from"] = d7_from
+    d["done7"] = [r for r in rows if r["last"] and r["last"].date() >= d7_from]
     d["done30"] = [r for r in rows if r["days"] is not None and r["days"] <= 30]
     d["counters7"] = Counter(r["by"] for r in d["done7"] if r["by"]).most_common(6)
     # per-tier stats: coverage rated on IN-STORE items (on-hire items are
@@ -428,9 +513,11 @@ td.num, th.num { text-align:right; }
 .cway .obj { color:#555; font-weight:normal; display:block; margin-top:2pt; }
 """
 
-LSR_LINE = ("Life Saving Rule 5 \u2013 Tools and Equipment (SEQ-GL-009): nothing damaged, "
+# WHY (07 Nov 2026, QA F28/F62): the standard is stated as a standard - the
+# figures beside it show the days with no count, and say so.
+LSR_LINE = ("Life Saving Rule 5 - Tools and Equipment (SEQ-GL-009): nothing damaged, "
             "defective or out of test date is ever reissued. Two scans. Two looks. One "
-            "standard. Stock takes are done daily. No exceptions.")
+            "standard: a stock take every day.")
 
 
 def sig_footer():
@@ -449,28 +536,34 @@ def determination_panel():
         f"""<tr><td><b>{label}</b></td><td>Every {t} days</td><td>{why}</td></tr>"""
         for k, (label, t, why) in TIERS.items())
     return f"""<div class="notice"><div class="ntitle">HOW PRIORITY IS DETERMINED (AND WHAT COUNTS AS DONE)</div>
-<table class="matrix" style="margin-bottom:5pt"><tr><th>Priority Tier</th><th>Target Cycle</th><th>Why</th></tr>{rows}</table>
+<table class="matrix" style="margin-bottom:5pt"><thead><tr><th>Priority tier</th><th>Target cycle</th><th>Why</th></tr></thead>{rows}</table>
 An item is <b>DONE</b> when it is physically scanned - the scan resets its clock. Issue and return scans count, so this
 worklist naturally surfaces <b>idle stock</b> (gear that hasn't moved), which is exactly what goes missing quietly.
 Severity against the 30-day SOP: <span class="chip" style="color:#1f5c99;background:#eef5fc">TARGET DUE</span> = outside its
 tier target but still inside the SOP window &nbsp; <span class="chip" style="color:#b07700;background:#fdf3dd">SOP DUE</span>
-= 31\u201360 days &nbsp; <span class="chip" style="color:#D0342C;background:#fbe9e9">CRITICAL</span> = over 60 days or never sighted.
+= 31-60 days &nbsp; <span class="chip" style="color:#D0342C;background:#fbe9e9">CRITICAL</span> = over 60 days or never sighted.
 Client compliance is measured on the 30-day SOP; the {fast_cycles()}-day cycles are the Coates internal standard, set above the SOP.</div>"""
 
 # ---------------------------------------------------------------- staff worklist
-def item_table(items, show_value=True):
-    parts = [f"""<table class="items"><tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
-<th class="num">Unit Price</th><th>Last Sighted</th><th class="num">Days</th><th>Severity</th><th>Counted \u2611</th></tr>"""]
+def item_table(items, show_value=True, band=""):
+    """One bay's due items. WHY (07 Nov 2026, QA F44/F54/F61): the headings
+    print (they were white on white), they repeat with the bay band on every
+    page a long bay runs to - a loose sheet still names its bay - and the
+    Counted column carries a box to tick."""
+    head = (f'<tr class="bandrow"><th colspan="8">{band}</th></tr>' if band else "")
+    parts = [f"""<table class="items"><thead>{head}<tr><th>Barcode</th><th>Description</th><th class="num">Qty</th>
+<th class="num">Unit price</th><th>Last sighted</th><th class="num">Days</th><th>Severity</th><th>Counted</th></tr></thead>"""]
     for r in items:
-        last = r["last"].strftime("%d/%m/%Y") if r["last"] else "Never"
+        last = r["last"].strftime("%d %b %Y %H:%M") if r["last"] else "Never"
         dcls = "overdue" if (r["days"] is None or r["days"] > 60) else ("duec" if r["days"] > 30 else "")
-        parts.append(f"""<tr><td>{r['barcode']}</td><td>{r['desc'][:58]}</td><td class="num">{r['qty']}</td>
-<td class="num">{money(r['price'])}</td><td>{last}</td><td class="num {dcls}">{r['days'] if r['days'] is not None else DASH}</td>
-<td>{sev_chip(r['days'])}</td><td style="width:40pt">&nbsp;</td></tr>""")
+        price = money(r['price']) if r['price'] is not None else '<span class="tbc">unpriced</span>'
+        parts.append(f"""<tr><td class="nw">{r['barcode'].upper()}</td><td>{r['desc'][:58]}</td><td class="num">{r['qty']}</td>
+<td class="num">{price}</td><td class="nw">{last}</td><td class="num {dcls}">{r['days'] if r['days'] is not None else DASH}</td>
+<td>{sev_chip(r['days'])}</td><td style="width:40pt"><span class="tick"></span></td></tr>""")
     parts.append("</table>")
     return "".join(parts)
 
-def grouped_by_unit(items, bar_class=""):
+def grouped_by_unit(items, bar_class="", section=""):
     parts = []
     by_unit = defaultdict(list)
     for r in items: by_unit[r["home"]].append(r)
@@ -480,16 +573,25 @@ def grouped_by_unit(items, bar_class=""):
         its = sorted(by_unit[unit], key=lambda r: (-(r["days"] if r["days"] is not None else 99999), ampol_names.sort_key(r["desc"])))
         val = sum(r["value"] for r in its if r["value"])
         big = ' big' if len(its) > 30 else ''
-        parts.append(f"""<div class="cblock{big}"><div class="cbar {bar_class}"><span class="cname">{unit}</span>
-<span class="cmeta">- {len(its)} item{'s' if len(its) != 1 else ''} due &nbsp;\u2022&nbsp; {(money(val) + ' at risk') if val else 'unpriced'}</span></div>""")
-        parts.append(item_table(its))
+        band = (f'<span class="bandsec">{section}</span> <span class="bandname">{unit}</span> '
+                f'<span class="bandmeta">- {len(its):,} item{"s" if len(its) != 1 else ""} due &nbsp;\u2022&nbsp; '
+                f'{(money(val) + " at risk") if val else "unpriced"}</span>')
+        parts.append(f'<div class="cblock{big} {bar_class}">')
+        parts.append(item_table(its, band=band))
         parts.append("</div>")
     return "".join(parts)
 
 WORKLIST_CSS = """
 /* floor worklist item tables, toned to the house palette */
 .wl table.items, .wl table.matrix { width:100%; border-collapse:collapse; font-size:8.6px; border:1px solid #DDE1E7; }
-.wl table.items th, .wl table.matrix th { text-align:left; font-size:7.6px; text-transform:uppercase; letter-spacing:.6px; color:#FFFFFF; background:#FFFFFF; padding:5px 8px; }
+.wl table.items th, .wl table.matrix th { text-align:left; font-size:7.6px; text-transform:uppercase; letter-spacing:.6px; color:#3D4450; background:#E9ECF0; padding:5px 8px; border-bottom:1px solid #C9CED6; }
+.wl table.items tr.bandrow th { background:#F26222; color:#FFFFFF; font-size:10px; letter-spacing:.2px; text-transform:none; padding:6px 10px; border-bottom:0; }
+.wl .cblock.red table.items tr.bandrow th { background:#D0342C; }
+.wl .cblock.dark table.items tr.bandrow th, .wl .cblock.co table.items tr.bandrow th { background:#2A313C; }
+.wl .bandsec { font-weight:700; opacity:.85; } .wl .bandname { font-weight:700; } .wl .bandmeta { font-weight:700; font-size:8.6px; }
+.wl .tick { display:inline-block; width:11px; height:11px; border:1.4px solid #3D4450; border-radius:2px; background:#FFFFFF; vertical-align:middle; }
+.wl td.nw { white-space:nowrap; }
+.wl .tbc { color:#98A0AA; font-style:italic; }
 .wl table.items td, .wl table.matrix td { padding:4px 8px; border-bottom:1px solid #E9ECF0; vertical-align:top; color:#1D1D1B; }
 .wl table.items tr:nth-child(even) td, .wl table.matrix tr:nth-child(even) td { background:#F6F7F9; }
 .wl td.num, .wl th.num { text-align:right; }
@@ -501,7 +603,7 @@ WORKLIST_CSS = """
 .wl .cblock { margin:8px 0 12px; break-inside:avoid; page-break-inside:avoid; }
 .wl .cblock.big { break-inside:auto; page-break-inside:auto; }
 .wl .cbar { background:#F26222; border-left:8px solid #FFFFFF; padding:5px 12px; border-radius:0 8px 8px 0; break-after:avoid; }
-.wl .cbar.red { background:#D0342C; } .wl .cbar.blue { background:#2F7FD0; } .wl .cbar.dark { background:#FFFFFF; }
+.wl .cbar.red { background:#D0342C; } .wl .cbar.blue, .wl .cbar.co { background:#2A313C; } .wl .cbar.dark { background:#2A313C; }
 .wl .cname { color:#FFFFFF; font-weight:700; font-size:10.5px; }
 .wl .cmeta { color:#FFFFFF; font-size:8.4px; font-weight:700; }
 .wl table.matrix { margin-bottom:6px; }
@@ -544,8 +646,9 @@ def build_staff_worklist(rows, transit, export_dt, d):
     parts = [f"""<div class="callout"><span class="lead">Today\u2019s count.</span> <b>{num(len(all_due))} items</b> are due on their tier targets across the store, worth <b class="o">{money(val_due) if val_due else 'unpriced'}</b>; <b>{num(len(d['done7']))}</b> items were scanned in the last 7 days and SOP compliance sits at <b class="o">{d['comp30']:.1f}%</b>. Work each section oldest first - every scan resets that item\u2019s clock. Rows marked <b class="o">ON HIRE</b> are legitimately out: do not hunt shelves for them.</div>
 {sh.tiles([
     ("box", num(d['countable']), "Countable assets", f"{num(len(d['instore']))} in store, {num(len(d['onhire']))} on hire", "grey"),
-    ("check", f"{d['comp30']:.1f}%", "SOP compliance (30d)", "", "green" if d['comp30'] >= 90 else "amber"),
-    ("clock", num(len(d['done7'])), "Scanned last 7 days", "", "green"),
+    ("check" if d['comp30'] >= 90 else "warn", f"{d['comp30']:.1f}%", "SOP compliance (30d)",
+     "green from 90%, amber from 75%", "green" if d['comp30'] >= 90 else "amber" if d['comp30'] >= 75 else "red"),
+    ("clock", num(len(d['done7'])), "Scanned last 7 days", f"{d['done7_from']:%d %b} to {export_dt:%d %b %Y}", "grey"),
     ("warn", num(len(all_due)), "In-store due (all tiers)", "the list below", "amber" if all_due else "green"),
 ])}
 {sh.tiles([
@@ -554,24 +657,25 @@ def build_staff_worklist(rows, transit, export_dt, d):
     ("swap", num(len(d['missed_returns'])), "Possible missed returns", "resolve first", "red" if d['missed_returns'] else "green"),
     ("bars", num(transit), "Departed lines excluded", "no longer on the register", "grey"),
 ])}
-<div class="alerts"><div class="ah">Team - how to work this list (per the daily stocktake SOP)</div><table class="al">
-<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Stock takes are completed daily, without exception</div><div class="al-s">Both shifts as one team. Work each section oldest first; every scan resets that item\u2019s clock.</div></td></tr>
-<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first (gas monitors, radios and batteries), every day</div><div class="al-s">Priority 1, {TIERS['gas'][1]}-day cycle. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, {TIERS['milwaukee'][1]}-day), then the store walk bay by bay ({TIERS['general'][1]}-day SOP).</div></td></tr>
+<div class="alerts"><div class="ah">Team - how to work this list</div><table class="al">
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">A stock take every day - that is the standard</div><div class="al-s">Both shifts as one team. Work each section oldest first; every scan resets that item\u2019s clock.</div></td></tr>
+<tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Sections 1-2 first each day (gas monitors, radios and batteries)</div><div class="al-s">Priority 1, {TIERS['gas'][1]}-day target. Monitors are bumped and charged before issue. Then section 3 (Milwaukee, {TIERS['milwaukee'][1]}-day target), then the store walk bay by bay (the {TIERS['general'][1]}-day SOP).</div></td></tr>
 <tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">Discrepancies are actioned on the spot</div><div class="al-s">Missing - escalate same day. Misplaced - relocate and correct in the system. Count mismatch - recount and report, never adjust away. Damaged - Out of Service tag, photo, report.</div></td></tr>
 <tr><td class="al-dot d-amber">&#9679;</td><td><div class="al-t">ON HIRE rows are legitimately out - do not hunt shelves for them</div><div class="al-s">If you physically sight an on-hire item in the store, flag it same day and process it through the double-check return process.</div></td></tr>
 </table></div>
-<div class="note">Scanned last 7 days: <b>{num(len(d['done7']))} items</b> ({counters}). Good work - keep the cadence.</div>
+<div class="note">Scanned {d['done7_from']:%d %b} to {export_dt:%d %b %Y}: <b>{num(len(d['done7']))} items</b> ({counters}). Good work - keep the cadence.</div>
 {determination_panel()}"""]
     # Section 0
     if d["missed_returns"]:
         parts.append(f"""<div class="sect"><h3>0. Possible missed returns - resolve first ({len(d['missed_returns'])})</h3></div>
 <div class="note">Physically sighted in a store bay on a later day than their recorded on-hire date, yet still showing ON HIRE -
 likely missed return scans. Locate, confirm, and process through the double-check return process today so hirers are not held for gear that is home.</div>
-<table class="items"><tr><th>Sighted In</th><th>Barcode</th><th>Description</th><th>On Hire To</th><th>On-Hire Date</th><th>Sighted</th><th class="num">Unit Price</th></tr>""")
+<table class="items"><thead><tr class="bandrow"><th colspan="8"><span class="bandsec">Section 0</span> <span class="bandname">Possible missed returns</span></th></tr>
+<tr><th>Sighted in</th><th>Barcode</th><th>Description</th><th>On hire to</th><th>On-hire date</th><th>Sighted</th><th class="num">Unit price</th><th>Resolved</th></tr></thead>""")
         for r in sorted(d["missed_returns"], key=lambda r: r["last"], reverse=True):
-            parts.append(f"""<tr class="hi"><td><b>{r['unit']}</b></td><td>{r['barcode']}</td><td>{r['desc'][:40]}</td>
-<td>{r['onhire_to'] or DASH}</td><td>{r['ohd'].strftime('%d/%m/%Y') if r['ohd'] else DASH}</td>
-<td>{r['last'].strftime('%d/%m/%Y') if r['last'] else DASH}</td><td class="num">{money(r['price'])}</td></tr>""")
+            parts.append(f"""<tr class="hi"><td><b>{r['unit']}</b></td><td class="nw">{r['barcode'].upper()}</td><td>{r['desc'][:40]}</td>
+<td>{r['onhire_to'] or DASH}</td><td class="nw">{r['ohd'].strftime('%d %b %Y') if r['ohd'] else DASH}</td>
+<td class="nw">{r['last'].strftime('%d %b %Y') if r['last'] else DASH}</td><td class="num">{money(r['price']) if r['price'] is not None else '<span class="tbc">unpriced</span>'}</td><td><span class="tick"></span></td></tr>""")
         parts.append("</table>")
     # Sections 1-3
     # WHY (03 Sep 2026): section headings read in sentence case across the
@@ -583,27 +687,27 @@ likely missed return scans. Locate, confirm, and process through the double-chec
         ("3", "milwaukee", "Milwaukee power tools", f"Priority 2 - {TIERS['milwaukee'][1]}-day target. High-value cordless tools; count includes batteries and chargers.")]:
         items = d["due"][key]
         val = sum(r["value"] for r in items if r["value"])
-        parts.append(f"""<div class="sect"><h3>{num}. {label} due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
+        parts.append(f"""<div class="sect"><h3>{num}. {label} due - {len(items):,} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
 <div class="note">{blurb}</div>""")
         if items:
-            parts.append(grouped_by_unit(items, bar_class="red" if key != "milwaukee" else "dark"))
+            parts.append(grouped_by_unit(items, bar_class="red" if key != "milwaukee" else "dark", section=f"Section {num}"))
         else:
             parts.append('<div class="note"><b class="g">All clear</b> - every item in this tier is inside its target cycle. Nice work.</div>')
     # Section 4
     items = d["due"]["general"]
     val = sum(r["value"] for r in items if r["value"])
-    parts.append(f"""<div class="sect"><h3>4. Store walk - all other tooling due - {len(items)} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
+    parts.append(f"""<div class="sect"><h3>4. Store walk - all other tooling due - {len(items):,} items \u00b7 {money(val) if val else 'unpriced'}</h3></div>
 <div class="note">Priority 3 - 30-day SOP cycle. Grouped by storage unit, bays A-Z, so one person clears a bay at a time. Tick as counted; scanning resets the clock.</div>""")
-    parts.append(grouped_by_unit(items) if items else
+    parts.append(grouped_by_unit(items, section="Section 4") if items else
                  '<div class="note"><b class="g">All clear</b> - full 30-day coverage.</div>')
     # Section 5: on-hire verification
     onhire_due = d["onhire_due30"]
-    parts.append(f"""<div class="pb"></div><div class="sect"><h3>5. On-hire verification - {len(onhire_due)} items outside 30 days (do not shelf count)</h3></div>
+    parts.append(f"""<div class="pb"></div><div class="sect"><h3>5. On-hire verification - {len(onhire_due):,} items outside 30 days (do not shelf count)</h3></div>
 <div class="note">ON HIRE in the system - with contractors, not on shelves. Verified through the double-check return process
 and shutdown checks. Grouped by company (A-Z, one customer one name; hirers A-Z inside a company) so we know who holds what and the value of it; each line shows the home bay it returns to.</div>""")
     by_co = defaultdict(list)
     for r in onhire_due:
-        comp = (r["onhire_to"].split(" \u2013 ")[0] if r["onhire_to"] else "(unknown company)")
+        comp = r.get("company") or "(no company on the register)"
         by_co[comp].append(r)
     for comp in sorted(by_co, key=ampol_names.sort_key):
         its = by_co[comp]
@@ -611,32 +715,41 @@ and shutdown checks. Grouped by company (A-Z, one customer one name; hirers A-Z 
         hirers = defaultdict(lambda: defaultdict(int)); oldest = defaultdict(int)
         homes = defaultdict(lambda: defaultdict(int)); hval = defaultdict(float)
         for r in its:
-            h = r["onhire_to"].split(" \u2013 ", 1)[1] if " \u2013 " in r["onhire_to"] else "(unknown)"
-            hirers[h][TIERS[r["cat"]][0] if r["cat"] != "general" else "Tooling & Equipment"] += 1
+            h = r.get("hirer_show") or "(no hirer on the register)"
+            hirers[h][TIERS[r["cat"]][0] if r["cat"] != "general" else "Tooling and equipment"] += 1
             oldest[h] = max(oldest[h], r["days"] or 0)
             homes[h][r["home"]] += 1
             if r["value"]: hval[h] += r["value"]
-        parts.append(f"""<div class="cblock{' big' if len(hirers) > 25 else ''}"><div class="cbar blue"><span class="cname">{comp}</span>
-<span class="cmeta">- {len(its)} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></div>
-<table class="items"><tr><th>Hirer</th><th>Items (by category)</th><th>Returns To (Home Bay)</th><th class="num">Value</th><th class="num">Oldest (Days)</th></tr>""")
+        parts.append(f"""<div class="cblock{' big' if len(hirers) > 25 else ''} co">
+<table class="items"><thead><tr class="bandrow"><th colspan="5"><span class="bandsec">Section 5</span> <span class="bandname">{comp}</span>
+<span class="bandmeta">- {len(its):,} item{'s' if len(its) != 1 else ''} on hire 30+ days since last sighting &nbsp;\u2022&nbsp; {money(cval) if cval else 'unpriced'}</span></th></tr>
+<tr><th>Hirer</th><th>Items (by category)</th><th>Returns to (home bay)</th><th class="num">Value</th><th class="num">Oldest</th></tr></thead>""")
         for h in sorted(hirers, key=ampol_names.sort_key):
             cats = ", ".join(f"{c} \u00d7{n}" for c, n in sorted(hirers[h].items(), key=lambda kv: -kv[1]))
             hm = ", ".join(f"{u} \u00d7{n}" for u, n in sorted(homes[h].items(), key=lambda kv: -kv[1])[:3])
-            parts.append(f"""<tr><td><b>{h}</b></td><td>{cats}</td><td style="color:#1f5c99">{hm}</td>
-<td class="num">{money(hval[h]) if hval[h] else DASH}</td><td class="num overdue">{oldest[h]}</td></tr>""")
+            parts.append(f"""<tr><td><b>{h}</b></td><td>{cats}</td><td style="color:#3D4450">{hm}</td>
+<td class="num">{money(hval[h]) if hval[h] else '<span class="tbc">unpriced</span>'}</td><td class="num overdue nw">{oldest[h]:,} days</td></tr>""")
         parts.append("</table></div>")
+    pn = d.get("price_notes", {})
+    gl = d.get("ghost_lines", [])
+    ghost = (f" {len(gl):,} stocktake line{'s' if len(gl) != 1 else ''} with the barcode written in the description column "
+             f"({', '.join(g['barcode'] for g in gl[:4])}) {'are' if len(gl) != 1 else 'is'} left out too - each barcode has its own line, sighted since."
+             if gl else "")
     parts.append(f"""<div class="pb"></div><div class="sect"><h3>Data and method</h3></div>
 <div class="note">Countable assets exclude {transit:,} lines that have departed the store (Pending Branch Receipt, or a Departure scan with the item
-no longer on the live register). Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
-{d['priced_family']:,} serial-numbered gas monitors priced by their family line); unpriced items show a dash and are listed on the Pricing Gaps tab of the
-Excel worklist - no price is estimated. SiteIQ still carries the site\u2019s former name on {d['former_name_lines']:,} of these descriptions; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
+no longer on the live register).{ghost} Prices are Avg Buy Price (New) matched on item description (corrected descriptions applied by barcode;
+{d['priced_family']:,} serial-numbered gas monitors and radios priced by their family line). One printed description carries one price: {pn.get('filled_lines', 0):,} lines
+({pn.get('filled_desc', 0):,} descriptions) take the price of the same item's other spelling in the master, and {len(pn.get('conflicts', [])):,} descriptions that
+carry two prices in the master take the most common one - both listed on the Pricing Gaps tab for Andrew to confirm. {d['unpriced_lines']:,} lines are still
+unpriced; they show "unpriced" and are listed on that tab - no price is estimated. SiteIQ still carries the site\u2019s former name on {d['former_name_lines']:,} of
+these countable lines; they are shown under the current name (Ampol). Status, hirer and home bay joined from RENTAL_STOCK by barcode. Sighting an ON HIRE item in the store
 is a missed return - flag and process same day.</div>
 <div class="note">{LSR_LINE}</div>""")
     body = "".join(parts)
     return _house_worklist("Stocktake Count Worklist",
                            "COATES \u00b7 STORES STOCKTAKE \u00b7 FLOOR WORKLIST",
                            [("orange", "OLDEST FIRST", "every scan resets the clock"),
-                            ("blue", "P1 DAILY", "gas monitors, radios and batteries first"),
+                            ("blue", "P1 EVERY 2 DAYS", "gas monitors, radios and batteries first"),
                             ("amber", "ON HIRE", "legitimately out - do not hunt shelves")],
                            body, export_dt, refresh)
 
@@ -729,7 +842,7 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     base_font = Font(name="Calibri", size=10)
     thin = Border(bottom=Side(style="thin", color="DDDDDD"))
 
-    def style_sheet(ws, widths, money_cols=(), last_col_letter=None):
+    def style_sheet(ws, widths, money_cols=(), last_col_letter=None, date_cols=()):
         for i, w in enumerate(widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = w
         for c in ws[1]:
@@ -744,41 +857,50 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
         for col in money_cols:
             for c in ws[col][1:]:
                 c.number_format = "$#,##0"
+        # WHY (07 Nov 2026, QA F72): dates are real dates in the house style,
+        # so "sort any column" sorts by date, not by the day of the month
+        for col in date_cols:
+            for c in ws[col][1:]:
+                if isinstance(c.value, datetime):
+                    c.number_format = "dd mmm yyyy hh:mm" if (c.value.hour or c.value.minute) else "dd mmm yyyy"
 
     # README
     ws = wb.active; ws.title = "READ ME"
-    ws["A1"] = "COATES STOCKTAKE COUNT WORKLIST \u2013 AMPOL TOOL STORE"
+    ws["A1"] = "COATES STOCKTAKE COUNT WORKLIST - AMPOL TOOL STORE"
     ws["A1"].font = Font(name="Calibri", bold=True, size=14, color=ORANGE)
-    ws["A2"] = f"Author: Andrew Fisher  \u2022  POWERED BY SITEIQ  \u2022  Generated {NOW.strftime('%d/%m/%Y %I:%M %p')}"
+    ws["A2"] = f"Author: Andrew Fisher  \u2022  POWERED BY SITEIQ  \u2022  Generated {NOW.strftime('%d %b %Y %H:%M')}"
     ws["A2"].font = Font(name="Calibri", size=10, italic=True)
     lines = [
         "",
         "HOW PRIORITY IS DETERMINED",
-        f"  P1  Gas Monitors \u2013 {TIERS['gas'][1]}-day target. Safety-critical; bumped & charged before issue.",
-        f"  P1  Radios & Radio Batteries \u2013 {TIERS['radio'][1]}-day target. Safety-critical comms; high churn.",
-        f"  P2  Milwaukee Power Tools \u2013 {TIERS['milwaukee'][1]}-day target. High value, high shrinkage risk.",
-        f"  P3  All Other Tooling \u2013 {TIERS['general'][1]}-day full-coverage SOP cycle.",
+        f"  P1  Gas monitors - {TIERS['gas'][1]}-day target. Safety-critical; bumped and charged before issue.",
+        f"  P1  Radios and radio batteries - {TIERS['radio'][1]}-day target. Safety-critical comms; high churn.",
+        f"  P2  Milwaukee power tools - {TIERS['milwaukee'][1]}-day target. High value, high shrinkage risk.",
+        f"  P3  All other tooling - the {TIERS['general'][1]}-day full-coverage SOP cycle.",
         "",
         "WHAT COUNTS AS DONE",
-        "  An item is done when it is physically scanned \u2013 issue and return scans included.",
+        "  An item is done when it is physically scanned - issue and return scans included.",
         "  The scan resets its clock, so these tabs naturally surface idle stock.",
         "",
         "SEVERITY (vs the 30-day SOP)",
         "  TARGET DUE = outside its tier target but inside the SOP window",
-        "  SOP DUE = 31\u201360 days   \u2022   CRITICAL = over 60 days or never sighted",
+        "  SOP DUE = 31-60 days   \u2022   CRITICAL = over 60 days or never sighted",
         "",
         "HOW TO USE",
-        "  Work oldest first. Sort/filter any column. Mark Y in Counted when scanned.",
-        "  Tabs 1\u20133 first (priority tiers), then tab 4 bay by bay.",
-        "  Sight an ON HIRE item in the store? Flag same day \u2013 double-check return process.",
-        "  Discrepancies actioned on the spot: missing \u2013 escalate today; misplaced \u2013 relocate",
-        "  and correct; mismatch \u2013 recount and report; damaged \u2013 OOS tag, photo, report.",
+        "  Work oldest first. Sort or filter any column - the dates are real dates. Mark Y in Counted when scanned.",
+        "  Tabs 1-3 first (priority tiers), then tab 4 bay by bay.",
+        "  Sight an ON HIRE item in the store? Flag it the same day - double-check return process.",
+        "  Discrepancies actioned on the spot: missing - escalate today; misplaced - relocate",
+        "  and correct; mismatch - recount and report; damaged - OOS tag, photo, report.",
         "",
         "PRICING",
         "  Unit Price = Avg Buy Price (New), matched on item description.",
-        "  Blank price = not yet in the pricing master \u2013 see the Pricing Gaps tab.",
+        "  One printed description carries one price: a spelling the master has not priced takes",
+        "  the price of the same item's other spelling; two prices in the master - the most common",
+        "  is used (a tie: the first in the master). Both are listed on the Pricing Gaps tab.",
+        "  Blank price = not yet in the pricing master - see the Pricing Gaps tab.",
         "  Gas monitors registered with a serial in the description are priced by",
-        "  their family line (Drager X-am 5000 Gas Monitor) \u2013 never estimated.",
+        "  their family line (Dr\u00e4ger X-am 5000 gas monitor) - never estimated.",
     ]
     for i, t in enumerate(lines, 3):
         ws.cell(row=i, column=1, value=t).font = Font(
@@ -792,24 +914,22 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
                    "Last Sighted", "Days", "Severity", "Counted (Y)", "Notes"])
         r = 2
         for it in sorted(items, key=lambda x: (x["home"], -(x["days"] if x["days"] is not None else 99999))):
-            ws.append([it["home"], it["barcode"], it["desc"], it["qty"], it["price"],
+            ws.append([it["home"], it["barcode"].upper(), it["desc"], it["qty"], it["price"],
                        f'=IF(E{r}="","",D{r}*E{r})',
-                       it["last"].strftime("%d/%m/%Y") if it["last"] else "Never",
+                       it["last"] if it["last"] else "Never",
                        it["days"], severity_label(it["days"]), "", ""])
             r += 1
-        style_sheet(ws, [26, 18, 42, 6, 11, 11, 12, 7, 12, 11, 24], money_cols=("E", "F"))
+        style_sheet(ws, [26, 18, 42, 6, 11, 11, 18, 7, 12, 11, 24], money_cols=("E", "F"), date_cols=("G",))
         return ws
 
     if d["missed_returns"]:
         ws = wb.create_sheet("0 Missed Returns")
-        ws.append(["Sighted In", "Barcode", "Description", "On Hire To", "On-Hire Date",
+        ws.append(["Sighted In", "Barcode", "Description", "Company", "Hirer", "On-Hire Date",
                    "Sighted", "Unit Price", "Resolved (Y)", "Notes"])
         for it in sorted(d["missed_returns"], key=lambda x: x["last"], reverse=True):
-            ws.append([it["unit"], it["barcode"], it["desc"], it["onhire_to"],
-                       it["ohd"].strftime("%d/%m/%Y") if it["ohd"] else "",
-                       it["last"].strftime("%d/%m/%Y") if it["last"] else "",
-                       it["price"], "", ""])
-        style_sheet(ws, [24, 18, 40, 34, 12, 12, 11, 11, 24], money_cols=("G",))
+            ws.append([it["unit"], it["barcode"].upper(), it["desc"], it.get("company", ""), it.get("hirer_show", ""),
+                       it["ohd"] or "", it["last"] or "", it["price"], "", ""])
+        style_sheet(ws, [24, 18, 40, 22, 30, 18, 18, 11, 11, 24], money_cols=("H",), date_cols=("F", "G"))
 
     due_sheet("1 Gas Monitors", d["due"]["gas"])
     due_sheet("2 Radios & Batteries", d["due"]["radio"])
@@ -819,18 +939,17 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     ws = wb.create_sheet("5 On-Hire Verify")
     ws.append(["Company", "Hirer", "Barcode", "Description", "Category", "Home Bay",
                "On-Hire Date", "Days Since Sighted", "Unit Price", "Verified (Y)"])
-    for it in sorted(d["onhire_due30"], key=lambda x: (ampol_names.sort_key(x["onhire_to"]), -(x["days"] or 0))):
-        comp = it["onhire_to"].split(" \u2013 ")[0] if it["onhire_to"] else "(unknown)"
-        hirer = it["onhire_to"].split(" \u2013 ", 1)[1] if " \u2013 " in it["onhire_to"] else ""
-        ws.append([comp, hirer, it["barcode"], it["desc"],
-                   TIERS[it["cat"]][0] if it["cat"] != "general" else "Tooling & Equipment",
-                   it["home"], it["ohd"].strftime("%d/%m/%Y") if it["ohd"] else "",
+    for it in sorted(d["onhire_due30"], key=lambda x: (ampol_names.sort_key(x.get("company", "")),
+                                                       ampol_names.sort_key(x.get("hirer_show", "")), -(x["days"] or 0))):
+        ws.append([it.get("company") or "(no company on the register)", it.get("hirer_show", ""), it["barcode"].upper(), it["desc"],
+                   TIERS[it["cat"]][0] if it["cat"] != "general" else "Tooling and equipment",
+                   it["home"], it["ohd"] or "",
                    it["days"], it["price"], ""])
-    style_sheet(ws, [26, 26, 18, 40, 22, 24, 12, 9, 11, 11], money_cols=("I",))
+    style_sheet(ws, [26, 30, 18, 40, 22, 24, 18, 9, 11, 11], money_cols=("I",), date_cols=("G",))
 
     # Pricing gaps
     ws = wb.create_sheet("Pricing Gaps")
-    ws.append(["Description (as in SiteIQ)", "Asset Lines", "Total Qty", "Add Avg Buy Price (New)"])
+    ws.append(["Description (as printed)", "Asset Lines", "Total Qty", "Add Avg Buy Price (New)"])
     gaps = defaultdict(lambda: [0, 0])
     for r_ in rows:
         if r_["price"] is None:
@@ -838,14 +957,28 @@ def build_excel_worklist(rows, d, conflicts, xlsx_path):
     for desc, (n, q) in sorted(gaps.items(), key=lambda kv: -kv[1][0]):
         ws.append([desc, n, q, ""])
     if conflicts:
-        ws.append([]); ws.append(["CONFLICTING PRICES IN PRICING MASTER (most common value used; a tie takes the lower value)"])
+        ws.append([]); ws.append(["CONFLICTING PRICES IN PRICING MASTER (one SiteIQ description, two prices: the most common is used; a tie takes the first in the master)"])
         ws.cell(row=ws.max_row, column=1).font = Font(name="Calibri", bold=True, color="C00000")
         for dsc, prices in sorted(conflicts):
-            ws.append([dsc, "", "", " / ".join(f"${p:,.2f}" for p in prices)])
-    style_sheet(ws, [52, 11, 10, 26], last_col_letter="D")
+            ws.append([dsc, "", "", " / ".join(f"${p:,.0f}" if float(p).is_integer() else f"${p:,.2f}" for p in prices)])
+    pn = d.get("price_notes", {})
+    if pn.get("conflicts"):
+        ws.append([]); ws.append(["ONE PRINTED DESCRIPTION, TWO PRICES (SiteIQ spells it more than one way; the most common price is used - please confirm)"])
+        ws.cell(row=ws.max_row, column=1).font = Font(name="Calibri", bold=True, color="C00000")
+        for c in pn["conflicts"]:
+            ws.append([c["description"], sum(n for _, n in c["prices"]), "",
+                       " / ".join(f"${v:,.0f} x{n}" for v, n in c["prices"]) + f"  - used ${c['used']:,.0f}"])
+    style_sheet(ws, [60, 11, 10, 40], last_col_letter="D")
 
     wb.properties.creator = "Fisher, Andrew (North)"
     wb.properties.lastModifiedBy = "Fisher, Andrew (North)"
+    # WHY (07 Nov 2026): the suite's last pass on every workbook - one dash
+    # style, house dates, no ### columns (coates_xlsx.tidy_workbook)
+    try:
+        import coates_xlsx
+        coates_xlsx.tidy_workbook(wb)
+    except Exception as e:      # the worklist still saves if the tidy pass cannot run
+        print(f"Workbook tidy        : skipped ({type(e).__name__}: {e})")
     wb.save(xlsx_path)
     print(f"Wrote {xlsx_path}")
 

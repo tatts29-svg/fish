@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 =====================================================================
 COATES V18 ELITE - AMPOL GAS MONITOR EXECUTIVE OPERATIONS DASHBOARD
 Full report generator: workbook in -> Outlook-safe .eml + HTML out
@@ -135,7 +135,7 @@ CONFIG = {
     "report_date": None,        # None = today; or "13/07/2026"
     "run_time": None,           # None = now;  or "07:45"  (24-hour time)
     "author_name": "Andrew Fisher",
-    "author_email": "Andrew.Fisher@coates.com.au",
+    "author_email": "andrew.fisher@coates.com.au",
     "author_mobile": "0429 352 788",
     "author_address": "340 Curtin Ave W, Eagle Farm, QLD 4009",
 
@@ -497,6 +497,7 @@ def compute_metrics(data, cfg):
     # dashboard. The engine scores same-day returns over the last 30 days in
     # place of "recovered so far today" (which is 0 by definition at 06:45).
     eng = data.get("_engine")
+    m["_eng"] = eng
     if eng is not None:
         m["score_recovery"] = eng["score_sameday"]
         m["health"] = eng["health"]
@@ -565,11 +566,30 @@ def validate_against_rental_stock(path, m):
 # =====================================================================
 
 def ring_colour(score):
-    if score >= 80:
+    # WHY (07 Nov 2026, QA): the PDF's rule - green from 85, amber from 70,
+    # red below - so a score reads the same colour on every page
+    if score >= 85:
         return RING_RGB["green"]
-    if score >= 45:
+    if score >= 70:
         return RING_RGB["amber"]
     return RING_RGB["red"]
+
+
+def rag_hex(score):
+    return C["green"] if score >= 85 else C["amber"] if score >= 70 else C["red"]
+
+
+def back_by_pull(m):
+    """Yesterday's non-returns that came back between the 05:30 same-day cut-off
+    and the register pull - measured on the register, never assumed."""
+    eng = m.get("_eng") or {}
+    if "yday_register_still_out" in eng:
+        return max(0, eng["yday_nsd"] - eng["yday_register_still_out"]), eng["yday_register_still_out"]
+    return m["recovered"], m["yday_still_out"]
+
+
+def hhmm_(d):
+    return d.strftime("%H:%M") if hasattr(d, "strftime") else "09:00"
 
 
 def make_ring_b64(score):
@@ -611,9 +631,10 @@ def hero(m, cfg, date_str, time_str, gen_str):
     """The kit's dark masthead: COATES wordmark and tagline, the report and
     the fleet on the right, the orange rule; then a white strip with the
     report date, the run time, the reconciliation and the health score."""
-    recon_col = C["green"] if m["validation_pass"] else C["red"]
-    recon_txt = ("PASS" if m["validation_pass"] else "FAIL")
-    hs_col = C["green"] if m["health"] >= 80 else C["amber"] if m["health"] >= 45 else C["red"]
+    back, still = back_by_pull(m)
+    agree = (still == m["prev_day_total"] - back)
+    recon_col = C["green"] if agree else C["red"]
+    hs_col = rag_hex(m["health"])
     return f"""
 <tr>
   <td bgcolor="#1D1D1B" style="background-color:#1D1D1B;padding:20px 28px 16px 28px;">
@@ -638,11 +659,11 @@ def hero(m, cfg, date_str, time_str, gen_str):
       <tr>
         <td style="vertical-align:top;">
           <div style="font-size:9px;font-weight:700;color:#C8511A;letter-spacing:2.4px;text-transform:uppercase;">Coates &middot; Tool Store &middot; Executive Operations Dashboard</div>
-          <div style="font-size:11px;color:{C['muted']};margin-top:6px;line-height:1.6;">Recovery, FCCU, repairs and exposure - every figure counted from the SiteIQ exports, nothing estimated. Generated {gen_str}.</div>
+          <div style="font-size:11px;color:{C['muted']};margin-top:6px;line-height:1.6;">Recovery, custody, repairs and exposure - every count made from the SiteIQ exports, nothing estimated. Generated {gen_str}.</div>
         </td>
         <td style="vertical-align:top;text-align:right;width:300px;">
-          <div style="font-size:8px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1.5px;">Reconciliation</div>
-          <div style="font-size:14px;font-weight:700;color:{recon_col};margin-top:3px;">{recon_txt}: {m['prev_day_total']} = {m['recovered']} + {m['yday_still_out']}</div>
+          <div style="font-size:8px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1.5px;">The two exports agree</div>
+          <div style="font-size:12px;font-weight:700;color:{recon_col};margin-top:3px;">{m['prev_day_total']} not back yesterday &middot; {still} still on the register</div>
           <div style="font-size:8px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1.5px;margin-top:8px;">Health score</div>
           <div style="font-size:14px;font-weight:700;color:{hs_col};margin-top:3px;">{m['health']} / 100</div>
         </td>
@@ -682,10 +703,9 @@ def kpi_tile(tag, value, title, note, colour, glow):
     return f"""
 <td bgcolor="{C['card']}" style="background-color:{C['card']};border:1px solid {C['line']};border-bottom:3px solid {colour};padding:0;vertical-align:top;">
   <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
-    <tr><td style="padding:10px 14px 0 14px;"><span style="font-size:9px;font-weight:700;color:{C['muted']};letter-spacing:1.5px;">{tag}</span><span style="font-size:7px;font-weight:700;color:{C['line']};float:right;text-transform:uppercase;letter-spacing:.5px;">LIVE</span></td></tr>
-    <tr><td style="padding:8px 14px 4px 14px;"><div style="font-size:32px;line-height:36px;font-weight:700;color:#1D1D1B;letter-spacing:-1px;">{value}</div></td></tr>
-    <tr><td style="padding:0 14px 4px 14px;"><div style="font-size:10px;font-weight:700;color:{C['white']};text-transform:uppercase;letter-spacing:.4px;">{title}</div></td></tr>
-    <tr><td style="padding:0 14px 10px 14px;border-top:1px solid {C['line']};margin-top:4px;"><div style="font-size:9px;color:{C['muted']};padding-top:6px;letter-spacing:.2px;">{note}</div></td></tr>
+    <tr><td style="padding:8px 12px 4px 12px;"><div style="font-size:28px;line-height:32px;font-weight:700;color:#1D1D1B;letter-spacing:-1px;">{value}</div></td></tr>
+    <tr><td style="padding:0 12px 4px 12px;"><div style="font-size:10px;font-weight:700;color:{C['white']};text-transform:uppercase;letter-spacing:.4px;">{title}</div></td></tr>
+    <tr><td style="padding:0 12px 10px 12px;border-top:1px solid {C['line']};margin-top:4px;"><div style="font-size:9px;color:{C['muted']};padding-top:6px;letter-spacing:.2px;">{note}</div></td></tr>
   </table>
 </td>"""
 
@@ -699,34 +719,30 @@ GLOW = {
 
 
 def kpi_rows(m):
-    fleet_note = (f"All categories &middot; <span style='color:{C['orange']};font-weight:700;'>"
-                  f"General fleet {m['fleet_general']}</span> excl. FCCU/Ops/FF")
+    # WHY (07 Nov 2026, QA): six tiles a row in plain words. "On hire" means
+    # one thing - every monitor the register shows on hire (crew, custody and
+    # repair) - and each part carries its own name.
+    eng = m.get("_eng") or {}
+    asat = eng.get("asat")
+    back, still = back_by_pull(m)
+    on_hire = m["onhire_all"] + m["repairs"]
+    cust = m["fccu"] + m["ops"] + m["ff"] + m["ah"]
     r1 = [
-        ("FLT", m["fleet_total"], "Total Fleet", fleet_note, C["orange"]),
-        ("AVL", m["available"], "Available Store", "Ready for general issue", C["green"]),
-        ("HIRE", m["onhire_general"], "On Hire",
-         f"{m['issued_today']} issued today + {m['outstanding']} outstanding", C["orange"]),
-        ("FCCU", m["fccu"], "FCCU On Hire", "Tracked separately", C["blue"]),
-        ("OPS", m["ops"], "Operations On Hire", "Tracked separately", C["blue"]),
-        ("FF", m["ff"], "Future Fuels On Hire", "Tracked separately", C["blue"]),
-        ("YDAY", m["prev_day_total"], "Prev Day Non-Returns", "Yesterday total",
-         C["green"] if m["prev_day_total"] == 0 else C["red"]),
-        ("REC", m["recovered"], "Recovered", "Since yesterday",
-         C["green"] if m["yday_still_out"] == 0 else C["amber"]),
-        ("ACT", m["yday_still_out"], "Still Outstanding", "Action required",
-         C["green"] if m["yday_still_out"] == 0 else C["red"]),
+        ("", m["fleet_total"], "Total fleet", "on the Ampol register", C["orange"]),
+        ("", m["available"], "On the shelf", f"ready for issue at {hhmm_(asat)}", C["green"]),
+        ("", on_hire, "On hire", f"{m['onhire_general']} crew &middot; {cust} custody &middot; {m['repairs']} repair", C["blue"]),
+        ("", m["onhire_general"], "Out to crew", (f"{m['issued_today']} today + {m['outstanding']} overdue" if m["issued_today"]
+                                                  else "all from earlier days"), C["orange"]),
+        ("", cust, "In custody accounts", f"FCCU {m['fccu']} &middot; Ops {m['ops']} &middot; Future Fuels {m['ff']}", C["blue"]),
+        ("", m["repairs"], "Dr&auml;ger repair queue", f"{m['fleet_impact_pct']}% of the fleet", C["green"] if m["fleet_impact_pct"] < 15 else C["red"]),
     ]
-    hs_col = C["orange"]
-    rr_col = C["green"] if m["recovery_rate"] >= 80 else C["red"]
     r2 = [
-        ("1-7", m["out_1_7"], "Outstanding 1-7", "Current outstanding", C["orange"]),
-        ("8-29", m["out_8_29"], "Outstanding 8-29", "Follow-up required", C["orange"]),
-        ("30+", m["out_30"], "Outstanding 30+", "Charge / recovery priority", C["red"]),
-        ("$", money(m["exposure"]), "30+ Exposure", "Charge exposure", C["green"]),
-        ("REP", m["repairs"], "Dr&auml;ger Repairs", "Out of service / repair", C["orange"]),
-        ("%", f"{m['recovery_rate']}%", "Recovery Rate",
-         "No yday non-returns to chase" if m["prev_day_total"] == 0 else "Recovered from yesterday", rr_col),
-        ("HS", f"{m['health']}/100", "Health Score", "Calculated operations score", hs_col),
+        ("", m["out_1_7"], "Overdue 1-7 days", "watch", C["amber"]),
+        ("", m["out_8_29"], "Overdue 8-29 days", "follow up", C["amber"]),
+        ("", m["out_30"], "Overdue 30+ days", "recovery priority", C["red"] if m["out_30"] else C["green"]),
+        ("", money(m["exposure"]), "30+ exposure", f"{m['out_30']} at {money(CONFIG['charge_per_unit'])}", C["red"] if m["exposure"] else C["green"]),
+        ("", m["prev_day_total"], "Not back yesterday", f"{still} still out at {hhmm_(asat)}", C["red"] if still else C["green"]),
+        ("", f"{m['health']}/100", "Health score", "average of four scores", rag_hex(m["health"])),
     ]
 
     def row(tiles):
@@ -756,35 +772,29 @@ def section_header(title, sub):
 def exec_brief(m):
     o, g, r, b, a = C["orange"], C["green"], C["red"], C["blue"], C["amber"]
     hs_col = g if m["health"] >= 80 else a if m["health"] >= 45 else r
+    eng = m.get("_eng") or {}
+    asat = eng.get("asat")
+    back, still = back_by_pull(m)
+    on_hire = m["onhire_all"] + m["repairs"]
     body = (
-        f"The previous day non-return total is <b style='color:{o};'>{m['prev_day_total']}</b>. "
-        f"Of these, <b style='color:{g};'>{m['recovered']}</b> have now been recovered and "
-        f"<b style='color:{r};'>{m['yday_still_out']}</b> remain outstanding to the same person. "
-        f"Current outstanding monitors are <b style='color:{o};'>{m['outstanding']}</b> across 1-7, 8-29 "
-        f"and 30+ day ageing, with <b style='color:{r};'>{m['out_30']}</b> over 30 days and "
-        f"<b style='color:{r};'>{money(m['exposure'])}</b> exposure. "
-        f"General on hire currently stands at <b style='color:{o};'>{m['onhire_general']}</b> monitors "
-        f"- <b style='color:{o};'>{m['issued_today']}</b> issued today plus "
-        f"<b style='color:{o};'>{m['outstanding']}</b> outstanding from previous days - with "
-        f"<b style='color:{g};'>{m['available']}</b> available in store. "
-        f"Total fleet is <b style='color:{o};'>{m['fleet_total']}</b> monitors, of which the general fleet "
-        f"- excluding FCCU, Operations and Future Fuels custody - is "
-        f"<b style='color:{o};'>{m['fleet_general']}</b> ({m['onhire_general']} on hire + "
-        f"{m['available']} available + {m['repairs']} in repair). "
-        f"FCCU is kept separate with <b style='color:{b};'>{m['fccu']}</b> monitors on hire, Operations "
-        f"custody holds <b style='color:{b};'>{m['ops']}</b> and Future Fuels custody holds "
-        f"<b style='color:{b};'>{m['ff']}</b> - all tracked outside the general fleet. "
-        f"Dr&auml;ger repairs currently total <b style='color:{a};'>{m['repairs']}</b>, with "
-        f"<b>Dr&auml;ger - {esc(m['repair_top'])}</b> the largest repair category."
+        f"Yesterday <b style='color:{o};'>{m['prev_day_total']}</b> crew draws were not back by the 05:30 same-day cut-off; "
+        f"the register at {hhmm_(asat)} still shows <b style='color:{r};'>{still}</b> of them, so "
+        f"{'none' if not back else back} came back before the pull. "
+        f"<b style='color:{o};'>{m['onhire_general']}</b> monitors are out to crew"
+        + (f" - none had gone out today when the register was pulled, so all are overdue from earlier days: "
+           if not m["issued_today"] else f" ({m['issued_today']} today): ")
+        + f"<b>{m['out_1_7']}</b> at 1-7 days, <b>{m['out_8_29']}</b> at 8-29 and <b style='color:{r};'>{m['out_30']}</b> at 30 days "
+        f"or more - <b style='color:{r};'>{money(m['exposure'])}</b> of replacement exposure. "
+        f"<b style='color:{g};'>{m['available']}</b> are on the shelf. Of the <b>{m['fleet_total']}</b> monitors, "
+        f"<b>{on_hire}</b> are on hire: {m['onhire_general']} crew, {m['fccu'] + m['ops'] + m['ff'] + m['ah']} in custody accounts "
+        f"(FCCU {m['fccu']}, Operations {m['ops']}, Future Fuels {m['ff']}) and {m['repairs']} in the Dr&auml;ger repair queue, "
+        f"where <b>{esc(m['repair_top'])}</b> is the largest category."
     )
     return section_header("Executive Brief", "Clear operational snapshot for today") + f"""
 <tr><td bgcolor="{C['bg']}" style="background-color:{C['bg']};padding:0 14px 12px 14px;">
   <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
     <tr><td bgcolor="{C['card']}" style="background-color:{C['card']};border:1px solid {C['line']};padding:20px 24px;">
       <div style="font-size:12px;color:#1D1D1B;line-height:1.9;">{body}</div>
-      <div style="border-top:1px solid {C['line']};margin-top:14px;padding-top:12px;">
-        <span style="font-size:11px;color:{C['orange']};font-weight:700;font-style:italic;">Consistent execution today drives the Flywheel forward.</span>
-      </div>
     </td></tr>
   </table>
 </td></tr>"""
@@ -794,10 +804,10 @@ def action_framework(m):
     focus_names = ", ".join(esc(c["name"]) for c in m["focus3"]) or "None"
     cards = [
         ("OPERATIONAL EXCELLENCE", str(m["yday_still_out"]),
-         f"Chase <b>{m['yday_still_out']}</b> monitors still outstanding from yesterday.",
+         f"Recover the <b>{m['yday_still_out']}</b> monitors still out from yesterday.",
          C["red"] if m["yday_still_out"] else C["red"]),
         ("ASSET PERFORMANCE", str(m["repairs"]),
-         f"Reduce Dr&auml;ger repairs. Largest category: <b>Dr&auml;ger - {esc(m['repair_top'])}</b>.",
+         f"Clear the Dr&auml;ger repair queue. Largest category: <b>{esc(m['repair_top'])}</b>.",
          C["amber"]),
         ("FINANCIAL DISCIPLINE", money(m["exposure"]),
          f"Recover <b>{m['out_30']}</b> monitors over 30 days - <b>{money(m['exposure'])}</b> at risk.",
@@ -829,6 +839,7 @@ def pillars(m):
     ]
     cells = ""
     for title, score, pillar, pcol in items:
+        pcol = rag_hex(score)
         b64 = make_ring_b64(score)
         cells += f"""
       <td bgcolor="{C['card']}" style="background-color:{C['card']};border:1px solid {C['line']};padding:18px 12px;vertical-align:top;text-align:center;"><table cellpadding="0" cellspacing="0" style="margin:0 auto;"><tr><td style="text-align:center;"><span style="font-size:10px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1px;">{title}</span></td></tr><tr><td style="text-align:center;padding-top:10px;"><img src="data:image/png;base64,{b64}" width="150" height="150" style="display:block;margin:0 auto;" alt="Score {score}/100" /></td></tr><tr><td style="text-align:center;padding-top:6px;"><span style="font-size:18px;color:{C['white']};font-weight:700;">{score}</span><span style="font-size:13px;color:{C['muted2']};font-weight:700;"> /100</span></td></tr><tr><td style="text-align:center;padding-top:8px;"><table cellpadding="0" cellspacing="0" style="margin:0 auto;"><tr><td bgcolor="{C['panel']}" style="background-color:{C['panel']};border:1px solid {C['line']};padding:3px 8px;"><span style="font-size:8px;font-weight:700;color:{pcol};letter-spacing:1.5px;text-transform:uppercase;">{pillar}</span></td></tr></table></td></tr></table></td>"""
@@ -839,21 +850,21 @@ def pillars(m):
 
 
 def scorecard(m):
-    op_status = (("&#9679; ON TRACK", C["green"]) if m["repairs"] == 0 and m["yday_still_out"] == 0
-                 else ("&#9679; ACTION REQUIRED", C["red"]))
-    fin_status = (("&#9679; ON TRACK", C["green"]) if m["out_30"] == 0
-                  else ("&#9679; ATTENTION", C["amber"]))
-    cust_line = (f"{m['yday_still_out']} monitors still", "with customer")
-    op_line = (("No yday non-returns" if m["prev_day_total"] == 0
-                else f"{m['recovery_rate']}% recovery rate"),
-               f"{m['repairs']} repairs queued")
+    # WHY (07 Nov 2026, QA): every status follows the report's own rules -
+    # 30+ units amber from 10 and red from 40; the repair queue against the
+    # under-15% Redline; a monitor out past its bump test is a safety matter
+    ok, att, act = ("&#9679; ON TRACK", C["green"]), ("&#9679; ATTENTION", C["amber"]), ("&#9679; ACTION REQUIRED", C["red"])
+    fin = act if m["out_30"] >= 40 else att if m["out_30"] >= 10 else ok
+    back, still = back_by_pull(m)
     cards = [
-        (("&#9679; ON TRACK", C["green"]), "Safety", "All monitors tracked", "No safety incidents"),
-        (("&#9679; ON TRACK", C["green"]) if m["yday_still_out"] == 0 else ("&#9679; ATTENTION", C["amber"]),
-         "Customer", *cust_line),
-        (op_status, "Operational", *op_line),
-        (fin_status, "Financial", f"{money(m['exposure'])} exposure", f"{m['out_30']} at charge risk"),
-        (("&#9679; ON TRACK", C["green"]), "People", f"Top {len(m['priorities'])} identified", "Actions assigned"),
+        (act if m["outstanding"] else ok, "Safety",
+         f"{m['outstanding']} monitors out past their bump test" if m["outstanding"] else "Every monitor back for bump test",
+         "a safety conversation first" if m["outstanding"] else "nothing overdue"),
+        (act if still else ok, "Customer", f"{m['prev_day_total']} not back yesterday", f"{still} still out at the pull"),
+        (ok if m["fleet_impact_pct"] < 15 else act, "Operational", f"{m['repairs']} in the repair queue",
+         f"{m['fleet_impact_pct']}% of fleet - target under 15%"),
+        (fin, "Financial", f"{money(m['exposure'])} exposure", f"{m['out_30']} monitors out 30+ days"),
+        (ok if m["priorities"] else att, "People", f"Top {len(m['priorities'])} companies named", "owner: Andrew Fisher"),
     ]
     cells = "".join(f"""
       <td bgcolor="{C['card']}" width="20%" style="background-color:{C['card']};border:1px solid {C['line']};padding:0;vertical-align:top;text-align:center;">
@@ -907,27 +918,28 @@ def totals_row(label, value, colour):
 
 def data_panels(m):
     g, o, r, b = C["green"], C["orange"], C["red"], C["blue"]
-    maxr = max(m["prev_day_total"], m["recovered"], m["yday_still_out"], 1)
-    p1 = panel("Recovery Performance", o,
-        bar_row("Prev Day Non-Returns", "yesterday total", m["prev_day_total"], maxr, r, C["card3"]) +
-        bar_row("Recovered", "now closed", m["recovered"], maxr, g, C["card2"]) +
-        bar_row("Still Outstanding", "action list", m["yday_still_out"], maxr, r, C["card3"]) +
-        totals_row("Recovery Rate", f"{m['recovery_rate']}%", g if m["recovery_rate"] >= 80 else r))
+    back, still = back_by_pull(m)
+    maxr = max(m["prev_day_total"], back, still, 1)
+    p1 = panel("Yesterday's non-returns", o,
+        bar_row("Not back by 05:30", "yesterday's crew draws", m["prev_day_total"], maxr, r, C["card3"]) +
+        bar_row("Back by the pull", "05:30 to the register pull", back, maxr, g, C["card2"]) +
+        bar_row("Still out at the pull", "named in the detail below", still, maxr, r, C["card3"]) +
+        totals_row("Back by the pull", f"{back} of {m['prev_day_total']}", g if back else C["muted"]))
     maxo = max(m["out_1_7"], m["out_8_29"], m["out_30"], 1)
     p2 = panel("Outstanding Ageing", o,
-        bar_row("1-7 Days", "current", m["out_1_7"], maxo, o, C["card3"]) +
-        bar_row("8-29 Days", "follow-up", m["out_8_29"], maxo, o, C["card2"]) +
-        bar_row("30+ Days", "charge risk", m["out_30"], maxo, r, C["card3"]) +
-        totals_row("Total Outstanding", m["outstanding"], C["amber"]))
+        bar_row("1-7 days", "watch", m["out_1_7"], maxo, C["amber"], C["card3"]) +
+        bar_row("8-29 days", "follow up", m["out_8_29"], maxo, "#B5651D", C["card2"]) +
+        bar_row("30+ days", "recovery priority", m["out_30"], maxo, r, C["card3"]) +
+        totals_row("Overdue in all", m["outstanding"], C["amber"]))
     maxc = max(m["fccu"], m["ops"], m["ff"], m["onhire_general"], 1)
-    p3 = panel("Separate Custody Position", b,
-        bar_row("FCCU On Hire", "separate", m["fccu"], maxc, b, C["card3"]) +
-        bar_row("Operations On Hire", "separate", m["ops"], maxc, b, C["card2"]) +
-        bar_row("Future Fuels On Hire", "separate", m["ff"], maxc, b, C["card3"]) +
-        bar_row("After Hours Account", "separate", m["ah"], maxc, b, C["card2"]) +
-        bar_row("General On Hire", "general fleet", m["onhire_general"], maxc, o, C["card3"]) +
-        totals_row("Total On Hire (all custody)", m["onhire_all"], b) +
-        totals_row("General Fleet (excl. FCCU / Ops / FF)", m["fleet_general"], o))
+    p3 = panel("Who holds what is on hire", b,
+        bar_row("Out to crew", "named people", m["onhire_general"], maxc, o, C["card3"]) +
+        bar_row("FCCU custody", "account", m["fccu"], maxc, b, C["card2"]) +
+        bar_row("Ampol Operations", "account", m["ops"], maxc, b, C["card3"]) +
+        bar_row("Future Fuels", "account", m["ff"], maxc, b, C["card2"]) +
+        (bar_row("After Hours Hire account", "account", m["ah"], maxc, b, C["card3"]) if m["ah"] else "") +
+        totals_row("Crew and custody on hire", m["onhire_all"], b) +
+        totals_row("On hire with the repair queue", m["onhire_all"] + m["repairs"], b))
     return f"""
 <tr><td bgcolor="{C['bg']}" style="background-color:{C['bg']};padding:0 14px 12px 14px;">
   <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:separate;border-spacing:4px;"><tr>{p1}{p2}{p3}</tr></table>
@@ -943,7 +955,7 @@ def repairs_and_focus(m):
         pct = round(n / total * 100)
         rows += f"""
 <tr style="background:{bgs[i % 2]};">
-  <td style="padding:10px 14px;vertical-align:middle;width:200px;"><div style="font-size:11px;font-weight:700;color:{C['white']};">Dr&auml;ger - {esc(cat)}</div></td>
+  <td style="padding:10px 14px;vertical-align:middle;width:200px;"><div style="font-size:11px;font-weight:700;color:{C['white']};">{esc(cat)}</div></td>
   <td style="padding:8px 14px 8px 0;vertical-align:middle;">
     <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>
       <td bgcolor="{o}" style="background-color:{o};width:{max(2,pct)}%;height:12px;font-size:1px;">&nbsp;</td>
@@ -956,16 +968,16 @@ def repairs_and_focus(m):
     repairs_panel = f"""
 <td bgcolor="{C['card2']}" style="background-color:{C['card2']};border:1px solid {C['line']};padding:0;vertical-align:top;width:46%;">
   <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
-    <tr><td bgcolor="{a}" style="background-color:{a};padding:12px 14px;"><span style="font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.8px;">Dr&auml;ger Repairs Dashboard</span></td></tr>
-    <tr><td style="padding:14px;"><span style="font-size:30px;font-weight:700;color:{a};">{m['repairs']}</span> <span style="font-size:10px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1px;margin-left:8px;">Total Repairs</span></td></tr>
+    <tr><td bgcolor="{a}" style="background-color:{a};padding:12px 14px;"><span style="font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.8px;">The Dr&auml;ger repair queue</span></td></tr>
+    <tr><td style="padding:14px;"><span style="font-size:30px;font-weight:700;color:{a};">{m['repairs']}</span> <span style="font-size:10px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:1px;margin-left:8px;">monitors in the queue</span></td></tr>
     <tr><td style="padding:0;"><table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">{rows}</table></td></tr>
     <tr><td bgcolor="{C['panel']}" style="background-color:{C['panel']};padding:12px 14px;border-top:1px solid {C['line']};">
       <div style="font-size:9px;font-weight:700;color:{C['muted']};text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;">Fleet Impact</div>
       <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;"><tr>
-        <td style="background:{C['line']};border-radius:99px;height:10px;overflow:hidden;"><div style="background:linear-gradient(90deg,{a},{r});width:{max(2, round(impact))}%;height:10px;border-radius:99px;"></div></td>
-        <td style="width:80px;text-align:right;padding-left:8px;"><span style="font-size:13px;font-weight:700;color:{r};">{impact}%</span></td>
+        <td style="background:{C['line']};border-radius:99px;height:10px;overflow:hidden;"><div style="background:{C['green'] if impact < 15 else r};width:{max(2, round(impact))}%;height:10px;border-radius:99px;"></div></td>
+        <td style="width:80px;text-align:right;padding-left:8px;"><span style="font-size:13px;font-weight:700;color:{C['green'] if impact < 15 else r};">{impact}%</span></td>
       </tr></table>
-      <div style="font-size:9px;color:{C['muted']};margin-top:4px;">of fleet currently unavailable</div>
+      <div style="font-size:9px;color:{C['muted']};margin-top:4px;">of the fleet in the repair queue - Redline target under 15%</div>
     </td></tr>
   </table>
 </td>"""
@@ -983,8 +995,8 @@ def repairs_and_focus(m):
       <span style="display:inline-block;background:rgba(0,0,0,.35);border-radius:99px;padding:3px 9px;font-size:8px;font-weight:700;color:#fff;float:right;letter-spacing:1px;">{medals[i]}</span>
       <div style="font-size:16px;font-weight:700;color:#fff;margin-top:4px;">{esc(comp['name'])}</div>
     </td></tr>
-    <tr><td style="padding:12px 14px 4px 14px;"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Still out from yesterday</span><span style="font-size:12px;font-weight:700;color:{C['red']};float:right;">{comp['prev_day']}</span></td></tr>
-    <tr><td style="padding:8px 14px 4px 14px;border-top:1px solid {C['line']};"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Total outstanding</span><span style="font-size:12px;font-weight:700;color:{C['white']};float:right;">{comp['still_out']}</span></td></tr>
+    <tr><td style="padding:12px 14px 4px 14px;"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Not back yesterday</span><span style="font-size:12px;font-weight:700;color:{C['red']};float:right;">{comp['prev_day']}</span></td></tr>
+    <tr><td style="padding:8px 14px 4px 14px;border-top:1px solid {C['line']};"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Overdue in all</span><span style="font-size:12px;font-weight:700;color:{C['white']};float:right;">{comp['still_out']}</span></td></tr>
     <tr><td style="padding:8px 14px 4px 14px;border-top:1px solid {C['line']};"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">30+ days</span><span style="font-size:12px;font-weight:700;color:{C['red']};float:right;">{comp['d30']}</span></td></tr>
     <tr><td style="padding:8px 14px 14px 14px;border-top:1px solid {C['line']};"><span style="font-size:9px;color:{C['muted']};font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Exposure</span><span style="font-size:12px;font-weight:700;color:{C['red']};float:right;">{money(comp['charge'])}</span></td></tr>
   </table>
@@ -1030,7 +1042,7 @@ def priorities_table(m):
   <td style="padding:11px 12px;font-size:12px;font-weight:700;color:{C['white']};text-align:center;">{c['still_out']}</td>
   <td style="padding:11px 12px;font-size:12px;font-weight:700;color:{C['red'] if c['charge'] else C['muted']};text-align:right;">{money(c['charge'])}</td>
 </tr>"""
-    hdrs = ["#", "URGENCY", "PRIORITY", "COMPANY", "YDAY", "1-7", "8-29", "30+", "TOTAL", "EXPOSURE"]
+    hdrs = ["#", "SHARE OF EXPOSURE", "URGENCY", "COMPANY", "YESTERDAY (IN 1-7)", "1-7", "8-29", "30+", "OVERDUE", "EXPOSURE"]
     aligns = ["left", "left", "left", "left", "center", "center", "center", "center", "center", "right"]
     head = "".join(f"<th style='padding:10px 12px;font-size:9px;font-weight:700;color:{C['muted']};"
                    f"letter-spacing:1.2px;text-align:{a};text-transform:uppercase;border-bottom:1px solid {C['line']};'>{h}</th>"
@@ -1083,12 +1095,12 @@ def detail_table(rows, days_red_from=1, extra_cost_col=False):
             f"<tr>{head}</tr>{body}</table>")
 
 
-def company_block(name, count, rows, extra_cost_col=False):
+def company_block(name, count, rows, extra_cost_col=False, colour=None):
     return f"""
 <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin-top:10px;">
   <tr>
     <td style="width:6px;background:#0B0B0B;font-size:1px;">&nbsp;</td>
-    <td style="background:{C['orange']};padding:10px 14px;">
+    <td style="background:{colour or C['amber']};padding:10px 14px;">
       <span style="font-size:14px;font-weight:700;color:#fff;">{esc(name)}</span>
       <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">- {count} monitor{"" if count == 1 else "s"}</span>
     </td>
@@ -1100,8 +1112,8 @@ def company_block(name, count, rows, extra_cost_col=False):
 def fmt_dt(d, t):
     # WHY (12 Aug 2026): same rule as esc() - a date or time the source
     # does not carry shows as a dash, not the word 'None'.
-    ds = d.strftime("%d/%m/%Y") if hasattr(d, "strftime") else (str(d) if d else "-")
-    ts = t.strftime("%H:%M:%S") if hasattr(t, "strftime") else (str(t) if t else "-")
+    ds = d.strftime("%d %b %Y") if hasattr(d, "strftime") else (str(d) if d else "-")
+    ts = t.strftime("%H:%M") if hasattr(t, "strftime") else (str(t) if t else "-")
     return ds, ts
 
 
@@ -1118,10 +1130,11 @@ def detail_tables(data, m, cfg):
             else:
                 d_on, t_on = r[7], r[8]
             ds, ts = fmt_dt(d_on, t_on)
-            groups.setdefault(comp, []).append((days, r[1], r[2], r[3], ds, ts))
+            groups.setdefault(comp, []).append((days, r[1], r[2], r[3] or "-", ds, ts))
         for comp in groups:
             groups[comp].sort(key=lambda x: -x[0])
-        return groups
+        # WHY (07 Nov 2026, QA): companies A to Z, as in every other list
+        return OrderedDict(sorted(groups.items(), key=lambda kv: ampol_names.sort_key(kv[0])))
 
     # ========== PREVIOUS DAY RECOVERY CYCLE ==========
     out += detail_banner("Still Outstanding from Previous Days - Action Required", C["red"])
@@ -1168,25 +1181,26 @@ def detail_tables(data, m, cfg):
     for r in data["oh_30"]:
         comp = str(r[0]).strip()
         ds, ts = fmt_dt(r[8], r[9])
-        g30.setdefault(comp, []).append((r[5], r[1], r[2], r[3], ds, ts, money(r[7] or cfg["charge_per_unit"])))
+        g30.setdefault(comp, []).append((r[5], r[1], r[2], r[3] or "-", ds, ts, money(r[7] or cfg["charge_per_unit"])))
     for comp in g30:
         g30[comp].sort(key=lambda x: -x[0])
+    g30 = OrderedDict(sorted(g30.items(), key=lambda kv: ampol_names.sort_key(kv[0])))
     if not g30:
         out += detail_empty("No current records.")
     for comp, rows in g30.items():
-        out += company_block(comp, len(rows), rows, extra_cost_col=True)
+        out += company_block(comp, len(rows), rows, extra_cost_col=True, colour=C["red"])
 
-    out += detail_banner(f"Dr&auml;ger Repairs - {m['repairs']} Units Out of Service", C["amber"])
+    out += detail_banner(f"The Dr&auml;ger repair queue - {m['repairs']} monitors", C["amber"])
     rep_rows = []
     for r in sorted(data["repairs"], key=lambda x: -(x[4] or 0)):
-        ds = r[5].strftime("%d/%m/%Y") if hasattr(r[5], "strftime") else str(r[5])
-        rep_rows.append((r[4], r[0], r[1], r[2], ds, ""))
+        ds = r[5].strftime("%d %b %Y") if hasattr(r[5], "strftime") else str(r[5])
+        rep_rows.append((r[4], str(r[0]).replace("Dräger - ", ""), r[1], r[2] or "-", ds))
     if not rep_rows:
         out += detail_empty("No current repair records.")
     else:
         head = "".join(f"<th style='background:#E9ECF0;color:#0B0B0B;border:1px solid #5B6472;padding:8px;"
                        f"text-align:left;font-size:11px;'>{h}</th>"
-                       for h in ["Days in Status", "Status / Note", "Barcode", "Serial", "On Hire Date", ""])
+                       for h in ["Days in the queue", "Repair status", "Barcode", "Serial", "Into the queue"])
         body = ""
         for i, r in enumerate(rep_rows):
             bg = "#FFF7ED" if i % 2 == 0 else "#FFFFFF"
@@ -1212,11 +1226,12 @@ def compliance_strip(m):
         ("BUMP + CHARGE", "Every monitor is bump tested and fully charged before issue. "
          "No exceptions - a monitor that has not passed bump does not leave the store."),
         ("SCAN DISCIPLINE", "Nothing issues and nothing returns unless scanned. Every unit on this "
-         "dashboard is accounted for by barcode and serial number."),
+         "dashboard is accounted for by its barcode; the Dr&auml;ger serial rides alongside where the "
+         f"serial list has it ({(m.get('_eng') or {}).get('serial_stats', {}).get('with', '-')} of {m['fleet_total']})."),
         ("OUT OF SERVICE", "Damaged or failed units are tagged Out of Service immediately, photographed, "
          "and reported in writing before entering the Dr&auml;ger repair process."),
-        ("REPAIR VISIBILITY", f"{m['repairs']} units are in the repair process today, with "
-         f"Dr&auml;ger - {esc(m['repair_top'])} the largest category - tracked to closure, never parked."),
+        ("REPAIR VISIBILITY", f"{m['repairs']} units are in the repair queue today, with "
+         f"{esc(m['repair_top']).lower()} the largest category - tracked to closure, never parked."),
     ]
     cells = "".join(f"""
       <td bgcolor="{C['card2']}" width="25%" style="background-color:{C['card2']};border:1px solid {C['line']};border-top:3px solid {C['green']};padding:14px;vertical-align:top;">
@@ -1242,27 +1257,19 @@ def compliance_strip(m):
 
 def closing(m, gen_str):
     o, g, r, b, a = C["orange"], C["green"], C["red"], C["blue"], C["amber"]
-    hs_col = g if m["health"] >= 80 else a if m["health"] >= 45 else r
-    v = ("PASS" if m["validation_pass"] else "FAIL")
+    hs_col = rag_hex(m["health"])
     return section_header("Executive Closing Snapshot", "The Coates Way") + f"""
 <tr><td bgcolor="{C['bg']}" style="background-color:{C['bg']};padding:0 14px 12px 14px;">
   <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;">
     <tr><td bgcolor="{C['card']}" style="background-color:{C['card']};border:1px solid {C['line']};padding:18px 24px;">
       <div style="font-size:12px;color:#1D1D1B;line-height:1.9;">
-        Validation: <b style="color:{g if m['validation_pass'] else r};">{v}</b> -
-        Previous Day Non-Returns <b style="color:{o};">{m['prev_day_total']}</b> =
-        Recovered <b style="color:{g};">{m['recovered']}</b> +
-        Still Outstanding <b style="color:{r};">{m['yday_still_out']}</b>.
-        Current outstanding <b style="color:{o};">{m['outstanding']}</b>.
-        General on hire <b style="color:{o};">{m['onhire_general']}</b>
-        (<b style="color:{o};">{m['issued_today']}</b> issued today).
-        Total fleet <b style="color:{o};">{m['fleet_total']}</b>; general fleet excl. FCCU/Ops/FF
-        <b style="color:{o};">{m['fleet_general']}</b>.
-        30+ exposure <b style="color:{r};">{money(m['exposure'])}</b>.
-        FCCU kept separate: <b style="color:{b};">{m['fccu']}</b> on hire.
-        Operations kept separate: <b style="color:{b};">{m['ops']}</b> on hire.
-        Future Fuels kept separate: <b style="color:{b};">{m['ff']}</b> on hire.
-        Health Score: <b style="color:{hs_col};">{m['health']}/100</b>.
+        Not back yesterday <b style="color:{o};">{m['prev_day_total']}</b>, still out at the pull
+        <b style="color:{r};">{back_by_pull(m)[1]}</b>. Overdue in all <b style="color:{o};">{m['outstanding']}</b>, out to crew
+        <b style="color:{o};">{m['onhire_general']}</b>. Total fleet <b style="color:{o};">{m['fleet_total']}</b>, on hire
+        <b style="color:{o};">{m['onhire_all'] + m['repairs']}</b> (crew, custody and repair). 30+ exposure
+        <b style="color:{r};">{money(m['exposure'])}</b>. Custody accounts: FCCU <b style="color:{b};">{m['fccu']}</b>,
+        Operations <b style="color:{b};">{m['ops']}</b>, Future Fuels <b style="color:{b};">{m['ff']}</b>.
+        Health score: <b style="color:{hs_col};">{m['health']}/100</b>.
         Report generated at {gen_str}.
         <span style="color:{o};font-style:italic;">Consistent execution today drives the Flywheel forward.</span>
       </div>
@@ -1299,7 +1306,7 @@ def footer(cfg, gen_str, asat_str=""):
             <span style="display:inline-block;background:{C['card2']};border:1px solid {C['line']};border-radius:4px;padding:4px 10px;font-size:8px;font-weight:700;color:{C['muted']};letter-spacing:1.5px;text-transform:uppercase;margin-left:4px;">Operational Excellence</span>
             <span style="display:inline-block;background:{C['card2']};border:1px solid {C['line']};border-radius:4px;padding:4px 10px;font-size:8px;font-weight:700;color:{C['muted']};letter-spacing:1.5px;text-transform:uppercase;margin-left:4px;">Disciplined Execution</span>
           </div>
-          <div style="font-size:9px;color:{C['muted2']};margin-top:10px;">v18 ELITE &middot; {gen_str}{asat_bit}</div>
+          <div style="font-size:9px;color:{C['muted2']};margin-top:10px;">Built {gen_str}{asat_bit}</div>
         </td>
       </tr>
       <tr><td colspan="2" style="padding-top:16px;border-top:1px solid {C['line']};">
@@ -1308,9 +1315,9 @@ def footer(cfg, gen_str, asat_str=""):
           Performance tracked against Balanced Scorecard measures across Safety, Customer, Operational, Financial and People.<br/>
           Coates acknowledges the Traditional Owners of Country throughout Australia. We pay our respects to Elders past, present and emerging.
           Learn more about our Reconciliation Action Plan.<br/>
-          Coates Hire Operations Pty Limited &nbsp;|&nbsp; This email and any attachments are confidential and intended solely for the use of the named recipient(s).
+          This email and any attachments are confidential and intended solely for the named recipients.
           If you have received this email in error, please notify the sender immediately and delete it from your system.<br/>
-          {(ampol_options.client_line() + ' &nbsp;|&nbsp; ') if ampol_options.client_line() else ''}Coates Hire Operations Pty Limited &nbsp;|&nbsp; ABN 50 009 779 338 &nbsp;|&nbsp; www.coates.com.au &nbsp;|&nbsp; POWERED BY SITEIQ
+          {(ampol_options.client_line() + ' &nbsp;|&nbsp; ') if ampol_options.client_line() else ''}Coates &nbsp;|&nbsp; www.coates.com.au &nbsp;|&nbsp; POWERED BY SITEIQ
         </div>
       </td></tr>
     </table>
@@ -1345,13 +1352,13 @@ def build_html(data, m, cfg, date_str, time_str, asat_str=""):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Coates Gas Monitor Executive Dashboard - {date_str}</title>
+  <title>Ampol Gas Monitor Executive Dashboard - {datetime.strptime(date_str, '%d %B %Y').strftime('%d %b %Y')}</title>
 </head>
 <body bgcolor="#E9ECF0" style="margin:0;padding:0;background-color:#E9ECF0;font-family:'Segoe UI',Calibri,Arial,sans-serif;color:#1D1D1B;">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" style="background-color:#FFFFFF;">
 <tr><td align="center" bgcolor="#FFFFFF" style="background-color:#FFFFFF;padding:20px 12px;">
-<table role="presentation" width="1100" cellspacing="0" cellpadding="0"
-  style="width:1100px;max-width:1100px;border-collapse:collapse;border:1px solid {C['line']};
+<table role="presentation" width="1000" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF"
+  style="width:1000px;max-width:1000px;border-collapse:collapse;border:1px solid {C['line']};
   box-shadow:0 20px 60px rgba(0,0,0,.5);">
 {''.join(parts)}
 </table>
@@ -1368,9 +1375,8 @@ def gas_card_path():
 
 
 def build_eml(html, cfg, date_str, wb_path, card_path=""):
-    weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
     msg = EmailMessage()
-    msg["Subject"] = f"{cfg['subject_prefix']} - {weekday} {date_str}"
+    msg["Subject"] = f"Ampol Gas Monitor Executive Dashboard - {datetime.strptime(date_str, '%d %B %Y').strftime('%d %b %Y')}"
     msg["To"] = ", ".join(cfg["recipients"])
     msg["Date"] = formatdate(localtime=True)
     msg["X-Unsent"] = "1"
@@ -1493,9 +1499,8 @@ def main():
         attachments.append(os.path.basename(wb_copy))
     if os.path.exists(card_path):
         attachments.append(os.path.basename(card_path))
-    weekday = datetime.strptime(date_str, "%d %B %Y").strftime("%A")
     manifest = {
-        "subject": f"{cfg['subject_prefix']} - {weekday} {date_str}",
+        "subject": f"Ampol Gas Monitor Executive Dashboard - {datetime.strptime(date_str, '%d %B %Y').strftime('%d %b %Y')}",
         "body": os.path.basename(html_path),
         "attachments": attachments,
         "to": "; ".join(cfg["recipients"]),

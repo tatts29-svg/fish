@@ -199,3 +199,18 @@ Before handing it back
     words when it found no pricing list at all.
 
 The Coates Way - consistent execution, every day.
+
+ONE PRICE PER PRINTED DESCRIPTION (07 Nov 2026)
+  The Pricing tab is keyed by SiteIQ's raw description, and SiteIQ spells
+  one product several ways. Once the display rules tidy them, they print
+  the same - so the reports now give every spelling that prints the same
+  ONE price (ampol_master.unify_prices):
+    - one price among the spellings: every spelling takes it, an unpriced
+      spelling included (the master's own price for the same item -
+      nothing estimated);
+    - two or more prices: the most common wins (a tie goes to the first in
+      the master's row order), and the description is listed on the
+      "Prices to confirm" tab for Andrew to settle in the master.
+  Fix a conflict by giving the spellings one price in the Pricing tab;
+  the list empties itself on the next build. Nothing is averaged.
+

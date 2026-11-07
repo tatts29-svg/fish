@@ -130,7 +130,7 @@ def series(family, key, asat, days=30):
     return out
 
 
-def movement(family, key, asat, value, good="down", money=False):
+def movement(family, key, asat, value, good="down", money=False, unit=""):
     """(text, css_class) for a tile note, or ("", "") when there is no
     earlier day - a report never invents movement. good="down" means a
     fall is the good direction (overdue, not found); "up" the reverse;
@@ -150,11 +150,13 @@ def movement(family, key, asat, value, good="down", money=False):
     arrow = "▲" if diff > 0 else "▼"
     mag = abs(diff)
     if money:
-        txt = f"{arrow} ${mag:,.2f}"
+        txt = f"{arrow} ${mag:,.0f}"          # WHY (07 Nov 2026): whole dollars, as every other value prints
     elif isinstance(mag, float):
         txt = f"{arrow} {mag:,.1f}".rstrip("0").rstrip(".")
     else:
         txt = f"{arrow} {mag:,}"
+    if unit:
+        txt += f" {unit}"
     if good is None:
         return f"{txt} since {when}", "grey"
     improved = (diff < 0) if good == "down" else (diff > 0)

@@ -21,7 +21,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 K = {
     "orange": "#F26222", "green": "#409A55", "amber": "#E08A24",
-    "red": "#D0342C", "blue": "#3D8BD4", "lime": "#F26222",
+    "red": "#D0342C", "blue": "#3D8BD4", "lime": "#2A313C", "deep_amber": "#B5651D",
     "track": "#E6E9EE", "ink": "#1D1D1B", "muted": "#5B6472", "line": "#DDE1E7",
     "slate": "#2A313C", "tint": "#FFF1EA", "orange_text": "#C8511A",
 }
@@ -75,6 +75,15 @@ def num(n):
 
 def rag(score):
     return "green" if score >= 85 else "amber" if score >= 50 else "red"
+
+
+def rag_by(score, green_from=None, amber_from=None):
+    """rag() with a report's own thresholds when it states them."""
+    if green_from is None and amber_from is None:
+        return rag(score)
+    g = 85 if green_from is None else green_from
+    a = 50 if amber_from is None else amber_from
+    return "green" if score >= g else "amber" if score >= a else "red"
 
 
 def rag_health(score):
@@ -277,8 +286,9 @@ def hbars(rows, w=636, colour="#F26222", rowh=24, lab_w=172, right=None):
         out.append(f'<rect x="{lab_w}" y="{y + 3.5}" width="{w - lab_w - val_w}" '
                    f'height="10" rx="5" fill="#E6E9EE"/>')
         if v > 0:
+            # WHY (07 Nov 2026, QA): a 10 px floor drew 3 and 30 as the same dot
             out.append(f'<rect x="{lab_w}" y="{y + 3.5}" '
-                       f'width="{max(bw, 10):.1f}" height="10" rx="5" '
+                       f'width="{max(bw, 3):.1f}" height="10" rx="{min(5, max(bw, 3) / 2):.1f}" '
                        f'fill="{colour}"/>')
         out.append(f'<text x="{w}" y="{y + 12}" text-anchor="end" fill="#1D1D1B" '
                    f'font-family="Inter, Segoe UI, Calibri, sans-serif" font-size="9.4" '
@@ -421,19 +431,25 @@ def tiles(items, per_row=4):
                          f'<div class="t-num{sm}">{esc(val)}</div>'
                          f'<div class="t-lab">{esc(lab)}</div>{n}</td>')
         while len(cells) < per_row:
-            cells.append('<td style="background:transparent"></td>')
+            cells.append('<td class="pad" style="background:transparent;border:0;box-shadow:none"></td>')
         out.append(f'<table class="tiles"><tr>{"".join(cells)}</tr></table>')
     return "".join(out)
 
 
-def score_rows(rows):
+def score_rows(rows, green_from=None, amber_from=None):
     """label, score, formula -> K2 score bar with its arithmetic beneath.
-    The bar is a FIXED-width pill next to the label - never full-page."""
+    The bar is a FIXED-width pill next to the label - never full-page.
+    green_from / amber_from: the report's own rule when it is not the
+    suite's 85 / 50 (07 Nov 2026: the stocktake's 90 / 75)."""
     out = ['<table class="scores">']
     for lab, sc, form in rows:
-        col = {"green": "f-green", "amber": "f-amber", "red": "f-red"}[rag(sc)]
+        st = rag_by(sc, green_from, amber_from)
+        col = {"green": "f-green", "amber": "f-amber", "red": "f-red"}[st]
+        # WHY (07 Nov 2026): the mark matches the bar - a tick only on a green
+        # score; amber and red carry their own mark, never a pass
+        mark, mcol = {"green": ("✓", "#409A55"), "amber": ("!", "#E08A24"), "red": ("✕", "#D0342C")}[st]
         out.append(
-            f'<tr><td class="sc-tick">✓</td>'
+            f'<tr><td class="sc-tick" style="color:{mcol};font-weight:700">{mark}</td>'
             f'<td class="sc-lab">{esc(lab)}</td>'
             f'<td class="sc-bar"><div class="track">'
             f'<div class="fill {col}" style="width:{max(2, min(100, sc))}%"></div>'
@@ -516,9 +532,10 @@ def team_cards(team):
 
     out = []
     if lead:
-        pad = '<td style="background:transparent;border-top:none;width:29%"></td>'
-        out.append(f'<table class="team" style="table-layout:fixed">'
-                   f'<tr>{pad}{card(lead[0], True)}{pad}</tr></table>')
+        # WHY (07 Nov 2026, QA): the lead's card prints alone, centred - no
+        # spacer cells, which some stylesheets drew as two empty cards
+        out.append(f'<table class="team" style="table-layout:fixed;width:44%;margin:11px auto 0 auto">'
+                   f'<tr>{card(lead[0])}</tr></table>')
     if rest:
         out.append('<table class="team"><tr>'
                    + "".join(card(p) for p in rest) + "</tr></table>")
@@ -759,10 +776,13 @@ def line_png(labels, series, width, pct=False, annotate=False, h=420):
     def Y(v):
         return base - (base - top) * v / ymax
     fl, fv, fb = _font(18), _font(17), _font(21, True)
+    # WHY (07 Nov 2026, QA): a series' end label ("78%") and an axis tick
+    # ("75%") share the right-hand column - the tick gives way to the label
+    end_ys = [Y(s["vals"][-1]) for s in series if s.get("vals")]
     for g in (0.25, 0.5, 0.75, 1.0):
         y = Y(ymax * g)
         d.line([(pl, y), (W - pr, y)], fill="#E6E9EE", width=1)
-        if pct:
+        if pct and all(abs(y - ey) > 24 for ey in end_ys):
             d.text((W - pr + 10, y - 10), f"{int(ymax * g)}%", font=fv,
                    fill="#5B6472")
     d.line([(pl, base), (W - pr, base)], fill="#98A0AA", width=2)
@@ -1060,7 +1080,7 @@ def tiles_plus(items, per_row=4):
                          f'<div class="t-num{sm}">{esc(val)}</div>'
                          f'<div class="t-lab">{esc(lab)}</div>{n}{sp}</td>')
         while len(cells) < per_row:
-            cells.append('<td style="background:transparent"></td>')
+            cells.append('<td class="pad" style="background:transparent;border:0;box-shadow:none"></td>')
         out.append(f'<table class="tiles"><tr>{"".join(cells)}</tr></table>')
     return "".join(out)
 
@@ -1069,7 +1089,7 @@ def heatgrid(matrix, row_labels, col_labels, w=636, cell_h=17, colour=(243, 111,
              label_w=54, show_values=True, empty="#EEF0F3"):
     """Rows x columns heat grid on the dark panel. matrix[r][c] are counts;
     cell colour scales with the count against the grid maximum; the count
-    is printed in the cell. Zero cells stay dark - nothing is smoothed."""
+    is printed in the cell. A zero is a plain grey cell - nothing is smoothed."""
     rows, cols = len(matrix), len(col_labels)
     mx = max((v for r in matrix for v in r), default=0) or 1
     cw = (w - label_w) / cols
@@ -1087,6 +1107,7 @@ def heatgrid(matrix, row_labels, col_labels, w=636, cell_h=17, colour=(243, 111,
         for c in range(cols):
             v = matrix[r][c] if c < len(matrix[r]) else 0
             x = label_w + c * cw
+            a = 0.0
             if v:
                 a = 0.18 + 0.82 * (v / mx) ** 0.6
                 fill = f"rgba({colour[0]},{colour[1]},{colour[2]},{a:.2f})"
@@ -1095,7 +1116,9 @@ def heatgrid(matrix, row_labels, col_labels, w=636, cell_h=17, colour=(243, 111,
             out.append(f'<rect x="{x + 0.6:.1f}" y="{y + 0.6}" width="{cw - 1.2:.1f}" '
                        f'height="{cell_h - 1.2}" rx="2.5" fill="{fill}"/>')
             if show_values and v:
-                tcol = "#1D1D1B" if v / mx > 0.55 else "#FFFFFF"
+                # WHY (07 Nov 2026): on the white page a pale cell carries dark
+                # figures and a deep cell white ones - the reverse was unreadable
+                tcol = "#FFFFFF" if a > 0.62 else "#1D1D1B"
                 out.append(f'<text x="{x + cw / 2:.1f}" y="{y + cell_h * 0.68:.1f}" text-anchor="middle" '
                            f'fill="{tcol}" font-family="Inter, Segoe UI, Calibri, sans-serif" font-size="6.8" '
                            f'font-weight="700">{v}</text>')
@@ -1197,14 +1220,17 @@ def freshness_line(asat_dt, gen_dt=None):
             f"&nbsp;&middot;&nbsp; <b>{age}</b> old at build")
 
 
-def cover_contents(contents, max_rows=12):
+def cover_contents(contents, max_rows=16):
     """'What's inside' on the cover: (title, page) rows. Real page numbers
-    only - pdf_finish.contents_from_pdf reads them off the printed PDF."""
+    only - pdf_finish.contents_from_pdf reads them off the printed PDF.
+    WHY (07 Nov 2026, QA): up to sixteen rows, set tighter past twelve, so
+    the appendix and the data page are listed too."""
     rows = [(t, p) for t, p in (contents or []) if t][:max_rows]
     if not rows:
         return ""
+    dense = " dense" if len(rows) > 12 else ""
     trs = "".join(f'<tr><td class="ct">{esc(str(t))}</td><td class="cp">{esc(str(p))}</td></tr>' for t, p in rows)
-    return f'<div class="cover-toc"><div class="h">In this report</div><table>{trs}</table></div>'
+    return f'<div class="cover-toc{dense}"><div class="h">In this report</div><table>{trs}</table></div>'
 
 
 def cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", contents=None):
@@ -1246,7 +1272,7 @@ def cover_page(cfg, big, big_label, lines, gen_s, asat_s, rag=None, fresh="", co
             f'{cover_inner(cfg, big, big_label, lines, gen_s, asat_s, rag, fresh, contents)}</div></div>')
 
 
-def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
+def position_card_png(cfg, asat_s, tiles, band, scores, path, foot="", green_from=None, amber_from=None):
     """A 1080 x 1920 PNG of the position for a phone, in the pack's look:
     a dark masthead with the COATES wordmark, the report and the site, a
     white body with up to six orange-topped tiles, the RAG note, the score
@@ -1307,13 +1333,20 @@ def position_card_png(cfg, asat_s, tiles, band, scores, path, foot=""):
     room = (H - 190) - y
     step = min(88, max(56, room // max(len(scores[:4]), 1))) if scores else 0
     for lab, sc in scores[:4]:
-        colr = {"green": "#409A55", "amber": "#E08A24", "red": "#D0342C"}[rag(sc)]
+        colr = {"green": "#409A55", "amber": "#E08A24", "red": "#D0342C"}[rag_by(sc, green_from, amber_from)]
         d.text((64, y), lab, font=_font(24, True), fill=INK)
         d.rounded_rectangle([64, y + 40, W - 64, y + 56], radius=8, fill=TRACK)
         d.rounded_rectangle([64, y + 40, 64 + int((W - 128) * max(2, min(100, sc)) / 100), y + 56],
                             radius=8, fill=colr)
         d.text((W - 64, y), f"{sc}/100", font=_font(24, True), fill=INK, anchor="ra")
         y += step
+    # WHY (07 Nov 2026, QA): a card with fewer tiles or scores left its bottom
+    # third blank - the canvas ends just below the content, the footer under it
+    H2 = min(H, max(1280, y + 60 + 150))
+    if H2 < H:
+        H = H2
+        im = im.crop((0, 0, W, H))
+        d = ImageDraw.Draw(im)
     # footer bar
     d.rectangle([0, H - 150, W, H], fill=INK)
     d.rectangle([0, H - 150, W, H - 144], fill=ORANGE)
@@ -1348,7 +1381,7 @@ def _wrap(d, text, font, width):
 # the three-things list, the cover stripe and freshness line
 # ---------------------------------------------------------------------------
 AGE_BANDS = ((0, 30, "0-30 days", "#409A55"), (31, 60, "31-60", "#E08A24"),
-             (61, 90, "61-90", "#F26222"), (91, None, "90+ days", "#D0342C"))
+             (61, 90, "61-90", "#B5651D"), (91, None, "90+ days", "#D0342C"))
 
 
 def age_band_index(days):
@@ -1426,6 +1459,20 @@ def stacked_hbars(rows, w=636, rowh=22, lab_w=150, val_w=52, colours=None, legen
     return "".join(out)
 
 
+def nice_step(x):
+    """The smallest round step (1, 1.5, 2, 2.5, 3, 4, 5, 6, 7.5 or 8 x 10^n)
+    at or above x - a tick step a reader can count in."""
+    import math
+    if x <= 0:
+        return 1
+    e = 10 ** math.floor(math.log10(x))
+    for m in (1, 1.5, 2, 2.5, 3, 4, 5, 6, 7.5, 8, 10):
+        if m * e >= x - 1e-9:
+            step = m * e
+            return int(step) if float(step).is_integer() else step
+    return 10 * e
+
+
 def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False,
                show_values=True):
     """Lines over time on the dark panel. labels: x captions (dates);
@@ -1443,6 +1490,10 @@ def line_chart(labels, series, w=636, h=200, colours=None, y_label="", pct=False
     hi = 100 if pct else max(allv)
     hi = hi or 1
     lo = min(0, min(allv))          # a series that dips below zero keeps its axis honest
+    if not pct and lo == 0:
+        # WHY (07 Nov 2026, QA): the axis tops out at a round number so every
+        # tick reads clean (500 / 375 / 250 / 125, not 551 / 413 / 276 / 138)
+        hi = nice_step(hi / 4.0) * 4
     span = (hi - lo) or 1
     step = max(1, (n - 1) // 8 or 1)
     # WHY (03 Sep 2026): the left gutter sizes itself from the widest tick

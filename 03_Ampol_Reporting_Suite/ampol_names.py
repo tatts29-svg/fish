@@ -85,8 +85,8 @@ PROTECTED_WORDS = {
     "Cavagna", "Comet", "Gardner", "Denver", "Yato", "Elora", "Gedore", "Hazet", "Stahlwille",
     # acronyms, standards, threads, electrical, safety
     "UNC", "UNF", "BSW", "BSP", "BSPT", "BSPP", "NPT", "NPTF", "JIC", "SAE", "ISO", "DIN", "ANSI", "AS",
-    "AF", "USB", "LED", "RCD", "PVC", "HDPE", "LPG", "GPO", "ELCB", "AC", "DC", "VAC", "VDC", "HSS",
-    "TCT", "SDS", "CFM", "PSI", "RPM", "HP", "KW", "OXY", "ARC", "MIG", "TIG", "MMA", "UHF", "VHF",
+    "AF", "USB", "LED", "RCD", "RMS", "PVC", "HDPE", "LPG", "GPO", "ELCB", "AC", "DC", "VAC", "VDC", "HSS",
+    "TCT", "SDS", "CFM", "RPM", "HP", "KW", "ARC", "MIG", "TIG", "MMA", "UHF", "VHF",
     "GPS", "ID", "OD", "HD", "XL", "XXL", "XS", "T&I", "SFI", "FCCU", "OOS", "WLL", "SWL", "PPE", "LOTO",
     "GFCI", "IP", "IP65", "IP67", "ATEX", "IECEx", "EX", "LEL", "H2S", "CO", "O2", "SO2", "NH3", "VOC",
     "PID", "CCTV", "LAN", "WIFI", "Wi-Fi", "HDMI", "VGA", "LCD", "AA", "AAA", "NiMH", "Li-ion", "Li-Ion",
@@ -100,7 +100,16 @@ _PROTECT_UP = {w.upper(): w for w in PROTECTED_WORDS}
 # spellings SiteIQ uses for a brand, shown one way
 _BRAND_FIX = {"DRAGER": "Dräger", "DRAEGER": "Dräger", "DRÄGER": "Dräger", "X-AM": "X-am",
               "DEWALT": "DeWalt", "MCGURK": "McGurk", "KARCHER": "Kärcher", "SNAP-ON": "Snap-on",
-              "HI-FORCE": "Hi-Force", "LI-ION": "Li-ion", "NIMH": "NiMH", "IPAD": "iPad", "IPHONE": "iPhone"}
+              "HI-FORCE": "Hi-Force", "LI-ION": "Li-ion", "NIMH": "NiMH", "IPAD": "iPad", "IPHONE": "iPhone",
+              "REDLITHIUM": "RedLithium", "REDLITHIUM-ION": "RedLithium-ion", "RED-LITHIUM": "RedLithium",
+              "RED-LITHUIM": "RedLithium", "GALAXY": "Galaxy", "PETOL": "Petol", "PSI": "psi"}
+# WHY (07 Nov 2026): plain spelling slips in SiteIQ text, shown corrected -
+# display only; every match, price and count still uses the raw text
+_TYPO_FIX = {"ACETLENE": "acetylene", "LITHUIM": "lithium", "RACHET": "ratchet", "CADDIE": "caddy",
+             # 07 Nov 2026, QA: register and SiteIQ spellings a reader trips over
+             "SERIS": "series", "ALIGHNMENT": "alignment", "EXTINGISHER": "extinguisher",
+             "EXTENTION": "extension", "CRITICTAL": "critical", "PODGEY": "podger", "PODGY": "podger",
+             "CUMALONG": "come-along"}
 # a unit stuck to a number keeps its proper form
 _UNIT_FIX = {"MM": "mm", "CM": "cm", "KG": "kg", "NM": "Nm", "KW": "kW", "HZ": "Hz", "KPA": "kPa",
              "MPA": "MPa", "ML": "mL", "KVA": "kVA", "MAH": "mAh", "AH": "Ah", "LTR": "L", "LT": "L"}
@@ -125,6 +134,8 @@ def _tidy_token(tok, first):
     m = _NUM_UNIT_RE.match(core)
     if up in _BRAND_FIX:
         core = _BRAND_FIX[up]
+    elif up in _TYPO_FIX:
+        core = _TYPO_FIX[up].capitalize() if first else _TYPO_FIX[up]
     elif m and m.group(2).upper() in _UNIT_FIX:
         core = m.group(1) + _UNIT_FIX[m.group(2).upper()]
     elif "-" in core and not all(any(ch.isdigit() for ch in p) for p in core.split("-")):
@@ -140,7 +151,10 @@ def _tidy_token(tok, first):
     elif m and len(m.group(2)) >= 3 and m.group(2).isupper():
         core = m.group(1) + m.group(2).lower()        # 32AMP -> 32amp: a unit word glued to a number
     elif any(ch.isdigit() for ch in core):
-        core = core                                   # sizes and codes as written
+        # sizes and codes as written - a unit on the end keeps its proper form (0-100MM -> 0-100mm)
+        mu = re.match(r"^(.*\d)([A-Za-z]{1,3})$", core)
+        if mu and mu.group(2).upper() in _UNIT_FIX and not re.search(r"[A-Za-z]", mu.group(1)):
+            core = mu.group(1) + _UNIT_FIX[mu.group(2).upper()]
     elif up in _PROTECT_UP:
         core = _PROTECT_UP[up]
     elif "&" in core or "/" in core:
@@ -161,15 +175,36 @@ def sentence_case(text):
     if not s:
         return s
     # a word glued to a quote mark or a bracket is two words: 5"ANGLE, FT012(SHORT)
-    s = re.sub(r'(["\'])(?=[A-Za-z]{2})', r"\1 ", s)
+    s = re.sub(r'("|(?<=\d)\')(?=[A-Za-z]{2})', r"\1 ", s)     # an inch or foot mark only - O'CONNOR stays one word
     s = re.sub(r"([A-Za-z0-9])\((?=[A-Za-z])", r"\1 (", s)
     out, first = [], True
     for tok in s.split(" "):
         t = _tidy_token(tok, first)
         out.append(t)
-        if first and any(ch.isalpha() for ch in tok):
+        # WHY (07 Nov 2026, QA): the sentence starts at the first token, even
+        # a size - '1/2" DRIVE SOCKET' reads '1/2" drive socket', not 'Drive'
+        if first and tok.strip():
             first = False
     s = " ".join(out)
+    s = re.sub(r"(\d) (nm|Nm|NM)\b", r"\1Nm", s)       # torque: 300 nm -> 300Nm (never nanometres)
+    s = re.sub(r"(\d) ?(kpa|Kpa|KPA)\b", r"\1kPa", s)
+    s = re.sub(r"(\d) ?[Aa][Mm][Pp][Ss]?\b", r"\1A", s)    # 10 AMP / 10Amp -> 10A, as the 15A lines read
+    s = re.sub(r'(\d(?:/\d+)?")\s+Drive\b', r'\1 drive', s)  # 1" Drive socket -> 1" drive socket, anywhere
+    s = re.sub(r"\bBSW tao\b", "BSW tap", s, flags=re.I)
+    s = re.sub(r"(?<=[a-z])'S\b", "'s", s)                       # Plumber'S -> Plumber's
+    s = re.sub(r"(\d) ?(kva|KVA|Kva|kVA)\b", r"\1kVA", s)       # 60 kva -> 60kVA, as 240V and 300Nm read
+    # WHY (07 Nov 2026, QA): a drive size SiteIQ writes as 1/2D or 3/4"D
+    # reads 1/2" drive, the way every other socket and wrench prints
+    s = re.sub(r'\b(\d+/\d+)"?D\b', r'\1" drive', s)
+    # a Fluke model code reads as Fluke prints it (IR3000FC, T3000 FC)
+    s = re.sub(r"\b(Fluke) ([A-Za-z]+\d[A-Za-z0-9]*)((?: [a-z]{1,3}\b)?)",
+               lambda m: f"{m.group(1)} {m.group(2).upper()}{m.group(3).upper()}", s)
+    # a bracket SiteIQ never closed is closed, a bare trailing one dropped
+    if s.count("(") > s.count(")"):
+        s = re.sub(r"\s*\(\s*$", "", s)
+        if s.count("(") > s.count(")"):
+            s = s + ")"
+    s = re.sub(r"(\d) (v|V)\b(?!-)", r"\1V", s)          # 32 v -> 32V
     s = re.sub(r"\s+-\s*|\s*-\s+", " - ", s)         # one dash style; hyphens inside a word stay
     s = re.sub(r"\s+", " ", s).strip(" -")
     return s
@@ -217,7 +252,8 @@ def display_desc(text, barcode=None, serial=None):
     return sentence_case(s)
 
 
-_DRAGER_RE = re.compile(r"^\s*dr[aä]ger\s*[-\u2013\u2014]\s*(?:dr[aä]ger\s*[-\u2013\u2014]\s*)?", re.I)
+_DRAGER_RE = re.compile(r"^\s*dr[aä]ger\b\s*[-\u2013\u2014]?\s*(?:dr[aä]ger\b\s*[-\u2013\u2014]?\s*)?(?=\S)", re.I)
+_DRAGER_KEEP_UP = {"FCCU", "SFI", "T&I", "PO", "RMA"}
 
 
 def drager_account(name):
@@ -229,6 +265,18 @@ def drager_account(name):
     if not m:
         return ""
     rest = s[m.end():].strip(" -\u2013\u2014")
+    rest = re.sub(r"\s*\(account\)\s*$", "", rest, flags=re.I)   # idempotent: a label run twice stays one label
+    # WHY (07 Nov 2026): one case on every page - 'Out Of Calibration' and
+    # 'OUT OF CALIBRATION' both read 'Out of calibration'; FCCU stays FCCU
+    out = []
+    for i, w in enumerate(rest.split(" ")):
+        if w.upper() in _DRAGER_KEEP_UP:
+            out.append(w.upper())
+        elif re.search(r"\d", w):
+            out.append(w)
+        else:
+            out.append(w[:1].upper() + w[1:].lower() if i == 0 else w.lower())
+    rest = " ".join(out)
     return f"Dräger - {rest}" if rest else "Dräger"
 
 
@@ -240,19 +288,42 @@ def display_person(name):
     s = re.sub(r"\s+", " ", str(name or "")).strip()
     if not s:
         return s
+    if drager_account(s):
+        return drager_account(s) + ACCOUNT_SUFFIX     # a Dräger service line, never a person
     if is_site_account(s):
         return hirer_label(s)
     s = re.sub(r"^(.+?)\s+-\s+", r"\1 ", s, count=1)    # the first " - " is SiteIQ's separator ("Adrain Joshua - Purdue")
+    # WHY (07 Nov 2026): SiteIQ keeps a second account for the same person on a
+    # shutdown or for a year ('Pinnock-Shutdown', 'Southon 2023'); the tag reads
+    # as a tag, never glued to the surname. Matching still uses the raw name.
+    tag = ""
+    mt = re.search(r"(?:[-\s]+)(shutdown|turnaround|t&i|20\d\d)\s*$", s, flags=re.I)
+    if mt and mt.start() > 0:
+        tag = mt.group(1)
+        tag = tag.upper() if tag.lower() == "t&i" else (tag if tag.isdigit() else tag.lower())
+        s = s[:mt.start()].rstrip(" -")
     words = []
     for w in s.split(" "):
         if w.isupper() or w.islower():
             w = "-".join(p[:1].upper() + p[1:].lower() for p in w.split("-"))
             w = "'".join(p[:1].upper() + p[1:] for p in w.split("'")) if "'" in w else w
-            w = re.sub(r"^Mc([a-z])", lambda m: "Mc" + m.group(1).upper(), w)   # MCGREGOR -> McGregor
             if w.upper() in ("T&I", "SFI", "FCCU"):
                 w = w.upper()
+        w = re.sub(r"^Mc([a-z])(?=[a-z]{2})", lambda m: "Mc" + m.group(1).upper(), w)   # MCGREGOR / Mccabe -> McGregor / McCabe
         words.append(w)
-    return " ".join(words)
+    out = " ".join(words)
+    for bad, good in _PERSON_FIX.items():
+        out = re.sub(rf"\b{re.escape(bad)}\b", good, out)
+    return out + (f" ({tag})" if tag else "")
+
+
+# WHY (07 Nov 2026): surnames SiteIQ carries with a slip - a lower-case L for
+# a capital I ('Mclvor' beside the same man's 'McIvor'), a lost capital or a
+# lost apostrophe. Shown right; matching keeps the raw SiteIQ text. Only
+# slips that cannot be anyone else belong here - an uncertain spelling
+# ('Kennth', 'Adrain', 'Todd Van Der') is for the store to fix in SiteIQ.
+_PERSON_FIX = {"McLvor": "McIvor", "Macgregor": "MacGregor", "Omeara": "O'Meara",
+               "O Carroll": "O'Carroll"}
 
 
 def former_to_current(text):
@@ -266,6 +337,11 @@ def former_to_current(text):
 def carries_former_name(text):
     """True when the raw SiteIQ text still carries the former site name."""
     return bool(_OLD_RE.search(str(text or "")))
+
+
+# WHY (07 Nov 2026): a company SiteIQ spells wrongly, shown once and right
+_COMPANY_FIX = {"DREDGE SOLUTUIONS": "Dredge Solutions", "COMMERICAL MARINE GROUP": "Commercial Marine Group",
+                "ASSURED ENVIROMENTAL": "Assured Environmental"}
 
 
 def display_company(name):
@@ -282,6 +358,8 @@ def display_company(name):
         return "Ampol"
     if u.startswith("CONTRACT RESOURCES"):
         return "Contract Resources"
+    if u in _COMPANY_FIX:
+        return _COMPANY_FIX[u]
     if u in _ACRONYMS:
         return u
     out = []
@@ -323,7 +401,12 @@ def account_label(name):
 # a report says which SiteIQ name the label stands for.
 AFTER_HOURS_LABEL = "After Hours Hire account"
 _AFTER_HOURS_RE = re.compile(r"after\s*-?\s*hours", re.I)
-_SITE_ACCOUNT_RE = re.compile(r"after\s*-?\s*hours|tool\s*store|shutdown\s*-\s*20\d\d|\(sfi\)|^alky", re.I)
+# WHY (07 Nov 2026): a place or a holding line SiteIQ books like a person
+# ('Wynnum - Gardens', 'Bulk - Yard', 'Radios - Out Of Service', 'Loading Bay -
+# Out Of Service') is an account, never one of a company's people
+_SITE_ACCOUNT_RE = re.compile(r"after\s*-?\s*hours|tool\s*store|shutdown\s*-\s*20\d\d|\(sfi\)|^alky"
+                              r"|^wynnum\b|^bulk\s*-?\s*yard|out\s+of\s+service|^loading\s*-?\s*bay"
+                              r"|\boff\s*-?\s*site\b|\boffsite\b|\brepairs?\b|out\s+of\s+tag", re.I)
 
 
 def is_after_hours_account(name):
@@ -349,11 +432,17 @@ def hirer_label(name):
     s = re.sub(r"\s+", " ", str(name or "")).strip()
     if is_after_hours_account(s):
         return AFTER_HOURS_LABEL
+    if drager_account(s):
+        return drager_account(s) + ACCOUNT_SUFFIX
     if is_site_account(s) and not s.lower().endswith("(account)"):
         # SiteIQ writes an account like a person, 'FCCU - 2026 (SFI)'; the
         # first dash is its separator and drops, as it does for a person
-        return re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1) + ACCOUNT_SUFFIX
-    return s
+        return re.sub(r"^(.+?)\s+-\s+", r"\1 ", s, count=1) + ACCOUNT_SUFFIX
+    if s.lower().endswith("(account)"):
+        return s
+    # WHY (07 Nov 2026): a person prints under the one display rule on every
+    # page ('Brett Mclvor' reads 'Brett McIvor', '-Shutdown' reads '(shutdown)')
+    return display_person(s)
 
 
 def sort_key(text):

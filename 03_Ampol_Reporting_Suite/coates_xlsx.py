@@ -51,6 +51,9 @@ WHITE = "FFFFFF"
 
 INT, MONEY, PCT, PCT1, DATE, DATETIME, TIME = ("#,##0", "$#,##0.00", "0%", "0.0%",
                                                "dd mmm yyyy", "dd mmm yyyy hh:mm", "hh:mm")
+MONEY0 = "$#,##0"
+# the width a date format needs at 11 pt, so a column never shows ###
+_DATE_W = {DATE: 13.5, DATETIME: 18.5, TIME: 8, "dd/mm/yyyy": 12, "dd mmm": 9}
 TEXT = "@"
 
 
@@ -93,6 +96,24 @@ def _len(v):
     if isinstance(v, (dt.date, dt.datetime)):
         return 12
     return len(_s(v))
+
+
+def number_format_for(label, value):
+    """WHY (07 Nov 2026): a headline's format from what it IS - '159
+    high-value items' is a count, 0.69 same-day is a percent, a value or
+    an exposure is dollars. The old rule made any float or any label with
+    'value' in it dollars ('$0.69', '$159.00 high-value items')."""
+    lab = _s(label).lower()
+    if isinstance(value, float) and 0 <= value <= 1 and any(w in lab for w in ("%", "same-day", "same day", "rate", "share", "compliance", "coverage", "sop", "utilisation", "found", "in date")):
+        return PCT1
+    counts = any(w in lab for w in ("items", "units", "monitors", "radios", "batteries", "people", "hirers",
+                                     "companies", "assets", "rows", "barcodes", "draws", "transactions", "count"))
+    money = ("$" in lab or "value" in lab or "exposure" in lab or "cost" in lab or "spend" in lab or "price" in lab)
+    if money and not counts:
+        return MONEY0 if isinstance(value, (int, float)) and float(value).is_integer() else MONEY
+    if isinstance(value, float) and not float(value).is_integer():
+        return "#,##0.0"
+    return INT
 
 
 class Workbook:
@@ -191,8 +212,18 @@ class Workbook:
             c.border = HDR_BORDER
             c.alignment = Alignment(vertical="center", horizontal="center", wrap_text=True)
         ws.row_dimensions[2].height = 34
-        fmts = formats or {}
-        right = {i for i, f in fmts.items() if f in (INT, MONEY, PCT, PCT1, "#,##0.00", "0.0", "0")}
+        fmts = dict(formats or {})
+        # WHY (07 Nov 2026, QA): a money column of whole dollars prints whole
+        # dollars, as the PDF does ($2,695 not $2,695.00); an unpriced cell
+        # shows a dash, as the PDF does, not a blank; a date-time column whose
+        # every time is 00:00 is a date column (no fake "00:00")
+        for k, f in list(fmts.items()):
+            vals = [row[k] for row in rows if k < len(row)]
+            if f == MONEY and all((not isinstance(v, (int, float))) or float(v).is_integer() for v in vals):
+                fmts[k] = MONEY0
+            if f == DATETIME and vals and all((not isinstance(v, dt.datetime)) or (v.hour == 0 and v.minute == 0) for v in vals):
+                fmts[k] = DATE
+        right = {i for i, f in fmts.items() if f in (INT, MONEY, MONEY0, PCT, PCT1, "#,##0.00", "0.0", "0")}
         middle = {i for i, f in fmts.items() if f in (DATE, DATETIME, TIME)}
         wrap = set(wrap or ())
         for r, row in enumerate(rows, start=3):
@@ -201,6 +232,8 @@ class Workbook:
             for i, v in enumerate(row, start=1):
                 if isinstance(v, float) and v != v:        # NaN never lands in a cell
                     v = None
+                if v is None and fmts.get(i - 1) in (MONEY, MONEY0, PCT, PCT1):
+                    v = "-"                   # nothing to rate or price: a dash, as the PDF prints
                 c = ws.cell(row=r, column=i, value=v)
                 c.font = _font(11, total)
                 c.border = HAIR
@@ -225,6 +258,9 @@ class Workbook:
             else:
                 longest = max([len(_s(col))] + [_len(r[i - 1]) for r in rows[:500] if i - 1 < len(r)] or [10])
                 ws.column_dimensions[letter].width = min(max(longest + 2, 11), 60)
+            need = _DATE_W.get(fmts.get(i - 1))
+            if need and (ws.column_dimensions[letter].width or 0) < need:
+                ws.column_dimensions[letter].width = need
         ws.freeze_panes = "A3"
         if rows:
             last = len(rows) + 2
@@ -245,7 +281,10 @@ class Workbook:
         ws.sheet_properties.tabColor = _argb(SLATE)
         if hide:
             ws.sheet_state = "hidden"
-        self.tabs.append((name, len(rows), what))
+        # the Cover's row count is data rows - a TOTAL row is not one more company
+        n_data = sum(1 for row in rows if not (emphasis and emphasis(row))
+                     and not (row and isinstance(row[0], str) and row[0].strip().upper() in ("TOTAL", "TOTALS")))
+        self.tabs.append((name, n_data, what))
         return ws
 
     def _decorate(self, ws, rng, kind):
@@ -285,15 +324,25 @@ class Workbook:
             ws.conditional_formatting.add(rng, DataBarRule(start_type="num", start_value=0, end_type="num",
                                                            end_value=(args[0] if args else 1), color=ORANGE, showValue=True))
         elif kind == "yes_no":
-            fill, text, _b = RAG["red"]
-            ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"No"'],
-                                                          fill=_fill(fill), font=Font(color=_argb(text), bold=True)))
-            fill, text, _b = RAG["green"]
-            ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=['"Yes"'],
-                                                          fill=_fill(fill), font=Font(color=_argb(text), bold=True)))
+            # WHY (07 Nov 2026, QA): Yes is not always good - "Repeat" and
+            # "Hired after due" are Yes-is-bad columns. ("yes_no", "yes_bad")
+            # paints Yes red and leaves No plain; plain "yes_no" keeps Yes green, No red.
+            yes_bad = bool(args) and args[0] == "yes_bad"
+            for word, tone in ((("Yes", "red"),) if yes_bad else (("No", "red"), ("Yes", "green"))):
+                fill, text, _b = RAG[tone]
+                ws.conditional_formatting.add(rng, CellIsRule(operator="equal", formula=[f'"{word}"'],
+                                                              fill=_fill(fill), font=Font(color=_argb(text), bold=True)))
 
     def _tab_name(self, name):
-        name = re.sub(r"[\[\]\*\?/\\:]", "-", _s(name)).strip()[:31] or "Sheet"
+        name = re.sub(r"[\[\]\*\?/\\:]", "-", _s(name)).strip()
+        if len(name) > 31:
+            # WHY (07 Nov 2026): a clause, then whole words - 'What to buy - demand-backed
+            # (ranked ...)' is 'What to buy', never 'What to buy - demand-backed (ra'
+            short = re.split(r"\s+[-(]\s*|\s*,\s*", name)[0].strip()
+            if len(short) > 31 or len(short) < 4:
+                short = name[:31].rsplit(" ", 1)[0]
+            name = short
+        name = name[:31] or "Sheet"
         base, n = name, 2
         while name in self.wb.sheetnames:
             name = f"{base[:28]} {n}"
@@ -334,6 +383,10 @@ class Workbook:
             c.font = _font(10, True, WHITE); c.fill = _fill(SLATE); c.border = HDR_BORDER
             c.alignment = Alignment(horizontal="left" if i == 1 else "right", vertical="center", indent=1)
         for j, cat in enumerate(spec["cats"], start=1):
+            if isinstance(cat, (dt.date, dt.datetime)):
+                cat = cat.strftime("%d %b")       # a date category reads in house style
+            elif isinstance(cat, str) and re.match(r"^20\d\d-\d\d-\d\d$", cat):
+                cat = dt.datetime.strptime(cat, "%Y-%m-%d").strftime("%d %b")
             c = cd.cell(row=d + j, column=1, value=cat)
             c.font = _font(11); c.border = HAIR; c.alignment = Alignment(indent=1)
             if j % 2 == 0:
@@ -400,9 +453,17 @@ class Workbook:
                 col = 1 + k * 2
                 ws.merge_cells(start_row=r, start_column=col, end_row=r, end_column=col + 1)
                 c = ws.cell(row=r, column=col, value=value)
-                c.font = _font(20, True, WHITE); c.alignment = Alignment(vertical="center", indent=1)
+                # WHY (07 Nov 2026, QA): a number right-aligned beside a text
+                # tile read as one figure ("732" + "3 / 125" = "7323 / 125");
+                # every tile value sits left and shrinks to fit its tile
+                shown = _s(value)
                 if isinstance(value, (int, float)):
-                    c.number_format = INT if isinstance(value, int) else "#,##0.00"
+                    c.number_format = number_format_for(label, value)
+                    shown = f"{value:,.0f}" if float(value).is_integer() else f"{value:,.1f}"
+                    if c.number_format in (MONEY, MONEY0):
+                        shown = "$" + shown
+                size = 20 if len(shown) <= 8 else (16 if len(shown) <= 11 else 13)
+                c.font = _font(size, True, WHITE); c.alignment = Alignment(vertical="center", horizontal="left", indent=1)
                 ws.merge_cells(start_row=r + 1, start_column=col, end_row=r + 1, end_column=col + 1)
                 c = ws.cell(row=r + 1, column=col, value=(label.upper() + (f"  -  {sub}" if sub else "")))
                 c.font = _font(8.5, True, "F7A072"); c.alignment = Alignment(vertical="top", indent=1, wrap_text=True)
@@ -416,6 +477,7 @@ class Workbook:
             r = 7
         cd = self._chart_data_sheet() if self.charts else None
         row = r
+        pair_h = 0
         for n, spec in enumerate(self.charts):
             head, last = self._write_chart_table(cd, spec)
             kind = spec["kind"]
@@ -444,6 +506,8 @@ class Workbook:
                             titles_from_data=True)
                 ch.set_categories(Reference(cd, min_col=1, min_row=head + 1, max_row=last))
                 cols = spec["colours"] or [ORANGE, SLATE, "98A0AA", "E08A24", "409A55", "D0342C"]
+                per_point = (kind in ("bar", "col") and len(spec["series"]) == 1 and spec["colours"]
+                             and len(spec["colours"]) > 1)
                 for i, srs in enumerate(ch.series):
                     hexc = cols[i % len(cols)]
                     srs.graphicalProperties = GraphicalProperties(solidFill=hexc)
@@ -454,6 +518,24 @@ class Workbook:
                         srs.marker.graphicalProperties = GraphicalProperties(solidFill=hexc)
                         srs.marker.graphicalProperties.line = LineProperties(solidFill=hexc)
                         srs.smooth = False
+                if per_point:
+                    # WHY (07 Nov 2026, QA): an age chart is a colour per band
+                    # (green, amber, deep amber, red) - one colour per series
+                    # drew every band green
+                    for i in range(len(spec["cats"])):
+                        pt = DataPoint(idx=i)
+                        hx = cols[min(i, len(cols) - 1)]
+                        pt.graphicalProperties = GraphicalProperties(solidFill=hx)
+                        pt.graphicalProperties.line = LineProperties(solidFill=hx)
+                        ch.series[0].dPt.append(pt)
+                if len(spec["cats"]) > 6:
+                    try:
+                        from openpyxl.chart.text import RichText
+                        from openpyxl.drawing.text import CharacterProperties, Paragraph, ParagraphProperties
+                        ch.x_axis.txPr = RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=CharacterProperties(sz=800)),
+                                                               endParaRPr=CharacterProperties(sz=800))])
+                    except Exception:
+                        pass
                 ch.y_axis.majorGridlines = None
                 if kind == "bar":
                     ch.x_axis.scaling.orientation = "maxMin"
@@ -461,14 +543,25 @@ class Workbook:
                 ch.x_axis.tickMarkSkip = 1
                 if spec["fmt"]:
                     ch.y_axis.number_format = spec["fmt"]
+                if spec["fmt"] in ("0%", "0.0%"):
+                    # WHY (07 Nov 2026, QA): a rate axis runs 0% to 100% - starting
+                    # at 76% made an 80-86% band look like a cliff
+                    ch.y_axis.scaling.min = 0
+                    ch.y_axis.scaling.max = 1
                 self._finish(ch, spec["title"], legend=(spec["legend"] if spec["legend"] is not None
                                                         else ("b" if len(spec["series"]) > 1 else None)))
+            # WHY (07 Nov 2026, QA): a horizontal bar chart with many bars grows
+            # so every label prints (twelve families showed six names); the
+            # row step follows the taller chart of the pair
+            if kind in ("bar",) and len(spec["cats"]) > 8:
+                ch.height = round(max(ch.height, 0.62 * len(spec["cats"]) + 2.2), 1)
+            pair_h = max(pair_h, ch.height) if n % 2 == 1 else ch.height
             col = 1 if n % 2 == 0 else 7
             ws.add_chart(ch, f"{get_column_letter(col)}{row}")
             if n % 2 == 1:
-                row += 17
+                row += max(17, int(pair_h / 0.5) + 1)
         if self.charts and len(self.charts) % 2 == 1:
-            row += 17
+            row += max(17, int(pair_h / 0.5) + 1)
         self.print_setup(ws, NC, landscape=False, name="Dashboard", title_rows="1:1")
         ws.print_area = f"A1:L{max(row, 20)}"
         ws.page_setup.fitToHeight = 1
@@ -574,9 +667,9 @@ class Workbook:
                     note = item[2] if len(item) > 2 else ""
                     c1 = 1 + k * span; c2 = c1 + span - 1
                     merge(r, c1, c2)
-                    money = isinstance(value, float) or ("$" in _s(label)) or ("value" in _s(label).lower()) or ("exposure" in _s(label).lower()) or ("cost" in _s(label).lower())
+                    fmt_ = number_format_for(label, value)
                     if isinstance(value, (int, float)):
-                        put(r, c1, value, BIG, fmt=(MONEY if money else INT), align=Alignment(vertical="center", horizontal="left", indent=1))
+                        put(r, c1, value, BIG, fmt=fmt_, align=Alignment(vertical="center", horizontal="left", indent=1))
                     else:
                         put(r, c1, value, BIG, align=Alignment(vertical="center", horizontal="left", indent=1))
                     merge(r + 1, c1, c2)
@@ -638,7 +731,7 @@ class Workbook:
             r = heading(r, "Where the numbers came from")
             if sources:
                 c1 = 1
-                for text, span in (("Export", 3), ("Pulled from SiteIQ", 3), ("Used for", 6)):
+                for text, span in (("Source", 3), ("As at", 3), ("Used for", 6)):
                     merge(r, c1, c1 + span - 1)
                     put(r, c1, text, _font(10, True, WHITE), fill=_fill(SLATE), align=Alignment(vertical="center", indent=1))
                     for cc in range(c1, c1 + span):
@@ -647,14 +740,15 @@ class Workbook:
                 ws.row_dimensions[r].height = 20
                 r += 1
                 for n_, (f, pulled, used) in enumerate(sources):
-                    merge(r, 1, 3); put(r, 1, f, _font(10.5, True), align=Alignment(vertical="center", indent=1))
-                    merge(r, 4, 6); put(r, 4, pulled, _font(10.5), align=Alignment(vertical="center", horizontal="left", indent=1))
-                    merge(r, 7, NC); put(r, 7, used, _font(10.5, False, MUTED), align=Alignment(vertical="center", indent=1))
+                    merge(r, 1, 3); put(r, 1, f, _font(10.5, True), align=Alignment(vertical="center", indent=1, wrap_text=True))
+                    merge(r, 4, 6); put(r, 4, pulled, _font(10.5), align=Alignment(vertical="center", horizontal="left", indent=1, wrap_text=True))
+                    merge(r, 7, NC); put(r, 7, used, _font(10.5, False, MUTED), align=Alignment(vertical="center", indent=1, wrap_text=True))
                     for cc in range(1, NC + 1):
                         ws.cell(row=r, column=cc).border = BOTTOM
                         if n_ % 2:
                             ws.cell(row=r, column=cc).fill = _fill(ZEBRA)
-                    ws.row_dimensions[r].height = 18
+                    ws.row_dimensions[r].height = max(18, 15 * max(lines_needed(f, 28), lines_needed(pulled, 28),
+                                                                    lines_needed(used, 62)) + 5)
                     r += 1
             for text in ([self.hidden_note] if self.hidden_note else []) + list(notes or []):
                 merge(r, 1, NC)
@@ -683,6 +777,7 @@ class Workbook:
         self.wb.properties.creator = self.author
         self.wb.properties.title = f"Coates {self.client} {self.title}"
         self.wb.properties.subject = f"{self.project} - data as at {self.asat}"
+        tidy_workbook(self.wb)
         self.wb.save(path)
         return path
 
@@ -704,3 +799,39 @@ if __name__ == "__main__":
              notes=["Every figure is counted from the SiteIQ exports - nothing is estimated."])
     out = sys.argv[1] if len(sys.argv) > 1 else "coates_xlsx_selftest.xlsx"
     print("wrote", wb.save(out))
+
+
+_LONG_DASH = str.maketrans({"\u2013": "-", "\u2014": "-", "\u2212": "-"})
+
+
+def tidy_workbook(wb):
+    """WHY (07 Nov 2026, QA): the last pass before any workbook is saved -
+    the house rules hold in every cell, whoever wrote the tab. A long dash
+    (or its HTML entity) reads as a plain hyphen; a date stored with
+    Excel's ISO default ("2026-02-03") takes the house style (03 Feb 2026,
+    or 03 Feb 2026 14:05 when it carries a time); a data column too narrow
+    for its date format is widened so it never shows ###."""
+    from openpyxl.utils import get_column_letter as _gcl
+    iso = ("General", "yyyy-mm-dd h:mm:ss", "yyyy-mm-dd", "mm-dd-yy", "yyyy-mm-dd hh:mm:ss")
+    for ws in wb.worksheets:
+        fixed_grid = ws.title in ("Cover", "Dashboard")
+        need = {}
+        for row in ws.iter_rows():
+            for c in row:
+                v = c.value
+                if isinstance(v, str):
+                    if any(ch in v for ch in "\u2013\u2014\u2212") or "&ndash;" in v or "&mdash;" in v:
+                        c.value = v.translate(_LONG_DASH).replace("&ndash;", "-").replace("&mdash;", "-")
+                elif isinstance(v, (dt.datetime, dt.date)):
+                    if c.number_format in iso:
+                        timed = isinstance(v, dt.datetime) and (v.hour or v.minute)
+                        c.number_format = DATETIME if timed else DATE
+                    w = _DATE_W.get(c.number_format, 13.5 if "yy" in c.number_format else 0)
+                    if w and not fixed_grid:
+                        need[c.column] = max(need.get(c.column, 0), w)
+        for col, w in need.items():
+            letter = _gcl(col)
+            cur = ws.column_dimensions[letter].width
+            if cur is None or cur < w:
+                ws.column_dimensions[letter].width = w
+    return wb

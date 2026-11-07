@@ -105,14 +105,19 @@ def key_movement(fam, series):
     previous recorded day, or ("", "") with fewer than two days."""
     if len(series) < 2:
         return "", ""
-    (pday, pval), (_, val) = series[-2], series[-1]
+    (pday, pval), (lday, val) = series[-2], series[-1]
     diff = val - pval
-    when = datetime.strptime(pday, "%Y-%m-%d").strftime("%d %b")
+    # WHY (07 Nov 2026, QA): "since 06 Sep" on a daily page has to say what
+    # 06 Sep was - the pull the family's previous report was built on
+    hist = rh.load().get(fam, {})
+    when = "the " + str(hist.get(pday, {}).get("asat") or datetime.strptime(pday, "%Y-%m-%d").strftime("%d %b %Y")) + " pull"
     if diff == 0:
         return f"no change since {when}", "grey"
     arrow = "\u25b2" if diff > 0 else "\u25bc"
     mag = abs(diff)
     txt = f"{arrow} {mag:g}" if isinstance(mag, float) else f"{arrow} {mag:,}"
+    if "%" in str(((hist.get(lday) or {}).get("extra") or {}).get("key_value", "")):
+        txt += " point" if mag == 1 else " points"
     good = KEY_GOOD.get(fam)
     if good is None:
         return f"{txt} since {when}", "grey"
@@ -126,7 +131,9 @@ EXTRA_CSS = """
 .dp-sum .c .l { font-size: 8.4px; letter-spacing: 1.4px; text-transform: uppercase; margin-top: 4px; color: #1D1D1B; }
 .dp-sum .c.rd { background: #D0342C; } .dp-sum .c.a { background: #E08A24; color: #1D1D1B; }
 .dp-sum .c.a .l { color: #1D1D1B; } .dp-sum .c.g { background: #409A55; color: #1D1D1B; } .dp-sum .c.g .l { color: #1D1D1B; }
+.dp-sum .c.n0 { background: #F7F9FB; border: 1px solid #DDE1E7; color: #1D1D1B; }
 .dp-fresh { font-size: 9px; color: #5B6472; margin: 0 0 4px 0; }
+.key .red { color: #D0342C; }
 .dp-fresh b { color: #1D1D1B; }
 .fam { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .fam .fc { border: 1px solid #DDE1E7; border-left: 7px solid #5B6472; border-radius: 10px; background: #FFFFFF;
@@ -230,15 +237,24 @@ def build(run_day):
             f'<div class="c rd"><div class="n">{counts["red"]}</div><div class="l">Red - action needed</div></div>'
             f'<div class="c a"><div class="n">{counts["amber"]}</div><div class="l">Amber - at risk</div></div>'
             f'<div class="c g"><div class="n">{counts["green"]}</div><div class="l">Green - on track</div></div>'
-            f'<div class="c"><div class="n">{counts["none"]}</div><div class="l">Not recorded today</div></div></div>')
+            f'<div class="c n0"><div class="n">{counts["none"]}</div><div class="l">Not recorded today</div></div></div>')
     inner = (summ + f'<div class="dp-fresh">{fresh}</div>'
              + '<div class="sect" style="margin-top:6px"><h3>The six families - red first, then amber, then green, A to Z inside each</h3></div>'
              + f'<div class="fam">{"".join(cards)}</div>'
              + '<div class="dp-note">Every status, number and action on this page is the one the family\'s own report '
-               'printed on its page 1 this morning, read back from the movement scoreboard the report wrote '
-               '(History\\report_history.json). Nothing is counted or estimated here. The detail, the rules and '
-               'the data sources are in each family\'s PDF, named on its card.</div>')
-    asat_s = f"{min(asats):%d %b %Y %H:%M}" if asats else f"{date.fromisoformat(run_day):%d %b %Y}"
+               'printed on its position page this morning, read back from the record each report keeps when it builds. '
+               'Nothing is counted or estimated here. Movement on a card is measured against the pull that family\'s '
+               'previous report was built on, named on the card. Dollar figures are each report\'s own: gas monitor '
+               'exposure is the gas report\'s replacement charge of $2,000 a monitor out 30 days or more, the rule carried '
+               'from the Ampol Gas Monitor Report workbook; radio and tooling values are the replacement prices in the '
+               'Ampol master. The detail, the rules and the data sources are in each family\'s PDF, named on its card.</div>')
+    if asats:
+        lo, hi = min(asats), max(asats)
+        asat_s = (f"{lo:%d %b %Y %H:%M}" if hi == lo else
+                  f"{lo:%d %b %Y %H:%M} to {hi:%H:%M}" if hi.date() == lo.date() else
+                  f"{lo:%d %b %Y %H:%M} to {hi:%d %b %Y %H:%M}")
+    else:
+        asat_s = f"{date.fromisoformat(run_day):%d %b %Y}"
     gen_s = f"{now:%d %b %Y %H:%M}"
     page = sh.render_page(CONFIG, inner, 1, 1, gen_s, asat_s)
     doc = (f'<!doctype html><html lang="en"><head><meta charset="utf-8">'
@@ -252,16 +268,18 @@ def email_body(counts, asat_s, gen_s, rows, pdf_name):
     for _, _, key, name, button, ico, entry in rows:
         x = (entry or {}).get("extra") if entry else None
         if not x:
-            lines.append(f"<tr><td style='padding:4px 8px;color:#5B6472'>{esc(name)}</td><td style='padding:4px 8px' colspan='2'>no position recorded today</td></tr>")
+            lines.append(f"<tr><td style='padding:4px 8px;color:#5B6472'>{esc(name)}</td><td style='padding:4px 8px' colspan='3'>no position recorded today</td></tr>")
             continue
         col = sh.rag_colour(x.get("rag"))
         lines.append(f"<tr><td style='padding:4px 8px;font-weight:bold'>{esc(name)}</td>"
                      f"<td style='padding:4px 8px;color:{col};font-weight:bold'>{esc((x.get('rag') or '').upper())}</td>"
-                     f"<td style='padding:4px 8px'>{esc(str(x.get('key_value', '')))} {esc(x.get('key_label', ''))} - {esc(x.get('headline', ''))}</td></tr>")
+                     f"<td style='padding:4px 8px;text-align:right;font-weight:bold'>{esc(str(x.get('key_value', '')))}</td>"
+                     f"<td style='padding:4px 8px'>{esc(x.get('headline', ''))}</td></tr>")
     return (f"<html><body style='font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#1D1D1B'>"
             f"<p>Good morning,</p><p>The Ampol tool store position on one page is attached ({esc(pdf_name)}). "
             f"Today: {counts['red']} red, {counts['amber']} amber, {counts['green']} green"
             + (f", {counts['none']} not recorded" if counts['none'] else "") + ".</p>"
+            f"<p style='color:#5B6472;font-size:10pt'>Data as at {esc(asat_s)} (each family&rsquo;s own SiteIQ pull) &middot; built {esc(gen_s)}.</p>"
             f"<table style='border-collapse:collapse;font-size:10pt'>{''.join(lines)}</table>"
             f"<p>Each line is what that family's own report printed on its page 1 this morning; the detail is in that report.</p>"
             + (f"<p><b>{esc(ampol_options.client_line())}.</b></p>" if ampol_options.client_line() else "")

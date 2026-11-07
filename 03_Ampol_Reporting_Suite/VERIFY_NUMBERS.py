@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 VERIFY_NUMBERS - the truth table. Button 13.
 Author: Andrew Fisher | POWERED BY SITEIQ
 
@@ -97,6 +97,13 @@ def page_text(folder_glob):
 
 def fmt(n):
     return f"{n:,}" if isinstance(n, int) else str(n)
+
+
+def on_page(text, figure):
+    """True when the figure prints as a whole number on the page - '638'
+    inside '1,638' or '6380' does not count (07 Nov 2026: a bare substring
+    let a short figure match anywhere)."""
+    return re.search(r"(?<![\d,.])" + re.escape(figure) + r"(?![\d]|,\d)", text) is not None
 
 
 # ---------------------------------------------------------------- the counts
@@ -282,10 +289,21 @@ def count_everything():
     # ---- stocktake -----------------------------------------------------
     regset = {s(r["ITEM_BARCODE"]).upper() for r in reg if s(r["ITEM_BARCODE"])}
     onhire_set = {s(r["ITEM_BARCODE"]).upper() for r in reg if s(r["ITEM_STATUS"]) == "On Hire"}
-    countable, departed, instore, onhire = 0, 0, 0, 0
+    countable, departed, instore, onhire, ghosts = 0, 0, 0, 0, 0
+    # WHY (07 Nov 2026): a ghost line - no barcode of its own, a description
+    # that IS a barcode with its own proper line - is the same item twice
+    # (AMP088/025, AMP088/026, AMP533/002). The reports leave it out; so does
+    # this count, by the same rule.
+    own = {s(r["LATEST_BARCODE"]).upper() for r in st if s(r["TOOL_STORE"]) and s(r["LATEST_BARCODE"])}
+    ghost_re = re.compile(r"^[A-Z0-9&]{3,}[A-Z0-9&/\-]*\d$", re.I)
     for r in st:
         if not s(r["TOOL_STORE"]):
             continue
+        if not s(r["LATEST_BARCODE"]):
+            dsc = s(r.get("DESCRIPTION") or r.get("ITEM_DESCRIPTION") or "").strip()
+            if ghost_re.match(dsc) and dsc.upper() in own:
+                ghosts += 1
+                continue
         bc = s(r["LATEST_BARCODE"]).upper()
         status = s(r["SIGHTED_STATUS"]).upper()
         action = s(r["LAST_SIGHTED_ACTION"]).upper()
@@ -300,6 +318,7 @@ def count_everything():
     facts["stocktake: countable items"] = countable
     facts["stocktake: in store / on hire"] = f"{instore:,} / {onhire:,}"
     facts["stocktake: departed lines excluded"] = departed
+    facts["stocktake: ghost lines left out (a barcode in the description)"] = ghosts
 
     # ---- rigging register ------------------------------------------------
     rig_path = ampol_paths.find_data("Rigging*Register*.xlsx", "*Rigging*.xlsx")
@@ -365,6 +384,17 @@ CHECKS = [
     ("stocktake: departed lines excluded", "Stocktake/*.html", None),
     ("calibration: assets on register", "Calibrations/*.html", None),
     ("rigging: register rows / distinct barcodes", "Rigging/*.html", "pair"),
+    # WHY (07 Nov 2026, QA): every figure the table counts is now checked on
+    # the page that prints it - a blank verdict read as "not checked"
+    ("gas: on hire", "Gas_Monitors/*.html", None),
+    ("radio: radios on register", "Radios/*.html", None),
+    ("radio: batteries on register", "Radios/*.html", None),
+    ("tooling: Q1 / Q2 / Q3", "Tooling/*Quarterly*.html", "pair"),
+    ("stocktake: in store / on hire", "Stocktake/*.html", "pair"),
+    ("rigging: found in SiteIQ / not found", "Rigging/*.html", "pair"),
+    ("rigging: on hire (all accounts)", "Rigging/*.html", None),
+    ("calibration: in cal / due 30 / overdue / no date", "Calibrations/*.html", "pair"),
+    ("register: on hire", "Stocktake/*.html", None),
 ]
 
 
@@ -395,12 +425,12 @@ def main():
                 verdict = "MATCHES" if ok else "NOT FOUND ON PAGE"
                 fails += 0 if ok else 1
             elif check[2] == "pair":
-                a, b = [x.strip() for x in str(val).split("/")]
-                ok = fmt(int(a)) in text and fmt(int(b)) in text
+                parts = [x.strip() for x in str(val).split("/")]
+                ok = all(on_page(text, fmt(int(x.replace(',', '')))) for x in parts)
                 verdict = "MATCHES" if ok else "NOT FOUND ON PAGE"
                 fails += 0 if ok else 1
             else:
-                ok = fmt(val) in text
+                ok = on_page(text, fmt(val))
                 verdict = "MATCHES" if ok else "NOT FOUND ON PAGE"
                 fails += 0 if ok else 1
         lines.append(f"{key:46s} {fmt(val):>14s}   {verdict}")

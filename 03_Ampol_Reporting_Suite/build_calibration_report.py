@@ -243,7 +243,14 @@ def status_at(due, ref):
 
 
 def first_words(desc, n=2):
-    return " ".join(str(desc or "").split()[:n])
+    """The item family: the first words of the description. WHY (07 Nov
+    2026, QA): a word cut to one letter ('Hytorc j' of 'Hytorc j gun') or
+    a trailing dash or bracket is not a family - the next word joins it."""
+    words = str(desc or "").split()
+    k = n
+    while k < len(words) and (len(words[k - 1].strip("-(,")) <= 1 or words[k - 1].endswith(("-", "(", ","))):
+        k += 1
+    return " ".join(words[:k]).rstrip(" -(,")
 
 
 def as_dt(v):
@@ -295,7 +302,7 @@ def load_entry(path):
         rows.append({
             "asset": asset,
             "desc": desc,
-            "serial": str(cell(r, "Serial No")).strip(),
+            "serial": (lambda v: "-" if v.upper() in ("", "N/A", "NA", "-", "NONE") else v)(str(cell(r, "Serial No")).strip()),
             "cert": str(cell(r, "Certificate No.")).strip(),
             "cal_date": as_dt(cell(r, "Calibration Date")),
             "due": as_dt(cell(r, "Calibration Due")),
@@ -454,7 +461,7 @@ def derive(rows, view, live, asat_d, maint_d, refresh, audit_n):
         r["live_hirer"] = l["hirer"] if l else ""
         r["company"] = l["company"] if l else ""
         r["repairs_now"] = is_repairs(l["hirer"], l["company"]) if l else False
-        r["out"] = l["out"] if l else None
+        r["out"] = l["out"] if l and l["status"] == "On Hire" else None   # a store item has no current hire start
         r["issued_after_due"] = bool(l and l["status"] == "On Hire" and l["out"]
                                      and r["due"] and l["out"].date() > r["due"].date())
         r["reg"] = view.get(r["asset"].upper())
@@ -869,6 +876,16 @@ def plain(fragment):
     return _html.unescape(re.sub(r"<[^>]+>", "", fragment)).replace("\xa0", " ")
 
 
+def prev_pull(family, asat_dt):
+    """The pull the movement notes are measured against - the newest
+    earlier day on the scoreboard, as its report printed it ('06 Sep 2026
+    18:48'); '' on the first day. WHY (07 Nov 2026, QA): a note reading
+    "since 06 Sep" on a daily pack has to say what 06 Sep was."""
+    fam = rh.load().get(family, {})
+    days = sorted(dd for dd in fam if dd < asat_dt.date().isoformat())
+    return fam[days[-1]].get("asat", days[-1]) if days else ""
+
+
 def moved(key, asat_dt, value, good, note, ncls):
     """(note, class) for a tile: the movement since the previous recorded
     pull when there is one (report_history), else the tile's own note."""
@@ -923,28 +940,32 @@ def trend_page(asat_dt, d):
     trows = [[dd.strftime("%d %b %Y"), cell(ser["overdue"][i]), cell(ser["due30"][i]), cell(ser["incal"][i])]
              for i, dd in enumerate(days)][-10:]
     return f"""{psect("The trend - last 30 days")}
-{pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from {HIST_NAME} - every point is a figure a report printed on that day, nothing interpolated. A day with no run leaves a gap. The lines answer the one question a single pull cannot: is the overdue tail shrinking, and is the due-30 list being booked in before it lapses?', False)}
+{pcallout(f'<b>{num(len(days))} days on record</b> between {esc(first)} and {esc(last)}, read back from the report history - every point is a figure a report printed on that day, nothing interpolated. A day with no run leaves a gap. The lines answer the one question a single pull cannot: is the overdue tail shrinking, and is the due-30 list being booked in before it lapses?', False)}
 {psubh("Overdue, due inside 30 days and in calibration", "- assets at each pull, computed from Calibration Due")}
 {chartpanel(sh.line_chart(labels, [("Overdue", ser["overdue"]), ("Due inside 30 days", ser["due30"]), ("In calibration", ser["incal"])], y_label="assets", h=220))}
 {sh.dtable(["Pull day (last " + str(len(trows)) + " on record)", "Overdue", "Due inside 30 days", "In calibration"], trows, ["", "r", "r", "r"], "cp")}
 {pnote('The scoreboard holds exactly what each day&rsquo;s report printed - the same figures as the position page of that day&rsquo;s PDF. Numbers, not lines, are the record.')}"""
 
 
-def cal_rag(n_od, n_od_oh):
+def cal_rag(n_od, n_cust, n_rep=0):
     """The position-page RAG - the rule in CONFIG applied to the counts at
     the pull. Returns (status, headline, card_headline): the headline is
     HTML for the band; the card headline says the same in fewer words,
-    because the phone card draws a fixed box (two headline lines)."""
-    if n_od_oh >= CONFIG["rag_red_onhire"]:
-        return "red", (f'<b class="o">{num(n_od_oh)}</b> of the <b>{num(n_od)}</b> overdue assets '
-                       f'{isare(n_od_oh)} out on hire at the pull - a lapsed certificate in a '
-                       f'customer&rsquo;s hands until each one is swapped or recalled.'), (
-                       f'{num(n_od_oh)} of the {num(n_od)} overdue assets {isare(n_od_oh)} out on '
-                       f'hire - lapsed certificates in customers\' hands.')
+    because the phone card draws a fixed box (two headline lines).
+    WHY (07 Nov 2026, QA): an overdue asset on the repairs account is on
+    hire in SiteIQ but not in a customer's hands - the rule printed beside
+    the band counts repairs as off hire, so the band does too."""
+    rep_words = f' {num(n_rep)} more {isare(n_rep)} at repairs.' if n_rep else ''
+    if n_cust >= CONFIG["rag_red_onhire"]:
+        return "red", (f'<b class="o">{num(n_cust)}</b> of the <b>{num(n_od)}</b> overdue assets '
+                       f'{isare(n_cust)} with hirers at the pull - a lapsed certificate in a '
+                       f'customer&rsquo;s hands until each one is swapped or recalled.' + rep_words), (
+                       f'{num(n_cust)} of the {num(n_od)} overdue assets {isare(n_cust)} with '
+                       f'hirers - lapsed certificates in customers\' hands.')
     if n_od:
-        return "amber", (f'<b>{num(n_od)}</b> overdue {plural(n_od, "asset")}, none on hire - '
-                         f'the shelf and the not-in-SiteIQ list: a calibration run, not a chase.'), (
-                         f'{num(n_od)} overdue {plural(n_od, "asset")}, none on hire - a calibration '
+        return "amber", (f'<b>{num(n_od)}</b> overdue {plural(n_od, "asset")}, none with a hirer - '
+                         f'the shelf, repairs and the not-in-SiteIQ list: a calibration run, not a chase.'), (
+                         f'{num(n_od)} overdue {plural(n_od, "asset")}, none with a hirer - a calibration '
                          f'run, not a chase.')
     return "green", ('Nothing on the register is overdue at the pull - every dated asset is '
                      'inside its certificate.'), 'Nothing on the register is overdue at the pull.'
@@ -969,13 +990,18 @@ def three_things_calibration(d, S):
     who = f"Andrew Fisher · by {S['action_due_s']}"
     cands = []
     # 1. overdue and out on hire - the chase list, largest holder named
-    n_od_oh = len(d["now_od_onhire"])
-    if n_od_oh:
-        groups = d["now_chase_hirer"] or d["now_chase_repairs"]
-        top_h, top_items = max(groups, key=lambda kv: len(kv[1]))
-        cands.append((f"Swap or recall {num(n_od_oh)} overdue {plural(n_od_oh, 'asset')} out on hire",
-                      f"a lapsed certificate in a customer's hands - {top_h} holds the most "
-                      f"({num(len(top_items))})", who))
+    n_cust = sum(len(v) for _, v in d["now_chase_hirer"])
+    n_rep = sum(len(v) for _, v in d["now_chase_repairs"])
+    rep_tail = f"; {num(n_rep)} more at repairs" if n_rep else ""
+    if n_cust:
+        top_h, top_items = max(d["now_chase_hirer"], key=lambda kv: len(kv[1]))
+        most = (f"{ampol_names.hirer_label(top_h)} holds the most ({num(len(top_items))})"
+                if len(top_items) > 1 else "one each")
+        cands.append((f"Swap or recall the {num(n_cust)} overdue {plural(n_cust, 'asset')} with hirers",
+                      f"a lapsed certificate in a customer's hands - {most}{rep_tail}", who))
+    elif n_rep:
+        cands.append((f"Bring back the {num(n_rep)} overdue {plural(n_rep, 'asset')} at repairs",
+                      "recalibrated before it goes out again", who))
     # 2. due inside 30 days - the nearest date named
     n30 = len(d["now_due30"])
     if n30:
@@ -1002,9 +1028,11 @@ def three_things_calibration(d, S):
 # the PDF pages
 # =====================================================================
 
+# WHY (07 Nov 2026, QA): one colour, one meaning - the key on page 2 makes
+# NO DATE blue, so it is blue here too; in calibration stays in greens
 STATUS_ORDER = [("Current", K["green"]), ("Due 61-90 Days", "#4CC38A"),
-                ("Due 31-60 Days", K["blue"]), ("Due 0-30 Days", K["amber"]),
-                ("Overdue", K["red"]), ("No Date", "#5B6472")]
+                ("Due 31-60 Days", "#9BD3A8"), ("Due 0-30 Days", K["amber"]),
+                ("Overdue", K["red"]), ("No Date", K["blue"])]
 
 ROWS_STD = 16   # what a page holds cleanly under the K2 shell
 ROWS_CP = 26    # the compact table variant
@@ -1016,11 +1044,19 @@ def table_pages(title, lead, headers, aligns, rows, per_page, note, cls="cp"):
     on the first page, the note on every page, the title gets
     '(continued)' - an overflowing page never goes to a client."""
     chunks = [rows[i:i + per_page] for i in range(0, len(rows), per_page)] or [[]]
+    # WHY (07 Nov 2026, QA): a short tail (a quarter page or less) joins the
+    # page before it rather than sitting alone on a near-empty page; the
+    # layout check still proves the footer is clear
+    if len(chunks) > 1 and len(chunks[-1]) <= per_page // 4:
+        tail = chunks.pop()
+        chunks[-1] = chunks[-1] + tail
     pages = []
+    start = 0
     for k, chunk in enumerate(chunks):
         t = title if k == 0 else f"{title} (continued)"
-        run = (pnote(f'Rows {k * per_page + 1} to {k * per_page + len(chunk)} of {len(rows)}.')
+        run = (pnote(f'Rows {start + 1} to {start + len(chunk)} of {len(rows)}.')
                if len(chunks) > 1 else "")
+        start += len(chunk)
         body = (sh.dtable(headers, chunk, aligns, cls) if chunk
                 else pnote("Nothing to list - the source holds no rows for this table."))
         pages.append(f"{psect(t)}{lead if k == 0 else ''}{body}{run}{note}")
@@ -1042,23 +1078,29 @@ def build_pages(rows, d, S):
     refresh_short = S["refresh_short"]
     now_pct = len(d["now_dated_ok"]) / dated * 100 if dated else 0
     n_od, n_od_oh = len(d["now_overdue"]), len(d["now_od_onhire"])
+    n_cust = sum(len(v) for _, v in d["now_chase_hirer"])      # with a hirer
+    n_rep = sum(len(v) for _, v in d["now_chase_repairs"])     # on hire to the repairs account
+    rep_w = f', {num(n_rep)} at repairs' if n_rep else ""
     n_av, n_mi, n_ot = len(d["now_od_avail"]), len(d["now_od_missing"]), len(d["now_od_other"])
     n_l = len(d["lapsed"])
 
     # ---- P1 the position at the pull time -------------------------------
     if S["stale_days"] > STALE_DAYS:
-        banner = (f'<div class="stale"><span class="h">Due dates are {num(S["stale_days"])} days old - check the paperwork before sending</span>'
-                  f'Due dates last maintained <b>{esc(maint_short)}</b> (the register workbook&rsquo;s last save), '
+        # WHY (07 Nov 2026, QA): the banner is read by the client - it discloses
+        # how old the due dates are; the "check before sending" prompt is for
+        # Andrew and prints on the console only
+        banner = (f'<div class="stale"><span class="h">Due dates last maintained {esc(maint_short)} - {num(S["stale_days"])} days before this pull</span>'
+                  f'The register workbook was last saved on <b>{esc(maint_short)}</b>, '
                   f'<b>{num(S["stale_days"])} days</b> before the SiteIQ pull this report is built on. A certificate issued '
                   f'since then is not on the register yet - {num(n_l)} {plural(n_l, "asset")} fell due in that window '
-                  f'(page @@P:lapsed@@). New certificates go in the <b>Register Entry</b> tab; save and run again.</div>')
+                  f'(page @@P:lapsed@@); any of them recalibrated in the meantime leaves the overdue list once its certificate is entered.</div>')
     else:
         banner = ""
     fam = d["now_od_family"].most_common(2)
     if fam:
         fam_n = sum(n for _, n in fam)
         cause = (f'The overdue tail is <b>{esc(" and ".join(f0.lower() for f0, _ in fam))}</b> '
-                 f'({num(fam_n)} of the {num(n_od)}); <b class="rd">{num(n_od_oh)}</b> {isare(n_od_oh)} out on hire '
+                 f'({num(fam_n)} of the {num(n_od)}); <b class="rd">{num(n_cust)}</b> {isare(n_cust)} with hirers{rep_w} '
                  f'right now (the chase list, page @@P:chase@@) and {num(n_l)} fell due after the due dates were '
                  f'last maintained on {esc(maint_short)} (page @@P:lapsed@@)')
     else:
@@ -1072,11 +1114,14 @@ def build_pages(rows, d, S):
     # every tile: the count, then the movement since the previous recorded
     # pull where one exists (report_history), else the tile's own note
     where_spec = [
-        ("people", "chase", n_od_oh, "Overdue, on hire", "the chase list - page @@P:chase@@",
-         "red" if n_od_oh else "green", "down"),
+        ("people", "chase", n_od_oh, ("Overdue, on hire" + (f" - {num(n_rep)} at repairs" if n_rep else "")),
+         "the chase list - page @@P:chase@@", "red" if n_cust else "amber" if n_od_oh else "green", "down"),
         ("wrench", "overdue_shelf", n_av, "Overdue, on the shelf", "the calibration run - page @@P:shelf@@",
          "amber" if n_av else "green", "down"),
-        ("diamond", "not_in_siteiq", n_mi, "Overdue, not in SiteIQ", "whereabouts unknown - page @@P:missing@@",
+        # WHY (07 Nov 2026, QA): "not_in_siteiq" on the scoreboard is every
+        # register asset SiteIQ lacks; this tile is the OVERDUE ones only, so it
+        # reads its own figure - no movement until a day carrying it exists
+        ("diamond", "overdue_missing", n_mi, "Overdue, not in SiteIQ", "whereabouts unknown - page @@P:missing@@",
          "red" if n_mi else "green", "down"),
         ("layers", "nodate", n_nd, "No date",
          f"{num(len(d['nd_onhire_live']))} of them out on hire - page @@P:nodate@@",
@@ -1086,7 +1131,9 @@ def build_pages(rows, d, S):
     for ico, key, val, lab, note, ncls, good in where_spec:
         note, ncls = moved(key, asat_dt, val, good, note, ncls)
         where_items.append((ico, num(val), lab, note, ncls))
-    where_tiles = (prowlab("Where the overdue and No Date gear is - SiteIQ RENTAL_STOCK")
+    where_tiles = (prowlab("Where the overdue and No Date gear is - SiteIQ RENTAL_STOCK"
+                           + (f" · movement since the {esc(prev_pull('calibration', asat_dt))} pull"
+                              if prev_pull('calibration', asat_dt) else ""))
                    + sh.tiles_plus(where_items))
     # the position-page tiles carry a 30-day sparkline once there is an
     # earlier day on record
@@ -1102,10 +1149,10 @@ def build_pages(rows, d, S):
         tiles1.append((ico, num(val), lab, note, ncls, spark_of(key, asat_dt, val)))
     # the RAG line: the rule lives in CONFIG and is printed beside the result;
     # the next action is dated from the pull, not from today's clock
-    status, headline, card_headline = cal_rag(n_od, n_od_oh)
-    rule = (f'Red when {num(CONFIG["rag_red_onhire"])} or more overdue assets are out on hire; '
+    status, headline, card_headline = cal_rag(n_od, n_cust, n_rep)
+    rule = (f'Red when {num(CONFIG["rag_red_onhire"])} or more overdue assets are with a hirer; '
             f'Amber when overdue assets are off hire only (shelf, repairs or not in SiteIQ); '
-            f'Green when nothing is overdue. <b>Default line - set in CONFIG.</b>')
+            f'Green when nothing is overdue.')
     action = (f'Chase list to each hirer on next touch; calibration run for the {num(n_av)} shelf '
               f'{plural(n_av, "item")} booked - by <b>{esc(S["action_due_s"])}</b>. Certificates '
               f'issued since {esc(maint_short)} entered in Register Entry.')
@@ -1132,12 +1179,12 @@ def build_pages(rows, d, S):
     story = (f'<span class="lead">The story.</span> <b>{num(total)}</b> assets on the register at the pull: '
              f'<b class="g">{num(len(d["now_incal"]))}</b> in calibration, '
              f'<b class="a">{num(len(d["now_due30"]))}</b> due inside 30 days, '
-             f'<b class="rd">{num(n_od)}</b> overdue ({num(n_od_oh)} out on hire) and '
+             f'<b class="rd">{num(n_od)}</b> overdue ({num(n_cust)} with hirers{rep_w}) and '
              f'<b>{num(n_nd)}</b> with no certificate date. {num(n_l)} fell due since the due dates '
              f'were last maintained on {esc(maint_short)}.')
     print(f"Story callout        : {story_words(story)} words (position page, three lines at most)")
     P.append(f"""<div class="pos">{banner}{band}
-{prowlab(f"At {esc(asat_s)} - computed from Calibration Due and the SiteIQ pull")}
+{prowlab(f"At {esc(asat_s)} - computed from Calibration Due and the SiteIQ pull" + (f" · movement since the {esc(prev_pull('calibration', asat_dt))} pull" if prev_pull('calibration', asat_dt) else ""))}
 {sh.tiles_plus(tiles1)}
 {sh.three_things(three_things_calibration(d, S))}
 {pcallout(story)}</div>""")
@@ -1146,8 +1193,8 @@ def build_pages(rows, d, S):
     mark("scorecard")
     P.append(f"""{psect("The scorecard - the arithmetic behind the position")}
 {pcallout(
-        f'<span class="lead">The position, in full.</span> As at <b>{esc(asat_s)}</b> - the SiteIQ pull - the register holds '
-        f'<b>{num(total)} assets on the calibration register</b>: '
+        f'<span class="lead">The position, in full.</span> As at <b>{esc(asat_s)}</b> - the SiteIQ pull - the calibration register holds '
+        f'<b>{num(total)} assets</b>: '
         f'<b class="g">{num(len(d["now_incal"]))} in calibration</b>, '
         f'<b class="a">{num(len(d["now_due30"]))} due inside 30 days</b>, '
         f'<b class="rd">{num(n_od)} overdue</b> and '
@@ -1155,7 +1202,7 @@ def build_pages(rows, d, S):
         f'No Date means status unknown until the certificate is entered - page @@P:nodate@@.', False)}
 <table class="two" style="margin-top:8px"><tr>
   <td style="width:31%"><div class="donut-wrap">
-    {sh.donut(round(now_pct), sh.health_hex(round(now_pct)), f"{now_pct:.0f}%", "IN DATE")}
+    {sh.donut(round(now_pct), sh.rag_hex(round(now_pct)), f"{now_pct:.0f}%", "IN DATE")}
     <div class="donut-cap">Dated assets inside their due date at {esc(asat_day)}</div></div></td>
   <td style="padding-left:10px">{sh.score_rows([
         ("Dated fleet in date", round(now_pct),
@@ -1179,18 +1226,18 @@ def build_pages(rows, d, S):
             delta = a - b
             dcell = (f'<span class="rd">+{num(delta)}</span>' if delta > 0 and lab == "Overdue"
                      else f'<span class="g">+{num(delta)}</span>' if delta > 0
-                     else f'{num(delta)}' if delta < 0 else dash())
+                     else f'{num(delta)}' if delta < 0 else "0")
             cmp_rows.append([esc(lab), num(a), num(b), dcell])
         cmp_rows.append(["<b>All assets on the register</b>", f"<b>{num(total)}</b>",
-                         f"<b>{num(d['view_n'])}</b>", dash()])
+                         f"<b>{num(d['view_n'])}</b>", f"<b>{num(total - d['view_n'])}</b>"])
         zero = len(d["reg_zero_day"])
         check = (f'Cross-check: applying the same thresholds at {esc(refresh_short)} reproduces the register&rsquo;s own status on all {num(d["view_n"])} of its lines (0 differences) - the rule used here is the register&rsquo;s rule.'
                  if d["rule_mismatch"] == 0 else
                  f'Cross-check: applying the same thresholds at {esc(refresh_short)} differs from the register&rsquo;s own status on {num(d["rule_mismatch"])} of {num(d["view_n"])} lines - read the comparison with that in mind.')
         view_words = (f'The register also carries its own status columns, last refreshed <b>{esc(S["refresh_s"])}</b>; they are printed '
                       f'here, labelled, so the two can be read side by side. Between the two dates nothing in the register changed; '
-                      f'the calendar did: {num(len(d["reg_due30_lapsed"]))} of the register&rsquo;s '
-                      f'{num(len(d["reg_due30"]))} &ldquo;due 0-30 days&rdquo; have since fallen due'
+                      f'the calendar did: {("all " + num(len(d["reg_due30"])) + " of the register&rsquo;s") if len(d["reg_due30_lapsed"]) == len(d["reg_due30"]) and len(d["reg_due30"]) > 1 else (num(len(d["reg_due30_lapsed"])) + " of the register&rsquo;s " + num(len(d["reg_due30"])))} '
+                      f'&ldquo;due 0-30 days&rdquo; {"has" if len(d["reg_due30_lapsed"]) == 1 else "have"} since fallen due'
                       + (f', {num(zero)} of them printed as 0 days remaining on {esc(refresh_short)}' if zero else '')
                       + '.')
         body2 = f"""{psubh(f"Computed at {asat_day} against the register&rsquo;s own view at {refresh_short}", "- by status")}
@@ -1220,7 +1267,7 @@ def build_pages(rows, d, S):
     mark("lapsed")
     P.extend(table_pages(
         f"Fell due since the due dates were last maintained - {maint_short} to {win_end}",
-        pcallout(f'<b class="rd">{num(n_l)} {plural(n_l, "asset")}</b> passed the calibration due date between {esc(maint_short)}, when the register workbook was last saved, and the SiteIQ pull. {"It counts" if n_l == 1 else "They count"} in the {num(n_od)} overdue. A certificate issued in that window would not be on the register yet, so check the paperwork first: recalibrated means enter it in the Register Entry tab and this list shrinks on the next run; not recalibrated means a calibration run (in store) or a swap on next touch (on hire). Where SiteIQ has {"it" if n_l == 1 else "them"} at {esc(asat_s)}: {esc(l_words) if l_words else "nothing to place"}.', False),
+        pcallout(f'<b class="rd">{num(n_l)} {plural(n_l, "asset")}</b> passed the calibration due date between {esc(maint_short)}, when the register workbook was last saved, and the SiteIQ pull. {"It counts" if n_l == 1 else "They count"} in the {num(n_od)} overdue. A certificate issued in that window is not on the register yet - once it is entered, the asset leaves this list on the next run. An asset not yet recalibrated needs a calibration run (in store) or a swap on next touch (on hire). Where SiteIQ has {"it" if n_l == 1 else "them"} at {esc(asat_s)}: {esc(l_words) if l_words else "nothing to place"}.', False),
         ["Asset", "Description", "Was due", "Over by", f"Where at {asat_day}", "Who has it"],
         ["", "", "r", "r", "c", ""], lrows, ROWS_CP,
         pnote(f'Over by = days past the due date at {esc(asat_s)}, computed. Where = SiteIQ RENTAL_STOCK status: &ldquo;In store&rdquo; is SiteIQ&rsquo;s &ldquo;Available for Hire&rdquo;; &ldquo;not in SiteIQ&rdquo; means the asset number is not in the pull at all - whereabouts unknown until it is found and scanned. Nothing here is estimated.')))
@@ -1231,10 +1278,21 @@ def build_pages(rows, d, S):
               fmt_days(r["now_days"]), where_cell(r), who_cell(r)] for r in d30]
     recon = ""
     if d["have_view"]:
-        recon = (f' For comparison, the register&rsquo;s own view at {esc(refresh_short)} had {num(len(d["reg_due30"]))} inside 30 days: '
-                 f'{num(len(d["reg_due30_lapsed"]))} have since fallen due (page @@P:lapsed@@), {num(len(d["reg_due30_still"]))} '
-                 f'{"remains" if len(d["reg_due30_still"]) == 1 else "remain"} inside 30 days, and {num(len(d["reg_due30_new"]))} '
-                 f'{"has" if len(d["reg_due30_new"]) == 1 else "have"} moved in from 31-60 days - {num(len(d30))} today.')
+        # WHY (07 Nov 2026, QA): the ones inside 30 days today are said as the
+        # register had them at its refresh - never "moved in from 31-60" unless
+        # that is where they were
+        new = d["reg_due30_new"]
+        was = Counter((r["reg"]["status"] if r["reg"] and r["reg"]["status"] else "not in the register's view")
+                      for r in new)
+        was_words = ", ".join(f'{esc(k.lower())} {num(n)}' for k, n in was.most_common())
+        n_lap, n_reg30, n_still = len(d["reg_due30_lapsed"]), len(d["reg_due30"]), len(d["reg_due30_still"])
+        recon = (f' For comparison, the register&rsquo;s own view at {esc(refresh_short)} had {num(n_reg30)} inside 30 days: '
+                 f'{"all " + num(n_lap) if n_lap == n_reg30 and n_lap > 1 else num(n_lap)} '
+                 f'{"has" if n_lap == 1 else "have"} since fallen due (page @@P:lapsed@@) and {num(n_still)} '
+                 f'{"remains" if n_still == 1 else "remain"} inside 30 days.'
+                 + (f' The {num(len(new))} {"that has" if len(new) == 1 else "that have"} come inside 30 days since '
+                    f'{"was" if len(new) == 1 else "were"} further out at {esc(refresh_short)} - {was_words} in the register&rsquo;s view.'
+                    if new else ''))
     mark("due30")
     P.extend(table_pages(
         f"Due inside 30 days at {asat_day} - book these in now",
@@ -1285,7 +1343,7 @@ def build_pages(rows, d, S):
     P.append(f"""{psect(f"Overdue and on hire at {asat_day} - the chase list, by name")}
 {pcallout(f'<b class="rd">{num(n_od_oh)} overdue {plural(n_od_oh, "asset")} {isare(n_od_oh)} out on hire at {esc(asat_s)}</b> - register due dates joined to the SiteIQ RENTAL_STOCK pull (the register&rsquo;s own on-hire flag is page @@P:regchase@@). {num(n_h)} {isare(n_h)} with a hirer - a swap or recall on next touch - and {num(n_r)} {"sits" if n_r == 1 else "sit"} on the repairs account. Names A to Z, worst item first inside a name. {after_words}', False)}
 {body5}
-{pnote(f'Hirers A to Z, worst item first inside a name; overdue by = days past the due date at {esc(asat_s)}, computed. Out since = SiteIQ ON_HIRE_DATE for the current hire; the red tag marks a hire that started after the calibration due date. Every one of these is a counter conversation on next touch - swap organised, certificate sorted, no drama.' + after_detail)}""")
+{pnote(f'Hirers A to Z, worst item first inside a name; overdue by = days past the due date at {esc(asat_s)}, computed. Out since = SiteIQ ON_HIRE_DATE for the current hire; the red tag marks a hire that started after the calibration due date. Each one is a conversation at the counter on next touch: a swap organised and the certificate sorted.' + after_detail)}""")
 
     # ---- P6 the register's own chase list - comparison ------------------
     if d["have_view"]:
@@ -1318,12 +1376,16 @@ def build_pages(rows, d, S):
         n_ro = len(d["reg_od_onhire"])
         mark("regchase")
         P.append(f"""{psect(f"The register&rsquo;s own chase list at {refresh_short} - for comparison")}
-{pcallout(f'At its Last Refresh the register&rsquo;s own columns flagged <b>{num(n_ro)} overdue {plural(n_ro, "asset")} as on hire</b> - {num(rh)} with a hirer, {num(rr)} on the repairs account. Checked against SiteIQ at {esc(asat_s)}: <b>{num(len(d["reg_chase_back"]))}</b> {isare(len(d["reg_chase_back"]))} back in store and <b>{num(len(d["reg_chase_still"]))}</b> still out. Printed so the register&rsquo;s figure and the computed one can be read side by side; the list to work is page @@P:chase@@.', False)}
+{pcallout(f'At its Last Refresh the register&rsquo;s own columns flagged <b>{num(n_ro)} overdue {plural(n_ro, "asset")} as on hire</b> - {num(rh)} with a hirer, {num(rr)} on the repairs account. Checked against SiteIQ at {esc(asat_s)}: <b>{num(len(d["reg_chase_back"]))}</b> {isare(len(d["reg_chase_back"]))} back in store, <b>{num(len(d["reg_chase_still"]))}</b> still out{(f" and <b>{num(n_ro - len(d['reg_chase_back']) - len(d['reg_chase_still']))}</b> not in SiteIQ at all") if n_ro - len(d['reg_chase_back']) - len(d['reg_chase_still']) else ""}. Printed so the register&rsquo;s figure and the computed one can be read side by side; the list to work is page @@P:chase@@.', False)}
 {body6}
 {pnote(f'&ldquo;Over at {esc(refresh_short)}&rdquo; is the register&rsquo;s own Days Remaining at its Last Refresh, verbatim. &ldquo;Where at {esc(asat_day)}&rdquo; is SiteIQ RENTAL_STOCK at {esc(asat_s)}. An item back in store is still overdue - it moves to the calibration run on page @@P:shelf@@, not off the list.')}""")
 
     # ---- P7 overdue, not on hire ----------------------------------------
-    unit_words = ", ".join(f'{esc(u)} {num(n)}' for u, n in d["now_od_avail_units"].most_common(4))
+    _units = d["now_od_avail_units"].most_common()
+    unit_words = ", ".join(f'{esc(u)} {num(n)}' for u, n in (_units if len(_units) <= 6 else _units[:5]))
+    if len(_units) > 6:
+        _rest = _units[5:]
+        unit_words += f' and {num(sum(n for _, n in _rest))} more across {num(len(_rest))} other bays'
     grows = [[esc(desc), esc(unit), num(len(assets)),
               esc(", ".join(sorted(assets)))] for (desc, unit), assets in d["now_od_avail_groups"]]
     mrows = [[esc(r["asset"]) or dash(), esc(r["desc"]) or dash(), fmt_due(r),
@@ -1333,14 +1395,22 @@ def build_pages(rows, d, S):
              for r in d["now_od_missing"]]
     orows = [[esc(r["asset"]) or dash(), esc(r["desc"]) or dash(), fmt_due(r),
               fmt_days(r["now_days"], overdue=True), esc(r["where"])] for r in d["now_od_other"]]
+    n_mi_onreg = sum(1 for r in d["now_od_missing"] if r["reg"] and str(r["reg"]["onhire"]).strip().lower() == "yes")
     lead7 = pcallout(
-        f'<b>{num(n_av + n_mi + n_ot)} of the {num(n_od)} overdue assets are not on hire</b> at {esc(asat_s)}. '
+        f'<b>{num(n_av + n_mi + n_ot)} of the {num(n_od)} overdue assets are not on hire in SiteIQ</b> at {esc(asat_s)}. '
         f'<b>{num(n_av)}</b> {isare(n_av)} on the shelf in SiteIQ (&ldquo;Available for Hire&rdquo;'
         + (f' - {unit_words}' if unit_words else "") + ') - a calibration run, not a chase: batch them to the calibrator and each comes back onto the dated fleet. '
         f'<b>{num(n_mi)}</b> {isare(n_mi)} <b>not in the SiteIQ RENTAL_STOCK at all - whereabouts unknown</b> until '
-        f'{"it is" if n_mi == 1 else "they are"} found and scanned.'
+        f'{"it is" if n_mi == 1 else "they are"} found and scanned'
+        + (f' ({num(n_mi_onreg)} of them on hire in the register&rsquo;s own view at {esc(refresh_short)})' if n_mi_onreg else '')
+        + '.'
         + (f' {num(n_ot)} {"carries" if n_ot == 1 else "carry"} another SiteIQ status - listed as written.' if n_ot else ""), False)
-    note7 = pnote(f'Shelf list grouped by description and SiteIQ bay so a calibration run can be batched; every asset number is printed. Overdue by = days past the due date at {esc(asat_s)}, computed. Not-in-SiteIQ rows show the register&rsquo;s own bay and on-hire flag at {esc(refresh_short)} where it has one - nothing newer exists for them.')
+    note_shelf = (f'Shelf list grouped by description and SiteIQ bay so a calibration run can be batched; every asset '
+                  f'number is printed. Overdue by = days past the due date at {esc(asat_s)}, computed.')
+    note_miss = (f'Not in SiteIQ = the asset number is not in the RENTAL_STOCK pull at all. The bay and on-hire flag shown '
+                 f'are the register&rsquo;s own at {esc(refresh_short)} where it has one - nothing newer exists for them. '
+                 f'Overdue by = days past the due date at {esc(asat_s)}, computed.')
+    note7 = pnote(note_shelf + " " + note_miss)
     tail7 = ""
     if mrows:
         tail7 += psubh("Not in SiteIQ - whereabouts unknown", f"- {num(n_mi)} {plural(n_mi, 'asset')}")
@@ -1356,20 +1426,20 @@ def build_pages(rows, d, S):
     mark("shelf")
     marks["missing"] = marks["shelf"]
     if len(grows) + len(mrows) + len(orows) <= 20:
-        P.append(f"""{psect(f"Overdue, not on hire at {asat_day} - the calibration run")}
+        P.append(f"""{psect(f"Overdue, on the shelf or not in SiteIQ at {asat_day}")}
 {lead7}
 {shelf_sub}
 {sh.dtable(shelf_h, grows, shelf_a, "cp") if grows else pnote("Nothing overdue is on the shelf in SiteIQ at the pull time.")}
 {tail7}
 {note7}""")
     else:
-        P.extend(table_pages(f"Overdue, not on hire at {asat_day} - the calibration run", lead7 + shelf_sub,
-                             shelf_h, shelf_a, grows, ROWS_CP, note7))
+        P.extend(table_pages(f"Overdue, on the shelf at {asat_day} - the calibration run", lead7 + shelf_sub,
+                             shelf_h, shelf_a, grows, ROWS_CP, pnote(note_shelf)))
         if tail7:
             mark("missing")
-            P.append(f"""{psect(f"Overdue, not on hire at {asat_day} - not in SiteIQ")}
+            P.append(f"""{psect(f"Overdue and not in SiteIQ at {asat_day} - whereabouts unknown")}
 {tail7}
-{note7}""")
+{pnote(note_miss)}""")
 
     # ---- P8 the No Date position ----------------------------------------
     nd = d["nodate"]
@@ -1387,7 +1457,7 @@ def build_pages(rows, d, S):
     nd_fam_words = ", ".join(f'{esc(f.lower())} {num(n)}' for f, n in d["nd_onhire_family"].most_common(4))
     mark("nodate")
     P.append(f"""{psect("No date - calibration status unknown until the certificate is entered")}
-{pcallout(f'<b>{num(len(nd))} assets</b> sit on the register with no calibration due date entered. Say it straight: their <b>calibration status is unknown</b> - the register cannot say whether they are in date, and neither can this report, until the certificate details are entered. They are not counted as failed and not counted as in date. <b class="a">{num(n_ndl)} of them {isare(n_ndl)} out on hire at {esc(asat_s)}</b>' + (f' ({nd_fam_words})' if nd_fam_words else "") + f'. {num(len(d["nd_missing"]))} {isare(len(d["nd_missing"]))} not in SiteIQ at all. {num(d["nd_serial"])} {"carries" if d["nd_serial"] == 1 else "carry"} a serial number. Each certificate entered moves an asset from this page onto the dated fleet on page @@P:scorecard@@ - that is the fill-in work under way, and the on-hire ones come first.', False)}
+{pcallout(f'<b>{num(len(nd))} assets</b> sit on the register with no calibration due date entered. Their <b>calibration status is unknown</b> - the register cannot say whether they are in date, and neither can this report, until the certificate details are entered. They are not counted as failed and not counted as in date. <b class="a">{num(n_ndl)} of them {isare(n_ndl)} out on hire at {esc(asat_s)}</b>' + (f' ({nd_fam_words})' if nd_fam_words else "") + f'. {num(len(d["nd_missing"]))} {isare(len(d["nd_missing"]))} not in SiteIQ at all. {num(d["nd_serial"])} {"carries" if d["nd_serial"] == 1 else "carry"} a serial number. Each certificate entered moves an asset from this page onto the dated fleet on page @@P:scorecard@@ - that is the fill-in work under way, and the on-hire ones come first.', False)}
 {psubh("Where they sit", f"- No Date assets by SiteIQ bay at {asat_day}, top {len(units_top)} of {len(d['nd_units'])}")}
 {chartpanel(sh.hbars([(u, n) for u, n in units_top], colour=K["blue"]))}
 {psubh("What they are", f"- by item family, top {len(fam_top)} of {len(d['nd_family'])}")}
@@ -1413,18 +1483,21 @@ def build_pages(rows, d, S):
 {chartpanel(sh.hbars([(f, n, num(n)) for f, n in famrows], colour=K["orange"]))}
 {psubh("Looks like calibration-type gear", f"- keyword match, {num(n_kw)} rows across {num(d['kw_hirers'])} {plural(d['kw_hirers'], 'hirer')} - verify before acting")}
 {sh.dtable(["Kind", "Rows", "Hirers", "Most common description"], krows, ["", "r", "r", ""], "cp") if krows else pnote("No row on hire matches the keyword rule.")}
-{pnote(f'Keyword rule: the SiteIQ description contains any of <b>{esc(CAL_RULE_WORDS)}</b>, and none of Dr&auml;ger / X-am / gas monitor, sling, chain block. Excluded and counted separately: {num(d["kw_gas"])} gas-monitor rows (their own programme and report) and {num(d["kw_lift"])} sling and chain-block rows ({num(d["kw_chain"])} chain blocks - lifting gear, the Rigging &amp; Lifting Register report). A match is a prompt to check, not a finding.')}""")
+{pnote(f'Keyword rule: the SiteIQ description contains any of <b>{esc(CAL_RULE_WORDS)}</b>, and none of Dr&auml;ger / X-am / gas monitor, sling, chain block. Excluded and counted separately: {num(d["kw_gas"])} gas-monitor rows (their own programme and report) and {num(d["kw_lift"])} sling and chain-block rows ({num(d["kw_chain"])} chain blocks - lifting gear, the Rigging &amp; Lifting Register report). A match is a prompt to check, not a finding. The item families above group every on-hire SiteIQ line that is not on this register - all accounts, custody and out-of-service lines included - by description keyword, so they are not the family reports&rsquo; counts: the Site Radios report counts radios and batteries on hire to customers, and the Rigging &amp; Lifting Register report counts the items on its own register.')}""")
 
     # ---- P10+ the keyword slice, every row ------------------------------
-    kwrows = [[esc(desc), esc(ampol_names.display_person(hirer))
-               + (f" ({esc(ampol_names.display_company(co))})" if co else ""),
+    def who_co(hirer, co):
+        who = ampol_names.hirer_label(hirer) if hirer else "-"
+        cos = ampol_names.display_company(co) if co else ""
+        return esc(who) + (f' &middot; {esc(cos)}' if cos and cos.lower() not in who.lower() else "")
+    kwrows = [[esc(desc), who_co(hirer, co),
                num(len(bcs)), esc(", ".join(sorted(bcs)))]
               for (kind, desc, hirer, co), bcs in d["kw_groups"]]
     mark("kw")
     P.extend(table_pages(
         "Looks like calibration-type gear, on hire and not in the register",
-        pcallout(f'<b>{num(n_kw)} rows</b> on hire at {esc(asat_s)} match the keyword rule on page @@P:nir@@, grouped by description and hirer - {num(len(kwrows))} lines, every barcode printed, in the order of the kinds table on that page. Work it like the register&rsquo;s dashboard says: add it to the register or confirm it needs no calibration certificate. <b>Keyword match, verify before acting</b> - a Fluke connector or a hand pump matches the word, not the need.', False),
-        ["SiteIQ description", "Who has it (company)", "Qty", "Barcodes"],
+        pcallout(f'<b>{num(n_kw)} rows</b> on hire at {esc(asat_s)} match the keyword rule on page @@P:nir@@, grouped by description and hirer - {num(len(kwrows))} lines, every barcode printed, in the order of the kinds table on that page. For each one, add it to the register or confirm it needs no calibration certificate. <b>Keyword match, verify before acting</b> - a Fluke connector or a hand pump matches the word, not the need.', False),
+        ["SiteIQ description", "Who has it · company", "Qty", "Barcodes"],
         ["", "", "r", ""], kwrows, ROWS_KW,
         pnote(f'Source: SiteIQ RENTAL_STOCK at {esc(asat_s)} - description, hirer and company as SiteIQ has them. Nothing here is a compliance finding until the item is checked.')))
 
@@ -1458,12 +1531,12 @@ def build_pages(rows, d, S):
     ])
     former_live = d["former_live"]
     n_days = history_days("calibration", asat_dt)
-    trend_line = (f'Trend page: appears once seven days are on record ({num(n_days)} today).'
+    trend_line = (f'The trend chart starts once seven days of reports are on record ({num(n_days)} so far).'
                   if n_days < 7 else
-                  f'Trend page: {num(n_days)} days on record - the 30-day lines are on page @@P:trend@@.')
+                  f'{num(n_days)} days of reports are on record - the 30-day lines are on page @@P:trend@@.')
     P.append(f"""{psect("How the calibrated fleet is run")}
 {cards}
-{pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change. Each run writes its figures to {HIST_NAME} keyed on the pull day; the next run reads them back for the movement notes. {trend_line}')}
+{pnote(f'Names as shown: the site is Ampol. SiteIQ still carries the site&rsquo;s former name on {num(former_live)} live-register lines and the register on some descriptions; every one is shown here under the current name. Asset numbers and barcodes are identifiers and never change. Each report records its figures by pull day, and the next report measures its movement notes against them. {trend_line}')}
 {sh.coates_way_panel(traits=(4, 5), disciplines=(1, 6), line="a lapsed certificate is a stop-the-task risk; the register is the one standard record and every overdue asset has an owner and a date")}
 {psect("Meet the tool store team")}
 {pnote(f'The crew running your {esc(CONFIG["client"])} store - keeping the register true, the certificates current and the gear ready. Something not right? Tell us and we&rsquo;ll sort it.')}
@@ -1483,6 +1556,7 @@ EXTRA_CSS = """
 .stale b { color:#B91C1C; font-weight:700; }
 .stale .h { display:block; color:#B91C1C; font-weight:700; text-transform:uppercase;
             letter-spacing:1.4px; font-size:8.6px; margin-bottom:3px; }
+.key .red { color:#D0342C; }   /* WHY (07 Nov 2026, QA): a red key dot prints red */
 .rowlab { margin:9px 0 -5px 0; font-size:8.4px; font-weight:700; letter-spacing:1.5px;
           text-transform:uppercase; color:#5B6472; }
 .pos .tiles td { padding:10px 9px 9px 9px; }
@@ -1492,7 +1566,7 @@ EXTRA_CSS = """
 
 
 # the pack's closing sections - never listed on the cover
-CLOSING_HEADINGS = ("How the calibrated fleet is run", "Meet the tool store team")
+CLOSING_HEADINGS = ("Meet the tool store team",)   # WHY (07 Nov 2026, QA): the closing page is listed on the cover too
 # a continuation page of a split table - the section is listed once
 _CONT_RE = re.compile(r"\((?:continued|(?:[2-9]|[1-9]\d) of \d+)\)$")
 
@@ -1526,7 +1600,7 @@ def cover_contents_from_print(doc, pdf_path, html_path, css, closing):
     if not eng.write_pdf_robust(str(html_path), str(pdf_path)) or not Path(pdf_path).exists():
         return [], None
     rows = []
-    for t, p in pdf_finish.contents_from_pdf(pdf_path, full, has_cover=True, skip=skip):
+    for t, p in pdf_finish.contents_from_pdf(pdf_path, full, has_cover=True, skip=skip, max_rows=16):
         t = re.sub(r"\s*\(1 of \d+\)$", "", t)
         if len(t) > 64 and " - " in t:
             t = t.split(" - ")[0]
@@ -1588,6 +1662,9 @@ def build_email_html(d, gen_s, S, marks, card_cid=""):
     refresh_short = S["refresh_short"]
     now_pct = len(d["now_dated_ok"]) / dated * 100 if dated else 0
     n_od, n_od_oh = len(d["now_overdue"]), len(d["now_od_onhire"])
+    n_cust = sum(len(v) for _, v in d["now_chase_hirer"])      # with a hirer
+    n_rep = sum(len(v) for _, v in d["now_chase_repairs"])     # on hire to the repairs account
+    rep_w = f', {num(n_rep)} at repairs' if n_rep else ""
     n_av, n_mi = len(d["now_od_avail"]), len(d["now_od_missing"])
     n_l = len(d["lapsed"])
     parts = []
@@ -1597,14 +1674,14 @@ def build_email_html(d, gen_s, S, marks, card_cid=""):
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr>
 <td>
 <div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:2.5px;color:#F26222;text-transform:uppercase;">{esc(CONFIG['kicker'])}</div>
-<div style="{FONT}font-size:26px;font-weight:bold;color:#FFFFFF;padding-top:8px;">Ampol Calibration Register - The Position</div>
+<div style="{FONT}font-size:26px;font-weight:bold;color:#1D1D1B;padding-top:8px;">Ampol Calibration Register - The Position</div>
 <div style="{FONT}font-size:13px;color:#9AA2AC;padding-top:7px;">{esc(CONFIG['project'])}</div>
 </td>
 <td width="185" align="right" style="vertical-align:top;">
-<div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#FFFFFF;">POWERED BY <span style="color:#F26222;">SITEIQ</span></div>
+<div style="{FONT}font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#1D1D1B;">POWERED BY <span style="color:#F26222;">SITEIQ</span></div>
 <div style="{FONT}font-size:11.5px;color:#5B6472;padding-top:5px;">Equipped for anything</div>
 </td></tr></table>
-<div style="{FONT}font-size:11px;color:#5B6472;padding-top:10px;line-height:1.6;">Generated: <b style="color:#FFFFFF;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#FFFFFF;">{esc(asat_s)}</b> (SiteIQ RENTAL_STOCK request time) &nbsp;|&nbsp; Due dates last maintained: <b style="color:#FFFFFF;">{esc(S['maint_s'])}</b> &nbsp;|&nbsp; Author: <b style="color:#FFFFFF;">Andrew Fisher</b></div>
+<div style="{FONT}font-size:11px;color:#5B6472;padding-top:10px;line-height:1.6;">Generated: <b style="color:#1D1D1B;">{esc(gen_s)}</b> &nbsp;|&nbsp; Data as at: <b style="color:#1D1D1B;">{esc(asat_s)}</b> (SiteIQ RENTAL_STOCK request time) &nbsp;|&nbsp; Due dates last maintained: <b style="color:#1D1D1B;">{esc(S['maint_s'])}</b> &nbsp;|&nbsp; Author: <b style="color:#1D1D1B;">Andrew Fisher</b></div>
 </td></tr></table>""")
     if card_cid:
         parts.append(card_block(card_cid))
@@ -1614,8 +1691,8 @@ def build_email_html(d, gen_s, S, marks, card_cid=""):
 <td style="padding:16px 0 0 0;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0">
 <tr><td width="5" bgcolor="#D0342C" style="font-size:0;">&nbsp;</td>
 <td bgcolor="#FBE7E6" style="{FONT}padding:13px 20px;font-size:12.5px;line-height:1.7;color:#7F1D1D;">
-<div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:1.5px;color:#B91C1C;text-transform:uppercase;padding-bottom:3px;">Due dates are {num(S['stale_days'])} days old - check the paperwork before sending</div>
-Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b style="color:#B91C1C;">{num(S['stale_days'])} days</b> before the SiteIQ pull this report is built on. Any certificate issued since then is not on the register yet - {num(n_l)} {"asset" if n_l == 1 else "assets"} fell due in that window. New certificates go in the Register Entry tab; save and run again. Nothing needs the workbook refreshed - every status and location here is computed from SiteIQ.</td>
+<div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:1.5px;color:#B91C1C;text-transform:uppercase;padding-bottom:3px;">Due dates last maintained {esc(maint_short)} - {num(S['stale_days'])} days before this pull</div>
+The register workbook was last saved on <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b style="color:#B91C1C;">{num(S['stale_days'])} days</b> before the SiteIQ pull this report is built on. Any certificate issued since then is not on the register yet - {num(n_l)} {"asset" if n_l == 1 else "assets"} fell due in that window; any of them recalibrated in the meantime leaves the overdue list once its certificate is entered. Every status and location here is computed from SiteIQ.</td>
 </tr></table></td></tr></table>""")
 
     reg_words = ""
@@ -1630,7 +1707,7 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
         f'<b>{num(len(d["now_incal"]))}</b> in calibration, '
         f'{sh.eo(num(len(d["now_due30"])) + " due inside 30 days")}, '
         f'{sh.eo(num(n_od) + " overdue")} '
-        f'({num(n_od_oh)} on hire - the chase list below; {num(n_av)} on the shelf; {num(n_mi)} not in SiteIQ; '
+        f'({num(n_cust)} with hirers{rep_w} - the chase list below; {num(n_av)} on the shelf; {num(n_mi)} not in SiteIQ; '
         f'{num(n_l)} fell due since the due dates were last maintained on {esc(maint_short)}) and <b>{num(len(d["nodate"]))}</b> '
         f'with no certificate date - calibration status unknown until it is entered. Status is computed from each '
         f'asset&rsquo;s Calibration Due; where it is and who has it comes from SiteIQ.{reg_words} Full detail attached.'))
@@ -1647,7 +1724,8 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
     ]))
     parts.append(sh.esubh("Where the overdue and No Date gear is", "- SiteIQ RENTAL_STOCK"))
     parts.append(sh.etiles([
-        (num(n_od_oh), "OVERDUE, ON HIRE", "the chase list", "#D0342C" if n_od_oh else "#409A55"),
+        (num(n_od_oh), "OVERDUE, ON HIRE", (f"{num(n_cust)} with hirers{rep_w}" if n_rep else "the chase list"),
+         "#D0342C" if n_cust else "#E08A24" if n_od_oh else "#409A55"),
         (num(n_av), "OVERDUE, ON THE SHELF", "the calibration run", "#E08A24" if n_av else "#409A55"),
         (num(n_mi), "OVERDUE, NOT IN SITEIQ", "whereabouts unknown", "#D0342C" if n_mi else "#409A55"),
         (num(len(d["nodate"])), "NO DATE",
@@ -1656,7 +1734,7 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
 
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:16px;"><tr>
 <td width="200" align="center" style="vertical-align:top;padding-top:6px;">
-{sh.donut_png(round(now_pct), sh.health_hex(round(now_pct)), f"{now_pct:.0f}%", "IN DATE")}
+{sh.donut_png(round(now_pct), sh.rag_hex(round(now_pct)), f"{now_pct:.0f}%", "IN DATE")}
 <div style="{FONT}font-size:10.5px;color:#98A0AA;padding-top:8px;">Dated assets inside their due date at {esc(asat_day)}</div></td>
 <td style="vertical-align:top;padding-left:16px;">
 <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
@@ -1671,7 +1749,9 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
             out = r["out"].strftime("%d %b %Y") if r["out"] else "-"
             if r["issued_after_due"]:
                 out += ' <span style="color:#A32015;font-weight:bold;font-size:10px;">AFTER DUE</span>'
-            chase_rows.append([esc(ampol_names.display_person(hirer)) + (' <span style="color:#5B6472;font-size:10px;">repairs</span>' if r["repairs_now"] else ""),
+            _who = ampol_names.display_person(hirer)
+            chase_rows.append([esc(_who) + (' <span style="color:#5B6472;font-size:10px;">repairs</span>'
+                                             if r["repairs_now"] and "repair" not in _who.lower() else ""),
                                esc(r["asset"]) or "-",
                                esc(r["desc"]) or "-",
                                r["due"].strftime("%d %b %Y") if r["due"] else "-",
@@ -1722,7 +1802,7 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
 <div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F26222;text-transform:uppercase;">Your Coates Tool Store Team</div>
 <div style="{FONT}font-size:11px;color:#5B6472;padding-top:5px;line-height:1.7;">{team_line}</div>
 <div style="{FONT}font-size:10px;color:#98A0AA;padding-top:9px;line-height:1.7;">
-{(ampol_options.client_line() + ' &middot; ') if ampol_options.client_line() else ''}Coates Hire &middot; {S['source_note']} {S['view_words']} The Coates Way - consistent execution, every day. <b style="color:#1D1D1B;">POWERED BY SITEIQ</b></div>
+{(ampol_options.client_line() + ' &middot; ') if ampol_options.client_line() else ''}Coates &middot; {S['source_note']} {S['view_words']} The Coates Way - consistent execution, every day. <b style="color:#1D1D1B;">POWERED BY SITEIQ</b></div>
 </td></tr></table>""")
 
     body = "".join(
@@ -1802,7 +1882,7 @@ def main():
                          if abs(gap) > timedelta(hours=1) else "")
                       + "; they appear only as a labelled comparison.")
     source_note = (f"Data as at <b>{esc(asat_s)}</b> - RENTAL_STOCK.xlsx, {esc(pulled_how)} "
-                   f"({num(rs_rows)} lines, {num(d['live_onhire'])} on hire). Register: "
+                   f"({num(rs_rows)} lines with a barcode, {num(d['live_onhire'])} on hire). Register: "
                    f"Ampol_Calibration_Register.xlsx, &lsquo;{esc(entry_sheet)}&rsquo; sheet - the human-maintained "
                    f"list; due dates last maintained <b>{esc(maint_s)}</b> ({esc(maint_how)}). Status at the pull "
                    f"time is computed from Calibration Due; location, hirer and hire start are SiteIQ&rsquo;s. "
@@ -2028,6 +2108,7 @@ def main():
         "overdue": len(d["now_overdue"]), "nodate": n_nd, "chase": n_od_oh,
         "chase_hirers": len(d["now_chase_hirer"]) + len(d["now_chase_repairs"]),
         "overdue_shelf": len(d["now_od_avail"]), "not_in_siteiq": len(d["not_in_siteiq"]),
+        "overdue_missing": len(d["now_od_missing"]),
         "onhire_not_in_register": len(d["nir"])},
         extra={"rag": rw["status"], "headline": rw["headline"], "rule": rw["rule"],
                "owner": CONFIG["rag_owner"], "action": rw["action"], "due": S["action_due_s"],

@@ -493,7 +493,7 @@ table.dt th.w { white-space: nowrap; }
 .cover-body .lk { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 .cover-body .lines { margin-top: 6px; color: #1D1D1B; font-size: 11.4px; line-height: 1.8; }
 .cover-body .lines b { color: #1D1D1B; font-weight: 700; }
-.cover-body .meta { margin-top: 12px; color: #5B6472; font-size: 9px; line-height: 1.7; }
+.cover-body .meta { margin-top: 12px; margin-right: 104px; color: #5B6472; font-size: 9px; line-height: 1.7; }  /* 07 Nov 2026: clears the 92 px cog */
 .cover-body .meta b { color: #1D1D1B; font-weight: 600; }
 .cover-stripe { display: none; }
 .cover-cog { position: absolute; right: 11mm; bottom: 14mm; width: 92px; opacity: 0.95; }
@@ -534,8 +534,14 @@ table.dt th.w { white-space: nowrap; }
 .cover-toc .h { color: #C8511A; font-size: 7.6px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
 .cover-toc table { border-collapse: collapse; width: 100%; }
 .cover-toc td { padding: 4px 0; font-size: 9.4px; border-bottom: 1px solid #DDE1E7; }
+.cover-toc.dense td { padding: 2px 0; font-size: 8.8px; }   /* 07 Nov 2026: 13-16 rows */
 .cover-toc td.ct { color: #1D1D1B; font-weight: 600; }
 .cover-toc td.cp { text-align: right; color: #C8511A; width: 28px; font-weight: 700; }
 
 /* bordered blocks never grow past their column */
 .callout, .sect, .alerts, .chartpanel, .cway, .three, .ragband, .cover-toc, .focus td, .cards td, .team td, .tiles td, .k2mast, .k2foot, .mast, .foot { box-sizing: border-box; }
+.team td.pad { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+.tiles td.pad, .cards td.pad { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+.tiles td.pad::before, .tiles td.pad::after { display: none !important; content: none !important; }
+.key .red { color: #D0342C; }   /* 07 Nov 2026: a RED key dot and term print red, every family */
+.f-deep { background: #B5651D; }   /* 07 Nov 2026: deep amber, the 61-90 day band */

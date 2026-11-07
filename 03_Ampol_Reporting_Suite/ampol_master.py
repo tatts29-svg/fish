@@ -228,3 +228,54 @@ if __name__ == "__main__":
     for k in SHEETS:
         pp, sh = locate(k, "*.xlsx")
         print(f"  {k:14} -> {describe(k, pp, sh)}")
+
+
+# ---------------------------------------------------------------------------
+# One price per printed description (07 Nov 2026)
+# ---------------------------------------------------------------------------
+# WHY (07 Nov 2026, QA review): the Pricing tab is keyed by SiteIQ's raw
+# description, and SiteIQ spells one product several ways ('SAMSUNG GALAXY
+# TAB ACTIVE5 10"' with and without a trailing space, 'Extension lead -
+# 10Amp' / 'Extension lead 10 AMP'). Once the display rule tidies them they
+# PRINT the same - and then one printed description showed $30 on one page
+# and $26 on the next, or $1,299 on 100 rows and a dash on 20. The rule the
+# data pages state is "first price wins", so it now applies to what the
+# reader sees: every raw spelling that prints the same carries one price.
+#   - one distinct price among the spellings: every spelling takes it (an
+#     unpriced spelling included - the master's own price for the same item,
+#     nothing estimated);
+#   - two or more: the most common price wins, a tie goes to the first in
+#     the master's row order, and the description is listed for Andrew to
+#     confirm (Prices to confirm). Nothing is averaged or invented.
+def unify_prices(prices, display, order=None):
+    """prices: {raw_key: price or None} for every raw description in use.
+    display: raw_key -> printed description. order: raw keys in the
+    master's row order (ties). Returns (unified {raw_key: price or None},
+    conflicts [{"description", "prices": [(price, n_spellings)], "used"}],
+    filled {raw_key: price} - the spellings priced from their twin)."""
+    from collections import Counter
+    rank = {k: i for i, k in enumerate(order or [])}
+    groups = defaultdict(list)
+    for k in prices:
+        groups[display(k)].append(k)
+    unified, conflicts, filled = dict(prices), [], {}
+    for shown, keys in groups.items():
+        vals = [prices[k] for k in keys if prices[k] is not None]
+        if not vals:
+            continue
+        c = Counter(vals)
+        if len(c) == 1:
+            use = vals[0]
+        else:
+            top = max(c.values())
+            tied = [v for v in c if c[v] == top]
+            first_key = min((k for k in keys if prices[k] in tied), key=lambda k: rank.get(k, 10 ** 9))
+            use = prices[first_key]
+            conflicts.append({"description": shown, "prices": sorted(c.items(), key=lambda x: (-x[1], x[0])),
+                              "used": use})
+        for k in keys:
+            if prices[k] is None:
+                filled[k] = use
+            unified[k] = use
+    conflicts.sort(key=lambda x: str(x["description"]).upper())
+    return unified, conflicts, filled

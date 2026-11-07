@@ -1,6 +1,6 @@
 # Names as shown - the one style on every page
 
-Author: Andrew Fisher | POWERED BY SITEIQ. As at 03 Sep 2026.
+Author: Andrew Fisher | POWERED BY SITEIQ. As at 07 Nov 2026.
 
 Every report reads its names from the raw SiteIQ exports and shows them
 one way. Matching, pricing, joins and counts always use the raw text -
@@ -43,8 +43,19 @@ by `ampol_serials.py`.
 - SiteIQ's "First - Last" reads **First Last**, each word capitalised,
   inner capitals kept: ROBERT - MCGREGOR reads Robert McGregor;
   Hayden - O'Connor reads Hayden O'Connor.
-- Anything SiteIQ appends after the name stays, tidied: Aaron
-  Broderick-Shutdown, Anthony Dutton T&I, Ardy Denehy 2021.
+- A tag SiteIQ appends for a second account reads as a tag in brackets,
+  never glued to the surname (07 Nov 2026): Aaron Willmann-Shutdown reads
+  Aaron Willmann (shutdown); Anthony Dutton T&I reads Anthony Dutton (T&I);
+  Ardy Denehy 2021 reads Ardy Denehy (2021). The two accounts stay two
+  SiteIQ accounts - the reports never merge them.
+- Mc and Mac names keep their capital: Glenn Mccabe reads Glenn McCabe,
+  James Macgregor reads James MacGregor.
+- A slip that can only be one person is shown right (_PERSON_FIX in
+  ampol_names.py): Brett Mclvor (a lower-case L) reads Brett McIvor beside
+  his own McIvor account; Omeara reads O'Meara; Joe O Carroll reads Joe
+  O'Carroll. A spelling that MIGHT be someone else (Kennth, Adrain, a
+  surname cut short like Todd Van Der) is left as SiteIQ has it - fix it
+  in SiteIQ. "For Andrew - SiteIQ names to check" lists every pair.
 
 ## Companies
 - One customer, one name: AMPOL, AMPOL REFINERIES (QLD) PTY LTD and the
@@ -63,9 +74,20 @@ by `ampol_serials.py`.
   dropped, the way a person does, plus " (account)", so it is never read
   as a person: FCCU - 2026 (SFI) reads FCCU 2026 (SFI) (account);
   Future - Fuels reads Future Fuels (account).
+- A place or a holding line SiteIQ books like a person is an account too
+  (07 Nov 2026): Wynnum Gardens (account), Bulk Yard (account), Radios
+  Out Of Service (account), Hoses Off Site (account), Atlas Chains
+  Offsite Repairs (account), Rigging & 240v Out Of Tag Date (account).
+- A Dräger service line reads Dräger - <status> (account), one case on
+  every page: DRAGER - FCCU reads Dräger - FCCU (account); Dräger -
+  Dräger - Out Of Calibration reads Dräger - Out of calibration (account).
 
 ## Where to check
 - `python ampol_names.py` prints worked examples of every rule.
 - The truth sweep fails a page that prints a SiteIQ-form person, an
   all-capitals description, the raw after-hours account name, the former
   site name or a long dash.
+- Button 09 (CHECK_REPORTS) also reads every page and every workbook
+  cell for a long dash, a tag glued to a name, a doubled Dräger label, a
+  build note, "1 items" and a sender's note, and says DO NOT SEND if it
+  finds one (07 Nov 2026).

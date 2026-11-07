@@ -175,10 +175,11 @@ def read(paths=None, force=False):
 
 
 def period_text(w):
-    """'01/01/2026 04:00:00 - 07/11/2026 03:59:59' in SiteIQ's own form."""
+    """'01 Jan 2026 04:00 to 07 Nov 2026 03:59' - the house date style
+    (WHY 07 Nov 2026: SiteIQ's slash dates and seconds read as raw data)."""
     a, b = w if w else (None, None)
-    f = "%d/%m/%Y %H:%M:%S"
-    return f"{a.strftime(f) if a else '?'} - {b.strftime(f) if b else '?'}"
+    f = "%d %b %Y %H:%M"
+    return f"{a.strftime(f) if a else '?'} to {b.strftime(f) if b else '?'}"
 
 
 def label(tx=None, short=False):

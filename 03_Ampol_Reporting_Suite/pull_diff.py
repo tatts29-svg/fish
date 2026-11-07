@@ -237,11 +237,20 @@ def last_24h(tx_path, cur_time, scope_barcodes=None, hours=24):
     TRANSACTIONS export. scope_barcodes: set of barcodes in the family
     (None = every row). Returns {"issued": [...], "returned": [...],
     "window": (start, end)} - each row: barcode, desc, company, hirer, at."""
-    start = cur_time - timedelta(hours=hours)
     import siteiq_tx
     tx_all = siteiq_tx.read()
+    # WHY (07 Nov 2026, QA review): the register is pulled at 09:00 but the
+    # TRANSACTIONS export is cut at the end of SiteIQ's day (07 Nov 03:59), so
+    # a window "to the pull" counted five hours the log cannot hold and showed
+    # them as quiet. The window now ends where the log ends (never after the
+    # pull) and says so: "log_end" and "cut" let every page word it honestly.
+    log_end = (tx_all or {}).get("window", (None, None))[1] if tx_all else None
+    end = min(cur_time, log_end) if log_end else cur_time
+    cut = bool(log_end and log_end < cur_time)
+    start = end - timedelta(hours=hours)
     if not tx_all or not tx_all["rows"]:
-        return {"issued": [], "returned": [], "window": (start, cur_time), "available": False}
+        return {"issued": [], "returned": [], "window": (start, end), "available": False,
+                "log_end": log_end, "cut": cut, "pull": cur_time}
     if True:
         hdr = [str(c).strip().upper() if c is not None else "" for c in tx_all["header"]]
         ix = {h: i for i, h in enumerate(hdr)}
@@ -261,13 +270,14 @@ def last_24h(tx_path, cur_time, scope_barcodes=None, hours=24):
                    "hirer": str(g(r, "HIRER_NAME") or "").strip()}
             s = parse_dt(g(r, "TRAN_START_DATE"), g(r, "TRAN_START_TIME"))
             e = parse_dt(g(r, "TRAN_END_DATE"), g(r, "TRAN_END_TIME"))
-            if s and start < s <= cur_time:
+            if s and start < s <= end:
                 issued.append(dict(row, at=s))
-            if e and start < e <= cur_time:
+            if e and start < e <= end:
                 returned.append(dict(row, at=e))
         for lst in (issued, returned):
             lst.sort(key=lambda x: x["at"])
-        return {"issued": issued, "returned": returned, "window": (start, cur_time), "available": True}
+        return {"issued": issued, "returned": returned, "window": (start, end), "available": True,
+                "log_end": log_end, "cut": cut, "pull": cur_time}
 
 
 def changes(scope=None, scope_barcodes=None, data_dir=None):

@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 2.1  (07 Nov 2026)
+Version: 2.2  (07 Nov 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -477,3 +477,35 @@ v2.1 - 07 Nov 2026  (the transactions log in more than one file)
   - Watch the cutover: a SiteIQ period ends at 03:59:59 on its last day,
     so the next export must START on that same day (30 Jun to 07 Nov, not
     01 Jul), or that store day is missing and the log says so.
+
+v2.2 - 07 Nov 2026  (the 10/10 pass - an independent review of every page)
+  Eight independent reviewers read every PDF page, every email and every
+  workbook sheet of the 07 Nov build and listed what a client would trip
+  over. Every finding was fixed or is listed for Andrew. The shared fixes:
+  - Names: a SiteIQ tag reads as a tag, never glued to a surname
+    (Aaron Willmann (shutdown), Kodey Southon (2023), Ben Cook (T&I));
+    Mc/Mac names keep their capital; slips that can only be one person
+    are shown right (McIvor, O'Meara, O'Carroll, MacGregor). Places and
+    holding lines (Wynnum Gardens, Bulk Yard, Radios Out Of Service,
+    Hoses Off Site, Atlas Chains Offsite Repairs) are accounts, never
+    people. Dräger lines read Dräger - <status> (account) on every page.
+  - Prices: one price per printed description (ampol_master.unify_prices).
+    A spelling SiteIQ priced elsewhere is priced the same; two prices in
+    the master are listed for Andrew to confirm. Nothing is estimated.
+  - Workbooks: every cell keeps the house rules (no long dash, house-style
+    dates, no ### date columns, whole dollars, a dash for unpriced or
+    unrated cells); tiles no longer run into each other; age and status
+    charts colour each band by its own rule; tall bar charts grow so every
+    label prints; the RED / AMBER / GREEN headline tops the Cover; custody
+    and holding accounts are kept out of the company columns and charts.
+  - Pages: the cover lists up to sixteen sections and never runs under the
+    cog; chart axes tick in round numbers; a small bar is drawn small; the
+    team section shows only real cards; the position card is cut to fit.
+  - Button 09 (CHECK_REPORTS) now also reads every page and every workbook
+    cell for the house-rule mistakes the review found (long dash, a tag
+    glued to a name, a doubled Dräger label, a build note on a page,
+    "1 items", a note meant for the sender, a build time before the data)
+    and says DO NOT SEND if it finds one.
+  - Button 13 (VERIFY_NUMBERS) now checks every figure it counts against
+    the page that prints it, as a whole number (638 no longer "matches"
+    inside 1,638).

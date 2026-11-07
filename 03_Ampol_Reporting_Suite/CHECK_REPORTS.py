@@ -55,6 +55,19 @@ FSTRING = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*"
                      r"|\([^(){}]{0,40}\))+"
                      r"(?::[^{}]{0,20})?\}")
 
+#  WHY (07 Nov 2026, the 10/10 review): the house rules a reader trips
+#  over even when every number is right. Each rule is narrow - it names
+#  a mistake that reached a page once, never a style preference.
+HOUSE = [
+    ("long dash", re.compile("[\u2013\u2014]")),
+    ("tag glued to a name", re.compile(r"\w-[Ss]hutdown\b")),
+    ("doubled Drager label", re.compile(r"Dr[a\u00e4]ger Dr[a\u00e4]ger")),
+    ("build note on a page", re.compile(r"set in CONFIG|top of the script|report_history\.json|Data\\previous|Trend page: appears")),
+    ("one with a plural", re.compile(r"(?<![-\d.,])\b1 (?:items|companies|units|monitors|radios|batteries|people|hirers|assets)\b")),
+    ("note for the sender", re.compile(r"CHECK THE PAPERWORK BEFORE SENDING")),
+    ("built before the data", re.compile(r"-\d+ h old")),
+]
+
 #  Values that mean "the number never turned up".
 DEAD = re.compile(r"(?<![A-Za-z])(?:nan|NaN|None|NULL|undefined)(?![A-Za-z])")
 DEAD_MONEY = re.compile(r"\$\s*(?:nan|NaN|None)", re.I)
@@ -105,6 +118,29 @@ def scan(path):
             rest = rest.replace(m.group(0), " " * len(m.group(0)), 1)
         for m in DEAD.finditer(rest):
             hits.append(("empty value", m.group(0), line_no))
+        for kind, rx in HOUSE:
+            for m in rx.finditer(line):
+                hits.append((kind, m.group(0), line_no))
+    return hits
+
+
+def scan_workbook(path):
+    """WHY (07 Nov 2026): the Excel twin goes to the client too - its cells
+    keep the same house rules as the page."""
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(path, read_only=True)
+    except Exception as e:
+        return [("unreadable", str(e)[:40], 0)]
+    hits = []
+    for ws in wb.worksheets:
+        for row in ws.iter_rows(values_only=True):
+            for v in row:
+                if isinstance(v, str):
+                    for kind, rx in HOUSE:
+                        for m in rx.finditer(v):
+                            hits.append((kind, f"[{ws.title[:12]}] {m.group(0)}", 0))
+    wb.close()
     return hits
 
 
@@ -153,7 +189,7 @@ def main():
         print(" report button) first. Add --all to check every day ever built.")
         return 1
 
-    files, emails, manifests = [], [], []
+    files, emails, manifests, books = [], [], [], []
     for root in roots:
         for dirpath, _dirs, names in os.walk(root):
             for n in names:
@@ -165,17 +201,24 @@ def main():
                     emails.append(p)
                 elif low.endswith(".draft.json"):
                     manifests.append(p)
+                elif low.endswith(".xlsx") and not n.startswith("~$"):
+                    books.append(p)
 
     if not files:
         print(" No report pages found for {}.".format(today))
         print(" (Add --all to check every report ever built.)")
         return 1
 
-    print(" Checked : {} page(s), {} email draft(s), {} draft manifest(s)"
-          .format(len(files), len(emails), len(manifests)))
+    print(" Checked : {} page(s), {} email draft(s), {} draft manifest(s), {} workbook(s)"
+          .format(len(files), len(emails), len(manifests), len(books)))
     bad, total = {}, 0
     for p in sorted(files):
         h = scan(p)
+        if h:
+            bad[p] = h
+            total += len(h)
+    for p in sorted(books):
+        h = scan_workbook(p)
         if h:
             bad[p] = h
             total += len(h)
@@ -199,8 +242,9 @@ def main():
     if not bad and not heavy:
         print("")
         print(" PASS - every number on every page came out filled in, every")
-        print(" draft manifest points at a real body, and every email draft")
-        print(" is under the {:.0f} MB safe-send limit.".format(MAX_EMAIL_MB))
+        print(" page and workbook keeps the house rules, every draft manifest")
+        print(" points at a real body, and every email draft is under the")
+        print(" {:.0f} MB safe-send limit.".format(MAX_EMAIL_MB))
         print(" Safe to send.")
         return 0
 

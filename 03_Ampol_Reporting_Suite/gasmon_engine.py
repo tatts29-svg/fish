@@ -181,7 +181,13 @@ def repair_status(who):
     s = re.sub(r"dr[aä]ger\s*[–\-]\s*", "", s, flags=re.I)
     s = re.sub(r"dr[aä]ger\s*[–\-]\s*", "", s, flags=re.I)
     s = re.sub(r"^\s*dr[aä]ger\s*", "", s, flags=re.I)
-    return s.strip(" –-") or "Dräger"
+    s = s.strip(" –-")
+    # WHY (07 Nov 2026, QA): statuses print in sentence case on every page
+    # ('Out of calibration', 'Failed bump test'); FCCU stays FCCU
+    s = " ".join((w.upper() if w.upper() in ("FCCU", "SFI", "T&I") else
+                  (w[:1].upper() + w[1:].lower() if i == 0 else w.lower()))
+                 for i, w in enumerate(s.split()))
+    return s or "Dräger"
 
 
 def norm_person(name):
@@ -792,12 +798,15 @@ def compute(ctx, rules=None):
     for k in sorted(weekly):
         n, s = weekly[k]
         mon = datetime.fromisocalendar(k[0], k[1], 1)
-        m["weekly"].append({"label": mon.strftime("%d %b"), "n": n, "sd": s, "nsd": n - s,
+        # WHY (07 Nov 2026, QA): the first ISO week starts before the log opens -
+        # it is labelled by the log's first day and marked part week
+        m["weekly"].append({"label": max(mon, win_start).strftime("%d %b"), "n": n, "sd": s, "nsd": n - s,
                             "draws": n,
                             "pct": round(s / n * 100, 1) if n else 0,
                             "in_30": mon.date() >= d30_start.date(),
                             "in_90": mon.date() >= d90_start.date(),
-                            "partial": k == (win_end.isocalendar()[0], win_end.isocalendar()[1]),
+                            "partial": (k == (win_end.isocalendar()[0], win_end.isocalendar()[1])
+                                        or mon < win_start),
                             "weekend": False})
     cur_iso = win_end.isocalendar()
     m["current_week_partial"] = (cur_iso[0], cur_iso[1]) in weekly
@@ -875,10 +884,12 @@ def compute(ctx, rules=None):
             if not t["en"]:
                 continue
             h = (t["en"] - t["st"]).total_seconds() / 3600
-            b["Same shift (under 12h)" if h < 12 else "Overnight (12-24h)" if h < 24
-              else "1-3 days" if h < 72 else "3-7 days" if h < 168 else "Over a week"] += 1
-        order = ["Same shift (under 12h)", "Overnight (12-24h)", "1-3 days",
-                 "3-7 days", "Over a week"]
+            # WHY (07 Nov 2026, QA): bands that do not overlap - each is "over the
+            # last bound, up to this one"
+            b["Under 12 hours (same shift)" if h < 12 else "12-24 hours (overnight)" if h < 24
+              else "Over 1 day, up to 3" if h < 72 else "Over 3 days, up to 7" if h < 168 else "Over 7 days"] += 1
+        order = ["Under 12 hours (same shift)", "12-24 hours (overnight)", "Over 1 day, up to 3",
+                 "Over 3 days, up to 7", "Over 7 days"]
         return [(k, b.get(k, 0)) for k in order]
     m["dur_buckets_30"] = buckets(d30["sel"])
     m["dur_buckets_ytd"] = buckets(ytd["sel"])
@@ -943,7 +954,7 @@ def compute(ctx, rules=None):
                      f"register carry a serial on it; {len(missing)} do not"
                      + (f" ({pre[0][1]} of them in the {pre[0][0]} range)" if pre else "")
                      + ". Barcode is the identity SiteIQ scans; the serial is display only."
-                     + (f" {len(dups)} serial(s) appear against two barcodes ("
+                     + (f" {len(dups)} serial{' appears' if len(dups) == 1 else 's appear'} against two barcodes ("
                         + "; ".join(f"{s_} = {', '.join(bcs)}" for s_, bcs in list(dups.items())[:3])
                         + ") - usually a re-labelled unit whose old barcode was never retired from the list."
                         if dups else ""))

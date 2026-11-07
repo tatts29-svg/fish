@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
+r"""
 =====================================================================
 COATES - AMPOL GAS MONITOR OPERATIONS - OUTLOOK EMAIL (HOUSE STYLE)
 SiteIQ exports in -> ready-to-send .eml in the K2 look
@@ -105,6 +105,60 @@ def tagx(text):
             f'color:#A32015;padding:1px 5px;">{esc(text)}</span>')
 
 
+def month_combo_png(labels, bars, line, width, partial_last=False, h=460):
+    """Monthly draws (bars, lower band, left axis) under the same-day line
+    (upper band, right axis). WHY (07 Nov 2026, QA): the shared combo drew
+    both on one band, so June's draw count sat under its percentage pill."""
+    W, H = width * 2, h
+    im, d = sh._panel(W, H)
+    n = len(labels)
+    if n < 1:
+        return sh.img_tag(im, width, "chart")
+    top, base, pl, pr = 64, H - 56, 96, 96
+    slot = (W - pl - pr) / n
+    bw = slot * 0.56
+    bar_top = top + (base - top) * 0.40
+    bmax = k2.nice_ceiling(max(bars) or 1, parts=2)
+    lo = max(0, (int(min(line)) // 10) * 10 - 10)
+    line_bot = top + (base - top) * 0.30
+    fl, fv, fb = sh._font(18), sh._font(16), sh._font(17, True)
+    for g in (0, 0.5, 1.0):
+        y = base - (base - bar_top) * g
+        d.line([(pl, y), (W - pr, y)], fill="#E6E9EE", width=1)
+        t = num(int(bmax * g))
+        d.text((pl - 12 - sh._tw(d, t, fv), y - 10), t, font=fv, fill="#5B6472")
+    for g, pv in ((0, lo), (1, 100)):
+        y = line_bot - (line_bot - top) * g
+        d.text((W - pr + 12, y - 10), f"{pv}%", font=fv, fill="#2E7D44")
+    xs = []
+    for i, lab in enumerate(labels):
+        x0 = pl + i * slot + (slot - bw) / 2
+        bh = (base - bar_top) * bars[i] / bmax
+        col = "#F26222" if not (partial_last and i == n - 1) else "#F7B08C"
+        d.rectangle([x0, base - bh, x0 + bw, base], fill=col)
+        if bars[i]:
+            t = num(bars[i])
+            d.text((x0 + bw / 2 - sh._tw(d, t, fv) / 2, base - bh - 24), t, font=fv, fill="#1D1D1B")
+        lt = lab + (" (part)" if partial_last and i == n - 1 else "")
+        d.text((x0 + bw / 2 - sh._tw(d, lt, fl) / 2, base + 12), lt, font=fl, fill="#5B6472")
+        xs.append(x0 + bw / 2)
+
+    def Y(pv):
+        return line_bot - (line_bot - top) * ((pv - lo) / ((100 - lo) or 1))
+    pts = [(xs[i], Y(line[i])) for i in range(n)]
+    if n > 1:
+        d.line(pts, fill="#409A55", width=5, joint="curve")
+    for i, (x, y) in enumerate(pts):
+        d.ellipse([x - 6, y - 6, x + 6, y + 6], fill="#409A55")
+        t = f"{line[i]:.0f}%"
+        d.text((x - sh._tw(d, t, fb) / 2, y - 32), t, font=fb, fill="#2E7D44")
+    d.rectangle([pl, 18, pl + 18, 36], fill="#F26222")
+    d.text((pl + 26, 14), "Crew draws (left axis)", font=fl, fill="#1D1D1B")
+    d.ellipse([pl + 300, 19, pl + 316, 35], fill="#409A55")
+    d.text((pl + 326, 14), "Same day % (right axis)", font=fl, fill="#1D1D1B")
+    return sh.img_tag(im, width, "Crew draws and the same-day rate by month")
+
+
 # =====================================================================
 # the email body
 # =====================================================================
@@ -157,9 +211,9 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         cw = CONFIG["inline_card_width"]
         parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top:14px;">
 <tr><td align="center" style="padding:0;">
-<img src="cid:{card_cid}" width="{cw}" alt="The position at {esc(asat_s)} on one card"
-     style="display:block;width:{cw}px;max-width:{cw}px;height:auto;border:0;border-radius:10px;">
-<div style="{FONT}font-size:10px;color:#98A0AA;padding-top:7px;line-height:1.6;">The position at {esc(asat_s)} on one card - the same figures as page 1 of the attached PDF.</div>
+<img src="cid:{card_cid}" width="{cw}" alt="The position at {esc(asat_s)} on one card - also attached as a picture"
+     style="display:block;width:{cw}px;max-width:{cw}px;height:auto;border:0;border-radius:10px;{FONT}font-size:12px;color:#5B6472;">
+<div style="{FONT}font-size:10px;color:#98A0AA;padding-top:7px;line-height:1.6;">The position at {esc(asat_s)} on one card - the same figures as the position page (page 2) of the attached PDF.</div>
 </td></tr></table>""")
 
     # ---------- position + scorecard -----------------------------------
@@ -167,11 +221,13 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         f'<span style="color:#C8511A;font-weight:bold;text-transform:uppercase;">The position at {asat_t}, '
         f'{m["asat"].strftime("%d %b %Y")}.</span> <b>{num(m["fleet_total"])} monitors</b> on the Ampol '
         f'register: {eo(num(m["available"]) + " on the shelf")}, <b>{num(m["crew_out"])} out to crew</b> '
-        f'({num(m["out_today"])} went out today and {eo(num(m["outstanding"]) + " are overdue")} from earlier '
-        f'days), {num(m["custody_total"])} held in custody (FCCU turnaround, Operations, Future Fuels and the '
-        f'after-hours account), and <b>{num(m["repairs"])} in the Dräger repair queue</b>. Every figure is '
-        f'counted from the SiteIQ RENTAL_STOCK and TRANSACTIONS exports - nothing is read from a summary '
-        f'cell and nothing is estimated.'))
+        + (f'({num(m["out_today"])} went out today and {eo(num(m["outstanding"]) + " are overdue")} from earlier days)'
+           if m["out_today"] else
+           f'(none had gone out today when the register was pulled, so all {eo(num(m["outstanding"]) + " are overdue")} '
+           f'from earlier days)')
+        + f', {num(m["custody_total"])} held in custody accounts and <b>{num(m["repairs"])} in the Dräger repair queue</b> - '
+        f'{num(m["on_hire_total"])} on hire in all. Every count is made from the SiteIQ register and movement-log '
+        f'exports - nothing is read from a summary cell and nothing is estimated.'))
     srows = "".join([
         score_bar_row("Tool availability", m["score_availability"],
                       f'{num(m["available"])} on the shelf against a {num(tgt)}-unit target for a full score'),
@@ -193,9 +249,9 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
 </tr></table>
 {enote(f'Health score is the plain average of the four scores - <b style="color:#1D1D1B;">({m["score_availability"]} + {m["score_sameday"]} + {m["score_repairs"]} + {m["score_30"]}) &divide; 4 = {hs}</b>. The shelf count is a {asat_t} snapshot - the store empties every morning and refills every afternoon.')}""")
 
-    seg = [("Out to crew", m["crew_out"], K["orange"]), ("FCCU", m["fccu"], K["blue"]),
-           ("Ops", m["ops"], K["amber"]), ("Future Fuels", m["ff"], K["lime"]),
-           ("After hours", m["afterhours"], PALE_BLUE), ("Available", m["available"], K["green"]),
+    seg = [("Out to crew", m["crew_out"], K["deep_amber"]), ("FCCU", m["fccu"], K["blue"]),
+           ("Ops", m["ops"], "#8C96A3"), ("Future Fuels", m["ff"], K["slate"]),
+           ("After hours", m["afterhours"], "#C9CED6"), ("Available", m["available"], K["green"]),
            ("Repairs", m["repairs"], K["red"])]
     parts.append(esubh("The fleet at a glance - where every monitor is"))
     parts.append(epanel(band_png([s for s in seg if s[1] > 0], CW - 28)))
@@ -203,7 +259,8 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         (num(m["fleet_total"]), "Total fleet", "on the Ampol register", "#5B6472"),
         (num(m["available"]), "Available now", f"ready for issue at {asat_t}",
          "#409A55" if m["available"] >= tgt else "#E08A24"),
-        (num(m["crew_out"]), "Out to crew", f'{num(m["out_today"])} today + {num(m["outstanding"])} overdue', "#5B6472"),
+        (num(m["crew_out"]), "Out to crew", (f'{num(m["out_today"])} today + {num(m["outstanding"])} overdue'
+                                             if m["out_today"] else "all from earlier days"), "#5B6472"),
         (num(m["outstanding"]), "Overdue 1+ days", f'{num(m["out_30"])} at 30+ days, {money(m["exposure"])}',
          "#D0342C" if m["outstanding"] else "#409A55"),
     ]))
@@ -213,13 +270,14 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
     d90 = m["d90"]
     parts.append(esect("Where these numbers come from"))
     parts.append(ecallout(
-        f'Two SiteIQ exports, pulled together on <b>{m["asat"].strftime("%d %b %Y")}</b>, are the only inputs. '
-        f'<b>RENTAL_STOCK</b> is the register - what is on hire, to whom, and what is on the shelf at '
-        f'{asat_t}. <b>TRANSACTIONS</b> is the movement log - every scan out and scan in since '
-        f'{ws_.strftime("%d %b %Y %H:%M")}, one row per monitor per draw with a transaction ID. The store '
-        f'scans twice out and twice in, so a row only exists when a monitor crossed the counter. Nothing '
-        f'is typed in or read from a summary cell; the Excel workbook is not used. A draw is one monitor to '
-        f'one named person once, which is why the yearly count is large - the behaviour measure is the '
+        f'Every count comes from two SiteIQ exports pulled on <b>{m["asat"].strftime("%d %b %Y")}</b>. '
+        f'<b>The register</b> (RENTAL_STOCK) is what is on hire, to whom, and what is on the shelf at '
+        f'{asat_t}. <b>The movement log</b> (TRANSACTIONS) is every scan out and scan in from '
+        f'{ws_.strftime("%d %b %Y %H:%M")} to {we_.strftime("%d %b %Y %H:%M")}, one row per monitor per draw. '
+        f'The store scans twice out and twice in, so a row only exists when a monitor crossed the counter. '
+        f'Serial numbers come from the Ampol master workbook (display only) and the {money(R["charge_per_unit"])} '
+        f'replacement charge is a fixed rule; Ampol\'s old gas monitor workbook is not read. A draw is one monitor '
+        f'to one named person once, which is why the yearly count is large - the behaviour measure is the '
         f'percentage back the same day.', tight=True))
 
     def wrow(label, dates, f):
@@ -246,20 +304,23 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
 
     # ---------- yesterday ------------------------------------------------
     yd = m["yesterday"]
+    back_by_pull = max(0, m["yday_nsd"] - m["yday_register_still_out"])
     parts.append(esect("Yesterday - did they come back?"))
     parts.append(ecallout(
         f'On <b>{yd.strftime("%A %d %b")}</b>, <b>{num(m["yday_draws"])} monitors</b> went out to crew. '
         f'{eo(num(m["yday_nsd"]) + " were not back by the end of the day")} ({m["yday_sd_pct"]}% same day). '
-        f'{num(m["yday_recovered"])} have come back since; {eo(num(m["yday_still_out"]) + " are still out")} '
-        f'as at {asat_t} and are named below - the prestart chase list.', tight=True))
+        f'The register at {asat_t} still shows {eo(num(m["yday_register_still_out"]) + " monitors")} issued to crew that day, '
+        f'so {("none" if not back_by_pull else num(back_by_pull))} came back between the '
+        f'{R["return_box_scan_until"].strftime("%H:%M")} same-day cut-off and the pull. They are named below - the prestart chase list.',
+        tight=True))
     parts.append(etiles([
         (num(m["yday_draws"]), "Crew draws yesterday", yd.strftime("%a %d %b"), "#5B6472"),
         (num(m["yday_nsd"]), "Not back same day", f'{100 - m["yday_sd_pct"]:.1f}% of draws',
          "#E08A24" if m["yday_nsd"] else "#409A55"),
-        (num(m["yday_recovered"]), "Recovered since", f'{m["yday_recovery_pct"]}% of the non-returns',
-         "#409A55" if m["yday_recovery_pct"] >= 50 else "#E08A24"),
-        (num(m["yday_still_out"]), "Still out now", "same person, named below",
-         "#D0342C" if m["yday_still_out"] else "#409A55"),
+        (num(back_by_pull), "Back by the pull", f'between {R["return_box_scan_until"].strftime("%H:%M")} and {asat_t}',
+         "#409A55" if back_by_pull else "#5B6472"),
+        (num(m["yday_register_still_out"]), f"Still out at {asat_t}", "on the register, named below",
+         "#D0342C" if m["yday_register_still_out"] else "#409A55"),
     ]))
     yrows = []
     for c in m["yday_by_company"]:
@@ -267,12 +328,11 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         if not c["open"]:
             who = dim("all back - " + ", ".join(esc(p) for p, _ in c["people"][:4]))
         yrows.append([esc(c["name"]), num(c["nsd"]),
-                      f'<span style="color:#1E6B32;font-weight:bold;">{num(c["recovered"])}</span>' if c["recovered"] else dim("0"),
                       red(num(c["open"])) if c["open"] else dim("0"), who])
     if not yrows:
-        yrows = [['<span style="color:#1E6B32;font-weight:bold;">Every monitor issued yesterday came back the same day.</span>', "", "", "", ""]]
-    parts.append(edtable(["Company", "Not back", "Recovered", "Still out", "Who still has them (units)"],
-                         yrows, ["", "r", "r", "r", ""]))
+        yrows = [['<span style="color:#1E6B32;font-weight:bold;">Every monitor issued yesterday came back the same day.</span>', "", "", ""]]
+    parts.append(edtable(["Company", "Not back by " + R["return_box_scan_until"].strftime("%H:%M"), "Still out in the log",
+                          "Who still has them (units)"], yrows, ["", "r", "r", ""]))
 
     al = []
     if m["yday_still_out"]:
@@ -306,30 +366,31 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
             red(num(x["open_now"])) if x["open_now"] else dim("0")])
     parts.append(esect("Who is not bringing them back - last 30 days"))
     parts.append(ecallout(
-        f'Between <b>{esc(m["d30_label"])}</b>, <b>{num(m["people_active_30"])} people</b> drew a monitor. '
+        f'From <b>{esc(m["d30_label"].replace(" - ", " to "))}</b>, <b>{num(m["people_active_30"])} people</b> drew a monitor. '
         f'{eo(num(m["people_with_nsd_30"]))} kept at least one past the day it went out, and '
-        f'{eo(num(len(m["repeat_offenders"])))} did so in {R["repeat_weeks"]} or more separate weeks - a habit, '
-        f'not a bad day. Ranked by non-returns in the last 30 days; year to date alongside.', tight=True))
+        f'{eo(num(len(m["repeat_offenders"])))} did so in {R["repeat_weeks"]} or more separate weeks of the last 30 days - '
+        f'a habit, not a bad day. Ranked by non-returns in the last 30 days; year to date alongside.', tight=True))
     parts.append(edtable(["Who", "Draws 30d", "Not same day 30d", "Same-day % 30d", "Last 3 months", "Year to date", "Still out"],
                          lrows, ["", "r", "r", "r", "r", "r", "r"]))
     parts.append(enote(
         f'Named people only - custody and workflow accounts are reported on their own lines. "Not same day" = '
-        f'not scanned back on the calendar day it went out (a draw after {R["night_shift_from"].strftime("%H:%M")} '
-        f'counts as same day if back by {R["night_shift_back_by"].strftime("%H:%M")} next morning). '
-        f'The full list is in the PDF.'))
+        f'not scanned back on the calendar day it went out (a return from the return box by '
+        f'{R["return_box_scan_until"].strftime("%H:%M")} next morning counts as same day; a draw at or after '
+        f'{R["night_shift_from"].strftime("%H:%M")} counts as same day if back by {R["night_shift_back_by"].strftime("%H:%M")} '
+        f'next morning). The top twelve are shown; every person is on the "People - not returning" tab of the attached Excel workbook.'))
 
     # ---------- companies, last 30 days ----------------------------------
     comps = [c for c in m["companies"] if c["d30_draws"] > 0]
     crows = []
     for c in comps[:10]:
-        names = ", ".join(f"{esc(p)} ({k})" for p, k in c["d30_top"][:3])
+        names = ", ".join(f'<span style="white-space:nowrap">{esc(p)} ({k})</span>' for p, k in c["d30_top"][:3])
         crows.append([esc(c["name"]), num(c["d30_draws"]), f'<b>{num(c["d30_nsd"])}</b>',
                       f'<span style="color:{col_pct(c["d30_sd_pct"])};font-weight:bold;">{c["d30_nsd_pct"]}%</span>',
                       (f'<span style="color:{col_pct(c["d90_sd_pct"])};font-weight:bold;">{c["d90_nsd_pct"]}%</span>' if c["d90_draws"] else dim("-")),
                       f'<span style="color:{col_pct(c["ytd_sd_pct"])};font-weight:bold;">{c["ytd_nsd_pct"]}%</span>',
                       num(c["d30_people"]), red(num(c["open_now"])) if c["open_now"] else dim("0"),
                       names or dim("-")])
-    parts.append(esect("By company - the last 30 days against the year"))
+    parts.append(esect("By company - the last 30 days against the last 3 months and the year"))
     parts.append(ecallout(
         f'{eo(num(d30["not_same_day"]))} of <b>{num(d30["draws"])}</b> crew draws in the last 30 days '
         f'({d30["nsd_pct"]}%) were not back on the day they went out, across <b>{num(d30["companies"])} '
@@ -337,6 +398,7 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
     parts.append(edtable(["Company", "Draws 30d", "Not same day", "Rate 30d", "Rate 3 mo", "Rate YTD", "People", "Still out",
                           "Top non-returners, last 30 days (units)"],
                          crows, ["", "r", "r", "r", "r", "r", "r", "r", ""]))
+    parts.append(esubh("Not returned same day, last 30 days", "- by company, top 10"))
     parts.append(epanel(hbars_png([(c["name"], c["d30_nsd"]) for c in comps[:10]], CW - 28, K["amber"])))
 
     # ---------- the year in context -------------------------------------
@@ -344,22 +406,23 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
     parts.append(esect("The year so far - volume and behaviour by month"))
     parts.append(ecallout(
         f'Since <b>{m["tx_window"][0].strftime("%d %b")}</b>, crews have drawn a monitor <b>{num(ytd["draws"])} '
-        f'times</b> - about {num(ytd["per_working_day"])} a working day - and {eo(str(ytd["sd_pct"]) + "%")} '
+        f'times</b> - {num(ytd["per_working_day"])} a working day on average over the {num(ytd["working_days"])} weekdays '
+        f'with draws - and {eo(str(ytd["sd_pct"]) + "%")} '
         f'came back the same day. The last 30 days ran at {eo(str(d30["sd_pct"]) + "%")} on {num(d30["draws"])} '
         f'draws. Bars are monthly draws; the line is the share back the same day'
         f'{" - the last bar is a part month" if mon and mon[-1]["partial"] else ""}.', tight=True))
-    parts.append(epanel(combo_png([x["label"] for x in mon], [x["draws"] for x in mon],
-                                  [x["sd_pct"] for x in mon], CW - 28,
-                                  partial_last=bool(mon and mon[-1]["partial"]))))
+    parts.append(epanel(month_combo_png([x["label"] for x in mon], [x["draws"] for x in mon],
+                                        [x["sd_pct"] for x in mon], CW - 28,
+                                        partial_last=bool(mon and mon[-1]["partial"]))))
     parts.append(etiles([
         (num(ytd["draws"]), "Crew draws, year to date", esc(m["ytd_label"]), "#5B6472"),
         (f'{ytd["sd_pct"]}%', "Same day, year to date", f'{num(ytd["not_same_day"])} not back same day', col_pct(ytd["sd_pct"])),
         (num(d30["draws"]), "Crew draws, last 30 days", esc(m["d30_label"]), "#5B6472"),
         (f'{d30["sd_pct"]}%', "Same day, last 30 days", f'{num(d30["not_same_day"])} not back same day', col_pct(d30["sd_pct"])),
     ]))
-    wk = m["weekly"]
-    parts.append(esubh("Same-day return rate by week", "- every week of the year"))
-    parts.append(epanel(line_png([w["label"] if i % 2 == 0 else "" for i, w in enumerate(wk)],
+    wk = [w for w in m["weekly"] if not w["partial"]]
+    parts.append(esubh("Same-day return rate by week", "- every full week of the year (part weeks left off)"))
+    parts.append(epanel(line_png([w["label"] if i % 6 == 0 else "" for i, w in enumerate(wk)],
                                  [{"vals": [w["pct"] for w in wk], "colour": K["green"],
                                    "label": "Same-day %", "fill": True}], CW - 28, pct=True)))
 
@@ -380,66 +443,76 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
             f'end of the day ran from <b>{num(s_["overdue_first"])}</b> on the first day to {eo(num(s_["overdue_last"]))} '
             f'now, peaking at <b>{num(s_["peak_overdue"])}</b> on {s_["peak_day"]:%d %b}; out 30 days or more went from '
             f'<b>{num(s_["over30_first"])}</b> to {eo(num(s_["over30_last"]))}. {rate_words}'
-            f'<b>{num(s_["repeaters"])}</b> people have non-returns in three or more separate weeks - the full list is '
-            f'in the PDF and on the Trend tabs of the Excel twin.', tight=True))
+            f'This year <b>{num(s_["repeaters"])}</b> people had a non-return in three or more separate weeks (the last-30-day '
+            f'count above is {num(len(m["repeat_offenders"]))}) - every one is listed on the "Trend - repeat people" tab of the '
+            f'attached Excel workbook.', tight=True))
         parts.append(epanel(line_png([x["day"].strftime("%d %b") if i % 8 == 0 else "" for i, x in enumerate(pts)],
                                      [{"vals": [x["out"] for x in pts], "colour": "#2A313C", "label": "Out to crew"},
                                       {"vals": [x["overdue"] for x in pts], "colour": K["amber"], "label": "Overdue 1+ days"},
                                       {"vals": [x["over30"] for x in pts], "colour": K["red"], "label": "Out 30+ days", "fill": True}],
                                      CW - 28)))
+        lab_b, lab_l = tr.get("trend_base_label", ""), tr.get("trend_last_label", "")
+
+        def pcx(v):
+            return f"{v:.1f}%" if v is not None else dim("-")
+
+        def wordx(w):
+            return {"worse": '<b style="color:#D0342C;">worse</b>',
+                    "better": '<b style="color:#409A55;">better</b>', "level": "level"}.get(w, dim(esc(w)))
         crow = []
         for c in tr["companies"][:6]:
-            last3 = [r for r in c["rates"] if r is not None][-3:]
-            word = {"worse": '<b style="color:#D0342C;">worse</b>',
-                    "better": '<b style="color:#409A55;">better</b>'}.get(c["trend"], "level")
-            crow.append([esc(c["name"]), num(c["draws"]), num(c["nsd"]), f'{c["nsd_pct"]}%',
-                         " / ".join(f"{r:g}%" for r in last3) or "-", word, num(c["open_now"])])
-        parts.append(esubh("Busiest companies", "- non-return rate for the year, the last three months, and the trend"))
-        parts.append(edtable(["Company", "Draws", "Not same day", "Rate", "Last 3 months", "Trend", "Open now"],
-                             crow, ["", "r", "r", "r", "r", "", "r"]))
+            crow.append([esc(c["name"]), num(c["draws"]), num(c["nsd"]), f'{c["nsd_pct"]:.1f}%',
+                         pcx(c.get("trend_base")), pcx(c.get("trend_last")), wordx(c["trend"]), num(c["open_now"])])
+        parts.append(esubh("Busiest companies", f"- non-return rate for the year, the {lab_b} average against {lab_l}, and the trend"))
+        parts.append(edtable(["Company", "Draws", "Not same day", "Rate YTD", f"{lab_b} avg", lab_l, "Trend", "Open now"],
+                             crow, ["", "r", "r", "r", "r", "r", "", "r"]))
         pe = tr.get("people") or []
         if pe:
             prow = []
             for q in pe:
-                last3 = q["nsd_by_month"][-3:]
-                word = {"worse": '<b style="color:#D0342C;">worse</b>',
-                        "better": '<b style="color:#409A55;">better</b>'}.get(q["trend"], q["trend"])
-                prow.append([esc(q["name"]), esc(q["co"]), num(q["draws"]), f'<b>{num(q["nsd"])}</b>', f'{q["nsd_pct"]}%',
-                             " / ".join(num(x) for x in last3), word, num(q["weeks"]),
-                             (f'{red(num(q["open_now"]))} ({num(q["oldest"])} d)' if q["open_now"] else "0")])
+                prow.append([f'<span style="white-space:nowrap">{esc(q["name"])}</span>', esc(q["co"]), num(q["draws"]),
+                             f'<b>{num(q["nsd"])}</b>', f'{q["nsd_pct"]}%', pcx(q.get("trend_base")), pcx(q.get("trend_last")),
+                             wordx(q["trend"]), num(q["weeks"]),
+                             (f'{red(num(q["open_now"]))} ({num(q["oldest"])}d)' if q["open_now"] else "0")])
             parts.append(esubh("Worst offenders", "- the ten people with the most non-returns this year, and the way each is heading"))
-            parts.append(edtable(["Who", "Company", "Draws", "Not same day", "Rate", "Last 3 months", "Trend", "Weeks", "Still out"],
-                                 prow, ["", "", "r", "r", "r", "r", "", "r", "r"]))
-        parts.append(enote("Trend compares the last full month with the three before it: worse = more than 2 points higher, "
-                           "better = more than 2 lower. Every point is counted from the same TRANSACTIONS export as the rest "
-                           "of this email - nothing smoothed, nothing estimated."))
+            parts.append(edtable(["Who", "Company", "Draws", "Not same day", "Rate YTD", f"{lab_b} avg", lab_l, "Trend", "Weeks", "Still out"],
+                                 prow, ["", "", "r", "r", "r", "r", "r", "", "r", "r"]))
+        parts.append(enote(f"Trend compares {lab_l}'s non-return rate with the {lab_b} average: worse = more than 2 points "
+                           f"higher, better = more than 2 lower. November is a part month and is not judged; a person with no "
+                           f"draws in {lab_l} is not judged either (\"no draws since ...\"). Every point is counted from the same "
+                           f"TRANSACTIONS export as the rest of this email - nothing smoothed, nothing estimated."))
 
     # ---------- where they are now ---------------------------------------
     where = m["where"]
-    top = sorted(where, key=lambda w2: -w2["total"])[:10]
-    parts.append(esect("Where the monitors are right now - by company"))
+    ranked = sorted(where, key=lambda x: (-x["d30"], -x["outstanding"], -x["total"]))
+    top = ranked[:10]
+    any_today = any(w2["today"] for w2 in where)
+    parts.append(esect("Where the monitors are right now - by company, ranked by units 30+ days out"))
     parts.append(ecallout(
-        f'<b>{num(m["crew_out"])} monitors</b> are out to crew: {num(m["out_today"])} went out today and are on '
-        f'their normal cycle; {eo(num(m["outstanding"]) + " are overdue")} - {num(m["out_1"])} since yesterday, '
+        f'<b>{num(m["crew_out"])} monitors</b> are out to crew: '
+        + (f'{num(m["out_today"])} went out today and are on their normal cycle; ' if m["out_today"] else
+           'none had gone out today when the register was pulled, so ')
+        + f'{eo(num(m["outstanding"]) + " are overdue")} - {num(m["out_1"])} since yesterday, '
         f'{num(m["out_2_7"])} for 2-7 days, {num(m["out_8_29"])} for 8-29 days and '
         f'{eo(num(m["out_30"]) + " for 30 days or more")}. Custody holdings sit outside the crew count: '
-        f'FCCU {num(m["fccu"])}, Operations {num(m["ops"])}, Future Fuels {num(m["ff"])}, after-hours '
-        f'account {num(m["afterhours"])}.', tight=True))
+        + ", ".join(f"{lab} {num(m[k])}" for k, lab in (("fccu", "FCCU"), ("ops", "Operations"), ("ff", "Future Fuels"),
+                                                        ("afterhours", "after-hours account")) if m[k]) + ".", tight=True))
+    segs_ = ([("Out today", GREY)] if any_today else []) + [
+        ("1 day", K["amber"]), ("2-7 days", K["deep_amber"]), ("8-29 days", K["red"]), ("30+ days", "#7A1F19")]
     parts.append(epanel(stacked_hbars_png(
-        [(w2["name"], [w2["today"], w2["d1"], w2["d2_7"], w2["d8_29"], w2["d30"]]) for w2 in top],
-        [("Out today", GREY), ("1 day", K["amber"]), ("2-7 days", K["orange"]),
-         ("8-29 days", DEEP_RED), ("30+ days", K["red"])], CW - 28)))
+        [(w2["name"], ([w2["today"]] if any_today else []) + [w2["d1"], w2["d2_7"], w2["d8_29"], w2["d30"]]) for w2 in top],
+        segs_, CW - 28)))
     wrows = []
-    for w2 in sorted(where, key=lambda x: (-x["d30"], -x["outstanding"], -x["total"]))[:10]:
+    for w2 in top:
         uc = {"Critical": "#D0342C", "High": "#8A5300", "Watch": "#1E6B32", "Clear": "#98A0AA"}.get(w2["urgency"], "#E6E9EE")
-        wrows.append([esc(w2["name"]), num(w2["today"]), num(w2["d1"]) if w2["d1"] else dim("0"),
+        wrows.append([esc(w2["name"])] + ([num(w2["today"])] if any_today else []) + [num(w2["d1"]) if w2["d1"] else dim("0"),
                       num(w2["d2_7"]) if w2["d2_7"] else dim("0"), num(w2["d8_29"]) if w2["d8_29"] else dim("0"),
                       red(num(w2["d30"])) if w2["d30"] else dim("0"),
                       f'<b>{num(w2["outstanding"])}</b>' if w2["outstanding"] else dim("0"),
                       money(w2["exposure"]) if w2["exposure"] else dim("$0"),
                       f'<span style="color:{uc};font-weight:bold;">{esc(w2["urgency"])}</span>'])
-    parts.append(edtable(["Company", "Today", "1 day", "2-7d", "8-29d", "30+d", "Overdue", "Exposure", "Urgency"],
-                         wrows, ["", "r", "r", "r", "r", "r", "r", "r", ""]))
+    parts.append(edtable(["Company"] + (["Today"] if any_today else []) + ["1 day", "2-7d", "8-29d", "30+d", "Overdue", "Exposure", "Urgency"],
+                         wrows, [""] + (["r"] if any_today else []) + ["r", "r", "r", "r", "r", "r", ""]))
 
     # ---------- 30+ named --------------------------------------------------
     items30 = [x for x in m["outstanding_items"] if x["days"] >= 30]
@@ -447,15 +520,15 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
     if items30:
         parts.append(edtable(["Out", "Since", "Who", "Company", "Asset", "Serial", "Charge"],
                              [[red(f'{x["days"]}d'), esc(x["on_dt"].strftime("%d %b %Y")) if x["on_dt"] else "",
-                               esc(x["who"]), esc(x["co"]), esc(x["bc"]), esc(x["serial"]) or dim("-"),
+                               k2.who_s(x["who"], x["co"]), esc(x["co"]), esc(x["bc"]), esc(x["serial"]) or dim("-"),
                                money(x["cost"])] for x in items30],
                              ["r", "", "", "", "", "", "r"]))
     else:
         parts.append(enote("Nothing overdue 30 days or more."))
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
 <tr><td style="{FONT}font-size:13px;font-weight:bold;color:#1D1D1B;padding:12px 10px;border-bottom:1px solid #DDE1E7;">Replacement charge exposure - {num(m['out_30'])} units at 30 days or more</td>
-<td align="right" style="padding:12px 10px;border-bottom:1px solid #DDE1E7;"><span style="{FONT}background-color:#FFF35C;font-size:13px;font-weight:bold;color:#1D1D1B;padding:3px 8px;">{money(m['exposure'])}</span></td></tr></table>
-{enote(f'{money(R["charge_per_unit"])} per unit, the replacement charge from the Ampol gas monitor workbook. The full overdue list ({num(m["outstanding"])} units, oldest first) is Appendix A of the attached PDF.')}""")
+<td align="right" style="padding:12px 10px;border-bottom:1px solid #DDE1E7;"><span style="{FONT}font-size:14px;font-weight:bold;color:#C8511A;">{money(m['exposure'])}</span></td></tr></table>
+{enote(f'{money(R["charge_per_unit"])} per unit - the replacement charge Ampol\'s gas monitor workbook used, carried as a fixed rule. The full overdue list ({num(m["outstanding"])} units, oldest first) is Appendix A of the attached PDF.')}""")
 
     # ---------- repairs -------------------------------------------------
     stale = m["repair_stale"]
@@ -465,7 +538,7 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         f'fleet a crew cannot take. Largest category <b>{esc(m["repair_top"])}</b>.'
         + (f' {eo(str(len(stale)))} units have sat there {R["stale_repair_days"]} days or more - the oldest '
            f'{num(stale[0]["days"])} days: a repair-or-replace call.' if stale else ''), tight=True))
-    parts.append(epanel(hbars_png(m["repair_cats"], CW - 28, K["orange"])))
+    parts.append(epanel(hbars_png(m["repair_cats"], CW - 28, K["deep_amber"])))
 
     # ---------- footer ---------------------------------------------------
     team_line = " &middot; ".join(
@@ -478,8 +551,8 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
 <div style="{FONT}font-size:10px;font-weight:bold;letter-spacing:2px;color:#F26222;text-transform:uppercase;">Your Coates Tool Store Team</div>
 <div style="{FONT}font-size:11px;color:#5B6472;padding-top:5px;line-height:1.7;">{team_line}</div>
 <div style="{FONT}font-size:10px;color:#98A0AA;padding-top:9px;line-height:1.7;">
-{(ampol_options.client_line() + ' &middot; ') if ampol_options.client_line() else ''}Coates Hire &middot; 340 Curtin Ave W, Eagle Farm, QLD 4009 &middot; {esc(vt["author_email"])} &middot; {esc(vt["author_mobile"])}<br>
-Sources: SiteIQ RENTAL_STOCK (position as at {esc(asat_s)}) and TRANSACTIONS (issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}, returns to the pull). Every figure is counted from those two exports and the two are reconciled against each other on every build - see the data page of the PDF. The Coates Way - consistent execution, every day. <b style="color:#1D1D1B;">POWERED BY SITEIQ</b></div>
+{(ampol_options.client_line() + ' &middot; ') if ampol_options.client_line() else ''}Coates &middot; 340 Curtin Ave W, Eagle Farm, QLD 4009 &middot; {esc(str(vt["author_email"]).lower())} &middot; {esc(vt["author_mobile"])}<br>
+Sources: SiteIQ RENTAL_STOCK (position as at {esc(asat_s)}) and TRANSACTIONS (issues {ws.strftime('%d %b %H:%M')} to {we.strftime('%d %b %Y %H:%M')}, where the export ends). Every count is made from those two exports and the two are reconciled against each other on every build - see the data page of the PDF. The Coates Way - consistent execution, every day. <b style="color:#1D1D1B;">POWERED BY SITEIQ</b></div>
 </td></tr></table>""")
 
     body = "".join(f'<tr><td style="padding:0 24px;">{p}</td></tr>'
@@ -540,9 +613,8 @@ def main():
         f.write(html)
     print(f"HTML written         : {html_path}  ({len(html):,} bytes)")
 
-    weekday = datetime.now().strftime("%A")
-    date_str = datetime.now().strftime("%d %B %Y").lstrip("0")
-    subject = f"{vt['subject_prefix']} - {weekday} {date_str}"
+    # WHY (07 Nov 2026, QA): the house date style, dated by the pull, not the clock
+    subject = f"{cfg['client']} {cfg['title']} - {m['asat'].strftime('%d %b %Y')}"
     msg = EmailMessage()
     msg["Subject"] = subject
     msg["To"] = ", ".join(vt["recipients"])
