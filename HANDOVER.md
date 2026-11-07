@@ -97,6 +97,18 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Recently done
 
+- **07 Nov 2026 - every suite checked on any laptop.** Ampol (v2.3), the
+  K2 suite and the Rio/MMG on-hire kit were each built end to end on bare
+  Python 3.8/3.9 to 3.13. Rio/MMG needed nothing (it carries its own
+  libraries); Ampol needed the v2.3 fixes; K2 needed two: a held daily-pack
+  draft was re-filed on every re-run because MIME boundaries are random
+  (`BUILD_DAILY_EMAIL_PACKS.hold_or_release` now compares the pack stamp,
+  as the ready path always did - TEST_DAILY_PACKS 177/177 on 3.9 and 3.12),
+  and 51 K2 buttons had Unix line endings (`44_ALLOW_PHONES_IN` uses labels,
+  which LF can break). Sent as `K2_UPDATE_07Nov2026_any_laptop.zip`
+  (button 46); `SUITE_VERSION_MASTER.txt` refreshed. The K2 company report
+  takes ~28 minutes in the cloud container - expected, not a hang.
+
 - **Ampol suite v2.0 (06 Nov 2026):** one look across every report, an Excel twin beside every PDF, the client copy (`REPORT_OPTIONS.txt`), the non-return trend pages (gas first, then radios and tooling). Truth table identical to the pristine v1.14 run. See the Ampol section below.
 - **Elite improvements pass (28 Jul 2026, this repo's branch):**
   - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
