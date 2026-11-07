@@ -1436,8 +1436,9 @@ def heat_grid(people, months, w=636):
         vals = [(num(p["nsd"]), "#1D1D1B", True), (f'{p["nsd_pct"]}%', "#1D1D1B", False),
                 (p["trend"], word_col.get(p["trend"], "#5B6472"), True)]
         for (txt, col, bold), (lab, wd) in zip(vals, right):
+            fw = 'font-weight="700"' if bold else ""     # outside the f-string: Python 3.9+ safe
             out.append(f'<text x="{x + wd - 2}" y="{y0 + 13}" text-anchor="end" fill="{col}" {F} font-size="8.4" '
-                       f'{"font-weight=\"700\"" if bold else ""}>{esc(str(txt))}</text>')
+                       f'{fw}>{esc(str(txt))}</text>')
             x += wd
     # legend
     ly = h - 5

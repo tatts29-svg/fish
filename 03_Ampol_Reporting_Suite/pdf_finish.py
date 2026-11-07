@@ -6,6 +6,7 @@ WHY (03 Sep 2026): every PDF the suite prints had a title but no author,
 no subject and no navigation pane. A 57-page register with no bookmarks
 is a scroll, not a document. This module stamps the document properties
 (Title, Author: Andrew Fisher, Subject, Keywords) and builds the outline
+import ampol_paths  # noqa: F401  (WHY 07 Nov 2026: puts the suite's _lib on the path - pypdf travels with the suite)
 from the report's own section headings, found on the printed pages.
 
 It never invents a heading: the bookmarks are the h1 and the
@@ -66,16 +67,30 @@ def headings_from_html(doc):
     return dedup
 
 
+_KEY = re.compile(r"[^0-9a-z]+")
+
+
+def _key(text):
+    """Letters and digits only, lower case - so a heading matches whichever
+    PDF reader extracted the page (PyMuPDF and pypdf differ on curly quotes,
+    dashes, spacing and where a line wraps)."""
+    return _KEY.sub("", str(text).lower())
+
+
 def _find_page(pages_text, text, start):
     """First page index >= start whose text holds the heading (or its
-    first 28 characters when the full heading did not survive a wrap)."""
+    first 28 characters when the full heading did not survive a wrap).
+    WHY (07 Nov 2026): matched on letters and digits only - with pypdf (the
+    reader that travels with the suite) "The register's own chase list" and
+    "Out of service - 30 units ($80,850)" were missed on the exact text."""
+    keys = [_key(p) for p in pages_text]
     probes = [text, text[:40].strip(), text[:28].strip()]
     for pr in probes:
-        if len(pr) < 6:
+        k = _key(pr)
+        if len(k) < 6:
             continue
-        pr_n = _WS.sub(" ", pr)
         for i in range(start, len(pages_text)):
-            if pr_n in pages_text[i]:
+            if k in keys[i]:
                 return i
     return None
 

@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 2.2  (07 Nov 2026)
+Version: 2.3  (07 Nov 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -509,3 +509,29 @@ v2.2 - 07 Nov 2026  (the 10/10 pass - an independent review of every page)
   - Button 13 (VERIFY_NUMBERS) now checks every figure it counts against
     the page that prints it, as a whole number (638 no longer "matches"
     inside 1,638).
+
+v2.3 - 07 Nov 2026  (any laptop)
+  Built and checked end to end on Python 3.8, 3.9, 3.10, 3.11, 3.12 and
+  3.13 with only openpyxl and Pillow installed: every report, every email
+  and every workbook, the truth table and the blank check - the same
+  figures and the same words on every one.
+  - Three pages (gas monitor report, gas email, calibration report) used a
+    way of writing text that only Python 3.12+ understands; rewritten so
+    the suite runs on Python 3.9 and newer (3.8 works too).
+  - The cover's "In this report" list needs a PDF reader. pypdf now
+    travels with the suite in _lib (with typing_extensions for older
+    Pythons), so no laptop needs it installed and every cover carries its
+    contents. Headings are matched on letters and digits only, so the list
+    is the same whichever PDF reader a laptop has.
+  - Button 10 (CHECK MY SETUP) now checks the Python version, treats
+    Pillow as required (it draws every chart, card and email picture - it
+    was wrongly listed as optional), checks _lib, says whether classic
+    Outlook is there, and gives the one install command:
+        py -m pip install --user openpyxl pillow
+  - Buttons 00 and 10 stop with plain words when Python is not installed
+    (Windows keeps a "python" shortcut that only opens the Store). A report
+    that cannot find Pillow stops with the same plain words, not a crash.
+  - Windows paths written in notes no longer make newer Pythons print
+    warnings. Every button file now has Windows line endings.
+  - The tooling registers: a hirer whose list runs over a page now has
+    their name printed again at the top of every page it runs over.

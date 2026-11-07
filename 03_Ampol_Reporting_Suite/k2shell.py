@@ -17,7 +17,16 @@ import os
 import re
 from datetime import datetime
 
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:                      # WHY (07 Nov 2026): plain words, not a traceback
+    import sys as _sys
+    print("\n  STOP - the Pillow library is not installed on this laptop.\n"
+          "  The reports draw their charts, phone cards and email pictures with it.\n"
+          "  Fix (no admin rights needed): open Command Prompt and run\n"
+          "      py -m pip install --user openpyxl pillow\n"
+          "  then press the button again. Button 10 (CHECK MY SETUP) checks everything.\n")
+    _sys.exit(1)
 
 K = {
     "orange": "#F26222", "green": "#409A55", "amber": "#E08A24",

@@ -85,7 +85,15 @@ from email.message import EmailMessage
 from email.utils import formatdate
 
 import openpyxl
-from PIL import Image, ImageDraw
+try:
+    from PIL import Image, ImageDraw
+except ImportError:                      # WHY (07 Nov 2026): plain words, not a traceback
+    import sys as _sys
+    print("\n  STOP - the Pillow library is not installed on this laptop.\n"
+          "  Fix (no admin rights needed): open Command Prompt and run\n"
+          "      py -m pip install --user openpyxl pillow\n"
+          "  then press the button again. Button 10 (CHECK MY SETUP) checks everything.\n")
+    _sys.exit(1)
 
 # WHY (12 Aug 2026): the suite's path oracle. Every input now comes from
 # the one shared Data\ area and every output lands in the dated

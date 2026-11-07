@@ -525,10 +525,15 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
                              ["r", "", "", "", "", "", "r"]))
     else:
         parts.append(enote("Nothing overdue 30 days or more."))
+    # WHY (07 Nov 2026): built before the f-string - Python before 3.12 refuses
+    # a backslash inside an f-string expression, and this suite runs on 3.9+
+    charge_note = enote(f"{money(R['charge_per_unit'])} per unit - the replacement charge Ampol's gas monitor "
+                        f"workbook used, carried as a fixed rule. The full overdue list ({num(m['outstanding'])} "
+                        "units, oldest first) is Appendix A of the attached PDF.")
     parts.append(f"""<table role="presentation" width="100%" cellspacing="0" cellpadding="0">
 <tr><td style="{FONT}font-size:13px;font-weight:bold;color:#1D1D1B;padding:12px 10px;border-bottom:1px solid #DDE1E7;">Replacement charge exposure - {num(m['out_30'])} units at 30 days or more</td>
 <td align="right" style="padding:12px 10px;border-bottom:1px solid #DDE1E7;"><span style="{FONT}font-size:14px;font-weight:bold;color:#C8511A;">{money(m['exposure'])}</span></td></tr></table>
-{enote(f'{money(R["charge_per_unit"])} per unit - the replacement charge Ampol\'s gas monitor workbook used, carried as a fixed rule. The full overdue list ({num(m["outstanding"])} units, oldest first) is Appendix A of the attached PDF.')}""")
+{charge_note}""")
 
     # ---------- repairs -------------------------------------------------
     stale = m["repair_stale"]

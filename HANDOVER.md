@@ -380,7 +380,14 @@ packs, plus the client's three asks:
 
 **Not in git:** `Data\` (site exports and registers), `Reports\`,
 `History\`, `assets\fonts` (the Inter TTFs — they travel in the update
-zip), the Coates Way deck and the SOP PDFs under `Docs\`. The update zip
+zip), `_lib\` (pypdf 5.9.0 and typing_extensions 4.13.2, both pure Python,
+also in the update zip), the Coates Way deck and the SOP PDFs under `Docs\`.
+- **Any laptop (v2.3, 07 Nov 2026).** Checked end to end on Python 3.8 to
+  3.13 with only openpyxl and Pillow installed: same figures, same words.
+  Never write an f-string that only Python 3.12+ parses (nested same-type
+  quotes, a backslash inside `{}`); `ampol_paths` puts `_lib` on the path
+  for every script; button 10 states the Python version and the one install
+  command (`py -m pip install --user openpyxl pillow`). The update zip
 Andrew drops over his folder is the complete code; the repo copy is for
 history.
 
@@ -423,6 +430,10 @@ Traps met on 07 Nov 2026 (the 10/10 pass):
   when the headline jumps.
 - Parallel fix agents each owned one builder; shared modules stayed with
   one lead. Two agents editing one 300 KB builder would have lost edits.
+- The build container had PyMuPDF installed and a laptop does not, so every
+  cover carried its contents list here and none did on a plain laptop. Test
+  portability on a bare interpreter (`uv venv -p 3.9` plus openpyxl and
+  Pillow only), not on the machine you built on.
 
 ---
 

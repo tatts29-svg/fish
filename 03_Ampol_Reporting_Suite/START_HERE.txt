@@ -50,8 +50,10 @@ The rules the whole suite is built on:
   5. NOTHING SENDS BY ITSELF. Every email is a draft until you
      press Send.
 
-  6. WORKS ON ANY COMPUTER. Copy this whole folder to any laptop
-     and it runs - every path is relative to the folder itself.
+  6. WORKS ON ANY COMPUTER. Copy this whole folder to any Windows
+     laptop with Python 3.9+, openpyxl and Pillow, and it runs -
+     every path is relative to the folder itself (ON ANOTHER
+     COMPUTER below).
 
 ------------------------------------------------------------
 EVERY MORNING (about 10 minutes)
@@ -189,20 +191,34 @@ THE COATES WAY IN THE REPORTS
 
 ON ANOTHER COMPUTER
 ------------------------------------------------------------
-  1. Copy the whole 02_Ampol_Reporting_Suite folder across
-     (USB, OneDrive, shared drive - anything). Keep the name.
-  2. Double-click 10_CHECK_MY_SETUP. It says in plain words if
-     Python, Edge/Chrome or a Data\ file is missing.
-  3. Put today's three exports in Data\ (button 12 or by hand).
-  4. Double-click 00_RUN_EVERYTHING.
-  Python 3 and Microsoft Edge (for the PDFs) are the only things
-  the computer needs; both are standard on a Coates laptop.
-  One optional extra: PyMuPDF (in a command window: pip install
-  pymupdf) writes the bookmark pane and Author into each PDF;
-  without it the PDFs still build and one console line says so. No
-  Outlook on the machine? Create an empty file NO_OUTLOOK.txt in
-  this folder and 00 skips the drafting step; the .eml files in
-  the day's folder still open in any mail program.
+  Any Windows 10 or 11 laptop runs this suite. Checked on Python
+  3.8 to 3.13 (07 Nov 2026): every report, the truth table and
+  the blank check come out the same on every one.
+
+  1. Copy the WHOLE 02_Ampol_Reporting_Suite folder across (USB,
+     OneDrive, shared drive - anything). Keep the name, and keep
+     its _lib folder - it carries a library the covers need.
+  2. Python 3.9 or newer (3.12 recommended). Not on the laptop?
+     python.org > Downloads > Python 3.12 (tick "Add python.exe
+     to PATH"), or Python 3.12 from the Microsoft Store. A locked-
+     down laptop: ask IT for "Python 3.12 from python.org".
+  3. Two libraries, once per laptop - no admin rights needed. In a
+     Command Prompt:
+         py -m pip install --user openpyxl pillow
+  4. Double-click 10_CHECK_MY_SETUP. It says in plain words if
+     Python, a library, Edge/Chrome, Outlook or a Data\ file is
+     missing, and exactly what to do. ALL GOOD means ready.
+  5. Put today's three exports in Data\ (button 12 or by hand).
+  6. Double-click 00_RUN_EVERYTHING.
+
+  Microsoft Edge prints the PDFs - it comes with Windows. One
+  optional extra: PyMuPDF (py -m pip install --user pymupdf) - the
+  suite uses it when present and does the same job without it.
+  Automatic Outlook drafts need classic (desktop) Outlook. With the
+  new Outlook app, or no Outlook, nothing is lost: double-click
+  the .eml files in the day's Reports folder to open each one as a
+  draft. An empty file NO_OUTLOOK.txt in this folder makes 00 skip
+  the drafting step.
 
   Two laptops carrying the suite: copy the folder from the one
   you updated last. SUITE_VERSION.txt tells you which is newer.

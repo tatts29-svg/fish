@@ -3088,7 +3088,22 @@ def k2_register_table(blocks, keep_rows=3, fleet=None):
         shell = k2flow.group_table(co["name"], co_meta(co, fleet), REG_HDR, [], REG_ALIGN, "reg")
         if not shell.endswith(empty):
             raise RuntimeError("k2flow.group_table changed shape - the register cannot be built")
-        bodies = []
+        # WHY (07 Nov 2026, QA review): a hirer whose list runs over a page
+        # lost their name on the next page - only the company repeated. A
+        # long list (more than REG_SPLIT_ROWS items) now sits in its own table
+        # whose thead carries the company band AND the hirer row, so both
+        # print again at the top of every page it runs over. Short lists are
+        # unchanged; the hirers after a long list carry on under the company
+        # band marked "(continued)". A-Z order and the keep rule are kept.
+        cont = k2flow.group_table(co["name"], '<span class="st">(continued)</span>', REG_HDR, [], REG_ALIGN, "reg")
+        segs, bodies, first = [], [], True
+
+        def close_run():
+            nonlocal bodies, first
+            if bodies:
+                segs.append((shell if first else cont)[:-len(empty)] + "".join(bodies) + "</table>")
+                bodies, first = [], False
+
         for g in co["groups"]:
             head = ""
             if not (co.get("custody") and len(co["groups"]) == 1):
@@ -3097,11 +3112,27 @@ def k2_register_table(blocks, keep_rows=3, fleet=None):
                 head = (f'<tr class="hr"><td colspan="{len(REG_HDR)}">{esc(g["hirer"])}{tag} '
                         f'- {bits}</td></tr>')
             rows = [k2_reg_item_tr(r, i) for i, r in enumerate(g["items"])]
+            if head and len(rows) > REG_SPLIT_ROWS:
+                close_run()
+                base = (shell if first else cont)[:-len(empty)]
+                cut = base.index("</tr>", base.index('<tr class="gt">')) + len("</tr>")
+                tbl = base[:cut] + head + base[cut:]          # company band, hirer row, column row
+                tbl += '<tbody class="keep">' + "".join(rows[:keep_rows]) + "</tbody>"
+                tbl += "<tbody>" + "".join(rows[keep_rows:]) + "</tbody></table>"
+                segs.append(tbl)
+                first = False
+                continue
             bodies.append('<tbody class="keep">' + head + "".join(rows[:keep_rows]) + "</tbody>")
             if len(rows) > keep_rows:
                 bodies.append("<tbody>" + "".join(rows[keep_rows:]) + "</tbody>")
-        out.append(shell[:-len(empty)] + "".join(bodies) + "</table>")
+        close_run()
+        out.append("".join(segs))
     return "".join(out)
+
+
+# a hirer list longer than this many items is likely to run over a page, so it
+# gets its own table and its name repeats on every page (07 Nov 2026)
+REG_SPLIT_ROWS = 18
 
 
 def k2_tail(limits, how, data_heading=True):

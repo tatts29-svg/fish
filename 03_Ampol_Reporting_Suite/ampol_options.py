@@ -8,7 +8,7 @@ WHY (06 Nov 2026, client feedback): the client wants the option to leave
 particular companies out of the reports they are shown, and an Excel
 copy of every report. This module reads ONE plain-text file,
 
-    Data\Editable\REPORT_OPTIONS.txt
+    Data\\Editable\\REPORT_OPTIONS.txt
 
 and every builder asks it two questions: which companies are hidden, and
 whether a client copy is wanted. Nothing here changes a count - a hidden

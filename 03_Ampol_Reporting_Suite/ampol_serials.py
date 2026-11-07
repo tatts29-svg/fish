@@ -7,7 +7,7 @@ Author: Andrew Fisher | POWERED BY SITEIQ
 WHY (03 Sep 2026, Andrew): a gas monitor or a radio prints under one
 name with its serial in brackets - "Dräger X-am 5000 Gas Monitor
 (ARSN-0637)", "Motorola Radio (122TYX0140)". The serial comes from the
-two serial workbooks in Data\ (Gas_Monitor_Serial_Numbers.xlsx, every
+two serial workbooks in Data\\ (Gas_Monitor_Serial_Numbers.xlsx, every
 sheet, columns A and B; radio_register.xlsx, sheet "Radio Register",
 columns A and B), read once per run. Display only - matching and
 counting never use a serial. A barcode with no serial on either list

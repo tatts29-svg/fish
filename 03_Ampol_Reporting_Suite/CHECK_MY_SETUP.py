@@ -23,6 +23,13 @@ DATA = ampol_paths.data_dir()
 OK, WARN, BAD = "  OK   ", "  WARN ", "  STOP "
 problems = []
 
+# WHY (07 Nov 2026): the oldest Python every report has been built and
+# checked on. Older than this and a report can stop part-way - say so here,
+# in plain words, before anything else is tried.
+MIN_PY = (3, 8)
+SUPPORTED_PY = (3, 9)     # 3.8 builds every report, but Python itself no longer patches it
+PIP_CMD = "py -m pip install --user openpyxl pillow"
+
 
 def say(tag, msg):
     print(tag + "| " + msg)
@@ -101,13 +108,13 @@ EXPECTED = [
     # pulls in Data\SiteIQ, everything Andrew edits in Data\Editable, and
     # ONE master workbook in place of the four small files. A legacy file
     # is only wanted while the master does not exist (button 16 builds it).
-    (("RENTAL_STOCK*.xlsx",), "SiteIQ RENTAL_STOCK export (Data\SiteIQ)",
+    (("RENTAL_STOCK*.xlsx",), "SiteIQ RENTAL_STOCK export (Data\\SiteIQ)",
      "tooling, radio and stocktake reports run on stale gear positions", False),
-    (("STOCKTAKE*.xlsx",), "SiteIQ STOCKTAKE export (Data\SiteIQ)",
+    (("STOCKTAKE*.xlsx",), "SiteIQ STOCKTAKE export (Data\\SiteIQ)",
      "the stocktake compliance report and tooling compliance pages", False),
-    (("TRANSACTIONS*.xlsx",), "SiteIQ TRANSACTIONS export (Data\SiteIQ)",
+    (("TRANSACTIONS*.xlsx",), "SiteIQ TRANSACTIONS export (Data\\SiteIQ)",
      "tooling charge pages and the gas monitor analytics pages", False),
-    (("Ampol_Master*.xlsx",), "Master workbook - descriptions, pricing, serials (Data\Editable)",
+    (("Ampol_Master*.xlsx",), "Master workbook - descriptions, pricing, serials (Data\\Editable)",
      "the four legacy files are read instead - run 16_TIDY_DATA_FOLDER to build it", False),
     (("Gas_Monitor_Serial_Numbers*.xlsx",), "Gas serial lookup (legacy)",
      "gas reports lose the serial-number matching", True),
@@ -119,9 +126,9 @@ EXPECTED = [
      "tooling and stocktake reports lose their value figures", True),
     (("New_Descriptions*.xlsx",), "Description corrections (legacy)",
      "the stocktake report loses Andrew's description fixes", True),
-    (("Ampol_Calibration_Register*.xlsx",), "Calibration register (Data\Editable)",
+    (("Ampol_Calibration_Register*.xlsx",), "Calibration register (Data\\Editable)",
      "the calibration report (06) cannot build at all", False),
-    (("Rigging Register*.xlsx", "Rigging*Register*.xlsx"), "Rigging register (Data\Editable)",
+    (("Rigging Register*.xlsx", "Rigging*Register*.xlsx"), "Rigging register (Data\\Editable)",
      "the rigging report (07) cannot build at all", False),
 ]
 
@@ -262,23 +269,53 @@ def main():
               else "single Data folder - run 16_TIDY_DATA_FOLDER when ready")
     say(OK, "Data layout: " + layout)
 
-    # ---- 2. python's libraries --------------------------------------------
+    # ---- 2. python and its libraries --------------------------------------
     print("-" * 62)
-    say(OK, "Python {}.{}.{}".format(*sys.version_info[:3]))
-    for mod, why in [("openpyxl", "reading the Excel exports and lookup files"),
-                     ("PIL", "sharper report images (optional)"),
-                     ("pymupdf", "PDF bookmarks and Author properties (optional - pip install pymupdf)")]:
+    ver = "{}.{}.{}".format(*sys.version_info[:3])
+    if sys.version_info[:2] >= SUPPORTED_PY:
+        say(OK, "Python {} (this suite needs {}.{} or newer)".format(ver, *MIN_PY))
+    elif sys.version_info[:2] >= MIN_PY:
+        say(WARN, "Python {} works, but it is out of support - install Python 3.12 "
+                  "from python.org when convenient".format(ver))
+    else:
+        say(BAD, "Python {} is TOO OLD - this suite needs {}.{} or newer".format(ver, *MIN_PY))
+        problems.append("Install a newer Python: python.org > Downloads > Python 3.12 "
+                        "(tick 'Add python.exe to PATH'), or Python 3.12 from the "
+                        "Microsoft Store. On a locked-down laptop, ask IT for "
+                        "'Python 3.12 from python.org'. Then run this check again.")
+    # WHY (07 Nov 2026): Pillow was listed as optional, but every report's
+    # page charts, phone card and email pictures are drawn with it - a laptop
+    # without it passed this check and then failed every report.
+    missing = []
+    for mod, pipname, why in [("openpyxl", "openpyxl", "reading the Excel exports and lookup files"),
+                              ("PIL", "pillow", "drawing the charts, phone cards and email pictures")]:
         try:
             __import__(mod)
-            say(OK, "Library {} - {}".format(mod, why))
+            say(OK, "Library {} - {}".format(pipname, why))
         except ImportError:
-            if mod == "openpyxl":
-                say(BAD, "Library openpyxl MISSING - nothing can read Excel")
-                problems.append("Install it: open Command Prompt and run"
-                                "   pip install openpyxl")
-            else:
-                say(WARN, "Library {} not installed - {} (fine without "
-                          "it)".format(mod, why))
+            say(BAD, "Library {} MISSING - needed for {}".format(pipname, why))
+            missing.append(pipname)
+    if missing:
+        problems.append("Install the missing librar{} (no admin rights needed): open "
+                        "Command Prompt and run   {}   - then run this check again."
+                        .format("y" if len(missing) == 1 else "ies", PIP_CMD))
+    # WHY (07 Nov 2026): pypdf travels with the suite in _lib - it reads the
+    # printed PDF so each cover lists its sections with real page numbers
+    try:
+        import pypdf  # noqa: F401  (found in _lib through ampol_paths)
+        say(OK, "Library pypdf {} - the cover contents lists (travels with the suite)".format(
+            getattr(pypdf, "__version__", "")))
+    except Exception:
+        say(BAD, "The suite's _lib folder is missing or damaged - the report covers "
+                 "will print without their contents lists")
+        problems.append("Copy the WHOLE suite folder again (with its _lib folder) - "
+                        "or unzip the latest update zip over this folder.")
+    try:
+        __import__("pymupdf")
+        say(OK, "Library pymupdf - PDF bookmarks and Author properties")
+    except ImportError:
+        say(WARN, "Library pymupdf not installed - PDF bookmarks and Author "
+                  "properties are skipped (fine without it; py -m pip install --user pymupdf)")
 
     # ---- 3. Excel + a browser ---------------------------------------------
     if os.name == "nt":
@@ -294,7 +331,21 @@ def main():
     if b:
         say(OK, "Browser for the print PDFs - " + os.path.basename(b))
     else:
-        say(WARN, "No Edge/Chrome found - reports build as HTML, no PDFs")
+        say(BAD, "No Edge or Chrome found - the reports build as web pages but no PDFs")
+        problems.append("Install Microsoft Edge (it comes with Windows 10 and 11 - IT may "
+                        "have removed it), or Google Chrome, then run this check again.")
+    # WHY (07 Nov 2026): automatic drafts need classic (desktop) Outlook; the
+    # new Outlook app cannot be driven by a script. Nothing is lost without it -
+    # every email is also saved as a file to double-click.
+    if os.name == "nt":
+        try:
+            import winreg
+            winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "Outlook.Application")
+            say(OK, "Classic Outlook found - button 08 puts the emails in Drafts")
+        except Exception:
+            say(WARN, "Classic Outlook not found (or this is the new Outlook app) - "
+                      "the emails are saved as .eml files in Reports\\(today); "
+                      "double-click one to open it as a draft")
 
     # ---- verdict ----------------------------------------------------------
     print("=" * 62)

@@ -1375,10 +1375,25 @@ def build_pages(rows, d, S):
             body6 = pnote("The register listed nothing overdue and on hire at its Last Refresh.")
         n_ro = len(d["reg_od_onhire"])
         mark("regchase")
-        P.append(f"""{psect(f"The register&rsquo;s own chase list at {refresh_short} - for comparison")}
-{pcallout(f'At its Last Refresh the register&rsquo;s own columns flagged <b>{num(n_ro)} overdue {plural(n_ro, "asset")} as on hire</b> - {num(rh)} with a hirer, {num(rr)} on the repairs account. Checked against SiteIQ at {esc(asat_s)}: <b>{num(len(d["reg_chase_back"]))}</b> {isare(len(d["reg_chase_back"]))} back in store, <b>{num(len(d["reg_chase_still"]))}</b> still out{(f" and <b>{num(n_ro - len(d['reg_chase_back']) - len(d['reg_chase_still']))}</b> not in SiteIQ at all") if n_ro - len(d['reg_chase_back']) - len(d['reg_chase_still']) else ""}. Printed so the register&rsquo;s figure and the computed one can be read side by side; the list to work is page @@P:chase@@.', False)}
+        # WHY (07 Nov 2026): each piece is built first - three levels of nested
+        # quotes only parse on Python 3.12+, and this suite runs on 3.9+
+        n_back, n_still = len(d["reg_chase_back"]), len(d["reg_chase_still"])
+        n_gone = n_ro - n_back - n_still
+        gone_txt = f" and <b>{num(n_gone)}</b> not in SiteIQ at all" if n_gone else ""
+        rc_head = psect(f"The register&rsquo;s own chase list at {refresh_short} - for comparison")
+        rc_call = pcallout(f"At its Last Refresh the register&rsquo;s own columns flagged <b>{num(n_ro)} overdue "
+                           f"{plural(n_ro, 'asset')} as on hire</b> - {num(rh)} with a hirer, {num(rr)} on the repairs "
+                           f"account. Checked against SiteIQ at {esc(asat_s)}: <b>{num(n_back)}</b> {isare(n_back)} back in "
+                           f"store, <b>{num(n_still)}</b> still out{gone_txt}. Printed so the register&rsquo;s figure and "
+                           "the computed one can be read side by side; the list to work is page @@P:chase@@.", False)
+        rc_note = pnote(f"&ldquo;Over at {esc(refresh_short)}&rdquo; is the register&rsquo;s own Days Remaining at its "
+                        f"Last Refresh, verbatim. &ldquo;Where at {esc(asat_day)}&rdquo; is SiteIQ RENTAL_STOCK at "
+                        f"{esc(asat_s)}. An item back in store is still overdue - it moves to the calibration run on "
+                        "page @@P:shelf@@, not off the list.")
+        P.append(f"""{rc_head}
+{rc_call}
 {body6}
-{pnote(f'&ldquo;Over at {esc(refresh_short)}&rdquo; is the register&rsquo;s own Days Remaining at its Last Refresh, verbatim. &ldquo;Where at {esc(asat_day)}&rdquo; is SiteIQ RENTAL_STOCK at {esc(asat_s)}. An item back in store is still overdue - it moves to the calibration run on page @@P:shelf@@, not off the list.')}""")
+{rc_note}""")
 
     # ---- P7 overdue, not on hire ----------------------------------------
     _units = d["now_od_avail_units"].most_common()

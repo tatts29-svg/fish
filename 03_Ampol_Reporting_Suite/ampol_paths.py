@@ -12,10 +12,10 @@ path true. No Downloads, no C:\\Users, no drive letters, ever.
 The layout it promises:
 
     02_Ampol_Reporting_Suite\
-        Data\                    every Excel the reports read - THE area
-        Data\previous\           dated backups made before an export is
+        Data\\                    every Excel the reports read - THE area
+        Data\\previous\\           dated backups made before an export is
                                  saved over the top (never overwritten)
-        Reports\<YYYY-MM-DD>\    one folder per day, one subfolder per
+        Reports\\<YYYY-MM-DD>\\    one folder per day, one subfolder per
                                  report family - append-only, dated,
                                  nothing is ever silently replaced
 """
@@ -25,6 +25,14 @@ import os
 from datetime import date
 
 SUITE = os.path.dirname(os.path.abspath(__file__))
+
+# WHY (07 Nov 2026): libraries that travel WITH the suite live in _lib (pypdf,
+# for the cover contents and the PDF bookmarks), so a laptop needs only
+# openpyxl and Pillow installed. Every script imports this module first.
+import sys as _sys
+_LIB = os.path.join(SUITE, "_lib")
+if os.path.isdir(_LIB) and _LIB not in _sys.path:
+    _sys.path.append(_LIB)            # after site-packages: an installed copy still wins
 DATA = os.path.join(SUITE, "Data")
 # WHY (03 Sep 2026, Andrew): two folders under Data - the three SiteIQ
 # pulls in Data\SiteIQ (never edited; button 12 files them there, dated
@@ -53,13 +61,13 @@ def data_dir():
 
 
 def siteiq_dir():
-    """Data\SiteIQ - the three SiteIQ pulls, never hand-edited."""
+    """Data\\SiteIQ - the three SiteIQ pulls, never hand-edited."""
     os.makedirs(SITEIQ, exist_ok=True)
     return SITEIQ
 
 
 def editable_dir():
-    """Data\Editable - the workbooks Andrew maintains."""
+    """Data\\Editable - the workbooks Andrew maintains."""
     os.makedirs(EDITABLE, exist_ok=True)
     return EDITABLE
 
@@ -71,7 +79,7 @@ def data_dirs():
 
 def previous_dir():
     """Where a fresh export's predecessor is parked, date-stamped:
-    Data\SiteIQ\previous."""
+    Data\\SiteIQ\\previous."""
     p = os.path.join(siteiq_dir(), "previous")
     os.makedirs(p, exist_ok=True)
     return p
@@ -79,7 +87,7 @@ def previous_dir():
 
 def previous_dirs():
     """Every folder an earlier pull may sit in - the SiteIQ one and the
-    pre-v1.13 Data\previous, for a laptop not yet tidied."""
+    pre-v1.13 Data\\previous, for a laptop not yet tidied."""
     return [d for d in (os.path.join(SITEIQ, "previous"), os.path.join(DATA, "previous")) if os.path.isdir(d)]
 
 
