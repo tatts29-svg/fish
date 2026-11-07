@@ -204,7 +204,7 @@ def flow_doc(cfg, gen_s, asat_s, body, extra_css="", cover=None):
             f'<style>{flow_css(cfg, asat_s)}{extra_css}</style></head><body>'
             f'{sh.mast_html(cfg, asat_s, cls="k2mast")}{foot}'
             f'<div class="k2body">{head}{body}</div>'
-            f'</body></html>')
+            f'</body></html>').replace("\u2013", "-").replace("\u2014", "-").replace("&ndash;", "-").replace("&mdash;", "-")
 
 
 def dtable_flow(headers, rows, aligns=None, cls=""):

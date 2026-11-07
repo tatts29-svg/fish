@@ -441,7 +441,7 @@ def main():
     dash_hits = []
     for f in _internal(glob.glob(str(REPORTS / "*" / "*.html"))):
         raw = open(f, encoding="utf-8", errors="ignore").read()
-        n = len(re.findall("\u2014|&mdash;|&#8212;", re.sub(r"<style.*?</style>", " ", raw, flags=re.S)))
+        n = len(re.findall("\u2014|&mdash;|&#8212;|\u2013|&ndash;|&#8211;", re.sub(r"<style.*?</style>|<script.*?</script>", " ", raw, flags=re.S)))
         if n:
             dash_hits.append((os.path.relpath(f, REPORTS), n))
     # WHY (03 Sep 2026): values must not silently vanish - the stocktake

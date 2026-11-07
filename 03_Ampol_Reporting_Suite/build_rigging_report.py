@@ -786,7 +786,7 @@ def chartpanel(inner):
 
 
 def dash():
-    return '<span class="tbc">&ndash;</span>'
+    return '<span class="tbc">-</span>'
 
 
 def held_cell(it):
@@ -1113,7 +1113,7 @@ def three_things_rigging(d, rag):
         snap = f" of {d['snap_max']:%d %b %Y}" if d["snap_max"] else ""
         if holders:
             h, k = holders.most_common(1)[0]
-            why = (f"{num(k)} last seen on hire with {h}, per the workbook snapshot{snap} - "
+            why = (f"{num(k)} last seen on hire with {ampol_names.display_person(h)}, per the workbook snapshot{snap} - "
                    f"the first person to ask")
         else:
             c, k = d["missing_cats"].most_common(1)[0]
@@ -1123,7 +1123,7 @@ def three_things_rigging(d, rag):
     if d["oh_longest"]:
         o = d["oh_longest"][0]
         cands.append((f"Chase {o['company'] or o['hirer']} for {o['barcode']}, out {num(o['held'])} days",
-                      f"{o['desc']} - {o['hirer']}, on hire since {o['since']:%d %b %Y}", who))
+                      f"{o['desc']} - {ampol_names.display_person(o['hirer'])}, on hire since {o['since']:%d %b %Y}", who))
     # 3. the custody lines; the test-record gap when there are none
     if d["repair"]:
         lines = ", ".join(f"{r['hirer']} {num(r['n'])}" for r in d["repair_lines"][:2])
@@ -1227,7 +1227,7 @@ def build_pages(d, asat_s):
                 and re.sub(r"[^a-z0-9]", "", c["accounts"][0].lower())
                 == re.sub(r"[^a-z0-9]", "", c["co"].lower()))
         acc = ("" if same else
-               f'<span class="s2">{esc(" · ".join(c["accounts"]))}</span>')
+               f'<span class="s2">{esc(" · ".join(sorted({ampol_names.account_label(a) for a in c["accounts"]})))}</span>')
         crows.append([
             f'{esc(c["co"])}{acc}',
             num(c["n"]),
@@ -1241,7 +1241,7 @@ def build_pages(d, asat_s):
         o = r["oldest"]
         rrows.append([
             hl(r["hirer"]),
-            esc(" · ".join(r["accounts"])),
+            esc(" · ".join(sorted({ampol_names.account_label(a) for a in r["accounts"]}))),
             num(r["n"]),
             f'{esc(o["desc"])} &middot; {esc(o["barcode"])}' if o else dash(),
             since_cell(o) if o else dash(),
@@ -2006,6 +2006,11 @@ def main():
     if not layout_ok:
         sys.exit("\nWARNING: the PDF failed its layout check - see above. Do "
                  "not send it as is.")
+
+
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+build_email_html = _k2s_dash.one_dash(build_email_html)
 
 
 if __name__ == "__main__":

@@ -955,7 +955,7 @@ def bay_map_svg(units, layout, w=636):
         out.append(f'<text x="{x + cw / 2:.1f}" y="{y + 18}" text-anchor="middle" fill="{tcol}" '
                    f'font-family="Lato, Calibri, sans-serif" font-size="8.4" font-weight="700">{esc(label)}</text>')
         out.append(f'<text x="{x + cw / 2:.1f}" y="{y + 33}" text-anchor="middle" fill="{tcol}" '
-                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(u["n"])} items · {pct:.0f}%</text>')
+                   f'font-family="Lato, Calibri, sans-serif" font-size="7.6">{num(u["n"])} item{"" if u["n"] == 1 else "s"} · {pct:.0f}%</text>')
     out.append("</svg>")
     return "".join(out)
 
@@ -1664,6 +1664,11 @@ def main():
     if any(fit is False or lay is False for fit, lay in checks):
         sys.exit("\nWARNING: a PDF failed its fit or layout check - see above. Do "
                  "not send it as is.")
+
+
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+build_email_html = _k2s_dash.one_dash(build_email_html)
 
 
 if __name__ == "__main__":

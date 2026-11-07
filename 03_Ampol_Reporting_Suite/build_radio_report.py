@@ -107,7 +107,7 @@ CUR_YEAR = REPORT_DATE.year
 # WHY (12 Aug 2026): PRIOR_LABEL was computed and never used while the headings
 # carried hard-coded years - come January the report would have quietly lied.
 # Every heading now derives from these two.
-PRIOR_LABEL = f"2023–{CUR_YEAR - 1}"      # reset from the data in main()
+PRIOR_LABEL = f"2023-{CUR_YEAR - 1}"      # reset from the data in main()
 PRIOR_SHORT = f"2023-{str(CUR_YEAR - 1)[2:]}"
 # The unit prices are READ from the pricing file in main(); these are only
 # the fallback if that file is missing, and the page says which was used.
@@ -120,7 +120,7 @@ META = {}
 # WHY (03 Sep 2026): it now marks a year RANGE only (2023-2025); every other
 # dash the builder prints is " - " - one style on every page, and the verify
 # gate fails on a long dash.
-EN_DASH = "–"
+EN_DASH = "-"      # WHY (07 Nov 2026): one dash style on every page
 
 COATES_PURPOSE = "Supporting Australia's growth with leading equipment solutions"
 COATES_OBJECTIVE = "Australia's most trusted equipment partner - delivering Best Service & Value"
@@ -1848,6 +1848,12 @@ def main():
           f"OOS: {len(oos)} | available {len(ravail)} radios / {len(bavail)} batteries | TOTAL EXPOSURE: ${tot_v:,.0f}")
     print(f"Serials            : {hits} of {tot} radios on hire | unpriced units: {d['unpriced']}")
     print(f"Output: {out}")
+
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+frame_email = _k2s_dash.one_dash(frame_email)
+build_email_summary = _k2s_dash.one_dash(build_email_summary)
+
 
 if __name__ == "__main__":
     main()

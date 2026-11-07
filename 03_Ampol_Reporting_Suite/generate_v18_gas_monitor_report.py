@@ -1090,7 +1090,7 @@ def company_block(name, count, rows, extra_cost_col=False):
     <td style="width:6px;background:#0B0B0B;font-size:1px;">&nbsp;</td>
     <td style="background:{C['orange']};padding:10px 14px;">
       <span style="font-size:14px;font-weight:700;color:#fff;">{esc(name)}</span>
-      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">- {count} monitors</span>
+      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">- {count} monitor{"" if count == 1 else "s"}</span>
     </td>
   </tr>
 </table>
@@ -1137,13 +1137,13 @@ def detail_tables(data, m, cfg):
     <td style="width:6px;background:#0B0B0B;font-size:1px;">&nbsp;</td>
     <td style="background:{C['red']};padding:10px 14px;">
       <span style="font-size:14px;font-weight:700;color:#fff;">{esc(c['name'])}</span>
-      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">- {c['still_out']} monitors overdue</span>
+      <span style="font-size:10px;color:rgba(255,255,255,.85);font-weight:700;margin-left:8px;">- {c['still_out']} monitor{"" if c['still_out'] == 1 else "s"} overdue</span>
     </td>
   </tr>
 </table>
 <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse;font-size:11px;color:#222;background:#FFFFFF;border:1px solid #9AA2AC;">
   <tr style="background:#FFF1F1;">
-    <td style="border:1px solid #9AA2AC;padding:7px;font-weight:700;color:#A32015;width:80px;">{c['still_out']} monitors</td>
+    <td style="border:1px solid #9AA2AC;padding:7px;font-weight:700;color:#A32015;width:80px;">{c['still_out']} monitor{"" if c['still_out'] == 1 else "s"}</td>
     <td style="border:1px solid #9AA2AC;padding:7px;"><b>Contact:</b> {esc(names)}</td>
     <td style="border:1px solid #9AA2AC;padding:7px;text-align:right;"><b>Action:</b> {esc(c['action'] or 'Follow up required')}</td>
   </tr>
@@ -1460,7 +1460,7 @@ def main():
         asat_str = data["_engine"]["asat"].strftime("%d %b %Y %H:%M")
     else:
         asat_str = datetime.fromtimestamp(os.path.getmtime(wb_path)).strftime("%d %b %Y %H:%M")
-    html = build_html(data, m, cfg, date_str, time_str, asat_str)
+    html = build_html(data, m, cfg, date_str, time_str, asat_str).replace("\u2013", "-").replace("\u2014", "-")
     out_dir = resolve_output_dir(cfg)
     os.makedirs(out_dir, exist_ok=True)
     html_path = os.path.join(out_dir, stamped_name(cfg["html_name"], date_str, cfg))

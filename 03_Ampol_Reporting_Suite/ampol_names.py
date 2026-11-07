@@ -217,6 +217,21 @@ def display_desc(text, barcode=None, serial=None):
     return sentence_case(s)
 
 
+_DRAGER_RE = re.compile(r"^\s*dr[aä]ger\s*[-\u2013\u2014]\s*(?:dr[aä]ger\s*[-\u2013\u2014]\s*)?", re.I)
+
+
+def drager_account(name):
+    """WHY (07 Nov 2026): SiteIQ names the Dräger service lines 'Dräger - FCCU',
+    'Dräger - Failed Bump Test' and once 'Dräger - Dräger – Out of Calibration'.
+    One form on every page: 'Dräger - <status>'. '' when it is not one."""
+    s = re.sub(r"\s+", " ", str(name or "")).strip()
+    m = _DRAGER_RE.match(s)
+    if not m:
+        return ""
+    rest = s[m.end():].strip(" -\u2013\u2014")
+    return f"Dräger - {rest}" if rest else "Dräger"
+
+
 def display_person(name):
     """A person as shown: SiteIQ's 'First - Last' reads 'First Last', each
     word capitalised, inner capitals kept (McGurk, O'Connor); anything
@@ -227,7 +242,7 @@ def display_person(name):
         return s
     if is_site_account(s):
         return hirer_label(s)
-    s = re.sub(r"^(\S+)\s+-\s+", r"\1 ", s, count=1)   # the first dash is SiteIQ's separator
+    s = re.sub(r"^(.+?)\s+-\s+", r"\1 ", s, count=1)    # the first " - " is SiteIQ's separator ("Adrain Joshua - Purdue")
     words = []
     for w in s.split(" "):
         if w.isupper() or w.islower():

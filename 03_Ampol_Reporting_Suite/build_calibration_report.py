@@ -797,7 +797,7 @@ def chartpanel(inner):
 
 
 def dash():
-    return '<span class="tbc">&ndash;</span>'
+    return '<span class="tbc">-</span>'
 
 
 def tag(text, cls):
@@ -1019,7 +1019,7 @@ def table_pages(title, lead, headers, aligns, rows, per_page, note, cls="cp"):
     pages = []
     for k, chunk in enumerate(chunks):
         t = title if k == 0 else f"{title} (continued)"
-        run = (pnote(f'Rows {k * per_page + 1}&ndash;{k * per_page + len(chunk)} of {len(rows)}.')
+        run = (pnote(f'Rows {k * per_page + 1} to {k * per_page + len(chunk)} of {len(rows)}.')
                if len(chunks) > 1 else "")
         body = (sh.dtable(headers, chunk, aligns, cls) if chunk
                 else pnote("Nothing to list - the source holds no rows for this table."))
@@ -1668,14 +1668,14 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
     chase_rows = []
     for hirer, items in d["now_chase_hirer"] + d["now_chase_repairs"]:
         for r in sorted(items, key=lambda x: x["now_days"] or 0):
-            out = r["out"].strftime("%d %b %Y") if r["out"] else "&ndash;"
+            out = r["out"].strftime("%d %b %Y") if r["out"] else "-"
             if r["issued_after_due"]:
                 out += ' <span style="color:#A32015;font-weight:bold;font-size:10px;">AFTER DUE</span>'
             chase_rows.append([esc(ampol_names.display_person(hirer)) + (' <span style="color:#5B6472;font-size:10px;">repairs</span>' if r["repairs_now"] else ""),
-                               esc(r["asset"]) or "&ndash;",
-                               esc(r["desc"]) or "&ndash;",
-                               r["due"].strftime("%d %b %Y") if r["due"] else "&ndash;",
-                               f'{num(abs(r["now_days"]))}d' if r["now_days"] is not None else "&ndash;",
+                               esc(r["asset"]) or "-",
+                               esc(r["desc"]) or "-",
+                               r["due"].strftime("%d %b %Y") if r["due"] else "-",
+                               f'{num(abs(r["now_days"]))}d' if r["now_days"] is not None else "-",
                                out])
     shown = chase_rows[:cap]
     parts.append(sh.esect(f"Overdue and on hire at {esc(asat_day)} - the chase list, by name"))
@@ -1693,11 +1693,11 @@ Due dates last maintained <b style="color:#B91C1C;">{esc(maint_short)}</b>, <b s
 
     cap2 = 8
     d30 = d["now_due30"]
-    drows = [[esc(r["asset"]) or "&ndash;", esc(r["desc"]) or "&ndash;",
-              r["due"].strftime("%d %b %Y") if r["due"] else "&ndash;",
-              f'{num(r["now_days"])}d' if r["now_days"] is not None else "&ndash;",
+    drows = [[esc(r["asset"]) or "-", esc(r["desc"]) or "-",
+              r["due"].strftime("%d %b %Y") if r["due"] else "-",
+              f'{num(r["now_days"])}d' if r["now_days"] is not None else "-",
               ("On hire" if r["where"] == "On Hire" else "In store" if r["where"] == "Available for Hire" else esc(r["where"])),
-              esc(ampol_names.display_person(r["live_hirer"])) if r["where"] == "On Hire" and r["live_hirer"] else "&ndash;"]
+              esc(ampol_names.display_person(r["live_hirer"])) if r["where"] == "On Hire" and r["live_hirer"] else "-"]
              for r in d30[:cap2]]
     parts.append(sh.esect(f"Due inside 30 days at {esc(asat_day)} - soonest first"))
     parts.append(sh.edtable(["Asset", "Description", "Due", "Days left", "Where", "Who has it"],
@@ -2051,6 +2051,11 @@ def main():
     if not layout_ok:
         sys.exit("\nWARNING: the PDF failed its layout check - see above. Do "
                  "not send it as is.")
+
+
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+build_email_html = _k2s_dash.one_dash(build_email_html)
 
 
 if __name__ == "__main__":

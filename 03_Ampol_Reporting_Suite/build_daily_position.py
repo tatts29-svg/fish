@@ -404,5 +404,10 @@ def main():
     return 0
 
 
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+email_body = _k2s_dash.one_dash(email_body)
+
+
 if __name__ == "__main__":
     sys.exit(main())

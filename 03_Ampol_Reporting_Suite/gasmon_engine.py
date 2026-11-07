@@ -984,7 +984,7 @@ def v18_data(m):
         "oh_8_29": [row(x) for x in items if 8 <= x["days"] <= 29],
         "oh_30": [row(x, True) for x in items if x["days"] >= 30],
         "fccu": [],
-        "repairs": [[f"Dräger – {x['status']}", x["bc"], x["serial"], x["desc"],
+        "repairs": [[f"Dräger - {x['status']}", x["bc"], x["serial"], x["desc"],
                      x["days"], x["on_dt"]] for x in m["repair_items"]],
         "perf_summary": {
             "Current Onhire": m["crew_out"],

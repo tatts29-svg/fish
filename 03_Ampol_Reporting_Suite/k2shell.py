@@ -29,6 +29,24 @@ FONT_STACK = "Inter, Segoe UI, Calibri, sans-serif"
 
 
 
+def _one_dash(html):
+    """WHY (07 Nov 2026): one dash style on every page - SiteIQ status names and
+    older copy carry en and em dashes; they print as the plain dash."""
+    return html.replace("\u2013", "-").replace("\u2014", "-").replace("&ndash;", "-").replace("&mdash;", "-")
+
+
+
+def one_dash(fn):
+    """Wrap an email builder so its HTML carries the one dash style too -
+    the emails do not pass through render_page."""
+    def wrapped(*a, **k):
+        out = fn(*a, **k)
+        return _one_dash(out) if isinstance(out, str) else out
+    wrapped.__name__ = getattr(fn, "__name__", "wrapped")
+    wrapped.__doc__ = getattr(fn, "__doc__", None)
+    return wrapped
+
+
 def _client_line():
     """The client-copy line when this build leaves companies out, else ''."""
     try:
@@ -593,8 +611,8 @@ def render_page(cfg, inner, pno, ptot, gen_s, asat_s, page_no=None):
     else:
         head = cont_head(cfg, asat_s, pno, ptot) + '<div class="grule"></div>'
         cls = "page"
-    return (f'<div class="{cls}"><div class="frame">{mast_html(cfg, asat_s)}{head}'
-            f'<div class="body">{inner}</div>{footer(cfg, page_no, ptot)}</div></div>')
+    return _one_dash((f'<div class="{cls}"><div class="frame">{mast_html(cfg, asat_s)}{head}'
+            f'<div class="body">{inner}</div>{footer(cfg, page_no, ptot)}</div></div>'))
 
 
 # =====================================================================

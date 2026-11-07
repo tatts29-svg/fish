@@ -628,6 +628,11 @@ def main():
     print("Done. The Coates Way - consistent execution, every day.")
 
 
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+build_email_html = _k2s_dash.one_dash(build_email_html)
+
+
 if __name__ == "__main__":
     try:
         main()

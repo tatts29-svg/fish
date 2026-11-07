@@ -389,6 +389,8 @@ def display_hirer(name):
     # (ampol_names.hirer_label) so it never reads as a person or as gear.
     if N.is_after_hours_account(s):
         return N.hirer_label(s)
+    if N.drager_account(s):
+        return N.drager_account(s)      # 'Dräger - Out of Calibration', never 'Dräger Dräger – ...'
     if is_holding_account(s) or is_custody_hirer(s):
         # an account keeps SiteIQ's words; the first dash is SiteIQ's
         # separator and drops ('Future - Fuels' reads 'Future Fuels'),
@@ -882,7 +884,8 @@ def compute_utilisation(d, today, banned):
     register (qty / on hire / available per group) and every transaction
     since 1 Jan. Hire days = distinct calendar days each barcode was out
     between 1 Jan and `today` (transactions plus current open hires),
-    summed per group. YTD % = hire days / (qty x days elapsed this year).
+    summed per group. YTD % = hire days / (fleet x days elapsed this year),
+    fleet being the larger of today's qty and the barcodes that hired.
 
     VERIFIED (02 Sep 2026): run with today = 06 Aug 2026 and the workbook's
     own banned list, every group's hire days, qty and YTD % that the 06 Aug
@@ -966,12 +969,13 @@ def compute_utilisation(d, today, banned):
         a = y0 if (dte is None or dte < y0) else dte
         if a <= y1:
             P["days"].update(range(a.toordinal(), y1.toordinal() + 1))
-    tg = defaultdict(lambda: {"tx": 0, "hirers": set(), "days": 0})
+    tg = defaultdict(lambda: {"tx": 0, "hirers": set(), "days": 0, "barcodes": set()})
     for (_hb, g), P in per.items():
         T = tg[g]
         T["tx"] += P["n"]
         T["hirers"] |= P["hirers"]
         T["days"] += len(P["days"])
+        T["barcodes"].add(_hb)
 
     rows = []
     for g in sorted(set(groups) | set(tg)):
@@ -982,7 +986,13 @@ def compute_utilisation(d, today, banned):
         hr = len(tg[g]["hirers"]) if g in tg else 0
         dys = tg[g]["days"] if g in tg else 0
         live = 0.0 if q == 0 else oh / q
-        ytd = 0.0 if q == 0 else dys / (q * days_elapsed)
+        # WHY (07 Nov 2026): a group that shrank during the year (barcodes
+        # hired in January, off the register by now) read over 100% - the
+        # fleet for the year is the larger of today's quantity and the
+        # barcodes that hired this year, so the rate can never pass 100%
+        nb = len(tg[g]["barcodes"]) if g in tg else 0
+        fleet_ytd = max(q, nb)
+        ytd = 0.0 if fleet_ytd == 0 else min(1.0, dys / (fleet_ytd * days_elapsed))
         if q == 0 and tx > 0:
             rec = "Review - Used in Transactions but Not Found in Current Stock"
         elif q == 0:
@@ -1666,7 +1676,7 @@ def ageing_panel(bl, companies, heading):
                  "legend totals are for the charted companies; the table carries every company "
                  "and the full total.")
     else:
-        scope = f"All {len(rows)} companies A to Z, not ranked."
+        scope = (f"All {len(rows)} companies A to Z, not ranked." if len(rows) != 1 else "The one company on this report.")
     bl.chart(sh.stacked_hbars(big),
              f"Each company's items on hire by days out at the pull ({fmt_date(ASAT_DAY)}): "
              f"0-30, 31-60, 61-90 and over 90 days. {scope} A row's total is the company's "
@@ -4116,8 +4126,10 @@ def render_util(d):
     buy_spend = sum(r["buy"] for r in buy_priced)
     unpriced_n = len(um["buy"]) - len(buy_priced)
     story = ("Utilisation is measured two ways: <b>live</b> (what share of a group is on "
-             "hire right now) and <b>year-to-date</b> (actual hire days against days "
-             "available). Groups running hot are where crews wait for gear; groups "
+             "hire right now) and <b>year-to-date</b> (actual hire days against the days "
+             "available to the group's fleet - the larger of today's quantity and the barcodes "
+             "that hired this year, so a group that shrank cannot read over 100%). Groups "
+             "running hot are where crews wait for gear; groups "
              "running cold are capital sitting still. The buy list below is evidence-"
              "based - every line shows the demand that justifies it. Figures are computed "
              f"from the {stamp(d['asat']['stock']['pulled'])} SiteIQ exports: "
@@ -5304,6 +5316,12 @@ def main():
             record_history(d)
         print(f"\nOutputs in {OUT_REL}. 08_MAKE_OUTLOOK_DRAFTS.bat loads the")
         print("emails into Outlook Drafts - full To search, attachments included.")
+
+
+# WHY (07 Nov 2026): one dash style in the emails as on the pages
+import k2shell as _k2s_dash
+email_html = _k2s_dash.one_dash(email_html)
+email_body = _k2s_dash.one_dash(email_body)
 
 
 if __name__ == "__main__":
