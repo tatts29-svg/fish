@@ -357,6 +357,12 @@ packs, plus the client's three asks:
   the tooling builder does the same for tooling (hires open, past 30,
   past 90, by company, week by week) in the executive summary and the
   on-hire report.
+- **Worst offenders (07 Nov 2026).** `gas_trends` ranks the ten people with the
+  most non-returns this year with a month-by-month line each (a heat grid on
+  its own PDF page, a table in the email, a Trend tab); the tooling trend
+  page names the ten holders with the most items past 90 days and their
+  open items at every month's end. Reports land in the folder of the day the
+  button is pressed, so a build after midnight is in the next day's folder.
 - **Accuracy.** A pristine v1.14 copy and the v2.0 copy were both run on
   the same 06 Sep 2026 exports; the truth table passes on both with every
   checked figure identical.

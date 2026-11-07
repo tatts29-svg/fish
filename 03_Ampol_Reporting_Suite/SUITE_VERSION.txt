@@ -438,7 +438,13 @@ v2.0 - 06 Nov 2026  (the makeover, the Excel twin, the client copy, the trend)
     day since 1 Jan, how quickly draws came back week by week, the age of
     what was open at each week's end, the busiest companies' non-return
     rate by month with a worse / better / level word, and the people
-    with non-returns in three or more separate weeks. The same engine
+    with non-returns in three or more separate weeks, and THE WORST
+    OFFENDERS - the ten people with the most non-returns this year, each
+    with their own month-by-month line (a heat strip: the count in the
+    cell, the colour from the month's rate), the way each is heading and
+    what they still hold; in the PDF, the email and a Trend tab. The
+    tooling trend page names the ten holders with the most items past 90
+    days and how many each had open at the end of every month. The same engine
     gives the tooling reports and the radio report a "still out at each
     week's end, and for how long" page (hires open, past 30 days, past 90
     days, week by week, by company). Every point is a count over the

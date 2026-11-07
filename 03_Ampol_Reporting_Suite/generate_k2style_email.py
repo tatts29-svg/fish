@@ -397,6 +397,19 @@ def build_email_html(m, gen_s, asat_s, cfg, card_cid=""):
         parts.append(esubh("Busiest companies", "- non-return rate for the year, the last three months, and the trend"))
         parts.append(edtable(["Company", "Draws", "Not same day", "Rate", "Last 3 months", "Trend", "Open now"],
                              crow, ["", "r", "r", "r", "r", "", "r"]))
+        pe = tr.get("people") or []
+        if pe:
+            prow = []
+            for q in pe:
+                last3 = q["nsd_by_month"][-3:]
+                word = {"worse": '<b style="color:#D0342C;">worse</b>',
+                        "better": '<b style="color:#409A55;">better</b>'}.get(q["trend"], q["trend"])
+                prow.append([esc(q["name"]), esc(q["co"]), num(q["draws"]), f'<b>{num(q["nsd"])}</b>', f'{q["nsd_pct"]}%',
+                             " / ".join(num(x) for x in last3), word, num(q["weeks"]),
+                             (f'{red(num(q["open_now"]))} ({num(q["oldest"])} d)' if q["open_now"] else "0")])
+            parts.append(esubh("Worst offenders", "- the ten people with the most non-returns this year, and the way each is heading"))
+            parts.append(edtable(["Who", "Company", "Draws", "Not same day", "Rate", "Last 3 months", "Trend", "Weeks", "Still out"],
+                                 prow, ["", "", "r", "r", "r", "r", "", "r", "r"]))
         parts.append(enote("Trend compares the last full month with the three before it: worse = more than 2 points higher, "
                            "better = more than 2 lower. Every point is counted from the same TRANSACTIONS export as the rest "
                            "of this email - nothing smoothed, nothing estimated."))

@@ -1205,6 +1205,109 @@ def page_nonreturn_trend(m):
   Repeat non-returners (three or more separate weeks): <b>{num(s['repeaters'])}</b> people - named in the Excel twin.</div>"""
 
 
+def heat_grid(people, months, w=636):
+    """One row per person, one cell per month: the count not back the same
+    day, coloured by that month's non-return rate. Grey = no draws that
+    month; a month under five draws keeps its count in grey text and is
+    not judged."""
+    n = len(months)
+    name_w, co_w, rowh = 150, 96, 20
+    right = [("YTD", 40), ("Rate", 44), ("Trend", 46)]
+    right_w = sum(wd for _, wd in right)
+    cell_w = max(18, min(30, (w - name_w - co_w - right_w) // max(n, 1)))
+    gx = name_w + co_w
+    rx = gx + n * cell_w
+    h = 18 + len(people) * rowh + 18
+    F = 'font-family="Inter, Segoe UI, Calibri, sans-serif"'
+    out = [f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}">']
+    for i, mo in enumerate(months):
+        out.append(f'<text x="{gx + i * cell_w + cell_w / 2:.1f}" y="11" text-anchor="middle" fill="#5B6472" {F} '
+                   f'font-size="7.6" font-weight="700">{esc(mo)}</text>')
+    x = rx
+    for lab, wd in right:
+        out.append(f'<text x="{x + wd - 2}" y="11" text-anchor="end" fill="#5B6472" {F} font-size="7.6" font-weight="700">{lab}</text>')
+        x += wd
+    word_col = {"worse": "#D0342C", "better": "#409A55", "level": "#5B6472"}
+    for j, p in enumerate(people):
+        y0 = 18 + j * rowh
+        out.append(f'<text x="0" y="{y0 + 13}" fill="#1D1D1B" {F} font-size="8.6" font-weight="700">{esc(p["name"][:24])}</text>')
+        out.append(f'<text x="{name_w}" y="{y0 + 13}" fill="#5B6472" {F} font-size="7.8">{esc(p["co"][:18])}</text>')
+        for i in range(n):
+            d_, k_, r_ = p["draws_by_month"][i], p["nsd_by_month"][i], p["rates"][i]
+            if d_ == 0:
+                fill, tcol = "#EEF0F3", "#5B6472"
+            elif r_ is None:
+                fill, tcol = "#FFFFFF", "#98A0AA"
+            elif r_ < 10:
+                fill, tcol = "#DDF0E1", "#1D1D1B"
+            elif r_ < 20:
+                fill, tcol = "#FBE3C2", "#1D1D1B"
+            elif r_ < 30:
+                fill, tcol = "#F6C9C5", "#1D1D1B"
+            else:
+                fill, tcol = "#D0342C", "#FFFFFF"
+            cx_ = gx + i * cell_w
+            out.append(f'<rect x="{cx_ + 1}" y="{y0 + 2}" width="{cell_w - 2}" height="{rowh - 4}" rx="2" fill="{fill}" '
+                       f'stroke="#E6E9EE" stroke-width="0.6"/>')
+            if d_:
+                out.append(f'<text x="{cx_ + cell_w / 2:.1f}" y="{y0 + 13}" text-anchor="middle" fill="{tcol}" {F} '
+                           f'font-size="8" font-weight="700">{k_}</text>')
+        x = rx
+        vals = [(num(p["nsd"]), "#1D1D1B", True), (f'{p["nsd_pct"]}%', "#1D1D1B", False),
+                (p["trend"], word_col.get(p["trend"], "#5B6472"), True)]
+        for (txt, col, bold), (lab, wd) in zip(vals, right):
+            out.append(f'<text x="{x + wd - 2}" y="{y0 + 13}" text-anchor="end" fill="{col}" {F} font-size="8.4" '
+                       f'{"font-weight=\"700\"" if bold else ""}>{esc(str(txt))}</text>')
+            x += wd
+    # legend
+    ly = h - 5
+    lx = 0
+    for fill, lab in (("#DDF0E1", "under 10% not back same day"), ("#FBE3C2", "10 to 20%"), ("#F6C9C5", "20 to 30%"),
+                      ("#D0342C", "30% and more"), ("#EEF0F3", "no draws"), ("#FFFFFF", "under 5 draws - not judged")):
+        out.append(f'<rect x="{lx}" y="{ly - 8}" width="9" height="9" rx="2" fill="{fill}" stroke="#C9CED6" stroke-width="0.6"/>')
+        out.append(f'<text x="{lx + 13}" y="{ly}" fill="#5B6472" {F} font-size="7.4">{lab}</text>')
+        lx += 13 + 4.3 * len(lab) + 14
+    out.append("</svg>")
+    return "".join(out)
+
+
+def page_worst_offenders(m):
+    """The worst offenders - the ten people with the most non-returns this
+    year, each with their own month-by-month line, the way each is heading
+    and what they still hold. WHY (07 Nov 2026, Andrew): the league ranks
+    people over three windows; this shows whether a name is a habit or a
+    bad month."""
+    tr = m.get("trends")
+    if not tr or not tr.get("people"):
+        return ""
+    pe = tr["people"]
+    s_ = tr["summary"]
+    top = pe[0]
+    worse = [p for p in pe if p["trend"] == "worse"]
+    better = [p for p in pe if p["trend"] == "better"]
+    holding = [p for p in pe if p["open_now"]]
+    word_html = {"worse": '<span class="rd">worse</span>', "better": '<span class="g">better</span>'}
+    rows = [[esc(p["name"]), esc(p["co"]), num(p["draws"]), f'<b>{num(p["nsd"])}</b>',
+             f'<span class="{sd_class(100 - p["nsd_pct"])}">{p["nsd_pct"]}%</span>', num(p["weeks"]),
+             (f'<span class="rd">{num(p["open_now"])}</span>' if p["open_now"] else "0"),
+             (num(p["oldest"]) if p["open_now"] else "-"), word_html.get(p["trend"], esc(p["trend"]))] for p in pe]
+    names_worse = ", ".join(esc(p["name"]) for p in worse[:3])
+    return f"""<div class="sect"><h3>The worst offenders - the ten people, month by month</h3></div>
+<div class="callout tight"><span class="lead">{len(pe)} people, of the {num(s_.get("people_named", 0))} who drew a monitor this year.</span>
+Ranked by monitors not back the same day, year to date. <b>{esc(top["name"])}</b> ({esc(top["co"])}) leads with
+<b>{num(top["nsd"])}</b> of {num(top["draws"])} draws ({top["nsd_pct"]}%). {len(worse)} of the ten are heading the wrong way
+{"(" + names_worse + ")" if worse else ""}, {len(better)} are improving, and {len(holding)} still have a monitor out now. Each cell is
+that month's count not back the same day, coloured by that month's rate - a row that stays red is a habit, one red cell is a bad month.</div>
+<div class="sub-h">Not back the same day, by month <span class="thin">- the count in the cell, the colour from the month's rate</span></div>
+<div class="chartpanel">{heat_grid(pe, tr["months"])}</div>
+<div class="sub-h">The ten in numbers <span class="thin">- year to date</span></div>
+{sh.dtable(["Who", "Company", "Draws", "Not same day", "Rate", "Separate weeks", "Still out now", "Oldest out, days", "Trend"],
+           rows, ["", "", "r", "r", "r", "r", "r", "r", ""])}
+<div class="note">Named people only - the after-hours and other shared booking accounts are never people and are reported on their own
+lines. A month needs five draws before its rate is judged; the trend compares the last full month with the three before it (worse = more
+than 2 points higher, better = more than 2 lower). Every figure is a count over the TRANSACTIONS export - nothing smoothed, nothing estimated.</div>"""
+
+
 def page_year(m):
     ytd, d30 = m["ytd"], m["d30"]
     mon = m["monthly"]
@@ -1772,6 +1875,7 @@ def build_pages(m, d):
         page_people_ytd(m),
         page_companies(m),
         page_nonreturn_trend(m),
+        page_worst_offenders(m),
         page_year(m),
         page_90days(m),
         page_30days(m),

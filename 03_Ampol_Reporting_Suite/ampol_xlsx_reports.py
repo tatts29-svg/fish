@@ -242,6 +242,11 @@ def tooling_workbook(bl, title, cfg, asat_s, gen_s, path, limits=(), hidden_note
                 top = sorted(body, key=lambda r: -(r[ti] if isinstance(r[ti], (int, float)) else 0))[:12]
                 wb.chart("bar", "Items on hire by company - the largest twelve", [str(r[0]) for r in top],
                          [("Items", _nums([r[ti] for r in top]))])
+        elif "worst offenders" in nl and "worst" not in seen and len(heads) >= 4:
+            seen.add("worst")
+            oi = next((i for i, h in enumerate(heads) if "90" in h), 3)
+            wb.chart("bar", "Worst offenders - items out more than 90 days, by holder", [f"{r[0]} ({r[1]})" for r in body],
+                     [("Out more than 90 days", _nums([r[oi] for r in body]))], colours=["D0342C"])
         elif "busiest companies" in nl and "busy" not in seen and len(heads) >= 4:
             seen.add("busy")
             wb.chart("bar", "Busiest companies - hires this year and what is still out", cats[:10],

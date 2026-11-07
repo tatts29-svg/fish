@@ -110,8 +110,12 @@ THE NON-RETURN TREND. Gas monitors first (the client's biggest worry):
   days at the end of every day, how quickly draws came back week by
   week, the age of what was open at each week's end, the busiest
   companies' non-return rate by month with a worse / better / level
-  word, and the people with non-returns in three or more separate
-  weeks. The tooling reports and the radio report carry the same idea:
+  word, the people with non-returns in three or more separate weeks,
+  and the worst offenders - the ten people with the most non-returns
+  this year, each with their own month-by-month line, the way they are
+  heading and what they still hold. The tooling trend page names the
+  ten holders with the most items past 90 days and how many each had
+  open at every month's end. The tooling reports and the radio report carry the same idea:
   hires still out at each week's end, and how many were past 30 and
   past 90 days. Every point is a count - nothing smoothed or guessed.
 

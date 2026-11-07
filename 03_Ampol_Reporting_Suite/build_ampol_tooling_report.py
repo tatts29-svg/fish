@@ -1772,7 +1772,36 @@ def nonreturn_trend(d):
     comps = sorted(({"name": k, **v,
                      "back30_pct": round(v["back30"] / v["closed"] * 100) if v["closed"] else None}
                     for k, v in co.items()), key=lambda c: (-c["hires"], c["name"]))[:10]
-    d["_nrt"] = {"rows": rows, "companies": comps, "first": rows[0], "last": rows[-1],
+    # the worst offenders: holders (a person or a project account) with the
+    # most items past 90 days now, and how many items each had open at the
+    # end of every month - WHY (07 Nov 2026, Andrew): the over-90 list says
+    # who; this says whether their pile is growing
+    import calendar
+    import ampol_names
+    m_ends = []
+    y, mo = start.year, start.month
+    while (y, mo) <= (end.year, end.month):
+        me = dt.date(y, mo, calendar.monthrange(y, mo)[1])
+        m_ends.append(min(me, end))
+        y, mo = (y + 1, 1) if mo == 12 else (y, mo + 1)
+    hold = defaultdict(lambda: {"open": 0, "o90": 0, "oldest": 0, "hires": 0, "by_month": [0] * len(m_ends)})
+    for t in tx:
+        h = hold[(ampol_names.display_person(t["hirer"]), t["company"] or "(no company)")]
+        h["hires"] += 1
+        if t["end"] is None:
+            h["open"] += 1
+            age = (end - t["start"]).days
+            h["oldest"] = max(h["oldest"], age)
+            if age > 90:
+                h["o90"] += 1
+        for i, me in enumerate(m_ends):
+            if t["start"] <= me and (t["end"] is None or t["end"] > me):
+                h["by_month"][i] += 1
+    holders = sorted(({"hirer": k[0], "company": k[1], **v} for k, v in hold.items() if v["o90"]),
+                     key=lambda h: (-h["o90"], -h["open"], h["hirer"]))[:10]
+    d["_nrt"] = {"rows": rows, "companies": comps, "holders": holders,
+                 "month_labels": [me.strftime("%b") for me in m_ends],
+                 "first": rows[0], "last": rows[-1],
                  "peak": max(rows, key=lambda r: r["o90"]), "hires": len(tx),
                  "open": sum(1 for t in tx if t["end"] is None), "start": start, "end": end}
     return d["_nrt"]
@@ -1806,6 +1835,15 @@ def nonreturn_trend_page(bl, d):
              [[c["name"], n_fmt(c["hires"]), n_fmt(c["open"]), n_fmt(c["o90"]),
                f'{c["back30_pct"]}%' if c["back30_pct"] is not None else "-"] for c in tr["companies"]],
              aligns=["", "r", "r", "r", "r"])
+    if tr["holders"]:
+        bl.subh("Worst offenders - the ten holders with the most items past 90 days, month by month")
+        ml = tr["month_labels"]
+        bl.table(["Holder", "Company", "Still out", "Out more than 90 days", "Oldest, days"] + [f"{mo} end" for mo in ml],
+                 [[h["hirer"], h["company"], n_fmt(h["open"]), n_fmt(h["o90"]), n_fmt(h["oldest"])]
+                  + [n_fmt(x) for x in h["by_month"]] for h in tr["holders"]],
+                 cls="tight", aligns=["", "", "r", "r", "r"] + ["r"] * len(ml))
+        bl.note("Items each holder had open at the end of every month, from the log - a count that climbs month on month "
+                "is gear going out and not coming back; a project account is a holder too, named as SiteIQ names it.")
     bl.subh("Week by week")
     bl.table(["Week ending", "Issues", "Returns", "Out at week's end", "Out more than 30 days", "Out more than 90 days"],
              [[fmt_date(r["end"]) + (" (part week)" if r["partial"] else ""), n_fmt(r["issues"]), n_fmt(r["returns"]),

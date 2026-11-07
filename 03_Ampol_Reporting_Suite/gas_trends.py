@@ -49,7 +49,7 @@ def _open_at(t, eod):
     return _day(t["en"]) > eod
 
 
-def compute(ctx, m=None, top_companies=10):
+def compute(ctx, m=None, top_companies=10, top_people=10):
     tx = ctx.get("tx") or []
     crew = [t for t in tx if t.get("kind") == "crew" and t.get("st")]
     if not crew:
@@ -177,17 +177,66 @@ def compute(ctx, m=None, top_companies=10):
         companies.append({"name": co, "draws": sum(draws_), "nsd": sum(nsd_), "rates": rates,
                           "draws_by_month": draws_, "nsd_by_month": nsd_, "open_now": held_now,
                           "nsd_pct": round(sum(nsd_) / sum(draws_) * 100, 1) if sum(draws_) else 0.0})
-    # the trend word per company: last full month against the three before
+    # the trend word: last full month against the three before (the current,
+    # part month is skipped when there is a full month before it)
+    part_month = bool(months and date(months[-1][0], months[-1][1], 1) > end.replace(day=1) - timedelta(days=1))
+
+    def trend_word(rates):
+        r = [x for x in rates if x is not None]
+        if len(r) < 2:
+            return "-"
+        last = r[-2] if (part_month and len(r) >= 3) else r[-1]
+        prior = [x for x in r[:-1]][-3:]
+        base = sum(prior) / len(prior) if prior else None
+        return ("worse" if base is not None and last > base + 2 else
+                "better" if base is not None and last < base - 2 else "level")
     for c in companies:
-        r = [x for x in c["rates"] if x is not None]
-        if len(r) >= 2:
-            last = r[-2] if (months and date(months[-1][0], months[-1][1], 1) > end.replace(day=1) - timedelta(days=1)) and len(r) >= 3 else r[-1]
-            prior = [x for x in r[:-1]][-3:]
-            base = sum(prior) / len(prior) if prior else None
-            c["trend"] = ("worse" if base is not None and last > base + 2 else
-                          "better" if base is not None and last < base - 2 else "level")
-        else:
-            c["trend"] = "-"
+        c["trend"] = trend_word(c["rates"])
+
+    # --- the worst offenders: named people by non-returns, month by month --
+    # WHY (07 Nov 2026, Andrew): the league ranks people over three windows;
+    # this is each person's own line through the year, so a habit shows as
+    # a habit and a bad week shows as a bad week. Shared booking accounts
+    # are never people and are left out; the month needs five draws before
+    # a rate is judged.
+    import ampol_names
+    pp = defaultdict(lambda: {"draws": Counter(), "nsd": Counter(), "co": Counter(), "disp": Counter(),
+                              "open": 0, "oldest": 0, "weeks": set()})
+    for t in crew:
+        k = t.get("who_key") or t.get("who")
+        if not k:
+            continue
+        name = t.get("who") or k
+        if ampol_names.is_site_account(name):
+            continue
+        st_d = _day(t["st"])
+        P = pp[k]
+        mk = (st_d.year, st_d.month)
+        P["draws"][mk] += 1
+        P["disp"][name] += 1
+        P["co"][t.get("co") or ""] += 1
+        if not t.get("sd"):
+            P["nsd"][mk] += 1
+            P["weeks"].add(iso_week(st_d))
+        if t["en"] is None:
+            P["open"] += 1
+            P["oldest"] = max(P["oldest"], (end - st_d).days)
+    people = []
+    for k, P in pp.items():
+        tot_nsd = sum(P["nsd"].values())
+        if not tot_nsd:
+            continue
+        tot_draws = sum(P["draws"].values())
+        by_month = [(P["draws"].get(mk, 0), P["nsd"].get(mk, 0)) for mk in months]
+        rates = [round(n / d * 100, 1) if d >= 5 else None for d, n in by_month]
+        people.append({"name": P["disp"].most_common(1)[0][0], "co": P["co"].most_common(1)[0][0],
+                       "draws": tot_draws, "nsd": tot_nsd,
+                       "nsd_pct": round(tot_nsd / tot_draws * 100, 1) if tot_draws else 0.0,
+                       "open_now": P["open"], "oldest": P["oldest"], "weeks": len(P["weeks"]),
+                       "draws_by_month": [d for d, _ in by_month], "nsd_by_month": [n for _, n in by_month],
+                       "rates": rates, "trend": trend_word(rates)})
+    people.sort(key=lambda x: (-x["nsd"], -x["nsd_pct"], x["name"]))
+    people = people[:top_people]
 
     # --- repeat non-returners (three or more separate weeks) ---------------
     ppl = defaultdict(lambda: {"nsd": 0, "draws": 0, "weeks": set(), "co": Counter(), "disp": Counter(), "open": 0, "months": set()})
@@ -234,8 +283,10 @@ def compute(ctx, m=None, top_companies=10):
                "draws": len(crew), "nsd": sum(1 for t in crew if not t.get("sd")),
                "open_now": sum(1 for t in crew if t["en"] is None),
                "repeaters": len(repeaters)}
+    summary["people_named"] = len(pp)
     return {"daily": daily, "weekly": weekly, "ageing": ageing, "months": month_labels,
-            "companies": companies, "repeaters": repeaters, "summary": summary, "bands": [b[0] for b in BANDS]}
+            "companies": companies, "people": people, "repeaters": repeaters, "summary": summary,
+            "bands": [b[0] for b in BANDS]}
 
 
 def workbook_sheets(tr):
@@ -261,6 +312,12 @@ def workbook_sheets(tr):
                     + [(r / 100.0) if r is not None else None for r in c["rates"]] for c in tr["companies"]],
                    {**{1: cx.INT, 2: cx.INT, 3: cx.PCT1, 4: cx.INT}, **{6 + i: cx.PCT1 for i in range(len(tr["months"]))}},
                    "Non-return rate by month for the busiest companies - the trend column compares the last full month with the three before"))
+    sheets.append(("Trend - worst offenders", ["Who", "Company", "Crew draws", "Not same day", "Non-return %", "Still out now",
+                                               "Oldest open, days", "Separate weeks", "Trend"] + [f"{mo} not same day" for mo in tr["months"]],
+                   [[p["name"], p["co"], p["draws"], p["nsd"], p["nsd_pct"] / 100.0, p["open_now"], p["oldest"], p["weeks"], p["trend"]]
+                    + p["nsd_by_month"] for p in tr.get("people", [])],
+                   {**{2: cx.INT, 3: cx.INT, 4: cx.PCT1, 5: cx.INT, 6: cx.INT, 7: cx.INT}, **{9 + i: cx.INT for i in range(len(tr["months"]))}},
+                   "The ten people with the most non-returns this year, month by month - the trend compares the last full month with the three before"))
     sheets.append(("Trend - repeat people", ["Who", "Company", "Crew draws", "Not same day", "Non-return %", "Separate weeks", "Open now", "Months"],
                    [[p["name"], p["co"], p["draws"], p["nsd"], p["nsd_pct"] / 100.0, p["weeks"], p["open_now"], p["months"]] for p in tr["repeaters"]],
                    {2: cx.INT, 3: cx.INT, 4: cx.PCT, 5: cx.INT, 6: cx.INT},
@@ -274,6 +331,10 @@ def workbook_sheets(tr):
     wk = tr["weekly"]
     charts.append({"args": ("line", "Same-day return rate by week", [w["label"] for w in wk], [("Same-day %", [w["sd_pct"] / 100.0 for w in wk])]),
                    "kw": {"fmt": "0%", "colours": ["409A55"]}})
+    pe = tr.get("people") or []
+    if pe:
+        charts.append({"args": ("bar", "Worst offenders - not back same day this year", [f'{p["name"]} ({p["co"]})' for p in pe],
+                                [("Not same day", [p["nsd"] for p in pe])]), "kw": {"colours": ["D0342C"]}})
     ag = tr["ageing"]
     charts.append({"args": ("stacked", "Open draws by age at each week's end", [a["label"] for a in ag],
                             [(tr["bands"][i], [a["bands"][i] for a in ag]) for i in range(4)]),
