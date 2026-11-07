@@ -155,7 +155,7 @@ def read(paths=None, force=False):
     gaps, overlaps = [], []
     merged = []
     for a, b in periods:
-        if merged and a <= merged[-1][1] + timedelta(seconds=1):
+        if merged and a <= merged[-1][1] + timedelta(seconds=61):   # 03:59:59 meets 04:00:00
             merged[-1][1] = max(merged[-1][1], b)
         else:
             merged.append([a, b])

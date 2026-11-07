@@ -216,7 +216,7 @@ def retire_covered_transactions(dest, backup):
         for na, nb in newer:
             if na <= a and nb >= a:
                 cover_to = nb if cover_to is None else max(cover_to, nb)
-            elif cover_to is not None and na <= cover_to + dt.timedelta(seconds=1):
+            elif cover_to is not None and na <= cover_to + dt.timedelta(seconds=61):
                 cover_to = max(cover_to, nb)
         if cover_to is not None and cover_to >= b:
             ok = True
@@ -227,11 +227,12 @@ def retire_covered_transactions(dest, backup):
                 retired.append((os.path.basename(p), a, b))
             except Exception:
                 pass
-        elif newer:
-            # kept on purpose: say which span of it the newer files do not reach
+        elif newer and when < max(w for (_q, _a, _b, w) in cands):
+            # an OLDER file kept on purpose: say which span of it the newer files
+            # do not reach (the newest pull's own files are never "kept")
             holes, cursor = [], a
             for na, nb in newer:
-                if na > cursor + dt.timedelta(seconds=1):
+                if na > cursor + dt.timedelta(seconds=61):
                     holes.append((cursor, min(na, b)))
                 cursor = max(cursor, nb)
                 if cursor >= b:
@@ -240,7 +241,7 @@ def retire_covered_transactions(dest, backup):
                 holes.append((cursor, b))
             for h0, h1 in holes:
                 print("  KEEP  | {:<36} stays: {} to {} is in no newer file - pull that span and it retires itself".format(
-                    os.path.basename(p), (h0 + dt.timedelta(seconds=1)).strftime("%d %b %Y %H:%M"), h1.strftime("%d %b %Y %H:%M")))
+                    os.path.basename(p), (h0 + dt.timedelta(seconds=61)).strftime("%d %b %Y %H:%M"), h1.strftime("%d %b %Y %H:%M")))
     return retired
 
 
