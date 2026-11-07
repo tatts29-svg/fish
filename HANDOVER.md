@@ -366,6 +366,17 @@ packs, plus the client's three asks:
 - **Accuracy.** A pristine v1.14 copy and the v2.0 copy were both run on
   the same 06 Sep 2026 exports; the truth table passes on both with every
   checked figure identical.
+- **The 10/10 pass (v2.2, 07 Nov 2026).** Eight independent reviewers read
+  every page, email band and workbook sheet; their findings are fixed in the
+  builders and the shared modules. Durable gates came out of it: button 09
+  (`CHECK_REPORTS.py`) now fails a page or workbook cell carrying a long dash,
+  a tag glued to a surname, a doubled Dräger label, a build note, "1 items",
+  a sender's note or a build time before the data; button 13 checks every
+  counted figure on its page as a whole number. One price per printed
+  description (`ampol_master.unify_prices`) - a spelling SiteIQ left unpriced
+  takes the master's price for the same item, two prices are listed for
+  Andrew. Name rules for people, places and Dräger lines are in
+  `Docs/NAMES_AS_SHOWN.md`.
 
 **Not in git:** `Data\` (site exports and registers), `Reports\`,
 `History\`, `assets\fonts` (the Inter TTFs — they travel in the update
@@ -396,6 +407,22 @@ Traps met on 06 Nov 2026:
   September file stayed in the log to cover it until that day is pulled.
 - The image viewer in the session showed two PDF covers "wrong" that were
   right when measured pixel by pixel. Measure before you fix.
+
+Traps met on 07 Nov 2026 (the 10/10 pass):
+
+- The cloud container's clock is UTC; the SiteIQ pulls are Brisbane time.
+  Build there with `TZ=Australia/Brisbane` or every page says it was built
+  before its data ("0 h old at build", "-4 h old"). Andrew's laptop is local.
+- The TRANSACTIONS export ends at 03:59 on the day it is pulled, so it holds
+  nothing for that day yet. "0 out today" was a gap in the export, not a
+  quiet day - pages now say the export ends at 03:59.
+- The one-price rule moved the tooling replacement value (07 Nov: up by
+  about half for the 1,420 on hire): two 440 CFM compressors, two
+  185 CFM compressors, a 60 kVA generator, a lighting tower and 20 tablets
+  were unpriced under one SiteIQ spelling and priced under another. Say so
+  when the headline jumps.
+- Parallel fix agents each owned one builder; shared modules stayed with
+  one lead. Two agents editing one 300 KB builder would have lost edits.
 
 ---
 
