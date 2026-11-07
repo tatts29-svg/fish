@@ -103,8 +103,24 @@ def fmt(n):
 def count_everything():
     reg = rows_of(find("RENTAL_STOCK*.xlsx"), "RENTAL_STOCK")
     st = rows_of(find("STOCKTAKE*.xlsx"), "STOCKTAKE")
-    tx_path = find("TRANSACTIONS*.xlsx")
-    tx = rows_of(tx_path, "CUSTOMER_CONTRACTOR_EQUIP")
+    # WHY (07 Nov 2026): the log may be two or more files - every one is read,
+    # one row per TRANSACTION_ID (a row with no id is matched on its fields),
+    # the same rule the readers follow, written out again here
+    tx_files = sorted(ampol_paths.find_data_all("TRANSACTIONS*.xlsx"))
+    if not tx_files:
+        sys.exit("ERROR: no TRANSACTIONS*.xlsx in the suite's Data folder.")
+    tx, seen_tx = [], set()
+    for tx_path in tx_files:
+        for r in rows_of(tx_path, "CUSTOMER_CONTRACTOR_EQUIP"):
+            k = s(r.get("TRANSACTION_ID")) or "|".join(s(r.get(c)) for c in (
+                "LATEST_BARCODE", "TRAN_START_DATE", "TRAN_START_TIME", "TRAN_END_DATE", "TRAN_END_TIME",
+                "HIRER_NAME", "EMPLOYER_NAME"))
+            if k in seen_tx:
+                continue
+            seen_tx.add(k)
+            tx.append(r)
+    print(f"TRANSACTIONS files: {len(tx_files)} - " + ", ".join(os.path.basename(f) for f in tx_files)
+          + f" - {len(tx):,} transactions once joined")
     facts = {}
     old = Counter()
 

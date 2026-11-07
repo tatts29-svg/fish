@@ -154,6 +154,96 @@ def inspect(path):
             pass
 
 
+def period_of(path):
+    """(start, end) from a TRANSACTIONS export's REPORT_PERIOD, else (None, None)."""
+    try:
+        import openpyxl
+        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    except Exception:
+        return None, None
+    try:
+        if "REFERENCE_INFO" not in wb.sheetnames:
+            return None, None
+        rows = []
+        for i, r in enumerate(wb["REFERENCE_INFO"].iter_rows(values_only=True)):
+            rows.append(r)
+            if i >= 1:
+                break
+        if len(rows) < 2 or not rows[0]:
+            return None, None
+        for i, h in enumerate(rows[0]):
+            if norm(h) == "report_period" and i < len(rows[1]) and rows[1][i]:
+                bits = [b.strip() for b in str(rows[1][i]).split(" - ")]
+                if len(bits) == 2:
+                    a, b = parse_when(bits[0]), parse_when(bits[1])
+                    return a, b
+        return None, None
+    finally:
+        try:
+            wb.close()
+        except Exception:
+            pass
+
+
+def tx_name(period):
+    """The on-disk name of a TRANSACTIONS export: by its period, so two
+    halves of one year can sit side by side - TRANSACTIONS_01Jan2026-30Jun2026.xlsx."""
+    a, b = period
+    if a and b:
+        return "TRANSACTIONS_{}-{}.xlsx".format(a.strftime("%d%b%Y"), b.strftime("%d%b%Y"))
+    return "TRANSACTIONS.xlsx"
+
+
+def retire_covered_transactions(dest, backup):
+    """WHY (07 Nov 2026): once newer TRANSACTIONS files cover an older one's
+    whole period, the older one moves to previous - otherwise the readers
+    would join a stale file in. Nothing is deleted."""
+    cands = []
+    for f in os.listdir(dest):
+        if f.upper().startswith("TRANSACTIONS") and f.lower().endswith(".xlsx") and not f.startswith("~$"):
+            p = os.path.join(dest, f)
+            a, b = period_of(p)
+            key, site_ok, site, when = inspect(p)
+            cands.append((p, a, b, when or dt.datetime.fromtimestamp(os.path.getmtime(p))))
+    retired = []
+    for p, a, b, when in cands:
+        if not (a and b):
+            continue
+        newer = [(na, nb) for (q, na, nb, nwhen) in cands if q != p and na and nb and nwhen >= when]
+        # does the union of the newer periods cover [a, b]?
+        newer.sort()
+        cover_to, ok = None, False
+        for na, nb in newer:
+            if na <= a and nb >= a:
+                cover_to = nb if cover_to is None else max(cover_to, nb)
+            elif cover_to is not None and na <= cover_to + dt.timedelta(seconds=1):
+                cover_to = max(cover_to, nb)
+        if cover_to is not None and cover_to >= b:
+            ok = True
+        if ok:
+            keep = os.path.join(backup, "{}_{}".format(when.strftime("%Y%m%d_%H%M"), os.path.basename(p)))
+            try:
+                shutil.move(p, keep)
+                retired.append((os.path.basename(p), a, b))
+            except Exception:
+                pass
+        elif newer:
+            # kept on purpose: say which span of it the newer files do not reach
+            holes, cursor = [], a
+            for na, nb in newer:
+                if na > cursor + dt.timedelta(seconds=1):
+                    holes.append((cursor, min(na, b)))
+                cursor = max(cursor, nb)
+                if cursor >= b:
+                    break
+            if cursor < b:
+                holes.append((cursor, b))
+            for h0, h1 in holes:
+                print("  KEEP  | {:<36} stays: {} to {} is in no newer file - pull that span and it retires itself".format(
+                    os.path.basename(p), (h0 + dt.timedelta(seconds=1)).strftime("%d %b %Y %H:%M"), h1.strftime("%d %b %Y %H:%M")))
+    return retired
+
+
 def explain():
     print(" What I do, in plain words:")
     print("   1. Look at every Excel file in Downloads (or the folder you")
@@ -212,6 +302,15 @@ def main():
                 name[:52], key, (site or "an unnamed site").strip()))
             continue
         stamp = when or dt.datetime.fromtimestamp(os.path.getmtime(p))
+        if key == "CUSTOMER_CONTRACTOR_EQUIP":
+            # WHY (07 Nov 2026): SiteIQ caps one export's period, so the year
+            # can arrive in two files - each PERIOD is kept, newest per period
+            per = period_of(p)
+            k2 = (key, per)
+            cur = best.get(k2)
+            if not cur or stamp > cur[1]:
+                best[k2] = (p, stamp)
+            continue
         cur = best.get(key)
         if not cur or stamp > cur[1]:
             best[key] = (p, stamp)
@@ -223,27 +322,49 @@ def main():
         return 1
 
     print("")
-    for key in sorted(best):
+    os.makedirs(BACKUP, exist_ok=True)
+    for key in sorted(best, key=str):
         src, stamp = best[key]
-        dest = os.path.join(DEST, WANTED[key])
+        if isinstance(key, tuple):
+            dest_name = tx_name(key[1])
+            key_name = "CUSTOMER_CONTRACTOR_EQUIP"
+        else:
+            dest_name, key_name = WANTED[key], key
+        dest = os.path.join(DEST, dest_name)
         if os.path.isfile(dest):
             keep = os.path.join(BACKUP, "{}_{}".format(
                 dt.datetime.fromtimestamp(os.path.getmtime(dest))
-                .strftime("%Y%m%d_%H%M"), WANTED[key]))
+                .strftime("%Y%m%d_%H%M"), dest_name))
             try:
                 shutil.copy2(dest, keep)
             except Exception:
                 pass
         shutil.copy2(src, dest)
-        print("  IN    | {:<18} <- {}".format(WANTED[key],
-                                              os.path.basename(src)[:44]))
+        print("  IN    | {:<36} <- {}".format(dest_name, os.path.basename(src)[:40]))
         #  WHY (12 Aug 2026): 24-hour time, same as the report pages.
-        print("          exported {}".format(
-            stamp.strftime("%d %b %Y %H:%M").lstrip("0")))
+        line = "          exported {}".format(stamp.strftime("%d %b %Y %H:%M").lstrip("0"))
+        if isinstance(key, tuple) and key[1][0] and key[1][1]:
+            line += ", covers {} to {}".format(key[1][0].strftime("%d %b %Y %H:%M"), key[1][1].strftime("%d %b %Y %H:%M"))
+        print(line)
+    #  older transactions files whose whole period the new ones cover go to previous
+    retired = retire_covered_transactions(DEST, BACKUP)
+    for name, a, b in retired:
+        print("  OUT   | {:<36} -> previous (its {} to {} is covered by newer files)".format(
+            name, a.strftime("%d %b"), b.strftime("%d %b %Y")))
+    #  the joined log, as the reports will read it
+    try:
+        import siteiq_tx
+        tx_all = siteiq_tx.read(force=True)
+        if tx_all:
+            for ln in siteiq_tx.console_lines(tx_all):
+                print("  " + ln)
+    except Exception as e:
+        print("  (could not read the joined transactions log: {})".format(e))
 
-    missing = [WANTED[k] for k in WANTED if k not in best]
+    have = {k if not isinstance(k, tuple) else k[0] for k in best}
+    missing = [WANTED[k] for k in WANTED if k not in have]
     print("-" * 62)
-    print(" Brought in : {} of {} export(s)".format(len(best), len(WANTED)))
+    print(" Brought in : {} file(s) covering {} of {} export type(s)".format(len(best), len(have), len(WANTED)))
     if missing:
         print(" Still needed: " + ", ".join(sorted(missing)))
         print("  (download them from SiteIQ and run me again - the ones")

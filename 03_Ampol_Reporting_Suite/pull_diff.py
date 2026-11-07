@@ -238,20 +238,19 @@ def last_24h(tx_path, cur_time, scope_barcodes=None, hours=24):
     (None = every row). Returns {"issued": [...], "returned": [...],
     "window": (start, end)} - each row: barcode, desc, company, hirer, at."""
     start = cur_time - timedelta(hours=hours)
-    wb = openpyxl.load_workbook(tx_path, read_only=True, data_only=True)
-    try:
-        if "CUSTOMER_CONTRACTOR_EQUIP" not in wb.sheetnames:
-            return {"issued": [], "returned": [], "window": (start, cur_time), "available": False}
-        ws = wb["CUSTOMER_CONTRACTOR_EQUIP"]
-        it = ws.iter_rows(values_only=True)
-        hdr = [str(c).strip().upper() if c is not None else "" for c in next(it)]
+    import siteiq_tx
+    tx_all = siteiq_tx.read()
+    if not tx_all or not tx_all["rows"]:
+        return {"issued": [], "returned": [], "window": (start, cur_time), "available": False}
+    if True:
+        hdr = [str(c).strip().upper() if c is not None else "" for c in tx_all["header"]]
         ix = {h: i for i, h in enumerate(hdr)}
 
         def g(r, k):
             i = ix.get(k)
             return r[i] if i is not None and i < len(r) else None
         issued, returned = [], []
-        for r in it:
+        for r in tx_all["rows"]:
             bc = str(g(r, "LATEST_BARCODE") or "").strip()
             if not bc or (scope_barcodes is not None and bc not in scope_barcodes):
                 continue
@@ -269,8 +268,6 @@ def last_24h(tx_path, cur_time, scope_barcodes=None, hours=24):
         for lst in (issued, returned):
             lst.sort(key=lambda x: x["at"])
         return {"issued": issued, "returned": returned, "window": (start, cur_time), "available": True}
-    finally:
-        wb.close()
 
 
 def changes(scope=None, scope_barcodes=None, data_dir=None):
@@ -298,7 +295,8 @@ def changes(scope=None, scope_barcodes=None, data_dir=None):
     else:
         d = no_previous(cur_time)
         d["prev_path"] = None
-    tx_path = ampol_paths.find_data("TRANSACTIONS*.xlsx")
+    import siteiq_tx
+    tx_path = bool(siteiq_tx.files())        # any TRANSACTIONS file in Data - the joined log is read
     if scope_barcodes is None and scope is not None:
         scope_barcodes = {bc for bc, r in cur.items() if scope(r)}
     d["last24"] = last_24h(tx_path, cur_time, scope_barcodes) if tx_path else \

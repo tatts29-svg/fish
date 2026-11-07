@@ -90,31 +90,24 @@ def report_family(desc):
     return "tooling"
 
 
-def load_transactions(path):
-    """Every CUSTOMER_CONTRACTOR_EQUIP row with a parseable start time."""
-    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    try:
-        window = (None, None)
-        if "REFERENCE_INFO" in wb.sheetnames:
-            rows = list(wb["REFERENCE_INFO"].iter_rows(values_only=True))
-            if len(rows) > 1:
-                hdr = [str(h or "").upper() for h in rows[0]]
-                for i, h in enumerate(hdr):
-                    v = rows[1][i] if i < len(rows[1]) else None
-                    if "REPORT_PERIOD" in h and v:
-                        bits = [b.strip() for b in str(v).split(" - ")]
-                        if len(bits) == 2:
-                            window = (parse_stamp(bits[0]), parse_stamp(bits[1]))
-        ws = wb["CUSTOMER_CONTRACTOR_EQUIP"]
-        it = ws.iter_rows(values_only=True)
-        hdr = [str(c).strip().upper() if c is not None else "" for c in next(it)]
+def load_transactions(path=None):
+    """Every CUSTOMER_CONTRACTOR_EQUIP row with a parseable start time -
+    from the joined log (siteiq_tx: every TRANSACTIONS file in Data, one
+    row per TRANSACTION_ID, the combined period as the window)."""
+    import siteiq_tx
+    tx_all = siteiq_tx.read()
+    if not tx_all:
+        raise FileNotFoundError("no TRANSACTIONS*.xlsx in Data\\SiteIQ")
+    if True:
+        window = tx_all["window"]
+        hdr = [str(c).strip().upper() if c is not None else "" for c in tx_all["header"]]
         ix = {h: i for i, h in enumerate(hdr)}
 
         def g(r, k):
             i = ix.get(k)
             return r[i] if i is not None and i < len(r) else None
         out = []
-        for r in it:
+        for r in tx_all["rows"]:
             if not r or r[0] is None:
                 continue
             st = parse_dt(g(r, "TRAN_START_DATE"), g(r, "TRAN_START_TIME"))
@@ -140,15 +133,15 @@ def load_transactions(path):
                 "tid": g(r, "TRANSACTION_ID"),
             })
         return out, window
-    finally:
-        wb.close()
 
 
 def load_all(data_dir=None):
     """Register, transactions and pricing in one context."""
     data_dir = data_dir or ampol_paths.data_dir()
     reg_path = ampol_paths.find_data("RENTAL_STOCK*.xlsx") or os.path.join(data_dir, "RENTAL_STOCK.xlsx")
-    tx_path = ampol_paths.find_data("TRANSACTIONS*.xlsx") or os.path.join(data_dir, "TRANSACTIONS.xlsx")
+    import siteiq_tx
+    tx_all = siteiq_tx.read()
+    tx_path = (tx_all["path"] if tx_all else "") or os.path.join(data_dir, "TRANSACTIONS.xlsx")
     reg = pull_diff.load_register(reg_path)
     reg_time = pull_diff.reference_pull_time(reg_path)
     tx, window = load_transactions(tx_path)
@@ -175,7 +168,9 @@ def load_all(data_dir=None):
     except Exception:
         price = lambda d: None   # noqa: E731
     return {"reg": reg, "reg_time": reg_time, "tx": tx, "tx_window": window,
-            "price": price, "reg_path": reg_path, "tx_path": tx_path}
+            "price": price, "reg_path": reg_path, "tx_path": tx_path,
+            "tx_label": siteiq_tx.label(tx_all), "tx_files": tx_all["files"] if tx_all else [],
+            "tx_gaps": tx_all["gaps"] if tx_all else []}
 
 
 def _bcs(ctx, scope_barcodes):

@@ -157,6 +157,7 @@ ASAT_DT = None       # the full pull timestamp (datetime) once read
 # WHY (02 Sep 2026): the data-as-at stamp is the SiteIQ pull time written
 # inside the RENTAL_STOCK export (REFERENCE_INFO), never a file's mtime.
 DATA_ASAT = "TBC"
+TX_LABEL = ""        # how the TRANSACTIONS log arrived (one file, or several joined) - set by load_all
 # the same stamp without the 'SiteIQ pull' words - the house hero prints
 # "Data as at: <stamp> (SiteIQ register pull)" and the running header "AS AT <stamp>"
 ASAT_SHORT = "TBC"
@@ -663,17 +664,25 @@ def load_all():
     # plain TRANSACTIONS.xlsx - try both, newest wins, same sheet either way.
     d["tx"] = []
     d["asat"]["tx"] = {"pulled": None, "period": ""}
-    tx_path = find_file("TRANSACTIONS_Full.xlsx", "TRANSACTIONS.xlsx")
-    if tx_path:
-        twb = openpyxl.load_workbook(tx_path, read_only=True, data_only=True)
-        d["asat"]["tx"] = reference_info(twb)
-        ws = twb["CUSTOMER_CONTRACTOR_EQUIP"]
-        rows = ws.iter_rows(values_only=True)
-        headers = [clean(c) for c in next(rows)]
+    # WHY (07 Nov 2026): the log can arrive in two or more files - siteiq_tx
+    # joins every TRANSACTIONS*.xlsx in Data, one row per TRANSACTION_ID
+    import siteiq_tx
+    tx_all = siteiq_tx.read()
+    tx_path = tx_all["path"] if tx_all else None
+    d["tx_label"] = siteiq_tx.label(tx_all) if tx_all else "TRANSACTIONS.xlsx"
+    global TX_LABEL
+    TX_LABEL = d["tx_label"]
+    d["tx_files"] = tx_all["files"] if tx_all else []
+    d["tx_gaps"] = tx_all["gaps"] if tx_all else []
+    if tx_all:
+        for line in siteiq_tx.console_lines(tx_all):
+            print(line)
+        d["asat"]["tx"] = {"pulled": tx_all["requested"], "period": siteiq_tx.period_text(tx_all["window"])}
+        headers = [clean(c) for c in tx_all["header"]]
         idx = {h: i for i, h in enumerate(headers)}
         bc_col = next((c for c in ("LATEST_BARCODE", "BARCODE", "ITEM_BARCODE")
                        if c in idx), "LATEST_BARCODE")
-        for r in rows:
+        for r in tx_all["rows"]:
             if r is None or r[0] is None:
                 continue
             company_raw = clean(r[idx.get("EMPLOYER_NAME", 0)])
@@ -694,7 +703,6 @@ def load_all():
                 "custody": (company.upper() in INTERNAL_CUSTODY) or is_custody_hirer(hirer),
                 "family": family_hit(desc),
             })
-        twb.close()
 
     # ---- stocktake (last sighted)
     d["stocktake"] = {}
@@ -2764,6 +2772,10 @@ def report_outputs(title, subtitle, subject, bl, limits, page_title, page_sub, c
     the one plain sentence stamped into the PDF's properties; card: the phone
     position card's values; skip_contents: heading prefixes this report's cover
     leaves out of its ten rows (on top of the shared list)."""
+    # WHY (07 Nov 2026): when the movement log arrived in more than one file,
+    # every tooling report's honest-limits list says how it was joined
+    if "files joined" in TX_LABEL:
+        limits = list(limits) + [f"The SiteIQ movement log arrived as {TX_LABEL}."]
     email_doc = page(page_title, page_sub, email_body(bl), limits, standard_break)
     body_html = k2_body(bl, limits, how, data_heading)
 
@@ -4000,7 +4012,7 @@ def render_onhire(d):
          f"{n_fmt(d['pricing_rows'])} rows; {n_fmt(len(d['pricing']))} distinct descriptions",
          "replacement value = Avg Buy Price (New); first price wins where a description "
          "is listed more than once"],
-        ["SiteIQ TRANSACTIONS.xlsx (CUSTOMER_CONTRACTOR_EQUIP)",
+        [f"SiteIQ {d.get('tx_label', 'TRANSACTIONS.xlsx')} (CUSTOMER_CONTRACTOR_EQUIP)",
          "SiteIQ pull " + stamp(a["tx"]["pulled"]) + f"; report period {log_period(insights(d))}; "
          f"{n_fmt(len(insights(d)['tx']))} movements",
          "the 24 hours before the pull, the return windows by product and the year in "

@@ -387,6 +387,13 @@ Traps met on 06 Nov 2026:
 - The fixed-page layout check finds the footer by its text; the position
   page's author line also says POWERED BY SITEIQ, so the footer must be
   picked from the bottom 15% of the page.
+- SiteIQ caps one TRANSACTIONS export's period, so the year arrives in halves.
+  `siteiq_tx.py` reads every `TRANSACTIONS*.xlsx` in `Data\SiteIQ` as one log
+  (one row per TRANSACTION_ID, later period wins); button 12 files each half
+  by period and retires a file once newer ones cover it. A SiteIQ period
+  ends at 03:59:59 on its last day, so the next pull must START on that day:
+  Andrew's 07 Nov pair (to 30 Jun, from 01 Jul) left 30 Jun out, and the old
+  September file stayed in the log to cover it until that day is pulled.
 - The image viewer in the session showed two PDF covers "wrong" that were
   right when measured pixel by pixel. Measure before you fix.
 

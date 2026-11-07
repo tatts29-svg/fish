@@ -61,6 +61,13 @@ EVERY MORNING (about 10 minutes)
      It finds them, checks they are AMPOL exports, backs up
      yesterday's copies and files the new ones into Data\.
      Wrong-site files are skipped loudly, never filed.
+     TRANSACTIONS IN TWO FILES (v2.1): SiteIQ caps one export's
+     period, so pull the year in halves - both are filed side by
+     side by their period and read as ONE log, rows counted once
+     where they overlap. A SiteIQ period ends at 03:59:59 on its
+     last day, so START the second pull on the day the first one
+     ENDED (01 Jan-30 Jun, then 30 Jun-today). A day left out shows
+     as a GAP on the console and on every data page.
   2. Double-click 00_RUN_EVERYTHING. It builds every report,
      makes the Outlook drafts, runs the blank check and the
      truth table. Read the last screen: PASS or a named figure.

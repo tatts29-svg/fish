@@ -1,5 +1,5 @@
 AMPOL REPORTING SUITE
-Version: 2.0  (06 Nov 2026)
+Version: 2.1  (07 Nov 2026)
 Author: Andrew Fisher | POWERED BY SITEIQ
 
 v1.0 - 12 Aug 2026
@@ -457,3 +457,23 @@ v2.0 - 06 Nov 2026  (the makeover, the Excel twin, the client copy, the trend)
     to print with when a laptop's default one misbehaves; the suite
     tries Edge first, then Chrome, then Chromium, with --no-sandbox so a
     locked-down profile still prints.
+
+
+v2.1 - 07 Nov 2026  (the transactions log in more than one file)
+  - SiteIQ caps the period one TRANSACTIONS export can cover, so the year
+    now arrives in two files (01 Jan to 30 Jun, 01 Jul to 07 Nov). Every
+    reader - the gas engine, the transaction engine behind the radio,
+    tooling, stocktake and exec pages, the since-the-last-pull block and
+    button 13's truth table - now reads EVERY TRANSACTIONS*.xlsx in
+    Data\SiteIQ as one log (siteiq_tx.py): files in period order, one row
+    per TRANSACTION_ID (when two files hold the same transaction the later
+    period's copy wins - it carries the later return stamp), the combined
+    period as the window. A GAP between the files, or an OVERLAP, is said
+    on the console and on every data page, never hidden.
+  - Button 12 files each transactions export by its period
+    (TRANSACTIONS_01Jan2026-30Jun2026.xlsx), keeps the newest per period,
+    and moves an older file to previous once newer files cover its whole
+    period. RENTAL_STOCK and STOCKTAKE file as before.
+  - Watch the cutover: a SiteIQ period ends at 03:59:59 on its last day,
+    so the next export must START on that same day (30 Jun to 07 Nov, not
+    01 Jul), or that store day is missing and the log says so.

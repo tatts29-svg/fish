@@ -709,7 +709,7 @@ def insights_compute(items_on, oos, ravail, bavail):
     scope_b = {i["barcode"] for i in everything if i["barcode"] and i["kind"] == "battery"}
     scope_hold = scope - {i["barcode"] for i in oos if i["barcode"]}
     I = {"window": ctx["tx_window"], "reg_time": ctx["reg_time"], "scope_n": len(scope),
-         "tx_file": Path(ctx["tx_path"]).name}
+         "tx_file": ctx.get("tx_label") or Path(ctx["tx_path"]).name}
     I["weekly"] = ti.weekly_series(ctx, scope)
     I["nonreturn"] = ti.open_series(ctx, scope)      # still out at each week's end, and for how long
     I["league"] = ti.monthly_league(ctx, scope)

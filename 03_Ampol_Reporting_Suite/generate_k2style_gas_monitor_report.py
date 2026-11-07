@@ -915,7 +915,8 @@ def page_sources(m):
          f"Every scan out and every scan in since <b>{ws.strftime('%d %b %Y %H:%M')}</b>, one row per "
          f"monitor per draw, with a transaction ID and the time to the second. The store scans twice on "
          f"the way out and twice on the way back, so a row only exists when a monitor physically "
-         f"crossed the counter. Every rate, trend and league comes from these rows."),
+         f"crossed the counter. Every rate, trend and league comes from these rows."
+         + (f" <b>{esc(m['sources']['transactions'])}.</b>" if "files joined" in str(m["sources"].get("transactions", "")) else "")),
         ("What a draw is",
          "One monitor, out to one named person, once. A person who takes three monitors at 05:00 is "
          "three draws. That is why the yearly count is large - the site draws hundreds a day - and why "

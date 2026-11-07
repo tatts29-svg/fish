@@ -308,25 +308,20 @@ def load_rental_stock(path):
     return out, requested
 
 
-def load_transactions(path):
-    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-    window = (None, None)
-    requested = None
-    if "REFERENCE_INFO" in wb.sheetnames:
-        rows = list(wb["REFERENCE_INFO"].iter_rows(values_only=True))
-        if len(rows) > 1:
-            hdr = [str(h or "").upper() for h in rows[0]]
-            for i, h in enumerate(hdr):
-                v = rows[1][i] if i < len(rows[1]) else None
-                if "REPORT_PERIOD" in h and v:
-                    bits = [b.strip() for b in str(v).split(" - ")]
-                    if len(bits) == 2:
-                        window = (parse_stamp(bits[0]), parse_stamp(bits[1]))
-                if "REQUESTED_DATE" in h:
-                    requested = parse_stamp(v)
-    ws = wb["CUSTOMER_CONTRACTOR_EQUIP"]
-    hdr = [str(h or "").strip().upper() for h in
-           next(ws.iter_rows(min_row=1, max_row=1, values_only=True))]
+def load_transactions(tx_all=None):
+    """Every gas-monitor movement in the TRANSACTIONS log. WHY (07 Nov
+    2026): the log can arrive in two or more files (SiteIQ caps one
+    export's period); siteiq_tx joins them, one row per TRANSACTION_ID,
+    and this reads the joined log - the window is the files' combined
+    period, the requested time the latest of them."""
+    import siteiq_tx
+    if tx_all is None or isinstance(tx_all, str):
+        tx_all = siteiq_tx.read()
+    if not tx_all:
+        return [], (None, None), None
+    window = tx_all["window"]
+    requested = tx_all["requested"]
+    hdr = [str(h or "").strip().upper() for h in tx_all["header"]]
     col = {h: i for i, h in enumerate(hdr)}
 
     def g(r, name):
@@ -334,7 +329,7 @@ def load_transactions(path):
         return r[i] if i is not None and i < len(r) else None
 
     out = []
-    for r in ws.iter_rows(min_row=2, values_only=True):
+    for r in tx_all["rows"]:
         if not r or r[0] is None:
             continue
         desc = ampol_names.display_desc(str(g(r, "PRODUCT_VARIANT") or "") + " " + str(g(r, "SKU/ITEM DESCRIPTION") or ""))
@@ -357,14 +352,15 @@ def load_transactions(path):
             "sd": same_day(st, en),
             "box": via_return_box(st, en),
         })
-    wb.close()
     return out, window, requested
 
 
 def load(data_dir=None):
     """Everything the report needs, from Data\\. Fails loudly and plainly."""
     rs_path = find_export("RENTAL_STOCK")
-    tx_path = find_export("TRANSACTIONS")
+    import siteiq_tx
+    tx_all = siteiq_tx.read()
+    tx_path = tx_all["path"] if tx_all else ""
     missing = [n for n, p in (("RENTAL_STOCK.xlsx", rs_path),
                               ("TRANSACTIONS.xlsx", tx_path)) if not p]
     if missing:
@@ -375,7 +371,9 @@ def load(data_dir=None):
             "  Download them from SiteIQ, run 12_PULL_SITEIQ_EXPORTS, and press "
             "the button again.")
     rs, rs_req = load_rental_stock(rs_path)
-    tx, tx_win, tx_req = load_transactions(tx_path)
+    tx, tx_win, tx_req = load_transactions(tx_all)
+    for line in siteiq_tx.console_lines(tx_all):
+        print(line)
     serials, ser_path = load_serials()
     for r in rs:
         r["serial"] = serials.get(r["bc"].upper(), "")
@@ -383,6 +381,7 @@ def load(data_dir=None):
     return {
         "rs": rs, "tx": tx, "serials": serials,
         "rs_path": rs_path, "tx_path": tx_path, "ser_path": ser_path,
+        "tx_label": siteiq_tx.label(tx_all), "tx_files": tx_all["files"], "tx_gaps": tx_all["gaps"],
         "asat": asat,                      # position as at (RENTAL_STOCK pull)
         "tx_window": tx_win,               # (start, end) issues covered
         "tx_requested": tx_req or datetime.fromtimestamp(os.path.getmtime(tx_path)),
@@ -510,7 +509,7 @@ def compute(ctx, rules=None):
     m = {"asat": asat, "today": today, "yesterday": yday, "rules": R,
          "tx_window": ctx["tx_window"], "tx_requested": ctx["tx_requested"],
          "sources": {"rental_stock": os.path.basename(ctx["rs_path"]),
-                     "transactions": os.path.basename(ctx["tx_path"]),
+                     "transactions": ctx.get("tx_label") or os.path.basename(ctx["tx_path"]),
                      "serials": os.path.basename(ctx["ser_path"]) if ctx["ser_path"] else ""}}
 
     # ------------------------------------------------------------------
