@@ -1424,6 +1424,7 @@ def _build(base=HERE, when=None):
     back_dated = when is not None and when < dt.date.today()
     when = when or dt.date.today()
     asat = dt.datetime.now()
+    _PRINT["built"] = asat
 
     def export(stem):
         return find_export(base, stem + "*.xlsx", s)
@@ -6916,7 +6917,7 @@ class _Pack(object):
                    size=7.5, bold=True, colour=P_WHITE, align="right")
             d.text(self.x0, self.H - 14,
                    "Built {} | Issue-transaction dates | No costs".format(
-                       self.asat.strftime("%d %b %Y %H:%M")),
+                       (_PRINT.get("built") or self.asat).strftime("%d %b %Y %H:%M")),
                    size=6.5, colour="#B9C0C9", max_w=self.cw * 0.55)
             d.text(self.x1, self.H - 14, self.s.header_line, size=6.5,
                    colour="#B9C0C9", align="right", max_w=self.cw * 0.42)

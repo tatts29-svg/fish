@@ -451,6 +451,8 @@ class ReportRegressions(unittest.TestCase):
             run(base)
             # REQUESTED_DATE/TIME on the invented exports is 06/11/2026 05:05
             self.assertEqual(report._PRINT['asat'], '06 Nov 2026 05:05')
+            # ...while "Built" still says when it was really built
+            self.assertEqual(report._PRINT['built'].date(), dt.date.today())
 
 
 if __name__ == '__main__':
