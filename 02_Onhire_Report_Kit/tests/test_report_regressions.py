@@ -414,5 +414,44 @@ class ReportRegressions(unittest.TestCase):
             self.assertNotIn('more than a day', html)
 
 
+    def test_asset_numbers_sit_beside_descriptions(self):
+        with temporary_site() as base:
+            fixture(base, company_names=('Example Engineering', 'Second Crew'))
+            day = run(base)
+            page = next(day.glob('*.html')).read_text(encoding='utf-8')
+            # each person's gear line carries the asset number after the description
+            self.assertRegex(page, r'(?is)Torque wrench.{0,200}?T0')
+            self.assertRegex(page, r'(?is)Torque wrench.{0,200}?T1')
+            book = openpyxl.load_workbook(next(day.glob('*.xlsx')), read_only=True)
+            rows = [r for r in book['Tooling Utilisation'].iter_rows(values_only=True) if r]
+            head = next(r for r in rows if 'Item numbers' in r)
+            col = head.index('Item numbers')
+            values = [r[col] for r in rows[rows.index(head) + 1:] if len(r) > col and r[col]]
+            self.assertIn('T0, T1', values)
+            book.close()
+
+    def test_asset_numbers_are_cut_back_whole_never_halved(self):
+        class Doc:
+            def text_width(self, text, size):
+                return len(text) * size * 0.5
+        doc = Doc()
+        tag = 'HMRSLEDGE4LB-0003, HMRSLEDGE4LB-0005, HMRSLEDGE4LB-0011'
+        self.assertEqual(report._fit_nums(doc, tag, 6, 1000), tag)
+        self.assertEqual(report._fit_nums(doc, tag, 6, 80), 'HMRSLEDGE4LB-0003 +2 more')
+        self.assertEqual(report._fit_nums(doc, 'A-0001, A-0002, A-0003 +30 more', 6, 70),
+                         'A-0001, A-0002 +31 more')
+        self.assertEqual(report._fit_nums(doc, 'SKU X-1, X-2 +4', 6, 30), 'SKU X-1 +5 more')
+        self.assertEqual(report._fit_nums(doc, '72 assets', 6, 10), '72 assets')
+
+    def test_back_dated_run_is_as_at_the_exports_not_todays_clock(self):
+        if DAY >= dt.date.today():
+            self.skipTest('needs a day earlier than today')
+        with temporary_site() as base:
+            fixture(base)
+            run(base)
+            # REQUESTED_DATE/TIME on the invented exports is 06/11/2026 05:05
+            self.assertEqual(report._PRINT['asat'], '06 Nov 2026 05:05')
+
+
 if __name__ == '__main__':
     unittest.main()

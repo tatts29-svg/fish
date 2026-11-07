@@ -9,6 +9,36 @@
  folder until the new one has run. Then press 2_MAKE_THE_REPORT.bat as
  usual. Newest changes first.
 
+ ASSET NUMBERS BESIDE EVERY DESCRIPTION (08 Nov 2026)
+ ---------------------------------------------------
+   Wherever the report names a piece of gear, its asset number is now
+   right there with it - no more looking a description up to find
+   which one it is.
+
+     A line with 1 to 3 assets      shows each number
+                                    (e.g. 1302196, 1302200)
+     A line with more than that     shows "72 assets" in the pack and
+                                    email; every number is in the
+                                    workbook
+     Customer-owned gear            shows its numbers, as many as fit,
+                                    then "+12 more"
+     Consumables                    show their SKU
+
+   Where it shows:
+     The pack       Working hardest, Have these ready, Consumables
+                    running down, Consumables that go fastest, the
+                    cover's "oldest" tile (number first), and each
+                    company's consumables and customer-gear lines.
+     The emails     Working hardest, Idle, Consumables to watch, each
+                    person's gear list, and "Who is holding what" in
+                    the company drafts.
+     The workbook   New "Item numbers" column on Tooling Utilisation;
+                    new "SKU" column on Consumable Transactions and
+                    Consumable Utilisation.
+
+   A number is never cut in half to fit - if they don't all fit, the
+   ones that do are shown and the rest are counted.
+
  THE DATES - the one that matters
  --------------------------------
    Every on-hire item is now dated from the START of its issue
