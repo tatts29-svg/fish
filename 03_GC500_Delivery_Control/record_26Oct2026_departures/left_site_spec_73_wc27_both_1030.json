@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Mon 9 Nov 2026 (09:5x AEST): \"Wc27 both leave 1030am\". WC27 is the tank-mounted toilet: the Toilet Block 6.0M x 3.0M 1119484 and the Sewage Holding Tank 6.0M x 2.4M 1328979 it sits on (contract 9968955 line 54), the reference's two units, so both is the block and its tank. They left in full at 10:30 AEST on Mon 9 Nov 2026. Rehearsed at 09:5x as a dry run with a past time (nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 10:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC27",
+   "at": "2026-11-09T10:30:00+10:00",
+   "nos": [
+    "1119484",
+    "1328979"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
