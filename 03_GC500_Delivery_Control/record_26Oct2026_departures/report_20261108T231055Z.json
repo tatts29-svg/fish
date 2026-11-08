@@ -1,0 +1,261 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261108T231055Z",
+ "finished": "2026-11-08T23:11:34.487Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Mon 9 Nov 2026 (09:0x AEST): \"1311144 left at 9am\", sent again as \"Do again\". 1311144 is T0243, the WCTV Toilet Block Male Female Cyclone Rated 6m x 3m at the TV compound (sewer connect), contract 9973977, its reference's only unit. It left in full at 09:00 AEST on Mon 9 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 09:00, as a departure is only recorded once its time has come. T0243 is an added reference whose quantity the page counts from its complete tick, which the departure form takes off, so the departure is read back from the delivery history (readback: history), as for EQ0002 on 26 Oct. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0243",
+    "at": "2026-11-09T09:00:00+10:00",
+    "nos": [
+     "1311144"
+    ],
+    "unnumbered": [],
+    "complete": true,
+    "readback": "history"
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13067,
+  "after": 13068
+ },
+ "updated": {
+  "before": "2026-11-06T00:28:44.265Z",
+  "after": "2026-11-08T23:11:33.389Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0243",
+   "at": "2026-11-09T09:00:00+10:00",
+   "nos": [
+    "1311144"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "readback": "history",
+   "result": "left site 2026-11-09T09:00:00+10:00, recorded by Andrew Fisher: 1 x Toilet Block 6m 1311144 - read from the history; light in transit; departure reading: not complete"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0243",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0243": {
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:34.696Z",
+    "ready1238_units": {
+     "coates|1311144": {
+      "on": true,
+      "at": "2026-11-03T03:18:10.036Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-27T17:47:12.974Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:47:12.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:34.696Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1311144",
+      "ready": true,
+      "at": "2026-11-03T03:18:10.036Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "T0243"
+   }
+  },
+  "after": {
+   "delivery/T0243": {
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:34.696Z",
+    "ready1238_units": {
+     "coates|1311144": {
+      "on": true,
+      "at": "2026-11-03T03:18:10.036Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-08T23:11:16.847Z",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-27T17:47:12.974Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-08T23:11:16.847Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:34.696Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1311144",
+      "ready": true,
+      "at": "2026-11-03T03:18:10.036Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-08T23:11:16.847Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-08T23:11:16.847Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "db56585d-f3dd-476a-9c48-a97350dd93bc",
+       "date": "2026-11-09",
+       "departedAt1211": "2026-11-09T09:00:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-22T14:00:00.000Z",
+       "requiredKey": "[[\"toilet block 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"T0243\",\"coates\",\"asset\",\"1311144\"]"
+         ],
+         "numbers": [
+          "1311144"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0243\",\"coates\",\"asset\",\"1311144\"]",
+           "number": "1311144",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "T0243",
+        "capturedAt": "2026-11-08T23:11:16.847Z",
+        "arrivalAt": "2026-09-22T14:00:00.000Z",
+        "reference": {
+         "lat": -27.987534,
+         "lon": 153.428271,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "T0243",
+         "tag": "T0243",
+         "what": "Toilet Block 6m · WC-TV (sewer connect) · Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "_k": "T0243"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
