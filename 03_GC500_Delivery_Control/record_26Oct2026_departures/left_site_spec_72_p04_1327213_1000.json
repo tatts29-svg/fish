@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Mon 9 Nov 2026 (09:5x AEST): \"P04.leaving at.10am\". P04 is the SCA Sales & Marketing Office, a Portable Building 12m, asset 1327213, its reference's only building; what is listed with it (fridge 1328954, air conditioners 1327955 and 1327956, fire extinguisher) leaves with it. Rehearsed at 09:5x as a dry run with a past time (the form offers 1327213, P04 leaves in full, P&L unchanged, nothing sent). It left in full at 10:00 AEST on Mon 9 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P04",
+   "at": "2026-11-09T10:00:00+10:00",
+   "nos": [
+    "1327213"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
