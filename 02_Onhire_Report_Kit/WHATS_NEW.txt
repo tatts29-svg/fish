@@ -3,11 +3,65 @@
  Author: Andrew Fisher | POWERED BY SITEIQ
 ======================================================================
 
- Extract this zip over the top of your existing Onhire_Report_Kit
- folder and say Yes to replacing files. Your exports, your LATEST
- workbook, your .xlsm and your Reports folder are not in the zip, so
- nothing of yours is touched. Then press 2_MAKE_THE_REPORT.bat as
- usual.
+ Extract this zip into a NEW folder and carry across your JOB.txt,
+ COMPANY_ALIASES.txt, Data_SiteIQ, Reports and <Job>_Onhire_Workbook_
+ LATEST.xlsx if the zip did not already come with them. Keep the old
+ folder until the new one has run. Then press 2_MAKE_THE_REPORT.bat as
+ usual. Newest changes first.
+
+ THE ROSTER AND COSTS ARE YOURS TO CHANGE (10 Nov 2026)
+ ------------------------------------------------------
+   Change a date, a shift or the hours on Coates Labour, fix the money
+   on Cost Breakdown, save, close and press 2 - the pack, the email and
+   the workbook follow. 0_START_HERE.txt has the five steps.
+
+     Newest save wins   Type into the LATEST or into the dated
+                        workbook in Reports\<date>\ (the one on the
+                        email) - whichever you saved after the last
+                        report is read, and the window says which.
+     Open in Excel?     The report stops and says so, instead of
+                        quietly building on the last save.
+     Roster line        The black window now prints first day to
+                        last, people, hours, labour, all up and the
+                        file it read, so a change is seen to land.
+     No Shift hours     A No Shift line with hours (Leon's 8-hour
+                        Mon 9 Nov at Weipa) shows its hours on the
+                        roster grid, with a "No shift" key - before
+                        it counted but showed an empty box.
+     Last day           The roster page says "on its last day today"
+                        instead of "0 days to go".
+     Hours as a sum     Total Hours typed as a formula (=(F6-E6)*24)
+                        is read from the start and finish times.
+
+ ASSET NUMBERS BESIDE EVERY DESCRIPTION (08 Nov 2026)
+ ---------------------------------------------------
+   Wherever the report names a piece of gear, its asset number is now
+   right there with it - no more looking a description up to find
+   which one it is.
+
+     A line with 1 to 3 assets      shows each number
+                                    (e.g. 1302196, 1302200)
+     A line with more than that     shows "72 assets" in the pack and
+                                    email; every number is in the
+                                    workbook
+     Customer-owned gear            shows its numbers, as many as fit,
+                                    then "+12 more"
+     Consumables                    show their SKU
+
+   Where it shows:
+     The pack       Working hardest, Have these ready, Consumables
+                    running down, Consumables that go fastest, the
+                    cover's "oldest" tile (number first), and each
+                    company's consumables and customer-gear lines.
+     The emails     Working hardest, Idle, Consumables to watch, each
+                    person's gear list, and "Who is holding what" in
+                    the company drafts.
+     The workbook   New "Item numbers" column on Tooling Utilisation;
+                    new "SKU" column on Consumable Transactions and
+                    Consumable Utilisation.
+
+   A number is never cut in half to fit - if they don't all fit, the
+   ones that do are shown and the rest are counted.
 
  THE DATES - the one that matters
  --------------------------------
@@ -109,6 +163,146 @@
    NOTE says so). Before the shut starts, the story page shows the
    team as ROSTERED hours from the fly-in day rather than hours to
    date, so it never reads as zero people.
+
+ UNDATED ITEMS SAY WHY (06 Nov 2026)
+ ----------------------------------
+   "Not in this export" is gone. An on-hire item with no issue
+   transaction inside the TRANSACTIONS window now says which of three
+   things happened, in the pack, the email, the company drafts and
+   the Detailed Onhire and Coates Stock tabs:
+
+     after window     it went out after the export was cut (the
+                      evening pull against a window that ended at
+                      04:59). A TRANSACTIONS pull with the period
+                      running to now dates it. Nothing to chase.
+     before window    it went out before the export window opened -
+                      long out, worth a look.
+     no transaction   no issue transaction inside the window at all.
+
+   The amber note on each company's page and in its chase email now
+   says how many of its undated items are "after window" and how many
+   "before window", so the reader knows which ones to care about. The
+   Detailed Onhire column is headed "Issue transaction (or why there
+   is none)" and spells the reason out with the window edge and the
+   fix.
+
+ THE JOB NAME (06 Nov 2026)
+ -------------------------
+   The Weipa reports said "Weipa May26 Shutdown" because the SiteIQ
+   schedule behind them is an old one reused for this November shut.
+   JOB.txt now says "Weipa Shutdown", and that is what the pack, the
+   email, the workbook and the Forecast show. Change the job line in
+   JOB.txt if you want it worded differently - the reports follow it.
+
+   The record this shut draws on ("A day at the counter, so far" and
+   the "Expectations come from the record of ..." line in the pack) is
+   now named after the job too, never after the SiteIQ schedule. A
+   previous shut's record (MMG's July exports) keeps its own name,
+   because that is what the past shut was called.
+
+   The SiteIQ schedule name itself is still in the workbook, once, as
+   a note under the sources table on the Cover ("SiteIQ schedule"),
+   because it is the name the kit matches the exports on. It is no
+   longer a headline fact; "Export age" takes that spot.
+
+ NEW - THE TIDIER WORKBOOK (06 Nov 2026)
+ --------------------------------------
+   The Excel workbook looked busy, so the front of it has been laid
+   out again on one calm grid. Nothing in the data tabs changed - the
+   same rows, the same columns, the same colours; this is the Cover,
+   the Dashboard and the Forecast only.
+
+   COVER - twelve narrow columns so every block lines up, uniform row
+   heights, and less on the page: nine key facts (as at, report date,
+   prepared by, SiteIQ project, shutdown ends, shut progress,
+   transactions cover, since last report, company pack), the twelve
+   headline numbers as one grid of tiles, the clickable list of tabs,
+   the four exports with the time each was pulled, and the two rating
+   scales side by side. The secondary facts (engagement, export age,
+   draws counted, the stocktake pull, the typeface) sit as notes under
+   the sources table instead of crowding the top. Row and column
+   headers are hidden so it reads like a page. It prints on two
+   portrait pages: title, facts, headlines and contents on page one;
+   sources, ratings and notes on page two.
+
+   DASHBOARD - one page: the six dark tiles, four DIALS built from
+   cells (a big figure, what it is of, and a bar - Coates fleet on
+   hire, dated from transactions, consumable lines past 80%, items out
+   over 21 days; the half-doughnut gauges are gone), then six live
+   charts in a two-by-three grid, all the same size, with 12pt titles
+   and a hairline border. Every bar on the consumables chart is
+   labelled and its axis runs from zero, not from 88%.
+
+   CHART DATA - a new sixteenth tab at the back (grey). The small
+   tables the Dashboard charts read now live there in full width, so
+   company and consumable names are no longer cut off and the
+   Dashboard itself carries no tables at all. Nothing to type there.
+
+   CHART AXES - every chart in the workbook (Dashboard and Forecast)
+   now tells Excel to draw its axes. The library the kit uses leaves
+   that choice open, and newer Excel then hides the axis labels, which
+   is why day names and scales could be missing on the laptop while
+   they showed elsewhere.
+
+   The Forecast day column reads from the left, and the Forecast and
+   Dashboard open at 100% with gridlines and headers hidden.
+
+ NEW - THE ONCE-OVER (06 Nov 2026)
+ --------------------------------
+   Five more independent reviewers went over the Rio and MMG kits: a
+   reader at the customer's end, a workbook auditor, a first-time MMG
+   user, a Windows and robustness tester, and an auditor who recounted
+   every figure from the raw exports. No blockers. What changed:
+
+   - Customer-owned gear is never a Coates movement. Rio's life jackets
+     and drop mats, MMG's radios: they go through the counter and are
+     tracked on the Customer Gear tab, but they are out of the tooling
+     counts, the ratings, the "top these up" and "send it home" asks
+     and the "have these ready" list. The chase emails now say "owned by
+     the customer and managed through the counter", not "your own".
+   - The three undated Rio items have SiteIQ stock dates in August. The
+     position sentence now says so and asks for them to be treated as
+     long out, instead of leaving "nobody over 21 days" to stand alone.
+   - One basis per figure: "scans" on the looking-ahead page (issues,
+     returns and draws), "movements" on the cover (issues and draws);
+     the consumables rule says it counts every sale since the project
+     began; the "another N lines" captions count the real lists; the
+     "not moving" list leaves out anything with an item out and says it
+     counts lines holding two or more.
+   - People's names as people write them (Samuel Greenland, not "samuel
+     - greenland"); item numbers shrink rather than wrap mid-number;
+     the dial caption breaks where it should; a sign rather than a
+     spaced arrow on the tiles; "Afternoon," after midday; "Hi Goodline
+     team", not "Hi Hussy and Co Pty team".
+   - MMG: Monday 23 Nov reads as mobilisation, one note per typed tab
+     on the first run, and "exports current" is a check in its own
+     right, so stale exports show in the Checks line.
+   - Windows: button 3 no longer reports failure after a successful
+     download; paths with an apostrophe or brackets are safe everywhere;
+     buttons 4 and 5 say what to do when PowerShell or Outlook is locked
+     down; a stopped run takes its email draft back out of the folder.
+   - NEW BUTTON 6 - PULL EXPORTS AND MAKE REPORT. Looks in Downloads for
+     the newest SiteIQ exports, opens each and checks it is this job's,
+     files them into Data_SiteIQ with the right names (old ones kept in
+     Data_SiteIQ\previous), then builds the report.
+
+ NEW - THE QUALITY PASS (06 Nov 2026)
+ -----------------------------------
+   The cover now measures and wraps every action sentence. Charts rank the
+   largest holdings first. Reorder warnings use amber consistently. Story
+   cards, customer-owned gear bars, footers and printed workbook navigation
+   have room to read clearly. Empty charts display zero.
+
+   Bug fixes protect hand-typed tabs after a job rename, align consumable
+   counts with the precise export window, keep company filenames distinct,
+   and show each company's own headline in its email. Missing required output
+   files now fail the run. Outlook refuses drafts with missing attachments;
+   kit paths with apostrophes or brackets are handled literally. Corrupt
+   exports fail the laptop check. Embedded fonts have valid checksums.
+
+   Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
+   and LibreOffice output are useful checks; native Outlook and Excel review
+   remains part of delivery testing.
 
  NEW - THE THIRD OPINION (06 Nov 2026)
  ------------------------------------
@@ -407,7 +601,7 @@
    or copy into a deck. (The gauges are half-doughnuts; they draw
    properly in Excel, less so in other spreadsheet programs.)
 
- THE TWO HAND-TYPED TABS - same values, Coates look
+ THE TWO HAND-TYPED TABS - same values, Coates look (Weipa, 04 Nov)
  --------------------------------------------------
    Coates Labour and Cost Breakdown are still yours and still carried
    over value for value, formula for formula. They now come through in
@@ -437,21 +631,3 @@
    PDF. Every number on every data tab is unchanged - checked cell for
    cell against the previous builder on the same exports.
 ======================================================================
-
-QUALITY PASS - 06 Nov 2026
---------------------------
-The cover now measures and wraps every action sentence. Charts rank the
-largest holdings first. Reorder warnings use amber consistently. Story
-cards, customer-owned gear bars, footers and printed workbook navigation
-have room to read clearly. Empty charts display zero.
-
-Bug fixes protect hand-typed tabs after a job rename, align consumable
-counts with the precise export window, keep company filenames distinct,
-and show each company's own headline in its email. Missing required output
-files now fail the run. Outlook refuses drafts with missing attachments;
-kit paths with apostrophes or brackets are handled literally. Corrupt
-exports fail the laptop check. Embedded fonts have valid checksums.
-
-Run the regression suite described in REVIEW_BRIEF.txt. Browser previews
-and LibreOffice output are useful checks; native Outlook and Excel review
-remains part of delivery testing.

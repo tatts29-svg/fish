@@ -49,8 +49,8 @@ WHAT HAS BEEN VERIFIED ALREADY
   fixed) and an independent rebuild-and-break test (no blockers; its
   majors and minors fixed - see WHATS_NEW.txt "THE SECOND OPINION").
 
-  The supplied Rio delivery ZIP has also been rebuilt with its actual
-  exports, typed workbook, vendored libraries and all four Inter fonts.
+  Each delivery ZIP is rebuilt with its job's actual exports, typed
+  workbook, vendored libraries and all four Inter fonts.
   Independent checks reconcile the source figures, preserve the typed
   sheets, compare two successive builds and verify every email attachment.
   SiteIQ repeats consumable sales in CUSTOMER_CONTRACTOR_EQUIP: those
@@ -75,7 +75,8 @@ reproduce it, and a severity (Blocker / Major / Minor / Note).
 
 REPEATABLE REGRESSION CHECKS
   python -m unittest discover -s 02_Onhire_Report_Kit/tests -v
-  Run from the repository root with openpyxl 3.1.5 installed.
+  Run from the code repository (the tests are not shipped in the kit)
+  with openpyxl 3.1.5 installed.
   Fixtures contain invented companies and people; no site exports required.
   Tests cover saved typed tabs, window boundaries, cross-output counts,
   isolated company files/emails, failed-output detection, crowded cover

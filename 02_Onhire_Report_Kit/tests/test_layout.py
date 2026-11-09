@@ -131,7 +131,7 @@ class BrowserLayoutTests(unittest.TestCase):
         site = SimpleNamespace(author='QA', header_line='Example shutdown')
         day = dt.date(2026, 11, 6)
         rows = [[report._lead('Worker with a long name', 'Tool description'),
-                 report._num('17'), report._plain('not in export'),
+                 report._num('17'), report._plain('after window'),
                  report._pill('undated', 'amber')]]
         body = report._masthead(site, day, dt.datetime(2026, 11, 6, 12),
                                 dict(hero=('56', 'items on hire now', 'Example')))

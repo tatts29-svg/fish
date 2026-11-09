@@ -14,7 +14,7 @@ rem  I also write LAPTOP_CHECK.txt next to me. If you're still stuck,
 rem  email Andrew that file and he'll know what's wrong without having
 rem  to ask you a single question.
 rem =====================================================================
-cd /d "%~dp0"
+cd /d "%~dp0" 2>nul
 if not exist "%~dp0_RUN.bat" (
     echo.
     echo ==================================================================

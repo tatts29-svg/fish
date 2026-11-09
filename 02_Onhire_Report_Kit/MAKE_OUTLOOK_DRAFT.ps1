@@ -43,6 +43,10 @@ if (-not $manifests -or $manifests.Count -eq 0) {
 try {
     $ol = New-Object -ComObject Outlook.Application
 } catch {
+    if ($ExecutionContext.SessionState.LanguageMode -ne 'FullLanguage') {
+        Write-Output "PowerShell on this laptop is locked down (Constrained Language Mode), so it cannot drive Outlook. Open the .html in the Reports folder and copy it into a new message instead."
+        exit 1
+    }
     Write-Output "Couldn't reach Outlook. This needs classic Outlook (the desktop app); the new Outlook has no automation and some locked-down laptops block it. Open classic Outlook once and run this again - or open the .html, select all, copy, and paste it into a new message."
     exit 1
 }

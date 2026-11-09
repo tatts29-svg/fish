@@ -200,7 +200,7 @@ rem  first, so Python313 is tried before Python310 - the old version took
 rem  whatever came first alphabetically, which meant the OLDEST.
 :scan_folder
 if not exist "%~1" goto :eof
-for /f "delims=" %%P in ('dir /b /s /o-n "%~1\python.exe" 2^>nul') do if not defined PYCMD call :try_cmd "%%P"
+for /f "usebackq delims=" %%P in (`dir /b /s /o-n "%~1\python.exe" 2^>nul`) do if not defined PYCMD call :try_cmd "%%P"
 goto :eof
 
 
@@ -279,7 +279,11 @@ echo  THE PYTHON ON THIS COMPUTER IS TOO OLD
 echo ==================================================================
 echo.
 echo  Found: "%ANYPY%"
-for /f "usebackq delims=" %%V in (`%ANYPY% -c "import sys;print(sys.version.split()[0])" 2^>nul`) do echo  Version: %%V
+%ANYPY% -c "import sys;print(sys.version.split()[0])" > "%TEMP%\coates_pyver.txt" 2>nul
+set "GOTV="
+if exist "%TEMP%\coates_pyver.txt" set /p GOTV=<"%TEMP%\coates_pyver.txt"
+del "%TEMP%\coates_pyver.txt" >nul 2>nul
+if defined GOTV echo  Version: %GOTV%
 echo.
 echo  The kit needs Python 3.8 or newer - anything from 2019 on.
 echo.

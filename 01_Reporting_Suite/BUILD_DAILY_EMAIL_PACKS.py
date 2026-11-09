@@ -559,6 +559,27 @@ def hold_or_release(pack, folder, date_tag):
     if not os.path.isfile(live):
         return ""
 
+    #  WHY (07 Nov 2026): a re-run of a held pack built the same draft again
+    #  and filed the old one as "(earlier n)" every time - the MIME
+    #  boundaries are random, so the bytes always differed. The same stamp
+    #  and the same recipients mean the same draft: keep the held one, drop
+    #  the copy. (The ready path has always compared this way.)
+    if os.path.isfile(held):
+        try:
+            a, b = read_back(held), read_back(live)
+            same = (a.get("stamp") and a.get("stamp") == b.get("stamp")
+                    and sorted(a["to"]) == sorted(b["to"])
+                    and sorted(a["cc"]) == sorted(b["cc"]))
+        except Exception:
+            same = False
+        if same:
+            try:
+                os.remove(live)
+                pack["draft"] = held
+                return "held - unchanged since the last run; not sendable until this is fixed"
+            except OSError:
+                pass
+
     #  Keep any earlier held draft rather than writing over it - rule 7
     #  applies to these too.
     if os.path.isfile(held):
