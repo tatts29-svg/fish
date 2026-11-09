@@ -1,0 +1,25 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Mon 9 Nov 2026 (21:0x AEST): \"S08 water barriers left at 2pm today\". The S08 water barriers are WB02, 'S08 - Pedestrian Pathway along Main Beach Parade', 34 TL2 barriers installed Mon 21 Sep 2026, the one Coates water barrier run still on site (Andrew, 30 Oct: \"All barriers should now be off hired apart from s08\"). They left in full at 14:00 AEST on Mon 9 Nov 2026. Recorded as the earlier barrier runs were (spec 54): the TL2 line's plant number ARMORZONMASHTL2 and the rest of the run unnumbered. Through the page's own Record departure form in Andrew's name; recorded after 14:00. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WB02",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 33
+    }
+   ],
+   "complete": true
+  }
+ ]
+}

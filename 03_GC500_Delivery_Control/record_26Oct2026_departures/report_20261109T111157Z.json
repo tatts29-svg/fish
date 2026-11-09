@@ -1,0 +1,232 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261109T111157Z",
+ "finished": "2026-11-09T11:12:33.967Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Mon 9 Nov 2026 (21:0x AEST): \"S08 water barriers left at 2pm today\". The S08 water barriers are WB02, 'S08 - Pedestrian Pathway along Main Beach Parade', 34 TL2 barriers installed Mon 21 Sep 2026, the one Coates water barrier run still on site (Andrew, 30 Oct: \"All barriers should now be off hired apart from s08\"). They left in full at 14:00 AEST on Mon 9 Nov 2026. Recorded as the earlier barrier runs were (spec 54): the TL2 line's plant number ARMORZONMASHTL2 and the rest of the run unnumbered. Through the page's own Record departure form in Andrew's name; recorded after 14:00. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WB02",
+    "at": "2026-11-09T14:00:00+10:00",
+    "nos": [
+     "ARMORZONMASHTL2"
+    ],
+    "unnumbered": [
+     {
+      "type": "TL2",
+      "n": 33
+     }
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13191,
+  "after": 13192
+ },
+ "updated": {
+  "before": "2026-11-09T10:08:51.804Z",
+  "after": "2026-11-09T11:12:33.112Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WB02",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "ARMORZONMASHTL2"
+   ],
+   "unnumbered": [
+    {
+     "type": "TL2",
+     "n": 33
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-11-09T14:00:00+10:00, recorded by Andrew Fisher: 34 x TL2 ARMORZONMASHTL2 - WB02 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WB02",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WB02": {
+    "state": "on site",
+    "set_at": "2026-09-21T05:35:02.191Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T05:36:44.223Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-21T05:35:02.191Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T05:36:44.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "WB02"
+   }
+  },
+  "after": {
+   "delivery/WB02": {
+    "state": "in transit",
+    "set_at": "2026-11-09T11:12:18.532Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-09T11:12:18.532Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-21T05:35:02.191Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-09T11:12:18.532Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "710fb9e7-f58d-4020-8e18-159ba7bcbd12",
+       "date": "2026-11-09",
+       "departedAt1211": "2026-11-09T14:00:00+10:00",
+       "programmeDate": "2026-09-27",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-21T05:35:02.191Z",
+       "requiredKey": "[[\"tl2\",34]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "TL2",
+         "n": 34,
+         "unitIds": [
+          "[\"WB02\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]"
+         ],
+         "numbers": [
+          "ARMORZONMASHTL2"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WB02\",\"coates\",\"asset\",\"ARMORZONMASHTL2\"]",
+           "number": "ARMORZONMASHTL2",
+           "owner": "coates",
+           "item": "TL2"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WB02",
+        "capturedAt": "2026-11-09T11:12:18.532Z",
+        "arrivalAt": "2026-09-21T05:35:02.191Z",
+        "reference": {
+         "lat": -27.985267,
+         "lon": 153.429812,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WB02",
+         "tag": "WB02",
+         "what": "S08 - Pedestrian Pathway along Main Beach Parade · TL2",
+         "how": "position: where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)",
+         "warn": "",
+         "source": "position: where water barrier drawing K231 puts it (zone 11: S08 - Pedestrian Pathway along Main Beach Parade)"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T05:36:44.223Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-09T11:12:18.532Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "WB02"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
