@@ -1457,6 +1457,32 @@ def _build(base=HERE, when=None):
             say("  STOP | " + why)
             return 1
 
+    #  A workbook the roster and costs are typed into, still open in Excel,
+    #  is read as last saved - anything typed since would be left out, and
+    #  the LATEST could not be written back. Say so before doing the work.
+    label_ = _safe_name(s.short or s.customer or "Shutdown")
+    watch = [_latest_path_for(base, s), s.workbook(base),
+             os.path.join(base, s.reports_dirname, when.strftime("%Y-%m-%d"),
+                          "{} On-Hire Workbook - {}.xlsx".format(label_, when.strftime("%d %b %Y")))]
+    watch += _dated_workbooks(base, s)[:1]
+    busy = []
+    for p in watch:
+        if p and p not in busy and _open_in_excel(p):
+            busy.append(p)
+    if busy:
+        say()
+        say("  STOP | {} open in Excel:".format("This workbook is" if len(busy) == 1
+                                                else "These workbooks are"))
+        for p in busy:
+            say("         {}".format(os.path.relpath(p, base)))
+        say()
+        say("         Save (Ctrl+S) and close {}, then press the button again.".format(
+            "it" if len(busy) == 1 else "them"))
+        say("         The report reads the roster and costs as last saved, so")
+        say("         anything typed since would be left out. Nothing is lost.")
+        say()
+        return 1
+
     #  How this job wants its names: aliases folded, caps tidied.
     _NAMES["aliases"] = read_aliases(base)
     _NAMES["tidy"] = s.tidy_names
@@ -2443,6 +2469,26 @@ def _build(base=HERE, when=None):
     say("=" * 66)
     for name, n, _why in tabs:
         say("  {:<26} {:>6} {}".format(name, n, "rows" if isinstance(n, int) else ""))
+    say("-" * 66)
+    typed_src = _PRINT.get("typed_src")
+    if roster and roster.get("first") and roster.get("rostered"):
+        say("  Roster    {} to {}  \u00b7  {} {}  \u00b7  {:,.0f} hours  \u00b7  labour {}{}".format(
+            roster["first"].strftime("%a %d %b"), roster["last"].strftime("%a %d %b"),
+            len(roster.get("people") or {}),
+            "person" if len(roster.get("people") or {}) == 1 else "people",
+            roster["rostered"], "${:,.2f}".format(labour_total) if labour_total else "TBC",
+            "  \u00b7  all up ${:,.2f}".format(cost_total) if cost_total else ""))
+        if typed_src and os.path.isfile(typed_src):
+            say("            typed in {}, saved {}".format(
+                os.path.relpath(typed_src, base),
+                dt.datetime.fromtimestamp(os.path.getmtime(typed_src)).strftime("%d %b %Y %H:%M")))
+        say("            Changed the roster? Type it into {}, save,".format(
+            os.path.basename(_latest_path_for(base, s))))
+        say("            close it and press the button again.")
+    else:
+        say("  Roster    none typed yet - type it into the Coates Labour tab of")
+        say("            {} and press the button again.".format(
+            os.path.basename(_latest_path_for(base, s))))
     say("-" * 66)
     say("  Dates     from each item's issue transaction. Transactions export")
     say("            covers {}.".format(period or "an unstated period"))
@@ -3668,6 +3714,24 @@ def skin_typed(ws):
     ws.sheet_view.showGridLines = False
 
 
+def _span_hours(start, finish):
+    """Hours from a start and finish time (times or date-times); a finish
+    at or before the start is the next morning. 0 when either is missing."""
+    def mins(v):
+        if isinstance(v, dt.datetime):
+            v = v.time()
+        if isinstance(v, dt.time):
+            return v.hour * 60 + v.minute
+        if isinstance(v, (int, float)) and not isinstance(v, bool) and 0 <= v < 1:
+            return int(round(v * 1440))
+        return None
+    a, b = mins(start), mins(finish)
+    if a is None or b is None:
+        return 0.0
+    span = (b - a) % 1440 or 1440
+    return span / 60.0
+
+
 def roster_hours(ws, when):
     """Hours and shifts per person off the Coates Labour tab, up to the
     report date, however the tab is laid out: it finds the heading row
@@ -3700,7 +3764,13 @@ def roster_hours(ws, when):
         if d0 is not None:
             current = d0
         name = _s(ws.cell(row=r, column=cols["name"]).value)
-        hrs = _n(ws.cell(row=r, column=cols["hours"]).value)
+        raw_h = ws.cell(row=r, column=cols["hours"]).value
+        hrs = _n(raw_h)
+        if not hrs and isinstance(raw_h, str) and raw_h.startswith("="):
+            #  Total Hours typed as a formula (=(F6-E6)*24): the same sum off
+            #  the start and finish, a finish before the start being next day.
+            hrs = _span_hours(ws.cell(row=r, column=cols["start"]).value if cols.get("start") else None,
+                              ws.cell(row=r, column=cols["finish"]).value if cols.get("finish") else None)
         shift = _s(ws.cell(row=r, column=cols["shift"]).value) if cols.get("shift") else ""
         if not name or not hrs or current is None:
             continue
@@ -4219,6 +4289,15 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
                      (", {} {}".format("fly out" if last_travel else "demob",
                                        last.strftime("%a %d %b"))),
                      hours))
+    elif (last - when).days <= 0:
+        n_all = len(days)
+        today_h = sum(h_ for d_, _n, _sh, h_, _a, _b in rows if d_ == when)
+        brief = ("{} is on its last day today, {} - day {} of {}. {} - {:,.0f} rostered hours "
+                 "in all{}{}.".format(
+                     job, when.strftime("%A %d %B"), n_all, n_all, who(), hours,
+                     (", {:,.0f} of them today".format(today_h) if today_h else ""),
+                     (" (nights ended {})".format(last_night.strftime("%a %d %b"))
+                      if nights and last_night and last_night < when else "")))
     else:
         left = (last - when).days
         brief = ("{} is {} day{} in, with {} day{} to go to {}. {} - {:,.0f} of {:,.0f} "
@@ -4272,6 +4351,126 @@ def forecast_block(s, when, roster, wb, tooling_tx, ctx, own, parts, period,
             "labour_total": labour_total, "cost_total": cost_total}
 
 
+def _open_in_excel(path):
+    """True when Excel has this workbook open. Windows refuses to open a
+    workbook Excel is holding for writing; elsewhere Excel's "~$" owner
+    file beside it says the same. A save made while it is open is read;
+    anything typed since that save is not - which is why it matters."""
+    if not path or not os.path.isfile(path):
+        return False
+    if os.name == "nt":
+        try:
+            with open(path, "r+b"):
+                return False
+        except PermissionError:
+            return True
+        except OSError:
+            return False
+    folder, name = os.path.split(path)
+    return any(os.path.isfile(os.path.join(folder, "~$" + n)) for n in (name, name[2:]))
+
+
+def _typed_fingerprint(path):
+    """What the two typed tabs hold in a workbook, cell by cell, to tell
+    a copy somebody typed into from one the kit wrote. None if unreadable."""
+    try:
+        wb_ = openpyxl.load_workbook(path, data_only=False, read_only=True)
+    except Exception:
+        return None
+    out = []
+    try:
+        for name in CARRIED_OVER:
+            if name not in wb_.sheetnames:
+                out.append((name, None))
+                continue
+            for row in wb_[name].iter_rows(min_row=2):
+                for c in row:
+                    v = c.value
+                    if v is None or v == "":
+                        continue
+                    if isinstance(v, bool):
+                        pass
+                    elif isinstance(v, (int, float)):
+                        v = round(float(v), 4)
+                    elif isinstance(v, (dt.datetime, dt.date, dt.time)):
+                        v = v.isoformat()
+                    else:
+                        v = str(v).strip()
+                    out.append((name, c.row, c.column, v))
+    except Exception:
+        return None
+    finally:
+        try:
+            wb_.close()
+        except Exception:
+            pass
+    return tuple(out)
+
+
+def _latest_path_for(base, s):
+    """The kit's own LATEST workbook for this job, or the one LATEST in the
+    folder if the job's name has changed since it was written."""
+    p = os.path.join(base, latest_workbook_name(s.short or s.customer or "Shutdown"))
+    if os.path.isfile(p):
+        return p
+    others = sorted(glob.glob(os.path.join(glob.escape(base), "*_Onhire_Workbook_LATEST.xlsx")))
+    return others[0] if len(others) == 1 else p
+
+
+def _dated_workbooks(base, s):
+    """Every dated workbook a report has written, newest save first."""
+    hits = [p for p in glob.glob(os.path.join(glob.escape(os.path.join(base, s.reports_dirname)),
+                                              "*", "* On-Hire Workbook - *.xlsx"))
+            if not os.path.basename(p).startswith("~$")]
+    return sorted(hits, key=os.path.getmtime, reverse=True)
+
+
+def _pick_typed_source(base, s, src, latest_path):
+    """Where Coates Labour and Cost Breakdown are read from this run.
+
+    Andrew types the roster and costs into whichever workbook is in front
+    of him: the LATEST, the dated copy in Reports (the one on the email),
+    or his own .xlsm. Every report writes the LATEST and the dated copy
+    with the same two tabs, so a copy saved AFTER the last report with
+    different tabs is the one somebody typed into - and the newest such
+    save wins. Nothing typed since the last report? The LATEST, as ever.
+    Before the first report there is no LATEST, and src (.xlsm or none)
+    stands. Returns (path, note or None)."""
+    if not (latest_path and os.path.isfile(latest_path)):
+        return src, None
+    try:
+        best_m = os.path.getmtime(latest_path)
+    except OSError:
+        return src, None
+    best, fp_latest = latest_path, None
+    cands = []
+    dated = _dated_workbooks(base, s)
+    if dated:
+        cands.append(dated[0])
+    xlsm = s.workbook(base)
+    if xlsm and xlsm.lower().endswith(".xlsm"):
+        cands.append(xlsm)
+    for p in cands:
+        try:
+            m = os.path.getmtime(p)
+        except OSError:
+            continue
+        if m <= best_m + 2:
+            continue
+        if fp_latest is None:
+            fp_latest = _typed_fingerprint(latest_path)
+        fp = _typed_fingerprint(p)
+        if fp is None or fp == fp_latest:
+            continue
+        best, best_m = p, m
+    if best == latest_path:
+        return latest_path, None
+    return best, ("  NOTE | Coates Labour and Cost Breakdown were typed into {} (saved {}) "
+                  "after the last report, so they are read from there - the newest save "
+                  "wins.".format(os.path.relpath(best, base),
+                                 dt.datetime.fromtimestamp(best_m).strftime("%d %b %H:%M")))
+
+
 def carry_over(wb, s, base, title, when=None):
     """Copy Andrew's hand-typed tabs out of the existing workbook -
     values, formulas, dates and times exactly as he left them, at the
@@ -4283,6 +4482,10 @@ def carry_over(wb, s, base, title, when=None):
         candidates = sorted(glob.glob(os.path.join(glob.escape(base), "*_Onhire_Workbook_LATEST.xlsx")))
         if len(candidates) == 1:
             src = candidates[0]
+    src, why = _pick_typed_source(base, s, src, _latest_path_for(base, s))
+    if why:
+        say(why)
+    _PRINT["typed_src"] = src
     carried, labour_total, cost_total = [], 0.0, 0.0
     roster = {"hours": 0.0, "people": {}, "rostered": 0.0, "first": None, "last": None,
               "rows": []}
@@ -7863,6 +8066,11 @@ class _Pack(object):
                     d.text(cx0 + cw_ / 2.0, yy + cell_h / 2.0 + 2.4, "{:g}".format(cell[2]),
                            size=6.5, bold=True, colour=colour if done else P_WHITE,
                            align="centre")
+                elif cell and cell[2] and cw_ >= 15:
+                    #  "No Shift" with hours typed against it (a short
+                    #  day, a handover): the hours count, so show them.
+                    d.text(cx0 + cw_ / 2.0, yy + cell_h / 2.0 + 2.4, "{:g}".format(cell[2]),
+                           size=6.5, bold=True, colour=P_MUTED, align="centre")
             yy += pitch
         if today_in:
             i = (today - days[0]).days
@@ -7876,6 +8084,11 @@ class _Pack(object):
                 continue
             text = label + (" " + fc["times"][key] if fc["times"].get(key) else "")
             d.rect(lx, yy + 4.5, 9, 9, fill=colour, radius=2)
+            lx += 13
+            lx += d.text(lx, yy + 12, text, size=6.8, colour=P_MUTED) + 14
+        if any(cell[0] == "off" and cell[2] for g_ in fc["grid"].values() for cell in g_.values()):
+            text = "No shift" + (" " + fc["times"]["off"] if fc["times"].get("off") else "")
+            d.rect(lx, yy + 4.5, 9, 9, fill=self.C_TRACK, radius=2)
             lx += 13
             lx += d.text(lx, yy + 12, text, size=6.8, colour=P_MUTED) + 14
         if any(day < today for day in days):

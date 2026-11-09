@@ -9,6 +9,30 @@
  folder until the new one has run. Then press 2_MAKE_THE_REPORT.bat as
  usual. Newest changes first.
 
+ THE ROSTER AND COSTS ARE YOURS TO CHANGE (10 Nov 2026)
+ ------------------------------------------------------
+   Change a date, a shift or the hours on Coates Labour, fix the money
+   on Cost Breakdown, save, close and press 2 - the pack, the email and
+   the workbook follow. 0_START_HERE.txt has the five steps.
+
+     Newest save wins   Type into the LATEST or into the dated
+                        workbook in Reports\<date>\ (the one on the
+                        email) - whichever you saved after the last
+                        report is read, and the window says which.
+     Open in Excel?     The report stops and says so, instead of
+                        quietly building on the last save.
+     Roster line        The black window now prints first day to
+                        last, people, hours, labour, all up and the
+                        file it read, so a change is seen to land.
+     No Shift hours     A No Shift line with hours (Leon's 8-hour
+                        Mon 9 Nov at Weipa) shows its hours on the
+                        roster grid, with a "No shift" key - before
+                        it counted but showed an empty box.
+     Last day           The roster page says "on its last day today"
+                        instead of "0 days to go".
+     Hours as a sum     Total Hours typed as a formula (=(F6-E6)*24)
+                        is read from the start and finish times.
+
  ASSET NUMBERS BESIDE EVERY DESCRIPTION (08 Nov 2026)
  ---------------------------------------------------
    Wherever the report names a piece of gear, its asset number is now
