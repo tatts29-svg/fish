@@ -23,12 +23,16 @@ finds each one by its number.
 |---|---:|---:|
 | 36786: S08 construction zone, 72.5 m clean mesh fence | 1,171.65 | 725.00 |
 | 36785: Double Stack, 67.5 m clean mesh fence | 1,090.85 | 675.00 |
-| 24003, 24004, 24005: 5.0 h labour | — | 500.00 |
+| 24003, 24004, 24005: 5.0 h labour (the page charges 142.00/h, Advanced bills 100.00/h) | 710.00 | 500.00 |
 | 28605–28640 (collection forms) | — | — |
+| Total | 2,972.50 | 1,900.00 |
 
-Collection forms are counts only; no charge, credit or metres inferred. These are the page's own figures from the papers. They do
-not change what was invoiced to the V8s, which stays as invoiced on Andrew's ruling of 31 Oct ("v8s stay as is"); on his ruling of
-3 Nov, all of this is November.
+Collection forms are counts only; no charge, credit or metres inferred. These are the page's own figures from the papers, in its
+working figures from the live record (the Costs tab's money summary: charged to the V8s 1,013,258.55 → 1,016,231.05, known costs
+457,624.59 → 459,524.59). The P&L at the top of the Costs tab is pinned to pack v1.26 and did not move (charged 1,008,148.14, costs
+599,095.21). Nothing here changes what was invoiced to the V8s, which stays as invoiced on Andrew's ruling of 31 Oct ("v8s stay as
+is"); on his ruling of 3 Nov, all of this is November. (Corrected 9 Nov 2026 20:1x AEST: the first write-up gave 2,262.50 charged
+and left out the 710.00 the page charges on the three notes.)
 
 ## The papers
 

@@ -104,6 +104,9 @@ spec.ops.forEach((o, i) => {
   else if (o.op === 'light') { if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (!['on site', 'not on site', 'in transit', 'collected'].includes(o.state)) fail(at + 'needs a light state');
     /* 27 Oct 2026: a back-dated light is an arrival: on site, an exact UTC time that has passed, and why, in words the record keeps */
     if (o.at != null) { if (o.state !== 'on site') fail(at + 'only an on-site light is dated back (at)'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time, e.g. 2026-10-21T14:00:00.000Z'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'a dated light needs why, under 200 characters, naming no system'); } }
+  else if (o.op === 'arrival_backfill') { /* 9 Nov 2026: a departed reference whose arrival the page held only through its complete tick gets that arrival on its history (T0243) */
+    if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at)) || Date.parse(o.at) > Date.now()) fail(at + 'at must be a past UTC time');
+    if (typeof o.why !== 'string' || !o.why.trim() || o.why.length > 300 || /\b(codex|claude|gpt|model|agent)\b/i.test(o.why)) fail(at + 'needs why, naming no system'); }
   else if (o.op === 'light_redate') { /* 29 Oct 2026: a reference already on site gets its true arrival time (EQ0006 laser plane, on hire 16 Oct, entered 25 Oct) */
     if (!REFRE.test(o.ref || '')) fail(at + 'needs a reference'); if (typeof o.at !== 'string' || !ISO_UTC.test(o.at) || !Number.isFinite(Date.parse(o.at))) fail(at + 'at must be a UTC time'); if (Date.parse(o.at) > now) fail(at + 'at is in the future'); if (!TEXT200(o.why)) fail(at + 'needs why, under 200 characters, naming no system'); }
   else if (o.op === 'unit_ready_off') { /* 29 Oct 2026: a unit's Ready tick comes off through the page's own setUnitReady (Andrew: 1191957 on T0158 is not part of a VMS) */
@@ -370,6 +373,20 @@ function applyOps(spec) {
         if (d.state === op.state) r.result = 'already ' + op.state;
         else { const ok = setLight(op.ref, op.state); if (!ok) throw new Error('setLight refused ' + op.ref); if (deliveryOf(op.ref).state !== op.state) throw new Error('light did not move'); r.result = 'set ' + op.state;
           if (op.at) { const dd = S.delivery[op.ref], h = dd.history && dd.history[dd.history.length - 1]; if (!h || h.state !== op.state) throw new Error('no history entry to date'); dd.set_at = op.at; h.at = op.at; if (op.why) h.note = op.why; r.result += ' at ' + op.at; } }
+      } else if (op.op === 'arrival_backfill') {
+        /* 9 Nov 2026: an added reference whose on-site status came only from its complete tick has left. The departure form recorded the
+           departure against the arrival the page held then (collection996.arrivalAt) and took the tick off, so the page's departure reading
+           finds no arrival to count the departure against. That same arrival goes on the history as an 'on site' entry, at exactly that
+           time, with the reason. Nothing else changes: not the light, the departure, the ticks or the numbers. */
+        const dd = S.delivery[op.ref]; if (!dd) throw new Error(op.ref + ' has no delivery document');
+        const hist = dd.history || [];
+        if (hist.some(h => h && h.state === 'on site' && !h.collection996)) throw new Error(op.ref + ' already has an on-site entry - nothing to add');
+        const cols = hist.filter(h => h && h.collection996 && h.collection996.kind === 'collection');
+        if (!cols.length) throw new Error(op.ref + ' has no recorded departure');
+        const held = [...new Set(cols.map(h => h.collection996.arrivalAt))]; if (held.length !== 1 || held[0] !== op.at) throw new Error(op.ref + ': its departure holds arrival ' + held.join(', ') + ', not ' + op.at);
+        if (cols.some(h => !(Date.parse(op.at) < Date.parse(h.at)))) throw new Error(op.ref + ': arrival ' + op.at + ' is not before its departure entry');
+        dd.history = [{state: 'on site', at: op.at, by: who, note: op.why}].concat(hist);
+        r.result = 'on-site arrival ' + op.at + ' put on the history (the arrival its departure was recorded against)';
       } else if (op.op === 'light_redate') {
         const d = deliveryOf(op.ref); if (d.state !== 'on site') throw new Error(op.ref + ' is not on site - nothing to re-date');
         const dd = S.delivery[op.ref], hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1];
@@ -933,6 +950,7 @@ function applyOps(spec) {
         if (op.op === 'light' && op.at && (((docs.delivery || {})[op.ref] || {}).set_at) !== op.at) problems.push(op.ref + ' light not dated ' + op.at + ' ' + where);
         if (op.op === 'light' && (((docs.delivery || {})[op.ref] || {}).state) !== op.state) problems.push(op.ref + ' light is not ' + op.state + ' ' + where);
         if (op.op === 'light' && op.at) { const hs = ((((docs.delivery || {})[op.ref] || {}).history) || []).filter(h => h && h.state === op.state), h = hs[hs.length - 1]; if (!h || h.at !== op.at || (op.why && h.note !== op.why)) problems.push(op.ref + ' light history entry is not dated ' + op.at + (op.why ? ' with its reason' : '') + ' ' + where); } /* 27 Oct 2026 */
+        if (op.op === 'arrival_backfill') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.state === 'on site' && !h.collection996); if (hs.length !== 1 || hs[0].at !== op.at || hs[0].by !== spec.by || !String(hs[0].note || '').includes(op.why)) problems.push(op.ref + ': no single on-site entry at ' + op.at + ' with its reason ' + where); }
         if (op.op === 'light_redate') { const dd = (docs.delivery || {})[op.ref] || {}; const hs = (dd.history || []).filter(h => h && h.state === 'on site'), h = hs[hs.length - 1]; if (dd.state !== 'on site' || dd.set_at !== op.at || !h || h.at !== op.at || !String(h.note || '').includes(op.why)) problems.push(op.ref + ' arrival is not dated ' + op.at + ' with its reason ' + where); }
         if (op.op === 'unit_ready_off') { const u = (((docs.delivery || {})[op.ref] || {}).ready1238_units || {})[op.unit]; if (!u || u.on !== false || !String(u.why || '').includes(op.why.slice(0, 140))) problems.push(op.ref + ' ' + op.unit + ' ready tick is not off with its reason ' + where); }
         if (op.op === 'collection_withdraw') { const dd = (docs.delivery || {})[op.ref] || {}; if (dd.state !== 'on site' || (dd.history || []).some(h => h && h.collection996 && h.collection996.id === op.id) || dd.done !== true || !String(dd.note || '').includes(op.why)) problems.push(op.ref + ': the departure ' + op.id + ' is not withdrawn with the reference back on site and complete ' + where); }
