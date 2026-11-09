@@ -1,0 +1,310 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261109T000242Z",
+ "finished": "2026-11-09T00:03:17.531Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Mon 9 Nov 2026 (09:5x AEST): \"P04.leaving at.10am\". P04 is the SCA Sales & Marketing Office, a Portable Building 12m, asset 1327213, its reference's only building; what is listed with it (fridge 1328954, air conditioners 1327955 and 1327956, fire extinguisher) leaves with it. Rehearsed at 09:5x as a dry run with a past time (the form offers 1327213, P04 leaves in full, P&L unchanged, nothing sent). It left in full at 10:00 AEST on Mon 9 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P04",
+    "at": "2026-11-09T10:00:00+10:00",
+    "nos": [
+     "1327213"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13069,
+  "after": 13070
+ },
+ "updated": {
+  "before": "2026-11-08T23:49:46.848Z",
+  "after": "2026-11-09T00:03:16.615Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P04",
+   "at": "2026-11-09T10:00:00+10:00",
+   "nos": [
+    "1327213"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-09T10:00:00+10:00, recorded by Andrew Fisher: 1 x Building 12m 1327213 - P04 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P04",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P04": {
+    "state": "on site",
+    "set_at": "2026-09-14T02:00:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:43.589Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:29:29.756Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "On site and all done 12:00 · 12m x 3m · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:43.589Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:29.756Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:48:58.033Z"
+    },
+    "loading872": {
+     "u1327213": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:48:54.631Z"
+     }
+    },
+    "_k": "P04"
+   }
+  },
+  "after": {
+   "delivery/P04": {
+    "state": "in transit",
+    "set_at": "2026-11-09T00:03:01.946Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-09T00:03:01.946Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-09T00:03:01.946Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-09T00:03:01.946Z",
+    "eta": "07:00",
+    "note": "On site and all done 12:00 · 12m x 3m · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T02:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-09T00:03:01.946Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "2cebc44c-4484-4e20-af28-c80d2d603079",
+       "date": "2026-11-09",
+       "departedAt1211": "2026-11-09T10:00:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T02:00:00Z",
+       "requiredKey": "[[\"building 12m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 12m",
+         "n": 1,
+         "unitIds": [
+          "[\"P04\",\"coates\",\"asset\",\"1327213\"]"
+         ],
+         "numbers": [
+          "1327213"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P04\",\"coates\",\"asset\",\"1327213\"]",
+           "number": "1327213",
+           "owner": "coates",
+           "item": "Building 12m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P04",
+        "capturedAt": "2026-11-09T00:03:01.945Z",
+        "arrivalAt": "2026-09-14T02:00:00.000Z",
+        "reference": {
+         "lat": -27.983494,
+         "lon": 153.426438,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P04",
+         "tag": "P04",
+         "what": "SCA Sales & Marketing Office · Building 12m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-09T00:03:01.946Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:43.589Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-09T00:03:01.946Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:29.756Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-09T00:03:01.946Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:48:58.033Z"
+    },
+    "loading872": {
+     "u1327213": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:48:54.631Z"
+     }
+    },
+    "_k": "P04"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
