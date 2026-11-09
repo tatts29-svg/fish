@@ -1,0 +1,336 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261109T003248Z",
+ "finished": "2026-11-09T00:33:22.698Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Mon 9 Nov 2026 (09:5x AEST): \"Wc27 both leave 1030am\". WC27 is the tank-mounted toilet: the Toilet Block 6.0M x 3.0M 1119484 and the Sewage Holding Tank 6.0M x 2.4M 1328979 it sits on (contract 9968955 line 54), the reference's two units, so both is the block and its tank. They left in full at 10:30 AEST on Mon 9 Nov 2026. Rehearsed at 09:5x as a dry run with a past time (nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 10:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC27",
+    "at": "2026-11-09T10:30:00+10:00",
+    "nos": [
+     "1119484",
+     "1328979"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13070,
+  "after": 13071
+ },
+ "updated": {
+  "before": "2026-11-09T00:03:16.615Z",
+  "after": "2026-11-09T00:33:21.697Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1013258.55,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 457624.59,
+   "difference": 522461.06,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC27",
+   "at": "2026-11-09T10:30:00+10:00",
+   "nos": [
+    "1119484",
+    "1328979"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-09T10:30:00+10:00, recorded by Andrew Fisher: 1 x Toilet Block 6m 1119484, 1 x Waste tank 1328979 - WC27 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC27",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC27": {
+    "state": "on site",
+    "set_at": "2026-09-25T03:14:51.205Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-27T17:48:34.143Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-27T17:48:45.256Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:31.614Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-25T06:12:37.342Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:14:51.205Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:12:37.342Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:48:34.143Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:45.256Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:31.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:41:50.288Z"
+    },
+    "loading872": {
+     "u1119484": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:39:04.071Z"
+     }
+    },
+    "_k": "WC27"
+   }
+  },
+  "after": {
+   "delivery/WC27": {
+    "state": "in transit",
+    "set_at": "2026-11-09T00:33:07.599Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-09T00:33:07.599Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-09T00:33:07.599Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:31.614Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-09T00:33:07.599Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-25T03:14:51.205Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-09T00:33:07.599Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1fbdd2a4-b3fb-47af-82a5-0e3fc5dc8ce8",
+       "date": "2026-11-09",
+       "departedAt1211": "2026-11-09T10:30:00+10:00",
+       "programmeDate": "2026-10-29",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-25T03:14:51.205Z",
+       "requiredKey": "[[\"toilet block 6m\",1],[\"waste tank\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC27\",\"coates\",\"asset\",\"1119484\"]"
+         ],
+         "numbers": [
+          "1119484"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC27\",\"coates\",\"asset\",\"1119484\"]",
+           "number": "1119484",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        },
+        {
+         "type": "Waste tank",
+         "n": 1,
+         "unitIds": [
+          "[\"WC27\",\"coates\",\"asset\",\"1328979\"]"
+         ],
+         "numbers": [
+          "1328979"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC27\",\"coates\",\"asset\",\"1328979\"]",
+           "number": "1328979",
+           "owner": "coates",
+           "item": "Waste tank"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC27",
+        "capturedAt": "2026-11-09T00:33:07.598Z",
+        "arrivalAt": "2026-09-25T03:14:51.205Z",
+        "reference": {
+         "lat": -27.98524,
+         "lon": 153.429459,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC27",
+         "tag": "WC27",
+         "what": "Toilet (Tank Mounted) · Toilet Block 6m, Waste tank",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-25T06:12:37.342Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-09T00:33:07.599Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-27T17:48:34.143Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-09T00:33:07.599Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-27T17:48:45.256Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-09T00:33:07.599Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:31.614Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T21:41:50.288Z"
+    },
+    "loading872": {
+     "u1119484": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-08T21:39:04.071Z"
+     }
+    },
+    "_k": "WC27"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
