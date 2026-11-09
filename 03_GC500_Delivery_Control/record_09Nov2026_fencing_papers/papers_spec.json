@@ -17,7 +17,7 @@
     "clamp": 28
    },
    "signed_by": "",
-   "note": "Mesh fence 72.5 m (29 mesh panels, 29 bases, 28 clamps), installed 2 Nov 2026 at 'S.0.8 C.Z.' (as written). No scrim or bracing written, so clean. Rates and amounts blank; no order number. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26."
+   "note": "Mesh fence 72.5 m (29 mesh panels, 29 bases, 28 clamps), installed 2 Nov 2026 at 'S.0.8 C.Z.' (as written). No scrim or bracing written, so clean. Rates and amounts blank; no order number. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. Same place and day as service note 24003 (65 m relocated from S08 back-of-house to the S08 construction zone, 2 Nov); recorded as written, both papers kept."
   },
   {
    "op": "hire_agreement",
@@ -48,7 +48,7 @@
     "clamp": 46,
     "wheels": 7
    },
-   "note": "Collected from 'Golden Gate.' (as written): 52 mesh panels, 50 bases, 46 clamps, 7 wheels. Removal date written 9 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 9-11-26. owner signed 8-11-26, removal and installer 9/11/26.",
+   "note": "Collected from 'Golden Gate.' (as written): 52 mesh panels, 50 bases, 46 clamps, 7 wheels. Removal date written 9 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 9-11-26. the owner/site supervisor dated it 8-11-26, the day before the removal and installer date of 9-11-26.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -222,7 +222,7 @@
     "base": 79,
     "clamp": 78
    },
-   "note": "Collected from 'The Hill - C.Z. Monster Energy' (as written): 80 mesh panels, 79 bases, 78 clamps. Removal date written 5 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 5/11/26.",
+   "note": "Collected from 'The Hill - C.Z. Monster Energy' (as written): 80 mesh panels, 79 bases, 78 clamps. Removal date written 5 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 5/11/26. base 79 and clamp 78 cramped against the base/clamp line, read as written.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -302,7 +302,7 @@
     "wheels": 2,
     "flat_feet_ccb": 1
    },
-   "note": "Collected from 'Macintosh Island - Clean up.' (as written): 14 mesh panels, 71 CC barriers, 28 bases, 28 clamps, 2 wheels, 1 flat feet CCB. Removal date written 4 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 4/11/26. owner date 8 written over 5.",
+   "note": "Collected from 'Macintosh Island - Clean up.' (as written): 14 mesh panels, 71 CC barriers, 28 bases, 28 clamps, 2 wheels, 1 flat feet CCB. Removal date written 4 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 4/11/26. owner date: an 8 written over a 5.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -439,7 +439,7 @@
     "ped_gate": 3,
     "wheels": 12
    },
-   "note": "Collected from 'S.0.8 to Breaker St (Residents.)' (as written): 122 mesh panels, 138 CC barriers, 121 bases, 118 clamps, 3 ped gates, 12 wheels. Removal date written 3 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 3/11/26. mesh: the No Collected box is scribbled out and 122 is written in the Difference column; base 121 written beside a scribbled-out figure.",
+   "note": "Collected from 'S.0.8 to Breaker St (Residents.)' (as written): 122 mesh panels, 138 CC barriers, 121 bases, 118 clamps, 3 ped gates, 12 wheels. Removal date written 3 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 3/11/26. mesh panels: the No Collected figure is scribbled out and 122 is written in the Difference column, recorded as 122 collected; base 121 written beside a scribbled-out figure.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -486,7 +486,7 @@
     "ped_gate": 2,
     "wheels": 6
    },
-   "note": "Collected from 'Commodore Park.' (as written): 120 mesh panels, 221 bases, 200 clamps, 56 braces, 2 ped gates, 6 wheels. Removal date written 3 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 3-11-26. owner date reads 8 over 5, '-11.28' (year as written).",
+   "note": "Collected from 'Commodore Park.' (as written): 120 mesh panels, 221 bases, 200 clamps, 56 braces, 2 ped gates, 6 wheels. Removal date written 3 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 3-11-26. owner date overwritten, reads 8-11-28 (the year as written).",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -498,7 +498,7 @@
    "collected": {
     "cc_barrier": 146
    },
-   "note": "Collected from 'Maddison Point to S.0.8 + Viewing Mound.' (as written): 146 CC barriers. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. company field: a word crossed out (Breaker?) then Coates V8s.",
+   "note": "Collected from 'Maddison Point to S.0.8 + Viewing Mound.' (as written): 146 CC barriers. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. company field: a word crossed out before 'Coates V8s'.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -514,7 +514,7 @@
     "ped_gate": 2,
     "wheels": 2
    },
-   "note": "Collected from 'Ferny Av to Maddison Point.' (as written): 67 mesh panels, 49 CC barriers, 64 bases, 2 ped gates, 2 wheels. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. figures written low in their rows: 49 at the CC barrier/base line, 64 at the base/clamp line, 2 and 2 at the ped gate/wheels lines; read as CCB 49, base 64, clamp blank, ped gate 2, wheels 2 - check.",
+   "note": "Collected from 'Ferny Av to Maddison Point.' (as written): 67 mesh panels, 49 CC barriers, 64 bases, 2 ped gates, 2 wheels. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. the sheet is skewed and the figures sit low in their rows; both readers traced the lines: 49 is in the CC barrier row, 64 in the base row, 2 in the ped gate row and 2 in the wheels row; the clamp row is blank.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -578,7 +578,7 @@
     "base": 56,
     "clamp": 55
    },
-   "note": "Collected from 'S.0.7. C.Z.' (as written): 56 mesh panels, 56 bases, 55 clamps. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. owner date written 8-1-2(6), month as written.",
+   "note": "Collected from 'S.0.7. C.Z.' (as written): 56 mesh panels, 56 bases, 55 clamps. Removal date written 2 Nov 2026. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 8-11-26; installer signed, dated 2-11-26. owner date faint, reads like 8-1-26, most likely 8-11-26.",
    "hire_agreements_written": "",
    "signed_by": ""
   },
@@ -601,7 +601,7 @@
    "labour_hours": 2.0,
    "crew_note": "2 men 1 HR",
    "metres": 160,
-   "note": "'Remove & roll up Scrim 160m. Collect & dispose of all zip ties.' at 'Commodore Park.' on 3 Nov 2026, 2.0 h (Labour written '2 men 1 HR', quantity '2 HRS (a struck mark before the 2)'). Nothing priced. Owner/site supervisor signed, dated 8/11/26; installer signed, dated 3-11-26.",
+   "note": "'Remove & roll up Scrim 160m. Collect & dispose of all zip ties.' at 'Commodore Park.' on 3 Nov 2026, 2.0 h (Labour written '2 men 1 HR', quantity 'X 2 HRS, written low, at the top of the Travel row's quantity cell; the Labour row's cell holds only a faint stroke. Recorded as the labour: 2 men x 1 hr = 2 h, as on 24003 and 24005'). Nothing priced. Owner/site supervisor signed, dated 8/11/26; installer signed, dated 3-11-26.",
    "signed_by": ""
   },
   {
@@ -612,7 +612,7 @@
    "labour_hours": 2.0,
    "crew_note": "4 men x 30 mins",
    "metres": 65,
-   "note": "'Relocated 65m from S.0.8 B.O.H. to S.0.8 C.Z. + Stacked down braces & bases' at 'S.0.8 C.Z.' on 2 Nov 2026, 2.0 h (Labour written '4 men x 30 mins', quantity '2 HRS'). Nothing priced. Owner/site supervisor signed, dated 03/11/25 (year as written); installer signed, dated 2-11-26.",
+   "note": "'Relocated 65m from S.0.8 B.O.H. to S.0.8 C.Z. + Stacked down braces & bases' at 'S.0.8 C.Z.' on 2 Nov 2026, 2.0 h (Labour written '4 men x 30 mins', quantity '2 HRS (the 30 and the 2 heavily inked, as if gone over)'). Nothing priced. Owner/site supervisor signed, dated 08/11/25 as written (the second figure could be a 3; the year as written); installer signed, dated 2-11-26.",
    "signed_by": ""
   }
  ]
