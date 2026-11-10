@@ -1,0 +1,44 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Correction to spec 77 (record 13229 -> 13236). Andrew's message \"10 toilets fwf left yesterday. 2pm\" reached the record at 04:53 AEST Wed 11 Nov 2026 (2026-11-10T18:53Z), so yesterday is Tue 10 Nov 2026 and the ten FWF left at 14:00 AEST Tue 10 Nov. Spec 77 entered them at 14:00 Mon 9 Nov, a day early, reading the date in UTC. Each of the four departures (WC21, WC06, WC11, WC01) is re-dated to 14:00 Tue 10 Nov with the reason, the entry keeping its id and units; WC67's added note gets the same day corrected to Wed 11 Nov. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "collection_redate",
+   "ref": "WC21",
+   "no": "1002747",
+   "at": "2026-11-10T14:00:00+10:00",
+   "why": "Andrew's \"left yesterday. 2pm\" came at 04:53 AEST Wed 11 Nov 2026, so the ten FWF left 14:00 Tue 10 Nov; first entered as Mon 9 Nov in error."
+  },
+  {
+   "op": "collection_redate",
+   "ref": "WC06",
+   "no": "1195658",
+   "at": "2026-11-10T14:00:00+10:00",
+   "why": "Andrew's \"left yesterday. 2pm\" came at 04:53 AEST Wed 11 Nov 2026, so the ten FWF left 14:00 Tue 10 Nov; first entered as Mon 9 Nov in error."
+  },
+  {
+   "op": "collection_redate",
+   "ref": "WC11",
+   "no": "1211969",
+   "at": "2026-11-10T14:00:00+10:00",
+   "why": "Andrew's \"left yesterday. 2pm\" came at 04:53 AEST Wed 11 Nov 2026, so the ten FWF left 14:00 Tue 10 Nov; first entered as Mon 9 Nov in error."
+  },
+  {
+   "op": "collection_redate",
+   "ref": "WC01",
+   "no": "1211967",
+   "at": "2026-11-10T14:00:00+10:00",
+   "why": "Andrew's \"left yesterday. 2pm\" came at 04:53 AEST Wed 11 Nov 2026, so the ten FWF left 14:00 Tue 10 Nov; first entered as Mon 9 Nov in error."
+  },
+  {
+   "op": "note_replace",
+   "ref": "WC67",
+   "old": "on Tue 10 Nov 2026 with T0024's FWF 1211968, the two FWF still on site (Andrew Fisher, 10 Nov 2026).",
+   "new": "on Wed 11 Nov 2026 with T0024's FWF 1211968, the two FWF still on site (Andrew Fisher, 11 Nov 2026)."
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Tue 10 Nov 2026 (AEST): \"10 toilets fwf left yesterday. 2pm\" and \"2 fwf are left one in the coates compound and 1.left.at.helen park. Both are now at coates compound\". The record held 12 FWF on site: WC21 six (1002747, 1103497, 1211964, 1211971, 1211977, 1212172), WC06 two (1195658, 1212523), WC11 one (1211969), WC01 one (1211967), T0024 one (Coates 1211968, the Coates compound toilet) and WC67 one (Coates 172824, Helen Park). The two that stay are T0024's 1211968 (the Coates compound) and WC67's 172824 (Helen Park); the other ten are exactly WC21, WC06, WC11 and WC01's FWF, which left at 14:00 AEST Mon 9 Nov 2026, each reference in full. WC67's 172824 is now at the Coates compound: added to WC67's note. WC100's two FWF trailers are another item and stay. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC21",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "1002747",
+    "1103497",
+    "1211964",
+    "1211971",
+    "1211977",
+    "1212172"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC06",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "1195658",
+    "1212523"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC11",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "1211969"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC01",
+   "at": "2026-11-09T14:00:00+10:00",
+   "nos": [
+    "1211967"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "note_append",
+   "ref": "WC67",
+   "text": "FWF 172824 moved from Helen Park to the Coates compound; at the Coates compound on Tue 10 Nov 2026 with T0024's FWF 1211968, the two FWF still on site (Andrew Fisher, 10 Nov 2026)."
+  }
+ ]
+}
