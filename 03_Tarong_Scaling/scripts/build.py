@@ -30,7 +30,7 @@ for lab,val,note,name in inputs:
     c.font=Font(bold=True); wb.defined_names[name]=DefinedName(name,attr_text=f"Summary!$B${r}"); r+=1
 r+=1
 nb=(con.Note.str.contains('Bulk')).sum()
-plant=T.Note.str.contains('Plant').sum(); cust=(T.Owner!='Coates hire').sum()
+plant=T.Note.str.contains('Plant').sum();
 used=(T.peak>0).sum()
 facts=[('WHAT CALLIDE LOOKED LIKE',None),
  ('Job length',f"{fmt(o['span'][0])} to {fmt(o['span'][1])} - about 12 months. This was a long project, not a short shutdown, so everything is worked as a weekly rate."),
@@ -39,12 +39,13 @@ facts=[('WHAT CALLIDE LOOKED LIKE',None),
  ('Tool / equipment lines',f"{len(T):,} descriptions ({used:,} hired during the steady window)."),
  ('',None),('HOW THE NUMBERS WORK',None),
  ('Consumables',"Callide qty issued in the steady window / weeks = Callide per week. x Scaling factor = Tarong per week. x Tarong weeks = Tarong total. Opening stock = 2 weeks of Tarong use."),
+ ('All gear is Coates',"Gear that SiteIQ listed as UGL owned at Callide is counted as Coates gear here, and its 'UGL own' / crew labels are stripped so like items sit on one line."),
  ('Tooling',"Basis = the most of that item out at once during the steady window (from billing). Where there is no billing record, the bigger of the store fleet on the 23 Aug 2024 rental stock or the Nov 2026 stocktake is used. Tarong suggested = Basis x Scaling factor, rounded up."),
  ('White v blue collar',"Callide data doesn't split office and field users, so one factor covers both. Stationery/office lines are grouped so you can adjust them for the 30 white collar if needed."),
  ('',None),('CHECK BEFORE SENDING',None),
  ('Bulk project buys',f"{nb} consumable lines look like one-off project materials (screws, shims, timber, posts). Flagged in the Note column - include only if Tarong scope needs them."),
  ('Plant & mobile equipment',f"{plant} lines (forklifts, EWPs, telehandlers, lighting towers etc.) - size these from the Tarong scope, not headcount."),
- ('Customer-owned gear',f"{cust} tool lines were UGL owned at Callide (harnesses, tool bags, tethers). Confirm whether NextCooling brings their own or Coates supplies."),
+ ('Gear that left early',f"{o['GONE_EARLY']:,} items on the stocktake had already left site before 28 Jul 2024 (e.g. a set of ~130 Milwaukee 6.0AH batteries sent away 08 May 2024 and replaced). They're left out of the fleet count so they aren't counted twice."),
  ('Missing data',"Billing period 1 (before 08 Sep 2023) and period 13 (Aug 2024 demob) weren't supplied - neither falls in the steady window, so the numbers aren't affected."),
  ('Duplicate files',f"{(~meta.USED).sum()} billing files were exact copies of others - ignored. See the Data check tab."),
 ]
@@ -93,10 +94,10 @@ for row in ws.iter_rows(min_row=2,min_col=13,max_col=13):
 # Tooling
 TT=T.copy()
 TT['Basis used']=np.where(TT.peak>0,'Most out at once','Fleet on record')
-tdf=TT[['FAM','PROD','DESC','Owner','fleet','rs_fleet','rs_out','items_hired','hires','peak','avg','Basis used','basis','Note']]
-cols=['Family','Product','Description','Owner at Callide','Callide fleet on stocktake (Nov 2026)','Store fleet 23 Aug 2024','On hire 23 Aug 2024','Different items hired (whole job)','Times hired (whole job)',f"Most out at once ({fmt(o['W0'])} - {fmt(o['W1'])})",'Average out per day (same window)','Basis used','Basis qty','Tarong suggested qty','Note']
-ws=sheet('Tooling',tdf,cols,[26,26,55,20,11,11,11,11,10,13,11,15,9,12,60],{13:'=IF(M{r}=0,0,ROUNDUP(M{r}*FACTOR,0))'},None)
-for row in ws.iter_rows(min_row=2,min_col=15,max_col=15):
+tdf=TT[['FAM','PROD','DESC','fleet','rs_fleet','rs_out','items_hired','hires','peak','avg','Basis used','basis','Note']]
+cols=['Family','Product','Description','Callide fleet on stocktake (Nov 2026, still on site after 28 Jul 2024)','Store fleet 23 Aug 2024','On hire 23 Aug 2024','Different items hired (whole job)','Times hired (whole job)',f"Most out at once ({fmt(o['W0'])} - {fmt(o['W1'])})",'Average out per day (same window)','Basis used','Basis qty','Tarong suggested qty','Note']
+ws=sheet('Tooling',tdf,cols,[26,26,55,11,11,11,11,10,13,11,15,9,12,60],{12:'=IF(L{r}=0,0,ROUNDUP(L{r}*FACTOR,0))'},None)
+for row in ws.iter_rows(min_row=2,min_col=14,max_col=14):
     for c in row:
         if c.value: c.font=Font(color='C00000')
 # Store setup
