@@ -6,6 +6,7 @@ def clean(s):
     s=str(s).replace('_x0002_','-').replace('\n',' ')
     if re.search('ugl',s,re.I): s=UGLPAT.sub(' ',s)
     s=re.sub(r'^(Motorola Radio)\s+871\w+$',r'\1',s.strip(),flags=re.I)
+    s=re.sub(r'\(\s*FSQ Works\s*\)','',s,flags=re.I)
     s=re.sub(r'\(\s*\)','',s); s=re.sub(r'\s+',' ',s).strip(' -.')
     return s
 def key(s): return clean(s).lower()
@@ -114,7 +115,7 @@ def tflag(x):
     return '; '.join(f)
 T['Note']=T.apply(tflag,axis=1)
 T['store_fleet']=T[['fleet','rs_fleet']].max(axis=1)
-T['basis']=np.where(T.peak>0,T.peak,T.store_fleet)
+T['basis']=np.where(T.peak>0,T.peak,np.maximum(T.store_fleet,((T.hires>0)|(T.rs_out>0)|(T.stk_out>0)).astype(int)))
 T['used']=(T.hires>0)|(T.rs_out>0)|(T.stk_out>0)
 NOT_USED=int((~T.used).sum()); T=T[T.used]
 T=T.sort_values(['FAM','PROD','DESC'])
