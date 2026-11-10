@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Tue 10 Nov 2026 (11:5x AEST): \"wc15 left at 12PM\". WC15 is Toilets (Sewer Connect), two Toilet Block 6m: 1303835 left 15:00 Thu 5 Nov (run 115) and 1327226 is the one still on site, so WC15 leaves in full with it. Read as 12:00 today, Tue 10 Nov 2026, the message having come at 11:5x. Through the page's own Record departure form in Andrew's name; recorded after 12:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC15",
+   "at": "2026-11-10T12:00:00+10:00",
+   "nos": [
+    "1327226"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
