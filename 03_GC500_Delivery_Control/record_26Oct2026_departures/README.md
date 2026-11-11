@@ -994,3 +994,9 @@ cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 de
 - **What:** Andrew, Wed 11 Nov 2026 14:0x AEST: "1322588 leaving at 2pm". 1322588 is WC16's other Toilet Block 6m (Coates, sewer-connected); its pair 1322587 left 10:40 today (run 129), so WC16 left in full at 14:00 AEST (light in transit). Rehearsed as a dry run with a past time first.
 - **Applied:** 14:07 AEST on Andrew's word, after 14:00: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_84_wc16_1322588_1400.json --apply`, through the page's own Record departure form, in Andrew's name.
 - **Record:** version 13248 → 13249. 1 document (delivery/WC16) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261111T040710Z.json`.
+
+## Run 135 — WC17's Toilet Block 6m 1327224 left site 14:30 Wed 11 Nov; WC17's other block 1327223 still on site (11 Nov 2026 14:33 AEST, record 13249 → 13250)
+
+- **What:** Andrew, Wed 11 Nov 2026 14:1x AEST: "1327224 leaving 230pm". 1327224 is a Toilet Block 6m on WC17 (Coates, sewer-connected), which holds two blocks, 1327224 and 1327223. 1327224 left at 14:30 AEST; 1327223 stays, so WC17 is a part-departure. Rehearsed at 14:1x as a dry run with a past time.
+- **Applied:** 14:33 AEST on Andrew's word, after 14:30: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_85_wc17_1327224_1430.json --apply`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 13249 → 13250. 1 document (delivery/WC17) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261111T043307Z.json`.
