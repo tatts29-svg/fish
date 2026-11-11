@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Wed 11 Nov 2026 (13:2x AEST): \"P33 left yesterday at 10am\". P33 is Race Medical, a Building 9.6m (453375), its only unit, so P33 left in full at 10:00 AEST Tue 10 Nov 2026 (yesterday from the message's time, 13:2x AEST Wed 11 Nov). Its contents listed on the page (air conditioners 1286611 and 1127296, fridge 1238952, zip boiler 1066777, sink with tap) leave with it. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P33",
+   "at": "2026-11-10T10:00:00+10:00",
+   "nos": [
+    "453375"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

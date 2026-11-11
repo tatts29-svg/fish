@@ -1,0 +1,310 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T032358Z",
+ "finished": "2026-11-11T03:24:28.650Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Wed 11 Nov 2026 (13:2x AEST): \"P33 left yesterday at 10am\". P33 is Race Medical, a Building 9.6m (453375), its only unit, so P33 left in full at 10:00 AEST Tue 10 Nov 2026 (yesterday from the message's time, 13:2x AEST Wed 11 Nov). Its contents listed on the page (air conditioners 1286611 and 1127296, fridge 1238952, zip boiler 1066777, sink with tap) leave with it. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P33",
+    "at": "2026-11-10T10:00:00+10:00",
+    "nos": [
+     "453375"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13246,
+  "after": 13247
+ },
+ "updated": {
+  "before": "2026-11-11T03:22:51.206Z",
+  "after": "2026-11-11T03:24:27.811Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P33",
+   "at": "2026-11-10T10:00:00+10:00",
+   "nos": [
+    "453375"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-10T10:00:00+10:00, recorded by Andrew Fisher: 1 x Building 9.6m 453375 - P33 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P33",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P33": {
+    "state": "on site",
+    "set_at": "2026-09-14T03:25:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:50.522Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T22:45:11.995Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Here and in place 13:25 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:25:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:50.522Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T22:45:11.995Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:53:16.644Z"
+    },
+    "loading872": {
+     "u453375": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:53:12.572Z"
+     }
+    },
+    "_k": "P33"
+   }
+  },
+  "after": {
+   "delivery/P33": {
+    "state": "in transit",
+    "set_at": "2026-11-11T03:24:14.695Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-11T03:24:14.695Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-11T03:24:14.695Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-11T03:24:14.695Z",
+    "eta": "07:00",
+    "note": "Here and in place 13:25 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:25:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-11T03:24:14.695Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "eeeb543a-2571-452b-9c5f-1ffd89082cae",
+       "date": "2026-11-10",
+       "departedAt1211": "2026-11-10T10:00:00+10:00",
+       "programmeDate": "2026-11-06",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T03:25:00Z",
+       "requiredKey": "[[\"building 9.6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 9.6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P33\",\"coates\",\"asset\",\"453375\"]"
+         ],
+         "numbers": [
+          "453375"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P33\",\"coates\",\"asset\",\"453375\"]",
+           "number": "453375",
+           "owner": "coates",
+           "item": "Building 9.6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P33",
+        "capturedAt": "2026-11-11T03:24:14.695Z",
+        "arrivalAt": "2026-09-14T03:25:00.000Z",
+        "reference": {
+         "lat": -27.984876,
+         "lon": 153.426644,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P33",
+         "tag": "P33",
+         "what": "Race Medical · Building 9.6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-11T03:24:14.695Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:50.522Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-11T03:24:14.695Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T22:45:11.995Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-11T03:24:14.695Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:53:16.644Z"
+    },
+    "loading872": {
+     "u453375": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:53:12.572Z"
+     }
+    },
+    "_k": "P33"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

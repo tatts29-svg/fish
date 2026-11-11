@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Wed 11 Nov 2026 (13:2x AEST): \"P06 left at 1pm\". P06 is the Wilclean Crib Room, a Building 6m, its only unit (1087453 on the record), so P06 leaves in full at 13:00 AEST Wed 11 Nov 2026; its contents listed on the page (air conditioner 1097209, fridge 1272749, microwave 1284012, zip boiler 1173374, sink with tap) leave with it. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P06",
+   "at": "2026-11-11T13:00:00+10:00",
+   "nos": [
+    "1087453"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

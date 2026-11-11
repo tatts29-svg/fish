@@ -970,3 +970,15 @@ cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 de
 - **What:** Andrew, Wed 11 Nov 2026 12:0x AEST: "1268824 leaving at 1230pm". 1268824 is the Building 6m on P09, Iedm Safety Office, its only unit, so P09 leaves in full (light in transit); its air conditioner 1270403, fridge 1328958, urn 1284061, zip boiler 1254390 and sink with tap are listed with it. Rehearsed at 12:0x as a dry run with a past time (P09 leaves in full, P&L unchanged, nothing sent).
 - **Applied:** 12:35 AEST on Andrew's word, after 12:30: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_80_p09_1268824_1230.json --apply`, through the page's own Record departure form, in Andrew's name.
 - **Record:** version 13243 → 13244. 1 document (delivery/P09) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261111T023504Z.json`.
+
+## Run 131 — P06, the Wilclean Crib Room (Building 6m 1087453), left site 13:00 Wed 11 Nov; P06 left in full (11 Nov 2026 13:22 AEST, record 13245 → 13246)
+
+- **What:** Andrew, Wed 11 Nov 2026 13:2x AEST: "P06 left at 1pm". P06 is the Wilclean Crib Room, a Building 6m (1087453 on the record), its only unit, so P06 left in full (light in transit); its air conditioner 1097209, fridge 1272749, microwave 1284012, zip boiler 1173374 and sink with tap are listed with it.
+- **Applied:** 13:22 AEST on Andrew's word: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_81_p06_1087453_1300.json --apply`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 13245 → 13246. 1 document (delivery/P06) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261111T032222Z.json`. (Version 13244 → 13245 at 13:18 AEST was another writer's, before this run.)
+
+## Run 132 — P33, Race Medical (Building 9.6m 453375), left site 10:00 Tue 10 Nov; P33 left in full (11 Nov 2026 13:24 AEST, record 13246 → 13247)
+
+- **What:** Andrew, Wed 11 Nov 2026 13:2x AEST: "P33 left yesterday at 10am", read as 10:00 AEST Tue 10 Nov 2026 (yesterday from the message's time). P33 is Race Medical, a Building 9.6m (453375), its only unit, so P33 left in full (light in transit); its air conditioners 1286611 and 1127296, fridge 1238952, zip boiler 1066777 and sink with tap are listed with it.
+- **Applied:** 13:24 AEST on Andrew's word: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_82_p33_1011_1000.json --apply`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 13246 → 13247. 1 document (delivery/P33) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261111T032358Z.json`.

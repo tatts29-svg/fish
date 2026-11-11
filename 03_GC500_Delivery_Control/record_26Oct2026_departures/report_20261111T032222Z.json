@@ -1,0 +1,290 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T032222Z",
+ "finished": "2026-11-11T03:22:52.127Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Wed 11 Nov 2026 (13:2x AEST): \"P06 left at 1pm\". P06 is the Wilclean Crib Room, a Building 6m, its only unit (1087453 on the record), so P06 leaves in full at 13:00 AEST Wed 11 Nov 2026; its contents listed on the page (air conditioner 1097209, fridge 1272749, microwave 1284012, zip boiler 1173374, sink with tap) leave with it. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P06",
+    "at": "2026-11-11T13:00:00+10:00",
+    "nos": [
+     "1087453"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13245,
+  "after": 13246
+ },
+ "updated": {
+  "before": "2026-11-11T03:18:59.346Z",
+  "after": "2026-11-11T03:22:51.206Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P06",
+   "at": "2026-11-11T13:00:00+10:00",
+   "nos": [
+    "1087453"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-11T13:00:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1087453 - P06 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P06",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P06": {
+    "state": "on site",
+    "set_at": "2026-09-28T02:50:41.157Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-28T03:35:25.853Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T18:21:13.518Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T03:35:24.988Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:41.157Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:35:24.988Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-28T03:35:25.853Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-28T03:35:26.589Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-14T18:21:13.518Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1097453": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:49.107Z"
+     }
+    },
+    "_k": "P06"
+   }
+  },
+  "after": {
+   "delivery/P06": {
+    "state": "in transit",
+    "set_at": "2026-11-11T03:22:38.938Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-11T03:22:38.938Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-10-14T18:21:13.518Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-11T03:22:38.938Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-28T02:50:41.157Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-11T03:22:38.938Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "99f21e9e-98c1-4c00-9d87-8ad8e0a03471",
+       "date": "2026-11-11",
+       "departedAt1211": "2026-11-11T13:00:00+10:00",
+       "programmeDate": "2026-11-03",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T02:50:41.157Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P06\",\"coates\",\"asset\",\"1087453\"]"
+         ],
+         "numbers": [
+          "1087453"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P06\",\"coates\",\"asset\",\"1087453\"]",
+           "number": "1087453",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P06",
+        "capturedAt": "2026-11-11T03:22:38.937Z",
+        "arrivalAt": "2026-09-28T02:50:41.157Z",
+        "reference": {
+         "lat": -27.984233,
+         "lon": 153.427739,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P06",
+         "tag": "P06",
+         "what": "Wilclean Crib Room · Building 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-28T03:35:24.988Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-11T03:22:38.938Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-28T03:35:25.853Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-11T03:22:38.938Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-28T03:35:26.589Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-10-14T18:21:13.518Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1097453": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:49.107Z"
+     }
+    },
+    "_k": "P06"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
