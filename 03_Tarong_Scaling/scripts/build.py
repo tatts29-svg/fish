@@ -156,11 +156,11 @@ TEAM = [('Dayshift', 'Shutdown Manager', 1), ('Dayshift', 'Supervisor', 1), ('Da
 tile(r, 2, 7, 'COATES PEOPLE ON SITE', width=4)
 tile(r, 6, 5, 'DAYSHIFT', width=4, colour=CHAR)
 tile(r, 10, 2, 'NIGHTSHIFT', width=4, colour=CHAR); r += 4
-thead([('Shift', 3), ('Role', 7), ('Number', 2)])
+thead([('Shift', 2), ('Role', 6), ('Roster', 2), ('Number', 2)])
 for i, (sh, role, n) in enumerate(TEAM):
-    trow([(sh, 3), (role, 7), (n, 2)], i, [None, None, '0'])
-total_row([('Total', 3), ('', 7), (7, 2)], [None, None, '0'])
-note('A 24-hour store: dayshift runs the counter, consumables, maintenance and supervision; nightshift keeps tools and consumables flowing to the night crew.')
+    trow([(sh, 2), (role, 6), ('14 on / 7 off', 2), (n, 2)], i, [None, None, None, '0'])
+total_row([('Total', 2), ('', 6), ('', 2), (7, 2)], [None, None, None, '0'])
+note('Roster: 14 days on / 7 days off. A 24-hour store: dayshift runs the counter, consumables, maintenance and supervision; nightshift keeps tools and consumables flowing to the night crew.')
 
 S.row_breaks.append(Break(id=r)); r += 1
 section('3.  The Tarong request')
