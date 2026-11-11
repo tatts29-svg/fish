@@ -1,0 +1,450 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T200411Z",
+ "finished": "2026-11-11T20:04:47.057Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, received 06:02 AEST Thu 12 Nov 2026: \"1327223 left yesterday at 310pm\". 1327223 is WC17's other Toilet Block 6m (Coates, sewer-connected); its pair 1327224 left 14:30 Wed 11 Nov (run 135), so WC17 left in full with 1327223 at 15:10 AEST Wed 11 Nov 2026 (yesterday from the message's time). Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC17",
+    "at": "2026-11-11T15:10:00+10:00",
+    "nos": [
+     "1327223"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13250,
+  "after": 13251
+ },
+ "updated": {
+  "before": "2026-11-11T04:33:38.369Z",
+  "after": "2026-11-11T20:04:46.011Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC17",
+   "at": "2026-11-11T15:10:00+10:00",
+   "nos": [
+    "1327223"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-11T15:10:00+10:00, recorded by Andrew Fisher: 1 x Toilet Block 6m 1327223 - WC17 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC17",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC17": {
+    "state": "on site",
+    "set_at": "2026-09-15T07:19:18.199Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-18T00:09:03.051Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-22T05:34:01.431Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:30.068Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T07:19:18.199Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-11T04:33:24.956Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "fd47b63a-314a-4b6e-a62e-4a8bdc134eb6",
+       "date": "2026-11-11",
+       "departedAt1211": "2026-11-11T14:30:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:19:18.199Z",
+       "requiredKey": "[[\"toilet block 6m\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC17\",\"coates\",\"asset\",\"1327224\"]"
+         ],
+         "numbers": [
+          "1327224"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC17\",\"coates\",\"asset\",\"1327224\"]",
+           "number": "1327224",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC17",
+        "capturedAt": "2026-11-11T04:33:24.956Z",
+        "arrivalAt": "2026-09-15T07:19:18.199Z",
+        "reference": {
+         "lat": -27.986529,
+         "lon": 153.428095,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC17",
+         "tag": "WC17",
+         "what": "S01 Corporate Toilets · Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-18T00:09:03.051Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-22T05:34:01.431Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:30.068Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:40:09.779Z"
+    },
+    "loading872": {
+     "u1327223": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:57.538Z"
+     },
+     "u1327224": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:40:02.138Z"
+     }
+    },
+    "_k": "WC17"
+   }
+  },
+  "after": {
+   "delivery/WC17": {
+    "state": "in transit",
+    "set_at": "2026-11-11T20:04:30.984Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-11T20:04:30.984Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-11T20:04:30.984Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:30.068Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-11T20:04:30.984Z",
+    "eta": "08:00",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-11T04:33:24.956Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "fd47b63a-314a-4b6e-a62e-4a8bdc134eb6",
+       "date": "2026-11-11",
+       "departedAt1211": "2026-11-11T14:30:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:19:18.199Z",
+       "requiredKey": "[[\"toilet block 6m\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC17\",\"coates\",\"asset\",\"1327224\"]"
+         ],
+         "numbers": [
+          "1327224"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC17\",\"coates\",\"asset\",\"1327224\"]",
+           "number": "1327224",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC17",
+        "capturedAt": "2026-11-11T04:33:24.956Z",
+        "arrivalAt": "2026-09-15T07:19:18.199Z",
+        "reference": {
+         "lat": -27.986529,
+         "lon": 153.428095,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC17",
+         "tag": "WC17",
+         "what": "S01 Corporate Toilets · Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-11T20:04:30.984Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "34aa2b01-c9db-4f9d-b773-278f38d57a12",
+       "date": "2026-11-11",
+       "departedAt1211": "2026-11-11T15:10:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T07:19:18.199Z",
+       "requiredKey": "[[\"toilet block 6m\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC17\",\"coates\",\"asset\",\"1327223\"]"
+         ],
+         "numbers": [
+          "1327223"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC17\",\"coates\",\"asset\",\"1327223\"]",
+           "number": "1327223",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC17",
+        "capturedAt": "2026-11-11T20:04:30.984Z",
+        "arrivalAt": "2026-09-15T07:19:18.199Z",
+        "reference": {
+         "lat": -27.986529,
+         "lon": 153.428095,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC17",
+         "tag": "WC17",
+         "what": "S01 Corporate Toilets · Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T07:19:18.199Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-11T20:04:30.984Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-18T00:09:03.051Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-11T20:04:30.984Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-22T05:34:01.431Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-11T20:04:30.984Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:30.068Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:40:09.779Z"
+    },
+    "loading872": {
+     "u1327223": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:39:57.538Z"
+     },
+     "u1327224": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:40:02.138Z"
+     }
+    },
+    "_k": "WC17"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

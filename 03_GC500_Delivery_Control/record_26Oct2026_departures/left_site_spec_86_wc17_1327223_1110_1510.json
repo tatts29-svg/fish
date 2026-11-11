@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, received 06:02 AEST Thu 12 Nov 2026: \"1327223 left yesterday at 310pm\". 1327223 is WC17's other Toilet Block 6m (Coates, sewer-connected); its pair 1327224 left 14:30 Wed 11 Nov (run 135), so WC17 left in full with 1327223 at 15:10 AEST Wed 11 Nov 2026 (yesterday from the message's time). Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC17",
+   "at": "2026-11-11T15:10:00+10:00",
+   "nos": [
+    "1327223"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
