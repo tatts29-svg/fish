@@ -1,0 +1,298 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T023504Z",
+ "finished": "2026-11-11T02:35:34.458Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Wed 11 Nov 2026 (12:0x AEST): \"1268824 leaving at 1230pm\". 1268824 is the Building 6m on P09, Iedm Safety Office, its only unit, so P09 leaves in full; its accessories (air conditioner 1270403, fridge 1328958, urn 1284061, zip boiler 1254390, sink with tap) are listed with it. Read as 12:30 AEST today, Wed 11 Nov 2026. Rehearsed at 12:0x as a dry run with a past time (P09 leaves in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 12:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P09",
+    "at": "2026-11-11T12:30:00+10:00",
+    "nos": [
+     "1268824"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13243,
+  "after": 13244
+ },
+ "updated": {
+  "before": "2026-11-11T00:42:48.488Z",
+  "after": "2026-11-11T02:35:33.636Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P09",
+   "at": "2026-11-11T12:30:00+10:00",
+   "nos": [
+    "1268824"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-11T12:30:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1268824 - P09 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P09",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P09": {
+    "state": "on site",
+    "set_at": "2026-09-15T22:44:38.850Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T02:20:53.797Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:31:32.637Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-15T23:39:25.274Z",
+    "eta": "07:30",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-09-15T21:14:48.360Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-15T22:44:38.850Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T23:39:25.274Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T02:20:53.797Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:31:32.637Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "loading872": {
+     "u1268824": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:50.278Z"
+     }
+    },
+    "_k": "P09"
+   }
+  },
+  "after": {
+   "delivery/P09": {
+    "state": "in transit",
+    "set_at": "2026-11-11T02:35:21.525Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-11T02:35:21.525Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-11T02:35:21.525Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-11T02:35:21.525Z",
+    "eta": "07:30",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-09-15T21:14:48.360Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-15T22:44:38.850Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-11T02:35:21.525Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "fdda5839-6309-4802-87d7-c996cf2ba61a",
+       "date": "2026-11-11",
+       "departedAt1211": "2026-11-11T12:30:00+10:00",
+       "programmeDate": "2026-11-03",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-15T22:44:38.850Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P09\",\"coates\",\"asset\",\"1268824\"]"
+         ],
+         "numbers": [
+          "1268824"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P09\",\"coates\",\"asset\",\"1268824\"]",
+           "number": "1268824",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P09",
+        "capturedAt": "2026-11-11T02:35:21.525Z",
+        "arrivalAt": "2026-09-15T22:44:38.850Z",
+        "reference": {
+         "lat": -27.984826,
+         "lon": 153.426698,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P09",
+         "tag": "P09",
+         "what": "Iedm Safety Office · Building 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-15T23:39:25.274Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-11T02:35:21.525Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T02:20:53.797Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-11T02:35:21.525Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:31:32.637Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-11T02:35:21.525Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "loading872": {
+     "u1268824": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-16T20:53:50.278Z"
+     }
+    },
+    "_k": "P09"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
