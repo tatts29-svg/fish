@@ -24,7 +24,7 @@ thin = Side(style='thin', color='E1E1E1'); orange_rule = Side(style='medium', co
 fmt = lambda d: d.strftime('%d %b %Y')
 SPAN = o['span']; WKS = round((SPAN[1] - SPAN[0]).days / 7)
 PREPARED = '11 Nov 2026'
-BYLINE = f'Prepared by Andrew Fisher  |  Shutdown Manager QLD & NT  |  Coates        {PREPARED}        POWERED BY SITEIQ'
+BYLINE = f'Prepared by Andrew Fisher  |  Shutdown Manager QLD  |  Coates        {PREPARED}        POWERED BY SITEIQ'
 
 # ---------------------------------------------------------------- categorise
 T[['G', 'C']] = T.apply(lambda x: pd.Series(tool_cat(x.DESC, x.PROD, x.FAM)), axis=1)
@@ -94,51 +94,6 @@ def note(text, height=None):
     if height: S.row_dimensions[r].height = height
     r += 1
 
-# --- the recommendation, up front
-S.merge_cells(start_row=r, start_column=2, end_row=r, end_column=NC - 1)
-S.cell(r, 2, 'THE RECOMMENDATION').font = F(bold=True, size=10, color=ORANGE_DK); r += 1
-S.merge_cells(start_row=r, start_column=2, end_row=r + 2, end_column=NC - 1)
-for rr in range(r, r + 3):
-    for cc in range(2, NC): S.cell(rr, cc).fill = fill(TINT)
-    S.cell(rr, 2).border = Border(left=Side(style='thick', color=ORANGE))
-lead_row = r
-r += 4
-
-section('1.  Callide Power Station Project - what our store delivered')
-tile(r, 2, WKS, 'WEEKS OF CONTINUOUS STORE OPERATION'); tile(r, 6, ST['people'], 'PEOPLE SERVED')
-tile(r, 10, o['CALLIDE_CREW'], 'TYPICAL WEEKLY CREW', name='CAL_CREW'); r += 4
-tile(r, 2, ST['issues'], 'CONSUMABLE ISSUES'); tile(r, 6, ST['tool_hires'], 'TOOL ISSUES')
-tile(r, 10, ST['avg_tools'], 'TOOLS IN USE ON AN AVERAGE DAY', name='CAL_AVG_TOOLS'); r += 3
-note(f"Store open {fmt(SPAN[0])} to {fmt(SPAN[1])}. Busiest week: {ST['peak_week']} people. Peak day: {ST['peak_tools']:,} tools in use. "
-     f"Typical weekly crew is the median number of people served each week from {fmt(o['W0'])} to {fmt(o['W1'])}.", 24)
-
-section('2.  The Tarong request')
-tile(r, 2, 30, 'WHITE COLLAR', bg=TINT, colour=CHAR, name='TAR_WC')
-tile(r, 6, 150, 'BLUE COLLAR', bg=TINT, colour=CHAR, name='TAR_BC')
-tile(r, 10, '=TAR_WC+TAR_BC', 'TOTAL CREW', name='TAR_TOTAL'); r += 4
-tile(r, 2, '=ROUND(TAR_TOTAL/CAL_CREW,3)', 'SCALING FACTOR  (TARONG CREW / CALLIDE CREW)', colour=CHAR, numfmt='0.000', name='FACTOR')
-tile(r, 6, None, 'TARONG DURATION (WEEKS)  -  ENTER WHEN CONFIRMED', bg=TINT, colour=CHAR, name='TAR_WEEKS')
-tile(r, 10, '=ROUNDUP(CAL_AVG_TOOLS*FACTOR,0)', 'TOOLS IN USE ON AN AVERAGE DAY AT TARONG (FORECAST)'); r += 3
-note('Orange-shaded cells can be changed - every tab recalculates instantly.')
-
-section('3.  Recommended store for Tarong')
-TQ = "SUMIF('Tools & Equipment'!K:K,\"<>\",'Tools & Equipment'!I:I)"
-CQ = "SUMIF(Consumables!I:I,\"<>\",Consumables!E:E)"
-PQ = "SUMIF('Plant & Mobile Equipment'!K:K,\"<>\",'Plant & Mobile Equipment'!I:I)"
-tile(r, 2, f'={TQ}', 'TOOLS & EQUIPMENT ITEMS')
-tile(r, 6, f'=ROUND({CQ},0)', 'CONSUMABLE UNITS PER WEEK')
-tile(r, 10, f'={PQ}', 'PLANT ITEMS  (GUIDE - SIZE TO SCOPE)', colour=CHAR); r += 3
-note(f"{len(tools)} tool and equipment lines across {tools.C.nunique()} categories  |  {len(ongoing):,} ongoing consumable lines across "
-     f"{ongoing.Group.nunique()} groups  |  {len(plant)} plant lines  |  {len(oneoff)} one-off purchase lines supplied to scope.", 24)
-
-S.cell(lead_row, 2).value = (f'="Built from {WKS} weeks of live Coates store data at the Callide Power Station Project and scaled to Tarong\'s crew of "'
-                             f'&TAR_TOTAL&". We recommend a store of "&TEXT({TQ},"#,##0")&" tools and equipment items across {tools.C.nunique()} categories, '
-                             f'running at about "&TEXT({CQ},"#,##0")&" consumable units a week, with plant sized to the Tarong scope of work."')
-S.cell(lead_row, 2).font = F(size=12, bold=True); S.cell(lead_row, 2).alignment = Alignment(wrap_text=True, vertical='center', indent=1)
-for rr in range(lead_row, lead_row + 3): S.row_dimensions[rr].height = 20
-
-S.row_breaks.append(Break(id=r)); r += 1
-
 def thead(cols):
     global r
     c0 = 2
@@ -176,7 +131,65 @@ def total_row(vals, fmts):
         c0 += span
     S.row_dimensions[r].height = 19; r += 1
 
-section('4.  Tools & equipment by category')
+
+# --- the recommendation, up front
+S.merge_cells(start_row=r, start_column=2, end_row=r, end_column=NC - 1)
+S.cell(r, 2, 'THE RECOMMENDATION').font = F(bold=True, size=10, color=ORANGE_DK); r += 1
+S.merge_cells(start_row=r, start_column=2, end_row=r + 2, end_column=NC - 1)
+for rr in range(r, r + 3):
+    for cc in range(2, NC): S.cell(rr, cc).fill = fill(TINT)
+    S.cell(rr, 2).border = Border(left=Side(style='thick', color=ORANGE))
+lead_row = r
+r += 4
+
+section('1.  Callide Power Station Project - what our store delivered')
+tile(r, 2, WKS, 'WEEKS OF CONTINUOUS STORE OPERATION'); tile(r, 6, ST['people'], 'PEOPLE SERVED')
+tile(r, 10, o['CALLIDE_CREW'], 'TYPICAL WEEKLY CREW', name='CAL_CREW'); r += 4
+tile(r, 2, ST['issues'], 'CONSUMABLE ISSUES'); tile(r, 6, ST['tool_hires'], 'TOOL ISSUES')
+tile(r, 10, ST['avg_tools'], 'TOOLS IN USE ON AN AVERAGE DAY', name='CAL_AVG_TOOLS'); r += 3
+note(f"Store open {fmt(SPAN[0])} to {fmt(SPAN[1])}. Busiest week: {ST['peak_week']} people. Peak day: {ST['peak_tools']:,} tools in use. "
+     f"Typical weekly crew is the median number of people served each week from {fmt(o['W0'])} to {fmt(o['W1'])}.", 24)
+
+section('2.  The Coates store team at Callide')
+TEAM = [('Dayshift', 'Shutdown Manager', 1), ('Dayshift', 'Supervisor', 1), ('Dayshift', 'Tool Store Controller', 1),
+        ('Dayshift', 'Consumable / Tool Store Controller', 1), ('Dayshift', 'Mechanic', 1), ('Nightshift', 'Tool Store Controller', 2)]
+tile(r, 2, 7, 'COATES PEOPLE ON SITE', width=4)
+tile(r, 6, 5, 'DAYSHIFT', width=4, colour=CHAR)
+tile(r, 10, 2, 'NIGHTSHIFT', width=4, colour=CHAR); r += 4
+thead([('Shift', 3), ('Role', 7), ('Number', 2)])
+for i, (sh, role, n) in enumerate(TEAM):
+    trow([(sh, 3), (role, 7), (n, 2)], i, [None, None, '0'])
+total_row([('Total', 3), ('', 7), (7, 2)], [None, None, '0'])
+note('A 24-hour store: dayshift runs the counter, consumables, maintenance and supervision; nightshift keeps tools and consumables flowing to the night crew.')
+
+S.row_breaks.append(Break(id=r)); r += 1
+section('3.  The Tarong request')
+tile(r, 2, 30, 'WHITE COLLAR', bg=TINT, colour=CHAR, name='TAR_WC')
+tile(r, 6, 150, 'BLUE COLLAR', bg=TINT, colour=CHAR, name='TAR_BC')
+tile(r, 10, '=TAR_WC+TAR_BC', 'TOTAL CREW', name='TAR_TOTAL'); r += 4
+tile(r, 2, '=ROUND(TAR_TOTAL/CAL_CREW,3)', 'SCALING FACTOR  (TARONG CREW / CALLIDE CREW)', colour=CHAR, numfmt='0.000', name='FACTOR')
+tile(r, 6, None, 'TARONG DURATION (WEEKS)  -  ENTER WHEN CONFIRMED', bg=TINT, colour=CHAR, name='TAR_WEEKS')
+tile(r, 10, '=ROUNDUP(CAL_AVG_TOOLS*FACTOR,0)', 'TOOLS IN USE ON AN AVERAGE DAY AT TARONG (FORECAST)'); r += 3
+note('Orange-shaded cells can be changed - every tab recalculates instantly.')
+
+section('4.  Recommended store for Tarong')
+TQ = "SUMIF('Tools & Equipment'!K:K,\"<>\",'Tools & Equipment'!I:I)"
+CQ = "SUMIF(Consumables!I:I,\"<>\",Consumables!E:E)"
+PQ = "SUMIF('Plant & Mobile Equipment'!K:K,\"<>\",'Plant & Mobile Equipment'!I:I)"
+tile(r, 2, f'={TQ}', 'TOOLS & EQUIPMENT ITEMS')
+tile(r, 6, f'=ROUND({CQ},0)', 'CONSUMABLE UNITS PER WEEK')
+tile(r, 10, f'={PQ}', 'PLANT ITEMS  (GUIDE - SIZE TO SCOPE)', colour=CHAR); r += 3
+note(f"{len(tools)} tool and equipment lines across {tools.C.nunique()} categories  |  {len(ongoing):,} ongoing consumable lines across "
+     f"{ongoing.Group.nunique()} groups  |  {len(plant)} plant lines  |  {len(oneoff)} one-off purchase lines supplied to scope.", 24)
+
+S.cell(lead_row, 2).value = (f'="Built from {WKS} weeks of live Coates store data at the Callide Power Station Project and scaled to Tarong\'s crew of "'
+                             f'&TAR_TOTAL&". We recommend a store of "&TEXT({TQ},"#,##0")&" tools and equipment items across {tools.C.nunique()} categories, '
+                             f'running at about "&TEXT({CQ},"#,##0")&" consumable units a week, with plant sized to the Tarong scope of work."')
+S.cell(lead_row, 2).font = F(size=12, bold=True); S.cell(lead_row, 2).alignment = Alignment(wrap_text=True, vertical='center', indent=1)
+for rr in range(lead_row, lead_row + 3): S.row_dimensions[rr].height = 20
+
+
+section('5.  Tools & equipment by category')
 thead([('Category', 6), ('Lines', 2), ('Callide sizing qty', 2), ('Tarong recommended', 2)])
 TE = "'Tools & Equipment'"
 first = r
@@ -186,7 +199,7 @@ for i, cat in enumerate(sorted(tools.C.unique())):
 total_row([('Total', 6), (f'=SUM(H{first}:H{r-1})', 2), (f'=SUM(J{first}:J{r-1})', 2), (f'=SUM(L{first}:L{r-1})', 2)], [None, '#,##0', '#,##0', '#,##0'])
 r += 1
 
-section('5.  Plant & mobile equipment by type  (guide - size to scope)')
+section('6.  Plant & mobile equipment by type  (guide - size to scope)')
 thead([('Type', 6), ('Lines', 2), ('Callide sizing qty', 2), ('Tarong guide', 2)])
 PE = "'Plant & Mobile Equipment'"
 first = r
@@ -196,7 +209,7 @@ for i, cat in enumerate(sorted(plant.C.unique())):
 total_row([('Total', 6), (f'=SUM(H{first}:H{r-1})', 2), (f'=SUM(J{first}:J{r-1})', 2), (f'=SUM(L{first}:L{r-1})', 2)], [None, '#,##0', '#,##0', '#,##0'])
 S.row_breaks.append(Break(id=r)); r += 1
 
-section('6.  Consumables by group  (ongoing weekly use)')
+section('7.  Consumables by group  (ongoing weekly use)')
 thead([('Group', 6), ('Lines', 2), ('Callide per week', 2), ('Tarong per week', 2)])
 first = r
 for i, g in enumerate(sorted(ongoing.Group.unique())):
@@ -206,7 +219,7 @@ total_row([('Total', 6), (f'=SUM(H{first}:H{r-1})', 2), (f'=SUM(J{first}:J{r-1})
 note(f"Plus {len(oneoff)} one-off lines (tools bought outright and project materials) listed at the end of the Consumables tab - supplied to the Tarong scope.")
 S.row_breaks.append(Break(id=r)); r += 1
 
-section('7.  Key items - Callide v Tarong')
+section('8.  Key items - Callide v Tarong')
 thead([('Tools & equipment', 7), ('Callide', 2), ('Basis', 1), ('Tarong', 2)])
 top = tools.sort_values('basis', ascending=False).head(15)
 for i, x in enumerate(top.itertuples()):
@@ -219,7 +232,7 @@ for i, (_, x) in enumerate(topc.iterrows()):
     trow([(x['Description'], 7), (round(x['Callide per week'], 1), 2), ('', 1), (f'=ROUND(I{r}*FACTOR,0)', 2)], i, [None, '#,##0.0', None, '#,##0'])
 r += 1
 
-section('8.  How the numbers are built')
+section('9.  How the numbers are built')
 for a, b in [('Real usage, not estimates', 'Every quantity traces back to Coates SiteIQ store records from Callide - tools issued, consumables drawn and what was in use each day.'),
              ('Sized at the peak', 'Tools are sized on the most of each item in use at once at Callide (or the store fleet held, where daily use was not recorded), scaled to the Tarong crew and rounded up.'),
              ('Consumables on burn rate', 'Callide weekly use x scaling factor = Tarong weekly use. Opening stock covers the first 2 weeks; job totals follow once the duration is confirmed.'),
