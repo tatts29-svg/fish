@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Wed 11 Nov 2026 (14:0x AEST): \"1322588 leaving at 2pm\". 1322588 is WC16's other Toilet Block 6m (Coates, sewer-connected); WC16's 1322587 left 10:40 today (run 129), so WC16 leaves in full with it at 14:00 AEST Wed 11 Nov 2026. Through the page's own Record departure form in Andrew's name; recorded after 14:00. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC16",
+   "at": "2026-11-11T14:00:00+10:00",
+   "nos": [
+    "1322588"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
