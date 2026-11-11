@@ -1,0 +1,319 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T235506Z",
+ "finished": "2026-11-11T23:55:37.484Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Thu 12 Nov 2026 (09:4x AEST): \"Leaving 1281487 940am\"; 1281487 is on neither the record nor the schedule, and the only close match still on site is P36 'Harry the Hirer', Building 6m 1282487 (one digit different). Asked, Andrew answered \"Yes, P36 1282487\". It left at 09:40 AEST Thu 12 Nov 2026; it is P36's only unit, so P36 leaves in full. P36 is held on site only through its complete tick (no on-site history entry), so the departure is read back from the history (as T0243, run 121) and its arrival goes on the history after (as run 124). Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P36",
+    "at": "2026-11-12T09:40:00+10:00",
+    "nos": [
+     "1282487"
+    ],
+    "unnumbered": [],
+    "complete": true,
+    "readback": "history"
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13253,
+  "after": 13254
+ },
+ "updated": {
+  "before": "2026-11-11T23:44:20.116Z",
+  "after": "2026-11-11T23:55:36.648Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P36",
+   "at": "2026-11-12T09:40:00+10:00",
+   "nos": [
+    "1282487"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "readback": "history",
+   "result": "left site 2026-11-12T09:40:00+10:00, recorded by Andrew Fisher: 1 x Building 6m 1282487 - read from the history; light in transit; departure reading: left in full"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P36",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P36": {
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-17T21:32:01.363Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:32:07.949Z",
+    "ready1238_units": {
+     "coates|1282487": {
+      "on": true,
+      "at": "2026-11-04T12:53:02.635Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-17T04:33:56.223Z",
+    "eta": "11:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:56.223Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:01.363Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:07.949Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1282487",
+      "ready": true,
+      "at": "2026-11-04T12:53:02.635Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:15.774Z"
+    },
+    "loading872": {
+     "u1282487": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:29.698Z"
+     }
+    },
+    "_k": "P36"
+   }
+  },
+  "after": {
+   "delivery/P36": {
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-11T23:55:23.440Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-11T23:55:23.440Z",
+    "ready1238_units": {
+     "coates|1282487": {
+      "on": true,
+      "at": "2026-11-04T12:53:02.635Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-11T23:55:23.440Z",
+    "eta": "11:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T04:33:56.223Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-11T23:55:23.440Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-17T21:32:01.363Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-11T23:55:23.440Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:32:07.949Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-11T23:55:23.440Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1282487",
+      "ready": true,
+      "at": "2026-11-04T12:53:02.635Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-10T07:57:15.774Z"
+    },
+    "loading872": {
+     "u1282487": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-10T07:53:29.698Z"
+     }
+    },
+    "state": "in transit",
+    "set_at": "2026-11-11T23:55:23.440Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-11T23:55:23.440Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "51bf899d-7344-4382-885d-cac510f34a58",
+       "date": "2026-11-12",
+       "departedAt1211": "2026-11-12T09:40:00+10:00",
+       "programmeDate": "2026-11-09",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-16T21:00:00Z",
+       "requiredKey": "[[\"building 6m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"P36\",\"coates\",\"asset\",\"1282487\"]"
+         ],
+         "numbers": [
+          "1282487"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P36\",\"coates\",\"asset\",\"1282487\"]",
+           "number": "1282487",
+           "owner": "coates",
+           "item": "Building 6m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P36",
+        "capturedAt": "2026-11-11T23:55:23.440Z",
+        "arrivalAt": "2026-09-16T21:00:00.000Z",
+        "reference": {
+         "lat": -27.986696,
+         "lon": 153.42821,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P36",
+         "tag": "P36",
+         "what": "Harry the Hirer · Building 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "_k": "P36"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

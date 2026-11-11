@@ -1,0 +1,21 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Thu 12 Nov 2026 (09:4x AEST): \"Leaving 1281487 940am\"; 1281487 is on neither the record nor the schedule, and the only close match still on site is P36 'Harry the Hirer', Building 6m 1282487 (one digit different). Asked, Andrew answered \"Yes, P36 1282487\". It left at 09:40 AEST Thu 12 Nov 2026; it is P36's only unit, so P36 leaves in full. P36 is held on site only through its complete tick (no on-site history entry), so the departure is read back from the history (as T0243, run 121) and its arrival goes on the history after (as run 124). Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P36",
+   "at": "2026-11-12T09:40:00+10:00",
+   "nos": [
+    "1282487"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "readback": "history"
+  }
+ ]
+}
