@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Wed 11 Nov 2026 (12:0x AEST): \"1268824 leaving at 1230pm\". 1268824 is the Building 6m on P09, Iedm Safety Office, its only unit, so P09 leaves in full; its accessories (air conditioner 1270403, fridge 1328958, urn 1284061, zip boiler 1254390, sink with tap) are listed with it. Read as 12:30 AEST today, Wed 11 Nov 2026. Rehearsed at 12:0x as a dry run with a past time (P09 leaves in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 12:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P09",
+   "at": "2026-11-11T12:30:00+10:00",
+   "nos": [
+    "1268824"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
