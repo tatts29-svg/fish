@@ -1,15 +1,7 @@
 import pandas as pd, numpy as np, re
 bl=pd.read_pickle('bl.pkl'); ss=pd.read_pickle('ss.pkl'); st=pd.read_pickle('st.pkl')
 
-UGLPAT=re.compile(r"\(\s*UGL[^)]*\)?|UGL\s+OWN(ED)?\.?|UGL|\bOWN(ED)?\b|\bOne Team\b|\b[ABC]\s+CREW\b|\bMECHANICAL\s+(PIPING|FITTERS)?\b|\bMechanical\b|\bSCAFFOLD(ING|ERS)\b(?!\s*KIT)|\bQA\b",re.I)
-def clean(s):
-    s=str(s).replace('_x0002_','-').replace('\n',' ')
-    if re.search('ugl',s,re.I): s=UGLPAT.sub(' ',s)
-    s=re.sub(r'^(Motorola Radio)\s+871\w+$',r'\1',s.strip(),flags=re.I)
-    s=re.sub(r'\(\s*FSQ Works\s*\)','',s,flags=re.I)
-    s=re.sub(r'\(\s*\)','',s); s=re.sub(r'\s+',' ',s).strip(' -.')
-    return s
-def key(s): return clean(s).lower()
+from tidy import clean, key
 def famfix(f):
     f=re.sub(r'\s+',' ',str(f)).strip()
     return 'Coates Equipment' if f.lower() in ('customer equipment','coates equipment') else f
@@ -29,54 +21,73 @@ weekly=pd.DataFrame({'Week starting':[p.start_time for p in wk.index],'People ac
 # ---------- consumables
 def cat(d):
     d=d.lower()
-    R=[('Lifting & rigging','sling|shackle|ratchet strap|safety chain|tether|rigging'),('Welding','weld|gauntlet|arc ?guard|arc safe'),('Torches & lighting','torch|headlamp|lamp head|lamp'),('Gloves','glove|nitrile|gauntlet'),('Eye protection','glass|spec|goggle|lens|visor|face shield'),('Hearing','ear ?plug|earmuff|ear muff'),
+    R=[('Drilling & driver bits','driver bit|torsion|bit holder'),('Welding & cutting','flint|lighter|electrode|weld|gouging'),('Gloves','glove|nitrile'),('Height safety & tool tethering','harness|srl|nano-?lok|scaffold hook|tool lanyard|tool catch|tool holder|tether|lanyard|anchor strap'),('Lifting, rope & tarps','sling|shackle|ratchet strap|tie down|safety chain|rigging|rope|tarpaulin|brick line|bollard|barrier|bunting'),
+       ('Purchased tools & equipment','spirit|\\bratchet \\d|sq dr|clamp xl|bar clamp|ladder|combo kit|torque ?wrench|\\bnm\\b|blow gun|chicago air|extension bar|lead stand|apron|\\bskin\\b|tool only|bare|table saw|saw table|mitre saw|saw mitre|compound|dumpy|tripod|threading machine|wagon|platform truck|lifting cage|safety gate|stand set|bundle|charger|angle finder|speedglas adflo 9100|impact (driver|wrench)|hammer drill|circular saw|sawzall|grease gun|caulking gun|gazebo|umbrella|wind region|wrench|\\blevel|square|plier|nipper|multi grips|thermometer|laser|\\bscale\\b|puller|mower|blower|post driver|crimper|trowel|feeler|penlight|chaps|cutter steel'),
+       ('Project materials','pine|timber|framing|ply\\b|plywood|fence post|picket|hardwood|decking|batten|roofing|composite panel|form oil|mortar|strapping punched|brace strapping'),
+       ('Height safety & tool tethering','harness|srl|nano-?lok|scaffold hook|tool lanyard|tool catch|tool holder|tether|lanyard|anchor strap'),
+       ('Fire & emergency','fire ext|fire blanket|air horn|first aid|band.?aid|plaster|bandage|eye wash|burn'),
+       ('Lifting, rope & tarps','sling|shackle|ratchet strap|tie down|safety chain|rigging|rope|tarpaulin|brick line|bollard|barrier|bunting'),
+       ('Welding & cutting','weld|gauntlet|arc ?guard|arc safe|electrode|gouging|flint|lighter|cutting nozzle|oxygen|tip cleaner'),
+       ('Torches & lighting','torch|headlamp|lamp head|\\blamp'),
+       ('Gloves','glove|nitrile'),('Eye protection','glass|spec|goggle|lens|visor|face shield'),('Hearing protection','ear ?plug|earmuff|ear muff'),
        ('Head protection','hard ?hat|sweatband|helmet|chin strap|brim'),
-       ('Respiratory','respir|mask|p2|filter|cartridge'),('Sun, heat & hydration','sunscreen|suncreen|sunblock|cooling|sqwincher|electrolyte|hydrat|zooper|ice|towel'),
-('Batteries','batter'),
-       ('Abrasives & cutting','disc|c/wheel|wheel|flap|cut.?off|blade|grind|sanding|wire brush|hacksaw'),
-       ('Drill bits & driver bits','drill bit|bit|hole ?saw|step drill'),
-       ('Fixings & fasteners','screw|bolt|nut|washer|rivet|anchor|tek|nail|shim|buckle|cable tie|zip tie|tie cable'),
-       ('Tape, adhesive & sealant','tape|silicone|sealant|glue|adhesive|loctite|lubric|wd-?40|spray|grease|paint(?! marker)'),
-       ('Marking & stationery','marker|pen|pencil|paper|note|sharpie|crayon|chalk|clipboard|folder|envelope|stapl|toner|ink'),
-       ('Lockout & tags','padlock|lock|tag|hasp'),('Cleaning & hygiene','wipe|rag|bag|bin|soap|hand|tissue|toilet|clean|detergent|sanitis|disinfect|broom|dustpan|bucket|pail|scour|dishwash|brush banister|repellent|aeroguard'),
-       ('First aid','first aid|band.?aid|plaster|bandage|eye wash|burn'),('Crib & catering','fork|spoon|knife|cup|plate|coffee|tea|sugar|milk|water|straw'),
-       ('Clothing & hi-vis','shirt|vest|jacket|pant|sock|beanie|scarf|hi.?vis|boot|overall|coverall|poncho|rainsuit|knee pad|cap ')]
+       ('Respiratory protection','respir|mask|p2|filter|cartridge|dust guard'),
+       ('Sun, heat & hydration','sunscreen|suncreen|sunblock|cooling|sqwincher|electrolyte|hydrat|zooper|ice|towel|repellent|aeroguard'),
+       ('Batteries','batter'),
+       ('Abrasives & cutting discs','disc|c/wheel|wheel|flap|cut.?off|blade|grind|sanding|wire brush|hacksaw|backing pad|mop|bevel brush|end brush|twist knot'),
+       ('Drilling & driver bits','drill|bit\\b|bits|hole ?saw|annular|core|chisel|sds|arbor|jobber|countersink|tap\\b|taps|die\\b'),
+       ('Fixings & fasteners','screw|bolt|nut|washer|rivet|anchor|tek|nail|shim|buckle|cable tie|zip tie|tie cable|clip|pin\\b|wedge'),
+       ('Chemicals, adhesives & sealants','acetone|thinner|cutting fluid|tape|silicon|sealant|glue|adhesive|loctite|lubric|wd-?40|spray|grease|epoxy|araldite|anti seize|soft seal|oil|degreas|solvent|crc|rtv'),
+       ('Paint & brushes','paint(?! marker)|enamel|primer|brush|roller|zinc'),
+       ('Marking & stationery','marker|pen\\b|pens|pencil|paper|note|sharpie|crayon|chalk|clipboard|folder|envelope|stapl|toner|ink|ruler|label'),
+       ('Lockout & tags','padlock|lock|tag|hasp'),
+       ('Cleaning & hygiene','wipe|rag|bag|bin|soap|hand|tissue|toilet|clean|detergent|sanitis|disinfect|broom|dustpan|bucket|pail|scour|dishwash|glen ?20'),
+       ('Crib & amenities','kettle|cooler|tub\\b|jerry|fly|fan\\b|fan |duct|tray|flag|fork|spoon|knife|cup|plate|coffee|tea\\b|sugar|milk|water|straw|jug|food container|container'),
+       ('Clothing & hi-vis','shirt|vest|jacket|pant|sock|beanie|scarf|hi.?vis|boot|overall|coverall|poncho|rainsuit|knee pad|cap\\b'),
+       ('Plumbing, hose & fittings','rubber|tube|hemp|coupl|elbow|adaptor|poly|gauge|hose|fitting|barb|valve|bspt|bspp|npt|swage|gyprock|mesh'),
+       ('Hand tools & accessories','file\\b|drift|tensioner|band-?it|snip|knife|blade holder|scraper|pliers|spanner|hammer|tool')]
     for n,p in R:
         if re.search(p,d): return n
     return 'General store items'
 s['SKU_DESCRIPTION']=s.SKU_DESCRIPTION.map(clean)
-g=s.groupby('SKU_NUMBER')
+s['CK']=s.SKU_DESCRIPTION.map(key)
+g=s.groupby('CK')
 con=pd.DataFrame({'Description':g.SKU_DESCRIPTION.agg(lambda x:x.value_counts().index[0]),
  'Total issued (whole job)':g.q.sum(),'Times issued':g.size(),'People issued to':g.HIRER.nunique(),
  'First issued':g.d.min(),'Last issued':g.d.max(),'Biggest single issue':g.q.max()})
-win=s[(s.d>=W0)&(s.d<=W1)].groupby('SKU_NUMBER').q.sum()
+win=s[(s.d>=W0)&(s.d<=W1)].groupby('CK').q.sum()
 con['Issued in steady window']=win.reindex(con.index).fillna(0)
 con['Callide per week']=(con['Issued in steady window']/WEEKS).round(2)
-shelf=ss[ss.SALES_DATE==''].groupby('SKU_NUMBER').AVAILABLE_QUANTITY.apply(lambda x:pd.to_numeric(x).sum())
+ss['CK']=ss.SKU_DESCRIPTION.map(key)
+shelf=ss[ss.SALES_DATE==''].groupby('CK').AVAILABLE_QUANTITY.apply(lambda x:pd.to_numeric(x).sum())
 con['Left on shelf at end']=shelf.reindex(con.index).fillna(0)
 con['Group']=con.Description.map(cat)
 def flag(x):
     f=[]
-    if x['Biggest single issue']>=200 and x['Biggest single issue']>=0.5*x['Total issued (whole job)']: f.append('One-off project purchase at Callide - include if Tarong scope needs it')
-    if x['Issued in steady window']==0: f.append('Used early or late in the Callide project only')
+    if x['Biggest single issue']>=200 and x['Biggest single issue']>=0.5*x['Total issued (whole job)']: f.append('One-off project purchase')
+    if x['Issued in steady window']==0: f.append('Early or late project use only')
     elif x['Times issued']<5: f.append('Low use - supply on request')
     return '; '.join(f)
 con['Note']=con.apply(flag,axis=1)
-con=con[con['Total issued (whole job)']>0].reset_index().rename(columns={'SKU_NUMBER':'SKU'})
+ONEOFF={'Purchased tools & equipment','Project materials'}
+con.loc[con.Note.str.contains('One-off')&~con.Group.isin(ONEOFF),'Group']='Project materials'
+con.loc[con.Group.isin(ONEOFF),'Note']=''
+con=con[con['Total issued (whole job)']>0].reset_index().rename(columns={'CK':'SKU'})
 con=con.sort_values(['Group','Callide per week'],ascending=[True,False])
 # ---------- tooling
 r['ITEM']=r['SKU/ITEM_NUMBER']; r['DESC']=r['SKU/ITEM DESCRIPTION'].map(clean)
-iv=r.groupby(['TRANSACTION_ID','ITEM']).agg(s=('s','min'),e=('e','max'),DESC=('DESC','first'),FAM=('PRODUCT_FAMILY','first'),PROD=('PRODUCT','first'),h=('HIRER_NAME','first')).reset_index()
+r['K']=r.DESC.map(key)
+iv=r.groupby(['TRANSACTION_ID','ITEM']).agg(s=('s','min'),e=('e','max'),DESC=('DESC','first'),K=('K','first'),FAM=('PRODUCT_FAMILY','first'),PROD=('PRODUCT','first'),h=('HIRER_NAME','first')).reset_index()
 days=pd.date_range(W0,W1)
 rows=[]
-for d,grp in iv.groupby('DESC'):
+for d,grp in iv.groupby('K'):
     cnt=np.zeros(len(days),dtype=int)
     for it,gi in grp.groupby('ITEM'):
         m=np.zeros(len(days),dtype=bool)
         for a_,b_ in zip(gi.s.values,gi.e.values): m|=(days.values>=a_)&(days.values<=b_)
         cnt+=m
     inwin=grp[(grp.s<=W1)&(grp.e>=W0)]
-    rows.append(dict(DESC=d,FAM=grp.FAM.iloc[0].strip(),PROD=grp.PROD.iloc[0].strip(),
+    rows.append(dict(DESC=grp.DESC.value_counts().index[0],FAM=grp.FAM.iloc[0].strip(),PROD=grp.PROD.iloc[0].strip(),
       items_hired=grp.ITEM.nunique(),hires=len(grp),people=grp.h.nunique(),
       peak=int(cnt.max()),avg=round(cnt.mean(),1),items_win=inwin.ITEM.nunique()))
 too=pd.DataFrame(rows)
@@ -111,7 +122,7 @@ PLANT=r'forklift|telehandler|boom|scissor|knuckle|generator|compressor|crane|tru
 def tflag(x):
     f=[]
     if re.search(PLANT,x.DESC.lower()): f.append('Plant / mobile equipment - size from Tarong scope, not headcount')
-    if x.hires>0 and x.items_win==0: f.append('Used early or late in the Callide project only')
+    if x.hires>0 and x.items_win==0: f.append('Early or late project use only')
     return '; '.join(f)
 T['Note']=T.apply(tflag,axis=1)
 T['store_fleet']=T[['fleet','rs_fleet']].max(axis=1)
