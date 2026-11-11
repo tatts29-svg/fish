@@ -1,0 +1,30 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Thu 12 Nov 2026 (09:4x AEST): \"Rego er9217 left at 930 as well as coates  office\". Rego ER9217 is VMS15, Coates VMS board 1211348 on T0158 (VMS register, 16 Oct; post-event board #3, GC Highway Tedder Ave / Gate 1 external, planned to stay to 15:00 Fri 13 Nov on Andrew's word of 29 Oct). The Coates office is T0021, the Office 4.8x3, Coates Building 4.8m 960639, its reference's only building (its pair, the lunchroom T0022, left 6 Nov, run 119). Both left at 09:30 AEST Thu 12 Nov 2026. T0158's other boards stay. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0158",
+   "at": "2026-11-12T09:30:00+10:00",
+   "nos": [
+    "1211348"
+   ],
+   "unnumbered": [],
+   "complete": false
+  },
+  {
+   "op": "depart",
+   "ref": "T0021",
+   "at": "2026-11-12T09:30:00+10:00",
+   "nos": [
+    "960639"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
