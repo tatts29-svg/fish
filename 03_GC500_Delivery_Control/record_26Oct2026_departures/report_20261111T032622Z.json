@@ -1,0 +1,243 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261111T032622Z",
+ "finished": "2026-11-11T03:26:51.766Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Wed 11 Nov 2026 (13:2x AEST): \"P34 went back when fridges went back\". P34 is the police swivel chairs, Pad Chair x 2 (unnumbered), on site since 14 Oct 2026. The fridges went back at 10:00 AEST Fri 6 Nov 2026: the four loose fridges, P26 1311992 and P28 1283996 (the police fridges) and FR01 1129733 and FR02 1157786, left together with the lunchroom (run 120); no other fridge return is on the record. So P34's two chairs left in full at 10:00 AEST Fri 6 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P34",
+    "at": "2026-11-06T10:00:00+10:00",
+    "nos": [],
+    "unnumbered": [
+     {
+      "type": "Pad Chair",
+      "n": 2
+     }
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13247,
+  "after": 13248
+ },
+ "updated": {
+  "before": "2026-11-11T03:24:27.811Z",
+  "after": "2026-11-11T03:26:50.789Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P34",
+   "at": "2026-11-06T10:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Pad Chair",
+     "n": 2
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-11-06T10:00:00+10:00, recorded by Andrew Fisher: 2 x Pad Chair - P34 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P34",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P34": {
+    "state": "on site",
+    "set_at": "2026-10-17T02:13:39.869Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-11-04T12:56:09.164Z",
+    "ready1231_why": "",
+    "note": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.949Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:39.869Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-11-04T12:56:09.164Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P34"
+   }
+  },
+  "after": {
+   "delivery/P34": {
+    "state": "in transit",
+    "set_at": "2026-11-11T03:26:38.022Z",
+    "by": "Andrew Fisher",
+    "ready1231": true,
+    "ready1231_by": "Andrew Fisher",
+    "ready1231_at": "2026-11-04T12:56:09.164Z",
+    "ready1231_why": "",
+    "note": "The chairs came on 14 Oct 2026, the day they were due. Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\". The schedule calls them Pad Chair x 2. Recorded on site 17 Oct; on site since 14 Oct.",
+    "history": [
+     {
+      "state": "not on site",
+      "at": "2026-10-03T10:28:19.351Z",
+      "by": "Andrew Fisher via Codex"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-13T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "recorded_at": "2026-10-17T03:30:37.949Z",
+      "date_only": true,
+      "effective_date": "2026-10-14",
+      "note": "Due 14 Oct and came that day (Andrew, 17 Oct 2026: \"the swivel chairs turned up on the correct day\")"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-17T02:13:39.869Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-11T03:26:38.022Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b058d439-d373-4d16-8a94-4ee432e563e9",
+       "date": "2026-11-06",
+       "departedAt1211": "2026-11-06T10:00:00+10:00",
+       "programmeDate": "2026-11-10",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-17T02:13:39.869Z",
+       "requiredKey": "[[\"pad chair\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Pad Chair",
+         "n": 2,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P34",
+        "capturedAt": "2026-11-11T03:26:38.021Z",
+        "arrivalAt": "2026-10-17T02:13:39.869Z",
+        "reference": {
+         "lat": -27.984791,
+         "lon": 153.426549,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P34",
+         "tag": "P34",
+         "what": "Chair Delivery · Pad Chair",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-11-04T12:56:09.164Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "_k": "P34"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
