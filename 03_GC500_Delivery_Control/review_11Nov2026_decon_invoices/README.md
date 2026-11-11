@@ -57,3 +57,25 @@ The record's figures are what it pays Advanced: hire agreements at 10.00/m clean
 - **Page titles:** the Tuesday page is titled "Demobilisation Week 2" and the Monday page "Week 3".
 - **What the record has:** only Golden Gate has a paper so far. That is collection form 28640 (9 Nov, 52 panels, about
   130 m against 100 m planned). The other 14 planned jobs have no collection form on the record yet.
+
+## Andrew's rule and what it pays (11 Nov 2026, 14:3x AEST)
+
+Andrew: "Its me signing it" — the owner/site supervisor signatures on these papers are his. Then: "Im only paying for what i
+sogned and not what they write in. But we need to ask why". Applied:
+
+| | Week 1 | Week 2 | Total |
+|---|---:|---:|---:|
+| Pay: 13 signed hire agreements (signed metres and wheels, priced as Advanced always has: gate panel + wheel $50, the rest $10/m; 36779 at 255.0 m; 36782's 56 signed panels at 2.5 m) | 10,900.00 | 1,450.00 | 12,350.00 |
+| Pay: 10 signed service notes at $100/h (14.0 h and 5.0 h) | 1,400.00 | 500.00 | 1,900.00 |
+| **Pay** | **12,300.00** | **1,950.00** | **14,250.00** |
+| Not paying, ask why: Phillip Park loading, no signed docket | 2,700.00 | 3,650.00 | 6,350.00 |
+| Not paying, ask why: team leader, not on any signed paper | 2,000.00 | 2,000.00 | 4,000.00 |
+| Not paying, ask why: 36780, 127.5 m written in after it was signed blank | 1,275.00 | — | 1,275.00 |
+| Not paying, ask why: overtime rate, nothing signed says overtime | 472.50 | — | 472.50 |
+| Not paying, ask why: 36779, 3.5 m beyond the signed panels | 35.00 | — | 35.00 |
+| **Not paying, ask why** | **6,482.50** | **5,650.00** | **12,132.50** |
+| Billed | 18,782.50 | 7,600.00 | 26,382.50 |
+
+Two items had no stated preference from Andrew and were read on the rule: 36782 is paid, because the 56 panels are signed even
+though no metres were written. The team leader is held, because no signed paper carries it; the construction-week sheets
+billed it the same way. Either can be changed on his word. Nothing has been recorded or paid.
