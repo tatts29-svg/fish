@@ -1,0 +1,430 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261112T233204Z",
+ "finished": "2026-11-12T23:32:34.091Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (08:24 AEST): \"Po5 leaves 9am    p01 leaves at 930am p03 leaves 10am\". P01 is the iEDM Engineering Office, Building 12m 1322583, its only unit, so P01 leaves in full at 09:30 AEST Fri 13 Nov 2026; its contents listed on the page (fridge 1328956, air conditioners 1322610 and 1322609) leave with it. Rehearsed 08:2x as a dry run with a past time (left in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 09:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P01",
+    "at": "2026-11-13T09:30:00+10:00",
+    "nos": [
+     "1322583"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13266,
+  "after": 13267
+ },
+ "updated": {
+  "before": "2026-11-12T23:06:02.526Z",
+  "after": "2026-11-12T23:32:33.265Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P01",
+   "at": "2026-11-13T09:30:00+10:00",
+   "nos": [
+    "1322583"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T09:30:00+10:00, recorded by Andrew Fisher: 1 x Building 12m 1322583 - P01 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P01": {
+    "state": "on site",
+    "set_at": "2026-09-28T09:57:40.392Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-28T09:57:47.603Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-28T09:57:51.222Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-28T09:57:45.478Z",
+    "eta": "07:00",
+    "note": "On site 08:00 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T22:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T09:57:40.392Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "done": true,
+      "at": "2026-09-28T09:57:45.478Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:38.701Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "levelled": true,
+      "at": "2026-09-28T09:57:47.603Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:23.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "steps": true,
+      "at": "2026-09-28T09:57:51.222Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:41:20.506Z"
+    },
+    "loading872": {
+     "u1322583": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:41:16.836Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1322583": {
+      "on": true,
+      "at": "2026-11-12T22:42:46.678Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1322583",
+      "ready": true,
+      "at": "2026-11-12T22:42:46.678Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "P01"
+   }
+  },
+  "after": {
+   "delivery/P01": {
+    "state": "in transit",
+    "set_at": "2026-11-12T23:32:21.665Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-12T23:32:21.665Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-12T23:32:21.665Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-12T23:32:21.665Z",
+    "eta": "07:00",
+    "note": "On site 08:00 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T22:00:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-09-28T09:57:40.392Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-12T23:32:21.665Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "dad1e83d-6f1c-48f7-91bb-46c78d8cd0b0",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T09:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-28T09:57:40.392Z",
+       "requiredKey": "[[\"building 12m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 12m",
+         "n": 1,
+         "unitIds": [
+          "[\"P01\",\"coates\",\"asset\",\"1322583\"]"
+         ],
+         "numbers": [
+          "1322583"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P01\",\"coates\",\"asset\",\"1322583\"]",
+           "number": "1322583",
+           "owner": "coates",
+           "item": "Building 12m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P01",
+        "capturedAt": "2026-11-12T23:32:21.664Z",
+        "arrivalAt": "2026-09-28T09:57:40.392Z",
+        "reference": {
+         "lat": -27.983447,
+         "lon": 153.42658,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P01",
+         "tag": "P01",
+         "what": "iEDM Engineering Office · Building 12m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "done": true,
+      "at": "2026-09-28T09:57:45.478Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-12T23:32:21.665Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:38.701Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "levelled": true,
+      "at": "2026-09-28T09:57:47.603Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-12T23:32:21.665Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:23.232Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-09-28T09:57:39.057Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     },
+     {
+      "steps": true,
+      "at": "2026-09-28T09:57:51.222Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-12T23:32:21.665Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:41:20.506Z"
+    },
+    "loading872": {
+     "u1322583": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:41:16.836Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1322583": {
+      "on": true,
+      "at": "2026-11-12T22:42:46.678Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1322583",
+      "ready": true,
+      "at": "2026-11-12T22:42:46.678Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "P01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
