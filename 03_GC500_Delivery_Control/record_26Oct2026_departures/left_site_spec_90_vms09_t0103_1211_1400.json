@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Thu 12 Nov 2026: \"All vms rest left at 2pm\" (16:1x AEST), then, asked about VMS09 1211404 on T0103 (still on site on the record, not in the 29 Oct post-event plan): \"All are now gone.. no more.vms\". Read with his first message: 1211404 left with the rest at 14:00 AEST Thu 12 Nov 2026; it is T0103's last unit (VMS10 120T left earlier), so T0103 leaves in full and no VMS board remains on the record. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0103",
+   "at": "2026-11-12T14:00:00+10:00",
+   "nos": [
+    "1211404"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
