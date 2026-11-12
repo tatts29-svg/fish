@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (08:24 AEST): \"Po5 leaves 9am    p01 leaves at 930am p03 leaves 10am\". P01 is the iEDM Engineering Office, Building 12m 1322583, its only unit, so P01 leaves in full at 09:30 AEST Fri 13 Nov 2026; its contents listed on the page (fridge 1328956, air conditioners 1322610 and 1322609) leave with it. Rehearsed 08:2x as a dry run with a past time (left in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 09:30, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P01",
+   "at": "2026-11-13T09:30:00+10:00",
+   "nos": [
+    "1322583"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (08:24 AEST): \"Po5 leaves 9am    p01 leaves at 930am p03 leaves 10am\". P03 is the SCA Event Management Office, Building 12m 1327212, its only unit, so P03 leaves in full at 10:00 AEST Fri 13 Nov 2026; its contents listed on the page (fridge 1328955, air conditioners 1327954 and 1327953) leave with it. Rehearsed 08:2x as a dry run with a past time (left in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P03",
+   "at": "2026-11-13T10:00:00+10:00",
+   "nos": [
+    "1327212"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

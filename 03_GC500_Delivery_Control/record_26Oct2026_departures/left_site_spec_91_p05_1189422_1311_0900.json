@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (08:24 AEST): \"Po5 leaves 9am    p01 leaves at 930am p03 leaves 10am\". P05 is the Event Control Center (ECC), Building 6m 1189422, its only unit, so P05 leaves in full at 09:00 AEST Fri 13 Nov 2026; its contents listed on the page (fridge 1311988, microwave 1320150, air conditioners 1127574 and 1189939, chair, zip boiler, sink with tap) leave with it. Rehearsed 08:2x as a dry run with a past time (left in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 09:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "P05",
+   "at": "2026-11-13T09:00:00+10:00",
+   "nos": [
+    "1189422"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
