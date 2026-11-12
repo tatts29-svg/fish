@@ -1,0 +1,34 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Thu 12 Nov 2026 (16:1x AEST): \"All vms rest left at 2pm\". The post-event Coates boards still on site (Andrew's plan of 29 Oct: seven boards to stay to 15:00 Fri 13 Nov; #3 1211348 ER9217 left 09:30 today, run 137): on T0001, #1 1211354 (VMS01, EX0017), #4 1191877 (VMS04, EM6306), #6 1211359 (VMS06, ER9247); on T0158, #2 1191957 (VMS13, EN3803), #8 1211376 (VMS16, ES3211), #7 1211364 (VMS17, ER9410). All six left at 14:00 AEST Thu 12 Nov 2026; T0001 and T0158 each leave in full. VMS09 1211404 on T0103 (not in the 29 Oct plan) is asked of Andrew before it is recorded. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0001",
+   "at": "2026-11-12T14:00:00+10:00",
+   "nos": [
+    "1211354",
+    "1191877",
+    "1211359"
+   ],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "T0158",
+   "at": "2026-11-12T14:00:00+10:00",
+   "nos": [
+    "1191957",
+    "1211376",
+    "1211364"
+   ],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
