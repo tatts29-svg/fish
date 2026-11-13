@@ -1,0 +1,507 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T044559Z",
+ "finished": "2026-11-13T04:46:34.097Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "T0002's five light towers left site 14:00 Thu 12 Nov 2026 on Andrew's word (run 149, spec 101). T0002 had no on-site entry: the page held it on site only through its complete tick, from the arrival 2026-09-10T14:00:00.000Z (11 Sep 2026 AEST, the schedule's day), and the departure was recorded against that arrival. The departure form took the tick off, so the page's departure reading finds no arrival and counts T0002 as still to leave, although its light is in transit. That same arrival goes on T0002's history as an on-site entry, at exactly that time, with the reason (as T0243, run 124). Nothing else changes. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "arrival_backfill",
+    "ref": "T0002",
+    "at": "2026-09-10T14:00:00.000Z",
+    "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 12 Nov departure was recorded; put on the history so the departure reading counts that departure."
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13283,
+  "after": 13284
+ },
+ "updated": {
+  "before": "2026-11-13T04:41:43.567Z",
+  "after": "2026-11-13T04:46:33.237Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "arrival_backfill",
+   "ref": "T0002",
+   "at": "2026-09-10T14:00:00.000Z",
+   "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 12 Nov departure was recorded; put on the history so the departure reading counts that departure.",
+   "result": "on-site arrival 2026-09-10T14:00:00.000Z put on the history (the arrival its departure was recorded against)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0002",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0002": {
+    "ready1238_units": {
+     "coates|1188888": {
+      "on": false,
+      "at": "2026-10-26T20:20:00.729Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1249499": {
+      "on": false,
+      "at": "2026-10-26T20:20:13.216Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1264899": {
+      "on": false,
+      "at": "2026-10-26T20:21:08.583Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1264929": {
+      "on": false,
+      "at": "2026-10-26T20:20:55.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1314284": {
+      "on": false,
+      "at": "2026-10-26T20:20:31.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T04:41:27.619Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:00.922Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T04:41:27.619Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1188888",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1249499",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264899",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264929",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1314284",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1188888",
+      "ready": false,
+      "at": "2026-10-26T20:20:00.729Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1249499",
+      "ready": false,
+      "at": "2026-10-26T20:20:13.216Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1314284",
+      "ready": false,
+      "at": "2026-10-26T20:20:31.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264929",
+      "ready": false,
+      "at": "2026-10-26T20:20:55.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264899",
+      "ready": false,
+      "at": "2026-10-26T20:21:08.583Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T04:41:27.619Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-13T04:41:27.619Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "cac73c08-afd5-4166-8990-9c74bdde422f",
+       "date": "2026-11-12",
+       "departedAt1211": "2026-11-12T14:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"light tower\",5]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Light Tower",
+         "n": 5,
+         "unitIds": [
+          "[\"T0002\",\"coates\",\"asset\",\"1264929\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1314284\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1264899\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1188888\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1249499\"]"
+         ],
+         "numbers": [
+          "1264929",
+          "1314284",
+          "1264899",
+          "1188888",
+          "1249499"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1264929\"]",
+           "number": "1264929",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1314284\"]",
+           "number": "1314284",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1264899\"]",
+           "number": "1264899",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1188888\"]",
+           "number": "1188888",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1249499\"]",
+           "number": "1249499",
+           "owner": "coates",
+           "item": "Light Tower"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0002"
+   }
+  },
+  "after": {
+   "delivery/T0002": {
+    "ready1238_units": {
+     "coates|1188888": {
+      "on": false,
+      "at": "2026-10-26T20:20:00.729Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1249499": {
+      "on": false,
+      "at": "2026-10-26T20:20:13.216Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1264899": {
+      "on": false,
+      "at": "2026-10-26T20:21:08.583Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1264929": {
+      "on": false,
+      "at": "2026-10-26T20:20:55.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1314284": {
+      "on": false,
+      "at": "2026-10-26T20:20:31.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T04:41:27.619Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:00.922Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T04:41:27.619Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1188888",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1249499",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264899",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264929",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1314284",
+      "ready": true,
+      "at": "2026-10-26T20:16:27.891Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1188888",
+      "ready": false,
+      "at": "2026-10-26T20:20:00.729Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1249499",
+      "ready": false,
+      "at": "2026-10-26T20:20:13.216Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1314284",
+      "ready": false,
+      "at": "2026-10-26T20:20:31.818Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264929",
+      "ready": false,
+      "at": "2026-10-26T20:20:55.038Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1264899",
+      "ready": false,
+      "at": "2026-10-26T20:21:08.583Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T04:41:27.619Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-10T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 12 Nov departure was recorded; put on the history so the departure reading counts that departure."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T04:41:27.619Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "cac73c08-afd5-4166-8990-9c74bdde422f",
+       "date": "2026-11-12",
+       "departedAt1211": "2026-11-12T14:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"light tower\",5]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Light Tower",
+         "n": 5,
+         "unitIds": [
+          "[\"T0002\",\"coates\",\"asset\",\"1264929\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1314284\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1264899\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1188888\"]",
+          "[\"T0002\",\"coates\",\"asset\",\"1249499\"]"
+         ],
+         "numbers": [
+          "1264929",
+          "1314284",
+          "1264899",
+          "1188888",
+          "1249499"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1264929\"]",
+           "number": "1264929",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1314284\"]",
+           "number": "1314284",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1264899\"]",
+           "number": "1264899",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1188888\"]",
+           "number": "1188888",
+           "owner": "coates",
+           "item": "Light Tower"
+          },
+          {
+           "id": "[\"T0002\",\"coates\",\"asset\",\"1249499\"]",
+           "number": "1249499",
+           "owner": "coates",
+           "item": "Light Tower"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0002"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "T0002's five light towers left site 14:00 Thu 12 Nov 2026 on Andrew's word (run 149, spec 101). T0002 had no on-site entry: the page held it on site only through its complete tick, from the arrival 2026-09-10T14:00:00.000Z (11 Sep 2026 AEST, the schedule's day), and the departure was recorded against that arrival. The departure form took the tick off, so the page's departure reading finds no arrival and counts T0002 as still to leave, although its light is in transit. That same arrival goes on T0002's history as an on-site entry, at exactly that time, with the reason (as T0243, run 124). Nothing else changes. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "arrival_backfill",
+   "ref": "T0002",
+   "at": "2026-09-10T14:00:00.000Z",
+   "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 12 Nov departure was recorded; put on the history so the departure reading counts that departure."
+  }
+ ]
+}

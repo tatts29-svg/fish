@@ -1,0 +1,19 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (14:31 AEST): \"Lighting towers all.picked up yesterday at 2pm\". The light towers still on site were T0002's five, delivered to Molendinar on contract 9961976 (NVAC): 1264929, 1314284, 1264899, 1188888, 1249499 (the record also carries them as NVLT, the same towers; LT05 and LT06 left 28 Oct). So all five left at 14:00 AEST Thu 12 Nov 2026 and T0002 leaves in full. T0002 is held on site only through its complete tick, so the departure is read back from the history (as P36, run 138). Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0002",
+   "at": "2026-11-12T14:00:00+10:00",
+   "nos": ["1264929", "1314284", "1264899", "1188888", "1249499"],
+   "unnumbered": [],
+   "complete": true,
+   "readback": "history"
+  }
+ ]
+}
