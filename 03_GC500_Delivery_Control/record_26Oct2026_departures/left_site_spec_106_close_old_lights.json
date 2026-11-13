@@ -1,0 +1,20 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (15:1x AEST): \"Close them off.\", on the leftover 'on site' lights on references the page no longer uses. FL01 and FL02 are the record's second names for T0003 (Forklift 5T 50004) and T0004 (Forklift 2.5T 1197839), which leave at 16:00 today (specs 102 and 105); the page accepts both as references, so after those departures their lights go to in transit through the page's own setLight. NVLT, T0265, GN20, T0233, T0242, T0245 and F01 are refused by the page's own setLight ('not a reference in this file - nothing recorded'); nothing is written for them. Only the two lights move: no departure, unit, number or charge. Applied only after 16:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "light",
+   "ref": "FL01",
+   "state": "in transit"
+  },
+  {
+   "op": "light",
+   "ref": "FL02",
+   "state": "in transit"
+  }
+ ]
+}
