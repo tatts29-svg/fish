@@ -1,0 +1,208 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T040507Z",
+ "finished": "2026-11-13T04:05:42.450Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (13:22 AEST): \"Rhw at0009 leaves 2pm\" (the AT009). AT009 is EQ0007, the AT009 Forklift Rough Terrain 2.5t (no fleet number on the docket; contract 9961976 line 34, delivery docket 26083924, on site since 17 Sep 2026 at The Esplanade), its only unit. So EQ0007 leaves in full at 14:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only after 14:00 and only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "EQ0007",
+    "at": "2026-11-13T14:00:00+10:00",
+    "nos": [],
+    "unnumbered": [
+     {
+      "type": "Forklift 2.5T RT",
+      "n": 1
+     }
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13281,
+  "after": 13282
+ },
+ "updated": {
+  "before": "2026-11-13T03:55:09.387Z",
+  "after": "2026-11-13T04:05:41.607Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "EQ0007",
+   "at": "2026-11-13T14:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Forklift 2.5T RT",
+     "n": 1
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-11-13T14:00:00+10:00, recorded by Andrew Fisher: 1 x Forklift 2.5T RT - EQ0007 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0007",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0007": {
+    "state": "on site",
+    "set_at": "2026-09-17T03:42:25.000Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-27T12:30:03.974Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-27T12:30:03.974Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "_k": "EQ0007"
+   }
+  },
+  "after": {
+   "delivery/EQ0007": {
+    "state": "in transit",
+    "set_at": "2026-11-13T04:05:27.891Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T04:05:27.891Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Delivery docket 26083924, out 17 Sep 2026 13:42 to The Esplanade (contract 9961976 line 34)"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T04:05:27.891Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f36ce8d5-9667-4d47-9f77-fe2d9de5db61",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T14:00:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-17T03:42:25.000Z",
+       "requiredKey": "[[\"forklift 2.5t rt\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T RT",
+         "n": 1,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-17T03:42:25.000Z",
+      "by": "Andrew Fisher",
+      "note": "Forklift on site and working from delivery docket 26083924, 17 Sep 2026 13:42; Complete was pressed late on 27 Oct (Andrew Fisher, 28 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-27T12:30:03.974Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T04:05:27.891Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "_k": "EQ0007"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
