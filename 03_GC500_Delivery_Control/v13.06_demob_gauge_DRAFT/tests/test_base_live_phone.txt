@@ -1,0 +1,16 @@
+FAIL the demob scope leaves out exactly WB19 and WB20  null
+FAIL the raw scope still holds them (186), the demob scope 184  [186,186]
+FAIL every reference in the demob scope is complete: 100%  [184,98.9247311827957,true,false]
+FAIL units off site 731 of 731  [731,795]
+PASS WB02 and WB03, where the barriers left, still read complete  [true,true]
+FAIL the line reads 100 percent of the demob units off site  "92 percent of the demob units off site by day 0 of 15; the dashed line is the even pace to finish on the last demob day"
+FAIL five stars  ["4 of 5 stars: one for every 20 percent of the demob off site","92 % DEMOB COMPLETE 731 of 795 units off site 184 of 186 references fully gone 4 of 5 stars Next star at 100% off site · 8.1% to go 0% 25% 50% 75% 100% 92% M 26"]
+FAIL Fri 13 Nov day card: 100.00 percent of references, no "At least"  "Fri 13 Nov 2026. Archived day. At least 98.92 percent of Demob references collected. 3 planned loads. Available staff: 2. Weather: History unavailable"
+FAIL the day cards count against 731 units  "46 of 795 by the end of the day"
+FAIL the Demob scope tile reads 184 and names WB19, WB20  "Demob scope186positive-quantity refs"
+FAIL footer v13.06  "v13.01"
+PASS WB19 and WB20 stay on the register with their light as recorded (not on site)  {"WB19":{"register":true,"light":"not on site"},"WB20":{"register":true,"light":"not on site"}}
+PASS no page errors  []
+PASS no writes reached the service  {"blocked":0}
+{"page":"GC500_v13.06/base_live.html","mobile":true,"today":"2026-11-14","passed":4,"of":14}
+exit 1
