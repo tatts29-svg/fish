@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (13:50 AEST): \"Both trailers fwf leave 3pm\". WC100's two FWF trailers, Coates 1248439 and 1288823 (put down 13:30 14 Sep 2026), are its only units, so WC100 leaves in full at 15:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only after 15:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC100",
+   "at": "2026-11-13T15:00:00+10:00",
+   "nos": ["1248439", "1288823"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
