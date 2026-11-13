@@ -1,0 +1,347 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T050425Z",
+ "finished": "2026-11-13T05:05:01.120Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (13:50 AEST): \"Both trailers fwf leave 3pm\". WC100's two FWF trailers, Coates 1248439 and 1288823 (put down 13:30 14 Sep 2026), are its only units, so WC100 leaves in full at 15:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only after 15:00 and only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC100",
+    "at": "2026-11-13T15:00:00+10:00",
+    "nos": [
+     "1248439",
+     "1288823"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13286,
+  "after": 13287
+ },
+ "updated": {
+  "before": "2026-11-13T04:56:20.380Z",
+  "after": "2026-11-13T05:04:59.662Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC100",
+   "at": "2026-11-13T15:00:00+10:00",
+   "nos": [
+    "1248439",
+    "1288823"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T15:00:00+10:00, recorded by Andrew Fisher: 2 x FWF Trailer 1248439, 1288823 - WC100 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC100",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC100": {
+    "state": "on site",
+    "set_at": "2026-09-14T03:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:37.213Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.994Z",
+    "ready1238_units": {
+     "coates|1288823": {
+      "on": true,
+      "at": "2026-11-03T03:19:06.944Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1248439": {
+      "on": true,
+      "at": "2026-11-03T03:19:14.370Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both trailers put down 13:30 and in place · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:02.902Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:37.213Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.994Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1288823",
+      "ready": true,
+      "at": "2026-11-03T03:19:06.944Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1248439",
+      "ready": true,
+      "at": "2026-11-03T03:19:14.370Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:41:48.299Z"
+    },
+    "loading872": {
+     "u1248439": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:55:59.406Z"
+     }
+    },
+    "_k": "WC100"
+   }
+  },
+  "after": {
+   "delivery/WC100": {
+    "state": "in transit",
+    "set_at": "2026-11-13T05:04:45.193Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-23T02:10:37.213Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:25.994Z",
+    "ready1238_units": {
+     "coates|1288823": {
+      "on": true,
+      "at": "2026-11-03T03:19:06.944Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     "coates|1248439": {
+      "on": true,
+      "at": "2026-11-03T03:19:14.370Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T05:04:45.193Z",
+    "eta": "07:00",
+    "note": "Both trailers put down 13:30 and in place · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T03:30:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T05:04:45.193Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "1adca016-874c-4873-b129-c3536377e92d",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T15:00:00+10:00",
+       "programmeDate": "2026-11-11",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T03:30:00Z",
+       "requiredKey": "[[\"fwf trailer\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "FWF Trailer",
+         "n": 2,
+         "unitIds": [
+          "[\"WC100\",\"coates\",\"asset\",\"1248439\"]",
+          "[\"WC100\",\"coates\",\"asset\",\"1288823\"]"
+         ],
+         "numbers": [
+          "1248439",
+          "1288823"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC100\",\"coates\",\"asset\",\"1248439\"]",
+           "number": "1248439",
+           "owner": "coates",
+           "item": "FWF Trailer"
+          },
+          {
+           "id": "[\"WC100\",\"coates\",\"asset\",\"1288823\"]",
+           "number": "1288823",
+           "owner": "coates",
+           "item": "FWF Trailer"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T05:04:45.193Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:52:02.902Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-09-23T02:10:37.213Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:25.994Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1288823",
+      "ready": true,
+      "at": "2026-11-03T03:19:06.944Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     },
+     {
+      "unit": "coates|1248439",
+      "ready": true,
+      "at": "2026-11-03T03:19:14.370Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "forklift",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:41:48.299Z"
+    },
+    "loading872": {
+     "u1248439": {
+      "side": "na",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:55:59.406Z"
+     }
+    },
+    "_k": "WC100"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
