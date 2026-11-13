@@ -1,0 +1,26 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (10:23 AEST): \"The 2 fwf  leaves at 1pm\". The two FWF still on site are T0024's Coates FWF 1211968 (the Coates compound toilet) and WC67's Coates FWF 172824, moved from Helen Park to the Coates compound (record note 11 Nov). Each is the last unit on its reference, so T0024 and WC67 each leave in full at 13:00 AEST Fri 13 Nov 2026. WC100's two FWF trailers (1248439, 1288823) are another item and stay. Through the page's own Record departure form in Andrew's name. Applied only after 13:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0024",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": ["1211968"],
+   "unnumbered": [],
+   "complete": true
+  },
+  {
+   "op": "depart",
+   "ref": "WC67",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": ["172824"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
