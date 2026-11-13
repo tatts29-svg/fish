@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (13:56 AEST): \"1312577 leaves 230pm\". 1312577 is T0005's Forklift 2.5T RT (contract 9961976 line 26), the one T0005 still had to leave after 1247787 left 08:15 Mon 2 Nov 2026 (run 96). So T0005's last Forklift 2.5T RT, 1312577, leaves at 14:30 AEST Fri 13 Nov 2026 and T0005 leaves in full on its count of two. Open with Andrew: 1302007 (COATES - Forklift Tyne Rotator, entered on T0005 on 21 Oct, ticked Ready 08:43 today) is a further number on T0005 beyond its two. Through the page's own Record departure form in Andrew's name. Applied only after 14:30 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0005",
+   "at": "2026-11-13T14:30:00+10:00",
+   "nos": ["1312577"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
