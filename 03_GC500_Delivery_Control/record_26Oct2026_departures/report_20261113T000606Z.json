@@ -1,0 +1,344 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T000606Z",
+ "finished": "2026-11-13T00:06:36.286Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (08:24 AEST): \"Po5 leaves 9am    p01 leaves at 930am p03 leaves 10am\". P03 is the SCA Event Management Office, Building 12m 1327212, its only unit, so P03 leaves in full at 10:00 AEST Fri 13 Nov 2026; its contents listed on the page (fridge 1328955, air conditioners 1327954 and 1327953) leave with it. Rehearsed 08:2x as a dry run with a past time (left in full, P&L unchanged, nothing sent). Through the page's own Record departure form in Andrew's name; recorded after 10:00, as a departure is only recorded once its time has come. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "P03",
+    "at": "2026-11-13T10:00:00+10:00",
+    "nos": [
+     "1327212"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13267,
+  "after": 13268
+ },
+ "updated": {
+  "before": "2026-11-12T23:32:33.265Z",
+  "after": "2026-11-13T00:06:35.409Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "P03",
+   "at": "2026-11-13T10:00:00+10:00",
+   "nos": [
+    "1327212"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T10:00:00+10:00, recorded by Andrew Fisher: 1 x Building 12m 1327212 - P03 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/P03",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/P03": {
+    "state": "on site",
+    "set_at": "2026-09-13T22:30:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:42.171Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-17T21:29:28.107Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "On site 08:30 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T22:30:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:42.171Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:28.107Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:44:23.367Z"
+    },
+    "loading872": {
+     "u1327212": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:44:19.091Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1327212": {
+      "on": true,
+      "at": "2026-11-12T22:42:51.075Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1327212",
+      "ready": true,
+      "at": "2026-11-12T22:42:51.075Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "P03"
+   }
+  },
+  "after": {
+   "delivery/P03": {
+    "state": "in transit",
+    "set_at": "2026-11-13T00:06:23.228Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-13T00:06:23.228Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-13T00:06:23.228Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T00:06:23.228Z",
+    "eta": "07:00",
+    "note": "On site 08:30 · entered 14 Sep 13:56 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T22:30:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T00:06:23.228Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "63e3a21c-f756-45d4-bcb4-393e1ac10739",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T10:00:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-13T22:30:00Z",
+       "requiredKey": "[[\"building 12m\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Building 12m",
+         "n": 1,
+         "unitIds": [
+          "[\"P03\",\"coates\",\"asset\",\"1327212\"]"
+         ],
+         "numbers": [
+          "1327212"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"P03\",\"coates\",\"asset\",\"1327212\"]",
+           "number": "1327212",
+           "owner": "coates",
+           "item": "Building 12m"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "P03",
+        "capturedAt": "2026-11-13T00:06:23.228Z",
+        "arrivalAt": "2026-09-13T22:30:00.000Z",
+        "reference": {
+         "lat": -27.983541,
+         "lon": 153.426512,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "P03",
+         "tag": "P03",
+         "what": "SCA Event Management Office · Building 12m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T00:06:23.228Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:42.171Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-13T00:06:23.228Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-17T21:29:28.107Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-13T00:06:23.228Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:44:23.367Z"
+    },
+    "loading872": {
+     "u1327212": {
+      "side": "passenger",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:44:19.091Z"
+     }
+    },
+    "ready1238_units": {
+     "coates|1327212": {
+      "on": true,
+      "at": "2026-11-12T22:42:51.075Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1327212",
+      "ready": true,
+      "at": "2026-11-12T22:42:51.075Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "P03"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
