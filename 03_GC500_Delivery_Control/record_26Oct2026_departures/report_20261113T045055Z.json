@@ -1,0 +1,371 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T045055Z",
+ "finished": "2026-11-13T04:51:27.681Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (13:56 AEST): \"1312577 leaves 230pm\". 1312577 is T0005's Forklift 2.5T RT (contract 9961976 line 26), the one T0005 still had to leave after 1247787 left 08:15 Mon 2 Nov 2026 (run 96). So T0005's last Forklift 2.5T RT, 1312577, leaves at 14:30 AEST Fri 13 Nov 2026 and T0005 leaves in full on its count of two. Open with Andrew: 1302007 (COATES - Forklift Tyne Rotator, entered on T0005 on 21 Oct, ticked Ready 08:43 today) is a further number on T0005 beyond its two. Through the page's own Record departure form in Andrew's name. Applied only after 14:30 and only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "T0005",
+    "at": "2026-11-13T14:30:00+10:00",
+    "nos": [
+     "1312577"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13284,
+  "after": 13285
+ },
+ "updated": {
+  "before": "2026-11-13T04:46:33.237Z",
+  "after": "2026-11-13T04:51:26.809Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "T0005",
+   "at": "2026-11-13T14:30:00+10:00",
+   "nos": [
+    "1312577"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T14:30:00+10:00, recorded by Andrew Fisher: 1 x Forklift 2.5T RT 1312577 - T0005 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0005",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0005": {
+    "state": "on site",
+    "set_at": "2026-09-13T23:30:00Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1302007": {
+      "on": true,
+      "at": "2026-11-12T22:43:34.394Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1247787": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:08:41.733Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T03:56:21Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes 1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-01T22:19:20.443Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d78ced75-1737-48f9-9557-bb0a3b481ee6",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T08:15:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-13T23:30:00Z",
+       "requiredKey": "[[\"forklift 2.5t rt\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T RT",
+         "n": 1,
+         "unitIds": [
+          "[\"T0005\",\"coates\",\"asset\",\"1247787\"]"
+         ],
+         "numbers": [
+          "1247787"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0005\",\"coates\",\"asset\",\"1247787\"]",
+           "number": "1247787",
+           "owner": "coates",
+           "item": "Forklift 2.5T RT"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1302007",
+      "ready": true,
+      "at": "2026-11-12T22:43:34.394Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1247787",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:08:41.733Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   }
+  },
+  "after": {
+   "delivery/T0005": {
+    "state": "in transit",
+    "set_at": "2026-11-13T04:51:13.502Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1302007": {
+      "on": true,
+      "at": "2026-11-12T22:43:34.394Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1247787": {
+      "at": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-10-29T21:08:41.733Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T04:51:13.502Z",
+    "eta": "07:00",
+    "note": "Both forklifts turned up 09:30 · entered 14 Sep 13:56 from site notes 1247787 (Forklift 2.5T RT) went back 18 Sep 2026 (docket 26083950, contract 9961976 line 25, term 17 Sep) and came out again 20 Oct 2026 to Macintosh Island Park (docket 26142467, line 35). Off site 18 Sep to 19 Oct; AT009 (EQ0007) covered from 17 Sep. Rate to come.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-13T23:30:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-01T22:19:20.443Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "d78ced75-1737-48f9-9557-bb0a3b481ee6",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T08:15:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-13T23:30:00Z",
+       "requiredKey": "[[\"forklift 2.5t rt\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T RT",
+         "n": 1,
+         "unitIds": [
+          "[\"T0005\",\"coates\",\"asset\",\"1247787\"]"
+         ],
+         "numbers": [
+          "1247787"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0005\",\"coates\",\"asset\",\"1247787\"]",
+           "number": "1247787",
+           "owner": "coates",
+           "item": "Forklift 2.5T RT"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T04:51:13.502Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "9227762e-194b-4abb-99b8-972dd8eed6b3",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T14:30:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-13T23:30:00Z",
+       "requiredKey": "[[\"forklift 2.5t rt\",2]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T RT",
+         "n": 1,
+         "unitIds": [
+          "[\"T0005\",\"coates\",\"asset\",\"1312577\"]"
+         ],
+         "numbers": [
+          "1312577"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0005\",\"coates\",\"asset\",\"1312577\"]",
+           "number": "1312577",
+           "owner": "coates",
+           "item": "Forklift 2.5T RT"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T03:27:41Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": true,
+      "at": "2026-09-14T03:56:21Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T04:51:13.502Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1302007",
+      "ready": true,
+      "at": "2026-11-12T22:43:34.394Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1247787",
+      "pickup": "2026-11-02T09:30:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-10-29T21:08:41.733Z"
+     }
+    ],
+    "handling875": {
+     "method": "tilt-tray",
+     "by": "Andrew Fisher",
+     "at": "2026-10-08T22:46:10.184Z"
+    },
+    "_k": "T0005"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
