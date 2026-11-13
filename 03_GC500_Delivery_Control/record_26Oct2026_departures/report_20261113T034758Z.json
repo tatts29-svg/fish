@@ -1,0 +1,374 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T034758Z",
+ "finished": "2026-11-13T03:48:33.864Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (13:15 AEST): \"Toilet and waste tank go at 145pm\". The only toilet and waste tank still on site are WC05's, the Event Operations Compound Toilet - Combo Block (Tanked): Toilet Block 6m 1097377 and waste tank 1328978, its only two units. So WC05 leaves in full at 13:45 AEST Fri 13 Nov 2026. WC100's two FWF trailers (1248439, 1288823) are another item and stay. Through the page's own Record departure form in Andrew's name. Applied only after 13:45 and only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "WC05",
+    "at": "2026-11-13T13:45:00+10:00",
+    "nos": [
+     "1097377",
+     "1328978"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13272,
+  "after": 13273
+ },
+ "updated": {
+  "before": "2026-11-13T03:25:34.095Z",
+  "after": "2026-11-13T03:48:33.013Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "WC05",
+   "at": "2026-11-13T13:45:00+10:00",
+   "nos": [
+    "1097377",
+    "1328978"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T13:45:00+10:00, recorded by Andrew Fisher: 1 x Toilet Block 6m 1097377, 1 x Waste tank 1328978 - WC05 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/WC05",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/WC05": {
+    "state": "on site",
+    "set_at": "2026-09-14T06:45:00Z",
+    "by": "Andrew Fisher",
+    "levelled": true,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-09-16T06:51:54.659Z",
+    "steps": true,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-09-16T06:51:56.273Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:23.282Z",
+    "ready1238_units": {
+     "coates|1097377": {
+      "on": true,
+      "at": "2026-11-03T03:18:14.788Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-09-14T06:45:00Z",
+    "eta": "07:00",
+    "note": "Toilet block and waste tank both here · TIME ON SITE NOT RECORDED — stamped at the moment it was entered · entered 14 Sep 16:45 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:54.659Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-16T06:51:56.273Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:23.282Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1097377",
+      "ready": true,
+      "at": "2026-11-03T03:18:14.788Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:47:46.024Z"
+    },
+    "loading872": {
+     "u1097377": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:47:32.450Z"
+     }
+    },
+    "_k": "WC05"
+   }
+  },
+  "after": {
+   "delivery/WC05": {
+    "state": "in transit",
+    "set_at": "2026-11-13T03:48:17.688Z",
+    "by": "Andrew Fisher",
+    "levelled": false,
+    "levelled_by": "Andrew Fisher",
+    "levelled_at": "2026-11-13T03:48:17.688Z",
+    "steps": false,
+    "steps_by": "Andrew Fisher",
+    "steps_at": "2026-11-13T03:48:17.688Z",
+    "emptied": true,
+    "emptied_by": "Andrew Fisher",
+    "emptied_at": "2026-11-02T02:28:23.282Z",
+    "ready1238_units": {
+     "coates|1097377": {
+      "on": true,
+      "at": "2026-11-03T03:18:14.788Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T03:48:17.688Z",
+    "eta": "07:00",
+    "note": "Toilet block and waste tank both here · TIME ON SITE NOT RECORDED — stamped at the moment it was entered · entered 14 Sep 16:45 from site notes",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T03:48:17.688Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "26b4060f-f818-4c31-85c3-f090b2f905d8",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T13:45:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-14T06:45:00Z",
+       "requiredKey": "[[\"toilet block 6m\",1],[\"waste tank\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Toilet Block 6m",
+         "n": 1,
+         "unitIds": [
+          "[\"WC05\",\"coates\",\"asset\",\"1097377\"]"
+         ],
+         "numbers": [
+          "1097377"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC05\",\"coates\",\"asset\",\"1097377\"]",
+           "number": "1097377",
+           "owner": "coates",
+           "item": "Toilet Block 6m"
+          }
+         ]
+        },
+        {
+         "type": "Waste tank",
+         "n": 1,
+         "unitIds": [
+          "[\"WC05\",\"coates\",\"asset\",\"1328978\"]"
+         ],
+         "numbers": [
+          "1328978"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"WC05\",\"coates\",\"asset\",\"1328978\"]",
+           "number": "1328978",
+           "owner": "coates",
+           "item": "Waste tank"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true,
+       "pickupLocations1297": {
+        "version": 1,
+        "key": "WC05",
+        "capturedAt": "2026-11-13T03:48:17.687Z",
+        "arrivalAt": "2026-09-14T06:45:00.000Z",
+        "reference": {
+         "lat": -27.983608,
+         "lon": 153.426357,
+         "kind": "asset",
+         "scope": "reference",
+         "confidence": "plan",
+         "approximate": false,
+         "label": "WC05",
+         "tag": "WC05",
+         "what": "Event Operations Compound Toilet - Combo Block (Tanked) · Waste tank, Toilet Block 6m",
+         "how": "position: master plan",
+         "warn": "",
+         "source": "position: master plan"
+        },
+        "units": {}
+       }
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-14T06:45:00Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T03:48:17.688Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "levelled_history": [
+     {
+      "levelled": true,
+      "at": "2026-09-16T06:51:54.659Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "levelled": false,
+      "at": "2026-11-13T03:48:17.688Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "steps_history": [
+     {
+      "steps": true,
+      "at": "2026-09-16T06:51:56.273Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "steps": false,
+      "at": "2026-11-13T03:48:17.688Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "emptied_history": [
+     {
+      "emptied": true,
+      "at": "2026-11-02T02:28:23.282Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1097377",
+      "ready": true,
+      "at": "2026-11-03T03:18:14.788Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "handling875": {
+     "method": "crane-truck",
+     "by": "Andrew Fisher",
+     "at": "2026-10-07T22:47:46.024Z"
+    },
+    "loading872": {
+     "u1097377": {
+      "side": "driver",
+      "by": "Andrew Fisher",
+      "at": "2026-10-07T22:47:32.450Z"
+     }
+    },
+    "_k": "WC05"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
