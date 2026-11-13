@@ -1,0 +1,372 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T060604Z",
+ "finished": "2026-11-13T06:06:39.234Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "T0003 (Forklift 5T 50004, the record's FL01) and T0004 (Forklift 2.5T 1197839, the record's FL02) left site 16:00 Fri 13 Nov 2026 on Andrew's word (specs 102 and 105). Neither had an on-site entry: the page held each on site only through its complete tick, from the arrival 2026-09-10T14:00:00.000Z (11 Sep 2026 AEST, the schedule's day), and each departure was recorded against that arrival. The departure form took the ticks off, so the page's departure reading finds no arrival to count them against. That same arrival goes on each history as an on-site entry, at exactly that time, with the reason (as T0002, run 150, and T0243, run 124). Nothing else changes. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "arrival_backfill",
+    "ref": "T0003",
+    "at": "2026-09-10T14:00:00.000Z",
+    "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure."
+   },
+   {
+    "op": "arrival_backfill",
+    "ref": "T0004",
+    "at": "2026-09-10T14:00:00.000Z",
+    "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure."
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13289,
+  "after": 13291
+ },
+ "updated": {
+  "before": "2026-11-13T06:05:16.612Z",
+  "after": "2026-11-13T06:06:38.163Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "arrival_backfill",
+   "ref": "T0003",
+   "at": "2026-09-10T14:00:00.000Z",
+   "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure.",
+   "result": "on-site arrival 2026-09-10T14:00:00.000Z put on the history (the arrival its departure was recorded against)"
+  },
+  {
+   "op": "arrival_backfill",
+   "ref": "T0004",
+   "at": "2026-09-10T14:00:00.000Z",
+   "why": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure.",
+   "result": "on-site arrival 2026-09-10T14:00:00.000Z put on the history (the arrival its departure was recorded against)"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/T0003",
+   "status": 200
+  },
+  {
+   "key": "delivery/T0004",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/T0003": {
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T06:04:18.328Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:02.183Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T06:04:18.328Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T06:04:18.328Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-13T06:04:18.328Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f5feaecf-dcc6-4abf-a8d7-863061144930",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T16:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"forklift 5t\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 5T",
+         "n": 1,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0003"
+   },
+   "delivery/T0004": {
+    "date": "2026-09-12",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-01T18:28:09.286Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T06:04:58.388Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:04.004Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T06:04:58.388Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T06:04:58.388Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "in transit",
+      "at": "2026-11-13T06:04:58.388Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c1a53a6f-fff0-41ca-8339-913766869413",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T16:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"forklift 2.5t\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T",
+         "n": 1,
+         "unitIds": [
+          "[\"T0004\",\"coates\",\"asset\",\"1197839\"]"
+         ],
+         "numbers": [
+          "1197839"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0004\",\"coates\",\"asset\",\"1197839\"]",
+           "number": "1197839",
+           "owner": "coates",
+           "item": "Forklift 2.5T"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0004"
+   }
+  },
+  "after": {
+   "delivery/T0003": {
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T06:04:18.328Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:02.183Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T06:04:18.328Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T06:04:18.328Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-10T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T06:04:18.328Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "f5feaecf-dcc6-4abf-a8d7-863061144930",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T16:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"forklift 5t\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 5T",
+         "n": 1,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0003"
+   },
+   "delivery/T0004": {
+    "date": "2026-09-12",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-01T18:28:09.286Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T06:04:58.388Z",
+    "eta": "07:00",
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-09-23T02:06:04.004Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T06:04:58.388Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "state": "in transit",
+    "set_at": "2026-11-13T06:04:58.388Z",
+    "by": "Andrew Fisher",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-09-10T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Arrival 11 Sep 2026 (AEST) as the page held it through the complete tick when the 13 Nov departure was recorded; put on the history so the departure reading counts that departure."
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T06:04:58.388Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "c1a53a6f-fff0-41ca-8339-913766869413",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T16:00:00+10:00",
+       "programmeDate": "2026-11-13",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-09-10T14:00:00.000Z",
+       "requiredKey": "[[\"forklift 2.5t\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Forklift 2.5T",
+         "n": 1,
+         "unitIds": [
+          "[\"T0004\",\"coates\",\"asset\",\"1197839\"]"
+         ],
+         "numbers": [
+          "1197839"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"T0004\",\"coates\",\"asset\",\"1197839\"]",
+           "number": "1197839",
+           "owner": "coates",
+           "item": "Forklift 2.5T"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "_k": "T0004"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

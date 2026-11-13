@@ -1110,3 +1110,27 @@ cables 1316182, 1316183, light in transit, nothing still to leave; 106 of 186 de
 - **What:** Andrew, Fri 13 Nov 2026 13:50 AEST: "Both trailers fwf leave 3pm". WC100's two FWF trailers, Coates 1248439 and 1288823 (put down 13:30 14 Sep 2026), are its only units, so WC100 left in full at 15:00 AEST (light in transit). Rehearsed at 13:5x as a dry run with a past time.
 - **Applied:** 15:04 AEST on Andrew's word, after 15:00: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_99_wc100_fwf_trailers_1311_1500.json --apply`, through the page's own Record departure form, in Andrew's name.
 - **Record:** version 13286 → 13287. 1 document (delivery/WC100) acknowledged 200, verified on the service; every other document unchanged in value; P&L and branch totals unchanged (charge 0, cost 0). Backup kept private. Report `report_20261113T050425Z.json`. Queued for 16:00: T0003 50004 (spec 102) and T0004 1197839 (spec 105), each with its arrival step after.
+
+## Run 154 — T0003, the Forklift 5T 50004 (the record's FL01), left site 16:00 Fri 13 Nov; T0003 left in full (13 Nov 2026 16:04 AEST, record 13287 → 13288)
+
+- **What:** Andrew, Fri 13 Nov 2026 14:30 AEST: "50004 picked up today 4pm other one i have is 1197839". 50004 is the Forklift 5T at Phillip Park, on the record as FL01 and on the page as T0003 (the same forklift; STATUS v9.63), its only unit. T0003 left in full at 16:00 AEST (light in transit), read back from the history (held on site only through its complete tick, as P36).
+- **Applied:** 16:04 AEST on Andrew's word, after 16:00: the live page sha `2f6bc154…` (v13.01) checked, a dry run (passed, nothing sent), then `left_site.cjs --spec left_site_spec_102_t0003_50004_1311_1600.json --apply`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 13287 → 13288. 1 document (delivery/T0003) acknowledged 200, verified; every other document unchanged in value; P&L and branch totals unchanged. Backup kept private. Report `report_20261113T060353Z.json`.
+
+## Run 155 — T0004, the Forklift 2.5T 1197839 (the record's FL02), left site 16:00 Fri 13 Nov; T0004 left in full (13 Nov 2026 16:05 AEST, record 13288 → 13289)
+
+- **What:** Andrew, 14:31 AEST: "And thats all forklifts . None left onsite now"; asked when 1197839 leaves, he answered "With 50004 at 16:00 today". 1197839 is the Forklift 2.5T at Phillip Park, on the record as FL02 and on the page as T0004 (the same forklift), its only unit. T0004 left in full at 16:00 AEST, read back from the history.
+- **Applied:** 16:05 AEST: sha checked, dry run (passed), then `left_site.cjs --spec left_site_spec_105_t0004_1197839_1311_1600.json --apply`, through the page's own Record departure form, in Andrew's name.
+- **Record:** version 13288 → 13289. 1 document (delivery/T0004) acknowledged 200, verified; every other document unchanged; P&L and branch totals unchanged. Backup kept private. Report `report_20261113T060435Z.json`.
+
+## Run 156 — T0003's and T0004's departures counted: their arrival put on the history (13 Nov 2026 16:06 AEST, record 13289 → 13291)
+
+- **What:** as T0002 (run 150) and T0243 (run 124): each departure holds the arrival 2026-09-10T14:00:00.000Z (11 Sep 2026 AEST); that arrival goes on each history as an on-site entry, in Andrew's name, with the reason. Nothing else changes.
+- **Applied:** 16:06 AEST: sha checked, dry run (passed), then `left_site.cjs --spec left_site_spec_107_t0003_t0004_arrival.json --apply`.
+- **Record:** version 13289 → 13291. 2 documents (delivery/T0003, delivery/T0004) acknowledged 200, verified; every other document unchanged; P&L and branch totals unchanged. Backup kept private. Report `report_20261113T060604Z.json`. A fresh read shows T0003 and T0004 each left in full (1 departure, arrival 11 Sep, nothing remaining).
+
+## Run 157 — FL01 and FL02 closed: lights to in transit (13 Nov 2026 16:10 AEST, record 13291 → 13293)
+
+- **What:** Andrew, 15:1x AEST: "Close them off.", on the leftover on-site lights on references the page no longer uses. FL01 and FL02 are the record's second names for T0003 and T0004 (runs 154–155); the page accepts both, so their lights go to in transit through its own setLight. NVLT, T0265, GN20, T0233, T0242, T0245 and F01 are refused by the page's own setLight ("not a reference in this file - nothing recorded"); nothing is written for them, and they count nowhere on the page (T0235 already reads not on site).
+- **Applied:** 16:10 AEST: sha checked, dry run (passed, 15:2x and again now), then `left_site.cjs --spec left_site_spec_106_close_old_lights.json --apply`.
+- **Record:** version 13291 → 13293. 2 documents (delivery/FL01, delivery/FL02) acknowledged 200, verified; every other document unchanged; P&L and branch totals unchanged. Backup kept private. Report `report_20261113T061035Z.json`. A fresh check of every reference: nothing on the page is still on site.
