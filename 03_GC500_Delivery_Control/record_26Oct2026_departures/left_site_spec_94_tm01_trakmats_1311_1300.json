@@ -1,0 +1,23 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (10:23 AEST): \"Remove all known track mats  leave at 1pm\". TM01 is the broadcast (TV) compound's Trakmats: 10 arrived 16 Oct 2026, 2 left 09:10 Wed 4 Nov 2026, so 8 (unnumbered) are on site, ticked Ready by Andrew 08:43 today. They are the only track mats still on site: T0025's 20 Trakmats all left 09:10 Wed 4 Nov 2026. So TM01's 8 left at 13:00 AEST Fri 13 Nov 2026 and TM01 is left in full. Through the page's own Record departure form in Andrew's name. Applied only after 13:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "TM01",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Trakmat",
+     "n": 8
+    }
+   ],
+   "complete": true
+  }
+ ]
+}
