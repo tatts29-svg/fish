@@ -1,0 +1,399 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Advanced Temporary Fencing's blue-book collection forms 28641-28667 (removals 9-13 Nov 2026, and 28651 of 14 Sep 2026, a Downer Utilities form recorded on Andrew's word), photographed and signed by Andrew on 13 Nov 2026 (\"Thats all the fencing dockets now.. no more. Jobs is over and completed\"). Read three times (here and by two independent readers from the photographs alone), every count agreed. Counts only: no charge, credit or metres inferred.",
+ "ops": [
+  {
+   "op": "collection",
+   "collection_no": "28641",
+   "date": "2026-11-09",
+   "location": "Supply to S19",
+   "collected": {
+    "cc_barrier": 40
+   },
+   "note": "Collected from 'Supply to S19' (as written): 40 CC barriers. Removal date written 9-11-26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 9-11-26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28642",
+   "date": "2026-11-09",
+   "location": "S.0.5",
+   "collected": {
+    "cc_barrier": 37
+   },
+   "note": "Collected from 'S.0.5' (as written): 37 CC barriers. Removal date written 9-11-26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 9-11-26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28643",
+   "date": "2026-11-09",
+   "location": "Higman St - Rhapsody.",
+   "collected": {
+    "cc_barrier": 80
+   },
+   "note": "Collected from 'Higman St - Rhapsody.' (as written): 80 CC barriers. Removal date written 9-11-26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 9-11-26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28644",
+   "date": "2026-11-09",
+   "location": "S.0.8 C.Z. - B.O.H + Pedestrian Walk Threw",
+   "collected": {
+    "mesh_panel": 130,
+    "base": 130,
+    "clamp": 125,
+    "brace": 33,
+    "wheels": 2
+   },
+   "note": "Collected from 'S.0.8 C.Z. - B.O.H + Pedestrian Walk Threw' (as written): 130 mesh panels, 130 bases, 125 clamps, 33 braces, 2 wheels. Removal date written 9-11-26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 9-11-26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28645",
+   "date": "2026-11-09",
+   "location": "Esplanade - Staghorne St - Meriton",
+   "collected": {
+    "mesh_panel": 106,
+    "cc_barrier": 36,
+    "base": 140,
+    "brace": 59,
+    "wheels": 4,
+    "flat_feet_ccb": 16
+   },
+   "note": "Collected from 'Esplanade - Staghorne St - Meriton' (as written): 106 mesh panels, 36 CC barriers, 140 bases, 59 braces, 4 wheels, 16 flat-feet CC barriers. Removal date written 9-11-26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 9-11-26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28646",
+   "date": "2026-11-10",
+   "location": "Beach Collection",
+   "collected": {
+    "mesh_panel": 418,
+    "cc_barrier": 92,
+    "base": 389,
+    "clamp": 410,
+    "wheels": 1
+   },
+   "note": "Collected from 'Beach Collection' (as written): 418 mesh panels, 92 CC barriers, 389 bases, 410 clamps, 1 wheels. Removal date written 10/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 10/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28647",
+   "date": "2026-11-10",
+   "location": "S.0.4 C.Z. B.O.H. + TV Media.",
+   "collected": {
+    "mesh_panel": 157,
+    "cc_barrier": 42,
+    "base": 242,
+    "clamp": 240,
+    "brace": 45,
+    "wheels": 2
+   },
+   "note": "Collected from 'S.0.4 C.Z. B.O.H. + TV Media.' (as written): 157 mesh panels, 42 CC barriers, 242 bases, 240 clamps, 45 braces, 2 wheels. Removal date written 10/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 10/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28648",
+   "date": "2026-11-11",
+   "location": "Race Admin",
+   "collected": {
+    "mesh_panel": 57,
+    "base": 135,
+    "clamp": 132,
+    "brace": 41
+   },
+   "note": "Collected from 'Race Admin' (as written): 57 mesh panels, 135 bases, 132 clamps, 41 braces. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28649",
+   "date": "2026-11-11",
+   "location": "Cable St",
+   "collected": {
+    "cc_barrier": 6
+   },
+   "note": "Collected from 'Cable St' (as written): 6 CC barriers. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28650",
+   "date": "2026-11-11",
+   "location": "Double Stack.",
+   "collected": {
+    "mesh_panel": 27,
+    "base": 23,
+    "clamp": 20,
+    "wheels": 2
+   },
+   "note": "Collected from 'Double Stack.' (as written): 27 mesh panels, 23 bases, 20 clamps, 2 wheels. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28651",
+   "date": "2026-09-14",
+   "location": "Corner Third & Second Ave - Marsden",
+   "collected": {
+    "mesh_panel": 144,
+    "base": 160
+   },
+   "note": "Collected from 'Corner Third & Second Ave - Marsden' (as written): 144 mesh panels, 160 bases. Removal date written 14/9/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 14/9/26. Comment as written: \"Panels were dropped off to Phillip Park Advanced Compound plus Bases. V8s\". This is a Downer Utilities form (company Downer Utilities, not Coates V8s); recorded with the V8s papers as decided 13 Nov 2026; contact and phone not carried.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28652",
+   "date": "2026-11-11",
+   "location": "Helen Park - S23 - The Hill + Compound (B.S.F)",
+   "collected": {
+    "mesh_panel": 144,
+    "cc_barrier": 148,
+    "base": 240,
+    "clamp": 235,
+    "brace": 58,
+    "wheels": 6
+   },
+   "note": "Collected from 'Helen Park - S23 - The Hill + Compound (B.S.F)' (as written): 144 mesh panels, 148 CC barriers, 240 bases, 235 clamps, 58 braces, 6 wheels. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28653",
+   "date": "2026-11-11",
+   "location": "Storage Compound",
+   "collected": {
+    "mesh_panel": 12,
+    "base": 25,
+    "clamp": 24,
+    "brace": 7,
+    "wheels": 2
+   },
+   "note": "Collected from 'Storage Compound' (as written): 12 mesh panels, 25 bases, 24 clamps, 7 braces, 2 wheels. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28654",
+   "date": "2026-11-11",
+   "location": "Club 500 - Mirror.",
+   "collected": {
+    "mesh_panel": 13,
+    "base": 14,
+    "clamp": 14
+   },
+   "note": "Collected from 'Club 500 - Mirror.' (as written): 13 mesh panels, 14 bases, 14 clamps. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28655",
+   "date": "2026-11-11",
+   "location": "Event Elec.",
+   "collected": {
+    "mesh_panel": 20,
+    "base": 55,
+    "clamp": 55,
+    "brace": 18
+   },
+   "note": "Collected from 'Event Elec.' (as written): 20 mesh panels, 55 bases, 55 clamps, 18 braces. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28656",
+   "date": "2026-11-11",
+   "location": "WC15 - Toilets.",
+   "collected": {
+    "mesh_panel": 14,
+    "base": 24,
+    "clamp": 28,
+    "brace": 8
+   },
+   "note": "Collected from 'WC15 - Toilets.' (as written): 14 mesh panels, 24 bases, 28 clamps, 8 braces. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28657",
+   "date": "2026-11-11",
+   "location": "Helipad",
+   "collected": {
+    "mesh_panel": 14,
+    "base": 14,
+    "clamp": 12
+   },
+   "note": "Collected from 'Helipad' (as written): 14 mesh panels, 14 bases, 12 clamps. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28658",
+   "date": "2026-11-11",
+   "location": "Club 500 Toilets.",
+   "collected": {
+    "brace": 25
+   },
+   "note": "Collected from 'Club 500 Toilets.' (as written): 25 braces. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26. Base and clamp boxes carry a dash.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28659",
+   "date": "2026-11-11",
+   "location": "Smoking Zones / Pit Lane / Macontosh Island.",
+   "collected": {
+    "cc_barrier": 175
+   },
+   "note": "Collected from 'Smoking Zones / Pit Lane / Macontosh Island.' (as written): 175 CC barriers. Removal date written 11/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 11/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28660",
+   "date": "2026-11-12",
+   "location": "PB.0.3 - Footings + The Hill.",
+   "collected": {
+    "mesh_panel": 10,
+    "cc_barrier": 11,
+    "base": 14,
+    "clamp": 13,
+    "brace": 2
+   },
+   "note": "Collected from 'PB.0.3 - Footings + The Hill.' (as written): 10 mesh panels, 11 CC barriers, 14 bases, 13 clamps, 2 braces. Removal date written 12/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 12/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28661",
+   "date": "2026-11-12",
+   "location": "Admiralty Drive",
+   "collected": {
+    "mesh_panel": 3,
+    "base": 4,
+    "clamp": 2
+   },
+   "note": "Collected from 'Admiralty Drive' (as written): 3 mesh panels, 4 bases, 2 clamps. Removal date written 12/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 12/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28662",
+   "date": "2026-11-12",
+   "location": "Pit Building Stairs.",
+   "collected": {
+    "mesh_panel": 55,
+    "clamp": 20,
+    "wheels": 6
+   },
+   "note": "Collected from 'Pit Building Stairs.' (as written): 55 mesh panels, 20 clamps, 6 wheels. Removal date written 12/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 12/11/26. Base box carries a dash.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28663",
+   "date": "2026-11-12",
+   "location": "Pit Lane.",
+   "collected": {
+    "flat_feet_ccb": 22
+   },
+   "note": "Collected from 'Pit Lane.' (as written): 22 flat-feet CC barriers. Removal date written 12/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 12/11/26. Written on an added row \"Flat Feet C.C.B's\".",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28664",
+   "date": "2026-11-12",
+   "location": "Pit Lane / Pit Lane C.Z. Podium / TV Media / S01 Kitchen",
+   "collected": {
+    "mesh_panel": 374,
+    "cc_barrier": 102,
+    "base": 661,
+    "clamp": 658,
+    "brace": 195,
+    "ped_gate": 5,
+    "wheels": 23
+   },
+   "note": "Collected from 'Pit Lane / Pit Lane C.Z. Podium / TV Media / S01 Kitchen' (as written): 374 mesh panels, 102 CC barriers, 661 bases, 658 clamps, 195 braces, 5 pedestrian gates, 23 wheels. Removal date written 12/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 12/11/26.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28665",
+   "date": "2026-11-13",
+   "location": "I.E.D.M Compound / Coates Compound / Plumbers Compound.",
+   "collected": {
+    "mesh_panel": 125,
+    "base": 602,
+    "clamp": 275,
+    "brace": 78,
+    "ped_gate": 1,
+    "wheels": 11
+   },
+   "note": "Collected from 'I.E.D.M Compound / Coates Compound / Plumbers Compound.' (as written): 125 mesh panels, 602 bases, 275 clamps, 78 braces, 1 pedestrian gates, 11 wheels. Removal date written 13/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer date blank. Comment as written: \"Also bases that wer supplied to Coates.\" Installer date blank.",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28666",
+   "date": "2026-11-13",
+   "location": "Phillip Park - (Advanced Compound)",
+   "collected": {
+    "mesh_panel": 103,
+    "base": 101,
+    "clamp": 109,
+    "wheels": 3
+   },
+   "note": "Collected from 'Phillip Park - (Advanced Compound)' (as written): 103 mesh panels, 101 bases, 109 clamps, 3 wheels. Removal date written 13/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 13/11/26. Comment as written: \"Checked all off compound for any nuts or bolts plus rubbish. Photo taken.\"",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  },
+  {
+   "op": "collection",
+   "collection_no": "28667",
+   "date": "2026-11-13",
+   "location": "Seaworld Drive, Main Beach / Fuel Compound.",
+   "collected": {
+    "mesh_panel": 116,
+    "base": 140,
+    "clamp": 132,
+    "wheels": 8
+   },
+   "note": "Collected from 'Seaworld Drive, Main Beach / Fuel Compound.' (as written): 116 mesh panels, 140 bases, 132 clamps, 8 wheels. Removal date written 13/11/26. No hire agreement number, order number or removal time; nothing priced. Owner/site supervisor signed, dated 13/11/26; installer signed, dated 13/11/26. Comment as written: \"Macmarns Compound\".",
+   "hire_agreements_written": "",
+   "signed_by": ""
+  }
+ ]
+}

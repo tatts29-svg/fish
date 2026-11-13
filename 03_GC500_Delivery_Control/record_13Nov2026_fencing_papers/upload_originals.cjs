@@ -53,7 +53,7 @@ function curl(method, url, headers, bodyFile) {
   const v = await curl('GET', HOST + '/api/version', {'x-gc500-token': token}); if (v.status !== 200 || JSON.parse(v.body).level !== 'edit') fail('that key is not the edit key - nothing sent');
   const results = [];
   for (const p of plan) {
-    const r = await curl('POST', HOST + '/api/files', {'x-gc500-token': token, 'Content-Type': 'image/jpeg', 'x-file-name': encodeURIComponent(p.name), 'x-file-kind': 'docket', 'x-file-title': '', 'x-file-note': ''}, path.join(HERE, 'originals', p.name));
+    const r = await curl('POST', HOST + '/api/files', {'x-gc500-token': token, 'Content-Type': 'image/jpeg', 'x-file-name': encodeURIComponent(p.name), 'x-file-kind': 'docket', 'x-file-title': '', 'x-file-note': ''}, path.join(PAPERS, 'originals', p.name));
     let saved = {}; try { saved = JSON.parse(r.body); } catch (_) {}
     if (r.status !== 200 || !saved.id) fail(p.name + ': upload answered ' + r.status + ' ' + String(r.body).slice(0, 160) + ' - stopping (' + results.length + ' already up)');
     if (saved.sha256 !== p.sha) fail(p.name + ': the service holds ' + saved.sha256 + ', not the original ' + p.sha);
