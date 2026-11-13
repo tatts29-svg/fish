@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (13:15 AEST): \"Toilet and waste tank go at 145pm\". The only toilet and waste tank still on site are WC05's, the Event Operations Compound Toilet - Combo Block (Tanked): Toilet Block 6m 1097377 and waste tank 1328978, its only two units. So WC05 leaves in full at 13:45 AEST Fri 13 Nov 2026. WC100's two FWF trailers (1248439, 1288823) are another item and stay. Through the page's own Record departure form in Andrew's name. Applied only after 13:45 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "WC05",
+   "at": "2026-11-13T13:45:00+10:00",
+   "nos": ["1097377", "1328978"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}
