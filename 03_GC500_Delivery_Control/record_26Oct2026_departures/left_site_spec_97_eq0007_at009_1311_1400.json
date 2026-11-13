@@ -1,0 +1,23 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (13:22 AEST): \"Rhw at0009 leaves 2pm\" (the AT009). AT009 is EQ0007, the AT009 Forklift Rough Terrain 2.5t (no fleet number on the docket; contract 9961976 line 34, delivery docket 26083924, on site since 17 Sep 2026 at The Esplanade), its only unit. So EQ0007 leaves in full at 14:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only after 14:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "EQ0007",
+   "at": "2026-11-13T14:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Forklift 2.5T RT",
+     "n": 1
+    }
+   ],
+   "complete": true
+  }
+ ]
+}
