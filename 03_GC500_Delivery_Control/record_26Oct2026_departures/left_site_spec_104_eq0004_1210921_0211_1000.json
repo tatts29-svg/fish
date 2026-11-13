@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (14:31 AEST): \"And thats all forklifts . None left onsite now\"; asked when EQ0004's Forklift 3.5t diesel 1210921 left (ticked Ready 30 Oct, pick-up booked by Brenden Meek for 10:00 Mon 2 Nov), he answered \"10:00 Mon 2 Nov\". 1210921 is EQ0004's only unit (rental 9961976 line 27), so EQ0004 left in full at 10:00 AEST Mon 2 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "EQ0004",
+   "at": "2026-11-02T10:00:00+10:00",
+   "nos": ["1210921"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (14:30-14:31 AEST): \"50004 picked up today 4pm other one i have is 1197839\" / \"And thats all forklifts . None left onsite now\"; asked when 1197839 leaves, he answered \"With 50004 at 16:00 today\". 1197839 is the Forklift 2.5T at Phillip Park, on the record as FL02 and on the page as T0004 (the same forklift; schedule row T0004, contract 9961976, NVAC), its only unit. So T0004 leaves in full at 16:00 AEST Fri 13 Nov 2026. T0004 is held on site only through its complete tick, so the departure is read back from the history (as P36, run 138) and its arrival goes on the history after (as T0002, run 150). Through the page's own Record departure form in Andrew's name. Applied only after 16:00 and only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "T0004",
+   "at": "2026-11-13T16:00:00+10:00",
+   "nos": ["1197839"],
+   "unnumbered": [],
+   "complete": true,
+   "readback": "history"
+  }
+ ]
+}

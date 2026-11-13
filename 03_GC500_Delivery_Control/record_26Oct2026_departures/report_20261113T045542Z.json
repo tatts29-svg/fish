@@ -1,0 +1,267 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T045542Z",
+ "finished": "2026-11-13T04:56:21.224Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (14:31 AEST): \"And thats all forklifts . None left onsite now\"; asked when EQ0004's Forklift 3.5t diesel 1210921 left (ticked Ready 30 Oct, pick-up booked by Brenden Meek for 10:00 Mon 2 Nov), he answered \"10:00 Mon 2 Nov\". 1210921 is EQ0004's only unit (rental 9961976 line 27), so EQ0004 left in full at 10:00 AEST Mon 2 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "EQ0004",
+    "at": "2026-11-02T10:00:00+10:00",
+    "nos": [
+     "1210921"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13285,
+  "after": 13286
+ },
+ "updated": {
+  "before": "2026-11-13T04:51:26.809Z",
+  "after": "2026-11-13T04:56:20.380Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "EQ0004",
+   "at": "2026-11-02T10:00:00+10:00",
+   "nos": [
+    "1210921"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-02T10:00:00+10:00, recorded by Andrew Fisher: 1 x SUPPLY - Forklift 3.5t Diesel 1210921 - EQ0004 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0004",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0004": {
+    "state": "on site",
+    "set_at": "2026-10-21T18:26:50.510Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1210921": {
+      "on": true,
+      "at": "2026-10-30T04:22:24.079Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1210921": {
+      "at": "2026-11-02T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:24:44.010Z"
+     }
+    },
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-21T18:26:51.330Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:50.510Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:51.330Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1210921",
+      "ready": true,
+      "at": "2026-10-30T04:22:24.079Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1210921",
+      "pickup": "2026-11-02T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:24:44.010Z"
+     }
+    ],
+    "_k": "EQ0004"
+   }
+  },
+  "after": {
+   "delivery/EQ0004": {
+    "state": "in transit",
+    "set_at": "2026-11-13T04:56:05.455Z",
+    "by": "Andrew Fisher",
+    "ready1238_units": {
+     "coates|1210921": {
+      "on": true,
+      "at": "2026-10-30T04:22:24.079Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    },
+    "pickup1238_units": {
+     "coates|1210921": {
+      "at": "2026-11-02T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "set": "2026-11-01T21:24:44.010Z"
+     }
+    },
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T04:56:05.455Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-21T18:26:50.510Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T04:56:05.455Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "740dfc50-e576-45fb-a80a-f1b9f7f07aa8",
+       "date": "2026-11-02",
+       "departedAt1211": "2026-11-02T10:00:00+10:00",
+       "programmeDate": "2026-10-26",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-21T18:26:50.510Z",
+       "requiredKey": "[[\"supply - forklift 3.5t diesel\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "SUPPLY - Forklift 3.5t Diesel",
+         "n": 1,
+         "unitIds": [
+          "[\"EQ0004\",\"coates\",\"asset\",\"1210921\"]"
+         ],
+         "numbers": [
+          "1210921"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"EQ0004\",\"coates\",\"asset\",\"1210921\"]",
+           "number": "1210921",
+           "owner": "coates",
+           "item": "SUPPLY - Forklift 3.5t Diesel"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-21T18:26:51.330Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T04:56:05.455Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_history": [
+     {
+      "unit": "coates|1210921",
+      "ready": true,
+      "at": "2026-10-30T04:22:24.079Z",
+      "by": "Andrew Fisher",
+      "why": ""
+     }
+    ],
+    "pickup1238_history": [
+     {
+      "unit": "coates|1210921",
+      "pickup": "2026-11-02T10:00:00+10:00",
+      "note": "",
+      "by": "Brenden Meek",
+      "at": "2026-11-01T21:24:44.010Z"
+     }
+    ],
+    "_k": "EQ0004"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
