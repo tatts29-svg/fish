@@ -1,0 +1,284 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T030531Z",
+ "finished": "2026-11-13T03:06:05.259Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (10:23 AEST): \"Remove all known track mats  leave at 1pm\". TM01 is the broadcast (TV) compound's Trakmats: 10 arrived 16 Oct 2026, 2 left 09:10 Wed 4 Nov 2026, so 8 (unnumbered) are on site, ticked Ready by Andrew 08:43 today. They are the only track mats still on site: T0025's 20 Trakmats all left 09:10 Wed 4 Nov 2026. So TM01's 8 left at 13:00 AEST Fri 13 Nov 2026 and TM01 is left in full. Through the page's own Record departure form in Andrew's name. Applied only after 13:00 and only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "TM01",
+    "at": "2026-11-13T13:00:00+10:00",
+    "nos": [],
+    "unnumbered": [
+     {
+      "type": "Trakmat",
+      "n": 8
+     }
+    ],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13268,
+  "after": 13269
+ },
+ "updated": {
+  "before": "2026-11-13T00:06:35.409Z",
+  "after": "2026-11-13T03:06:03.929Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "TM01",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": [],
+   "unnumbered": [
+    {
+     "type": "Trakmat",
+     "n": 8
+    }
+   ],
+   "complete": true,
+   "result": "left site 2026-11-13T13:00:00+10:00, recorded by Andrew Fisher: 8 x Trakmat - TM01 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/TM01",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/TM01": {
+    "state": "on site",
+    "set_at": "2026-10-16T00:40:03.932Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:03.476Z",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-16T01:56:23.856Z",
+    "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:03.932Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-04T01:20:27.700Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "af16eab1-7488-4b07-b41f-8f386b493c8a",
+       "date": "2026-11-04",
+       "departedAt1211": "2026-11-04T09:10:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:40:03.932Z",
+       "requiredKey": "[[\"trakmat\",10]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Trakmat",
+         "n": 2,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:56:23.856Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1231": true,
+    "ready1231_by": "Andrew",
+    "ready1231_at": "2026-11-12T22:43:38.607Z",
+    "ready1231_why": "",
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-11-12T22:43:38.607Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "TM01"
+   }
+  },
+  "after": {
+   "delivery/TM01": {
+    "state": "in transit",
+    "set_at": "2026-11-13T03:05:49.473Z",
+    "by": "Andrew Fisher",
+    "date": "2026-10-16",
+    "date_by": "Andrew Fisher",
+    "date_at": "2026-10-16T00:40:03.476Z",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T03:05:49.473Z",
+    "note": "Ten track mats turned up 16 Oct 2026 for the broadcast compound (contract 9992300 line 6, dd 26133383); the order said 17 Oct.",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-16T00:40:03.932Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "on site",
+      "at": "2026-11-04T01:20:27.700Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "af16eab1-7488-4b07-b41f-8f386b493c8a",
+       "date": "2026-11-04",
+       "departedAt1211": "2026-11-04T09:10:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:40:03.932Z",
+       "requiredKey": "[[\"trakmat\",10]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Trakmat",
+         "n": 2,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": false
+      }
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T03:05:49.473Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "eef8ee11-eb9f-4bf5-b314-b52bc6665d36",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T13:00:00+10:00",
+       "programmeDate": "2026-11-12",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-16T00:40:03.932Z",
+       "requiredKey": "[[\"trakmat\",10]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Trakmat",
+         "n": 8,
+         "unitIds": [],
+         "numbers": [],
+         "physicalUnits": []
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-16T01:56:23.856Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T03:05:49.473Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1231": true,
+    "ready1231_by": "Andrew",
+    "ready1231_at": "2026-11-12T22:43:38.607Z",
+    "ready1231_why": "",
+    "ready1231_history": [
+     {
+      "ready": true,
+      "at": "2026-11-12T22:43:38.607Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "TM01"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
