@@ -1,0 +1,18 @@
+{
+ "by": "Andrew Fisher",
+ "basis": "Andrew, Fri 13 Nov 2026 (13:22 AEST): \"Laser plane leave 1pm\". The laser plane is EQ0006, Laserplane 1065384 (rental 9987005 line 8), its only unit, ticked Ready by Andrew 08:43 today. The message came after 13:00, so EQ0006 left in full at 13:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "ops": [
+  {
+   "op": "depart",
+   "ref": "EQ0006",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": ["1065384"],
+   "unnumbered": [],
+   "complete": true
+  }
+ ]
+}

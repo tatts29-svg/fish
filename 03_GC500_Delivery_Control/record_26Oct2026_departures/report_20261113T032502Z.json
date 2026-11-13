@@ -1,0 +1,257 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261113T032502Z",
+ "finished": "2026-11-13T03:25:34.925Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "basis": "Andrew, Fri 13 Nov 2026 (13:22 AEST): \"Laser plane leave 1pm\". The laser plane is EQ0006, Laserplane 1065384 (rental 9987005 line 8), its only unit, ticked Ready by Andrew 08:43 today. The message came after 13:00, so EQ0006 left in full at 13:00 AEST Fri 13 Nov 2026. Through the page's own Record departure form in Andrew's name. Applied only if the dry run shows the P&L unchanged.",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "ops": [
+   {
+    "op": "depart",
+    "ref": "EQ0006",
+    "at": "2026-11-13T13:00:00+10:00",
+    "nos": [
+     "1065384"
+    ],
+    "unnumbered": [],
+    "complete": true
+   }
+  ]
+ },
+ "pageSha256": "2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b",
+ "version": {
+  "before": 13271,
+  "after": 13272
+ },
+ "updated": {
+  "before": "2026-11-13T03:07:25.552Z",
+  "after": "2026-11-13T03:25:34.095Z"
+ },
+ "money": {
+  "before": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  },
+  "after": {
+   "charge": 1016231.05,
+   "labour": 67542.42,
+   "labour_ticks": 497,
+   "card_hire": 183491.72,
+   "cost": 459524.59,
+   "difference": 523533.56,
+   "branches": {
+    "KINP": 283944.3,
+    "STPS": 80826.46,
+    "NVAC": 44272.04,
+    "MEAD": 25660.25
+   },
+   "vmsStandalone": []
+  }
+ },
+ "probe": {
+  "newRefs": null,
+  "vmsBoards": {
+   "before": null,
+   "after": null
+  }
+ },
+ "stage": [
+  {
+   "op": "depart",
+   "ref": "EQ0006",
+   "at": "2026-11-13T13:00:00+10:00",
+   "nos": [
+    "1065384"
+   ],
+   "unnumbered": [],
+   "complete": true,
+   "result": "left site 2026-11-13T13:00:00+10:00, recorded by Andrew Fisher: 1 x Laserplane 1065384 - EQ0006 has left in full, light in transit"
+  }
+ ],
+ "writes": [
+  {
+   "key": "delivery/EQ0006",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "delivery/EQ0006": {
+    "state": "on site",
+    "set_at": "2026-10-25T02:51:19.447Z",
+    "by": "Andrew Fisher",
+    "done": true,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-10-25T02:51:21.318Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026). (entered 2026-10-25T02:51:19.447Z)"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-25T02:51:19.447Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-25T02:51:21.318Z",
+      "by": "Andrew Fisher"
+     }
+    ],
+    "ready1238_units": {
+     "coates|1065384": {
+      "on": true,
+      "at": "2026-11-12T22:43:11.287Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1065384",
+      "ready": true,
+      "at": "2026-11-12T22:43:11.287Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "EQ0006"
+   }
+  },
+  "after": {
+   "delivery/EQ0006": {
+    "state": "in transit",
+    "set_at": "2026-11-13T03:25:20.351Z",
+    "by": "Andrew Fisher",
+    "done": false,
+    "done_by": "Andrew Fisher",
+    "done_at": "2026-11-13T03:25:20.351Z",
+    "history": [
+     {
+      "state": "on site",
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on hire and on site from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); entered on 25 Oct (Andrew Fisher, 29 Oct 2026). (entered 2026-10-25T02:51:19.447Z)"
+     },
+     {
+      "state": "on site",
+      "at": "2026-10-25T02:51:19.447Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "state": "in transit",
+      "at": "2026-11-13T03:25:20.351Z",
+      "by": "Andrew Fisher",
+      "collection996": {
+       "version": 1,
+       "kind": "collection",
+       "id": "b6dc72ee-e8fb-4431-a78c-6c6fd67c59ae",
+       "date": "2026-11-13",
+       "departedAt1211": "2026-11-13T13:00:00+10:00",
+       "programmeDate": "2026-10-17",
+       "portionId": null,
+       "portionKey": null,
+       "arrivalAt": "2026-10-25T02:51:19.447Z",
+       "requiredKey": "[[\"laserplane\",1]]",
+       "scope": "reference",
+       "items": [
+        {
+         "type": "Laserplane",
+         "n": 1,
+         "unitIds": [
+          "[\"EQ0006\",\"coates\",\"asset\",\"1065384\"]"
+         ],
+         "numbers": [
+          "1065384"
+         ],
+         "physicalUnits": [
+          {
+           "id": "[\"EQ0006\",\"coates\",\"asset\",\"1065384\"]",
+           "number": "1065384",
+           "owner": "coates",
+           "item": "Laserplane"
+          }
+         ]
+        }
+       ],
+       "source": "collect816",
+       "complete": true
+      }
+     }
+    ],
+    "done_history": [
+     {
+      "done": true,
+      "at": "2026-10-15T14:00:00.000Z",
+      "by": "Andrew Fisher",
+      "note": "Laser plane on site and in use from 16 Oct 2026 (rental 9987005 line 8, delivery 26135873); Complete was pressed on 25 Oct when it was entered (Andrew Fisher, 29 Oct 2026)."
+     },
+     {
+      "done": true,
+      "at": "2026-10-25T02:51:21.318Z",
+      "by": "Andrew Fisher"
+     },
+     {
+      "done": false,
+      "at": "2026-11-13T03:25:20.351Z",
+      "by": "Andrew Fisher",
+      "because": "in transit"
+     }
+    ],
+    "ready1238_units": {
+     "coates|1065384": {
+      "on": true,
+      "at": "2026-11-12T22:43:11.287Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    },
+    "ready1238_history": [
+     {
+      "unit": "coates|1065384",
+      "ready": true,
+      "at": "2026-11-12T22:43:11.287Z",
+      "by": "Andrew",
+      "why": ""
+     }
+    ],
+    "_k": "EQ0006"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
