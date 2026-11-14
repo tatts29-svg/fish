@@ -1,7 +1,7 @@
-# v13.06 — the Demob figures read 100% when everything is off site (READY TO UPLOAD, 14 Nov 2026)
+# v13.06 — the Demob figures read 100% when everything is off site (LIVE 15 Nov 2026 07:49 AEST)
 
 Author: Andrew Fisher. Andrew, in his Claude chat, 13–14 Nov 2026: "Everything is now offsite why is it 92%", then "Page fix" (chosen
-over recording pick-ups on WB19 and WB20). Dashboard only; upload on Andrew's "Upload".
+over recording pick-ups on WB19 and WB20), then "Proceed" (15 Nov, after the ready-to-upload note: taken as the upload). Dashboard only.
 
 ## Why it read 92%
 
@@ -47,4 +47,12 @@ departure readers (they call `evidence()` directly), maps, money, the P&L, branc
 `toolchain/build.sh v13.06 v13.06_demob_gauge_DRAFT/patch_v1306.py` on the live dashboard v13.01
 `2f6bc154b896a33252f21b1b438593b2d7453b79bb47ef3ff01abb0721624e7b` (17,066,969 bytes) → candidate
 `1017be1594f6c9660838d6440dfb125c9399de99519fae3866a7af8fdd2caa52` (17,068,185 bytes). Implemented and tested by Claude; not
-reviewed by Codex. Next: Andrew's "Upload", then `toolchain/upload_page.py` (guarded on the unchanged live base) and a live read-back.
+reviewed by Codex.
+
+## Live
+
+15 Nov 2026 07:49 AEST through `toolchain/upload_page.py` (dry run first; guard held: live unchanged since the build, record 13404):
+the view link serves the build byte for byte (17,068,185 bytes, sha256 `1017be1594f6c9660838d6440dfb125c9399de99519fae3866a7af8fdd2caa52`).
+Read back on the live page itself (`tests/live/`): `test_v1306.cjs` 14 of 14 desktop and phone; sweeps desktop and phone 27 tabs,
+17 shown, 0 page errors, 0 console errors, every deep link clean; live phone screenshot `tests/live/live_phone_progress.png` looked at.
+No write was attempted by any test. Codex's machine files are untouched; the next dashboard release builds on `1017be15…`.
