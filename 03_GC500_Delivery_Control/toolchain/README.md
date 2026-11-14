@@ -4,7 +4,7 @@ Author: Andrew Fisher.
 
 Claude and Codex use the same code and may publish ready, tested releases. Andrew confirmed this in the Codex chat on 5 Oct 2026: “stop blocking claude from uploading builds” and “You both build he needs the code”. No Codex-only build or upload restriction applies. Coordinate ownership through `STATUS.md` and PR #1 so two releases do not overwrite one another.
 
-The current shared branch is `codex/gc500-current-release-03oct` in `tatts29-svg/fish`. Fetch that branch and read its current `STATUS.md`, rather than relying on the older board on another branch. The tools do not depend on a Codex environment or identity.
+The current shared branch is `ccr-061f77e8-ivjhrv` in `tatts29-svg/fish` (checked 15 Nov 2026; every release since late October, Claude's and Codex's, is on it). `codex/gc500-current-release-03oct` has not changed since 14 Oct 2026 and is history. Fetch the shared branch and read its current `STATUS.md`, rather than relying on the older board on another branch. The tools do not depend on a Codex environment or identity.
 
 ## Set up either agent's environment
 

@@ -1,11 +1,15 @@
 # Use the Gemini app with the GC500 project
 
-Author: Andrew Fisher · verified 14 Oct 2026
+Author: Andrew Fisher · verified 14 Oct 2026 · shared branch updated 15 Nov 2026
 
 Andrew wants to work from the normal **Gemini app at
 [gemini.google.com](https://gemini.google.com/)** on his computer and phone.
 The CLI setup below prepares an execution environment; it does not by itself
 connect the Gemini app to that environment or meet this goal.
+
+**Current shared branch (15 Nov 2026): `ccr-061f77e8-ivjhrv`.** Every release since late October, Claude's and
+Codex's, is on it. `codex/gc500-current-release-03oct`, named in the 14 Oct reports below, has not changed since
+14 Oct 2026 and is history: start nothing new from it. If the board on the shared branch names a newer branch, use that.
 
 ## First check Task mode in the Gemini app
 
@@ -26,7 +30,7 @@ list rather than assuming the earlier setup exists here. GitHub write access,
 build tests from the app and publishing remain unverified.
 
 The next setup action is to create the missing `/workspaces/fish-gemini` worktree
-from the current `origin/codex/gc500-current-release-03oct`, after inspecting the
+from the current `origin/ccr-061f77e8-ivjhrv`, after inspecting the
 worktree list and fetching origin. Reuse an existing correct worktree if present.
 Preserve the Claude checkout and any changes; do not reset, delete or force a
 branch. Recheck the build tools in this actual workspace. Installing an edit key
@@ -41,8 +45,11 @@ browser; do not include authentication codes or credentials in setup reports.
 Use Task mode for a read-only GC500 setup check. Open
 https://github.com/codespaces and the existing fish Codespace; do not create
 another workspace. If sign-in is needed, let me take over in the browser.
-Open a NEW terminal and go to /workspaces/fish-gemini. Do not interrupt
-another terminal or launch Gemini CLI or another coding assistant.
+Open a NEW terminal and go to /workspaces/fish-gemini (or /workspaces/fish if
+that is the only checkout). Do not interrupt another terminal or launch Gemini
+CLI or another coding assistant. Run git fetch origin. The shared branch is
+ccr-061f77e8-ivjhrv: if this checkout is on another branch, do not switch it;
+read the files with git show origin/ccr-061f77e8-ivjhrv:<path> instead.
 
 Read GEMINI.md, AGENTS.md, 03_GC500_Delivery_Control/STATUS.md,
 03_GC500_Delivery_Control/toolchain/README.md and
@@ -81,11 +88,11 @@ from the computer and phone.
 ### Start the CLI on the computer; use the same workspace on the phone
 
 1. Open [Your Codespaces](https://github.com/codespaces). If a Codespace for
-   `tatts29-svg/fish` already exists on `codex/gc500-current-release-03oct`, open it.
+   `tatts29-svg/fish` already exists on `ccr-061f77e8-ivjhrv`, open it.
    Leave workspaces on other branches intact. Otherwise open
-   [the shared project branch](https://github.com/tatts29-svg/fish/tree/codex/gc500-current-release-03oct),
+   [the shared project branch](https://github.com/tatts29-svg/fish/tree/ccr-061f77e8-ivjhrv),
    choose **Code → Codespaces → Create codespace**. Confirm the branch is
-   `codex/gc500-current-release-03oct`.
+   `ccr-061f77e8-ivjhrv`.
 2. In the Codespace, choose **Terminal → New Terminal**. From the repository root,
    start Gemini with:
 
@@ -110,7 +117,7 @@ from the computer and phone.
    - 03_GC500_Delivery_Control/toolchain/GEMINI_SETUP.md
 
    Confirm this checkout is tatts29-svg/fish on
-   codex/gc500-current-release-03oct. Fetch origin and check the latest shared
+   ccr-061f77e8-ivjhrv. Fetch origin and check the latest shared
    STATUS.md for the LIVE release and active work claims; do not rely on an
    old version mentioned in chat. Report whether Node, Python, Git, curl,
    flock and the browser test dependencies are available. Report whether
@@ -209,7 +216,7 @@ is needed to push work and participate in the existing GitHub handover. Use a
 separate checkout, for example:
 
 ```bash
-git clone --branch codex/gc500-current-release-03oct https://github.com/tatts29-svg/fish.git fish-gemini
+git clone --branch ccr-061f77e8-ivjhrv https://github.com/tatts29-svg/fish.git fish-gemini
 cd fish-gemini
 gemini
 ```
