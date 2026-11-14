@@ -23,7 +23,7 @@ def fill(c): return PatternFill('solid', fgColor=c)
 thin = Side(style='thin', color='E1E1E1'); orange_rule = Side(style='medium', color=ORANGE)
 fmt = lambda d: d.strftime('%d %b %Y')
 SPAN = o['span']; WKS = round((SPAN[1] - SPAN[0]).days / 7)
-PREPARED = '11 Nov 2026'
+PREPARED = '14 Nov 2026'
 BYLINE = f'Prepared by Andrew Fisher  |  Shutdown Manager QLD  |  Coates        {PREPARED}        POWERED BY SITEIQ'
 
 # ---------------------------------------------------------------- categorise
@@ -153,19 +153,25 @@ note(f"Store open {fmt(SPAN[0])} to {fmt(SPAN[1])}. Busiest week: {ST['peak_week
 section('2.  The Coates store team at Callide')
 TEAM = [('Dayshift', 'Shutdown Manager', 1), ('Dayshift', 'Supervisor', 1), ('Dayshift', 'Tool Store Controller', 1),
         ('Dayshift', 'Consumable / Tool Store Controller', 1), ('Dayshift', 'Mechanic', 1), ('Nightshift', 'Tool Store Controller', 2)]
-tile(r, 2, 7, 'COATES PEOPLE ON SITE', width=4)
-tile(r, 6, 5, 'DAYSHIFT', width=4, colour=CHAR)
-tile(r, 10, 2, 'NIGHTSHIFT', width=4, colour=CHAR); r += 4
+t0 = r; d0 = t0 + 5; d1 = d0 + len(TEAM) + 1          # team rows + 2 spare rows for extra roles
+NUM = f'$L${d0}:$L${d1}'; SHF = f'$B${d0}:$B${d1}'
+tile(r, 2, f'=SUM({NUM})', 'COATES PEOPLE ON SITE', width=4, name='TEAM_TOTAL')
+tile(r, 6, f'=SUMIF({SHF},"Dayshift",{NUM})', 'DAYSHIFT', width=4, colour=CHAR)
+tile(r, 10, f'=SUMIF({SHF},"Nightshift",{NUM})', 'NIGHTSHIFT', width=4, colour=CHAR); r += 4
 thead([('Shift', 2), ('Role', 6), ('Roster', 2), ('Number', 2)])
-for i, (sh, role, n) in enumerate(TEAM):
-    trow([(sh, 2), (role, 6), ('14 on / 7 off', 2), (n, 2)], i, [None, None, None, '0'])
-total_row([('Total', 2), ('', 6), ('', 2), (7, 2)], [None, None, None, '0'])
-note('Roster: 14 days on / 7 days off. A 24-hour store: dayshift runs the counter, consumables, maintenance and supervision; nightshift keeps tools and consumables flowing to the night crew.')
+for i, (sh, role, n) in enumerate(TEAM + [('', '', None), ('', '', None)]):
+    trow([(sh, 2), (role, 6), ('14 on / 7 off' if sh else '', 2), (n, 2)], i, [None, None, None, '0'])
+    for cc in (2, 4, 10, 12): S.cell(r - 1, cc).fill = fill(TINT)
+total_row([('Total', 2), ('', 6), ('', 2), (f'=SUM({NUM})', 2)], [None, None, None, '0'])
+from openpyxl.worksheet.datavalidation import DataValidation
+dv = DataValidation(type='list', formula1='"Dayshift,Nightshift"', allow_blank=True); S.add_data_validation(dv); dv.add(f'B{d0}:B{d1}')
+dvn = DataValidation(type='whole', operator='between', formula1='0', formula2='99', allow_blank=True); S.add_data_validation(dvn); dvn.add(f'L{d0}:L{d1}')
+note('Orange-shaded cells can be changed - add, remove or re-roster people (use Dayshift / Nightshift in the Shift column) and the totals update. A 24-hour store: dayshift runs the counter, consumables, maintenance and supervision; nightshift keeps tools and consumables flowing to the night crew.')
 
 S.row_breaks.append(Break(id=r)); r += 1
 section('3.  The Tarong request')
-tile(r, 2, 30, 'WHITE COLLAR', bg=TINT, colour=CHAR, name='TAR_WC')
-tile(r, 6, 150, 'BLUE COLLAR', bg=TINT, colour=CHAR, name='TAR_BC')
+tile(r, 2, 50, 'WHITE COLLAR', bg=TINT, colour=CHAR, name='TAR_WC')
+tile(r, 6, 200, 'BLUE COLLAR', bg=TINT, colour=CHAR, name='TAR_BC')
 tile(r, 10, '=TAR_WC+TAR_BC', 'TOTAL CREW', name='TAR_TOTAL'); r += 4
 tile(r, 2, '=ROUND(TAR_TOTAL/CAL_CREW,3)', 'SCALING FACTOR  (TARONG CREW / CALLIDE CREW)', colour=CHAR, numfmt='0.000', name='FACTOR')
 tile(r, 6, None, 'TARONG DURATION (WEEKS)  -  ENTER WHEN CONFIRMED', bg=TINT, colour=CHAR, name='TAR_WEEKS')
