@@ -1,4 +1,4 @@
-# v13.07 tab responsiveness — READY TO UPLOAD
+# v13.07 tab responsiveness — LIVE 15 Nov 2026 16:23 AEST
 
 Author: Andrew Fisher.
 
@@ -36,8 +36,8 @@ Raw screenshots, CPU profiles, service snapshots and detailed financial comparis
 
 ## Build and checks
 
-Build through `toolchain/build.sh v13.07 v13.07_tab_responsiveness_DRAFT/patch_v1307.py` from the exact v13.06 page. Publication uses `toolchain/upload_page.py` with its unchanged-live-base guard.
+Build through `toolchain/build.sh v13.07 v13.07_tab_responsiveness_LIVE/patch_v1307.py` from the exact v13.06 page. Publication uses `toolchain/upload_page.py` with its unchanged-live-base guard.
 
 `tests/native1307.cjs` requires BASE, PAGE, STATE and a private absolute OUT directory. It uses the existing GET-only frozen-record harness. `test_phone_tabs1307.cjs` uses PAGE and private OUT. `tests/check_sweep1307.cjs` validates output from the unchanged shared sweep, including public aliases. Use the existing v9.86 hydration test and v13.00 resize test; the active-day weather adapter is `tests/weather1307.cjs`.
 
-All browser checks use `/tmp/gc500-browser.lock`. Implementation and review ownership, exact source commit and publication state are recorded on STATUS.md and PR #1. This candidate is ready; LIVE is recorded only after public byte-for-byte verification.
+All browser checks use `/tmp/gc500-browser.lock`. Implementation and review ownership, exact source commit and publication state are recorded on STATUS.md and PR #1. Source commit `f046229f548b17713543f5f987df022d53c7bdca` was published through the guarded uploader at 16:23 AEST on 15 Nov 2026. The uploader and an independent cache-busted public read both matched the tested bytes. Actual-public phone checks, with no HTML substitution: 19 hydration assertions plus all 27 routes, seven deep links and Back; zero runtime/console errors or attempted record writes. Record version remains 13404 after verification. Sanitized publication evidence is in CHECKS.json.

@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "LIVE",
   "checkedAt": "2026-11-15T16:21:36.842466+10:00",
   "baseSha256": "1017be1594f6c9660838d6440dfb125c9399de99519fae3866a7af8fdd2caa52",
   "candidateSha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428",
@@ -305,5 +305,35 @@
     "tests/check_sweep1307.cjs": "dc3cdc56f143991a007e77b99c3f3e277f0c3179efdd7ba8c228c268f4648978",
     "tests/native1307.cjs": "eb0d5d1d5a9a11a5b722c3631ca94d0a01ddc731f8efc1ee4db9264867eb565e",
     "tests/weather1307.cjs": "e1417caa50e63adb5f80e0d998c28cd0efba57d549a07dfe2c6dc65f13d1e310"
+  },
+  "publication": {
+    "sourceCommit": "f046229f548b17713543f5f987df022d53c7bdca",
+    "publishedAt": "2026-11-15T16:23:45+10:00",
+    "verifiedAt": "2026-11-15T16:27:41.851076+10:00",
+    "independentPublicReadback": {
+      "author": "Andrew Fisher",
+      "sha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428",
+      "bytes": 17071065,
+      "recordVersion": 13404,
+      "checkedAt": "2026-11-15T16:24:13.771168+10:00",
+      "cacheBustedPublicRead": true
+    },
+    "actualPublicPhoneHydration": {
+      "passed": true,
+      "checks": 19,
+      "htmlSubstitution": false,
+      "errors": 0,
+      "writes": 0
+    },
+    "actualPublicPhoneSweep": {
+      "author": "Andrew Fisher",
+      "routes": 27,
+      "deepLinks": 7,
+      "back": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    "recordVersionAfterChecks": 13404
   }
 }
