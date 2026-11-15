@@ -1,4 +1,4 @@
-# v13.08 — historical weather through final demob — READY TO UPLOAD
+# v13.08 — historical weather through final demob — LIVE 15 Nov 2026 19:58 AEST
 
 Author: Andrew Fisher.
 
@@ -21,12 +21,12 @@ Base live v13.07: `e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443
 
 Candidate v13.08: `7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f`, 17,080,013 bytes. Shared static checks pass for all 225 scripts. Independent source acceptance passes 12 tests, including original-row preservation, independent CSV-header conversion, exact candidate reproduction, provenance, wrong-base/repeat guards and an exact whole-HTML boundary limited to archive JSON plus footer.
 
-Native desktop and phone checks pass for all ten changed observation days and all eight affected programme cards, earlier Build weather, unchanged native financial outputs/documents and zero errors/writes. Both shared sweeps pass all 27 routes, seven deep links and Back, with zero runtime/console errors or attempted writes. Four desktop/phone weather screenshots were inspected. This exact candidate is ready to upload; publication and live verification remain to be recorded. Sanitized results and source hashes are in CHECKS.json; detailed native evidence stays outside the repository.
+Native desktop and phone checks pass for all ten changed observation days and all eight affected programme cards, earlier Build weather, unchanged native financial outputs/documents and zero errors/writes. Both shared sweeps pass all 27 routes, seven deep links and Back, with zero runtime/console errors or attempted writes. Four desktop/phone weather screenshots were inspected. Published through the guarded uploader on 15 Nov 2026 at 19:58 AEST from source `b874f61e90e870b25400530fee74b870450a2b8a`, after READY board `439ac03c`. Uploader verification and an independent cache-busted public read match the candidate byte for byte. Actual-public phone verification, with no HTML substitution, passes all ten observation dates, eight affected programme cards and earlier Build weather; zero runtime/console errors or writes, record 13404 unchanged. The live phone screenshot was inspected. Sanitized results and source hashes are in CHECKS.json; detailed native evidence stays outside the repository.
 
 The archive contains 64 complete days and four earlier partial days (24 September and 4–6 October). Fresh official September/October sources still omit those individual observations; their existing partial flags remain accurate.
 
 ## Reproduce
 
-Build through `toolchain/build.sh v13.08 v13.08_weather_history_DRAFT/patch_v1308.py` from the exact v13.07 base. Run `python3 -B v13.08_weather_history_DRAFT/tests/test_weather1308.py BASE CANDIDATE` for source acceptance.
+Build through `toolchain/build.sh v13.08 v13.08_weather_history_LIVE/patch_v1308.py` from the exact v13.07 base. Run `python3 -B v13.08_weather_history_LIVE/tests/test_weather1308.py BASE CANDIDATE` for source acceptance.
 
 `tests/weather_ui1308.cjs` uses BASE, PAGE, STATE, private absolute OUT and MOB=0/1. STATE is a private frozen native service snapshot. It checks all ten native weather readings, all eight affected programme cards and earlier Build weather, native values/provenance, financial outputs, documents and zero writes. The existing Demob programme excludes weekends; 7–8 November observations are retained in the archive without adding new day cards. LIVE=1 omits all HTML substitution and requires EXPECTED_SHA. Use both unchanged shared sweeps and the v13.07 sweep validator. All browser runs use `/tmp/gc500-browser.lock`.

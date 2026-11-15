@@ -1,6 +1,6 @@
 {
   "author": "Andrew Fisher",
-  "state": "READY TO UPLOAD",
+  "state": "LIVE",
   "checkedAt": "2026-11-15T19:56:41.311909+10:00",
   "baseSha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428",
   "candidateSha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f",
@@ -130,5 +130,42 @@
     "weather_sources/IDCJDW4050.202611.shtml": "7aa6a57bb0a0ea71d18ff26e1cb9eb06b72845728c2cfd63aa0fef60cf167197",
     "weather_sources/retrieval.json": "7a49c5b8a503bfe0afdb876d67d5299ad493ad8b3746525949ca1b1af5d3ff4a",
     "weather_updates1308.json": "d084bd8eef65ce7bd4c8c4d66f6e33b9934e367308c7d7f604b530ce516da356"
+  },
+  "publication": {
+    "sourceCommit": "b874f61e90e870b25400530fee74b870450a2b8a",
+    "readyBoardCommit": "439ac03c02b1ed6b4836ebaae20c65710cd1c91f",
+    "publishedAt": "2026-11-15T19:58:11.383+10:00",
+    "verifiedAt": "2026-11-15T20:00:37.647581+10:00",
+    "independentPublicReadback": {
+      "author": "Andrew Fisher",
+      "cacheBustedPublicRead": true,
+      "sha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f",
+      "bytes": 17080013,
+      "recordVersion": 13404,
+      "checkedAt": "2026-11-15T19:58:38.807875+10:00"
+    },
+    "actualPublicPhone": {
+      "author": "Andrew Fisher",
+      "passed": true,
+      "live": true,
+      "mobile": true,
+      "archiveDays": 68,
+      "completedDay": "2026-11-04",
+      "newDays": 9,
+      "verifiedObservationDays": 10,
+      "verifiedCardDays": 8,
+      "weekendObservationsRetained": true,
+      "earlierBuildCardVisible": true,
+      "previousRowsPreserved": null,
+      "recordVersion": 13404,
+      "recordUnchanged": true,
+      "financialOutputsUnchanged": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "writes": 0,
+      "htmlSubstitutions": 0,
+      "sha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f"
+    },
+    "livePhoneScreenshotInspected": true
   }
 }
