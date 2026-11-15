@@ -1,0 +1,9 @@
+/* Author: Andrew Fisher. Keep the existing tab row and desktop labels. */
+nav.tabs .tabcaption1307-phone{display:none}
+@media(max-width:640px){
+ nav.tabs .tabcaption1307-wide{display:none}
+ nav.tabs .tabcaption1307-phone{display:inline;overflow-wrap:anywhere}
+ /* A secondary tab without a glyph shares the caption baseline of the existing icon tabs. */
+ nav.tabs [data-tab]:not(:has(>.tg)) .tw{margin-top:19px}
+}
+

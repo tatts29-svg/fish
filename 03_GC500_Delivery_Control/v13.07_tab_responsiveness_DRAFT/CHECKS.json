@@ -1,0 +1,309 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "checkedAt": "2026-11-15T16:21:36.842466+10:00",
+  "baseSha256": "1017be1594f6c9660838d6440dfb125c9399de99519fae3866a7af8fdd2caa52",
+  "candidateSha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428",
+  "bytes": 17071065,
+  "static": {
+    "inlineScripts": 225,
+    "changedScripts": 6,
+    "unchangedScripts": 219,
+    "existingStylesUnchanged": 161,
+    "newPhoneStyle": 1,
+    "secretCheck": "PASS"
+  },
+  "sourceGuards": {
+    "author": "Andrew Fisher",
+    "reproducedExactly": true,
+    "repeatRejected": true,
+    "wrongBaseRejected": true,
+    "candidateSha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428"
+  },
+  "buildUnits": {
+    "author": "Andrew Fisher",
+    "pass": true,
+    "checks": 23,
+    "existingLoaderChecks": 17
+  },
+  "native": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "checks": [
+        {
+          "name": "base rapid tab clicks settle on the last requested pane",
+          "ok": true
+        },
+        {
+          "name": "base every operational document unchanged",
+          "ok": true
+        },
+        {
+          "name": "base no runtime/console errors or attempted writes",
+          "ok": true
+        },
+        {
+          "name": "Build initial replay is bounded to selected and cutoff",
+          "ok": true
+        },
+        {
+          "name": "Every native Build day reading equals the live baseline",
+          "ok": true
+        },
+        {
+          "name": "Scrolling resolves the newly visible historical card",
+          "ok": true
+        },
+        {
+          "name": "Print contains no pending past Build reading",
+          "ok": true
+        },
+        {
+          "name": "Printed Build values equal native models",
+          "ok": true
+        },
+        {
+          "name": "Hidden Demob mutation performs no Demob model work",
+          "ok": true
+        },
+        {
+          "name": "Direct VMS redraw builds one fresh asset snapshot",
+          "ok": true
+        },
+        {
+          "name": "VMS board status and rendered facts equal baseline",
+          "ok": true
+        },
+        {
+          "name": "candidate rapid tab clicks settle on the last requested pane",
+          "ok": true
+        },
+        {
+          "name": "Native financial outputs unchanged",
+          "ok": true
+        },
+        {
+          "name": "candidate every operational document unchanged",
+          "ok": true
+        },
+        {
+          "name": "candidate no runtime/console errors or attempted writes",
+          "ok": true
+        }
+      ],
+      "passed": 15,
+      "failed": 0,
+      "desktop": true,
+      "base": {
+        "cold": {
+          "sync_ms": 6947.89999999851,
+          "paint_ms": 7292,
+          "initial_reads": 46,
+          "cards": 46,
+          "selected": "2026-10-22"
+        },
+        "hiddenDemobCalls": 12,
+        "vmsBuilds": 116,
+        "vmsRenderMs": 1041.5
+      },
+      "candidate": {
+        "cold": {
+          "sync_ms": 1351.199999999255,
+          "paint_ms": 1728.699999999255,
+          "initial_reads": 1,
+          "cards": 46,
+          "selected": "2026-10-22"
+        },
+        "hiddenDemobCalls": 0,
+        "vmsBuilds": 1,
+        "vmsRenderMs": 379.9000000022352
+      },
+      "modelsSha": "937a6088c8d0535c8b3335d23b509a41ccae4d7ad75e4dbc61959986350a4afb",
+      "moneySha": "fb1dade306f965b7b344d2aa1a9aa89553f480e2a956060d98ec281968026e5a"
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "checks": [
+        {
+          "name": "base rapid tab clicks settle on the last requested pane",
+          "ok": true
+        },
+        {
+          "name": "base every operational document unchanged",
+          "ok": true
+        },
+        {
+          "name": "base no runtime/console errors or attempted writes",
+          "ok": true
+        },
+        {
+          "name": "Build initial replay is bounded to selected and cutoff",
+          "ok": true
+        },
+        {
+          "name": "Every native Build day reading equals the live baseline",
+          "ok": true
+        },
+        {
+          "name": "Scrolling resolves the newly visible historical card",
+          "ok": true
+        },
+        {
+          "name": "Print contains no pending past Build reading",
+          "ok": true
+        },
+        {
+          "name": "Printed Build values equal native models",
+          "ok": true
+        },
+        {
+          "name": "Hidden Demob mutation performs no Demob model work",
+          "ok": true
+        },
+        {
+          "name": "Direct VMS redraw builds one fresh asset snapshot",
+          "ok": true
+        },
+        {
+          "name": "VMS board status and rendered facts equal baseline",
+          "ok": true
+        },
+        {
+          "name": "candidate rapid tab clicks settle on the last requested pane",
+          "ok": true
+        },
+        {
+          "name": "Native financial outputs unchanged",
+          "ok": true
+        },
+        {
+          "name": "candidate every operational document unchanged",
+          "ok": true
+        },
+        {
+          "name": "candidate no runtime/console errors or attempted writes",
+          "ok": true
+        }
+      ],
+      "passed": 15,
+      "failed": 0,
+      "desktop": false,
+      "base": {
+        "cold": {
+          "sync_ms": 6966.5,
+          "paint_ms": 7294.400000002235,
+          "initial_reads": 46,
+          "cards": 46,
+          "selected": "2026-10-22"
+        },
+        "hiddenDemobCalls": 12,
+        "vmsBuilds": 116,
+        "vmsRenderMs": 1096.9000000022352
+      },
+      "candidate": {
+        "cold": {
+          "sync_ms": 1408.800000000745,
+          "paint_ms": 1683.5999999977648,
+          "initial_reads": 1,
+          "cards": 46,
+          "selected": "2026-10-22"
+        },
+        "hiddenDemobCalls": 0,
+        "vmsBuilds": 1,
+        "vmsRenderMs": 380.9000000022352
+      },
+      "modelsSha": "937a6088c8d0535c8b3335d23b509a41ccae4d7ad75e4dbc61959986350a4afb",
+      "moneySha": "fb1dade306f965b7b344d2aa1a9aa89553f480e2a956060d98ec281968026e5a"
+    }
+  },
+  "captions": {
+    "cases": 40,
+    "clippedCaptions": [],
+    "keyboard": {
+      "tab": "today",
+      "focus": "tab-today",
+      "selected": "tab-today"
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "attemptedRecordWrites": 0
+  },
+  "hydration": {
+    "passed": true,
+    "checks": 17,
+    "recordUnchanged": true,
+    "moneyUnchanged": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "weather": {
+    "passed": true,
+    "fixtureDay": "2026-11-13",
+    "browserOnlyForecastFixture": true,
+    "unchangedExistingAssertions": true,
+    "continuity": true,
+    "freshFacts": true,
+    "forecastChange": true,
+    "pause": true,
+    "reducedMotion": true,
+    "offscreenResume": true,
+    "errors": 0,
+    "writes": 0
+  },
+  "weatherResize": {
+    "passed": true,
+    "tabs": [
+      "demob",
+      "timeline"
+    ],
+    "heightSnaps": 0,
+    "widthCentreError": 0,
+    "errors": 0,
+    "writes": 0
+  },
+  "sweeps": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "routes": 27,
+      "deepLinks": 7,
+      "back": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "routes": 27,
+      "deepLinks": 7,
+      "back": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "captures": [
+      "desktop Build",
+      "phone Build",
+      "phone Documents",
+      "phone Fencing"
+    ]
+  },
+  "limitations": [
+    "Headless Chromium with desktop and phone viewports; not a physical-device or network-latency guarantee.",
+    "The legacy current-day weather test required a card after the programme ended. Its unchanged assertions pass with an explicit final-programme-day browser clock and weather fixture."
+  ],
+  "sourceSha256": {
+    "patch_build1307.py": "0fd2bf91358483861d46b240ed78e90fd61ec2b68a9207a3e2f78c4b8a089d6c",
+    "patch_deferred1307.py": "2839e47545ff573c00c9c51ade3e6c5376cbe578ba1f6c0d5e1bb3ebc2991b34",
+    "patch_phone_tabs1307.py": "632ce3e0afd020e421193fd9e2e0f36b21f98c3bc1f25eb13adc38280ef16b6f",
+    "patch_v1307.py": "d8837310fbac9fd0106894fc28c7f71a83ef802e56109d639d5c70a1909bf21d",
+    "phone_tabs1307.css": "fa4f7f33d0d962605144ea9cc4aa9e859ebebb2b377ae8bfd964293525d60eae",
+    "test_phone_tabs1307.cjs": "b9c56b95486233e45265d90543c45a9562e3069edc03aac8816944ca62a69553",
+    "tests/build1307.cjs": "73ff377b36599a4e9b074dd7896ff96848e631bb0ec895db4487239452795507",
+    "tests/check_sweep1307.cjs": "dc3cdc56f143991a007e77b99c3f3e277f0c3179efdd7ba8c228c268f4648978",
+    "tests/native1307.cjs": "eb0d5d1d5a9a11a5b722c3631ca94d0a01ddc731f8efc1ee4db9264867eb565e",
+    "tests/weather1307.cjs": "e1417caa50e63adb5f80e0d998c28cd0efba57d549a07dfe2c6dc65f13d1e310"
+  }
+}
