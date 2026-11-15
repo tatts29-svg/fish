@@ -1,0 +1,134 @@
+{
+  "author": "Andrew Fisher",
+  "state": "READY TO UPLOAD",
+  "checkedAt": "2026-11-15T19:56:41.311909+10:00",
+  "baseSha256": "e632b5bbe5aaab781bb7242b892d102e1e8e8894dd973223d6a57e1839443428",
+  "candidateSha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f",
+  "bytes": 17080013,
+  "archive": {
+    "dates": 68,
+    "from": "2026-09-07",
+    "through": "2026-11-13",
+    "completedDate": "2026-11-04",
+    "addedDates": 9,
+    "preservedEarlierRows": 58,
+    "completeDates": 64,
+    "preservedPartialDates": [
+      "2026-09-24",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06"
+    ],
+    "unpublishedSkyNotInvented": true,
+    "existingPeriodsAndSourcesPreserved": true
+  },
+  "sourceAcceptance": {
+    "passed": 12,
+    "failed": 0,
+    "independentCSVHeaderComparison": true,
+    "independentCSVAndHTMLAgreement": true,
+    "exactReproduction": true,
+    "wrongBaseAndRepeatRejected": true,
+    "onlyArchiveJSONAndFooterChange": true,
+    "pinnedRaceWeekendWeatherUnchanged": true
+  },
+  "static": {
+    "inlineScripts": 225,
+    "parsed": true,
+    "secretCheck": "PASS"
+  },
+  "nativeUI": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "passed": true,
+      "live": false,
+      "mobile": false,
+      "archiveDays": 68,
+      "completedDay": "2026-11-04",
+      "newDays": 9,
+      "verifiedObservationDays": 10,
+      "verifiedCardDays": 8,
+      "weekendObservationsRetained": true,
+      "earlierBuildCardVisible": true,
+      "previousRowsPreserved": 58,
+      "recordVersion": 13404,
+      "recordUnchanged": true,
+      "financialOutputsUnchanged": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "writes": 0,
+      "htmlSubstitutions": 1,
+      "sha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f"
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "passed": true,
+      "live": false,
+      "mobile": true,
+      "archiveDays": 68,
+      "completedDay": "2026-11-04",
+      "newDays": 9,
+      "verifiedObservationDays": 10,
+      "verifiedCardDays": 8,
+      "weekendObservationsRetained": true,
+      "earlierBuildCardVisible": true,
+      "previousRowsPreserved": 58,
+      "recordVersion": 13404,
+      "recordUnchanged": true,
+      "financialOutputsUnchanged": true,
+      "errors": 0,
+      "consoleErrors": 0,
+      "writes": 0,
+      "htmlSubstitutions": 1,
+      "sha256": "7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f"
+    }
+  },
+  "sweeps": {
+    "desktop": {
+      "author": "Andrew Fisher",
+      "routes": 27,
+      "deepLinks": 7,
+      "back": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    },
+    "phone": {
+      "author": "Andrew Fisher",
+      "routes": 27,
+      "deepLinks": 7,
+      "back": true,
+      "runtimeErrors": 0,
+      "consoleErrors": 0,
+      "attemptedWrites": 0
+    }
+  },
+  "visualReview": {
+    "passed": true,
+    "captures": [
+      "desktop 4Nov",
+      "desktop 13Nov",
+      "phone 4Nov",
+      "phone 13Nov"
+    ]
+  },
+  "observations": {
+    "weekendDatesRetained": [
+      "2026-11-07",
+      "2026-11-08"
+    ],
+    "programmeCalendarUnchanged": true,
+    "olderPartialFieldsStillAbsentInLatestBOM": true
+  },
+  "sourceSha256": {
+    "patch_v1308.py": "f8e10ceb4bde7a6be196170352d8e681782b5b2ed95e62ec1b3827ca544405cb",
+    "tests/test_weather1308.py": "9358b14d7a054dab83d3f930ce9f19052c0ad51e0f242d6b625b1ebf73971ba1",
+    "tests/weather_ui1308.cjs": "eb262bb147a8e50e7724e9854328211352b0013c501c634ec25a5a274150c9dc",
+    "weather_archive1308.py": "872d2f1df36f0860a92e251240e9768b946f23ba91d57288756d0485748e0760",
+    "weather_sources/.gitattributes": "a4b4cc58e7de2ade2ad6a7b6be22bc7998cabe1023cb9df0bc483356b0657fa1",
+    "weather_sources/IDCJDW4050.202611.csv": "b4223475528e54018653ac753ab229cf3acdea6f8e2edb853d1fd76b2498a325",
+    "weather_sources/IDCJDW4050.202611.shtml": "7aa6a57bb0a0ea71d18ff26e1cb9eb06b72845728c2cfd63aa0fef60cf167197",
+    "weather_sources/retrieval.json": "7a49c5b8a503bfe0afdb876d67d5299ad493ad8b3746525949ca1b1af5d3ff4a",
+    "weather_updates1308.json": "d084bd8eef65ce7bd4c8c4d66f6e33b9934e367308c7d7f604b530ce516da356"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "text": {
+    "url": "https://www.bom.gov.au/climate/dwo/202611/text/IDCJDW4050.202611.csv",
+    "retrieved_utc": "2026-11-15T09:39:13.316734+00:00",
+    "sha256": "b4223475528e54018653ac753ab229cf3acdea6f8e2edb853d1fd76b2498a325",
+    "bytes": 2317,
+    "status": 200,
+    "content_type": "text/csv"
+  },
+  "html": {
+    "url": "https://www.bom.gov.au/climate/dwo/202611/html/IDCJDW4050.202611.shtml",
+    "retrieved_utc": "2026-11-15T09:39:14.874604+00:00",
+    "sha256": "7aa6a57bb0a0ea71d18ff26e1cb9eb06b72845728c2cfd63aa0fef60cf167197",
+    "bytes": 44157,
+    "status": 200,
+    "content_type": "text/html; charset=UTF-8"
+  }
+}

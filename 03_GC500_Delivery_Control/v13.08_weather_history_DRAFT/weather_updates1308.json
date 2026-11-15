@@ -1,0 +1,413 @@
+{
+  "author": "Andrew Fisher",
+  "coverage": {
+    "from": "2026-11-04",
+    "through": "2026-11-13"
+  },
+  "archiveRows": 68,
+  "source": {
+    "name": "Bureau of Meteorology",
+    "station": "Gold Coast Seaway",
+    "station_id": "040764",
+    "url": "https://www.bom.gov.au/climate/dwo/202611/html/IDCJDW4050.202611.shtml",
+    "data_url": "https://www.bom.gov.au/climate/dwo/202611/text/IDCJDW4050.202611.csv",
+    "source_prepared": "Prepared at 06:26 UTC on Sunday 15 November 2026   IDCJDW4050.202611",
+    "retrieved_utc": "2026-11-15T09:39:13.316734+00:00",
+    "snapshot_sha256": "8e99a8008995b596d77bd8e92d3560c4653cf50771064e64c37f06d42a4c12e4",
+    "snapshot_encoding": "UTF-8 copy of ISO-8859-1 source",
+    "original_bytes_sha256": "b4223475528e54018653ac753ab229cf3acdea6f8e2edb853d1fd76b2498a325",
+    "html_snapshot_sha256": "7aa6a57bb0a0ea71d18ff26e1cb9eb06b72845728c2cfd63aa0fef60cf167197"
+  },
+  "days": {
+    "2026-11-04": {
+      "date": "2026-11-04",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 18.5,
+      "max_c": 33.1,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 6.0,
+      "wind_kph": 19.0,
+      "gust_kph": 43.0,
+      "gust_time": "10:59",
+      "gust_direction": "WNW",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 27.8,
+          "wind_kph": 17.0,
+          "wind_direction": "WNW"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 32.8,
+          "wind_kph": 19.0,
+          "wind_direction": "W"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-05": {
+      "date": "2026-11-05",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 16.2,
+      "max_c": 35.7,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 28.0,
+      "gust_kph": 52.0,
+      "gust_time": "15:04",
+      "gust_direction": "WNW",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 28.8,
+          "wind_kph": 11.0,
+          "wind_direction": "NW"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 34.8,
+          "wind_kph": 28.0,
+          "wind_direction": "W"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-06": {
+      "date": "2026-11-06",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 17.4,
+      "max_c": 25.8,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 15.0,
+      "gust_kph": 39.0,
+      "gust_time": "00:08",
+      "gust_direction": "SSE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 25.3,
+          "wind_kph": 15.0,
+          "wind_direction": "SE"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 24.0,
+          "wind_kph": 15.0,
+          "wind_direction": "E"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-07": {
+      "date": "2026-11-07",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 17.4,
+      "max_c": 29.4,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 30.0,
+      "gust_kph": 39.0,
+      "gust_time": "14:54",
+      "gust_direction": "NNE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 23.5,
+          "wind_kph": 17.0,
+          "wind_direction": "NW"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 26.4,
+          "wind_kph": 30.0,
+          "wind_direction": "NNE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-08": {
+      "date": "2026-11-08",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 19.9,
+      "max_c": 24.8,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 39.0,
+      "gust_kph": 61.0,
+      "gust_time": "17:32",
+      "gust_direction": "SSE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 23.8,
+          "wind_kph": 24.0,
+          "wind_direction": "SSE"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 20.8,
+          "wind_kph": 39.0,
+          "wind_direction": "SSE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-09": {
+      "date": "2026-11-09",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 14.5,
+      "max_c": 25.1,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 20.0,
+      "gust_kph": 31.0,
+      "gust_time": "00:25",
+      "gust_direction": "S",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 22.5,
+          "wind_kph": 19.0,
+          "wind_direction": "SE"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 22.2,
+          "wind_kph": 20.0,
+          "wind_direction": "ESE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-10": {
+      "date": "2026-11-10",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 19.2,
+      "max_c": 28.8,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 28.0,
+      "gust_kph": 37.0,
+      "gust_time": "14:36",
+      "gust_direction": "NNE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 24.6,
+          "wind_kph": 13.0,
+          "wind_direction": "ESE"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 26.8,
+          "wind_kph": 28.0,
+          "wind_direction": "NNE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-11": {
+      "date": "2026-11-11",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 22.2,
+      "max_c": 30.8,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 35.0,
+      "gust_kph": 46.0,
+      "gust_time": "14:48",
+      "gust_direction": "NNE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 26.9,
+          "wind_kph": 13.0,
+          "wind_direction": "NNW"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 24.3,
+          "wind_kph": 35.0,
+          "wind_direction": "NNE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-12": {
+      "date": "2026-11-12",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 19.7,
+      "max_c": 29.7,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 2.2,
+      "wind_kph": 20.0,
+      "gust_kph": 37.0,
+      "gust_time": "08:10",
+      "gust_direction": "ENE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 25.7,
+          "wind_kph": 20.0,
+          "wind_direction": "NE"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 24.8,
+          "wind_kph": 9.0,
+          "wind_direction": "E"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    },
+    "2026-11-13": {
+      "date": "2026-11-13",
+      "src": "bom-history",
+      "historical": true,
+      "kind": "unknown",
+      "code": null,
+      "text": "Recorded observations",
+      "min_c": 21.6,
+      "max_c": 30.7,
+      "rain_pc": null,
+      "rain_mm": null,
+      "rain_to_9am_mm": 0.0,
+      "wind_kph": 30.0,
+      "gust_kph": 39.0,
+      "gust_time": "13:43",
+      "gust_direction": "NNE",
+      "observations": 2,
+      "observation_times": [
+        "09:00",
+        "15:00"
+      ],
+      "readings": [
+        {
+          "time": "09:00",
+          "temp_c": 28.9,
+          "wind_kph": 9.0,
+          "wind_direction": "E"
+        },
+        {
+          "time": "15:00",
+          "temp_c": 26.3,
+          "wind_kph": 30.0,
+          "wind_direction": "NNE"
+        }
+      ],
+      "partial": false,
+      "sky_recorded": false,
+      "source_id": "202611-15nov1308"
+    }
+  }
+}
