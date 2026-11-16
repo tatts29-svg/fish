@@ -1,4 +1,4 @@
-# v13.09 — every finished demob day carries its completed stamp (16 Nov 2026)
+# v13.09 — every finished demob day carries its completed stamp (LIVE 16 Nov 2026 11:20 AEST)
 
 Author: Andrew Fisher. Andrew, in his Claude chat, 16 Nov 2026: "I have noticed on days in demob its nissing day completed stamped
 please look over and fix these bugs". Dashboard only.
@@ -41,3 +41,12 @@ they were never on site (v13.06), so those two days could never close. With the 
 `7aecf0c1e80f88b702ed802f65e08b6401e099d49b4af2823e91068d1848329f` → candidate
 `f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d` (17,081,172 bytes). Claude implemented and tested; not reviewed
 by Codex or Argon.
+
+## Live
+
+16 Nov 2026 11:20 AEST through `toolchain/upload_page.py` (dry run first; guard held: live v13.08 unchanged since the build, record 13404);
+the view link serves the build byte for byte (17,081,172 bytes, sha256 `f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d`).
+Uploaded on Andrew's request to fix the bugs (AGENTS.md: changes he asks for go live once tested; no record risk). Read back on the live
+page itself (`tests/live/`): `test_v1309.cjs` 10 of 10 desktop and phone; every day's own figures identical to before; Demob 100% holds
+(13 of 14, the footer now v13.09); sweeps desktop and phone 27 tabs, 17 shown, 0 errors, deep links clean. No write was attempted.
+Next dashboard release builds on `f3eea79f…`.
