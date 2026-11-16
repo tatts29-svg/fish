@@ -1,0 +1,143 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261116T024312Z",
+ "finished": "2026-11-16T02:43:25.479Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 16 Nov 2026 (his Claude chat), on Advanced Temporary Fencing's updated DECON WEEK 1 invoice-totals sheet (dated 6/11/2026, PO 4647523, $17,035.00): 'Ok.approved.  make sure it matches' - approving $17,000.00 (the signed papers, the Phillip Park loading on his signed 24007 and the team leader, 2 a day for 5 days), with $35.00 on 36779 held to ask why. The order goes on the record as the construction weeks' orders are (supplier, branch STPS, fencing, period and programme sheet), at the approved amount; the sheet goes on it line by line in the next step.",
+  "ops": [
+   {
+    "op": "po_confirm_source",
+    "number": "4647523",
+    "patch": {
+     "stream": "fencing",
+     "what": "Demob week 1",
+     "period": "Demob week 1",
+     "amount": 17000,
+     "confirmed": true,
+     "note": "GC500 Demob week 1 · work 26-30 Oct 2026 · Advanced's invoice-totals sheet dated 6/11/2026 (UPDATE, supplied 16 Nov 2026) $17,035.00 · approved by Andrew Fisher 16 Nov 2026 at $17,000.00 · $35.00 held: 36779 billed 258.5 m against 255.0 m on its signed panels (ask why) · receipt and payment not yet recorded",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS"
+    },
+    "why": "Andrew Fisher, 16 Nov 2026: 'Ok.approved.  make sure it matches' (week 1 approved at $17,000.00, $35.00 on 36779 held)",
+    "source": {
+     "supplier_code": "ZINC001",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS",
+     "programme_sheet": "DECON WK1",
+     "period": "Demob",
+     "amount": null,
+     "confirmed": false
+    }
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13410,
+  "after": 13413
+ },
+ "updated": {
+  "before": "2026-11-16T02:41:44.105Z",
+  "after": "2026-11-16T02:43:24.625Z"
+ },
+ "stage": [
+  {
+   "op": "po_confirm_source",
+   "id": "4647523",
+   "view": {
+    "supplier": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 17000,
+    "stream": "fencing",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "saved from the supplied source with the patch - ",
+   "saved": {
+    "number": "4647523",
+    "by": "Andrew Fisher",
+    "at": "2026-11-16T02:43:22.327Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "period": "Demob week 1",
+    "programme_sheet": "DECON WK1",
+    "kind": "subhire",
+    "invoice_no": null,
+    "amount": 17000,
+    "note": "GC500 Demob week 1 · work 26-30 Oct 2026 · Advanced's invoice-totals sheet dated 6/11/2026 (UPDATE, supplied 16 Nov 2026) $17,035.00 · approved by Andrew Fisher 16 Nov 2026 at $17,000.00 · $35.00 held: 36779 billed 258.5 m against 255.0 m on its signed panels (ask why) · receipt and payment not yet recorded",
+    "confirmed": true,
+    "stream": "fencing",
+    "what": "Demob week 1",
+    "updated_at": "2026-11-16T02:43:22.327Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4647523",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4647523",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647523",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4647523": null,
+   "by/po~2f~4647523": null,
+   "purchaseOrders/4647523": null
+  },
+  "after": {
+   "stamps/po~2f~4647523": {
+    "_k": "po/4647523",
+    "v": "2026-11-16T02:43:22.327Z"
+   },
+   "by/po~2f~4647523": {
+    "_k": "po/4647523",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647523": {
+    "number": "4647523",
+    "by": "Andrew Fisher",
+    "at": "2026-11-16T02:43:22.327Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "period": "Demob week 1",
+    "programme_sheet": "DECON WK1",
+    "kind": "subhire",
+    "invoice_no": null,
+    "amount": 17000,
+    "note": "GC500 Demob week 1 · work 26-30 Oct 2026 · Advanced's invoice-totals sheet dated 6/11/2026 (UPDATE, supplied 16 Nov 2026) $17,035.00 · approved by Andrew Fisher 16 Nov 2026 at $17,000.00 · $35.00 held: 36779 billed 258.5 m against 255.0 m on its signed panels (ask why) · receipt and payment not yet recorded",
+    "confirmed": true,
+    "stream": "fencing",
+    "what": "Demob week 1",
+    "updated_at": "2026-11-16T02:43:22.327Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4647523"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

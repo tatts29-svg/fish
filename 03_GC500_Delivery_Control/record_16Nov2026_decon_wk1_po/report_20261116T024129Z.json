@@ -1,0 +1,254 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261116T024129Z",
+ "finished": "2026-11-16T02:41:45.038Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "what": "Demob week 1 papers on the record so PO 4647523 matches, on Andrew's approval of Advanced's updated week 1 invoice sheet (16 Nov 2026: 'Ok.approved.  make sure it matches'): red-book hire agreements 36772, 36773 and 36774 (installed 26 Oct 2026; read on 11 Nov 2026 from Advanced's head-office scanned copies, our own copies never photographed) and green-book service note 24007 (Phillip Park loading/unloading 28-30 Oct 2026, held off the record until the invoice on Andrew's word of 13 Nov, read three times from his photograph).",
+  "ops": [
+   {
+    "op": "hire_agreement",
+    "docket_no": "36772",
+    "date": "2026-10-26",
+    "location": "S15 C.Z.",
+    "map_ref": "",
+    "quantities": {
+     "clean": 107.5
+    },
+    "components": {
+     "mesh_panel": 43
+    },
+    "signed_by": "",
+    "note": "Mesh fence 107.5 m (43 panels), installed 26 Oct 2026 at 'S15 C.Z.' (Advanced's sheet: 'S15 Grandstand CZ'). Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 102.5 m clean + 2 vehicle gates. Recorded 16 Nov 2026 on Andrew's approval of that sheet."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36773",
+    "date": "2026-10-26",
+    "location": "S19 - S20",
+    "map_ref": "",
+    "quantities": {
+     "clean": 20
+    },
+    "components": {
+     "mesh_panel": 8
+    },
+    "signed_by": "",
+    "note": "Mesh fence 20 m (8 panels), installed 26 Oct 2026 at S19 - S20. Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 20 m clean. Recorded 16 Nov 2026 on Andrew's approval of that sheet."
+   },
+   {
+    "op": "hire_agreement",
+    "docket_no": "36774",
+    "date": "2026-10-26",
+    "location": "Pit Entry & Exit Zone",
+    "map_ref": "",
+    "quantities": {
+     "clean": 52.5
+    },
+    "components": {
+     "mesh_panel": 21
+    },
+    "signed_by": "",
+    "note": "Mesh fence 52.5 m (21 panels), installed 26 Oct 2026 at the Pit Entry & Exit Zone. Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 37.5 m clean + 6 vehicle gates. Recorded 16 Nov 2026 on Andrew's approval of that sheet."
+   },
+   {
+    "op": "service_note",
+    "note_no": "24007",
+    "date": "2026-10-28",
+    "location": "Phillip Park - loading/unloading",
+    "labour_hours": 32,
+    "crew_note": "28/10 12.5 h, 29/10 11 h, 30/10 8.5 h",
+    "metres": "",
+    "signed_by": "",
+    "note": "Loading and unloading at Phillip Park (Advanced's compound), 28-30 Oct 2026: 12.5 h, 11 h and 8.5 h, 32.0 h in all, read three times from Andrew's photograph of 13 Nov 2026; recorded under its first day. Owner/site supervisor signed 13 Nov 2026. Held off the record until the invoice on Andrew's word (13 Nov); recorded 16 Nov 2026 on his approval of Advanced's week 1 sheet (PO 4647523), which bills 27.0 h of it (28 Oct 12.0, 29 Oct 8.5, 30 Oct 6.5) as docket 'To Follow'; the 5.0 h signed beyond that are not billed."
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13404,
+  "after": 13410
+ },
+ "updated": {
+  "before": "2026-11-13T20:34:53.434Z",
+  "after": "2026-11-16T02:41:44.105Z"
+ },
+ "stage": [
+  {
+   "op": "hire_agreement",
+   "no": "36772",
+   "id": "F-AF-0085",
+   "charge": 1737.28,
+   "paid": 1075,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0085 - 107.5 clean - F-AF-0085 saved in this browser — $1,737.28 charged at the 2026 card, $1,075.00 paid. Export and rebuild to put it on the record. | Hire agreement 36772 recorded as F-AF-0085 - $1,737.28 charged at the 2026 card, $1,075.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36773",
+   "id": "F-AF-0086",
+   "charge": 323.21,
+   "paid": 200,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0086 - 20 clean - F-AF-0086 saved in this browser — $323.21 charged at the 2026 card, $200.00 paid. Export and rebuild to put it on the record. | Hire agreement 36773 recorded as F-AF-0086 - $323.21 charged at the 2026 card, $200.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "hire_agreement",
+   "no": "36774",
+   "id": "F-AF-0087",
+   "charge": 848.44,
+   "paid": 525,
+   "cost_state": "priced",
+   "result": "recorded as F-AF-0087 - 52.5 clean - F-AF-0087 saved in this browser — $848.44 charged at the 2026 card, $525.00 paid. Export and rebuild to put it on the record. | Hire agreement 36774 recorded as F-AF-0087 - $848.44 charged at the 2026 card, $525.00 paid to Advanced. By Andrew Fisher."
+  },
+  {
+   "op": "service_note",
+   "no": "24007",
+   "id": "N-AF-0029",
+   "result": "recorded as N-AF-0029 - 32 h - Service note 24007 recorded as N-AF-0029 - 32 h, $3,200.00 paid to Advanced. By Andrew Fisher."
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/serviceNotes~2f~N-AF-0029",
+   "status": 200
+  },
+  {
+   "key": "by/serviceNotes~2f~N-AF-0029",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0085",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0086",
+   "status": 200
+  },
+  {
+   "key": "fenceDockets/F-AF-0087",
+   "status": 200
+  },
+  {
+   "key": "serviceNotes/N-AF-0029",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/serviceNotes~2f~N-AF-0029": null,
+   "by/serviceNotes~2f~N-AF-0029": null,
+   "fenceDockets/F-AF-0085": null,
+   "fenceDockets/F-AF-0086": null,
+   "fenceDockets/F-AF-0087": null,
+   "serviceNotes/N-AF-0029": null
+  },
+  "after": {
+   "stamps/serviceNotes~2f~N-AF-0029": {
+    "_k": "serviceNotes/N-AF-0029",
+    "v": "2026-11-16T02:41:40.593Z"
+   },
+   "by/serviceNotes~2f~N-AF-0029": {
+    "_k": "serviceNotes/N-AF-0029",
+    "v": "Andrew Fisher"
+   },
+   "fenceDockets/F-AF-0085": {
+    "id": "F-AF-0085",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "docket_no": "36772",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S15 C.Z.",
+    "quantities": {
+     "clean": 107.5
+    },
+    "note": "Mesh fence 107.5 m (43 panels), installed 26 Oct 2026 at 'S15 C.Z.' (Advanced's sheet: 'S15 Grandstand CZ'). Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 102.5 m clean + 2 vehicle gates. Recorded 16 Nov 2026 on Andrew's approval of that sheet.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-16",
+    "components": {
+     "mesh_panel": 43
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36772, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0085"
+   },
+   "fenceDockets/F-AF-0086": {
+    "id": "F-AF-0086",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "docket_no": "36773",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "S19 - S20",
+    "quantities": {
+     "clean": 20
+    },
+    "note": "Mesh fence 20 m (8 panels), installed 26 Oct 2026 at S19 - S20. Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 20 m clean. Recorded 16 Nov 2026 on Andrew's approval of that sheet.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-16",
+    "components": {
+     "mesh_panel": 8
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36773, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0086"
+   },
+   "fenceDockets/F-AF-0087": {
+    "id": "F-AF-0087",
+    "date": "2026-10-26",
+    "week": "Demob Week 1",
+    "docket_no": "36774",
+    "crew": "Advanced Temporary Fencing",
+    "map_ref": null,
+    "location": "Pit Entry & Exit Zone",
+    "quantities": {
+     "clean": 52.5
+    },
+    "note": "Mesh fence 52.5 m (21 panels), installed 26 Oct 2026 at the Pit Entry & Exit Zone. Read on 11 Nov 2026 from Advanced Temporary Fencing's head-office scanned copy, supplied with their decon week 1 invoice sheet; Coates' own copy was never photographed, so bases, clamps and wheels are not carried. Owner/site supervisor signed, dated 26-10-26. Advanced's week 1 sheet (PO 4647523) bills it as 37.5 m clean + 6 vehicle gates. Recorded 16 Nov 2026 on Andrew's approval of that sheet.",
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-16",
+    "components": {
+     "mesh_panel": 21
+    },
+    "signed_by": null,
+    "scope": "programme",
+    "source": "Advanced Temporary Fencing hire agreement 36774, signed paper photographed on site",
+    "origin": "captured",
+    "_k": "F-AF-0087"
+   },
+   "serviceNotes/N-AF-0029": {
+    "id": "N-AF-0029",
+    "note_no": "24007",
+    "date": "2026-10-28",
+    "week": "Demob Week 1",
+    "crew": "Advanced Temporary Fencing (Environmental Services)",
+    "location": "Phillip Park - loading/unloading",
+    "crew_note": "28/10 12.5 h, 29/10 11 h, 30/10 8.5 h",
+    "note": "Loading and unloading at Phillip Park (Advanced's compound), 28-30 Oct 2026: 12.5 h, 11 h and 8.5 h, 32.0 h in all, read three times from Andrew's photograph of 13 Nov 2026; recorded under its first day. Owner/site supervisor signed 13 Nov 2026. Held off the record until the invoice on Andrew's word (13 Nov); recorded 16 Nov 2026 on his approval of Advanced's week 1 sheet (PO 4647523), which bills 27.0 h of it (28 Oct 12.0, 29 Oct 8.5, 30 Oct 6.5) as docket 'To Follow'; the 5.0 h signed beyond that are not billed.",
+    "metres": null,
+    "signed_by": null,
+    "order_no": null,
+    "source": "Advanced Environmental Services service note 24007, signed paper photographed on site",
+    "labour_hours": 32,
+    "recorded_by": "Andrew Fisher",
+    "recorded_on": "2026-11-16",
+    "at": "2026-11-16T02:41:40.593Z",
+    "_k": "N-AF-0029"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

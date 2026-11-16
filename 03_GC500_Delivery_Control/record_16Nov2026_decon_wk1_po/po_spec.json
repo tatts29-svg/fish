@@ -1,0 +1,34 @@
+{
+ "by": "Andrew Fisher",
+ "expect": {
+  "chargeDelta": 0,
+  "costDelta": 0
+ },
+ "basis": "Andrew Fisher, 16 Nov 2026 (his Claude chat), on Advanced Temporary Fencing's updated DECON WEEK 1 invoice-totals sheet (dated 6/11/2026, PO 4647523, $17,035.00): 'Ok.approved.  make sure it matches' - approving $17,000.00 (the signed papers, the Phillip Park loading on his signed 24007 and the team leader, 2 a day for 5 days), with $35.00 on 36779 held to ask why. The order goes on the record as the construction weeks' orders are (supplier, branch STPS, fencing, period and programme sheet), at the approved amount; the sheet goes on it line by line in the next step.",
+ "ops": [
+  {
+   "op": "po_confirm_source",
+   "number": "4647523",
+   "patch": {
+    "stream": "fencing",
+    "what": "Demob week 1",
+    "period": "Demob week 1",
+    "amount": 17000,
+    "confirmed": true,
+    "note": "GC500 Demob week 1 · work 26-30 Oct 2026 · Advanced's invoice-totals sheet dated 6/11/2026 (UPDATE, supplied 16 Nov 2026) $17,035.00 · approved by Andrew Fisher 16 Nov 2026 at $17,000.00 · $35.00 held: 36779 billed 258.5 m against 255.0 m on its signed panels (ask why) · receipt and payment not yet recorded",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS"
+   },
+   "why": "Andrew Fisher, 16 Nov 2026: 'Ok.approved.  make sure it matches' (week 1 approved at $17,000.00, $35.00 on 36779 held)",
+   "source": {
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "programme_sheet": "DECON WK1",
+    "period": "Demob",
+    "amount": null,
+    "confirmed": false
+   }
+  }
+ ]
+}

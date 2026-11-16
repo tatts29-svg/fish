@@ -44,3 +44,9 @@ until the invoice") until he decides.
 - 36776 is still on neither sheet nor in any scan; missing from the book's run.
 - The Esplanade Triangle CCB removal row (29 Oct) has no figures, so nothing is billed.
 - 24007 is signed for 32.0 h; the sheet bills 27.0 h, so 5.0 h signed are not billed.
+
+## Approved and recorded (16 Nov 2026)
+
+Andrew: "Ok.approved.  make sure it matches" — $17,000.00 approved (loading on 24007 and the team leader included), $35.00 on 36779
+held. Recorded the same day: 36772–36774 and 24007 on the record, PO 4647523 confirmed at $17,000.00 with this sheet on it line by line,
+matched to the cent (`../record_16Nov2026_decon_wk1_po/`).
