@@ -16,11 +16,16 @@ function capture(spec){return holdAssets(()=>{
 });}
 function preflight(spec){
  if(!spec||!/^[0-9]{4,12}$/.test(spec.number))throw Error('Invalid existing P/O reference');
- if(Object.keys(spec).some(k=>!['number','expected_po','supplier_pricing','expected'].includes(k)))throw Error('Unapproved operation field');
+ if(Object.keys(spec).some(k=>!['number','expected_po','supplier_pricing','expected','replace_pricing','po_patch'].includes(k)))throw Error('Unapproved operation field');
  if(typeof supplierPricing1014!=='function')throw Error('Supplier pricing release is not present');
  const po=poOf(spec.number),body=toDocs('purchaseOrders')[spec.number];
  if(!po||!body)throw Error('Saved P/O not found');
- if(body.supplier_pricing||po.supplier_pricing)throw Error('P/O already has supplier pricing; review before replacing it');
+ /* 16 Nov 2026: replace_pricing - the order's saved breakdown may be replaced only when it is exactly the one stated (previous) and the
+    order's amount is the stated previous_amount; po_patch may set amount and note in the same write */
+ if(spec.po_patch&&Object.keys(spec.po_patch).some(k=>!['amount','note'].includes(k)))throw Error('po_patch may set amount and note only')
+ if(spec.po_patch&&!spec.replace_pricing)throw Error('po_patch is only for a replacement')
+ if(spec.replace_pricing){if(!(body.supplier_pricing&&po.supplier_pricing))throw Error('replace_pricing: the order has no saved breakdown');if(canonical(body.supplier_pricing)!==canonical(spec.replace_pricing.previous))throw Error('replace_pricing: the saved breakdown is not the one stated');if(cents(po.amount)!==cents(spec.replace_pricing.previous_amount))throw Error('replace_pricing: the order amount is not the stated previous amount')}
+ else if(body.supplier_pricing||po.supplier_pricing)throw Error('P/O already has supplier pricing; review before replacing it');
  for(const [field,value]of Object.entries(spec.expected_po||{}))if((po[field]??null)!==(value??null))throw Error('Existing P/O '+field+' changed');
  if(poCostLines(spec.number).length)throw Error('P/O already carries cost lines; reconcile before applying');
  // 23 Oct 2026: a receipted order may take its sheet - the receipt state is asserted in expected_po and must not move
@@ -31,7 +36,8 @@ function preflight(spec){
  if(!expected||!Array.isArray(pricing.records)||pricing.records.length!==expected.records||!Array.isArray(pricing.extras)||pricing.extras.length!==expected.extras)throw Error('Source component count changed');
  // 23 Oct 2026: a receipted order may carry a sheet that differs from it by a stated amount; the order stands as the cost
  if(!Number.isFinite(pricing.total))throw Error('Supplier source total missing');
- if(cents(pricing.total)!==cents(po.amount)&&!(po.receipted&&spec.expected&&Number.isFinite(spec.expected.difference)&&cents(pricing.total)-cents(po.amount)===cents(spec.expected.difference)))throw Error('Supplier source and approved P/O amount differ');
+ const target=spec.po_patch&&spec.po_patch.amount!=null?spec.po_patch.amount:po.amount
+ if(cents(pricing.total)!==cents(target)&&!(po.receipted&&spec.expected&&Number.isFinite(spec.expected.difference)&&cents(pricing.total)-cents(po.amount)===cents(spec.expected.difference)))throw Error('Supplier source and approved P/O amount differ');
  const names={red:['fenceDockets','docket_no'],green:['serviceNotes','note_no'],blue:['fenceCollections','collection_no']},columns=new Set(['clean','scrim','v_gates','ped_gates','ccb_event','ccb_demarc','flat_feet','labour','team_leader','relocation','removal']);
  let total=0;const seen=new Set();
  function lineAmount(line){
@@ -67,7 +73,7 @@ const prepare=new Function('return function(spec){'+source+'preflight(spec);cons
 const apply=new Function('return function(plan){'+source+`
  preflight(plan.spec);
  if(canonical(Object.fromEntries(Object.keys(SYNC_COLLS).map(k=>[k,toDocs(k)])))!==canonical(plan.before))throw Error('Native record changed before staging');
- if(!setPo(plan.spec.number,{supplier_pricing:clone(plan.spec.supplier_pricing)}))throw Error('Native P/O control refused supplier pricing');
+ if(!setPo(plan.spec.number,Object.assign({},clone(plan.spec.po_patch||{}),{supplier_pricing:clone(plan.spec.supplier_pricing)})))throw Error('Native P/O control refused supplier pricing');
  const record=capture(plan.spec);
  return clone({before:plan.before,after:record.docs,record,queue:SYNC.queue});
 }`)();
@@ -81,11 +87,12 @@ function verify(staged,plan){
  const beforePo={...plan.before.purchaseOrders[spec.number]},afterPo={...staged.after.purchaseOrders[spec.number]};
  // the page's review rule clears a recorded "checked" tick when the order changes, for a person to re-check: reported, not hidden
  checks['recorded check: none before, or cleared by the page for re-checking']=beforePo.checked==null||afterPo.checked==null;
- for(const item of [beforePo,afterPo])for(const field of ['supplier_pricing','updated_at','updated_by','checked'])delete item[field];
+ for(const item of [beforePo,afterPo])for(const field of ['supplier_pricing','updated_at','updated_by','checked',...Object.keys(spec.po_patch||{})])delete item[field]
+ if(spec.po_patch)for(const [k,v] of Object.entries(spec.po_patch))checks['po_patch '+k+' saved']=JSON.stringify(staged.after.purchaseOrders[spec.number][k]??null)===JSON.stringify(v??null);
  checks['all other existing PO fields retained']=same(beforePo,afterPo);
  checks['approved breakdown saved exactly']=same(staged.after.purchaseOrders[spec.number].supplier_pricing,spec.supplier_pricing);
  checks['one matching purchase order']=r.orders.filter(o=>o.number===spec.number).length===1&&r.orders.length===b.orders.length;
- checks['PO value and total retained']=r.po.amount===b.po.amount&&r.poSum===b.poSum;
+ checks['PO value and total retained, or moved by exactly the patched amount']=spec.po_patch&&spec.po_patch.amount!=null?(cents(r.po.amount)===cents(spec.po_patch.amount)&&cents(r.poSum)-cents(b.poSum)===cents(spec.po_patch.amount)-cents(b.po.amount)):(r.po.amount===b.po.amount&&r.poSum===b.poSum);
  for(const [field,value]of Object.entries(spec.expected_po))checks['retained '+field]=(r.po[field]??null)===(value??null);
  const matched=r.supplierOrder;
  checks['supplier breakdown valid']=!!matched&&matched.valid===true&&(!matched.errors||matched.errors.length===0);

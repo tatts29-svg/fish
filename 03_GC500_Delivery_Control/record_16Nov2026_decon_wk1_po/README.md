@@ -1,4 +1,4 @@
-# Demob week 1 on the record and on PO 4647523, matched to the cent — APPLIED, VERIFIED (16 Nov 2026)
+# Demob week 1 on the record and PO 4647523 matching Advanced's invoice, $17,035.00 — APPLIED, VERIFIED (16 Nov 2026)
 
 Author: Andrew Fisher. Andrew, 16 Nov 2026 (his Claude chat), after the review of Advanced's updated DECON WEEK 1 invoice-totals
 sheet (`../review_16Nov2026_decon_wk1_update/`) and the team leader question: "Ok.approved.  make sure it matches". Approved:
@@ -34,3 +34,13 @@ they go up when re-sent.
 its supplied list with its source fields asserted and kept. `native_pricing.cjs`'s "customer Revenue unchanged" check becomes "changes
 by exactly the stated amount" (`expected.revenue_delta`), since v12.19 charges the V8s on the sheet's quantities. Full-record copies the
 runners keep are private, not in the repo.
+
+## Run 4: the order matches the invoice ($17,035.00)
+
+Andrew, 16 Nov 2026, straight after: "I want it to.match the invoice   and thats it". So nothing is held: through the page's own
+`setPo` (`record_pricing.cjs` with `spec_4647523_invoice.json`), in one write, PO 4647523's amount became $17,035.00 and its breakdown
+was replaced with the invoice as billed (36779 at 258.5 m clean + 6 gates; the review item and the held $35.00 gone). The runner's new
+`replace_pricing` path only replaces the exact breakdown saved in run 3 at its exact $17,000.00; `po_patch` sets amount and note only.
+Practice then apply, 31 of 31 checks; record 13416 → 13418, 2 documents. Live page: amount $17,035.00, sheet valid, total $17,035.00,
+difference $0.00, red $10,935.00, green $4,100.00, team leader $2,000.00. Working figures: fencing supplier cost +$35.00 (STPS
+304,454.70 in all, +$3,410.00 for the day); charged to the V8s +$56.56 (+$3,609.02 for the day, v12.19 rule).
