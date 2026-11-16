@@ -1,0 +1,197 @@
+[
+ {
+  "iso": "2026-10-26",
+  "fig": {
+   "percent": 6.521739130434782,
+   "bound": true,
+   "loads": 12,
+   "completedLoads": 1,
+   "refs": 21,
+   "recorded": 16,
+   "load": null,
+   "pct": "≥6.52%"
+  }
+ },
+ {
+  "iso": "2026-10-27",
+  "fig": {
+   "percent": 29.347826086956523,
+   "bound": true,
+   "loads": 11,
+   "completedLoads": 9,
+   "refs": 23,
+   "recorded": 48,
+   "load": null,
+   "pct": "≥29.35%"
+  }
+ },
+ {
+  "iso": "2026-10-28",
+  "fig": {
+   "percent": 42.391304347826086,
+   "bound": true,
+   "loads": 9,
+   "completedLoads": 3,
+   "refs": 21,
+   "recorded": 26,
+   "load": null,
+   "pct": "≥42.39%"
+  }
+ },
+ {
+  "iso": "2026-10-29",
+  "fig": {
+   "percent": 44.565217391304344,
+   "bound": true,
+   "loads": 10,
+   "completedLoads": 2,
+   "refs": 20,
+   "recorded": 6,
+   "load": null,
+   "pct": "≥44.57%"
+  }
+ },
+ {
+  "iso": "2026-10-30",
+  "fig": {
+   "percent": 52.17391304347826,
+   "bound": true,
+   "loads": 9,
+   "completedLoads": 5,
+   "refs": 20,
+   "recorded": 17,
+   "load": null,
+   "pct": "≥52.17%"
+  }
+ },
+ {
+  "iso": "2026-11-02",
+  "fig": {
+   "percent": 58.152173913043484,
+   "bound": true,
+   "loads": 1,
+   "completedLoads": 0,
+   "refs": 9,
+   "recorded": 15,
+   "load": null,
+   "pct": "≥58.15%"
+  }
+ },
+ {
+  "iso": "2026-11-03",
+  "fig": {
+   "percent": 63.58695652173913,
+   "bound": true,
+   "loads": 6,
+   "completedLoads": 0,
+   "refs": 6,
+   "recorded": 15,
+   "load": null,
+   "pct": "≥63.59%"
+  }
+ },
+ {
+  "iso": "2026-11-04",
+  "fig": {
+   "percent": 72.82608695652173,
+   "bound": true,
+   "loads": 5,
+   "completedLoads": 4,
+   "refs": 6,
+   "recorded": 18,
+   "load": null,
+   "pct": "≥72.83%"
+  }
+ },
+ {
+  "iso": "2026-11-05",
+  "fig": {
+   "percent": 77.71739130434783,
+   "bound": true,
+   "loads": 4,
+   "completedLoads": 4,
+   "refs": 6,
+   "recorded": 10,
+   "load": null,
+   "pct": "≥77.72%"
+  }
+ },
+ {
+  "iso": "2026-11-06",
+  "fig": {
+   "percent": 82.06521739130434,
+   "bound": true,
+   "loads": 6,
+   "completedLoads": 4,
+   "refs": 5,
+   "recorded": 8,
+   "load": null,
+   "pct": "≥82.07%"
+  }
+ },
+ {
+  "iso": "2026-11-09",
+  "fig": {
+   "percent": 84.23913043478261,
+   "bound": true,
+   "loads": 6,
+   "completedLoads": 5,
+   "refs": 6,
+   "recorded": 4,
+   "load": null,
+   "pct": "≥84.24%"
+  }
+ },
+ {
+  "iso": "2026-11-10",
+  "fig": {
+   "percent": 87.5,
+   "bound": true,
+   "loads": 4,
+   "completedLoads": 3,
+   "refs": 6,
+   "recorded": 6,
+   "load": null,
+   "pct": "≥87.5%"
+  }
+ },
+ {
+  "iso": "2026-11-11",
+  "fig": {
+   "percent": 89.67391304347827,
+   "bound": true,
+   "loads": 10,
+   "completedLoads": 9,
+   "refs": 10,
+   "recorded": 4,
+   "load": null,
+   "pct": "≥89.67%"
+  }
+ },
+ {
+  "iso": "2026-11-12",
+  "fig": {
+   "percent": 92.93478260869566,
+   "bound": true,
+   "loads": 6,
+   "completedLoads": 2,
+   "refs": 9,
+   "recorded": 6,
+   "load": null,
+   "pct": "≥92.93%"
+  }
+ },
+ {
+  "iso": "2026-11-13",
+  "fig": {
+   "percent": 100,
+   "bound": false,
+   "loads": 3,
+   "completedLoads": 3,
+   "refs": 9,
+   "recorded": 13,
+   "load": null,
+   "pct": "100%"
+  }
+ }
+]

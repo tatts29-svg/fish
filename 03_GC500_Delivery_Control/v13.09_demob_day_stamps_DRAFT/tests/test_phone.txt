@@ -1,0 +1,12 @@
+PASS fifteen finished demob days  15
+PASS every finished day is closed (closed1309)  []
+PASS every finished day card carries the stamp  []
+PASS 5 and 13 Nov keep the evidenced-on-the-day label  ["2026-11-05","2026-11-13"]
+PASS the other thirteen read "Day completed. Every pick-up planned for this day has been collected."  ["2026-10-26:Day completed. Every pick-up planned for this day has been collected.","2026-10-27:Day completed. Every pick-up planned for this day has been collected.","2026-10-28:Day completed. Every pick-up planned for this day has been collected."]
+PASS a future day is not closed  false
+PASS a past day with nothing planned is not closed  false
+PASS footer v13.09  "v13.09"
+PASS no page errors  []
+PASS no writes reached the service  {"blocked":0}
+{"page":"GC500_v13.09","mobile":true,"today":"2026-11-16","passed":10,"of":10}
+exit 0
